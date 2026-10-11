@@ -55,7 +55,14 @@ index.html               the app: built, and what GitHub Pages serves
 src/                     the source, joined in name order by build.js
 libs/embedded-libs.html  pdf.js and pdf-lib, gzipped and base64-encoded
 test/                    browser and Node tests, and the scripts that make their test folders
+the-hinge/index.html     The Hinge, a separate page (see below)
 ```
+
+## Also hosted here: The Hinge
+
+**Open it: <https://bboldt86.github.io/lanscape-navigator/the-hinge/>**
+
+A single-file, serverless forecast of the 2026 U.S. Senate, House and Ohio governor races. It blends three independent reads — a calibrated polling model, a history-only model built on presidential approval, real incomes and war, and live prices from Kalshi, Polymarket and PredictIt — and lets you change how much each one counts. Data were gathered on October 11, 2026; new polls can be added in the page's Tracker tab and are kept in your browser. It is not part of the LANscape app and is not affiliated with any campaign, party or exchange.
 
 ## Credits
 
