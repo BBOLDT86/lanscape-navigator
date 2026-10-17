@@ -56,6 +56,7 @@ src/                     the source, joined in name order by build.js
 libs/embedded-libs.html  pdf.js and pdf-lib, gzipped and base64-encoded
 test/                    browser and Node tests, and the scripts that make their test folders
 the-hinge/index.html     The Hinge, a separate page (see below)
+inbox-atlas/             Inbox Atlas, a separate site (see below): index.html, data/atlas.json.gz, stories/
 ```
 
 ## Also hosted here: The Hinge
@@ -63,6 +64,12 @@ the-hinge/index.html     The Hinge, a separate page (see below)
 **Open it: <https://bboldt86.github.io/lanscape-navigator/the-hinge/>**
 
 A single-file, serverless forecast of the 2026 U.S. Senate, House and Ohio governor races. It blends three independent reads — a calibrated polling model, a history-only model built on presidential approval, real incomes and war, and live prices from Kalshi, Polymarket and PredictIt — and lets you change how much each one counts. Data were gathered on October 11, 2026; new polls can be added in the page's Tracker tab and are kept in your browser. A Money tab follows the money in every race on the page: who gives to the groups doing the spending (a flow diagram), ad spending and outside money race by race, and each side's main ads with a video link, the published script, a summary and three scores (how the ad is built to persuade, what fact-checks found, and the money behind it). Money figures run through October 12, 2026. It is not part of the LANscape app and is not affiliated with any campaign, party or exchange.
+
+## Also hosted here: Inbox Atlas
+
+**Open it: <https://bboldt86.github.io/lanscape-navigator/inbox-atlas/>**
+
+A serverless reading room for the Jeffrey Epstein emails released by the U.S. House Oversight Committee (November 2025) and the Department of Justice under the Epstein Files Transparency Act: 5,775 emails, 104 recovered text-message logs and 2,020 documents, parsed from the open-source `epstein_text_messages` corpus, with every document linked to its page on jmail.world and to its source PDF. On top of the archive sit 26 sourced long reads whose every quotation is pinned to a document, reading trails with saved progress, films that replay the conversations on simulated phone and desktop mail screens (with browser scenes that open the press coverage), one edition per year, maps (network, orbit, timeline, calendar, clock, reply speed, devices, topics, matrix), Sankey flows, and a Story Studio for writing your own stories from the documents. The page fetches `data/atlas.json.gz` and decodes it in the browser; reading progress and drafts stay in the browser. Reader stories can be published by adding a JSON file exported from the Studio to `inbox-atlas/stories/` and listing it in `stories/index.json`. Sensitive categories are hidden by default and no victims are profiled. It is not part of the LANscape app.
 
 ## Credits
 
