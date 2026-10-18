@@ -5,6 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Inbox Atlas</title>
 <meta name="description" content="A reading room for the Epstein emails released by Congress and the DOJ: stories, films, maps, flows and trails built from the documents.">
+<meta name="theme-color" content="#f2eee6" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#101214" media="(prefers-color-scheme: dark)">
+<meta name="apple-mobile-web-app-title" content="Inbox Atlas">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
@@ -31,10 +40,10 @@ p{margin:0 0 1em}
 .eyebrow,.lab-u{font-family:var(--fb);font-size:11px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--mu)}
 .eyebrow b{color:var(--fg);font-weight:500}
 button,.btn{font-family:var(--fb);font-size:11.5px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;background:transparent;color:var(--fg);border:1px solid var(--fg);border-radius:0;padding:10px 16px;cursor:pointer;line-height:1;transition:background .15s,color .15s}
-button:hover,.btn:hover{background:var(--fg);color:var(--bg)}
+@media (hover:hover){ button:hover,.btn:hover{background:var(--fg);color:var(--bg)} button.ghost:hover{color:var(--bg);border-color:var(--fg)} }
 button.pri,.btn.pri{background:var(--fg);color:var(--bg)} button.pri:hover{background:var(--ac);border-color:var(--ac);color:#fff}
 :root[data-theme="dark"] button.pri:hover{color:#111}
-button.sm{padding:7px 11px;font-size:10.5px} button.ghost{border-color:var(--ln2);color:var(--fg2)} button.ghost:hover{border-color:var(--fg)} button:disabled{opacity:.35;cursor:default;background:transparent;color:var(--fg)}
+button.sm{padding:7px 11px;font-size:10.5px} button.ghost{border-color:var(--ln2);color:var(--fg2)} button:disabled{opacity:.35;cursor:default;background:transparent;color:var(--fg)}
 input,select,textarea{font:inherit;color:var(--fg);background:var(--sf);border:1px solid var(--ln2);border-radius:0;padding:9px 11px;font-size:14px}
 input:focus,select:focus,textarea:focus{outline:none;border-color:var(--fg)}
 label{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mu);font-weight:500}
@@ -51,7 +60,10 @@ hr.rule{border:0;border-top:1px solid var(--ln);margin:28px 0}
 
 /* ============================================================ header ============================================================ */
 header#top{position:sticky;top:0;z-index:30;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--ln)}
-header#top .wrap{display:flex;align-items:center;gap:16px;height:60px}
+header#top{padding-top:env(safe-area-inset-top,0px)}
+header#top .wrap{display:flex;align-items:center;gap:16px;height:60px;position:relative}
+#panel{display:contents}
+.menu-btn{display:none;margin-left:auto;padding:9px 12px;font-size:10.5px}
 .brand{font-family:var(--fb);font-weight:500;letter-spacing:.26em;text-transform:uppercase;font-size:13px;border:0;white-space:nowrap;display:flex;align-items:baseline;gap:10px}
 .brand small{font-family:var(--fm);letter-spacing:.08em;text-transform:none;color:var(--mu);font-size:10.5px}
 nav.main{display:flex;gap:2px;flex:1;overflow-x:auto;scrollbar-width:none} nav.main::-webkit-scrollbar{display:none}
@@ -63,7 +75,7 @@ nav.main a.on,nav.main a:hover{color:var(--fg);border-bottom-color:var(--fg)}
 #theme{border:0;padding:6px;font-size:16px;line-height:1} #theme:hover{background:transparent;color:var(--fg)}
 main{min-height:70vh;padding:34px 0 60px}
 .view{display:none} .view.on{display:block}
-footer{border-top:1px solid var(--ln);padding:26px 0 48px;color:var(--mu);font-size:12.5px}
+footer{border-top:1px solid var(--ln);padding:26px 0 calc(48px + env(safe-area-inset-bottom,0px));color:var(--mu);font-size:12.5px}
 footer .wrap{display:grid;grid-template-columns:2fr 1fr;gap:20px}
 footer a{color:var(--fg2)}
 
@@ -141,7 +153,7 @@ table.dtable tbody tr{cursor:pointer} table.dtable tbody tr:hover{background:var
 /* ============================================================ lists / inbox ============================================================ */
 .inbox{display:grid;grid-template-columns:260px 1fr;gap:26px;align-items:start}
 .filters{position:sticky;top:76px;display:flex;flex-direction:column;gap:12px;border:1px solid var(--ln);background:var(--sf);padding:16px}
-.filters>div{display:flex;flex-direction:column;gap:5px} .filters input,.filters select{width:100%} .filters .row{display:flex;gap:8px}
+.filters>div,.filters .fmore>div{display:flex;flex-direction:column;gap:5px} .filters .fmore{display:contents} .filters input,.filters select{width:100%} .filters .row{display:flex;gap:8px} .filt-toggle{display:none}
 .list{border-top:1px solid var(--fg)}
 .row-e{display:grid;grid-template-columns:86px 170px 1fr auto;gap:12px;padding:10px 8px;border-bottom:1px solid var(--ln);cursor:pointer;align-items:baseline;font-size:14px}
 .row-e:hover{background:var(--sf)} .row-e.sel{background:var(--sf2)} .row-e.read .sj strong{font-weight:400;color:var(--fg2)}
@@ -190,7 +202,13 @@ canvas.net{width:100%;height:640px;display:block;cursor:grab;background:var(--sf
 @media (max-width:1240px){ #gsearch{display:none} }
 @media (max-width:1100px){ .sgrid{grid-template-columns:repeat(2,1fr)} .pgrid{grid-template-columns:repeat(3,1fr)} .edgrid{grid-template-columns:repeat(3,1fr)} .start{grid-template-columns:1fr 1fr} .scard.feat{grid-column:span 2} }
 @media (max-width:860px){
-  :root{--pad:16px} header#top .wrap{gap:12px} #gsearch{display:none} .brand small{display:none}
+  :root{--pad:16px} header#top .wrap{gap:12px} .brand small{display:none} .menu-btn{display:inline-block}
+  #panel{display:none} header#top.open #panel{display:block;position:absolute;left:0;right:0;top:60px;background:var(--bg);border-bottom:1px solid var(--fg);padding:12px 16px 16px;box-shadow:var(--sh);z-index:31;max-height:calc(100vh - 60px - env(safe-area-inset-top,0px));overflow:auto}
+  header#top.open nav.main{display:grid;grid-template-columns:1fr 1fr;gap:2px 10px;overflow:visible;flex:none} header#top.open nav.main a{padding:12px 6px;font-size:12px;border-bottom:1px solid var(--ln)} header#top.open nav.main a.on{border-bottom-color:var(--fg)}
+  header#top.open #gsearch{display:block;width:100%;margin:14px 0 10px;padding:10px 2px;font-size:15px} header#top.open .tools{display:flex;justify-content:space-between;padding-top:4px} header#top.open .tools .tog{font-size:14px}
+  button,.btn{padding:12px 16px} button.sm{padding:9px 12px}
+  .filters .fmore{display:none} .filters.open .fmore{display:flex;flex-direction:column;gap:12px} .filt-toggle{display:inline-block}
+  .row-e{padding:12px 6px}
   .mast,.grid2,.grid3,.inbox,.tlist,.person-h,.ed-h{grid-template-columns:1fr} .mast{min-height:0} .mast .plate{min-height:220px}
   .filters{position:static} .row-e{grid-template-columns:70px 1fr;grid-template-rows:auto auto} .row-e .sj{grid-column:1/-1;white-space:normal} .row-e .bd{grid-column:2;justify-self:end}
   .sgrid,.start,.pgrid{grid-template-columns:1fr} .scard.feat{grid-template-columns:1fr;grid-column:auto} .ticker{grid-template-columns:1fr 1fr} .edgrid{grid-template-columns:1fr 1fr}
@@ -244,7 +262,7 @@ canvas.net{width:100%;height:640px;display:block;cursor:grab;background:var(--sf
 .cin-start .hint{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.45)}
 .cin-ctl{position:absolute;left:0;right:0;bottom:0;height:11vh;z-index:14;display:flex;align-items:center;gap:8px;padding:0 3vw;opacity:.35;transition:opacity .3s}
 #cinema:hover .cin-ctl,.cin-ctl.on{opacity:1}
-.cin-ctl button{border-color:rgba(255,255,255,.5);color:#fff;padding:8px 11px;font-size:10.5px;background:transparent} .cin-ctl button:hover{background:#fff;color:#000}
+.cin-ctl button{border-color:rgba(255,255,255,.5);color:#fff;padding:8px 11px;font-size:10.5px;background:transparent;white-space:nowrap} @media (hover:hover){ .cin-ctl button:hover{background:#fff;color:#000} }
 .cin-ctl .pb{flex:1;display:flex;gap:3px;height:4px;margin:0 10px} .cin-ctl .pb i{flex:1;background:rgba(255,255,255,.22);display:block;position:relative;overflow:hidden} .cin-ctl .pb i.done{background:#fff} .cin-ctl .pb i.cur::after{content:'';position:absolute;left:0;top:0;bottom:0;background:#fff;width:var(--p,0%)}
 .cin-ctl .lbl{font-family:var(--fm);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.65);white-space:nowrap;max-width:28vw;overflow:hidden;text-overflow:ellipsis}
 .cin-end{position:absolute;inset:0;z-index:12;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(0,0,0,.8);text-align:center;gap:14px;padding:30px}
@@ -338,7 +356,10 @@ canvas.net{width:100%;height:640px;display:block;cursor:grab;background:var(--sf
 @keyframes shimmer{50%{opacity:.5}}
 .cin-device .pointer{position:absolute;width:14px;height:20px;z-index:9;pointer-events:none;transition:left .45s cubic-bezier(.3,.7,.3,1),top .45s cubic-bezier(.3,.7,.3,1);opacity:0;filter:drop-shadow(0 1px 1px rgba(0,0,0,.5))} .cin-device .pointer.on{opacity:1}
 .cin-device .pointer::before{content:'';position:absolute;inset:0;background:#fff;clip-path:polygon(0 0,100% 60%,55% 65%,70% 100%,55% 100%,42% 70%,0 90%)}
-@media (max-width:860px){ .lbar{height:8vh} .cin-sub{display:none} .cin-ctl{height:8vh;padding:0 10px;gap:4px} .cin-ctl .lbl{display:none} .cin-stamp{top:1.4vh;font-size:8.5px;max-width:34vw;left:3vw} .cin-doc{top:4.2vh;right:2vw;font-size:8.5px;padding:5px 7px} .cin-slate h2{font-size:34px} .cin-start h2{font-size:38px} .cin-play{width:70px;height:70px} }
+.cin-device.full{position:absolute;left:0;right:0;top:var(--lbh,8vh);bottom:var(--lbh,8vh);transform:none!important;display:flex;align-items:stretch;justify-content:stretch}
+.cin-device.full .ph{width:100%;height:100%;padding:0;border-radius:0;box-shadow:none;background:#fff} .cin-device.full .ph .scr{border-radius:0} .cin-device.full .ph .island,.cin-device.full .ph .home{display:none} .cin-device.full .ph .sbar{display:none}
+.cin-device.full .im-head{padding-top:8px;height:72px} .cin-device.full .kb{padding-bottom:10px}
+@media (max-width:860px){ :root{--lbh:calc(8vh + env(safe-area-inset-top,0px))} #cin-grain{animation:none;opacity:.03} .lbar.top{height:var(--lbh)} .lbar.bot{height:calc(8vh + env(safe-area-inset-bottom,0px))} .cin-ctl{bottom:env(safe-area-inset-bottom,0px);height:8vh} .cin-ctl button{padding:10px 11px;font-size:11px} .cin-stamp{top:calc(1.4vh + env(safe-area-inset-top,0px))} .cin-doc{top:calc(3.6vh + env(safe-area-inset-top,0px))} .cin-start,.cin-end{padding:30px 20px calc(30px + env(safe-area-inset-bottom,0px))} .cin-end .row button{padding:12px 14px} .cin-sub{display:none} .cin-ctl{height:8vh;padding:0 10px;gap:4px} .cin-ctl .lbl{display:none} .cin-stamp{top:1.4vh;font-size:8.5px;max-width:34vw;left:3vw} .cin-doc{top:4.2vh;right:2vw;font-size:8.5px;padding:5px 7px} .cin-slate h2{font-size:34px} .cin-start h2{font-size:38px} .cin-play{width:70px;height:70px} }
 .mb .ab{height:34px;background:#f1f3f4;display:flex;align-items:center;padding:0 10px;flex:none} .mb .ab .url{flex:1;background:#fff;border-radius:10px;height:26px;display:flex;align-items:center;padding:0 10px;font-size:11px;color:#202124;overflow:hidden;white-space:nowrap} .mb .br-page{padding:16px 16px} .mb .br-page .mh{font-size:20px} .mb .br-page h1{font-size:22px} .mb .br-page .lede{font-size:13.5px} .mb .br-page .kick{margin:14px 0 6px;font-size:9.5px} .mb .br-page .by{font-size:11px;margin:8px 0 10px}
 
 /* ============================================================ studio ============================================================ */
@@ -363,6 +384,8 @@ canvas.net{width:100%;height:640px;display:block;cursor:grab;background:var(--sf
 
 <header id="top"><div class="wrap">
   <a class="brand" href="#home" data-nav="home">Inbox Atlas<small>beta 0.2</small></a>
+  <button id="menu" class="menu-btn" aria-label="Menu" aria-expanded="false">☰ Menu</button>
+  <div id="panel">
   <nav class="main">
     <a href="#home" data-nav="home">Front</a>
     <a href="#stories" data-nav="stories">Stories</a>
@@ -381,6 +404,7 @@ canvas.net{width:100%;height:640px;display:block;cursor:grab;background:var(--sf
   <div class="tools">
     <label class="tog" title="Show documents in sensitive categories (hidden by default)"><input type="checkbox" id="sens"> sensitive</label>
     <button id="theme" title="Toggle light/dark" aria-label="Toggle theme">◐</button>
+  </div>
   </div>
 </div></header>
 
@@ -533,7 +557,7 @@ window.addEventListener('hashchange', route);
 function route(){
   const h = (location.hash||'#home').slice(1);
   const [view, ...rest] = h.split('-'); const arg = rest.join('-');
-  closeDrawer(false);
+  closeDrawer(false); closeMenu();
   const map = { home: renderHome, stories: renderStories, story: ()=>renderStory(arg), films: renderFilms, editions: renderEditions, edition: ()=>renderEdition(arg), trails: renderTrails, inbox: ()=>renderInbox(arg), texts: ()=>renderTexts(arg), docs: ()=>renderDocs(arg), people: renderPeople, person: ()=>renderPerson(decodeURIComponent(arg)), maps: ()=>renderMaps(arg), flows: ()=>renderFlows(arg), studio: ()=>renderStudio(arg), atlas: renderAtlas, notes: renderNotes, email: ()=>{ renderInbox(''); openEmail(arg, true); }, text: ()=>{ renderTexts(arg); }, doc: ()=>{ renderDocs(''); openDoc(arg); }, trail: ()=>startTrail(arg), film: ()=>{ renderFilms(); playFilm(arg); } };
   const fn = map[view] || renderHome;
   const vid = ({email:'inbox', trail:'story', text:'texts', doc:'docs', film:'films'})[view] || view;
@@ -580,6 +604,10 @@ function paintPlates(root=document){ $$('.plate canvas', root).forEach(c => { co
 
 /* ============================================================ global controls ============================================================ */
 function setSens(v){ state.showSens = v; LS.set('sens', v); $('#sens').checked = v; }
+const NARROW = () => window.innerWidth < 760;
+$('#menu').addEventListener('click', () => { const h = $('#top'); const on = h.classList.toggle('open'); $('#menu').setAttribute('aria-expanded', on); $('#menu').textContent = on? '✕ Close' : '☰ Menu'; });
+function closeMenu(){ const h = $('#top'); if (h.classList.contains('open')){ h.classList.remove('open'); $('#menu').setAttribute('aria-expanded','false'); $('#menu').textContent = '☰ Menu'; } }
+document.addEventListener('click', ev => { if ($('#top').classList.contains('open') && !ev.target.closest('#top')) closeMenu(); });
 $('#gsearch').addEventListener('keydown', ev => { if (ev.key==='Enter'){ state.inbox = Object.assign(state.inbox, {q: ev.target.value, thread:0, day:''}); go('inbox'); if (location.hash==='#inbox') renderInbox(); } });
 $('#sens').addEventListener('change', e => { setSens(e.target.checked); route(); });
 $('#theme').addEventListener('click', () => { const r=document.documentElement; const cur = r.getAttribute('data-theme'); const dark = cur? cur==='dark' : matchMedia('(prefers-color-scheme: dark)').matches; r.setAttribute('data-theme', dark? 'light':'dark'); LS.set('theme', dark?'light':'dark'); $$('.plate canvas').forEach(c=>delete c.dataset.done); route(); });
@@ -883,6 +911,8 @@ function renderInbox(arg){
   <div class="inbox">
     <div class="filters">
       <div><label for="f-q">Search</label><input id="f-q" type="search" value="${esc(st.q)}" placeholder="words, names, phrases"></div>
+      <button class="sm ghost filt-toggle" onclick="this.closest('.filters').classList.toggle('open');this.textContent=this.closest('.filters').classList.contains('open')?'Hide filters':'More filters'">More filters</button>
+      <div class="fmore">
       <div><label for="f-src">Release</label><select id="f-src"><option value="">All</option><option value="H" ${st.src==='H'?'selected':''}>House Oversight</option><option value="D" ${st.src==='D'?'selected':''}>DOJ (EFTA)</option><option value="P" ${st.src==='P'?'selected':''}>Yahoo / DDoSecrets</option></select></div>
       <div><label for="f-cat">Category</label><select id="f-cat"><option value="">All</option>${cats.map(c=>`<option value="${esc(c)}" ${st.cat===c?'selected':''}>${esc(catLabel(c))}</option>`).join('')}</select></div>
       <div><label for="f-year">Year</label><select id="f-year"><option value="">All</option>${years.map(y=>`<option ${st.year===y?'selected':''}>${y}</option>`).join('')}</select></div>
@@ -894,6 +924,7 @@ function renderInbox(arg){
       ${st.thread? `<div class="note" style="margin:0"><b>Thread view</b>One conversation. <a href="#" onclick="state.inbox.thread=0;renderInbox();return false">Show all</a></div>`:''}
       ${st.day? `<div class="note" style="margin:0"><b>One day</b>${esc(longDate(st.day))}. <a href="#" onclick="state.inbox.day='';renderInbox();return false">Clear</a></div>`:''}
       <div class="row"><button class="sm" onclick="resetInbox()">Reset</button><button class="sm ghost" onclick="playFilm('list')" title="Play the current list as a film">▶ Play list</button></div>
+      </div>
       <div class="count" id="f-count"></div>
     </div>
     <div><div class="list" id="elist"></div></div>
@@ -1296,8 +1327,8 @@ function docBtn(id){ const b = $('#cin-doc'); if (!id){ b.classList.remove('on')
 async function slate(html, ms, solid){ const s = $('#cin-slate'); s.className = 'cin-slate' + (solid? ' solid':''); s.innerHTML = html; await wait(60); s.classList.add('on'); await wait(ms); s.classList.remove('on'); await wait(650); }
 function clearStage(){ $('#cin-device').classList.remove('on'); $('#cin-device').innerHTML=''; const sl = $('#cin-slate'); sl.classList.remove('on'); sub(''); stamp(''); docBtn(''); }
 function fitDevice(w, h){ const d = $('#cin-device'); const st = $('.cin-stage').getBoundingClientRect(); const lb = $('.lbar').getBoundingClientRect().height; const availH = st.height - 2*lb - 30, availW = st.width - 40; const s = Math.min(availH/h, availW/w, 1.15); d.style.transform = `scale(${s.toFixed(3)})`; }
-window.addEventListener('resize', () => { const d = $('#cin-device'); const el = d.firstElementChild; if (el) fitDevice(el.classList.contains('ph')? 360:1040, el.classList.contains('ph')? 740:650); });
-async function showDevice(html, w, h, dur){ const d = $('#cin-device'); d.innerHTML = html; fitDevice(w, h); await wait(40); d.classList.add('on'); CIN.sceneDur = dur||CIN.sceneDur; }
+window.addEventListener('resize', () => { const d = $('#cin-device'); const el = d.firstElementChild; if (!el || d.classList.contains('full')) return; fitDevice(el.classList.contains('ph')? 360:1040, el.classList.contains('ph')? 740:650); });
+async function showDevice(html, w, h, dur){ const d = $('#cin-device'); d.innerHTML = html; const full = NARROW() && w === 360; d.classList.toggle('full', full); if (full) d.style.transform = ''; else fitDevice(w, h); await wait(40); d.classList.add('on'); CIN.sceneDur = dur||CIN.sceneDur; }
 function cursor(){ let p = $('#cin-device .pointer'); if (!p){ p = document.createElement('div'); p.className = 'pointer'; $('#cin-device').appendChild(p); } return p; }
 async function pointTo(el, click){ const p = cursor(); const d = $('#cin-device').getBoundingClientRect(); const r = el.getBoundingClientRect(); const scale = d.width / $('#cin-device').offsetWidth; p.style.left = ((r.left - d.left)/scale + Math.min(r.width*0.5, 120)) + 'px'; p.style.top = ((r.top - d.top)/scale + r.height*0.55) + 'px'; p.classList.add('on'); await wait(520); if (click){ p.style.transform = 'scale(.8)'; SND.click(); await wait(90); p.style.transform = ''; } }
 async function typeInto(el, text, cps=60, kb){ el.classList.add('has'); let cur = el.querySelector('.cur'); if (!cur){ cur = document.createElement('span'); cur.className='cur'; el.appendChild(cur); } const per = 1000/cps; let buf = ''; const words = text.split(/(\s+)/); for (const w of words){ for (const ch of w){ buf += ch; cur.insertAdjacentText('beforebegin', ch); if (kb) kbHit(kb, ch); SND.key(); const jitter = /[.,!?]/.test(ch)? per*4 : per*(0.6+Math.random()*0.8); await wait(jitter); } el.scrollTop = el.scrollHeight; } return buf; }
@@ -1526,6 +1557,7 @@ $('#cin-next').onclick = () => { CIN.token++; runFrom(Math.min(CIN.scenes.length
 $('#cin-speed').onclick = () => { CIN.speed = SPEEDS[(SPEEDS.indexOf(CIN.speed)+1)%SPEEDS.length]; $('#cin-speed').textContent = CIN.speed+'×'; };
 $('#cin-mute').onclick = () => { CIN.muted = !CIN.muted; LS.set('mute', CIN.muted); SND.mute(CIN.muted); $('#cin-mute').textContent = CIN.muted? '♪ off' : '♪'; };
 $('#cin-exit').onclick = exitCinema;
+$('.cin-stage').addEventListener('click', ev => { if (!CIN.on || ev.target.closest('.cin-doc, .open, a, button')) return; if (!$('#cin-start').classList.contains('hidden') || !$('#cin-end').classList.contains('hidden')) return; cinPause(); });
 $('#cin-pb').onclick = ev => { const segs = $$('#cin-pb i'); const i = segs.indexOf(ev.target); if (i>=0){ CIN.token++; runFrom(i); } };
 document.addEventListener('keydown', ev => { if (!CIN.on) return; if (ev.key === 'Escape'){ exitCinema(); } else if (ev.key === ' '){ ev.preventDefault(); if (!$('#cin-start').classList.contains('hidden')) $('#cin-go').click(); else $('#cin-playpause').click(); } else if (ev.key === 'ArrowRight'){ $('#cin-next').click(); } else if (ev.key === 'ArrowLeft'){ $('#cin-prev').click(); } else if (ev.key === 'm'){ $('#cin-mute').click(); } });
 

@@ -1,7 +1,7 @@
 /* ===================================================================
    LANscape Navigator — utilities, storage, state
    =================================================================== */
-const VERSION = '4.1';
+const VERSION = '4.2';
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
 const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));

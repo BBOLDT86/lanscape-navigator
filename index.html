@@ -6867,7 +6867,7 @@ XYcpaAtAWED8GxLB1Li4Q4Zjg1fnjx9JdVDEDTAiX1j54YO1W3CTt/lfjx79v5WqaGhEDsKyTPPp++M3
 /* ===================================================================
    LANscape Navigator — utilities, storage, state
    =================================================================== */
-const VERSION = '4.1';
+const VERSION = '4.2';
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
 const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -13516,6 +13516,7 @@ h2.sec{font:bold 14px Arial,sans-serif;background:#336699;color:#fff;padding:4px
 .box .bb{padding:8px}
 .box ul{margin:0;padding-left:18px}.box li{margin:3px 0}
 .hot{display:flex;gap:10px;align-items:flex-start}
+.hs{display:flex;gap:10px;align-items:flex-start;margin:0 0 10px}.hs img{flex:none}.hs:last-of-type{margin-bottom:0}
 .stat{border-collapse:collapse;width:100%}.stat td{border-bottom:1px dotted #bbb;padding:3px 6px}.stat td:last-child{text-align:right;font-weight:bold}
 .mini{font-size:11px;color:#666}
 .progs{display:grid;grid-template-columns:repeat(auto-fill,minmax(72px,1fr));gap:6px}
@@ -13528,6 +13529,7 @@ function portalHome(path, q) {
   if (path === '/cool') return { title: "What's Cool?", html: coolPage() };
   if (path === '/hotlist') return { title: 'The Ultimate Hotlist', html: hotlistPage() };
   if (path === '/help') return { title: 'LANscape Help: The Internet for Beginners', html: helpPage() };
+  if (path === '/hosted' || path === '/hosted/') return { title: 'Also on This Server', html: hostedPage() };
   if (path === '/dir' || path === '/dir/') return { title: 'LANscape Directory', html: dirIndexPage() };
   if (path === '/programs' || path === '/programs/') return { title: 'Program Manager', html: programsPage() };
   const m = /^\/dir\/([^/]+)\/?$/.exec(path);
@@ -13546,6 +13548,7 @@ function homePage() {
     hot ? 'Hot Spot of the Day: ' + hot.meta.title : '',
     recent[0] ? 'Latest update: ' + recent[0].meta.title + ' (' + ago(recent[0].mtime) + ')' : '',
     'HyperHound has indexed ' + t.terms.toLocaleString() + ' unique words',
+    'Also on this server: ' + HOSTED_SITES.map(s => s.title).join(', '),
     S.roots.length ? 'Folders online: ' + S.roots.filter(r => !exclusionOf(r.name + '/')).map(r => r.name).join(', ') : 'Open a folder to build your own Internet'
   ].filter(Boolean).map(s => '&#9733; ' + esc(s)).join(' &nbsp; &nbsp; ');
   let welcome = '';
@@ -13583,6 +13586,7 @@ ${welcome}
 <tr><td>${A('http://photos.lanscape.net/', 'Pictures')}</td><td>${lib.pictures}</td></tr><tr><td>Other files on ${S.ftpHosts.size} FTP server${S.ftpHosts.size === 1 ? '' : 's'}</td><td>${lib.files}</td></tr>
 ${t.folded ? '<tr><td>' + A('http://dupes.lanscape.net/', 'Copies and old versions') + ' <span class="mini">(folded away)</span></td><td>' + t.folded + '</td></tr>' : ''}${roots}</table>
 </div><div>
+${hostedBox()}
 ${hot ? `<div class="box"><div class="bh">&#9728; Hot Spot of the Day</div><div class="bb hot">${A(hot.url, preview(hot, 120, 90))}<div><b>${A(hot.url, esc(hot.meta.title))}</b><br><span class="mini">${esc(displayUrl(hot.url))}</span><p style="margin:4px 0">${esc(clip(hot.meta.desc, 150))}</p>${A(hot.url, 'Visit it!')}</div></div></div>` : ''}
 <div class="box"><div class="bh">&#9654; Programs</div><div class="bb"><div class="progs">${PROGRAMS.map(p => A(p.url, PROG_ICON[p.id] + '<span>' + esc(progName(p)) + '</span>', ' title="' + esc(progBlurb(p)) + '"')).join('')}</div><p class="mini" style="margin:6px 0 0">${A('http://home.lanscape.net/programs', 'Program Manager...')} &middot; ${Array.from(S.ftpHosts.keys()).slice(0, 3).map(h => A('ftp://' + h + '/', esc(h))).join(' &middot; ')}</p></div></div>
 <div class="box"><div class="bh">What's New?</div><div class="bb"><ul>${recent.map(d => '<li>' + A(d.url, esc(clip(d.meta.title, 60))) + ' ' + badges(d) + ' <span class="mini">' + esc(ago(d.mtime)) + '</span></li>').join('')}</ul><p class="mini">${A('http://home.lanscape.net/new', 'More new stuff...')}</p></div></div>
@@ -13618,7 +13622,7 @@ function hotlistPage() {
   const blocks = S.rings.map(r => '<h2 style="font:bold 16px Arial,sans-serif;color:#ffff66;margin:18px 0 6px">' + '<img class="b88" src="' + ringButton(r) + '" alt=""> ' + esc(r.name) + '</h2><div class="wall">' +
     r.sites.map(s => A(s.url, '<img class="b88" src="' + siteButton(s) + '" alt="' + esc(s.title) + '" title="' + esc(s.title) + '">')).join(' ') + '</div>').join('');
   return page('The Ultimate Hotlist', `<center><font face="Impact,Arial Black,Arial" size="7" color="#ff00ff">THE ULTIMATE HOTLIST</font><br><font face="Arial" color="#00ffff">Every site on your LANscape, one 88&times;31 button each. Click one!</font></center>
-<div style="max-width:900px;margin:0 auto">${blocks}</div><hr class="rainbow"><center><font face="Arial" size="2">${A('http://home.lanscape.net/', 'Back to LANscape Home')}</font></center>${badgeRow()}`,
+<div style="max-width:900px;margin:0 auto">${hostedHotlist()}${blocks}</div><hr class="rainbow"><center><font face="Arial" size="2">${A('http://home.lanscape.net/', 'Back to LANscape Home')}</font></center>${badgeRow()}`,
   { attrs: 'class="bg-stars" text="#ffffff" link="#00ffff" vlink="#ff99ff"', css: '.wall{display:flex;flex-wrap:wrap;gap:6px}.wall a{line-height:0}body{font-family:Arial,sans-serif}a{color:#00ffff}a.v{color:#ff99ff}' });
 }
 /** the directory's top level: categories (Travel, Autos...) with their rings, biggest first */
@@ -13638,7 +13642,7 @@ function dirIndexPage() {
     rs.map(r => '<div class="cat">' + A('http://home.lanscape.net/dir/' + r.id, esc(r.name)) + ' <span class="mini">(' + r.sites.length + ')</span><span class="sub">' + esc((r.terms || []).slice(0, 5).join(', ')) + '</span></div>').join('') + '</div>').join('');
   return page('LANscape Directory', `<div class="wrap">${lanNav('Directory')}
 <h1 style="font:bold 24px Arial,sans-serif">LANscape Directory</h1><p class="mini">Top : Categories</p>
-${blocks || '<p>No rings yet.</p>'}${badgeRow()}</div>`, { css: HOME_CSS });
+${hostedDirBlock()}${blocks || '<p>No rings yet.</p>'}${badgeRow()}</div>`, { css: HOME_CSS });
 }
 function dirPage(r) {
   const related = S.rings.filter(x => x !== r).map(x => [x, cos(r.vec, x.vec)]).sort((a, b) => b[1] - a[1]).slice(0, 4).filter(x => x[1] > 0.01);
@@ -13789,6 +13793,7 @@ async function houndResults(q) {
     if (tab === 'web' && start === 0) {
       const more = HOUND_TABS.slice(2).filter(([k]) => groups[k].length).map(([k, label]) => A(qs({ t: k, start: 0 }), groups[k].length + ' ' + label.toLowerCase()));
       if (more.length) items = '<p class="also">Also on your LANscape: ' + more.join(' &middot; ') + '</p>' + items;
+      items = hostedHitsHTML(query) + items;
     }
   } else if (tab === 'images') {
     const cells = [];
@@ -13824,7 +13829,7 @@ async function houndResults(q) {
   const dym = res.suggestion ? '<div class="dym">Did you mean: ' + A(qs({ q: res.suggestion }).replace(/q=[^&]*/, 'q=' + encodeURIComponent(res.suggestion)), '<b><i>' + esc(res.suggestion) + '</i></b>') + '?</div>' : '';
   const fb = res.fallback ? '<p class="small" style="color:#a00">No file contains all of your words, so here are files that contain some of them.</p>' : '';
   const what = { web: 'pages', docs: 'documents', images: 'images', music: 'songs', video: 'videos', files: 'files' }[tab];
-  const none = !N ? (query.trim() ? '<p>Your search - <b>' + esc(query) + '</b> - did not match any ' + what + ' on your LANscape.</p>' + (tab === 'web' ? '<p>Suggestions:</p><ul><li>Make sure all words are spelled correctly.</li><li>Try different or fewer keywords.</li><li>' + A('lanscape:spider', 'Send out the Spider') + ' to index text your pages build with JavaScript and the words inside PDFs.</li></ul>' : '') : '<p>There are no ' + what + ' on your LANscape yet.</p>') : '';
+  const none = !N ? (query.trim() ? (tab === 'web' ? hostedHitsHTML(query) : '') + '<p>Your search - <b>' + esc(query) + '</b> - did not match any ' + what + ' on your LANscape.</p>' + (tab === 'web' ? '<p>Suggestions:</p><ul><li>Make sure all words are spelled correctly.</li><li>Try different or fewer keywords.</li><li>' + A('lanscape:spider', 'Send out the Spider') + ' to index text your pages build with JavaScript and the words inside PDFs.</li></ul>' : '') : '<p>There are no ' + what + ' on your LANscape yet.</p>') : '';
   const toggle = tab === 'web' || tab === 'docs' ? ' &middot; ' + A(qs({ start, pv: pv ? '0' : '1' }), pv ? 'Hide previews' : 'Show previews') : '';
   // copies and older versions were folded into the results: say so once, on the last page
   const omitted = !all && res.omitted && (start + per >= N) ? '<p class="small" style="margin:14px 0;color:#555"><i>HyperHound folded ' + res.omitted + ' cop' + (res.omitted === 1 ? 'y or older version' : 'ies and older versions') + ' into the results above. ' + A(qs({ fold: '0', start: 0 }), 'Show every file') + ' or open the ' + A('http://dupes.lanscape.net/', 'Duplicate Finder') + '.</i></p>' : '';
@@ -14179,6 +14184,100 @@ function libraryCounts() {
   return c;
 }
 
+/* ---- 62-hosted.js ---- */
+/* ===================================================================
+   Sites hosted on this server, next to LANscape itself.
+   Each one gets a LANscape domain name and opens inside the browser window,
+   straight from the same server (or from the public copy when LANscape was
+   saved to disk), so it is part of the intranet: on the home page, in the
+   Directory, on the Hotlist, in HyperHound and in the Location bar.
+   =================================================================== */
+const HOSTED_HOME = 'https://bboldt86.github.io/lanscape-navigator/';
+const HOSTED_SITES = [
+  {
+    id: 'inbox-atlas', host: 'www.inboxatlas.com', title: 'Inbox Atlas', dir: 'inbox-atlas/', since: '2026-10-17', bytes: 8.4e6,
+    glyph: '✉', color: '#1b2838', panel: '#e8d7a9', lines: ['INBOX', 'ATLAS'], cat: 'News & Media',
+    blurb: 'A reading room for the released Epstein emails: 5,775 emails, 104 recovered text-message logs and 2,020 documents from the House Oversight and DOJ releases, with 26 sourced stories, films that replay the conversations on simulated phone and mail screens, reading trails, maps, Sankey flows, one edition per year and a studio for writing your own stories.',
+    mobile: 'Made for phones too: the films play full-screen on an iPhone or Android, and the page can be added to the home screen.',
+    keywords: 'inbox atlas epstein emails email jmail house oversight doj files stories films trails sankey maps flows editions studio hot mic abc wolff bannon summers texts imessage'
+  },
+  {
+    id: 'the-hinge', host: 'www.thehinge.com', title: 'The Hinge', dir: 'the-hinge/', since: '2026-10-11', bytes: 9.6e5,
+    glyph: '⚖', color: '#7d2f2f', panel: '#ffd34d', lines: ['THE', 'HINGE'], cat: 'Politics',
+    blurb: 'A single-file forecast of the 2026 U.S. Senate, House and Ohio governor races. It blends a calibrated polling model, a history-only model built on presidential approval, real incomes and war, and live prices from Kalshi, Polymarket and PredictIt, and lets you change how much each one counts. A Money tab follows the money in every race.',
+    mobile: '',
+    keywords: 'hinge election forecast 2026 senate house governor ohio polls polling kalshi polymarket predictit midterms money ads prediction markets'
+  }
+];
+const HOSTED_BY_HOST = {};
+for (const s of HOSTED_SITES) HOSTED_BY_HOST[s.host] = s;
+/** served over http(s): the sites sit next to this page; saved to disk: use the public copy */
+function hostedBase(site) {
+  if (/^https?:$/.test(location.protocol)) { try { return new URL(site.dir, location.href).href; } catch (e) { /* fall through */ } }
+  return HOSTED_HOME + site.dir;
+}
+function hostedSrc(site, path, search, hash) {
+  const p = (path || '/').replace(/^\/+/, '');
+  return hostedBase(site) + (p === 'index.html' ? '' : p) + (search || '') + (hash || '');
+}
+function hostedUrl(site, hash) { return 'http://' + site.host + '/' + (hash || ''); }
+function hostedButton(site) { return drawButton({ color: site.color, panel: site.panel, glyph: site.glyph, lines: site.lines }); }
+const HOSTED_FAV = new Map();
+function hostedFavicon(site) {
+  if (HOSTED_FAV.has(site.id)) return HOSTED_FAV.get(site.id);
+  const cv = document.createElement('canvas');
+  cv.width = 16; cv.height = 16;
+  const c = cv.getContext('2d');
+  c.fillStyle = site.color; c.fillRect(0, 0, 16, 16);
+  c.fillStyle = site.panel; c.fillRect(2, 2, 12, 12);
+  c.fillStyle = site.color; c.font = 'bold 11px Georgia,serif'; c.textAlign = 'center'; c.textBaseline = 'middle';
+  c.fillText(site.title.charAt(0), 8, 8.5);
+  const url = cv.toDataURL('image/png');
+  HOSTED_FAV.set(site.id, url);
+  return url;
+}
+function hostedRow(site, withButton) {
+  return '<div class="hs">' + (withButton ? A(hostedUrl(site), '<img class="b88" src="' + hostedButton(site) + '" alt="' + esc(site.title) + '">') : '') +
+    '<div><b>' + A(hostedUrl(site), esc(site.title)) + '</b> <span class="mini">' + esc(site.host) + '</span><br><span class="mini">' + esc(clip(site.blurb, 150)) + '</span><br>' +
+    A(hostedUrl(site), 'Visit it!') + ' &middot; ' + A('lanscape:hosted-full?id=' + site.id, 'Full screen', ' title="Open it in a tab of its own, outside LANscape"') + '</div></div>';
+}
+/** the box on LANscape Home */
+function hostedBox() {
+  return '<div class="box"><div class="bh">&#9733; Also on This Server</div><div class="bb">' + HOSTED_SITES.map(s => hostedRow(s, true)).join('') +
+    '<p class="mini" style="margin:6px 0 0">' + A('http://home.lanscape.net/hosted', 'About these sites...') + '</p></div></div>';
+}
+/** http://home.lanscape.net/hosted */
+function hostedPage() {
+  const items = HOSTED_SITES.map(s => '<h2 class="sec">' + s.glyph + ' ' + esc(s.title) + ' <span style="font-weight:normal">(' + esc(s.cat) + ')</span></h2>' +
+    '<table cellpadding="6"><tr><td valign="top">' + A(hostedUrl(s), '<img class="b88" src="' + hostedButton(s) + '" alt="">') + '</td><td>' +
+    '<p style="margin:0 0 6px"><b>' + A(hostedUrl(s), esc(s.title)) + '</b> &mdash; <span class="mini" style="color:#008000">' + esc(s.host) + '</span></p><p style="margin:0 0 6px">' + esc(s.blurb) + '</p>' +
+    (s.mobile ? '<p class="mini" style="margin:0 0 6px">' + esc(s.mobile) + '</p>' : '') +
+    '<p class="mini" style="margin:0">Online since ' + esc(s.since) + ' &middot; ' + A(hostedUrl(s), 'Visit it!') + ' &middot; ' + A('lanscape:hosted-full?id=' + s.id, 'Full screen') + ' &middot; <span class="mini">lives at <tt>' + esc(s.dir) + '</tt> on this server</span></p></td></tr></table>').join('');
+  return page('Also on This Server', `<div class="wrap">${lanNav('Home')}
+<h1 style="font:bold 24px Arial,sans-serif">&#9733; Also on This Server</h1>
+<p>These sites live on the same server as LANscape, in folders next to it, so they are part of your intranet: each has a domain name on your LANscape, opens right here in the browser window, and shows up in the Directory, on the Hotlist and in HyperHound. They are not built from your folders; they are published pages of their own.</p>
+${items}${badgeRow()}</div>`, { css: HOME_CSS + '.hs{display:flex;gap:10px;align-items:flex-start;margin:0 0 10px}.hs img{flex:none}' });
+}
+/** HyperHound: a hosted site whose title or keywords match the query */
+function hostedHits(query) {
+  const words = String(query || '').toLowerCase().split(/[^a-z0-9]+/).filter(w => w.length > 1);
+  if (!words.length) return [];
+  return HOSTED_SITES.filter(s => { const hay = (s.title + ' ' + s.keywords).toLowerCase(); return words.some(w => hay.includes(w)); });
+}
+function hostedHitsHTML(query) {
+  const hits = hostedHits(query);
+  if (!hits.length) return '';
+  return '<p class="also">On this server: ' + hits.map(s => A(hostedUrl(s), '<b>' + esc(s.title) + '</b>') + ' <span class="u">' + esc(s.host) + '</span>').join(' &middot; ') + '</p>';
+}
+/** the Hotlist wall and the Directory block */
+function hostedHotlist() {
+  return '<h2 style="font:bold 16px Arial,sans-serif;color:#ffff66;margin:18px 0 6px">&#9733; This Server</h2><div class="wall">' + HOSTED_SITES.map(s => A(hostedUrl(s), '<img class="b88" src="' + hostedButton(s) + '" alt="' + esc(s.title) + '" title="' + esc(s.title) + '">')).join(' ') + '</div>';
+}
+function hostedDirBlock() {
+  return '<h2 class="sec">&#9733; Also on This Server <span style="font-weight:normal">(' + HOSTED_SITES.length + ' sites)</span></h2><div class="dir">' +
+    HOSTED_SITES.map(s => '<div class="cat">' + A(hostedUrl(s), esc(s.title)) + ' <span class="mini">(' + esc(s.cat) + ')</span><span class="sub">' + esc(clip(s.blurb, 110)) + '</span></div>').join('') + '</div>';
+}
+
 /* ---- 70-nav.js ---- */
 /* ===================================================================
    Router, renderer, history, status bar, modem simulation
@@ -14279,7 +14378,7 @@ function normalizeInput(input) {
     const w = s.toLowerCase();
     for (const t of ['com', 'net', 'org', 'edu']) {
       const h = 'www.' + w + '.' + t;
-      if (S.hostMap.has(h) || PORTAL_ROUTES[h] || APP_HOSTS[h]) return 'http://' + h + '/';
+      if (S.hostMap.has(h) || PORTAL_ROUTES[h] || APP_HOSTS[h] || HOSTED_BY_HOST[h]) return 'http://' + h + '/';
     }
     if (APP_HOSTS[w + '.lanscape.net']) return 'http://' + w + '.lanscape.net/';
   }
@@ -14315,6 +14414,7 @@ function resolve(url) {
     }
   }
   if (PORTAL_ALIAS[host]) { u.hostname = PORTAL_ALIAS[host]; return { type: 'redirect', to: u.href }; }
+  if (HOSTED_BY_HOST[host]) { const hs = HOSTED_BY_HOST[host]; return { type: 'frame', url: 'http://' + host + u.pathname + u.search + hash, src: hostedSrc(hs, u.pathname, u.search, hash), title: hs.title, hosted: hs, hash }; }
   if (APP_HOSTS[host]) return resolveApp(APP_HOSTS[host], path, q, hash, u);
   const P = PORTAL_ROUTES[host];
   if (P) {
@@ -14324,7 +14424,7 @@ function resolve(url) {
     if (r) return { type: 'gen', url: canon + hash, title: r.title, html: r.html, interstitial: r.interstitial, to: r.to, hash };
     return { type: 'gen', url: canon, title: '404 Not Found', html: notFoundPage(url, host), status: 404 };
   }
-  if (!host.startsWith('www.') && (S.hostMap.has('www.' + host) || PORTAL_ROUTES['www.' + host] || APP_HOSTS['www.' + host])) { u.hostname = 'www.' + host; return { type: 'redirect', to: u.href }; }
+  if (!host.startsWith('www.') && (S.hostMap.has('www.' + host) || PORTAL_ROUTES['www.' + host] || APP_HOSTS['www.' + host] || HOSTED_BY_HOST['www.' + host])) { u.hostname = 'www.' + host; return { type: 'redirect', to: u.href }; }
   // the LANscape web is all plain http, so an unknown https:// address is the real Internet
   if (u.protocol === 'https:') return { type: 'external', url: u.href };
   return { type: 'dns', host, url };
@@ -14546,7 +14646,7 @@ function hoverStatus(href) {
   if (/^https?:/i.test(href)) {
     let host = '';
     try { host = new URL(href).hostname; } catch (e) { /* keep */ }
-    const known = S.hostMap.has(host) || PORTAL_ROUTES[host] || PORTAL_ALIAS[host] || S.hostMap.has('www.' + host);
+    const known = S.hostMap.has(host) || PORTAL_ROUTES[host] || PORTAL_ALIAS[host] || HOSTED_BY_HOST[host] || S.hostMap.has('www.' + host);
     setStatus(known ? href : href + '   (real Internet)', true);
   } else setStatus(href, true);
 }
@@ -14676,10 +14776,12 @@ async function render(route, entry, opts = {}) {
   try { host = new URL(entry.url).hostname; } catch (e) { host = entry.url; }
   busy(true); progress(0);
   setStatus('Looking up host: ' + host + '...');
-  setLocation(entry.url, doc && doc.meta.favicon);
+  setLocation(entry.url, doc ? doc.meta.favicon : route.hosted ? hostedFavicon(route.hosted) : null);
   let html = null, bytes = 0, retro = route.type !== 'doc' || !!(doc && doc.demo), kind = 'gen', title = route.title || '';
   try {
-    if (appName) {
+    if (route.type === 'frame') {
+      kind = 'gen'; retro = false; bytes = route.hosted.bytes || 0;
+    } else if (appName) {
       kind = 'app';
       title = appTitle(appName, doc, route);
       bytes = doc ? doc.size || 0 : 0;
@@ -14749,6 +14851,9 @@ async function render(route, entry, opts = {}) {
     cur.app = api;
     if (api && api.title) { cur.title = api.title; entry.title = api.title; setTitle(api.title); }
     if (doc) noteRecent(doc);
+  } else if (route.type === 'frame') {
+    // the same server as LANscape: trusted, loaded by address, with its own scripts and storage
+    freshFrame(SANDBOX_TRUSTED, f => { f.src = route.src; });
   } else {
     const sb = S.prefs.sandbox === 'sandboxed' ? SANDBOX_STRICT : SANDBOX_TRUSTED;
     const src = injectHelper(html, cfg, retro);
@@ -14797,6 +14902,13 @@ function onFrameLoad(ev) {
   const cur = S.cur;
   if (!cur || (ev && ev.target !== frame)) return;
   if (cur.blob) { finishLoad(); return; }
+  if (cur.route && cur.route.type === 'frame') {
+    try {
+      const fw = frame.contentWindow;
+      fw.addEventListener('hashchange', () => { if (S.cur !== cur) return; const h = fw.location.hash || ''; cur.url = stripHash(cur.url) + h; cur.entry.url = cur.url; setLocation(cur.url, hostedFavicon(cur.route.hosted)); });
+    } catch (e) { /* cross-origin copy: the Location bar keeps the site's home address */ }
+    finishLoad(); return;
+  }
   let href = null, cross = false;
   try { href = frame.contentWindow.location.href; } catch (e) { cross = true; }
   if (!cross) {
@@ -14942,7 +15054,7 @@ function renderRingStrip() {
       '<div class="rinfo"><img src="' + ringButton(r) + '" alt="" data-ring="hub" title="Ring hub"><span class="nm" data-ring="hub" title="' + esc(r.name) + '">' + esc(r.name) + '</span><span class="hint">site ' + (site.ringPos + 1) + ' of ' + r.sites.length + '</span></div>' +
       '<div class="rextra">' + versionsButton(site) + '<button class="dbtn" data-site="links">Links</button><button class="dbtn" data-site="guestbook">Guestbook' + (gb ? ' (' + gb + ')' : '') + '</button>' + odo(cur.doc ? S.visits[cur.doc.path] : 0) + '</div>';
   } else {
-    const where = cur && cur.appName ? 'You are using ' + ((APPS[cur.appName] && APPS[cur.appName].name) || 'a LANscape program') + '. ' : cur && cur.url && /^ftp:/.test(cur.url) ? 'You are on an FTP server. ' : cur && cur.url && /^http/.test(cur.url) ? 'You are on a LANscape portal page. ' : '';
+    const where = cur && cur.appName ? 'You are using ' + ((APPS[cur.appName] && APPS[cur.appName].name) || 'a LANscape program') + '. ' : cur && cur.url && /^ftp:/.test(cur.url) ? 'You are on an FTP server. ' : cur && cur.route && cur.route.type === 'frame' ? 'You are on ' + cur.route.hosted.title + ', a site hosted on this server. ' : cur && cur.url && /^http/.test(cur.url) ? 'You are on a LANscape portal page. ' : '';
     el.innerHTML = '<div class="rnav"><button class="dbtn" data-act="random">Random Site</button><button class="dbtn" data-act="rings">Web Rings</button><button class="dbtn" data-act="programs">Programs</button></div><div class="rinfo"><span class="hint">' +
       where + S.sites.length + ' sites on ' + S.rings.length + ' web rings</span></div>';
   }
@@ -24846,6 +24958,7 @@ function suggestions(text) {
     if (sc) sites.push({ kind: 'site', url: s.url, title: s.title, addr: displayUrl(s.url), sc });
   }
   for (const h of ['home.lanscape.net', 'www.hyperhound.com', 'www.ringhub.org'].concat(Object.keys(APP_HOSTS).filter(x => x !== 'rewindvideo.com'), Array.from(S.ftpHosts.keys()))) if (h.replace(/^www\./, '').startsWith(bare)) sites.push({ kind: 'site', url: (h.startsWith('ftp.') ? 'ftp://' : 'http://') + h + '/', title: h, addr: h, sc: 3.5 });
+  for (const hs of HOSTED_SITES) { const a2 = hs.host.replace(/^www\./, ''), ti = hs.title.toLowerCase(); const sc = a2.startsWith(bare) ? 4 : ti.startsWith(t) ? 3 : a2.includes(bare) || ti.includes(t) ? 2 : 0; if (sc) sites.push({ kind: 'site', url: hostedUrl(hs), title: hs.title, addr: hs.host, sc }); }
   sites.sort((a, b) => b.sc - a.sc);
   out.push(...sites.slice(0, 5));
   if (!/^[a-z]+:/.test(t)) {
@@ -24995,6 +25108,8 @@ async function runAction(a) {
   if (a === 'open-file') { const d = await openFileDialog({ title: 'Open File' }); if (d) go(d.url); return; }
   if (a === 'edit-source') return editSource();
   if (a === 'dupes') return go('http://dupes.lanscape.net/');
+  const hf = /^hosted-full\?id=(.+)$/.exec(a);
+  if (hf) { const hs = HOSTED_SITES.find(s => s.id === hf[1]); if (hs) window.open(hostedBase(hs), '_blank', 'noopener'); return; }
   // from a site's version history page: make one the main entry, or say it's its own thing
   const dm = /^dupes-(keep|split|unsplit)\?p=(.+)$/.exec(a);
   if (dm) {

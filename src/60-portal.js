@@ -98,6 +98,7 @@ h2.sec{font:bold 14px Arial,sans-serif;background:#336699;color:#fff;padding:4px
 .box .bb{padding:8px}
 .box ul{margin:0;padding-left:18px}.box li{margin:3px 0}
 .hot{display:flex;gap:10px;align-items:flex-start}
+.hs{display:flex;gap:10px;align-items:flex-start;margin:0 0 10px}.hs img{flex:none}.hs:last-of-type{margin-bottom:0}
 .stat{border-collapse:collapse;width:100%}.stat td{border-bottom:1px dotted #bbb;padding:3px 6px}.stat td:last-child{text-align:right;font-weight:bold}
 .mini{font-size:11px;color:#666}
 .progs{display:grid;grid-template-columns:repeat(auto-fill,minmax(72px,1fr));gap:6px}
@@ -110,6 +111,7 @@ function portalHome(path, q) {
   if (path === '/cool') return { title: "What's Cool?", html: coolPage() };
   if (path === '/hotlist') return { title: 'The Ultimate Hotlist', html: hotlistPage() };
   if (path === '/help') return { title: 'LANscape Help: The Internet for Beginners', html: helpPage() };
+  if (path === '/hosted' || path === '/hosted/') return { title: 'Also on This Server', html: hostedPage() };
   if (path === '/dir' || path === '/dir/') return { title: 'LANscape Directory', html: dirIndexPage() };
   if (path === '/programs' || path === '/programs/') return { title: 'Program Manager', html: programsPage() };
   const m = /^\/dir\/([^/]+)\/?$/.exec(path);
@@ -128,6 +130,7 @@ function homePage() {
     hot ? 'Hot Spot of the Day: ' + hot.meta.title : '',
     recent[0] ? 'Latest update: ' + recent[0].meta.title + ' (' + ago(recent[0].mtime) + ')' : '',
     'HyperHound has indexed ' + t.terms.toLocaleString() + ' unique words',
+    'Also on this server: ' + HOSTED_SITES.map(s => s.title).join(', '),
     S.roots.length ? 'Folders online: ' + S.roots.filter(r => !exclusionOf(r.name + '/')).map(r => r.name).join(', ') : 'Open a folder to build your own Internet'
   ].filter(Boolean).map(s => '&#9733; ' + esc(s)).join(' &nbsp; &nbsp; ');
   let welcome = '';
@@ -165,6 +168,7 @@ ${welcome}
 <tr><td>${A('http://photos.lanscape.net/', 'Pictures')}</td><td>${lib.pictures}</td></tr><tr><td>Other files on ${S.ftpHosts.size} FTP server${S.ftpHosts.size === 1 ? '' : 's'}</td><td>${lib.files}</td></tr>
 ${t.folded ? '<tr><td>' + A('http://dupes.lanscape.net/', 'Copies and old versions') + ' <span class="mini">(folded away)</span></td><td>' + t.folded + '</td></tr>' : ''}${roots}</table>
 </div><div>
+${hostedBox()}
 ${hot ? `<div class="box"><div class="bh">&#9728; Hot Spot of the Day</div><div class="bb hot">${A(hot.url, preview(hot, 120, 90))}<div><b>${A(hot.url, esc(hot.meta.title))}</b><br><span class="mini">${esc(displayUrl(hot.url))}</span><p style="margin:4px 0">${esc(clip(hot.meta.desc, 150))}</p>${A(hot.url, 'Visit it!')}</div></div></div>` : ''}
 <div class="box"><div class="bh">&#9654; Programs</div><div class="bb"><div class="progs">${PROGRAMS.map(p => A(p.url, PROG_ICON[p.id] + '<span>' + esc(progName(p)) + '</span>', ' title="' + esc(progBlurb(p)) + '"')).join('')}</div><p class="mini" style="margin:6px 0 0">${A('http://home.lanscape.net/programs', 'Program Manager...')} &middot; ${Array.from(S.ftpHosts.keys()).slice(0, 3).map(h => A('ftp://' + h + '/', esc(h))).join(' &middot; ')}</p></div></div>
 <div class="box"><div class="bh">What's New?</div><div class="bb"><ul>${recent.map(d => '<li>' + A(d.url, esc(clip(d.meta.title, 60))) + ' ' + badges(d) + ' <span class="mini">' + esc(ago(d.mtime)) + '</span></li>').join('')}</ul><p class="mini">${A('http://home.lanscape.net/new', 'More new stuff...')}</p></div></div>
@@ -200,7 +204,7 @@ function hotlistPage() {
   const blocks = S.rings.map(r => '<h2 style="font:bold 16px Arial,sans-serif;color:#ffff66;margin:18px 0 6px">' + '<img class="b88" src="' + ringButton(r) + '" alt=""> ' + esc(r.name) + '</h2><div class="wall">' +
     r.sites.map(s => A(s.url, '<img class="b88" src="' + siteButton(s) + '" alt="' + esc(s.title) + '" title="' + esc(s.title) + '">')).join(' ') + '</div>').join('');
   return page('The Ultimate Hotlist', `<center><font face="Impact,Arial Black,Arial" size="7" color="#ff00ff">THE ULTIMATE HOTLIST</font><br><font face="Arial" color="#00ffff">Every site on your LANscape, one 88&times;31 button each. Click one!</font></center>
-<div style="max-width:900px;margin:0 auto">${blocks}</div><hr class="rainbow"><center><font face="Arial" size="2">${A('http://home.lanscape.net/', 'Back to LANscape Home')}</font></center>${badgeRow()}`,
+<div style="max-width:900px;margin:0 auto">${hostedHotlist()}${blocks}</div><hr class="rainbow"><center><font face="Arial" size="2">${A('http://home.lanscape.net/', 'Back to LANscape Home')}</font></center>${badgeRow()}`,
   { attrs: 'class="bg-stars" text="#ffffff" link="#00ffff" vlink="#ff99ff"', css: '.wall{display:flex;flex-wrap:wrap;gap:6px}.wall a{line-height:0}body{font-family:Arial,sans-serif}a{color:#00ffff}a.v{color:#ff99ff}' });
 }
 /** the directory's top level: categories (Travel, Autos...) with their rings, biggest first */
@@ -220,7 +224,7 @@ function dirIndexPage() {
     rs.map(r => '<div class="cat">' + A('http://home.lanscape.net/dir/' + r.id, esc(r.name)) + ' <span class="mini">(' + r.sites.length + ')</span><span class="sub">' + esc((r.terms || []).slice(0, 5).join(', ')) + '</span></div>').join('') + '</div>').join('');
   return page('LANscape Directory', `<div class="wrap">${lanNav('Directory')}
 <h1 style="font:bold 24px Arial,sans-serif">LANscape Directory</h1><p class="mini">Top : Categories</p>
-${blocks || '<p>No rings yet.</p>'}${badgeRow()}</div>`, { css: HOME_CSS });
+${hostedDirBlock()}${blocks || '<p>No rings yet.</p>'}${badgeRow()}</div>`, { css: HOME_CSS });
 }
 function dirPage(r) {
   const related = S.rings.filter(x => x !== r).map(x => [x, cos(r.vec, x.vec)]).sort((a, b) => b[1] - a[1]).slice(0, 4).filter(x => x[1] > 0.01);
@@ -371,6 +375,7 @@ async function houndResults(q) {
     if (tab === 'web' && start === 0) {
       const more = HOUND_TABS.slice(2).filter(([k]) => groups[k].length).map(([k, label]) => A(qs({ t: k, start: 0 }), groups[k].length + ' ' + label.toLowerCase()));
       if (more.length) items = '<p class="also">Also on your LANscape: ' + more.join(' &middot; ') + '</p>' + items;
+      items = hostedHitsHTML(query) + items;
     }
   } else if (tab === 'images') {
     const cells = [];
@@ -406,7 +411,7 @@ async function houndResults(q) {
   const dym = res.suggestion ? '<div class="dym">Did you mean: ' + A(qs({ q: res.suggestion }).replace(/q=[^&]*/, 'q=' + encodeURIComponent(res.suggestion)), '<b><i>' + esc(res.suggestion) + '</i></b>') + '?</div>' : '';
   const fb = res.fallback ? '<p class="small" style="color:#a00">No file contains all of your words, so here are files that contain some of them.</p>' : '';
   const what = { web: 'pages', docs: 'documents', images: 'images', music: 'songs', video: 'videos', files: 'files' }[tab];
-  const none = !N ? (query.trim() ? '<p>Your search - <b>' + esc(query) + '</b> - did not match any ' + what + ' on your LANscape.</p>' + (tab === 'web' ? '<p>Suggestions:</p><ul><li>Make sure all words are spelled correctly.</li><li>Try different or fewer keywords.</li><li>' + A('lanscape:spider', 'Send out the Spider') + ' to index text your pages build with JavaScript and the words inside PDFs.</li></ul>' : '') : '<p>There are no ' + what + ' on your LANscape yet.</p>') : '';
+  const none = !N ? (query.trim() ? (tab === 'web' ? hostedHitsHTML(query) : '') + '<p>Your search - <b>' + esc(query) + '</b> - did not match any ' + what + ' on your LANscape.</p>' + (tab === 'web' ? '<p>Suggestions:</p><ul><li>Make sure all words are spelled correctly.</li><li>Try different or fewer keywords.</li><li>' + A('lanscape:spider', 'Send out the Spider') + ' to index text your pages build with JavaScript and the words inside PDFs.</li></ul>' : '') : '<p>There are no ' + what + ' on your LANscape yet.</p>') : '';
   const toggle = tab === 'web' || tab === 'docs' ? ' &middot; ' + A(qs({ start, pv: pv ? '0' : '1' }), pv ? 'Hide previews' : 'Show previews') : '';
   // copies and older versions were folded into the results: say so once, on the last page
   const omitted = !all && res.omitted && (start + per >= N) ? '<p class="small" style="margin:14px 0;color:#555"><i>HyperHound folded ' + res.omitted + ' cop' + (res.omitted === 1 ? 'y or older version' : 'ies and older versions') + ' into the results above. ' + A(qs({ fold: '0', start: 0 }), 'Show every file') + ' or open the ' + A('http://dupes.lanscape.net/', 'Duplicate Finder') + '.</i></p>' : '';

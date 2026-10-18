@@ -298,6 +298,7 @@ function suggestions(text) {
     if (sc) sites.push({ kind: 'site', url: s.url, title: s.title, addr: displayUrl(s.url), sc });
   }
   for (const h of ['home.lanscape.net', 'www.hyperhound.com', 'www.ringhub.org'].concat(Object.keys(APP_HOSTS).filter(x => x !== 'rewindvideo.com'), Array.from(S.ftpHosts.keys()))) if (h.replace(/^www\./, '').startsWith(bare)) sites.push({ kind: 'site', url: (h.startsWith('ftp.') ? 'ftp://' : 'http://') + h + '/', title: h, addr: h, sc: 3.5 });
+  for (const hs of HOSTED_SITES) { const a2 = hs.host.replace(/^www\./, ''), ti = hs.title.toLowerCase(); const sc = a2.startsWith(bare) ? 4 : ti.startsWith(t) ? 3 : a2.includes(bare) || ti.includes(t) ? 2 : 0; if (sc) sites.push({ kind: 'site', url: hostedUrl(hs), title: hs.title, addr: hs.host, sc }); }
   sites.sort((a, b) => b.sc - a.sc);
   out.push(...sites.slice(0, 5));
   if (!/^[a-z]+:/.test(t)) {
@@ -447,6 +448,8 @@ async function runAction(a) {
   if (a === 'open-file') { const d = await openFileDialog({ title: 'Open File' }); if (d) go(d.url); return; }
   if (a === 'edit-source') return editSource();
   if (a === 'dupes') return go('http://dupes.lanscape.net/');
+  const hf = /^hosted-full\?id=(.+)$/.exec(a);
+  if (hf) { const hs = HOSTED_SITES.find(s => s.id === hf[1]); if (hs) window.open(hostedBase(hs), '_blank', 'noopener'); return; }
   // from a site's version history page: make one the main entry, or say it's its own thing
   const dm = /^dupes-(keep|split|unsplit)\?p=(.+)$/.exec(a);
   if (dm) {

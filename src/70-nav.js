@@ -97,7 +97,7 @@ function normalizeInput(input) {
     const w = s.toLowerCase();
     for (const t of ['com', 'net', 'org', 'edu']) {
       const h = 'www.' + w + '.' + t;
-      if (S.hostMap.has(h) || PORTAL_ROUTES[h] || APP_HOSTS[h]) return 'http://' + h + '/';
+      if (S.hostMap.has(h) || PORTAL_ROUTES[h] || APP_HOSTS[h] || HOSTED_BY_HOST[h]) return 'http://' + h + '/';
     }
     if (APP_HOSTS[w + '.lanscape.net']) return 'http://' + w + '.lanscape.net/';
   }
@@ -133,6 +133,7 @@ function resolve(url) {
     }
   }
   if (PORTAL_ALIAS[host]) { u.hostname = PORTAL_ALIAS[host]; return { type: 'redirect', to: u.href }; }
+  if (HOSTED_BY_HOST[host]) { const hs = HOSTED_BY_HOST[host]; return { type: 'frame', url: 'http://' + host + u.pathname + u.search + hash, src: hostedSrc(hs, u.pathname, u.search, hash), title: hs.title, hosted: hs, hash }; }
   if (APP_HOSTS[host]) return resolveApp(APP_HOSTS[host], path, q, hash, u);
   const P = PORTAL_ROUTES[host];
   if (P) {
@@ -142,7 +143,7 @@ function resolve(url) {
     if (r) return { type: 'gen', url: canon + hash, title: r.title, html: r.html, interstitial: r.interstitial, to: r.to, hash };
     return { type: 'gen', url: canon, title: '404 Not Found', html: notFoundPage(url, host), status: 404 };
   }
-  if (!host.startsWith('www.') && (S.hostMap.has('www.' + host) || PORTAL_ROUTES['www.' + host] || APP_HOSTS['www.' + host])) { u.hostname = 'www.' + host; return { type: 'redirect', to: u.href }; }
+  if (!host.startsWith('www.') && (S.hostMap.has('www.' + host) || PORTAL_ROUTES['www.' + host] || APP_HOSTS['www.' + host] || HOSTED_BY_HOST['www.' + host])) { u.hostname = 'www.' + host; return { type: 'redirect', to: u.href }; }
   // the LANscape web is all plain http, so an unknown https:// address is the real Internet
   if (u.protocol === 'https:') return { type: 'external', url: u.href };
   return { type: 'dns', host, url };
@@ -364,7 +365,7 @@ function hoverStatus(href) {
   if (/^https?:/i.test(href)) {
     let host = '';
     try { host = new URL(href).hostname; } catch (e) { /* keep */ }
-    const known = S.hostMap.has(host) || PORTAL_ROUTES[host] || PORTAL_ALIAS[host] || S.hostMap.has('www.' + host);
+    const known = S.hostMap.has(host) || PORTAL_ROUTES[host] || PORTAL_ALIAS[host] || HOSTED_BY_HOST[host] || S.hostMap.has('www.' + host);
     setStatus(known ? href : href + '   (real Internet)', true);
   } else setStatus(href, true);
 }
@@ -494,10 +495,12 @@ async function render(route, entry, opts = {}) {
   try { host = new URL(entry.url).hostname; } catch (e) { host = entry.url; }
   busy(true); progress(0);
   setStatus('Looking up host: ' + host + '...');
-  setLocation(entry.url, doc && doc.meta.favicon);
+  setLocation(entry.url, doc ? doc.meta.favicon : route.hosted ? hostedFavicon(route.hosted) : null);
   let html = null, bytes = 0, retro = route.type !== 'doc' || !!(doc && doc.demo), kind = 'gen', title = route.title || '';
   try {
-    if (appName) {
+    if (route.type === 'frame') {
+      kind = 'gen'; retro = false; bytes = route.hosted.bytes || 0;
+    } else if (appName) {
       kind = 'app';
       title = appTitle(appName, doc, route);
       bytes = doc ? doc.size || 0 : 0;
@@ -567,6 +570,9 @@ async function render(route, entry, opts = {}) {
     cur.app = api;
     if (api && api.title) { cur.title = api.title; entry.title = api.title; setTitle(api.title); }
     if (doc) noteRecent(doc);
+  } else if (route.type === 'frame') {
+    // the same server as LANscape: trusted, loaded by address, with its own scripts and storage
+    freshFrame(SANDBOX_TRUSTED, f => { f.src = route.src; });
   } else {
     const sb = S.prefs.sandbox === 'sandboxed' ? SANDBOX_STRICT : SANDBOX_TRUSTED;
     const src = injectHelper(html, cfg, retro);
@@ -615,6 +621,13 @@ function onFrameLoad(ev) {
   const cur = S.cur;
   if (!cur || (ev && ev.target !== frame)) return;
   if (cur.blob) { finishLoad(); return; }
+  if (cur.route && cur.route.type === 'frame') {
+    try {
+      const fw = frame.contentWindow;
+      fw.addEventListener('hashchange', () => { if (S.cur !== cur) return; const h = fw.location.hash || ''; cur.url = stripHash(cur.url) + h; cur.entry.url = cur.url; setLocation(cur.url, hostedFavicon(cur.route.hosted)); });
+    } catch (e) { /* cross-origin copy: the Location bar keeps the site's home address */ }
+    finishLoad(); return;
+  }
   let href = null, cross = false;
   try { href = frame.contentWindow.location.href; } catch (e) { cross = true; }
   if (!cross) {
@@ -760,7 +773,7 @@ function renderRingStrip() {
       '<div class="rinfo"><img src="' + ringButton(r) + '" alt="" data-ring="hub" title="Ring hub"><span class="nm" data-ring="hub" title="' + esc(r.name) + '">' + esc(r.name) + '</span><span class="hint">site ' + (site.ringPos + 1) + ' of ' + r.sites.length + '</span></div>' +
       '<div class="rextra">' + versionsButton(site) + '<button class="dbtn" data-site="links">Links</button><button class="dbtn" data-site="guestbook">Guestbook' + (gb ? ' (' + gb + ')' : '') + '</button>' + odo(cur.doc ? S.visits[cur.doc.path] : 0) + '</div>';
   } else {
-    const where = cur && cur.appName ? 'You are using ' + ((APPS[cur.appName] && APPS[cur.appName].name) || 'a LANscape program') + '. ' : cur && cur.url && /^ftp:/.test(cur.url) ? 'You are on an FTP server. ' : cur && cur.url && /^http/.test(cur.url) ? 'You are on a LANscape portal page. ' : '';
+    const where = cur && cur.appName ? 'You are using ' + ((APPS[cur.appName] && APPS[cur.appName].name) || 'a LANscape program') + '. ' : cur && cur.url && /^ftp:/.test(cur.url) ? 'You are on an FTP server. ' : cur && cur.route && cur.route.type === 'frame' ? 'You are on ' + cur.route.hosted.title + ', a site hosted on this server. ' : cur && cur.url && /^http/.test(cur.url) ? 'You are on a LANscape portal page. ' : '';
     el.innerHTML = '<div class="rnav"><button class="dbtn" data-act="random">Random Site</button><button class="dbtn" data-act="rings">Web Rings</button><button class="dbtn" data-act="programs">Programs</button></div><div class="rinfo"><span class="hint">' +
       where + S.sites.length + ' sites on ' + S.rings.length + ' web rings</span></div>';
   }
