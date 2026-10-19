@@ -64,6 +64,8 @@ header#top{padding-top:env(safe-area-inset-top,0px)}
 header#top .wrap{display:flex;align-items:center;gap:16px;height:60px;position:relative}
 #panel{display:contents}
 .menu-btn{display:none;margin-left:auto;padding:9px 12px;font-size:10.5px}
+.fs-btn{display:none;padding:9px 12px;font-size:10.5px;white-space:nowrap} html.framed .fs-btn{display:inline-block}
+@media (max-width:860px){ html.framed .fs-btn{margin-left:auto} html.framed .menu-btn{margin-left:0} }
 .brand{font-family:var(--fb);font-weight:500;letter-spacing:.26em;text-transform:uppercase;font-size:13px;border:0;white-space:nowrap;display:flex;align-items:baseline;gap:10px}
 .brand small{font-family:var(--fm);letter-spacing:.08em;text-transform:none;color:var(--mu);font-size:10.5px}
 nav.main{display:flex;gap:2px;flex:1;overflow-x:auto;scrollbar-width:none} nav.main::-webkit-scrollbar{display:none}
@@ -216,6 +218,33 @@ canvas.net{width:100%;height:640px;display:block;cursor:grab;background:var(--sf
   footer .wrap{grid-template-columns:1fr}
 }
 
+/* ============================================================ shorts ============================================================ */
+.rail{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 2px 14px;scrollbar-width:thin;-webkit-overflow-scrolling:touch}
+.sh{flex:0 0 228px;scroll-snap-align:start;position:relative;aspect-ratio:9/16;overflow:hidden;cursor:pointer;background:#111;color:#fff;border:1px solid var(--ln);transition:transform .2s} .sh:hover{transform:translateY(-3px)}
+.sh .plate{position:absolute;inset:0;min-height:0} .sh .plate canvas{height:100%} .sh .plate .num,.sh .plate .cap{display:none}
+.sh .grad{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.15) 0,rgba(0,0,0,0) 35%,rgba(0,0,0,.82) 100%)}
+.sh .top{position:absolute;left:12px;top:12px;right:12px;display:flex;justify-content:space-between;font:500 10px/1 var(--fb);letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.85)} .sh .top b{background:#fff;color:#111;padding:5px 7px;font-weight:500}
+.sh .hook{position:absolute;left:14px;right:14px;bottom:16px;font-family:var(--fd);font-size:21px;line-height:1.12;font-weight:500;font-style:italic;text-shadow:0 1px 10px rgba(0,0,0,.6)}
+.sh .ttl{position:absolute;left:14px;right:14px;bottom:0;transform:translateY(100%);font:500 10px/1 var(--fb);letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.7)}
+.sh .hook small{display:block;font-family:var(--fb);font-style:normal;font-weight:500;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.7);margin-top:8px}
+.sgrid.shorts{grid-template-columns:repeat(5,1fr)} .sgrid.shorts .sh{flex:none;width:auto}
+.seg{display:inline-flex;border:1px solid var(--fg)} .seg button{border:0;border-right:1px solid var(--fg);padding:9px 14px} .seg button:last-child{border-right:0} .seg button.on{background:var(--fg);color:var(--bg)}
+/* short story page */
+.short{max-width:780px;margin:0 auto}
+.short h1.hook{font-size:clamp(34px,5.4vw,60px);font-weight:400;line-height:1.05;margin:10px 0 16px}
+.short .cold{font-family:var(--fd);font-size:clamp(26px,3.6vw,40px);font-style:italic;line-height:1.2;border-left:3px solid var(--fg);padding:6px 0 6px 22px;margin:26px 0 18px;color:var(--fg)}
+.short .cold small{display:block;font-family:var(--fb);font-style:normal;font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--mu);margin-top:10px}
+.beats{margin-top:10px} .beat{display:grid;grid-template-columns:56px 1fr;gap:18px;border-top:1px solid var(--fg);padding:24px 0 26px} .beat .n{font-family:var(--fd);font-size:40px;line-height:.9;font-weight:400;color:var(--mu)}
+.beat .c{font-family:var(--fd);font-size:28px;line-height:1.15;font-weight:500;margin-bottom:12px} .beat .note{font-size:16.5px;line-height:1.55;font-weight:300;margin:12px 0 0}
+.doccard{border:1px solid var(--ln2);background:var(--sf);padding:12px 14px;cursor:pointer;display:grid;grid-template-columns:1fr auto;gap:10px;align-items:start} .doccard:hover{border-color:var(--fg)}
+.doccard .who{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mu);margin-bottom:4px} .doccard .sj{font-weight:500;font-size:14.5px} .doccard .sn{color:var(--fg2);font-size:13.5px;font-weight:300;margin-top:3px} .doccard .id{font-family:var(--fm);font-size:10.5px;color:var(--mu);white-space:nowrap}
+.deeper{border:1px solid var(--fg);padding:20px 22px;margin:30px 0;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;background:var(--sf)} .deeper h3{font-size:24px;margin:4px 0}
+.shelf{border-top:1px solid var(--fg);margin:30px 0;padding-top:12px} .bk{display:grid;grid-template-columns:64px 1fr;gap:16px;padding:12px 0;border-bottom:1px solid var(--ln);align-items:start}
+.bk .cv{width:64px;height:92px;background:var(--fg);color:var(--bg);display:flex;flex-direction:column;justify-content:flex-end;padding:7px 6px;font-family:var(--fd);font-size:9.5px;line-height:1.1;position:relative} .bk .cv::before{content:'';position:absolute;left:6px;top:0;bottom:0;width:1px;background:color-mix(in srgb,var(--bg) 40%,transparent)}
+.bk .t{font-family:var(--fd);font-size:21px;line-height:1.15} .bk .a{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);margin:3px 0 4px} .bk .n{font-size:13.5px;color:var(--fg2);font-weight:300}
+@media (max-width:1100px){ .sgrid.shorts{grid-template-columns:repeat(3,1fr)} }
+@media (max-width:860px){ .sgrid.shorts{grid-template-columns:repeat(2,1fr)} .sh{flex-basis:200px} .beat{grid-template-columns:1fr;gap:8px} .beat .n{font-size:26px} .beat .c{font-size:23px} .rail{margin:0 -16px;padding:4px 16px 14px} }
+
 /* ============================================================ cinema overlay ============================================================ */
 #cinema{position:fixed;inset:0;background:#000;z-index:80;color:#fff;font-family:var(--fb);overflow:hidden}
 #cinema.hidden{display:none}
@@ -362,6 +391,19 @@ canvas.net{width:100%;height:640px;display:block;cursor:grab;background:var(--sf
 @media (max-width:860px){ :root{--lbh:calc(8vh + env(safe-area-inset-top,0px))} #cin-grain{animation:none;opacity:.03} .lbar.top{height:var(--lbh)} .lbar.bot{height:calc(8vh + env(safe-area-inset-bottom,0px))} .cin-ctl{bottom:env(safe-area-inset-bottom,0px);height:8vh} .cin-ctl button{padding:10px 11px;font-size:11px} .cin-stamp{top:calc(1.4vh + env(safe-area-inset-top,0px))} .cin-doc{top:calc(3.6vh + env(safe-area-inset-top,0px))} .cin-start,.cin-end{padding:30px 20px calc(30px + env(safe-area-inset-bottom,0px))} .cin-end .row button{padding:12px 14px} .cin-sub{display:none} .cin-ctl{height:8vh;padding:0 10px;gap:4px} .cin-ctl .lbl{display:none} .cin-stamp{top:1.4vh;font-size:8.5px;max-width:34vw;left:3vw} .cin-doc{top:4.2vh;right:2vw;font-size:8.5px;padding:5px 7px} .cin-slate h2{font-size:34px} .cin-start h2{font-size:38px} .cin-play{width:70px;height:70px} }
 .mb .ab{height:34px;background:#f1f3f4;display:flex;align-items:center;padding:0 10px;flex:none} .mb .ab .url{flex:1;background:#fff;border-radius:10px;height:26px;display:flex;align-items:center;padding:0 10px;font-size:11px;color:#202124;overflow:hidden;white-space:nowrap} .mb .br-page{padding:16px 16px} .mb .br-page .mh{font-size:20px} .mb .br-page h1{font-size:22px} .mb .br-page .lede{font-size:13.5px} .mb .br-page .kick{margin:14px 0 6px;font-size:9.5px} .mb .br-page .by{font-size:11px;margin:8px 0 10px}
 
+/* ----- captions (shorts) and book cards ----- */
+.cin-cap{position:absolute;left:50%;top:2.2vh;transform:translateX(-50%);z-index:9;max-width:min(760px,56vw);text-align:center;font:600 clamp(15px,1.5vw,20px)/1.25 var(--fb);color:#fff;padding:6px 14px;opacity:0;transition:opacity .3s;letter-spacing:.01em;pointer-events:none}
+.cin-cap.on{opacity:1} .cin-cap.on ~ .cin-sub{display:none}
+.cin-slate .cold{font-family:var(--fd);font-style:italic;font-weight:400;font-size:clamp(28px,4.6vw,60px);line-height:1.12;color:#fff;max-width:26ch}
+.cin-slate .cold::before{content:'\201C';display:block;font-size:1.6em;line-height:.6;opacity:.5;margin-bottom:10px}
+.cin-slate .capslate{font:600 clamp(22px,3.4vw,44px)/1.2 var(--fb);color:#fff;max-width:28ch;letter-spacing:-.01em}
+.cin-slate .capslate b{display:block;font:500 11px/1 var(--fb);letter-spacing:.34em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:18px}
+.bookcard{width:min(420px,80vw);aspect-ratio:2/3;background:#efe9dc;color:#111;padding:34px 30px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 40px 80px rgba(0,0,0,.7),inset 14px 0 0 #1b2838;position:relative;z-index:5;transform:rotate(-2deg);text-align:left}
+.bookcard .pub{font:500 10px/1 var(--fb);letter-spacing:.3em;text-transform:uppercase;color:#6e6b63}
+.bookcard h3{font-family:var(--fd);font-weight:500;font-size:clamp(26px,3.2vw,40px);line-height:1.05;margin:18px 0 10px} .bookcard .au{font:500 12px/1.4 var(--fb);letter-spacing:.18em;text-transform:uppercase;color:#1b2838}
+.bookcard .note{font-family:var(--fd);font-style:italic;font-size:17px;line-height:1.35;color:#2a2a28}
+@media (max-width:860px){ .cin-cap{top:auto;bottom:calc(8vh + env(safe-area-inset-bottom,0px) + 10px);font-size:15px;max-width:92vw;background:rgba(0,0,0,.6)} .bookcard{padding:22px 20px} .bookcard h3{font-size:24px} }
+
 /* ============================================================ studio ============================================================ */
 .studio{display:grid;grid-template-columns:260px 1fr;gap:26px;align-items:start}
 .studio .side{border:1px solid var(--ln);background:var(--sf);padding:14px;position:sticky;top:76px} .studio .side .draft{padding:9px 6px;border-bottom:1px solid var(--ln);cursor:pointer;font-size:14px} .studio .side .draft.on{font-weight:500;background:var(--sf2)} .studio .side .draft small{display:block;font-family:var(--fm);font-size:10.5px;color:var(--mu)}
@@ -384,6 +426,7 @@ canvas.net{width:100%;height:640px;display:block;cursor:grab;background:var(--sf
 
 <header id="top"><div class="wrap">
   <a class="brand" href="#home" data-nav="home">Inbox Atlas<small>beta 0.2</small></a>
+  <button id="fs" class="fs-btn" title="Fill the screen" aria-label="Full screen">⛶ Full screen</button>
   <button id="menu" class="menu-btn" aria-label="Menu" aria-expanded="false">☰ Menu</button>
   <div id="panel">
   <nav class="main">
@@ -455,6 +498,7 @@ canvas.net{width:100%;height:640px;display:block;cursor:grab;background:var(--sf
     <button class="cin-doc" id="cin-doc">Open document</button>
     <div class="cin-device" id="cin-device"></div>
     <div class="cin-slate" id="cin-slate"></div>
+    <div class="cin-cap" id="cin-cap"></div>
     <div class="cin-sub" id="cin-sub"></div>
   </div>
   <svg id="cin-grain" xmlns="http://www.w3.org/2000/svg"><filter id="grainf"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" stitchTiles="stitch"/><feColorMatrix values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .9 0"/></filter><rect width="100%" height="100%" filter="url(#grainf)"/></svg>
@@ -523,7 +567,8 @@ function index(){
   for (const t of DB.texts){ TX[t.i] = t; t.lc = (t.p.join(' ')+' '+t.m.map(m=>m.x).join(' ')).toLowerCase(); }
   for (const d of DB.docs){ DC[d.i] = d; d.lc = (d.i+' '+d.a+' '+d.n+' '+d.cm+' '+d.T).toLowerCase(); }
   for (const p of DB.people) PP[p.n] = p;
-  DB.stories.forEach((s, i) => { s.num = i+1; });
+  let nl = 0, ns = 0; DB.stories.forEach(s => { if (s.fmt === 'short') s.snum = ++ns; else s.num = ++nl; });
+  DB.longs = DB.stories.filter(s => s.fmt !== 'short'); DB.shorts = DB.stories.filter(s => s.fmt === 'short');
   rebuildStories();
   DB.emails.sort((a,b)=> a.t<b.t? 1 : a.t>b.t? -1 : 0);
 }
@@ -558,7 +603,7 @@ function route(){
   const h = (location.hash||'#home').slice(1);
   const [view, ...rest] = h.split('-'); const arg = rest.join('-');
   closeDrawer(false); closeMenu();
-  const map = { home: renderHome, stories: renderStories, story: ()=>renderStory(arg), films: renderFilms, editions: renderEditions, edition: ()=>renderEdition(arg), trails: renderTrails, inbox: ()=>renderInbox(arg), texts: ()=>renderTexts(arg), docs: ()=>renderDocs(arg), people: renderPeople, person: ()=>renderPerson(decodeURIComponent(arg)), maps: ()=>renderMaps(arg), flows: ()=>renderFlows(arg), studio: ()=>renderStudio(arg), atlas: renderAtlas, notes: renderNotes, email: ()=>{ renderInbox(''); openEmail(arg, true); }, text: ()=>{ renderTexts(arg); }, doc: ()=>{ renderDocs(''); openDoc(arg); }, trail: ()=>startTrail(arg), film: ()=>{ renderFilms(); playFilm(arg); } };
+  const map = { home: renderHome, stories: ()=>renderStories(arg), story: ()=>renderStory(arg), films: renderFilms, editions: renderEditions, edition: ()=>renderEdition(arg), trails: renderTrails, inbox: ()=>renderInbox(arg), texts: ()=>renderTexts(arg), docs: ()=>renderDocs(arg), people: renderPeople, person: ()=>renderPerson(decodeURIComponent(arg)), maps: ()=>renderMaps(arg), flows: ()=>renderFlows(arg), studio: ()=>renderStudio(arg), atlas: renderAtlas, notes: renderNotes, email: ()=>{ renderInbox(''); openEmail(arg, true); }, text: ()=>{ renderTexts(arg); }, doc: ()=>{ renderDocs(''); openDoc(arg); }, trail: ()=>startTrail(arg), film: ()=>{ renderFilms(); playFilm(arg); } };
   const fn = map[view] || renderHome;
   const vid = ({email:'inbox', trail:'story', text:'texts', doc:'docs', film:'films'})[view] || view;
   $$('.view').forEach(v => v.classList.toggle('on', v.id === 'v-'+(map[view]? vid : 'home')));
@@ -605,6 +650,28 @@ function paintPlates(root=document){ $$('.plate canvas', root).forEach(c => { co
 /* ============================================================ global controls ============================================================ */
 function setSens(v){ state.showSens = v; LS.set('sens', v); $('#sens').checked = v; }
 const NARROW = () => window.innerWidth < 760;
+/* ---- full screen: inside LANscape (or any page that frames this one) ask the parent to hide its chrome; otherwise use the browser's own full screen ---- */
+const FRAMED = (() => { try { return window.top !== window.self; } catch (e) { return true; } })();
+if (FRAMED) document.documentElement.classList.add('framed');
+const FS = { on: false, auto: false, pending: null };
+function setFsState(on){ FS.on = !!on; const b = $('#fs'); if (b) b.textContent = FS.on ? '⤡ Exit full screen' : '⛶ Full screen'; document.documentElement.classList.toggle('fullscreen', FS.on); }
+function requestFull(on){
+  on = on == null ? !FS.on : !!on;
+  if (FRAMED){
+    try { window.parent.postMessage({ lanscape: 'fullscreen', on }, '*'); } catch (e) {}
+    clearTimeout(FS.pending);
+    // no answer from the parent: open this page in a tab of its own
+    FS.pending = setTimeout(() => { if (on && !FS.on) { try { window.open(location.href, '_blank', 'noopener'); } catch (e) {} } }, 600);
+    return;
+  }
+  try {
+    if (on && document.documentElement.requestFullscreen && !document.fullscreenElement) document.documentElement.requestFullscreen().then(()=>setFsState(true)).catch(()=>{});
+    else if (!on && document.fullscreenElement && document.exitFullscreen) document.exitFullscreen().then(()=>setFsState(false)).catch(()=>{});
+  } catch (e) {}
+}
+window.addEventListener('message', e => { const d = e.data; if (d && d.lanscape === 'fullscreen-ok'){ clearTimeout(FS.pending); setFsState(!!d.on); } });
+document.addEventListener('fullscreenchange', () => { if (!FRAMED) setFsState(!!document.fullscreenElement); });
+$('#fs').addEventListener('click', () => requestFull());
 $('#menu').addEventListener('click', () => { const h = $('#top'); const on = h.classList.toggle('open'); $('#menu').setAttribute('aria-expanded', on); $('#menu').textContent = on? '✕ Close' : '☰ Menu'; });
 function closeMenu(){ const h = $('#top'); if (h.classList.contains('open')){ h.classList.remove('open'); $('#menu').setAttribute('aria-expanded','false'); $('#menu').textContent = '☰ Menu'; } }
 document.addEventListener('click', ev => { if ($('#top').classList.contains('open') && !ev.target.closest('#top')) closeMenu(); });
@@ -619,7 +686,7 @@ function renderHome(){
   const guided = (W.stories+W.posts+W.bios)/230/60;
   const nonSens = DB.emails.filter(e=>!e.sn && !e.d && e.x && (e.b||e.T).length>80 && (e.b||e.T).length<900);
   const pick = nonSens[Math.floor(Math.random()*nonSens.length)];
-  const lead = STORY['hotmic'] || DB.stories[0]; const feats = DB.stories.filter(s=>s.id!==lead.id).slice(0,5);
+  const lead = STORY['hotmic'] || DB.longs[0]; const feats = DB.longs.filter(s=>s.id!==lead.id).slice(0,5);
   const starts = [TRAILS.find(t=>t.id==='hotmic'), TRAILS.find(t=>t.id==='wolff'), TRAILS.find(t=>t.id==='endgame')].filter(Boolean);
   const v = $('#v-home');
   v.innerHTML = `
@@ -627,18 +694,22 @@ function renderHome(){
     <div>
       <div class="eyebrow">A reading room for the released Epstein emails · Autumn edition</div>
       <h1>The inbox,<br><em>mapped</em> and <em>screened</em>.</h1>
-      <p class="lede">${fmt(DB.emails.length)} emails, ${fmt(DB.texts.length)} text-message logs and ${fmt(DB.docs.length)} documents from the House Oversight and DOJ releases. ${DB.stories.length} long reads pinned to their sources, each one playable as a short film of the conversation as it appeared on a phone or a screen. Maps of who wrote to whom, flows of what moved between them, trails to read the sources in order, and a studio to write your own.</p>
-      <div class="cta"><button class="pri" onclick="go('story-${lead.id}')">Read the lead story</button><button onclick="go('film-${lead.id}')">▶ Watch it</button><button onclick="go('inbox')">Open the inbox</button></div>
+      <p class="lede">${fmt(DB.emails.length)} emails, ${fmt(DB.texts.length)} text-message logs and ${fmt(DB.docs.length)} documents from the House Oversight and DOJ releases. ${DB.longs.length} long reads and ${DB.shorts.length} shorts, every quotation pinned to its source, each one playable as a film of the conversation as it appeared on a phone or a screen. Maps of who wrote to whom, flows of what moved between them, trails to read the sources in order, and a studio to write your own.</p>
+      <div class="cta"><button class="pri" onclick="go('film-${DB.shorts[0].id}')">▶ Watch a short</button><button onclick="go('story-${lead.id}')">Read the lead story</button><button onclick="go('inbox')">Open the inbox</button></div>
       <div class="ticker">
         <div class="t"><b class="tn">${Math.round(hours)}</b>hours of content</div>
-        <div class="t"><b class="tn">${DB.stories.length}</b>stories · ${TRAILS.filter(t=>!t.own&&!t.community).length} trails</div>
+        <div class="t"><b class="tn">${DB.longs.length}</b>long reads · ${DB.shorts.length} shorts</div>
         <div class="t"><b class="tn">${fmt(DB.people.length)}</b>people with profiles</div>
         <div class="t"><b class="tn">${DB.stories.length + DB.texts.filter(t=>!t.sn&&t.m.length>=6).length}</b>films to watch</div>
       </div>
     </div>
     ${plateHtml('mast-'+lead.id, lead.kicker+' · '+lead.period, roman(lead.num))}
   </div>
-  <div class="sec"><div class="sec-h"><h2>Lead story</h2><a href="#stories">All ${DB.stories.length} stories →</a></div>
+  <div class="sec"><div class="sec-h"><h2>Shorts</h2><a href="#stories-shorts">All ${DB.shorts.length} shorts →</a></div>
+    <p class="mu" style="max-width:70ch;margin:-6px 0 12px;font-size:13.5px">Sixty to ninety seconds each. One hook, five or six documents, the press that followed. Tap to watch.</p>
+    <div class="rail">${DB.shorts.map(shortCard).join('')}</div>
+  </div>
+  <div class="sec"><div class="sec-h"><h2>Lead story</h2><a href="#stories">All ${DB.longs.length} long reads →</a></div>
     <div class="sgrid">${storyCard(lead, true)}${feats.slice(0,1).map(s=>storyCard(s)).join('')}${feats.slice(1,4).map(s=>storyCard(s)).join('')}</div>
   </div>
   <div class="sec"><div class="sec-h"><h2>Start a trail</h2><a href="#trails">All trails →</a></div>
@@ -658,25 +729,59 @@ function renderHome(){
   drawTimeline($('#home-tl'), true); paintPlates(v);
 }
 function clockBar(label, w, total, cls){ return `<div><span>${label}</span><i class="${cls}" style="width:${Math.max(1,100*w/total).toFixed(1)}%"></i><span class="mono tn" style="text-align:right">${(w/230/60).toFixed(1)} h</span></div>`; }
+function filmSecs(s){ if (s.fmt === 'short') return Math.round(14 + (s.beats||[]).length*13 + (s.press||[]).length*9 + (s.books||[]).length*5); return filmLength(s)*60; }
+function fmtSecs(n){ return n < 100 ? n + ' s' : Math.round(n/60) + ' min'; }
+function shortCard(s){ return `<div class="sh" onclick="go('film-${s.id}')">${plateHtml('short-'+s.id, '', '')}<div class="grad"></div><div class="top"><b>▶ ${fmtSecs(filmSecs(s))}</b><span>No. ${s.snum||''}</span></div><div class="hook">${esc(s.hook||s.dek)}<small>${esc(s.title)} · ${esc(s.period)}</small></div></div>`; }
 function storyCard(s, feat){
   const own = s.own? 'Your story' : s.community? 'Reader story' : s.kicker;
-  return `<div class="scard ${feat?'feat':''}" onclick="go('story-${s.id}')">${plateHtml('card-'+s.id, s.period, s.num? roman(s.num):'')}<div class="in"><div class="eyebrow">${esc(own)}</div><h3>${esc(s.title)}</h3><div class="dek">${esc(s.dek)}</div><div class="meta"><span>${esc(s.period)}</span><span>${s.min||minutes(wordsOf((s.body||[]).map(b=>b.h).join(' ')))} min</span><span>${(s.trail||[]).length} docs</span><span>▶ film</span></div></div></div>`;
+  if (s.fmt === 'short' && !feat) return shortCard(s);
+  return `<div class="scard ${feat?'feat':''}" onclick="go('story-${s.id}')">${plateHtml('card-'+s.id, s.period, s.num? roman(s.num):'')}<div class="in"><div class="eyebrow">${esc(own)}</div><h3>${esc(s.title)}</h3><div class="dek">${esc(s.dek)}</div><div class="meta"><span>${esc(s.period)}</span><span>${s.min||minutes(wordsOf((s.body||[]).map(b=>b.h).join(' ')))} min</span><span>${(s.trail||[]).length} docs</span><span>▶ ${fmtSecs(filmSecs(s))}</span></div></div></div>`;
 }
 
 /* ============================================================ stories ============================================================ */
-function renderStories(){
-  const v = $('#v-stories');
-  v.innerHTML = `<div class="page-h"><div><div class="eyebrow">Long reads built from the documents</div><h1>Stories</h1><p>Each story is a narrative with every quotation pinned to its source document. Click a reference to open it, start the trail to read the sources in order, or watch the story as a film: the messages replayed on the screens they were written on.</p></div><div><button onclick="go('studio')">Write your own</button></div></div>
-  <div class="sgrid">${DB.stories.map(s=>storyCard(s)).join('')}</div>
+function renderStories(tab){
+  const v = $('#v-stories'); tab = tab || 'all';
+  const seg = `<div class="seg">${[['all','All'],['shorts','Shorts'],['long','Long reads']].map(([k,l])=>`<button class="${tab===k?'on':''}" onclick="go('stories${k==='all'?'':'-'+k}')">${l}</button>`).join('')}</div>`;
+  v.innerHTML = `<div class="page-h"><div><div class="eyebrow">Built from the documents</div><h1>Stories</h1><p>Two speeds. <b>Shorts</b> are sixty to ninety seconds: one hook, five or six documents, a caption each, the press that followed. <b>Long reads</b> are the full account, every quotation pinned to its source. Both run as trails and play as films.</p></div><div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">${seg}<button onclick="go('studio')">Write your own</button></div></div>
+  ${tab!=='long'? `<div class="sec" style="margin-top:0"><div class="sec-h"><h2>Shorts</h2><span class="mu" style="font-size:12px">${DB.shorts.length} · tap to watch, or open for the beats</span></div><div class="sgrid shorts">${DB.shorts.map(shortCard).join('')}</div></div>`:''}
+  ${tab!=='shorts'? `<div class="sec"><div class="sec-h"><h2>Long reads</h2><span class="mu" style="font-size:12px">${DB.longs.length} · 8 to 12 minutes each</span></div><div class="sgrid">${DB.longs.map(s=>storyCard(s)).join('')}</div></div>`:''}
   ${USER_STORIES.length? `<div class="sec"><div class="sec-h"><h2>Your stories</h2><a href="#studio">Open the studio →</a></div><div class="sgrid">${USER_STORIES.map(s=>storyCard(s)).join('')}</div></div>`:''}
   ${COMMUNITY.length? `<div class="sec"><div class="sec-h"><h2>Reader stories</h2><span class="mu" style="font-size:12px">from this site's stories/ folder</span></div><div class="sgrid">${COMMUNITY.map(s=>storyCard(s)).join('')}</div></div>`:''}`;
   paintPlates(v);
 }
+function shelfHtml(s){ const b = s.books||[]; if (!b.length) return ''; return `<div class="shelf"><h4>From the shelf · books in this story</h4>${b.map(x=>`<div class="bk"><div class="cv">${esc(x.title)}</div><div><div class="t">${esc(x.title)}</div><div class="a">${esc(x.author)} · ${esc(x.publisher)}, ${esc(x.year)}</div><div class="n">${esc(x.note||'')}</div></div></div>`).join('')}</div>`; }
+function pressHtml(s){ const p = s.press||[]; if (!p.length) return ''; return `<div class="press"><h4>From the press · opened in the film as backup</h4>${p.map(x=>`<div class="pr"><div><div class="o">${esc(x.outlet)}</div><div class="mono mu">${esc(x.date)}</div></div><div><a href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.title)} ↗</a><div class="n">${esc(x.note||'')}</div></div></div>`).join('')}</div>`; }
+function docCard(ref){
+  if (ref.startsWith('t:')){ const t = TX[ref.slice(2)]; if (!t) return ''; return `<div class="doccard" onclick="go('text-${esc(t.i)}')"><div><div class="who">Text log · ${esc(t.p.join(', '))}</div><div class="sj">${t.m.length} messages · ${esc(longDate(t.t))}</div><div class="sn">${esc((t.m[0]||{}).x||'').slice(0,120)}</div></div><div class="id">${esc(t.i)} ›</div></div>`; }
+  if (ref.startsWith('d:')){ const d = DC[ref.slice(2)]; if (!d) return ''; return `<div class="doccard" onclick="openDoc('${esc(d.i)}')"><div><div class="who">Document · ${esc(catLabel(d.c))}${d.t? ' · '+esc(dateFmt(d.t)):''}</div><div class="sj">${esc(d.n||d.cm||'')}</div><div class="sn">${esc(d.T.replace(/\s+/g,' ').slice(0,140))}</div></div><div class="id">${esc(d.i)} ›</div></div>`; }
+  const e = EM[ref]; if (!e) return '';
+  const gated = e.sn && !state.showSens && !state.reveal.has(e.i);
+  return `<div class="doccard" onclick="openEmail('${esc(e.i)}')"><div><div class="who">${esc(e.a||'unknown')} → ${esc(e.r.slice(0,2).join(', ')||'—')} · ${esc(niceDate(e.t))}</div><div class="sj">${esc(e.j||'(no subject)')}</div><div class="sn">${gated? '(behind the sensitive-content setting)' : esc(snippet(e, 150))}</div></div><div class="id">${esc(e.i)} ›</div></div>`;
+}
+function renderShort(s){
+  const v = $('#v-story'); const done = state.done[s.id] || []; const long = s.long && STORY[s.long];
+  v.innerHTML = `<article class="short">
+    <div class="eyebrow">Short · No. ${s.snum||''} · ${esc(s.period)} · ▶ ${fmtSecs(filmSecs(s))}</div>
+    <h1 class="hook">${esc(s.hook||s.title)}</h1>
+    <div class="meta" style="display:flex;gap:16px;flex-wrap:wrap;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mu);border-top:1px solid var(--fg);border-bottom:1px solid var(--ln);padding:10px 0;margin:6px 0 14px"><span>${esc(s.title)}</span><span>${(s.beats||[]).length} documents</span><span>${(s.press||[]).length} articles</span>${(s.books||[]).length? `<span>${s.books.length} books</span>`:''}</div>
+    <div class="actions"><button class="pri" onclick="go('film-${s.id}')">▶ Watch (${fmtSecs(filmSecs(s))})</button><button onclick="go('trail-${s.id}')">Read the documents in order</button>${long? `<button class="ghost" onclick="go('story-${long.id}')">Go deeper: ${esc(long.title)}</button>`:''}</div>
+    ${plateHtml('story-'+s.id, s.title+' · '+s.period, '', 'wide')}
+    <p style="font-size:18px;font-weight:300;line-height:1.55">${esc(s.dek)}</p>
+    <div class="ppl">${(s.people||[]).map(p => `<span class="chip" onclick="go('person-${encodeURIComponent(p)}')">${esc(p)}</span>`).join('')}</div>
+    ${s.cold? `<div class="cold">${esc(s.cold)}<small>from the documents below</small></div>`:''}
+    <div class="beats">${(s.beats||[]).map((b,i)=>`<div class="beat"><div class="n">${String(i+1).padStart(2,'0')}</div><div><div class="c">${esc(b.c)}</div>${docCard(b.i)}<p class="note">${esc(b.n)}</p></div></div>`).join('')}</div>
+    ${pressHtml(s)}${shelfHtml(s)}
+    ${long? `<div class="deeper"><div><div class="eyebrow">Go deeper · long read</div><h3>${esc(long.title)}</h3><div class="mu" style="font-size:13.5px;max-width:60ch">${esc(long.dek)}</div></div><div style="display:flex;gap:8px"><button class="pri" onclick="go('story-${long.id}')">Read · ${long.min} min</button><button onclick="go('film-${long.id}')">▶ Watch</button></div></div>`:''}
+    <div class="trail-box"><div class="eyebrow">Trail · ${done.length}/${s.trail.length} done</div><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:6px"><button class="pri" onclick="go('trail-${s.id}')">Start trail</button>${done.length? `<button onclick="resetTrail('${s.id}')">Reset progress</button>`:''}</div></div>
+  </article>`;
+  paintPlates(v);
+}
 function renderStory(id){
   const s = STORY[id]; const v = $('#v-story'); if(!s){ v.innerHTML = '<p>Story not found.</p>'; return; }
+  if (s.fmt === 'short') return renderShort(s);
   const hero = EM[s.hero];
   const done = state.done[s.id] || [];
-  const related = DB.stories.filter(o => o.id!==s.id && (o.people||[]).some(p => (s.people||[]).includes(p))).slice(0,3);
+  const related = DB.longs.filter(o => o.id!==s.id && (o.people||[]).some(p => (s.people||[]).includes(p))).slice(0,3);
   const body = s.body || [];
   v.innerHTML = `<article class="story">
     <div class="eyebrow">${esc(s.own? 'Your story' : s.community? 'Reader story · '+(s.author||'') : s.kicker)}${s.num? ' · No. '+roman(s.num):''}</div><h1>${esc(s.title)}</h1><div class="dek">${esc(s.dek)}</div>
@@ -687,7 +792,8 @@ function renderStory(id){
     ${hero? `<div class="hero-e" onclick="openEmail('${hero.i}')"><div class="eyebrow">Lead document</div><div class="q">${esc(hero.sn && !state.showSens? '(sensitive document; open to reveal)' : snippet(hero, 300))}</div><div class="m">${esc(hero.a||'unknown')} → ${esc(hero.r.slice(0,2).join(', ')||'')} · ${niceDate(hero.t)} · ${esc(hero.i)}</div></div>`:''}
     ${body.map(b => b.t==='h'? `<h2>${esc(b.h)}</h2>` : `<p>${refs(b.h)}</p>`).join('')}
     ${s.flow && s.flow.links && s.flow.links.length? `<div class="sb-wrap"><h3>${esc(s.flow.title)}</h3><div class="panel" id="story-flow"></div></div>`:''}
-    ${(s.press||[]).length? `<div class="press"><h4>From the press · opened in the film as backup</h4>${s.press.map(p=>`<div class="pr"><div><div class="o">${esc(p.outlet)}</div><div class="mono mu">${esc(p.date)}</div></div><div><a href="${esc(p.url)}" target="_blank" rel="noopener">${esc(p.title)} ↗</a><div class="n">${esc(p.note||'')}</div></div></div>`).join('')}</div>`:''}
+    ${pressHtml(s)}${shelfHtml(s)}
+    ${DB.shorts.filter(x=>x.long===s.id).length? `<div class="deeper"><div><div class="eyebrow">In ninety seconds</div><h3>${esc(DB.shorts.find(x=>x.long===s.id).title)}</h3><div class="mu" style="font-size:13.5px;max-width:60ch">The short version of this story: ${DB.shorts.find(x=>x.long===s.id).beats.length} documents, one caption each.</div></div><div style="display:flex;gap:8px"><button class="pri" onclick="go('film-${DB.shorts.find(x=>x.long===s.id).id}')">▶ Watch</button><button onclick="go('story-${DB.shorts.find(x=>x.long===s.id).id}')">Open</button></div></div>`:''}
     ${(s.trail||[]).length? `<div class="trail-box"><div class="eyebrow">Reading trail · ${done.length}/${s.trail.length} done</div><h3 style="font-size:22px;margin:4px 0 6px">Read the sources in order</h3><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="pri" onclick="go('trail-${s.id}')">Start trail</button>${done.length? `<button onclick="resetTrail('${s.id}')">Reset progress</button>`:''}</div>
       <ol>${s.trail.map((t,i)=>`<li class="${done.includes(t.i)?'done':''}" onclick="startTrail('${s.id}',${i})"><span class="mono mu">${esc(refDate(t.i))}</span> · ${esc(t.n)}</li>`).join('')}</ol></div>`:''}
     ${related.length? `<div class="sec"><div class="sec-h"><h2>Related stories</h2></div><div class="sgrid">${related.map(x=>storyCard(x)).join('')}</div></div>`:''}
@@ -702,12 +808,13 @@ function refDate(i){ if (i.startsWith('t:')){ const t = TX[i.slice(2)]; return t
 function renderFilms(){
   const v = $('#v-films'); if (v.dataset.ok) return; v.dataset.ok = 1;
   const logs = DB.texts.filter(t=>!t.sn && t.m.length>=6).sort((a,b)=> b.m.length-a.m.length);
-  v.innerHTML = `<div class="page-h"><div><div class="eyebrow">Dramatized playback of the documents</div><h1>Films</h1><p>Every story can be watched as a short film. The emails and texts are replayed on simulated screens, a phone's messages, a phone's mail, a desktop mailbox, with the real dates, names and words; a slate between scenes carries the story's commentary, and when a story leans on the public record a browser window opens the article. Nothing is invented. Sound on for the keystrokes.</p></div></div>
-  <div class="sgrid">${DB.stories.map(s=>`<div class="scard" onclick="go('film-${s.id}')">${plateHtml('film-'+s.id, s.period, roman(s.num))}<div class="in"><div class="eyebrow">${esc(s.kicker)} · ${filmLength(s)} min</div><h3>${esc(s.title)}</h3><div class="dek">${esc(s.dek)}</div><div class="meta"><span>▶ ${(s.trail||[]).length} scenes</span>${(s.press||[]).length? `<span>${s.press.length} articles</span>`:''}</div></div></div>`).join('')}</div>
+  v.innerHTML = `<div class="page-h"><div><div class="eyebrow">Dramatized playback of the documents</div><h1>Films</h1><p>Every story can be watched. The emails and texts are replayed on simulated screens, a phone's messages, a phone's mail, a desktop mailbox, with the real dates, names and words; a slate between scenes carries the story's commentary, and when a story leans on the public record a browser window opens the article, or a book card names the book. Nothing is invented. Sound on for the keystrokes.</p></div></div>
+  <div class="sec" style="margin-top:0"><div class="sec-h"><h2>Shorts</h2><span class="mu" style="font-size:12px">${DB.shorts.length} · sixty to ninety seconds</span></div><div class="sgrid shorts">${DB.shorts.map(shortCard).join('')}</div></div>
+  <div class="sec"><div class="sec-h"><h2>Long reads</h2><span class="mu" style="font-size:12px">${DB.longs.length} · six to ten minutes</span></div><div class="sgrid">${DB.longs.map(s=>`<div class="scard" onclick="go('film-${s.id}')">${plateHtml('film-'+s.id, s.period, roman(s.num))}<div class="in"><div class="eyebrow">${esc(s.kicker)} · ${filmLength(s)} min</div><h3>${esc(s.title)}</h3><div class="dek">${esc(s.dek)}</div><div class="meta"><span>▶ ${(s.trail||[]).length} scenes</span>${(s.press||[]).length? `<span>${s.press.length} articles</span>`:''}${(s.books||[]).length? `<span>${s.books.length} books</span>`:''}</div></div></div>`).join('')}</div></div>
   <div class="sec"><div class="sec-h"><h2>Text conversations</h2><a href="#texts">All logs →</a></div><p class="mu" style="max-width:70ch">The recovered iMessage logs, replayed one bubble at a time.</p><div class="list">${logs.slice(0,40).map(t=>`<div class="row-e" onclick="go('film-text:${t.i}')"><span class="dt">${esc(dateFmt(t.t))}</span><span class="au">${esc(t.p.filter(p=>p!=='Jeffrey Epstein').join(', ')||'(unattributed)')}</span><span class="sj"><span>${t.m.length} messages · ${esc(t.m[0].x.slice(0,80))}</span></span><span class="bd"><span class="pill">▶ play</span></span></div>`).join('')}</div></div>`;
   paintPlates(v);
 }
-function filmLength(s){ return Math.max(2, Math.round(((s.trail||[]).length*22 + (s.press||[]).length*14 + 30)/60)); }
+function filmLength(s){ return Math.max(2, Math.round(((s.trail||[]).length*22 + (s.press||[]).length*14 + (s.books||[]).length*6 + 30)/60)); }
 
 /* ============================================================ editions ============================================================ */
 function busiestYears(n){ const c = {}; for (const e of DB.emails){ if (!e.d && e.t){ const y=e.t.slice(0,4); if (y>='2001'&&y<='2025') c[y]=(c[y]||0)+1; } } return Object.entries(c).sort((a,b)=>b[1]-a[1]).slice(0,n).map(x=>x[0]).sort(); }
@@ -1303,10 +1410,10 @@ function renderAtlas(){
 }
 
 /* ============================================================ cinema: runner ============================================================ */
-const CIN = { on:false, scenes:[], idx:0, playing:false, speed:1, muted:LS.get('mute', false), token:0, title:'', sub:'', back:null, sceneT:0, sceneDur:1, story:null, lastSet:'' };
+const CIN = { on:false, scenes:[], idx:0, playing:false, speed:1, muted:LS.get('mute', false), token:0, title:'', sub:'', back:null, sceneT:0, sceneDur:1, story:null, lastSet:'', fast:false, cap:'' };
 const SKIP = Symbol('skip');
 const SPEEDS = [1, 1.5, 2, 0.75];
-function wait(ms){ const tok = CIN.token; return new Promise((res, rej) => { let acc = 0, last = performance.now(); function tick(now){ if (CIN.token !== tok) return rej(SKIP); if (CIN.playing){ const d = (now-last)*CIN.speed; acc += d; CIN.sceneT += d; } last = now; cinProgress(); if (acc >= ms) res(); else requestAnimationFrame(tick); } requestAnimationFrame(tick); }); }
+function wait(ms){ ms = ms * (CIN.fast ? 0.62 : 1); const tok = CIN.token; return new Promise((res, rej) => { let acc = 0, last = performance.now(); function tick(now){ if (CIN.token !== tok) return rej(SKIP); if (CIN.playing){ const d = (now-last)*CIN.speed; acc += d; CIN.sceneT += d; } last = now; cinProgress(); if (acc >= ms) res(); else requestAnimationFrame(tick); } requestAnimationFrame(tick); }); }
 function cinProgress(){ const cur = $('#cin-pb i.cur'); if (cur) cur.style.setProperty('--p', Math.min(100, 100*CIN.sceneT/Math.max(1,CIN.sceneDur)).toFixed(1)+'%'); }
 
 function sceneText(e, cap=720){
@@ -1325,13 +1432,14 @@ function stamp(html){ const s = $('#cin-stamp'); if (!html){ s.classList.remove(
 function sub(name, text){ const s = $('#cin-sub'); if (!text){ s.classList.remove('on'); return; } s.innerHTML = (name? `<b>${esc(name)}</b>`:'') + esc(text); s.classList.add('on'); }
 function docBtn(id){ const b = $('#cin-doc'); if (!id){ b.classList.remove('on'); b.onclick = null; return; } b.textContent = 'Open document ' + id.replace(/^t:/,''); b.classList.add('on'); b.onclick = () => { exitCinema(); if (id.startsWith('t:')) go('text-'+id.slice(2)); else openEmail(id); }; }
 async function slate(html, ms, solid){ const s = $('#cin-slate'); s.className = 'cin-slate' + (solid? ' solid':''); s.innerHTML = html; await wait(60); s.classList.add('on'); await wait(ms); s.classList.remove('on'); await wait(650); }
-function clearStage(){ $('#cin-device').classList.remove('on'); $('#cin-device').innerHTML=''; const sl = $('#cin-slate'); sl.classList.remove('on'); sub(''); stamp(''); docBtn(''); }
+function clearStage(){ $('#cin-device').classList.remove('on'); $('#cin-device').innerHTML=''; const sl = $('#cin-slate'); sl.classList.remove('on'); sub(''); stamp(''); docBtn(''); caption(''); }
+function caption(text){ const c = $('#cin-cap'); CIN.cap = text || ''; if (!text){ c.classList.remove('on'); return; } c.textContent = text; c.classList.add('on'); }
 function fitDevice(w, h){ const d = $('#cin-device'); const st = $('.cin-stage').getBoundingClientRect(); const lb = $('.lbar').getBoundingClientRect().height; const availH = st.height - 2*lb - 30, availW = st.width - 40; const s = Math.min(availH/h, availW/w, 1.15); d.style.transform = `scale(${s.toFixed(3)})`; }
 window.addEventListener('resize', () => { const d = $('#cin-device'); const el = d.firstElementChild; if (!el || d.classList.contains('full')) return; fitDevice(el.classList.contains('ph')? 360:1040, el.classList.contains('ph')? 740:650); });
 async function showDevice(html, w, h, dur){ const d = $('#cin-device'); d.innerHTML = html; const full = NARROW() && w === 360; d.classList.toggle('full', full); if (full) d.style.transform = ''; else fitDevice(w, h); await wait(40); d.classList.add('on'); CIN.sceneDur = dur||CIN.sceneDur; }
 function cursor(){ let p = $('#cin-device .pointer'); if (!p){ p = document.createElement('div'); p.className = 'pointer'; $('#cin-device').appendChild(p); } return p; }
 async function pointTo(el, click){ const p = cursor(); const d = $('#cin-device').getBoundingClientRect(); const r = el.getBoundingClientRect(); const scale = d.width / $('#cin-device').offsetWidth; p.style.left = ((r.left - d.left)/scale + Math.min(r.width*0.5, 120)) + 'px'; p.style.top = ((r.top - d.top)/scale + r.height*0.55) + 'px'; p.classList.add('on'); await wait(520); if (click){ p.style.transform = 'scale(.8)'; SND.click(); await wait(90); p.style.transform = ''; } }
-async function typeInto(el, text, cps=60, kb){ el.classList.add('has'); let cur = el.querySelector('.cur'); if (!cur){ cur = document.createElement('span'); cur.className='cur'; el.appendChild(cur); } const per = 1000/cps; let buf = ''; const words = text.split(/(\s+)/); for (const w of words){ for (const ch of w){ buf += ch; cur.insertAdjacentText('beforebegin', ch); if (kb) kbHit(kb, ch); SND.key(); const jitter = /[.,!?]/.test(ch)? per*4 : per*(0.6+Math.random()*0.8); await wait(jitter); } el.scrollTop = el.scrollHeight; } return buf; }
+async function typeInto(el, text, cps=60, kb){ if (CIN.fast) cps = cps * 1.5; el.classList.add('has'); let cur = el.querySelector('.cur'); if (!cur){ cur = document.createElement('span'); cur.className='cur'; el.appendChild(cur); } const per = 1000/cps; let buf = ''; const words = text.split(/(\s+)/); for (const w of words){ for (const ch of w){ buf += ch; cur.insertAdjacentText('beforebegin', ch); if (kb) kbHit(kb, ch); SND.key(); const jitter = /[.,!?]/.test(ch)? per*4 : per*(0.6+Math.random()*0.8); await wait(jitter); } el.scrollTop = el.scrollHeight; } return buf; }
 async function revealText(el, text, msPerSentence=380){ el.textContent=''; const parts = text.split(/(?<=[.!?])\s+|\n+/).filter(Boolean); for (let i=0;i<parts.length;i++){ const span = document.createElement('span'); span.textContent = (i? (text.includes('\n') && /\n/.test(text)? '\n':' ') : '') + parts[i]; span.style.opacity = 0; span.style.transition = 'opacity .35s'; el.appendChild(span); requestAnimationFrame(()=> span.style.opacity = 1); await wait(msPerSentence); } }
 function kbHtml(){ const rows = ['qwertyuiop','asdfghjkl','zxcvbnm']; return `<div class="kb" id="cin-kb">${rows.map((r,i)=>`<div class="r">${i===2?'<div class="k w" data-k="shift">⇧</div>':''}${r.split('').map(k=>`<div class="k" data-k="${k}">${k.toUpperCase()}</div>`).join('')}${i===2?'<div class="k w" data-k="bs">⌫</div>':''}</div>`).join('')}<div class="r"><div class="k w" data-k="123">123</div><div class="k sp" data-k=" ">space</div><div class="k ret" data-k="ret">return</div></div></div>`; }
 function kbHit(kb, ch){ const k = ch===' '? ' ' : ch.toLowerCase(); const el = kb.querySelector(`.k[data-k="${CSS.escape(k)}"]`) || kb.querySelector('.k[data-k="123"]'); if (!el) return; el.classList.add('hit'); setTimeout(()=>el.classList.remove('hit'), 110); }
@@ -1363,7 +1471,23 @@ function compileFilm(arg){
   else if (arg.startsWith('email:')){ const e = EM[arg.slice(6)]; if (!e) return null; const ids = e.th && byThread[e.th] ? byThread[e.th] : [e.i]; title = e.j || '(no subject)'; ey = ids.length>1? `Thread · ${ids.length} emails` : 'One email'; sub = `${esc(e.a||'unknown')} · ${longDate(e.t)}`; scenes.push({k:'title', ey, h:title, sub}); for (const i of ids){ const s = emailScene(i); if (s) scenes.push(s); } CIN.back = null; }
   else if (arg.startsWith('person:')){ const n = decodeURIComponent(arg.slice(7)); const mails = DB.emails.filter(e=>!e.d && e.a===n && !isSens(e) && (e.b||e.T).length>60).sort((a,b)=> (b.x-a.x) || (a.t<b.t?-1:1)).slice(0,10).sort((a,b)=>a.t<b.t?-1:1); if (!mails.length) return null; title = n; ey = `${mails.length} emails they wrote`; sub = PP[n]? (PP[n].bio||PP[n].role||'') : ''; scenes.push({k:'title', ey, h:title, sub}); for (const e of mails) scenes.push({k:'email', id:e.i}); CIN.back = 'person-'+encodeURIComponent(n); }
   else if (arg === 'list'){ const ids = state.list.slice(0,12); if (!ids.length) return null; title = 'The current list'; ey = `${ids.length} emails`; scenes.push({k:'title', ey, h:title, sub:'Played in list order.'}); for (const i of ids){ const s = emailScene(i); if (s) scenes.push(s); } CIN.back = null; }
-  else { const s = STORY[arg]; if (!s) return null; CIN.story = s; title = s.title; ey = (s.kicker||'Story')+' · '+(s.period||''); sub = s.dek||''; scenes.push({k:'title', ey, h:title, sub}); const steps = s.trail||[]; steps.forEach((st, i) => { scenes.push({k:'inter', text: st.n, date: refDate(st.i), n: i+1, of: steps.length}); if (st.i.startsWith('t:')){ const t = TX[st.i.slice(2)]; if (t && !(t.sn && !state.showSens && !state.reveal.has(t.i))) scenes.push({k:'text', id:t.i}); } else if (st.i.startsWith('d:')){ const d = DC[st.i.slice(2)]; if (d) scenes.push({k:'inter', text: (d.n||d.cm||'A document in the release')+' — open the trail to read it.', ms:3500}); } else { const sc = emailScene(st.i); if (sc) scenes.push(sc); } }); if ((s.press||[]).length){ scenes.push({k:'inter', text:'From the press', date:'the public record', ms:2800}); for (const p of s.press) scenes.push({k:'web', press:p}); } CIN.back = 'story-'+s.id; }
+  else if (STORY[arg] && STORY[arg].fmt === 'short'){
+    const s = STORY[arg]; CIN.story = s; CIN.fast = true; title = s.title; ey = 'Short · No. '+(s.snum||'')+' · '+(s.period||''); sub = s.hook||s.dek||'';
+    if (s.cold) scenes.push({k:'cold', text: s.cold});
+    scenes.push({k:'title', ey, h: s.title, sub: s.hook||s.dek});
+    const beats = s.beats||[];
+    beats.forEach((b, i) => {
+      scenes.push({k:'cap', text: b.c, n: i+1, of: beats.length});
+      if (b.i.startsWith('t:')){ const t = TX[b.i.slice(2)]; if (t && !(t.sn && !state.showSens && !state.reveal.has(t.i))) scenes.push({k:'text', id:t.i, cap:b.c, max: 14}); }
+      else if (b.i.startsWith('d:')){ const d = DC[b.i.slice(2)]; if (d) scenes.push({k:'doc', id:d.i, cap:b.c}); }
+      else { const sc = emailScene(b.i); if (sc){ sc.cap = b.c; scenes.push(sc); } }
+      if (b.n) scenes.push({k:'inter', text: b.n, ms: Math.min(6500, 1600 + wordsOf(b.n)*200), quiet: true});
+    });
+    for (const p of (s.press||[])) scenes.push({k:'web', press:p});
+    for (const bk of (s.books||[])) scenes.push({k:'book', book: bk});
+    CIN.back = 'story-'+s.id;
+  }
+  else { const s = STORY[arg]; if (!s) return null; CIN.story = s; title = s.title; ey = (s.kicker||'Story')+' · '+(s.period||''); sub = s.dek||''; scenes.push({k:'title', ey, h:title, sub}); const steps = s.trail||[]; steps.forEach((st, i) => { scenes.push({k:'inter', text: st.n, date: refDate(st.i), n: i+1, of: steps.length}); if (st.i.startsWith('t:')){ const t = TX[st.i.slice(2)]; if (t && !(t.sn && !state.showSens && !state.reveal.has(t.i))) scenes.push({k:'text', id:t.i}); } else if (st.i.startsWith('d:')){ const d = DC[st.i.slice(2)]; if (d) scenes.push({k:'inter', text: (d.n||d.cm||'A document in the release')+' — open the trail to read it.', ms:3500}); } else { const sc = emailScene(st.i); if (sc) scenes.push(sc); } }); if ((s.press||[]).length){ scenes.push({k:'inter', text:'From the press', date:'the public record', ms:2800}); for (const p of s.press) scenes.push({k:'web', press:p}); } for (const bk of (s.books||[])) scenes.push({k:'book', book: bk}); CIN.back = 'story-'+s.id; }
   scenes.push({k:'end'});
   CIN.title = title; CIN.sub = sub; CIN.ey = ey;
   return scenes;
@@ -1371,7 +1495,7 @@ function compileFilm(arg){
 
 /* ============================================================ cinema: play ============================================================ */
 function playFilm(arg){
-  CIN.story = null; const scenes = compileFilm(arg); if (!scenes){ return; }
+  CIN.story = null; CIN.fast = false; const scenes = compileFilm(arg); if (!scenes){ return; }
   CIN.scenes = scenes; CIN.idx = 0; CIN.playing = false; CIN.token++; CIN.lastSet = '';
   closeDrawer(false);
   const c = $('#cinema'); c.classList.remove('hidden'); CIN.on = true; document.body.style.overflow = 'hidden';
@@ -1379,9 +1503,9 @@ function playFilm(arg){
   $('#cin-pb').innerHTML = scenes.map(()=>'<i></i>').join(''); $('#cin-lbl').textContent = CIN.title;
   $('#cin-speed').textContent = CIN.speed+'×'; $('#cin-mute').textContent = CIN.muted? '♪ off' : '♪';
   const st = $('#cin-start'); st.classList.remove('hidden'); st.innerHTML = `<div class="ey">${esc(CIN.ey)}</div><h2>${esc(CIN.title)}</h2><div class="sub">${esc(CIN.sub)}</div><button class="cin-play" id="cin-go" aria-label="Play">▶</button><div class="hint">${scenes.length-1} scenes · space to pause · ← → to skip · m for sound · esc to exit</div>`;
-  $('#cin-go').onclick = () => { SND.init(); st.classList.add('hidden'); CIN.playing = true; $('#cin-playpause').textContent = '❚❚'; runFrom(0); };
+  $('#cin-go').onclick = () => { SND.init(); st.classList.add('hidden'); CIN.playing = true; $('#cin-playpause').textContent = '❚❚'; if (!FS.on && (FRAMED || NARROW())) { FS.auto = true; requestFull(true); } runFrom(0); };
 }
-function exitCinema(){ CIN.token++; CIN.playing = false; CIN.on = false; $('#cinema').classList.add('hidden'); document.body.style.overflow = ''; clearStage(); if (SND.tone) SND.tone.gain.setTargetAtTime(0, SND.ctx.currentTime, 0.2); if (location.hash.startsWith('#film-')) { history.replaceState(null, '', '#'+(CIN.back||'films')); route(); } }
+function exitCinema(){ CIN.token++; CIN.playing = false; CIN.on = false; $('#cinema').classList.add('hidden'); document.body.style.overflow = ''; if (FS.auto){ FS.auto = false; if (FS.on) requestFull(false); } clearStage(); if (SND.tone) SND.tone.gain.setTargetAtTime(0, SND.ctx.currentTime, 0.2); if (location.hash.startsWith('#film-')) { history.replaceState(null, '', '#'+(CIN.back||'films')); route(); } }
 function cinPause(v){ CIN.playing = v==null? !CIN.playing : v; $('#cin-playpause').textContent = CIN.playing? '❚❚' : '▶'; $('#cin-ctl').classList.toggle('on', !CIN.playing); }
 async function runFrom(i){
   CIN.token++; const tok = CIN.token; CIN.idx = Math.max(0, Math.min(i, CIN.scenes.length-1)); CIN.playing = true; $('#cin-playpause').textContent = '❚❚'; $('#cin-end').classList.add('hidden');
@@ -1398,11 +1522,16 @@ async function runFrom(i){
 async function playScene(sc){
   if (sc.k === 'title'){ clearStage(); setSet('set-black'); SND.tri(); CIN.sceneDur = 5000; await slate(`<div><div class="ey">${esc(sc.ey)}</div><h2>${esc(sc.h)}</h2><div class="sub">${esc(sc.sub)}</div></div>`, 4400, true); return; }
   if (sc.k === 'inter'){ clearStage(); const ms = sc.ms || Math.min(8000, 2400 + wordsOf(sc.text)*240); CIN.sceneDur = ms+800; await slate(`<div>${sc.n? `<div class="ey">Scene ${sc.n} of ${sc.of}${sc.date? ' · '+esc(sc.date):''}</div>`: sc.date? `<div class="ey">${esc(sc.date)}</div>`:''}<div class="inter">${esc(sc.text)}</div></div>`, ms, true); return; }
-  if (sc.k === 'end'){ clearStage(); setSet('set-black'); const e = $('#cin-end'); e.classList.remove('hidden'); e.innerHTML = `<div class="ey" style="font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:rgba(255,255,255,.6)">The end</div><h2>${esc(CIN.title)}</h2><div class="credits">Dramatized from the documents in the U.S. House Oversight and DOJ releases. Screens are simulations; the words, names and dates are the records' own.</div><div class="row"><button onclick="runFrom(0)">↺ Replay</button>${CIN.story? `<button onclick="exitCinema();go('story-${CIN.story.id}')">Read the story</button><button onclick="exitCinema();go('trail-${CIN.story.id}')">Start the trail</button>`:''}<button onclick="exitCinema()">✕ Exit</button></div>`; SND.sting(); CIN.playing = false; $('#cin-playpause').textContent = '▶'; return; }
+  if (sc.k === 'cold'){ clearStage(); setSet('set-black'); SND.sting(); CIN.sceneDur = 4200; await slate(`<div><div class="cold">${esc(sc.text)}</div></div>`, 3400, true); return; }
+  if (sc.k === 'cap'){ clearStage(); const ms = Math.min(4200, 1500 + wordsOf(sc.text)*210); CIN.sceneDur = ms + 600; SND.pop(); await slate(`<div><div class="capslate"><b>${sc.n} / ${sc.of}</b>${esc(sc.text)}</div></div>`, ms, true); return; }
+  if (sc.k === 'doc'){ const d = DC[sc.id]; if (!d) return; clearStage(); setSet('set-office'); stamp(`<b>${esc(d.i)}</b>${esc(d.s==='H'?'House Oversight':'DOJ')}${d.t? ' · '+esc(longDate(d.t)):''}`); docBtn('d:'+d.i); caption(sc.cap||''); const text = (d.T||'').replace(/\s+/g,' ').slice(0, CIN.fast? 420:700); CIN.sceneDur = 7000; await showDevice(winShell((d.n||d.cm||'Document')+' - Reader', 'reader.local/'+encodeURIComponent(d.i), `<div class="br"><div class="br-page on" style="padding:36px 70px"><div class="mh">${esc(catLabel(d.c))}<small>${esc(d.i)}</small></div><div class="kick">From the archive${d.t? ' · '+esc(dateFmt(d.t)):''}</div><h1 style="font-size:30px">${esc(d.n||d.cm||'Document')}</h1><div class="lede" style="font-size:15px;white-space:pre-wrap" id="doc-bd"></div></div></div>`), 1040, 650); await revealText($('#doc-bd'), text, 260); await wait(2600 + text.length*6); return; }
+  if (sc.k === 'book'){ const b = sc.book; clearStage(); setSet('set-office'); SND.ding(); CIN.sceneDur = 6500; stamp(`<b>From the shelf</b>${esc(b.publisher)}, ${esc(b.year)}`); const d = $('#cin-device'); d.innerHTML = `<div class="bookcard"><div><div class="pub">${esc(b.publisher)} · ${esc(b.year)}</div><h3>${esc(b.title)}</h3><div class="au">${esc(b.author)}</div></div><div class="note">${esc(b.note||'')}</div></div>`; d.classList.remove('full'); d.style.transform = ''; await wait(40); d.classList.add('on'); await wait(Math.min(8000, 3600 + wordsOf(b.note||'')*170)); return; }
+  if (sc.k === 'end'){ clearStage(); setSet('set-black'); const e = $('#cin-end'); e.classList.remove('hidden'); e.innerHTML = `<div class="ey" style="font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:rgba(255,255,255,.6)">The end</div><h2>${esc(CIN.title)}</h2><div class="credits">Dramatized from the documents in the U.S. House Oversight and DOJ releases. Screens are simulations; the words, names and dates are the records' own.</div><div class="row"><button onclick="runFrom(0)">↺ Replay</button>${CIN.story && CIN.story.long && STORY[CIN.story.long]? `<button class="pri" style="background:#fff;color:#000" onclick="exitCinema();go('story-${CIN.story.long}')">Go deeper: ${esc(STORY[CIN.story.long].title)}</button>`:''}${CIN.story? `<button onclick="exitCinema();go('story-${CIN.story.id}')">${CIN.story.fmt==='short'?'Open the short':'Read the story'}</button><button onclick="exitCinema();go('trail-${CIN.story.id}')">Start the trail</button>`:''}${CIN.story && CIN.story.fmt==='short'? nextShortBtn(CIN.story) : ''}<button onclick="exitCinema()">✕ Exit</button></div>`; SND.sting(); CIN.playing = false; $('#cin-playpause').textContent = '▶'; return; }
   if (sc.k === 'web') return playWeb(sc.press);
-  if (sc.k === 'text') return playText(TX[sc.id]);
-  if (sc.k === 'email') return playEmail(EM[sc.id], sc.gated);
+  if (sc.k === 'text') return playText(TX[sc.id], sc);
+  if (sc.k === 'email') return playEmail(EM[sc.id], sc.gated, sc);
 }
+function nextShortBtn(s){ const i = DB.shorts.findIndex(x=>x.id===s.id); const n = DB.shorts[(i+1) % DB.shorts.length]; return n && n.id!==s.id ? `<button onclick="playFilm('${n.id}');$('#cin-go').click()">Next short ›</button>` : ''; }
 async function playWeb(p){
   clearStage(); setSet('set-office'); let host = ''; try{ host = new URL(p.url).hostname.replace(/^www\./,''); }catch(e){}
   CIN.sceneDur = 11000; const narrow = window.innerWidth < 760;
@@ -1421,11 +1550,11 @@ async function playWeb(p){
 }
 
 /* ============================================================ cinema: iMessage ============================================================ */
-async function playText(t){
+async function playText(t, sc){
   if (!t) return;
-  clearStage(); setSet('set-ny');
+  clearStage(); setSet('set-ny'); if (sc && sc.cap) caption(sc.cap);
   const other = t.p.filter(p=>p!=='Jeffrey Epstein')[0] || 'Unknown';
-  const msgs = t.m.slice(0, 40); const extra = t.m.length - msgs.length;
+  const msgs = t.m.slice(0, (sc && sc.max) || 40); const extra = t.m.length - msgs.length;
   CIN.sceneDur = msgs.reduce((a,m)=> a + 700 + Math.min(2600, m.x.length*18) + (m.a==='Jeffrey Epstein'? m.x.length*(1000/70) : 900), 2000);
   const inner = `<div class="im"><div class="im-head"><span class="bk">‹</span><div class="ct"><div class="av">${esc(initials(other))}</div><div class="nm">${esc(other)}</div></div><span class="cam"></span></div><div class="im-body" id="im-body"></div><div class="im-input"><span class="cam2"></span><span class="apps"></span><div class="field" id="im-field">iMessage</div></div>${kbHtml()}</div>`;
   await showDevice(phoneShell(inner, PHONE_TIME(msgs[0].t)), 360, 740);
@@ -1464,16 +1593,16 @@ function cleanAddr(raw){ raw = String(raw||'').replace(/\[mailto:[^\]]*\]/g,'').
 function toLine(e){ const raw = e.to.length ? e.to.slice(0,3) : e.r.filter(Boolean).slice(0,3); const out = raw.map(cleanAddr).filter(Boolean); return out.join(', ') || 'undisclosed'; }
 function contextRows(e, n){ const t0 = Date.parse((e.t||'2010-01-01').slice(0,10)); return DB.emails.filter(x => x.i!==e.i && !x.d && !isSens(x) && x.t && Math.abs(Date.parse(x.t.slice(0,10))-t0) < 20*864e5 && x.t < e.t).sort((a,b)=> a.t<b.t? 1:-1).slice(0,n); }
 function shortDate(t){ if (!t) return ''; const d = new Date(t.slice(0,10)+'T00:00:00Z'); return d.toLocaleDateString('en-US',{month:'short',day:'numeric',timeZone:'UTC'}); }
-async function playEmail(e, gated){
+async function playEmail(e, gated, sc){
   if (!e) return;
   const [place, set] = placeOf(e); setSet(set);
   const outgoing = e.a === 'Jeffrey Epstein';
   const mobile = /iphone|ipad|blackberry|android|samsung|mobile/i.test(e.v||'');
   const narrow = window.innerWidth < 760;
   const mode = outgoing ? ((mobile || narrow) ? 'ph-compose' : 'gm-compose') : ((narrow || hashStr(e.i) % 5 < 2) ? 'ph-read' : 'gm-read');
-  clearStage();
+  clearStage(); if (sc && sc.cap) caption(sc.cap);
   stamp(`<b>${esc(e.i)}</b>${esc(e.s==='H'?'House Oversight':e.s==='D'?'DOJ · EFTA':'Yahoo')} · ${esc(longDate(e.t))}${clock12(e.t)? ' · '+esc(clock12(e.t)):''}<br>${esc(place)}`); docBtn(e.i);
-  const text = gated ? '[ The text of this document is kept behind the sensitive-content setting. Turn the switch on in the top bar, or open the document, to include it. ]' : sceneText(e, outgoing ? 520 : 760);
+  const text = gated ? '[ The text of this document is kept behind the sensitive-content setting. Turn the switch on in the top bar, or open the document, to include it. ]' : sceneText(e, CIN.fast ? 360 : (outgoing ? 520 : 760));
   const readMs = Math.min(13000, 2600 + wordsOf(text)*210);
   if (mode === 'gm-read') return gmRead(e, text, readMs);
   if (mode === 'gm-compose') return gmCompose(e, text);

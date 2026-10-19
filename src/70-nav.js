@@ -557,6 +557,7 @@ async function render(route, entry, opts = {}) {
   }
   // paint
   setSecurity(doc ? 'doc' : 'gen');
+  $('#app').classList.toggle('framed', route.type === 'frame');
   setTitle(title || displayUrl(entry.url));
   entry.title = title;
   if (!opts.noHistory) recordHistory(entry.url, title, doc);

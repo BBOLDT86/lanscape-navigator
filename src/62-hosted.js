@@ -90,3 +90,36 @@ function hostedDirBlock() {
   return '<h2 class="sec">&#9733; Also on This Server <span style="font-weight:normal">(' + HOSTED_SITES.length + ' sites)</span></h2><div class="dir">' +
     HOSTED_SITES.map(s => '<div class="cat">' + A(hostedUrl(s), esc(s.title)) + ' <span class="mini">(' + esc(s.cat) + ')</span><span class="sub">' + esc(clip(s.blurb, 110)) + '</span></div>').join('') + '</div>';
 }
+
+/* ---------------- full screen ---------------- */
+let fsDimTimer = null;
+function toggleKiosk(on) {
+  const app = $('#app');
+  const want = on == null ? !app.classList.contains('kiosk') : !!on;
+  if (want === app.classList.contains('kiosk')) return want;
+  app.classList.toggle('kiosk', want);
+  if (want) {
+    try { if (document.documentElement.requestFullscreen && !document.fullscreenElement) document.documentElement.requestFullscreen().catch(() => {}); } catch (e) { /* not on this device */ }
+    clearTimeout(fsDimTimer); $('#fsExit').classList.remove('dim'); fsDimTimer = setTimeout(() => $('#fsExit').classList.add('dim'), 2600);
+  } else {
+    app.classList.remove('coop');
+    try { if (document.fullscreenElement && document.exitFullscreen) document.exitFullscreen().catch(() => {}); } catch (e) { /* ignore */ }
+  }
+  // tell a hosted page that cooperates (Inbox Atlas shows its own button)
+  try { if (frame && frame.contentWindow) frame.contentWindow.postMessage({ lanscape: 'fullscreen-ok', on: want }, '*'); } catch (e) { /* ignore */ }
+  setStatus(want ? 'Full screen. Press F11 or tap LANscape to come back.' : 'Document: Done');
+  return want;
+}
+function hostedOrigin() { try { return new URL(HOSTED_HOME).origin; } catch (e) { return ''; } }
+window.addEventListener('message', e => {
+  const d = e.data;
+  if (!d || d.lanscape !== 'fullscreen') return;
+  if (e.origin !== location.origin && e.origin !== hostedOrigin()) return;
+  const on = toggleKiosk(d.on == null ? undefined : !!d.on);
+  // the page has its own way out, so the chip steps aside
+  $('#app').classList.toggle('coop', !!on);
+});
+document.addEventListener('fullscreenchange', () => { if (!document.fullscreenElement && $('#app').classList.contains('kiosk')) { /* the browser's own exit (Esc): keep the kiosk layout, the chip still restores the chrome */ } });
+$('#fsEnter').addEventListener('click', () => toggleKiosk(true));
+$('#fsExit').addEventListener('click', () => toggleKiosk(false));
+$('#fsExit').addEventListener('mouseenter', () => { clearTimeout(fsDimTimer); $('#fsExit').classList.remove('dim'); });

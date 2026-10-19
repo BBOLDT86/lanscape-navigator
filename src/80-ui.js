@@ -103,6 +103,7 @@ const MENUS = [
     prefToggle('Web Ring Bar', 'showRing', applyChrome),
     chk('Night Theme', () => S.prefs.theme === 'night', v => { S.prefs.theme = v ? 'night' : 'classic'; saveState(); applyChrome(); }),
     { sep: 1 },
+    chk('Full Screen', () => $('#app').classList.contains('kiosk'), v => toggleKiosk(v), { key: 'F11' }),
     { label: 'Page Source', key: MOD + 'U', act: viewSource, disabled: () => !S.cur },
     { label: 'Page Info', key: MOD + 'I', act: pageInfo, disabled: () => !S.cur }
   ] },
@@ -471,6 +472,7 @@ function handleKey(e, fromFrame) {
   if ((e.altKey && k === 'ArrowRight') || (e.metaKey && k === ']')) { forward(); return true; }
   if (e.altKey && k === 'Home') { goHome(); return true; }
   if (k === 'F5' || (mod && lower === 'r' && !e.shiftKey)) { reload(); return true; }
+  if (k === 'F11') { toggleKiosk(); return true; }
   if (k === 'F6' || (mod && lower === 'l')) { focusLoc(); return true; }
   if (mod && lower === 'd') { addBookmark(); return true; }
   if (mod && lower === 'u') { viewSource(); return true; }
