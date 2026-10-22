@@ -58,6 +58,7 @@ test/                    browser and Node tests, and the scripts that make their
 the-hinge/index.html     The Hinge, a separate page (see below); www.thehinge.com inside the app
 inbox-atlas/             Inbox Atlas, a separate site (see below); www.inboxatlas.com inside the app
 wx-center/index.html     WX Center, a separate page (see below); not part of the app
+meridian/index.html      Meridian Flight Control, a separate page (see below); not part of the app
 ```
 
 ## Also hosted here: The Hinge
@@ -77,6 +78,14 @@ A serverless reading room for the Jeffrey Epstein emails released by the U.S. Ho
 **Open it: <https://bboldt86.github.io/lanscape-navigator/wx-center/>**
 
 A single-file weather board for an airline dispatch desk: METAR, TAF, D-ATIS and NOTAMs for every airport on the desk, in one alphabetical list. Paste the desk's data dump and it picks out the airport pairs (DAL-HOU, DAL/HOU, DALHOU), ignoring flight numbers, times and delays. Each airport gets a flight-category dot, highlighted gusts, ceilings, visibility and thunderstorms, a TAF split into FM / TEMPO / PROB / BECMG lines with a timeline, the D-ATIS with runways in use and closed runways marked, a wind rose over its runways, and its runway, ILS and taxiway NOTAMs. Changed reports stay outlined until Ack All; old METARs (over 90 minutes) and TAFs (over 7 hours) are flagged. It refreshes every 2 minutes, with Zulu and Central clocks, three color schemes and an optional new-weather chime. Data comes from aviationweather.gov, datis.clowd.io / atis.info and the FAA NOTAM Search when the browser is allowed to reach them; otherwise the page shows a clearly marked sample desk, and reports can be pasted in by hand. Settings and the desk list stay in your browser. It is not part of the LANscape app. For situational awareness only; always verify against official sources.
+
+## Also hosted here: Meridian Flight Control
+
+**Open it: <https://bboldt86.github.io/lanscape-navigator/meridian/>**
+
+A single-file, serverless dispatch desk built for a Southwest Airlines (WN / LUV) flight-control operator. The Desk shows your flights as lines of flying against a now-line, with a "Needs you" stack for releases due or overdue, new weather, curfew risk (SNA, SAN), takeoff alternates and the end of your duty. Every open release is checked against the destination TAF at ETA ±1 hour under the 1-2-3 rule (14 CFR 121.619), and the page shows the TAF group that triggered it. Weather follows WX Center's pattern: METAR, TAF and D-ATIS together, flight-category dots, ACK ALL, outlined changes, stale warnings and a two-minute refresh, with Zulu and Central clocks. The Schedule is a calendar database of a representative LUV network (about 580 flights a day), marked with AIRAC cycles, the daylight-saving change, IATA seasons and your duty days, plus a lines view and CSV export. Floor is a peer-to-peer add-on: windows on one computer find each other automatically, and desks on other machines pair once with a short code. Messages then relay from desk to desk, so the floor can share posts, acks, direct messages, weather and flight handoffs with no server. Shift tracks duty against 14 CFR 121.465 and writes the handoff brief. Ask Meridian answers brief, alternate and handoff questions offline, or sends open questions to your own Azure OpenAI endpoint. There is also a joke terminal skin (LUV-DOS 6.22 / tty1, with a boot sequence): cycle the moon button to reach it, or use ⌘K › Terminal skin.
+
+The schedule and its delays are representative, not Southwest's timetable. Weather is simulated (and labeled SIM) until you connect a source, because aviationweather.gov does not allow browser cross-origin requests. You can connect a proxy in Settings, paste the raw feed, or let a peer on the floor share theirs. Simulated NOTAMs are illustrative only. Everything stays in your browser. Meridian is an independent tool, not affiliated with or endorsed by Southwest Airlines, and is for situational awareness only. It is not part of the LANscape app.
 
 ## Credits
 
