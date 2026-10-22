@@ -1,0 +1,1631 @@
+<!doctype html>
+<html lang="en" data-skin="classic">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>WX Center</title>
+<meta name="description" content="METAR, TAF, D-ATIS and NOTAMs for a dispatch desk's airports, in one alphabetical list.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: sticky ops chrome (airfield-sign wordmark, Zulu clock, feed state, ACK) over a two-pane desk:
+   an alphabetical airport rail and flight-strip airport cards. Three skins share one category palette. */
+:root{
+  --f-ui:"IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --f-cond:"Barlow Condensed", "Arial Narrow", "Roboto Condensed", system-ui, sans-serif;
+  --f-mono:"IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  /* flight category: identical in every skin */
+  --vfr:#2EB872; --mvfr:#3D8BFF; --ifr:#F0464A; --lifr:#CF4CE0;
+  --sign-bg:#0B0B0B; --sign-fg:#FFD21F;
+  --chromeH:132px;
+}
+html[data-skin="classic"]{
+  --bg:#0A0F15; --head:#0D141C; --headFg:#DAE3EC; --headDim:#8D9CAC; --headLine:#2B3B4C;
+  --panel:#101821; --panel2:#141E29; --raise:#1A2633; --line:#1E2A37; --line2:#2B3B4C;
+  --fg:#DAE3EC; --dim:#8D9CAC; --faint:#5A6979;
+  --accent:#F5B83D; --accentInk:#1B1305; --use:#4FE0C6; --live:#3AD48A;
+  --tx-mvfr:#76ADFF; --tx-ifr:#FF6B6E; --tx-lifr:#E07BEF;
+  --gust:#F5B83D; --ts:#FF7A45; --ice:#86D4FF;
+  --wxSize:13.5px; color-scheme:dark;
+}
+html[data-skin="fk"]{
+  --bg:#000000; --head:#000000; --headFg:#F4F4EE; --headDim:#A9A9A0; --headLine:#3A3A3A;
+  --panel:#070707; --panel2:#0E0E0E; --raise:#171717; --line:#262626; --line2:#3D3D3D;
+  --fg:#F4F4EE; --dim:#ABABA2; --faint:#6E6E66;
+  --accent:#FFD21F; --accentInk:#000000; --use:#3CF0D0; --live:#45E58F;
+  --tx-mvfr:#86BAFF; --tx-ifr:#FF6464; --tx-lifr:#F286FF;
+  --gust:#FFD21F; --ts:#FF8A4C; --ice:#93DEFF;
+  --wxSize:15px; color-scheme:dark;
+}
+html[data-skin="awc"]{
+  --bg:#EDF1F5; --head:#0F2D52; --headFg:#FFFFFF; --headDim:#A8BCD6; --headLine:#2D4F7A;
+  --panel:#FFFFFF; --panel2:#F5F8FB; --raise:#E7EDF3; --line:#D5DDE6; --line2:#B6C4D2;
+  --fg:#14212E; --dim:#526376; --faint:#8696A8;
+  --accent:#C46A00; --accentInk:#FFFFFF; --use:#00806C; --live:#0F8A4C;
+  --tx-mvfr:#1E5ECF; --tx-ifr:#C8191F; --tx-lifr:#9E1BB2;
+  --gust:#A85500; --ts:#C23700; --ice:#0A6DAE;
+  --wxSize:13.5px; color-scheme:light;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+html{background:var(--bg)}
+body{background:var(--bg);color:var(--fg);font:14px/1.45 var(--f-ui);-webkit-font-smoothing:antialiased;min-height:100vh}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+[hidden]{display:none!important}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+
+/* ---------- chrome ---------- */
+.chrome{position:sticky;top:0;z-index:30}
+.top{display:flex;align-items:center;gap:14px 22px;flex-wrap:wrap;background:var(--head);color:var(--headFg);
+  padding-block:10px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
+  border-bottom:1px solid var(--headLine)}
+.brand{display:flex;align-items:center;gap:10px;min-width:0}
+.sign{font:700 19px/1 var(--f-cond);letter-spacing:.06em;color:var(--sign-fg);background:var(--sign-bg);
+  border:2px solid var(--sign-fg);box-shadow:0 0 0 2px var(--sign-bg);padding:4px 7px 3px;border-radius:2px}
+.word{font:600 21px/1 var(--f-cond);letter-spacing:.12em;text-transform:uppercase}
+.mode{display:inline-flex;align-items:center;gap:6px;font:600 12px/1 var(--f-cond);letter-spacing:.12em;text-transform:uppercase;
+  padding:5px 8px;border:1px solid var(--headLine);border-radius:999px;color:var(--headDim)}
+.mode i{width:7px;height:7px;border-radius:50%;background:var(--headDim)}
+.mode[data-m="live"]{color:var(--live);border-color:color-mix(in srgb,var(--live) 45%,transparent)}
+.mode[data-m="live"] i{background:var(--live);animation:breathe 2.4s ease-in-out infinite}
+.mode[data-m="sample"]{color:#1B1305;background:#F5B83D;border-color:#F5B83D}
+.mode[data-m="sample"] i{background:#1B1305}
+.mode[data-m="pasted"]{color:var(--headFg)}
+@keyframes breathe{50%{opacity:.35}}
+.clocks{display:flex;align-items:baseline;gap:18px;margin-right:auto}
+.clk{display:flex;align-items:baseline;gap:7px}
+.cl{font:600 11px/1 var(--f-cond);letter-spacing:.14em;text-transform:uppercase;color:var(--headDim)}
+.cv{font:500 22px/1 var(--f-mono);font-variant-numeric:tabular-nums;letter-spacing:.02em}
+.cv.sm{font-size:15px;color:var(--headFg)}
+.tools{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.seg{display:inline-flex;border:1px solid var(--headLine);border-radius:4px;overflow:hidden}
+.seg button{background:transparent;border:0;padding:6px 10px;font:600 12.5px/1 var(--f-cond);letter-spacing:.1em;color:var(--headDim)}
+.seg button+button{border-left:1px solid var(--headLine)}
+.seg button[aria-pressed="true"]{background:color-mix(in srgb,var(--headFg) 12%,transparent);color:var(--headFg)}
+.btn{display:inline-flex;align-items:center;gap:7px;background:transparent;border:1px solid var(--line2);border-radius:4px;
+  padding:6px 10px;font:600 12.5px/1 var(--f-cond);letter-spacing:.1em;text-transform:uppercase;color:var(--fg)}
+.btn:hover{border-color:var(--dim)}
+.top .btn{border-color:var(--headLine);color:var(--headFg)}
+.btn.icon{padding:5px 7px}
+.btn svg{width:16px;height:16px;display:block}
+.btn.refresh{font-family:var(--f-mono);font-weight:500;letter-spacing:0;font-size:13px;font-variant-numeric:tabular-nums}
+.ring{width:18px!important;height:18px!important;transform:rotate(-90deg)}
+.ring circle{fill:none;stroke-width:2.6}
+.ring .rt{stroke:var(--headLine)}
+.ring .rp{stroke:var(--headFg);stroke-dasharray:56.55;stroke-linecap:round;transition:stroke-dashoffset .9s linear}
+.refresh.spin .ring{animation:spin .9s linear infinite}
+.refresh.spin .rp{stroke-dashoffset:40!important}
+@keyframes spin{to{transform:rotate(270deg)}}
+.btn.ack b{font:600 12px/1 var(--f-mono);padding:2px 5px;border-radius:3px;background:color-mix(in srgb,var(--headFg) 14%,transparent)}
+.top .btn.ack:not(:disabled){background:var(--accent);border-color:var(--accent);color:var(--accentInk)}
+.top .btn.ack:not(:disabled) b{background:color-mix(in srgb,var(--accentInk) 18%,transparent)}
+.btn:disabled{opacity:.45;cursor:default}
+.skin select{background:transparent;border:1px solid var(--headLine);border-radius:4px;padding:5px 6px;color:var(--headFg);
+  font:600 12.5px/1 var(--f-cond);letter-spacing:.08em;text-transform:uppercase}
+.skin select option{background:var(--panel);color:var(--fg)}
+.btn.icon.on{color:var(--accent);border-color:var(--accent)}
+
+.banner{display:flex;gap:12px;align-items:center;flex-wrap:wrap;color:#1B1305;font-size:13.5px;
+  background:repeating-linear-gradient(-45deg,#F5B83D 0 14px,#EDAB2A 14px 28px);
+  padding-block:8px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.banner.info{background:var(--raise);color:var(--fg);border-bottom:1px solid var(--line)}
+.banner strong{font:700 13px/1 var(--f-cond);letter-spacing:.12em;text-transform:uppercase}
+.banner button{background:#1B1305;color:#F5B83D;border:0;border-radius:3px;padding:5px 9px;font:600 12px/1 var(--f-cond);letter-spacing:.1em;text-transform:uppercase}
+.banner.info button{background:var(--fg);color:var(--bg)}
+
+.tabs{display:flex;align-items:center;gap:4px;background:var(--panel);border-bottom:1px solid var(--line);overflow-x:auto;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.tabs [role="tab"]{background:none;border:0;border-bottom:2px solid transparent;padding:10px 12px 8px;color:var(--dim);
+  font:600 14px/1 var(--f-cond);letter-spacing:.12em;text-transform:uppercase;white-space:nowrap}
+.tabs [role="tab"][aria-selected="true"]{color:var(--fg);border-bottom-color:var(--fg)}
+.cnt{font:500 11.5px/1 var(--f-mono);color:var(--dim);margin-left:3px}
+.sum{margin-left:auto;display:flex;align-items:center;gap:12px;font:500 12.5px/1 var(--f-mono);color:var(--dim);white-space:nowrap;padding-left:12px}
+.sum .sm{display:inline-flex;align-items:center;gap:5px;color:var(--fg)}
+
+/* ---------- dots ---------- */
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;flex:none;background:var(--faint);color:var(--faint)}
+.dot.sm{width:8px;height:8px}
+.dot.c0{background:var(--vfr);color:var(--vfr)}
+.dot.c1{background:var(--mvfr);color:var(--mvfr)}
+.dot.c2{background:var(--ifr);color:var(--ifr)}
+.dot.c3{background:var(--lifr);color:var(--lifr)}
+.dot.cx{background:transparent;box-shadow:inset 0 0 0 1.5px var(--faint)}
+.dot.pulse{animation:pulse 1.5s ease-out infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 currentColor}100%{box-shadow:0 0 0 9px transparent}}
+
+/* ---------- weather view ---------- */
+.wxview{display:grid;grid-template-columns:184px minmax(0,1fr);align-items:start}
+.rail{position:sticky;top:var(--chromeH);max-height:calc(100vh - var(--chromeH));overflow-y:auto;border-right:1px solid var(--line);
+  padding-block:10px 24px;padding-left:max(10px,env(safe-area-inset-left,0px));padding-right:8px;background:var(--bg)}
+.rh{font:600 11px/1 var(--f-cond);letter-spacing:.14em;text-transform:uppercase;color:var(--faint);padding:6px 8px 8px}
+.ri{display:grid;grid-template-columns:12px 40px minmax(0,1fr) 9px;align-items:center;gap:8px;width:100%;text-align:left;
+  background:none;border:0;border-radius:4px;padding:6px 8px;color:var(--fg)}
+.ri:hover{background:var(--panel2)}
+.ri .rc{font:600 16px/1 var(--f-cond);letter-spacing:.06em}
+.ri .rf{display:flex;gap:4px;overflow:hidden}
+.f{font:600 10.5px/1 var(--f-mono);padding:2px 3px;border-radius:2px;white-space:nowrap}
+.f.ts{color:var(--ts);background:color-mix(in srgb,var(--ts) 16%,transparent)}
+.f.g{color:var(--gust);background:color-mix(in srgb,var(--gust) 14%,transparent)}
+.f.st{color:var(--tx-ifr);background:color-mix(in srgb,var(--ifr) 14%,transparent)}
+.ri .nw{width:9px;height:9px;border:2px solid var(--accent);border-radius:2px}
+.ri.unseen .rc{color:var(--accent)}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,600px),1fr));gap:12px;align-items:start;
+  padding-block:14px 40px;padding-left:14px;padding-right:max(16px,env(safe-area-inset-right,0px))}
+.ap{display:grid;grid-template-columns:150px minmax(0,1fr);background:var(--panel);border:1px solid var(--line);border-radius:4px;
+  overflow:hidden;scroll-margin-top:calc(var(--chromeH) + 12px);transition:box-shadow .3s}
+.ap.flash{box-shadow:0 0 0 2px var(--fg)}
+.idc{background:var(--panel2);border-right:1px solid var(--line);padding:12px 12px 14px;display:flex;flex-direction:column;gap:7px;min-width:0}
+.code{display:flex;align-items:center;gap:8px;font:700 30px/1 var(--f-cond);letter-spacing:.04em}
+.nm{font-size:12px;color:var(--dim);line-height:1.3}
+.nm b{font:500 11.5px/1 var(--f-mono);color:var(--fg);font-weight:500}
+.cw{font:700 13px/1 var(--f-cond);letter-spacing:.16em}
+.cw.c0{color:var(--vfr)} .cw.c1{color:var(--tx-mvfr)} .cw.c2{color:var(--tx-ifr)} .cw.c3{color:var(--tx-lifr)} .cw.cx{color:var(--faint)}
+.srcTag{align-self:flex-start;font:700 10.5px/1 var(--f-cond);letter-spacing:.14em;padding:3px 5px;border-radius:2px;background:#F5B83D;color:#1B1305}
+.srcTag.pasted{background:var(--raise);color:var(--fg)}
+.rose{width:84px;height:84px;display:block;margin:2px 0 -2px -3px}
+.rose .rr{fill:none;stroke:var(--line2);stroke-width:1}
+.rose .rt{stroke:var(--line2);stroke-width:1}
+.rose .rt.big{stroke:var(--dim)}
+.rose .rn{fill:var(--dim);font:600 8px var(--f-cond);text-anchor:middle}
+.rose .rw{stroke:var(--line2);stroke-width:3.4;stroke-linecap:butt}
+.rose .rw.arr,.rose .rw.dep,.rose .rw.both{stroke:var(--use)}
+.rose .rw.dep{stroke-dasharray:5 2}
+.rose .rw.closed{stroke:var(--ifr);stroke-dasharray:3 2.5}
+.rose .wa{stroke:var(--fg);stroke-width:2;stroke-linecap:round}
+.rose .wh{fill:var(--fg)}
+.rose .wa.g{stroke:var(--gust)} .rose .wh.g{fill:var(--gust)}
+.rose .va{fill:none;stroke:var(--fg);stroke-opacity:.45;stroke-width:3}
+.rose .hd{fill:var(--dim)}
+.rose .calm{fill:none;stroke:var(--dim);stroke-width:1.5}
+.rose .ct{fill:var(--dim);font:600 8px var(--f-cond);text-anchor:middle;letter-spacing:.08em}
+.wtx{font:500 12px/1.2 var(--f-mono);color:var(--fg)}
+.wtx.g{color:var(--gust)}
+.rwy{display:flex;flex-direction:column;gap:4px;font:500 12px/1.2 var(--f-mono)}
+.rwy span{display:flex;gap:6px;align-items:baseline}
+.rwy em{font:600 10.5px/1 var(--f-cond);letter-spacing:.14em;font-style:normal;color:var(--dim);width:26px}
+.rwy b{color:var(--use);font-weight:600}
+.rwy s{color:var(--tx-ifr);text-decoration-thickness:1.5px}
+.tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:2px}
+.tag{display:inline-flex;align-items:center;gap:4px;font:700 11px/1 var(--f-cond);letter-spacing:.1em;text-transform:uppercase;
+  padding:3px 5px;border-radius:2px;background:var(--fg);color:var(--bg);border:0}
+.tag i{font-style:normal;opacity:.6}
+.tadd{font:600 11px/1 var(--f-cond);letter-spacing:.1em;text-transform:uppercase;padding:3px 6px;border-radius:2px;
+  border:1px dashed var(--line2);background:none;color:var(--dim)}
+.tadd:hover{color:var(--fg);border-color:var(--dim)}
+
+.bd{min-width:0;display:flex;flex-direction:column}
+.row{display:grid;grid-template-columns:64px minmax(0,1fr);gap:10px;padding:9px 12px 10px;border-bottom:1px solid var(--line);position:relative}
+.row:last-child{border-bottom:0}
+.lab{display:flex;flex-direction:column;gap:4px;padding-top:1px}
+.lab b{font:600 12.5px/1 var(--f-cond);letter-spacing:.12em;color:var(--dim)}
+.lab .age{font:500 11.5px/1 var(--f-mono);color:var(--faint)}
+.lab .age.old{color:var(--tx-ifr);font-weight:600}
+.lab .nb{align-self:flex-start;font:700 10.5px/1 var(--f-cond);letter-spacing:.12em;background:var(--accent);color:var(--accentInk);padding:2px 4px;border-radius:2px}
+.lab .warn{align-self:flex-start;font:700 10.5px/1 var(--f-cond);letter-spacing:.1em;color:var(--tx-ifr);border:1px solid currentColor;padding:1px 3px;border-radius:2px}
+.row.changed{background:color-mix(in srgb,var(--accent) 7%,transparent);box-shadow:inset 0 0 0 1.5px var(--accent)}
+.row.stale .wx{opacity:.72}
+.wx{font:400 var(--wxSize)/1.55 var(--f-mono);overflow-wrap:anywhere;min-width:0}
+.wx .rmk{color:var(--faint)}
+.muted{color:var(--faint);font-size:13px}
+.h-gust{color:var(--gust);font-weight:600}
+.h-ts{color:var(--ts);font-weight:600;background:color-mix(in srgb,var(--ts) 14%,transparent);border-radius:2px}
+.h-ice{color:var(--ice);font-weight:600}
+.h-mvfr{color:var(--tx-mvfr);font-weight:600}
+.h-ifr{color:var(--tx-ifr);font-weight:600;background:color-mix(in srgb,var(--ifr) 13%,transparent);border-radius:2px}
+.h-lifr{color:var(--tx-lifr);font-weight:600;background:color-mix(in srgb,var(--lifr) 15%,transparent);border-radius:2px}
+.no-metar .row.r-metar,.no-taf .row.r-taf,.no-atis .row.r-atis{display:none}
+
+/* TAF */
+.th{font:500 11.5px/1.3 var(--f-mono);color:var(--faint);margin-bottom:6px}
+.tline{position:relative;height:30px;margin:2px 0 8px}
+.tline .ovr,.tline .pvr{position:absolute;left:0;right:0}
+.tline .ovr{top:0;height:5px}
+.tline .pvr{top:7px;height:8px;border-radius:1px;overflow:hidden;background:var(--raise)}
+.tline .seg{position:absolute;top:0;bottom:0;background:var(--faint)}
+.tline .ovl{position:absolute;top:0;height:5px;border-radius:1px;background:var(--faint)}
+.tline .ovl.bec{opacity:.55}
+.tline .seg.c0,.tline .ovl.c0{background:var(--vfr)} .tline .seg.c1,.tline .ovl.c1{background:var(--mvfr)}
+.tline .seg.c2,.tline .ovl.c2{background:var(--ifr)} .tline .seg.c3,.tline .ovl.c3{background:var(--lifr)}
+.tline .seg+.seg{box-shadow:inset 1px 0 0 var(--panel)}
+.tline .nowm{position:absolute;top:-2px;height:19px;width:2px;background:var(--fg);border-radius:1px}
+.tline .tks{position:absolute;left:0;right:0;top:17px;height:12px}
+.tline .tk{position:absolute;font:500 9.5px/1 var(--f-mono);color:var(--faint);transform:translateX(-50%);padding-top:2px;border-left:1px solid transparent}
+.tl-grid{display:grid;grid-template-columns:9px max-content minmax(0,1fr);column-gap:9px;row-gap:3px;align-items:baseline}
+.tl{display:contents}
+.tl .dot{align-self:start;margin-top:calc(var(--wxSize) * .775 - 4px)}
+.tl .tk2{font:600 12px/1.55 var(--f-cond);letter-spacing:.06em;color:var(--dim);white-space:nowrap}
+.tl.ov .tk2{color:var(--faint)}
+.tl .tx{font:400 var(--wxSize)/1.55 var(--f-mono);overflow-wrap:anywhere;min-width:0}
+
+/* D-ATIS */
+.atis+.atis{margin-top:8px;padding-top:8px;border-top:1px dashed var(--line)}
+.atag{display:inline-block;font:600 11.5px/1 var(--f-cond);letter-spacing:.12em;color:var(--dim);margin-right:6px}
+.atag b{color:var(--fg);font-weight:700}
+.a-use{color:var(--use);font-weight:600;background:color-mix(in srgb,var(--use) 12%,transparent);border-radius:2px}
+.a-clsd{color:var(--tx-ifr);font-weight:600}
+.atis .wx{font-size:calc(var(--wxSize) - .5px)}
+
+/* NOTAM chips on cards */
+.nlist{display:flex;flex-direction:column;gap:4px}
+.nline{display:flex;gap:7px;align-items:baseline;font:400 calc(var(--wxSize) - .5px)/1.45 var(--f-mono)}
+.kc{flex:none;font:700 10.5px/1 var(--f-cond);letter-spacing:.1em;padding:2px 4px;border-radius:2px;background:var(--raise);color:var(--dim);min-width:34px;text-align:center}
+.kc.k-RWY{background:color-mix(in srgb,var(--ifr) 18%,transparent);color:var(--tx-ifr)}
+.kc.k-ILS{background:color-mix(in srgb,var(--lifr) 16%,transparent);color:var(--tx-lifr)}
+.kc.k-TWY{background:color-mix(in srgb,var(--mvfr) 16%,transparent);color:var(--tx-mvfr)}
+.n-bad{color:var(--tx-ifr);font-weight:600}
+.linkb{background:none;border:0;padding:0;color:var(--dim);font:600 12px/1.4 var(--f-cond);letter-spacing:.1em;text-transform:uppercase;text-decoration:underline;text-underline-offset:3px;align-self:flex-start}
+.linkb:hover{color:var(--fg)}
+
+/* ---------- NOTAM view ---------- */
+.notamview,.deskview{padding-block:14px 48px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.nbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:14px}
+.nbar input[type="search"]{flex:1 1 280px;min-width:0;background:var(--panel);border:1px solid var(--line2);border-radius:4px;padding:9px 11px;font:400 14px/1.2 var(--f-mono)}
+.nbar select{background:var(--panel);border:1px solid var(--line2);border-radius:4px;padding:8px}
+.nbar .seg{border-color:var(--line2)}
+.nbar .seg button{color:var(--dim)}
+.nbar .seg button+button{border-left-color:var(--line2)}
+.nbar .seg button[aria-pressed="true"]{background:var(--raise);color:var(--fg)}
+.ncount{font:500 12.5px/1 var(--f-mono);color:var(--dim)}
+.ng{background:var(--panel);border:1px solid var(--line);border-radius:4px;margin-bottom:12px;overflow:hidden}
+.ngh{display:flex;align-items:baseline;gap:10px;margin:0;padding:10px 14px;background:var(--panel2);border-bottom:1px solid var(--line);
+  position:sticky;top:var(--chromeH);z-index:2}
+.ngh .c{font:700 20px/1 var(--f-cond);letter-spacing:.05em}
+.ngh .n{font-size:12.5px;color:var(--dim);font-weight:400}
+.ngh .k{margin-left:auto;font:500 12px/1 var(--f-mono);color:var(--faint)}
+.ni{display:grid;grid-template-columns:48px minmax(0,1fr);gap:12px;padding:10px 14px;border-bottom:1px solid var(--line)}
+.ni:last-child{border-bottom:0}
+.ni .kc{min-width:44px;padding:3px 4px}
+.ni.fut .nt{color:var(--dim)}
+.nt{font:400 var(--wxSize)/1.5 var(--f-mono);overflow-wrap:anywhere}
+.nt b{font-weight:600}
+.nm2{display:flex;gap:14px;flex-wrap:wrap;margin-top:4px;font:500 11.5px/1.3 var(--f-mono);color:var(--faint)}
+.nm2 .act{color:var(--live)}
+.nm2 .src{color:#1B1305;background:#F5B83D;padding:0 4px;border-radius:2px;font-family:var(--f-cond);font-weight:700;letter-spacing:.1em}
+mark{background:color-mix(in srgb,var(--accent) 35%,transparent);color:inherit;border-radius:2px}
+.empty{padding:40px 16px;text-align:center;color:var(--dim)}
+
+/* ---------- desk view ---------- */
+.desk{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:28px;max-width:1240px}
+.desk h2{font:600 22px/1.1 var(--f-cond);letter-spacing:.08em;text-transform:uppercase;margin:4px 0 6px}
+.desk h3{font:600 14px/1 var(--f-cond);letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin:22px 0 10px}
+.lede{color:var(--dim);margin:0 0 12px;max-width:62ch}
+.hint{color:var(--dim);font-size:13px;margin:8px 0 0;max-width:64ch}
+.desk textarea{width:100%;background:var(--panel);border:1px solid var(--line2);border-radius:4px;padding:11px 12px;font:400 13px/1.5 var(--f-mono);resize:vertical}
+.parse{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:10px 0 12px;min-height:28px}
+.parse .pm{font:500 12.5px/1 var(--f-mono);color:var(--dim);margin-right:6px}
+.chip{display:inline-flex;align-items:center;gap:6px;background:var(--panel2);border:1px solid var(--line2);border-radius:3px;padding:4px 4px 4px 8px;font:600 14px/1 var(--f-cond);letter-spacing:.06em}
+.chip.new{border-color:var(--use);color:var(--use)}
+.chip button{background:none;border:0;color:var(--dim);padding:0 3px;font-size:14px;line-height:1}
+.chip button:hover{color:var(--tx-ifr)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.rowb{display:flex;gap:8px;flex-wrap:wrap}
+.btn.primary{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.addf{display:flex;gap:8px;margin-top:12px}
+.addf input,.fld input,.fld select{background:var(--panel);border:1px solid var(--line2);border-radius:4px;padding:8px 10px;min-width:0}
+.addf input{flex:0 1 240px;font-family:var(--f-mono)}
+.feeds{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:4px;background:var(--panel)}
+.feed{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 12px;padding:11px 14px;border-bottom:1px solid var(--line)}
+.feed:last-child{border-bottom:0}
+.feed .fn{font-weight:600}
+.feed .fs{font-size:12.5px;color:var(--dim);grid-column:1}
+.feed .fe{font:500 11.5px/1.35 var(--f-mono);color:var(--faint);grid-column:1/-1;overflow-wrap:anywhere}
+.pill{grid-row:1/3;grid-column:2;align-self:center;font:700 11px/1 var(--f-cond);letter-spacing:.14em;padding:4px 7px;border-radius:3px;background:var(--raise);color:var(--dim)}
+.pill.live{background:color-mix(in srgb,var(--live) 18%,transparent);color:var(--live)}
+.pill.blocked{background:color-mix(in srgb,var(--ifr) 16%,transparent);color:var(--tx-ifr)}
+.fld{display:flex;flex-direction:column;gap:6px;margin-top:14px}
+.fld span{font:600 12px/1 var(--f-cond);letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
+.fld input{font-family:var(--f-mono);font-size:13px}
+
+/* ---------- popovers / toast ---------- */
+.pop{position:fixed;z-index:50;background:var(--panel);color:var(--fg);border:1px solid var(--line2);border-radius:6px;
+  box-shadow:0 18px 48px rgba(0,0,0,.35);padding:14px;width:min(300px,calc(100vw - 32px))}
+.pop-h{font:600 14px/1 var(--f-cond);letter-spacing:.12em;text-transform:uppercase;margin-bottom:10px}
+.pop .fld{margin-top:10px}
+.pop .fld select{width:100%}
+.tg{display:flex;align-items:center;gap:8px;font-weight:500}
+.tg em{margin-left:auto;font:600 11.5px/1 var(--f-cond);letter-spacing:.12em;text-transform:uppercase;font-style:normal;color:var(--dim)}
+.pop .btn{margin-top:12px}
+.tagpop{width:236px}
+.tagpop .tp{display:flex;flex-wrap:wrap;gap:5px}
+.tagpop .tp button{font:700 12px/1 var(--f-cond);letter-spacing:.1em;padding:5px 7px;border-radius:3px;background:var(--raise);border:1px solid var(--line2)}
+.tagpop .tp button:hover{border-color:var(--dim)}
+.tagpop form{display:flex;gap:6px;margin-top:10px}
+.tagpop input{flex:1;min-width:0;background:var(--bg);border:1px solid var(--line2);border-radius:3px;padding:6px 8px;font:600 13px/1 var(--f-cond);letter-spacing:.08em;text-transform:uppercase}
+.toast{position:fixed;left:50%;bottom:max(18px,env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:60;background:var(--fg);color:var(--bg);
+  border-radius:5px;padding:10px 14px;font-size:13.5px;box-shadow:0 10px 30px rgba(0,0,0,.3);max-width:calc(100vw - 32px)}
+
+footer{display:flex;flex-wrap:wrap;gap:6px 18px;justify-content:space-between;border-top:1px solid var(--line);color:var(--faint);font-size:12px;
+  padding-block:14px 22px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+footer b{color:var(--dim);font-weight:600}
+kbd{font:500 11px/1 var(--f-mono);border:1px solid var(--line2);border-bottom-width:2px;border-radius:3px;padding:1px 4px;color:var(--dim)}
+
+/* ---------- narrow ---------- */
+@media (max-width:860px){
+  .wxview{grid-template-columns:minmax(0,1fr)}
+  .rail{position:static;max-height:none;display:flex;gap:2px;overflow-x:auto;border-right:0;border-bottom:1px solid var(--line);padding:6px max(16px,env(safe-area-inset-right,0px)) 6px max(16px,env(safe-area-inset-left,0px))}
+  .rh{display:none}
+  .ri{width:auto;grid-template-columns:10px auto 9px;flex:none}
+  .ri .rf{display:none}
+  .cards{padding-left:max(16px,env(safe-area-inset-left,0px))}
+  .desk{grid-template-columns:minmax(0,1fr)}
+  .clocks{margin-right:0}
+}
+@media (max-width:560px){
+  .ap{grid-template-columns:minmax(0,1fr)}
+  .idc{display:grid;grid-template-columns:minmax(0,1fr) auto;border-right:0;border-bottom:1px solid var(--line);column-gap:12px;align-content:start}
+  .idc > *{grid-column:1}
+  .idc .rose{grid-column:2;grid-row:1/6}
+  .row{grid-template-columns:minmax(0,1fr);gap:6px}
+  .lab{flex-direction:row;align-items:baseline;gap:8px}
+  .cv{font-size:19px}
+  .sum .upd{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+}
+</style>
+</head>
+<body>
+<div class="chrome" id="chrome">
+  <header class="top">
+    <div class="brand">
+      <span class="sign" aria-hidden="true">WX</span>
+      <span class="word">Center</span>
+      <span class="mode" id="mode" data-m="pending" title="Where the weather on screen comes from"><i></i><b id="modeTxt">Connecting</b></span>
+    </div>
+    <div class="clocks">
+      <div class="clk"><span class="cl">Zulu</span><span class="cv" id="clkZ">--:--:--</span></div>
+      <div class="clk"><span class="cl">Central</span><span class="cv sm" id="clkC">--:--</span></div>
+    </div>
+    <div class="tools">
+      <div class="seg" role="group" aria-label="Reports to show">
+        <button type="button" data-show="metar" aria-pressed="true">METAR</button>
+        <button type="button" data-show="taf" aria-pressed="true">TAF</button>
+        <button type="button" data-show="atis" aria-pressed="true">D-ATIS</button>
+      </div>
+      <button type="button" class="btn refresh" id="refreshBtn" title="Refresh now (R)">
+        <svg class="ring" viewBox="0 0 24 24" aria-hidden="true"><circle class="rt" cx="12" cy="12" r="9"/><circle class="rp" id="ringP" cx="12" cy="12" r="9"/></svg>
+        <span id="cd">2:00</span>
+      </button>
+      <button type="button" class="btn ack" id="ackBtn" title="Acknowledge all new weather (A)" disabled>Ack all <b id="ackN">0</b></button>
+      <button type="button" class="btn icon" id="bellBtn" aria-haspopup="dialog" aria-expanded="false" title="Alerts and sound">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9a6 6 0 1 1 12 0c0 6 2.5 7.5 2.5 7.5h-17S6 15 6 9z"/><path d="M10 20a2.2 2.2 0 0 0 4 0"/><path id="muteSlash" d="M3 3l18 18"/></svg>
+        <span class="vh">Alerts</span>
+      </button>
+      <label class="skin"><span class="vh">Color scheme</span>
+        <select id="skinSel"><option value="classic">Classic</option><option value="fk">FK</option><option value="awc">AWC</option></select>
+      </label>
+      <button type="button" class="btn icon" id="popBtn" title="Open in its own window">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="14" height="14" rx="1.5"/><path d="M13 3h8v8"/><path d="M21 3l-9 9"/></svg>
+        <span class="vh">Open in its own window</span>
+      </button>
+    </div>
+  </header>
+  <div class="banner" id="banner" hidden></div>
+  <nav class="tabs" role="tablist" aria-label="Views">
+    <button type="button" role="tab" id="t-wx" data-tab="wx" aria-selected="true">Weather</button>
+    <button type="button" role="tab" id="t-notam" data-tab="notam" aria-selected="false">NOTAMs<span class="cnt" id="notamCnt"></span></button>
+    <button type="button" role="tab" id="t-desk" data-tab="desk" aria-selected="false">Desk</button>
+    <div class="sum" id="sum"></div>
+  </nav>
+</div>
+
+<main id="app">
+  <section class="wxview" id="tab-wx" role="tabpanel" aria-labelledby="t-wx">
+    <aside class="rail" id="rail" aria-label="Airports"></aside>
+    <div class="cards" id="cards"></div>
+  </section>
+
+  <section class="notamview" id="tab-notam" role="tabpanel" aria-labelledby="t-notam" hidden>
+    <div class="nbar">
+      <input id="nq" type="search" placeholder="Filter NOTAMs — try ILS, 13L or CRANE" autocomplete="off" spellcheck="false">
+      <div class="seg" id="ncat" role="group" aria-label="NOTAM type">
+        <button type="button" data-c="ALL" aria-pressed="true">All</button>
+        <button type="button" data-c="RWY" aria-pressed="false">RWY</button>
+        <button type="button" data-c="ILS" aria-pressed="false">ILS</button>
+        <button type="button" data-c="TWY" aria-pressed="false">TWY</button>
+        <button type="button" data-c="OTHER" aria-pressed="false">Other</button>
+      </div>
+      <label><span class="vh">Airport</span><select id="nap"></select></label>
+      <span class="ncount" id="ncount"></span>
+    </div>
+    <div id="nlist"></div>
+  </section>
+
+  <section class="deskview" id="tab-desk" role="tabpanel" aria-labelledby="t-desk" hidden>
+    <div class="desk">
+      <div>
+        <h2>Your desk</h2>
+        <p class="lede">Paste the desk's data dump. WX Center reads the airport pairs and ignores flight numbers, times and delays.</p>
+        <textarea id="dump" rows="13" spellcheck="false" aria-label="Desk data dump"></textarea>
+        <div class="parse" id="parse" aria-live="polite"></div>
+        <div class="rowb">
+          <button type="button" class="btn primary" id="useBtn">Use these airports</button>
+          <button type="button" class="btn" id="exampleBtn">Load example dump</button>
+        </div>
+        <h3>On the desk now</h3>
+        <div class="chips" id="deskChips"></div>
+        <form class="addf" id="addForm" autocomplete="off">
+          <label class="vh" for="addIn">Add an airport</label>
+          <input id="addIn" placeholder="Add an airport — DAL or KDAL" spellcheck="false">
+          <button type="submit" class="btn">Add</button>
+        </form>
+      </div>
+      <div>
+        <h2>Feeds</h2>
+        <div class="feeds" id="feeds"></div>
+        <p class="hint">Browsers only let a page read another site when that site allows it. A Chrome extension doesn't have that limit. If a feed shows <b>Blocked</b>, open this file from a web server (an intranet page works) or enter a relay below.</p>
+        <label class="fld"><span>Relay</span><input id="relayIn" placeholder="https://relay.example/?url={url}" spellcheck="false"></label>
+        <p class="hint">Requests go through the relay when this is filled in. Use <code>{url}</code> where the feed address goes; without it, the address is added to the end.</p>
+        <h3>Paste weather</h3>
+        <p class="hint" style="margin-top:0">Have reports from another source? Paste METARs, TAFs, D-ATIS or FAA NOTAMs. They're tagged PASTED and a live report replaces them.</p>
+        <textarea id="pasteWx" rows="7" spellcheck="false" aria-label="Pasted weather" style="margin-top:10px"></textarea>
+        <div class="rowb" style="margin-top:10px"><button type="button" class="btn" id="pasteBtn">Read pasted weather</button></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <span><b>For situational awareness only.</b> Always verify against official sources.</span>
+  <span>METAR/TAF aviationweather.gov · D-ATIS datis.clowd.io, atis.info · NOTAMs FAA NOTAM Search</span>
+  <span><kbd>R</kbd> refresh &nbsp;<kbd>A</kbd> ack all &nbsp;<kbd>1</kbd><kbd>2</kbd><kbd>3</kbd> views</span>
+</footer>
+
+<div class="pop" id="alertPop" role="dialog" aria-label="Alerts" hidden>
+  <div class="pop-h">New-weather alerts</div>
+  <label class="tg"><input type="checkbox" id="soundChk"> Sound <em id="soundState">Muted</em></label>
+  <label class="fld"><span>METAR alert</span>
+    <select id="thrM"><option value="off">Off</option><option value="any">Any new METAR</option><option value="1">MVFR or worse</option><option value="2">IFR or worse</option><option value="3">LIFR only</option></select>
+  </label>
+  <label class="fld"><span>TAF alert</span>
+    <select id="thrT"><option value="off">Off</option><option value="any">Any new TAF</option><option value="1">MVFR or worse in TAF</option><option value="2">IFR or worse in TAF</option><option value="3">LIFR in TAF</option></select>
+  </label>
+  <button type="button" class="btn" id="testSnd">Play test sound</button>
+  <p class="hint">Changed reports stay outlined until you press Ack all. MVFR, IFR and LIFR dots pulse until you've looked at the airport.</p>
+</div>
+
+<div class="pop tagpop" id="tagPop" role="dialog" aria-label="Board tag" hidden>
+  <div class="pop-h">Board tag · <span id="tagFor"></span></div>
+  <div class="tp" id="tagPresets"></div>
+  <form id="tagForm"><input id="tagIn" maxlength="10" placeholder="Custom" aria-label="Custom tag"><button type="submit" class="btn">Add</button></form>
+</div>
+
+<div class="toast" id="toast" role="status" hidden></div>
+
+<script>
+(function(){
+'use strict';
+
+/* =====================================================================
+   Pure helpers (no DOM) — parsers for desk dumps, METAR, TAF, D-ATIS, NOTAM
+   ===================================================================== */
+const MIN = 60e3, H = 3600e3;
+const pad = n => String(n).padStart(2,'0');
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const CATN = ['VFR','MVFR','IFR','LIFR'];
+const MON = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+/* Airports: Southwest-style network, IATA -> ICAO. K-prefix list, then non-K list. */
+const AP_K = "ABQ Albuquerque;ALB Albany;AMA Amarillo;ATL Atlanta;AUS Austin;BDL Hartford;BHM Birmingham;BNA Nashville;BOI Boise;BOS Boston;BUF Buffalo;BUR Burbank;BWI Baltimore;BZN Bozeman;CHS Charleston;CLE Cleveland;CLT Charlotte;CMH Columbus;COS Colorado Springs;CRP Corpus Christi;CVG Cincinnati;DAL Dallas Love;DCA Washington National;DEN Denver;DFW Dallas–Fort Worth;DSM Des Moines;DTW Detroit;ECP Panama City Beach;ELP El Paso;EUG Eugene;EWR Newark;FAT Fresno;FLL Fort Lauderdale;GEG Spokane;GRR Grand Rapids;GSP Greenville–Spartanburg;HDN Steamboat Springs;HOU Houston Hobby;HRL Harlingen;IAD Washington Dulles;IAH Houston Bush;ICT Wichita;IND Indianapolis;JAN Jackson;JAX Jacksonville;JFK New York JFK;LAS Las Vegas;LAX Los Angeles;LBB Lubbock;LGA New York LaGuardia;LGB Long Beach;LIT Little Rock;MAF Midland;MCI Kansas City;MCO Orlando;MDW Chicago Midway;MEM Memphis;MIA Miami;MKE Milwaukee;MSP Minneapolis;MSY New Orleans;MTJ Montrose;OAK Oakland;OKC Oklahoma City;OMA Omaha;ONT Ontario;ORD Chicago O'Hare;ORF Norfolk;PBI West Palm Beach;PDX Portland;PHL Philadelphia;PHX Phoenix;PIT Pittsburgh;PNS Pensacola;PSP Palm Springs;PVD Providence;PWM Portland, Maine;RDU Raleigh–Durham;RIC Richmond;RNO Reno;RSW Fort Myers;SAN San Diego;SAT San Antonio;SAV Savannah;SBA Santa Barbara;SDF Louisville;SEA Seattle;SFO San Francisco;SJC San Jose;SLC Salt Lake City;SMF Sacramento;SNA Santa Ana;SRQ Sarasota;STL St. Louis;TPA Tampa;TUL Tulsa;TUS Tucson;VPS Destin–Fort Walton Beach";
+const AP_X = "HNL PHNL Honolulu;OGG PHOG Kahului;KOA PHKO Kona;LIH PHLI Lihue;ITO PHTO Hilo;ANC PANC Anchorage;SJU TJSJ San Juan;AUA TNCA Aruba;BZE MZBZ Belize City;CUN MMUN Cancún;CZM MMCZ Cozumel;GCM MWCR Grand Cayman;HAV MUHA Havana;LIR MRLB Liberia;SJO MROC San José;MBJ MKJS Montego Bay;NAS MYNN Nassau;PUJ MDPC Punta Cana;PVR MMPR Puerto Vallarta;SJD MMSD Los Cabos";
+const BY_IATA = {}, BY_ICAO = {}, NAMES = {};
+function addAp(iata, icao, name){ BY_IATA[iata] = {icao, name}; BY_ICAO[icao] = {iata, name}; }
+AP_K.split(';').forEach(s => { const i = s.indexOf(' '); addAp(s.slice(0,i), 'K'+s.slice(0,i), s.slice(i+1)); });
+AP_X.split(';').forEach(s => { const p = s.split(' '); addAp(p[0], p[1], p.slice(2).join(' ')); });
+
+function resolve(code){
+  const c = String(code||'').toUpperCase().trim();
+  if (/^[A-Z]{3}$/.test(c) && BY_IATA[c]) return BY_IATA[c].icao;
+  if (/^[A-Z]{4}$/.test(c) && BY_ICAO[c]) return c;
+  if (/^K[A-Z]{3}$/.test(c)) return c;
+  return null;
+}
+function disp(icao){ return (BY_ICAO[icao] && BY_ICAO[icao].iata) || (/^K[A-Z]{3}$/.test(icao) ? icao.slice(1) : icao); }
+function apName(icao){ return (BY_ICAO[icao] && BY_ICAO[icao].name) || NAMES[icao] || ''; }
+const byDisp = (a,b) => disp(a).localeCompare(disp(b));
+
+/* --- desk dump: find airport pairs, ignore flight numbers, times, delays --- */
+const STOP = new Set('ETD ETA STD STA DLY DEP ARR OUT OFF ONS TBD SKD EST ACT CNL CXL ATC FLT NBR NUM GATE TIME LATE HOLD DIV RTE AND THE FOR OCT NOV DEC JAN FEB MAR APR MAY JUN JUL AUG SEP MX WX'.split(' '));
+const NOT_PAIRS = new Set(['DALLAS']);
+function parseDump(text){
+  const T = String(text||'').toUpperCase();
+  const set = new Set(); let pairs = 0, m;
+  const add = (a, b, loose) => {
+    let A = resolve(a), B = resolve(b);
+    if (loose){
+      if (!A && B && /^[A-Z]{3}$/.test(a) && !STOP.has(a)) A = 'K'+a;
+      if (!B && A && /^[A-Z]{3}$/.test(b) && !STOP.has(b)) B = 'K'+b;
+    }
+    if (A && B && A !== B){ set.add(A); set.add(B); pairs++; }
+  };
+  const P = /\b([A-Z]{3,4})\s*(?:-+|–|—|\/|>|→|\s+TO\s+)\s*(?=([A-Z]{3,4})\b)/g;
+  while ((m = P.exec(T))) add(m[1], m[2], true);
+  const C = /\b([A-Z]{6}|[A-Z]{8})\b/g;
+  while ((m = C.exec(T))) { if (NOT_PAIRS.has(m[1])) continue; const h = m[1].length/2; add(m[1].slice(0,h), m[1].slice(h), false); }
+  const S = /\b([A-Z]{3,4})[ \t]+(?=([A-Z]{3,4})\b)/g;
+  while ((m = S.exec(T))) add(m[1], m[2], false);
+  return { airports: [...set].sort(byDisp), pairs };
+}
+
+/* --- time --- */
+function zDate(d, h, m, ref){
+  ref = ref || new Date(); let best = null, bd = Infinity;
+  for (let off = -1; off <= 1; off++){
+    const dt = new Date(Date.UTC(ref.getUTCFullYear(), ref.getUTCMonth()+off, d, h, m||0));
+    if (h < 24 && dt.getUTCDate() !== d) continue;
+    const df = Math.abs(dt - ref); if (df < bd){ bd = df; best = dt; }
+  }
+  return best;
+}
+function hhmmDate(hh, mm, ref){ ref = ref || new Date(); const d = new Date(Date.UTC(ref.getUTCFullYear(), ref.getUTCMonth(), ref.getUTCDate(), hh, mm)); if (d - ref > 20*MIN) d.setUTCDate(d.getUTCDate()-1); return d; }
+const ddhh = d => pad(d.getUTCDate()) + pad(d.getUTCHours());
+const fmtZ = d => d ? pad(d.getUTCHours()) + pad(d.getUTCMinutes()) + 'Z' : '';
+const fmtDH = d => d ? pad(d.getUTCDate()) + '/' + pad(d.getUTCHours()) : '';
+const fmtDHM = d => d ? pad(d.getUTCDate()) + '/' + pad(d.getUTCHours()) + pad(d.getUTCMinutes()) + 'Z' : '';
+const fmtLong = d => d ? pad(d.getUTCDate()) + ' ' + MON[d.getUTCMonth()] + ' ' + pad(d.getUTCHours()) + pad(d.getUTCMinutes()) + 'Z' : '';
+function fmtAge(ms){ if (!(ms >= 0)) ms = 0; const m = Math.floor(ms/MIN); if (m < 60) return m + 'm'; const h = Math.floor(m/60); if (h < 48) return h + 'h' + pad(m%60); return Math.floor(h/24) + 'd'; }
+function fmtIn(ms){ const m = Math.max(0, Math.round(ms/MIN)); if (m < 60) return m + 'm'; const h = Math.floor(m/60); if (h < 48) return h + 'h' + pad(m%60); return Math.round(h/24) + 'd'; }
+
+/* --- token grammar --- */
+const WIND_RE = /^(VRB|\d{3})(\d{2,3})(?:G(\d{2,3}))?(KT|MPS)$/;
+const WVAR_RE = /^(\d{3})V(\d{3})$/;
+const CLD_RE  = /^(FEW|SCT|BKN|OVC|VV)(\d{3}|\/\/\/)(CB|TCU|\/\/\/)?$/;
+const WX_RE   = /^(\+|-|VC)?(MI|PR|BC|DR|BL|SH|TS|FZ)?(DZ|RA|SN|SG|IC|PL|GR|GS|UP|BR|FG|FU|VA|DU|SA|HZ|PY|PO|SQ|FC|SS|DS)*$/;
+const isWx = t => t.length >= 2 && WX_RE.test(t) && !/^(\+|-|VC)$/.test(t);
+function visTok(t, allowMetric){
+  let m;
+  if (t === 'CAVOK') return { v: 10, cavok: true };
+  if ((m = /^(P|M)?(\d{1,2})SM$/.exec(t))) return { v: m[1] === 'P' ? Math.max(7, +m[2]+1) : m[1] === 'M' ? +m[2] - 0.01 : +m[2] };
+  if ((m = /^(M)?(\d)\/(\d{1,2})SM$/.exec(t))) return { v: m[2]/m[3] - (m[1] ? 0.01 : 0) };
+  if (allowMetric && (m = /^(\d{4})(NDV)?$/.exec(t))) return { v: m[1] === '9999' ? 10 : +m[1]/1609.34 };
+  return null;
+}
+function catVC(vis, ceil){
+  if (vis == null && ceil == null) return null;
+  let c = 0;
+  if (ceil != null){ if (ceil < 500) c = 3; else if (ceil < 1000) c = 2; else if (ceil <= 3000) c = 1; }
+  if (vis != null){ const v = vis < 1 ? 3 : vis < 3 ? 2 : vis <= 5 ? 1 : 0; if (v > c) c = v; }
+  return c;
+}
+function analyze(toks){
+  const o = { wind: null, vis: null, ceil: null, clouds: false, ts: false, cb: false, winter: false, cavok: false };
+  let prevWind = false, m;
+  for (let i = 0; i < toks.length; i++){
+    const t = toks[i];
+    if ((m = WIND_RE.exec(t))){ o.wind = { dir: m[1] === 'VRB' ? null : +m[1], vrb: m[1] === 'VRB', spd: +m[2], gst: m[3] ? +m[3] : null }; prevWind = true; continue; }
+    if ((m = WVAR_RE.exec(t))){ if (o.wind){ o.wind.from = +m[1]; o.wind.to = +m[2]; } prevWind = true; continue; }
+    if (/^\d$/.test(t) && toks[i+1] && (m = /^(\d)\/(\d{1,2})SM$/.exec(toks[i+1]))){ o.vis = +t + m[1]/m[2]; i++; prevWind = false; continue; }
+    const v = visTok(t, prevWind); prevWind = false;
+    if (v){ o.vis = v.v; if (v.cavok){ o.cavok = true; o.clouds = true; } continue; }
+    if ((m = CLD_RE.exec(t))){
+      o.clouds = true; if (m[3] === 'CB' || m[3] === 'TCU') o.cb = true;
+      if (/BKN|OVC|VV/.test(m[1]) && /^\d/.test(m[2])){ const b = +m[2]*100; if (o.ceil == null || b < o.ceil) o.ceil = b; }
+      continue;
+    }
+    if (/^(SKC|CLR|NSC|NCD)$/.test(t)){ o.clouds = true; continue; }
+    if (isWx(t)){ if (/TS/.test(t)) o.ts = true; if (/FZ|PL|SN|SG|IC|GR|GS/.test(t)) o.winter = true; }
+  }
+  return o;
+}
+
+/* --- METAR --- */
+function parseMetar(raw, ref){
+  const r = String(raw||'').replace(/\s+/g,' ').replace(/=\s*$/,'').trim();
+  const k = r.indexOf(' RMK ');
+  const body = k >= 0 ? r.slice(0,k) : r;
+  const toks = body.split(' ');
+  let i = 0, kind = 'METAR';
+  if (toks[0] === 'METAR' || toks[0] === 'SPECI'){ kind = toks[0]; i = 1; }
+  const station = toks[i] || '';
+  const tm = /^(\d{2})(\d{2})(\d{2})Z$/.exec(toks[i+1] || '');
+  const time = tm ? zDate(+tm[1], +tm[2], +tm[3], ref) : null;
+  const a = analyze(toks.slice(tm ? i+2 : i+1));
+  return Object.assign({ raw: r, station, kind, time, cat: catVC(a.vis, a.clouds && a.ceil == null ? null : a.ceil) ?? (a.clouds ? 0 : null) }, a);
+}
+
+/* --- TAF --- */
+function parseTaf(raw, ref){
+  const r = String(raw||'').replace(/\s+/g,' ').replace(/=\s*$/,'').trim();
+  const toks = r.split(' ');
+  let i = 0, m, amd = false; const head = [];
+  if (toks[i] === 'TAF') head.push(toks[i++]);
+  while (/^(AMD|COR|RTD)$/.test(toks[i] || '')){ if (toks[i] === 'AMD') amd = true; head.push(toks[i++]); }
+  const station = toks[i] || ''; head.push(toks[i++]);
+  let issue = null;
+  if ((m = /^(\d{2})(\d{2})(\d{2})Z$/.exec(toks[i] || ''))){ issue = zDate(+m[1], +m[2], +m[3], ref); head.push(toks[i++]); }
+  let vFrom = null, vTo = null;
+  const R = issue || ref || new Date();
+  if ((m = /^(\d{2})(\d{2})\/(\d{2})(\d{2})$/.exec(toks[i] || ''))){
+    vFrom = zDate(+m[1], +m[2], 0, R); vTo = zDate(+m[3], +m[4], 0, new Date(+vFrom + 15*H)); head.push(toks[i++]);
+  }
+  const ref2 = vFrom ? new Date(+vFrom + 12*H) : R;
+  const groups = []; let cur = { kind: 'BASE', toks: [], from: vFrom }; groups.push(cur);
+  for (; i < toks.length; i++){
+    const t = toks[i];
+    if ((m = /^FM(\d{2})(\d{2})(\d{2})$/.exec(t))){ cur = { kind: 'FM', toks: [], from: zDate(+m[1], +m[2], +m[3], ref2) }; groups.push(cur); continue; }
+    if (/^PROB\d{2}$/.test(t)){ cur = { kind: t, toks: [] }; groups.push(cur); continue; }
+    if (t === 'TEMPO' || t === 'BECMG'){
+      if (/^PROB/.test(cur.kind) && !cur.toks.length && !cur.from) cur.kind += ' ' + t;
+      else { cur = { kind: t, toks: [] }; groups.push(cur); }
+      continue;
+    }
+    if (cur.kind !== 'BASE' && cur.kind !== 'FM' && !cur.from && (m = /^(\d{2})(\d{2})\/(\d{2})(\d{2})$/.exec(t))){
+      cur.from = zDate(+m[1], +m[2], 0, ref2); cur.to = zDate(+m[3], +m[4], 0, new Date(+cur.from + 6*H)); continue;
+    }
+    cur.toks.push(t);
+  }
+  const pvs = groups.filter(g => g.kind === 'BASE' || g.kind === 'FM');
+  pvs.forEach((g, k) => { g.prevailing = true; g.to = pvs[k+1] ? pvs[k+1].from : vTo; });
+  let pv = { vis: null, ceil: null };
+  groups.forEach(g => {
+    const a = analyze(g.toks); g.a = a;
+    const vis = a.vis != null ? a.vis : pv.vis;
+    const ceil = (a.clouds || a.cavok) ? a.ceil : pv.ceil;
+    g.cat = catVC(vis, ceil);
+    if (g.prevailing || /BECMG/.test(g.kind)) pv = { vis, ceil };
+  });
+  const nowT = Date.now(); let worst = null, ts = false;
+  groups.forEach(g => {
+    const end = g.to || vTo; if (end && +end < nowT) return;
+    if (g.cat != null && (worst == null || g.cat > worst)) worst = g.cat;
+    if (g.a.ts || g.a.cb) ts = true;
+  });
+  return { raw: r, station, issue, amd, vFrom, vTo, head, groups, worst, ts, time: issue };
+}
+
+/* --- runways in free text --- */
+const RID = '(?:0?[1-9]|[12]\\d|3[0-6])[LRC]?(?![0-9A-Z])';
+const RWY_RE = new RegExp('\\b(?:RWYS?|RY|RUNWAYS?)\\s*(' + RID + '(?:(?:\\s*(?:\\/|,|&|\\bAND\\b|\\bOR\\b)\\s*|\\s+)(?:RWYS?\\s*)?' + RID + ')*)', 'g');
+const RID_G = new RegExp(RID, 'g');
+const normRwy = r => { const m = /^0?(\d{1,2})([LRC]?)$/.exec(r); return m ? m[1] + m[2] : r; };
+function runwaysIn(s){
+  const out = []; let m; RWY_RE.lastIndex = 0;
+  while ((m = RWY_RE.exec(s))) (m[1].match(RID_G) || []).forEach(x => out.push(normRwy(x)));
+  return out;
+}
+const CL_RE = /\b(?:RWYS?|RY|RUNWAYS?)\s*((?:0?[1-9]|[12]\d|3[0-6])[LRC]?(?:\s*\/\s*(?:0?[1-9]|[12]\d|3[0-6])[LRC]?)?)\s+(?:IS\s+)?(?:CLSD|CLOSED)\b/g;
+function closedIn(s){ const out = []; let m; CL_RE.lastIndex = 0; while ((m = CL_RE.exec(s))) m[1].split('/').forEach(x => out.push(normRwy(x.trim()))); return out; }
+
+/* --- D-ATIS --- */
+const ARR_W = /\b(LDG|LNDG|LANDING|LAND|ARRIVALS?|ARRIVING|ARR|APCHS?|APPROACH(?:ES)?|ILS|RNAV|RNP|VISUAL|LOC|GLS)\b/;
+const DEP_W = /\b(DEPG|DEPARTING|DEPARTURES?|DEPS?|DEPART|TKOF|TAKEOFFS?)\b/;
+const OOS_W = /\b(OTS|U\/S|OUT OF SERVICE|UNMONITORED|INOP|UNUSABLE|NOT AVBL)\b/;
+function parseAtis(text, type, ref){
+  const t = String(text||'').replace(/\s+/g,' ').trim();
+  const letter = (/\bINFO(?:RMATION)?\s+([A-Z])\b/.exec(t) || [])[1] || '';
+  const tm = /\b(\d{2})(\d{2})Z\b/.exec(t);
+  const time = tm ? hhmmDate(+tm[1], +tm[2], ref) : null;
+  const arr = new Set(), dep = new Set(), clsd = new Set();
+  const sents = t.split(/(?<=\.)\s+/).map(s => {
+    const c = closedIn(s);
+    if (c.length){ c.forEach(x => clsd.add(x)); return { s, kind: 'clsd' }; }
+    const r = runwaysIn(s);
+    if (!r.length || /^(NOTAMS?\b|TWY\b|TAXIWAY)/.test(s) || OOS_W.test(s)) return { s, kind: '' };
+    const a = ARR_W.test(s), d = DEP_W.test(s);
+    if (!a && !d && !/\bIN USE\b/.test(s)) return { s, kind: '' };
+    const toArr = a || (!d && type !== 'dep'), toDep = d || (!a && type === 'dep');
+    if (toArr) r.forEach(x => arr.add(x)); if (toDep) r.forEach(x => dep.add(x));
+    return { s, kind: 'use' };
+  });
+  return { text: t, type: type || 'combined', letter, time, sents, arr: [...arr], dep: [...dep], clsd: [...clsd] };
+}
+
+/* --- NOTAM --- */
+const NOTAM_RE = /^!([A-Z0-9]{3,4})\s+(\d{1,2}\/\d{1,4})\s+([A-Z0-9]{3,4})\s+([\s\S]*?)\s*(\d{10})(?:EST)?-(\d{10}(?:EST)?|PERM|UFN)\s*$/;
+function ymd(s){ return new Date(Date.UTC(2000 + +s.slice(0,2), +s.slice(2,4)-1, +s.slice(4,6), +s.slice(6,8), +s.slice(8,10))); }
+function ncat(body){
+  const b = body.toUpperCase();
+  if (/^RWY\b/.test(b)) return 'RWY';
+  if (/^(NAV\s+)?(ILS|LOC|GP|GS|LOCALIZER|GLIDESLOPE)\b/.test(b) || (/^NAV\b/.test(b) && /\b(ILS|LOC|GP|GS)\b/.test(b))) return 'ILS';
+  if (/^TWY\b/.test(b)) return 'TWY';
+  if (/^OBST\b/.test(b)) return 'OBST';
+  if (/^(AD|APRON|RAMP)\b/.test(b)) return 'AD';
+  if (/^NAV\b/.test(b)) return 'NAV';
+  if (/^SVC\b/.test(b)) return 'SVC';
+  if (/^AIRSPACE\b/.test(b)) return 'ASPC';
+  if (/^COM\b/.test(b)) return 'COM';
+  return 'MISC';
+}
+const RANK = { RWY: 0, ILS: 1, TWY: 2 };
+function parseNotam(text, loc){
+  const t = String(text||'').replace(/\s+/g,' ').trim();
+  const m = NOTAM_RE.exec(t);
+  let n;
+  if (m){
+    n = { num: m[2], loc: m[1], body: m[4], start: ymd(m[5]), end: /^\d{10}/.test(m[6]) ? ymd(m[6]) : null, est: /EST/.test(m[6]) };
+  } else {
+    const mm = /^!?([A-Z0-9]{3,4})\s+(\d{1,2}\/\d{1,4})\s+(?:[A-Z0-9]{3,4}\s+)?(.*)$/.exec(t);
+    n = { num: mm ? mm[2] : '', loc: mm ? mm[1] : (loc || ''), body: mm ? mm[3] : t, start: null, end: null };
+  }
+  n.cat = ncat(n.body); n.rank = RANK[n.cat] ?? 3; n.text = t;
+  const icao = loc || resolve(n.loc) || n.loc;
+  n.icao = icao;
+  return n;
+}
+function notamActive(n, now){ return (!n.start || n.start <= now) && (!n.end || n.end >= now); }
+
+/* --- pasted weather: split mixed text into reports --- */
+function splitReports(text){
+  const lines = String(text||'').toUpperCase().replace(/\r/g,'').split('\n');
+  const recs = []; let cur = null;
+  const startRe = /^\s*(METAR\b|SPECI\b|TAF\b|![A-Z0-9]{3,4}\s|[A-Z]{4}\s+\d{6}Z\b|[A-Z]{3,4}\s+(ARR\s+|DEP\s+)?(D-?)?ATIS\b|[A-Z]{3,4}\s+(ARR\s+|DEP\s+)?INFO\b)/;
+  lines.forEach(l => {
+    if (!l.trim()){ cur = null; return; }
+    if (startRe.test(l) && !(cur && /^\s*TAF(\s+AMD|\s+COR)?\s*$/.test(cur))){ cur = l.trim(); recs.push(cur); }
+    else if (cur != null){ recs[recs.length-1] = (cur += ' ' + l.trim()); }
+    else { cur = l.trim(); recs.push(cur); }
+  });
+  return recs.map(r => r.replace(/\s+/g,' ').trim()).filter(Boolean).map(r => {
+    if (/^!/.test(r)) return { kind: 'notam', text: r };
+    if (/^TAF\b/.test(r) || /^[A-Z]{4}\s+\d{6}Z\s+\d{4}\/\d{4}\b/.test(r)) return { kind: 'taf', text: /^TAF/.test(r) ? r : 'TAF ' + r };
+    if (/\b(ATIS|INFO)\b/.test(r.split(' ').slice(0,4).join(' ')) && !/^(METAR|SPECI)\b/.test(r)){
+      const m = /^([A-Z]{3,4})\s+(ARR|DEP)?/.exec(r); return { kind: 'atis', text: r, code: m ? m[1] : '', type: m && m[2] ? m[2].toLowerCase() : 'combined' };
+    }
+    if (/^(METAR|SPECI)\b/.test(r) || /^[A-Z]{4}\s+\d{6}Z\b/.test(r)) return { kind: 'metar', text: r };
+    return { kind: 'unknown', text: r };
+  });
+}
+
+const API = { parseDump, parseMetar, parseTaf, parseAtis, parseNotam, splitReports, runwaysIn, closedIn, resolve, disp, catVC, zDate };
+if (typeof window !== 'undefined') window.WXC = API;
+if (typeof document === 'undefined' || !document.getElementById('app')) return;
+
+/* =====================================================================
+   App state
+   ===================================================================== */
+const $ = (s, r) => (r || document).querySelector(s);
+const $$ = (s, r) => [...(r || document).querySelectorAll(s)];
+const store = {
+  get(k, d){ try { const v = localStorage.getItem('wxc.' + k); return v == null ? d : JSON.parse(v); } catch(e){ return d; } },
+  set(k, v){ try { localStorage.setItem('wxc.' + k, JSON.stringify(v)); } catch(e){} }
+};
+const EXAMPLE_DUMP = [
+  'SWA DISPATCH  DESK 14   WORKING 2200-0600L',
+  'FLT    ROUTE      ETD    STATUS',
+  '1121   DAL-HOU    0715   ON TIME',
+  '2388   HOU-MSY    0805   DLY 25 WX',
+  ' 563   DAL-AUS    0810',
+  '4410   AUS-ELP    0930   ON TIME',
+  ' 918   DALDEN     0645',
+  '3302   DEN-LAS    0955   DLY 10',
+  '1764   LAS-PHX    1205',
+  ' 205   DAL/MDW    0700',
+  '2617   MDW-BNA    1015   ON TIME',
+  ' 744   HOU-SAT    0725',
+  '1890   SAT-MAF    0910',
+  '3051   DAL-OKC    0655',
+  ' 612   OKC-TUL    0840   DLY 15 MX'
+].join('\n');
+const EXAMPLE_AIRPORTS = parseDump(EXAMPLE_DUMP).airports;
+
+const S = {
+  airports: store.get('airports', EXAMPLE_AIRPORTS),
+  show: store.get('show', { metar: true, taf: true, atis: true }),
+  skin: store.get('skin', 'classic'),
+  sound: store.get('sound', false),
+  thrM: store.get('thrM', '2'),
+  thrT: store.get('thrT', '2'),
+  relay: store.get('relay', ''),
+  tags: store.get('tags', {}),
+  dump: store.get('dump', EXAMPLE_DUMP),
+  wx: {}, notams: {},
+  feeds: { wx: { state: 'wait' }, atis: { state: 'wait' }, notam: { state: 'wait' } },
+  quiet: false, firstRun: true, lastRun: null, lastNotam: 0,
+  sampleStep: 0, sampleSeeded: false, chime: false,
+  tab: 'wx', nf: { q: '', cat: 'ALL', ap: 'ALL' }
+};
+function W(icao){ return S.wx[icao] || (S.wx[icao] = { metar: null, taf: null, atis: null, atisSrc: null, hist: [], changed: { metar: false, taf: false }, unseen: false }); }
+const dc = c => c == null ? 'cx' : 'c' + c;
+const wants = (thr, cat) => thr !== 'off' && (thr === 'any' || (cat != null && cat >= +thr));
+
+/* --- data entry points (live, sample and pasted all go through these) --- */
+function addHist(w, p){
+  if (!p || !p.wind) return;
+  if (w.hist.some(h => h.raw === p.raw)) return;
+  w.hist.push({ raw: p.raw, time: p.time, wind: p.wind });
+  w.hist.sort((a,b) => (a.time||0) - (b.time||0));
+  if (w.hist.length > 6) w.hist.shift();
+}
+function setMetar(icao, raw, src){
+  const p = parseMetar(raw); icao = icao || p.station; if (!icao || !p.station) return;
+  const w = W(icao); let old = w.metar;
+  if (old && old.src === 'sample' && src !== 'sample'){ w.hist = []; w.changed.metar = false; w.unseen = false; old = null; }
+  if (old && old.raw === p.raw){ old.src = src; return; }
+  if (old && old.src === src && old.time && p.time && p.time < old.time){ addHist(w, p); return; }
+  p.src = src;
+  if (old) addHist(w, old);
+  w.metar = p;
+  if (old && old.src === src && !S.quiet){
+    w.changed.metar = true; w.unseen = true;
+    if (wants(S.thrM, p.cat)) S.chime = true;
+  }
+}
+function setTaf(icao, raw, src){
+  const p = parseTaf(raw); icao = icao || p.station; if (!icao || !p.station) return;
+  const w = W(icao); let old = w.taf;
+  if (old && old.src === 'sample' && src !== 'sample'){ w.changed.taf = false; old = null; }
+  if (old && old.raw === p.raw){ old.src = src; return; }
+  if (old && old.src === src && old.issue && p.issue && p.issue < old.issue) return;
+  p.src = src; w.taf = p;
+  if (old && old.src === src && !S.quiet){
+    w.changed.taf = true; w.unseen = true;
+    if (wants(S.thrT, p.worst)) S.chime = true;
+  }
+}
+function setAtis(icao, list, src){
+  const w = W(icao);
+  w.atis = list.map(a => Object.assign({}, a, { p: parseAtis(a.text, a.type) }));
+  w.atisSrc = src;
+}
+function setNotams(icao, list, src){
+  S.notams[icao] = list.map(n => Object.assign(n, { src }));
+}
+
+/* =====================================================================
+   Feeds
+   ===================================================================== */
+const AWC = 'https://aviationweather.gov/api/data/';
+function viaRelay(url){ const r = (S.relay || '').trim(); if (!r) return url; return r.includes('{url}') ? r.replace('{url}', encodeURIComponent(url)) : r + url; }
+async function fetchText(url, opt, ms){
+  const c = new AbortController(); const tm = setTimeout(() => c.abort(), ms || 9000);
+  try {
+    const r = await fetch(viaRelay(url), Object.assign({ cache: 'no-store', signal: c.signal }, opt || {}));
+    if (!r.ok){ const e = new Error('HTTP ' + r.status); e.http = true; throw e; }
+    return await r.text();
+  } finally { clearTimeout(tm); }
+}
+const jsonOr = (t) => { try { return JSON.parse(t); } catch(e){ return null; } };
+const chunk = (a, n) => { const o = []; for (let i = 0; i < a.length; i += n) o.push(a.slice(i, i+n)); return o; };
+function errText(e){ return e && e.name === 'AbortError' ? 'Timed out' : (e && e.http ? e.message : (e && e.message && !/fetch|network|load/i.test(e.message) ? e.message : "Couldn't connect: the browser blocked the request, or you're offline")); }
+
+async function fetchWx(ids){
+  if (!ids.length) return true;
+  try {
+    for (const c of chunk(ids, 40)){
+      const mt = await fetchText(AWC + 'metar?ids=' + c.join(',') + '&format=json&hours=2');
+      const mj = jsonOr(mt);
+      const list = Array.isArray(mj)
+        ? mj.map(o => { if (o.name && o.icaoId) NAMES[o.icaoId] = String(o.name).replace(/,\s*US$/,''); return o.rawOb; })
+        : mt.split('\n').map(s => s.trim()).filter(s => /^[A-Z]{4}\s|^(METAR|SPECI)\s/.test(s));
+      list.filter(Boolean).map(r => parseMetar(r)).sort((a,b) => (a.time||0) - (b.time||0)).forEach(p => setMetar(p.station, p.raw, 'live'));
+      const tt = await fetchText(AWC + 'taf?ids=' + c.join(',') + '&format=json');
+      const tj = jsonOr(tt);
+      if (Array.isArray(tj)) tj.forEach(o => o.rawTAF && setTaf(o.icaoId, o.rawTAF, 'live'));
+      else splitReports(tt).filter(x => x.kind === 'taf').forEach(x => setTaf(null, x.text, 'live'));
+    }
+    S.feeds.wx = { state: 'live', at: new Date() };
+    return true;
+  } catch(e){
+    S.feeds.wx = { state: 'blocked', at: S.feeds.wx.at, err: errText(e) };
+    return false;
+  }
+}
+
+function normAtis(j){
+  const arr = Array.isArray(j) ? j : (j && (j.datis || j.text || j.atis) ? [j] : []);
+  return arr.map(it => ({ type: String(it.type || 'combined').toLowerCase(), text: it.datis || it.text || it.atis || '' })).filter(a => a.text);
+}
+async function fetchAtis(ids){
+  let reach = false, lastErr = null;
+  const queue = ids.slice();
+  const worker = async () => {
+    while (queue.length){
+      const icao = queue.shift(); let done = false;
+      for (const base of ['https://datis.clowd.io/api/', 'https://atis.info/api/']){
+        try { const t = await fetchText(base + icao, null, 8000); reach = true; setAtis(icao, normAtis(jsonOr(t)), 'live'); done = true; break; }
+        catch(e){ lastErr = e; if (e.http){ reach = true; } }
+      }
+      if (!done && reach && (!S.wx[icao] || S.wx[icao].atisSrc !== 'live')) setAtis(icao, [], 'live');
+    }
+  };
+  await Promise.all([0,1,2,3,4,5].map(worker));
+  S.feeds.atis = reach ? { state: 'live', at: new Date() } : { state: 'blocked', at: S.feeds.atis.at, err: errText(lastErr) };
+  return reach;
+}
+
+async function fetchNotams(ids){
+  try {
+    const all = {}; ids.forEach(i => all[i] = []);
+    let offset = 0, total = Infinity, pages = 0;
+    while (offset < total && pages < 8){
+      const body = new URLSearchParams({ searchType: '0', designatorsForLocation: ids.join(','), offset: String(offset), notamsOnly: 'false', radius: '10' });
+      const t = await fetchText('https://notams.aim.faa.gov/notamSearch/search', { method: 'POST', body }, 12000);
+      const j = jsonOr(t); if (!j || !Array.isArray(j.notamList)) throw new Error('Unexpected NOTAM response');
+      total = +j.totalNotamCount || j.notamList.length;
+      j.notamList.forEach(o => {
+        const icao = o.icaoId || resolve(o.facilityDesignator) || o.facilityDesignator;
+        const txt = o.traditionalMessage || o.icaoMessage || '';
+        const n = parseNotam(txt.trim().startsWith('!') ? txt : ('!' + (o.facilityDesignator||'') + ' ' + (o.notamNumber||'') + ' ' + txt), icao);
+        if (!n.start && o.startDate) n.start = faaDate(o.startDate);
+        if (!n.end && o.endDate && /\d/.test(o.endDate)) n.end = faaDate(o.endDate);
+        (all[icao] || (all[icao] = [])).push(n);
+      });
+      offset += j.notamList.length || 30; pages++;
+      if (!j.notamList.length) break;
+    }
+    Object.keys(all).forEach(i => setNotams(i, all[i], 'live'));
+    S.feeds.notam = { state: 'live', at: new Date() };
+    return true;
+  } catch(e){
+    S.feeds.notam = { state: 'blocked', at: S.feeds.notam.at, err: errText(e) };
+    return false;
+  }
+}
+function faaDate(s){ const m = /(\d{2})\/(\d{2})\/(\d{4})\s+(\d{2})(\d{2})/.exec(s || ''); return m ? new Date(Date.UTC(+m[3], +m[1]-1, +m[2], +m[4], +m[5])) : null; }
+
+/* =====================================================================
+   Sample desk — used only when the live feeds can't be reached
+   ===================================================================== */
+let SAMPLE = null;
+function makeSample(){
+  const n = new Date();
+  const Z = d => pad(d.getUTCDate()) + pad(d.getUTCHours()) + pad(d.getUTCMinutes()) + 'Z';
+  const T4 = d => pad(d.getUTCHours()) + pad(d.getUTCMinutes()) + 'Z';
+  const obs = new Date(n); obs.setUTCMinutes(53, 0, 0); if (obs > n) obs.setUTCHours(obs.getUTCHours() - 1);
+  const ago = m => new Date(+obs - m*MIN);
+  const t = Z(obs), at = T4(obs);
+  const iss = new Date(n); iss.setUTCMinutes(20, 0, 0); if (iss > n) iss.setUTCHours(iss.getUTCHours() - 1);
+  while (![23,5,11,17].includes(iss.getUTCHours())) iss.setUTCHours(iss.getUTCHours() - 1);
+  const base = new Date(+iss + 40*MIN);
+  const V = b => ({ v: h => ddhh(new Date(+b + h*H)), fm: h => 'FM' + ddhh(new Date(+b + h*H)) + '00' });
+  const { v, fm } = V(base);
+  const hdr = (st, d, b, len) => `${st} ${Z(d)} ${ddhh(b)}/${ddhh(new Date(+b + len*H))}`;
+  const speciT = new Date(Math.min(+n, Math.max(+obs + MIN, +n - 4*MIN)));
+  const hIss = new Date(+n - 25*MIN), hBase = new Date(hIss); hBase.setUTCMinutes(0, 0, 0); const hv = V(hBase);
+  const eIss = new Date(+iss - 12*H), eBase = new Date(+base - 12*H), ev = V(eBase);
+  const old = ago(120), oldT = Z(old), oldA = T4(old);
+
+  const metar = {
+    KAUS: [`KAUS ${Z(ago(120))} 15006KT 10SM SCT035 BKN250 23/16 A2994`, `KAUS ${Z(ago(60))} 15007KT 10SM SCT035 BKN250 23/16 A2995`, `KAUS ${t} 16008KT 10SM SCT035 BKN250 22/16 A2996 RMK AO2 SLP138 T02220161`],
+    KBNA: [`KBNA ${Z(ago(60))} 35005KT 10SM CLR 12/03 A3011`, `KBNA ${t} 34006KT 10SM CLR 11/03 A3012 RMK AO2 SLP201`],
+    KDAL: [`KDAL ${Z(ago(120))} 14010G18KT 10SM FEW040 BKN250 25/14 A2997`, `KDAL ${Z(ago(60))} 15011G20KT 10SM FEW040 BKN250 24/14 A2997`, `KDAL ${t} 15012G22KT 10SM FEW040 BKN250 24/14 A2998 RMK AO2 PK WND 15027/${pad(obs.getUTCHours())}18 SLP148`],
+    KDEN: [`KDEN ${Z(ago(120))} 21015G25KT 10SM FEW120 SCT200 15/M04 A2994`, `KDEN ${Z(ago(60))} 22017G28KT 10SM FEW120 SCT200 14/M04 A2995`, `KDEN ${t} 22018G31KT 190V250 10SM FEW120 SCT200 14/M04 A2995 RMK AO2 PK WND 22036/${pad(obs.getUTCHours())}21 SLP095`],
+    KELP: [`KELP ${Z(ago(60))} 26009KT 10SM CLR 22/M02 A2989`, `KELP ${t} 27010KT 10SM CLR 21/M02 A2990 RMK AO2 SLP096`],
+    KHOU: [`KHOU ${Z(ago(120))} 12010KT 8SM BKN014 OVC025 24/22 A2987`, `KHOU ${Z(ago(60))} 13010KT 6SM BR BKN012 OVC025 24/22 A2986 RMK AO2`, `KHOU ${t} 13011KT 5SM -RA BR BKN011 OVC022 23/22 A2986 RMK AO2`, `SPECI KHOU ${Z(speciT)} 14009KT 3SM -TSRA BR BKN009 OVC020CB 23/22 A2985 RMK AO2 LTG DSNT ALQDS TSB${pad(speciT.getUTCMinutes())} OCNL LTGICCG OHD`],
+    KLAS: [`KLAS ${Z(ago(60))} 04005KT 10SM FEW250 25/M03 A2991`, `KLAS ${t} 05006KT 10SM FEW250 24/M03 A2992 RMK AO2 SLP110`],
+    KMAF: [`KMAF ${Z(ago(60))} 17013KT 10SM CLR 20/05 A2988`, `KMAF ${t} 18014KT 10SM CLR 19/05 A2989 RMK AO2`],
+    KMDW: [`KMDW ${Z(ago(120))} 24010KT 6SM BR OVC020 10/07 A3002`, `KMDW ${Z(ago(60))} 25010KT 5SM BR OVC019 09/07 A3003`, `KMDW ${t} 25011KT 4SM BR OVC018 09/07 A3003 RMK AO2 SLP170`],
+    KMSY: [`KMSY ${Z(ago(120))} 00000KT 3SM BR OVC006 21/20 A3001`, `KMSY ${Z(ago(60))} 00000KT 1SM BR OVC003 20/20 A3001`, `KMSY ${t} 00000KT 1/2SM FG VV002 20/20 A3001 RMK AO2 SFC VIS 3/4 SLP163`],
+    KOKC: [`KOKC ${Z(ago(60))} 17015G24KT 10SM SCT060 22/12 A2981`, `KOKC ${t} 17016G26KT 10SM SCT060 21/12 A2980 RMK AO2 PK WND 17031/${pad(obs.getUTCHours())}30`],
+    KPHX: [`KPHX ${Z(ago(60))} 08004KT 10SM FEW200 27/M01 A2990`, `KPHX ${t} 09005KT 10SM FEW200 26/M01 A2991 RMK AO2`],
+    KSAT: [`KSAT ${Z(ago(60))} 14009KT 8SM BKN014 OVC025 22/18 A2996`, `KSAT ${t} 14010KT 7SM BKN012 OVC020 21/18 A2997 RMK AO2`],
+    KTUL: [`KTUL ${Z(ago(180))} 18011KT 10SM BKN050 OVC080 20/13 A2982`, `KTUL ${oldT} 18012KT 10SM BKN045 OVC070 19/13 A2983 RMK AO2`]
+  };
+  const taf = {
+    KAUS: `TAF ${hdr('KAUS', iss, base, 30)} 16008KT P6SM SCT035 BKN250 ${fm(8)} 15006KT P6SM BKN018 ${fm(12)} 16010KT 5SM BR BKN009 ${fm(16)} 17014G20KT P6SM BKN025`,
+    KBNA: `TAF ${hdr('KBNA', iss, base, 30)} 34006KT P6SM SKC ${fm(12)} 01008KT P6SM FEW250 ${fm(20)} 03010KT P6SM SCT250`,
+    KDAL: `TAF ${hdr('KDAL', iss, base, 24)} 15012G22KT P6SM FEW040 BKN250 ${fm(6)} 16010KT P6SM SCT025 BKN040 ${fm(12)} 17015G25KT P6SM BKN030 PROB30 ${v(16)}/${v(20)} 4SM TSRA BKN025CB ${fm(19)} 33018G28KT P6SM BKN035`,
+    KDEN: `TAF ${hdr('KDEN', iss, base, 30)} 22018G30KT P6SM FEW120 SCT200 ${fm(4)} 24012KT P6SM SCT200 ${fm(14)} 31015G25KT P6SM SCT080 BKN150 TEMPO ${v(20)}/${v(24)} 3SM -SHSN BKN035`,
+    KELP: `TAF ${hdr('KELP', eIss, eBase, 24)} 27010KT P6SM SKC ${ev.fm(10)} 30008KT P6SM FEW200 ${ev.fm(18)} 06006KT P6SM SKC`,
+    KHOU: `TAF AMD ${hdr('KHOU', hIss, hBase, 30)} 14010KT 4SM -TSRA BR BKN010 OVC020CB TEMPO ${hv.v(0)}/${hv.v(3)} 1 1/2SM TSRA BKN006CB ${hv.fm(4)} 16008KT 5SM BR OVC008 ${hv.fm(10)} 17012KT P6SM BKN015 ${hv.fm(16)} 18014G22KT P6SM SCT030 BKN050`,
+    KLAS: `TAF ${hdr('KLAS', iss, base, 30)} 05006KT P6SM FEW250 ${fm(10)} 18008KT P6SM FEW250 ${fm(20)} 20014G22KT P6SM SCT250`,
+    KMAF: `TAF ${hdr('KMAF', iss, base, 24)} 18014KT P6SM SKC ${fm(12)} 19016G24KT P6SM FEW250 ${fm(19)} 31018G28KT P6SM SKC`,
+    KMDW: `TAF ${hdr('KMDW', iss, base, 30)} 25010KT 4SM BR OVC018 ${fm(6)} 27012KT P6SM OVC025 ${fm(14)} 29014G22KT P6SM BKN035`,
+    KMSY: `TAF ${hdr('KMSY', iss, base, 24)} VRB03KT 1/2SM FG VV002 TEMPO ${v(0)}/${v(4)} 1/4SM FG VV001 ${fm(9)} 17006KT 3SM BR OVC006 ${fm(13)} 18009KT P6SM SCT015 BKN035`,
+    KOKC: `TAF ${hdr('KOKC', iss, base, 24)} 17016G26KT P6SM SCT060 ${fm(10)} 18014G24KT P6SM BKN040 PROB30 ${v(15)}/${v(19)} 3SM TSRA BKN025CB ${fm(17)} 33018G30KT P6SM BKN030`,
+    KPHX: `TAF ${hdr('KPHX', iss, base, 30)} 09005KT P6SM FEW200 ${fm(16)} 26008KT P6SM FEW200`,
+    KSAT: `TAF ${hdr('KSAT', iss, base, 30)} 14010KT P6SM BKN012 OVC020 ${fm(5)} 14006KT 5SM BR OVC008 ${fm(14)} 16012KT P6SM BKN020`,
+    KTUL: `TAF ${hdr('KTUL', iss, base, 24)} 18012KT P6SM BKN045 OVC070 ${fm(12)} 19014G22KT P6SM BKN030 ${fm(18)} 32016G26KT P6SM OVC020`
+  };
+  const A = (c, l, tm, body) => `${c} ATIS INFO ${l} ${tm}. ${body} ...ADVS YOU HAVE INFO ${l}.`;
+  const atis = {
+    KAUS: [{ type: 'combined', text: A('AUS','M',at,'16008KT 10SM SCT035 BKN250 22/16 A2996 (TWO NINER NINER SIX). VISUAL APCHS IN USE. LDG RWYS 18L AND 18R. DEPG RWYS 18L, 18R. NOTAMS... TWY F BTN TWY G AND TWY H CLSD.') }],
+    KBNA: [{ type: 'combined', text: A('BNA','W',at,'34006KT 10SM CLR 11/03 A3012 (THREE ZERO ONE TWO). SIMUL VISUAL APCHS IN USE, LDG RWYS 2L AND 2R. DEPG RWYS 2C, 2R. NOTAMS... RWY 13/31 CLSD. ILS RWY 2C LOC OTS.') }],
+    KDAL: [{ type: 'combined', text: A('DAL','K',at,'15012G22KT 10SM FEW040 BKN250 24/14 A2998 (TWO NINER NINER EIGHT). ILS APCH IN USE RWY 13L. LANDING AND DEPARTING RWY 13L, 13R. NOTAMS... TWY A BTN TWY A4 AND TWY A7 CLSD. BIRD ACTIVITY VCNTY ARPT.') }],
+    KDEN: [
+      { type: 'arr', text: `DEN ARR INFO R ${at}. 22018G31KT 190V250 10SM FEW120 SCT200 14/M04 A2995 (TWO NINER NINER FIVE). ILS OR RNAV APCHS IN USE. LANDING RWYS 25 AND 26. WIND SHEAR ADVISORIES IN EFFECT. NOTAMS... RWY 16L/34R CLSD. ...ADVS YOU HAVE INFO R.` },
+      { type: 'dep', text: `DEN DEP INFO S ${at}. 22018G31KT 190V250 10SM FEW120 SCT200 14/M04 A2995 (TWO NINER NINER FIVE). DEPG RWYS 25, 34L. NOTAMS... RWY 16L/34R CLSD. TWY EE BTN TWY E7 AND TWY E9 CLSD. ...ADVS YOU HAVE INFO S.` }
+    ],
+    KELP: [{ type: 'combined', text: A('ELP','D',at,'27010KT 10SM CLR 21/M02 A2990 (TWO NINER NINER ZERO). VISUAL APCH IN USE. LANDING AND DEPARTING RWY 26L.') }],
+    KHOU: [{ type: 'combined', text: A('HOU','C',T4(speciT),'SPECIAL. 14009KT 3SM -TSRA BR BKN009 OVC020CB 23/22 A2985 (TWO NINER EIGHT FIVE). ILS RWY 13R APCH IN USE. LANDING AND DEPARTING RWY 13R. LLWS ADVISORIES IN EFFECT. NOTAMS... RWY 4/22 CLSD. TWY C CLSD.') }],
+    KLAS: [{ type: 'combined', text: A('LAS','P',at,'05006KT 10SM FEW250 24/M03 A2992 (TWO NINER NINER TWO). VISUAL APCHS IN USE. LDG RWYS 26L AND 26R. DEPG RWYS 1L AND 1R.') }],
+    KMDW: [{ type: 'combined', text: A('MDW','T',at,'25011KT 4SM BR OVC018 09/07 A3003 (THREE ZERO ZERO THREE). ILS RWY 22L APCH IN USE. LANDING AND DEPARTING RWY 22L. NOTAMS... RWY 13L/31R CLSD. TWY K BTN TWY H AND TWY L CLSD.') }],
+    KMSY: [{ type: 'combined', text: A('MSY','E',at,'00000KT 1/2SM FG VV002 20/20 A3001 (THREE ZERO ZERO ONE). ILS RWY 11 APCH IN USE. LANDING AND DEPARTING RWY 11. RVR RWY 11 TDZ 2400. NOTAMS... ILS RWY 29 GP OTS.') }],
+    KOKC: [{ type: 'combined', text: A('OKC','J',at,'17016G26KT 10SM SCT060 21/12 A2980 (TWO NINER EIGHT ZERO). SIMUL VISUAL APCHS IN USE RWY 17L AND 17R. DEPG RWY 17L, 17R. NOTAMS... ILS RWY 17R OTS.') }],
+    KPHX: [{ type: 'combined', text: A('PHX','B',at,'09005KT 10SM FEW200 26/M01 A2991 (TWO NINER NINER ONE). VISUAL APCHS IN USE. LDG RWYS 8 AND 7R. DEPG RWYS 7L AND 8.') }],
+    KSAT: [{ type: 'combined', text: A('SAT','V',at,'14010KT 7SM BKN012 OVC020 21/18 A2997 (TWO NINER NINER SEVEN). ILS RWY 13R APCH IN USE. LANDING AND DEPARTING RWY 13R. NOTAMS... RWY 4/22 CLSD.') }],
+    KTUL: [{ type: 'combined', text: A('TUL','G',oldA,'18012KT 10SM BKN045 OVC070 19/13 A2983 (TWO NINER EIGHT THREE). VISUAL APCHS IN USE RWY 18L AND 18R.') }]
+  };
+  const nt = h => { const d = new Date(+n + h*H); d.setUTCMinutes(0); return pad(d.getUTCFullYear()%100) + pad(d.getUTCMonth()+1) + pad(d.getUTCDate()) + pad(d.getUTCHours()) + '00'; };
+  const mo = pad(n.getUTCMonth()+1);
+  const N = (loc, num, body, s, e) => `!${loc} ${mo}/${num} ${loc} ${body} ${nt(s)}-${nt(e)}`;
+  const notam = [
+    N('AUS','150','TWY F BTN TWY G AND TWY H CLSD', -80, 160),
+    N('BNA','077','RWY 13/31 CLSD', -40, 70),
+    N('BNA','079','NAV ILS RWY 2C LOC U/S', -16, 20),
+    N('DAL','045','TWY A BTN TWY A4 AND TWY A7 CLSD', -36, 220),
+    N('DAL','041','OBST CRANE (ASN 2026-ASW-4471-NRA) 325118N0965112W (0.6NM NW DAL) 612FT (124FT AGL) FLAGGED AND LGTD', -150, 600),
+    N('DEN','112','RWY 16L/34R CLSD', -20, 160),
+    N('DEN','118','TWY EE BTN TWY E7 AND TWY E9 CLSD', -13, 70),
+    N('DEN','096','NAV ILS RWY 35R GP U/S', -58, 110),
+    N('ELP','044','AIRSPACE UAS WI AN AREA DEFINED AS 1NM RADIUS OF 314830N1062318W SFC-400FT AGL', 12, 34),
+    N('HOU','088','RWY 4/22 CLSD', -2, 9),
+    N('HOU','090','TWY C CLSD', -14, 240),
+    N('LAS','201','RWY 8L/26R CLSD', 5, 11),
+    N('LAS','205','OBST TOWER LGT (ASR 1056721) 360718N1151002W (2.1NM SW LAS) 2531FT (210FT AGL) U/S', -56, 300),
+    N('MAF','020','RWY 4/22 CLSD', -50, 140),
+    N('MDW','220','RWY 13L/31R CLSD', -500, 1700),
+    N('MDW','224','TWY K BTN TWY H AND TWY L CLSD', -12, 90),
+    N('MSY','031','NAV ILS RWY 29 GP U/S', -26, 340),
+    N('MSY','034','APRON TERMINAL RAMP CONCOURSE B GATE B3 THRU B5 CLSD', -17, 50),
+    N('OKC','060','NAV ILS RWY 17R U/S', -18, 14),
+    N('PHX','310','RWY 7R/25L CLSD', 4, 11),
+    N('PHX','312','TWY C BTN TWY C8 AND TWY C10 CLSD', -30, 100),
+    N('SAT','111','RWY 4/22 CLSD', -26, 240),
+    N('TUL','051','TWY B BTN TWY B2 AND TWY B4 CLSD', -44, 76)
+  ];
+  const steps = [
+    () => setMetar('KMSY', `SPECI KMSY ${Z(new Date())} 00000KT 1/4SM FG VV001 20/20 A3001 RMK AO2 SFC VIS 1/2`, 'sample'),
+    () => { const d = new Date(), b = new Date(d); b.setUTCMinutes(0,0,0); const x = V(b);
+      setTaf('KDAL', `TAF AMD KDAL ${Z(d)} ${x.v(0)}/${x.v(24)} 15014G24KT P6SM FEW040 BKN250 ${x.fm(6)} 16012KT P6SM BKN025 TEMPO ${x.v(9)}/${x.v(13)} 3SM -TSRA BKN020CB ${x.fm(14)} 33018G30KT P6SM BKN030`, 'sample'); }
+  ];
+  return { metar, taf, atis, notam, steps };
+}
+/* Sample data is all-or-nothing: it only appears when METAR/TAF can't be reached,
+   and every sample item is removed the moment the live weather feed works. */
+function purgeSample(){
+  Object.keys(S.wx).forEach(icao => {
+    const w = S.wx[icao];
+    if (w.metar && w.metar.src === 'sample'){ w.metar = null; w.hist = []; w.changed.metar = false; w.unseen = false; }
+    if (w.taf && w.taf.src === 'sample'){ w.taf = null; w.changed.taf = false; }
+    if (w.atisSrc === 'sample'){ w.atis = null; w.atisSrc = null; }
+  });
+  Object.keys(S.notams).forEach(i => { S.notams[i] = (S.notams[i] || []).filter(n => n.src !== 'sample'); });
+}
+function fillSample(){
+  if (S.feeds.wx.state === 'live'){ purgeSample(); return; }
+  if (!SAMPLE) SAMPLE = makeSample();
+  const firstSeed = !S.sampleSeeded;
+  S.airports.forEach(icao => {
+    const w = W(icao);
+    if (!SAMPLE.metar[icao]) return;
+    const q = S.quiet; S.quiet = true;
+    if (!w.metar) SAMPLE.metar[icao].forEach(r => setMetar(icao, r, 'sample'));
+    if (!w.taf) setTaf(icao, SAMPLE.taf[icao], 'sample');
+    S.quiet = q;
+    if (!w.atis) setAtis(icao, SAMPLE.atis[icao] || [], 'sample');
+    const have = S.notams[icao];
+    if (!have || !have.length){
+      const list = SAMPLE.notam.map(t => parseNotam(t)).filter(n => n.icao === icao);
+      setNotams(icao, list, 'sample');
+    }
+  });
+  if (firstSeed && S.airports.includes('KHOU') && S.wx.KHOU && S.wx.KHOU.metar && S.wx.KHOU.metar.src === 'sample'){
+    S.wx.KHOU.changed.metar = true; S.wx.KHOU.unseen = true;
+  }
+  S.sampleSeeded = true;
+}
+function stepSample(){
+  if (!SAMPLE || S.feeds.wx.state === 'live') return;
+  const f = SAMPLE.steps[S.sampleStep]; if (!f) return;
+  const target = S.sampleStep === 0 ? 'KMSY' : 'KDAL';
+  S.sampleStep++;
+  if (S.airports.includes(target) && S.wx[target] && S.wx[target].metar && S.wx[target].metar.src === 'sample') f();
+}
+
+/* =====================================================================
+   Rendering
+   ===================================================================== */
+function visCls(v){ return v < 1 ? 'h-lifr' : v < 3 ? 'h-ifr' : v <= 5 ? 'h-mvfr' : ''; }
+function ceilCls(f){ return f < 500 ? 'h-lifr' : f < 1000 ? 'h-ifr' : f <= 3000 ? 'h-mvfr' : ''; }
+const wrap = (t, c) => c ? `<span class="${c}">${esc(t)}</span>` : esc(t);
+function hl(text, o){
+  o = o || {};
+  const parts = String(text).split(/(\s+)/);
+  let out = '', prevWind = false, m;
+  for (let i = 0; i < parts.length; i++){
+    const p = parts[i]; if (!p) continue;
+    if (/^\s+$/.test(p)){ out += p; continue; }
+    if (/^\d$/.test(p) && parts[i+2] && (m = /^(\d)\/(\d{1,2})SM$/.exec(parts[i+2]))){ out += wrap(p + parts[i+1] + parts[i+2], visCls(+p + m[1]/m[2])); i += 2; prevWind = false; continue; }
+    if ((m = WIND_RE.exec(p))){ out += wrap(p, (m[3] || +m[2] >= 25) ? 'h-gust' : ''); prevWind = true; continue; }
+    if (WVAR_RE.test(p)){ out += esc(p); prevWind = true; continue; }
+    const v = visTok(p, prevWind && !o.atis); prevWind = false;
+    if (v){ out += wrap(p, visCls(v.v)); continue; }
+    if ((m = CLD_RE.exec(p))){
+      let c = '';
+      if (m[3] === 'CB' || m[3] === 'TCU') c = 'h-ts';
+      else if (/BKN|OVC|VV/.test(m[1]) && /^\d/.test(m[2])) c = ceilCls(+m[2]*100);
+      out += wrap(p, c); continue;
+    }
+    if (/^WS\d{3}\/\d{5}KT$/.test(p) || p === 'LLWS'){ out += wrap(p, 'h-gust'); continue; }
+    if (o.atis && /^(GS|GR|IC|UP|PO|SA|DU|FC|SS|DS|PY|VA|FU)$/.test(p)){ out += esc(p); continue; }
+    if (isWx(p)){ out += wrap(p, /TS/.test(p) ? 'h-ts' : /FZ|PL|SN|SG|IC|GR|GS/.test(p) ? 'h-ice' : ''); continue; }
+    out += esc(p);
+  }
+  return out;
+}
+function metarHTML(m){
+  const k = m.raw.indexOf(' RMK ');
+  return k >= 0 ? hl(m.raw.slice(0,k)) + ` <span class="rmk">${esc(m.raw.slice(k+1))}</span>` : hl(m.raw);
+}
+function timeline(t){
+  if (!t.vFrom || !t.vTo) return '';
+  const a = +t.vFrom, b = +t.vTo, span = b - a; if (span <= 0) return '';
+  const X = d => Math.max(0, Math.min(100, (d - a) / span * 100));
+  let segs = '', ovs = '', tks = '';
+  t.groups.filter(g => g.prevailing).forEach(g => {
+    const f = X(+(g.from || t.vFrom)), e = X(+(g.to || t.vTo));
+    if (e > f) segs += `<i class="seg ${dc(g.cat)}" style="left:${f.toFixed(2)}%;width:${(e-f).toFixed(2)}%"></i>`;
+  });
+  t.groups.filter(g => !g.prevailing && g.from && g.to).forEach(g => {
+    const f = X(+g.from), e = X(+g.to);
+    if (e > f) ovs += `<i class="ovl ${dc(g.cat)}${/BECMG/.test(g.kind) ? ' bec' : ''}" style="left:${f.toFixed(2)}%;width:${(e-f).toFixed(2)}%"></i>`;
+  });
+  const first = new Date(a); first.setUTCMinutes(0,0,0);
+  while (first.getUTCHours() % 6 || +first <= a) first.setUTCHours(first.getUTCHours() + 1);
+  for (let d = +first; d < b; d += 6*H){ const x = X(d); if (x > 4 && x < 96) tks += `<span class="tk" style="left:${x.toFixed(2)}%">${pad(new Date(d).getUTCHours())}Z</span>`; }
+  const n = Date.now(); const nowM = n > a && n < b ? `<i class="nowm" style="left:calc(${X(n).toFixed(2)}% - 1px)" title="Now"></i>` : '';
+  return `<div class="tline" aria-hidden="true"><div class="ovr">${ovs}</div><div class="pvr">${segs}</div>${nowM}<div class="tks">${tks}</div></div>`;
+}
+function tafHTML(t){
+  const lines = t.groups.map(g => {
+    if (!g.toks.length && g.kind === 'BASE') return '';
+    const lab = g.kind === 'BASE' ? `${fmtDH(t.vFrom)}–${fmtDH(t.vTo)}` : g.kind === 'FM' ? 'FM ' + fmtDHM(g.from) : g.kind + (g.from ? ' ' + fmtDH(g.from) + '–' + fmtDH(g.to) : '');
+    return `<div class="tl ${g.prevailing ? 'pv' : 'ov'}"><i class="dot sm ${dc(g.cat)}" title="${g.cat == null ? '' : CATN[g.cat]}"></i><span class="tk2">${esc(lab)}</span><span class="tx">${hl(g.toks.join(' '))}</span></div>`;
+  }).join('');
+  return `<div class="th">${esc(t.head.join(' '))}</div>${timeline(t)}<div class="tl-grid">${lines}</div>`;
+}
+function atisHTML(p){
+  return p.sents.map(x => { const inner = hl(x.s, { atis: true }); return x.kind ? `<span class="a-${x.kind}">${inner}</span>` : inner; }).join(' ');
+}
+function rwyState(icao){
+  const w = S.wx[icao] || {}; const st = {};
+  const put = (id, s) => { const order = { known: 0, dep: 1, arr: 2, both: 3, closed: 4 }; const cur = st[id];
+    if (cur === 'arr' && s === 'dep' || cur === 'dep' && s === 'arr') st[id] = 'both';
+    else if (!cur || order[s] > order[cur]) st[id] = s; };
+  (w.atis || []).forEach(a => { runwaysIn(a.p.text).forEach(r => put(r, 'known')); a.p.arr.forEach(r => put(r, 'arr')); a.p.dep.forEach(r => put(r, 'dep')); a.p.clsd.forEach(r => put(r, 'closed')); });
+  const now = new Date();
+  (S.notams[icao] || []).forEach(n => { if (n.cat === 'RWY' && notamActive(n, now)) closedIn(n.body.startsWith('RWY') ? n.body : '').forEach(r => put(r, 'closed')); });
+  return st;
+}
+function roseSVG(m, hist, st){
+  const cx = 40, cy = 41, R = 30, rad = a => a * Math.PI / 180, f = x => x.toFixed(1);
+  const pt = (a, r) => [cx + r*Math.sin(rad(a)), cy - r*Math.cos(rad(a))];
+  let s = `<svg class="rose" viewBox="0 0 80 82" role="img" aria-label="${esc(windTxt(m))}">`;
+  s += `<circle class="rr" cx="${cx}" cy="${cy}" r="${R}"/>`;
+  for (let a = 0; a < 360; a += 30){ const big = a % 90 === 0; const [x1,y1] = pt(a, R), [x2,y2] = pt(a, R - (big ? 5 : 3)); s += `<line class="rt${big ? ' big' : ''}" x1="${f(x1)}" y1="${f(y1)}" x2="${f(x2)}" y2="${f(y2)}"/>`; }
+  s += `<text class="rn" x="${cx}" y="8">N</text>`;
+  const axes = {};
+  Object.keys(st).forEach(id => {
+    const mm = /^(\d{1,2})([LRC]?)$/.exec(id); if (!mm) return;
+    let n = +mm[1], sx = mm[2]; if (n > 18){ n -= 18; sx = sx === 'L' ? 'R' : sx === 'R' ? 'L' : sx; }
+    const key = n + sx, order = { known: 0, dep: 1, arr: 2, both: 3, closed: 4 };
+    const prev = axes[key]; let v = st[id];
+    if (prev){ if ((prev.st === 'arr' && v === 'dep') || (prev.st === 'dep' && v === 'arr')) v = 'both'; else if (order[prev.st] > order[v]) v = prev.st; }
+    axes[key] = { n, sx, st: v };
+  });
+  Object.values(axes).sort((a,b) => ({known:0,dep:1,arr:2,both:3,closed:4})[a.st] - ({known:0,dep:1,arr:2,both:3,closed:4})[b.st]).forEach(a => {
+    const h = rad(a.n * 10), k = a.sx === 'L' ? -1 : a.sx === 'R' ? 1 : 0;
+    const dx = Math.sin(h), dy = -Math.cos(h), px = Math.cos(h), py = Math.sin(h);
+    const ox = cx + k*4.6*px, oy = cy + k*4.6*py, L = 21;
+    s += `<line class="rw ${a.st}" x1="${f(ox - dx*L)}" y1="${f(oy - dy*L)}" x2="${f(ox + dx*L)}" y2="${f(oy + dy*L)}"><title>RWY ${a.n}${a.sx}/${a.n+18}${a.sx === 'L' ? 'R' : a.sx === 'R' ? 'L' : a.sx} ${a.st === 'known' ? '' : a.st}</title></line>`;
+  });
+  (hist || []).slice(-4).forEach((h, i, arr) => { const w = h.wind; if (!w || w.dir == null || (w.spd === 0 && !w.gst)) return; const [x,y] = pt(w.dir, R + 4.5); s += `<circle class="hd" cx="${f(x)}" cy="${f(y)}" r="1.9" opacity="${(0.25 + 0.5*(i+1)/arr.length).toFixed(2)}"/>`; });
+  const w = m && m.wind;
+  if (w){
+    if (w.from != null && w.to != null){
+      const [x1,y1] = pt(w.from, R), [x2,y2] = pt(w.to, R), sw = ((w.to - w.from + 360) % 360) > 180 ? 1 : 0;
+      s += `<path class="va" d="M${f(x1)} ${f(y1)} A${R} ${R} 0 ${sw} 1 ${f(x2)} ${f(y2)}"/>`;
+    }
+    if (w.spd === 0 && !w.gst){ s += `<circle class="calm" cx="${cx}" cy="${cy}" r="6"/><text class="ct" x="${cx}" y="${cy + 17}">CALM</text>`; }
+    else if (w.dir == null){ s += `<circle class="calm" cx="${cx}" cy="${cy}" r="9" stroke-dasharray="3 2"/><text class="ct" x="${cx}" y="${cy + 3}">VRB</text>`; }
+    else {
+      const g = w.gst ? ' g' : '';
+      const L = Math.min(R - 3, 10 + w.spd * 0.8);
+      const [sx,sy] = pt(w.dir, R + 1.5), [ex,ey] = pt(w.dir, R + 1.5 - L);
+      const ux = (ex - sx) / L, uy = (ey - sy) / L, bx = ex - ux*6, by = ey - uy*6, vx = -uy, vy = ux;
+      s += `<line class="wa${g}" x1="${f(sx)}" y1="${f(sy)}" x2="${f(bx)}" y2="${f(by)}"/>`;
+      s += `<path class="wh${g}" d="M${f(ex)} ${f(ey)} L${f(bx + vx*3.6)} ${f(by + vy*3.6)} L${f(bx - vx*3.6)} ${f(by - vy*3.6)} Z"/>`;
+    }
+  }
+  return s + '</svg>';
+}
+function windTxt(m){
+  const w = m && m.wind; if (!w) return 'No wind report';
+  if (w.spd === 0 && !w.gst) return 'Calm';
+  return (w.dir == null ? 'VRB' : pad(w.dir).padStart(3,'0') + '°') + ' ' + w.spd + (w.gst ? 'G' + w.gst : '') + 'KT' + (w.from != null ? ' ' + pad(w.from).padStart(3,'0') + 'V' + pad(w.to).padStart(3,'0') : '');
+}
+const isStaleM = m => m && m.time && (Date.now() - m.time) > 90*MIN;
+const isStaleT = t => t && t.issue && (Date.now() - t.issue) > 7*H;
+function srcTagFor(w){
+  const srcs = [w.metar && w.metar.src, w.taf && w.taf.src, w.atisSrc].filter(Boolean);
+  if (srcs.includes('sample')) return '<span class="srcTag" title="Not real weather">Sample</span>';
+  if (srcs.includes('pasted')) return '<span class="srcTag pasted">Pasted</span>';
+  return '';
+}
+function cardHTML(icao){
+  const w = W(icao), m = w.metar, t = w.taf, c = m ? m.cat : null;
+  const st = rwyState(icao);
+  const arr = Object.keys(st).filter(k => st[k] === 'arr' || st[k] === 'both');
+  const dep = Object.keys(st).filter(k => st[k] === 'dep' || st[k] === 'both');
+  const cls = Object.keys(st).filter(k => st[k] === 'closed');
+  const nm = apName(icao);
+  const pulse = w.unseen && c > 0 ? ' pulse' : '';
+  const wt = windTxt(m);
+  const tags = (S.tags[icao] || []).map((g, i) => `<button type="button" class="tag" data-untag="${icao}|${i}" title="Remove tag">${esc(g)}<i aria-hidden="true">×</i></button>`).join('');
+  let h = `<article class="ap" id="ap-${icao}" data-icao="${icao}">`;
+  h += `<div class="idc"><div class="code"><i class="dot ${dc(c)}${pulse}" title="${c == null ? 'No category' : CATN[c]}"></i><span>${esc(disp(icao))}</span></div>`;
+  h += `<div class="nm"><b>${icao}</b>${nm ? ' · ' + esc(nm) : ''}</div>`;
+  h += `<div class="cw ${dc(c)}">${c == null ? 'NO METAR' : CATN[c]}</div>${srcTagFor(w)}`;
+  h += roseSVG(m, w.hist, st);
+  h += `<div class="wtx${m && m.wind && m.wind.gst ? ' g' : ''}">${esc(wt)}</div>`;
+  if (arr.length || dep.length || cls.length){
+    h += '<div class="rwy">';
+    if (arr.length) h += `<span><em>ARR</em><b>${arr.map(esc).join(' ')}</b></span>`;
+    if (dep.length) h += `<span><em>DEP</em><b>${dep.map(esc).join(' ')}</b></span>`;
+    if (cls.length) h += `<span><em>CLSD</em><s>${cls.map(esc).join(' ')}</s></span>`;
+    h += '</div>';
+  }
+  h += `<div class="tags">${tags}<button type="button" class="tadd" data-tagfor="${icao}">+ Tag</button></div></div>`;
+  h += '<div class="bd">';
+  // METAR
+  if (m){
+    const old = isStaleM(m);
+    h += `<div class="row r-metar${w.changed.metar ? ' changed' : ''}${old ? ' stale' : ''}"><div class="lab"><b>${m.kind === 'SPECI' ? 'SPECI' : 'METAR'}</b><span class="age${old ? ' old' : ''}" data-age="${+m.time || ''}">${m.time ? fmtAge(Date.now() - m.time) : ''}</span>${w.changed.metar ? '<span class="nb">NEW</span>' : ''}${old ? '<span class="warn">OLD</span>' : ''}</div><div class="wx">${metarHTML(m)}</div></div>`;
+  } else {
+    h += `<div class="row r-metar"><div class="lab"><b>METAR</b></div><div class="wx muted">${noDataMsg('wx')}</div></div>`;
+  }
+  // TAF
+  if (t){
+    const old = isStaleT(t);
+    h += `<div class="row r-taf${w.changed.taf ? ' changed' : ''}${old ? ' stale' : ''}"><div class="lab"><b>TAF${t.amd ? ' AMD' : ''}</b><span class="age${old ? ' old' : ''}" data-age="${+t.issue || ''}">${t.issue ? fmtAge(Date.now() - t.issue) : ''}</span>${w.changed.taf ? '<span class="nb">NEW</span>' : ''}${old ? '<span class="warn">OLD</span>' : ''}</div><div class="wx">${tafHTML(t)}</div></div>`;
+  } else {
+    h += `<div class="row r-taf"><div class="lab"><b>TAF</b></div><div class="wx muted">${m ? 'No TAF issued for this field.' : noDataMsg('wx')}</div></div>`;
+  }
+  // D-ATIS
+  if (w.atis && w.atis.length){
+    h += `<div class="row r-atis"><div class="lab"><b>D-ATIS</b>${w.atis[0].p.time ? `<span class="age" data-age="${+w.atis[0].p.time}">${fmtAge(Date.now() - w.atis[0].p.time)}</span>` : ''}</div><div>`;
+    w.atis.forEach(a => {
+      const typ = a.p.type === 'arr' ? 'ARR' : a.p.type === 'dep' ? 'DEP' : '';
+      h += `<div class="atis"><span class="atag">${typ ? typ + ' · ' : ''}INFO <b>${esc(a.p.letter || '?')}</b>${a.p.time ? ' · ' + fmtZ(a.p.time) : ''}</span><span class="wx">${atisHTML(a.p)}</span></div>`;
+    });
+    h += '</div></div>';
+  } else {
+    const msg = w.atis ? 'No D-ATIS at this field.' : noDataMsg('atis');
+    h += `<div class="row r-atis"><div class="lab"><b>D-ATIS</b></div><div class="wx muted">${msg}</div></div>`;
+  }
+  // NOTAM digest
+  const ns = (S.notams[icao] || []).filter(n => n.rank < 3 && notamActive(n, new Date())).sort((a,b) => a.rank - b.rank);
+  const allN = (S.notams[icao] || []).filter(n => !n.end || n.end >= new Date()).length;
+  if (allN){
+    h += `<div class="row r-notam"><div class="lab"><b>NOTAM</b></div><div class="nlist">`;
+    ns.slice(0, 4).forEach(n => { h += `<div class="nline"><span class="kc k-${n.cat}">${n.cat}</span><span>${nhl(n.body, '')}</span></div>`; });
+    if (!ns.length) h += `<div class="muted">No active runway, ILS or taxiway NOTAMs.</div>`;
+    h += `<button type="button" class="linkb" data-notams="${icao}">All ${allN} NOTAM${allN === 1 ? '' : 's'} for ${esc(disp(icao))}</button></div></div>`;
+  }
+  return h + '</div></article>';
+}
+function noDataMsg(feed){
+  const f = S.feeds[feed];
+  if (!f || f.state === 'wait') return 'Fetching…';
+  if (f.state === 'blocked') return 'Live feed blocked by the browser. See Desk → Feeds, or paste weather there.';
+  return 'Nothing reported for this field.';
+}
+function nhl(body, q){
+  let s = esc(body)
+    .replace(/\b(CLSD|CLOSED|U\/S|OTS|UNSERVICEABLE|OUT OF SERVICE|NOT AVBL)\b/g, '<b class="n-bad">$1</b>')
+    .replace(/\b(RWY|TWY)\s+([A-Z0-9]+(?:\/[A-Z0-9]+)?)/g, '$1 <b>$2</b>');
+  if (q){
+    const re = new RegExp(esc(q).replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
+    s = s.split(/(<[^>]+>)/).map(p => p.startsWith('<') ? p : p.replace(re, x => `<mark>${x}</mark>`)).join('');
+  }
+  return s;
+}
+
+let io = null; const seenT = new Map();
+function renderCards(){
+  const el = $('#cards');
+  el.innerHTML = S.airports.length ? S.airports.map(cardHTML).join('') : `<div class="empty">No airports on the desk yet. Paste your desk's data dump in <button type="button" class="linkb" data-gotab="desk">Desk</button>.</div>`;
+  el.classList.toggle('no-metar', !S.show.metar);
+  el.classList.toggle('no-taf', !S.show.taf);
+  el.classList.toggle('no-atis', !S.show.atis);
+  if (io) io.disconnect();
+  if ('IntersectionObserver' in window){
+    io = new IntersectionObserver(es => es.forEach(e => {
+      const icao = e.target.dataset.icao;
+      const enough = e.isIntersecting && e.intersectionRect.height >= Math.min(e.boundingClientRect.height * 0.5, innerHeight * 0.35);
+      if (enough){
+        if (!seenT.has(icao)) seenT.set(icao, setTimeout(() => {
+          seenT.delete(icao);
+          if (document.hidden || S.tab !== 'wx') return;
+          const w = S.wx[icao]; if (w && w.unseen){ w.unseen = false; renderRail(); const d = $('#ap-' + icao + ' .code .dot'); if (d) d.classList.remove('pulse'); }
+        }, 1400));
+      } else { clearTimeout(seenT.get(icao)); seenT.delete(icao); }
+    }), { threshold: [0, .25, .5, .75, 1] });
+    $$('.ap', el).forEach(a => io.observe(a));
+  }
+}
+function renderRail(){
+  const items = S.airports.map(icao => {
+    const w = W(icao), m = w.metar, c = m ? m.cat : null, fl = [];
+    if (m && m.ts) fl.push('<b class="f ts">TS</b>');
+    if (m && m.wind && m.wind.gst) fl.push(`<b class="f g">G${m.wind.gst}</b>`);
+    if (isStaleM(m)) fl.push('<b class="f st">OLD</b>');
+    return `<button type="button" class="ri${w.unseen ? ' unseen' : ''}" data-go="${icao}" title="${esc(icao + (apName(icao) ? ' · ' + apName(icao) : ''))}"><i class="dot ${dc(c)}${w.unseen && c > 0 ? ' pulse' : ''}"></i><span class="rc">${esc(disp(icao))}</span><span class="rf">${fl.join('')}</span>${w.unseen ? '<i class="nw" title="New weather"></i>' : '<i></i>'}</button>`;
+  }).join('');
+  $('#rail').innerHTML = `<div class="rh">${S.airports.length} airports · A–Z</div>` + items;
+}
+function renderSum(){
+  const c = [0,0,0,0];
+  S.airports.forEach(i => { const m = S.wx[i] && S.wx[i].metar; if (m && m.cat != null) c[m.cat]++; });
+  $('#sum').innerHTML = c.map((n, i) => `<span class="sm" title="${CATN[i]}"><i class="dot c${i}"></i>${n}</span>`).join('') + (S.lastRun ? `<span class="upd">Updated ${fmtZ(S.lastRun)}</span>` : '');
+}
+function renderAck(){
+  let n = 0; Object.keys(S.wx).forEach(k => { if (!S.airports.includes(k)) return; const w = S.wx[k]; n += (w.changed.metar ? 1 : 0) + (w.changed.taf ? 1 : 0); });
+  $('#ackN').textContent = n; $('#ackBtn').disabled = n === 0;
+  document.title = n ? `(${n}) WX Center` : 'WX Center';
+}
+function modeNow(){
+  if (S.feeds.wx.state === 'wait') return 'pending';
+  if (S.feeds.wx.state === 'live') return 'live';
+  const any = src => S.airports.some(i => { const w = S.wx[i]; return w && ((w.metar && w.metar.src === src) || (w.taf && w.taf.src === src)); });
+  if (any('pasted') && !any('sample')) return 'pasted';
+  if (any('sample')) return 'sample';
+  return 'offline';
+}
+function renderMode(){
+  const m = modeNow(), el = $('#mode');
+  el.dataset.m = m;
+  $('#modeTxt').textContent = { pending: 'Connecting', live: 'Live', sample: 'Sample data', pasted: 'Pasted', offline: 'Offline' }[m];
+  const b = $('#banner');
+  if (m === 'sample'){
+    b.className = 'banner'; b.hidden = false;
+    b.innerHTML = `<strong>Sample weather — not real</strong><span>This page couldn't reach aviationweather.gov, so it's showing a sample desk to demonstrate the board.</span><button type="button" data-gotab="desk">Fix feeds</button>`;
+  } else if (m === 'pasted' || m === 'offline'){
+    b.className = 'banner info'; b.hidden = false;
+    b.innerHTML = `<strong>${m === 'pasted' ? 'Pasted weather' : 'No live feed'}</strong><span>${m === 'pasted' ? 'Reports update only when you paste again.' : 'The browser blocked the weather feeds.'}</span><button type="button" data-gotab="desk">Fix feeds</button>`;
+  } else if (m === 'live' && (S.feeds.atis.state === 'blocked' || S.feeds.notam.state === 'blocked')){
+    const parts = []; if (S.feeds.atis.state === 'blocked') parts.push('D-ATIS'); if (S.feeds.notam.state === 'blocked') parts.push('NOTAMs');
+    b.className = 'banner info'; b.hidden = false;
+    b.innerHTML = `<strong>${parts.join(' and ')} unavailable</strong><span>METAR and TAF are live. ${parts.join(' and ')} couldn't be reached from this page; paste them in Desk if you need them here.</span><button type="button" data-gotab="desk">Fix feeds</button>`;
+  } else { b.hidden = true; b.innerHTML = ''; }
+  measureChrome();
+}
+function renderNotams(){
+  const now = new Date(), q = S.nf.q.trim(), Q = q.toUpperCase();
+  let total = 0, shown = 0, rwy = 0, html = '';
+  const ap = $('#nap'); const cur = S.nf.ap;
+  ap.innerHTML = `<option value="ALL">All airports</option>` + S.airports.map(i => `<option value="${i}"${i === cur ? ' selected' : ''}>${esc(disp(i))} · ${i}</option>`).join('');
+  S.airports.forEach(icao => {
+    const list = (S.notams[icao] || []).filter(n => !n.end || n.end >= now).sort((a,b) => a.rank - b.rank || (+a.start||0) - (+b.start||0));
+    total += list.length; rwy += list.filter(n => n.cat === 'RWY').length;
+    if (cur !== 'ALL' && cur !== icao) return;
+    const f = list.filter(n => (S.nf.cat === 'ALL' || (S.nf.cat === 'OTHER' ? n.rank === 3 : n.cat === S.nf.cat)) && (!Q || n.text.toUpperCase().includes(Q)));
+    if (!f.length) return; shown += f.length;
+    html += `<section class="ng"><h3 class="ngh"><span class="c">${esc(disp(icao))}</span><span class="n">${icao}${apName(icao) ? ' · ' + esc(apName(icao)) : ''}</span><span class="k">${f.length} of ${list.length}</span></h3>`;
+    html += f.map(n => {
+      const act = notamActive(n, now);
+      const when = act
+        ? `<span class="act">Active</span><span>${n.end ? 'until ' + fmtLong(n.end) + (n.est ? ' EST' : '') + ' · ' + fmtIn(n.end - now) + ' left' : 'permanent'}</span>`
+        : `<span>Starts ${fmtLong(n.start)} · in ${fmtIn(n.start - now)}</span><span>until ${n.end ? fmtLong(n.end) : 'further notice'}</span>`;
+      return `<article class="ni${act ? '' : ' fut'}"><span class="kc k-${n.cat}">${n.cat}</span><div><div class="nt">${nhl(n.body, q)}</div><div class="nm2"><span>${esc(n.num)}</span>${when}${n.src !== 'live' ? `<span class="src">${n.src.toUpperCase()}</span>` : ''}</div></div></article>`;
+    }).join('') + '</section>';
+  });
+  $('#nlist').innerHTML = html || `<div class="empty">${total ? 'No NOTAMs match this filter.' : (S.feeds.notam.state === 'blocked' ? 'The FAA NOTAM feed is blocked from this page. Paste NOTAMs in Desk → Paste weather.' : 'No NOTAMs loaded yet.')}</div>`;
+  $('#ncount').textContent = total ? `${shown} of ${total} · ${rwy} RWY` : '';
+  $('#notamCnt').textContent = total ? String(total) : '';
+}
+function renderFeeds(){
+  const row = (name, host, f) => {
+    const st = f.state === 'live' ? 'live' : f.state === 'blocked' ? 'blocked' : 'wait';
+    const lbl = { live: 'Live', blocked: 'Blocked', wait: 'Waiting' }[st];
+    return `<div class="feed"><span class="fn">${name}</span><span class="pill ${st}">${lbl}</span><span class="fs">${host}${f.at ? ' · last good ' + fmtZ(f.at) : ''}</span>${f.err && st === 'blocked' ? `<span class="fe">${esc(f.err)}</span>` : ''}</div>`;
+  };
+  $('#feeds').innerHTML = row('METAR and TAF', 'aviationweather.gov', S.feeds.wx) + row('D-ATIS', 'datis.clowd.io, atis.info', S.feeds.atis) + row('NOTAMs', 'FAA NOTAM Search', S.feeds.notam);
+}
+function renderDesk(){
+  const cur = new Set(S.airports);
+  $('#deskChips').innerHTML = S.airports.map(i => `<span class="chip">${esc(disp(i))}<button type="button" data-rm="${i}" aria-label="Remove ${esc(disp(i))}">×</button></span>`).join('') || '<span class="muted">None yet.</span>';
+  const p = parseDump($('#dump').value);
+  $('#parse').innerHTML = p.airports.length
+    ? `<span class="pm">${p.pairs} pair${p.pairs === 1 ? '' : 's'} · ${p.airports.length} airports</span>` + p.airports.map(i => `<span class="chip${cur.has(i) ? '' : ' new'}" title="${esc(apName(i) || i)}">${esc(disp(i))}</span>`).join('')
+    : `<span class="pm">No airport pairs found yet. Pairs look like DAL-HOU, DAL/HOU, DAL HOU or DALHOU.</span>`;
+  $('#useBtn').disabled = !p.airports.length;
+  renderFeeds();
+}
+function renderAll(){ renderRail(); renderCards(); renderSum(); renderAck(); renderMode(); renderNotams(); renderDesk(); }
+
+/* =====================================================================
+   Behaviour
+   ===================================================================== */
+let actx = null;
+function chime(force){
+  if (!S.sound && !force) return;
+  try {
+    actx = actx || new (window.AudioContext || window.webkitAudioContext)();
+    if (actx.state === 'suspended') actx.resume();
+    const t = actx.currentTime;
+    [880, 1318.5].forEach((fq, i) => {
+      const o = actx.createOscillator(), g = actx.createGain();
+      o.type = 'sine'; o.frequency.value = fq;
+      g.gain.setValueAtTime(0.0001, t + i*0.17); g.gain.exponentialRampToValueAtTime(0.2, t + i*0.17 + 0.02); g.gain.exponentialRampToValueAtTime(0.0001, t + i*0.17 + 0.55);
+      o.connect(g).connect(actx.destination); o.start(t + i*0.17); o.stop(t + i*0.17 + 0.6);
+    });
+  } catch(e){}
+}
+function toast(msg){ const t = $('#toast'); t.textContent = msg; t.hidden = false; clearTimeout(toast.tm); toast.tm = setTimeout(() => t.hidden = true, 3200); }
+
+const PERIOD = 2*MIN; let busy = false, nextAt = Date.now() + PERIOD;
+async function refresh(manual){
+  if (busy) return; busy = true;
+  $('#refreshBtn').classList.add('spin');
+  const ids = S.airports.slice();
+  S.quiet = S.firstRun; S.chime = false;
+  const wxOk = await fetchWx(ids);
+  await fetchAtis(ids);
+  if (S.firstRun || manual || Date.now() - S.lastNotam > 10*MIN){ await fetchNotams(ids); S.lastNotam = Date.now(); }
+  S.quiet = false;
+  if (!S.firstRun && !wxOk) stepSample();
+  fillSample();
+  if (S.chime) chime();
+  S.firstRun = false; S.lastRun = new Date();
+  busy = false; nextAt = Date.now() + PERIOD;
+  $('#refreshBtn').classList.remove('spin');
+  renderAll();
+}
+function tick(){
+  const n = new Date();
+  $('#clkZ').textContent = pad(n.getUTCHours()) + ':' + pad(n.getUTCMinutes()) + ':' + pad(n.getUTCSeconds()) + 'Z';
+  try {
+    const parts = new Intl.DateTimeFormat('en-US', { timeZone: 'America/Chicago', hour: '2-digit', minute: '2-digit', hour12: false, timeZoneName: 'short' }).formatToParts(n);
+    const g = k => (parts.find(p => p.type === k) || {}).value || '';
+    $('#clkC').textContent = g('hour').replace(/^24/, '00') + ':' + g('minute') + ' ' + g('timeZoneName');
+  } catch(e){}
+  const left = Math.max(0, nextAt - Date.now());
+  $('#cd').textContent = Math.floor(left/60000) + ':' + pad(Math.floor(left/1000) % 60);
+  $('#ringP').style.strokeDashoffset = (56.55 * (1 - left / PERIOD)).toFixed(2);
+  if (!busy && left <= 0) refresh(false);
+  if (n.getUTCSeconds() % 15 === 0) $$('[data-age]').forEach(el => { const t = +el.dataset.age; if (t) el.textContent = fmtAge(Date.now() - t); });
+}
+function measureChrome(){ document.documentElement.style.setProperty('--chromeH', $('#chrome').offsetHeight + 'px'); }
+
+function setTab(tab){
+  S.tab = tab;
+  $$('[role="tab"]').forEach(b => b.setAttribute('aria-selected', String(b.dataset.tab === tab)));
+  $('#tab-wx').hidden = tab !== 'wx'; $('#tab-notam').hidden = tab !== 'notam'; $('#tab-desk').hidden = tab !== 'desk';
+  if (tab === 'desk') renderDesk();
+  window.scrollTo(0, 0);
+}
+function ackAll(){
+  Object.values(S.wx).forEach(w => { w.changed.metar = false; w.changed.taf = false; w.unseen = false; });
+  renderRail(); renderCards(); renderAck();
+}
+function goAirport(icao){
+  setTab('wx');
+  const el = $('#ap-' + icao); if (!el) return;
+  el.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
+  el.classList.add('flash'); setTimeout(() => el.classList.remove('flash'), 1200);
+}
+function setAirports(list){
+  S.airports = [...new Set(list)].sort(byDisp);
+  store.set('airports', S.airports);
+  renderAll(); refresh(true);
+}
+function readPasted(){
+  const recs = splitReports($('#pasteWx').value);
+  const cnt = { metar: 0, taf: 0, atis: 0, notam: 0 }; const add = new Set(); const nByAp = {};
+  recs.forEach(r => {
+    if (r.kind === 'metar'){ const p = parseMetar(r.text); const i = resolve(p.station) || p.station; if (!/^[A-Z]{4}$/.test(i)) return; add.add(i); setMetar(i, r.text, 'pasted'); cnt.metar++; }
+    else if (r.kind === 'taf'){ const p = parseTaf(r.text); const i = resolve(p.station) || p.station; if (!/^[A-Z]{4}$/.test(i)) return; add.add(i); setTaf(i, r.text, 'pasted'); cnt.taf++; }
+    else if (r.kind === 'atis'){ const i = resolve(r.code); if (!i) return; add.add(i); (nByAp['atis:' + i] || (nByAp['atis:' + i] = [])).push({ type: r.type, text: r.text }); cnt.atis++; }
+    else if (r.kind === 'notam'){ const n = parseNotam(r.text); if (!n.icao) return; add.add(n.icao); (nByAp[n.icao] || (nByAp[n.icao] = [])).push(n); cnt.notam++; }
+  });
+  Object.keys(nByAp).forEach(k => { if (k.startsWith('atis:')) setAtis(k.slice(5), nByAp[k], 'pasted'); else setNotams(k, nByAp[k], 'pasted'); });
+  const total = cnt.metar + cnt.taf + cnt.atis + cnt.notam;
+  if (!total){ toast('No METAR, TAF, D-ATIS or NOTAM found in that text.'); return; }
+  const newOnes = [...add].filter(i => !S.airports.includes(i));
+  if (newOnes.length){ S.airports = [...S.airports, ...newOnes].sort(byDisp); store.set('airports', S.airports); }
+  renderAll();
+  toast(`Read ${[cnt.metar && cnt.metar + ' METAR', cnt.taf && cnt.taf + ' TAF', cnt.atis && cnt.atis + ' D-ATIS', cnt.notam && cnt.notam + ' NOTAM'].filter(Boolean).join(', ')}${newOnes.length ? ' · added ' + newOnes.map(disp).join(' ') : ''}.`);
+}
+
+/* popovers */
+function openPop(pop, anchor){
+  pop.hidden = false;
+  const r = anchor.getBoundingClientRect(), pw = pop.offsetWidth, ph = pop.offsetHeight;
+  let left = Math.min(Math.max(16, r.right - pw), innerWidth - pw - 16);
+  let top = r.bottom + 8; if (top + ph > innerHeight - 12) top = Math.max(12, r.top - ph - 8);
+  pop.style.left = left + 'px'; pop.style.top = top + 'px';
+}
+function closePops(){ $('#alertPop').hidden = true; $('#tagPop').hidden = true; $('#bellBtn').setAttribute('aria-expanded', 'false'); }
+let tagIcao = null;
+const PRESETS = ['GDP','GS','DEICE','FLOW','ALTN','WATCH','CURFEW'];
+function addTag(icao, tag){
+  tag = String(tag || '').trim().toUpperCase().slice(0, 10); if (!tag) return;
+  const t = S.tags[icao] || (S.tags[icao] = []); if (!t.includes(tag)) t.push(tag);
+  store.set('tags', S.tags); renderCards(); closePops();
+}
+function applySkin(){ document.documentElement.dataset.skin = S.skin; $('#skinSel').value = S.skin; }
+function applySound(){
+  $('#soundChk').checked = !!S.sound; $('#soundState').textContent = S.sound ? 'On' : 'Muted';
+  $('#muteSlash').style.display = S.sound ? 'none' : ''; $('#bellBtn').classList.toggle('on', !!S.sound);
+}
+function applyShow(){
+  $$('[data-show]').forEach(b => b.setAttribute('aria-pressed', String(!!S.show[b.dataset.show])));
+  const el = $('#cards'); el.classList.toggle('no-metar', !S.show.metar); el.classList.toggle('no-taf', !S.show.taf); el.classList.toggle('no-atis', !S.show.atis);
+}
+
+function bind(){
+  $$('[data-show]').forEach(b => b.addEventListener('click', () => { const k = b.dataset.show; S.show[k] = !S.show[k]; store.set('show', S.show); applyShow(); }));
+  $('#refreshBtn').addEventListener('click', () => refresh(true));
+  $('#ackBtn').addEventListener('click', ackAll);
+  $('#bellBtn').addEventListener('click', e => { e.stopPropagation(); const p = $('#alertPop'); if (!p.hidden){ closePops(); return; } closePops(); openPop(p, $('#bellBtn')); $('#bellBtn').setAttribute('aria-expanded', 'true'); });
+  $('#soundChk').addEventListener('change', e => { S.sound = e.target.checked; store.set('sound', S.sound); applySound(); if (S.sound) chime(true); });
+  $('#thrM').addEventListener('change', e => { S.thrM = e.target.value; store.set('thrM', S.thrM); });
+  $('#thrT').addEventListener('change', e => { S.thrT = e.target.value; store.set('thrT', S.thrT); });
+  $('#testSnd').addEventListener('click', () => chime(true));
+  $('#skinSel').addEventListener('change', e => { S.skin = e.target.value; store.set('skin', S.skin); applySkin(); });
+  $('#popBtn').addEventListener('click', () => {
+    const w = window.open(location.href, 'wxcenter', 'popup=yes,width=1360,height=900');
+    if (!w) toast('The browser blocked the new window. Allow pop-ups for this page and try again.');
+  });
+  if (window.name === 'wxcenter') $('#popBtn').hidden = true;
+  $$('[role="tab"]').forEach(b => b.addEventListener('click', () => setTab(b.dataset.tab)));
+
+  document.addEventListener('click', e => {
+    const t = e.target.closest('[data-go],[data-gotab],[data-notams],[data-tagfor],[data-untag],[data-rm]');
+    if (!t){ if (!e.target.closest('.pop')) closePops(); return; }
+    if (t.dataset.go) goAirport(t.dataset.go);
+    else if (t.dataset.gotab) setTab(t.dataset.gotab);
+    else if (t.dataset.notams){ S.nf.ap = t.dataset.notams; S.nf.cat = 'ALL'; $$('#ncat button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.c === 'ALL'))); renderNotams(); setTab('notam'); }
+    else if (t.dataset.tagfor){
+      e.stopPropagation(); tagIcao = t.dataset.tagfor; $('#tagFor').textContent = disp(tagIcao);
+      const have = S.tags[tagIcao] || [];
+      $('#tagPresets').innerHTML = PRESETS.filter(p => !have.includes(p)).map(p => `<button type="button" data-preset="${p}">${p}</button>`).join('');
+      $('#tagIn').value = ''; closePops(); openPop($('#tagPop'), t); $('#tagIn').focus({ preventScroll: true });
+    }
+    else if (t.dataset.untag){ const [i, k] = t.dataset.untag.split('|'); (S.tags[i] || []).splice(+k, 1); store.set('tags', S.tags); renderCards(); }
+    else if (t.dataset.rm){ setAirports(S.airports.filter(a => a !== t.dataset.rm)); }
+  });
+  $('#tagPresets').addEventListener('click', e => { const b = e.target.closest('[data-preset]'); if (b && tagIcao) addTag(tagIcao, b.dataset.preset); });
+  $('#tagForm').addEventListener('submit', e => { e.preventDefault(); if (tagIcao) addTag(tagIcao, $('#tagIn').value); });
+
+  $('#nq').addEventListener('input', e => { S.nf.q = e.target.value; renderNotams(); });
+  $('#ncat').addEventListener('click', e => { const b = e.target.closest('[data-c]'); if (!b) return; S.nf.cat = b.dataset.c; $$('#ncat button').forEach(x => x.setAttribute('aria-pressed', String(x === b))); renderNotams(); });
+  $('#nap').addEventListener('change', e => { S.nf.ap = e.target.value; renderNotams(); });
+
+  const dump = $('#dump'); dump.value = S.dump;
+  let dt; dump.addEventListener('input', () => { clearTimeout(dt); dt = setTimeout(() => { S.dump = dump.value; store.set('dump', S.dump); renderDesk(); }, 160); });
+  $('#useBtn').addEventListener('click', () => { const p = parseDump(dump.value); if (!p.airports.length) return; setAirports(p.airports); setTab('wx'); toast(`Desk set to ${p.airports.length} airports.`); });
+  $('#exampleBtn').addEventListener('click', () => { dump.value = EXAMPLE_DUMP; S.dump = EXAMPLE_DUMP; store.set('dump', S.dump); renderDesk(); });
+  $('#addForm').addEventListener('submit', e => {
+    e.preventDefault(); const v = $('#addIn').value.trim().toUpperCase(); const i = resolve(v) || (/^[A-Z]{4}$/.test(v) ? v : null);
+    if (!i){ toast(`${v || 'That'} isn't an airport code WX Center recognizes. Try the 4-letter ICAO code.`); return; }
+    $('#addIn').value = ''; if (!S.airports.includes(i)) setAirports([...S.airports, i]);
+  });
+  const relay = $('#relayIn'); relay.value = S.relay;
+  relay.addEventListener('change', () => { S.relay = relay.value.trim(); store.set('relay', S.relay); refresh(true); });
+  $('#pasteBtn').addEventListener('click', readPasted);
+
+  document.addEventListener('keydown', e => {
+    if (e.target.matches('input,textarea,select') || e.metaKey || e.ctrlKey || e.altKey) { if (e.key === 'Escape') closePops(); return; }
+    const k = e.key.toLowerCase();
+    if (k === 'escape') closePops();
+    else if (k === 'r'){ e.preventDefault(); refresh(true); }
+    else if (k === 'a'){ e.preventDefault(); ackAll(); }
+    else if (k === '1') setTab('wx'); else if (k === '2') setTab('notam'); else if (k === '3') setTab('desk');
+    else if (k === '/' ){ e.preventDefault(); setTab('notam'); $('#nq').focus(); }
+  });
+  if ('ResizeObserver' in window) new ResizeObserver(measureChrome).observe($('#chrome')); else addEventListener('resize', measureChrome);
+  document.addEventListener('visibilitychange', () => { if (!document.hidden && Date.now() > nextAt) refresh(false); });
+}
+
+function boot(){
+  applySkin(); applySound(); applyShow();
+  $('#thrM').value = S.thrM; $('#thrT').value = S.thrT;
+  bind(); measureChrome();
+  S.airports.forEach(W);
+  renderAll(); tick(); setInterval(tick, 1000);
+  refresh(true);
+}
+boot();
+})();
+</script>
+</body>
+</html>
