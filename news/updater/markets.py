@@ -565,6 +565,10 @@ def main():
         except Exception as ex:  # noqa: BLE001
             errors.append(f'yield curve: {type(ex).__name__} {str(ex)[:50]}')
     econ.sort(key=lambda e: order.index(e['id']) if e['id'] in order else 99)
+    names = {'CPI': 'inflation', 'CORE': 'core inflation', 'UNRATE': 'unemployment', 'PAYEMS': 'jobs added', 'CLAIMS': 'jobless claims',
+             'GDP': 'GDP growth', 'FED': 'the Fed rate', 'MORT': 'mortgage rates', 'GAS': 'gas prices', 'SENT': 'consumer sentiment'}
+    shown = {e['id'] for e in econ}
+    missing = [names[k] for k in order if k in names and k not in shown]
     earn, events = [], []
     for d in days:
         try:
@@ -580,7 +584,7 @@ def main():
            'board': board if got else old.get('board', []), 'sectors': sectors or old.get('sectors', []),
            'stocks': stocks or old.get('stocks', []), 'econ': econ or old.get('econ', []),
            'earnings': earn if any(e['rows'] for e in earn) else old.get('earnings', []),
-           'events': events if any(e['rows'] for e in events) else old.get('events', []), 'releases': rel,
+           'events': events if any(e['rows'] for e in events) else old.get('events', []), 'releases': rel, 'econMissing': missing,
            'stale': [k for k, v in (('board', got), ('sectors', sectors), ('stocks', stocks), ('econ', econ),
                                     ('earnings', any(e['rows'] for e in earn)), ('events', any(e['rows'] for e in events))) if not v],
            'errors': errors[:40],
