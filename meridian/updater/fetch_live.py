@@ -242,11 +242,39 @@ def type_of(model):
     return m[:8]
 
 
+def opensky_types(fleet, state, limit=60):
+    """Aircraft type per hex from OpenSky's aircraft metadata, cached for good (a tail's type doesn't change)."""
+    cache = state.setdefault('types', {})
+    if state.get('typesBlockedAt') and time.time() - state['typesBlockedAt'] < 6 * 3600:
+        return None
+    todo = [f['hex'] for f in fleet if f.get('hex') and f['hex'] not in cache][:limit]
+    for i, hx in enumerate(todo):
+        try:
+            js = json.loads(req(f'https://opensky-network.org/api/metadata/aircraft/icao/{hx}', timeout=15, tag='opensky_meta'))
+            cache[hx] = (js.get('typecode') or js.get('model') or '').strip()[:12]
+        except urllib.error.HTTPError as ex:
+            if ex.code == 404:
+                cache[hx] = ''
+                continue
+            state['typesBlockedAt'] = int(time.time())
+            return f'aircraft types: HTTP {ex.code} after {i} lookups'
+        except Exception as ex:
+            return f'aircraft types: {type(ex).__name__}: {str(ex)[:60]}'
+        time.sleep(0.25)
+    return None
+
+
+ICAO_TYPE = {'B737': '73G', 'B738': '738', 'B38M': '7M8', 'B37M': '7M7'}
+
+
 def enrich_airframes(fleet, state):
     models = (state.get('registry') or {}).get('models') or {}
+    types = state.get('types') or {}
     for f in fleet:
-        f['reg'] = f.get('reg') or hex_to_n(f.get('hex'))
-        f['type'] = f.get('type') or type_of(models.get((f.get('hex') or '').lower()))
+        hx = (f.get('hex') or '').lower()
+        f['reg'] = f.get('reg') or hex_to_n(hx)
+        t = types.get(hx, '').upper()
+        f['type'] = ICAO_TYPE.get(t) or type_of(models.get(hx)) or (t if t else f.get('type', ''))
 
 
 # ── enrichment: routes ───────────────────────────────────────────────────
@@ -293,11 +321,18 @@ def bearing(lat1, lon1, lat2, lon2):
     return (math.atan2(y, x) / k + 360) % 360
 
 
-def apply_routes(fleet, rd):
+def apply_routes(fleet, rd, sts):
     """Show a route only when the aircraft fits it: near the leg's great circle and, once cruising, heading for its end."""
     routes, apts = rd.get('routes') or {}, rd.get('airports') or {}
+    # Southwest's network for terminal-area inference: the page's stations plus every airport in the route file
+    net = {s['icao']: (s['lat'], s['lon'], s['iata']) for s in sts}
+    for code, v in apts.items():
+        if v[2] and code not in net:
+            net[code] = (v[0], v[1], v[2])
     for f in fleet:
         r = routes.get(f['cs'], '')
+        for k in ('org', 'dst', 'orgIcao', 'dstIcao', 'dist', 'ete', 'likely'):
+            f.pop(k, None)
         f['route'] = r
         codes = [c for c in r.split('-') if c]
         best = None
@@ -325,6 +360,32 @@ def apply_routes(fleet, rd):
                 f['ete'] = round(dB / max(f['gs'], 120) * 60 + 8)   # minutes, with a few for the approach
         else:
             f['org'] = f['dst'] = ''
+            infer_terminal(f, net)
+
+
+def infer_terminal(f, net):
+    """Low and descending toward a Southwest station: likely destination. Low and climbing away from one: likely origin."""
+    if f['gnd'] or f.get('alt') is None or f['alt'] > 12000 or f.get('trk') is None or f.get('vs') is None:
+        return
+    best = None
+    for code, (lat, lon, iata) in net.items():
+        d = nm(f['lat'], f['lon'], lat, lon)
+        if f['vs'] <= -300 and d <= 90:
+            off = abs((bearing(f['lat'], f['lon'], lat, lon) - f['trk'] + 540) % 360 - 180)
+            if (off <= 40 or d < 12) and (best is None or d < best[0]):
+                best = (d, 'dst', code, iata)
+        elif f['vs'] >= 300 and d <= 45:
+            off = abs((bearing(lat, lon, f['lat'], f['lon']) - f['trk'] + 540) % 360 - 180)
+            if (off <= 50 or d < 8) and (best is None or d < best[0]):
+                best = (d, 'org', code, iata)
+    if best:
+        d, side, code, iata = best
+        f[side] = iata or code[-3:]
+        f[side + 'Icao'] = code
+        f['likely'] = 1
+        if side == 'dst' and f.get('gs'):
+            f['dist'] = round(d)
+            f['ete'] = round(d / max(f['gs'], 120) * 60 + 6)
 
 
 # ── FAA NAS status ───────────────────────────────────────────────────────
@@ -382,7 +443,8 @@ def main():
     by_icao = {s['icao']: s for s in sts}
     old = load(os.path.join(a.out, 'live.json'), {})
     errors = []
-    state = old.get('_state') or {}
+    # the updater's own cache (route file, airport positions, registry) lives beside the feed, never sent to the page
+    state = load(os.path.join(a.out, 'live_state.json'), None) or old.get('_state') or {}
     state.pop('airframes', None); state.pop('routes', None)
     first = state.get('first') or {}
 
@@ -404,13 +466,15 @@ def main():
         except Exception as ex:
             errors.append(f'adsb.fi: {type(ex).__name__}: {str(ex)[:100]}')
     e = faa_registry(state, t0)
-    if e: errors.append(e)
+    if e and not (state.get('types')): errors.append(e)
     rd, e = route_db(state, t0)
     if e: errors.append(e)
     if got is not None:
         fleet, fleet_at = got, iso(t0)
+    e = opensky_types(fleet, state)
+    if e: errors.append(e)
     enrich_airframes(fleet, state)
-    apply_routes(fleet, rd)
+    apply_routes(fleet, rd, sts)
     if got is not None:
         # first time each flight was seen airborne (to the updater's resolution), kept for 3 hours after it vanishes
         ts = int(t0.timestamp())
@@ -432,15 +496,17 @@ def main():
         errors.append(f'NAS status: {type(ex).__name__}: {str(ex)[:100]}')
 
     state['first'] = first
-    keys = ('cs', 'hex', 'reg', 'type', 'lat', 'lon', 'alt', 'gs', 'trk', 'vs', 'sq', 'gnd', 'seen', 'org', 'dst', 'orgIcao', 'dstIcao', 'dist', 'ete', 'first')
+    keys = ('cs', 'hex', 'reg', 'type', 'lat', 'lon', 'alt', 'gs', 'trk', 'vs', 'sq', 'gnd', 'seen', 'org', 'dst', 'orgIcao', 'dstIcao', 'dist', 'ete', 'likely', 'first')
     doc = {'v': 1, 'generated': iso(now()), 'every': '5 min (GitHub Actions); fleet every 15 min (OpenSky free tier)', 'budgetNote': 'OpenSky anonymous: one global request at most every 14 min', 'fleetAt': fleet_at, 'fleetSource': src,
            'fleet': [{k: f.get(k) for k in keys if f.get(k) not in (None, '')} for f in sorted(fleet, key=lambda f: f['cs'])],
            'atc': atc, 'errors': errors[:20], 'probe': PROBE,
            'credits': {'fleet': src, 'routes': 'vradarserver/standing-data (community), checked against position and track',
                        'airframes': 'Mode S → N-number; types from the FAA aircraft registry', 'atc': 'FAA NAS Status'},
-           '_state': state}
+           }
     with open(os.path.join(a.out, 'live.json'), 'w', encoding='utf-8') as f:
         json.dump(doc, f, separators=(',', ':'))
+    with open(os.path.join(a.out, 'live_state.json'), 'w', encoding='utf-8') as f:
+        json.dump(state, f, separators=(',', ':'))
     for e in errors:
         print('  error:', e)
     print(f'wrote {a.out}/live.json in {(now() - t0).total_seconds():.1f}s')

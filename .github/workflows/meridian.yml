@@ -36,7 +36,7 @@ jobs:
         run: |
           mkdir -p feed
           if git fetch -q --depth 1 origin meridian-feed 2>/dev/null; then
-            for f in wx.json notams.json live.json; do git show "origin/meridian-feed:$f" > "feed/$f" 2>/dev/null || rm -f "feed/$f"; done
+            for f in wx.json notams.json live.json live_state.json; do git show "origin/meridian-feed:$f" > "feed/$f" 2>/dev/null || rm -f "feed/$f"; done
           else echo "no feed branch yet (first run)"; fi
       - name: Pull METAR, TAF, D-ATIS and NOTAMs
         env:
