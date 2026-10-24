@@ -1,5 +1,5 @@
 name: Meridian live feed
-# Every 10 minutes. Weather: METAR, TAF, D-ATIS and (every 3 hours, with FAA keys) NOTAMs for every station in
+# Every 5 minutes. Weather: METAR, TAF, D-ATIS and (every 3 hours, with FAA keys) NOTAMs for every station in
 # meridian/index.html -> wx.json, notams.json. Live: every airborne Southwest jet from ADS-B (OpenSky, at most every
 # 15 min on the free tier; adsb.fi otherwise) and FAA NAS Status programs -> live.json. Published to the
 # `meridian-feed` branch as one force-pushed commit, so main's history and the Pages build stay untouched and the
@@ -7,7 +7,7 @@ name: Meridian live feed
 # 2 minutes. GitHub often starts scheduled runs a few minutes late. See meridian/UPDATER.md.
 on:
   schedule:
-    - cron: '*/10 * * * *'
+    - cron: '*/5 * * * *'
   workflow_dispatch:
     inputs:
       notams:

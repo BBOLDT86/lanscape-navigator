@@ -397,19 +397,21 @@ def main():
             state['openskyAt'] = int(t0.timestamp())
         except Exception as ex:
             errors.append(f'OpenSky: {type(ex).__name__}: {str(ex)[:100]}')
-    if got is None and (not fleet_at or (t0 - dt.datetime.fromisoformat(fleet_at.replace('Z', '+00:00'))).total_seconds() > 9 * 60):
+    # adsb.fi (55 tile requests) only when OpenSky failed or the fleet is over 30 minutes old
+    if got is None and (errors or not fleet_at or (t0 - dt.datetime.fromisoformat(fleet_at.replace('Z', '+00:00'))).total_seconds() > 30 * 60):
         try:
             got, src = fleet_adsbfi()
         except Exception as ex:
             errors.append(f'adsb.fi: {type(ex).__name__}: {str(ex)[:100]}')
+    e = faa_registry(state, t0)
+    if e: errors.append(e)
+    rd, e = route_db(state, t0)
+    if e: errors.append(e)
     if got is not None:
         fleet, fleet_at = got, iso(t0)
-        e = faa_registry(state, t0)
-        if e: errors.append(e)
-        enrich_airframes(fleet, state)
-        rd, e = route_db(state, t0)
-        if e: errors.append(e)
-        apply_routes(fleet, rd)
+    enrich_airframes(fleet, state)
+    apply_routes(fleet, rd)
+    if got is not None:
         # first time each flight was seen airborne (to the updater's resolution), kept for 3 hours after it vanishes
         ts = int(t0.timestamp())
         for f in fleet:
@@ -431,7 +433,7 @@ def main():
 
     state['first'] = first
     keys = ('cs', 'hex', 'reg', 'type', 'lat', 'lon', 'alt', 'gs', 'trk', 'vs', 'sq', 'gnd', 'seen', 'org', 'dst', 'orgIcao', 'dstIcao', 'dist', 'ete', 'first')
-    doc = {'v': 1, 'generated': iso(now()), 'every': '10 min (GitHub Actions)', 'budgetNote': 'OpenSky anonymous: one global request at most every 14 min', 'fleetAt': fleet_at, 'fleetSource': src,
+    doc = {'v': 1, 'generated': iso(now()), 'every': '5 min (GitHub Actions); fleet every 15 min (OpenSky free tier)', 'budgetNote': 'OpenSky anonymous: one global request at most every 14 min', 'fleetAt': fleet_at, 'fleetSource': src,
            'fleet': [{k: f.get(k) for k in keys if f.get(k) not in (None, '')} for f in sorted(fleet, key=lambda f: f['cs'])],
            'atc': atc, 'errors': errors[:20], 'probe': PROBE,
            'credits': {'fleet': src, 'routes': 'vradarserver/standing-data (community), checked against position and track',

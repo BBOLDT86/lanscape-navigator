@@ -426,7 +426,7 @@ def main():
     taf = {k: v for k, v in taf.items() if k in icaos and v['t'] >= cut_t}
 
     doc = {
-        'v': 1, 'generated': iso(now()), 'every': '10 min (GitHub Actions)',
+        'v': 1, 'generated': iso(now()), 'every': '5 min (GitHub Actions)',
         'sources': {'metar': 'aviationweather.gov', 'taf': 'aviationweather.gov', 'datis': 'datis.clowd.io / atis.info',
                     'notams': 'FAA NOTAM Search'},
         'fresh': ok, 'notamsAt': notams_at, 'errors': errors[:30],
