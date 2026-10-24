@@ -1,0 +1,54 @@
+name: Meridian weather feed
+# Every 30 minutes (:08 and :38 UTC): just after the routine METARs (:51–:56) and around TAF issue times. Pulls METAR,
+# TAF, D-ATIS and (every 3 hours) NOTAMs for every station in meridian/index.html and publishes wx.json + notams.json
+# to the `meridian-feed` branch as a single force-pushed commit, so main's history and the Pages build stay untouched
+# and the repository does not grow. The page reads the files from raw.githubusercontent.com (CORS-open), re-checking
+# every 5 minutes. GitHub may delay a scheduled run by a few minutes. See meridian/UPDATER.md.
+on:
+  schedule:
+    - cron: '8,38 * * * *'
+  workflow_dispatch:
+    inputs:
+      notams:
+        description: 'Refresh NOTAMs now'
+        type: boolean
+        default: false
+permissions:
+  contents: write
+concurrency:
+  group: meridian-feed
+  cancel-in-progress: false
+jobs:
+  update:
+    if: github.repository == 'BBOLDT86/lanscape-navigator'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          sparse-checkout: meridian
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Bring in the last published feed
+        run: |
+          mkdir -p feed
+          if git fetch -q --depth 1 origin meridian-feed 2>/dev/null; then
+            for f in wx.json notams.json; do git show "origin/meridian-feed:$f" > "feed/$f" 2>/dev/null || rm -f "feed/$f"; done
+          else echo "no feed branch yet (first run)"; fi
+      - name: Pull METAR, TAF, D-ATIS and NOTAMs
+        run: python3 meridian/updater/fetch_wx.py --out feed ${{ inputs.notams && '--notams' || '' }}
+      - name: Publish to the meridian-feed branch
+        env:
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          cd feed
+          printf '# Meridian weather feed\n\nMachine-written by .github/workflows/meridian.yml on main. Do not edit; every run replaces this branch.\n' > README.md
+          git init -q -b meridian-feed
+          git config user.name "Meridian feed updater"
+          git config user.email "meridian-feed@users.noreply.github.com"
+          git add -A
+          git commit -qm "Meridian weather feed $(date -u +%Y-%m-%dT%H:%MZ)"
+          git push -q --force "https://x-access-token:${TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:meridian-feed
+          echo "published $(python3 -c "import json;d=json.load(open('wx.json'));print(d['generated'], len(d['metar']), 'METAR', len(d['taf']), 'TAF', len(d['datis']), 'D-ATIS')")"
