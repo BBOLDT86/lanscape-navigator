@@ -1,0 +1,1270 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Easy Remote</title>
+<style>
+/* Layout: phone-first control surface — a scrollable stack of big tap targets,
+   dark "set-top" palette with a single warm Roku-purple accent. */
+:root{
+  --bg:#17141f;            /* deep aubergine-black */
+  --surface:#221d2e;       /* raised panel */
+  --surface-2:#2c2638;     /* key face */
+  --surface-3:#372f46;     /* key pressed / hover */
+  --line:#3a3348;
+  --fg:#f3eefb;            /* near-white, slight violet warmth */
+  --muted:#a79cc0;         /* violet-grey */
+  --accent:#8b5cf6;        /* roku purple */
+  --accent-ink:#1a0f33;
+  --good:#4ade80;
+  --bad:#f87171;
+  --radius:16px;
+  --tap:64px;              /* min touch target */
+  color-scheme:dark;
+  font-family:ui-rounded,"SF Pro Rounded",system-ui,"Segoe UI",Roboto,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{
+  background:
+    radial-gradient(130% 80% at 50% -10%, #241b38 0%, var(--bg) 55%) fixed;
+  color:var(--fg);
+  -webkit-text-size-adjust:100%;
+  -webkit-tap-highlight-color:transparent;
+  padding:
+    max(14px, env(safe-area-inset-top)) max(14px, env(safe-area-inset-right))
+    calc(28px + env(safe-area-inset-bottom)) max(14px, env(safe-area-inset-left));
+  max-width:520px;
+  margin-inline:auto;
+}
+button{font-family:inherit;color:inherit;cursor:pointer;border:0;background:none}
+button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+/* ---- header / connection ---- */
+.top{display:flex;align-items:center;gap:12px;padding:6px 2px 16px}
+.brand{display:flex;flex-direction:column;gap:2px;min-width:0}
+.brand h1{margin:0;font-size:20px;letter-spacing:.2px;font-weight:800}
+.brand .sub{font-size:12px;color:var(--muted);letter-spacing:.3px}
+.conn{margin-left:auto;display:flex;align-items:center;gap:8px}
+.dot{width:10px;height:10px;border-radius:50%;background:var(--muted);box-shadow:0 0 0 0 rgba(0,0,0,0);transition:.2s}
+.dot.on{background:var(--good)}
+.dot.off{background:var(--bad)}
+.gear{width:44px;height:44px;display:grid;place-items:center;border-radius:12px;background:var(--surface-2);font-size:19px}
+.gear:active{background:var(--surface-3)}
+
+.ipbar{display:flex;gap:8px;margin:0 2px 18px}
+.ipbar input{
+  flex:1;min-width:0;background:var(--surface);border:1px solid var(--line);color:var(--fg);
+  border-radius:12px;padding:12px 14px;font-size:16px;letter-spacing:.3px;
+}
+.ipbar input:focus{outline:none;border-color:var(--accent)}
+.ipbar button{
+  background:var(--accent);color:var(--accent-ink);font-weight:800;padding:0 18px;border-radius:12px;font-size:15px;
+}
+.ipbar button:active{filter:brightness(1.08)}
+
+.findbtn{
+  width:100%;margin:0 0 18px;padding:13px;border-radius:12px;font-size:15px;font-weight:800;
+  background:var(--surface-2);border:1px solid var(--line);color:var(--fg);
+  display:flex;align-items:center;justify-content:center;gap:8px;transition:background .15s,transform .05s;
+}
+.findbtn:active{transform:scale(.98);background:var(--surface-3)}
+.findbtn .fic{font-size:17px}
+.findbtn.busy{color:var(--muted)}
+.findbtn.busy .fic{animation:spin 1s linear infinite;display:inline-block}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* scan + picker overlay */
+.scrim{
+  position:fixed;inset:0;background:rgba(10,8,16,.72);backdrop-filter:blur(4px);
+  display:none;align-items:center;justify-content:center;padding:24px;z-index:60;
+}
+.scrim.show{display:flex}
+.sheet{
+  width:100%;max-width:360px;background:var(--surface);border:1px solid var(--line);
+  border-radius:20px;padding:22px;box-shadow:0 20px 60px -20px rgba(0,0,0,.8);
+  max-height:86vh;overflow:auto;
+}
+.sheet .fl{display:block;font-size:12px;color:var(--muted);font-weight:700;margin:2px 2px 6px;letter-spacing:.2px}
+.sheet .fin{
+  width:100%;background:var(--surface-2);border:1px solid var(--line);color:var(--fg);
+  border-radius:11px;padding:11px 13px;font-size:15px;margin-bottom:13px;
+}
+.sheet select.fin{appearance:none;-webkit-appearance:none}
+.sheet .fin:focus{outline:none;border-color:var(--accent)}
+.sheet h2{margin:0 0 4px;font-size:17px;font-weight:800}
+.sheet p{margin:0 0 16px;font-size:13px;color:var(--muted);line-height:1.5}
+.bar{height:8px;border-radius:999px;background:var(--surface-3);overflow:hidden;margin:4px 0 14px}
+.bar > i{display:block;height:100%;width:0;background:var(--accent);border-radius:999px;transition:width .15s}
+.sheet .status{font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums;margin-bottom:16px;min-height:16px}
+.sheet .btns{display:flex;gap:8px}
+.sheet .btns button{flex:1;padding:11px;border-radius:11px;font-weight:700;font-size:14px;border:1px solid var(--line);background:var(--surface-2)}
+.sheet .btns button.primary{background:var(--accent);color:var(--accent-ink);border-color:transparent}
+.sheet .btns button:active{filter:brightness(1.1)}
+.devlist{display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
+.devlist button{
+  text-align:left;padding:13px 15px;border-radius:12px;background:var(--surface-2);border:1px solid var(--line);
+  font-size:15px;font-weight:700;font-variant-numeric:tabular-nums;display:flex;align-items:center;gap:10px;
+}
+.devlist button:active{background:var(--surface-3)}
+.devlist button .pin{font-size:18px}
+
+.hint{
+  display:none;margin:0 2px 18px;padding:12px 14px;border-radius:12px;font-size:13px;line-height:1.5;
+  background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.35);color:#d8cdf5;
+}
+.hint.show{display:block}
+.hint b{color:var(--fg)}
+
+/* ---- section label ---- */
+.label{
+  font-size:12px;text-transform:uppercase;letter-spacing:1.4px;color:var(--muted);
+  margin:22px 4px 10px;font-weight:700;
+}
+
+/* ---- app tiles ---- */
+.apps{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.app{
+  position:relative;min-height:76px;border-radius:var(--radius);background:var(--surface);
+  border:1px solid var(--line);display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:8px;padding:10px 6px;transition:transform .06s,background .15s;overflow:hidden;
+}
+.app:active{transform:scale(.95);background:var(--surface-2)}
+.app .ic{font-size:24px;line-height:1}
+.app .nm{font-size:12.5px;font-weight:700;text-align:center;line-height:1.15}
+.app .swatch{position:absolute;inset:0;opacity:.14;pointer-events:none}
+.app.add{border-style:dashed;color:var(--muted);background:transparent}
+.app.sc .on{font-size:9.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;font-weight:700;margin-top:-2px}
+.scnote{font-size:12px;color:var(--muted);line-height:1.5;margin:-2px 4px 10px}
+.app .rm{
+  position:absolute;top:4px;right:4px;width:22px;height:22px;border-radius:50%;
+  background:rgba(0,0,0,.45);color:#fff;font-size:13px;line-height:22px;display:none;
+}
+body.editing .app .rm{display:block}
+body.editing .app{animation:wob .4s ease-in-out infinite alternate}
+@keyframes wob{from{transform:rotate(-.6deg)}to{transform:rotate(.6deg)}}
+
+/* ---- transport row ---- */
+.row{display:grid;gap:10px;margin-top:12px}
+.row.four{grid-template-columns:repeat(4,1fr)}
+.row.three{grid-template-columns:repeat(3,1fr)}
+.key{
+  min-height:var(--tap);border-radius:14px;background:var(--surface-2);border:1px solid var(--line);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
+  font-size:13px;font-weight:700;transition:transform .05s,background .12s;
+}
+.key .ic{font-size:20px;line-height:1}
+.key:active{transform:scale(.94);background:var(--surface-3)}
+.key.accent{background:var(--accent);color:var(--accent-ink);border-color:transparent}
+.key.warn:active{background:#3a2130}
+
+/* ---- D-pad ---- */
+.pad{
+  margin:14px auto 0;width:min(100%,300px);aspect-ratio:1/1;
+  display:grid;grid-template-columns:1fr 1fr 1fr;grid-template-rows:1fr 1fr 1fr;gap:10px;
+}
+.pad button{
+  background:var(--surface-2);border:1px solid var(--line);border-radius:16px;font-size:26px;
+  display:grid;place-items:center;transition:transform .05s,background .12s;
+}
+.pad button:active{transform:scale(.93);background:var(--surface-3)}
+.pad .ok{
+  background:radial-gradient(120% 120% at 50% 30%, #a177f7, var(--accent));
+  color:#fff;font-size:17px;font-weight:800;border:0;letter-spacing:.5px;
+  box-shadow:0 6px 18px -6px rgba(139,92,246,.7);
+}
+.pad .up{grid-area:1/2} .pad .left{grid-area:2/1} .pad .ok{grid-area:2/2}
+.pad .right{grid-area:2/3} .pad .down{grid-area:3/2}
+.pad .c1{grid-area:1/1;background:transparent;border:0} .pad .c2{grid-area:1/3;background:transparent;border:0}
+.pad .c3{grid-area:3/1;background:transparent;border:0} .pad .c4{grid-area:3/3;background:transparent;border:0}
+
+/* ---- volume rocker ---- */
+.vol{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:12px}
+.vol .key{min-height:58px}
+
+/* ---- keyboard / search sender ---- */
+.kb{display:flex;gap:8px;margin-top:10px}
+.kb input{
+  flex:1;min-width:0;background:var(--surface);border:1px solid var(--line);color:var(--fg);
+  border-radius:12px;padding:12px 14px;font-size:16px;
+}
+.kb input:focus{outline:none;border-color:var(--accent)}
+.kb button{background:var(--surface-2);border:1px solid var(--line);border-radius:12px;padding:0 16px;font-weight:700;font-size:14px}
+.kb button:active{background:var(--surface-3)}
+.kbnote{font-size:11.5px;color:var(--muted);margin:8px 4px 0;line-height:1.5}
+.kb2{display:flex;gap:8px;margin-top:8px}
+.kb2 button{flex:1;padding:11px;border-radius:12px;background:var(--surface-2);border:1px solid var(--line);color:var(--fg);font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center;gap:6px}
+.kb2 button:active{background:var(--surface-3)}
+
+/* ---- toast ---- */
+.toast{
+  position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom));transform:translateX(-50%) translateY(20px);
+  background:var(--surface-3);color:var(--fg);padding:10px 18px;border-radius:999px;font-size:13px;font-weight:600;
+  border:1px solid var(--line);opacity:0;pointer-events:none;transition:.2s;z-index:50;white-space:nowrap;
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.toast.err{border-color:var(--bad);color:#ffd9d9}
+
+.foot{text-align:center;color:var(--muted);font-size:11px;margin-top:26px;line-height:1.6}
+.editbtn{color:var(--accent);font-weight:700;font-size:13px;background:none;padding:4px 8px}
+/* ---- tabs ---- */
+.tabs{
+  display:flex;gap:6px;background:var(--surface);border:1px solid var(--line);border-radius:14px;
+  padding:5px;margin:0 2px 18px;position:sticky;top:env(safe-area-inset-top,0px);z-index:20;
+}
+.tabs button{flex:1;padding:11px;border-radius:10px;font-weight:800;font-size:14px;color:var(--muted);background:transparent;transition:.15s}
+.tabs button.active{background:var(--accent);color:var(--accent-ink)}
+.view{animation:fade .2s ease}
+@keyframes fade{from{opacity:.35}to{opacity:1}}
+
+/* ---- discover: search + chips ---- */
+.search{margin:0 2px 12px}
+.search input{
+  width:100%;background:var(--surface);border:1px solid var(--line);color:var(--fg);
+  border-radius:12px;padding:13px 15px;font-size:16px;
+}
+.search input:focus{outline:none;border-color:var(--accent)}
+.chips{display:flex;gap:7px;overflow-x:auto;margin:0 2px 16px;padding-bottom:3px;-webkit-overflow-scrolling:touch}
+.chips button{
+  flex:0 0 auto;padding:8px 14px;border-radius:999px;font-size:13px;font-weight:700;
+  background:var(--surface-2);border:1px solid var(--line);color:var(--muted);white-space:nowrap;
+}
+.chips button.active{background:var(--accent);color:var(--accent-ink);border-color:transparent}
+
+/* ---- discover: catalog cards ---- */
+.cat{display:flex;flex-direction:column;gap:8px}
+.card{display:flex;align-items:center;gap:12px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:11px 13px}
+.card .meta{flex:1;min-width:0}
+.card .ttl{font-size:15px;font-weight:700;line-height:1.25;overflow:hidden;text-overflow:ellipsis}
+.card .svc{font-size:11.5px;color:var(--muted);margin-top:4px;display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.badge{font-size:9.5px;font-weight:800;letter-spacing:.4px;padding:2px 7px;border-radius:999px;text-transform:uppercase;white-space:nowrap}
+.badge.play{background:rgba(74,222,128,.16);color:#7ef0a8}
+.badge.open{background:rgba(167,156,192,.16);color:var(--muted)}
+.badge.top{background:rgba(139,92,246,.2);color:#c6b2f7}
+.badge.new{background:rgba(245,196,96,.16);color:#f2c35f}
+.freshnote{font-size:11px;color:var(--muted);margin:-6px 4px 14px;line-height:1.5}
+.findctx{font-size:12px;color:var(--accent);font-weight:700;margin:0 4px 12px;letter-spacing:.2px}
+.card .star{flex:0 0 auto;width:38px;height:44px;display:grid;place-items:center;font-size:18px;color:var(--muted);background:none}
+.card .star:active{color:var(--accent)}
+.card .go{flex:0 0 auto;width:46px;height:46px;border-radius:12px;background:var(--surface-2);border:1px solid var(--line);display:grid;place-items:center;font-size:18px;transition:transform .05s,filter .1s}
+.card .go.play{background:var(--accent);color:var(--accent-ink);border-color:transparent}
+.card .go:active{transform:scale(.92);filter:brightness(1.1)}
+.empty{text-align:center;color:var(--muted);font-size:13px;padding:26px}
+
+/* ---- find (vibe matcher) ---- */
+.findbar{display:flex;gap:8px;margin:0 2px 10px}
+.findbar input{flex:1;min-width:0;background:var(--surface);border:1px solid var(--line);color:var(--fg);border-radius:12px;padding:13px 15px;font-size:16px}
+.findbar input:focus{outline:none;border-color:var(--accent)}
+.findbar button{background:var(--accent);color:var(--accent-ink);font-weight:800;padding:0 18px;border-radius:12px;font-size:15px}
+.findbar button:active{filter:brightness(1.08)}
+.findrow2{display:flex;gap:8px;margin:0 2px 14px}
+.findrow2 button{flex:1;padding:12px;border-radius:12px;background:var(--surface-2);border:1px solid var(--line);color:var(--fg);font-weight:700;font-size:14px}
+.findrow2 button:active{background:var(--surface-3)}
+.learnbar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:2px 4px 16px;font-size:11.5px;color:var(--muted)}
+.learnbar a{color:var(--accent);font-weight:700;text-decoration:none;white-space:nowrap}
+.why{display:flex;gap:5px;flex-wrap:wrap;margin-top:6px}
+.why span{font-size:9.5px;color:var(--muted);background:var(--surface-2);border:1px solid var(--line);padding:1px 7px;border-radius:999px;white-space:nowrap}
+.acts{display:flex;gap:6px;flex:0 0 auto;align-items:center}
+.acts .fb{width:36px;height:44px;border-radius:10px;background:var(--surface-2);border:1px solid var(--line);font-size:15px;display:grid;place-items:center;transition:background .12s}
+.acts .fb:active{background:var(--surface-3)}
+.acts .fb.on{background:var(--accent);color:var(--accent-ink);border-color:transparent}
+
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="top">
+  <div class="brand">
+    <h1>Easy Remote</h1>
+    <span class="sub">TCL · Roku 55″</span>
+  </div>
+  <div class="conn">
+    <span class="dot" id="dot" title="connection"></span>
+    <button class="gear" id="gear" title="Show setup help" aria-label="Setup help">?</button>
+  </div>
+</div>
+
+<div class="tabs">
+  <button data-v="remote" class="active">🎮 Remote</button>
+  <button data-v="discover">🔎 Browse</button>
+  <button data-v="find">✨ Find</button>
+</div>
+
+<section id="v-remote" class="view">
+
+<div class="ipbar">
+  <input id="ip" inputmode="decimal" autocomplete="off" spellcheck="false" placeholder="Roku IP, e.g. 192.168.1.50">
+  <button id="save">Save</button>
+</div>
+
+<button class="findbtn" id="find"><span class="fic">🔍</span> Auto-find my Roku</button>
+
+<div class="hint" id="hint">
+  <b>One-time setup.</b> On the TV: <b>Settings → System → Advanced system settings → Control by mobile apps → Network access</b> = <b>Default</b> (or Permissive). Find the IP under <b>Settings → Network → About</b>. Your phone must be on the <b>same Wi-Fi</b>. Then type the IP above and tap Save.
+</div>
+
+<div class="label" style="display:flex;align-items:center;justify-content:space-between">
+  <span>Jump straight to an app</span>
+  <button class="editbtn" id="edit">Edit</button>
+</div>
+<div class="apps" id="apps"></div>
+
+<div class="label" style="display:flex;align-items:center;justify-content:space-between">
+  <span>Play a show directly</span>
+</div>
+<div class="scnote" id="scnote">Paste a show's link (Netflix, YouTube, Disney+…) once — it becomes a one-tap play button that skips the menus.</div>
+<div class="apps" id="shortcuts"></div>
+
+<div class="label">Navigate</div>
+<div class="pad">
+  <button class="c1"></button>
+  <button class="up"  data-key="Up"    aria-label="Up">▲</button>
+  <button class="c2"></button>
+  <button class="left" data-key="Left" aria-label="Left">◀</button>
+  <button class="ok"  data-key="Select" aria-label="OK">OK</button>
+  <button class="right" data-key="Right" aria-label="Right">▶</button>
+  <button class="c3"></button>
+  <button class="down" data-key="Down" aria-label="Down">▼</button>
+  <button class="c4"></button>
+</div>
+
+<div class="row four">
+  <button class="key" data-key="Back"><span class="ic">↩</span>Back</button>
+  <button class="key" data-key="Home"><span class="ic">⌂</span>Home</button>
+  <button class="key" data-key="Info"><span class="ic">✱</span>Options</button>
+  <button class="key warn" data-key="Power"><span class="ic">⏻</span>Power</button>
+</div>
+
+<div class="label">Playback</div>
+<div class="row four">
+  <button class="key" data-key="Rev"><span class="ic">⏪</span>Rew</button>
+  <button class="key" data-key="Play"><span class="ic">⏯</span>Play</button>
+  <button class="key" data-key="Fwd"><span class="ic">⏩</span>Fwd</button>
+  <button class="key" data-key="InstantReplay"><span class="ic">⟲</span>Replay</button>
+</div>
+
+<div class="label">Volume</div>
+<div class="vol">
+  <button class="key" data-key="VolumeDown"><span class="ic">－</span>Vol</button>
+  <button class="key" data-key="VolumeMute"><span class="ic">🔇</span>Mute</button>
+  <button class="key" data-key="VolumeUp"><span class="ic">＋</span>Vol</button>
+</div>
+
+<div class="label">Type on screen</div>
+<div class="kb">
+  <input id="kbin" autocomplete="off" spellcheck="false" placeholder="Type to search on the TV…">
+  <button id="kbsend">Send</button>
+</div>
+<div class="kb2">
+  <button id="kbdel">⌫ Delete one</button>
+  <button id="kbclear">✕ Clear field</button>
+</div>
+<div class="kbnote">Types straight into whatever search box is open on the TV; Enter runs the search. “Clear field” taps Backspace ~40× — Roku has no one-shot clear. Works in Roku search and most apps, but not Spotify (use the Spotify phone app to control the TV).</div>
+
+<div class="foot">
+  Controls the TV directly over your Wi-Fi (Roku ECP).<br>No app, no account, nothing leaves your network.
+</div>
+
+</section><!-- /remote -->
+
+<section id="v-discover" class="view" hidden>
+
+  <div class="search">
+    <input id="q" autocomplete="off" spellcheck="false" placeholder="Search shows…">
+  </div>
+  <div class="chips" id="chips">
+    <button data-f="all" class="active">All</button>
+    <button data-f="__top10">🔥 Top 10</button>
+    <button data-f="__new">🆕 New</button>
+    <button data-f="Netflix">Netflix</button>
+    <button data-f="Prime Video">Prime</button>
+    <button data-f="Max">Max</button>
+    <button data-f="Hulu">Hulu</button>
+    <button data-f="Apple TV">Apple TV</button>
+    <button data-f="Disney+">Disney+</button>
+    <button data-f="Paramount+">Paramount+</button>
+    <button data-f="Peacock">Peacock</button>
+  </div>
+  <div class="freshnote" id="freshnote"></div>
+  <div class="cat" id="catlist"></div>
+  <div class="empty" id="catempty" hidden>No matches — try another title.</div>
+
+  <div class="label" style="margin-top:28px">Poker on YouTube</div>
+  <div class="scnote">WSOP vloggers. “Latest” opens each channel's newest uploads; playlists and single vlogs play directly. (YouTube deep-links can vary a little by app version.)</div>
+  <div class="cat" id="pokerlist"></div>
+
+  <div class="foot">
+    Discovery picks are curated shortcuts. Netflix titles play directly;<br>Prime, Paramount+ and Peacock open that app so you can pick up where you left off.
+  </div>
+
+</section><!-- /discover -->
+
+<section id="v-find" class="view" hidden>
+
+  <div class="findbar">
+    <input id="findq" autocomplete="off" spellcheck="false" placeholder="What are you in the mood for?">
+    <button id="findgo">Find</button>
+  </div>
+  <div class="findrow2">
+    <button id="findsurprise">🎲 Surprise me</button>
+  </div>
+  <div class="chips" id="findchips">
+    <button data-q="something good">something good</button>
+    <button data-q="something wild">something wild</button>
+    <button data-q="make me laugh">make me laugh</button>
+    <button data-q="a mind-bender">mind-bender</button>
+    <button data-q="background noise">background noise</button>
+    <button data-q="edge of my seat">edge of my seat</button>
+    <button data-q="something dark">something dark</button>
+    <button data-q="feel-good">feel-good</button>
+    <button data-q="what's new">what's new</button>
+    <button data-q="top 10 on netflix">top 10</button>
+  </div>
+  <div class="learnbar"><span id="findstatus"></span><a id="findreset" href="#">Reset learning</a></div>
+  <div class="findctx" id="findctx"></div>
+  <div class="cat" id="findlist"></div>
+
+  <div class="foot">
+    A vibe matcher that learns on this device. Your 👍 / 👎 and what you play tune future picks —<br>“wild” and “good” gradually mean what they mean to you.
+  </div>
+
+</section><!-- /find -->
+
+<div class="scrim" id="scrim">
+  <div class="sheet" id="sheet"></div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const $=s=>document.querySelector(s);
+const LS_IP='rokuEasyRemote.ip', LS_APPS='rokuEasyRemote.apps';
+
+/* ---- state ---- */
+let ip = load(LS_IP) || '';
+$('#ip').value = ip;
+
+/* Known-good Roku channel IDs. All editable — fix any that drifted. */
+const DEFAULT_APPS = [
+  {id:'12',     nm:'Netflix',    ic:'🎬', c:'#e50914'},
+  {id:'837',    nm:'YouTube',    ic:'▶',  c:'#ff0000'},
+  {id:'13',     nm:'Prime Video',ic:'📦', c:'#00a8e1'},
+  {id:'291097', nm:'Disney+',    ic:'🏰', c:'#113ccf'},
+  {id:'2285',   nm:'Hulu',       ic:'🟢', c:'#1ce783'},
+  {id:'61322',  nm:'Max',        ic:'🅷',  c:'#0046ff'},
+  {id:'593099', nm:'Peacock',    ic:'🦚', c:'#000000'},
+  {id:'31440',  nm:'Paramount+', ic:'⛰',  c:'#0064ff'},
+  {id:'551012', nm:'Apple TV',   ic:'🍎', c:'#333333'},
+  {id:'22297',  nm:'Spotify',    ic:'🎵', c:'#1db954'},
+  {id:'151908', nm:'Roku Channel',ic:'🟣',c:'#662d91'},
+  {id:'195316', nm:'YouTube TV', ic:'📺', c:'#ff0000'},
+];
+let apps = load(LS_APPS, true) || DEFAULT_APPS.slice();
+
+const LS_SC='rokuEasyRemote.shortcuts';
+let shortcuts = load(LS_SC, true) || [];
+
+/* ---- helpers ---- */
+function load(k, json){ try{const v=localStorage.getItem(k); return json? (v?JSON.parse(v):null) : v;}catch(e){return null;} }
+function save(k,v,json){ try{localStorage.setItem(k, json?JSON.stringify(v):v);}catch(e){} }
+
+let toastT;
+function toast(msg, err){
+  const t=$('#toast'); t.textContent=msg; t.classList.toggle('err',!!err); t.classList.add('show');
+  clearTimeout(toastT); toastT=setTimeout(()=>t.classList.remove('show'), err?2600:1100);
+}
+function setDot(state){ const d=$('#dot'); d.className='dot'+(state==='on'?' on':state==='off'?' off':''); }
+
+/* Fire a Roku ECP request. Cross-origin + no CORS headers from Roku, so we
+   send no-cors fire-and-forget: the keypress lands, we just can't read a reply.
+   A network-layer failure (wrong IP, TV asleep) still rejects, so we can flag it. */
+function ecp(path){
+  if(!ip){ toast('Enter the Roku IP first', true); $('#ip').focus(); return Promise.reject(); }
+  return fetch(`http://${ip}:8060/${path}`, {method:'POST', mode:'no-cors'})
+    .then(()=>setDot('on'))
+    .catch(()=>{ setDot('off'); toast("Can't reach the TV — check IP & Wi-Fi", true); });
+}
+function key(k){ return ecp('keypress/'+k); }
+function launch(id){ return ecp('launch/'+id); }
+
+/* Deep-link straight into a title. Roku passes contentId + mediaType to the
+   app; deep-link-capable apps open that title and usually start playback.
+   We send both spellings of the param as a compatibility hedge. */
+function deepLink(appId, id, type){
+  const q='launch/'+appId
+    +'?contentId='+encodeURIComponent(id)
+    +'&contentID='+encodeURIComponent(id)
+    +'&mediaType='+encodeURIComponent(type||'movie');
+  return ecp(q);
+}
+
+/* Pull the app's content ID out of a pasted web URL. Best-effort per app;
+   falls back to a bare ID or the URL's last path segment. */
+function extractId(appId, raw){
+  raw=(raw||'').trim();
+  try{
+    if(appId==='837'){ // YouTube → video id
+      const m=raw.match(/[?&]v=([\w-]{6,})/)||raw.match(/youtu\.be\/([\w-]{6,})/)||raw.match(/shorts\/([\w-]{6,})/);
+      if(m) return m[1];
+    }
+    if(appId==='12'){ // Netflix → numeric title id
+      const m=raw.match(/netflix\.com\/(?:[^/]*\/)*(?:watch|title)\/(\d+)/)||raw.match(/(\d{7,})/);
+      if(m) return m[1];
+    }
+    if(appId==='291097'){ // Disney+ → GUID
+      const g=raw.match(/[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}/);
+      if(g) return g[0];
+    }
+    if(appId==='13'){ // Prime → ASIN / gti
+      const m=raw.match(/gti=([\w.-]+)/)||raw.match(/\/([A-Z0-9]{10})(?:[/?]|$)/);
+      if(m) return m[1];
+    }
+  }catch(e){}
+  if(!/[\s/]/.test(raw)) return raw;                 // already a bare id
+  const seg=raw.split(/[?#]/)[0].split('/').filter(Boolean).pop();
+  return seg||raw;                                   // last-ditch: last segment
+}
+
+/* ---- render apps ---- */
+function renderApps(){
+  const wrap=$('#apps'); wrap.innerHTML='';
+  apps.forEach((a,i)=>{
+    const b=document.createElement('button');
+    b.className='app';
+    b.innerHTML=`<span class="swatch" style="background:${a.c}"></span>
+      <span class="ic">${a.ic||'📺'}</span><span class="nm">${esc(a.nm)}</span>
+      <span class="rm" data-rm="${i}" aria-label="Remove">✕</span>`;
+    b.addEventListener('click',e=>{
+      if(e.target.dataset.rm!==undefined){ apps.splice(+e.target.dataset.rm,1); save(LS_APPS,apps,true); renderApps(); return; }
+      if(document.body.classList.contains('editing')) return;
+      launch(a.id).then(()=>toast('Opening '+a.nm));
+    });
+    wrap.appendChild(b);
+  });
+  const add=document.createElement('button');
+  add.className='app add';
+  add.innerHTML='<span class="ic">＋</span><span class="nm">Add app</span>';
+  add.addEventListener('click',addApp);
+  wrap.appendChild(add);
+}
+function addApp(){
+  const nm=prompt('App name (e.g. Plex):'); if(!nm) return;
+  const id=prompt(`Roku channel ID for "${nm}".\nFind it on the TV: open the app, note the ID in the URL, or search "<app> Roku channel ID".`);
+  if(!id) return;
+  apps.push({id:id.trim(), nm:nm.trim(), ic:'📺', c:'#8b5cf6'});
+  save(LS_APPS,apps,true); renderApps(); toast(nm+' added');
+}
+function esc(s){return String(s).replace(/[<>&]/g,c=>({'<':'&lt;','>':'&gt;','&':'&amp;'}[c]));}
+
+/* ---- render shortcuts (direct play) ---- */
+function renderShortcuts(){
+  const wrap=$('#shortcuts'); wrap.innerHTML='';
+  shortcuts.forEach((s,i)=>{
+    const appNm=(apps.find(a=>a.id===s.appId)||{}).nm||'App';
+    const b=document.createElement('button'); b.className='app sc';
+    b.innerHTML=`<span class="ic">▶</span><span class="nm">${esc(s.nm)}</span>
+      <span class="on">${esc(appNm)}</span><span class="rm" data-rm="${i}" aria-label="Remove">✕</span>`;
+    b.addEventListener('click',e=>{
+      if(e.target.dataset.rm!==undefined){ shortcuts.splice(+e.target.dataset.rm,1); save(LS_SC,shortcuts,true); renderShortcuts(); return; }
+      if(document.body.classList.contains('editing')) return;
+      deepLink(s.appId, s.id, s.type).then(()=>toast('Playing '+s.nm));
+    });
+    wrap.appendChild(b);
+  });
+  const add=document.createElement('button'); add.className='app add';
+  add.innerHTML='<span class="ic">＋</span><span class="nm">Add show</span>';
+  add.addEventListener('click',addShortcut);
+  wrap.appendChild(add);
+}
+
+function addShortcut(){
+  if(!apps.length){ toast('Add an app first', true); return; }
+  const opts=apps.map(a=>`<option value="${a.id}">${esc(a.nm)}</option>`).join('');
+  $('#scrim').classList.add('show');
+  $('#sheet').innerHTML=`
+    <h2>Play a show directly</h2>
+    <p>Pick the app it's on, paste the show's web link (or its ID), and name the button.</p>
+    <label class="fl">App</label>
+    <select id="scApp" class="fin">${opts}</select>
+    <label class="fl">Show link or ID</label>
+    <input id="scUrl" class="fin" placeholder="e.g. netflix.com/title/80192098" autocomplete="off" spellcheck="false">
+    <label class="fl">Button name</label>
+    <input id="scName" class="fin" placeholder="e.g. Breaking Bad" autocomplete="off">
+    <label class="fl">Type</label>
+    <select id="scType" class="fin">
+      <option value="series">Series / show</option>
+      <option value="movie">Movie</option>
+      <option value="episode">Single episode</option>
+      <option value="season">Season</option>
+      <option value="live">Live channel</option>
+    </select>
+    <div class="btns" style="margin-top:4px">
+      <button id="scCancel">Cancel</button>
+      <button id="scSave" class="primary">Save</button>
+    </div>`;
+  $('#scCancel').onclick=closeSheet;
+  $('#scSave').onclick=()=>{
+    const appId=$('#scApp').value, raw=$('#scUrl').value.trim(), nm=$('#scName').value.trim(), type=$('#scType').value;
+    if(!raw||!nm){ toast('Need a link/ID and a name', true); return; }
+    shortcuts.push({nm, appId, id:extractId(appId,raw), type});
+    save(LS_SC,shortcuts,true); renderShortcuts(); closeSheet(); toast('Added “'+nm+'”');
+  };
+}
+
+/* ---- wire transport + pad ---- */
+document.querySelectorAll('[data-key]').forEach(el=>{
+  el.addEventListener('click',()=>key(el.dataset.key));
+});
+
+/* ---- IP save ---- */
+function saveIp(){
+  ip=$('#ip').value.trim().replace(/^https?:\/\//,'').replace(/:8060.*$/,'');
+  save(LS_IP,ip);
+  if(ip){ toast('Saved — testing…'); key('Home').then(()=>{}); } else setDot();
+}
+$('#save').addEventListener('click',saveIp);
+$('#ip').addEventListener('keydown',e=>{if(e.key==='Enter')saveIp();});
+
+/* ---- help toggle ---- */
+$('#gear').addEventListener('click',()=>$('#hint').classList.toggle('show'));
+
+/* ---- edit mode ---- */
+$('#edit').addEventListener('click',()=>{
+  const on=document.body.classList.toggle('editing');
+  $('#edit').textContent=on?'Done':'Edit';
+});
+
+/* ---- on-screen keyboard sender ---- */
+function sendText(){
+  const v=$('#kbin').value; if(!v){ $('#kbin').focus(); return; }
+  // Send each character as a literal keypress, in order.
+  let chain=Promise.resolve();
+  [...v].forEach(ch=>{
+    chain=chain.then(()=>key('Lit_'+encodeURIComponent(ch))).then(()=>new Promise(r=>setTimeout(r,45)));
+  });
+  chain.then(()=>{ toast('Typed: '+v); });
+  $('#kbin').value='';
+}
+$('#kbsend').addEventListener('click',sendText);
+$('#kbin').addEventListener('keydown',e=>{
+  if(e.key==='Enter'){ e.preventDefault(); sendText(); setTimeout(()=>key('Enter'),250); }
+});
+function del(){ return key('Backspace'); }
+function clearField(n){
+  n=n||40; let chain=Promise.resolve();
+  for(let i=0;i<n;i++) chain=chain.then(()=>key('Backspace')).then(()=>new Promise(r=>setTimeout(r,35)));
+  return chain.then(()=>toast('Cleared'));
+}
+$('#kbdel').addEventListener('click',del);
+$('#kbclear').addEventListener('click',()=>clearField(40));
+
+/* ===== Roku autodiscovery =====
+   Browsers can't do SSDP/mDNS (no UDP), so we sweep the local /24 for a host
+   answering on Roku's control port 8060. A no-cors GET resolves for a live
+   HTTP server and rejects/times-out otherwise; on a home LAN, 8060 is
+   effectively Roku-only. WebRTC gives a subnet hint so the common case is fast.
+   (Works because the page is opened as a file:// — an https page couldn't
+   fetch http and this would be blocked.) */
+
+const COMMON_BASES = ['192.168.1','192.168.0','192.168.2','192.168.86','192.168.50',
+  '192.168.4','192.168.10','192.168.11','192.168.100','10.0.0','10.0.1','10.0.10','10.1.1'];
+
+function webrtcHint(timeout=900){
+  return new Promise(res=>{
+    let done=false, found=null;
+    const finish=()=>{ if(done)return; done=true; try{pc.close();}catch(e){} res(found); };
+    let pc;
+    try{
+      pc=new RTCPeerConnection({iceServers:[]});
+      pc.createDataChannel('d');
+      pc.onicecandidate=e=>{
+        const c=e&&e.candidate&&e.candidate.candidate; if(!c) return;
+        const m=c.match(/(\d{1,3}(?:\.\d{1,3}){3})/);
+        if(m && /^(10|192\.168|172\.(1[6-9]|2\d|3[01]))\./.test(m[1])){ found=m[1]; finish(); }
+      };
+      pc.createOffer().then(o=>pc.setLocalDescription(o)).catch(()=>{});
+      setTimeout(finish, timeout);
+    }catch(e){ res(null); }
+  });
+}
+
+function probe(host, timeout=1300){
+  return new Promise(resolve=>{
+    const ctrl=new AbortController();
+    const t=setTimeout(()=>{ctrl.abort(); resolve(false);}, timeout);
+    fetch(`http://${host}:8060/`, {method:'GET', mode:'no-cors', signal:ctrl.signal})
+      .then(()=>{clearTimeout(t); resolve(true);})
+      .catch(()=>{clearTimeout(t); resolve(false);});
+  });
+}
+
+function scanBase(base, onProgress, stop){
+  const ips=[]; for(let i=1;i<=254;i++) ips.push(base+'.'+i);
+  const hits=[]; let idx=0, active=0, scanned=0; const CONC=50;
+  return new Promise(resolve=>{
+    const pump=()=>{
+      if(stop && stop()){ resolve(hits); return; }
+      while(active<CONC && idx<ips.length){
+        const host=ips[idx++]; active++;
+        probe(host).then(ok=>{
+          active--; scanned++;
+          if(ok) hits.push(host);
+          onProgress && onProgress(scanned, ips.length);
+          if(scanned>=ips.length) resolve(hits); else pump();
+        });
+      }
+    };
+    pump();
+  });
+}
+
+let scanning=false, stopFlag=false;
+
+async function autoFind(){
+  if(scanning){ stopFlag=true; return; }
+  scanning=true; stopFlag=false;
+  const fb=$('#find'); fb.classList.add('busy'); fb.querySelector('.fic').textContent='⟳';
+  scanSheet(0, 'Looking for your Roku…');
+
+  const hint = await webrtcHint();
+  const bases=[];
+  if(hint) bases.push(hint.split('.').slice(0,3).join('.'));
+  COMMON_BASES.forEach(b=>{ if(!bases.includes(b)) bases.push(b); });
+
+  let found=[];
+  for(let b=0;b<bases.length;b++){
+    if(stopFlag) break;
+    const base=bases[b];
+    const hits=await scanBase(base,
+      (done,total)=>{
+        // progress spans all bases roughly; show current subnet clearly
+        scanSheet(done/total, `Scanning ${base}.x  ·  ${done}/${total}`);
+      },
+      ()=>stopFlag);
+    if(hits.length){ found=hits; break; }
+  }
+
+  scanning=false;
+  fb.classList.remove('busy'); fb.querySelector('.fic').textContent='🔍';
+
+  if(stopFlag && !found.length){ closeSheet(); return; }
+
+  if(!found.length){
+    closeSheet();
+    toast('No Roku found — is the TV on and on this Wi-Fi?', true);
+    $('#hint').classList.add('show');
+    return;
+  }
+  if(found.length===1){
+    closeSheet();
+    applyIp(found[0]);
+    toast('Found your Roku · '+found[0]);
+    key('Home');
+  } else {
+    pickDevice(found);
+  }
+}
+
+function applyIp(v){
+  ip=v; $('#ip').value=v; save(LS_IP,v); setDot('on');
+}
+
+/* ---- overlay (scan progress + device picker) ---- */
+function scanSheet(frac, status){
+  $('#scrim').classList.add('show');
+  $('#sheet').innerHTML=`
+    <h2>Finding your Roku</h2>
+    <p>Sweeping your Wi-Fi for the TV. This takes a few seconds.</p>
+    <div class="bar"><i id="barfill"></i></div>
+    <div class="status" id="scanstatus"></div>
+    <div class="btns"><button id="scancancel">Cancel</button></div>`;
+  updateScan(frac, status);
+  $('#scancancel').onclick=()=>{ stopFlag=true; };
+}
+function updateScan(frac, status){
+  const f=$('#barfill'); if(f) f.style.width=Math.round(frac*100)+'%';
+  const s=$('#scanstatus'); if(s) s.textContent=status||'';
+}
+function closeSheet(){ $('#scrim').classList.remove('show'); $('#sheet').innerHTML=''; }
+
+function pickDevice(list){
+  $('#scrim').classList.add('show');
+  $('#sheet').innerHTML=`
+    <h2>${list.length} devices found</h2>
+    <p>Pick the one that's your TV. (The rest are other Rokus on your network.)</p>
+    <div class="devlist" id="devlist"></div>
+    <div class="btns"><button id="pickcancel">Cancel</button></div>`;
+  const dl=$('#devlist');
+  list.forEach(h=>{
+    const b=document.createElement('button');
+    b.innerHTML=`<span class="pin">📺</span>${h}`;
+    b.onclick=()=>{ closeSheet(); applyIp(h); toast('Set to '+h); key('Home'); };
+    dl.appendChild(b);
+  });
+  $('#pickcancel').onclick=closeSheet;
+}
+
+$('#find').addEventListener('click',autoFind);
+
+/* ===== Discover tab ===== */
+
+/* Cross-service catalog. Netflix carries verified title IDs → deep-links and
+   plays. Prime / Paramount+ / Peacock IDs aren't reliably web-discoverable and
+   their deep-linking is inconsistent, so those launch the app (honest > broken). */
+const CATALOG=[
+  {t:'The Diplomat',        svc:'Netflix',     app:'12', id:'81288983', type:'series', play:true},
+  {t:'Stranger Things',     svc:'Netflix',     app:'12', id:'70170287', type:'series', play:true},
+  {t:'Wednesday',           svc:'Netflix',     app:'12', id:'81231974', type:'series', play:true},
+  {t:'The Night Agent',     svc:'Netflix',     app:'12', id:'81450827', type:'series', play:true},
+  {t:'Squid Game',          svc:'Netflix',     app:'12', id:'81040344', type:'series', play:true},
+  {t:'Bridgerton',          svc:'Netflix',     app:'12', id:'80232398', type:'series', play:true},
+  {t:'Black Mirror',        svc:'Netflix',     app:'12', id:'70264888', type:'series', play:true},
+  {t:'Ozark',               svc:'Netflix',     app:'12', id:'80117552', type:'series', play:true},
+
+  {t:'The Boys',            svc:'Prime Video', app:'13',    play:false},
+  {t:'Reacher',             svc:'Prime Video', app:'13',    play:false},
+  {t:'Fallout',             svc:'Prime Video', app:'13',    play:false},
+  {t:'Jack Ryan',           svc:'Prime Video', app:'13',    play:false},
+  {t:'The Rings of Power',  svc:'Prime Video', app:'13',    play:false},
+
+  {t:'Tulsa King',          svc:'Paramount+',  app:'31440', play:false},
+  {t:'1923',                svc:'Paramount+',  app:'31440', play:false},
+  {t:'Landman',             svc:'Paramount+',  app:'31440', play:false},
+  {t:'Mayor of Kingstown',  svc:'Paramount+',  app:'31440', play:false},
+  {t:'Strange New Worlds',  svc:'Paramount+',  app:'31440', play:false},
+  {t:'NCIS',                svc:'Paramount+',  app:'31440', play:false},
+
+  {t:'Poker Face',          svc:'Peacock',     app:'593099', play:false},
+  {t:'The Traitors',        svc:'Peacock',     app:'593099', play:false},
+  {t:'Love Island USA',     svc:'Peacock',     app:'593099', play:false},
+  {t:'Based on a True Story',svc:'Peacock',    app:'593099', play:false},
+  {t:'The Day of the Jackal',svc:'Peacock',    app:'593099', play:false},
+  {t:'Twisted Metal',       svc:'Peacock',     app:'593099', play:false},
+
+  {t:'The Last of Us',      svc:'Max',       app:'61322',  play:false},
+  {t:'House of the Dragon', svc:'Max',       app:'61322',  play:false},
+  {t:'The White Lotus',     svc:'Max',       app:'61322',  play:false},
+  {t:'The Bear',            svc:'Hulu',      app:'2285',   play:false},
+  {t:'Only Murders in the Building', svc:'Hulu', app:'2285', play:false},
+  {t:'Shōgun',              svc:'Hulu',      app:'2285',   play:false},
+  {t:'Ted Lasso',           svc:'Apple TV',  app:'551012', play:false},
+  {t:'Severance',           svc:'Apple TV',  app:'551012', play:false},
+  {t:'Slow Horses',         svc:'Apple TV',  app:'551012', play:false},
+  {t:'The Mandalorian',     svc:'Disney+',   app:'291097', play:false},
+  {t:'Andor',               svc:'Disney+',   app:'291097', play:false},
+  {t:'Loki',                svc:'Disney+',   app:'291097', play:false},
+  {t:'Gen V',               svc:'Prime Video', app:'13',   play:false},
+];
+
+/* WSOP vloggers. "Latest" = the channel's auto-generated uploads playlist
+   (UC… → UU…), newest first. Others are a real playlist or a single vlog. */
+const POKER=[
+  {t:'DNegs — Latest Vlogs',          ch:'Daniel Negreanu', id:'UU0w4AA42ItXQEb9aZld87-w', kind:'Latest'},
+  {t:'DNegs — WSOP Vlog · Day 51',    ch:'Daniel Negreanu', id:'bEmvJ8i_2oY',               kind:'Vlog'},
+  {t:'Brad Owen — Latest Vlogs',      ch:'Brad Owen',       id:'UUxYljUelq6VBk4m8dM-7NVA', kind:'Latest'},
+  {t:'Brad Owen — Poker Compilations',ch:'Brad Owen',       id:'PLoaqhghXH4EJX4c8DR-gUSDvKT2lSm5um', kind:'Playlist'},
+  {t:'Andrew Neeme — Latest Vlogs',   ch:'Andrew Neeme',    id:'UULTP4Ns4v8EsVS0DVGugQrQ', kind:'Latest'},
+  {t:'Rampage — Final Table Run',     ch:'Rampage',         id:'iP5yVVh6r7U',               kind:'Vlog'},
+];
+
+function ytLink(id){ return ecp('launch/837?contentId='+encodeURIComponent(id)); }
+
+let curFilter='all';
+function renderCatalog(){
+  const q=($('#q').value||'').toLowerCase().trim().replace(/top\s*10/,'top10');
+  let list=CATALOG.filter(c=>{
+    let okSvc;
+    if(curFilter==='__top10') okSvc=!!c.trend;
+    else if(curFilter==='__new') okSvc=!!c.fresh;
+    else okSvc = curFilter==='all' || c.svc===curFilter;
+    const okQ = !q || (c.kw||'').includes(q) || c.t.toLowerCase().includes(q);
+    return okSvc && okQ;
+  });
+  if(curFilter==='__top10') list=list.slice().sort((a,b)=>(a.trend||99)-(b.trend||99));
+  else if(curFilter==='__new') list=list.slice().sort((a,b)=>(a.when||'').localeCompare(b.when||''));
+  const wrap=$('#catlist'); wrap.innerHTML='';
+  list.forEach(c=>{
+    let extra='';
+    if(c.trend) extra+=`<span class="badge top">Top 10 · #${c.trend}</span>`;
+    const fl=freshLabel(c); if(fl) extra+=`<span class="badge new">${esc(fl)}</span>`;
+    const card=document.createElement('div'); card.className='card';
+    card.innerHTML=`
+      <div class="meta">
+        <div class="ttl">${esc(c.t)}</div>
+        <div class="svc">${esc(c.svc)}
+          <span class="badge ${c.play?'play':'open'}">${c.play?'▶ Plays':'↗ Opens app'}</span>${extra}</div>
+      </div>
+      ${c.play?'<button class="star" title="Add to Remote shortcuts" aria-label="Add">☆</button>':''}
+      <button class="go ${c.play?'play':''}" aria-label="${c.play?'Play':'Open app'}">${c.play?'▶':'↗'}</button>`;
+    card.querySelector('.go').onclick=()=>{
+      if(c.play) deepLink(c.app,c.id,c.type).then(()=>toast('Playing '+c.t));
+      else launch(c.app).then(()=>toast('Opening '+c.svc));
+    };
+    const star=card.querySelector('.star');
+    if(star) star.onclick=()=>{
+      if(shortcuts.some(s=>s.id===c.id && s.appId===c.app)){ toast('Already in Remote'); return; }
+      shortcuts.push({nm:c.t, appId:c.app, id:c.id, type:c.type});
+      save(LS_SC,shortcuts,true); renderShortcuts(); star.textContent='★'; toast('Added to Remote · '+c.t);
+    };
+    wrap.appendChild(card);
+  });
+  $('#catempty').hidden = list.length>0;
+}
+
+function renderPoker(){
+  const wrap=$('#pokerlist'); wrap.innerHTML='';
+  POKER.forEach(p=>{
+    const card=document.createElement('div'); card.className='card';
+    card.innerHTML=`
+      <div class="meta">
+        <div class="ttl">${esc(p.t)}</div>
+        <div class="svc">${esc(p.ch)} <span class="badge play">${esc(p.kind)}</span></div>
+      </div>
+      <button class="go play" aria-label="Play on YouTube">▶</button>`;
+    card.querySelector('.go').onclick=()=>ytLink(p.id).then(()=>toast('Opening '+p.t));
+    wrap.appendChild(card);
+  });
+}
+
+function showView(v){
+  document.querySelectorAll('.view').forEach(s=>{ s.hidden = (s.id!=='v-'+v); });
+  document.querySelectorAll('.tabs button').forEach(b=>b.classList.toggle('active', b.dataset.v===v));
+  try{ localStorage.setItem('rokuEasyRemote.tab', v); }catch(e){}
+  if(v==='find' && $('#findlist') && !$('#findlist').children.length){ recommend($('#findq').value||'something good'); }
+  window.scrollTo(0,0);
+}
+
+$('#q').addEventListener('input',renderCatalog);
+document.querySelectorAll('#chips button').forEach(b=>{
+  b.onclick=()=>{ curFilter=b.dataset.f;
+    document.querySelectorAll('#chips button').forEach(x=>x.classList.toggle('active',x===b));
+    renderCatalog(); };
+});
+document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>showView(b.dataset.v));
+
+/* ===== Find: vibe matcher that learns =====
+   On-device only: mood words in the phrase → tag weights, scored against the
+   tagged catalog, then nudged by what you 👍/👎/play. Not a cloud model —
+   lexical matching + feedback learning, stored in localStorage. */
+
+/* Mood tags per title (0–3). Keeps CATALOG readable; merged in at load. */
+const TAGS={
+  'The Diplomat':{drama:3,intense:2,prestige:2,crime:1},
+  'Stranger Things':{scifi:3,action:2,bingeable:3,intense:2,fantasy:2,mindbender:1},
+  'Wednesday':{fantasy:2,crime:2,funny:1,dark:1,bingeable:2},
+  'The Night Agent':{action:3,intense:3,bingeable:2,crime:1},
+  'Squid Game':{intense:3,dark:3,wild:2,drama:2,bingeable:3},
+  'Bridgerton':{romance:3,drama:2,feelgood:1,bingeable:2},
+  'Black Mirror':{mindbender:3,scifi:3,dark:3,prestige:2},
+  'Ozark':{crime:3,dark:3,intense:3,drama:2,prestige:1},
+  'The Boys':{wild:3,action:3,dark:3,intense:2,scifi:1},
+  'Reacher':{action:3,crime:2,intense:2,bingeable:2},
+  'Fallout':{scifi:3,wild:2,action:2,dark:1,bingeable:2},
+  'Jack Ryan':{action:3,intense:2,crime:1},
+  'The Rings of Power':{fantasy:3,drama:2,action:1,prestige:1},
+  'Gen V':{wild:3,dark:2,action:2,scifi:1},
+  'Tulsa King':{crime:2,drama:2,funny:1,action:1},
+  '1923':{drama:3,intense:2,prestige:1},
+  'Landman':{drama:3,intense:1,prestige:1},
+  'Mayor of Kingstown':{crime:3,dark:3,intense:2,drama:1},
+  'Strange New Worlds':{scifi:3,action:1,feelgood:1},
+  'NCIS':{crime:3,action:2,light:1,bingeable:2},
+  'Poker Face':{crime:2,funny:2,light:2,bingeable:2},
+  'The Traitors':{wild:2,intense:2,bingeable:3,funny:1},
+  'Love Island USA':{light:3,wild:1,bingeable:3,romance:2},
+  'Based on a True Story':{dark:2,funny:2,crime:2},
+  'The Day of the Jackal':{action:3,intense:3,crime:2,prestige:1},
+  'Twisted Metal':{wild:3,action:3,funny:2},
+  'The Last of Us':{intense:3,dark:3,drama:3,prestige:3,scifi:1},
+  'House of the Dragon':{fantasy:3,drama:3,intense:2,prestige:2},
+  'The White Lotus':{dark:2,prestige:3,drama:2,funny:2},
+  'The Bear':{intense:3,drama:3,prestige:3},
+  'Only Murders in the Building':{funny:3,crime:2,light:2,bingeable:2},
+  'Shōgun':{prestige:3,drama:3,intense:2,action:1},
+  'Ted Lasso':{feelgood:3,funny:3,light:2,prestige:2},
+  'Severance':{mindbender:3,scifi:3,dark:2,prestige:3,intense:2},
+  'Slow Horses':{crime:3,drama:2,funny:1,prestige:2},
+  'The Mandalorian':{scifi:3,fantasy:2,action:3,feelgood:1},
+  'Andor':{scifi:3,drama:3,intense:2,prestige:2},
+  'Loki':{scifi:3,fantasy:2,mindbender:2,action:1},
+};
+CATALOG.forEach(c=>{ c.tags = TAGS[c.t] || {}; });
+
+/* ===== Fresh feed (dated snapshot — refresh by re-running this with Claude) ===== */
+const FRESH_UPDATED='2026-10-23';
+const FRESH_UPDATED_LABEL=(()=>{ try{ return new Date(FRESH_UPDATED+'T00:00:00').toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'}); }catch(e){ return FRESH_UPDATED; } })();
+
+/* Netflix US Top 10 this week */
+const TOP10=[
+  {rank:1,t:'Below',note:'Limited series'},
+  {rank:2,t:'Love Is Blind: Boston',note:'Season 11'},
+  {rank:3,t:'Instadocs: AI Gone Wild',note:'Docuseries'},
+  {rank:4,t:'East of Eden',note:'Limited series'},
+  {rank:5,t:'The Diplomat',note:'Season 4',id:'81288983',type:'series'},
+  {rank:6,t:'TYSON',note:'Limited series'},
+  {rank:7,t:'Is It Cake? Halloween',note:'Season 2'},
+  {rank:8,t:'WWE Raw',note:'Weekly'},
+  {rank:9,t:'Michael Che: Shot in Minnesota',note:'Comedy special'},
+  {rank:10,t:'Haunted Hotel',note:'Season 2'},
+];
+/* New & returning seasons, late Oct–Dec 2026 */
+const NEWSEASONS=[
+  {t:'The Terminal List',svc:'Prime Video',app:'13',season:'Season 2',when:'2026-10-21'},
+  {t:'The Mob',svc:'Hulu',app:'2285',when:'2026-10-26'},
+  {t:"All's Fair",svc:'Hulu',app:'2285',season:'Season 2',when:'2026-11-04'},
+  {t:'The Greatest',svc:'Prime Video',app:'13',when:'2026-11-04'},
+  {t:'The Rings of Power',svc:'Prime Video',app:'13',when:'2026-11-11'},
+  {t:'The Good Daughter',svc:'Peacock',app:'593099',when:'2026-11-12'},
+  {t:'Percy Jackson and the Olympians',svc:'Disney+',app:'291097',when:'2026-11-20'},
+  {t:'Stranger Things',svc:'Netflix',app:'12',season:'Season 5 · Vol. 1',when:'2026-11-26'},
+  {t:'Pride and Prejudice',svc:'Netflix',app:'12',when:'2026-12-03'},
+  {t:'Only Murders in the Building',svc:'Hulu',app:'2285',season:'Season 6',when:'2026-12-08'},
+];
+(function mergeFresh(){
+  const byTitle={}; CATALOG.forEach(c=>byTitle[c.t.toLowerCase()]=c);
+  TOP10.forEach(x=>{
+    let c=byTitle[x.t.toLowerCase()];
+    if(!c){ c={t:x.t,svc:'Netflix',app:'12',id:x.id,type:x.type,play:!!x.id,tags:{}}; CATALOG.push(c); byTitle[c.t.toLowerCase()]=c; }
+    c.trend=x.rank; c.trendNote=x.note;
+    if(x.id && !c.id){ c.id=x.id; c.type=x.type; c.play=true; }
+  });
+  NEWSEASONS.forEach(x=>{
+    let c=byTitle[x.t.toLowerCase()];
+    if(!c){ c={t:x.t,svc:x.svc,app:x.app,play:false,tags:{}}; CATALOG.push(c); byTitle[c.t.toLowerCase()]=c; }
+    c.when=x.when; if(x.season) c.season=x.season; c.fresh=true;
+  });
+  CATALOG.forEach(c=>{
+    c.kw=(c.t+' '+c.svc+(c.trend?' top10 trending popular hot':'')+(c.fresh?' new season newseason':'')+(c.season?' '+c.season:'')).toLowerCase();
+  });
+})();
+
+function freshLabel(c){
+  if(!c.when) return c.season || '';
+  try{
+    const today=new Date(); today.setHours(0,0,0,0);
+    const d=new Date(c.when+'T00:00:00');
+    const days=Math.round((d-today)/86400000);
+    const md=d.toLocaleDateString(undefined,{month:'short',day:'numeric'});
+    const pre=c.season?c.season+' · ':'';
+    if(days>0) return pre+'coming '+md;
+    if(days>-45) return pre+'new · '+md;
+    return c.season||'';
+  }catch(e){ return c.season||''; }
+}
+
+/* ===== Time/date context — nudges picks and learns per daypart ===== */
+function nowCtx(){
+  const d=new Date(), h=d.getHours(), dow=d.getDay();
+  const weekend=(dow===5&&h>=17)||dow===6||dow===0;
+  let part = h<5?'latenight' : h<11?'morning' : h<17?'afternoon' : h<22?'evening' : 'latenight';
+  return {h,dow,weekend,part,key:part+(weekend?'-wknd':'-week')};
+}
+function timeBias(c){
+  const b={};
+  if(c.part==='morning'){ b.light=1; b.feelgood=1; }
+  else if(c.part==='afternoon'){ b.light=0.5; b.bingeable=0.5; }
+  else if(c.part==='evening'){ b.bingeable=1; if(c.weekend){ b.prestige=1; b.intense=1; b.action=0.5; } }
+  else { b.light=1; b.bingeable=1; b.intense=-0.5; }   // late night
+  return b;
+}
+function ctxLabel(c){
+  const names=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  const p = c.part==='latenight'?'late night':c.part;
+  const mood = c.part==='morning'?'easy morning picks'
+    : c.part==='latenight'?'light late-night watching'
+    : (c.weekend && c.part==='evening')?'weekend movie-night energy'
+    : c.part==='evening'?'weeknight binge'
+    : 'daytime picks';
+  return names[c.dow]+' '+p+' · '+mood;
+}
+
+const WEIGHTS={
+  good:{prestige:3,drama:1}, wild:{wild:3,intense:1}, funny:{funny:3,light:1,feelgood:1},
+  light:{light:3,feelgood:2}, intense:{intense:3,action:1}, dark:{dark:3},
+  scary:{scary:3,dark:1}, mindbender:{mindbender:3,scifi:1}, action:{action:3,intense:1},
+  drama:{drama:3}, romance:{romance:3,feelgood:1}, scifi:{scifi:3}, fantasy:{fantasy:3},
+  crime:{crime:3,dark:1}, binge:{bingeable:3}, weird:{wild:2,mindbender:1}, feelgood:{feelgood:3,light:1},
+};
+const SYN={
+  good:'good',great:'good',best:'good',amazing:'good',acclaimed:'good',quality:'good',excellent:'good',masterpiece:'good',solid:'good',
+  wild:'wild',crazy:'wild',insane:'wild',bonkers:'wild',nuts:'wild',unhinged:'wild',outrageous:'wild',chaos:'wild',chaotic:'wild',bananas:'wild',
+  funny:'funny',laugh:'funny',laughs:'funny',comedy:'funny',hilarious:'funny',silly:'funny',lighthearted:'funny',
+  light:'light',easy:'light',chill:'light',relax:'light',relaxing:'light',background:'light',casual:'light',unwind:'light',cozy:'light',comfort:'light',comforting:'light',mellow:'light',
+  intense:'intense',gripping:'intense',edge:'intense',thrill:'intense',thriller:'intense',tense:'intense',suspense:'intense',suspenseful:'intense',riveting:'intense',
+  dark:'dark',gritty:'dark',grim:'dark',bleak:'dark',heavy:'dark',disturbing:'dark',brutal:'dark',
+  scary:'scary',horror:'scary',creepy:'scary',spooky:'scary',terrifying:'scary',frightening:'scary',
+  mindbender:'mindbender',twist:'mindbender',twisty:'mindbender',trippy:'mindbender',cerebral:'mindbender',smart:'mindbender',thinky:'mindbender',mind:'mindbender',
+  action:'action',fight:'action',fights:'action',explosions:'action',adrenaline:'action',fast:'action',actiony:'action',
+  drama:'drama',dramatic:'drama',emotional:'drama',moving:'drama',character:'drama',
+  romance:'romance',romantic:'romance',love:'romance',swoony:'romance',
+  scifi:'scifi',space:'scifi',future:'scifi',futuristic:'scifi',aliens:'scifi',alien:'scifi',robots:'scifi',dystopian:'scifi',
+  fantasy:'fantasy',magic:'fantasy',dragons:'fantasy',dragon:'fantasy',epic:'fantasy',medieval:'fantasy',
+  crime:'crime',murder:'crime',mystery:'crime',detective:'crime',heist:'crime',mob:'crime',mafia:'crime',whodunit:'crime',
+  binge:'binge',bingeable:'binge',addictive:'binge',hooked:'binge',bingeworthy:'binge',
+  weird:'weird',strange:'weird',bizarre:'weird',odd:'weird',surreal:'weird',offbeat:'weird',
+  feelgood:'feelgood',heartwarming:'feelgood',wholesome:'feelgood',uplifting:'feelgood',happy:'feelgood',sweet:'feelgood',
+};
+const LABEL={mindbender:'mind-bending',feelgood:'feel-good',scifi:'sci-fi',bingeable:'bingeable',prestige:'acclaimed',crime:'crime/mystery'};
+function label(t){ return LABEL[t] || t; }
+
+const LS_TASTE='rokuEasyRemote.taste', LS_LEARN='rokuEasyRemote.learn', LS_SIG='rokuEasyRemote.signals';
+let lastTerms=[];
+
+function parseIntent(q){
+  let s=' '+(q||'').toLowerCase().replace(/[^a-z\s'-]/g,' ')+' ';
+  s=s.replace(/feel[\s-]?good/g,' feelgood ')
+     .replace(/mind[\s-]?bend(ing|er)?/g,' mindbender ')
+     .replace(/sci[\s-]?fi/g,' scifi ')
+     .replace(/edge of (my|your|the) seat/g,' intense ')
+     .replace(/date night/g,' romance ')
+     .replace(/\bsomething\b/g,' ');
+  const toks=s.split(/\s+/).filter(Boolean);
+  const intent={}, terms=[]; let neg=false;
+  const NEG=new Set(['not','no','nothing','dont',"don't",'without','less','avoid','never']);
+  toks.forEach(w=>{
+    if(NEG.has(w)){ neg=true; return; }
+    const canon=SYN[w];
+    if(canon && WEIGHTS[canon]){
+      const sign=neg?-1:1; neg=false; terms.push(canon);
+      const W=WEIGHTS[canon];
+      for(const tag in W) intent[tag]=(intent[tag]||0)+sign*W[tag];
+    }
+  });
+  // "more like <title>" — merge that show's own tags
+  CATALOG.forEach(c=>{ const n=c.t.toLowerCase(); if(n.length>4 && s.includes(' '+n+' ')){ for(const tag in (c.tags||{})) intent[tag]=(intent[tag]||0)+c.tags[tag]; terms.push('~'+c.t); } });
+  return {intent, terms};
+}
+
+function applyLearning(intent, terms){
+  const G=load(LS_TASTE,true)||{}, T=load(LS_LEARN,true)||{};
+  for(const tag in G) intent[tag]=(intent[tag]||0)+0.5*G[tag];       // global taste
+  terms.forEach(t=>{ const m=T[t]; if(m) for(const tag in m) intent[tag]=(intent[tag]||0)+m[tag]; }); // per-phrase learning
+  return intent;
+}
+function scoreItem(item, intent){ const tg=item.tags||{}; let s=0; for(const tag in intent) s+=intent[tag]*(tg[tag]||0); return s; }
+function clamp(v,lo,hi){ return Math.max(lo,Math.min(hi,v)); }
+function shuffle(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+
+function whyTags(item, intent){
+  const tg=item.tags||{}, arr=[];
+  for(const tag in intent){ if(intent[tag]>0 && tg[tag]>0) arr.push([tag, intent[tag]*tg[tag]]); }
+  arr.sort((a,b)=>b[1]-a[1]);
+  return arr.slice(0,3).map(x=>label(x[0]));
+}
+
+function recommend(q, surprise){
+  q=(q||'').trim()||'something good';
+  const nq=q.toLowerCase();
+  const ctx=nowCtx();
+  $('#findctx').textContent=ctxLabel(ctx);
+  if(/\b(new|newest|fresh|trending|popular|hot)\b/.test(nq) || /top\s*10/.test(nq) || /what'?s on/.test(nq)){
+    renderFreshFind(nq); return;
+  }
+  const {intent, terms}=parseIntent(q);
+  terms.push('@'+ctx.key);                               // daypart learns over time
+  const tb=timeBias(ctx); for(const t in tb) intent[t]=(intent[t]||0)+tb[t];
+  applyLearning(intent, terms); lastTerms=terms;
+  const hasSignal=Object.values(intent).some(v=>Math.abs(v)>0.001);
+  let scored=CATALOG.filter(c=>c.tags&&Object.keys(c.tags).length).map(c=>{
+    let s = hasSignal ? scoreItem(c,intent) : ((c.tags&&c.tags.prestige)||0);
+    return {c, s: s + Math.random()*0.8};                // a little jitter keeps it alive
+  });
+  scored.sort((a,b)=>b.s-a.s);
+  let pool=scored.filter(x=>x.s>0.001);
+  if(pool.length<4) pool=scored.slice(0,8);
+  const pick = surprise ? shuffle(pool.slice(0,12)).slice(0,6) : pool.slice(0,6);
+  renderFindResults(pick, intent);
+}
+
+function renderFreshFind(nq){
+  lastTerms=['new'];
+  const wantTop=/top\s*10|trending|popular|hot/.test(nq);
+  const wantNew=/\bnew|newest|fresh|season\b/.test(nq) || /what'?s on/.test(nq);
+  let items;
+  if(wantTop && !wantNew) items=CATALOG.filter(c=>c.trend).sort((a,b)=>a.trend-b.trend);
+  else if(wantNew && !wantTop) items=CATALOG.filter(c=>c.fresh).sort((a,b)=>(a.when||'').localeCompare(b.when||''));
+  else {
+    const t=CATALOG.filter(c=>c.trend).sort((a,b)=>a.trend-b.trend);
+    const n=CATALOG.filter(c=>c.fresh && !c.trend).sort((a,b)=>(a.when||'').localeCompare(b.when||''));
+    items=t.concat(n);
+  }
+  $('#findctx').textContent='Fresh picks · updated '+FRESH_UPDATED_LABEL;
+  const wrap=$('#findlist'); wrap.innerHTML='';
+  if(!items.length){ wrap.innerHTML='<div class="empty">No fresh data loaded.</div>'; return; }
+  items.slice(0,10).forEach(c=>{
+    const chips=[];
+    if(c.trend) chips.push('Top 10 · #'+c.trend);
+    const fl=freshLabel(c); if(fl) chips.push(fl); else if(c.season) chips.push(c.season);
+    wrap.appendChild(makeFindCard(c, chips));
+  });
+}
+
+function makeFindCard(c, chips){
+  const card=document.createElement('div'); card.className='card';
+  card.innerHTML=`
+    <div class="meta">
+      <div class="ttl">${esc(c.t)}</div>
+      <div class="svc">${esc(c.svc)} <span class="badge ${c.play?'play':'open'}">${c.play?'▶ Plays':'↗ Opens app'}</span></div>
+      ${chips&&chips.length?'<div class="why">'+chips.map(w=>'<span>'+esc(w)+'</span>').join('')+'</div>':''}
+    </div>
+    <div class="acts">
+      <button class="fb up" aria-label="More like this">👍</button>
+      <button class="fb down" aria-label="Less like this">👎</button>
+      <button class="go play" aria-label="${c.play?'Play':'Open app'}">${c.play?'▶':'↗'}</button>
+    </div>`;
+  card.querySelector('.go').onclick=()=>{
+    if(c.play) deepLink(c.app,c.id,c.type).then(()=>toast('Playing '+c.t));
+    else launch(c.app).then(()=>toast('Opening '+c.svc));
+    learn(c, 2);  // playing it is the strongest signal
+  };
+  card.querySelector('.fb.up').onclick=e=>{ learn(c,1); e.currentTarget.classList.add('on'); toast('Got it — more like “'+c.t+'”'); };
+  card.querySelector('.fb.down').onclick=e=>{ learn(c,-1); e.currentTarget.classList.add('on'); toast('Noted — less like that'); };
+  return card;
+}
+function renderFindResults(list, intent){
+  const wrap=$('#findlist'); wrap.innerHTML='';
+  if(!list.length){ wrap.innerHTML='<div class="empty">Tell me the vibe up top.</div>'; return; }
+  list.forEach(({c})=>wrap.appendChild(makeFindCard(c, whyTags(c,intent))));
+}
+
+function learn(item, dir){
+  const G=load(LS_TASTE,true)||{}, T=load(LS_LEARN,true)||{};
+  const gStep=(dir>0?0.1:-0.1)*Math.min(Math.abs(dir),2);
+  const tStep=(dir>0?0.2:-0.2)*Math.min(Math.abs(dir),2);
+  const tg=item.tags||{};
+  for(const tag in tg){
+    G[tag]=clamp((G[tag]||0)+gStep*tg[tag],-4,4);
+    lastTerms.forEach(t=>{ T[t]=T[t]||{}; T[t][tag]=clamp((T[t][tag]||0)+tStep*tg[tag],-4,4); });
+  }
+  save(LS_TASTE,G,true); save(LS_LEARN,T,true);
+  let n=0; try{ n=+localStorage.getItem(LS_SIG)||0; localStorage.setItem(LS_SIG,n+1); }catch(e){}
+  updateLearn();
+}
+function updateLearn(){
+  let n=0; try{ n=+localStorage.getItem(LS_SIG)||0; }catch(e){}
+  const el=$('#findstatus'); if(el) el.textContent = n ? ('Learning from your picks · '+n+' signal'+(n===1?'':'s')) : 'Tip: 👍 / 👎 and what you play teach it your taste.';
+}
+
+$('#findgo').addEventListener('click',()=>recommend($('#findq').value));
+$('#findq').addEventListener('keydown',e=>{ if(e.key==='Enter'){ e.preventDefault(); recommend($('#findq').value); } });
+$('#findsurprise').addEventListener('click',()=>recommend($('#findq').value||'something good', true));
+document.querySelectorAll('#findchips button').forEach(b=>b.onclick=()=>{ $('#findq').value=b.dataset.q; recommend(b.dataset.q); });
+$('#findreset').addEventListener('click',e=>{ e.preventDefault(); try{ localStorage.removeItem(LS_TASTE); localStorage.removeItem(LS_LEARN); localStorage.removeItem(LS_SIG); }catch(err){} updateLearn(); toast('Learning reset'); });
+updateLearn();
+
+/* ---- boot ---- */
+renderApps();
+renderShortcuts();
+renderCatalog();
+renderPoker();
+{ const fn=$('#freshnote'); if(fn) fn.textContent='🔥 Top 10 & new-season data · snapshot '+FRESH_UPDATED_LABEL; }
+setDot();
+let startTab='remote'; try{ startTab=localStorage.getItem('rokuEasyRemote.tab')||'remote'; }catch(e){}
+showView(startTab);
+if(!ip){ $('#hint').classList.add('show'); autoFind(); }
+
+</script>
+</body>
+</html>
