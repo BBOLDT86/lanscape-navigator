@@ -1,0 +1,102 @@
+{
+ "tse": {
+  "base": "https://resultados.tse.jus.br",
+  "ambiente": "oficial",
+  "cycle": "ele2026",
+  "runoffCode": "6258",
+  "round1Code": "6257",
+  "unitUrl": "{base}/{ambiente}/{cycle}/{code}/dados/{uf}/{uf}-c0001-e00{code}-u.json",
+  "units": [
+   "br",
+   "ac",
+   "al",
+   "am",
+   "ap",
+   "ba",
+   "ce",
+   "df",
+   "es",
+   "go",
+   "ma",
+   "mg",
+   "ms",
+   "mt",
+   "pa",
+   "pb",
+   "pe",
+   "pi",
+   "pr",
+   "rj",
+   "rn",
+   "ro",
+   "rr",
+   "rs",
+   "sc",
+   "se",
+   "sp",
+   "to",
+   "zz"
+  ],
+  "configUrl": "https://resultados.tse.jus.br/oficial/comum/config/ele-c.json",
+  "fields": "carg[0].agr[].par[].cand[] {n, sqcand, nm, nmu, vap, pvap, pvapn, st}; s {pst, st, ts}; v {vb, pvb, tvn, ptvn, vv}; e {a, pa}; dg, hg (Brasília time); cdabr; t; ele",
+  "note": "Layout per gabrielandr/apuracao-2026 README (TSE EA20 unified result file). The dados-simplificados folder returns 404 in the 2026 cycle. The page also reads these URLs directly from the browser every 60 s on election night (the TSE serves them with CORS).",
+  "publicHub": "https://resultados.tse.jus.br/oficial/app/index.html"
+ },
+ "markets": {
+  "polymarket": {
+   "gammaBase": "https://gamma-api.polymarket.com/events?slug=",
+   "events": [
+    {
+     "id": "PRES",
+     "slug": "brazil-presidential-election"
+    }
+   ]
+  },
+  "kalshi": {
+   "apiBase": "https://api.elections.kalshi.com/trade-api/v2",
+   "events": [
+    {
+     "id": "PRES",
+     "ticker": "KXBRPRES-26"
+    }
+   ]
+  },
+  "note": "Polymarket slug not verified against the API (polyguana mirror lists brazil-presidential-election); Kalshi ticker from kalshi.com/markets/kxbrpres/brazil-presidency/kxbrpres-26. fetch_markets.py matches outcomes by candidate name."
+ },
+ "news": [
+  {
+   "name": "Reuters Brazil",
+   "url": "https://news.google.com/rss/search?q=site:reuters.com+Brazil+election&hl=en-US&gl=US&ceid=US:en"
+  },
+  {
+   "name": "AP Brazil",
+   "url": "https://news.google.com/rss/search?q=site:apnews.com+Brazil+election&hl=en-US&gl=US&ceid=US:en"
+  },
+  {
+   "name": "G1 Eleições",
+   "url": "https://g1.globo.com/rss/g1/politica/eleicoes/2026/"
+  },
+  {
+   "name": "Folha Poder",
+   "url": "https://feeds.folha.uol.com.br/poder/rss091.xml"
+  },
+  {
+   "name": "Poder360 Eleições",
+   "url": "https://www.poder360.com.br/feed/"
+  }
+ ],
+ "resultsAlsoAt": [
+  {
+   "name": "TSE Divulgação de Resultados",
+   "url": "https://resultados.tse.jus.br/oficial/app/index.html"
+  },
+  {
+   "name": "G1 apuração",
+   "url": "https://g1.globo.com/politica/eleicoes/2026/"
+  },
+  {
+   "name": "AP",
+   "url": "https://apnews.com/hub/brazil"
+  }
+ ]
+}

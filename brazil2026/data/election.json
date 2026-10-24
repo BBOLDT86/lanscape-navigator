@@ -1,0 +1,789 @@
+{
+ "asOf": "2026-10-24",
+ "election": {
+  "country": "Brazil",
+  "office": "President",
+  "round1": "2026-10-04",
+  "runoff": "2026-10-25",
+  "tseElectionCodeRound1": "6257",
+  "tseElectionCodeRunoff": "6258",
+  "pollingHoursBrasilia": "08:00-17:00 (unified Brasília time in every state since 2022; 07:00-16:00 local in UTC-4 states, 06:00-15:00 in Acre; abroad 08:00-17:00 local)",
+  "countStartsBrasilia": "17:00",
+  "countStartsET": "16:00 EDT",
+  "registeredVoters": 158745502,
+  "timezoneNote": "Brasília time (BRT) is UTC-3 with no daylight saving; on Oct 25, 2026 it is one hour ahead of U.S. Eastern Daylight Time."
+ },
+ "candidates": [
+  {
+   "key": "lula",
+   "n": "13",
+   "name": "Luiz Inácio Lula da Silva",
+   "short": "Lula",
+   "tseName": "LULA",
+   "party": "PT",
+   "runningMate": "Geraldo Alckmin (PSB)",
+   "coalition": "Brasil Pronto pra Mais",
+   "coalitionEn": "Brazil Ready for More",
+   "incumbent": true,
+   "color": "#c8102e",
+   "endorsedBy": {
+    "candidates": [
+     "Samara Martins (UP)",
+     "Hertz Dias (PSTU)",
+     "Edmilson Costa (PCB)"
+    ],
+    "parties": [
+     "PT",
+     "PCdoB",
+     "PV",
+     "PSOL",
+     "REDE",
+     "PSB",
+     "PDT",
+     "PSTU",
+     "PCB",
+     "UP"
+    ]
+   }
+  },
+  {
+   "key": "flavio",
+   "n": "22",
+   "name": "Flávio Bolsonaro",
+   "short": "Flávio Bolsonaro",
+   "tseName": "FLAVIO BOLSONARO",
+   "party": "PL",
+   "runningMate": "Alfredo Gaspar",
+   "coalition": null,
+   "coalitionEn": null,
+   "incumbent": false,
+   "color": "#1d4ed8",
+   "endorsedBy": {
+    "candidates": [
+     "Augusto Cury (Avante)",
+     "Ronaldo Caiado (PSD; the party itself did not endorse)",
+     "Romeu Zema (NOVO)",
+     "Clariana Barão (DC)"
+    ],
+    "parties": [
+     "PL",
+     "União",
+     "PP",
+     "Republicanos",
+     "PODE",
+     "NOVO"
+    ]
+   }
+  }
+ ],
+ "noEndorsement": {
+  "candidates": [
+   "Renan Santos (Missão)",
+   "Wilson Grassi (Democrata)",
+   "Rui Costa Pimenta (PCO)"
+  ],
+  "parties": [
+   "MDB",
+   "PSD"
+  ]
+ },
+ "round1National": {
+  "asOf": "2026-10-05T12:51:47-03:00",
+  "pctCounted": 100.0,
+  "candidates": [
+   {
+    "key": "flavio",
+    "votes": 56104503,
+    "pctValid": 47.03
+   },
+   {
+    "key": "lula",
+    "votes": 53879538,
+    "pctValid": 45.16
+   },
+   {
+    "name": "Augusto Cury",
+    "party": "Avante",
+    "votes": 3448569,
+    "pctValid": 2.89
+   },
+   {
+    "name": "Renan Santos",
+    "party": "Missão",
+    "votes": 2675887,
+    "pctValid": 2.24
+   },
+   {
+    "name": "Ronaldo Caiado",
+    "party": "PSD",
+    "votes": 2605148,
+    "pctValid": 2.18
+   },
+   {
+    "name": "Romeu Zema",
+    "party": "NOVO",
+    "votes": 326488,
+    "pctValid": 0.27
+   },
+   {
+    "name": "others (6 candidates)",
+    "party": null,
+    "votes": 260655,
+    "pctValid": 0.21
+   }
+  ],
+  "valid": 119300788,
+  "blank": 2300798,
+  "null": 3674249,
+  "total": 125275835,
+  "turnoutPct": 78.92,
+  "abstentionPct": 21.08,
+  "source": "https://resultados.tse.jus.br/oficial/ele2026/6257/dados/br/br-c0001-e006257-u.json",
+  "sourceNote": "TSE totals as archived by gabrielandr/apuracao-2026 (data/primeiro-turno.json, 100% counted, Oct 5 12:51 BRT) and the Wikipedia results table; candidate rows below the top two from Wikipedia."
+ },
+ "runoff2022National": {
+  "lula": {
+   "votes": 60345999,
+   "pctValid": 50.9
+  },
+  "bolsonaro": {
+   "votes": 58206354,
+   "pctValid": 49.1
+  },
+  "valid": 118552353,
+  "blank": 1769678,
+  "null": 3930765,
+  "total": 124252796,
+  "turnoutPct": 79.42,
+  "source": "https://en.wikipedia.org/wiki/2022_Brazilian_general_election",
+  "note": "Jair Bolsonaro, not Flávio, was the 2022 candidate."
+ },
+ "units": {
+  "AC": {
+   "name": "Acre",
+   "nameEn": "Acre",
+   "region": "N",
+   "round1": {
+    "lula": {
+     "votes": 134770,
+     "pctValid": 28.73
+    },
+    "flavio": {
+     "votes": 302807,
+     "pctValid": 64.56
+    },
+    "pctCounted": 100.0,
+    "asOf": "2026-10-05T12:51:40-03:00"
+   },
+   "runoff2022": {
+    "lula": 29.7,
+    "bolsonaro": 70.3
+   }
+  },
+  "AL": {
+   "name": "Alagoas",
+   "nameEn": "Alagoas",
+   "region": "NE",
+   "round1": {
+    "lula": {
+     "votes": 995459,
+     "pctValid": 54.73
+    },
+    "flavio": {
+     "votes": 735718,
+     "pctValid": 40.45
+    },
+    "pctCounted": 100.0,
+    "asOf": "2026-10-05T12:51:41-03:00"
+   },
+   "runoff2022": {
+    "lula": 58.68,
+    "bolsonaro": 41.32
+   }
+  },
+  "AM": {
+   "name": "Amazonas",
+   "nameEn": "Amazonas",
+   "region": "N",
+   "round1": {
+    "lula": {
+     "votes": 1046996,
+     "pctValid": 48.23
+    },
+    "flavio": {
+     "votes": 976764,
+     "pctValid": 45.0
+    },
+    "pctCounted": 100.0,
+    "asOf": "2026-10-05T12:51:41-03:00"
+   },
+   "runoff2022": {
+    "lula": 51.04,
+    "bolsonaro": 48.96
+   }
+  },
+  "AP": {
+   "name": "Amapá",
+   "nameEn": "Amapá",
+   "region": "N",
+   "round1": {
+    "lula": {
+     "votes": 212503,
+     "pctValid": 45.71
+    },
+    "flavio": {
+     "votes": 212278,
+     "pctValid": 45.67
+    },
+    "pctCounted": 100.0,
+    "asOf": "2026-10-05T12:51:40-03:00"
+   },
+   "runoff2022": {
+    "lula": 48.64,
+    "bolsonaro": 51.36
+   }
+  },
+  "BA": {
+   "name": "Bahia",
+   "nameEn": "Bahia",
+   "region": "NE",
+   "round1": {
+    "lula": {
+     "votes": 5664771,
+     "pctValid": 66.17
+    },
+    "flavio": {
+     "votes": 2442585,
+     "pctValid": 28.53
+    },
+    "pctCounted": 100.0,
+    "asOf": "2026-10-05T12:51:55-03:00"
+   },
+   "runoff2022": {
+    "lula": 72.11,
+    "bolsonaro": 27.89
+   }
+  },
+  "CE": {
+   "name": "Ceará",
+   "nameEn": "Ceará",
+   "region": "NE",
+   "round1": {
+    "lula": {
+     "votes": 3555263,
+     "pctValid": 63.29
+    },
+    "flavio": {
+     "votes": 1756850,
+     "pctValid": 31.27
+    },
+    "pctCounted": 100.0,
+    "asOf": "2026-10-05T12:51:44-03:00"
+   },
+   "runoff2022": {
+    "lula": 69.97,
+    "bolsonaro": 30.03
+   }
+  },
+  "DF": {
+   "name": "Distrito Federal",
+   "nameEn": "Federal District",
+   "region": "CO",
+   "round1": {
+    "lula": {
+     "votes": 675627,
+     "pctValid": 38.11
+    },
+    "flavio": {
+     "votes": 909616,
+     "pctValid": 51.31
+    },
+    "pctCounted": 100.0,
+    "asOf": "2026-10-05T12:51:40-03:00"
+   },
+   "runoff2022": {
+    "lula": 41.19,
+    "bolsonaro": 58.81
+   }
+  },
+  "ES": {
+   "name": "Espírito Santo",
+   "nameEn": "Espírito Santo",
+   "region": "SE",
+   "round1": {
+    "lula": {
+     "votes": 850028,
+     "pctValid": 37.76
+    },
+    "flavio": {
+     "votes": 1233194,
+     "pctValid": 54.78
+    },
+    "pctCounted": 100.0,
+    "asOf": "2026-10-05T12:51:41-03:00"
+   },
+   "runoff2022": {
+    "lula": 41.96,
+    "bolsonaro": 58.04
+   }
+  },
+  "GO": {
+   "name": "Goiás",
+   "nameEn": "Goiás",
+   "region": "CO",
+   "round1": {
+    "lula": {
+     "votes": 1188880,
+     "pctValid": 31.06
+    },
+    "flavio": {
+     "votes": 2051888,
+     "pctValid": 53.6
+    },
+    "pctCounted": 100.0,
+    "asOf": "2026-10-05T12:51:44-03:00"
+   },
+   "runoff2022": {
+    "lula": 41.29,
+    "bolsonaro": 58.71
+   }
+  },
+  "MA": {
+   "name": "Maranhão",
+   "nameEn": "Maranhão",
+   "region": "NE",
+   "round1": {
+    "lula": {
+     "votes": 2566301,
+     "pctValid": 63.99
+    },
+    "flavio": {
+     "votes": 1239040,
+     "pctValid": 30.9
+    },
+    "pctCounted": 100.0,
+    "asOf": "2026-10-05T12:51:45-03:00"
+   },
+   "runoff2022": {
+    "lula": 71.03,
+    "bolsonaro": 28.97
+   }
+  },
+  "MG": {
+   "name": "Minas Gerais",
+   "nameEn": "Minas Gerais",
+   "region": "SE",
+   "round1": {
+    "lula": {
+     "votes": 5188936,
+     "pctValid": 43.33
+    },
+    "flavio": {
+     "votes": 5777548,
+     "pctValid": 48.24
+    },
+    "pctCounted": 100.0,
+    "asOf": "2026-10-05T12:52:05-03:00"
+   },
+   "runoff2022": {
+    "lula": 50.17,
+    "bolsonaro": 49.83
+   }
+  },
+  "MS": {
+   "name": "Mato Grosso do Sul",
+   "nameEn": "Mato Grosso do Sul",
+   "region": "CO",
+   "round1": {
+    "lula": {
+     "votes": 516855,
+     "pctValid": 34.68
+    },
+    "flavio": {
+     "votes": 873351,
+     "pctValid": 58.6
+    },
+    "pctCounted": 100.0,
+    "asOf": "2026-10-05T12:51:41-03:00"
+   },
+   "runoff2022": {
+    "lula": 40.51,
+    "bolsonaro": 59.49
+   }
+  },
+  "MT": {
+   "name": "Mato Grosso",
+   "nameEn": "Mato Grosso",
+   "region": "CO",
+   "round1": {
+    "lula": {
+     "votes": 581681,
+     "pctValid": 29.18
+    },
+    "flavio": {
+     "votes": 1298581,
+     "pctValid": 65.15
+    },
+    "pctCounted": 100.0,
+    "asOf": "2026-10-05T12:51:42-03:00"
+   },
+   "runoff2022": {
+    "lula": 34.92,
+    "bolsonaro": 65.08
+   }
+  },
+  "PA": {
+   "name": "Pará",
+   "nameEn": "Pará",
+   "region": "N",
+   "round1": {
+    "lula": {
+     "votes": 2427237,
+     "pctValid": 49.91
+    },
+    "flavio": {
+     "votes": 2163957,
+     "pctValid": 44.5
+    },
+    "pctCounted": 100.0,
+    "asOf": "2026-10-05T12:51:45-03:00"
+   },
+   "runoff2022": {
+    "lula": 54.74,
+    "bolsonaro": 45.26
+   }
+  },
+  "PB": {
+   "name": "Paraíba",
+   "nameEn": "Paraíba",
+   "region": "NE",
+   "round1": {
+    "lula": {
+     "votes": 1541127,
+     "pctValid": 61.31
+    },
+    "flavio": {
+     "votes": 831377,
+     "pctValid": 33.07
+    },
+    "pctCounted": 100.0,
+    "asOf": "2026-10-05T12:51:44-03:00"
+   },
+   "runoff2022": {
+    "lula": 66.62,
+    "bolsonaro": 33.38
+   }
+  },
+  "PE": {
+   "name": "Pernambuco",
+   "nameEn": "Pernambuco",
+   "region": "NE",
+   "round1": {
+    "lula": {
+     "votes": 3553971,
+     "pctValid": 63.45
+    },
+    "flavio": {
+     "votes": 1738043,
+     "pctValid": 31.03
+    },
+    "pctCounted": 100.0,
+    "asOf": "2026-10-05T12:51:44-03:00"
+   },
+   "runoff2022": {
+    "lula": 66.93,
+    "bolsonaro": 33.07
+   }
+  },
+  "PI": {
+   "name": "Piauí",
+   "nameEn": "Piauí",
+   "region": "NE",
+   "round1": {
+    "lula": {
+     "votes": 1523710,
+     "pctValid": 70.99
+    },
+    "flavio": {
+     "votes": 517028,
+     "pctValid": 24.09
+    },
+    "pctCounted": 100.0,
+    "asOf": "2026-10-05T12:51:46-03:00"
+   },
+   "runoff2022": {
+    "lula": 76.84,
+    "bolsonaro": 23.16
+   }
+  },
+  "PR": {
+   "name": "Paraná",
+   "nameEn": "Paraná",
+   "region": "S",
+   "round1": {
+    "lula": {
+     "votes": 2054597,
+     "pctValid": 31.2
+    },
+    "flavio": {
+     "votes": 3945345,
+     "pctValid": 59.91
+    },
+    "pctCounted": 100.0,
+    "asOf": "2026-10-05T12:51:50-03:00"
+   },
+   "runoff2022": {
+    "lula": 37.6,
+    "bolsonaro": 62.4
+   }
+  },
+  "RJ": {
+   "name": "Rio de Janeiro",
+   "nameEn": "Rio de Janeiro",
+   "region": "SE",
+   "round1": {
+    "lula": {
+     "votes": 3693021,
+     "pctValid": 39.41
+    },
+    "flavio": {
+     "votes": 4966844,
+     "pctValid": 53.01
+    },
+    "pctCounted": 100.0,
+    "asOf": "2026-10-05T12:51:43-03:00"
+   },
+   "runoff2022": {
+    "lula": 43.47,
+    "bolsonaro": 56.53
+   }
+  },
+  "RN": {
+   "name": "Rio Grande do Norte",
+   "nameEn": "Rio Grande do Norte",
+   "region": "NE",
+   "round1": {
+    "lula": {
+     "votes": 1237963,
+     "pctValid": 59.75
+    },
+    "flavio": {
+     "votes": 720493,
+     "pctValid": 34.77
+    },
+    "pctCounted": 100.0,
+    "asOf": "2026-10-05T12:51:43-03:00"
+   },
+   "runoff2022": {
+    "lula": 65.1,
+    "bolsonaro": 34.9
+   }
+  },
+  "RO": {
+   "name": "Rondônia",
+   "nameEn": "Rondônia",
+   "region": "N",
+   "round1": {
+    "lula": {
+     "votes": 250667,
+     "pctValid": 25.89
+    },
+    "flavio": {
+     "votes": 652988,
+     "pctValid": 67.45
+    },
+    "pctCounted": 100.0,
+    "asOf": "2026-10-05T12:51:40-03:00"
+   },
+   "runoff2022": {
+    "lula": 29.34,
+    "bolsonaro": 70.66
+   }
+  },
+  "RR": {
+   "name": "Roraima",
+   "nameEn": "Roraima",
+   "region": "N",
+   "round1": {
+    "lula": {
+     "votes": 74420,
+     "pctValid": 22.86
+    },
+    "flavio": {
+     "votes": 231322,
+     "pctValid": 71.06
+    },
+    "pctCounted": 100.0,
+    "asOf": "2026-10-05T12:51:40-03:00"
+   },
+   "runoff2022": {
+    "lula": 23.84,
+    "bolsonaro": 76.16
+   }
+  },
+  "RS": {
+   "name": "Rio Grande do Sul",
+   "nameEn": "Rio Grande do Sul",
+   "region": "S",
+   "round1": {
+    "lula": {
+     "votes": 2294759,
+     "pctValid": 35.73
+    },
+    "flavio": {
+     "votes": 3573783,
+     "pctValid": 55.64
+    },
+    "pctCounted": 100.0,
+    "asOf": "2026-10-05T12:51:50-03:00"
+   },
+   "runoff2022": {
+    "lula": 43.65,
+    "bolsonaro": 56.35
+   }
+  },
+  "SC": {
+   "name": "Santa Catarina",
+   "nameEn": "Santa Catarina",
+   "region": "S",
+   "round1": {
+    "lula": {
+     "votes": 1127168,
+     "pctValid": 25.04
+    },
+    "flavio": {
+     "votes": 3000020,
+     "pctValid": 66.65
+    },
+    "pctCounted": 100.0,
+    "asOf": "2026-10-05T12:51:45-03:00"
+   },
+   "runoff2022": {
+    "lula": 30.73,
+    "bolsonaro": 69.27
+   }
+  },
+  "SE": {
+   "name": "Sergipe",
+   "nameEn": "Sergipe",
+   "region": "NE",
+   "round1": {
+    "lula": {
+     "votes": 856019,
+     "pctValid": 62.75
+    },
+    "flavio": {
+     "votes": 417839,
+     "pctValid": 30.63
+    },
+    "pctCounted": 100.0,
+    "asOf": "2026-10-05T12:51:41-03:00"
+   },
+   "runoff2022": {
+    "lula": 67.21,
+    "bolsonaro": 32.79
+   }
+  },
+  "SP": {
+   "name": "São Paulo",
+   "nameEn": "São Paulo",
+   "region": "SE",
+   "round1": {
+    "lula": {
+     "votes": 9505413,
+     "pctValid": 38.2
+    },
+    "flavio": {
+     "votes": 12922023,
+     "pctValid": 51.93
+    },
+    "pctCounted": 100.0,
+    "asOf": "2026-10-05T12:51:59-03:00"
+   },
+   "runoff2022": {
+    "lula": 44.73,
+    "bolsonaro": 55.27
+   }
+  },
+  "TO": {
+   "name": "Tocantins",
+   "nameEn": "Tocantins",
+   "region": "N",
+   "round1": {
+    "lula": {
+     "votes": 404009,
+     "pctValid": 43.42
+    },
+    "flavio": {
+     "votes": 469321,
+     "pctValid": 50.44
+    },
+    "pctCounted": 100.0,
+    "asOf": "2026-10-05T12:51:42-03:00"
+   },
+   "runoff2022": {
+    "lula": 51.36,
+    "bolsonaro": 48.64
+   }
+  },
+  "ZZ": {
+   "name": "Exterior",
+   "nameEn": "Abroad",
+   "region": null,
+   "round1": {
+    "lula": {
+     "votes": 157387,
+     "pctValid": 47.57
+    },
+    "flavio": {
+     "votes": 143900,
+     "pctValid": 43.49
+    },
+    "pctCounted": 100.0,
+    "asOf": "2026-10-05T12:51:41-03:00"
+   },
+   "runoff2022": null
+  }
+ },
+ "units2022Source": {
+  "url": "https://www.folhavitoria.com.br/politica/eleicoes-2022-lula-bolsonaro-estados-lista-mapa-onde-ganhou-estados/",
+  "note": "Per-state 2022 runoff shares as published on election night at 99.99% counted (several states marked not fully tallied); treat as approximate to 0.1 pt. The ZZ (abroad) 2022 figure was not read."
+ },
+ "calendar": [
+  {
+   "date": "2026-10-04",
+   "en": "First round: Flávio Bolsonaro 47.03%, Lula 45.16% of valid votes; runoff set",
+   "pt": "1º turno: Flávio Bolsonaro 47,03%, Lula 45,16% dos votos válidos; 2º turno definido"
+  },
+  {
+   "date": "2026-10-18",
+   "en": "Runoff debate (Band and partners); both candidates attended",
+   "pt": "Debate do 2º turno (Band e parceiros); os dois candidatos participaram"
+  },
+  {
+   "date": "2026-10-23",
+   "en": "Final debate (Globo); both candidates invited",
+   "pt": "Último debate (Globo); os dois candidatos convidados"
+  },
+  {
+   "date": "2026-10-24",
+   "en": "Final polls due: Datafolha, Quaest, AtlasIntel",
+   "pt": "Últimas pesquisas: Datafolha, Quaest, AtlasIntel"
+  },
+  {
+   "date": "2026-10-25",
+   "en": "Runoff. Polls open 8 a.m.–5 p.m. Brasília time; the TSE count starts at 5 p.m. BRT (4 p.m. ET). In 2022 the TSE declared the winner within about 3 hours.",
+   "pt": "2º turno. Votação das 8h às 17h (horário de Brasília); a apuração do TSE começa às 17h. Em 2022 o TSE proclamou o resultado em cerca de 3 horas."
+  },
+  {
+   "date": "2027-01-01",
+   "en": "Inauguration",
+   "pt": "Posse"
+  }
+ ],
+ "sources": [
+  "https://en.wikipedia.org/wiki/2026_Brazilian_general_election",
+  "https://github.com/gabrielandr/apuracao-2026",
+  "https://resultados.tse.jus.br/oficial/comum/config/ele-c.json"
+ ]
+}

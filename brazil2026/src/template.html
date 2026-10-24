@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Brazil 2026 · Runoff desk</title>
+<meta name="description" content="Live desk for Brazil's Oct. 25, 2026 presidential runoff: the TSE count by state, polls, markets, the first round and the 2022 baseline. English and Portuguese.">
+<meta name="theme-color" content="#0f172a">
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--ink:#111827;--mute:#5b6472;--line:#e3e6ea;--lula:#c8102e;--flavio:#1d4ed8;--tie:#8b8f98;--accent:#0f172a;--ok:#15803d;--warn:#b45309;--r:12px;--sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;--mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0b1020;--card:#141a2b;--ink:#e8ecf3;--mute:#9aa3b2;--line:#273048;--accent:#e8ecf3;--tie:#6b7280}}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 var(--sans);padding:0 0 env(safe-area-inset-bottom)}
+a{color:inherit}
+.wrap{max-width:1120px;margin:0 auto;padding:0 16px}
+header.top{position:sticky;top:0;z-index:5;background:var(--card);border-bottom:1px solid var(--line)}
+header.top .wrap{display:flex;align-items:center;gap:10px;min-height:52px;flex-wrap:wrap;padding-top:6px;padding-bottom:6px}
+.brand{font-weight:800;letter-spacing:-.01em;font-size:17px;white-space:nowrap}
+.brand small{display:block;font-weight:500;color:var(--mute);font-size:12px;letter-spacing:0}
+.pill{display:inline-block;padding:2px 9px;border-radius:999px;font-size:12px;font-weight:600;border:1px solid var(--line);color:var(--mute);white-space:nowrap}
+.pill.live{color:#fff;background:#b91c1c;border-color:#b91c1c}.pill.live::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:#fff;margin-right:6px;animation:blink 1.2s infinite}
+.pill.final{color:#fff;background:var(--ok);border-color:var(--ok)}
+@keyframes blink{50%{opacity:.25}}
+.spacer{flex:1}
+.lang{display:flex;border:1px solid var(--line);border-radius:999px;overflow:hidden}
+.lang button{border:0;background:transparent;color:var(--mute);font:inherit;font-weight:700;font-size:12px;padding:5px 11px;cursor:pointer}
+.lang button[aria-pressed="true"]{background:var(--accent);color:var(--bg)}
+.updated{font-size:12px;color:var(--mute);white-space:nowrap}
+main{display:grid;gap:14px;padding:14px 0 40px}
+main>*,.two>*,.grid2>*,.hero>*{min-width:0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:14px}
+.card h2{margin:0 0 8px;font-size:15px;letter-spacing:.02em;text-transform:uppercase;color:var(--mute);font-weight:700}
+.card h2 .asof{float:right;font-weight:500;text-transform:none;letter-spacing:0;font-size:12px}
+.banner{border-left:5px solid var(--ok);padding:10px 14px;background:var(--card);border-radius:var(--r);font-weight:600}
+.banner.wait{border-left-color:var(--warn)}
+/* hero */
+.hero{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.cand{padding:12px;border-radius:var(--r);border:1px solid var(--line);position:relative;overflow:hidden}
+.cand::before{content:"";position:absolute;left:0;top:0;bottom:0;width:6px;background:var(--c)}
+.cand .nm{font-weight:800;font-size:17px;line-height:1.15}.cand .pt{color:var(--mute);font-size:12px;margin-top:2px}
+.cand .big{font-size:40px;font-weight:800;letter-spacing:-.03em;line-height:1;margin:10px 0 2px;font-variant-numeric:tabular-nums}
+.cand .sub{font-size:12px;color:var(--mute);font-variant-numeric:tabular-nums}
+.cand.lead .big::after{content:"▲";font-size:14px;margin-left:6px;vertical-align:middle;color:var(--c)}
+.cand .elected{display:inline-block;margin-top:6px;background:var(--ok);color:#fff;font-size:11px;font-weight:700;padding:2px 7px;border-radius:4px;text-transform:uppercase}
+.bar{position:relative;height:18px;border-radius:9px;overflow:hidden;background:var(--line);margin-top:12px;display:flex}
+.bar i{display:block;height:100%}.bar .l{background:var(--lula)}.bar .f{background:var(--flavio);margin-left:auto}
+.bar::after{content:"";position:absolute;left:50%;top:0;bottom:0;width:2px;background:var(--card);opacity:.9}
+.kv{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;margin-top:12px}
+.kv div{background:var(--bg);border-radius:8px;padding:8px 10px}.kv b{display:block;font-size:18px;font-variant-numeric:tabular-nums;letter-spacing:-.01em}.kv span{font-size:11px;color:var(--mute);text-transform:uppercase;letter-spacing:.04em}
+.note{font-size:12px;color:var(--mute);margin-top:8px}
+/* map */
+.two{display:grid;gap:14px}
+@media (min-width:900px){.two{grid-template-columns:3fr 2fr;align-items:start}.hero .big{font-size:48px}}
+.seg{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+.seg button{border:1px solid var(--line);background:var(--bg);color:var(--mute);font:inherit;font-size:12px;font-weight:600;padding:6px 10px;border-radius:999px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--accent);color:var(--bg);border-color:var(--accent)}
+svg.map{width:100%;height:auto;display:block;touch-action:manipulation}
+svg.map path{stroke:var(--card);stroke-width:.8;cursor:pointer;transition:opacity .15s}
+svg.map path:hover,svg.map path.sel{stroke:var(--ink);stroke-width:1.6}
+svg.map text{font:600 10px var(--sans);fill:var(--ink);pointer-events:none;paint-order:stroke;stroke:var(--card);stroke-width:2.5px;stroke-linejoin:round}
+svg.map .pct{font-weight:500;font-size:8.5px}
+.legend{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--mute);flex-wrap:wrap;margin-top:6px}
+.legend i{display:inline-block;width:18px;height:10px;border-radius:2px}
+.detail{min-height:120px}
+.detail .nm{font-weight:800;font-size:18px}
+table{width:100%;border-collapse:collapse;font-size:13px;font-variant-numeric:tabular-nums}
+th,td{padding:6px 6px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+th:first-child,td:first-child{text-align:left}th{font-size:11px;color:var(--mute);text-transform:uppercase;letter-spacing:.04em;font-weight:700;position:sticky;top:0;background:var(--card)}
+.tscroll{overflow:auto;max-height:70vh;-webkit-overflow-scrolling:touch;margin:0 -14px;padding:0 14px}
+.m{font-weight:700}.m.l{color:var(--lula)}.m.f{color:var(--flavio)}
+.swatch{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:5px;vertical-align:middle}
+.chart{width:100%;height:auto;display:block}
+.more{border:1px solid var(--line);background:var(--bg);color:var(--ink);font:inherit;font-size:13px;padding:7px 12px;border-radius:8px;cursor:pointer;margin-top:8px}
+ul.plain{list-style:none;margin:0;padding:0}ul.plain li{padding:6px 0;border-bottom:1px solid var(--line);font-size:13px}ul.plain li:last-child{border:0}
+ul.plain .t{color:var(--mute);font-size:11px;font-family:var(--mono);margin-right:6px}
+.alerts li{font-weight:600}
+details summary{cursor:pointer;color:var(--mute);font-size:13px}
+.small{font-size:12px;color:var(--mute)}
+footer{color:var(--mute);font-size:12px;padding:10px 0 30px}
+.grid2{display:grid;gap:14px}@media (min-width:720px){.grid2{grid-template-columns:1fr 1fr}}
+.mkt{display:flex;gap:10px;flex-wrap:wrap}.mkt div{flex:1;min-width:140px;background:var(--bg);border-radius:8px;padding:10px}.mkt b{font-size:22px;font-variant-numeric:tabular-nums}
+.skip{position:absolute;left:-9999px}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><div class="wrap">
+  <div class="brand" id="brand">Brasil 2026<small id="brandSub">2º turno · Lula × Flávio Bolsonaro</small></div>
+  <span class="pill" id="modePill">—</span>
+  <span class="spacer"></span>
+  <span class="updated" id="updated"></span>
+  <div class="lang" role="group" aria-label="Language / Idioma"><button id="lang-en" aria-pressed="true">EN</button><button id="lang-pt" aria-pressed="false">PT</button></div>
+</div></header>
+<main class="wrap" id="main">
+  <div id="banner"></div>
+  <section class="card" id="hero"></section>
+  <div class="two">
+    <section class="card" id="mapCard"></section>
+    <section class="card detail" id="detail"></section>
+  </div>
+  <section class="card" id="states"></section>
+  <section class="card" id="chart" hidden></section>
+  <div class="grid2">
+    <section class="card" id="polls"></section>
+    <section class="card" id="markets"></section>
+  </div>
+  <div class="grid2">
+    <section class="card" id="how"></section>
+    <section class="card" id="news"></section>
+  </div>
+  <section class="card" id="about"></section>
+  <footer id="foot"></footer>
+</main>
+<script>
+/*__DATA__*/
+</script>
+<script>
+/*__APP__*/
+</script>
+</body>
+</html>

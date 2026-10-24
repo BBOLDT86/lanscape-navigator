@@ -1,0 +1,58 @@
+name: Brazil 2026 runoff desk updater
+# Pulls the TSE's official count, the prediction markets and the headlines, rebuilds brazil2026/index.html and commits.
+# Every 30 minutes on Oct. 24-25 (markets, news); every 5 minutes from 20:00 UTC Oct. 25 (17:00 BRT, when the
+# count starts) through 06:00 UTC Oct. 26; every 2 hours Oct. 26-31; off after Oct. 31. GitHub often delays cron
+# runs by a few minutes; the page also reads the TSE's files directly from the browser on election night.
+on:
+  schedule:
+    - cron: '*/30 * 24-25 10 *'
+    - cron: '*/5 20-23 25 10 *'
+    - cron: '*/5 0-6 26 10 *'
+    - cron: '7 */2 26-31 10 *'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: brazil2026
+  cancel-in-progress: false
+jobs:
+  update:
+    if: github.repository == 'BBOLDT86/lanscape-navigator'
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Stop after October
+        run: |
+          if [ "$(date -u +%Y%m%d)" -gt 20261031 ]; then echo "past Oct. 31, 2026: nothing to do"; echo "SKIP=1" >> "$GITHUB_ENV"; fi
+      - name: Pull the feeds
+        if: env.SKIP != '1'
+        run: |
+          # the TSE count only from 19:30 UTC Oct. 25 (the runoff file is empty before; the first round is left alone)
+          if [ "$(date -u +%Y%m%d%H%M)" -ge 202610251930 ]; then
+            python3 brazil2026/updater/fetch_tse.py || echo "tse: failed (kept last values)"
+          else echo "tse: before the count"; fi
+          python3 brazil2026/updater/fetch_markets.py || echo "markets: failed (kept last values)"
+          python3 brazil2026/updater/fetch_news.py || echo "news: failed (kept last values)"
+          python3 brazil2026/updater/auto_status.py
+      - name: Rebuild
+        if: env.SKIP != '1'
+        run: python3 brazil2026/build.py --check
+      - name: Commit and push
+        if: env.SKIP != '1'
+        run: |
+          git config user.name "Brazil Desk updater"
+          git config user.email "election-desk@users.noreply.github.com"
+          git add brazil2026/data brazil2026/index.html
+          if git diff --cached --quiet; then echo "no changes"; exit 0; fi
+          git commit -qm "Brazil desk: automated feed update $(date -u +%Y-%m-%dT%H:%MZ)"
+          for i in 1 2 3; do
+            git pull --rebase -X theirs origin main && git push -q origin HEAD:main && exit 0
+            sleep 10
+          done
+          echo "push failed" >&2; exit 1
