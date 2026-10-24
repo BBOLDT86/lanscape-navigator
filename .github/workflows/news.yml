@@ -27,6 +27,8 @@ jobs:
       - name: Build the edition
         run: python3 news/updater/run.py ${{ github.event_name == 'workflow_dispatch' && '--force' || '' }}
       - name: Markets and the economy
+        timeout-minutes: 4
+        continue-on-error: true
         run: |
           python3 news/updater/markets.py ${{ github.event_name == 'workflow_dispatch' && '--force' || '' }} || echo "markets failed, kept the last snapshot"
       - name: Commit and push

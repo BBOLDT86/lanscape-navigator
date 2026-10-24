@@ -127,13 +127,22 @@ FRED = [  # id, name, how to read it, unit, what it means
 ]
 
 errors = []
+START = time.monotonic()
+BUDGET = 170  # seconds: the workflow gives this step four minutes, and the edition must still be committed
+YAHOO = {'throttled': 0}
 
 
-def get(url, accept='*/*', headers=None, timeout=20):
+def late():
+    return time.monotonic() - START > BUDGET
+
+
+def get(url, accept='*/*', headers=None, timeout=12):
     h = {'User-Agent': UA, 'Accept': accept, 'Accept-Language': 'en-US,en;q=0.9', 'Accept-Encoding': 'gzip'}
     h.update(headers or {})
     last = None
-    for attempt in range(3):
+    if late():
+        raise TimeoutError('out of time for this run')
+    for attempt in range(2):
         try:
             with urllib.request.urlopen(urllib.request.Request(url, headers=h), timeout=timeout) as r:
                 raw = r.read()
@@ -142,13 +151,16 @@ def get(url, accept='*/*', headers=None, timeout=20):
                 return raw
         except urllib.error.HTTPError as ex:
             last = ex
-            if ex.code in (429, 500, 502, 503, 504) and attempt < 2:
-                time.sleep(2.5 * (attempt + 1)); continue
+            if ex.code == 429 and 'yahoo.com' in url:
+                YAHOO['throttled'] += 1
+                raise
+            if ex.code in (500, 502, 503, 504) and attempt < 1:
+                time.sleep(2); continue
             raise
         except (urllib.error.URLError, TimeoutError, ConnectionError, OSError) as ex:
             last = ex
-            if attempt < 2:
-                time.sleep(2); continue
+            if attempt < 1 and not late():
+                time.sleep(1.5); continue
             raise
     raise last
 
@@ -170,6 +182,8 @@ def thin(xs, n):
 
 
 def yahoo(sym, rng, interval):
+    if YAHOO['throttled'] >= 6:  # Yahoo is turning this runner away: stop asking, use the fallback
+        raise RuntimeError('Yahoo is rate-limiting this run')
     q = urllib.parse.quote(sym, safe='')
     last = None
     for host in ('query1', 'query2'):
