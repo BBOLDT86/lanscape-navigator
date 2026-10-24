@@ -56,7 +56,8 @@
    "scope": "national",
    "kind": "rss",
    "verified": false,
-   "verifiedHow": "failed in the Action run 2026-10-24T00:20Z: HTTPError: HTTP Error 502: Bad Gateway"
+   "verifiedHow": "failed in the Action run 2026-10-24T00:20Z: HTTPError: HTTP Error 502: Bad Gateway",
+   "note": "feeds.washingtonpost.com answered 502 on both Action runs 2026-10-24; kept and retried each run (the fetcher retries 5xx once)"
   },
   {
    "name": "CNN Politics",
@@ -188,13 +189,13 @@
    "verifiedHow": "fetched and parsed by the Action run 2026-10-24T00:20Z"
   },
   {
-   "name": "Atlanta Journal-Constitution Politics",
-   "url": "https://www.ajc.com/arc/outboundfeeds/rss/?outputType=xml",
+   "name": "Capitol Beat News Service",
+   "url": "https://capitol-beat.org/feed/",
    "scope": "GA",
    "kind": "rss",
    "verified": false,
-   "verifiedHow": "failed in the Action run 2026-10-24T00:20Z: HTTPError: HTTP Error 404: Not Found",
-   "note": "the /category/politics/ feed answered 404 on 2026-10-24; the main AJC feed is read instead and the relevance filter keeps the election items"
+   "verifiedHow": "candidate (Georgia statehouse wire; WordPress /feed/ pattern); verified by the next Action run",
+   "note": "replaces the AJC feed: both AJC Arc feed URLs answered 404 on 2026-10-24 (AJC moved CMS); Georgia Recorder remains the other Georgia source"
   },
   {
    "name": "NC Newsline",
@@ -285,12 +286,13 @@
    "verifiedHow": "fetched and parsed by the Action run 2026-10-24T00:20Z"
   },
   {
-   "name": "Florida Politics",
-   "url": "https://floridapolitics.com/feed/",
+   "name": "Florida Phoenix",
+   "url": "https://floridaphoenix.com/feed/",
    "scope": "FL",
    "kind": "rss",
    "verified": false,
-   "verifiedHow": "failed in the Action run 2026-10-24T00:20Z: HTTPError: HTTP Error 403: Forbidden"
+   "verifiedHow": "candidate (States Newsroom, same /feed/ pattern as the verified Ohio, Georgia and Iowa sites); verified by the next Action run",
+   "note": "replaces floridapolitics.com, which answers 403 to the Action even with browser headers"
   },
   {
    "name": "Arizona Capitol Times",

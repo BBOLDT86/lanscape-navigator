@@ -5,6 +5,10 @@
 set -uo pipefail
 cd "$(dirname "$0")/../.."
 MSG="${1:-Election Desk: update}"
+# COMMIT_TRAILER (optional): lines appended to every commit message, e.g. Co-Authored-By / session trailers
+[ -n "${COMMIT_TRAILER:-}" ] && MSG="$MSG
+
+$COMMIT_TRAILER"
 GEN="election2026/index.html election2026/data/model.json the-hinge/index.html the-hinge/src/v2/data2.js"
 git config user.name  >/dev/null 2>&1 || git config user.name "Election Desk updater"
 git config user.email >/dev/null 2>&1 || git config user.email "election-desk@users.noreply.github.com"
