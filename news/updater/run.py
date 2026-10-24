@@ -53,12 +53,13 @@ UA = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, 
 
 WATCHES = [(0, 'middle', 'Middle Watch'), (4, 'morning', 'Morning Watch'), (8, 'forenoon', 'Forenoon Watch'),
            (12, 'afternoon', 'Afternoon Watch'), (16, 'dog', 'Dog Watch'), (20, 'first', 'First Watch')]
-SECTIONS = [('us', 'U.S.'), ('world', 'World'), ('politics', 'Politics'), ('business', 'Business'), ('tech', 'Tech'),
+SECTIONS = [('us', 'U.S.'), ('world', 'World'), ('europe', 'Europe'), ('brazil', 'Brazil'), ('politics', 'Politics'), ('business', 'Business'), ('tech', 'Tech'),
             ('science', 'Science'), ('health', 'Health'), ('sports', 'Sports'), ('culture', 'Culture'), ('cars', 'Cars'),
             ('travel', 'Travel'), ('food', 'Food'), ('longreads', 'Long reads')]
 SLOW = {'cars', 'travel', 'food', 'longreads'}
 WINDOW_H = {'default': 36, 'slow': 96}
-CAP = {'us': 100, 'world': 100, 'politics': 80, 'business': 90, 'tech': 90, 'science': 55, 'health': 45, 'sports': 100,
+WINDOW_BY_SEC = {'brazil': 72}  # fewer English-language stories a day, so they stay up longer
+CAP = {'us': 100, 'world': 100, 'europe': 90, 'brazil': 70, 'politics': 80, 'business': 90, 'tech': 90, 'science': 55, 'health': 45, 'sports': 100,
        'culture': 70, 'cars': 45, 'travel': 40, 'food': 35, 'longreads': 35}
 SNIP = 210
 
@@ -85,7 +86,9 @@ OUTLETS = {
     'newyorker.com': 'The New Yorker', 'propublica.org': 'ProPublica', 'aeon.co': 'Aeon', 'longreads.com': 'Longreads',
     'usatoday.com': 'USA Today', 'latimes.com': 'Los Angeles Times', 'nypost.com': 'New York Post', 'newsweek.com': 'Newsweek',
     'time.com': 'Time', 'economist.com': 'The Economist', 'forbes.com': 'Forbes', 'businessinsider.com': 'Business Insider',
-    'theathletic.com': 'The Athletic', 'si.com': 'Sports Illustrated', 'nfl.com': 'NFL.com', 'mlb.com': 'MLB.com', 'nba.com': 'NBA.com',
+    'theathletic.com': 'The Athletic', 'politico.eu': 'Politico Europe', 'euronews.com': 'Euronews',
+    'kyivindependent.com': 'The Kyiv Independent', 'euractiv.com': 'Euractiv', 'brazilian.report': 'The Brazilian Report',
+    'agenciabrasil.ebc.com.br': 'Agência Brasil', 'riotimesonline.com': 'The Rio Times', 'en.mercopress.com': 'MercoPress', 'si.com': 'Sports Illustrated', 'nfl.com': 'NFL.com', 'mlb.com': 'MLB.com', 'nba.com': 'NBA.com',
 }
 TIER1 = {'apnews.com', 'reuters.com', 'nytimes.com', 'washingtonpost.com', 'wsj.com', 'bbc.com', 'npr.org', 'bloomberg.com',
          'theguardian.com', 'axios.com', 'cbsnews.com', 'nbcnews.com', 'abcnews.go.com', 'pbs.org', 'ft.com', 'politico.com', 'cnn.com'}
@@ -387,6 +390,28 @@ SECTION_WORDS = {
     'world': _rx(plurals=True, words=['afghanistan', 'afghan', 'albania', 'albanian', 'algeria', 'algerian', 'angola', 'argentina', 'argentine', 'armenia', 'armenian', 'australia', 'australian', 'austria', 'austrian', 'azerbaijan', 'bahrain', 'bangladesh', 'bangladeshi', 'belarus', 'belarusian', 'belgium', 'belgian', 'bolivia', 'bolivian', 'bosnia', 'bosnian', 'brazil', 'brazilian', 'bulgaria', 'bulgarian', 'burkina', 'cambodia', 'cambodian', 'cameroon', 'canada', 'canadian', 'chile', 'chilean', 'china', 'chinese', 'colombia', 'colombian', 'congo', 'congolese', 'croatia', 'croatian', 'cuba', 'cuban', 'cyprus', 'czech', 'denmark', 'danish', 'ecuador', 'egypt', 'egyptian', 'eritrea', 'estonia', 'estonian', 'ethiopia', 'ethiopian', 'finland', 'finnish', 'france', 'french', 'germany', 'german', 'ghana', 'ghanaian', 'greece', 'greek', 'guatemala', 'guatemalan', 'haiti', 'haitian', 'honduras', 'hungary', 'hungarian', 'iceland', 'icelandic', 'india', 'indian', 'indonesia', 'indonesian', 'iran', 'iranian', 'iraq', 'iraqi', 'ireland', 'irish', 'israel', 'israeli', 'italy', 'italian', 'jamaica', 'jamaican', 'japan', 'japanese', 'jordanian', 'kazakhstan', 'kenya', 'kenyan', 'kosovo', 'kuwait', 'kuwaiti', 'kyrgyzstan', 'laos', 'latvia', 'lebanon', 'lebanese', 'liberia', 'libya', 'libyan', 'lithuania', 'lithuanian', 'madagascar', 'malawi', 'malaysia', 'malaysian', 'mali', 'malian', 'malta', 'moldova', 'mongolia', 'montenegro', 'morocco', 'moroccan', 'mozambique', 'myanmar', 'namibia', 'nepal', 'nepalese', 'netherlands', 'dutch', 'nicaragua', 'nigeria', 'nigerian', 'norway', 'norwegian', 'oman', 'pakistan', 'pakistani', 'palestinian', 'palestinians', 'panama', 'paraguay', 'peru', 'peruvian', 'philippines', 'philippine', 'filipino', 'portugal', 'portuguese', 'qatar', 'qatari', 'romania', 'romanian', 'russia', 'russian', 'rwanda', 'saudi', 'senegal', 'serbia', 'serbian', 'singapore', 'slovakia', 'slovenia', 'somalia', 'somali', 'spain', 'spanish', 'sudan', 'sudanese', 'sweden', 'swedish', 'switzerland', 'swiss', 'syria', 'syrian', 'taiwan', 'taiwanese', 'tajikistan', 'tanzania', 'thailand', 'thai', 'tunisia', 'uganda', 'ukraine', 'ukrainian', 'uae', 'uruguay', 'uzbekistan', 'vanuatu', 'venezuela', 'venezuelan', 'vietnam', 'vietnamese', 'yemen', 'yemeni', 'zambia', 'zimbabwe', 'kyiv', 'moscow', 'beijing', 'tehran', 'gaza', 'jerusalem', 'london', 'paris', 'berlin', 'madrid', 'tokyo', 'seoul', 'delhi', 'mumbai', 'islamabad', 'kabul', 'baghdad', 'damascus', 'beirut', 'cairo', 'istanbul', 'ankara', 'brussels', 'geneva', 'taipei', 'manila', 'bangkok', 'jakarta', 'sydney', 'toronto', 'ottawa', 'havana', 'caracas', 'bogota', 'lima', 'buenos', 'kremlin', 'hebron', 'europe', 'european', 'nato', 'erdogan', 'türkiye', 'new zealand', 'south africa', 'south sudan', 'sri lanka', 'north korea', 'north korean', 'south korea', 'south korean', 'hong kong', 'el salvador', 'costa rica', 'ivory coast', 'sierra leone', 'papua new guinea', 'united arab emirates', 'saudi arabia', 'tel aviv', 'mexico city', 'rio de janeiro', 'sao paulo', 'in jordan', 'amman', "turkey's", 'turkish', 'united nations', 'u\\.n', 'u\\.k', 'uk', 'britain', 'british', 'england', 'scotland', 'wales', 'west bank', 'prime minister', 'parliament', 'european union', 'eu', 'netanyahu', 'zelensky', 'zelenskyy', 'putin', 'xi jinping', 'modi', 'macron', 'starmer', 'merz', 'carney', 'sheinbaum', 'lula', 'bolsonaro', 'milei', 'maduro', 'kim jong un', 'pope', 'vatican', 'hamas', 'hezbollah', 'houthis?', 'taliban', 'caribbean', 'mexican', 'mexico']),
 }
 SERVICE = re.compile(r'\b(where to watch|how to watch|live ?stream|start time|tv channel|odds,? (picks|predictions)|predictions?,? odds|live (results|updates|blog|scores?)|play-by-play)\b', re.I)
+BRAZIL = re.compile(r"\b(brazil\w*|brasil\w*|lula|bolsonaro|s[ãa]o paulo|rio de janeiro|bras[íi]lia|petrobras|embraer|haddad|alckmin|tarc[íi]sio|"
+                    r"alexandre de moraes|amazon rainforest|the amazon|recife|salvador da bahia|belo horizonte|porto alegre|manaus|bel[ée]m|pt party|tse)\b", re.I)
+EUROPE = re.compile(r"\b(europe|european\w*|(?-i:EU)|brussels|nato|u\.k|uk|britain|british|england|english channel|scotland|scottish|wales|welsh|"
+                    r"northern ireland|ireland|irish|dublin|london|starmer|westminster|france|french|paris|macron|germany|german\w*|berlin|merz|"
+                    r"italy|italian\w*|rome|milan|meloni|spain|spanish|madrid|barcelona|s[áa]nchez|portugal|portuguese|lisbon|netherlands|dutch|"
+                    r"amsterdam|belgium|belgian|poland|warsaw|tusk|ukrain\w*|kyiv|kharkiv|odesa|zelensk\w*|russia\w*|moscow|kremlin|putin|"
+                    r"greece|greek|athens|sweden|swedish|norway|norwegian|denmark|danish|finland|finnish|austria\w*|vienna|switzerland|swiss|"
+                    r"hungary|hungarian|orb[áa]n|czech|prague|romania\w*|bulgaria\w*|serbia\w*|croatia\w*|slovakia\w*|slovenia\w*|baltic|"
+                    r"estonia\w*|latvia\w*|lithuania\w*|moldova\w*|belarus\w*|albania\w*|kosovo|bosnia\w*|iceland\w*|von der leyen|vatican)\b", re.I)
+REGIONS = (('brazil', BRAZIL), ('europe', EUROPE))
+
+
+def region(title, desc):
+    """the region desk a story belongs to, if any: (desk, strength)"""
+    best, bn = None, 0
+    for k, rx in REGIONS:
+        n = 2 * len(rx.findall(title)) + len(rx.findall(desc))
+        if n > bn:
+            best, bn = k, n
+    return (best, bn) if bn >= 2 else (None, 0)
+
+
 DESKS = ('sports', 'politics', 'business', 'tech', 'science', 'health', 'culture', 'cars', 'travel', 'food')
 
 
@@ -401,18 +426,28 @@ def best_desk(sc):
 
 
 def classify(feed_section, lean, link, title, desc):
-    """a story's section: its feed's desk; for a general feed, the outlet's URL path, then the words in it"""
+    """a story's section: its feed's desk; for a general feed, the outlet's URL path, its region, then the words in it"""
+    if feed_section == 'brazil' and not BRAZIL.search(title + ' ' + desc):
+        feed_section = 'world'  # Brazil outlets also cover the rest of Latin America
     if feed_section not in ('auto', 'us', 'world'):
         return feed_section
     sc = section_scores(title, desc)
     best, n = best_desk(sc)
+    path = urllib.parse.urlsplit(link).path if link else ''
+    psec = next((s for rx, s in PATH_SECTION if rx.search(path)), None)
+    if psec and psec not in ('politics', 'us', 'world'):  # the outlet filed it under sports, business, ...
+        return psec
+    reg, rn = region(title, desc)
+    if reg:  # Brazil and Europe have desks of their own; a stronger topic (a match, a market) still wins
+        nb = max((d for d in DESKS if d != 'politics'), key=lambda d: sc[d])
+        return nb if sc[nb] > rn else reg
+    if psec == 'politics':
+        return 'politics'
     if feed_section in ('us', 'world'):  # a national or world feed: a strong signal moves a story to its desk
         need = 2 if feed_section == 'us' else 3
         return best if n >= need and n > sc['world'] else feed_section
-    path = urllib.parse.urlsplit(link).path if link else ''
-    for rx, s in PATH_SECTION:
-        if rx.search(path):
-            return s
+    if psec:
+        return psec
     if sc['world'] >= 2 and sc['world'] >= n:
         return 'world'
     if n >= 2:
@@ -749,7 +784,7 @@ def main():
                 errors.append({'feed': name, 'error': err}); print(f'  ✗ {name}: {err}'); continue
             n = 0
             slow = f.get('section') in SLOW
-            cutoff = NOW_MIN - (WINDOW_H['slow'] if slow else WINDOW_H['default']) * 60
+            cutoff = NOW_MIN - max(WINDOW_H['slow'] if slow else WINDOW_H['default'], WINDOW_BY_SEC.get(f.get('section'), 0), 72 if f.get('region') else 0) * 60
             for r in raw_items[:60]:
                 title, link = r['title'], r['link']
                 if not title or not link or len(title) < 12 or len(title.split()) < 4:
@@ -828,7 +863,7 @@ def main():
         if i in merged:
             continue
         slow = old.get('c') in SLOW
-        if old.get('p', 0) < NOW_MIN - (WINDOW_H['slow'] if slow else WINDOW_H['default']) * 60:
+        if old.get('p', 0) < NOW_MIN - max(WINDOW_H['slow'] if slow else WINDOW_H['default'], WINDOW_BY_SEC.get(old.get('c'), 0)) * 60:
             continue
         o = {k: v for k, v in old.items() if k not in ('k', 'g')}
         merged[i] = o

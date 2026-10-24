@@ -26,6 +26,8 @@ jobs:
           python-version: '3.12'
       - name: Build the edition
         run: python3 news/updater/run.py ${{ github.event_name == 'workflow_dispatch' && '--force' || '' }}
+      - name: Markets and the economy
+        run: python3 news/updater/markets.py ${{ github.event_name == 'workflow_dispatch' && '--force' || '' }} || echo "markets: failed (kept the last snapshot)"
       - name: Commit and push
         run: |
           git config user.name "The Watch updater"
