@@ -61,6 +61,7 @@ wx-center/index.html     WX Center, a separate page (see below); not part of the
 meridian/index.html      Meridian Flight Control, a separate page (see below); not part of the app
 election2026/            Election Desk 2026, a separate site (see below); www.electiondesk2026.com inside the app
 pinfall/                 Pinfall, a separate page with its home-screen icons (see below); not part of the app
+barnlife/index.html      Central Ohio Barn Hunt, a separate page (see below); not part of the app
 ```
 
 ## Also hosted here: The Hinge
@@ -104,6 +105,12 @@ The schedule and its delays are representative, not Southwest's timetable. Weath
 **Open it: <https://bboldt86.github.io/lanscape-navigator/pinfall/>**
 
 A Pinterest-style wall of secondhand fall layers, $20 to $100 an item, from eBay, Poshmark, Mercari and Grailed: Scotch & Soda and TravisMathew men's tops, Scotch & Soda women's tops in size M, and closet matches (Levi's 505 and 501 in 30–32 × 30, cashmere hoodies and sweaters, Buck Mason and Patagonia basics) picked to match the owner's closet. Every pin is at least 40% under what the brand charges new. Its closeup shows the all-in price with shipping, how far under new it is (against the retail printed in the listing when there is one, otherwise a labeled estimate), how to wear it, what layers with it, and a link to the live listing. Filter by department, category, color, marketplace, condition, price and size; 18 looks pair two pieces from the wall and refill in your size; boards are saved in your browser. On a phone the wall runs two columns, the closeup swipes from piece to piece, and the page can be added to the home screen as an app (`manifest.webmanifest`). It is one HTML file with the listings inlined, so it also opens from disk (the photos load from the marketplaces). Listings were read on October 23, 2026 and sell fast, so check the listing before you buy. It is not part of the LANscape app and is not affiliated with Scotch & Soda, TravisMathew or any marketplace.
+
+## Also hosted here: Central Ohio Barn Hunt
+
+**Open it: <https://bboldt86.github.io/lanscape-navigator/barnlife/>**
+
+A single-file shopping guide for horse properties around Johnstown, Sunbury, Delaware, Dublin and Pickerington, priced $750k to $4M and catalogued Oct 24, 2026. Each listing is a numbered "hip" with photos, list price against my own valuation, stalls, arena, and what it would cost to add an arena, build or convert stalls, and refresh the house. Sliders set board per stall, occupancy, down payment, rate and the housing-to-income ratio, and every card, the ledger and the comps recalculate. Photos load from the listing sites, so the page needs a connection. Listing facts come from the MLS feed on LandSearch, HorseProperties.net, Compass and LandWatch; check status with the agent before acting. It is not part of the LANscape app.
 
 ## Credits
 

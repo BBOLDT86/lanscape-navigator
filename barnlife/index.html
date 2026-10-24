@@ -1,0 +1,868 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Central Ohio Barn Hunt</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Manrope:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Layout: a sale-barn catalog. Each listing is a numbered "hip" like a horse-sale catalog;
+   assumptions sit in a rail on the left (top on phones), the catalog fills the rest. */
+:root{
+  --paper:#f5eedf; --card:#fffaf1; --card-2:#f9f1e2; --ink:#2b2118; --muted:#6e5f4b; --faint:#9a8a72;
+  --rule:#e3d5bc; --amber:#b06d16; --amber-soft:#f1dcb6; --green:#2f5a40; --green-soft:#d9e8dc;
+  --red:#a33f2a; --red-soft:#f5d9d0; --blue:#2c5675; --blue-soft:#d8e5ee; --shadow:0 1px 2px rgba(60,40,15,.08),0 6px 18px rgba(60,40,15,.06);
+  --f-display:"Fraunces",Georgia,"Times New Roman",serif; --f-body:"Manrope",system-ui,-apple-system,"Segoe UI",sans-serif; --f-mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#16120d; --card:#211a13; --card-2:#2a2118; --ink:#f2e7d4; --muted:#b9a88d; --faint:#8a7a63;
+  --rule:#3b3026; --amber:#e3a24c; --amber-soft:#4a3519; --green:#86bd97; --green-soft:#1f3326;
+  --red:#ec8a70; --red-soft:#4a2219; --blue:#8fb7d6; --blue-soft:#1d2d3a; --shadow:0 1px 2px rgba(0,0,0,.4),0 6px 18px rgba(0,0,0,.3); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#16120d; --card:#211a13; --card-2:#2a2118; --ink:#f2e7d4; --muted:#b9a88d; --faint:#8a7a63;
+  --rule:#3b3026; --amber:#e3a24c; --amber-soft:#4a3519; --green:#86bd97; --green-soft:#1f3326;
+  --red:#ec8a70; --red-soft:#4a2219; --blue:#8fb7d6; --blue-soft:#1d2d3a; --shadow:0 1px 2px rgba(0,0,0,.4),0 6px 18px rgba(0,0,0,.3); color-scheme:dark}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--paper);color:var(--ink);font:15px/1.5 var(--f-body);-webkit-font-smoothing:antialiased}
+a{color:var(--amber)}
+button,select,input{font:inherit;color:inherit}
+.wrap{max-width:1480px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.num{font-variant-numeric:tabular-nums}
+
+/* masthead */
+header.mast{border-bottom:1px solid var(--rule);background:var(--card)}
+header.mast .wrap{padding-block:22px 18px;display:flex;gap:24px;align-items:flex-end;justify-content:space-between;flex-wrap:wrap}
+.mast h1{font-family:var(--f-display);font-weight:700;font-size:clamp(28px,4vw,44px);line-height:1.02;margin:0;letter-spacing:-.01em;text-wrap:balance}
+.mast h1 em{font-style:italic;font-weight:400;color:var(--amber)}
+.mast .sub{color:var(--muted);margin:6px 0 0;max-width:68ch}
+.mast .meta{display:flex;gap:18px;flex-wrap:wrap;font-family:var(--f-mono);font-size:12px;color:var(--muted)}
+.mast .meta b{display:block;font-size:20px;color:var(--ink);font-weight:600}
+.theme-btn{border:1px solid var(--rule);background:var(--card-2);border-radius:999px;padding:6px 12px;cursor:pointer;font-size:12px}
+
+/* layout */
+.layout{display:grid;grid-template-columns:330px minmax(0,1fr);gap:24px;padding-block:22px 60px}
+@media (max-width:1000px){.layout{grid-template-columns:minmax(0,1fr)}}
+
+/* rail */
+.rail{position:sticky;top:12px;align-self:start;max-height:calc(100vh - 24px);overflow:auto;background:var(--card);border:1px solid var(--rule);border-radius:10px;padding:14px 16px 18px}
+@media (max-width:1000px){.rail{position:static;max-height:none}}
+.rail h2{font-family:var(--f-display);font-size:19px;margin:0 0 2px}
+.rail .hint{color:var(--muted);font-size:12.5px;margin:0 0 10px}
+.grp{border-top:1px solid var(--rule);padding-top:10px;margin-top:12px}
+.grp h3{font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin:0 0 8px;font-weight:700}
+.ctl{display:grid;grid-template-columns:1fr auto;gap:2px 8px;align-items:center;margin-bottom:9px}
+.ctl label{font-size:13px;font-weight:600}
+.ctl output{font-family:var(--f-mono);font-size:12.5px;color:var(--amber);font-weight:600}
+.ctl input[type=range]{grid-column:1/-1;width:100%;accent-color:var(--amber)}
+.seg{display:flex;border:1px solid var(--rule);border-radius:8px;overflow:hidden;margin-bottom:9px}
+.seg button{flex:1;border:0;background:transparent;padding:6px 4px;font-size:12.5px;cursor:pointer;font-weight:600;color:var(--muted)}
+.seg button[aria-pressed=true]{background:var(--amber);color:var(--card)}
+.tog{display:flex;gap:8px;align-items:flex-start;font-size:13px;margin-bottom:8px;cursor:pointer}
+.tog input{accent-color:var(--amber);margin-top:3px}
+.tiers{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.tiers label{font-size:12px;color:var(--muted);display:flex;flex-direction:column;gap:2px}
+.tiers input{width:100%;border:1px solid var(--rule);background:var(--card-2);border-radius:6px;padding:4px 6px;font-family:var(--f-mono);font-size:12.5px}
+.resetA{margin-top:12px;width:100%;border:1px dashed var(--rule);background:transparent;border-radius:8px;padding:7px;cursor:pointer;color:var(--muted);font-size:12.5px}
+
+/* toolbar */
+.toolbar{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;margin-bottom:14px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{border:1px solid var(--rule);background:var(--card);border-radius:999px;padding:5px 12px;font-size:13px;cursor:pointer;font-weight:600;color:var(--muted)}
+.chip[aria-pressed=true]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.toolbar select{border:1px solid var(--rule);background:var(--card);border-radius:8px;padding:6px 8px;font-size:13px}
+.toolbar .drive{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted)}
+.toolbar .drive input{accent-color:var(--amber);width:120px}
+.viewseg{margin-left:auto;display:flex;border:1px solid var(--rule);border-radius:8px;overflow:hidden}
+.viewseg button{border:0;background:var(--card);padding:6px 12px;font-size:13px;cursor:pointer;font-weight:600;color:var(--muted)}
+.viewseg button[aria-pressed=true]{background:var(--ink);color:var(--paper)}
+.filters2{display:flex;flex-wrap:wrap;gap:4px 16px;font-size:13px;color:var(--muted);margin:-4px 0 14px}
+.filters2 label{display:flex;gap:6px;align-items:center;cursor:pointer}
+.filters2 input{accent-color:var(--amber)}
+
+/* summary strip */
+.strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(160px,45%),1fr));gap:10px;margin-bottom:18px}
+.strip .s{background:var(--card);border:1px solid var(--rule);border-radius:10px;padding:10px 12px;cursor:pointer;text-align:left}
+.strip .s:hover{border-color:var(--amber)}
+.strip .k{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.strip .v{font-family:var(--f-display);font-size:19px;font-weight:600;line-height:1.2;margin-top:2px}
+.strip .d{font-family:var(--f-mono);font-size:12px;color:var(--amber)}
+
+/* cards */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:18px}
+@media (max-width:420px){.grid{grid-template-columns:minmax(0,1fr)}}
+.card{background:var(--card);border:1px solid var(--rule);border-radius:12px;overflow:hidden;display:flex;flex-direction:column;box-shadow:var(--shadow);min-width:0}
+.ph{position:relative;aspect-ratio:3/2;background:var(--card-2);max-width:100%;overflow:hidden}
+.ph img{width:100%;height:100%;object-fit:cover;display:block}
+.noimg{position:absolute;inset:0;display:grid;place-items:center;color:var(--faint);font-size:13px;text-align:center;padding:20px}
+.hip{position:absolute;left:10px;top:10px;background:var(--paper);color:var(--ink);border-radius:6px;padding:3px 8px 2px;font-family:var(--f-mono);font-size:11px;font-weight:600;letter-spacing:.06em;box-shadow:var(--shadow)}
+.hip b{font-size:15px;margin-left:2px}
+.stat{position:absolute;right:10px;top:10px;border-radius:999px;padding:3px 9px;font-size:11.5px;font-weight:700;box-shadow:var(--shadow)}
+.st-active{background:var(--green-soft);color:var(--green)}
+.st-verify{background:var(--amber-soft);color:var(--amber)}
+.st-auction{background:var(--blue-soft);color:var(--blue)}
+.st-above{background:var(--red-soft);color:var(--red)}
+.nav{position:absolute;bottom:8px;right:8px;display:flex;gap:4px}
+.nav button{width:30px;height:30px;border-radius:50%;border:0;background:rgba(20,14,8,.55);color:#fff;cursor:pointer;font-size:15px;line-height:1}
+.nav span{background:rgba(20,14,8,.55);color:#fff;border-radius:999px;padding:5px 9px;font-family:var(--f-mono);font-size:11px}
+.body{padding:12px 14px 14px;display:flex;flex-direction:column;gap:10px;flex:1}
+.ttl{font-family:var(--f-display);font-size:19px;font-weight:600;line-height:1.2;margin:0;text-wrap:balance}
+.where{font-size:12.5px;color:var(--muted);margin-top:2px}
+.verdict{font-size:13.5px;margin:0;color:var(--ink)}
+.prices{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;border-block:1px solid var(--rule);padding:8px 0}
+.prices div{min-width:0}
+.lab{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.val{font-family:var(--f-mono);font-size:14.5px;font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap}
+.gap-pos{color:var(--green)} .gap-neg{color:var(--red)}
+.tags{display:flex;flex-wrap:wrap;gap:5px}
+.tag{font-size:11.5px;border-radius:5px;padding:2px 7px;background:var(--card-2);border:1px solid var(--rule);color:var(--muted);font-weight:600}
+.tag.in{background:var(--green-soft);color:var(--green);border-color:transparent}
+.tag.out{background:var(--blue-soft);color:var(--blue);border-color:transparent}
+.tag.no{background:var(--red-soft);color:var(--red);border-color:transparent}
+.metrics{display:grid;grid-template-columns:1fr 1fr;gap:4px 14px;font-size:13px}
+.metrics .r{display:flex;justify-content:space-between;gap:8px;border-bottom:1px dotted var(--rule);padding:2px 0}
+.metrics .r span:first-child{color:var(--muted)}
+.metrics .r span:last-child{font-family:var(--f-mono);font-variant-numeric:tabular-nums;font-weight:600}
+.carry{display:flex;align-items:center;justify-content:space-between;background:var(--card-2);border-radius:8px;padding:8px 10px;gap:10px}
+.carry .big{font-family:var(--f-mono);font-size:18px;font-weight:600}
+.bar{height:6px;border-radius:3px;background:var(--rule);overflow:hidden;margin-top:4px}
+.bar i{display:block;height:100%;background:var(--green)}
+.cardfoot{display:flex;gap:8px;margin-top:auto}
+.btn{border:1px solid var(--rule);background:var(--card-2);border-radius:8px;padding:7px 12px;font-size:13px;font-weight:700;cursor:pointer;text-decoration:none;color:var(--ink);display:inline-flex;align-items:center;gap:6px}
+.btn.primary{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.btn:focus-visible,.chip:focus-visible,.seg button:focus-visible,.viewseg button:focus-visible,.nav button:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+
+/* ledger */
+.ledger-wrap{overflow-x:auto;background:var(--card);border:1px solid var(--rule);border-radius:10px}
+table.ledger{border-collapse:collapse;width:100%;min-width:1180px;font-size:13px}
+.ledger th,.ledger td{padding:8px 10px;border-bottom:1px solid var(--rule);text-align:right;white-space:nowrap}
+.ledger th{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);cursor:pointer;position:sticky;top:0;background:var(--card);user-select:none}
+.ledger th:first-child,.ledger td:first-child,.ledger th:nth-child(2),.ledger td:nth-child(2){text-align:left}
+.ledger td{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.ledger td.addr{font-family:var(--f-body);font-weight:600}
+.ledger td.addr small{display:block;color:var(--muted);font-weight:500}
+.ledger tr:hover td{background:var(--card-2);cursor:pointer}
+.ledger th.on{color:var(--amber)}
+
+/* sections */
+section.sec{margin-top:36px}
+section.sec h2{font-family:var(--f-display);font-size:24px;margin:0 0 4px}
+section.sec p.lead{color:var(--muted);margin:0 0 12px;max-width:72ch}
+.comps{overflow-x:auto;background:var(--card);border:1px solid var(--rule);border-radius:10px}
+.comps table{border-collapse:collapse;width:100%;min-width:760px;font-size:13px}
+.comps th,.comps td{padding:8px 12px;border-bottom:1px solid var(--rule);text-align:left;vertical-align:top}
+.comps th{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.comps td.m{font-family:var(--f-mono);white-space:nowrap}
+.method{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.method .box{background:var(--card);border:1px solid var(--rule);border-radius:10px;padding:12px 14px;font-size:13.5px}
+.method .box h3{font-family:var(--f-display);font-size:17px;margin:0 0 6px}
+.method .box p{margin:0 0 8px}
+.sources{font-size:13px;columns:2 300px;padding-left:18px}
+.sources li{margin-bottom:4px;break-inside:avoid}
+.empty{padding:40px;text-align:center;color:var(--muted);background:var(--card);border:1px dashed var(--rule);border-radius:10px}
+
+/* dialog */
+dialog.det{border:0;padding:0;border-radius:14px;width:min(1100px,calc(100vw - 24px));max-height:calc(100vh - 24px);background:var(--card);color:var(--ink);box-shadow:0 20px 60px rgba(0,0,0,.35)}
+dialog.det::backdrop{background:rgba(20,14,8,.55)}
+.dhead{position:sticky;top:0;z-index:2;background:var(--card);display:flex;justify-content:space-between;gap:12px;align-items:flex-start;padding:14px 18px;border-bottom:1px solid var(--rule)}
+.dhead h2{font-family:var(--f-display);font-size:24px;margin:0;line-height:1.15}
+.dhead .where{font-size:13px}
+.x{border:0;background:var(--card-2);border-radius:50%;width:36px;height:36px;cursor:pointer;font-size:18px;flex:none}
+.dbody{padding:16px 18px 22px;display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:20px}
+@media (max-width:860px){.dbody{grid-template-columns:minmax(0,1fr)}}
+.gal .main{position:relative;aspect-ratio:3/2;background:var(--card-2);border-radius:10px;overflow:hidden;max-width:100%}
+.gal .main img{width:100%;height:100%;object-fit:cover}
+.thumbs{display:flex;gap:6px;overflow-x:auto;padding:8px 0 2px}
+.thumbs button{flex:none;width:76px;height:52px;padding:0;border:2px solid transparent;border-radius:6px;overflow:hidden;cursor:pointer;background:var(--card-2)}
+.thumbs button[aria-current=true]{border-color:var(--amber)}
+.thumbs img{width:100%;height:100%;object-fit:cover;display:block}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px;margin:12px 0}
+.facts div{background:var(--card-2);border-radius:8px;padding:7px 9px}
+.facts .val{font-size:14px;white-space:normal}
+.notes h4{font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin:14px 0 6px}
+.notes ul{margin:0;padding-left:18px;font-size:13.5px}
+.notes li{margin-bottom:3px}
+.notes .cau li::marker{color:var(--red)}
+.notes .hi li::marker{color:var(--green)}
+.calc{width:100%;border-collapse:collapse;font-size:13.5px}
+.calc td{padding:5px 0;border-bottom:1px dotted var(--rule)}
+.calc td:last-child{text-align:right;font-family:var(--f-mono);font-variant-numeric:tabular-nums;font-weight:600;white-space:nowrap}
+.calc tr.sum td{border-bottom:2px solid var(--ink);font-weight:700}
+.calc tr.head td{padding-top:12px;font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);font-weight:700;border-bottom:1px solid var(--rule)}
+.calc td small{color:var(--muted);font-weight:500}
+.ovr{background:var(--card-2);border-radius:10px;padding:10px 12px;margin-top:14px}
+.ovr h4{margin:0 0 8px;font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+.ovr .row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.ovr label{font-size:12px;color:var(--muted);display:flex;flex-direction:column;gap:3px}
+.ovr input,.ovr select{border:1px solid var(--rule);background:var(--card);border-radius:6px;padding:5px 7px;font-size:13px}
+.links{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.agent{font-size:13px;color:var(--muted);margin-top:8px}
+.agent b{color:var(--ink)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+<header class="mast">
+  <div class="wrap">
+    <div>
+      <h1>Central Ohio <em>Barn Hunt</em></h1>
+      <p class="sub">Horse properties in the Johnstown · Sunbury · Delaware · Dublin · Pickerington ring, priced $750k–$4M, with stall income, arena and refresh costs, and the loan worked out three ways. Catalogued Oct 24, 2026.</p>
+    </div>
+    <div class="meta">
+      <div><b id="mCount">–</b>listings shown</div>
+      <div><b id="mRate">–</b>30-yr rate</div>
+      <div><b id="mBoard">–</b>board / stall</div>
+      <button class="theme-btn" id="themeBtn" type="button">Theme: system</button>
+    </div>
+  </div>
+</header>
+
+<div class="wrap layout">
+  <aside class="rail" aria-label="Assumptions">
+    <h2>Assumptions</h2>
+    <p class="hint">Every card and the ledger recalculate as you move these. Your changes stay in this browser.</p>
+
+    <div class="grp"><h3>Stall income</h3>
+      <div class="ctl"><label for="aBoard">Board per stall / mo</label><output id="oBoard"></output><input type="range" id="aBoard" min="250" max="1500" step="25"></div>
+      <div class="ctl"><label for="aOcc">Occupancy</label><output id="oOcc"></output><input type="range" id="aOcc" min="0.3" max="1" step="0.05"></div>
+      <div class="ctl"><label for="aOwn">Stalls kept for your own horses</label><output id="oOwn"></output><input type="range" id="aOwn" min="0" max="6" step="1"></div>
+      <div class="ctl"><label for="aOpex">Barn operating cost (% of board)</label><output id="oOpex"></output><input type="range" id="aOpex" min="0" max="0.8" step="0.05"></div>
+    </div>
+
+    <div class="grp"><h3>Price basis for the loan</h3>
+      <div class="seg" role="group" aria-label="Price basis">
+        <button type="button" data-basis="list">List</button>
+        <button type="button" data-basis="zest">Zestimate</button>
+        <button type="button" data-basis="my">My value</button>
+      </div>
+      <p class="hint" id="basisHint"></p>
+    </div>
+
+    <div class="grp"><h3>Loan</h3>
+      <div class="ctl"><label for="aDown">Down payment</label><output id="oDown"></output><input type="range" id="aDown" min="0.05" max="0.5" step="0.05"></div>
+      <div class="ctl"><label for="aRate">Rate</label><output id="oRate"></output><input type="range" id="aRate" min="0.05" max="0.09" step="0.0005"></div>
+      <div class="ctl"><label for="aTerm">Term (years)</label><output id="oTerm"></output><input type="range" id="aTerm" min="15" max="30" step="5"></div>
+      <div class="ctl"><label for="aDti">Housing-to-income target</label><output id="oDti"></output><input type="range" id="aDti" min="0.1" max="0.45" step="0.01"></div>
+      <div class="ctl"><label for="aIns">Insurance (% of all-in / yr)</label><output id="oIns"></output><input type="range" id="aIns" min="0.002" max="0.012" step="0.0005"></div>
+      <div class="ctl"><label for="aClose">Buyer closing costs</label><output id="oClose"></output><input type="range" id="aClose" min="0.01" max="0.05" step="0.005"></div>
+      <label class="tog"><input type="checkbox" id="aFin"> Roll arena, barn and refresh costs into the loan</label>
+      <label class="tog"><input type="checkbox" id="aCredit"> Count 75% of board income toward qualifying</label>
+    </div>
+
+    <div class="grp"><h3>Arena rule</h3>
+      <div class="seg" role="group" aria-label="Arena rule">
+        <button type="button" data-arena="any">Any arena counts</button>
+        <button type="button" data-arena="indoor">Indoor required</button>
+      </div>
+      <div class="ctl"><label for="aIndoor">Build indoor (60×120)</label><output id="oIndoor"></output><input type="range" id="aIndoor" min="120000" max="450000" step="5000"></div>
+      <div class="ctl"><label for="aOutdoor">Build outdoor (100×200 sand)</label><output id="oOutdoor"></output><input type="range" id="aOutdoor" min="25000" max="150000" step="5000"></div>
+    </div>
+
+    <div class="grp"><h3>Stall build-out</h3>
+      <div class="ctl"><label for="aNew">New barn, per stall</label><output id="oNew"></output><input type="range" id="aNew" min="15000" max="70000" step="1000"></div>
+      <div class="ctl"><label for="aConv">Convert existing building, per stall</label><output id="oConv"></output><input type="range" id="aConv" min="3000" max="25000" step="500"></div>
+    </div>
+
+    <div class="grp"><h3>Interior refresh ($ / sq ft)</h3>
+      <div class="tiers">
+        <label>Turnkey<input type="number" id="tTurnkey" min="0" step="1"></label>
+        <label>Cosmetic<input type="number" id="tCosmetic" min="0" step="1"></label>
+        <label>Moderate<input type="number" id="tModerate" min="0" step="1"></label>
+        <label>Major<input type="number" id="tMajor" min="0" step="1"></label>
+      </div>
+      <p class="hint" style="margin-top:6px">Each house is assigned a tier from its listing; change it per property in Details.</p>
+    </div>
+    <button type="button" class="resetA" id="resetA">Reset all assumptions and per-property edits</button>
+  </aside>
+
+  <main>
+    <div class="toolbar">
+      <div class="chips" id="hubChips" role="group" aria-label="Hub"></div>
+      <div class="drive"><label for="fDrive">Within</label><input type="range" id="fDrive" min="10" max="60" step="5"><span class="mono" id="oDrive"></span></div>
+      <select id="fSort" aria-label="Sort">
+        <option value="yield">Board yield on all-in (high → low)</option>
+        <option value="carry">Net monthly carry (low → high)</option>
+        <option value="allin">All-in cost (low → high)</option>
+        <option value="income">Income needed (low → high)</option>
+        <option value="stalls">Stalls (most first)</option>
+        <option value="value">Priced below my value first</option>
+        <option value="drive">Drive to hub (nearest first)</option>
+        <option value="hip">Hip number</option>
+      </select>
+      <div class="viewseg" role="group" aria-label="View">
+        <button type="button" data-view="cards">Catalog</button>
+        <button type="button" data-view="ledger">Ledger</button>
+      </div>
+    </div>
+    <div class="filters2">
+      <label><input type="checkbox" id="fIndoor"> Indoor arena already built</label>
+      <label><input type="checkbox" id="fVerify" checked> Include listings to verify</label>
+      <label><input type="checkbox" id="fAuction" checked> Include auctions</label>
+      <label><input type="checkbox" id="fAbove"> Include above-$4M review</label>
+    </div>
+
+    <div class="strip" id="strip"></div>
+    <div id="results"></div>
+
+    <section class="sec" id="comps">
+      <h2>What full facilities are trading at</h2>
+      <p class="lead">The comps behind "My value." Sold rows from HorseProperties.net show the last asking price, not the recorded sale price, so read them as a ceiling.</p>
+      <div class="comps"><table>
+        <thead><tr><th>Property</th><th>Status</th><th>Price</th><th>Acres</th><th>What's there</th></tr></thead>
+        <tbody id="compRows"></tbody>
+      </table></div>
+    </section>
+
+    <section class="sec" id="method">
+      <h2>How the numbers work</h2>
+      <div class="method">
+        <div class="box"><h3>Stall income</h3><p>Revenue stalls = existing stalls + planned stalls − stalls you keep for yourself. Monthly board = revenue stalls × board rate × occupancy, less the operating-cost share if you set one. At $500 and 70%, each stall earns $4,200 a year before hay, bedding and labor.</p><p>Where a listing doesn't give a stall count I've entered my best read of the barn and marked it "assumed." Fix it in Details.</p></div>
+        <div class="box"><h3>Arena and barn costs</h3><p>With "Any arena," a property with no arena gets an outdoor sand arena added. With "Indoor required," anything without an indoor gets a 60×120 indoor added. HomeAdvisor's June 2026 guide puts a 60×120 indoor at $150k–$250k; I default to $225k for footing, lighting and kickboards. The outdoor figure and per-stall barn costs are my estimates.</p></div>
+        <div class="box"><h3>Valuation</h3><p>"My value" is a contributory read: house by size, age and finish against nearby sales; barn and arena at depreciated replacement cost; land at local per-acre levels. It's checked against the comps above. Zillow's bot check blocked the browser after one property, so Kilbourne Rd is the only listing with a real Zestimate. On the Zestimate setting, every other listing falls back to my value and says so.</p></div>
+        <div class="box"><h3>Loan and income</h3><p>Loan = price basis × (1 − down), plus improvements if you roll them in. PITI = principal and interest, the listed tax bill (or my estimate where marked), and insurance on the all-in cost. Income needed = PITI × 12 ÷ the housing ratio you set (20% default). Lenders rarely credit boarding income without two years of returns, so that toggle is off by default.</p></div>
+      </div>
+      <h2 style="margin-top:22px;font-size:20px">Sources</h2>
+      <ul class="sources" id="sourceList"></ul>
+    </section>
+  </main>
+</div>
+
+<dialog class="det" id="det" aria-labelledby="dTitle"></dialog>
+
+<script>
+/* ---------- photo helpers ---------- */
+const LS=(code,slug,ids)=>ids.map(i=>`https://cdn.landsearch.com/listings/${code}/large/${slug}-${i}.jpg`);
+const HP=hs=>hs.map(h=>`https://edc747615c65f9e8f903-73213d88ef3ab457027e1fa78349bf90.ssl.cf1.rackcdn.com/${h.slice(0,2)}/${h.slice(2,4)}/${h}_big.jpg`);
+const ZL=hs=>hs.map(h=>`https://photos.zillowstatic.com/fp/${h}-o_a.jpg`);
+const thumb=u=>u.replace('/large/','/small/');
+
+/* ---------- listings ---------- */
+const DATA=[
+{id:'kilbourne',hip:1,name:'6595 Kilbourne Rd',city:'Sunbury',county:'Delaware',lat:40.331599,lng:-82.939789,
+ status:'verify',statusText:'Verify — pulled Oct 24',
+ list:971000,zest:934400,my:925000,acres:10.84,beds:3,baths:3,sqft:2977,year:1972,tax:8082,
+ stalls:20,stallsAssumed:false,plan:{n:0,type:'convert'},indoor:'60×120 sand',outdoor:'100×200',tier:'Moderate',
+ verdict:'The most stalls per dollar in the ring: 20 stalls and a 60×120 indoor for under $1M. Zillow shows it pulled today, so call before anything else.',
+ hi:['20-stall barn plus a separate barn/workshop and 3-car garage','60×120 indoor sand arena and 100×200 outdoor','Zestimate $934,400 (range $888k–$981k); sold for $722,500 in Feb 2022','Delaware County address, about 15 minutes north of Sunbury'],
+ cau:['Zillow logged "listing removed" on Oct 24, 2026, though the MLS feed still showed it active','1972 house on oil-fired forced air; budget for HVAC and updates','The MLS feed carried one photo; the gallery here is Zillow\'s'],
+ photos:ZL(['2646c662089f763ac888db859dbbc138','b3766b3a87bc375915495abaa6755210','0050633ce1a1b0511c6a8a4327560c90','563ff73b23144a10e7c5c7b0b404dc44','4803bced0db5afe11a049bad18b67cd8','bea9072077208dc02e1d047a84aa9038','b01920afb286044787607a3ba89db714','b6e81675775e5406a41b257a76f70be5','f44378e0c8a97e9e503088033476a705','0f0872e6bddb13aad3d91ea611438e77','22879ea462a982769bc54f9412259fb7','20b5c9a1f916cd392293985ab1aa12d2','a12f3bd528a28ace10329bbaf1596153']),
+ mls:'CCOMLS 226034128',listed:'Sept 16, 2026 at $989,900; cut to $971,000 Oct 10',agent:'Stephanie Cashman, RE/MAX Allegiance · (614) 374-8277',
+ links:[['LandSearch (MLS)','https://www.landsearch.com/properties/6595-kilbourne-rd-sunbury-oh-43074/5564327'],['Zillow','https://www.zillow.com/homedetails/6595-Kilbourne-Rd-Sunbury-OH-43074/33746597_zpid/']]},
+
+{id:'summitview',hip:2,name:'3910 Summit View Rd',city:'Dublin',county:'Franklin',lat:40.134128,lng:-83.093248,
+ status:'active',statusText:'Active · back on market',
+ list:995000,zest:null,my:950000,acres:6.07,beds:4,baths:3,sqft:1706,year:1967,tax:9452,
+ stalls:18,stallsAssumed:false,plan:{n:0,type:'convert'},indoor:'50×100',outdoor:'Large (size n/a)',tier:'Cosmetic',
+ verdict:'A working boarding barn inside the City of Dublin with a trainer already leasing it. The house is small; the barn is the asset.',
+ hi:['About 10,000 sq ft barn: 18 stalls, office, tack, wash bay, feed room, viewing loft','50×100 indoor plus a large outdoor and a lunging ring','8 run-in sheds with private lanes, 2 more on larger turnouts','House and farm are both leased now (hunter/jumper trainer on the farm); seller will discuss owner financing'],
+ cau:['18 stalls on 6 acres means dry lots and run-ins, not grass turnout','1,706 sq ft split-level house','Went under contract in March and came back in August; ask why','Tenant rights in place on both house and farm'],
+ photos:LS('4Qq5r','dublin-oh',[158362050,158362051,158362052,158362053,158362054,158362055,158362056,158362057]),
+ mls:'CCOMLS 226000509',listed:'Jan 7, 2026 at $995,000; under contract Mar 6; back on market Aug 26',agent:'Michael Bean, Keller Williams Greater Columbus · (614) 565-7400',
+ links:[['LandSearch (MLS)','https://www.landsearch.com/properties/3910-summit-view-rd-dublin-oh-43016/4973860']]},
+
+{id:'cackler',hip:3,name:'4620 Cackler Rd',city:'Delaware',county:'Delaware',lat:40.339214,lng:-82.974864,
+ status:'active',statusText:'Active · 88 days',
+ list:1575000,zest:null,my:1525000,acres:18.64,beds:6,baths:4.5,sqft:4828,year:1995,tax:12484,
+ stalls:12,stallsAssumed:false,plan:{n:0,type:'convert'},indoor:'80×180 insulated',outdoor:'150×200',tier:'Cosmetic',
+ verdict:'The best-built facility on the board. Twelve stalls in a Wick barn, an 80×180 insulated indoor, and a real house on 18 acres.',
+ hi:['12 matted stalls with Nelson waterers and fans, plus 2 grooming/shoeing stalls','80×180 insulated, lined indoor with sand and lighting; 150×200 outdoor','Six 40×100 turnouts, two 1-acre paddocks, pasture fields and a quarter-mile galloping lane','Heated wash rack, radiant-heated work area, office with full bath, 75×120 trailer lot','Minutes to Alum Creek trails and Brave Horse'],
+ cau:['Twelve stalls caps board income below the 18–20 stall barns','Listed July 29 at $1.65M, cut to $1.575M Sept 9','Buckeye Valley schools; public water, private sewer'],
+ photos:HP(['0eff44eae471c8df66030bfb19b6a1d921943140','2264adfef5bdcf53b3c14f32c18c78431081e377','52fc94998c0724be02b624dce4901df1da96ef7c','586928eccaf49c149af9adf7d6d44ae3e40817a9','2bf828c773c4fedb6b82cddbc7544cb5ca3b7271','0d465879bea0ea37ed7eb6e10a086f63c1ca2cfd','b5b210986fcd967a833864b25dedb509a53cdfe2','5db5ae9c1dd9cb7fb307c99fb87cf0146439b5b8','48c355bdf6f81f55b8bb10cfd36e284266ae8e0f']),
+ mls:'CCOMLS 226028184',listed:'July 29, 2026 at $1,650,000; cut to $1,575,000 Sept 9',agent:'Jenna Murphy / Sandy Raines, The Raines Group · (614) 370-8504',
+ links:[['Compass','https://www.compass.com/homedetails/4620-Cackler-Rd-Delaware-OH-43015/24R4OV_pid/'],['HorseProperties.net','https://www.horseproperties.net/properties/ohio/delaware-county/delaware/83335']]},
+
+{id:'sr605',hip:4,name:'201 S State Route 605',city:'Sunbury',county:'Delaware',lat:40.215461,lng:-82.802406,
+ status:'active',statusText:'Active · 50 days',
+ list:1875000,zest:null,my:1725000,acres:11.13,beds:4,baths:3.5,sqft:3858,year:2007,tax:13438,
+ stalls:19,stallsAssumed:false,plan:{n:0,type:'convert'},indoor:'60×120',outdoor:'50×100',tier:'Cosmetic',
+ verdict:'Nineteen stalls and an indoor at the edge of Sunbury, plus two rentable apartments. You pay for the house.',
+ hi:['19-stall barn with tack and storage, fenced paddocks, divided pastures','60×120 indoor with groomed footing and lighting; 50×100 outdoor','1,100 sq ft guest apartment and a studio apartment in the barn','Natural gas and Del-Co water; another 13.47 adjoining acres available'],
+ cau:['11 acres is tight pasture for 19 horses','The full-facility comp on Amity Rd (22 stalls, indoor, 33 ac) is pending at $1.45M','Heavy wood and wrought-iron interior; plan on a cosmetic refresh to modernize'],
+ photos:LS('4Wxq5','sunbury-oh',[179194988,179194989,179194990,179194991,179194992,179194993,179194994,179194995,179194996,179194997]),
+ mls:'CCOMLS 226033763',listed:'Sept 5, 2026 at $1,875,000',agent:'Mara Ackermann, RE/MAX Consultant Group · (614) 595-0654',
+ links:[['LandSearch (MLS)','https://www.landsearch.com/properties/201-s-state-route-605-sunbury-oh-43074/5541395'],['Zillow','https://www.zillow.com/homedetails/201-S-State-Route-605-Sunbury-OH-43074/87889624_zpid/'],['HorseProperties.net','https://www.horseproperties.net/properties/ohio/delaware-county/sunbury/84352']]},
+
+{id:'cheshire',hip:5,name:'2880 Cheshire Rd',city:'Delaware',county:'Delaware',lat:40.238966,lng:-83.001949,
+ status:'active',statusText:'Active · 6 months',
+ list:999990,zest:null,my:935000,acres:6.69,beds:4,baths:3,sqft:2212,year:1986,tax:9500,taxEst:true,
+ stalls:4,stallsAssumed:false,plan:{n:2,type:'convert'},indoor:null,outdoor:'60×120 lit',tier:'Turnkey',
+ verdict:'Move-in house in Olentangy schools near Polaris with a small, nicely finished barn. A private-horse setup more than a boarding business.',
+ hi:['Custom barn with 4–6 oversized stalls, Dutch doors and four-board fencing','Professionally lit 60×120 riding arena','Insulated 4-car workshop with loft','Kitchen and baths remodeled, roof 2024, new windows'],
+ cau:['Down 23% from its $1.299M start after three cuts; the seller has moved','Arena appears to be outdoor; with "Indoor required" an indoor is added','Tax bill not on the feed (estimated)'],
+ photos:LS('4SwKQ','delaware-oh',[165884792,165884793,165884794,165884795,165884796,165884797,165884798,165884799]),
+ mls:'WRIST 1044778',listed:'Apr 24, 2026 at $1,299,000; cuts May 29, June 21, July 17',agent:'Judith Wilson, Howard Hanna · (937) 652-2000',
+ links:[['LandSearch','https://www.landsearch.com/properties/2880-cheshire-rd-delaware-oh-43015/5208119']]},
+
+{id:'hebron',hip:6,name:'Hebron dressage estate (13 ac)',city:'Hebron',county:'Licking',lat:40.012,lng:-82.495,approx:true,
+ status:'verify',statusText:'Verify status',
+ list:1649000,zest:null,my:1550000,acres:13,beds:5,baths:3.5,sqft:3200,sqftAssumed:true,year:1964,tax:14000,taxEst:true,
+ stalls:6,stallsAssumed:false,plan:{n:5,type:'convert'},indoor:'72×200 (GGT footing)',outdoor:null,tier:'Turnkey',
+ verdict:'A purpose-built dressage arena, 72×200 with GGT footing and irrigation, on 13 acres in Granville schools. Only found on HorseProperties.net, so confirm it is still for sale.',
+ hi:['72×200 indoor dressage arena with GGT footing, irrigation, waterer and electric','6 oversized stalls; the original barn has room for 5 more','Multiple pastures and dry lots, 30×50 3-bay shop, equipment and trailer storage','Ranch house renovated 2025 (new primary suite, windows, doors, floors); roof 2023','Pond, ravine, wooded trails; close to Infirmary Mound Park bridle trails'],
+ cau:['No address or MLS number published; not in the MLS feeds I checked','House square footage and tax bill not given (assumed)','Location is approximate on the map'],
+ photos:HP(['e035bac774af8eca312fddb5fc37d28599115a9e','cf51c0c29b58f42fa7cf68ebe814b11fafdca3a3','7db7bd583f5508a8edbbb669d5b6ef02b488e069','ac8c9c80424e6b9d9bf02c877f9f7b44f20b9428','acb34162743db2ed68bde190cf52a233f675549d','485108e37d96810bf8fde08a07a3d84d3c522606','5e051544246c78a8f227ac6deb0e54ebaf19ee77','b6cfc19b87977221b4b0a831b2fa0063abfe5c13','906b17c0bed6dd26827c0dbb1854982e295b5fac','dea23726da4060d12fd61ea85d25e51d7913740a']),
+ mls:'Not published',listed:'HorseProperties.net listing',agent:'Marilyn Vutech & Jeff Ruff, Vutech | Ruff, Cutler · (614) 255-0600',
+ links:[['HorseProperties.net','https://www.horseproperties.net/properties/ohio/licking-county/hebron/82171']]},
+
+{id:'cedarhill',hip:7,name:'568 Cedar Hill Rd NW',city:'Canal Winchester',county:'Fairfield',lat:39.743952,lng:-82.798636,
+ status:'active',statusText:'Active · back on market',
+ list:1250000,zest:null,my:1175000,acres:27,beds:4,baths:5,sqft:3528,year:2011,tax:14817,
+ stalls:0,stallsAssumed:false,plan:{n:8,type:'convert'},indoor:null,outdoor:null,tier:'Turnkey',
+ verdict:'The Pickerington-side pick: a 2011 farmhouse on 27 acres with barns that convert. Bring the stalls and the arena.',
+ hi:['Barns of 40×60, 32×64 and 16×20; the 32×64 animal barn with fenced pastures housed alpacas','2011 house with geothermal, roof 2023, 30 kW generator, pool','Down $299k from its $1.549M start','About 10 minutes to Pickerington; Canal Winchester schools'],
+ cau:['No horse stalls or arena today; plan assumes 8 stalls converted in the 32×64','Fell out of contract in September','Tax bill of $14,817 is high for the price'],
+ photos:LS('4SQzw','canal-winchester-oh',[167069496,167069497,167069498,167069499,167069500,167069501,167069502,167069503]),
+ mls:'CCOMLS 226015959',listed:'May 8, 2026 at $1,549,000; six cuts; under contract Aug 21, back Sept 17',agent:'Julia DiNardo, Century 21 Excellence · (614) 554-2605',
+ links:[['LandSearch (MLS)','https://www.landsearch.com/properties/568-cedar-hill-rd-nw-canal-winchester-oh-43102/5242280']]},
+
+{id:'caswell',hip:8,name:'5899 Caswell Rd',city:'Johnstown',county:'Licking',lat:40.138568,lng:-82.678545,
+ status:'active',statusText:'Active · 2 months',
+ list:1375000,zest:null,my:1250000,acres:5.5,beds:7,baths:7,sqft:6150,year:2004,tax:9832,
+ stalls:2,stallsAssumed:false,plan:{n:4,type:'new'},indoor:null,outdoor:null,tier:'Cosmetic',
+ verdict:'Three dwellings on 5.5 acres in Johnstown: the rental income does more work than the barn will.',
+ hi:['2004 two-story with first-floor owner suite, plus a 3 bed ranch and a 1 bed apartment','Space over the garage for a second apartment','Barn with water and electric, 2 stalls, tack room, hay loft, fenced pastures','Johnstown-Monroe schools, close to the Intel site'],
+ cau:['5.5 acres supports only a few horses','No arena; plan adds 4 new stalls','Square footage is all three dwellings combined'],
+ photos:LS('4W53T','johnstown-oh',[180855788,180855803,180855787,180855815,180855820,180855819]),
+ mls:'CCOMLS 226031085',listed:'Aug 16, 2026 at $1,375,000; relisted Sept 14',agent:'Christy Sinningson, RE/MAX Affiliates · (740) 404-6304',
+ links:[['LandSearch (MLS)','https://www.landsearch.com/properties/5899-caswell-rd-johnstown-oh-43031/5489882']]},
+
+{id:'gingerhill',hip:9,name:'6931 Ginger Hill Rd',city:'Utica',county:'Licking',lat:40.200549,lng:-82.413206,
+ status:'active',statusText:'Active · 26 days',
+ list:1299000,zest:null,my:1150000,acres:11.9,beds:3,baths:3,sqft:3266,year:2025,tax:15000,taxEst:true,
+ stalls:3,stallsAssumed:false,plan:{n:3,type:'new'},indoor:null,outdoor:null,tier:'Turnkey',
+ verdict:'Brand-new house and fresh pasture north of Johnstown. A private farm, not a boarding play.',
+ hi:['2025 custom ranch with great room, stone fireplace, large covered outdoor room','About 10 acres of newer pasture with split-rail fence; newer 3-stall barn','800 sq ft bonus room over the garage, plumbed for a bath','Creek and wooded camping area'],
+ cau:['The $1,533 tax bill is pre-construction; I estimate about $15k once reassessed','Roughly 25–30 minutes to Johnstown','No arena'],
+ photos:LS('4WXGM','utica-oh',[180724062,180724063,180724065,180724067,180715703,180715704,180715702,180715705]),
+ mls:'CCOMLS 226036856',listed:'Sept 28, 2026 at $1,299,000',agent:'Stacey Lambright, eXp Realty · (614) 315-4663',
+ links:[['LandSearch (MLS)','https://www.landsearch.com/properties/6931-ginger-hill-rd-utica-oh-43080/5588132']]},
+
+{id:'broadway',hip:10,name:'2350 W Broadway',city:'Granville',county:'Licking',lat:40.069679,lng:-82.541557,
+ status:'active',statusText:'Active · open Sun 2–4',
+ list:860000,zest:null,my:810000,acres:5,beds:4,baths:2,sqft:2636,year:1880,tax:6924,
+ stalls:3,stallsAssumed:true,plan:{n:0,type:'convert'},indoor:null,outdoor:null,tier:'Moderate',
+ verdict:'An 1880s farmhouse and 1906 barn a mile from Granville village. Charming, small, priced for the address.',
+ hi:['1906 barn with horse stalls and a lean-to; fenced pasture','2018 detached 2-car garage','TJ Evans bike path across the street; village under a mile away','Open house Sunday, Oct 25, 2–4 PM'],
+ cau:['Stall count not given (assumed 3)','Two baths for four bedrooms in an 1880 house','Four price cuts since July'],
+ photos:LS('4V7rj','granville-oh',[173627457,173627456,173627459,173627499,173627502,173627506,173627512,173627460]),
+ mls:'CCOMLS 226024133',listed:'July 5, 2026 at $925,000; four cuts to $860,000',agent:'Katie Richards, Keller Williams Greater Columbus · (740) 587-4983',
+ links:[['LandSearch (MLS)','https://www.landsearch.com/properties/2350-w-broadway-granville-oh-43023/5384782']]},
+
+{id:'richhill',hip:11,name:'2821 Rich Hill Rd',city:'Centerburg',county:'Knox',lat:40.308172,lng:-82.714988,
+ status:'active',statusText:'Active · 37 days',
+ list:795000,zest:null,my:760000,acres:10.86,beds:4,baths:3,sqft:3466,year:1997,tax:5954,
+ stalls:0,stallsAssumed:false,plan:{n:5,type:'convert'},indoor:null,outdoor:null,tier:'Cosmetic',
+ verdict:'Cheapest entry on the board. A pond, a 24×68 pole barn and a heated shop, about 15 minutes north of Johnstown.',
+ hi:['24×68 pole barn ready for stalls; separate heated workshop','Private pond, screened porch, walkout lower level','Lowest tax bill in the set'],
+ cau:['No stalls or arena; plan converts the pole barn to 5 stalls','The listing gives 10.86 acres and 3,466 sq ft, but the remarks say 8.2 acres and 3,026 sq ft','Knox County, just outside the ring'],
+ photos:LS('4WKTV','centerburg-oh',[179986678,179986679,179986680,179986681,179986682,179986683,179986684,179986685]),
+ mls:'CCOMLS 226035419',listed:'Sept 17, 2026 at $820,000; cut Oct 21',agent:'Joan Elflein, Ohio Broker Direct · (614) 989-7215',
+ links:[['LandSearch (MLS)','https://www.landsearch.com/properties/2821-rich-hill-rd-centerburg-oh-43011/5565579']]},
+
+{id:'raymond',hip:12,name:'22321 Raymond Rd',city:'Raymond',county:'Union',lat:40.319188,lng:-83.454473,
+ status:'active',statusText:'Active · 37 days',
+ list:875000,zest:null,my:850000,acres:18.61,beds:3,baths:2.5,sqft:3122,year:1975,tax:7159,
+ stalls:4,stallsAssumed:true,plan:{n:2,type:'convert'},indoor:null,outdoor:null,tier:'Cosmetic',
+ verdict:'Eighteen acres split into five pastures with two barns, ten minutes past Marysville. Good land per dollar, far from the east-side hubs.',
+ hi:['Five pastures across field and woods, two barns, lean-to','Ranch renovated and expanded in 2004; new HVAC','Marysville schools; seller mentions financing incentives'],
+ cau:['Stall count not given (assumed 4)','West of the ring; about half an hour to Dublin by US-33','Agent is related to the seller'],
+ photos:LS('4WPqt','raymond-oh',[180180184,180180185,180180183,180180186,180180187,180180188,180180189,180180190]),
+ mls:'CCOMLS 226035496',listed:'Sept 19, 2026 at $900,000; cut Oct 13',agent:'Amy Clark, Cutler Real Estate · (614) 596-0211',
+ links:[['LandSearch (MLS)','https://www.landsearch.com/properties/22321-raymond-rd-raymond-oh-43067/5571366']]},
+
+{id:'ostrander',hip:13,name:'14875 State Rd',city:'Ostrander',county:'Union',lat:40.228852,lng:-83.206778,
+ status:'active',statusText:'New · 17 days',
+ list:1200000,zest:null,my:1125000,acres:4,beds:4,baths:4.5,sqft:3519,year:2019,tax:9212,
+ stalls:2,stallsAssumed:true,plan:{n:0,type:'convert'},indoor:null,outdoor:null,tier:'Turnkey',
+ verdict:'A 2019 Romanelli & Hughes house with solar and geothermal on 4 acres. Room for two horses, not a business.',
+ hi:['2019 custom build: every bedroom has its own bath, walkout lower level','Solar plus geothermal','Barn with stalls, pasture, stream, 4-car detached garage'],
+ cau:['Only 4 acres','Stall count not given (assumed 2)','About 25 minutes to Dublin'],
+ photos:LS('4XhsS','ostrander-oh',[181893472,181893473,181893474,181893475,181893476,181893477,181893478,181893479]),
+ mls:'CCOMLS 226038145',listed:'Oct 15, 2026 at $1,200,000',agent:'Brent Miller, Realty Forward · (614) 296-2439',
+ links:[['LandSearch (MLS)','https://www.landsearch.com/properties/14875-state-rd-ostrander-oh-43061/5624473']]},
+
+{id:'rockmill',hip:14,name:'1333 Rockmill Rd NW',city:'Lancaster',county:'Fairfield',lat:39.746457,lng:-82.718841,
+ status:'active',statusText:'Active · 4 months',
+ list:1675000,zest:null,my:1400000,acres:8.5,beds:6,baths:3.5,sqft:4000,sqftAssumed:true,year:1995,tax:10710,
+ stalls:3,stallsAssumed:false,plan:{n:0,type:'convert'},indoor:null,outdoor:null,tier:'Cosmetic',
+ verdict:'Hilltop house built from 1700s brick and hand-hewn beams, with a separate log guest house. A one-off with a thin buyer pool.',
+ hi:['Main house with 16-ft ceilings, beehive oven and walk-in fireplace','Separate 3 bed log dwelling with attached garage','Barn with 3 stalls and hay loft; blacksmith shop','On one of the highest points around Lancaster'],
+ cau:['Main-house square footage not published (assumed 4,000)','About 20 minutes south of Pickerington','Unusual homes like this sit; four months so far'],
+ photos:LS('4Tr8c','lancaster-oh',[169827115,169827116,169827117,169827118,169827119,169827120,169827121,169827122]),
+ mls:'NEOHREX 5215270',listed:'June 3, 2026 at $1,700,000; cut Oct 1',agent:'Rex Everhart, Carol Goff & Associates · (740) 649-8410',
+ links:[['LandSearch','https://www.landsearch.com/properties/1333-rockmill-rd-nw-lancaster-oh-43130/5308073']]},
+
+{id:'flintridge',hip:15,name:'13277 Flint Ridge Rd SE',city:'Newark',county:'Licking',lat:39.993881,lng:-82.297956,
+ status:'auction',statusText:'Auction Nov 7, 2 PM',
+ list:null,zest:null,my:900000,acres:72.41,beds:3,baths:2,sqft:1977,year:1987,tax:8919,
+ stalls:4,stallsAssumed:true,plan:{n:0,type:'convert'},indoor:null,outdoor:null,tier:'Moderate',
+ verdict:'Seventy-two acres with a log A-frame and bank barn, selling at auction on Nov 7. My hammer estimate is $900k; it sits well east of the ring.',
+ hi:['Bank barn with horse or livestock stalls and walkout paddocks; round pen','Stocked pond, wooded acreage, 3-car garage, finished outbuilding','Outdoor wood boiler, whole-house generator, 200 A service'],
+ cau:['Auction: the $1 MLS price is a placeholder; check terms and any buyer\'s premium','About 40–45 minutes east of Johnstown','Stall count not given (assumed 4)'],
+ photos:LS('4XfGb','newark-oh',[181763051,181763052,181763053,181763054,181763055,181763056,181763057,181763058]),
+ mls:'CCOMLS 226038918',listed:'Oct 13, 2026 · auction Nov 7, 2026, 2:00 PM',agent:'David Lee Wyeth, Century 21 Frank Frye · (740) 403-6661',
+ links:[['LandSearch (MLS)','https://www.landsearch.com/properties/13277-flint-ridge-rd-se-newark-oh-43056/5620360']]},
+
+{id:'cr605',hip:16,name:'1691 N County Road 605',city:'Sunbury',county:'Delaware',lat:40.232782,lng:-82.797207,
+ status:'active',statusText:'Active · 46 days',
+ list:3210000,zest:null,my:2700000,acres:53.5,beds:3,baths:3.5,sqft:2898,year:1999,tax:7578,
+ stalls:10,stallsAssumed:true,plan:{n:0,type:'convert'},indoor:null,outdoor:null,tier:'Moderate',
+ verdict:'Four Sunbury parcels, 53.5 acres, priced as a land assemblage. The horse setup is real, but you pay for development upside.',
+ hi:['Large center-aisle barn, riding paddocks, round pen, fenced turnout','Two ponds, one spring-fed; deep hardwood buffer','Can be kept whole, reconfigured or subdivided'],
+ cau:['Stall count not given (assumed 10)','No arena','About $60k an acre; a horse buyer alone won\'t support that'],
+ photos:LS('4WyQq','sunbury-oh',[179301563,179301564,179301565,179301566,179301567,179301568,179301569,179301570]),
+ mls:'CCOMLS 226034069',listed:'Sept 8, 2026 at $3,210,000',agent:'Ronald Kendle, RE/MAX Town Center · (614) 325-6295',
+ links:[['LandSearch (MLS)','https://www.landsearch.com/properties/1691-n-county-road-605-sunbury-oh-43074/5544675']]},
+
+{id:'foxhunt',hip:17,name:'Fox Hunt Country Estate (28 ac)',city:'Granville',county:'Licking',lat:40.085,lng:-82.52,approx:true,
+ status:'verify',statusText:'Verify status',
+ list:2250000,zest:null,my:2050000,acres:27.97,beds:3,baths:5,sqft:6426,year:null,tax:24000,taxEst:true,
+ stalls:0,stallsAssumed:false,plan:{n:10,type:'new'},indoor:null,outdoor:null,tier:'Cosmetic',
+ verdict:'Hunt-country estate beside Rocky Fork Hunt ground. Blank slate for horses: you build the barn and the arena.',
+ hi:['6,426 sq ft house with 3 en-suite bedrooms, plus a carriage house for guests or a farm manager','2-acre stocked pond and pool','Borders green space ridden by Rocky Fork Hunt; another 25 acres next door can be bought'],
+ cau:['Only a hobby barn today; plan adds a new 10-stall barn','No address or MLS number published; confirm it is still for sale','Tax bill not given (estimated); location approximate'],
+ photos:HP(['8e767937ff899635539ead7a52a6a4ab38d1e87b','70fcb52dbd2943ecdbfc17d66e56a8a561501494','5a4b057969bc33a0db76d4f9451ec75f30d6acef','f871689f4f71098bdf7f8d8df7ba70cfd46d6f36','c653021ac6fac2e531d2e3d31920298c7058a56f','e300a78b18cc9b49a8ad05a57fd1dfa630a12a22','3430a557add39c564b3f99928b503a15124eb7f1','0da6cd1c6796a51f3227c7236744d8817293a897','bb7a3072dddba5804abede85874e0da7defa7dcb','77ca0acd0f5230373b7517c7738629897e0c4cdd']),
+ mls:'Not published',listed:'HorseProperties.net listing',agent:'Jacquie Fox, Vutech Ruff Cutler · (740) 507-5485',
+ links:[['HorseProperties.net','https://www.horseproperties.net/properties/ohio/licking-county/granville/80813']]},
+
+{id:'perry',hip:18,name:'7601 Perry Rd',city:'Delaware',county:'Delaware',lat:40.186039,lng:-83.047494,
+ status:'active',statusText:'Active · open Sun 12–2:30',
+ list:2800000,zest:null,my:2600000,acres:5,beds:4,baths:4.5,sqft:5293,year:1979,tax:21868,
+ stalls:0,stallsAssumed:false,plan:{n:4,type:'new'},indoor:null,outdoor:null,tier:'Turnkey',
+ verdict:'A 2026 luxury renovation 20 minutes from downtown with fenced acreage. Horses would be an add-on to the house.',
+ hi:['Renovated 2026: elevator, theater, wine cellar, Savant lighting, Sub-Zero','Pool, screened gazebo, covered patio with fireplace','Fenced acreage and a detached barn/garage with loft'],
+ cau:['No stalls; plan adds a 4-stall barn','$21,868 tax bill','You share upkeep of the private lane next to the property'],
+ photos:LS('4WN65','delaware-oh',[181459566,181459567,181459568,180075743,180075742,180075744,180075745,180075746]),
+ mls:'CCOMLS 226035297',listed:'Sept 18, 2026 at $2,800,000',agent:'Shawn Fitzgerald Parker, Parker Realty · (614) 961-6115',
+ links:[['LandSearch (MLS)','https://www.landsearch.com/properties/7601-perry-rd-delaware-oh-43015/5568323']]},
+
+{id:'fancher',hip:19,name:'13900 Fancher Rd',city:'Johnstown',county:'Licking',lat:40.132123,lng:-82.749643,
+ status:'active',statusText:'Active · 20 months',
+ list:2500000,zest:null,my:900000,acres:8.21,beds:3,baths:2.5,sqft:1873,year:1975,tax:13390,
+ stalls:8,stallsAssumed:true,plan:{n:0,type:'convert'},indoor:null,outdoor:null,tier:'Moderate',
+ verdict:'Priced as Intel-corridor development land, not as a horse farm. Here so you can see the premium; as a horse property I\'d put it near $900k.',
+ hi:['70×55 barn with rubber-matted stalls, water and electric','Three miles from Intel; commercial development zoning'],
+ cau:['20 months on market at $2.5M','My value is for horse use; development value depends on utilities and zoning','Stall count not given (assumed 8 from barn size)'],
+ photos:LS('4GJ5S','johnstown-oh',[154917102,154917103,154917104,154917105,154917106,154917107,154917108,154917109]),
+ mls:'CCOMLS 225004282',listed:'Feb 13, 2025 at $2,500,000',agent:'Keller Williams Realty (see listing)',
+ links:[['LandSearch (MLS)','https://www.landsearch.com/properties/13900-fancher-rd-johnstown-oh-43031/4234297']]},
+
+{id:'greenaway',hip:20,name:'4648 Corner Rd · Greenaway Farms',city:'Alexandria',county:'Licking',lat:40.09,lng:-82.625,approx:true,
+ status:'above',statusText:'Above range',
+ list:6200000,zest:null,my:4700000,acres:107.65,beds:4,baths:3,sqft:2476,year:1890,tax:12000,taxEst:true,
+ stalls:10,stallsAssumed:false,plan:{n:0,type:'convert'},indoor:'Indoor (size n/a)',outdoor:'Outdoor (size n/a)',tier:'Moderate',
+ verdict:'Reviewed because it is over $4M. Even at my $4.7M it won\'t close under $4M as a whole. Ask whether the barn parcel sells on its own.',
+ hi:['2008 insulated 10-stall barn with lounge, bath, laundry and a 1 bed apartment','Indoor and outdoor arenas; about 2.5 miles of board fence','About 50 acres of hay, 12.5 acres of paddocks, creek and pond; gated 1,800-ft drive','Three parcels, frontage on two roads, CAUV'],
+ cau:['$6.2M list; about $58k an acre','The circa-1890 farmhouse is 2,476 sq ft','Tax bill estimated; CAUV recoupment possible if use changes'],
+ photos:HP(['1a35c70586270d1f7ab6581b7a76c8076575f65c','e03b9bee9080956b7ff28b2d5847979a10405d86','4a7d40726bae7112e5703723b6accf4b2ffaa4d0','a72e783ab4c3e80764360248a2a90a825d1c9d2f','ca4f954ae88ecfd65f10235da7e84fbcd0f7184d','c2ec91190e12f94eba5d0929ce8cb5f1a0a8add3','d72d0d8a3f22b67ef339c8f7808a9da8d94aa78c','7bcac69f35eaf04b3caf470d8a42dec684b3dfa3','09fc811026d9bad41e92919d2cef984d9677c7f3','f2a0dfd1d786fdac98fc3bce6c59c7f5b1a92003']),
+ mls:'CCOMLS 226033656',listed:'Mid-Sept 2026 at $6,200,000',agent:'Kelly & David Ludwig, Coldwell Banker Realty',
+ links:[['LandWatch','https://www.landwatch.com/licking-county-ohio-homes-for-sale/pid/428200323'],['HorseProperties.net','https://www.horseproperties.net/properties/ohio/licking-county/alexandria/83953']]}
+];
+
+const COMPS=[
+ ['548 Amity Rd, Galloway','Pending (Oct 2026)','$1,449,999','32.9','22-stall barn, indoor and outdoor arenas, 4,350 sq ft house (1990), pond','https://www.landsearch.com/properties/548-amity-rd-galloway-oh-43119/5499766'],
+ ['14235 N Old 3C Rd, Sunbury','Pending','$1,249,000','27.9','3,276 sq ft house (1998), barn, pond, room to ride','https://www.landsearch.com/properties/14235-n-old-3c-rd-sunbury-oh-43074/5394084'],
+ ['6595 Kilbourne Rd, Sunbury','Sold Feb 2022','$722,500','10.8','20 stalls, 60×120 indoor (now Hip 1)','https://www.zillow.com/homedetails/6595-Kilbourne-Rd-Sunbury-OH-43074/33746597_zpid/'],
+ ['South Solon, Madison Co.','Sold Oct 2026','$1,395,000 ask','24.1','Equestrian country estate, 5,370 sq ft house','https://www.horseproperties.net/properties/ohio/madison-county/south-solon/83651'],
+ ['Wilmington, Clinton Co.','Sold Aug 2026','$1,200,000 ask','30.0','30 stalls, indoor arena, 1,620 sq ft house','https://www.horseproperties.net/properties/ohio/clinton-county/wilmington/79185'],
+ ['Centerburg, Licking Co.','Sold Jul 2026','$1,999,900 ask','73.0','Country estate, 4,293 sq ft house','https://www.horseproperties.net/properties/ohio/licking-county/centerburg/78789'],
+ ['Granville, Licking Co.','Sold Aug 2026','$1,285,000 ask','7.0','Restored 1885 Italianate farmhouse','https://www.horseproperties.net/properties/ohio/licking-county/granville/82603'],
+ ['North Lewisburg, Champaign Co.','Sold Oct 2026','$599,900 ask','9.8','Heated indoor arena, hay pasture, 1,979 sq ft house','https://www.horseproperties.net/properties/ohio/champaign-county/north-lewisburg/82385']
+];
+
+const SOURCES=[
+ ['LandSearch — listing detail pages fed by Columbus and Central Ohio MLS (CCOMLS), checked Oct 24, 2026','https://www.landsearch.com/equestrian/delaware-county-oh'],
+ ['HorseProperties.net — Ohio horse properties, pages 1–6','https://www.horseproperties.net/properties/ohio/'],
+ ['Compass — 4620 Cackler Rd listing','https://www.compass.com/homedetails/4620-Cackler-Rd-Delaware-OH-43015/24R4OV_pid/'],
+ ['LandWatch — 4648 Corner Rd (Greenaway Farms)','https://www.landwatch.com/licking-county-ohio-homes-for-sale/pid/428200323'],
+ ['JamesEdition — Greenaway Farms listing','https://www.jamesedition.com/real_estate/alexandria-oh-usa/vacant-land-18870378'],
+ ['Zillow — 6595 Kilbourne Rd Zestimate and history','https://www.zillow.com/homedetails/6595-Kilbourne-Rd-Sunbury-OH-43074/33746597_zpid/'],
+ ['FRED — 30-Year Fixed Rate Mortgage Average (Freddie Mac PMMS), 7.32% week of Oct 22, 2026','https://fred.stlouisfed.org/graph/?g=1XU7Y'],
+ ['HomeAdvisor — indoor riding arena cost guide (updated June 19, 2026)','https://www.homeadvisor.com/cost/additions-and-remodels/indoor-riding-arena']
+];
+
+/* ---------- hubs ---------- */
+const HUBS={Johnstown:[40.1537,-82.6852],Sunbury:[40.2426,-82.859],Delaware:[40.2987,-83.068],Dublin:[40.0992,-83.1141],Pickerington:[39.8842,-82.7535]};
+function driveMin(a,b){const R=3958.8,t=x=>x*Math.PI/180;const dLat=t(b[0]-a[0]),dLng=t(b[1]-a[1]);const h=Math.sin(dLat/2)**2+Math.cos(t(a[0]))*Math.cos(t(b[0]))*Math.sin(dLng/2)**2;const mi=2*R*Math.asin(Math.sqrt(h));return Math.round(mi*1.3/45*60)}
+DATA.forEach(p=>{p.hubs={};let best=null;for(const [k,v] of Object.entries(HUBS)){const m=driveMin([p.lat,p.lng],v);p.hubs[k]=m;if(!best||m<best[1])best=[k,m]}p.nearest=best});
+
+/* ---------- state ---------- */
+const DEF={board:500,occ:0.7,own:0,opex:0,basis:'list',down:0.2,rate:0.0732,term:30,dti:0.2,ins:0.005,closing:0.03,fin:false,credit:false,arena:'any',indoorCost:225000,outdoorCost:60000,newCost:35000,convCost:10000,tiers:{Turnkey:5,Cosmetic:20,Moderate:45,Major:85}};
+const FDEF={hub:'All',drive:45,sort:'yield',view:'cards',indoor:false,verify:true,auction:true,above:false};
+const KEY='cobh-v1';
+let A=structuredClone(DEF),F=structuredClone(FDEF),O={};
+try{const s=JSON.parse(localStorage.getItem(KEY)||'null');if(s){A=Object.assign(structuredClone(DEF),s.A||{});A.tiers=Object.assign({},DEF.tiers,(s.A||{}).tiers||{});F=Object.assign(structuredClone(FDEF),s.F||{});O=s.O||{}}}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify({A,F,O}))}catch(e){}}
+
+/* ---------- format ---------- */
+const $=(id)=>document.getElementById(id);
+const money=v=>v==null||isNaN(v)?'—':(v<0?'−':'')+'$'+Math.round(Math.abs(v)).toLocaleString('en-US');
+const k=v=>{if(v==null||isNaN(v))return '—';const a=Math.abs(v),s=v<0?'−':'';if(a>=995000)return s+'$'+(a/1e6).toFixed(a>=1e7?1:2)+'M';if(a>=1e3)return s+'$'+Math.round(a/1e3)+'k';return s+'$'+Math.round(a)};
+const pct=(v,d=0)=>v==null||isNaN(v)?'—':(v*100).toFixed(d)+'%';
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+/* ---------- model ---------- */
+function ov(p){return O[p.id]||{}}
+function basisOf(p){
+  if(A.basis==='list'&&p.list!=null)return {v:p.list,src:'List'};
+  if(A.basis==='zest'&&p.zest!=null)return {v:p.zest,src:'Zestimate'};
+  if(A.basis==='my')return {v:p.my,src:'My value'};
+  return {v:p.my,src:A.basis==='zest'?'My value (no Zestimate)':'My value (no list price)'};
+}
+function calc(p){
+  const o=ov(p),b=basisOf(p);
+  const stalls=o.stalls!=null?o.stalls:p.stalls;
+  const plan=o.plan!=null?o.plan:p.plan.n;
+  const planType=o.planType||p.plan.type;
+  const tier=o.tier||p.tier;
+  const total=stalls+plan, rev=Math.max(0,total-A.own);
+  const boardGross=rev*A.board*A.occ, boardNet=boardGross*(1-A.opex);
+  let arenaCost=0,arenaWhat='';
+  if(A.arena==='indoor'){if(!p.indoor){arenaCost=A.indoorCost;arenaWhat='Indoor 60×120 build'}}
+  else if(!p.indoor&&!p.outdoor){arenaCost=A.outdoorCost;arenaWhat='Outdoor arena build'}
+  const stallCost=plan*(planType==='new'?A.newCost:A.convCost);
+  const refresh=p.sqft*(A.tiers[tier]||0);
+  const capex=arenaCost+stallCost+refresh;
+  const allIn=b.v+capex;
+  const loan=b.v*(1-A.down)+(A.fin?capex:0);
+  const r=A.rate/12,n=A.term*12;
+  const pi=r>0?loan*r/(1-Math.pow(1+r,-n)):loan/n;
+  const taxMo=p.tax/12, insMo=allIn*A.ins/12;
+  const piti=pi+taxMo+insMo;
+  const credit=A.credit?0.75*boardGross:0;
+  const income=Math.max(0,piti-credit)*12/A.dti;
+  const cash=b.v*A.down+b.v*A.closing+(A.fin?0:capex);
+  return {basis:b.v,basisSrc:b.src,stalls,plan,planType,tier,total,rev,boardGross,boardNet,arenaCost,arenaWhat,stallCost,refresh,capex,allIn,loan,pi,taxMo,insMo,piti,carry:piti-boardNet,income,cash,
+    yield:allIn>0?boardNet*12/allIn:0,cover:piti>0?boardNet/piti:0,gapMy:p.list?(p.my-p.list)/p.list:null};
+}
+
+/* ---------- filtering ---------- */
+function visible(){
+  return DATA.filter(p=>{
+    if(p.status==='verify'&&!F.verify)return false;
+    if(p.status==='auction'&&!F.auction)return false;
+    if(p.status==='above'&&!F.above)return false;
+    if(F.indoor&&!p.indoor)return false;
+    const m=F.hub==='All'?p.nearest[1]:p.hubs[F.hub];
+    return m<=F.drive;
+  });
+}
+function sortList(list){
+  const c=new Map(list.map(p=>[p.id,calc(p)]));
+  const by={yield:(a,b)=>c.get(b.id).yield-c.get(a.id).yield,carry:(a,b)=>c.get(a.id).carry-c.get(b.id).carry,allin:(a,b)=>c.get(a.id).allIn-c.get(b.id).allIn,
+    income:(a,b)=>c.get(a.id).income-c.get(b.id).income,stalls:(a,b)=>c.get(b.id).total-c.get(a.id).total,
+    value:(a,b)=>(c.get(b.id).gapMy??-9)-(c.get(a.id).gapMy??-9),drive:(a,b)=>(F.hub==='All'?a.nearest[1]-b.nearest[1]:a.hubs[F.hub]-b.hubs[F.hub]),hip:(a,b)=>a.hip-b.hip};
+  return [...list].sort(by[F.sort]||by.yield);
+}
+
+/* ---------- rendering ---------- */
+const imgIdx={};
+function arenaTags(p){
+  const t=[];
+  if(p.indoor)t.push(`<span class="tag in">Indoor ${esc(p.indoor)}</span>`);
+  if(p.outdoor)t.push(`<span class="tag out">Outdoor ${esc(p.outdoor)}</span>`);
+  if(!p.indoor&&!p.outdoor)t.push(`<span class="tag no">No arena</span>`);
+  return t.join('');
+}
+function photoTag(p,i,cls){
+  const u=p.photos[i];
+  if(!u)return `<div class="noimg">No photo</div>`;
+  const src=cls==='thumb'?thumb(u):u;
+  return `<img src="${src}" alt="${esc(p.name)} photo ${i+1}" loading="lazy" referrerpolicy="no-referrer" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'noimg',textContent:'Photo didn\\'t load. Open the listing to see it.'}))">`;
+}
+function driveText(p){const h=F.hub==='All'?p.nearest[0]:F.hub;const m=F.hub==='All'?p.nearest[1]:p.hubs[F.hub];return `~${m} min to ${h}${p.approx?' (approx. location)':''}`}
+function card(p){
+  const c=calc(p),i=imgIdx[p.id]||0;
+  const gap=c.gapMy;
+  const gapTxt=gap==null?'Auction':(gap>=0?'+':'')+pct(gap,0);
+  const gapCls=gap==null?'':gap>=0?'gap-pos':'gap-neg';
+  const cover=Math.max(0,Math.min(1,c.cover));
+  return `<article class="card">
+    <div class="ph" id="ph-${p.id}">${photoTag(p,i,'thumb')}
+      <span class="hip">HIP<b>${String(p.hip).padStart(2,'0')}</b></span>
+      <span class="stat st-${p.status}">${esc(p.statusText)}</span>
+      ${p.photos.length>1?`<div class="nav"><button type="button" aria-label="Previous photo" data-prev="${p.id}">‹</button><span>${i+1}/${p.photos.length}</span><button type="button" aria-label="Next photo" data-next="${p.id}">›</button></div>`:''}
+    </div>
+    <div class="body">
+      <div><h3 class="ttl">${esc(p.name)}</h3><div class="where">${esc(p.city)} · ${esc(p.county)} Co. · ${driveText(p)}</div></div>
+      <p class="verdict">${esc(p.verdict)}</p>
+      <div class="prices">
+        <div><div class="lab">List</div><div class="val">${p.list?k(p.list):'Auction'}</div></div>
+        <div><div class="lab">My value</div><div class="val">${k(p.my)}</div></div>
+        <div><div class="lab">Vs list</div><div class="val ${gapCls}">${gapTxt}</div></div>
+      </div>
+      <div class="tags">
+        <span class="tag">${p.acres} ac</span>
+        <span class="tag">${c.stalls}${c.plan?` + ${c.plan} ${c.planType==='new'?'new':'conv.'}`:''} stalls${p.stallsAssumed&&ov(p).stalls==null?' (assumed)':''}</span>
+        ${arenaTags(p)}
+        <span class="tag">${p.beds} bd · ${p.sqft.toLocaleString()} sf${p.sqftAssumed?'*':''}</span>
+      </div>
+      <div class="metrics">
+        <div class="r"><span>All-in</span><span>${k(c.allIn)}</span></div>
+        <div class="r"><span>Improvements</span><span>${k(c.capex)}</span></div>
+        <div class="r"><span>PITI / mo</span><span>${money(c.piti)}</span></div>
+        <div class="r"><span>Board / mo</span><span>${money(c.boardNet)}</span></div>
+        <div class="r"><span>Cash to close</span><span>${k(c.cash)}</span></div>
+        <div class="r"><span>Income @ ${pct(A.dti)}</span><span>${k(c.income)}</span></div>
+      </div>
+      <div class="carry"><div><div class="lab">Net carry / mo</div><div class="big">${money(c.carry)}</div></div>
+        <div style="flex:1;max-width:150px"><div class="lab" style="text-align:right">Board covers ${pct(c.cover)}</div><div class="bar"><i style="width:${cover*100}%"></i></div></div></div>
+      <div class="cardfoot"><button type="button" class="btn primary" data-open="${p.id}">Details & costs</button>${p.links[0]?`<a class="btn" href="${p.links[0][1]}" target="_blank" rel="noopener">Listing ↗</a>`:''}</div>
+    </div>
+  </article>`;
+}
+const COLS=[['hip','Hip'],['name','Property'],['list','List'],['basis','Basis'],['stalls','Stalls'],['arena','Arena'],['capex','Improve'],['allIn','All-in'],['piti','PITI/mo'],['board','Board/mo'],['carry','Carry/mo'],['yield','Yield'],['income','Income'],['cash','Cash']];
+let ledgerSort={k:'yield',d:-1};
+function ledger(list){
+  const rows=list.map(p=>({p,c:calc(p)}));
+  const val=(r,key)=>({hip:r.p.hip,name:r.p.name,list:r.p.list||0,basis:r.c.basis,stalls:r.c.total,arena:r.p.indoor?2:r.p.outdoor?1:0,capex:r.c.capex,allIn:r.c.allIn,piti:r.c.piti,board:r.c.boardNet,carry:r.c.carry,yield:r.c.yield,income:r.c.income,cash:r.c.cash})[key];
+  rows.sort((a,b)=>{const x=val(a,ledgerSort.k),y=val(b,ledgerSort.k);return (typeof x==='string'?x.localeCompare(y):x-y)*ledgerSort.d});
+  return `<div class="ledger-wrap"><table class="ledger"><thead><tr>${COLS.map(([key,l])=>`<th data-sort="${key}" class="${ledgerSort.k===key?'on':''}">${l}${ledgerSort.k===key?(ledgerSort.d>0?' ↑':' ↓'):''}</th>`).join('')}</tr></thead><tbody>
+  ${rows.map(({p,c})=>`<tr data-open="${p.id}"><td>${String(p.hip).padStart(2,'0')}</td><td class="addr">${esc(p.name)}<small>${esc(p.city)} · ${esc(p.statusText)}</small></td><td>${p.list?k(p.list):'Auction'}</td><td>${k(c.basis)}</td><td>${c.total}</td><td>${p.indoor?'Indoor':p.outdoor?'Outdoor':'—'}</td><td>${k(c.capex)}</td><td>${k(c.allIn)}</td><td>${money(c.piti)}</td><td>${money(c.boardNet)}</td><td>${money(c.carry)}</td><td>${pct(c.yield,1)}</td><td>${k(c.income)}</td><td>${k(c.cash)}</td></tr>`).join('')}
+  </tbody></table></div>`;
+}
+function strip(list){
+  if(!list.length){$('strip').innerHTML='';return}
+  const cs=list.map(p=>({p,c:calc(p)}));
+  const best=(f,dir)=>cs.reduce((a,b)=>(dir*(f(b)-f(a))>0?b:a));
+  const y=best(r=>r.c.yield,1),cr=best(r=>r.c.carry,-1),ai=best(r=>r.c.allIn,-1);
+  const withIn=cs.filter(r=>r.p.indoor);const ind=withIn.length?withIn.reduce((a,b)=>b.c.allIn<a.c.allIn?b:a):null;
+  const s=(label,r,detail)=>`<button type="button" class="s" data-open="${r.p.id}"><div class="k">${label}</div><div class="v">${esc(r.p.name)}</div><div class="d">${detail}</div></button>`;
+  $('strip').innerHTML=s('Best board yield',y,`${pct(y.c.yield,1)} on ${k(y.c.allIn)} all-in`)+s('Lowest net carry',cr,`${money(cr.c.carry)} / mo after board`)+s('Lowest all-in',ai,`${k(ai.c.allIn)} with improvements`)+(ind?s('Cheapest with an indoor built',ind,`${k(ind.c.allIn)} · ${ind.c.total} stalls`):'');
+}
+function render(){
+  const list=sortList(visible());
+  $('mCount').textContent=list.length;$('mRate').textContent=pct(A.rate,2);$('mBoard').textContent=money(A.board);
+  strip(list);
+  if(!list.length){$('results').innerHTML=`<div class="empty">Nothing matches. Widen the drive time or turn the status filters back on.</div>`;return}
+  $('results').innerHTML=F.view==='ledger'?ledger(list):`<div class="grid">${list.map(card).join('')}</div>`;
+}
+
+/* ---------- detail ---------- */
+let curId=null,curImg=0;
+function detail(id){
+  const p=DATA.find(x=>x.id===id);if(!p)return;curId=id;
+  const c=calc(p),o=ov(p);
+  const dlg=$('det');
+  const row=(l,v,s='')=>`<tr><td>${l}${s?` <small>${s}</small>`:''}</td><td>${v}</td></tr>`;
+  dlg.innerHTML=`<div class="dhead"><div><h2 id="dTitle">Hip ${String(p.hip).padStart(2,'0')} · ${esc(p.name)}</h2><div class="where">${esc(p.city)}, ${esc(p.county)} County · ${p.acres} acres · <span class="stat st-${p.status}" style="position:static;box-shadow:none">${esc(p.statusText)}</span></div></div><button class="x" type="button" aria-label="Close" data-close>×</button></div>
+  <div class="dbody">
+    <div>
+      <div class="gal"><div class="main" id="galMain">${photoTag(p,curImg,'big')}</div>
+      <div class="thumbs">${p.photos.map((u,i)=>`<button type="button" data-thumb="${i}" aria-label="Photo ${i+1}" aria-current="${i===curImg}"><img src="${thumb(u)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.visibility='hidden'"></button>`).join('')}</div></div>
+      <p class="verdict" style="margin-top:10px">${esc(p.verdict)}</p>
+      <div class="facts">
+        <div><div class="lab">List</div><div class="val">${p.list?money(p.list):'Auction'}</div></div>
+        <div><div class="lab">Zestimate</div><div class="val">${p.zest?money(p.zest):'Not available'}</div></div>
+        <div><div class="lab">My value</div><div class="val">${money(p.my)}</div></div>
+        <div><div class="lab">House</div><div class="val">${p.beds} bd · ${p.baths} ba · ${p.sqft.toLocaleString()} sf${p.sqftAssumed?' (assumed)':''}</div></div>
+        <div><div class="lab">Built</div><div class="val">${p.year||'n/a'}</div></div>
+        <div><div class="lab">Taxes / yr</div><div class="val">${money(p.tax)}${p.taxEst?' (est.)':''}</div></div>
+        <div><div class="lab">Drive</div><div class="val">${Object.entries(p.hubs).sort((a,b)=>a[1]-b[1]).slice(0,2).map(([h,m])=>`${h} ~${m}m`).join(' · ')}</div></div>
+        <div><div class="lab">MLS</div><div class="val" style="font-size:12.5px">${esc(p.mls)}</div></div>
+      </div>
+      <div class="notes">
+        <h4>What's there</h4><ul class="hi">${p.hi.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>
+        <h4>Watch for</h4><ul class="cau">${p.cau.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>
+      </div>
+      <div class="agent"><b>Listing history:</b> ${esc(p.listed)}<br><b>Agent:</b> ${esc(p.agent)}</div>
+      <div class="links">${p.links.map(([l,u])=>`<a class="btn" href="${u}" target="_blank" rel="noopener">${esc(l)} ↗</a>`).join('')}</div>
+    </div>
+    <div>
+      <table class="calc">
+        <tr class="head"><td colspan="2">Purchase · basis: ${esc(c.basisSrc)}</td></tr>
+        ${row('Price basis',money(c.basis))}
+        ${row('Arena',c.arenaCost?money(c.arenaCost):'Has one',c.arenaWhat)}
+        ${row('Stalls',c.stallCost?money(c.stallCost):'—',c.plan?`${c.plan} ${c.planType==='new'?'new-build':'converted'}`:'')}
+        ${row('Interior refresh',money(c.refresh),`${c.tier} · $${A.tiers[c.tier]}/sf × ${p.sqft.toLocaleString()}`)}
+        <tr class="sum"><td>All-in</td><td>${money(c.allIn)}</td></tr>
+        <tr class="head"><td colspan="2">Loan · ${pct(A.down)} down · ${pct(A.rate,2)} · ${A.term} yr</td></tr>
+        ${row('Loan amount',money(c.loan),A.fin?'improvements financed':'')}
+        ${row('Principal & interest',money(c.pi))}
+        ${row('Taxes',money(c.taxMo),p.taxEst?'estimated':'from listing')}
+        ${row('Insurance',money(c.insMo),pct(A.ins,2)+' of all-in')}
+        <tr class="sum"><td>PITI / month</td><td>${money(c.piti)}</td></tr>
+        ${row('Income for '+pct(A.dti)+' housing ratio',money(c.income),A.credit?'75% of board credited':'')}
+        ${row('Cash to close',money(c.cash),`down + ${pct(A.closing,1)} closing${A.fin?'':' + improvements'}`)}
+        <tr class="head"><td colspan="2">Board</td></tr>
+        ${row('Revenue stalls',c.rev,`${c.total} total − ${A.own} yours`)}
+        ${row('Board income / month',money(c.boardGross),`${money(A.board)} × ${pct(A.occ)}`)}
+        ${A.opex?row('Less operating cost',money(c.boardGross-c.boardNet),pct(A.opex)):''}
+        ${row('Board income / year',money(c.boardNet*12))}
+        ${row('Yield on all-in',pct(c.yield,1))}
+        <tr class="sum"><td>Net carry / month</td><td>${money(c.carry)}</td></tr>
+      </table>
+      <div class="ovr"><h4>Adjust this property</h4>
+        <div class="row">
+          <label>Existing stalls${p.stallsAssumed?' (assumed)':''}<input type="number" min="0" max="60" id="oStalls" value="${c.stalls}"></label>
+          <label>Stalls to add<input type="number" min="0" max="40" id="oPlan" value="${c.plan}"></label>
+          <label>Build type<select id="oPlanType"><option value="convert"${c.planType==='convert'?' selected':''}>Convert existing building</option><option value="new"${c.planType==='new'?' selected':''}>New barn</option></select></label>
+          <label>Interior tier<select id="oTier">${Object.keys(A.tiers).map(t=>`<option${t===c.tier?' selected':''}>${t}</option>`).join('')}</select></label>
+        </div>
+        <button type="button" class="btn" style="margin-top:10px" id="oReset">Reset this property</button>
+      </div>
+    </div>
+  </div>`;
+  if(!dlg.open)dlg.showModal();
+  const upd=()=>{O[id]={stalls:+$('oStalls').value||0,plan:+$('oPlan').value||0,planType:$('oPlanType').value,tier:$('oTier').value};save();render();detail(id)};
+  ['oStalls','oPlan','oPlanType','oTier'].forEach(x=>$(x).addEventListener('change',upd));
+  $('oReset').addEventListener('click',()=>{delete O[id];save();render();detail(id)});
+}
+function showImg(i){const p=DATA.find(x=>x.id===curId);if(!p)return;curImg=(i+p.photos.length)%p.photos.length;$('galMain').innerHTML=photoTag(p,curImg,'big');document.querySelectorAll('.thumbs button').forEach((b,j)=>b.setAttribute('aria-current',j===curImg))}
+
+/* ---------- controls ---------- */
+const sliders=[['aBoard','board',v=>money(v)],['aOcc','occ',v=>pct(v)],['aOwn','own',v=>v],['aOpex','opex',v=>pct(v)],['aDown','down',v=>pct(v)],['aRate','rate',v=>pct(v,2)],['aTerm','term',v=>v],['aDti','dti',v=>pct(v)],['aIns','ins',v=>pct(v,2)],['aClose','closing',v=>pct(v,1)],['aIndoor','indoorCost',v=>k(v)],['aOutdoor','outdoorCost',v=>k(v)],['aNew','newCost',v=>k(v)],['aConv','convCost',v=>k(v)]];
+function syncControls(){
+  sliders.forEach(([id,key,f])=>{$(id).value=A[key];$('o'+id.slice(1)).textContent=f(A[key])});
+  $('aFin').checked=A.fin;$('aCredit').checked=A.credit;
+  document.querySelectorAll('[data-basis]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.basis===A.basis));
+  document.querySelectorAll('[data-arena]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.arena===A.arena));
+  $('basisHint').textContent=A.basis==='zest'?'Zillow blocked lookups after one property, so only Hip 01 has a Zestimate. The rest use my value.':A.basis==='list'?'The auction listing uses my hammer estimate.':'My value: contributory estimate checked against the comps below.';
+  for(const t of Object.keys(A.tiers))$('t'+t).value=A.tiers[t];
+  $('fDrive').value=F.drive;$('oDrive').textContent=F.drive+' min';$('fSort').value=F.sort;
+  $('fIndoor').checked=F.indoor;$('fVerify').checked=F.verify;$('fAuction').checked=F.auction;$('fAbove').checked=F.above;
+  document.querySelectorAll('[data-view]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.view===F.view));
+  $('hubChips').innerHTML=['All',...Object.keys(HUBS)].map(h=>`<button type="button" class="chip" data-hub="${h}" aria-pressed="${F.hub===h}">${h==='All'?'Any hub':h}</button>`).join('');
+}
+sliders.forEach(([id,key,f])=>$(id).addEventListener('input',e=>{A[key]=+e.target.value;$('o'+id.slice(1)).textContent=f(A[key]);save();render()}));
+$('aFin').addEventListener('change',e=>{A.fin=e.target.checked;save();render()});
+$('aCredit').addEventListener('change',e=>{A.credit=e.target.checked;save();render()});
+for(const t of Object.keys(DEF.tiers))$('t'+t).addEventListener('input',e=>{A.tiers[t]=Math.max(0,+e.target.value||0);save();render()});
+document.addEventListener('click',e=>{
+  const t=e.target.closest('[data-basis],[data-arena],[data-hub],[data-view],[data-sort],[data-prev],[data-next],[data-open],[data-thumb],[data-close]');if(!t)return;
+  if(t.dataset.basis){A.basis=t.dataset.basis;save();syncControls();render();return}
+  if(t.dataset.arena){A.arena=t.dataset.arena;save();syncControls();render();return}
+  if(t.dataset.hub){F.hub=t.dataset.hub;save();syncControls();render();return}
+  if(t.dataset.view){F.view=t.dataset.view;save();syncControls();render();return}
+  if(t.dataset.sort){ledgerSort=ledgerSort.k===t.dataset.sort?{k:t.dataset.sort,d:-ledgerSort.d}:{k:t.dataset.sort,d:['carry','allIn','piti','income','cash','capex','basis','list','hip','name'].includes(t.dataset.sort)?1:-1};render();return}
+  if(t.dataset.prev||t.dataset.next){const id=t.dataset.prev||t.dataset.next;const p=DATA.find(x=>x.id===id);imgIdx[id]=((imgIdx[id]||0)+(t.dataset.next?1:-1)+p.photos.length)%p.photos.length;const ph=$('ph-'+id);ph.querySelector('img,.noimg').outerHTML=photoTag(p,imgIdx[id],'thumb');ph.querySelector('.nav span').textContent=`${imgIdx[id]+1}/${p.photos.length}`;return}
+  if(t.dataset.open){curImg=0;detail(t.dataset.open);return}
+  if(t.dataset.thumb!=null){showImg(+t.dataset.thumb);return}
+  if(t.hasAttribute('data-close')){$('det').close();return}
+});
+$('det').addEventListener('click',e=>{if(e.target===$('det'))$('det').close()});
+document.addEventListener('keydown',e=>{if(!$('det').open)return;if(e.key==='ArrowRight')showImg(curImg+1);if(e.key==='ArrowLeft')showImg(curImg-1)});
+$('fDrive').addEventListener('input',e=>{F.drive=+e.target.value;$('oDrive').textContent=F.drive+' min';save();render()});
+$('fSort').addEventListener('change',e=>{F.sort=e.target.value;const map={yield:'yield',carry:'carry',allin:'allIn',income:'income',stalls:'stalls',hip:'hip'};if(map[F.sort])ledgerSort={k:map[F.sort],d:['yield','stalls'].includes(F.sort)?-1:1};save();render()});
+[['fIndoor','indoor'],['fVerify','verify'],['fAuction','auction'],['fAbove','above']].forEach(([id,key])=>$(id).addEventListener('change',e=>{F[key]=e.target.checked;save();render()}));
+$('resetA').addEventListener('click',()=>{A=structuredClone(DEF);F=structuredClone(FDEF);O={};save();syncControls();render()});
+
+/* theme */
+const themes=['system','light','dark'];let theme='system';
+try{theme=localStorage.getItem(KEY+'-theme')||'system'}catch(e){}
+function applyTheme(){if(theme==='system')document.documentElement.removeAttribute('data-theme');else document.documentElement.setAttribute('data-theme',theme);$('themeBtn').textContent='Theme: '+theme}
+$('themeBtn').addEventListener('click',()=>{theme=themes[(themes.indexOf(theme)+1)%3];try{localStorage.setItem(KEY+'-theme',theme)}catch(e){}applyTheme()});
+
+/* static sections */
+$('compRows').innerHTML=COMPS.map(([n,s,pr,ac,w,u])=>`<tr><td><a href="${u}" target="_blank" rel="noopener">${esc(n)}</a></td><td>${esc(s)}</td><td class="m">${esc(pr)}</td><td class="m">${ac}</td><td>${esc(w)}</td></tr>`).join('');
+$('sourceList').innerHTML=SOURCES.map(([l,u])=>`<li><a href="${u}" target="_blank" rel="noopener">${esc(l)}</a></li>`).join('');
+
+applyTheme();syncControls();render();
+</script>
+</body>
+</html>
