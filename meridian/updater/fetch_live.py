@@ -21,7 +21,7 @@ import xml.etree.ElementTree as ET
 HERE = os.path.dirname(os.path.abspath(__file__))
 PAGE = os.path.join(HERE, '..', 'index.html')
 UA = 'MeridianFlightControl/1.0 (+https://bboldt86.github.io/lanscape-navigator/meridian/)'
-OPENSKY_EVERY_MIN = 14          # anonymous budget: 400 credits/day, 4 per global request
+OPENSKY_EVERY_MIN = 13          # anonymous budget: 400 credits/day, 4 per request; with a 5-min schedule this lands every 15 min
 ROUTE_TTL_H = 12
 PROBE = {}                      # per-source diagnostics: status, CORS header, timing
 
@@ -245,7 +245,7 @@ def type_of(model):
 def adsbfi_types(fleet, state, limit=50):
     """Aircraft type per hex from adsb.fi (1 request a second), cached for good: a tail's type doesn't change."""
     cache = state.setdefault('types', {})
-    if state.get('typesBlockedAt') and time.time() - state['typesBlockedAt'] < 3 * 3600:
+    if state.get('adsbfiBlockedAt') and time.time() - state['adsbfiBlockedAt'] < 3 * 3600:
         return None
     todo = [f['hex'] for f in fleet if f.get('hex') and not f.get('gnd') and f['hex'] not in cache][:limit]
     for i, hx in enumerate(todo):
@@ -256,7 +256,7 @@ def adsbfi_types(fleet, state, limit=50):
                 cache[hx] = (rows[0].get('t') or '').strip()[:8]
         except urllib.error.HTTPError as ex:
             if ex.code in (403, 429):
-                state['typesBlockedAt'] = int(time.time())
+                state['adsbfiBlockedAt'] = int(time.time())
                 return f'aircraft types: adsb.fi HTTP {ex.code} after {i} lookups'
         except Exception as ex:
             return f'aircraft types: {type(ex).__name__}: {str(ex)[:60]}'
@@ -497,7 +497,7 @@ def main():
 
     state['first'] = first
     keys = ('cs', 'hex', 'reg', 'type', 'lat', 'lon', 'alt', 'gs', 'trk', 'vs', 'sq', 'gnd', 'seen', 'org', 'dst', 'orgIcao', 'dstIcao', 'dist', 'ete', 'likely', 'first')
-    doc = {'v': 1, 'generated': iso(now()), 'every': '5 min (GitHub Actions); fleet every 15 min (OpenSky free tier)', 'budgetNote': 'OpenSky anonymous: one global request at most every 14 min', 'fleetAt': fleet_at, 'fleetSource': src,
+    doc = {'v': 1, 'generated': iso(now()), 'every': '5 min (GitHub Actions); fleet every 15 min (OpenSky free tier)', 'budgetNote': 'OpenSky anonymous: one request every 15 min (96 a day, 384 of 400 credits)', 'fleetAt': fleet_at, 'fleetSource': src,
            'fleet': [{k: f.get(k) for k in keys if f.get(k) not in (None, '')} for f in sorted(fleet, key=lambda f: f['cs'])],
            'atc': atc, 'errors': errors[:20], 'probe': PROBE,
            'credits': {'fleet': src, 'routes': 'vradarserver/standing-data (community), checked against position and track',
