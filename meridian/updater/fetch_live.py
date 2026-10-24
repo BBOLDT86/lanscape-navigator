@@ -5,8 +5,8 @@
                OpenSky Network /states/all (one global request; 400 free credits a day anonymous, 4 per request,
                so at most every 15 min; OPENSKY_CLIENT_ID / OPENSKY_CLIENT_SECRET raise it to 4,000)
                fallback: adsb.fi v3 point tiles over the network (1 request a second)
-             tails: from the Mode S hex code (US codes map one-to-one to N-numbers); types from the FAA aircraft
-               registry (Southwest's entries, refreshed weekly)
+             tails: from the Mode S hex code (US codes map one-to-one to N-numbers); types from adsb.fi (cached per
+               tail; the FAA registry is tried weekly but refuses GitHub's servers)
              routes: the community route file for SWA (vradarserver/standing-data, refreshed daily), shown only when
                the aircraft's position and track fit the route; airport positions from OurAirports
   ATC        FAA NAS Status: ground stops, ground delay programs, airspace flow programs, delays, closures
@@ -242,25 +242,25 @@ def type_of(model):
     return m[:8]
 
 
-def opensky_types(fleet, state, limit=60):
-    """Aircraft type per hex from OpenSky's aircraft metadata, cached for good (a tail's type doesn't change)."""
+def adsbfi_types(fleet, state, limit=50):
+    """Aircraft type per hex from adsb.fi (1 request a second), cached for good: a tail's type doesn't change."""
     cache = state.setdefault('types', {})
-    if state.get('typesBlockedAt') and time.time() - state['typesBlockedAt'] < 6 * 3600:
+    if state.get('typesBlockedAt') and time.time() - state['typesBlockedAt'] < 3 * 3600:
         return None
-    todo = [f['hex'] for f in fleet if f.get('hex') and f['hex'] not in cache][:limit]
+    todo = [f['hex'] for f in fleet if f.get('hex') and not f.get('gnd') and f['hex'] not in cache][:limit]
     for i, hx in enumerate(todo):
         try:
-            js = json.loads(req(f'https://opensky-network.org/api/metadata/aircraft/icao/{hx}', timeout=15, tag='opensky_meta'))
-            cache[hx] = (js.get('typecode') or js.get('model') or '').strip()[:12]
+            js = json.loads(req(f'https://opendata.adsb.fi/api/v2/hex/{hx}', timeout=15, tag='adsbfi_hex'))
+            rows = readsb_rows(js)
+            if rows:
+                cache[hx] = (rows[0].get('t') or '').strip()[:8]
         except urllib.error.HTTPError as ex:
-            if ex.code == 404:
-                cache[hx] = ''
-                continue
-            state['typesBlockedAt'] = int(time.time())
-            return f'aircraft types: HTTP {ex.code} after {i} lookups'
+            if ex.code in (403, 429):
+                state['typesBlockedAt'] = int(time.time())
+                return f'aircraft types: adsb.fi HTTP {ex.code} after {i} lookups'
         except Exception as ex:
             return f'aircraft types: {type(ex).__name__}: {str(ex)[:60]}'
-        time.sleep(0.25)
+        time.sleep(1.05)
     return None
 
 
@@ -471,7 +471,7 @@ def main():
     if e: errors.append(e)
     if got is not None:
         fleet, fleet_at = got, iso(t0)
-    e = opensky_types(fleet, state)
+    e = adsbfi_types(fleet, state)
     if e: errors.append(e)
     enrich_airframes(fleet, state)
     apply_routes(fleet, rd, sts)
