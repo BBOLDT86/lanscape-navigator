@@ -58,15 +58,15 @@ kbd,.kbd{font-family:var(--mono);font-size:10.5px;padding:1px 6px;border:1px sol
 .splash{position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;background:var(--bg);background-image:var(--glow);transition:opacity .7s var(--ease),transform .7s var(--ease)}
 .splash.out{opacity:0;transform:scale(1.02);pointer-events:none}
 .sp-in{width:min(460px,calc(100vw - 32px));text-align:center}
-.sp-line{height:2px;width:0;margin:0 auto 26px;background:linear-gradient(90deg,var(--swa-blue),var(--swa-red),var(--swa-gold));border-radius:2px;animation:spl .9s var(--ease) .2s forwards}
-@keyframes spl{to{width:64px}}
-.sp-in h1{font-family:var(--serif);font-weight:250;font-size:clamp(2.6rem,6vw,3.8rem);letter-spacing:-.025em;opacity:0;animation:up .8s var(--ease) .35s forwards}
-.sp-sub{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);margin-top:6px;opacity:0;animation:up .7s var(--ease) .55s forwards}
-.sp-form{margin-top:34px;display:grid;gap:14px;text-align:left;opacity:0;animation:up .7s var(--ease) .75s forwards}
+.sp-line{height:2px;width:64px;margin:0 auto 26px;background:linear-gradient(90deg,var(--swa-blue),var(--swa-red),var(--swa-gold));border-radius:2px;animation:spl .9s var(--ease) .2s backwards}
+@keyframes spl{from{width:0}to{width:64px}}
+.sp-in h1{font-family:var(--serif);font-weight:250;font-size:clamp(2.6rem,6vw,3.8rem);letter-spacing:-.025em;animation:up .8s var(--ease) .35s backwards}
+.sp-sub{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);margin-top:6px;animation:up .7s var(--ease) .55s backwards}
+.sp-form{margin-top:34px;display:grid;gap:14px;text-align:left;animation:up .7s var(--ease) .75s backwards}
 .sp-form label{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px}
 .sp-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.sp-go{margin-top:24px;opacity:0;animation:up .7s var(--ease) .95s forwards}
-.sp-note{font-size:11px;color:var(--faint);margin-top:22px;opacity:0;animation:up .7s var(--ease) 1.1s forwards}
+.sp-go{margin-top:24px;animation:up .7s var(--ease) .95s backwards}
+.sp-note{font-size:11px;color:var(--faint);margin-top:22px;animation:up .7s var(--ease) 1.1s backwards}
 @keyframes up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 
 /* ── FORM ── */
@@ -586,7 +586,7 @@ html[data-theme="term"] .splash{background:#000}
   .card-h{flex-wrap:wrap}
 }
 .menu-btn{display:none}
-@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-delay:0s!important;animation-iteration-count:1!important;transition-duration:.01ms!important;transition-delay:0s!important;scroll-behavior:auto!important}}
 </style>
 </head>
 <body>
@@ -2140,7 +2140,7 @@ function parseDump(text){
     const words=ln.replace(/[–→>]/g,' ').match(/\b[A-Z]{3,8}\b/g)||[];
     for(const w of words){if(w.length===6&&ST[w.slice(0,3)]&&ST[w.slice(3)]){toks.push(w.slice(0,3),w.slice(3));continue}const s=stOf(w);if(s)toks.push(s.iata)}
     if(toks.length<2)continue;res.lines++;
-    const nums=(ln.match(/\b(?:WN|SWA)\s?(\d{1,4})\b/g)||[]).map(x=>+x.replace(/\D/g,''));const bare=(ln.match(/(?<![\d:])\b\d{1,4}\b(?![:\dZ])/g)||[]).map(Number);
+    const nums=(ln.match(/\b(?:WN|SWA)\s?(\d{1,4})\b/g)||[]).map(x=>+x.replace(/\D/g,''));const bare=[];{const re=/(^|[^\d:])(\d{1,4})(?![:\dZ\d])/g;let mm;while((mm=re.exec(ln)))bare.push(+mm[2])}
     const times=(ln.match(/\b\d{4}Z?\b|\b\d{1,2}:\d{2}\b/g)||[]).map(x=>x.replace(/[:Z]/g,'').padStart(4,'0'));
     for(let i=0;i+1<toks.length;i+=2){const o=toks[i],d=toks[i+1];if(o===d)continue;res.stations.add(o);res.stations.add(d);
       const c=pool.filter(f=>f.org===o&&f.dst===d);let pick=c.filter(f=>nums.includes(f.num));if(!pick.length)pick=c.filter(f=>bare.includes(f.num));
