@@ -1,67 +1,72 @@
 name: Meridian live feed
-# Every 5 minutes. Weather: METAR, TAF, D-ATIS and (every 3 hours, with FAA keys) NOTAMs for every station in
-# meridian/index.html -> wx.json, notams.json. Live: every airborne Southwest jet from ADS-B (OpenSky, at most every
-# 15 min on the free tier; adsb.fi otherwise) and FAA NAS Status programs -> live.json. Published to the
-# `meridian-feed` branch as one force-pushed commit, so main's history and the Pages build stay untouched and the
-# repository does not grow. The page reads the files from raw.githubusercontent.com (CORS-open) and re-checks every
-# 2 minutes. GitHub often starts scheduled runs a few minutes late. See meridian/UPDATER.md.
+# Weather (METAR, TAF, D-ATIS; NOTAMs every 3 hours with FAA keys) for every station in meridian/index.html, plus every
+# airborne Southwest jet from ADS-B and FAA NAS programs, published to the `meridian-feed` branch every 5 minutes.
+#
+# GitHub fires scheduled runs late or not at all, so the feed doesn't depend on cron. A run is a relay: it does one
+# cycle every 5 minutes for about 5 h 20 min (meridian/updater/run_feed.sh), then starts the next run itself
+# (workflow_dispatch, handoff=true) before it ends. The hourly cron is only a backstop: it restarts the relay if it
+# ever stops and exits in seconds when one is already running. Cancelling a run stops the relay until the next
+# backstop; disable the workflow to stop it for good. See meridian/UPDATER.md.
 on:
   schedule:
-    - cron: '*/5 * * * *'
+    - cron: '43 * * * *'
   workflow_dispatch:
     inputs:
       notams:
         description: 'Refresh NOTAMs now'
         type: boolean
         default: false
+      handoff:
+        description: 'Internal: set when a run hands off to the next one (leave unticked)'
+        type: boolean
+        default: false
 permissions:
   contents: write
-concurrency:
-  group: meridian-feed
-  cancel-in-progress: false
+  actions: write
 jobs:
-  update:
+  feed:
     if: github.repository == 'BBOLDT86/lanscape-navigator'
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 345
+    env:
+      GH_TOKEN: ${{ github.token }}
     steps:
+      - name: Relay already running?
+        id: mode
+        run: |
+          if [ "${{ inputs.handoff }}" = "true" ]; then echo "mode=relay" >> "$GITHUB_OUTPUT"; echo "handed off; relay"; exit 0; fi
+          busy=$(gh api "repos/${GITHUB_REPOSITORY}/actions/workflows/meridian.yml/runs?per_page=30" \
+            --jq "[.workflow_runs[] | select(.id != ${GITHUB_RUN_ID} and (.status == \"in_progress\" or .status == \"queued\" or .status == \"waiting\" or .status == \"pending\"))] | length" || echo 0)
+          if [ "$busy" -eq 0 ]; then mode=relay
+          elif [ "${{ inputs.notams }}" = "true" ]; then mode=once
+          else mode=skip; fi
+          echo "mode=$mode" >> "$GITHUB_OUTPUT"
+          echo "other active runs: $busy -> $mode"
       - uses: actions/checkout@v4
+        if: steps.mode.outputs.mode != 'skip'
         with:
           fetch-depth: 1
           sparse-checkout: meridian
       - uses: actions/setup-python@v5
+        if: steps.mode.outputs.mode != 'skip'
         with:
           python-version: '3.12'
-      - name: Bring in the last published feed
-        run: |
-          mkdir -p feed
-          if git fetch -q --depth 1 origin meridian-feed 2>/dev/null; then
-            for f in wx.json notams.json live.json live_state.json; do git show "origin/meridian-feed:$f" > "feed/$f" 2>/dev/null || rm -f "feed/$f"; done
-          else echo "no feed branch yet (first run)"; fi
-      - name: Pull METAR, TAF, D-ATIS and NOTAMs
+      - name: Run the feed
+        id: feed
+        if: steps.mode.outputs.mode != 'skip'
         env:
-          # optional: free keys from https://api.faa.gov switch NOTAMs to the FAA's official API
+          # optional: free keys from https://api.faa.gov switch NOTAMs on (FAA NOTAM API)
           FAA_CLIENT_ID: ${{ secrets.FAA_CLIENT_ID }}
           FAA_CLIENT_SECRET: ${{ secrets.FAA_CLIENT_SECRET }}
-        run: |
-          python3 meridian/updater/fetch_wx.py --out feed ${{ inputs.notams && '--notams' || '' }} || echo "weather - failed, kept the last copy"
-      - name: Pull the Southwest fleet (ADS-B) and FAA NAS status
-        env:
           # optional: a free OpenSky account (https://opensky-network.org) lifts the ADS-B budget from 400 to 4,000 credits a day
           OPENSKY_CLIENT_ID: ${{ secrets.OPENSKY_CLIENT_ID }}
           OPENSKY_CLIENT_SECRET: ${{ secrets.OPENSKY_CLIENT_SECRET }}
+        run: bash meridian/updater/run_feed.sh "${{ steps.mode.outputs.mode }}" ${{ inputs.notams && '--notams' || '' }}
+      - name: Hand off to the next run
+        if: (success() || failure()) && steps.mode.outputs.mode == 'relay' && steps.feed.outputs.yielded != 'true'
         run: |
-          python3 meridian/updater/fetch_live.py --out feed || echo "live - failed, kept the last copy"
-      - name: Publish to the meridian-feed branch
-        env:
-          TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          cd feed
-          printf '# Meridian live feed\n\nMachine-written by .github/workflows/meridian.yml on main. Do not edit; every run replaces this branch.\n' > README.md
-          git init -q -b meridian-feed
-          git config user.name "Meridian feed updater"
-          git config user.email "meridian-feed@users.noreply.github.com"
-          git add -A
-          git commit -qm "Meridian live feed $(date -u +%Y-%m-%dT%H:%MZ)"
-          git push -q --force "https://x-access-token:${TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:meridian-feed
-          ls -la
+          for i in 1 2 3 4 5; do
+            gh workflow run meridian.yml --repo "$GITHUB_REPOSITORY" --ref "$GITHUB_REF_NAME" -f handoff=true && { echo "next run started"; exit 0; }
+            sleep 20
+          done
+          echo "::warning::couldn't start the next run; the hourly backstop will restart the relay"
