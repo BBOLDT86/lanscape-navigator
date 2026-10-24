@@ -64,18 +64,7 @@ button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 }
 .ipbar button:active{filter:brightness(1.08)}
 
-.findbtn{
-  width:100%;margin:0 0 18px;padding:13px;border-radius:12px;font-size:15px;font-weight:800;
-  background:var(--surface-2);border:1px solid var(--line);color:var(--fg);
-  display:flex;align-items:center;justify-content:center;gap:8px;transition:background .15s,transform .05s;
-}
-.findbtn:active{transform:scale(.98);background:var(--surface-3)}
-.findbtn .fic{font-size:17px}
-.findbtn.busy{color:var(--muted)}
-.findbtn.busy .fic{animation:spin 1s linear infinite;display:inline-block}
-@keyframes spin{to{transform:rotate(360deg)}}
-
-/* scan + picker overlay */
+/* overlay (shared by the add-show form) */
 .scrim{
   position:fixed;inset:0;background:rgba(10,8,16,.72);backdrop-filter:blur(4px);
   display:none;align-items:center;justify-content:center;padding:24px;z-index:60;
@@ -298,8 +287,6 @@ body.editing .app{animation:wob .4s ease-in-out infinite alternate}
   <input id="ip" inputmode="decimal" autocomplete="off" spellcheck="false" placeholder="Roku IP, e.g. 192.168.1.50">
   <button id="save">Save</button>
 </div>
-
-<button class="findbtn" id="find"><span class="fic">🔍</span> Auto-find my Roku</button>
 
 <div class="hint" id="hint">
   <b>One-time setup.</b> On the TV: <b>Settings → System → Advanced system settings → Control by mobile apps → Network access</b> = <b>Default</b> (or Permissive). Find the IP under <b>Settings → Network → About</b>. Your phone must be on the <b>same Wi-Fi</b>. Then type the IP above and tap Save.
@@ -660,153 +647,8 @@ function clearField(n){
 $('#kbdel').addEventListener('click',del);
 $('#kbclear').addEventListener('click',()=>clearField(40));
 
-/* ===== Roku autodiscovery =====
-   Browsers can't do SSDP/mDNS (no UDP), so we sweep the local /24 for a host
-   answering on Roku's control port 8060. A no-cors GET resolves for a live
-   HTTP server and rejects/times-out otherwise; on a home LAN, 8060 is
-   effectively Roku-only. WebRTC gives a subnet hint so the common case is fast.
-   (Works because the page is opened as a file:// — an https page couldn't
-   fetch http and this would be blocked.) */
-
-const COMMON_BASES = ['192.168.1','192.168.0','192.168.2','192.168.86','192.168.50',
-  '192.168.4','192.168.10','192.168.11','192.168.100','10.0.0','10.0.1','10.0.10','10.1.1'];
-
-function webrtcHint(timeout=900){
-  return new Promise(res=>{
-    let done=false, found=null;
-    const finish=()=>{ if(done)return; done=true; try{pc.close();}catch(e){} res(found); };
-    let pc;
-    try{
-      pc=new RTCPeerConnection({iceServers:[]});
-      pc.createDataChannel('d');
-      pc.onicecandidate=e=>{
-        const c=e&&e.candidate&&e.candidate.candidate; if(!c) return;
-        const m=c.match(/(\d{1,3}(?:\.\d{1,3}){3})/);
-        if(m && /^(10|192\.168|172\.(1[6-9]|2\d|3[01]))\./.test(m[1])){ found=m[1]; finish(); }
-      };
-      pc.createOffer().then(o=>pc.setLocalDescription(o)).catch(()=>{});
-      setTimeout(finish, timeout);
-    }catch(e){ res(null); }
-  });
-}
-
-function probe(host, timeout=1300){
-  return new Promise(resolve=>{
-    const ctrl=new AbortController();
-    const t=setTimeout(()=>{ctrl.abort(); resolve(false);}, timeout);
-    fetch(`http://${host}:8060/`, {method:'GET', mode:'no-cors', signal:ctrl.signal})
-      .then(()=>{clearTimeout(t); resolve(true);})
-      .catch(()=>{clearTimeout(t); resolve(false);});
-  });
-}
-
-function scanBase(base, onProgress, stop){
-  const ips=[]; for(let i=1;i<=254;i++) ips.push(base+'.'+i);
-  const hits=[]; let idx=0, active=0, scanned=0; const CONC=50;
-  return new Promise(resolve=>{
-    const pump=()=>{
-      if(stop && stop()){ resolve(hits); return; }
-      while(active<CONC && idx<ips.length){
-        const host=ips[idx++]; active++;
-        probe(host).then(ok=>{
-          active--; scanned++;
-          if(ok) hits.push(host);
-          onProgress && onProgress(scanned, ips.length);
-          if(scanned>=ips.length) resolve(hits); else pump();
-        });
-      }
-    };
-    pump();
-  });
-}
-
-let scanning=false, stopFlag=false;
-
-async function autoFind(){
-  if(scanning){ stopFlag=true; return; }
-  scanning=true; stopFlag=false;
-  const fb=$('#find'); fb.classList.add('busy'); fb.querySelector('.fic').textContent='⟳';
-  scanSheet(0, 'Looking for your Roku…');
-
-  const hint = await webrtcHint();
-  const bases=[];
-  if(hint) bases.push(hint.split('.').slice(0,3).join('.'));
-  COMMON_BASES.forEach(b=>{ if(!bases.includes(b)) bases.push(b); });
-
-  let found=[];
-  for(let b=0;b<bases.length;b++){
-    if(stopFlag) break;
-    const base=bases[b];
-    const hits=await scanBase(base,
-      (done,total)=>{
-        // progress spans all bases roughly; show current subnet clearly
-        scanSheet(done/total, `Scanning ${base}.x  ·  ${done}/${total}`);
-      },
-      ()=>stopFlag);
-    if(hits.length){ found=hits; break; }
-  }
-
-  scanning=false;
-  fb.classList.remove('busy'); fb.querySelector('.fic').textContent='🔍';
-
-  if(stopFlag && !found.length){ closeSheet(); return; }
-
-  if(!found.length){
-    closeSheet();
-    toast('No Roku found — is the TV on and on this Wi-Fi?', true);
-    $('#hint').classList.add('show');
-    return;
-  }
-  if(found.length===1){
-    closeSheet();
-    applyIp(found[0]);
-    toast('Found your Roku · '+found[0]);
-    key('Home');
-  } else {
-    pickDevice(found);
-  }
-}
-
-function applyIp(v){
-  ip=v; $('#ip').value=v; save(LS_IP,v); setDot('on');
-}
-
-/* ---- overlay (scan progress + device picker) ---- */
-function scanSheet(frac, status){
-  $('#scrim').classList.add('show');
-  $('#sheet').innerHTML=`
-    <h2>Finding your Roku</h2>
-    <p>Sweeping your Wi-Fi for the TV. This takes a few seconds.</p>
-    <div class="bar"><i id="barfill"></i></div>
-    <div class="status" id="scanstatus"></div>
-    <div class="btns"><button id="scancancel">Cancel</button></div>`;
-  updateScan(frac, status);
-  $('#scancancel').onclick=()=>{ stopFlag=true; };
-}
-function updateScan(frac, status){
-  const f=$('#barfill'); if(f) f.style.width=Math.round(frac*100)+'%';
-  const s=$('#scanstatus'); if(s) s.textContent=status||'';
-}
+/* Shared overlay close (used by the “Add show” form). */
 function closeSheet(){ $('#scrim').classList.remove('show'); $('#sheet').innerHTML=''; }
-
-function pickDevice(list){
-  $('#scrim').classList.add('show');
-  $('#sheet').innerHTML=`
-    <h2>${list.length} devices found</h2>
-    <p>Pick the one that's your TV. (The rest are other Rokus on your network.)</p>
-    <div class="devlist" id="devlist"></div>
-    <div class="btns"><button id="pickcancel">Cancel</button></div>`;
-  const dl=$('#devlist');
-  list.forEach(h=>{
-    const b=document.createElement('button');
-    b.innerHTML=`<span class="pin">📺</span>${h}`;
-    b.onclick=()=>{ closeSheet(); applyIp(h); toast('Set to '+h); key('Home'); };
-    dl.appendChild(b);
-  });
-  $('#pickcancel').onclick=closeSheet;
-}
-
-$('#find').addEventListener('click',autoFind);
 
 /* ===== Discover tab ===== */
 
@@ -1263,7 +1105,7 @@ renderPoker();
 setDot();
 let startTab='remote'; try{ startTab=localStorage.getItem('rokuEasyRemote.tab')||'remote'; }catch(e){}
 showView(startTab);
-if(!ip){ $('#hint').classList.add('show'); autoFind(); }
+if(!ip){ $('#hint').classList.add('show'); }
 
 </script>
 </body>
