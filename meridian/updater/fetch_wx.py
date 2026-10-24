@@ -251,7 +251,58 @@ def notam_kind(text):
     return k or 'OTHER'
 
 
-def get_notams(sts):
+NOTAM_SEARCH = 'https://notams.aim.faa.gov/notamSearch/'
+BROWSER_UA = ('Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36 '
+              'MeridianFlightControl/1.0 (+https://bboldt86.github.io/lanscape-navigator/meridian/)')
+
+
+def keep_notam(out, icao, txt, start, end):
+    txt = re.sub(r'\s+', ' ', (txt or '').strip())
+    if not txt:
+        return
+    kind = notam_kind(txt)
+    if kind in NOTAM_KINDS:
+        out.setdefault(icao, []).append({'text': txt, 'kind': kind, 's': start or '', 'e': end or ''})
+
+
+def notams_faa_api(sts, cid, secret):
+    """The FAA's official NOTAM API (free keys from api.faa.gov), used when FAA_CLIENT_ID / FAA_CLIENT_SECRET are set."""
+    out, errs = {}, []
+    for s in sts:
+        try:
+            req = urllib.request.Request(
+                f'https://external-api.faa.gov/notamapi/v1/notams?icaoLocation={s["icao"]}&pageSize=1000&responseFormat=geoJson',
+                headers={'client_id': cid, 'client_secret': secret, 'User-Agent': UA, 'Accept': 'application/json'})
+            with urllib.request.urlopen(req, timeout=30) as r:
+                js = json.loads(r.read().decode('utf-8', 'replace'))
+            for it in js.get('items') or []:
+                core = ((it.get('properties') or {}).get('coreNOTAMData') or {})
+                n = core.get('notam') or {}
+                txt = ''
+                for tr in core.get('notamTranslation') or []:
+                    if tr.get('type') == 'LOCAL_FORMAT' and (tr.get('simpleText') or tr.get('formattedText')):
+                        txt = tr.get('simpleText') or tr.get('formattedText')
+                        break
+                keep_notam(out, s['icao'], txt or n.get('text'), n.get('effectiveStart'), n.get('effectiveEnd'))
+            time.sleep(0.3)
+        except Exception as ex:
+            errs.append(f'NOTAM API {s["icao"]}: {type(ex).__name__}: {str(ex)[:80]}')
+    return out, errs
+
+
+def notams_search(sts):
+    """FAA NOTAM Search, visited the way a browser does: load the app page (cookies), then POST searches."""
+    import http.cookiejar
+    jar = http.cookiejar.CookieJar()
+    op = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(jar))
+    base = {'User-Agent': BROWSER_UA, 'Accept-Language': 'en-US,en;q=0.9'}
+    try:
+        op.open(urllib.request.Request(NOTAM_SEARCH + 'nsapp.html', headers={**base, 'Accept': 'text/html,application/xhtml+xml'}), timeout=30).read()
+    except Exception:
+        pass
+    hdr = {**base, 'Accept': 'application/json, text/javascript, */*; q=0.01', 'X-Requested-With': 'XMLHttpRequest',
+           'Origin': 'https://notams.aim.faa.gov', 'Referer': NOTAM_SEARCH + 'nsapp.html',
+           'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
     out, errs = {}, []
     icaos = [s['icao'] for s in sts]
     by_designator = {s['iata']: s['icao'] for s in sts}
@@ -260,31 +311,36 @@ def get_notams(sts):
         offset, total, pages = 0, None, 0
         try:
             while pages < 25 and (total is None or offset < total):
-                js = json.loads(fetch('https://notams.aim.faa.gov/notamSearch/search', data={
-                    'searchType': '0', 'designatorsForLocation': ','.join(chunk), 'offset': str(offset),
-                    'notamsOnly': 'false', 'radius': '10'}, timeout=30))
+                body = urllib.parse.urlencode({'searchType': '0', 'designatorsForLocation': ','.join(chunk), 'offset': str(offset),
+                                               'notamsOnly': 'false', 'radius': '10'}).encode()
+                with op.open(urllib.request.Request(NOTAM_SEARCH + 'search', data=body, headers=hdr), timeout=30) as r:
+                    raw = r.read()
+                    if raw[:2] == b'\x1f\x8b':
+                        raw = gzip.decompress(raw)
+                js = json.loads(raw.decode('utf-8', 'replace'))
                 lst = js.get('notamList') or []
                 total = int(js.get('totalNotamCount') or len(lst))
                 for o in lst:
                     icao = (o.get('icaoId') or '').upper() or by_designator.get((o.get('facilityDesignator') or '').upper(), '')
-                    if icao not in chunk:
-                        continue
-                    txt = (o.get('traditionalMessage') or o.get('icaoMessage') or '').strip()
-                    if not txt:
-                        continue
-                    txt = re.sub(r'\s+', ' ', txt)
-                    kind = notam_kind(txt)
-                    if kind not in NOTAM_KINDS:
-                        continue
-                    out.setdefault(icao, []).append({'text': txt, 'kind': kind, 's': o.get('startDate') or '', 'e': o.get('endDate') or ''})
+                    if icao in chunk:
+                        keep_notam(out, icao, o.get('traditionalMessage') or o.get('icaoMessage'), o.get('startDate'), o.get('endDate'))
                 offset += len(lst) or 30
                 pages += 1
                 if not lst:
                     break
-                time.sleep(0.4)
+                time.sleep(0.5)
         except Exception as ex:
             errs.append(f'NOTAM {",".join(chunk)}: {type(ex).__name__}: {str(ex)[:90]}')
-        time.sleep(0.8)
+            if '403' in str(ex) and not out:
+                errs.append('NOTAM Search refused this server; add FAA_CLIENT_ID / FAA_CLIENT_SECRET (api.faa.gov) to use the official API')
+                break
+        time.sleep(1)
+    return out, errs
+
+
+def get_notams(sts):
+    cid, secret = os.environ.get('FAA_CLIENT_ID', '').strip(), os.environ.get('FAA_CLIENT_SECRET', '').strip()
+    out, errs = notams_faa_api(sts, cid, secret) if cid and secret else notams_search(sts)
     pri = {k: n for n, k in enumerate(NOTAM_KINDS)}
     for icao in out:
         seen, keep = set(), []
