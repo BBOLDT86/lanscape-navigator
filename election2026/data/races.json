@@ -1,5 +1,5 @@
 {
- "asOf": "2026-10-23",
+ "asOf": "2026-10-24",
  "balance": {
   "senate": {
    "current": {
@@ -3247,16 +3247,17 @@
      "pollster": "Texas Public Opinion Research",
      "sponsor": null,
      "partisan": false,
-     "start": null,
-     "end": "2026-10-23",
-     "dateBasis": "released (RCP listing date); field dates not shown",
-     "n": null,
-     "pop": null,
+     "start": "2026-10-15",
+     "end": "2026-10-18",
+     "dateBasis": "field dates (pollster release, published 2026-10-23); previously listed by RCP release date",
+     "n": 969,
+     "pop": "LV",
      "d": 51,
      "r": 47,
-     "other": null,
-     "url": "https://realclearpolling.com/latest-polls/senate",
-     "partisanNote": "pollster leans/affiliation not established on the listing"
+     "other": 2,
+     "url": "https://texaspublicopinionresearch.substack.com/p/october-poll-in-texas-general-election",
+     "partisanNote": "pollster leans/affiliation not established on the listing",
+     "moe": 3.9
     },
     {
      "pollster": "Fox News (Beacon/Shaw)",
@@ -3688,8 +3689,8 @@
    "ratings": {
     "cook": "Solid R",
     "cookAsOf": "2026-10-13",
-    "sabato": "Safe R",
-    "sabatoAsOf": "2026-10-06",
+    "sabato": "Likely R",
+    "sabatoAsOf": "2026-10-22",
     "inside": "Solid R",
     "insideAsOf": "2026-10-01",
     "basis": "Wikipedia table (Cook Sep 10 / IE Sep 4 / Sabato Sep 3) plus 270toWin change logs through Oct 13 and Cook's Aug 27 print page"
@@ -5406,8 +5407,8 @@
    "ratings": {
     "cook": "Lean D",
     "cookAsOf": "2026-10-13",
-    "sabato": "Leans D",
-    "sabatoAsOf": "2026-10-06",
+    "sabato": "Likely D",
+    "sabatoAsOf": "2026-10-22",
     "inside": "Tilt D",
     "insideAsOf": "2026-10-01",
     "basis": "Wikipedia table (Cook Sep 10 / IE Sep 4 / Sabato Sep 3) plus 270toWin change logs through Oct 13 and Cook's Aug 27 print page"
@@ -6033,10 +6034,10 @@
     }
    ],
    "ratings": {
-    "cook": "Toss Up",
-    "cookAsOf": "2026-10-13",
-    "sabato": "Leans R",
-    "sabatoAsOf": "2026-10-06",
+    "cook": "Lean D",
+    "cookAsOf": "2026-10-23",
+    "sabato": "Leans D",
+    "sabatoAsOf": "2026-10-22",
     "inside": "Toss-up",
     "insideAsOf": "2026-10-01",
     "basis": "Wikipedia table (Cook Sep 10 / IE Sep 4 / Sabato Sep 3) plus 270toWin change logs through Oct 13 and Cook's Aug 27 print page",
@@ -6179,8 +6180,8 @@
    "ratings": {
     "cook": "Likely R",
     "cookAsOf": "2026-10-13",
-    "sabato": "Safe R",
-    "sabatoAsOf": "2026-10-06",
+    "sabato": "Likely R",
+    "sabatoAsOf": "2026-10-22",
     "inside": "Likely R",
     "insideAsOf": "2026-10-01",
     "basis": "Wikipedia table (Cook Sep 10 / IE Sep 4 / Sabato Sep 3) plus 270toWin change logs through Oct 13 and Cook's Aug 27 print page",
@@ -6800,6 +6801,23 @@
    },
    "polls": [
     {
+     "pollster": "Texas Public Opinion Research",
+     "sponsor": null,
+     "partisan": false,
+     "start": "2026-10-15",
+     "end": "2026-10-18",
+     "dateBasis": "field dates (pollster release, published 2026-10-23)",
+     "n": 969,
+     "pop": "LV",
+     "d": 48,
+     "r": 51,
+     "other": 1,
+     "url": "https://texaspublicopinionresearch.substack.com/p/october-poll-in-texas-general-election",
+     "partisanNote": "TPOR describes itself as nonpartisan; no outside sponsor named",
+     "moe": 3.9,
+     "note": "Abbott 51, Hinojosa 48, Dixon (L) 1; undecideds pushed to a choice"
+    },
+    {
      "pollster": "Fox News (Beacon/Shaw)",
      "sponsor": null,
      "partisan": false,
@@ -6932,12 +6950,12 @@
    "special": false,
    "classNote": "four-year term",
    "average": {
-    "d": 46.6,
-    "r": 49.4,
-    "n_polls": 8,
-    "source": "mean of RCP-listed polls released Oct 11-23 (realclearpolling.com/latest-polls/governor)",
-    "asOf": "2026-10-23",
-    "method": "simple unweighted mean of the toplines listed; computed by this research pass, NOT an aggregator average"
+    "d": 46.8,
+    "r": 49.6,
+    "n_polls": 9,
+    "source": "mean of RCP-listed polls released Oct 11-23 (realclearpolling.com/latest-polls/governor) plus the TPOR release",
+    "asOf": "2026-10-24",
+    "method": "simple unweighted mean of the toplines listed; computed by this editorial pass, NOT an aggregator average"
    },
    "pres2024": {
     "d": null,
@@ -7295,7 +7313,15 @@
     "likelyR": 16,
     "solidR": 171,
     "url": "https://www.cookpolitical.com/ratings/house-race-ratings",
-    "note": "Fetched Oct 23 (page dated Oct 16). Versus Cook's Oct 9 lists in the Oct 11 house.json: MT-01 Lean R->Toss Up; FL-25 Toss Up->Lean D; OH-01 Lean D->Likely D; MN-01, NY-21, OH-10, OH-15, SC-01 Likely R->Lean R; FL-16, KS-02, NE-01 newly Likely R (derived by list comparison)."
+    "note": "Fetched Oct 23 (page dated Oct 16). Versus Cook's Oct 9 lists in the Oct 11 house.json: MT-01 Lean R->Toss Up; FL-25 Toss Up->Lean D; OH-01 Lean D->Likely D; MN-01, NY-21, OH-10, OH-15, SC-01 Likely R->Lean R; FL-16, KS-02, NE-01 newly Likely R (derived by list comparison). UPDATE Oct 23: Cook moved 19 more races toward Democrats (220 D-favored / 17 Toss Up / 198 R-favored); see latest.",
+    "latest": {
+     "asOf": "2026-10-23",
+     "favoredD": 220,
+     "favoredR": 198,
+     "tossup": 17,
+     "url": "https://www.cookpolitical.com/analysis/house/house-overview/democrats-projected-majority-grows-19",
+     "note": "Oct 23 totals from the House overview (Solid+Likely+Lean by party; Toss Up). The per-category counts, the 19 district moves and the competitive list below are still the Oct 16 ratings: the Oct 23 district list is subscriber-only."
+    }
    },
    {
     "source": "Sabato",
@@ -9037,6 +9063,21 @@
    "date": "2026-10-01",
    "text": "Governors: Cook moved Florida and Texas from Likely to Lean R; Inside Elections moved Alaska (Lean R) and Ohio (Tilt R) to Toss-up and Oklahoma Safe to Likely R. Oct 6: Sabato moved Alaska Toss-up to Leans D and Oregon Likely to Leans D (context; before Oct 11).",
    "source": "https://www.270towin.com/2026-governor-election-predictions/"
+  },
+  {
+   "date": "2026-10-22",
+   "text": "Sabato's Crystal Ball governor changes (Kyle Kondik, 'The Governors: Ohio to Leans Democratic Among Other Changes'): Ohio Toss-up to Leans Democratic; Michigan Leans Democratic to Likely Democratic; Alabama and Oklahoma Safe Republican to Likely Republican. The Ohio and Michigan Senate ratings were left unchanged. (The desk's file had carried Ohio as Leans R; the article states the prior rating as Toss-up.)",
+   "source": "https://www.rasmussenreports.com/public_content/political_commentary/commentary_by_kyle_kondik/the_governors_ohio_to_leans_democratic_among_other_changes_as_dems_eye_gubernatorial_majority"
+  },
+  {
+   "date": "2026-10-23",
+   "text": "Cook Political Report moved the Ohio governor's race from Toss Up to Lean Democrat (Jessica Taylor, 'Amid Ad Uproar, Ohio Governor's Race Moves From Toss Up to Lean Democrat').",
+   "source": "https://www.cookpolitical.com/analysis/governors/ohio-governor/ohio-gov-race-toss-lean-democrat"
+  },
+  {
+   "date": "2026-10-23",
+   "text": "Cook Political Report House update (Erin Covey): 19 more races moved toward Democrats, including six Toss Up to Lean D (four with Republican incumbents) and two open seats Lean R to Toss Up; Cook now rates 220 seats Solid/Likely/Lean D, 198 Solid/Likely/Lean R and 17 Toss Up, and says the likeliest outcome is a Democratic gain of 12 to 22 seats. District-level list is subscriber-only and not captured.",
+   "source": "https://www.cookpolitical.com/analysis/house/house-overview/democrats-projected-majority-grows-19"
   }
  ],
  "gaps": [
@@ -9051,7 +9092,8 @@
   "South Carolina Senate: Lindsey Graham's death (July 11, 2026) and Darline Graham Nordone's appointment/nomination come from political.org (Oct 20) and the Wikipedia Senate table; confirm with senate.gov or the SC Election Commission. Oklahoma: reason and date of Mullin's departure and Alan S. Armstrong's appointment not established.",
   "pres2024 margins outside the 12 competitive Senate races and all lastRace results are recalled from certified results (flagged 'recalled'); 2024 D/R vote shares are null.",
   "Poll closing times for non-Senate states and second closes in split states are recalled statutory times, not fetched.",
-  "PredictIt and Betfair not refreshed (Oct 11 values noted in markets.senateControl.note)."
+  "PredictIt and Betfair not refreshed (Oct 11 values noted in markets.senateControl.note).",
+  "Oct 24 pass: Cook's Oct 23 House district-level changes (19 races) and Sabato's Oct 22 governor ratings table (image) could not be read; only the changes stated in the prose (OH, MI, AL, OK) were recorded. The House competitive list is still Cook's Oct 16 list. RCP latest-polls pages showed nothing newer than Oct 23 at 8 a.m. ET Oct 24."
  ],
  "sourcesMachineReadable": [
   "https://gamma-api.polymarket.com/events?slug=<slug> (JSON; blocked from this sandbox, worked via WebFetch on Oct 11)",

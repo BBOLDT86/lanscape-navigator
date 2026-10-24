@@ -1,5 +1,5 @@
 {
- "asOf": "2026-10-23",
+ "asOf": "2026-10-24",
  "primarySource": {
   "name": "UF Election Lab 2026 Early Voting tracker (Michael McDonald)",
   "url": "https://election.lab.ufl.edu/early-vote/2026-early-voting/",
@@ -10,17 +10,17 @@
   "scriptHint": "GET https://election.lab.ufl.edu/data-downloads/earlyvote/2026/US.csv once or twice daily (cache-bust with a query string); parse CSV; sum voted_all/accept_all/inperson_all/request_all for national; per state use voted_all, accept_all, inperson_all, request_all, voted_dem/voted_rep/voted_none, last_update, updates_today."
  },
  "national": {
-  "totalBallots": 23590165,
-  "mailReturned": 12802919,
-  "inPerson": 10787246,
-  "mailRequested": 59216745,
-  "statesReporting": 47,
+  "totalBallots": 24274661,
+  "mailReturned": 13357291,
+  "inPerson": 10917370,
+  "mailRequested": 59332375,
+  "statesReporting": 48,
   "byParty": {
-   "D": 5280259,
-   "R": 3552604,
-   "other": 2779765,
+   "D": 5492179,
+   "R": 3676576,
+   "other": 2881581,
    "statesWithPartyData": 27,
-   "note": "registration, not vote choice. States with party registration data on 10/23: AZ, AR, CA, CO, CT, DE, FL, ID, IA, KS, KY, LA, ME, MD, NE, NV, NJ, NM, NC, OK, OR, PA, RI, SD, UT, WV, WY. Shares: D 45.5%, R 30.6%, None/Minor 23.9% of 11,612,628."
+   "note": "registration, not vote choice (UF Election Lab US.csv, pulled by the Action 2026-10-24T08:15:04Z)"
   },
   "comparison": {
    "text": "The UF 2026 page publishes no same-point 2022 or 2024 comparison text; it offers a map option '2026 Early Vote to 2022 Total Turnout Ratio' (early votes divided by each state's total 2022 turnout, the turn_2022 column). Final 2024 early+mail total across the 49 UF-tracked jurisdictions = sum of voted_all in the archived 2024 US.csv. AP (via Fox 10 Phoenix, 2026-10-17) reported about 6 million early/mail ballots cast across 39 states as of Thursday Oct 15, 2026; no 2022 comparison given. Michigan SOS press release of 2026-10-06 is titled 'Four weeks before Election Day, mail ballot returns are up 30% over same point in 2022' (title only; body not fetched).",
@@ -29,7 +29,7 @@
    "final2024Source": "https://election.lab.ufl.edu/data-downloads/earlyvote/2024/US.csv",
    "turnout2022TotalTrackedStates": 109979856
   },
-  "asOf": "2026-10-23T17:44:00-04:00",
+  "asOf": "2026-10-24T08:15:04Z",
   "source": "https://election.lab.ufl.edu/early-vote/2026-early-voting/",
   "altSources": [
    {
@@ -1961,6 +1961,11 @@
   "CO"
  ],
  "headlines": [
+  {
+   "date": "2026-10-24",
+   "text": "UF Election Lab tracker: 24,274,661 early votes nationally (10,917,370 in person, 13,357,291 mail ballots returned, 59,332,375 requested) across 48 reporting states/DC, per the CSV pulled at 08:15 UTC Oct 24; up 684,496 from the Oct 23 5:44 p.m. ET reading.",
+   "source": "https://election.lab.ufl.edu/early-vote/2026-early-voting/"
+  },
   {
    "date": "2026-10-23",
    "text": "UF Election Lab tracker shows 23,590,165 early votes nationally (10,787,246 in person, 12,802,919 mail returned, 59,216,745 mail ballots requested) across 47 reporting states/DC as of 5:44 p.m. ET.",
