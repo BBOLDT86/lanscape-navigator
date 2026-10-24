@@ -1,12 +1,13 @@
-name: Meridian weather feed
-# Every 30 minutes (:08 and :38 UTC): just after the routine METARs (:51–:56) and around TAF issue times. Pulls METAR,
-# TAF, D-ATIS and (every 3 hours) NOTAMs for every station in meridian/index.html and publishes wx.json + notams.json
-# to the `meridian-feed` branch as a single force-pushed commit, so main's history and the Pages build stay untouched
-# and the repository does not grow. The page reads the files from raw.githubusercontent.com (CORS-open), re-checking
-# every 5 minutes. GitHub may delay a scheduled run by a few minutes. See meridian/UPDATER.md.
+name: Meridian live feed
+# Every 10 minutes. Weather: METAR, TAF, D-ATIS and (every 3 hours, with FAA keys) NOTAMs for every station in
+# meridian/index.html -> wx.json, notams.json. Live: every airborne Southwest jet from ADS-B (OpenSky, at most every
+# 15 min on the free tier; adsb.fi otherwise), FAA NAS Status programs and the LUV quote -> live.json. Published to the
+# `meridian-feed` branch as one force-pushed commit, so main's history and the Pages build stay untouched and the
+# repository does not grow. The page reads the files from raw.githubusercontent.com (CORS-open) and re-checks every
+# 2 minutes. GitHub often starts scheduled runs a few minutes late. See meridian/UPDATER.md.
 on:
   schedule:
-    - cron: '8,38 * * * *'
+    - cron: '*/10 * * * *'
   workflow_dispatch:
     inputs:
       notams:
@@ -35,24 +36,32 @@ jobs:
         run: |
           mkdir -p feed
           if git fetch -q --depth 1 origin meridian-feed 2>/dev/null; then
-            for f in wx.json notams.json; do git show "origin/meridian-feed:$f" > "feed/$f" 2>/dev/null || rm -f "feed/$f"; done
+            for f in wx.json notams.json live.json; do git show "origin/meridian-feed:$f" > "feed/$f" 2>/dev/null || rm -f "feed/$f"; done
           else echo "no feed branch yet (first run)"; fi
       - name: Pull METAR, TAF, D-ATIS and NOTAMs
         env:
           # optional: free keys from https://api.faa.gov switch NOTAMs to the FAA's official API
           FAA_CLIENT_ID: ${{ secrets.FAA_CLIENT_ID }}
           FAA_CLIENT_SECRET: ${{ secrets.FAA_CLIENT_SECRET }}
-        run: python3 meridian/updater/fetch_wx.py --out feed ${{ inputs.notams && '--notams' || '' }}
+        run: |
+          python3 meridian/updater/fetch_wx.py --out feed ${{ inputs.notams && '--notams' || '' }} || echo "weather - failed, kept the last copy"
+      - name: Pull the Southwest fleet (ADS-B), FAA NAS status and the LUV quote
+        env:
+          # optional: a free OpenSky account (https://opensky-network.org) lifts the ADS-B budget from 400 to 4,000 credits a day
+          OPENSKY_CLIENT_ID: ${{ secrets.OPENSKY_CLIENT_ID }}
+          OPENSKY_CLIENT_SECRET: ${{ secrets.OPENSKY_CLIENT_SECRET }}
+        run: |
+          python3 meridian/updater/fetch_live.py --out feed || echo "live - failed, kept the last copy"
       - name: Publish to the meridian-feed branch
         env:
           TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           cd feed
-          printf '# Meridian weather feed\n\nMachine-written by .github/workflows/meridian.yml on main. Do not edit; every run replaces this branch.\n' > README.md
+          printf '# Meridian live feed\n\nMachine-written by .github/workflows/meridian.yml on main. Do not edit; every run replaces this branch.\n' > README.md
           git init -q -b meridian-feed
           git config user.name "Meridian feed updater"
           git config user.email "meridian-feed@users.noreply.github.com"
           git add -A
-          git commit -qm "Meridian weather feed $(date -u +%Y-%m-%dT%H:%MZ)"
+          git commit -qm "Meridian live feed $(date -u +%Y-%m-%dT%H:%MZ)"
           git push -q --force "https://x-access-token:${TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:meridian-feed
-          echo "published $(python3 -c "import json;d=json.load(open('wx.json'));print(d['generated'], len(d['metar']), 'METAR', len(d['taf']), 'TAF', len(d['datis']), 'D-ATIS')")"
+          ls -la
