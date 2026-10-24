@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Sextant</title>
-<meta name="description" content="Sextant: the news six times a day, one edition per ship's watch, from about 120 live sources. It learns what you read and brings you more of it, privately, in your browser.">
+<title>The Watch</title>
+<meta name="description" content="The Watch: the news six times a day, one edition per ship's watch, from about 120 live sources. It learns what you read and brings you more of it, privately, in your browser.">
 <meta name="theme-color" content="#F5F7F6" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0E1A2B" media="(prefers-color-scheme: dark)">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="Sextant">
+<meta name="apple-mobile-web-app-title" content="The Watch">
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%2315243B'/%3E%3Ccircle cx='32' cy='32' r='21' fill='none' stroke='%23D6B25E' stroke-width='6' stroke-dasharray='19 3'/%3E%3Cpath d='M32 32 L46 14' stroke='%23F5F7F6' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -270,14 +270,14 @@ body.dopen{overflow:hidden}
 <body>
 <script>
 // paint the right paper before anything draws: day, night, or follow the watch
-(function(){try{var p=JSON.parse(localStorage.getItem('sextant.v1')||'{}');var t=p.theme||'auto';var h=+new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',hour:'numeric',hourCycle:'h23'}).format(new Date());
+(function(){try{var p=JSON.parse(localStorage.getItem('watch.v1')||localStorage.getItem('sextant.v1')||'{}');var t=p.theme||'auto';var h=+new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',hour:'numeric',hourCycle:'h23'}).format(new Date());
 if(t==='auto'){t=(h>=20||h<4)?'night':(matchMedia('(prefers-color-scheme: dark)').matches?'night':'day')}document.documentElement.dataset.theme=t;}catch(e){}})();
 </script>
 <div id="archived" class="archived" hidden></div>
 <header class="wrap mast" id="mast">
   <svg class="dial" id="dial" viewBox="-20 -20 260 260" role="img" aria-label="The six watches of the day"></svg>
   <div class="brand">
-    <h1>Sextant</h1>
+    <h1>The Watch</h1>
     <p class="ed" id="edline">Taking a sight…</p>
   </div>
   <div class="tools">
@@ -285,7 +285,7 @@ if(t==='auto'){t=(h>=20||h<4)?'night':(matchMedia('(prefers-color-scheme: dark)'
       <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
       <input id="q" type="search" placeholder="Search this watch" autocomplete="off" enterkeyhint="search">
     </label>
-    <button class="tbtn" id="compassBtn" type="button" aria-label="Your compass: what Sextant has learned">
+    <button class="tbtn" id="compassBtn" type="button" aria-label="Your compass: what The Watch has learned">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><circle cx="12" cy="12" r="9.2"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></svg><span class="lbl">Your compass</span></button>
     <button class="tbtn" id="themeBtn" type="button" aria-label="Day or night paper">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg><span class="lbl" id="themeLbl">Auto</span></button>
@@ -297,7 +297,7 @@ if(t==='auto'){t=(h>=20||h<4)?'night':(matchMedia('(prefers-color-scheme: dark)'
 <div class="scrim" id="scrim"></div>
 <aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="drTitle" tabindex="-1"></aside>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
-<noscript><div class="wrap state"><h2>Sextant needs JavaScript</h2><p>Turn it on to read the news here.</p></div></noscript>
+<noscript><div class="wrap state"><h2>The Watch needs JavaScript</h2><p>Turn it on to read the news here.</p></div></noscript>
 
 <script>
 (() => {
@@ -310,11 +310,11 @@ const $$ = (s, el = document) => [...el.querySelectorAll(s)];
 const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const ICON_OUT = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 5h11v11"/><path d="M19 5L6 18"/></svg>';
 
-/* ================= what Sextant has learned (this browser only) ================= */
-const KEY = 'sextant.v1';
+/* ================= what The Watch has learned (this browser only) ================= */
+const KEY = 'watch.v1', OLD_KEY = 'sextant.v1'; // the site was called Sextant on its first day
 function blank() { return { v: 1, sec: {}, src: {}, kw: {}, follow: {}, mute: { kw: {}, src: {} }, read: {}, seen: {}, last: 0, t: Date.now(), n: 0, theme: 'auto', pending: null }; }
 let P;
-try { P = JSON.parse(localStorage.getItem(KEY) || 'null'); } catch (e) { P = null; }
+try { P = JSON.parse(localStorage.getItem(KEY) || localStorage.getItem(OLD_KEY) || 'null'); } catch (e) { P = null; }
 if (!P || P.v !== 1) P = blank();
 for (const k of Object.keys(blank())) if (P[k] === undefined) P[k] = blank()[k];
 let saveT = 0;
@@ -331,7 +331,7 @@ function save() { clearTimeout(saveT); saveT = setTimeout(() => { try { localSto
   for (const id in P.seen) if ((P.seen[id].t || 0) < wk) delete P.seen[id];
 })();
 let prevLast = 0;
-try { const s = sessionStorage.getItem('sextant.prev'); prevLast = s != null ? +s : (P.last || 0); sessionStorage.setItem('sextant.prev', String(prevLast)); } catch (e) { prevLast = P.last || 0; }
+try { const s = sessionStorage.getItem('watch.prev'); prevLast = s != null ? +s : (P.last || 0); sessionStorage.setItem('watch.prev', String(prevLast)); } catch (e) { prevLast = P.last || 0; }
 P.last = Math.floor(Date.now() / 60000); save();
 
 const W = { // how much each thing you do counts, by section, outlet and topic
@@ -596,7 +596,7 @@ function renderMast() {
   $('#edline').innerHTML = `The <b>${esc(w[1])}</b> edition, out at ${esc(clock(E.at))} ${esc(fmtDay.format(new Date(E.at)))}.<br>
     ${E.items.length.toLocaleString()} stories from ${outlets} outlets.${newN && !viewingArchive ? ` <span class="nwc">${newN} new since your last visit.</span>` : ''}
     <span class="x2">${viewingArchive ? '' : `Next edition at ${esc(nextAt)}.`}</span>`;
-  document.title = viewingArchive ? `Sextant: ${w[1]}, ${clock(E.at)}` : 'Sextant';
+  document.title = viewingArchive ? `The Watch: ${w[1]}, ${clock(E.at)}` : 'The Watch';
   const ab = $('#archived');
   if (viewingArchive) {
     ab.hidden = false;
@@ -607,8 +607,8 @@ function renderFoot() {
   const f = E.feeds || {};
   const failed = (f.failed || []);
   $('#foot').innerHTML = `<div class="wrap"><div>
-    <h4>How Sextant works</h4>
-    <p>Sextant comes out six times a day, once for each of a ship’s watches, Eastern time: the Middle Watch at midnight, Morning at 4 a.m., Forenoon at 8 a.m., Afternoon at noon, the Dog Watch at 4 p.m. and the First Watch at 8 p.m. Each edition reads ${f.total || 'about 120'} public news feeds, groups stories that several outlets are covering, and ranks them by how widely and how recently they’re covered.</p>
+    <h4>How The Watch works</h4>
+    <p>The Watch comes out six times a day, once for each of a ship’s watches, Eastern time: the Middle Watch at midnight, Morning at 4 a.m., Forenoon at 8 a.m., Afternoon at noon, the Dog Watch at 4 p.m. and the First Watch at 8 p.m. Each edition reads ${f.total || 'about 120'} public news feeds, groups stories that several outlets are covering, and ranks them by how widely and how recently they’re covered.</p>
     <p>The “For you” picks learn from what you open, how long you stay with it, what you search for, and what you tell it with More or Less like this. That record stays in this browser; nothing about your reading leaves it. Open Your compass to see or change it.</p>
     <p>Headlines and summaries belong to their outlets, and every story links to the original.</p></div>
     <div><h4>This edition</h4>
@@ -800,7 +800,7 @@ function compassDrawer() {
   const readN = Object.keys(P.read).length;
   openDrawer(`
     <h2 id="drTitle">Your compass</h2>
-    <p class="note">What Sextant has picked up from your reading${readN ? `, ${readN} ${readN === 1 ? 'story' : 'stories'} this week` : ''}. It points “For you” and the order of the sections on the front.</p>
+    <p class="note">What The Watch has picked up from your reading${readN ? `, ${readN} ${readN === 1 ? 'story' : 'stories'} this week` : ''}. It points “For you” and the order of the sections on the front.</p>
     ${rose}
     ${any ? '' : '<p class="note" style="text-align:center">This fills in as you read.</p>'}
     <h3 class="lbl">Topics you read about</h3>
@@ -906,7 +906,7 @@ document.addEventListener('click', e => {
   if (ds.sort) { deskSort = ds.sort; render(true); return; }
   if (a.id === 'more') { pageLimit += 40; render(true); return; }
   if (a.id === 'resetAll') {
-    if (confirm('Forget everything Sextant has learned about your reading in this browser?')) { const t = P.theme; P = blank(); P.theme = t; save(); closeDrawer(); toast('Starting fresh.'); }
+    if (confirm('Forget everything The Watch has learned about your reading in this browser?')) { const t = P.theme; P = blank(); P.theme = t; save(); closeDrawer(); toast('Starting fresh.'); }
     return;
   }
   if (a.id === 'backLatest') { loadLatest(true); return; }

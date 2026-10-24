@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Sextant's updater: reads the feeds in news/data/feeds.json and writes one edition of the paper.
+"""The Watch's updater: reads the feeds in news/data/feeds.json and writes one edition of the paper.
 
   python3 news/updater/run.py            build the current watch's edition, unless it already exists
   python3 news/updater/run.py --force    build it anyway (a manual run)
@@ -47,7 +47,7 @@ if '--now' in ARGS:  # tests: pretend it is this moment (ISO)
     NOW = dt.datetime.fromisoformat(ARGS[ARGS.index('--now') + 1].replace('Z', '+00:00'))
 NOW_MIN = int(NOW.timestamp() // 60)
 
-UA = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36 Sextant/1.0 (+https://bboldt86.github.io/lanscape-navigator/news/)',
+UA = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36 TheWatch/1.0 (+https://bboldt86.github.io/lanscape-navigator/news/)',
       'Accept': 'application/rss+xml, application/atom+xml, application/rdf+xml, application/xml;q=0.9, text/xml;q=0.9, */*;q=0.8',
       'Accept-Language': 'en-US,en;q=0.9', 'Accept-Encoding': 'gzip'}
 
@@ -120,7 +120,12 @@ JUNK_URL = re.compile(r'/(opinion|opinions|commentisfree|video|videos|podcasts?|
 def clean(s):
     if not s:
         return ''
-    s = html.unescape(TAG.sub(' ', html.unescape(s)))
+    s = html.unescape(s)
+    # list items and paragraphs keep a sentence break, so "Spain and Albania" and "Jesse, 40" don't run together
+    s = re.sub(r'(?i)\s*(?:</(?:li|p|h[1-6]|div|blockquote)>|<br\s*/?>)\s*', '\x00', s)
+    s = html.unescape(TAG.sub(' ', s))
+    s = re.sub(r'\s*\x00[\s\x00]*', '\x00', s).strip('\x00 ')
+    s = re.sub(r'([.!?:;…"”’)\]])\x00', r'\1 ', s).replace('\x00', '. ')
     s = s.replace(' ', ' ').replace('​', '')
     return WS.sub(' ', s).strip()
 

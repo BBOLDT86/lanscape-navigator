@@ -1,4 +1,4 @@
-name: Sextant news updater
+name: The Watch news updater
 # Six editions a day, one for each ship's watch, Eastern time: Middle (12 a.m.), Morning (4 a.m.), Forenoon (8 a.m.),
 # Afternoon (12 p.m.), Dog (4 p.m.) and First (8 p.m.). GitHub's cron is UTC, so this fires at both the EDT and the
 # EST hour of every watch (and covers a late run); news/updater/run.py builds an edition only when the current
@@ -10,7 +10,7 @@ on:
 permissions:
   contents: write
 concurrency:
-  group: sextant-news
+  group: the-watch-news
   cancel-in-progress: false
 jobs:
   update:
@@ -28,12 +28,12 @@ jobs:
         run: python3 news/updater/run.py ${{ github.event_name == 'workflow_dispatch' && '--force' || '' }}
       - name: Commit and push
         run: |
-          git config user.name "Sextant updater"
-          git config user.email "sextant-news@users.noreply.github.com"
+          git config user.name "The Watch updater"
+          git config user.email "the-watch-news@users.noreply.github.com"
           git add news/data
           if git diff --cached --quiet; then echo "no new edition"; exit 0; fi
           label=$(python3 -c "import json;d=json.load(open('news/data/latest.json'));print(d['label'], d['id'][:10])")
-          git commit -qm "Sextant: $label edition"
+          git commit -qm "The Watch: $label edition"
           for i in 1 2 3; do
             git pull --rebase -X theirs origin main && git push -q origin HEAD:main && exit 0
             sleep 10

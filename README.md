@@ -61,11 +61,11 @@ wx-center/index.html     WX Center, a separate page (see below); not part of the
 meridian/index.html      Meridian Flight Control, a separate page (see below); not part of the app
 election2026/            Election Desk 2026, a separate site (see below); www.electiondesk2026.com inside the app
 pinfall/                 Pinfall, a separate page with its home-screen icons (see below); not part of the app
-news/                    Sextant, a news site that updates six times a day (see below); www.sextantnews.com inside the app
+news/                    The Watch, a news site that updates six times a day (see below); www.thewatch.com inside the app
 barnlife/index.html      Central Ohio Barn Hunt, a separate page (see below); not part of the app
 ```
 
-## Also hosted here: Sextant
+## Also hosted here: The Watch
 
 **Open it: <https://bboldt86.github.io/lanscape-navigator/news/>**
 

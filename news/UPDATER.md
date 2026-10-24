@@ -1,7 +1,7 @@
-# Sextant: how the paper gets made
+# The Watch: how the paper gets made
 
-Sextant (`news/index.html`, served at <https://bboldt86.github.io/lanscape-navigator/news/> and as
-`www.sextantnews.com` inside LANscape) is one static page that reads `news/data/edition.json`. Everything that
+The Watch (`news/index.html`, served at <https://bboldt86.github.io/lanscape-navigator/news/> and as
+`www.thewatch.com` inside LANscape) is one static page that reads `news/data/edition.json`. Everything that
 changes during the day lives in that file.
 
 ## Six editions a day
@@ -49,7 +49,7 @@ invented. Failed feeds are listed in the edition and shown in the page's footer.
 
 ## The For You picks
 
-All in the page, in the reader's own browser (`localStorage` key `sextant.v1`): opening a story's sheet, opening the
+All in the page, in the reader's own browser (`localStorage` key `watch.v1`): opening a story's sheet, opening the
 outlet's page, staying there more than about 35 seconds, time on a desk's page, searches, More / Less like this,
 Follow and Hide. Each adds weight to the story's desk, outlet and tags; weights halve every two weeks. Nothing about
 reading leaves the browser. Your compass (top right) shows and edits it; Start over clears it.
