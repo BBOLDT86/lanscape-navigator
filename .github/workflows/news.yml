@@ -30,6 +30,7 @@ jobs:
         timeout-minutes: 4
         continue-on-error: true
         run: |
+          pip install --quiet xlrd==2.0.1 || echo "xlrd not installed; gas prices come from DBnomics"
           python3 news/updater/markets.py ${{ github.event_name == 'workflow_dispatch' && '--force' || '' }} || echo "markets failed, kept the last snapshot"
       - name: Commit and push
         run: |

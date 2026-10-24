@@ -39,6 +39,35 @@ always builds, and replaces the current watch's edition.
 Headlines are the outlets' own; summaries are the feeds' own descriptions, clipped to about 200 characters. Nothing is
 invented. Failed feeds are listed in the edition and shown in the page's footer.
 
+## Desks
+
+U.S., World, Europe, Brazil, Politics, Business, Tech, Science, Health, Sports, Culture, Cars, Travel, Food and Long reads.
+Europe and Brazil have sources of their own; stories about either region from the general and world feeds also file
+there (`region()` in `run.py`), unless a stronger topic (a match, a market) claims them. World is everywhere else.
+
+## Markets (`markets.py` -> `data/markets.json`)
+
+Runs after the edition in the same workflow, with a four-minute limit that can't hold up the edition's commit.
+
+- Quotes and charts: CNBC's public quote service (one request per 40 symbols) and chart data (today's minute bars for
+  the board and sectors, a year of daily closes for everything). Indices, futures, world markets, Treasury yields,
+  currencies, commodities, crypto, the 11 sector funds and about 75 large companies.
+- Economy: inflation, core inflation, unemployment and payrolls (BLS), GDP growth (BEA) and gas prices (EIA), all
+  through DBnomics' public mirror; the Fed's target range (New York Fed); 30-year mortgage rates (Freddie Mac);
+  consumer sentiment (University of Michigan); the yield curve from the 10-year and 2-year quotes.
+- Calendars: Nasdaq's earnings and economic-event calendars for the next five weekdays.
+
+Yahoo Finance, Stooq, FRED and the BLS's own API refuse GitHub's runners, so they are not used. A block that fails
+keeps its last good version and is listed under `stale`; individual misses are in `errors`. The page's Business desk
+writes its plain-English summary from these numbers only.
+
+## Elections
+
+The Politics and Brazil desks, and the front page around an election, read the Election Desk
+(`election2026/data/model.json`, `markets.json`) and the Brazil desk (`brazil2026/data/model.json`) live from this
+site, so they are as fresh as those desks' own updaters. On count night the Brazil card also reads the TSE's national
+file straight from the TSE every minute.
+
 ## Changing it
 
 - **Add or drop a source:** one line in `feeds.json` (`name`, `url`, `section`; `domain` for the outlet; `lean` for a
@@ -56,5 +85,5 @@ reading leaves the browser. Your compass (top right) shows and edits it; Start o
 
 ## Size
 
-Each edition is about 450 KB of JSON (about 110 KB over the wire). Six commits a day add a few hundred KB to the
+Each edition is about 450 KB of JSON (about 110 KB over the wire); the markets file about 150 KB. Six commits a day add a few hundred KB to the
 repository's history per day after compression.

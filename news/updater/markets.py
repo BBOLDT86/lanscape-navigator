@@ -189,7 +189,11 @@ def cnbc_chart(sym, rng):
     """'1D' (minute bars) or '1Y' (daily bars) -> [(epoch seconds, close)]"""
     j = json.loads(get(f'https://ts-api.cnbc.com/harmony/app/charts/{rng}.json?symbol={urllib.parse.quote(sym, safe="")}', accept='application/json'))
     bars = ((j.get('barData') or {}).get('priceBars')) or []
-    return [(int(b['tradeTimeinMills']) // 1000, float(b['close'])) for b in bars if b.get('close') not in (None, '') and b.get('tradeTimeinMills')]
+    pts = sorted((int(b['tradeTimeinMills']) // 1000, float(b['close'])) for b in bars if b.get('close') not in (None, '') and b.get('tradeTimeinMills'))
+    if rng == '1D':  # CNBC sometimes tacks a stray bar on hours after the session; drop it
+        while len(pts) > 2 and pts[-1][0] - pts[-2][0] > 3 * 3600:
+            pts.pop()
+    return pts
 
 
 def quote_time(q):
@@ -204,19 +208,20 @@ def quote_time(q):
         return int(NOW.timestamp())
 
 
-def changes(daily, price):
-    """1W / 1M / 3M / YTD / 1Y from daily closes; left out where the history is too short"""
+def changes(daily, price, points=False):
+    """1W / 1M / 3M / YTD / 1Y from daily closes (in percent; in points for yields); left out where history is short"""
     if not daily or price is None:
         return {}
     closes = [c for _, c in daily]
+    move = (lambda a: round(price - a, 3)) if points else (lambda a: round((price / a - 1) * 100, 2))
     out = {}
     for k, n in (('w', 5), ('m', 21), ('q', 63), ('y', 250)):
         if len(closes) > n and closes[-1 - n]:
-            out[k] = round((price / closes[-1 - n] - 1) * 100, 2)
+            out[k] = move(closes[-1 - n])
     year = dt.datetime.fromtimestamp(daily[-1][0], ETZ).year
     prior = [c for t, c in daily if dt.datetime.fromtimestamp(t, ETZ).year < year]
     if prior:
-        out['ytd'] = round((price / prior[-1] - 1) * 100, 2)
+        out['ytd'] = move(prior[-1])
     return out
 
 
@@ -235,7 +240,7 @@ def record(key, q, name, kind, explain, intra, daily, ds=None):
         rec['i'] = [r4(c) for _, c in thin(intra, 96)]; rec['it'] = [intra[0][0], intra[-1][0]]
     if daily:
         rec['d'] = [r4(c) for _, c in thin(daily, 130)]; rec['dt'] = [daily[0][0], daily[-1][0]]
-        rec['ch'] = changes(daily, price)
+        rec['ch'] = changes(daily, price, points=kind == 'pct')
         rec['q'] = [r4(c) for _, c in thin(daily[-63:], 40)]
     return {k: v for k, v in rec.items() if v is not None}
 
@@ -260,6 +265,30 @@ def dbnomics(path):
     return [(str(d)[:10], float(v)) for d, v in zip(days, val) if isinstance(v, (int, float))]
 
 
+def eia_gas():
+    """the EIA's weekly U.S. regular gasoline price, from its own spreadsheet; DBnomics' copy as a fallback"""
+    try:
+        import xlrd  # noqa: PLC0415 - installed by the workflow; optional
+        raw = get('https://www.eia.gov/dnav/pet/hist_xls/EMM_EPMR_PTE_NUS_DPGw.xls', timeout=25)
+        book = xlrd.open_workbook(file_contents=raw)
+        sh = book.sheet_by_name('Data 1')
+        pts = []
+        for r in range(3, sh.nrows):
+            d, v = sh.cell_value(r, 0), sh.cell_value(r, 1)
+            if isinstance(d, float) and isinstance(v, float):
+                y, m, dd, *_ = xlrd.xldate_as_tuple(d, book.datemode)
+                pts.append((f'{y:04d}-{m:02d}-{dd:02d}', v))
+        if pts:
+            return pts
+    except Exception as ex:  # noqa: BLE001
+        errors.append(f'GAS (EIA): {type(ex).__name__} {str(ex)[:60]}')
+    return dbnomics('EIA/PET/EMM_EPMR_PTE_NUS_DPG.W')
+
+
+# how long each kind of number stays current; past that it is left off the page rather than shown as the latest
+FRESH_DAYS = {'CPI': 75, 'CORE': 75, 'UNRATE': 70, 'PAYEMS': 70, 'GDP': 200, 'GAS': 21, 'FED': 14, 'MORT': 21, 'SENT': 60, 'CURVE': 10}
+
+
 def yoy(pts):
     by = dict(pts)
     out = []
@@ -277,6 +306,9 @@ def econ_series():
         pts = pts[-keep:]
         if len(pts) < 2:
             raise ValueError('no data')
+        age = (NOW.date() - dt.date.fromisoformat(pts[-1][0])).days
+        if age > FRESH_DAYS.get(sid, 90):
+            raise ValueError(f'latest reading is from {pts[-1][0]}, too old to show as current')
         out.append({'id': sid, 'n': name, 'unit': unit, 'x': explain, 'v': pts[-1][1], 'date': pts[-1][0], 'prev': pts[-2][1],
                     'pdate': pts[-2][0], 'pts': [[d, v] for d, v in pts], 'src': src})
     jobs = [
@@ -286,7 +318,7 @@ def econ_series():
         ('PAYEMS', 'Jobs added', 'k', 'New payroll jobs in the month, in thousands (BLS).',
          lambda: (lambda p: [(p[i][0], round(p[i][1] - p[i - 1][1], 0)) for i in range(1, len(p))])(dbnomics('BLS/ce/CES0000000001')), 'https://www.bls.gov/ces/'),
         ('GDP', 'GDP growth', '%', 'How fast the economy grew in the quarter, at an annual rate, after inflation (BEA).', lambda: dbnomics('BEA/NIPA-T10101/A191RL-Q'), 'https://www.bea.gov/data/gdp/gross-domestic-product'),
-        ('GAS', 'Gas price', '$', 'The average price of a gallon of regular gasoline in the U.S. (EIA, weekly).', lambda: dbnomics('EIA/PET/EMM_EPMR_PTE_NUS_DPG.W'), 'https://www.eia.gov/petroleum/gasdiesel/'),
+        ('GAS', 'Gas price', '$', 'The average price of a gallon of regular gasoline in the U.S. (EIA, weekly).', eia_gas, 'https://www.eia.gov/petroleum/gasdiesel/'),
     ]
     for sid, name, unit, x, fn, src in jobs:
         try:
