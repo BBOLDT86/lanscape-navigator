@@ -1,0 +1,41 @@
+name: Sextant news updater
+# Six editions a day, one for each ship's watch, Eastern time: Middle (12 a.m.), Morning (4 a.m.), Forenoon (8 a.m.),
+# Afternoon (12 p.m.), Dog (4 p.m.) and First (8 p.m.). GitHub's cron is UTC, so this fires at both the EDT and the
+# EST hour of every watch (and covers a late run); news/updater/run.py builds an edition only when the current
+# watch has none yet. A manual run (Run workflow) always builds. See news/UPDATER.md.
+on:
+  schedule:
+    - cron: '11 0,1,4,5,8,9,12,13,16,17,20,21 * * *'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: sextant-news
+  cancel-in-progress: false
+jobs:
+  update:
+    if: github.repository == 'BBOLDT86/lanscape-navigator'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Build the edition
+        run: python3 news/updater/run.py ${{ github.event_name == 'workflow_dispatch' && '--force' || '' }}
+      - name: Commit and push
+        run: |
+          git config user.name "Sextant updater"
+          git config user.email "sextant-news@users.noreply.github.com"
+          git add news/data
+          if git diff --cached --quiet; then echo "no new edition"; exit 0; fi
+          label=$(python3 -c "import json;d=json.load(open('news/data/latest.json'));print(d['label'], d['id'][:10])")
+          git commit -qm "Sextant: $label edition"
+          for i in 1 2 3; do
+            git pull --rebase -X theirs origin main && git push -q origin HEAD:main && exit 0
+            sleep 10
+          done
+          echo "push failed" >&2; exit 1
