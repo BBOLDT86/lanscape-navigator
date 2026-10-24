@@ -7,10 +7,11 @@ is rebuilt from the JSON files in `election2026/data/` by `election2026/build.py
    Nov. 3–6, GitHub Actions runs `updater/fetch_markets.py`, `updater/fetch_rss.py` and `updater/fetch_earlyvote.py`,
    rebuilds, and commits. It only touches `markets.json`, `news.json`, `earlyvote_auto.json`, `status.json`,
    `model.json` and `index.html`.
-2. **The editorial pass** (a scheduled Claude run): daily at 7:48 a.m. ET until Election Day, every 30 minutes on
-   election night, then every few hours while races are called. It does what a script cannot: reads the polls,
-   the ratings, the early-vote reports and, on election night, the results pages, and writes them into the data
-   files with sources. This file is its instructions.
+2. **The editorial pass** (scheduled Claude runs, set up Oct. 23, 2026 from the owner's Claude account): daily at
+   7:48 a.m. ET; hourly at :40 from 6:40 p.m. ET on election night (the scheduler's minimum interval is one hour);
+   then every three hours (12:40, 3:40, 6:40 … ET) Nov. 4–20 while races are called. It does what a script cannot:
+   reads the polls, the ratings, the early-vote reports and, on election night, the results pages, and writes them
+   into the data files with sources. This file is its instructions; each run's prompt points here.
 
 Everything it needs is in the repo. Nothing depends on a particular machine.
 
@@ -108,6 +109,18 @@ counties for the closest races. A run should take under 15 minutes: pull, record
 Same as election night, every few hours: update the uncalled races and their counties, record calls and alerts,
 update the House count. When every Senate and governor race is called, set `mode post`, write a final log line
 and tell the owner the desk is final. The scheduled tasks can then be deleted.
+
+## The scheduled tasks
+
+| task (in the owner's Claude scheduled tasks) | when (ET) | does |
+| --- | --- | --- |
+| Election Desk 2026: daily editorial pass | 7:48 a.m. daily, Oct.–Nov. | the daily pass; on Nov. 3 also switches `mode night`; from Nov. 4 a results pass |
+| Election Desk 2026: election night | Nov. 3, 6:40–11:40 p.m. hourly | the results pass |
+| Election Desk 2026: during the count | Nov. 4–20, every 3 hours at :40 | the results pass; sets `mode post` and reports when every race is called |
+
+The runs act without asking for approval, in the cloud (no computer needed). They commit through `publish.sh`,
+which appends `$COMMIT_TRAILER` (attribution lines) to its commit messages when a run exports it. Once the desk is
+final the tasks can be deleted; a run that finds `mode post` and a final log line does nothing.
 
 ## If something is broken
 
