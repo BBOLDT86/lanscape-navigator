@@ -1,0 +1,53 @@
+{
+ "rule": "Per side in each race: (a) the ad with the most reported spending or airings when coverage names one; otherwise (b) the campaign's most recent general-election ad and the largest allied outside group's most recent ad, counting Senate Leadership Fund and One Nation as one group; (c) when that ad's wording was never published, the most recent one with published wording that states at least one of its claims. Party-committee ads go under the national Senate and House entries, except joint ads run with a candidate (the NRSC's for Sununu). State-specific super PAC ads go under their state.",
+ "exclude": {
+  "senate-f654f7c6": "WinSenate Maine ad; Maine's pick for the Democratic side's largest group is SMP's newer 'Larry - Gas.'",
+  "nc-s-7f3eb7e3": "older WinSenate ad (July 24); its newer 'Common - Whatley.' (Sept 16) has published wording",
+  "nc-s-c0a2523d": "SLF's newest NC ad (Sept 28) has no published wording; rule (c) picks its Aug 5 ad",
+  "ga-s-10fea28b": "older Ossoff ad (June 30); his Sept 2 ad has published wording",
+  "ga-s-482834fe": "SLF's newest GA ad (Oct 5) has no published wording; rule (c) picks its Sept 4 ad",
+  "me-s-cd958e61": "supplementary WinSenate ad added for its fact-check; SMP's Oct 8 ad is the rule-based pick",
+  "me-s-f57c2365": "spring fallback from before Jackson's nomination; SMP's Oct 8 ad replaces it",
+  "me-s-235fa629": "SLF's newest ME ad (Oct 9) has no published wording; rule (c) picks its July 25 ad",
+  "me-s-d292399c": "spring One Nation ad from before Jackson's nomination",
+  "nh-s-1f5465e3": "older Pappas ad (June 23, before the primary); his Aug 11 ad is newer",
+  "nh-s-a8f3b981": "SLF's newest NH ad (Oct 1) has no published wording; rule (c) picks One Nation's July 8 ad",
+  "ak-s-7a1ff3d0": "SLF's Sept 29 Alaska ad; its Oct 12 ad is newer, and neither has published wording",
+  "mi-s-4203970c": "SLF's Oct 5 Michigan ad; its Oct 12 ad is newer, and no SLF Michigan ad has published wording that states a claim (Bridge Michigan quotes only the phrases 'just like' and 'walk free' from an earlier spot)"
+ },
+ "move": {
+  "senate-1647a4c5": "AK-S"
+ },
+ "extra": [
+  {
+   "race": "MI-S",
+   "side": "R",
+   "sponsor": "Senate Leadership Fund",
+   "sponsor_type": "super PAC",
+   "title": "Abdul El-Sayed Is Funded By Radical Extremists",
+   "date": "2026-10-12",
+   "youtube_url": "https://www.youtube.com/watch?v=zSti8jssJT4",
+   "video_url": null,
+   "url_found_via": "Senate Leadership Fund press page (Oct 12), as recorded in money_national.json notes",
+   "transcript": null,
+   "transcript_completeness": null,
+   "transcript_source": null,
+   "tone_reported": "attack (per title and SLF release)",
+   "issues": [
+    "donors",
+    "extremism"
+   ],
+   "fact_checks": [
+    {
+     "claim": "Related claim by the Rogers campaign, not this ad: El-Sayed 'pledged support' to the Muslim Brotherhood",
+     "rating": "'No evidence' (no formal rating)",
+     "by": "Bridge Michigan (Sept 3, 2026)",
+     "url": "https://www.bridgemi.com/michigan-government/fact-check-no-evidence-abdul-el-sayed-pledged-support-to-muslim-brotherhood/"
+    }
+   ],
+   "central_claims": [],
+   "coverage_url": "https://senateleadershipfund.org/press-releases/",
+   "notes": "SLF's newest Michigan ad (released Oct 12). The release says El-Sayed took more than $1.2M from a donor network SLF links to radical Islamist groups; no script published. No fact check of the donor claim found."
+  }
+ ]
+}

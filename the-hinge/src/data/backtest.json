@@ -1,0 +1,5741 @@
+{
+ "source": "FiveThirtyEight pollster-ratings raw_polls.csv (polls of D-vs-R general elections, 1998-2022)",
+ "params": {
+  "tau": 14.0,
+  "part_w": 1.0,
+  "part_adj": 3.0,
+  "nmax": 5000.0,
+  "repeat_decay": 1.0
+ },
+ "best": {
+  "tau": 14.0,
+  "part_w": 1.0,
+  "part_adj": 3.0,
+  "nmax": 5000.0,
+  "repeat": 1.0,
+  "rmse": 6.119347880238218,
+  "rmse_within_cycle": 5.390513648895475,
+  "mae": 4.616242941755002,
+  "n": 669.0
+ },
+ "naive": {
+  "tau": 0.0,
+  "part_w": 1.0,
+  "part_adj": 0.0,
+  "nmax": 5000.0,
+  "repeat": 1.0,
+  "rmse": 6.135507163938163,
+  "rmse_within_cycle": 5.428890291983957,
+  "mae": 4.621310748545284,
+  "n": 669.0
+ },
+ "grid_top": [
+  {
+   "tau": 14,
+   "part_w": 1.0,
+   "part_adj": 3,
+   "nmax": 5000,
+   "repeat": 1.0,
+   "rmse": 6.119,
+   "rmse_within_cycle": 5.391,
+   "mae": 4.616,
+   "n": 669
+  },
+  {
+   "tau": 21,
+   "part_w": 1.0,
+   "part_adj": 3,
+   "nmax": 5000,
+   "repeat": 1.0,
+   "rmse": 6.119,
+   "rmse_within_cycle": 5.391,
+   "mae": 4.616,
+   "n": 669
+  },
+  {
+   "tau": 21,
+   "part_w": 1.0,
+   "part_adj": 3,
+   "nmax": 5000,
+   "repeat": 0.5,
+   "rmse": 6.101,
+   "rmse_within_cycle": 5.391,
+   "mae": 4.594,
+   "n": 669
+  },
+  {
+   "tau": 14,
+   "part_w": 1.0,
+   "part_adj": 4,
+   "nmax": 5000,
+   "repeat": 1.0,
+   "rmse": 6.127,
+   "rmse_within_cycle": 5.392,
+   "mae": 4.627,
+   "n": 669
+  },
+  {
+   "tau": 21,
+   "part_w": 1.0,
+   "part_adj": 2,
+   "nmax": 5000,
+   "repeat": 0.5,
+   "rmse": 6.096,
+   "rmse_within_cycle": 5.392,
+   "mae": 4.587,
+   "n": 669
+  },
+  {
+   "tau": 21,
+   "part_w": 1.0,
+   "part_adj": 2,
+   "nmax": 5000,
+   "repeat": 1.0,
+   "rmse": 6.114,
+   "rmse_within_cycle": 5.392,
+   "mae": 4.609,
+   "n": 669
+  },
+  {
+   "tau": 21,
+   "part_w": 1.0,
+   "part_adj": 4,
+   "nmax": 5000,
+   "repeat": 1.0,
+   "rmse": 6.127,
+   "rmse_within_cycle": 5.393,
+   "mae": 4.626,
+   "n": 669
+  },
+  {
+   "tau": 14,
+   "part_w": 1.0,
+   "part_adj": 2,
+   "nmax": 5000,
+   "repeat": 1.0,
+   "rmse": 6.115,
+   "rmse_within_cycle": 5.393,
+   "mae": 4.61,
+   "n": 669
+  },
+  {
+   "tau": 21,
+   "part_w": 1.0,
+   "part_adj": 4,
+   "nmax": 5000,
+   "repeat": 0.5,
+   "rmse": 6.109,
+   "rmse_within_cycle": 5.393,
+   "mae": 4.604,
+   "n": 669
+  },
+  {
+   "tau": 21,
+   "part_w": 0.5,
+   "part_adj": 3,
+   "nmax": 5000,
+   "repeat": 1.0,
+   "rmse": 6.124,
+   "rmse_within_cycle": 5.393,
+   "mae": 4.627,
+   "n": 669
+  },
+  {
+   "tau": 14,
+   "part_w": 0.5,
+   "part_adj": 3,
+   "nmax": 5000,
+   "repeat": 1.0,
+   "rmse": 6.125,
+   "rmse_within_cycle": 5.394,
+   "mae": 4.627,
+   "n": 669
+  },
+  {
+   "tau": 21,
+   "part_w": 0.5,
+   "part_adj": 2,
+   "nmax": 5000,
+   "repeat": 1.0,
+   "rmse": 6.12,
+   "rmse_within_cycle": 5.394,
+   "mae": 4.622,
+   "n": 669
+  },
+  {
+   "tau": 14,
+   "part_w": 1.0,
+   "part_adj": 3,
+   "nmax": 5000,
+   "repeat": 0.5,
+   "rmse": 6.106,
+   "rmse_within_cycle": 5.394,
+   "mae": 4.602,
+   "n": 669
+  },
+  {
+   "tau": 21,
+   "part_w": 0.5,
+   "part_adj": 3,
+   "nmax": 5000,
+   "repeat": 0.5,
+   "rmse": 6.107,
+   "rmse_within_cycle": 5.394,
+   "mae": 4.606,
+   "n": 669
+  },
+  {
+   "tau": 21,
+   "part_w": 0.5,
+   "part_adj": 4,
+   "nmax": 5000,
+   "repeat": 1.0,
+   "rmse": 6.131,
+   "rmse_within_cycle": 5.395,
+   "mae": 4.634,
+   "n": 669
+  }
+ ],
+ "cycles": [
+  {
+   "cycle": 1998,
+   "office": "Governor",
+   "bias": -4.12,
+   "rmse": 8.56,
+   "mae": 7.35,
+   "n": 28
+  },
+  {
+   "cycle": 1998,
+   "office": "Senate",
+   "bias": -2.81,
+   "rmse": 5.86,
+   "mae": 4.77,
+   "n": 25
+  },
+  {
+   "cycle": 2000,
+   "office": "Governor",
+   "bias": -1.17,
+   "rmse": 3.36,
+   "mae": 2.79,
+   "n": 11
+  },
+  {
+   "cycle": 2000,
+   "office": "President",
+   "bias": -0.55,
+   "rmse": 4.8,
+   "mae": 3.78,
+   "n": 50
+  },
+  {
+   "cycle": 2000,
+   "office": "Senate",
+   "bias": -2.43,
+   "rmse": 5.99,
+   "mae": 4.08,
+   "n": 30
+  },
+  {
+   "cycle": 2002,
+   "office": "Governor",
+   "bias": 2.98,
+   "rmse": 6.07,
+   "mae": 4.96,
+   "n": 36
+  },
+  {
+   "cycle": 2002,
+   "office": "Senate",
+   "bias": 1.37,
+   "rmse": 7.79,
+   "mae": 5.28,
+   "n": 27
+  },
+  {
+   "cycle": 2004,
+   "office": "Governor",
+   "bias": -0.01,
+   "rmse": 2.11,
+   "mae": 1.63,
+   "n": 9
+  },
+  {
+   "cycle": 2004,
+   "office": "President",
+   "bias": 0.87,
+   "rmse": 3.51,
+   "mae": 2.41,
+   "n": 45
+  },
+  {
+   "cycle": 2004,
+   "office": "Senate",
+   "bias": 1.94,
+   "rmse": 6.31,
+   "mae": 4.47,
+   "n": 26
+  },
+  {
+   "cycle": 2006,
+   "office": "Governor",
+   "bias": 0.56,
+   "rmse": 4.92,
+   "mae": 3.9,
+   "n": 32
+  },
+  {
+   "cycle": 2006,
+   "office": "Senate",
+   "bias": -2.73,
+   "rmse": 5.59,
+   "mae": 3.67,
+   "n": 27
+  },
+  {
+   "cycle": 2008,
+   "office": "Governor",
+   "bias": -1.48,
+   "rmse": 3.1,
+   "mae": 2.5,
+   "n": 9
+  },
+  {
+   "cycle": 2008,
+   "office": "President",
+   "bias": -0.62,
+   "rmse": 5.64,
+   "mae": 3.52,
+   "n": 55
+  },
+  {
+   "cycle": 2008,
+   "office": "Senate",
+   "bias": -0.31,
+   "rmse": 5.84,
+   "mae": 4.54,
+   "n": 34
+  },
+  {
+   "cycle": 2010,
+   "office": "Governor",
+   "bias": 0.49,
+   "rmse": 5.17,
+   "mae": 3.86,
+   "n": 35
+  },
+  {
+   "cycle": 2010,
+   "office": "Senate",
+   "bias": -1.27,
+   "rmse": 6.34,
+   "mae": 4.31,
+   "n": 34
+  },
+  {
+   "cycle": 2012,
+   "office": "Governor",
+   "bias": -2.53,
+   "rmse": 3.56,
+   "mae": 2.82,
+   "n": 9
+  },
+  {
+   "cycle": 2012,
+   "office": "President",
+   "bias": -1.69,
+   "rmse": 4.86,
+   "mae": 3.97,
+   "n": 41
+  },
+  {
+   "cycle": 2012,
+   "office": "Senate",
+   "bias": -3.76,
+   "rmse": 4.77,
+   "mae": 4.12,
+   "n": 28
+  },
+  {
+   "cycle": 2014,
+   "office": "Governor",
+   "bias": 3.7,
+   "rmse": 6.78,
+   "mae": 4.73,
+   "n": 35
+  },
+  {
+   "cycle": 2014,
+   "office": "Senate",
+   "bias": 3.0,
+   "rmse": 5.73,
+   "mae": 4.36,
+   "n": 34
+  },
+  {
+   "cycle": 2016,
+   "office": "Governor",
+   "bias": 4.22,
+   "rmse": 7.94,
+   "mae": 6.41,
+   "n": 12
+  },
+  {
+   "cycle": 2016,
+   "office": "President",
+   "bias": 3.74,
+   "rmse": 6.6,
+   "mae": 5.41,
+   "n": 55
+  },
+  {
+   "cycle": 2016,
+   "office": "Senate",
+   "bias": 5.58,
+   "rmse": 7.53,
+   "mae": 6.1,
+   "n": 33
+  },
+  {
+   "cycle": 2018,
+   "office": "Governor",
+   "bias": -0.16,
+   "rmse": 4.81,
+   "mae": 4.18,
+   "n": 32
+  },
+  {
+   "cycle": 2018,
+   "office": "Senate",
+   "bias": 0.35,
+   "rmse": 4.57,
+   "mae": 3.61,
+   "n": 27
+  },
+  {
+   "cycle": 2020,
+   "office": "Governor",
+   "bias": 8.83,
+   "rmse": 9.62,
+   "mae": 8.83,
+   "n": 8
+  },
+  {
+   "cycle": 2020,
+   "office": "President",
+   "bias": 4.54,
+   "rmse": 6.02,
+   "mae": 5.06,
+   "n": 55
+  },
+  {
+   "cycle": 2020,
+   "office": "Senate",
+   "bias": 6.38,
+   "rmse": 7.68,
+   "mae": 6.42,
+   "n": 29
+  },
+  {
+   "cycle": 2022,
+   "office": "Governor",
+   "bias": 1.49,
+   "rmse": 4.89,
+   "mae": 3.82,
+   "n": 31
+  },
+  {
+   "cycle": 2022,
+   "office": "Senate",
+   "bias": 1.01,
+   "rmse": 6.34,
+   "mae": 4.88,
+   "n": 28
+  }
+ ],
+ "cycles_sengov": [
+  {
+   "cycle": 1998,
+   "bias": -3.51,
+   "rmse": 7.41,
+   "n": 53
+  },
+  {
+   "cycle": 2000,
+   "bias": -2.09,
+   "rmse": 5.41,
+   "n": 41
+  },
+  {
+   "cycle": 2002,
+   "bias": 2.29,
+   "rmse": 6.86,
+   "n": 63
+  },
+  {
+   "cycle": 2004,
+   "bias": 1.44,
+   "rmse": 5.54,
+   "n": 35
+  },
+  {
+   "cycle": 2006,
+   "bias": -0.94,
+   "rmse": 5.24,
+   "n": 59
+  },
+  {
+   "cycle": 2008,
+   "bias": -0.56,
+   "rmse": 5.38,
+   "n": 43
+  },
+  {
+   "cycle": 2010,
+   "bias": -0.38,
+   "rmse": 5.78,
+   "n": 69
+  },
+  {
+   "cycle": 2012,
+   "bias": -3.46,
+   "rmse": 4.51,
+   "n": 37
+  },
+  {
+   "cycle": 2014,
+   "bias": 3.36,
+   "rmse": 6.29,
+   "n": 69
+  },
+  {
+   "cycle": 2016,
+   "bias": 5.22,
+   "rmse": 7.64,
+   "n": 45
+  },
+  {
+   "cycle": 2018,
+   "bias": 0.07,
+   "rmse": 4.7,
+   "n": 59
+  },
+  {
+   "cycle": 2020,
+   "bias": 6.91,
+   "rmse": 8.14,
+   "n": 37
+  },
+  {
+   "cycle": 2022,
+   "bias": 1.26,
+   "rmse": 5.63,
+   "n": 59
+  }
+ ],
+ "sigma_sys": 3.14,
+ "sigma_resid": 5.39,
+ "resid_by_polls": [
+  {
+   "polls": "1",
+   "sd": 7.51,
+   "n": 102
+  },
+  {
+   "polls": "2-3",
+   "sd": 5.96,
+   "n": 164
+  },
+  {
+   "polls": "4-6",
+   "sd": 4.64,
+   "n": 181
+  },
+  {
+   "polls": "7+",
+   "sd": 4.1,
+   "n": 222
+  }
+ ],
+ "midterm_bias": {
+  "1998": -3.51,
+  "2002": 2.29,
+  "2006": -0.94,
+  "2010": -0.38,
+  "2014": 3.36,
+  "2018": 0.07,
+  "2022": 1.26
+ },
+ "pres_year_bias": {
+  "2000": -2.09,
+  "2004": 1.44,
+  "2008": -0.56,
+  "2012": -3.46,
+  "2016": 5.22,
+  "2020": 6.91
+ },
+ "horizon": {
+  "n": 601,
+  "rmse_early": 7.519606341527244,
+  "rmse_final": 5.678335642295057,
+  "move_sd": 5.4203476912412665,
+  "move_mean": 0.07652123975619629,
+  "bias_early": 0.3972423943005261,
+  "bias_final": 0.4737636340567224,
+  "move_cycle_sd": 1.3853940616333187,
+  "move_by_cycle": {
+   "1998": 2.45,
+   "2000": -1.97,
+   "2002": -0.34,
+   "2004": -0.97,
+   "2006": 1.74,
+   "2008": 0.55,
+   "2010": 0.51,
+   "2012": 0.54,
+   "2014": -0.48,
+   "2016": -0.0,
+   "2018": 0.36,
+   "2020": 1.21,
+   "2022": -2.54
+  }
+ },
+ "k_shrink": 6.3,
+ "cycles_competitive": [
+  {
+   "cycle": 1998,
+   "bias": -3.13,
+   "rmse": 7.24,
+   "n": 21
+  },
+  {
+   "cycle": 2000,
+   "bias": -0.74,
+   "rmse": 3.93,
+   "n": 18
+  },
+  {
+   "cycle": 2002,
+   "bias": 2.85,
+   "rmse": 5.02,
+   "n": 32
+  },
+  {
+   "cycle": 2004,
+   "bias": 0.63,
+   "rmse": 3.25,
+   "n": 13
+  },
+  {
+   "cycle": 2006,
+   "bias": -0.7,
+   "rmse": 4.51,
+   "n": 20
+  },
+  {
+   "cycle": 2008,
+   "bias": 0.76,
+   "rmse": 3.86,
+   "n": 10
+  },
+  {
+   "cycle": 2010,
+   "bias": -1.02,
+   "rmse": 4.73,
+   "n": 30
+  },
+  {
+   "cycle": 2012,
+   "bias": -3.37,
+   "rmse": 4.1,
+   "n": 20
+  },
+  {
+   "cycle": 2014,
+   "bias": 3.0,
+   "rmse": 4.72,
+   "n": 28
+  },
+  {
+   "cycle": 2016,
+   "bias": 3.14,
+   "rmse": 5.47,
+   "n": 19
+  },
+  {
+   "cycle": 2018,
+   "bias": 1.37,
+   "rmse": 4.3,
+   "n": 32
+  },
+  {
+   "cycle": 2020,
+   "bias": 5.96,
+   "rmse": 6.88,
+   "n": 19
+  },
+  {
+   "cycle": 2022,
+   "bias": -1.33,
+   "rmse": 4.57,
+   "n": 25
+  }
+ ],
+ "pres_competitive": [
+  {
+   "cycle": 2000,
+   "bias": -1.2,
+   "n": 27
+  },
+  {
+   "cycle": 2004,
+   "bias": 0.64,
+   "n": 25
+  },
+  {
+   "cycle": 2008,
+   "bias": 0.53,
+   "n": 20
+  },
+  {
+   "cycle": 2012,
+   "bias": -1.79,
+   "n": 22
+  },
+  {
+   "cycle": 2016,
+   "bias": 3.7,
+   "n": 25
+  },
+  {
+   "cycle": 2020,
+   "bias": 4.24,
+   "n": 19
+  }
+ ],
+ "fav_outperf": [
+  {
+   "band": "0-3",
+   "mean": -0.08,
+   "std": 4.77,
+   "size": 105
+  },
+  {
+   "band": "3-6",
+   "mean": 1.07,
+   "std": 5.06,
+   "size": 98
+  },
+  {
+   "band": "6-10",
+   "mean": 0.5,
+   "std": 5.04,
+   "size": 84
+  },
+  {
+   "band": "10-20",
+   "mean": 1.11,
+   "std": 5.51,
+   "size": 177
+  },
+  {
+   "band": "20+",
+   "mean": 1.01,
+   "std": 7.73,
+   "size": 205
+  }
+ ],
+ "state_bias": [
+  {
+   "state": "AK",
+   "raw": 3.11,
+   "n": 11,
+   "raw_err": 4.77,
+   "shrunk": 1.97
+  },
+  {
+   "state": "AL",
+   "raw": -1.52,
+   "n": 12,
+   "raw_err": -0.38,
+   "shrunk": -1.0
+  },
+  {
+   "state": "AR",
+   "raw": 1.78,
+   "n": 14,
+   "raw_err": 2.63,
+   "shrunk": 1.23
+  },
+  {
+   "state": "AZ",
+   "raw": 0.62,
+   "n": 15,
+   "raw_err": 1.11,
+   "shrunk": 0.44
+  },
+  {
+   "state": "CA",
+   "raw": -2.74,
+   "n": 15,
+   "raw_err": -3.02,
+   "shrunk": -1.93
+  },
+  {
+   "state": "CO",
+   "raw": -2.58,
+   "n": 16,
+   "raw_err": -1.45,
+   "shrunk": -1.85
+  },
+  {
+   "state": "CT",
+   "raw": 0.47,
+   "n": 15,
+   "raw_err": 0.35,
+   "shrunk": 0.33
+  },
+  {
+   "state": "DE",
+   "raw": -2.93,
+   "n": 8,
+   "raw_err": -2.68,
+   "shrunk": -1.63
+  },
+  {
+   "state": "FL",
+   "raw": 2.24,
+   "n": 16,
+   "raw_err": 2.22,
+   "shrunk": 1.6
+  },
+  {
+   "state": "GA",
+   "raw": -0.06,
+   "n": 20,
+   "raw_err": 1.58,
+   "shrunk": -0.04
+  },
+  {
+   "state": "HI",
+   "raw": -9.49,
+   "n": 9,
+   "raw_err": -9.0,
+   "shrunk": -5.57
+  },
+  {
+   "state": "IA",
+   "raw": -0.18,
+   "n": 16,
+   "raw_err": 0.96,
+   "shrunk": -0.13
+  },
+  {
+   "state": "ID",
+   "raw": 3.5,
+   "n": 10,
+   "raw_err": 4.93,
+   "shrunk": 2.14
+  },
+  {
+   "state": "IL",
+   "raw": -2.72,
+   "n": 16,
+   "raw_err": -1.59,
+   "shrunk": -1.95
+  },
+  {
+   "state": "IN",
+   "raw": 0.21,
+   "n": 14,
+   "raw_err": 0.64,
+   "shrunk": 0.14
+  },
+  {
+   "state": "KS",
+   "raw": 0.96,
+   "n": 14,
+   "raw_err": 1.85,
+   "shrunk": 0.66
+  },
+  {
+   "state": "KY",
+   "raw": 0.08,
+   "n": 8,
+   "raw_err": 1.93,
+   "shrunk": 0.05
+  },
+  {
+   "state": "LA",
+   "raw": -1.58,
+   "n": 4,
+   "raw_err": 1.0,
+   "shrunk": -0.61
+  },
+  {
+   "state": "MA",
+   "raw": -2.19,
+   "n": 15,
+   "raw_err": -1.85,
+   "shrunk": -1.54
+  },
+  {
+   "state": "MD",
+   "raw": -0.25,
+   "n": 13,
+   "raw_err": -0.37,
+   "shrunk": -0.17
+  },
+  {
+   "state": "ME",
+   "raw": 2.14,
+   "n": 15,
+   "raw_err": 2.66,
+   "shrunk": 1.5
+  },
+  {
+   "state": "MI",
+   "raw": -0.94,
+   "n": 15,
+   "raw_err": -0.43,
+   "shrunk": -0.66
+  },
+  {
+   "state": "MN",
+   "raw": 1.0,
+   "n": 16,
+   "raw_err": 1.49,
+   "shrunk": 0.72
+  },
+  {
+   "state": "MO",
+   "raw": -0.44,
+   "n": 16,
+   "raw_err": 0.02,
+   "shrunk": -0.32
+  },
+  {
+   "state": "MS",
+   "raw": 0.28,
+   "n": 5,
+   "raw_err": 2.25,
+   "shrunk": 0.12
+  },
+  {
+   "state": "MT",
+   "raw": -0.37,
+   "n": 14,
+   "raw_err": 0.56,
+   "shrunk": -0.26
+  },
+  {
+   "state": "NC",
+   "raw": -0.0,
+   "n": 15,
+   "raw_err": 1.56,
+   "shrunk": -0.0
+  },
+  {
+   "state": "ND",
+   "raw": 4.93,
+   "n": 10,
+   "raw_err": 5.12,
+   "shrunk": 3.01
+  },
+  {
+   "state": "NE",
+   "raw": -0.51,
+   "n": 10,
+   "raw_err": 0.35,
+   "shrunk": -0.31
+  },
+  {
+   "state": "NH",
+   "raw": 0.47,
+   "n": 21,
+   "raw_err": 1.86,
+   "shrunk": 0.36
+  },
+  {
+   "state": "NJ",
+   "raw": -0.74,
+   "n": 8,
+   "raw_err": -0.05,
+   "shrunk": -0.41
+  },
+  {
+   "state": "NM",
+   "raw": -2.93,
+   "n": 14,
+   "raw_err": -2.31,
+   "shrunk": -2.02
+  },
+  {
+   "state": "NV",
+   "raw": 0.76,
+   "n": 16,
+   "raw_err": 0.75,
+   "shrunk": 0.54
+  },
+  {
+   "state": "NY",
+   "raw": -2.11,
+   "n": 17,
+   "raw_err": -2.15,
+   "shrunk": -1.54
+  },
+  {
+   "state": "OH",
+   "raw": 1.33,
+   "n": 16,
+   "raw_err": 1.32,
+   "shrunk": 0.95
+  },
+  {
+   "state": "OK",
+   "raw": 4.34,
+   "n": 16,
+   "raw_err": 6.01,
+   "shrunk": 3.11
+  },
+  {
+   "state": "OR",
+   "raw": -1.19,
+   "n": 13,
+   "raw_err": 0.51,
+   "shrunk": -0.8
+  },
+  {
+   "state": "PA",
+   "raw": -3.18,
+   "n": 16,
+   "raw_err": -3.19,
+   "shrunk": -2.27
+  },
+  {
+   "state": "RI",
+   "raw": -1.43,
+   "n": 13,
+   "raw_err": -1.46,
+   "shrunk": -0.96
+  },
+  {
+   "state": "SC",
+   "raw": -2.59,
+   "n": 15,
+   "raw_err": -1.32,
+   "shrunk": -1.82
+  },
+  {
+   "state": "SD",
+   "raw": 5.2,
+   "n": 14,
+   "raw_err": 6.77,
+   "shrunk": 3.58
+  },
+  {
+   "state": "TN",
+   "raw": 3.66,
+   "n": 14,
+   "raw_err": 4.46,
+   "shrunk": 2.52
+  },
+  {
+   "state": "TX",
+   "raw": -0.63,
+   "n": 15,
+   "raw_err": -0.12,
+   "shrunk": -0.45
+  },
+  {
+   "state": "UT",
+   "raw": 1.5,
+   "n": 13,
+   "raw_err": 2.03,
+   "shrunk": 1.01
+  },
+  {
+   "state": "VA",
+   "raw": 0.25,
+   "n": 6,
+   "raw_err": 0.79,
+   "shrunk": 0.12
+  },
+  {
+   "state": "VT",
+   "raw": 2.36,
+   "n": 11,
+   "raw_err": 3.61,
+   "shrunk": 1.5
+  },
+  {
+   "state": "WA",
+   "raw": -2.42,
+   "n": 14,
+   "raw_err": -2.06,
+   "shrunk": -1.66
+  },
+  {
+   "state": "WI",
+   "raw": -0.95,
+   "n": 17,
+   "raw_err": -1.17,
+   "shrunk": -0.7
+  },
+  {
+   "state": "WV",
+   "raw": -0.52,
+   "n": 12,
+   "raw_err": 0.53,
+   "shrunk": -0.34
+  },
+  {
+   "state": "WY",
+   "raw": 5.21,
+   "n": 11,
+   "raw_err": 6.52,
+   "shrunk": 3.31
+  }
+ ],
+ "state_bias_all": [
+  {
+   "state": "AK",
+   "raw": 3.41,
+   "n": 15,
+   "shrunk": 2.39
+  },
+  {
+   "state": "AL",
+   "raw": -1.2,
+   "n": 17,
+   "shrunk": -0.88
+  },
+  {
+   "state": "AR",
+   "raw": 2.36,
+   "n": 19,
+   "shrunk": 1.77
+  },
+  {
+   "state": "AZ",
+   "raw": 0.4,
+   "n": 21,
+   "shrunk": 0.31
+  },
+  {
+   "state": "CA",
+   "raw": -3.17,
+   "n": 21,
+   "shrunk": -2.43
+  },
+  {
+   "state": "CO",
+   "raw": -2.55,
+   "n": 22,
+   "shrunk": -1.98
+  },
+  {
+   "state": "CT",
+   "raw": -0.33,
+   "n": 20,
+   "shrunk": -0.25
+  },
+  {
+   "state": "DC",
+   "raw": -10.95,
+   "n": 3,
+   "shrunk": -3.51
+  },
+  {
+   "state": "DE",
+   "raw": -2.77,
+   "n": 12,
+   "shrunk": -1.81
+  },
+  {
+   "state": "FL",
+   "raw": 1.85,
+   "n": 22,
+   "shrunk": 1.44
+  },
+  {
+   "state": "GA",
+   "raw": 0.09,
+   "n": 26,
+   "shrunk": 0.07
+  },
+  {
+   "state": "HI",
+   "raw": -9.76,
+   "n": 15,
+   "shrunk": -6.86
+  },
+  {
+   "state": "IA",
+   "raw": 0.13,
+   "n": 22,
+   "shrunk": 0.1
+  },
+  {
+   "state": "ID",
+   "raw": 3.97,
+   "n": 14,
+   "shrunk": 2.73
+  },
+  {
+   "state": "IL",
+   "raw": -2.84,
+   "n": 22,
+   "shrunk": -2.21
+  },
+  {
+   "state": "IN",
+   "raw": 0.12,
+   "n": 20,
+   "shrunk": 0.09
+  },
+  {
+   "state": "KS",
+   "raw": 0.73,
+   "n": 19,
+   "shrunk": 0.55
+  },
+  {
+   "state": "KY",
+   "raw": 1.41,
+   "n": 13,
+   "shrunk": 0.95
+  },
+  {
+   "state": "LA",
+   "raw": -0.58,
+   "n": 9,
+   "shrunk": -0.34
+  },
+  {
+   "state": "M1",
+   "raw": -5.44,
+   "n": 5,
+   "shrunk": -2.4
+  },
+  {
+   "state": "M2",
+   "raw": 3.53,
+   "n": 5,
+   "shrunk": 1.56
+  },
+  {
+   "state": "MA",
+   "raw": -2.43,
+   "n": 20,
+   "shrunk": -1.85
+  },
+  {
+   "state": "MD",
+   "raw": -0.77,
+   "n": 19,
+   "shrunk": -0.58
+  },
+  {
+   "state": "ME",
+   "raw": 1.27,
+   "n": 21,
+   "shrunk": 0.98
+  },
+  {
+   "state": "MI",
+   "raw": -0.97,
+   "n": 21,
+   "shrunk": -0.75
+  },
+  {
+   "state": "MN",
+   "raw": 0.96,
+   "n": 22,
+   "shrunk": 0.74
+  },
+  {
+   "state": "MO",
+   "raw": 0.28,
+   "n": 22,
+   "shrunk": 0.22
+  },
+  {
+   "state": "MS",
+   "raw": 0.63,
+   "n": 9,
+   "shrunk": 0.37
+  },
+  {
+   "state": "MT",
+   "raw": 0.76,
+   "n": 20,
+   "shrunk": 0.58
+  },
+  {
+   "state": "N2",
+   "raw": -3.44,
+   "n": 4,
+   "shrunk": -1.33
+  },
+  {
+   "state": "NC",
+   "raw": 0.52,
+   "n": 21,
+   "shrunk": 0.4
+  },
+  {
+   "state": "ND",
+   "raw": 6.03,
+   "n": 16,
+   "shrunk": 4.32
+  },
+  {
+   "state": "NE",
+   "raw": 1.08,
+   "n": 16,
+   "shrunk": 0.77
+  },
+  {
+   "state": "NH",
+   "raw": 0.25,
+   "n": 27,
+   "shrunk": 0.2
+  },
+  {
+   "state": "NJ",
+   "raw": -1.02,
+   "n": 14,
+   "shrunk": -0.7
+  },
+  {
+   "state": "NM",
+   "raw": -2.66,
+   "n": 20,
+   "shrunk": -2.02
+  },
+  {
+   "state": "NV",
+   "raw": -0.42,
+   "n": 22,
+   "shrunk": -0.32
+  },
+  {
+   "state": "NY",
+   "raw": -2.37,
+   "n": 23,
+   "shrunk": -1.86
+  },
+  {
+   "state": "OH",
+   "raw": 1.13,
+   "n": 22,
+   "shrunk": 0.88
+  },
+  {
+   "state": "OK",
+   "raw": 4.23,
+   "n": 22,
+   "shrunk": 3.28
+  },
+  {
+   "state": "OR",
+   "raw": -1.24,
+   "n": 19,
+   "shrunk": -0.93
+  },
+  {
+   "state": "PA",
+   "raw": -2.53,
+   "n": 22,
+   "shrunk": -1.96
+  },
+  {
+   "state": "RI",
+   "raw": -2.59,
+   "n": 19,
+   "shrunk": -1.94
+  },
+  {
+   "state": "SC",
+   "raw": -1.7,
+   "n": 20,
+   "shrunk": -1.29
+  },
+  {
+   "state": "SD",
+   "raw": 4.98,
+   "n": 20,
+   "shrunk": 3.78
+  },
+  {
+   "state": "TN",
+   "raw": 4.36,
+   "n": 20,
+   "shrunk": 3.31
+  },
+  {
+   "state": "TX",
+   "raw": -0.64,
+   "n": 21,
+   "shrunk": -0.49
+  },
+  {
+   "state": "US",
+   "raw": -1.22,
+   "n": 6,
+   "shrunk": -0.59
+  },
+  {
+   "state": "UT",
+   "raw": 2.36,
+   "n": 19,
+   "shrunk": 1.77
+  },
+  {
+   "state": "VA",
+   "raw": 0.12,
+   "n": 12,
+   "shrunk": 0.08
+  },
+  {
+   "state": "VT",
+   "raw": 1.08,
+   "n": 15,
+   "shrunk": 0.76
+  },
+  {
+   "state": "WA",
+   "raw": -2.09,
+   "n": 20,
+   "shrunk": -1.59
+  },
+  {
+   "state": "WI",
+   "raw": -0.83,
+   "n": 23,
+   "shrunk": -0.65
+  },
+  {
+   "state": "WV",
+   "raw": 1.54,
+   "n": 17,
+   "shrunk": 1.12
+  },
+  {
+   "state": "WY",
+   "raw": 5.14,
+   "n": 14,
+   "shrunk": 3.54
+  }
+ ],
+ "partisan": [
+  {
+   "part": "D",
+   "mean": 2.87,
+   "std": 4.01,
+   "size": 697
+  },
+  {
+   "part": "R",
+   "mean": -3.64,
+   "std": 4.52,
+   "size": 506
+  }
+ ],
+ "races": [
+  {
+   "state": "AK",
+   "cycle": 2000,
+   "office": "President",
+   "d": "Al Gore",
+   "r": "George W. Bush",
+   "avg": -23.0,
+   "actual": -30.95,
+   "err": 7.95,
+   "npolls": 1
+  },
+  {
+   "state": "AK",
+   "cycle": 2002,
+   "office": "Governor",
+   "d": "Fran Ulmer",
+   "r": "Frank Murkowski",
+   "avg": -13.0,
+   "actual": -15.15,
+   "err": 2.15,
+   "npolls": 1
+  },
+  {
+   "state": "AK",
+   "cycle": 2004,
+   "office": "Senate",
+   "d": "Tony Knowles",
+   "r": "Lisa Murkowski",
+   "avg": -0.5,
+   "actual": -3.03,
+   "err": 2.54,
+   "npolls": 3
+  },
+  {
+   "state": "AK",
+   "cycle": 2006,
+   "office": "Governor",
+   "d": "Tony Knowles",
+   "r": "Sarah Palin",
+   "avg": -3.22,
+   "actual": -7.36,
+   "err": 4.14,
+   "npolls": 5
+  },
+  {
+   "state": "AK",
+   "cycle": 2008,
+   "office": "President",
+   "d": "Barack Obama",
+   "r": "John McCain",
+   "avg": -12.39,
+   "actual": -21.54,
+   "err": 9.15,
+   "npolls": 6
+  },
+  {
+   "state": "AK",
+   "cycle": 2008,
+   "office": "Senate",
+   "d": "Mark Begich",
+   "r": "Ted Stevens",
+   "avg": 5.56,
+   "actual": 1.24,
+   "err": 4.32,
+   "npolls": 4
+  },
+  {
+   "state": "AK",
+   "cycle": 2010,
+   "office": "Governor",
+   "d": "Ethan Berkowitz",
+   "r": "Sean R. Parnell",
+   "avg": -13.3,
+   "actual": -21.39,
+   "err": 8.09,
+   "npolls": 5
+  },
+  {
+   "state": "AK",
+   "cycle": 2010,
+   "office": "Senate",
+   "d": "Scott T. McAdams",
+   "r": "Joe Miller",
+   "avg": -4.82,
+   "actual": -12.05,
+   "err": 7.24,
+   "npolls": 9
+  },
+  {
+   "state": "AK",
+   "cycle": 2014,
+   "office": "Senate",
+   "d": "Mark Begich",
+   "r": "Dan Sullivan",
+   "avg": -0.77,
+   "actual": -2.13,
+   "err": 1.36,
+   "npolls": 7
+  },
+  {
+   "state": "AK",
+   "cycle": 2016,
+   "office": "President",
+   "d": "Hillary Rodham Clinton",
+   "r": "Donald Trump",
+   "avg": -6.72,
+   "actual": -14.73,
+   "err": 8.01,
+   "npolls": 5
+  },
+  {
+   "state": "AK",
+   "cycle": 2016,
+   "office": "Senate",
+   "d": "Ray Metcalfe",
+   "r": "Lisa Murkowski",
+   "avg": -23.37,
+   "actual": -32.73,
+   "err": 9.37,
+   "npolls": 2
+  },
+  {
+   "state": "AK",
+   "cycle": 2018,
+   "office": "Governor",
+   "d": "Mark Begich",
+   "r": "Mike Dunleavy",
+   "avg": -1.86,
+   "actual": -7.03,
+   "err": 5.16,
+   "npolls": 2
+  },
+  {
+   "state": "AK",
+   "cycle": 2020,
+   "office": "President",
+   "d": "Joe Biden",
+   "r": "Donald Trump",
+   "avg": -8.76,
+   "actual": -10.06,
+   "err": 1.3,
+   "npolls": 3
+  },
+  {
+   "state": "AK",
+   "cycle": 2020,
+   "office": "Senate",
+   "d": "Al Gross",
+   "r": "Dan Sullivan",
+   "avg": -4.63,
+   "actual": -12.7,
+   "err": 8.07,
+   "npolls": 3
+  },
+  {
+   "state": "AK",
+   "cycle": 2022,
+   "office": "Governor",
+   "d": "Les Gara",
+   "r": "Mike Dunleavy",
+   "avg": -26.0,
+   "actual": -26.08,
+   "err": 0.08,
+   "npolls": 1
+  },
+  {
+   "state": "AZ",
+   "cycle": 1998,
+   "office": "Governor",
+   "d": "Paul Johnson",
+   "r": "Jane Hull",
+   "avg": -18.53,
+   "actual": -25.42,
+   "err": 6.88,
+   "npolls": 3
+  },
+  {
+   "state": "AZ",
+   "cycle": 1998,
+   "office": "Senate",
+   "d": "Edward Ranger",
+   "r": "John McCain",
+   "avg": -40.66,
+   "actual": -41.58,
+   "err": 0.92,
+   "npolls": 3
+  },
+  {
+   "state": "AZ",
+   "cycle": 2000,
+   "office": "President",
+   "d": "Al Gore",
+   "r": "George W. Bush",
+   "avg": -11.3,
+   "actual": -6.29,
+   "err": -5.01,
+   "npolls": 5
+  },
+  {
+   "state": "AZ",
+   "cycle": 2002,
+   "office": "Governor",
+   "d": "Janet Napolitano",
+   "r": "Matt Salmon",
+   "avg": 5.01,
+   "actual": 0.96,
+   "err": 4.05,
+   "npolls": 7
+  },
+  {
+   "state": "AZ",
+   "cycle": 2004,
+   "office": "President",
+   "d": "John Kerry",
+   "r": "George W. Bush",
+   "avg": -9.32,
+   "actual": -10.47,
+   "err": 1.16,
+   "npolls": 5
+  },
+  {
+   "state": "AZ",
+   "cycle": 2006,
+   "office": "Governor",
+   "d": "Janet Napolitano",
+   "r": "Len Munsil",
+   "avg": 22.2,
+   "actual": 27.14,
+   "err": -4.95,
+   "npolls": 5
+  },
+  {
+   "state": "AZ",
+   "cycle": 2006,
+   "office": "Senate",
+   "d": "Jim Pederson",
+   "r": "Jon Kyl",
+   "avg": -7.38,
+   "actual": -9.84,
+   "err": 2.47,
+   "npolls": 6
+  },
+  {
+   "state": "AZ",
+   "cycle": 2008,
+   "office": "President",
+   "d": "Barack Obama",
+   "r": "John McCain",
+   "avg": -4.6,
+   "actual": -8.52,
+   "err": 3.92,
+   "npolls": 9
+  },
+  {
+   "state": "AZ",
+   "cycle": 2010,
+   "office": "Governor",
+   "d": "Samuel Pearson Goddard",
+   "r": "Janice Kay Brewer",
+   "avg": -11.72,
+   "actual": -11.86,
+   "err": 0.14,
+   "npolls": 3
+  },
+  {
+   "state": "AZ",
+   "cycle": 2010,
+   "office": "Senate",
+   "d": "Rodney Britz Glassman",
+   "r": "John McCain",
+   "avg": -19.11,
+   "actual": -24.21,
+   "err": 5.1,
+   "npolls": 2
+  },
+  {
+   "state": "AZ",
+   "cycle": 2012,
+   "office": "President",
+   "d": "Barack Obama",
+   "r": "Mitt Romney",
+   "avg": -7.52,
+   "actual": -9.06,
+   "err": 1.54,
+   "npolls": 3
+  },
+  {
+   "state": "AZ",
+   "cycle": 2012,
+   "office": "Senate",
+   "d": "Richard Carmona",
+   "r": "Jeff Flake",
+   "avg": -5.0,
+   "actual": -3.03,
+   "err": -1.97,
+   "npolls": 4
+  },
+  {
+   "state": "AZ",
+   "cycle": 2014,
+   "office": "Governor",
+   "d": "Fred Duval",
+   "r": "Doug Ducey",
+   "avg": -6.85,
+   "actual": -11.83,
+   "err": 4.98,
+   "npolls": 4
+  },
+  {
+   "state": "AZ",
+   "cycle": 2016,
+   "office": "President",
+   "d": "Hillary Rodham Clinton",
+   "r": "Donald Trump",
+   "avg": -1.91,
+   "actual": -3.55,
+   "err": 1.64,
+   "npolls": 18
+  },
+  {
+   "state": "AZ",
+   "cycle": 2016,
+   "office": "Senate",
+   "d": "Ann Kirkpatrick",
+   "r": "John McCain",
+   "avg": -8.73,
+   "actual": -12.96,
+   "err": 4.23,
+   "npolls": 12
+  },
+  {
+   "state": "AZ",
+   "cycle": 2018,
+   "office": "Governor",
+   "d": "David Garcia",
+   "r": "Doug Ducey",
+   "avg": -15.3,
+   "actual": -14.16,
+   "err": -1.13,
+   "npolls": 14
+  },
+  {
+   "state": "AZ",
+   "cycle": 2018,
+   "office": "Senate",
+   "d": "Kyrsten Sinema",
+   "r": "Martha McSally",
+   "avg": 0.78,
+   "actual": 2.34,
+   "err": -1.56,
+   "npolls": 19
+  },
+  {
+   "state": "AZ",
+   "cycle": 2020,
+   "office": "President",
+   "d": "Joe Biden",
+   "r": "Donald Trump",
+   "avg": 2.76,
+   "actual": 0.31,
+   "err": 2.45,
+   "npolls": 31
+  },
+  {
+   "state": "AZ",
+   "cycle": 2020,
+   "office": "Senate",
+   "d": "Mark Kelly",
+   "r": "Martha McSally",
+   "avg": 6.08,
+   "actual": 2.35,
+   "err": 3.73,
+   "npolls": 27
+  },
+  {
+   "state": "AZ",
+   "cycle": 2022,
+   "office": "Governor",
+   "d": "Katie Hobbs",
+   "r": "Kari Lake",
+   "avg": -2.59,
+   "actual": 0.67,
+   "err": -3.26,
+   "npolls": 23
+  },
+  {
+   "state": "AZ",
+   "cycle": 2022,
+   "office": "Senate",
+   "d": "Mark Kelly",
+   "r": "Blake Masters",
+   "avg": 1.91,
+   "actual": 4.89,
+   "err": -2.98,
+   "npolls": 23
+  },
+  {
+   "state": "CO",
+   "cycle": 1998,
+   "office": "Governor",
+   "d": "Gail Schoettler",
+   "r": "William F. Owens",
+   "avg": -3.52,
+   "actual": -0.62,
+   "err": -2.9,
+   "npolls": 5
+  },
+  {
+   "state": "CO",
+   "cycle": 1998,
+   "office": "Senate",
+   "d": "Dottie Lamm",
+   "r": "Ben Nighthorse Campbell",
+   "avg": -25.96,
+   "actual": -27.47,
+   "err": 1.51,
+   "npolls": 4
+  },
+  {
+   "state": "CO",
+   "cycle": 2000,
+   "office": "President",
+   "d": "Al Gore",
+   "r": "George W. Bush",
+   "avg": -7.32,
+   "actual": -8.36,
+   "err": 1.04,
+   "npolls": 5
+  },
+  {
+   "state": "CO",
+   "cycle": 2002,
+   "office": "Governor",
+   "d": "Rollie Heath",
+   "r": "William F. Owens",
+   "avg": -30.98,
+   "actual": -28.97,
+   "err": -2.02,
+   "npolls": 8
+  },
+  {
+   "state": "CO",
+   "cycle": 2002,
+   "office": "Senate",
+   "d": "Tom Strickland",
+   "r": "Wayne A. Allard",
+   "avg": 0.33,
+   "actual": -4.93,
+   "err": 5.26,
+   "npolls": 14
+  },
+  {
+   "state": "CO",
+   "cycle": 2004,
+   "office": "President",
+   "d": "John Kerry",
+   "r": "George W. Bush",
+   "avg": -3.91,
+   "actual": -4.67,
+   "err": 0.76,
+   "npolls": 16
+  },
+  {
+   "state": "CO",
+   "cycle": 2004,
+   "office": "Senate",
+   "d": "Ken Salazar",
+   "r": "Pete Coors",
+   "avg": 3.35,
+   "actual": 4.77,
+   "err": -1.42,
+   "npolls": 14
+  },
+  {
+   "state": "CO",
+   "cycle": 2006,
+   "office": "Governor",
+   "d": "Bill Ritter, Jr.",
+   "r": "Bob Beauprez",
+   "avg": 16.4,
+   "actual": 16.82,
+   "err": -0.42,
+   "npolls": 8
+  },
+  {
+   "state": "CO",
+   "cycle": 2008,
+   "office": "President",
+   "d": "Barack Obama",
+   "r": "John McCain",
+   "avg": 7.01,
+   "actual": 8.95,
+   "err": -1.94,
+   "npolls": 17
+  },
+  {
+   "state": "CO",
+   "cycle": 2008,
+   "office": "Senate",
+   "d": "Mark Udall",
+   "r": "Bob Schaffer",
+   "avg": 11.74,
+   "actual": 10.3,
+   "err": 1.43,
+   "npolls": 10
+  },
+  {
+   "state": "CO",
+   "cycle": 2010,
+   "office": "Governor",
+   "d": "John Wright Hickenlooper",
+   "r": "Dan Maes",
+   "avg": 39.01,
+   "actual": 39.91,
+   "err": -0.9,
+   "npolls": 13
+  },
+  {
+   "state": "CO",
+   "cycle": 2010,
+   "office": "Senate",
+   "d": "Michael Bennet",
+   "r": "Ken Buck",
+   "avg": -1.61,
+   "actual": 1.63,
+   "err": -3.24,
+   "npolls": 12
+  },
+  {
+   "state": "CO",
+   "cycle": 2012,
+   "office": "President",
+   "d": "Barack Obama",
+   "r": "Mitt Romney",
+   "avg": 1.17,
+   "actual": 5.37,
+   "err": -4.19,
+   "npolls": 21
+  },
+  {
+   "state": "CO",
+   "cycle": 2014,
+   "office": "Governor",
+   "d": "John Wright Hickenlooper",
+   "r": "Bob Beauprez",
+   "avg": 0.13,
+   "actual": 3.34,
+   "err": -3.21,
+   "npolls": 17
+  },
+  {
+   "state": "CO",
+   "cycle": 2014,
+   "office": "Senate",
+   "d": "Mark Udall",
+   "r": "Cory Gardner",
+   "avg": -2.77,
+   "actual": -1.94,
+   "err": -0.83,
+   "npolls": 21
+  },
+  {
+   "state": "CO",
+   "cycle": 2016,
+   "office": "President",
+   "d": "Hillary Rodham Clinton",
+   "r": "Donald Trump",
+   "avg": 3.22,
+   "actual": 4.91,
+   "err": -1.69,
+   "npolls": 18
+  },
+  {
+   "state": "CO",
+   "cycle": 2016,
+   "office": "Senate",
+   "d": "Michael Bennet",
+   "r": "Darryl Glenn",
+   "avg": 6.91,
+   "actual": 5.66,
+   "err": 1.24,
+   "npolls": 10
+  },
+  {
+   "state": "CO",
+   "cycle": 2018,
+   "office": "Governor",
+   "d": "Jared Polis",
+   "r": "Walker Stapleton",
+   "avg": 6.41,
+   "actual": 10.62,
+   "err": -4.21,
+   "npolls": 2
+  },
+  {
+   "state": "CO",
+   "cycle": 2020,
+   "office": "President",
+   "d": "Joe Biden",
+   "r": "Donald Trump",
+   "avg": 12.64,
+   "actual": 13.5,
+   "err": -0.87,
+   "npolls": 8
+  },
+  {
+   "state": "CO",
+   "cycle": 2020,
+   "office": "Senate",
+   "d": "John Wright Hickenlooper",
+   "r": "Cory Gardner",
+   "avg": 10.36,
+   "actual": 9.32,
+   "err": 1.04,
+   "npolls": 7
+  },
+  {
+   "state": "CO",
+   "cycle": 2022,
+   "office": "Governor",
+   "d": "Jared Polis",
+   "r": "Heidi Ganahl",
+   "avg": 11.68,
+   "actual": 19.35,
+   "err": -7.67,
+   "npolls": 5
+  },
+  {
+   "state": "CO",
+   "cycle": 2022,
+   "office": "Senate",
+   "d": "Michael Bennet",
+   "r": "Joe O'Dea",
+   "avg": 7.77,
+   "actual": 14.62,
+   "err": -6.85,
+   "npolls": 5
+  },
+  {
+   "state": "FL",
+   "cycle": 1998,
+   "office": "Governor",
+   "d": "Buddy MacKay",
+   "r": "Jeb Bush",
+   "avg": -12.73,
+   "actual": -10.55,
+   "err": -2.19,
+   "npolls": 8
+  },
+  {
+   "state": "FL",
+   "cycle": 1998,
+   "office": "Senate",
+   "d": "Bob Graham",
+   "r": "Charlie Crist",
+   "avg": 27.63,
+   "actual": 24.94,
+   "err": 2.69,
+   "npolls": 7
+  },
+  {
+   "state": "FL",
+   "cycle": 2000,
+   "office": "President",
+   "d": "Al Gore",
+   "r": "George W. Bush",
+   "avg": 2.32,
+   "actual": -0.01,
+   "err": 2.33,
+   "npolls": 16
+  },
+  {
+   "state": "FL",
+   "cycle": 2000,
+   "office": "Senate",
+   "d": "Bill Nelson",
+   "r": "Bill McCollum",
+   "avg": 4.26,
+   "actual": 4.85,
+   "err": -0.59,
+   "npolls": 14
+  },
+  {
+   "state": "FL",
+   "cycle": 2002,
+   "office": "Governor",
+   "d": "Bill McBride",
+   "r": "Jeb Bush",
+   "avg": -6.94,
+   "actual": -12.85,
+   "err": 5.91,
+   "npolls": 12
+  },
+  {
+   "state": "FL",
+   "cycle": 2004,
+   "office": "President",
+   "d": "John Kerry",
+   "r": "George W. Bush",
+   "avg": -0.56,
+   "actual": -5.01,
+   "err": 4.45,
+   "npolls": 33
+  },
+  {
+   "state": "FL",
+   "cycle": 2004,
+   "office": "Senate",
+   "d": "Betty Castor",
+   "r": "Mel Martinez",
+   "avg": 0.56,
+   "actual": -1.11,
+   "err": 1.67,
+   "npolls": 21
+  },
+  {
+   "state": "FL",
+   "cycle": 2006,
+   "office": "Governor",
+   "d": "Jim Davis",
+   "r": "Charlie Crist",
+   "avg": -7.55,
+   "actual": -7.07,
+   "err": -0.48,
+   "npolls": 12
+  },
+  {
+   "state": "FL",
+   "cycle": 2006,
+   "office": "Senate",
+   "d": "Bill Nelson",
+   "r": "Katherine Harris",
+   "avg": 24.95,
+   "actual": 22.21,
+   "err": 2.75,
+   "npolls": 7
+  },
+  {
+   "state": "FL",
+   "cycle": 2008,
+   "office": "President",
+   "d": "Barack Obama",
+   "r": "John McCain",
+   "avg": 2.12,
+   "actual": 2.82,
+   "err": -0.7,
+   "npolls": 30
+  },
+  {
+   "state": "FL",
+   "cycle": 2010,
+   "office": "Governor",
+   "d": "Alex Sink",
+   "r": "Rick Scott",
+   "avg": -0.01,
+   "actual": -1.15,
+   "err": 1.14,
+   "npolls": 18
+  },
+  {
+   "state": "FL",
+   "cycle": 2010,
+   "office": "Senate",
+   "d": "Kendrick B. Meek",
+   "r": "Marco Rubio",
+   "avg": -26.46,
+   "actual": -28.7,
+   "err": 2.23,
+   "npolls": 13
+  },
+  {
+   "state": "FL",
+   "cycle": 2012,
+   "office": "President",
+   "d": "Barack Obama",
+   "r": "Mitt Romney",
+   "avg": -0.52,
+   "actual": 0.88,
+   "err": -1.4,
+   "npolls": 35
+  },
+  {
+   "state": "FL",
+   "cycle": 2012,
+   "office": "Senate",
+   "d": "Bill Nelson",
+   "r": "Connie Mack",
+   "avg": 8.79,
+   "actual": 13.01,
+   "err": -4.22,
+   "npolls": 23
+  },
+  {
+   "state": "FL",
+   "cycle": 2014,
+   "office": "Governor",
+   "d": "Charlie Crist",
+   "r": "Rick Scott",
+   "avg": -0.23,
+   "actual": -1.08,
+   "err": 0.85,
+   "npolls": 18
+  },
+  {
+   "state": "FL",
+   "cycle": 2016,
+   "office": "President",
+   "d": "Hillary Rodham Clinton",
+   "r": "Donald Trump",
+   "avg": 1.25,
+   "actual": -1.2,
+   "err": 2.45,
+   "npolls": 38
+  },
+  {
+   "state": "FL",
+   "cycle": 2016,
+   "office": "Senate",
+   "d": "Patrick Murphy",
+   "r": "Marco Rubio",
+   "avg": -4.19,
+   "actual": -7.67,
+   "err": 3.48,
+   "npolls": 28
+  },
+  {
+   "state": "FL",
+   "cycle": 2018,
+   "office": "Governor",
+   "d": "Andrew Gillum",
+   "r": "Ron DeSantis",
+   "avg": 2.8,
+   "actual": -0.39,
+   "err": 3.19,
+   "npolls": 34
+  },
+  {
+   "state": "FL",
+   "cycle": 2018,
+   "office": "Senate",
+   "d": "Bill Nelson",
+   "r": "Rick Scott",
+   "avg": 1.6,
+   "actual": -0.12,
+   "err": 1.72,
+   "npolls": 35
+  },
+  {
+   "state": "FL",
+   "cycle": 2020,
+   "office": "President",
+   "d": "Joe Biden",
+   "r": "Donald Trump",
+   "avg": 1.83,
+   "actual": -3.36,
+   "err": 5.18,
+   "npolls": 51
+  },
+  {
+   "state": "FL",
+   "cycle": 2022,
+   "office": "Governor",
+   "d": "Charlie Crist",
+   "r": "Ron DeSantis",
+   "avg": -10.04,
+   "actual": -19.4,
+   "err": 9.36,
+   "npolls": 15
+  },
+  {
+   "state": "FL",
+   "cycle": 2022,
+   "office": "Senate",
+   "d": "Val Demings",
+   "r": "Marco Rubio",
+   "avg": -8.39,
+   "actual": -16.41,
+   "err": 8.02,
+   "npolls": 11
+  },
+  {
+   "state": "GA",
+   "cycle": 1998,
+   "office": "Governor",
+   "d": "Roy Barnes",
+   "r": "Guy Millner",
+   "avg": -5.3,
+   "actual": 8.42,
+   "err": -13.72,
+   "npolls": 4
+  },
+  {
+   "state": "GA",
+   "cycle": 1998,
+   "office": "Senate",
+   "d": "Michael J. Coles",
+   "r": "Paul Coverdell",
+   "avg": -16.51,
+   "actual": -7.22,
+   "err": -9.29,
+   "npolls": 5
+  },
+  {
+   "state": "GA",
+   "cycle": 2000,
+   "office": "President",
+   "d": "Al Gore",
+   "r": "George W. Bush",
+   "avg": -9.54,
+   "actual": -11.69,
+   "err": 2.15,
+   "npolls": 3
+  },
+  {
+   "state": "GA",
+   "cycle": 2002,
+   "office": "Governor",
+   "d": "Roy Barnes",
+   "r": "Sonny Perdue",
+   "avg": 10.43,
+   "actual": -5.16,
+   "err": 15.59,
+   "npolls": 2
+  },
+  {
+   "state": "GA",
+   "cycle": 2002,
+   "office": "Senate",
+   "d": "Max Cleland",
+   "r": "Saxby Chambliss",
+   "avg": 2.22,
+   "actual": -6.84,
+   "err": 9.06,
+   "npolls": 4
+  },
+  {
+   "state": "GA",
+   "cycle": 2004,
+   "office": "President",
+   "d": "John Kerry",
+   "r": "George W. Bush",
+   "avg": -12.05,
+   "actual": -16.6,
+   "err": 4.55,
+   "npolls": 4
+  },
+  {
+   "state": "GA",
+   "cycle": 2004,
+   "office": "Senate",
+   "d": "Denise Majette",
+   "r": "Johnny Isakson",
+   "avg": -15.28,
+   "actual": -17.9,
+   "err": 2.62,
+   "npolls": 4
+  },
+  {
+   "state": "GA",
+   "cycle": 2006,
+   "office": "Governor",
+   "d": "Mark Taylor",
+   "r": "Sonny Perdue",
+   "avg": -14.75,
+   "actual": -19.73,
+   "err": 4.98,
+   "npolls": 8
+  },
+  {
+   "state": "GA",
+   "cycle": 2008,
+   "office": "President",
+   "d": "Barack Obama",
+   "r": "John McCain",
+   "avg": -3.32,
+   "actual": -5.21,
+   "err": 1.9,
+   "npolls": 11
+  },
+  {
+   "state": "GA",
+   "cycle": 2008,
+   "office": "Senate",
+   "d": "Jim Martin",
+   "r": "Saxby Chambliss",
+   "avg": -4.45,
+   "actual": -2.92,
+   "err": -1.52,
+   "npolls": 12
+  },
+  {
+   "state": "GA",
+   "cycle": 2008,
+   "office": "Senate",
+   "d": "Jim Martin",
+   "r": "Saxby Chambliss",
+   "avg": -5.15,
+   "actual": -14.88,
+   "err": 9.73,
+   "npolls": 6
+  },
+  {
+   "state": "GA",
+   "cycle": 2010,
+   "office": "Governor",
+   "d": "Roy Barnes",
+   "r": "J. Nathan Deal",
+   "avg": -7.48,
+   "actual": -10.05,
+   "err": 2.56,
+   "npolls": 7
+  },
+  {
+   "state": "GA",
+   "cycle": 2010,
+   "office": "Senate",
+   "d": "Michael Thurmond",
+   "r": "Johnny Isakson",
+   "avg": -23.79,
+   "actual": -19.31,
+   "err": -4.48,
+   "npolls": 4
+  },
+  {
+   "state": "GA",
+   "cycle": 2012,
+   "office": "President",
+   "d": "Barack Obama",
+   "r": "Mitt Romney",
+   "avg": -8.39,
+   "actual": -7.82,
+   "err": -0.58,
+   "npolls": 3
+  },
+  {
+   "state": "GA",
+   "cycle": 2014,
+   "office": "Governor",
+   "d": "Jason J. Carter",
+   "r": "J. Nathan Deal",
+   "avg": -4.01,
+   "actual": -7.86,
+   "err": 3.85,
+   "npolls": 18
+  },
+  {
+   "state": "GA",
+   "cycle": 2014,
+   "office": "Senate",
+   "d": "Mary Michelle Nunn",
+   "r": "David A. Perdue",
+   "avg": -2.26,
+   "actual": -7.68,
+   "err": 5.42,
+   "npolls": 19
+  },
+  {
+   "state": "GA",
+   "cycle": 2016,
+   "office": "President",
+   "d": "Hillary Rodham Clinton",
+   "r": "Donald Trump",
+   "avg": -3.38,
+   "actual": -5.13,
+   "err": 1.75,
+   "npolls": 19
+  },
+  {
+   "state": "GA",
+   "cycle": 2016,
+   "office": "Senate",
+   "d": "Jim Barksdale",
+   "r": "Johnny Isakson",
+   "avg": -9.09,
+   "actual": -13.75,
+   "err": 4.66,
+   "npolls": 12
+  },
+  {
+   "state": "GA",
+   "cycle": 2018,
+   "office": "Governor",
+   "d": "Stacey Abrams",
+   "r": "Brian Kemp",
+   "avg": -2.86,
+   "actual": -1.39,
+   "err": -1.47,
+   "npolls": 8
+  },
+  {
+   "state": "GA",
+   "cycle": 2020,
+   "office": "President",
+   "d": "Joe Biden",
+   "r": "Donald Trump",
+   "avg": 0.86,
+   "actual": 0.24,
+   "err": 0.62,
+   "npolls": 26
+  },
+  {
+   "state": "GA",
+   "cycle": 2020,
+   "office": "Senate",
+   "d": "Jon Ossoff",
+   "r": "David A. Perdue",
+   "avg": 1.07,
+   "actual": -1.78,
+   "err": 2.85,
+   "npolls": 19
+  },
+  {
+   "state": "GA",
+   "cycle": 2020,
+   "office": "Senate",
+   "d": "Jon Ossoff",
+   "r": "David A. Perdue",
+   "avg": 2.17,
+   "actual": 1.23,
+   "err": 0.94,
+   "npolls": 17
+  },
+  {
+   "state": "GA",
+   "cycle": 2020,
+   "office": "Senate",
+   "d": "Raphael Warnock",
+   "r": "Kelly Loeffler",
+   "avg": 1.95,
+   "actual": 2.08,
+   "err": -0.13,
+   "npolls": 17
+  },
+  {
+   "state": "GA",
+   "cycle": 2022,
+   "office": "Governor",
+   "d": "Stacey Abrams",
+   "r": "Brian Kemp",
+   "avg": -7.5,
+   "actual": -7.54,
+   "err": 0.04,
+   "npolls": 21
+  },
+  {
+   "state": "GA",
+   "cycle": 2022,
+   "office": "Senate",
+   "d": "Raphael Warnock",
+   "r": "Herschel Junior Walker",
+   "avg": 0.38,
+   "actual": 0.96,
+   "err": -0.57,
+   "npolls": 26
+  },
+  {
+   "state": "GA",
+   "cycle": 2022,
+   "office": "Senate",
+   "d": "Raphael Warnock",
+   "r": "Herschel Junior Walker",
+   "avg": 3.24,
+   "actual": 2.81,
+   "err": 0.44,
+   "npolls": 12
+  },
+  {
+   "state": "IA",
+   "cycle": 1998,
+   "office": "Governor",
+   "d": "Tom Vilsack",
+   "r": "Jim Lightfoot",
+   "avg": -4.76,
+   "actual": 5.8,
+   "err": -10.56,
+   "npolls": 5
+  },
+  {
+   "state": "IA",
+   "cycle": 1998,
+   "office": "Senate",
+   "d": "David Osterberg",
+   "r": "Chuck Grassley",
+   "avg": -44.0,
+   "actual": -37.92,
+   "err": -6.08,
+   "npolls": 1
+  },
+  {
+   "state": "IA",
+   "cycle": 2000,
+   "office": "President",
+   "d": "Al Gore",
+   "r": "George W. Bush",
+   "avg": 1.28,
+   "actual": 0.31,
+   "err": 0.96,
+   "npolls": 5
+  },
+  {
+   "state": "IA",
+   "cycle": 2002,
+   "office": "Governor",
+   "d": "Tom Vilsack",
+   "r": "Doug Gross",
+   "avg": 12.95,
+   "actual": 8.17,
+   "err": 4.77,
+   "npolls": 4
+  },
+  {
+   "state": "IA",
+   "cycle": 2002,
+   "office": "Senate",
+   "d": "Tom Harkin",
+   "r": "Greg Ganske",
+   "avg": 17.16,
+   "actual": 10.4,
+   "err": 6.77,
+   "npolls": 4
+  },
+  {
+   "state": "IA",
+   "cycle": 2004,
+   "office": "President",
+   "d": "John Kerry",
+   "r": "George W. Bush",
+   "avg": -0.19,
+   "actual": -0.67,
+   "err": 0.48,
+   "npolls": 17
+  },
+  {
+   "state": "IA",
+   "cycle": 2004,
+   "office": "Senate",
+   "d": "Art Small",
+   "r": "Chuck Grassley",
+   "avg": -45.06,
+   "actual": -42.31,
+   "err": -2.75,
+   "npolls": 3
+  },
+  {
+   "state": "IA",
+   "cycle": 2006,
+   "office": "Governor",
+   "d": "Chet Culver",
+   "r": "Jim Nussle",
+   "avg": 5.62,
+   "actual": 9.65,
+   "err": -4.02,
+   "npolls": 6
+  },
+  {
+   "state": "IA",
+   "cycle": 2008,
+   "office": "President",
+   "d": "Barack Obama",
+   "r": "John McCain",
+   "avg": 12.82,
+   "actual": 9.53,
+   "err": 3.28,
+   "npolls": 7
+  },
+  {
+   "state": "IA",
+   "cycle": 2008,
+   "office": "Senate",
+   "d": "Tom Harkin",
+   "r": "Christopher Reed",
+   "avg": 22.84,
+   "actual": 25.39,
+   "err": -2.56,
+   "npolls": 4
+  },
+  {
+   "state": "IA",
+   "cycle": 2010,
+   "office": "Governor",
+   "d": "Chet Culver",
+   "r": "Terry E. Branstad",
+   "avg": -10.82,
+   "actual": -9.6,
+   "err": -1.22,
+   "npolls": 2
+  },
+  {
+   "state": "IA",
+   "cycle": 2010,
+   "office": "Senate",
+   "d": "Roxanne Conlin",
+   "r": "Chuck Grassley",
+   "avg": -31.0,
+   "actual": -31.05,
+   "err": 0.05,
+   "npolls": 1
+  },
+  {
+   "state": "IA",
+   "cycle": 2012,
+   "office": "President",
+   "d": "Barack Obama",
+   "r": "Mitt Romney",
+   "avg": 1.69,
+   "actual": 5.81,
+   "err": -4.12,
+   "npolls": 19
+  },
+  {
+   "state": "IA",
+   "cycle": 2014,
+   "office": "Governor",
+   "d": "Jack G. Hatch",
+   "r": "Terry E. Branstad",
+   "avg": -17.1,
+   "actual": -21.72,
+   "err": 4.62,
+   "npolls": 13
+  },
+  {
+   "state": "IA",
+   "cycle": 2014,
+   "office": "Senate",
+   "d": "Bruce L. Braley",
+   "r": "Joni K. Ernst",
+   "avg": -2.1,
+   "actual": -8.34,
+   "err": 6.24,
+   "npolls": 21
+  },
+  {
+   "state": "IA",
+   "cycle": 2016,
+   "office": "President",
+   "d": "Hillary Rodham Clinton",
+   "r": "Donald Trump",
+   "avg": -3.94,
+   "actual": -9.41,
+   "err": 5.47,
+   "npolls": 9
+  },
+  {
+   "state": "IA",
+   "cycle": 2016,
+   "office": "Senate",
+   "d": "Patty Judge",
+   "r": "Chuck Grassley",
+   "avg": -19.9,
+   "actual": -24.43,
+   "err": 4.54,
+   "npolls": 6
+  },
+  {
+   "state": "IA",
+   "cycle": 2018,
+   "office": "Governor",
+   "d": "Fred Hubbell",
+   "r": "Kim Reynolds",
+   "avg": 0.25,
+   "actual": -2.73,
+   "err": 2.98,
+   "npolls": 3
+  },
+  {
+   "state": "IA",
+   "cycle": 2020,
+   "office": "President",
+   "d": "Joe Biden",
+   "r": "Donald Trump",
+   "avg": -0.59,
+   "actual": -8.2,
+   "err": 7.61,
+   "npolls": 15
+  },
+  {
+   "state": "IA",
+   "cycle": 2020,
+   "office": "Senate",
+   "d": "Theresa Greenfield",
+   "r": "Joni K. Ernst",
+   "avg": 0.91,
+   "actual": -6.59,
+   "err": 7.5,
+   "npolls": 14
+  },
+  {
+   "state": "IA",
+   "cycle": 2022,
+   "office": "Governor",
+   "d": "Deidre DeJear",
+   "r": "Kim Reynolds",
+   "avg": -15.57,
+   "actual": -18.52,
+   "err": 2.95,
+   "npolls": 3
+  },
+  {
+   "state": "IA",
+   "cycle": 2022,
+   "office": "Senate",
+   "d": "Michael Franken",
+   "r": "Chuck Grassley",
+   "avg": -10.06,
+   "actual": -12.18,
+   "err": 2.11,
+   "npolls": 3
+  },
+  {
+   "state": "ME",
+   "cycle": 1998,
+   "office": "Governor",
+   "d": "Thomas Connolly",
+   "r": "James Longley Jr.",
+   "avg": -5.0,
+   "actual": -6.94,
+   "err": 1.94,
+   "npolls": 1
+  },
+  {
+   "state": "ME",
+   "cycle": 2000,
+   "office": "President",
+   "d": "Al Gore",
+   "r": "George W. Bush",
+   "avg": 4.03,
+   "actual": 5.11,
+   "err": -1.08,
+   "npolls": 6
+  },
+  {
+   "state": "ME",
+   "cycle": 2000,
+   "office": "Senate",
+   "d": "Mark W. Lawrence",
+   "r": "Olympia J. Snowe",
+   "avg": -43.21,
+   "actual": -37.88,
+   "err": -5.33,
+   "npolls": 4
+  },
+  {
+   "state": "ME",
+   "cycle": 2002,
+   "office": "Governor",
+   "d": "John Baldacci",
+   "r": "Peter Cianchette",
+   "avg": 16.39,
+   "actual": 5.68,
+   "err": 10.71,
+   "npolls": 2
+  },
+  {
+   "state": "ME",
+   "cycle": 2002,
+   "office": "Senate",
+   "d": "Chellie M. Pingree",
+   "r": "Susan M. Collins",
+   "avg": -22.77,
+   "actual": -16.87,
+   "err": -5.9,
+   "npolls": 2
+  },
+  {
+   "state": "ME",
+   "cycle": 2004,
+   "office": "President",
+   "d": "John Kerry",
+   "r": "George W. Bush",
+   "avg": 8.15,
+   "actual": 9.0,
+   "err": -0.84,
+   "npolls": 3
+  },
+  {
+   "state": "ME",
+   "cycle": 2006,
+   "office": "Governor",
+   "d": "John Baldacci",
+   "r": "Chandler E. Woodcock",
+   "avg": 9.94,
+   "actual": 7.9,
+   "err": 2.05,
+   "npolls": 5
+  },
+  {
+   "state": "ME",
+   "cycle": 2006,
+   "office": "Senate",
+   "d": "Jean M. Hay Bright",
+   "r": "Olympia J. Snowe",
+   "avg": -54.06,
+   "actual": -53.65,
+   "err": -0.41,
+   "npolls": 2
+  },
+  {
+   "state": "ME",
+   "cycle": 2008,
+   "office": "President",
+   "d": "Barack Obama",
+   "r": "John McCain",
+   "avg": 15.54,
+   "actual": 17.32,
+   "err": -1.78,
+   "npolls": 7
+  },
+  {
+   "state": "ME",
+   "cycle": 2008,
+   "office": "Senate",
+   "d": "Thomas H. Allen",
+   "r": "Susan M. Collins",
+   "avg": -15.61,
+   "actual": -22.75,
+   "err": 7.13,
+   "npolls": 7
+  },
+  {
+   "state": "ME",
+   "cycle": 2010,
+   "office": "Governor",
+   "d": "Elizabeth H. Mitchell",
+   "r": "Paul R. LePage",
+   "avg": -13.09,
+   "actual": -26.67,
+   "err": 13.58,
+   "npolls": 8
+  },
+  {
+   "state": "ME",
+   "cycle": 2012,
+   "office": "President",
+   "d": "Barack Obama",
+   "r": "Mitt Romney",
+   "avg": 10.98,
+   "actual": 15.29,
+   "err": -4.31,
+   "npolls": 3
+  },
+  {
+   "state": "ME",
+   "cycle": 2012,
+   "office": "Senate",
+   "d": "Cynthia Dill",
+   "r": "Charlie Summers",
+   "avg": -23.3,
+   "actual": -17.48,
+   "err": -5.82,
+   "npolls": 3
+  },
+  {
+   "state": "ME",
+   "cycle": 2014,
+   "office": "Governor",
+   "d": "Michael H. Michaud",
+   "r": "Paul R. LePage",
+   "avg": -0.49,
+   "actual": -4.81,
+   "err": 4.32,
+   "npolls": 7
+  },
+  {
+   "state": "ME",
+   "cycle": 2014,
+   "office": "Senate",
+   "d": "Shenna Bellows",
+   "r": "Susan M. Collins",
+   "avg": -25.9,
+   "actual": -36.96,
+   "err": 11.06,
+   "npolls": 5
+  },
+  {
+   "state": "ME",
+   "cycle": 2016,
+   "office": "President",
+   "d": "Hillary Rodham Clinton",
+   "r": "Donald Trump",
+   "avg": 7.36,
+   "actual": 2.96,
+   "err": 4.4,
+   "npolls": 7
+  },
+  {
+   "state": "ME",
+   "cycle": 2018,
+   "office": "Governor",
+   "d": "Janet T. Mills",
+   "r": "Shawn H. Moody",
+   "avg": 12.54,
+   "actual": 7.71,
+   "err": 4.83,
+   "npolls": 2
+  },
+  {
+   "state": "ME",
+   "cycle": 2018,
+   "office": "Senate",
+   "d": "Zak Ringelstein",
+   "r": "Eric L. Brakey",
+   "avg": -31.4,
+   "actual": -24.78,
+   "err": -6.62,
+   "npolls": 1
+  },
+  {
+   "state": "ME",
+   "cycle": 2020,
+   "office": "President",
+   "d": "Joe Biden",
+   "r": "Donald Trump",
+   "avg": 12.63,
+   "actual": 9.07,
+   "err": 3.56,
+   "npolls": 5
+  },
+  {
+   "state": "ME",
+   "cycle": 2020,
+   "office": "Senate",
+   "d": "Sara I. Gideon",
+   "r": "Susan M. Collins",
+   "avg": 4.24,
+   "actual": -8.6,
+   "err": 12.84,
+   "npolls": 4
+  },
+  {
+   "state": "ME",
+   "cycle": 2022,
+   "office": "Governor",
+   "d": "Janet T. Mills",
+   "r": "Paul R. LePage",
+   "avg": 8.68,
+   "actual": 13.24,
+   "err": -4.56,
+   "npolls": 3
+  },
+  {
+   "state": "MI",
+   "cycle": 1998,
+   "office": "Governor",
+   "d": "Geoffrey Fieger",
+   "r": "John Engler",
+   "avg": -23.07,
+   "actual": -24.43,
+   "err": 1.35,
+   "npolls": 3
+  },
+  {
+   "state": "MI",
+   "cycle": 2000,
+   "office": "President",
+   "d": "Al Gore",
+   "r": "George W. Bush",
+   "avg": 2.74,
+   "actual": 5.13,
+   "err": -2.4,
+   "npolls": 23
+  },
+  {
+   "state": "MI",
+   "cycle": 2000,
+   "office": "Senate",
+   "d": "Debbie Stabenow",
+   "r": "Spencer Abraham",
+   "avg": -1.74,
+   "actual": 1.61,
+   "err": -3.35,
+   "npolls": 17
+  },
+  {
+   "state": "MI",
+   "cycle": 2002,
+   "office": "Governor",
+   "d": "Jennifer Granholm",
+   "r": "Dick Posthumus",
+   "avg": 10.65,
+   "actual": 4.02,
+   "err": 6.63,
+   "npolls": 10
+  },
+  {
+   "state": "MI",
+   "cycle": 2002,
+   "office": "Senate",
+   "d": "Carl Levin",
+   "r": "Andrew Rocky Raczkowski",
+   "avg": 30.7,
+   "actual": 22.72,
+   "err": 7.97,
+   "npolls": 5
+  },
+  {
+   "state": "MI",
+   "cycle": 2004,
+   "office": "President",
+   "d": "John Kerry",
+   "r": "George W. Bush",
+   "avg": 3.87,
+   "actual": 3.42,
+   "err": 0.46,
+   "npolls": 15
+  },
+  {
+   "state": "MI",
+   "cycle": 2006,
+   "office": "Governor",
+   "d": "Jennifer Granholm",
+   "r": "Dick DeVos",
+   "avg": 9.77,
+   "actual": 14.06,
+   "err": -4.29,
+   "npolls": 10
+  },
+  {
+   "state": "MI",
+   "cycle": 2006,
+   "office": "Senate",
+   "d": "Debbie Stabenow",
+   "r": "Mike Bouchard",
+   "avg": 13.16,
+   "actual": 15.65,
+   "err": -2.49,
+   "npolls": 11
+  },
+  {
+   "state": "MI",
+   "cycle": 2008,
+   "office": "President",
+   "d": "Barack Obama",
+   "r": "John McCain",
+   "avg": 14.14,
+   "actual": 16.47,
+   "err": -2.33,
+   "npolls": 9
+  },
+  {
+   "state": "MI",
+   "cycle": 2008,
+   "office": "Senate",
+   "d": "Carl Levin",
+   "r": "Jacob W. Hoogendyk Jr.",
+   "avg": 21.83,
+   "actual": 28.82,
+   "err": -6.99,
+   "npolls": 5
+  },
+  {
+   "state": "MI",
+   "cycle": 2010,
+   "office": "Governor",
+   "d": "Virgil Bernero",
+   "r": "Rick Snyder",
+   "avg": -17.68,
+   "actual": -18.21,
+   "err": 0.53,
+   "npolls": 4
+  },
+  {
+   "state": "MI",
+   "cycle": 2012,
+   "office": "President",
+   "d": "Barack Obama",
+   "r": "Mitt Romney",
+   "avg": 4.25,
+   "actual": 9.5,
+   "err": -5.24,
+   "npolls": 13
+  },
+  {
+   "state": "MI",
+   "cycle": 2012,
+   "office": "Senate",
+   "d": "Debbie Stabenow",
+   "r": "Pete Hoekstra",
+   "avg": 12.84,
+   "actual": 20.81,
+   "err": -7.97,
+   "npolls": 8
+  },
+  {
+   "state": "MI",
+   "cycle": 2014,
+   "office": "Governor",
+   "d": "Mark Schauer",
+   "r": "Rick Snyder",
+   "avg": -2.13,
+   "actual": -4.07,
+   "err": 1.94,
+   "npolls": 12
+  },
+  {
+   "state": "MI",
+   "cycle": 2014,
+   "office": "Senate",
+   "d": "Gary C. Peters",
+   "r": "Terri Lynn Land",
+   "avg": 12.22,
+   "actual": 13.29,
+   "err": -1.07,
+   "npolls": 11
+  },
+  {
+   "state": "MI",
+   "cycle": 2016,
+   "office": "President",
+   "d": "Hillary Rodham Clinton",
+   "r": "Donald Trump",
+   "avg": 4.06,
+   "actual": -0.22,
+   "err": 4.29,
+   "npolls": 23
+  },
+  {
+   "state": "MI",
+   "cycle": 2018,
+   "office": "Governor",
+   "d": "Gretchen Whitmer",
+   "r": "Bill Schuette",
+   "avg": 8.59,
+   "actual": 9.57,
+   "err": -0.98,
+   "npolls": 12
+  },
+  {
+   "state": "MI",
+   "cycle": 2018,
+   "office": "Senate",
+   "d": "Debbie Stabenow",
+   "r": "John James",
+   "avg": 9.06,
+   "actual": 6.51,
+   "err": 2.55,
+   "npolls": 14
+  },
+  {
+   "state": "MI",
+   "cycle": 2020,
+   "office": "President",
+   "d": "Joe Biden",
+   "r": "Donald Trump",
+   "avg": 7.13,
+   "actual": 2.78,
+   "err": 4.34,
+   "npolls": 41
+  },
+  {
+   "state": "MI",
+   "cycle": 2020,
+   "office": "Senate",
+   "d": "Gary C. Peters",
+   "r": "John James",
+   "avg": 7.48,
+   "actual": 1.69,
+   "err": 5.79,
+   "npolls": 33
+  },
+  {
+   "state": "MI",
+   "cycle": 2022,
+   "office": "Governor",
+   "d": "Gretchen Whitmer",
+   "r": "Tudor M. Dixon",
+   "avg": 4.5,
+   "actual": 10.53,
+   "err": -6.03,
+   "npolls": 13
+  },
+  {
+   "state": "MN",
+   "cycle": 1998,
+   "office": "Governor",
+   "d": "Hubert Humphrey III",
+   "r": "Norm Coleman",
+   "avg": 2.59,
+   "actual": -6.21,
+   "err": 8.8,
+   "npolls": 4
+  },
+  {
+   "state": "MN",
+   "cycle": 2000,
+   "office": "President",
+   "d": "Al Gore",
+   "r": "George W. Bush",
+   "avg": 4.42,
+   "actual": 2.4,
+   "err": 2.02,
+   "npolls": 4
+  },
+  {
+   "state": "MN",
+   "cycle": 2000,
+   "office": "Senate",
+   "d": "Mark Dayton",
+   "r": "Rod Grams",
+   "avg": 8.69,
+   "actual": 5.54,
+   "err": 3.15,
+   "npolls": 5
+  },
+  {
+   "state": "MN",
+   "cycle": 2002,
+   "office": "Governor",
+   "d": "Roger Moe",
+   "r": "Tim Pawlenty",
+   "avg": -2.31,
+   "actual": -7.91,
+   "err": 5.6,
+   "npolls": 5
+  },
+  {
+   "state": "MN",
+   "cycle": 2002,
+   "office": "Senate",
+   "d": "Walter F. Mondale",
+   "r": "Norm Coleman",
+   "avg": 3.32,
+   "actual": -2.19,
+   "err": 5.52,
+   "npolls": 7
+  },
+  {
+   "state": "MN",
+   "cycle": 2004,
+   "office": "President",
+   "d": "John Kerry",
+   "r": "George W. Bush",
+   "avg": 3.3,
+   "actual": 3.48,
+   "err": -0.18,
+   "npolls": 14
+  },
+  {
+   "state": "MN",
+   "cycle": 2006,
+   "office": "Governor",
+   "d": "Mike Hatch",
+   "r": "Tim Pawlenty",
+   "avg": 2.92,
+   "actual": -0.96,
+   "err": 3.88,
+   "npolls": 11
+  },
+  {
+   "state": "MN",
+   "cycle": 2006,
+   "office": "Senate",
+   "d": "Amy Klobuchar",
+   "r": "Mark R. Kennedy",
+   "avg": 17.1,
+   "actual": 20.12,
+   "err": -3.02,
+   "npolls": 11
+  },
+  {
+   "state": "MN",
+   "cycle": 2008,
+   "office": "President",
+   "d": "Barack Obama",
+   "r": "John McCain",
+   "avg": 10.82,
+   "actual": 10.24,
+   "err": 0.58,
+   "npolls": 13
+  },
+  {
+   "state": "MN",
+   "cycle": 2008,
+   "office": "Senate",
+   "d": "Al Franken",
+   "r": "Norm Coleman",
+   "avg": 0.35,
+   "actual": 0.01,
+   "err": 0.34,
+   "npolls": 13
+  },
+  {
+   "state": "MN",
+   "cycle": 2010,
+   "office": "Governor",
+   "d": "Mark Dayton",
+   "r": "Tom Emmer",
+   "avg": 4.83,
+   "actual": 0.42,
+   "err": 4.41,
+   "npolls": 8
+  },
+  {
+   "state": "MN",
+   "cycle": 2012,
+   "office": "President",
+   "d": "Barack Obama",
+   "r": "Mitt Romney",
+   "avg": 6.68,
+   "actual": 7.69,
+   "err": -1.01,
+   "npolls": 9
+  },
+  {
+   "state": "MN",
+   "cycle": 2012,
+   "office": "Senate",
+   "d": "Amy Klobuchar",
+   "r": "Kurt Patrick Bills",
+   "avg": 30.69,
+   "actual": 34.7,
+   "err": -4.01,
+   "npolls": 6
+  },
+  {
+   "state": "MN",
+   "cycle": 2014,
+   "office": "Governor",
+   "d": "Mark Dayton",
+   "r": "Jeff Johnson",
+   "avg": 6.97,
+   "actual": 5.56,
+   "err": 1.41,
+   "npolls": 4
+  },
+  {
+   "state": "MN",
+   "cycle": 2014,
+   "office": "Senate",
+   "d": "Al Franken",
+   "r": "Mike McFadden",
+   "avg": 10.71,
+   "actual": 10.24,
+   "err": 0.47,
+   "npolls": 4
+  },
+  {
+   "state": "MN",
+   "cycle": 2016,
+   "office": "President",
+   "d": "Hillary Rodham Clinton",
+   "r": "Donald Trump",
+   "avg": 8.16,
+   "actual": 1.52,
+   "err": 6.64,
+   "npolls": 7
+  },
+  {
+   "state": "MN",
+   "cycle": 2018,
+   "office": "Governor",
+   "d": "Tim Walz",
+   "r": "Jeff Johnson",
+   "avg": 9.65,
+   "actual": 11.42,
+   "err": -1.77,
+   "npolls": 5
+  },
+  {
+   "state": "MN",
+   "cycle": 2018,
+   "office": "Senate",
+   "d": "Tina Smith",
+   "r": "Karin Housley",
+   "avg": 9.39,
+   "actual": 10.62,
+   "err": -1.23,
+   "npolls": 5
+  },
+  {
+   "state": "MN",
+   "cycle": 2018,
+   "office": "Senate",
+   "d": "Amy Klobuchar",
+   "r": "Jim Newberger",
+   "avg": 19.77,
+   "actual": 24.1,
+   "err": -4.32,
+   "npolls": 5
+  },
+  {
+   "state": "MN",
+   "cycle": 2020,
+   "office": "President",
+   "d": "Joe Biden",
+   "r": "Donald Trump",
+   "avg": 9.78,
+   "actual": 7.11,
+   "err": 2.67,
+   "npolls": 15
+  },
+  {
+   "state": "MN",
+   "cycle": 2020,
+   "office": "Senate",
+   "d": "Tina Smith",
+   "r": "Jason Lewis",
+   "avg": 9.13,
+   "actual": 5.24,
+   "err": 3.9,
+   "npolls": 11
+  },
+  {
+   "state": "MN",
+   "cycle": 2022,
+   "office": "Governor",
+   "d": "Tim Walz",
+   "r": "Scott Jensen",
+   "avg": 8.37,
+   "actual": 7.66,
+   "err": 0.71,
+   "npolls": 3
+  },
+  {
+   "state": "NC",
+   "cycle": 1998,
+   "office": "Senate",
+   "d": "John Edwards",
+   "r": "Lauch Faircloth",
+   "avg": 6.97,
+   "actual": 4.14,
+   "err": 2.83,
+   "npolls": 4
+  },
+  {
+   "state": "NC",
+   "cycle": 2000,
+   "office": "Governor",
+   "d": "Mike Easley",
+   "r": "Richard Vinroot",
+   "avg": 5.93,
+   "actual": 5.76,
+   "err": 0.17,
+   "npolls": 5
+  },
+  {
+   "state": "NC",
+   "cycle": 2000,
+   "office": "President",
+   "d": "Al Gore",
+   "r": "George W. Bush",
+   "avg": -8.76,
+   "actual": -12.81,
+   "err": 4.05,
+   "npolls": 5
+  },
+  {
+   "state": "NC",
+   "cycle": 2002,
+   "office": "Senate",
+   "d": "Erskine Bowles",
+   "r": "Elizabeth H. Dole",
+   "avg": -5.81,
+   "actual": -8.61,
+   "err": 2.8,
+   "npolls": 8
+  },
+  {
+   "state": "NC",
+   "cycle": 2004,
+   "office": "Governor",
+   "d": "Mike Easley",
+   "r": "Patrick J. Ballantine",
+   "avg": 15.74,
+   "actual": 12.74,
+   "err": 3.0,
+   "npolls": 6
+  },
+  {
+   "state": "NC",
+   "cycle": 2004,
+   "office": "President",
+   "d": "John Kerry",
+   "r": "George W. Bush",
+   "avg": -8.04,
+   "actual": -12.43,
+   "err": 4.4,
+   "npolls": 6
+  },
+  {
+   "state": "NC",
+   "cycle": 2004,
+   "office": "Senate",
+   "d": "Erskine Bowles",
+   "r": "Richard Burr",
+   "avg": -2.64,
+   "actual": -4.58,
+   "err": 1.93,
+   "npolls": 8
+  },
+  {
+   "state": "NC",
+   "cycle": 2008,
+   "office": "Governor",
+   "d": "Bev Perdue",
+   "r": "Pat McCrory",
+   "avg": 0.86,
+   "actual": 3.4,
+   "err": -2.54,
+   "npolls": 11
+  },
+  {
+   "state": "NC",
+   "cycle": 2008,
+   "office": "President",
+   "d": "Barack Obama",
+   "r": "John McCain",
+   "avg": 1.28,
+   "actual": 0.33,
+   "err": 0.95,
+   "npolls": 28
+  },
+  {
+   "state": "NC",
+   "cycle": 2008,
+   "office": "Senate",
+   "d": "Kay R. Hagan",
+   "r": "Elizabeth H. Dole",
+   "avg": 4.4,
+   "actual": 8.47,
+   "err": -4.07,
+   "npolls": 16
+  },
+  {
+   "state": "NC",
+   "cycle": 2010,
+   "office": "Senate",
+   "d": "Elaine Marshall",
+   "r": "Richard Burr",
+   "avg": -12.02,
+   "actual": -11.77,
+   "err": -0.26,
+   "npolls": 5
+  },
+  {
+   "state": "NC",
+   "cycle": 2012,
+   "office": "Governor",
+   "d": "Walter H. Dalton",
+   "r": "Pat McCrory",
+   "avg": -13.98,
+   "actual": -11.39,
+   "err": -2.58,
+   "npolls": 7
+  },
+  {
+   "state": "NC",
+   "cycle": 2012,
+   "office": "President",
+   "d": "Barack Obama",
+   "r": "Mitt Romney",
+   "avg": -3.23,
+   "actual": -2.04,
+   "err": -1.19,
+   "npolls": 14
+  },
+  {
+   "state": "NC",
+   "cycle": 2014,
+   "office": "Senate",
+   "d": "Kay R. Hagan",
+   "r": "Thomas Roland Tillis",
+   "avg": 0.78,
+   "actual": -1.56,
+   "err": 2.34,
+   "npolls": 21
+  },
+  {
+   "state": "NC",
+   "cycle": 2016,
+   "office": "Governor",
+   "d": "Roy A. Cooper",
+   "r": "Pat McCrory",
+   "avg": 4.42,
+   "actual": 0.22,
+   "err": 4.2,
+   "npolls": 13
+  },
+  {
+   "state": "NC",
+   "cycle": 2016,
+   "office": "President",
+   "d": "Hillary Rodham Clinton",
+   "r": "Donald Trump",
+   "avg": 1.6,
+   "actual": -3.66,
+   "err": 5.25,
+   "npolls": 28
+  },
+  {
+   "state": "NC",
+   "cycle": 2016,
+   "office": "Senate",
+   "d": "Deborah K. Ross",
+   "r": "Richard Burr",
+   "avg": -0.27,
+   "actual": -5.7,
+   "err": 5.43,
+   "npolls": 21
+  },
+  {
+   "state": "NC",
+   "cycle": 2020,
+   "office": "Governor",
+   "d": "Roy A. Cooper",
+   "r": "Dan Forest",
+   "avg": 10.31,
+   "actual": 4.51,
+   "err": 5.8,
+   "npolls": 19
+  },
+  {
+   "state": "NC",
+   "cycle": 2020,
+   "office": "President",
+   "d": "Joe Biden",
+   "r": "Donald Trump",
+   "avg": 1.67,
+   "actual": -1.35,
+   "err": 3.02,
+   "npolls": 43
+  },
+  {
+   "state": "NC",
+   "cycle": 2020,
+   "office": "Senate",
+   "d": "Cal Cunningham",
+   "r": "Thomas Roland Tillis",
+   "avg": 3.35,
+   "actual": -1.75,
+   "err": 5.1,
+   "npolls": 35
+  },
+  {
+   "state": "NC",
+   "cycle": 2022,
+   "office": "Senate",
+   "d": "Cheri Beasley",
+   "r": "Ted Budd",
+   "avg": -3.97,
+   "actual": -3.23,
+   "err": -0.74,
+   "npolls": 10
+  },
+  {
+   "state": "NE",
+   "cycle": 1998,
+   "office": "Governor",
+   "d": "Bill Hoppner",
+   "r": "Mike Johanns",
+   "avg": -15.53,
+   "actual": -7.93,
+   "err": -7.61,
+   "npolls": 3
+  },
+  {
+   "state": "NE",
+   "cycle": 2000,
+   "office": "President",
+   "d": "Al Gore",
+   "r": "George W. Bush",
+   "avg": -20.91,
+   "actual": -28.99,
+   "err": 8.09,
+   "npolls": 2
+  },
+  {
+   "state": "NE",
+   "cycle": 2000,
+   "office": "Senate",
+   "d": "Ben Nelson",
+   "r": "Don Stenberg",
+   "avg": 8.59,
+   "actual": 2.18,
+   "err": 6.41,
+   "npolls": 2
+  },
+  {
+   "state": "NE",
+   "cycle": 2002,
+   "office": "Governor",
+   "d": "Stormy Dean",
+   "r": "Mike Johanns",
+   "avg": -50.0,
+   "actual": -41.17,
+   "err": -8.83,
+   "npolls": 1
+  },
+  {
+   "state": "NE",
+   "cycle": 2002,
+   "office": "Senate",
+   "d": "Charlie Matulka",
+   "r": "Chuck Hagel",
+   "avg": -72.0,
+   "actual": -68.13,
+   "err": -3.87,
+   "npolls": 1
+  },
+  {
+   "state": "NE",
+   "cycle": 2004,
+   "office": "President",
+   "d": "John Kerry",
+   "r": "George W. Bush",
+   "avg": -29.0,
+   "actual": -33.22,
+   "err": 4.22,
+   "npolls": 2
+  },
+  {
+   "state": "NE",
+   "cycle": 2008,
+   "office": "President",
+   "d": "Barack Obama",
+   "r": "John McCain",
+   "avg": -19.0,
+   "actual": -14.93,
+   "err": -4.07,
+   "npolls": 1
+  },
+  {
+   "state": "NE",
+   "cycle": 2008,
+   "office": "Senate",
+   "d": "Scott Kleeb",
+   "r": "Mike Johanns",
+   "avg": -19.0,
+   "actual": -17.46,
+   "err": -1.54,
+   "npolls": 1
+  },
+  {
+   "state": "NE",
+   "cycle": 2012,
+   "office": "President",
+   "d": "Barack Obama",
+   "r": "Mitt Romney",
+   "avg": -16.06,
+   "actual": -21.78,
+   "err": 5.72,
+   "npolls": 4
+  },
+  {
+   "state": "NE",
+   "cycle": 2012,
+   "office": "Senate",
+   "d": "Bob Kerrey",
+   "r": "Deb Fischer",
+   "avg": -10.84,
+   "actual": -15.55,
+   "err": 4.71,
+   "npolls": 4
+  },
+  {
+   "state": "NE",
+   "cycle": 2014,
+   "office": "Governor",
+   "d": "Chuck Hassebrook",
+   "r": "Pete Ricketts",
+   "avg": -20.0,
+   "actual": -17.93,
+   "err": -2.07,
+   "npolls": 1
+  },
+  {
+   "state": "NE",
+   "cycle": 2014,
+   "office": "Senate",
+   "d": "Dave Domina",
+   "r": "Ben Sasse",
+   "avg": -29.0,
+   "actual": -32.85,
+   "err": 3.85,
+   "npolls": 1
+  },
+  {
+   "state": "NE",
+   "cycle": 2016,
+   "office": "President",
+   "d": "Hillary Rodham Clinton",
+   "r": "Donald Trump",
+   "avg": -17.82,
+   "actual": -25.05,
+   "err": 7.22,
+   "npolls": 4
+  },
+  {
+   "state": "NE",
+   "cycle": 2018,
+   "office": "Senate",
+   "d": "Jane Raybould",
+   "r": "Deb Fischer",
+   "avg": -18.0,
+   "actual": -19.06,
+   "err": 1.06,
+   "npolls": 1
+  },
+  {
+   "state": "NE",
+   "cycle": 2020,
+   "office": "President",
+   "d": "Joe Biden",
+   "r": "Donald Trump",
+   "avg": -13.0,
+   "actual": -19.06,
+   "err": 6.06,
+   "npolls": 1
+  },
+  {
+   "state": "NE",
+   "cycle": 2020,
+   "office": "Senate",
+   "d": "Chris E. Janicek",
+   "r": "Ben Sasse",
+   "avg": -26.9,
+   "actual": -38.31,
+   "err": 11.41,
+   "npolls": 1
+  },
+  {
+   "state": "NH",
+   "cycle": 1998,
+   "office": "Governor",
+   "d": "Jeanne Shaheen",
+   "r": "Jay Lucas",
+   "avg": 45.0,
+   "actual": 35.21,
+   "err": 9.79,
+   "npolls": 1
+  },
+  {
+   "state": "NH",
+   "cycle": 2000,
+   "office": "Governor",
+   "d": "Jeanne Shaheen",
+   "r": "Gordon Humphrey",
+   "avg": 7.1,
+   "actual": 4.98,
+   "err": 2.13,
+   "npolls": 5
+  },
+  {
+   "state": "NH",
+   "cycle": 2000,
+   "office": "President",
+   "d": "Al Gore",
+   "r": "George W. Bush",
+   "avg": -3.13,
+   "actual": -1.27,
+   "err": -1.87,
+   "npolls": 7
+  },
+  {
+   "state": "NH",
+   "cycle": 2002,
+   "office": "Governor",
+   "d": "Mark Fernald",
+   "r": "Craig Benson",
+   "avg": -14.56,
+   "actual": -20.4,
+   "err": 5.85,
+   "npolls": 9
+  },
+  {
+   "state": "NH",
+   "cycle": 2002,
+   "office": "Senate",
+   "d": "Jeanne Shaheen",
+   "r": "John E. Sununu",
+   "avg": 0.76,
+   "actual": -4.42,
+   "err": 5.18,
+   "npolls": 10
+  },
+  {
+   "state": "NH",
+   "cycle": 2004,
+   "office": "Governor",
+   "d": "John Lynch",
+   "r": "Craig Benson",
+   "avg": -0.96,
+   "actual": 2.15,
+   "err": -3.11,
+   "npolls": 5
+  },
+  {
+   "state": "NH",
+   "cycle": 2004,
+   "office": "President",
+   "d": "John Kerry",
+   "r": "George W. Bush",
+   "avg": 2.36,
+   "actual": 1.37,
+   "err": 0.99,
+   "npolls": 13
+  },
+  {
+   "state": "NH",
+   "cycle": 2004,
+   "office": "Senate",
+   "d": "Doris R. Haddock",
+   "r": "Judd Gregg",
+   "avg": -37.08,
+   "actual": -32.46,
+   "err": -4.62,
+   "npolls": 6
+  },
+  {
+   "state": "NH",
+   "cycle": 2006,
+   "office": "Governor",
+   "d": "John Lynch",
+   "r": "Jim Coburn",
+   "avg": 54.27,
+   "actual": 48.19,
+   "err": 6.08,
+   "npolls": 2
+  },
+  {
+   "state": "NH",
+   "cycle": 2008,
+   "office": "Governor",
+   "d": "John Lynch",
+   "r": "Joe Kenney",
+   "avg": 47.17,
+   "actual": 42.56,
+   "err": 4.61,
+   "npolls": 8
+  },
+  {
+   "state": "NH",
+   "cycle": 2008,
+   "office": "President",
+   "d": "Barack Obama",
+   "r": "John McCain",
+   "avg": 11.38,
+   "actual": 9.61,
+   "err": 1.77,
+   "npolls": 16
+  },
+  {
+   "state": "NH",
+   "cycle": 2008,
+   "office": "Senate",
+   "d": "Jeanne Shaheen",
+   "r": "John E. Sununu",
+   "avg": 8.57,
+   "actual": 6.34,
+   "err": 2.23,
+   "npolls": 13
+  },
+  {
+   "state": "NH",
+   "cycle": 2010,
+   "office": "Governor",
+   "d": "John Lynch",
+   "r": "John A. Stephen",
+   "avg": 7.27,
+   "actual": 7.61,
+   "err": -0.33,
+   "npolls": 4
+  },
+  {
+   "state": "NH",
+   "cycle": 2010,
+   "office": "Senate",
+   "d": "Paul W. Hodes",
+   "r": "Kelly Ayotte",
+   "avg": -17.12,
+   "actual": -23.24,
+   "err": 6.12,
+   "npolls": 4
+  },
+  {
+   "state": "NH",
+   "cycle": 2012,
+   "office": "Governor",
+   "d": "Maggie Hassan",
+   "r": "Ovide Lamontagne",
+   "avg": 4.34,
+   "actual": 12.09,
+   "err": -7.75,
+   "npolls": 12
+  },
+  {
+   "state": "NH",
+   "cycle": 2012,
+   "office": "President",
+   "d": "Barack Obama",
+   "r": "Mitt Romney",
+   "avg": 2.16,
+   "actual": 5.58,
+   "err": -3.42,
+   "npolls": 19
+  },
+  {
+   "state": "NH",
+   "cycle": 2014,
+   "office": "Governor",
+   "d": "Maggie Hassan",
+   "r": "Walt Havenstein",
+   "avg": 5.72,
+   "actual": 4.95,
+   "err": 0.77,
+   "npolls": 15
+  },
+  {
+   "state": "NH",
+   "cycle": 2014,
+   "office": "Senate",
+   "d": "Jeanne Shaheen",
+   "r": "Scott Brown",
+   "avg": 1.51,
+   "actual": 3.24,
+   "err": -1.73,
+   "npolls": 16
+  },
+  {
+   "state": "NH",
+   "cycle": 2016,
+   "office": "Governor",
+   "d": "Colin Van Ostern",
+   "r": "Chris Sununu",
+   "avg": 2.87,
+   "actual": -2.27,
+   "err": 5.14,
+   "npolls": 14
+  },
+  {
+   "state": "NH",
+   "cycle": 2016,
+   "office": "President",
+   "d": "Hillary Rodham Clinton",
+   "r": "Donald Trump",
+   "avg": 4.07,
+   "actual": 0.37,
+   "err": 3.7,
+   "npolls": 23
+  },
+  {
+   "state": "NH",
+   "cycle": 2016,
+   "office": "Senate",
+   "d": "Maggie Hassan",
+   "r": "Kelly Ayotte",
+   "avg": 1.22,
+   "actual": 0.14,
+   "err": 1.08,
+   "npolls": 21
+  },
+  {
+   "state": "NH",
+   "cycle": 2018,
+   "office": "Governor",
+   "d": "Molly M. Kelly",
+   "r": "Chris Sununu",
+   "avg": -3.58,
+   "actual": -7.04,
+   "err": 3.46,
+   "npolls": 3
+  },
+  {
+   "state": "NH",
+   "cycle": 2020,
+   "office": "Governor",
+   "d": "Dan Feltes",
+   "r": "Chris Sununu",
+   "avg": -19.32,
+   "actual": -31.76,
+   "err": 12.44,
+   "npolls": 4
+  },
+  {
+   "state": "NH",
+   "cycle": 2020,
+   "office": "President",
+   "d": "Joe Biden",
+   "r": "Donald Trump",
+   "avg": 10.64,
+   "actual": 7.35,
+   "err": 3.28,
+   "npolls": 5
+  },
+  {
+   "state": "NH",
+   "cycle": 2020,
+   "office": "Senate",
+   "d": "Jeanne Shaheen",
+   "r": "Bryant Messner",
+   "avg": 15.12,
+   "actual": 15.65,
+   "err": -0.53,
+   "npolls": 4
+  },
+  {
+   "state": "NH",
+   "cycle": 2022,
+   "office": "Governor",
+   "d": "Tom Sherman",
+   "r": "Chris Sununu",
+   "avg": -16.41,
+   "actual": -15.51,
+   "err": -0.9,
+   "npolls": 12
+  },
+  {
+   "state": "NH",
+   "cycle": 2022,
+   "office": "Senate",
+   "d": "Maggie Hassan",
+   "r": "Donald C. Bolduc",
+   "avg": 2.24,
+   "actual": 9.06,
+   "err": -6.83,
+   "npolls": 13
+  },
+  {
+   "state": "NV",
+   "cycle": 1998,
+   "office": "Governor",
+   "d": "Jan Jones",
+   "r": "Kenny Guinn",
+   "avg": -3.0,
+   "actual": -9.58,
+   "err": 6.58,
+   "npolls": 1
+  },
+  {
+   "state": "NV",
+   "cycle": 1998,
+   "office": "Senate",
+   "d": "Harry Reid",
+   "r": "John Ensign",
+   "avg": 2.0,
+   "actual": 0.09,
+   "err": 1.91,
+   "npolls": 1
+  },
+  {
+   "state": "NV",
+   "cycle": 2000,
+   "office": "President",
+   "d": "Al Gore",
+   "r": "George W. Bush",
+   "avg": -4.89,
+   "actual": -3.55,
+   "err": -1.35,
+   "npolls": 4
+  },
+  {
+   "state": "NV",
+   "cycle": 2000,
+   "office": "Senate",
+   "d": "Ed Bernstein",
+   "r": "John Ensign",
+   "avg": -12.95,
+   "actual": -15.4,
+   "err": 2.45,
+   "npolls": 4
+  },
+  {
+   "state": "NV",
+   "cycle": 2002,
+   "office": "Governor",
+   "d": "Joseph Neal",
+   "r": "Kenny Guinn",
+   "avg": -38.74,
+   "actual": -46.24,
+   "err": 7.49,
+   "npolls": 2
+  },
+  {
+   "state": "NV",
+   "cycle": 2004,
+   "office": "President",
+   "d": "John Kerry",
+   "r": "George W. Bush",
+   "avg": -4.95,
+   "actual": -2.59,
+   "err": -2.36,
+   "npolls": 13
+  },
+  {
+   "state": "NV",
+   "cycle": 2004,
+   "office": "Senate",
+   "d": "Harry Reid",
+   "r": "Richard Ziser",
+   "avg": 25.4,
+   "actual": 25.94,
+   "err": -0.54,
+   "npolls": 5
+  },
+  {
+   "state": "NV",
+   "cycle": 2006,
+   "office": "Governor",
+   "d": "Dina Titus",
+   "r": "Jim Gibbons",
+   "avg": -3.74,
+   "actual": -4.01,
+   "err": 0.26,
+   "npolls": 5
+  },
+  {
+   "state": "NV",
+   "cycle": 2006,
+   "office": "Senate",
+   "d": "Jack Carter",
+   "r": "John Ensign",
+   "avg": -14.26,
+   "actual": -14.37,
+   "err": 0.11,
+   "npolls": 5
+  },
+  {
+   "state": "NV",
+   "cycle": 2008,
+   "office": "President",
+   "d": "Barack Obama",
+   "r": "John McCain",
+   "avg": 5.61,
+   "actual": 12.49,
+   "err": -6.88,
+   "npolls": 15
+  },
+  {
+   "state": "NV",
+   "cycle": 2010,
+   "office": "Governor",
+   "d": "Rory Reid",
+   "r": "Brian E. Sandoval",
+   "avg": -17.27,
+   "actual": -11.75,
+   "err": -5.52,
+   "npolls": 7
+  },
+  {
+   "state": "NV",
+   "cycle": 2010,
+   "office": "Senate",
+   "d": "Harry Reid",
+   "r": "Sharron Angle",
+   "avg": -3.26,
+   "actual": 5.74,
+   "err": -9.0,
+   "npolls": 8
+  },
+  {
+   "state": "NV",
+   "cycle": 2012,
+   "office": "President",
+   "d": "Barack Obama",
+   "r": "Mitt Romney",
+   "avg": 3.21,
+   "actual": 6.68,
+   "err": -3.47,
+   "npolls": 12
+  },
+  {
+   "state": "NV",
+   "cycle": 2012,
+   "office": "Senate",
+   "d": "Shelley Berkley",
+   "r": "Dean Heller",
+   "avg": -4.26,
+   "actual": -1.16,
+   "err": -3.1,
+   "npolls": 8
+  },
+  {
+   "state": "NV",
+   "cycle": 2014,
+   "office": "Governor",
+   "d": "Robert E. Goodman",
+   "r": "Brian E. Sandoval",
+   "avg": -25.0,
+   "actual": -46.7,
+   "err": 21.7,
+   "npolls": 1
+  },
+  {
+   "state": "NV",
+   "cycle": 2016,
+   "office": "President",
+   "d": "Hillary Rodham Clinton",
+   "r": "Donald Trump",
+   "avg": 0.52,
+   "actual": 2.42,
+   "err": -1.89,
+   "npolls": 23
+  },
+  {
+   "state": "NV",
+   "cycle": 2016,
+   "office": "Senate",
+   "d": "Catherine Cortez Masto",
+   "r": "Joseph J. Heck",
+   "avg": 1.94,
+   "actual": 2.43,
+   "err": -0.49,
+   "npolls": 16
+  },
+  {
+   "state": "NV",
+   "cycle": 2018,
+   "office": "Governor",
+   "d": "Steve Sisolak",
+   "r": "Adam Paul Laxalt",
+   "avg": 0.28,
+   "actual": 4.08,
+   "err": -3.81,
+   "npolls": 8
+  },
+  {
+   "state": "NV",
+   "cycle": 2018,
+   "office": "Senate",
+   "d": "Jacky Rosen",
+   "r": "Dean Heller",
+   "avg": 1.47,
+   "actual": 5.03,
+   "err": -3.55,
+   "npolls": 8
+  },
+  {
+   "state": "NV",
+   "cycle": 2020,
+   "office": "President",
+   "d": "Joe Biden",
+   "r": "Donald Trump",
+   "avg": 4.36,
+   "actual": 2.39,
+   "err": 1.97,
+   "npolls": 9
+  },
+  {
+   "state": "NV",
+   "cycle": 2022,
+   "office": "Governor",
+   "d": "Steve Sisolak",
+   "r": "Joe Lombardo",
+   "avg": -1.65,
+   "actual": -1.51,
+   "err": -0.14,
+   "npolls": 15
+  },
+  {
+   "state": "NV",
+   "cycle": 2022,
+   "office": "Senate",
+   "d": "Catherine Cortez Masto",
+   "r": "Adam Paul Laxalt",
+   "avg": -1.65,
+   "actual": 0.78,
+   "err": -2.42,
+   "npolls": 16
+  },
+  {
+   "state": "OH",
+   "cycle": 1998,
+   "office": "Governor",
+   "d": "Lee Fisher",
+   "r": "Bob Taft",
+   "avg": -8.34,
+   "actual": -5.36,
+   "err": -2.98,
+   "npolls": 10
+  },
+  {
+   "state": "OH",
+   "cycle": 1998,
+   "office": "Senate",
+   "d": "Mary Boyle",
+   "r": "George V. Voinovich",
+   "avg": -18.85,
+   "actual": -12.93,
+   "err": -5.93,
+   "npolls": 8
+  },
+  {
+   "state": "OH",
+   "cycle": 2000,
+   "office": "President",
+   "d": "Al Gore",
+   "r": "George W. Bush",
+   "avg": -6.62,
+   "actual": -3.55,
+   "err": -3.08,
+   "npolls": 12
+  },
+  {
+   "state": "OH",
+   "cycle": 2000,
+   "office": "Senate",
+   "d": "Ted Celeste",
+   "r": "Mike DeWine",
+   "avg": -25.78,
+   "actual": -24.06,
+   "err": -1.72,
+   "npolls": 12
+  },
+  {
+   "state": "OH",
+   "cycle": 2002,
+   "office": "Governor",
+   "d": "Timothy Hagan",
+   "r": "Bob Taft",
+   "avg": -15.9,
+   "actual": -19.45,
+   "err": 3.55,
+   "npolls": 7
+  },
+  {
+   "state": "OH",
+   "cycle": 2004,
+   "office": "President",
+   "d": "John Kerry",
+   "r": "George W. Bush",
+   "avg": -0.38,
+   "actual": -2.11,
+   "err": 1.73,
+   "npolls": 26
+  },
+  {
+   "state": "OH",
+   "cycle": 2004,
+   "office": "Senate",
+   "d": "Eric D. Fingerhut",
+   "r": "George V. Voinovich",
+   "avg": -28.56,
+   "actual": -27.7,
+   "err": -0.86,
+   "npolls": 12
+  },
+  {
+   "state": "OH",
+   "cycle": 2006,
+   "office": "Governor",
+   "d": "Ted Strickland",
+   "r": "J. Kenneth Blackwell",
+   "avg": 22.71,
+   "actual": 23.89,
+   "err": -1.18,
+   "npolls": 11
+  },
+  {
+   "state": "OH",
+   "cycle": 2006,
+   "office": "Senate",
+   "d": "Sherrod Brown",
+   "r": "Mike DeWine",
+   "avg": 12.26,
+   "actual": 12.35,
+   "err": -0.09,
+   "npolls": 13
+  },
+  {
+   "state": "OH",
+   "cycle": 2008,
+   "office": "President",
+   "d": "Barack Obama",
+   "r": "John McCain",
+   "avg": 4.73,
+   "actual": 4.59,
+   "err": 0.14,
+   "npolls": 31
+  },
+  {
+   "state": "OH",
+   "cycle": 2010,
+   "office": "Governor",
+   "d": "Ted Strickland",
+   "r": "John Richard Kasich",
+   "avg": -3.26,
+   "actual": -2.0,
+   "err": -1.25,
+   "npolls": 17
+  },
+  {
+   "state": "OH",
+   "cycle": 2010,
+   "office": "Senate",
+   "d": "Lee Fisher",
+   "r": "Rob Portman",
+   "avg": -17.34,
+   "actual": -17.44,
+   "err": 0.1,
+   "npolls": 15
+  },
+  {
+   "state": "OH",
+   "cycle": 2012,
+   "office": "President",
+   "d": "Barack Obama",
+   "r": "Mitt Romney",
+   "avg": 2.73,
+   "actual": 2.98,
+   "err": -0.25,
+   "npolls": 46
+  },
+  {
+   "state": "OH",
+   "cycle": 2012,
+   "office": "Senate",
+   "d": "Sherrod Brown",
+   "r": "Josh Mandel",
+   "avg": 5.32,
+   "actual": 6.0,
+   "err": -0.68,
+   "npolls": 30
+  },
+  {
+   "state": "OH",
+   "cycle": 2014,
+   "office": "Governor",
+   "d": "Edward FitzGerald",
+   "r": "John Richard Kasich",
+   "avg": -20.44,
+   "actual": -30.61,
+   "err": 10.17,
+   "npolls": 3
+  },
+  {
+   "state": "OH",
+   "cycle": 2016,
+   "office": "President",
+   "d": "Hillary Rodham Clinton",
+   "r": "Donald Trump",
+   "avg": -2.09,
+   "actual": -8.13,
+   "err": 6.04,
+   "npolls": 21
+  },
+  {
+   "state": "OH",
+   "cycle": 2016,
+   "office": "Senate",
+   "d": "Ted Strickland",
+   "r": "Rob Portman",
+   "avg": -15.49,
+   "actual": -20.87,
+   "err": 5.38,
+   "npolls": 12
+  },
+  {
+   "state": "OH",
+   "cycle": 2018,
+   "office": "Governor",
+   "d": "Richard Cordray",
+   "r": "Mike DeWine",
+   "avg": 3.62,
+   "actual": -3.7,
+   "err": 7.33,
+   "npolls": 7
+  },
+  {
+   "state": "OH",
+   "cycle": 2018,
+   "office": "Senate",
+   "d": "Sherrod Brown",
+   "r": "Jim Renacci",
+   "avg": 11.26,
+   "actual": 6.85,
+   "err": 4.41,
+   "npolls": 6
+  },
+  {
+   "state": "OH",
+   "cycle": 2020,
+   "office": "President",
+   "d": "Joe Biden",
+   "r": "Donald Trump",
+   "avg": -1.73,
+   "actual": -8.03,
+   "err": 6.3,
+   "npolls": 18
+  },
+  {
+   "state": "OH",
+   "cycle": 2022,
+   "office": "Governor",
+   "d": "Nan Whaley",
+   "r": "Mike DeWine",
+   "avg": -20.51,
+   "actual": -25.03,
+   "err": 4.52,
+   "npolls": 13
+  },
+  {
+   "state": "OH",
+   "cycle": 2022,
+   "office": "Senate",
+   "d": "Tim Ryan",
+   "r": "J.D. Vance",
+   "avg": -5.81,
+   "actual": -6.11,
+   "err": 0.3,
+   "npolls": 13
+  },
+  {
+   "state": "PA",
+   "cycle": 1998,
+   "office": "Governor",
+   "d": "Ivan Itkin",
+   "r": "Thomas Ridge",
+   "avg": -42.86,
+   "actual": -26.38,
+   "err": -16.48,
+   "npolls": 4
+  },
+  {
+   "state": "PA",
+   "cycle": 1998,
+   "office": "Senate",
+   "d": "Bill Lloyd",
+   "r": "Arlen Specter",
+   "avg": -31.49,
+   "actual": -26.55,
+   "err": -4.93,
+   "npolls": 4
+  },
+  {
+   "state": "PA",
+   "cycle": 2000,
+   "office": "President",
+   "d": "Al Gore",
+   "r": "George W. Bush",
+   "avg": 1.5,
+   "actual": 4.17,
+   "err": -2.67,
+   "npolls": 22
+  },
+  {
+   "state": "PA",
+   "cycle": 2000,
+   "office": "Senate",
+   "d": "Ron Klink",
+   "r": "Rick Santorum",
+   "avg": -17.53,
+   "actual": -6.91,
+   "err": -10.63,
+   "npolls": 15
+  },
+  {
+   "state": "PA",
+   "cycle": 2002,
+   "office": "Governor",
+   "d": "Ed Rendell",
+   "r": "Mike Fisher",
+   "avg": 18.09,
+   "actual": 9.04,
+   "err": 9.05,
+   "npolls": 6
+  },
+  {
+   "state": "PA",
+   "cycle": 2004,
+   "office": "President",
+   "d": "John Kerry",
+   "r": "George W. Bush",
+   "avg": 2.17,
+   "actual": 2.5,
+   "err": -0.34,
+   "npolls": 25
+  },
+  {
+   "state": "PA",
+   "cycle": 2004,
+   "office": "Senate",
+   "d": "Joe Hoeffel",
+   "r": "Arlen Specter",
+   "avg": -19.34,
+   "actual": -10.63,
+   "err": -8.71,
+   "npolls": 14
+  },
+  {
+   "state": "PA",
+   "cycle": 2006,
+   "office": "Governor",
+   "d": "Ed Rendell",
+   "r": "Lynn Swann",
+   "avg": 21.64,
+   "actual": 20.73,
+   "err": 0.91,
+   "npolls": 10
+  },
+  {
+   "state": "PA",
+   "cycle": 2006,
+   "office": "Senate",
+   "d": "Robert P. Casey Jr.",
+   "r": "Rick Santorum",
+   "avg": 10.8,
+   "actual": 17.35,
+   "err": -6.55,
+   "npolls": 12
+  },
+  {
+   "state": "PA",
+   "cycle": 2008,
+   "office": "President",
+   "d": "Barack Obama",
+   "r": "John McCain",
+   "avg": 9.24,
+   "actual": 10.32,
+   "err": -1.08,
+   "npolls": 28
+  },
+  {
+   "state": "PA",
+   "cycle": 2010,
+   "office": "Governor",
+   "d": "Dan Onorato",
+   "r": "Thomas W. Corbett",
+   "avg": -8.53,
+   "actual": -8.98,
+   "err": 0.45,
+   "npolls": 18
+  },
+  {
+   "state": "PA",
+   "cycle": 2010,
+   "office": "Senate",
+   "d": "Joe Sestak",
+   "r": "Patrick J. Toomey",
+   "avg": -4.23,
+   "actual": -2.02,
+   "err": -2.22,
+   "npolls": 18
+  },
+  {
+   "state": "PA",
+   "cycle": 2012,
+   "office": "President",
+   "d": "Barack Obama",
+   "r": "Mitt Romney",
+   "avg": 4.47,
+   "actual": 5.39,
+   "err": -0.91,
+   "npolls": 14
+  },
+  {
+   "state": "PA",
+   "cycle": 2012,
+   "office": "Senate",
+   "d": "Robert P. Casey Jr.",
+   "r": "Tom Smith",
+   "avg": 5.72,
+   "actual": 9.1,
+   "err": -3.38,
+   "npolls": 15
+  },
+  {
+   "state": "PA",
+   "cycle": 2014,
+   "office": "Governor",
+   "d": "Thomas W. Wolf",
+   "r": "Thomas W. Corbett",
+   "avg": 9.92,
+   "actual": 9.86,
+   "err": 0.06,
+   "npolls": 5
+  },
+  {
+   "state": "PA",
+   "cycle": 2016,
+   "office": "President",
+   "d": "Hillary Rodham Clinton",
+   "r": "Donald Trump",
+   "avg": 3.23,
+   "actual": -0.72,
+   "err": 3.95,
+   "npolls": 32
+  },
+  {
+   "state": "PA",
+   "cycle": 2016,
+   "office": "Senate",
+   "d": "Kathleen Alana McGinty",
+   "r": "Patrick J. Toomey",
+   "avg": 2.35,
+   "actual": -1.43,
+   "err": 3.78,
+   "npolls": 23
+  },
+  {
+   "state": "PA",
+   "cycle": 2018,
+   "office": "Governor",
+   "d": "Thomas W. Wolf",
+   "r": "Scott R. Wagner",
+   "avg": 15.07,
+   "actual": 17.07,
+   "err": -2.0,
+   "npolls": 4
+  },
+  {
+   "state": "PA",
+   "cycle": 2018,
+   "office": "Senate",
+   "d": "Robert P. Casey Jr.",
+   "r": "Lou Barletta",
+   "avg": 11.28,
+   "actual": 13.13,
+   "err": -1.84,
+   "npolls": 4
+  },
+  {
+   "state": "PA",
+   "cycle": 2020,
+   "office": "President",
+   "d": "Joe Biden",
+   "r": "Donald Trump",
+   "avg": 4.74,
+   "actual": 1.16,
+   "err": 3.57,
+   "npolls": 51
+  },
+  {
+   "state": "PA",
+   "cycle": 2022,
+   "office": "Governor",
+   "d": "Josh Shapiro",
+   "r": "Douglas V. Mastriano",
+   "avg": 10.78,
+   "actual": 14.77,
+   "err": -3.99,
+   "npolls": 23
+  },
+  {
+   "state": "PA",
+   "cycle": 2022,
+   "office": "Senate",
+   "d": "John Fetterman",
+   "r": "Mehmet Oz",
+   "avg": 0.35,
+   "actual": 4.91,
+   "err": -4.56,
+   "npolls": 24
+  },
+  {
+   "state": "TX",
+   "cycle": 1998,
+   "office": "Governor",
+   "d": "Garry Mauro",
+   "r": "George W. Bush",
+   "avg": -47.35,
+   "actual": -37.06,
+   "err": -10.3,
+   "npolls": 5
+  },
+  {
+   "state": "TX",
+   "cycle": 2000,
+   "office": "President",
+   "d": "Al Gore",
+   "r": "George W. Bush",
+   "avg": -24.36,
+   "actual": -21.32,
+   "err": -3.04,
+   "npolls": 4
+  },
+  {
+   "state": "TX",
+   "cycle": 2000,
+   "office": "Senate",
+   "d": "Gene Kelly",
+   "r": "Kay Bailey Hutchison",
+   "avg": -32.0,
+   "actual": -32.77,
+   "err": 0.77,
+   "npolls": 2
+  },
+  {
+   "state": "TX",
+   "cycle": 2002,
+   "office": "Governor",
+   "d": "Tony Sanchez",
+   "r": "Rick Perry",
+   "avg": -12.83,
+   "actual": -17.85,
+   "err": 5.01,
+   "npolls": 12
+  },
+  {
+   "state": "TX",
+   "cycle": 2002,
+   "office": "Senate",
+   "d": "Ron Kirk",
+   "r": "John Cornyn",
+   "avg": -5.12,
+   "actual": -11.97,
+   "err": 6.86,
+   "npolls": 15
+  },
+  {
+   "state": "TX",
+   "cycle": 2004,
+   "office": "President",
+   "d": "John Kerry",
+   "r": "George W. Bush",
+   "avg": -22.0,
+   "actual": -22.86,
+   "err": 0.86,
+   "npolls": 1
+  },
+  {
+   "state": "TX",
+   "cycle": 2006,
+   "office": "Governor",
+   "d": "Chris Bell",
+   "r": "Rick Perry",
+   "avg": -12.71,
+   "actual": -9.24,
+   "err": -3.47,
+   "npolls": 5
+  },
+  {
+   "state": "TX",
+   "cycle": 2006,
+   "office": "Senate",
+   "d": "Barbara Ann Radnofsky",
+   "r": "Kay Bailey Hutchison",
+   "avg": -29.86,
+   "actual": -25.65,
+   "err": -4.22,
+   "npolls": 4
+  },
+  {
+   "state": "TX",
+   "cycle": 2008,
+   "office": "President",
+   "d": "Barack Obama",
+   "r": "John McCain",
+   "avg": -10.73,
+   "actual": -11.77,
+   "err": 1.03,
+   "npolls": 3
+  },
+  {
+   "state": "TX",
+   "cycle": 2008,
+   "office": "Senate",
+   "d": "Rick Noriega",
+   "r": "John Cornyn",
+   "avg": -12.07,
+   "actual": -11.98,
+   "err": -0.09,
+   "npolls": 3
+  },
+  {
+   "state": "TX",
+   "cycle": 2010,
+   "office": "Governor",
+   "d": "Bill White",
+   "r": "Rick Perry",
+   "avg": -10.76,
+   "actual": -12.67,
+   "err": 1.92,
+   "npolls": 4
+  },
+  {
+   "state": "TX",
+   "cycle": 2012,
+   "office": "President",
+   "d": "Barack Obama",
+   "r": "Mitt Romney",
+   "avg": -18.5,
+   "actual": -15.78,
+   "err": -2.71,
+   "npolls": 2
+  },
+  {
+   "state": "TX",
+   "cycle": 2012,
+   "office": "Senate",
+   "d": "Paul Sadler",
+   "r": "Ted Cruz",
+   "avg": -19.99,
+   "actual": -15.83,
+   "err": -4.16,
+   "npolls": 2
+  },
+  {
+   "state": "TX",
+   "cycle": 2014,
+   "office": "Governor",
+   "d": "Wendy R. Davis",
+   "r": "Greg Abbott",
+   "avg": -19.07,
+   "actual": -20.37,
+   "err": 1.3,
+   "npolls": 2
+  },
+  {
+   "state": "TX",
+   "cycle": 2014,
+   "office": "Senate",
+   "d": "David M. Alameel",
+   "r": "John Cornyn",
+   "avg": -22.93,
+   "actual": -27.2,
+   "err": 4.26,
+   "npolls": 2
+  },
+  {
+   "state": "TX",
+   "cycle": 2016,
+   "office": "President",
+   "d": "Hillary Rodham Clinton",
+   "r": "Donald Trump",
+   "avg": -7.54,
+   "actual": -9.0,
+   "err": 1.46,
+   "npolls": 11
+  },
+  {
+   "state": "TX",
+   "cycle": 2018,
+   "office": "Governor",
+   "d": "Lupe Valdez",
+   "r": "Greg Abbott",
+   "avg": -16.38,
+   "actual": -13.3,
+   "err": -3.08,
+   "npolls": 5
+  },
+  {
+   "state": "TX",
+   "cycle": 2018,
+   "office": "Senate",
+   "d": "Beto O'Rourke",
+   "r": "Ted Cruz",
+   "avg": -5.17,
+   "actual": -2.57,
+   "err": -2.6,
+   "npolls": 8
+  },
+  {
+   "state": "TX",
+   "cycle": 2020,
+   "office": "President",
+   "d": "Joe Biden",
+   "r": "Donald Trump",
+   "avg": -1.64,
+   "actual": -5.58,
+   "err": 3.94,
+   "npolls": 21
+  },
+  {
+   "state": "TX",
+   "cycle": 2020,
+   "office": "Senate",
+   "d": "Mary Jennings Hegar",
+   "r": "John Cornyn",
+   "avg": -5.73,
+   "actual": -9.64,
+   "err": 3.91,
+   "npolls": 19
+  },
+  {
+   "state": "TX",
+   "cycle": 2022,
+   "office": "Governor",
+   "d": "Beto O'Rourke",
+   "r": "Greg Abbott",
+   "avg": -8.81,
+   "actual": -10.9,
+   "err": 2.09,
+   "npolls": 6
+  },
+  {
+   "state": "VA",
+   "cycle": 2000,
+   "office": "President",
+   "d": "Al Gore",
+   "r": "George W. Bush",
+   "avg": -8.0,
+   "actual": -8.04,
+   "err": 0.04,
+   "npolls": 10
+  },
+  {
+   "state": "VA",
+   "cycle": 2000,
+   "office": "Senate",
+   "d": "Charles S. Robb",
+   "r": "George F. Allen",
+   "avg": -5.83,
+   "actual": -4.58,
+   "err": -1.25,
+   "npolls": 10
+  },
+  {
+   "state": "VA",
+   "cycle": 2004,
+   "office": "President",
+   "d": "John Kerry",
+   "r": "George W. Bush",
+   "avg": -5.8,
+   "actual": -8.2,
+   "err": 2.4,
+   "npolls": 4
+  },
+  {
+   "state": "VA",
+   "cycle": 2006,
+   "office": "Senate",
+   "d": "Jim Webb",
+   "r": "George F. Allen",
+   "avg": 1.23,
+   "actual": 0.39,
+   "err": 0.84,
+   "npolls": 15
+  },
+  {
+   "state": "VA",
+   "cycle": 2008,
+   "office": "President",
+   "d": "Barack Obama",
+   "r": "John McCain",
+   "avg": 6.03,
+   "actual": 6.3,
+   "err": -0.27,
+   "npolls": 24
+  },
+  {
+   "state": "VA",
+   "cycle": 2008,
+   "office": "Senate",
+   "d": "Mark R. Warner",
+   "r": "James S. Gilmore III",
+   "avg": 28.09,
+   "actual": 31.3,
+   "err": -3.22,
+   "npolls": 16
+  },
+  {
+   "state": "VA",
+   "cycle": 2012,
+   "office": "President",
+   "d": "Barack Obama",
+   "r": "Mitt Romney",
+   "avg": 1.04,
+   "actual": 3.87,
+   "err": -2.83,
+   "npolls": 30
+  },
+  {
+   "state": "VA",
+   "cycle": 2012,
+   "office": "Senate",
+   "d": "Tim Kaine",
+   "r": "George F. Allen",
+   "avg": 2.09,
+   "actual": 5.91,
+   "err": -3.82,
+   "npolls": 21
+  },
+  {
+   "state": "VA",
+   "cycle": 2014,
+   "office": "Senate",
+   "d": "Mark R. Warner",
+   "r": "Ed W. Gillespie",
+   "avg": 7.86,
+   "actual": 0.81,
+   "err": 7.05,
+   "npolls": 5
+  },
+  {
+   "state": "VA",
+   "cycle": 2016,
+   "office": "President",
+   "d": "Hillary Rodham Clinton",
+   "r": "Donald Trump",
+   "avg": 6.06,
+   "actual": 5.32,
+   "err": 0.74,
+   "npolls": 21
+  },
+  {
+   "state": "VA",
+   "cycle": 2020,
+   "office": "President",
+   "d": "Joe Biden",
+   "r": "Donald Trump",
+   "avg": 13.14,
+   "actual": 10.11,
+   "err": 3.03,
+   "npolls": 9
+  },
+  {
+   "state": "VA",
+   "cycle": 2020,
+   "office": "Senate",
+   "d": "Mark R. Warner",
+   "r": "Daniel M. Gade",
+   "avg": 17.21,
+   "actual": 12.08,
+   "err": 5.12,
+   "npolls": 8
+  },
+  {
+   "state": "WI",
+   "cycle": 1998,
+   "office": "Governor",
+   "d": "Ed Garvey",
+   "r": "Tommy Thompson",
+   "avg": -36.01,
+   "actual": -20.97,
+   "err": -15.05,
+   "npolls": 3
+  },
+  {
+   "state": "WI",
+   "cycle": 1998,
+   "office": "Senate",
+   "d": "Russ Feingold",
+   "r": "Mark W. Neumann",
+   "avg": -0.33,
+   "actual": 2.15,
+   "err": -2.48,
+   "npolls": 4
+  },
+  {
+   "state": "WI",
+   "cycle": 2000,
+   "office": "President",
+   "d": "Al Gore",
+   "r": "George W. Bush",
+   "avg": -0.86,
+   "actual": 0.22,
+   "err": -1.08,
+   "npolls": 11
+  },
+  {
+   "state": "WI",
+   "cycle": 2000,
+   "office": "Senate",
+   "d": "Herb Kohl",
+   "r": "John Gillespie",
+   "avg": 25.91,
+   "actual": 24.51,
+   "err": 1.4,
+   "npolls": 9
+  },
+  {
+   "state": "WI",
+   "cycle": 2002,
+   "office": "Governor",
+   "d": "Jim Doyle",
+   "r": "Scott McCallum",
+   "avg": 4.67,
+   "actual": 3.7,
+   "err": 0.97,
+   "npolls": 4
+  },
+  {
+   "state": "WI",
+   "cycle": 2004,
+   "office": "President",
+   "d": "John Kerry",
+   "r": "George W. Bush",
+   "avg": -0.09,
+   "actual": 0.38,
+   "err": -0.47,
+   "npolls": 15
+  },
+  {
+   "state": "WI",
+   "cycle": 2004,
+   "office": "Senate",
+   "d": "Russ Feingold",
+   "r": "Tim Michels",
+   "avg": 16.49,
+   "actual": 11.24,
+   "err": 5.25,
+   "npolls": 6
+  },
+  {
+   "state": "WI",
+   "cycle": 2006,
+   "office": "Governor",
+   "d": "Jim Doyle",
+   "r": "Mark A. Green",
+   "avg": 6.01,
+   "actual": 7.39,
+   "err": -1.38,
+   "npolls": 4
+  },
+  {
+   "state": "WI",
+   "cycle": 2006,
+   "office": "Senate",
+   "d": "Herb Kohl",
+   "r": "Robert Gerald Lorge",
+   "avg": 34.47,
+   "actual": 37.83,
+   "err": -3.36,
+   "npolls": 3
+  },
+  {
+   "state": "WI",
+   "cycle": 2008,
+   "office": "President",
+   "d": "Barack Obama",
+   "r": "John McCain",
+   "avg": 11.65,
+   "actual": 13.9,
+   "err": -2.25,
+   "npolls": 8
+  },
+  {
+   "state": "WI",
+   "cycle": 2010,
+   "office": "Governor",
+   "d": "Thomas M. Barrett",
+   "r": "Scott Walker",
+   "avg": -7.58,
+   "actual": -5.77,
+   "err": -1.81,
+   "npolls": 8
+  },
+  {
+   "state": "WI",
+   "cycle": 2010,
+   "office": "Senate",
+   "d": "Russ Feingold",
+   "r": "Ron Johnson",
+   "avg": -5.68,
+   "actual": -4.84,
+   "err": -0.85,
+   "npolls": 8
+  },
+  {
+   "state": "WI",
+   "cycle": 2012,
+   "office": "Governor",
+   "d": "Thomas M. Barrett",
+   "r": "Scott Walker",
+   "avg": -6.76,
+   "actual": -6.8,
+   "err": 0.04,
+   "npolls": 12
+  },
+  {
+   "state": "WI",
+   "cycle": 2012,
+   "office": "President",
+   "d": "Barack Obama",
+   "r": "Mitt Romney",
+   "avg": 3.71,
+   "actual": 6.84,
+   "err": -3.13,
+   "npolls": 21
+  },
+  {
+   "state": "WI",
+   "cycle": 2012,
+   "office": "Senate",
+   "d": "Tammy Baldwin",
+   "r": "Tommy Thompson",
+   "avg": 1.19,
+   "actual": 5.55,
+   "err": -4.36,
+   "npolls": 16
+  },
+  {
+   "state": "WI",
+   "cycle": 2014,
+   "office": "Governor",
+   "d": "Mary Burke",
+   "r": "Scott Walker",
+   "avg": -2.84,
+   "actual": -5.68,
+   "err": 2.84,
+   "npolls": 7
+  },
+  {
+   "state": "WI",
+   "cycle": 2016,
+   "office": "President",
+   "d": "Hillary Rodham Clinton",
+   "r": "Donald Trump",
+   "avg": 4.43,
+   "actual": -0.76,
+   "err": 5.19,
+   "npolls": 15
+  },
+  {
+   "state": "WI",
+   "cycle": 2016,
+   "office": "Senate",
+   "d": "Russ Feingold",
+   "r": "Ron Johnson",
+   "avg": 1.1,
+   "actual": -3.36,
+   "err": 4.46,
+   "npolls": 10
+  },
+  {
+   "state": "WI",
+   "cycle": 2018,
+   "office": "Governor",
+   "d": "Tony Evers",
+   "r": "Scott Walker",
+   "avg": 1.89,
+   "actual": 1.09,
+   "err": 0.8,
+   "npolls": 3
+  },
+  {
+   "state": "WI",
+   "cycle": 2018,
+   "office": "Senate",
+   "d": "Tammy Baldwin",
+   "r": "Leah Vukmir",
+   "avg": 10.26,
+   "actual": 10.83,
+   "err": -0.57,
+   "npolls": 3
+  },
+  {
+   "state": "WI",
+   "cycle": 2020,
+   "office": "President",
+   "d": "Joe Biden",
+   "r": "Donald Trump",
+   "avg": 7.81,
+   "actual": 0.63,
+   "err": 7.18,
+   "npolls": 29
+  },
+  {
+   "state": "WI",
+   "cycle": 2022,
+   "office": "Governor",
+   "d": "Tony Evers",
+   "r": "Tim Michels",
+   "avg": -0.12,
+   "actual": 3.4,
+   "err": -3.52,
+   "npolls": 11
+  },
+  {
+   "state": "WI",
+   "cycle": 2022,
+   "office": "Senate",
+   "d": "Mandela Barnes",
+   "r": "Ron Johnson",
+   "avg": -3.33,
+   "actual": -1.01,
+   "err": -2.32,
+   "npolls": 12
+  }
+ ],
+ "generic": [
+  {
+   "cycle": 1998,
+   "avg": 3.17,
+   "actual": -0.89,
+   "err": 4.06,
+   "npolls": 20,
+   "avg_oct": 0.32
+  },
+  {
+   "cycle": 2000,
+   "avg": 1.91,
+   "actual": -0.34,
+   "err": 2.26,
+   "npolls": 30,
+   "avg_oct": 1.89
+  },
+  {
+   "cycle": 2002,
+   "avg": 0.27,
+   "actual": -4.71,
+   "err": 4.98,
+   "npolls": 25,
+   "avg_oct": 1.4
+  },
+  {
+   "cycle": 2004,
+   "avg": 1.4,
+   "actual": -2.57,
+   "err": 3.97,
+   "npolls": 31,
+   "avg_oct": 2.82
+  },
+  {
+   "cycle": 2006,
+   "avg": 13.49,
+   "actual": 7.89,
+   "err": 5.6,
+   "npolls": 27,
+   "avg_oct": 11.47
+  },
+  {
+   "cycle": 2008,
+   "avg": 9.2,
+   "actual": 10.55,
+   "err": -1.35,
+   "npolls": 21,
+   "avg_oct": 8.45
+  },
+  {
+   "cycle": 2010,
+   "avg": -7.09,
+   "actual": -6.51,
+   "err": -0.58,
+   "npolls": 32,
+   "avg_oct": -4.51
+  },
+  {
+   "cycle": 2012,
+   "avg": 0.01,
+   "actual": 1.09,
+   "err": -1.08,
+   "npolls": 21,
+   "avg_oct": 0.97
+  },
+  {
+   "cycle": 2014,
+   "avg": -2.25,
+   "actual": -5.62,
+   "err": 3.37,
+   "npolls": 15,
+   "avg_oct": 1.07
+  },
+  {
+   "cycle": 2016,
+   "avg": 2.9,
+   "actual": -1.03,
+   "err": 3.93,
+   "npolls": 24,
+   "avg_oct": 4.93
+  },
+  {
+   "cycle": 2018,
+   "avg": 7.13,
+   "actual": 8.51,
+   "err": -1.38,
+   "npolls": 37,
+   "avg_oct": 6.93
+  },
+  {
+   "cycle": 2020,
+   "avg": 7.5,
+   "actual": 2.96,
+   "err": 4.53,
+   "npolls": 26,
+   "avg_oct": 6.27
+  },
+  {
+   "cycle": 2022,
+   "avg": -0.53,
+   "actual": -2.64,
+   "err": 2.1,
+   "npolls": 55,
+   "avg_oct": 1.28
+  }
+ ],
+ "calibration": {
+  "within1": 0.7070254110612855,
+  "within2": 0.9506726457399103
+ },
+ "call_accuracy": [
+  {
+   "band": "0-2",
+   "mean": 0.597,
+   "size": 72
+  },
+  {
+   "band": "2-5",
+   "mean": 0.84,
+   "size": 100
+  },
+  {
+   "band": "5-10",
+   "mean": 0.939,
+   "size": 115
+  },
+  {
+   "band": "10+",
+   "mean": 0.997,
+   "size": 382
+  }
+ ],
+ "n_races": 970,
+ "n_sengov": 669,
+ "n_polls": 13823
+}

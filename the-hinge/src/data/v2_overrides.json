@@ -1,0 +1,1027 @@
+{
+ "spec": "C",
+ "war": {
+  "1950": {
+   "heavy": true,
+   "deaths": 819,
+   "deathsLabel": "819+",
+   "name": "Korea",
+   "note": "At least 819 U.S. troops were killed in July 1950 alone, at the Kum River and Taejon; a calendar-year count before the election was not found.",
+   "source": "https://en.wikipedia.org/wiki/Battle_of_Taejon"
+  },
+  "1966": {
+   "heavy": true,
+   "deaths": 5008,
+   "name": "Vietnam",
+   "source": "https://edmoise.sites.clemson.edu/VNStats.html"
+  },
+  "1970": {
+   "heavy": true,
+   "deaths": 4221,
+   "name": "Vietnam",
+   "source": "https://edmoise.sites.clemson.edu/VNStats.html"
+  },
+  "2002": {
+   "heavy": false,
+   "deaths": 18,
+   "name": "Afghanistan",
+   "source": "https://en.wikipedia.org/wiki/United_States_military_casualties_in_the_War_in_Afghanistan"
+  },
+  "2006": {
+   "heavy": true,
+   "deaths": 887,
+   "deathsLabel": "≈890",
+   "name": "Iraq and Afghanistan",
+   "note": "822 U.S. deaths in Iraq from all causes (hostile-only by year not found) plus 65 hostile deaths in Afghanistan.",
+   "source": "https://www.brookings.edu/wp-content/uploads/2016/07/index20110225.pdf ; https://en.wikipedia.org/wiki/United_States_military_casualties_in_the_War_in_Afghanistan"
+  },
+  "2010": {
+   "heavy": true,
+   "deaths": 497,
+   "deathsLabel": "≈500",
+   "name": "Afghanistan and Iraq",
+   "note": "437 hostile deaths in Afghanistan plus 60 deaths in Iraq from all causes.",
+   "source": "https://en.wikipedia.org/wiki/United_States_military_casualties_in_the_War_in_Afghanistan ; https://www.brookings.edu/wp-content/uploads/2016/07/index20110225.pdf"
+  },
+  "2014": {
+   "heavy": false,
+   "deaths": 39,
+   "name": "Afghanistan",
+   "note": "Afghanistan only; counter-ISIS deaths by year not found.",
+   "source": "https://en.wikipedia.org/wiki/United_States_military_casualties_in_the_War_in_Afghanistan"
+  },
+  "2018": {
+   "heavy": false,
+   "deaths": 13,
+   "name": "Afghanistan",
+   "note": "Afghanistan only; counter-ISIS deaths by year not found.",
+   "source": "https://en.wikipedia.org/wiki/United_States_military_casualties_in_the_War_in_Afghanistan"
+  }
+ },
+ "now": {
+  "approval": 37.5,
+  "approvalSrc": "Average of RealClearPolitics (38.3%), NYT (37%) and Silver Bulletin (37.1%) on Oct 8; Gallup stopped publishing approval in 2026",
+  "approvalUrl": "https://spokesman.com/stories/2026/oct/08/trump-voters-not-excited-for-midterms-as-approval-",
+  "income": 1.15,
+  "incomeSrc": "Real disposable income per person, Jul–Aug 2026 vs Jul–Aug 2025 (BEA via FRED), the closest match to the Q3-over-Q3 change used for 1950–2022",
+  "war": 0,
+  "warDeaths": 11,
+  "warLabel": "Iran",
+  "warNote": "21 U.S. deaths (11 in combat) and 865 wounded since Feb 28 (Pentagon, Oct 9–10). Strikes paused; the naval blockade continues. Quinnipiac: 28% approve of the handling of Iran.",
+  "sentiment": 46.3,
+  "sentimentSrc": "University of Michigan, October preliminary",
+  "gas": 4.354,
+  "gasYoY": 39.4,
+  "gasSrc": "EIA weekly retail regular, week of Oct 5; $2.94 the week before the war began",
+  "unemp": 4.2
+ },
+ "fitNote": "Approval is Gallup’s pre-election reading for 1946–2022; Gallup stopped publishing it in 2026, so 2026 uses the average of three polling averages. Real income is the change in real disposable income per person, third quarter over third quarter (annual for 1946); for 2026, July–August over July–August. House vote shares for 1946–2000 are Brookings’ (share of all votes), 2002 onward Wikipedia’s, as is 1944 (the baseline for 1946); all are converted to two-party shares.",
+ "warNote": "The history model asks only whether the U.S. was fighting a war with heavy American losses: hundreds or thousands of U.S. deaths in the election year, as in 1950, 1966, 1970, 2006 and 2010. By that yardstick the Iran war is not one: 21 Americans have died, 11 of them in combat. If it moves the vote, the model would see that through prices and the president’s approval rather than through its war term: gas is up 39% in a year ($2.94 the week before the war began, $4.35 now), and 28% of registered voters approve of the handling of Iran (Quinnipiac, Sept 24–27).",
+ "cases": [
+  {
+   "year": 1950,
+   "title": "Korea, and a strong economy",
+   "summary": "The Korean War began in June; at least 819 Americans were killed in July alone. Truman’s approval fell to 39%, and Democrats lost 28 seats even though real income per person was up 7.6%. They kept the House.",
+   "sources": [
+    "https://en.wikipedia.org/wiki/Battle_of_Taejon",
+    "https://en.wikipedia.org/wiki/1950_United_States_House_of_Representatives_elections",
+    "https://www.everycrsreport.com/files/20190924_RL32492_75dc0f1f826404a4728a7a3eb43ec2f8cb67905d.html",
+    "https://fred.stlouisfed.org/data/A229RX0Q048SBEA"
+   ]
+  },
+  {
+   "year": 1966,
+   "title": "Vietnam escalates",
+   "summary": "U.S. combat deaths in Vietnam rose from 1,369 in 1965 to 5,008 in 1966, and prices began to climb (3.5% inflation). Johnson’s approval sank to 44%, and Democrats lost 47 seats with unemployment at just 3.7%.",
+   "sources": [
+    "https://edmoise.sites.clemson.edu/VNStats.html",
+    "https://en.wikipedia.org/wiki/United_States_House_election,_1966",
+    "https://fred.stlouisfed.org/data/cpiaucns"
+   ]
+  },
+  {
+   "year": 1974,
+   "title": "Watergate and inflation",
+   "summary": "Three months after Nixon resigned, inflation was near 12%, gasoline prices were up about a third and real incomes were down 2.3%. Republicans lost 48 seats. Tufte’s approval-and-income model had predicted 60.8% of the two-party vote for Democrats; they won 58.9% by his count (58.5% in this tab’s data).",
+   "sources": [
+    "https://en.wikipedia.org/wiki/United_States_House_elections,_1974",
+    "https://fred.stlouisfed.org/data/cpiaucns",
+    "https://fred.stlouisfed.org/data/CWUR0000SETB01",
+    "https://www.edwardtufte.com/wp-content/uploads/2024/10/Determinants-of-the-outcomes-of-midterm-congressional-elections-1975.pdf",
+    "https://fred.stlouisfed.org/data/A229RX0Q048SBEA"
+   ]
+  },
+  {
+   "year": 1982,
+   "title": "A deep recession",
+   "summary": "Unemployment reached 10.4% in October and Reagan’s approval was 42%. Republicans lost 26 seats, even though inflation had cooled to 5% and gas was cheaper than a year earlier.",
+   "sources": [
+    "https://fred.stlouisfed.org/data/unrate",
+    "https://en.wikipedia.org/wiki/1982_United_States_House_of_Representatives_elections",
+    "https://fred.stlouisfed.org/data/A229RX0Q048SBEA"
+   ]
+  },
+  {
+   "year": 2006,
+   "title": "Iraq",
+   "summary": "With 822 U.S. deaths in Iraq that year and Bush’s approval at 38%, Republicans lost 30 seats in a healthy economy (4.4% unemployment, real incomes up 2.3%). District and state studies found larger Republican losses where local casualties were higher.",
+   "sources": [
+    "https://en.wikipedia.org/wiki/2006_United_States_House_of_Representatives_elections",
+    "https://www.brookings.edu/wp-content/uploads/2016/07/index20110225.pdf",
+    "https://en.wikipedia.org/wiki/United_States_military_casualties_in_the_War_in_Afghanistan",
+    "https://news.vanderbilt.edu/2007/09/04/2006-voters-in-districts-with-heavy-war-losses-blamed-gop-vanderbilt-study-finds-iraq-war-hurt-republican-not-democratic-house-members-58496",
+    "https://experts.umn.edu/en/publications/iraq-casualties-and-the-2006-senate-elections/"
+   ]
+  },
+  {
+   "year": 2010,
+   "title": "After the Great Recession",
+   "summary": "With unemployment at 9.4%, Democrats lost 63 seats — more than most published models predicted. The Afghanistan surge peaked the same year, with 437 U.S. combat deaths.",
+   "sources": [
+    "https://fred.stlouisfed.org/data/unrate",
+    "https://en.wikipedia.org/wiki/United_States_House_elections,_2010",
+    "https://www.acsu.buffalo.edu/~jcampbel/documents/PSIntro2010Midterm.pdf",
+    "https://en.wikipedia.org/wiki/United_States_military_casualties_in_the_War_in_Afghanistan"
+   ]
+  },
+  {
+   "year": 2022,
+   "title": "Inflation versus Dobbs",
+   "summary": "Inflation was 8.2% and real incomes fell 3.8%, yet Democrats lost only 9 seats. Half of voters named inflation their top factor and Republicans did better with them; the quarter who named the Dobbs decision voted about 7 to 3 for Democrats.",
+   "sources": [
+    "https://fred.stlouisfed.org/data/cpiaucns",
+    "https://fred.stlouisfed.org/data/APU000074714",
+    "https://fred.stlouisfed.org/data/A229RX0Q048SBEA",
+    "https://www.kff.org/other/poll-finding/2022-midterm-election-kff-ap-votecast-analysis/"
+   ]
+  }
+ ],
+ "models": [
+  {
+   "name": "Hibbs, Bread and Peace",
+   "finding": "For presidential elections: the incumbent party gains about 3.6 points of vote for each point of real-income growth over the term (weighted toward recent quarters) and loses about 0.3 points per 1,000 U.S. deaths in wars it started. Fitted on 1952–2004; typical miss 2.4 points.",
+   "url": "https://mpra.ub.uni-muenchen.de/15910/1/MPRA_paper_15910.pdf"
+  },
+  {
+   "name": "Tufte, 1975",
+   "finding": "A classic midterm referendum model: the president’s approval and the yearly change in real income per person explained his party’s House vote from 1938 to 1970. It called 1974 within two points.",
+   "url": "https://www.edwardtufte.com/wp-content/uploads/2024/10/Determinants-of-the-outcomes-of-midterm-congressional-elections-1975.pdf"
+  },
+  {
+   "name": "Lewis-Beck and Tien",
+   "finding": "House seat change from June approval, election-year income growth and a midterm penalty; typical error about 18 seats.",
+   "url": "https://centerforpolitics.org/crystalball/?p=18143"
+  },
+  {
+   "name": "Abramowitz",
+   "finding": "Generic-ballot margin plus seats defended: each generic-ballot point is worth about 2.6 House seats. Fitted to the 20 midterms since 1946, it comes within 10 seats in 16; the biggest misses are 1994 and 2006.",
+   "url": "https://www.rasmussenreports.com/public_content/political_commentary/commentary_by_alan_i_abramowitz/generic_ballot_model_gives_democrats_strong_chance_to_take_back_house_in_2026"
+  },
+  {
+   "name": "Campbell, surge and decline",
+   "finding": "Midterm losses partly undo the previous presidential year’s surge: the better a party did two years earlier, the more it gives back. This tab’s “previous share” term (the House vote two years earlier) stands in for it.",
+   "url": "https://www.acsu.buffalo.edu/~jcampbel/documents/JCJOP1991Surge.pdf"
+  },
+  {
+   "name": "Kramer, 1971",
+   "finding": "Economic conditions in the year before an election, led by real personal income, explained about half the variation in the congressional vote from 1896 to 1964.",
+   "url": "https://www.dallasfed.org/~/media/documents/research/papers/1985/wp8506.pdf"
+  }
+ ],
+ "literature": [
+  {
+   "topic": "war",
+   "year": "1971",
+   "finding": "Public support for the Korean and Vietnam wars fell as cumulative U.S. casualties rose — fastest at first, then more slowly.",
+   "source": "Mueller, APSR",
+   "url": "https://ideas.repec.org/a/cup/apsrev/v65y1971i02p358-375_13.html"
+  },
+  {
+   "topic": "war",
+   "year": "1998",
+   "finding": "Recent casualties matter too, especially when losses are accelerating; the running total alone is an incomplete measure.",
+   "source": "Gartner and Segura, Journal of Conflict Resolution",
+   "url": "https://ideas.repec.org/a/sae/jocore/v42y1998i3p278-300.html"
+  },
+  {
+   "topic": "war",
+   "year": "2007",
+   "finding": "By the authors’ estimate, Iraq casualties (dead and wounded) cost President Bush nearly 2 points of the 2004 national vote.",
+   "source": "Karol and Miguel, Journal of Politics",
+   "url": "https://emiguel.econ.berkeley.edu/research/the-electoral-cost-of-war-iraq-casualties-and-the-2004-us-presidential-election/"
+  },
+  {
+   "topic": "war",
+   "year": "2007",
+   "finding": "In 2006, Republican-held House districts swung about 1 point toward Democrats for every two local Iraq deaths.",
+   "source": "Grose and Oppenheimer, Legislative Studies Quarterly",
+   "url": "https://news.vanderbilt.edu/2007/09/04/2006-voters-in-districts-with-heavy-war-losses-blamed-gop-vanderbilt-study-finds-iraq-war-hurt-republican-not-democratic-house-members-58496"
+  },
+  {
+   "topic": "war",
+   "year": "2007",
+   "finding": "Republican Senate candidates lost more ground in 2006 where local Iraq casualty rates were higher.",
+   "source": "Kriner and Shen, Legislative Studies Quarterly",
+   "url": "https://experts.umn.edu/en/publications/iraq-casualties-and-the-2006-senate-elections/"
+  },
+  {
+   "topic": "war",
+   "year": "2005",
+   "finding": "Counterpoint: tolerance for casualties depends mostly on whether the public believes the war is succeeding.",
+   "source": "Gelpi, Feaver and Reifler, via a review by Paul Musgrave",
+   "url": "https://paulmusgrave.info/iraq-casualties-and-gop-vote-share-a-review-of-some-literature/"
+  },
+  {
+   "topic": "gas",
+   "year": "2012",
+   "finding": "A 50-cent rise in gas prices within a quarter went with about a 3.5-point drop in presidential approval (1976–2011).",
+   "source": "John Sides, Washington Monthly",
+   "url": "https://washingtonmonthly.com/2012/03/13/the-political-consequences-of-gas-prices/"
+  },
+  {
+   "topic": "gas",
+   "year": "2025",
+   "finding": "Real gasoline prices help predict presidential approval out of sample.",
+   "source": "Gupta, Pierdzioch and Tiwari, American Politics Research",
+   "url": "https://repository.up.ac.za/items/6bddf42c-55df-456e-a691-793464bda0b2/full"
+  },
+  {
+   "topic": "inflation",
+   "year": "2022",
+   "finding": "Half of midterm voters called inflation the most important factor and Republicans did better with them; about a quarter named the Dobbs decision, and they voted about 7 to 3 for Democrats.",
+   "source": "AP VoteCast via KFF",
+   "url": "https://www.kff.org/other/poll-finding/2022-midterm-election-kff-ap-votecast-analysis/"
+  },
+  {
+   "topic": "inflation",
+   "year": "2026",
+   "finding": "65% of adults say higher-than-usual prices are the result of President Trump’s policies.",
+   "source": "AP-NORC, Sept 24–28",
+   "url": "https://apnorc.org/projects/most-blame-president-trump-for-higher-prices-and-are-unhappy-with-how-he-is-handling-the-economy/"
+  }
+ ],
+ "info": {
+  "news_chart": [
+   {
+    "label": "Facebook",
+    "a": 36,
+    "b": 38,
+    "src": "Pew Research Center"
+   },
+   {
+    "label": "YouTube",
+    "a": 23,
+    "b": 35,
+    "src": "Pew Research Center"
+   },
+   {
+    "label": "Instagram",
+    "a": 11,
+    "b": 20,
+    "src": "Pew Research Center"
+   },
+   {
+    "label": "TikTok",
+    "a": 3,
+    "b": 20,
+    "src": "Pew Research Center"
+   },
+   {
+    "label": "X (Twitter)",
+    "a": 15,
+    "b": 12,
+    "src": "Pew Research Center"
+   },
+   {
+    "label": "Reddit",
+    "a": 6,
+    "b": 9,
+    "src": "Pew Research Center"
+   }
+  ],
+  "news_chart_note": "Share of U.S. adults who regularly get news on each platform. Pew Research Center surveys, Aug–Sept 2020 and Aug 2025.",
+  "often_chart": [
+   {
+    "label": "Television",
+    "a": 40,
+    "b": 32,
+    "src": "Pew Research Center"
+   },
+   {
+    "label": "News websites and apps",
+    "a": 34,
+    "b": 27,
+    "src": "Pew Research Center"
+   },
+   {
+    "label": "Social media",
+    "a": 23,
+    "b": 21,
+    "src": "Pew Research Center"
+   },
+   {
+    "label": "Search engines",
+    "a": 23,
+    "b": 19,
+    "src": "Pew Research Center"
+   },
+   {
+    "label": "Podcasts",
+    "a": 6,
+    "b": 10,
+    "src": "Pew Research Center"
+   }
+  ],
+  "often_chart_note": "Share of U.S. adults who often get news from each kind of source. Pew asked about AI chatbots for the first time in 2025: 2% often get news from them.",
+  "news_diet": [
+   {
+    "value_short": "53%",
+    "stat_short": "of U.S. adults get news from social media at least sometimes, the same share as in 2020",
+    "year": 2025,
+    "source": "Pew Research Center",
+    "url": "https://www.pewresearch.org/journalism/fact-sheet/social-media-and-news-fact-sheet/"
+   },
+   {
+    "value_short": "54%",
+    "stat_short": "of Americans reached news weekly through social and video networks, ahead of television (50%) for the first time",
+    "year": 2025,
+    "source": "Reuters Institute, via Nieman Lab",
+    "url": "https://niemanlab.org/2025/06/for-the-first-time-social-media-overtakes-tv-as-americans-top-news-source"
+   },
+   {
+    "value_short": "21%",
+    "stat_short": "regularly get news from news influencers, including 37% of adults under 30; of the influencers studied, 27% leaned right and 21% left",
+    "year": 2024,
+    "source": "Pew Research Center",
+    "url": "https://www.pewresearch.org/journalism/2024/11/18/americas-news-influencers/"
+   },
+   {
+    "value_short": "9%",
+    "stat_short": "get news from AI chatbots at least sometimes; 75% never do",
+    "year": 2025,
+    "source": "Pew Research Center",
+    "url": "https://www.pewresearch.org/wp-content/uploads/sites/20/2025/09/PJ_2025.09.25_news-information-fact-sheets_topline.pdf"
+   },
+   {
+    "value_short": "1 in 5",
+    "stat_short": "voters say they consult AI chatbots for election news and voting information, at similar rates in both parties (industry survey; sample size not published)",
+    "year": 2026,
+    "source": "AAPC Foundation, via NPR",
+    "url": "https://www.wunc.org/politics/2026-10-05/people-are-asking-chatgpt-to-help-them-decide-how-to-vote-in-the-midterms"
+   },
+   {
+    "value_short": "33%",
+    "stat_short": "trust the mass media a great deal or a fair amount, up from a record-low 28% in 2025: Republicans 22%, independents 31%, Democrats 50%",
+    "year": 2026,
+    "source": "Gallup",
+    "url": "https://news.gallup.com/poll/714938/trust-news-media-edges-slightly-higher.aspx"
+   }
+  ],
+  "ai_note": "Documented uses of generative AI by campaigns, party committees, officials and foreign operations, with the responses. By the Wesleyan Media Project’s count, pro-Republican sponsors paid for about four in five of the AI-made ads it tracked; examples from both parties are listed.",
+  "ai_events": [
+   {
+    "date": "2025-09-29",
+    "actor": "President Trump",
+    "event": "Posted an AI-made video of Senate Democratic leader Chuck Schumer saying profanities he never said, beside House Democratic leader Hakeem Jeffries in a sombrero, on the eve of the government shutdown.",
+    "response": "Jeffries called it disgusting; a White House spokeswoman called it a perfect meme.",
+    "url": "https://spectrumlocalnews.com/us/snplus/politics/2025/10/01/trump-jeffries-sombrero-mustache-meme"
+   },
+   {
+    "date": "2025-09-30",
+    "actor": "Gov. Gavin Newsom’s press office",
+    "event": "Posted an AI-made video mocking Vice President JD Vance, one of many AI parodies of the president and his team from the account.",
+    "response": "Reuters called Newsom the most notable Democratic user of AI video.",
+    "url": "https://www.thewrap.com/gavin-newsom-trump-jd-vance-ai-deepfake-meme-video/"
+   },
+   {
+    "date": "2025-10-17",
+    "actor": "National Republican Senatorial Committee",
+    "event": "Ran an ad in which an AI-made Chuck Schumer speaks a line he was quoted saying in print but never said on camera.",
+    "response": "It carried a small “AI generated” mark; the committee said the words were Schumer’s own.",
+    "url": "https://www.wyso.org/2025-10-17/a-gop-attack-ad-deepfakes-chuck-schumer-with-ai"
+   },
+   {
+    "date": "2025-12-11",
+    "actor": "Rep. Jasmine Crockett (D-TX)",
+    "event": "Posted an AI parody video showing herself and the president as babies, with “Baby Trump” accused of rigging Texas elections.",
+    "response": "YouTube labeled it altered or synthetic content.",
+    "url": "https://www.texastribune.org/2026/02/19/texas-2026-primaries-ai-ads-candidates-crockett-cornyn-paxton/"
+   },
+   {
+    "date": "2026-01-21",
+    "actor": "Texas Republican Senate primary",
+    "event": "The Paxton and Cornyn campaigns both used AI videos of their rivals and of Democrats, some with no disclosure.",
+    "response": "Texas has no disclosure law for AI in political ads.",
+    "url": "https://www.texastribune.org/2026/02/19/texas-2026-primaries-ai-ads-candidates-crockett-cornyn-paxton/"
+   },
+   {
+    "date": "2026-03-13",
+    "actor": "National Republican Senatorial Committee",
+    "event": "Ran an 85-second ad with an AI-made James Talarico, the Democratic Senate nominee in Texas, reading his old posts along with lines he never said.",
+    "response": "Talarico’s campaign called it a deepfake; the committee said they were his real words.",
+    "url": "https://keyt.com/?p=1405233"
+   },
+   {
+    "date": "2026-06-04",
+    "actor": "North Star Dawn PAC (alignment not disclosed)",
+    "event": "During the Minnesota Democratic Senate primary, the super PAC’s ad showed Peggy Flanagan in an apparently altered image; she called it a deepfake.",
+    "response": "The PAC called the claim baseless; Minnesota’s deepfake ban is being challenged in court.",
+    "url": "https://kstp.com/?p=3946134"
+   },
+   {
+    "date": "2026-08-05",
+    "actor": "States United Democracy Center",
+    "event": "Tested ChatGPT and Google’s AI on election questions. Factual errors fell from about 7–8% of answers in 2025 to none in 2026 tests in Arizona, Michigan and Pennsylvania, but ChatGPT usually gave incomplete candidate lists.",
+    "response": "Fewer than 40% of answers linked to an official state election site.",
+    "url": "https://cyberscoop.com/ai-chatbots-2026-midterm-elections/"
+   },
+   {
+    "date": "2026-08-27",
+    "actor": "Iran-linked network",
+    "event": "Meta removed 35 Facebook and Instagram accounts posing as U.S. activists that posted anti-Republican and immigration memes, some AI-made, to about 79,000 followers.",
+    "response": "Meta says it finds generative AI in virtually every influence network it disrupts.",
+    "url": "https://axios.com/2026/08/27/facebook-instagram-iran-ai-disinformation"
+   },
+   {
+    "date": "2026-09-10",
+    "actor": "Russia-linked “Operation Overload”",
+    "event": "Spread celebrity videos with cloned voices, and fake TV reports wearing CNN, BBC and New York Times branding, attacking Democrats and Democratic Senate candidates.",
+    "response": "Fact-checkers rated them false; X, Bluesky and TikTok removed some posts.",
+    "url": "https://dnyuz.com/2026/09/18/russia-aims-to-inject-chaos-into-elections-u-s-intelligence-finds/"
+   },
+   {
+    "date": "2026-09-18",
+    "actor": "Chinese and Iranian state-backed operators",
+    "event": "The New York Times reported influence campaigns run end to end by AI agents operating fake-account networks; the Iranian accounts posed as Americans critical of the Republican Party.",
+    "response": "Officials described them as crude but among the first of their kind.",
+    "url": "https://www.aa.com.tr/en/middle-east/iran-china-used-ai-agents-in-novel-influence-campaigns-report/4061665"
+   },
+   {
+    "date": "2026-09-30",
+    "actor": "Rep. Derrick Van Orden (R-WI)",
+    "event": "Ran online ads showing an AI likeness of his challenger, Rebecca Cooke, in invented scenes.",
+    "response": "Cooke’s lawyers sent a cease-and-desist letter; Wisconsin’s deepfake law may not reach federal candidates.",
+    "url": "https://truthout.org/articles/dem-candidate-sends-cease-and-desist-order-to-republican-over-deepfake-ads/"
+   },
+   {
+    "date": "2026-10-06",
+    "actor": "Wesleyan Media Project",
+    "event": "Counted almost 170 AI-made or AI-enhanced political ads, about $80 million of airtime, an undercount. Pro-Republican sponsors ran 80% of them and pro-Democratic sponsors 11%; 69% carried no AI disclaimer.",
+    "response": "",
+    "url": "https://mediaproject.wesleyan.edu/?p=56458"
+   }
+  ],
+  "rules": [
+   {
+    "level": "federal",
+    "item": "No federal law or FEC rule is written specifically for AI in political ads.",
+    "status": "The FEC says its ban on fraudulent misrepresentation applies to AI case by case, and it has lacked a quorum since April 30, 2025, so it cannot make rules or open enforcement cases.",
+    "date": "2026",
+    "source": "FEC; Reuters",
+    "url": "https://www.fec.gov/updates/commission-approves-notification-of-disposition-interpretive-rule-on-artificial-intelligence-in-campaign-ads"
+   },
+   {
+    "level": "federal",
+    "item": "The FCC’s 2024 proposal to require AI disclosures in broadcast political ads has not been adopted.",
+    "status": "Its current chairman, Brendan Carr, voted against it.",
+    "date": "2024",
+    "source": "Radio World",
+    "url": "https://radioworld.com/news-and-business/headlines/fcc-proposal-to-regulate-ai-generated-political-ads-gets-the-go-ahead"
+   },
+   {
+    "level": "federal",
+    "item": "Federal teams that tracked foreign influence were cut back in 2025.",
+    "status": "The FBI’s Foreign Influence Task Force was disbanded, the State Department’s counter-disinformation office closed, and the intelligence community’s Foreign Malign Influence Center is being wound down. Officials called the center redundant; critics said it was being ended in all but name.",
+    "date": "2025",
+    "source": "Associated Press",
+    "url": "https://www.ky3.com/2025/08/20/gabbard-slashing-intelligence-office-workforce-cutting-budget-by-more-than-700-million/"
+   },
+   {
+    "level": "states",
+    "item": "33 states have enacted at least one law on deepfakes in election messages, by Public Citizen’s count, which still includes struck-down laws in California and Hawaii and an expired one in Massachusetts.",
+    "status": "Most require a disclosure rather than a ban. A federal court struck down California’s two laws in 2025; Minnesota’s ban is still being challenged.",
+    "date": "Oct 2026",
+    "source": "Public Citizen tracker",
+    "url": "https://www.citizen.org/article/tracker-legislation-on-deepfakes-in-elections/"
+   },
+   {
+    "level": "states",
+    "item": "California and Texas require paid influencers to say a campaign paid them.",
+    "status": "Federal rules don’t: paid posts on a creator’s own account are exempt.",
+    "date": "2026",
+    "source": "Boston Globe",
+    "url": "https://www.bostonglobe.com/2026/06/13/nation/california-influencers-midterm-elections/"
+   },
+   {
+    "level": "Meta",
+    "item": "Ended U.S. third-party fact-checking in April 2025 in favor of Community Notes.",
+    "status": "For 2026 it labels AI content, requires advertisers to disclose AI-made political ads, and takes no new political ads in the final week.",
+    "date": "2026",
+    "source": "Meta",
+    "url": "https://about.fb.com/news/2026/02/meta-prepares-for-2026-us-midterms/"
+   },
+   {
+    "level": "Google",
+    "item": "Election advertisers must disclose synthetic content, and YouTube labels AI video.",
+    "status": "In 2025 YouTube offered a way back for creators banned under its retired election-misinformation rules.",
+    "date": "Sept 2026",
+    "source": "Google; TechCrunch",
+    "url": "https://blog.google/company-news/outreach-and-initiatives/civics/midterm-elections-2026/"
+   },
+   {
+    "level": "X",
+    "item": "Allows U.S. political ads again since 2023 and relies on Community Notes rather than professional fact-checkers.",
+    "status": "",
+    "date": "",
+    "source": "Al Jazeera",
+    "url": "https://www.aljazeera.com/news/2023/8/29/social-media-company-x-to-allow-political-ads-reversing-previous-ban"
+   },
+   {
+    "level": "TikTok",
+    "item": "U.S. operations moved in January 2026 to a new joint venture with a majority-American board; the ByteDance algorithm is licensed and is to be retrained on U.S. data.",
+    "status": "Days later, users said posts about an immigration-agent shooting in Minneapolis were being suppressed; TikTok blamed a data-center power outage.",
+    "date": "2026",
+    "source": "Gray DC; AP",
+    "url": "https://www.wkyt.com/2026/01/23/tiktok-deal-finalized-shifting-us-operations-new-joint-venture-group"
+   }
+  ],
+  "persuasion_note": "The strongest recent experiments find that a conversation with an AI moves opinions more than typical ads do in similar tests: about 1.5–4 points on a 0–100 scale in the 2024 U.S. study and about 9–10 in Britain, Canada and Poland, measured right after a chat people agreed to have. About a third of the effect remained a month later, and three in four Americans say they never get news from AI chatbots. Scales differ from study to study, so read each row on its own terms.",
+  "persuasion_table": [
+   {
+    "label": "AI chat about the 2024 presidential race",
+    "measure": "Candidate preference, 0–100 scale (U.S. adults)",
+    "now": "+3.9 for the pro-Harris bot among Trump-leaning voters; +1.5 for the pro-Trump bot among Harris-leaning voters",
+    "later": "About a third remained a month later",
+    "src": "Lin et al., Nature (2025)",
+    "url": "https://pure.uva.nl/ws/files/295900960/AI_chatbots_can_persuade_voters.pdf",
+    "ai": true
+   },
+   {
+    "label": "AI chat about the 2025 Canadian and Polish elections",
+    "measure": "Candidate preference among opposing voters, 0–100 scale",
+    "now": "About 10 points",
+    "later": "Not reported",
+    "src": "Lin et al., Nature (2025)",
+    "url": "https://www.news.cornell.edu/stories/2025/12/ai-chatbots-can-effectively-sway-voters-either-direction",
+    "ai": true
+   },
+   {
+    "label": "AI chat on 707 British policy issues",
+    "measure": "Agreement with a position, 0–100 scale (about 77,000 adults)",
+    "now": "About 9 points on average; about 16 for the most persuasive setup, which also made more inaccurate claims (about 30% of its claims, against 16% on average)",
+    "later": "36–42% remained a month later",
+    "src": "Hackenburg et al., Science (2025)",
+    "url": "https://arxiv.org/html/2507.13919v1",
+    "ai": true
+   },
+   {
+    "label": "AI chat with believers in a conspiracy theory",
+    "measure": "Belief in the theory each person chose",
+    "now": "About 20% lower",
+    "later": "Undiminished after two months",
+    "src": "Costello, Pennycook & Rand, Science (2024)",
+    "url": "https://www.niemanlab.org/2024/09/an-ai-chatbot-helped-americans-who-believe-in-conspiracy-theories-exit-the-rabbit-hole/",
+    "ai": true
+   },
+   {
+    "label": "TV ads in a Texas governor’s race, randomized by market",
+    "measure": "Support for the candidate, percentage points",
+    "now": "+4.7 during the weeks the ads ran",
+    "later": "Gone within about a week",
+    "src": "Gerber, Gimpel, Green & Shaw, APSR (2011)",
+    "url": "https://www.povertyactionlab.org/evaluation/persuasive-effects-televised-campaign-ads",
+    "ai": false
+   },
+   {
+    "label": "49 ads from the 2016 presidential race, 59 experiments",
+    "measure": "Vote choice, percentage points",
+    "now": "+0.7, not statistically significant",
+    "later": "Not measured",
+    "src": "Coppock, Hill & Vavreck, Science Advances (2020)",
+    "url": "https://escholarship.org/content/qt5rs420rb/qt5rs420rb.pdf",
+    "ai": false
+   },
+   {
+    "label": "Campaign contact and ads in general elections, 49 field experiments",
+    "measure": "Candidate choice",
+    "now": "About zero",
+    "later": "Early effects decayed before Election Day",
+    "src": "Kalla & Broockman, APSR (2018)",
+    "url": "https://ideas.repec.org/a/cup/apsrev/v112y2018i01p148-166_00.html",
+    "ai": false
+   }
+  ],
+  "polling": [
+   {
+    "item": "A bot passed 99.8% of quality checks",
+    "finding": "A Dartmouth study built an AI respondent that mimicked human reading times, mouse movement and typos for about 5 cents an answer. In final-week national polls in 2024, 10 to 52 such fakes could have flipped which candidate led.",
+    "date": "Nov 2025",
+    "source": "Westwood, PNAS",
+    "url": "https://campaignsandelections.com/industry-news/new-research-shows-how-ai-can-manipulate-online-polls/"
+   },
+   {
+    "item": "Bogus respondents are hard to screen out",
+    "finding": "In a Pew opt-in survey after the 2024 election, 18% of respondents claimed an impossible activity. No screening method removed the bias; probability-based panels were largely unaffected.",
+    "date": "Aug 2026",
+    "source": "Pew Research Center",
+    "url": "https://pewresearch.org/methods/2026/08/27/no-easy-fix-for-bogus-respondents-in-online-opt-in-polls"
+   },
+   {
+    "item": "The pollsters’ code now covers AI",
+    "finding": "AAPOR’s 2026 code says AI-generated answers are not research participants, and requires pollsters to disclose AI use and whether a sample is probability-based, opt-in or synthetic.",
+    "date": "June 2026",
+    "source": "AAPOR",
+    "url": "https://aapor.org/wp-content/uploads/2026/06/AAPOR-2026-Code-of-Ethics-Final-.pdf"
+   },
+   {
+    "item": "2024 polls missed toward Democrats again",
+    "finding": "Final-fortnight polls overstated Democratic margins by 2.7 points on average across offices, the third presidential cycle in a row, though their average error fell to 3.3 points from 5.3 in 2020.",
+    "date": "Oct 2025",
+    "source": "AAPOR task force",
+    "url": "https://aapor.org/wp-content/uploads/2025/10/Task-Force-on-2024-Pre-Election-Polling-Report-Executive-Summary.pdf"
+   },
+   {
+    "item": "Most polls had moved online by 2020",
+    "finding": "AAPOR estimated that 84% of polls before the 2020 election used online methods, up from 56% in 2016; by 2022 a third of national pollsters used probability-based panels.",
+    "date": "2023",
+    "source": "Pew Research Center",
+    "url": "https://www.pewresearch.org/methods/2023/04/19/how-public-polling-has-changed-in-the-21st-century/"
+   }
+  ],
+  "polarization": [
+   {
+    "value": "16",
+    "measure": "House districts that split their tickets in 2024",
+    "trend": "13 Democrats won Trump districts and 3 Republicans won Harris districts, near the post-war low; the 2000s saw five dozen or more per cycle.",
+    "source": "Sabato’s Crystal Ball",
+    "url": "https://www.rasmussenreports.com/public_content/political_commentary/commentary_by_kyle_kondik/the_2024_crossover_house_seats_overall_number_remains_low_with_few_harris_district_republicans"
+   },
+   {
+    "value": "4 of 34",
+    "measure": "Senate races in 2024 won by the party that lost the state for president",
+    "trend": "All four were Democrats in Trump states. Since 2012, 91% of Senate races went the way the state voted for president.",
+    "source": "Pew Research Center",
+    "url": "https://www.pewresearch.org/short-reads/2024/11/26/2024-elections-show-more-partisan-splits-between-states-presidential-and-senate-votes-than-in-recent-past/"
+   },
+   {
+    "value": "0.987",
+    "measure": "Correlation of House and presidential margins across districts, 2020",
+    "trend": "Close to one-to-one: House races now track the national parties.",
+    "source": "Sabato’s Crystal Ball",
+    "url": "https://centerforpolitics.org/crystalball/?p=25436"
+   },
+   {
+    "value": "7%",
+    "measure": "House districts that are highly competitive for president",
+    "trend": "About a third were in the 1970s.",
+    "source": "Alan Abramowitz, Crystal Ball",
+    "url": "https://www.rasmussenreports.com/public_content/political_commentary/commentary_by_alan_i_abramowitz/it_don_t_mean_a_thing_if_it_ain_t_got_that_swing_the_outlook_for_electoral_accountability_in_2026"
+   },
+   {
+    "value": "20.6",
+    "measure": "Average warmth toward the other party, 0–100 (2024)",
+    "trend": "Down from 48.0 in 1978, while warmth toward one’s own party held near 70.",
+    "source": "American National Election Studies",
+    "url": "https://voterproject.arizona.edu/anes"
+   },
+   {
+    "value": "85%",
+    "measure": "Share of 2020 Trump voters who voted for him again in 2024",
+    "trend": "79% of 2020 Biden voters backed Harris. Few switched sides; who turned out mattered more.",
+    "source": "Pew Research Center",
+    "url": "https://www.pewresearch.org/politics/2025/06/26/behind-trumps-2024-victory-a-more-racially-and-ethnically-diverse-voter-coalition/"
+   },
+   {
+    "value": "45%",
+    "measure": "Americans calling themselves independents in 2025, a record",
+    "trend": "Even as voting itself stays highly partisan.",
+    "source": "Gallup, via Semafor",
+    "url": "https://www.semafor.com/article/01/12/2026/record-number-of-americans-identify-as-independents-poll-finds"
+   }
+  ],
+  "money": [
+   {
+    "value": "$11.6B",
+    "item": "Projected political ad spending for 2025–26, a record (2023–24: $11.2B)",
+    "date": "June 2026",
+    "source": "AdImpact",
+    "url": "https://adimpact.com/hubfs/Reports/updated%20projections%202026/AdImpact%20Updated%20Political%20Projection%20Report_2025-2026.pdf"
+   },
+   {
+    "value": "48%",
+    "item": "Share going to broadcast TV; streaming TV gets 23% and online digital about 14%",
+    "date": "June 2026",
+    "source": "AdImpact",
+    "url": "https://adimpact.com/hubfs/Reports/updated%20projections%202026/AdImpact%20Updated%20Political%20Projection%20Report_2025-2026.pdf"
+   },
+   {
+    "value": "$197M",
+    "item": "Ad spending in Ohio’s Senate special election, the most of any 2026 race (Texas Senate about $140M, Maine about $110M)",
+    "date": "Sept 22, 2026",
+    "source": "AdImpact, via Deseret News",
+    "url": "https://www.deseret.com/politics/2026/10/06/where-parties-are-spending-the-most-in-midterm-races/"
+   },
+   {
+    "value": "$80M",
+    "item": "Spent airing almost 170 AI-made or AI-enhanced ads tracked so far, an undercount",
+    "date": "Oct 2026",
+    "source": "Wesleyan Media Project",
+    "url": "https://mediaproject.wesleyan.edu/?p=56458"
+   },
+   {
+    "value": "$120K+",
+    "item": "Paid by the NRCC to the conservative creator network Creator Grid in 2025–26, reported as “media”",
+    "date": "June 2026",
+    "source": "Boston Globe",
+    "url": "https://www.bostonglobe.com/2026/06/13/nation/california-influencers-midterm-elections/"
+   },
+   {
+    "value": "$100K",
+    "item": "Paid by Democrat Tom Steyer’s California governor campaign to one creator as a consultant; a state complaint says paid posts went undisclosed",
+    "date": "June 2026",
+    "source": "Boston Globe",
+    "url": "https://www.bostonglobe.com/2026/06/13/nation/california-influencers-midterm-elections/"
+   }
+  ],
+  "markets_media": [
+   {
+    "date": "2025-06-06",
+    "item": "X named Polymarket its official prediction-market partner, with a planned product in which Grok annotates market moves.",
+    "source": "TechCrunch",
+    "url": "https://techcrunch.com/2025/06/06/x-names-polymarket-as-its-official-prediction-market-partner/"
+   },
+   {
+    "date": "2025-12-02",
+    "item": "CNN made Kalshi its exclusive prediction-market data partner, with odds in an on-air ticker.",
+    "source": "Axios",
+    "url": "https://www.axios.com/2025/12/02/cnn-kalshi-prediction-market-data"
+   },
+   {
+    "date": "2025-12-04",
+    "item": "CNBC signed a multi-year deal to show Kalshi data on air from 2026.",
+    "source": "TheWrap",
+    "url": "https://www.thewrap.com/cnbc-kalshi-prediction-deal-ms-now-versant/"
+   },
+   {
+    "date": "2026-01-08",
+    "item": "Polymarket agreed to supply odds to Dow Jones outlets, including The Wall Street Journal and Barron’s.",
+    "source": "Crowdfund Insider",
+    "url": "https://www.crowdfundinsider.com/2026/01/257185-prediction-markets-platform-polymarket-secures-data-partnership-with-dow-jones/"
+   },
+   {
+    "date": "2026-06-08",
+    "item": "In the Los Angeles mayoral primary, paid exchange affiliates on X cited shifting odds as evidence of fraud during a slow count. Kalshi then barred affiliates from questioning election integrity.",
+    "source": "NPR",
+    "url": "https://www.tpr.org/2026-06-07/kalshi-and-polymarket-crack-down-on-paid-influencers-claiming-election-fraud"
+   },
+   {
+    "date": "2026-08-28",
+    "item": "Polls from a fake firm were reported as real by several outlets. Kalshi said its markets barely reacted.",
+    "source": "NPR",
+    "url": "https://www.kunc.org/npr-news/2026-08-28/what-a-fake-poll-reveals-about-worries-around-prediction-markets-and-the-midterms"
+   }
+  ],
+  "gaps": [
+   "a probability-sample estimate of how many voters use chatbots for election information",
+   "documented 2026 cases of AI giving false voting instructions",
+   "public 2026 election-threat assessments from the FBI, CISA or the intelligence community",
+   "any measured effect of AI ads on actual 2026 votes",
+   "total 2026 spending on paid influencers"
+  ]
+ },
+ "sources": [
+  {
+   "group": "Prediction markets",
+   "label": "Kalshi public market data (Senate control)",
+   "url": "https://api.elections.kalshi.com/trade-api/v2/events/CONTROLS-2026?with_nested_markets=true",
+   "note": "the page also asks this feed for live prices"
+  },
+  {
+   "group": "Prediction markets",
+   "label": "Polymarket market data (Senate control)",
+   "url": "https://gamma-api.polymarket.com/events?slug=which-party-will-win-the-senate-in-2026",
+   "note": "the page also asks this feed for live prices"
+  },
+  {
+   "group": "Prediction markets",
+   "label": "ElectionBettingOdds.com",
+   "url": "https://electionbettingodds.com/",
+   "note": "PredictIt and Betfair prices for House and Senate control"
+  },
+  {
+   "group": "Prediction markets",
+   "label": "Anti-Corruption Data Collective: the midterms on prediction markets",
+   "url": "https://acdatacollective.org/wp-content/uploads/2026/08/ACDC-%E2%80%94-Gambling-on-Democracy_1_The-Midterms-on-Prediction-Markets.pdf"
+  },
+  {
+   "group": "Prediction markets",
+   "label": "Berg, Nelson & Rietz (2008), prediction market accuracy in the long run",
+   "url": "https://ideas.repec.org/a/eee/intfor/v24y2008i2p285-300.html"
+  },
+  {
+   "group": "Prediction markets",
+   "label": "Erikson & Wlezien (2008), are political markets really superior to polls?",
+   "url": "https://statmodeling.stat.columbia.edu/wp-content/uploads/2024/08/Erikson-and-Wlezien-POQ-2008.pdf"
+  },
+  {
+   "group": "Prediction markets",
+   "label": "Rothschild (2009), forecasting elections with markets and polls",
+   "url": "https://researchdmr.com/files/ForecastingElectionMarketsPolls.pdf"
+  },
+  {
+   "group": "Prediction markets",
+   "label": "Page & Clemen (2013), are prediction markets well calibrated?",
+   "url": "https://scholars.duke.edu/publication/765630"
+  },
+  {
+   "group": "Prediction markets",
+   "label": "Clinton & Huang on 2024 market accuracy, via DL News",
+   "url": "https://www.dlnews.com/articles/markets/polymarket-kalshi-prediction-markets-not-so-reliable-says-study"
+  },
+  {
+   "group": "Prediction markets",
+   "label": "Le (2026), calibration of Kalshi and Polymarket prices (preprint)",
+   "url": "https://arxiv.org/html/2602.19520v1"
+  },
+  {
+   "group": "War and the economy",
+   "label": "Brookings, Vital Statistics on Congress: House popular vote, 1946–2024",
+   "url": "https://www.brookings.edu/wp-content/uploads/2026/04/Chapter-2-Full.pdf"
+  },
+  {
+   "group": "War and the economy",
+   "label": "BEA via FRED: real disposable income per person",
+   "url": "https://fred.stlouisfed.org/series/A229RX0Q048SBEA"
+  },
+  {
+   "group": "War and the economy",
+   "label": "BLS via FRED: unemployment rate",
+   "url": "https://fred.stlouisfed.org/series/UNRATE"
+  },
+  {
+   "group": "War and the economy",
+   "label": "BLS via FRED: consumer prices",
+   "url": "https://fred.stlouisfed.org/series/CPIAUCNS"
+  },
+  {
+   "group": "War and the economy",
+   "label": "University of Michigan via FRED: consumer sentiment",
+   "url": "https://fred.stlouisfed.org/series/UMCSENT"
+  },
+  {
+   "group": "War and the economy",
+   "label": "Congressional Research Service: American war and military operations casualties",
+   "url": "https://www.everycrsreport.com/files/20190924_RL32492_75dc0f1f826404a4728a7a3eb43ec2f8cb67905d.html"
+  },
+  {
+   "group": "War and the economy",
+   "label": "National Archives: Vietnam War casualty statistics",
+   "url": "https://www.archives.gov/research/vietnam-war/casualty-statistics"
+  },
+  {
+   "group": "Information age",
+   "label": "Pew Research Center: social media and news fact sheet",
+   "url": "https://www.pewresearch.org/journalism/fact-sheet/social-media-and-news-fact-sheet/"
+  },
+  {
+   "group": "Information age",
+   "label": "Pew Research Center: 2025 news platform topline",
+   "url": "https://www.pewresearch.org/wp-content/uploads/sites/20/2025/09/PJ_2025.09.25_news-information-fact-sheets_topline.pdf"
+  },
+  {
+   "group": "Information age",
+   "label": "Pew Research Center: America’s news influencers",
+   "url": "https://www.pewresearch.org/journalism/2024/11/18/americas-news-influencers/"
+  },
+  {
+   "group": "Information age",
+   "label": "Gallup: trust in news media, 2026",
+   "url": "https://news.gallup.com/poll/714938/trust-news-media-edges-slightly-higher.aspx"
+  },
+  {
+   "group": "Information age",
+   "label": "Wesleyan Media Project: AI in 2026 political ads",
+   "url": "https://mediaproject.wesleyan.edu/?p=56458"
+  },
+  {
+   "group": "Information age",
+   "label": "Public Citizen: state deepfake legislation tracker",
+   "url": "https://www.citizen.org/article/tracker-legislation-on-deepfakes-in-elections/"
+  },
+  {
+   "group": "Information age",
+   "label": "Lin et al. and Hackenburg et al. on AI persuasion: Nature commentary",
+   "url": "https://pure.uva.nl/ws/files/295900960/AI_chatbots_can_persuade_voters.pdf"
+  },
+  {
+   "group": "Information age",
+   "label": "Hackenburg et al., the levers of political persuasion with conversational AI",
+   "url": "https://arxiv.org/html/2507.13919v1"
+  },
+  {
+   "group": "Information age",
+   "label": "Kalla & Broockman (2018), the minimal persuasive effects of campaign contact",
+   "url": "https://ideas.repec.org/a/cup/apsrev/v112y2018i01p148-166_00.html"
+  },
+  {
+   "group": "Information age",
+   "label": "Pew Research Center: no easy fix for bogus respondents in opt-in polls",
+   "url": "https://pewresearch.org/methods/2026/08/27/no-easy-fix-for-bogus-respondents-in-online-opt-in-polls"
+  },
+  {
+   "group": "Information age",
+   "label": "AAPOR: 2026 code of professional ethics",
+   "url": "https://aapor.org/wp-content/uploads/2026/06/AAPOR-2026-Code-of-Ethics-Final-.pdf"
+  },
+  {
+   "group": "Information age",
+   "label": "AAPOR: task force on 2024 pre-election polling",
+   "url": "https://aapor.org/wp-content/uploads/2025/10/Task-Force-on-2024-Pre-Election-Polling-Report-Executive-Summary.pdf"
+  },
+  {
+   "group": "Information age",
+   "label": "AdImpact: 2025–26 political ad projections",
+   "url": "https://adimpact.com/hubfs/Reports/updated%20projections%202026/AdImpact%20Updated%20Political%20Projection%20Report_2025-2026.pdf"
+  }
+ ],
+ "landscape": [
+  {
+   "date": "2022",
+   "fact": "Polymarket paid a $1.4 million penalty to the CFTC for offering unregistered contracts and cut off U.S. users.",
+   "source": "Covers",
+   "url": "https://covers.com/industry/polymarket-removes-waitlist-launches-for-american-ios-users-may-12-2026"
+  },
+  {
+   "date": "2024-09-12",
+   "fact": "A federal judge ruled that the CFTC had exceeded its authority in blocking Kalshi’s contracts on control of Congress.",
+   "source": "The Block",
+   "url": "https://www.theblock.co/post/319206/federal-court-clears-kalshi-to-list-election-betting-contracts-denies-cftcs-motion"
+  },
+  {
+   "date": "2024-11-02",
+   "fact": "A French trader put about $30 million on Trump through several Polymarket accounts, raising fears that one bettor could move the odds.",
+   "source": "Fortune",
+   "url": "https://fortune.com/2024/11/02/french-whale-polymarket-30-million-donald-trump-election-bet-kamala-harris"
+  },
+  {
+   "date": "2025-05-07",
+   "fact": "The CFTC dropped its appeal, leaving the ruling for Kalshi in place.",
+   "source": "Covers",
+   "url": "https://www.covers.com/industry/kalshi-cftc-lawsuit-appeal-election-betting-contracts-drop-may-2025"
+  },
+  {
+   "date": "2025-07",
+   "fact": "Polymarket bought a CFTC-licensed exchange to return to the U.S.; its U.S. app opened to everyone on the waitlist in May 2026.",
+   "source": "Covers",
+   "url": "https://covers.com/industry/polymarket-removes-waitlist-launches-for-american-ios-users-may-12-2026"
+  },
+  {
+   "date": "2025-12-04",
+   "fact": "CNN, then CNBC, signed data deals with Kalshi. Kalshi and Polymarket together traded more than $45 billion in 2025.",
+   "source": "The Block",
+   "url": "https://www.theblock.co/post/381415/kalshi-exclusive-cnbc-deal-prediction-markets-surge-mainstream-media"
+  },
+  {
+   "date": "2026-03-16",
+   "fact": "Both exchanges showed Democrats about 51% to win the Senate, the first time Democrats were favored on Kalshi’s contract.",
+   "source": "Decrypt",
+   "url": "https://decrypt.co/361190/democrats-overtake-republicans-kalshi-polymarket"
+  },
+  {
+   "date": "2026-04-22",
+   "fact": "Kalshi fined three congressional candidates for betting on their own races and suspended them for five years.",
+   "source": "Associated Press",
+   "url": "https://www.wsls.com/news/politics/2026/04/22/kalshi-fines-and-suspends-three-congressional-candidates-for-wagering-on-their-own-elections/"
+  },
+  {
+   "date": "2026-07-02",
+   "fact": "After a New York Times/Siena poll, Kalshi priced a Republican Senate at 60% and Polymarket at 57%.",
+   "source": "DeFi Rate",
+   "url": "https://defirate.com/news/senate-control-play-polls-tighten-prediction-markets-mixed-messages/"
+  },
+  {
+   "date": "2026-08-17",
+   "fact": "By Aug 10, $133 million had been bet on 2026 congressional races, more than in the whole 2024 cycle. On Polymarket, the top 1% of wallets accounted for 68% of the volume.",
+   "source": "Anti-Corruption Data Collective; Reuters",
+   "url": "https://gvwire.com/2026/08/17/us-midterm-election-betting-races-past-2024-congressional-total-data-shows/"
+  },
+  {
+   "date": "2026-09-17",
+   "fact": "Kalshi’s “Democrats win both chambers” contract reached a record 58%.",
+   "source": "Newsweek",
+   "url": "https://www.newsweek.com/democrats-chances-of-taking-control-of-congress-reach-record-high-12455052"
+  },
+  {
+   "date": "2026-09-24",
+   "fact": "CNN reported more than $750 million traded on 2026 U.S. election markets, as election officials in Los Angeles County and Michigan raised integrity concerns.",
+   "source": "Bonus.com, citing CNN",
+   "url": "https://www.bonus.com/news/kalshi-polymarket-top-750m-in-midterm-trading-as-election-officials-raise-integrity-concer/"
+  },
+  {
+   "date": "2026-10-11",
+   "fact": "Lifetime trading on control of Congress: about 53 million Kalshi contracts on the House and 14 million on the Senate (each pays $1; aggregators report these counts as dollars), and about $16 million and $6 million on Polymarket.",
+   "source": "Kalshi and Polymarket data",
+   "url": "https://gamma-api.polymarket.com/events?slug=which-party-will-win-the-senate-in-2026"
+  }
+ ]
+}

@@ -59,13 +59,24 @@ the-hinge/index.html     The Hinge, a separate page (see below); www.thehinge.co
 inbox-atlas/             Inbox Atlas, a separate site (see below); www.inboxatlas.com inside the app
 wx-center/index.html     WX Center, a separate page (see below); not part of the app
 meridian/index.html      Meridian Flight Control, a separate page (see below); not part of the app
+election2026/            Election Desk 2026, a separate site (see below); www.electiondesk2026.com inside the app
 ```
 
 ## Also hosted here: The Hinge
 
 **Open it: <https://bboldt86.github.io/lanscape-navigator/the-hinge/>**
 
+The forecast is built from source: `the-hinge/src/` holds the data files and the Python that turns them into the page (`cd the-hinge/src && python3 v2/build_data2.py && python3 v2/build_html2.py` rewrites `the-hinge/index.html`); the Election Desk's updater rebuilds it when it adds polls.
+
 A single-file, serverless forecast of the 2026 U.S. Senate, House and Ohio governor races. It blends three independent reads — a calibrated polling model, a history-only model built on presidential approval, real incomes and war, and live prices from Kalshi, Polymarket and PredictIt — and lets you change how much each one counts. Data were gathered on October 11, 2026; new polls can be added in the page's Tracker tab and are kept in your browser. A Money tab follows the money in every race on the page: who gives to the groups doing the spending (a flow diagram), ad spending and outside money race by race, and each side's main ads with a video link, the published script, a summary and three scores (how the ad is built to persuade, what fact-checks found, and the money behind it). Money figures run through October 12, 2026. It is not part of the LANscape app and is not affiliated with any campaign, party or exchange.
+
+## Also hosted here: Election Desk 2026
+
+**Open it: <https://bboldt86.github.io/lanscape-navigator/election2026/>**
+
+A live desk for the 2026 midterms. The map drills from the country to the states to every county (3,142 of them, pre-projected from the Census boundaries via us-atlas), colored by the consensus of the Cook, Sabato and Inside Elections ratings, the polling margin, the prediction markets, the early vote or the 2024 presidential vote; on election night, by the results. Click a state for its Senate and governor races: candidates, the three ratings, the poll average and the latest polls, the market price, The Hinge's forecast, early and mail voting, and the largest counties with their 2024 margin and, as results come in, the 2026 margin, the swing and the share of the expected vote counted. Below the map: the balance of power, early voting by state, the polls and ratings for every race, the House ratings and competitive districts, the markets, the news feed and the calendar of poll closings.
+
+It keeps itself current. `election2026/build.py` turns the JSON files in `election2026/data/` into `data/model.json` (which the open page refetches) and `index.html` (with the model, the county baselines and the map inlined, so it also works offline). A GitHub Actions workflow (`.github/workflows/election2026.yml`) pulls the prediction markets, the RSS headlines and the early-vote reports every three hours, and every 15 minutes on Nov. 3–6. A scheduled editorial pass reads the polls, the ratings, the early-vote pages and, on election night, the results, and records them with `election2026/updater/set_result.py`; its instructions are in `election2026/UPDATER.md`. Every number on the page carries the time it was read and its source; calls are the Associated Press's, never the page's own.
 
 ## Also hosted here: Inbox Atlas
 

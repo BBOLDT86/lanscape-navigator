@@ -1,0 +1,52 @@
+name: Election Desk 2026 updater
+# Pulls the machine-readable feeds (prediction markets, RSS headlines, early-vote reports), rebuilds the desk's
+# data file and page, and commits. Every three hours until Election Day; every 15 minutes Nov. 3-6 (UTC);
+# off after Nov. 20. The daily editorial pass (polls, ratings, results, calls) is a separate scheduled run.
+on:
+  schedule:
+    - cron: '17 */3 * * *'
+    - cron: '*/15 * 3-6 11 *'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: election2026
+  cancel-in-progress: false
+jobs:
+  update:
+    if: github.repository == 'BBOLDT86/lanscape-navigator'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Stop after the count
+        run: |
+          if [ "$(date -u +%Y%m%d)" -gt 20261120 ]; then echo "past Nov. 20, 2026: nothing to do"; echo "SKIP=1" >> "$GITHUB_ENV"; fi
+      - name: Pull the feeds
+        if: env.SKIP != '1'
+        run: |
+          python3 election2026/updater/fetch_markets.py || echo "markets: failed (kept last values)"
+          python3 election2026/updater/fetch_rss.py || echo "rss: failed (kept last values)"
+          python3 election2026/updater/fetch_earlyvote.py || echo "early vote: failed (kept last values)"
+          python3 election2026/updater/auto_status.py
+      - name: Rebuild
+        if: env.SKIP != '1'
+        run: python3 election2026/build.py --check
+      - name: Commit and push
+        if: env.SKIP != '1'
+        run: |
+          git config user.name "Election Desk updater"
+          git config user.email "election-desk@users.noreply.github.com"
+          git add election2026/data election2026/index.html
+          if git diff --cached --quiet; then echo "no changes"; exit 0; fi
+          git commit -qm "Election Desk: automated feed update $(date -u +%Y-%m-%dT%H:%MZ)"
+          for i in 1 2 3; do
+            git pull --rebase -X theirs origin main && git push -q origin HEAD:main && exit 0
+            sleep 10
+          done
+          echo "push failed" >&2; exit 1

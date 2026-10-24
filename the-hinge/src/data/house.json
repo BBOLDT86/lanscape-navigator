@@ -1,0 +1,3041 @@
+{
+ "meta": {
+  "compiled": "2026-10-11",
+  "battlefield": "All 76 seats Cook rates Likely/Lean/Toss-up as of 2026-10-09",
+  "sources": {
+   "cook": "https://www.cookpolitical.com/ratings/house-race-ratings (2026-10-09)",
+   "sabato": "https://www.270towin.com/2026-house-election/table/crystal-ball-2026-house-forecast/ (as of 2026-10-08)",
+   "ie": "https://www.270towin.com/2026-house-election/table/inside-elections-2026-house-ratings/ (as of 2026-10-01)",
+   "pvi": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_election_ratings (CPVI column, late-Aug 2026 copy; new lines in redrawn states)",
+   "pres24_house24_candidates": "https://www.270towin.com/2026-house-election/states/{state-name}/ (e.g. .../states/new-york/)",
+   "crossover_list": "https://www.270towin.com/2026-house-election-find/crossover-districts-2024-election",
+   "RCP": "https://www.realclearpolling.com/polls/state-of-the-union/generic-congressional-vote (gb_polls src='RCP': D/R and dates as listed by RCP)",
+   "W": "https://en.wikipedia.org/wiki/2025%E2%80%932026_United_States_redistricting (redistricting: code W)",
+   "PM": "https://www.policymap.com/blog/redistricting-tracker (redistricting: code PM; statuses as of 2026-09-25)"
+  },
+  "codes": {
+   "*": "rating marked * = district absent from that forecaster's non-safe table, so Safe/Solid by inference",
+   "lines": "new = district redrawn for 2026 (pres24 is new-lines DRA estimate via 270toWin; house24 is the 2024 result in the old same-numbered district); same = 2024 lines still in use",
+   "pres_basis": "how the pres24 winner sign was set: xover = 270toWin crossover list (winner = 2024 House winner's party unless listed); wiki = Wikipedia district/state article; pvi = inferred from Cook PVI (source margin unsigned); unconfirmed = sign not found",
+   "margins": "D+x / R+x = winner's margin in points",
+   "candidates": "270toWin lists D first, R second without labels; parties confirmed on Wikipedia (OH, FL-7, FL-9, TX-9) and RCP (AK), otherwise by incumbent party/listing order",
+   "poll": "array of public general-election polls since 2026-08-01 found on 270toWin district pages or RCP; 'listed' = the single date 270toWin shows; empty = none found (270toWin 404 treated as none)"
+  }
+ },
+ "gb_polls": [
+  {
+   "pollster": "YouGov",
+   "sponsor": "The Economist",
+   "partisan_sponsor": false,
+   "start": "2026-10-02",
+   "end": "2026-10-05",
+   "n": 1381,
+   "population": "RV",
+   "dem": 51,
+   "rep": 40,
+   "url": "https://d3nkl3psvxxpe9.cloudfront.net/documents/econTabReport_703uvs1.pdf",
+   "src": "RCP",
+   "note": "RCP figure; release all-RV topline D 47, R 38 (n=1,372)"
+  },
+  {
+   "pollster": "Morning Consult",
+   "sponsor": null,
+   "partisan_sponsor": false,
+   "start": "2026-10-02",
+   "end": "2026-10-04",
+   "n": null,
+   "population": null,
+   "dem": 50,
+   "rep": 43,
+   "url": "https://pro-assets.morningconsult.com/wp-uploads/2026/06/MCPI-PI-Weekly_260622.html",
+   "src": "RCP",
+   "note": "n/population not found; RCP's link points to a June file"
+  },
+  {
+   "pollster": "Cygnal",
+   "sponsor": null,
+   "partisan_sponsor": false,
+   "start": "2026-10-01",
+   "end": "2026-10-02",
+   "n": null,
+   "population": null,
+   "dem": 52,
+   "rep": 43,
+   "url": "https://www.cygn.al/wp-content/uploads/2026/10/24822-Cygnal-National-Early-Oct26-NVT-Deck-Midterm-Political.pdf",
+   "src": "RCP"
+  },
+  {
+   "pollster": "Ipsos",
+   "sponsor": "Reuters",
+   "partisan_sponsor": false,
+   "start": "2026-09-30",
+   "end": "2026-10-05",
+   "n": null,
+   "population": null,
+   "dem": 44,
+   "rep": 37,
+   "url": "https://www.ipsos.com/sites/default/files/ct/news/documents/2026-10/Reuters%20Ipsos%20October%20Large%20Issue%20Topline%2010.5%20release.pdf",
+   "src": "RCP"
+  },
+  {
+   "pollster": "CBS News",
+   "sponsor": "CBS News",
+   "partisan_sponsor": false,
+   "start": "2026-09-30",
+   "end": "2026-10-02",
+   "n": null,
+   "population": null,
+   "dem": 54,
+   "rep": 45,
+   "url": "https://www.cbsnews.com/news/midterm-poll-battleground-tracker-democrats-house-advantage/",
+   "src": "RCP"
+  },
+  {
+   "pollster": "Pew Research Center",
+   "sponsor": null,
+   "partisan_sponsor": false,
+   "start": "2026-09-28",
+   "end": "2026-10-04",
+   "n": 3917,
+   "population": "RV",
+   "dem": 44,
+   "rep": 36,
+   "url": "https://www.pewresearch.org/wp-content/uploads/sites/20/2026/10/SR_26.10.08_iran_Midterms-report-topline_FOR_RELEASE.pdf",
+   "src": "RCP",
+   "note": "Total N=5,062; vote question asked of RVs (n=3,917): Dem/lean Dem 44, Rep/lean Rep 36, other 5, not sure 15"
+  },
+  {
+   "pollster": "Harvard-Harris",
+   "sponsor": null,
+   "partisan_sponsor": false,
+   "start": "2026-09-26",
+   "end": "2026-09-28",
+   "n": null,
+   "population": null,
+   "dem": 51,
+   "rep": 49,
+   "url": "https://harvardharrispoll.com/assets/uploads/2026/09/HHP_Sep2026_KeyResults.pdf",
+   "src": "RCP"
+  },
+  {
+   "pollster": "YouGov",
+   "sponsor": "The Economist",
+   "partisan_sponsor": false,
+   "start": "2026-09-25",
+   "end": "2026-09-28",
+   "n": 1429,
+   "population": "RV",
+   "dem": 53,
+   "rep": 38,
+   "url": "https://d3nkl3psvxxpe9.cloudfront.net/documents/econTabReport_CCphJ5Q.pdf",
+   "src": "RCP",
+   "note": "RCP figure; differs from release all-RV topline in checked weeks"
+  },
+  {
+   "pollster": "Rasmussen Reports",
+   "sponsor": null,
+   "partisan_sponsor": false,
+   "start": "2026-09-24",
+   "end": "2026-09-27",
+   "n": 1794,
+   "population": "LV",
+   "dem": 47,
+   "rep": 44,
+   "url": "https://www.rasmussenreports.com/public_content/politics/mood_of_america/generic_congressional_ballot",
+   "src": "RCP",
+   "note": "Dates per RCP; Rasmussen page lists fieldwork 'September 24 and 27-30, 2026', 1,794 LV, other 4, not sure 4"
+  },
+  {
+   "pollster": "Quinnipiac University",
+   "sponsor": null,
+   "partisan_sponsor": false,
+   "start": "2026-09-24",
+   "end": "2026-09-27",
+   "n": null,
+   "population": null,
+   "dem": 51,
+   "rep": 39,
+   "url": "https://poll.qu.edu/images/polling/us/us09292026_uppi50.pdf",
+   "src": "RCP"
+  },
+  {
+   "pollster": "Morning Consult",
+   "sponsor": null,
+   "partisan_sponsor": false,
+   "start": "2026-09-25",
+   "end": "2026-09-27",
+   "n": null,
+   "population": null,
+   "dem": 50,
+   "rep": 43,
+   "url": "https://pro-assets.morningconsult.com/wp-uploads/2026/06/MCPI-PI-Weekly_260622.html",
+   "src": "RCP"
+  },
+  {
+   "pollster": "Emerson College",
+   "sponsor": null,
+   "partisan_sponsor": false,
+   "start": "2026-09-21",
+   "end": "2026-09-22",
+   "n": null,
+   "population": null,
+   "dem": 53,
+   "rep": 42,
+   "url": "https://emersoncollegepolling.com/september-2026-national-poll-democrats/",
+   "src": "RCP"
+  },
+  {
+   "pollster": "Rasmussen Reports",
+   "sponsor": null,
+   "partisan_sponsor": false,
+   "start": "2026-09-17",
+   "end": "2026-09-23",
+   "n": null,
+   "population": "LV",
+   "dem": 48,
+   "rep": 43,
+   "url": "https://www.rasmussenreports.com/public_content/politics/mood_of_america/generic_congressional_ballot_sep28",
+   "src": "RCP"
+  },
+  {
+   "pollster": "YouGov",
+   "sponsor": "The Economist",
+   "partisan_sponsor": false,
+   "start": "2026-09-18",
+   "end": "2026-09-21",
+   "n": 1401,
+   "population": "RV",
+   "dem": 52,
+   "rep": 38,
+   "url": "https://d3nkl3psvxxpe9.cloudfront.net/documents/econTabReport_5WiMaRX.pdf",
+   "src": "RCP",
+   "note": "RCP figure; differs from release all-RV topline in checked weeks"
+  },
+  {
+   "pollster": "Morning Consult",
+   "sponsor": null,
+   "partisan_sponsor": false,
+   "start": "2026-09-18",
+   "end": "2026-09-20",
+   "n": null,
+   "population": null,
+   "dem": 50,
+   "rep": 43,
+   "url": "https://intel.morningconsult.com/mc-content/trackers/donald-trump-congress-policy-republicans-polling",
+   "src": "RCP"
+  },
+  {
+   "pollster": "Echelon Insights",
+   "sponsor": null,
+   "partisan_sponsor": false,
+   "start": "2026-09-17",
+   "end": "2026-09-21",
+   "n": null,
+   "population": null,
+   "dem": 51,
+   "rep": 43,
+   "url": "https://echeloninsights.com/insights/september-2026-verified-voter-omnibus",
+   "src": "RCP",
+   "note": "RCP marks with '**' (unexplained); n/population not found"
+  },
+  {
+   "pollster": "Wall Street Journal",
+   "sponsor": "Wall Street Journal",
+   "partisan_sponsor": false,
+   "start": "2026-09-16",
+   "end": "2026-09-21",
+   "n": null,
+   "population": null,
+   "dem": 50,
+   "rep": 42,
+   "url": "https://www.wsj.com/politics/policy/americans-want-populist-policies-that-defy-traditional-political-labels-119b29b9",
+   "src": "RCP"
+  },
+  {
+   "pollster": "Ipsos",
+   "sponsor": "Reuters",
+   "partisan_sponsor": false,
+   "start": "2026-09-17",
+   "end": "2026-09-20",
+   "n": null,
+   "population": null,
+   "dem": 43,
+   "rep": 35,
+   "url": "https://www.reuters.com/world/us/trump-approval-falls-career-low-32-high-costs-bite-reutersipsos-poll-finds-2026-09-21/",
+   "src": "RCP"
+  },
+  {
+   "pollster": "Quantus Insights",
+   "sponsor": null,
+   "partisan_sponsor": false,
+   "start": "2026-09-15",
+   "end": "2026-09-18",
+   "n": null,
+   "population": null,
+   "dem": 50,
+   "rep": 42,
+   "url": "https://quantusinsights.org/f/quantus-survey-democrats-hold-big-midterm-lead-over-republicans",
+   "src": "RCP"
+  },
+  {
+   "pollster": "CNN",
+   "sponsor": "CNN",
+   "partisan_sponsor": false,
+   "start": "2026-09-16",
+   "end": "2026-09-17",
+   "n": null,
+   "population": null,
+   "dem": 49,
+   "rep": 41,
+   "url": "https://www.cnn.com/2026/09/23/politics/cnn-poll-donald-trump-economy-midterms-vis",
+   "src": "RCP"
+  },
+  {
+   "pollster": "Marist College",
+   "sponsor": "NPR/PBS News",
+   "partisan_sponsor": false,
+   "start": "2026-09-14",
+   "end": "2026-09-15",
+   "n": 1280,
+   "population": "RV",
+   "dem": 53,
+   "rep": 41,
+   "url": "https://maristpoll.marist.edu/polls/2026-midterm-elections-september-2026/",
+   "src": "RCP",
+   "note": "MoE +/-3.8; verified on release"
+  },
+  {
+   "pollster": "Big Data Poll",
+   "sponsor": null,
+   "partisan_sponsor": false,
+   "start": "2026-09-13",
+   "end": "2026-09-15",
+   "n": null,
+   "population": null,
+   "dem": 51,
+   "rep": 39,
+   "url": "https://www.bigdatapoll.com/blog/democrats-maintain-significant-midterm-advantage-in-post-labor-day-poll/",
+   "src": "RCP"
+  },
+  {
+   "pollster": "NBC News",
+   "sponsor": "NBC News",
+   "partisan_sponsor": false,
+   "start": "2026-09-11",
+   "end": "2026-09-15",
+   "n": null,
+   "population": null,
+   "dem": 50,
+   "rep": 45,
+   "url": "https://www.nbcnews.com/politics/2026-election/poll-voters-say-trump-hurt-economy-competitive-midterm-election-looms-rcna597868",
+   "src": "RCP"
+  },
+  {
+   "pollster": "Rasmussen Reports",
+   "sponsor": null,
+   "partisan_sponsor": false,
+   "start": "2026-09-10",
+   "end": "2026-09-16",
+   "n": null,
+   "population": "LV",
+   "dem": 49,
+   "rep": 41,
+   "url": "https://www.rasmussenreports.com/public_content/politics/mood_of_america/generic_congressional_ballot_sep21",
+   "src": "RCP"
+  },
+  {
+   "pollster": "Fox News",
+   "sponsor": "Fox News",
+   "partisan_sponsor": false,
+   "start": "2026-09-11",
+   "end": "2026-09-14",
+   "n": null,
+   "population": null,
+   "dem": 51,
+   "rep": 44,
+   "url": "https://www.foxnews.com/politics/fox-news-poll-squeezed-costs-frustrated-voters-turn-democrats",
+   "src": "RCP"
+  },
+  {
+   "pollster": "YouGov",
+   "sponsor": "The Economist",
+   "partisan_sponsor": false,
+   "start": "2026-09-11",
+   "end": "2026-09-14",
+   "n": 1461,
+   "population": "RV",
+   "dem": 51,
+   "rep": 39,
+   "url": "https://d3nkl3psvxxpe9.cloudfront.net/documents/econTabReport_ZmVljW6.pdf",
+   "src": "RCP",
+   "note": "RCP figure; differs from release all-RV topline in checked weeks"
+  },
+  {
+   "pollster": "RMG Research",
+   "sponsor": "Napolitan News",
+   "partisan_sponsor": false,
+   "start": "2026-09-08",
+   "end": "2026-09-15",
+   "n": null,
+   "population": "LV",
+   "dem": 52,
+   "rep": 46,
+   "url": "https://napolitannews.org/posts/generic-ballot-first-likely-voter-numbers-have-dems-ahead-6",
+   "src": "RCP",
+   "note": "RCP marks with '**'; URL describes 'first likely voter numbers'; n not found"
+  },
+  {
+   "pollster": "Ipsos",
+   "sponsor": "Reuters",
+   "partisan_sponsor": false,
+   "start": "2026-09-11",
+   "end": "2026-09-14",
+   "n": null,
+   "population": null,
+   "dem": 44,
+   "rep": 37,
+   "url": "https://www.reuters.com/world/us/trump-approval-up-record-low-outlook-sours-republicans-reutersipsos-poll-finds-2026-09-14/",
+   "src": "RCP"
+  },
+  {
+   "pollster": "Morning Consult",
+   "sponsor": null,
+   "partisan_sponsor": false,
+   "start": "2026-09-11",
+   "end": "2026-09-13",
+   "n": null,
+   "population": null,
+   "dem": 49,
+   "rep": 43,
+   "url": "https://www.realclearpolitics.com/docs/2026/Morning_Consult_Sept_11-13_2026.pdf",
+   "src": "RCP"
+  },
+  {
+   "pollster": "Siena College",
+   "sponsor": "New York Times",
+   "partisan_sponsor": false,
+   "start": "2026-09-08",
+   "end": "2026-09-13",
+   "n": null,
+   "population": null,
+   "dem": 51,
+   "rep": 43,
+   "url": "https://www.nytimes.com/interactive/2026/09/15/polls/times-siena-poll-likely-voter-crosstabs.html",
+   "src": "RCP",
+   "note": "n/population not verified (link is to likely-voter crosstabs)"
+  },
+  {
+   "pollster": "CBS News",
+   "sponsor": "CBS News",
+   "partisan_sponsor": false,
+   "start": "2026-09-08",
+   "end": "2026-09-11",
+   "n": null,
+   "population": null,
+   "dem": 54,
+   "rep": 46,
+   "url": "https://www.cbsnews.com/news/poll-trump-battleground-tracker-house-control-2026-midterm-elections/",
+   "src": "RCP"
+  },
+  {
+   "pollster": "Rasmussen Reports",
+   "sponsor": null,
+   "partisan_sponsor": false,
+   "start": "2026-09-03",
+   "end": "2026-09-09",
+   "n": null,
+   "population": "LV",
+   "dem": 47,
+   "rep": 42,
+   "url": "https://www.rasmussenreports.com/public_content/politics/mood_of_america/generic_congressional_ballot_sep14",
+   "src": "RCP"
+  },
+  {
+   "pollster": "YouGov",
+   "sponsor": "The Economist",
+   "partisan_sponsor": false,
+   "start": "2026-09-04",
+   "end": "2026-09-08",
+   "n": 1469,
+   "population": "RV",
+   "dem": 49,
+   "rep": 38,
+   "url": "https://d3nkl3psvxxpe9.cloudfront.net/documents/econTabReport_SlcWdVd.pdf",
+   "src": "RCP",
+   "note": "RCP figure; release all-RV topline D 42, R 35 (n=1,464)"
+  },
+  {
+   "pollster": "Marquette Law School",
+   "sponsor": null,
+   "partisan_sponsor": false,
+   "start": "2026-09-02",
+   "end": "2026-09-09",
+   "n": null,
+   "population": null,
+   "dem": 54,
+   "rep": 41,
+   "url": "https://law.marquette.edu/assets/community/poll/MLSPSC35/MLSPSC35PressRelease_NationalTopics.pdf",
+   "src": "RCP"
+  },
+  {
+   "pollster": "Quinnipiac University",
+   "sponsor": null,
+   "partisan_sponsor": false,
+   "start": "2026-09-03",
+   "end": "2026-09-06",
+   "n": null,
+   "population": null,
+   "dem": 49,
+   "rep": 38,
+   "url": "https://poll.qu.edu/images/polling/us/us09102026_usvi28.pdf",
+   "src": "RCP"
+  },
+  {
+   "pollster": "Morning Consult",
+   "sponsor": null,
+   "partisan_sponsor": false,
+   "start": "2026-08-31",
+   "end": "2026-09-06",
+   "n": null,
+   "population": null,
+   "dem": 46,
+   "rep": 42,
+   "url": "https://pro-assets.morningconsult.com/wp-uploads/2026/06/MCPI-PI-Weekly_260622.html",
+   "src": "RCP"
+  },
+  {
+   "pollster": "Cygnal",
+   "sponsor": null,
+   "partisan_sponsor": false,
+   "start": "2026-09-01",
+   "end": "2026-09-02",
+   "n": null,
+   "population": null,
+   "dem": 51,
+   "rep": 42,
+   "url": "https://www.cygn.al/wp-content/uploads/2026/09/24524-Cygnal-National-Sept26-NVT-Deck-Public-1.pdf",
+   "src": "RCP"
+  },
+  {
+   "pollster": "Financial Times (Focaldata per release URL)",
+   "sponsor": "Financial Times",
+   "partisan_sponsor": false,
+   "start": "2026-08-28",
+   "end": "2026-09-02",
+   "n": null,
+   "population": null,
+   "dem": 52,
+   "rep": 45,
+   "url": "https://www.focaldata.com/blog/trump-approval-hits-record-low-as-democrats-extend-house-lead",
+   "src": "RCP"
+  },
+  {
+   "pollster": "ActiVote",
+   "sponsor": null,
+   "partisan_sponsor": false,
+   "start": "2026-09-22",
+   "end": "2026-10-02",
+   "n": 1000,
+   "population": "LV",
+   "dem": 52.2,
+   "rep": 47.8,
+   "url": "https://www.activote.net/polls/generic-ballot/",
+   "src": "https://www.activote.net/polls/generic-ballot/",
+   "note": "Not in RCP table; MoE +/-3.1; two-way shares"
+  },
+  {
+   "pollster": "ActiVote",
+   "sponsor": null,
+   "partisan_sponsor": false,
+   "start": null,
+   "end": null,
+   "n": 1000,
+   "population": "LV",
+   "dem": 52.8,
+   "rep": 47.2,
+   "url": "https://www.activote.net/polls/generic-ballot/",
+   "src": "https://www.activote.net/polls/generic-ballot/",
+   "note": "Published 2026-09-22; field dates not shown (assumed to end after Sept 1)"
+  },
+  {
+   "pollster": "ActiVote",
+   "sponsor": null,
+   "partisan_sponsor": false,
+   "start": null,
+   "end": null,
+   "n": 1000,
+   "population": "LV",
+   "dem": 52.3,
+   "rep": 47.7,
+   "url": "https://www.activote.net/polls/generic-ballot/",
+   "src": "https://www.activote.net/polls/generic-ballot/",
+   "note": "Published 2026-09-11; field dates not shown (assumed to end after Sept 1)"
+  },
+  {
+   "pollster": "Noble Predictive Insights",
+   "sponsor": "The Center Square",
+   "partisan_sponsor": false,
+   "start": "2026-10-05",
+   "end": "2026-10-07",
+   "n": 2527,
+   "population": "RV",
+   "dem": null,
+   "rep": null,
+   "margin": 5.0,
+   "url": "https://votes.decisiondeskhq.com/polls/generic-ballot/national/lv-rv-adults",
+   "src": "https://votes.decisiondeskhq.com/polls/generic-ballot/national/lv-rv-adults",
+   "note": "DDHQ lists margin D+5 only (no D/R shares). CAUTION: same DDHQ page also showed obvious placeholder rows"
+  }
+ ],
+ "gb_averages": {
+  "current": [
+   {
+    "aggregator": "RealClearPolitics",
+    "dem": 49.8,
+    "rep": 41.9,
+    "margin": 7.9,
+    "as_of": "2026-10-05",
+    "window": "polls 9/16-10/5 (12 polls)",
+    "url": "https://www.realclearpolling.com/polls/state-of-the-union/generic-congressional-vote",
+    "note": "Fetched 2026-10-11; recomputed from the 12 listed polls = 49.8/41.9"
+   },
+   {
+    "aggregator": "Silver Bulletin",
+    "dem": null,
+    "rep": null,
+    "margin": 8.9,
+    "as_of": "2026-10-09",
+    "url": "https://www.natesilver.net/p/generic-ballot-average-2026-nate-silver-bulletin-congress-polls",
+    "note": "D shares not shown (paywall); page says Democrats 'recently broke 50 percent'. Likely-voter version D+9.6 (noted 10/5/26)"
+   },
+   {
+    "aggregator": "FiftyPlusOne",
+    "dem": 51.0,
+    "rep": 43.3,
+    "margin": 7.7,
+    "as_of": "2026-10-11",
+    "url": "https://fiftyplusone.news/polls/generic-ballot/generic-ballot",
+    "note": "Displayed as 'Democrats +8'"
+   },
+   {
+    "aggregator": "Decision Desk HQ",
+    "dem": 48.2,
+    "rep": 40.4,
+    "margin": 7.8,
+    "as_of": null,
+    "url": "https://votes.decisiondeskhq.com/polls/generic-ballot/national/lv-rv-adults",
+    "note": "No as-of date shown (fetched 2026-10-11); CAUTION: page also contained placeholder poll rows"
+   },
+   {
+    "aggregator": "Track the Vote",
+    "dem": null,
+    "rep": null,
+    "margin": 8.8,
+    "as_of": "2026-10-07",
+    "url": "https://regulatoryintelligence.substack.com/p/a-democratic-turnout-advantage-reinforces",
+    "note": "Secondary citation in an AI-assisted Substack post; low confidence"
+   },
+   {
+    "aggregator": "USPollingData",
+    "dem": 49.3,
+    "rep": 41.9,
+    "margin": 7.4,
+    "as_of": "2026-10 (no day)",
+    "url": "https://uspollingdata.com/polls/generic-ballot/",
+    "note": "Unknown operator; says it uses a 'Wikipedia aggregator'; low confidence"
+   },
+   {
+    "aggregator": "VoteHub",
+    "dem": null,
+    "rep": null,
+    "margin": null,
+    "as_of": null,
+    "url": null,
+    "note": "Current value not found. Last seen 2026-06-29: D 47.3, R 42.0 (D+5.3) per Wikipedia"
+   },
+   {
+    "aggregator": "Race to the WH",
+    "dem": null,
+    "rep": null,
+    "margin": null,
+    "as_of": null,
+    "url": "https://www.racetothewh.com/house",
+    "note": "Current value not found. Last seen 2026-06-29: D 47.3, R 41.4 (D+5.9) per Wikipedia"
+   },
+   {
+    "aggregator": "NYT",
+    "dem": null,
+    "rep": null,
+    "margin": null,
+    "as_of": null,
+    "url": null,
+    "note": "not found"
+   }
+  ],
+  "trend": [
+   {
+    "aggregator": "RealClearPolitics",
+    "points": [
+     {
+      "date": "2026-01-01",
+      "dem": null,
+      "rep": null,
+      "margin": null,
+      "note": "not found"
+     },
+     {
+      "date": "2026-02-24",
+      "dem": 47.5,
+      "rep": 42.7,
+      "margin": 4.8,
+      "url": "https://www.realclearpolling.com/stories/analysis/gops-generic-ballot-blues"
+     },
+     {
+      "date": "2026-04-01",
+      "dem": null,
+      "rep": null,
+      "margin": null,
+      "note": "not found"
+     },
+     {
+      "date": "2026-06-29",
+      "dem": 48.5,
+      "rep": 42.9,
+      "margin": 5.6,
+      "url": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections",
+      "note": "Wikipedia aggregation table (updated June 29)"
+     },
+     {
+      "date": "2026-09-01",
+      "dem": null,
+      "rep": null,
+      "margin": null,
+      "note": "not found"
+     },
+     {
+      "date": "2026-10-05",
+      "dem": 49.8,
+      "rep": 41.9,
+      "margin": 7.9,
+      "url": "https://www.realclearpolling.com/polls/state-of-the-union/generic-congressional-vote"
+     }
+    ]
+   },
+   {
+    "aggregator": "Silver Bulletin",
+    "points": [
+     {
+      "date": "2026-01 (early)",
+      "dem": null,
+      "rep": null,
+      "margin": 5.3,
+      "url": "https://www.natesilver.net/p/midterm-polls-have-good-news-great",
+      "note": "Article dated 2026-01-22 says 'currently lead by 5.3'"
+     },
+     {
+      "date": "2026-04-01",
+      "margin": null,
+      "note": "not found"
+     },
+     {
+      "date": "2026-06-29",
+      "dem": 48.1,
+      "rep": 41.9,
+      "margin": 6.2,
+      "url": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections"
+     },
+     {
+      "date": "2026-09-01",
+      "margin": null,
+      "note": "not found; Silver says the Democratic surge began in early September"
+     },
+     {
+      "date": "2026-10-09",
+      "dem": null,
+      "rep": null,
+      "margin": 8.9,
+      "url": "https://www.natesilver.net/p/generic-ballot-average-2026-nate-silver-bulletin-congress-polls"
+     }
+    ]
+   },
+   {
+    "aggregator": "FiftyPlusOne",
+    "points": [
+     {
+      "date": "2026-06-25",
+      "margin": 5.5,
+      "url": "https://blog.fiftyplusone.news/p/an-updated-generic-ballot-polling"
+     },
+     {
+      "date": "2026-06-29",
+      "dem": 49.1,
+      "rep": 43.6,
+      "margin": 5.5,
+      "url": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections"
+     },
+     {
+      "date": "2026-10-11",
+      "dem": 51.0,
+      "rep": 43.3,
+      "margin": 7.7,
+      "url": "https://fiftyplusone.news/polls/generic-ballot/generic-ballot"
+     }
+    ]
+   },
+   {
+    "aggregator": "USPollingData (low confidence)",
+    "points": [
+     {
+      "date": "2026-01",
+      "dem": 47.2,
+      "rep": 41.6,
+      "margin": 5.6
+     },
+     {
+      "date": "2026-02",
+      "dem": 47.5,
+      "rep": 41.6,
+      "margin": 5.9
+     },
+     {
+      "date": "2026-03",
+      "dem": 47.6,
+      "rep": 41.5,
+      "margin": 6.1
+     },
+     {
+      "date": "2026-04",
+      "dem": 47.8,
+      "rep": 41.6,
+      "margin": 6.2
+     },
+     {
+      "date": "2026-10",
+      "dem": 49.3,
+      "rep": 41.9,
+      "margin": 7.4
+     }
+    ],
+    "url": "https://uspollingdata.com/polls/generic-ballot/"
+   },
+   {
+    "aggregator": "Wikipedia 6-aggregator average",
+    "points": [
+     {
+      "date": "2026-06-29",
+      "dem": 47.1,
+      "rep": 41.7,
+      "margin": 5.4,
+      "url": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections"
+     }
+    ]
+   }
+  ]
+ },
+ "composition": {
+  "as_of": "2026-10-05",
+  "republicans": 218,
+  "democrats": 214,
+  "independents": 1,
+  "vacancies": 2,
+  "total": 435,
+  "independent_detail": "Kevin Kiley (CA-03) left the Republican Party in March 2026; congresscountdown says he remains in the House Republican Conference. 270toWin's tally (D 214, R 219, 2 vacant) counts him with Republicans.",
+  "vacant_seats": [
+   {
+    "district": "FL-20",
+    "previous": "Sheila Cherfilus-McCormick (D)",
+    "reason": "Resigned (Wikipedia: April 21, 2026, 'following money laundering allegations'; congresscountdown: March 2026)",
+    "special_election": "not yet scheduled (congresscountdown, as of Oct 5)"
+   },
+   {
+    "district": "TX-23",
+    "previous": "Tony Gonzales (R)",
+    "reason": "Resigned (Wikipedia: April 14, 2026, 'after admitting to an affair')",
+    "special_election": "not yet scheduled (congresscountdown, as of Oct 5)"
+   }
+  ],
+  "filled_in_2026": [
+   {
+    "district": "CA-14",
+    "previous": "Eric Swalwell (D), resigned April 2026",
+    "successor": "Aisha Wahab (D)",
+    "special_date": "2026-08-18 (scheduled date per Wikipedia snapshot)"
+   },
+   {
+    "district": "GA-13",
+    "previous": "David Scott (D), died 2026",
+    "successor": "Everton Blair (D)",
+    "special_date": "2026-07-28 (scheduled date per Wikipedia snapshot)"
+   }
+  ],
+  "majority_threshold": 218,
+  "dem_net_gain_needed": 3,
+  "dem_net_gain_needed_basis": "Inside Elections: 'Republicans have a 220-215 majority. Democrats need a net gain of 3 seats' (2024 result baseline)",
+  "dem_seats_short_of_218_now": 4,
+  "sources": [
+   "https://www.congresscountdown.com/info/party-breakdown",
+   "https://www.congresscountdown.com/info/congressional-vacancies",
+   "https://www.270towin.com/2026-house-election/",
+   "http://insideelections.com/ratings/house/",
+   "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections",
+   "https://abc7news.com/post/california-rep-kevin-kiley-says-hes-leaving-republican-party-will-serve-independent/18699488/",
+   "https://www.brookings.edu/articles/democrats-on-track-to-outperform-2026-house-forecasts/"
+  ]
+ },
+ "redistricting": {
+  "states": [
+   {
+    "state": "Texas",
+    "status_2026": "New map in effect",
+    "new_map_in_effect_2026": true,
+    "expected_effect": "+5 R",
+    "key_dates": [
+     "Signed 2025-08-29",
+     "SCOTUS stay 2025-12-04 (6-3)",
+     "SCOTUS summarily reversed lower court 2026-04-27 (6-3)"
+    ],
+    "note": "Merits undecided (PolicyMap)",
+    "sources": [
+     "W",
+     "PM"
+    ]
+   },
+   {
+    "state": "California",
+    "status_2026": "Prop 50 map in effect",
+    "new_map_in_effect_2026": true,
+    "expected_effect": "+5 D",
+    "key_dates": [
+     "Prop 50 approved 2025-11-04 (64.42-35.58)",
+     "SCOTUS denied injunction 2026-02-04"
+    ],
+    "note": "Tangipa litigation pending",
+    "sources": [
+     "W",
+     "PM"
+    ]
+   },
+   {
+    "state": "North Carolina",
+    "status_2026": "New map in effect",
+    "new_map_in_effect_2026": true,
+    "expected_effect": "+1 R",
+    "key_dates": [
+     "Enacted 2025-10-22",
+     "Injunctions denied 2025-11-26"
+    ],
+    "note": "Makes NC-1 more Republican; Gallop v. Hirsch pending",
+    "sources": [
+     "W",
+     "PM"
+    ]
+   },
+   {
+    "state": "Ohio",
+    "status_2026": "New commission map in effect",
+    "new_map_in_effect_2026": true,
+    "expected_effect": "+2 R",
+    "key_dates": [
+     "Commission approved unanimously 2025-10-31"
+    ],
+    "note": "OH-1 more competitive, OH-9 more R, OH-13 more D; locked until 2032",
+    "sources": [
+     "W",
+     "PM"
+    ]
+   },
+   {
+    "state": "Utah",
+    "status_2026": "Court-ordered map in effect",
+    "new_map_in_effect_2026": true,
+    "expected_effect": "+1 D",
+    "key_dates": [
+     "Court-adopted map 2025-11-10",
+     "Repeal measure failed to qualify 2026-03-26",
+     "Utah Supreme Court argument 2026-10-05"
+    ],
+    "note": "Creates a safe Democratic Salt Lake County seat",
+    "sources": [
+     "W",
+     "PM"
+    ]
+   },
+   {
+    "state": "Florida",
+    "status_2026": "New map in effect",
+    "new_map_in_effect_2026": true,
+    "expected_effect": "+4 R (Wikipedia; Florida target cited as 3 to 5)",
+    "key_dates": [
+     "Signed 2026-05-04",
+     "Injunction denied 2026-05-26",
+     "FL Supreme Court declined review 2026-06-09/10"
+    ],
+    "note": "Under challenge; no trial date",
+    "sources": [
+     "W",
+     "PM",
+     "https://www.fox35orlando.com/news/florida-supreme-court-lets-new-congressional-map-stand-2026-elections"
+    ]
+   },
+   {
+    "state": "Tennessee",
+    "status_2026": "New map in effect",
+    "new_map_in_effect_2026": true,
+    "expected_effect": "+1 R",
+    "key_dates": [
+     "Enacted 2026-05-07",
+     "Sherman injunction denied 2026-07-23"
+    ],
+    "note": "Splits Memphis-based TN-9 (post-Callais)",
+    "sources": [
+     "W",
+     "PM"
+    ]
+   },
+   {
+    "state": "Louisiana",
+    "status_2026": "New map in effect (under challenge)",
+    "new_map_in_effect_2026": true,
+    "expected_effect": "+1 R",
+    "key_dates": [
+     "SB 121 enacted 2026-05-29",
+     "No court ruling as of 2026-09-25"
+    ],
+    "note": "Eliminates one of two majority-Black districts; U.S. House primaries moved to Nov 3 with general on Dec 12",
+    "sources": [
+     "W",
+     "PM"
+    ]
+   },
+   {
+    "state": "Alabama",
+    "status_2026": "Lines changed: 2023 legislative map restored",
+    "new_map_in_effect_2026": true,
+    "expected_effect": "+1 R",
+    "key_dates": [
+     "SCOTUS stayed injunction 2026-06-02 (6-3)"
+    ],
+    "note": "PolicyMap: SCOTUS stay restored the 2023 map; Wikipedia: legislature passed a map in May 2026 and the June 2 order allowed its use. Endangers AL-2 (Figures)",
+    "sources": [
+     "W",
+     "PM"
+    ]
+   },
+   {
+    "state": "Missouri",
+    "status_2026": "BLOCKED for 2026; 2022 map governs",
+    "new_map_in_effect_2026": false,
+    "expected_effect": "+1 R intended (not in effect)",
+    "key_dates": [
+     "Enacted 2025-09-28",
+     "MO Supreme Court ruled 2026-09-03 that referendum petition blocks map",
+     "SCOTUS stayed 8th Cir. order 2026-09-25"
+    ],
+    "note": "New map was used in August primaries; Proposition A referendum on Nov 3; Rick Brattin (R) remains MO-5 nominee under old lines",
+    "sources": [
+     "W",
+     "PM",
+     "https://www.pbs.org/newshour/politics/supreme-court-rejects-trump-backed-missouri-congressional-map-for-third-time"
+    ]
+   },
+   {
+    "state": "Virginia",
+    "status_2026": "BLOCKED; 2021 court-drawn map stays",
+    "new_map_in_effect_2026": false,
+    "expected_effect": "+4 D intended ('three or four'; not in effect)",
+    "key_dates": [
+     "Referendum passed 2026-04-21 (51.61-48.39)",
+     "Struck down 2026-05-08 (4-3)",
+     "SCOTUS declined 2026-05-15"
+    ],
+    "sources": [
+     "W",
+     "PM"
+    ]
+   },
+   {
+    "state": "Maryland",
+    "status_2026": "No change for 2026",
+    "new_map_in_effect_2026": false,
+    "expected_effect": "n/a (targets 2028)",
+    "key_dates": [
+     "House passed map 2026-02-02; Senate no vote",
+     "Special session Aug 3-5, 2026"
+    ],
+    "note": "Constitutional amendment is Question 3 on Nov 3 ballot",
+    "sources": [
+     "PM",
+     "https://wtop.com/national/2026/07/maryland-lawmakers-to-meet-in-august-for-special-session-on-redistricting/"
+    ]
+   },
+   {
+    "state": "New York",
+    "status_2026": "No change for 2026",
+    "new_map_in_effect_2026": false,
+    "expected_effect": "n/a",
+    "key_dates": [
+     "SCOTUS stayed NY-11 redraw order 2026-03-02",
+     "Claims dismissed 2026-03-19"
+    ],
+    "sources": [
+     "PM"
+    ]
+   },
+   {
+    "state": "Colorado",
+    "status_2026": "No change for 2026",
+    "new_map_in_effect_2026": false,
+    "expected_effect": "n/a",
+    "key_dates": [
+     "Initiatives blocked 2026-06-29"
+    ],
+    "note": "Amendment 86 on Nov 3 ballot (needs 55%)",
+    "sources": [
+     "PM"
+    ]
+   },
+   {
+    "state": "Indiana",
+    "status_2026": "Failed",
+    "new_map_in_effect_2026": false,
+    "expected_effect": "none",
+    "key_dates": [
+     "Senate rejected 2025-12-11 (31-19)"
+    ],
+    "sources": [
+     "W",
+     "PM"
+    ]
+   },
+   {
+    "state": "Kansas",
+    "status_2026": "Failed",
+    "new_map_in_effect_2026": false,
+    "expected_effect": "none",
+    "key_dates": [
+     "Petition fell short Nov 2025; Speaker declined vote Jan 2026"
+    ],
+    "sources": [
+     "W",
+     "PM"
+    ]
+   },
+   {
+    "state": "South Carolina",
+    "status_2026": "Failed",
+    "new_map_in_effect_2026": false,
+    "expected_effect": "none",
+    "key_dates": [
+     "Senate fell short 2026-05-12 (29-17)"
+    ],
+    "sources": [
+     "W",
+     "PM"
+    ]
+   },
+   {
+    "state": "Georgia",
+    "status_2026": "No change for 2026",
+    "new_map_in_effect_2026": false,
+    "expected_effect": "none",
+    "key_dates": [
+     "Special session called 2026-05-13; House Speaker declined redistricting"
+    ],
+    "note": "Target is 2028",
+    "sources": [
+     "PM"
+    ]
+   },
+   {
+    "state": "Mississippi",
+    "status_2026": "Nothing adopted",
+    "new_map_in_effect_2026": false,
+    "expected_effect": "none",
+    "key_dates": [
+     "Hearings through 2026-10-01"
+    ],
+    "note": "Prompted by Callais",
+    "sources": [
+     "PM"
+    ]
+   },
+   {
+    "state": "Wisconsin",
+    "status_2026": "No change",
+    "new_map_in_effect_2026": false,
+    "expected_effect": "none",
+    "key_dates": [
+     "SCOTUS heard appeals 2026-09-16; no ruling as of 2026-09-25"
+    ],
+    "sources": [
+     "PM"
+    ]
+   },
+   {
+    "state": "Illinois",
+    "status_2026": "Not pursued",
+    "new_map_in_effect_2026": false,
+    "expected_effect": "none",
+    "key_dates": [],
+    "sources": [
+     "PM"
+    ]
+   },
+   {
+    "state": "Arkansas",
+    "status_2026": "No change",
+    "new_map_in_effect_2026": false,
+    "expected_effect": "none",
+    "key_dates": [
+     "2025 challenge rejected"
+    ],
+    "sources": [
+     "PM"
+    ]
+   }
+  ],
+  "net_expected_effect": {
+   "maps_in_effect": "R +15 (TX 5, FL 4, OH 2, NC 1, TN 1, LA 1, AL 1) vs D +6 (CA 5, UT 1) = net about R+9 (derived from Wikipedia per-state figures, excluding blocked MO and VA)",
+   "wikipedia_table_before_MO_block": "net 10 seats toward Republicans (16 R incl. MO, 6 D); the article's infobox separately says '14 Republican seats established'",
+   "analyst_context": [
+    "Kyle Kondik (Jul 27, 2026, via Wikipedia): overall seat biases 'similar to 2018'; net GOP gain alone very likely not enough to decide control",
+    "Brookings (Sep 8, 2026): Crystal Ball implies a Republican cushion of 'seven or eight seats', largely from redistricting; Cook PVI median district about 'two points more Republican'"
+   ],
+   "sources": [
+    "W",
+    "https://www.brookings.edu/articles/democrats-on-track-to-outperform-2026-house-forecasts/"
+   ]
+  },
+  "louisiana_v_callais": {
+   "decided": "2026-04-29",
+   "holding": "Partially overturned Section 2 of the VRA as applied to majority-minority districts; Louisiana's map an 'unconstitutional racial gerrymander' (Wikipedia). PolicyMap: left Section 2 'largely inoperative'.",
+   "changed_2026_maps": [
+    "Tennessee (TN-9 split, May 7)",
+    "Louisiana (SB 121, May 29)",
+    "Alabama (SCOTUS stay June 2 restoring 2023 map)",
+    "Florida (map passed the day of the decision; was already redrawing)"
+   ],
+   "no_2026_change": [
+    "South Carolina (failed)",
+    "Georgia (deferred to 2028)",
+    "Mississippi (hearings only)"
+   ],
+   "sources": [
+    "W",
+    "PM"
+   ]
+  }
+ },
+ "ratings_counts": [
+  {
+   "source": "Cook Political Report",
+   "as_of": "2026-10-09",
+   "solid_d": 185,
+   "likely_d": 16,
+   "lean_d": 12,
+   "tossup": 21,
+   "lean_r": 9,
+   "likely_r": 18,
+   "solid_r": 174,
+   "total_d": 213,
+   "total_r": 201,
+   "tossup_split": "6 D-held, 15 R-held",
+   "url": "https://www.cookpolitical.com/ratings/house-race-ratings"
+  },
+  {
+   "source": "Sabato's Crystal Ball",
+   "as_of": "2026-10-08",
+   "safe_d": 182,
+   "likely_d": 15,
+   "lean_d": 17,
+   "tossup": 20,
+   "lean_r": 11,
+   "likely_r": 19,
+   "safe_r": 171,
+   "total_d": 214,
+   "total_r": 201,
+   "note": "Likely/Lean/Toss-up counts from 270toWin table; totals (D 214, R 201, 20 toss-ups) from Daily Kos 10/11 summary; Safe counts derived (total minus Likely+Lean)",
+   "url": "https://www.270towin.com/2026-house-election/table/crystal-ball-2026-house-forecast/",
+   "url2": "https://dailykos.com/stories/2026/10/11/800110487/community/state-of-the-race-10-11"
+  },
+  {
+   "source": "Inside Elections",
+   "as_of": "2026-10-01",
+   "solid_d": 185,
+   "likely_d": 9,
+   "lean_d": 5,
+   "tilt_d": 10,
+   "tossup": 16,
+   "tilt_r": 8,
+   "lean_r": 9,
+   "likely_r": 16,
+   "solid_r": 177,
+   "total_d": 209,
+   "total_r": 210,
+   "outlook": "Democrats +7 to +15 seats",
+   "note": "Non-solid counts from 270toWin table; totals (D 209, R 210, 16 toss-ups) from Daily Kos 10/11 summary; Solid counts derived",
+   "url": "https://www.270towin.com/2026-house-election/table/inside-elections-2026-house-ratings/",
+   "url2": "http://insideelections.com/ratings/house/"
+  },
+  {
+   "source": "270toWin consensus (7 forecasters)",
+   "as_of": "2026-10-02",
+   "safe_d": 184,
+   "likely_d": 20,
+   "lean_d": 16,
+   "tossup": 15,
+   "lean_r": 11,
+   "likely_r": 29,
+   "safe_r": 160,
+   "total_d": 220,
+   "total_r": 200,
+   "note": "Safe R derived (200-40)",
+   "url": "https://www.270towin.com/2026-house-election/table/consensus-2026-house-forecast/"
+  }
+ ],
+ "battlefield": [
+  {
+   "district": "CA-21",
+   "incumbent": "Jim Costa",
+   "party": "D",
+   "open": false,
+   "cook": "Likely D",
+   "sabato": "Likely D",
+   "ie": "Solid D*",
+   "pvi": "D+5",
+   "pres24": "D+5.9",
+   "house24": "D+5.1",
+   "dem_cand": "Jim Costa",
+   "rep_cand": "Kyle Kirkland",
+   "lines": "new",
+   "pres_basis": "wiki",
+   "poll": [],
+   "note": "Harris winner per Wikipedia district article; Kirkland party unlabeled; CA top-two",
+   "src": [
+    "https://en.wikipedia.org/wiki/California%27s_21st_congressional_district"
+   ]
+  },
+  {
+   "district": "CA-45",
+   "incumbent": "Derek Tran",
+   "party": "D",
+   "open": false,
+   "cook": "Likely D",
+   "sabato": "Likely D",
+   "ie": "Likely D",
+   "pvi": "D+3",
+   "pres24": "3.9 (winner not confirmed)",
+   "house24": "D+0.2",
+   "dem_cand": "Derek Tran",
+   "rep_cand": "Chuong Vo",
+   "lines": "new",
+   "pres_basis": "unconfirmed",
+   "poll": [],
+   "note": "Winner on new lines not confirmed (old lines Harris +1.5); Vo party unlabeled"
+  },
+  {
+   "district": "IN-01",
+   "incumbent": "Frank Mrvan",
+   "party": "D",
+   "open": false,
+   "cook": "Likely D",
+   "sabato": "Likely D",
+   "ie": "Likely D",
+   "pvi": "D+1",
+   "pres24": "D+0.3",
+   "house24": "D+8.5",
+   "dem_cand": "Frank Mrvan",
+   "rep_cand": "Barb Regnitz",
+   "lines": "same",
+   "pres_basis": "xover",
+   "poll": []
+  },
+  {
+   "district": "MI-08",
+   "incumbent": "Kristen McDonald Rivet",
+   "party": "D",
+   "open": false,
+   "cook": "Likely D",
+   "sabato": "Likely D",
+   "ie": "Solid D*",
+   "pvi": "R+1",
+   "pres24": "R+1.9",
+   "house24": "D+6.6",
+   "dem_cand": "Kristen McDonald Rivet",
+   "rep_cand": "Thomas Smith",
+   "lines": "same",
+   "pres_basis": "xover",
+   "poll": [],
+   "note": "Trump-won D seat"
+  },
+  {
+   "district": "MN-02",
+   "incumbent": "open",
+   "party": "D",
+   "open": true,
+   "cook": "Likely D",
+   "sabato": "Likely D",
+   "ie": "Likely D",
+   "pvi": "D+3",
+   "pres24": "D+5.8",
+   "house24": "D+13.5",
+   "dem_cand": "Matt Little",
+   "rep_cand": "Eric Pratt",
+   "lines": "same",
+   "pres_basis": "xover",
+   "poll": [],
+   "note": "Craig (D) running for Senate"
+  },
+  {
+   "district": "NE-02",
+   "incumbent": "open",
+   "party": "R",
+   "open": true,
+   "cook": "Likely D",
+   "sabato": "Likely D",
+   "ie": "Tilt D",
+   "pvi": "D+3",
+   "pres24": "D+4.6",
+   "house24": "R+1.9",
+   "dem_cand": "Denise Powell",
+   "rep_cand": "Brinker Harding",
+   "lines": "same",
+   "pres_basis": "xover",
+   "poll": [],
+   "note": "Bacon (R) retiring; Harris-won R seat"
+  },
+  {
+   "district": "NH-01",
+   "incumbent": "open",
+   "party": "D",
+   "open": true,
+   "cook": "Likely D",
+   "sabato": "Lean D",
+   "ie": "Lean D",
+   "pvi": "D+2",
+   "pres24": "D+2.0",
+   "house24": "D+8.1",
+   "dem_cand": "Stefany Shaheen",
+   "rep_cand": "Anthony DiLorenzo",
+   "lines": "same",
+   "pres_basis": "xover",
+   "poll": [
+    {
+     "pollster": "Univ. of New Hampshire",
+     "date": "listed 2026-09-24",
+     "n": 711,
+     "pop": "LV",
+     "dem": 46,
+     "rep": 42,
+     "oth": 12,
+     "url": "https://www.270towin.com/2026-house-polls/new-hampshire/district-1"
+    }
+   ],
+   "note": "Pappas (D) seat open"
+  },
+  {
+   "district": "NJ-09",
+   "incumbent": "Nellie Pou",
+   "party": "D",
+   "open": false,
+   "cook": "Likely D",
+   "sabato": "Likely D",
+   "ie": "Likely D",
+   "pvi": "D+2",
+   "pres24": "R+1.1",
+   "house24": "D+4.9",
+   "dem_cand": "Nellie Pou",
+   "rep_cand": "Rosie Pino",
+   "lines": "same",
+   "pres_basis": "xover",
+   "poll": [],
+   "note": "Trump-won D seat"
+  },
+  {
+   "district": "NV-01",
+   "incumbent": "Dina Titus",
+   "party": "D",
+   "open": false,
+   "cook": "Likely D",
+   "sabato": "Likely D",
+   "ie": "Lean D",
+   "pvi": "D+2",
+   "pres24": "D+2.2",
+   "house24": "D+7.5",
+   "dem_cand": "Dina Titus",
+   "rep_cand": "Carrie Buck",
+   "lines": "same",
+   "pres_basis": "xover",
+   "poll": []
+  },
+  {
+   "district": "NV-03",
+   "incumbent": "Susie Lee",
+   "party": "D",
+   "open": false,
+   "cook": "Likely D",
+   "sabato": "Lean D",
+   "ie": "Lean D",
+   "pvi": "D+1",
+   "pres24": "R+0.7",
+   "house24": "D+2.7",
+   "dem_cand": "Susie Lee",
+   "rep_cand": "Martin O'Donnell",
+   "lines": "same",
+   "pres_basis": "xover",
+   "poll": [],
+   "note": "Trump-won D seat"
+  },
+  {
+   "district": "NV-04",
+   "incumbent": "Steven Horsford",
+   "party": "D",
+   "open": false,
+   "cook": "Likely D",
+   "sabato": "Likely D",
+   "ie": "Likely D",
+   "pvi": "D+2",
+   "pres24": "D+2.3",
+   "house24": "D+8.1",
+   "dem_cand": "Steven Horsford",
+   "rep_cand": "Cody Whipple",
+   "lines": "same",
+   "pres_basis": "xover",
+   "poll": []
+  },
+  {
+   "district": "NY-03",
+   "incumbent": "Tom Suozzi",
+   "party": "D",
+   "open": false,
+   "cook": "Likely D",
+   "sabato": "Lean D",
+   "ie": "Lean D",
+   "pvi": "EVEN",
+   "pres24": "R+4.2",
+   "house24": "D+3.6",
+   "dem_cand": "Thomas Suozzi",
+   "rep_cand": "Michael LiPetri",
+   "lines": "same",
+   "pres_basis": "xover",
+   "poll": [],
+   "note": "Trump-won D seat"
+  },
+  {
+   "district": "NY-04",
+   "incumbent": "Laura Gillen",
+   "party": "D",
+   "open": false,
+   "cook": "Likely D",
+   "sabato": "Lean D",
+   "ie": "Tilt D",
+   "pvi": "D+2",
+   "pres24": "D+1.2",
+   "house24": "D+2.3",
+   "dem_cand": "Laura Gillen",
+   "rep_cand": "Jeanine Driscoll",
+   "lines": "same",
+   "pres_basis": "xover",
+   "poll": []
+  },
+  {
+   "district": "NY-19",
+   "incumbent": "Josh Riley",
+   "party": "D",
+   "open": false,
+   "cook": "Likely D",
+   "sabato": "Likely D",
+   "ie": "Likely D",
+   "pvi": "D+1",
+   "pres24": "D+1.7",
+   "house24": "D+2.2",
+   "dem_cand": "Josh Riley",
+   "rep_cand": "Peter Oberacker",
+   "lines": "same",
+   "pres_basis": "xover",
+   "poll": []
+  },
+  {
+   "district": "OH-13",
+   "incumbent": "Emilia Sykes",
+   "party": "D",
+   "open": false,
+   "cook": "Likely D",
+   "sabato": "Likely D",
+   "ie": "Solid D*",
+   "pvi": "D+2",
+   "pres24": "D+3.2",
+   "house24": "D+2.2",
+   "dem_cand": "Emilia Sykes",
+   "rep_cand": "Carey Coleman",
+   "lines": "new",
+   "pres_basis": "wiki",
+   "poll": [],
+   "note": "Harris winner per Wikipedia district article",
+   "src": [
+    "https://en.wikipedia.org/wiki/Ohio%27s_13th_congressional_district",
+    "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Ohio"
+   ]
+  },
+  {
+   "district": "VA-07",
+   "incumbent": "Eugene Vindman",
+   "party": "D",
+   "open": false,
+   "cook": "Likely D",
+   "sabato": "Likely D",
+   "ie": "Likely D",
+   "pvi": "D+2",
+   "pres24": "D+2.8",
+   "house24": "D+2.6",
+   "dem_cand": "Eugene Vindman",
+   "rep_cand": "Doug Ollivant",
+   "lines": "same",
+   "pres_basis": "xover",
+   "poll": [],
+   "note": "2021 map (VA redraw struck down)"
+  },
+  {
+   "district": "AZ-01",
+   "incumbent": "open",
+   "party": "R",
+   "open": true,
+   "cook": "Lean D",
+   "sabato": "Toss-up",
+   "ie": "Toss-up",
+   "pvi": "R+1",
+   "pres24": "R+3.1",
+   "house24": "R+3.8",
+   "dem_cand": "Amish Shah",
+   "rep_cand": "Jay Feely",
+   "lines": "same",
+   "pres_basis": "xover",
+   "poll": [
+    {
+     "pollster": "FirstStrategic",
+     "date": "listed 2026-10-05",
+     "n": 400,
+     "pop": "LV",
+     "dem": 44,
+     "rep": 42,
+     "oth": 14,
+     "url": "https://www.270towin.com/2026-house-polls/arizona/district-1"
+    }
+   ],
+   "note": "Schweikert (R) running for governor"
+  },
+  {
+   "district": "CA-13",
+   "incumbent": "Adam Gray",
+   "party": "D",
+   "open": false,
+   "cook": "Lean D",
+   "sabato": "Lean D",
+   "ie": "Tilt D",
+   "pvi": "D+2",
+   "pres24": "0.3 (winner not confirmed)",
+   "house24": "D+0.1",
+   "dem_cand": "Adam Gray",
+   "rep_cand": "Kevin Lincoln",
+   "lines": "new",
+   "pres_basis": "unconfirmed",
+   "poll": [],
+   "note": "Winner on new lines not confirmed (old lines Trump +5.4); Lincoln party unlabeled"
+  },
+  {
+   "district": "CA-48",
+   "incumbent": "open",
+   "party": "R",
+   "open": true,
+   "cook": "Lean D",
+   "sabato": "Lean D",
+   "ie": "Tilt D",
+   "pvi": "D+2",
+   "pres24": "D+3.3",
+   "house24": "R+18.6",
+   "dem_cand": "Marni Von Wilpert",
+   "rep_cand": "Jim Desmond",
+   "lines": "new",
+   "pres_basis": "wiki",
+   "poll": [],
+   "note": "Issa (R) not running; Harris winner per Wikipedia district article (old lines Trump 56-41)",
+   "src": [
+    "https://en.wikipedia.org/wiki/California%27s_48th_congressional_district",
+    "https://www.270towin.com/2026-house-polls/california/district-48"
+   ]
+  },
+  {
+   "district": "IA-01",
+   "incumbent": "Mariannette Miller-Meeks",
+   "party": "R",
+   "open": false,
+   "cook": "Lean D",
+   "sabato": "Lean D",
+   "ie": "Tilt D",
+   "pvi": "R+4",
+   "pres24": "R+8.4",
+   "house24": "R+0.2",
+   "dem_cand": "Christina Bohannan",
+   "rep_cand": "Mariannette Miller-Meeks",
+   "lines": "same",
+   "pres_basis": "xover",
+   "poll": [],
+   "note": "Last listed poll (Bullfinch, 7/24, 705 LV) predates Aug 1",
+   "src": [
+    "https://www.270towin.com/2026-house-polls/iowa/district-1"
+   ]
+  },
+  {
+   "district": "IA-03",
+   "incumbent": "Zach Nunn",
+   "party": "R",
+   "open": false,
+   "cook": "Lean D",
+   "sabato": "Toss-up",
+   "ie": "Tilt D",
+   "pvi": "R+2",
+   "pres24": "R+4.4",
+   "house24": "R+3.8",
+   "dem_cand": "Sarah Trone Garriott",
+   "rep_cand": "Zach Nunn",
+   "lines": "same",
+   "pres_basis": "xover",
+   "poll": []
+  },
+  {
+   "district": "NJ-07",
+   "incumbent": "Tom Kean Jr.",
+   "party": "R",
+   "open": false,
+   "cook": "Lean D",
+   "sabato": "Lean D",
+   "ie": "Tilt D",
+   "pvi": "EVEN",
+   "pres24": "R+1.1",
+   "house24": "R+5.4",
+   "dem_cand": "Rebecca Bennett",
+   "rep_cand": "Tom Kean Jr.",
+   "lines": "same",
+   "pres_basis": "xover",
+   "poll": [
+    {
+     "pollster": "StimSight Research",
+     "date": "listed 2026-09-14",
+     "n": 498,
+     "pop": "LV",
+     "dem": 47,
+     "rep": 42,
+     "oth": 11,
+     "url": "https://www.270towin.com/2026-house-polls/new-jersey/district-7"
+    }
+   ]
+  },
+  {
+   "district": "NM-02",
+   "incumbent": "Gabe Vasquez",
+   "party": "D",
+   "open": false,
+   "cook": "Lean D",
+   "sabato": "Lean D",
+   "ie": "Tilt D",
+   "pvi": "EVEN",
+   "pres24": "R+1.8",
+   "house24": "D+4.2",
+   "dem_cand": "Gabriel Vasquez",
+   "rep_cand": "Gregory Cunningham",
+   "lines": "same",
+   "pres_basis": "xover",
+   "poll": [],
+   "note": "Trump-won D seat"
+  },
+  {
+   "district": "OH-01",
+   "incumbent": "Greg Landsman",
+   "party": "D",
+   "open": false,
+   "cook": "Lean D",
+   "sabato": "Lean D",
+   "ie": "Tilt D",
+   "pvi": "R+1",
+   "pres24": "R+2.5",
+   "house24": "D+9.2",
+   "dem_cand": "Greg Landsman",
+   "rep_cand": "Eric Conroy",
+   "lines": "new",
+   "pres_basis": "wiki",
+   "poll": [
+    {
+     "pollster": "Quantus Insights",
+     "date": "listed 2026-08-26",
+     "n": 509,
+     "pop": "LV",
+     "dem": 48,
+     "rep": 45,
+     "oth": 7,
+     "url": "https://www.270towin.com/2026-house-polls/ohio/district-1"
+    }
+   ],
+   "note": "Trump winner ('by three') per Wikipedia Ohio page; Libertarian also on ballot",
+   "src": [
+    "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Ohio"
+   ]
+  },
+  {
+   "district": "PA-07",
+   "incumbent": "Ryan Mackenzie",
+   "party": "R",
+   "open": false,
+   "cook": "Lean D",
+   "sabato": "Lean D",
+   "ie": "Toss-up",
+   "pvi": "R+1",
+   "pres24": "R+3.2",
+   "house24": "R+1.0",
+   "dem_cand": "Bob Brooks",
+   "rep_cand": "Ryan Mackenzie",
+   "lines": "same",
+   "pres_basis": "xover",
+   "poll": []
+  },
+  {
+   "district": "PA-10",
+   "incumbent": "Scott Perry",
+   "party": "R",
+   "open": false,
+   "cook": "Lean D",
+   "sabato": "Toss-up",
+   "ie": "Toss-up",
+   "pvi": "R+3",
+   "pres24": "R+5.2",
+   "house24": "R+1.3",
+   "dem_cand": "Janelle Stelson",
+   "rep_cand": "Scott Perry",
+   "lines": "same",
+   "pres_basis": "xover",
+   "poll": [
+    {
+     "pollster": "Franklin & Marshall",
+     "date": "listed 2026-09-24",
+     "n": 390,
+     "pop": "RV",
+     "dem": 47,
+     "rep": 44,
+     "oth": 9,
+     "url": "https://www.270towin.com/2026-house-polls/pennsylvania/district-10"
+    }
+   ]
+  },
+  {
+   "district": "TX-28",
+   "incumbent": "Henry Cuellar",
+   "party": "D",
+   "open": false,
+   "cook": "Lean D",
+   "sabato": "Lean D",
+   "ie": "Tilt D",
+   "pvi": "R+3",
+   "pres24": "R+10.3",
+   "house24": "D+5.6",
+   "dem_cand": "Henry Cuellar",
+   "rep_cand": "Tano Tijerina",
+   "lines": "new",
+   "pres_basis": "pvi",
+   "poll": [],
+   "note": "Old lines Trump +7.3 (crossover)"
+  },
+  {
+   "district": "WA-03",
+   "incumbent": "Marie Gluesenkamp Perez",
+   "party": "D",
+   "open": false,
+   "cook": "Lean D",
+   "sabato": "Lean D",
+   "ie": "Toss-up",
+   "pvi": "R+2",
+   "pres24": "R+3.3",
+   "house24": "D+3.9",
+   "dem_cand": "Marie Gluesenkamp Perez",
+   "rep_cand": "John Braun",
+   "lines": "same",
+   "pres_basis": "xover",
+   "poll": [
+    {
+     "pollster": "DHM Research (for OPB per RCP)",
+     "date": "listed 2026-10-01",
+     "n": 543,
+     "pop": "LV",
+     "dem": 47,
+     "rep": 48,
+     "oth": 5,
+     "url": "https://www.270towin.com/2026-house-polls/washington/district-3"
+    }
+   ],
+   "note": "Trump-won D seat; WA top-two",
+   "src": [
+    "https://www.realclearpolling.com/latest-polls/house"
+   ]
+  },
+  {
+   "district": "AZ-06",
+   "incumbent": "Juan Ciscomani",
+   "party": "R",
+   "open": false,
+   "cook": "Toss-up",
+   "sabato": "Toss-up",
+   "ie": "Toss-up",
+   "pvi": "EVEN",
+   "pres24": "R+0.7",
+   "house24": "R+2.5",
+   "dem_cand": "JoAnna Mendoza",
+   "rep_cand": "Juan Ciscomani",
+   "lines": "same",
+   "pres_basis": "xover",
+   "poll": []
+  },
+  {
+   "district": "CA-22",
+   "incumbent": "David Valadao",
+   "party": "R",
+   "open": false,
+   "cook": "Toss-up",
+   "sabato": "Lean D",
+   "ie": "Toss-up",
+   "pvi": "D+1",
+   "pres24": "R+1.8",
+   "house24": "R+6.8",
+   "dem_cand": "Randy Villegas",
+   "rep_cand": "David Valadao",
+   "lines": "new",
+   "pres_basis": "wiki",
+   "poll": [],
+   "note": "Trump winner per Wikipedia district article (50-48)",
+   "src": [
+    "https://en.wikipedia.org/wiki/California%27s_22nd_congressional_district"
+   ]
+  },
+  {
+   "district": "CO-08",
+   "incumbent": "Gabe Evans",
+   "party": "R",
+   "open": false,
+   "cook": "Toss-up",
+   "sabato": "Toss-up",
+   "ie": "Toss-up",
+   "pvi": "EVEN",
+   "pres24": "R+1.8",
+   "house24": "R+0.7",
+   "dem_cand": "Manny Rutinel",
+   "rep_cand": "Gabe Evans",
+   "lines": "same",
+   "pres_basis": "xover",
+   "poll": []
+  },
+  {
+   "district": "FL-14",
+   "incumbent": "Kathy Castor",
+   "party": "D",
+   "open": false,
+   "cook": "Toss-up",
+   "sabato": "Toss-up",
+   "ie": "Toss-up",
+   "pvi": "R+4",
+   "pres24": "R+10.5",
+   "house24": "D+15.4",
+   "dem_cand": "Kathy Castor",
+   "rep_cand": "Mike Beltran",
+   "lines": "new",
+   "pres_basis": "pvi",
+   "poll": []
+  },
+  {
+   "district": "FL-22",
+   "incumbent": "open",
+   "party": "D",
+   "open": true,
+   "cook": "Toss-up",
+   "sabato": "Toss-up",
+   "ie": "Tilt R",
+   "pvi": "R+4",
+   "pres24": "R+10.2",
+   "house24": "D+9.9",
+   "dem_cand": "Pia Dandiya",
+   "rep_cand": "Casey Askar",
+   "lines": "new",
+   "pres_basis": "pvi",
+   "poll": [],
+   "note": "Frankel (D) seat open; Wikipedia lists as new seat"
+  },
+  {
+   "district": "FL-25",
+   "incumbent": "Jared Moskowitz",
+   "party": "D",
+   "open": false,
+   "cook": "Toss-up",
+   "sabato": "Lean D",
+   "ie": "Toss-up",
+   "pvi": "R+3",
+   "pres24": "R+9.1",
+   "house24": "D+9.0",
+   "dem_cand": "Jared Moskowitz",
+   "rep_cand": "Scott Singer",
+   "lines": "new",
+   "pres_basis": "pvi",
+   "poll": [],
+   "note": "house24 is old FL-25 (Wasserman Schultz), not Moskowitz's old seat"
+  },
+  {
+   "district": "IA-02",
+   "incumbent": "open",
+   "party": "R",
+   "open": true,
+   "cook": "Toss-up",
+   "sabato": "Toss-up",
+   "ie": "Tilt R",
+   "pvi": "R+4",
+   "pres24": "R+9.9",
+   "house24": "R+15.6",
+   "dem_cand": "Lindsay James",
+   "rep_cand": "Joe Mitchell",
+   "lines": "same",
+   "pres_basis": "xover",
+   "poll": [],
+   "note": "Hinson (R) running for Senate"
+  },
+  {
+   "district": "MI-04",
+   "incumbent": "Bill Huizenga",
+   "party": "R",
+   "open": false,
+   "cook": "Toss-up",
+   "sabato": "Toss-up",
+   "ie": "Tilt R",
+   "pvi": "R+3",
+   "pres24": "R+5.5",
+   "house24": "R+11.7",
+   "dem_cand": "Sean McCann",
+   "rep_cand": "Bill Huizenga",
+   "lines": "same",
+   "pres_basis": "xover",
+   "poll": []
+  },
+  {
+   "district": "MI-07",
+   "incumbent": "Tom Barrett",
+   "party": "R",
+   "open": false,
+   "cook": "Toss-up",
+   "sabato": "Toss-up",
+   "ie": "Toss-up",
+   "pvi": "EVEN",
+   "pres24": "R+1.2",
+   "house24": "R+3.7",
+   "dem_cand": "William Lawrence",
+   "rep_cand": "Tom Barrett",
+   "lines": "same",
+   "pres_basis": "xover",
+   "poll": [],
+   "src": [
+    "https://www.270towin.com/2026-house-polls/michigan/district-7"
+   ]
+  },
+  {
+   "district": "MI-10",
+   "incumbent": "open",
+   "party": "R",
+   "open": true,
+   "cook": "Toss-up",
+   "sabato": "Toss-up",
+   "ie": "Tilt R",
+   "pvi": "R+3",
+   "pres24": "R+6.5",
+   "house24": "R+6.1",
+   "dem_cand": "Christina Hines",
+   "rep_cand": "Michael Bouchard",
+   "lines": "same",
+   "pres_basis": "xover",
+   "poll": [],
+   "note": "James (R) running for governor",
+   "src": [
+    "https://www.270towin.com/2026-house-polls/michigan/district-10"
+   ]
+  },
+  {
+   "district": "NC-01",
+   "incumbent": "Don Davis",
+   "party": "D",
+   "open": false,
+   "cook": "Toss-up",
+   "sabato": "Toss-up",
+   "ie": "Tilt R",
+   "pvi": "R+5",
+   "pres24": "R+11.5",
+   "house24": "D+1.7",
+   "dem_cand": "Don Davis",
+   "rep_cand": "Laurie Buckhout",
+   "lines": "new",
+   "pres_basis": "pvi",
+   "poll": [],
+   "note": "Old lines Trump +3.1 (crossover)"
+  },
+  {
+   "district": "NC-11",
+   "incumbent": "open",
+   "party": "R",
+   "open": true,
+   "cook": "Toss-up",
+   "sabato": "Toss-up",
+   "ie": "Lean R",
+   "pvi": "R+5",
+   "pres24": "R+9.5",
+   "house24": "R+13.5",
+   "dem_cand": "Jamie Ager",
+   "rep_cand": "Jennifer Balkcom",
+   "lines": "same",
+   "pres_basis": "xover",
+   "poll": [],
+   "note": "Edwards (R) ended campaign Aug 5, 2026; lines unchanged"
+  },
+  {
+   "district": "NY-17",
+   "incumbent": "Mike Lawler",
+   "party": "R",
+   "open": false,
+   "cook": "Toss-up",
+   "sabato": "Toss-up",
+   "ie": "Toss-up",
+   "pvi": "D+1",
+   "pres24": "D+0.5",
+   "house24": "R+6.3",
+   "dem_cand": "Cait Conley",
+   "rep_cand": "Mike Lawler",
+   "lines": "same",
+   "pres_basis": "xover",
+   "poll": [
+    {
+     "pollster": "Emerson College",
+     "date": "2026-09-27/2026-09-29 (RCP); listed 2026-10-01 (270toWin)",
+     "n": 400,
+     "pop": "LV",
+     "dem": 48,
+     "rep": 46,
+     "url": "https://www.realclearpolling.com/polls/house/general/2026/new-york/district-17/conley-vs-lawler"
+    }
+   ],
+   "note": "Harris-won R seat; co/efficient poll (7/23) predates window",
+   "src": [
+    "https://www.270towin.com/2026-house-polls/new-york/district-17"
+   ]
+  },
+  {
+   "district": "OH-07",
+   "incumbent": "Max Miller",
+   "party": "R",
+   "open": false,
+   "cook": "Toss-up",
+   "sabato": "Toss-up",
+   "ie": "Toss-up",
+   "pvi": "R+5",
+   "pres24": "R+11.0",
+   "house24": "R+15.0",
+   "dem_cand": "Brian Poindexter",
+   "rep_cand": "Max Miller",
+   "lines": "new",
+   "pres_basis": "pvi",
+   "poll": []
+  },
+  {
+   "district": "OH-09",
+   "incumbent": "Marcy Kaptur",
+   "party": "D",
+   "open": false,
+   "cook": "Toss-up",
+   "sabato": "Toss-up",
+   "ie": "Tilt R",
+   "pvi": "R+5",
+   "pres24": "R+10.5",
+   "house24": "D+0.6",
+   "dem_cand": "Marcy Kaptur",
+   "rep_cand": "Derek Merrin",
+   "lines": "new",
+   "pres_basis": "wiki",
+   "poll": [],
+   "note": "Trump winner ('eleven') per Wikipedia Ohio page",
+   "src": [
+    "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Ohio"
+   ]
+  },
+  {
+   "district": "PA-08",
+   "incumbent": "Rob Bresnahan",
+   "party": "R",
+   "open": false,
+   "cook": "Toss-up",
+   "sabato": "Toss-up",
+   "ie": "Toss-up",
+   "pvi": "R+4",
+   "pres24": "R+8.4",
+   "house24": "R+1.6",
+   "dem_cand": "Paige Cognetti",
+   "rep_cand": "Rob Bresnahan",
+   "lines": "same",
+   "pres_basis": "xover",
+   "poll": []
+  },
+  {
+   "district": "TX-15",
+   "incumbent": "Monica De La Cruz",
+   "party": "R",
+   "open": false,
+   "cook": "Toss-up",
+   "sabato": "Toss-up",
+   "ie": "Tilt R",
+   "pvi": "R+7",
+   "pres24": "R+17.8",
+   "house24": "R+14.2",
+   "dem_cand": "Bobby Pulido",
+   "rep_cand": "Monica De La Cruz",
+   "lines": "new",
+   "pres_basis": "xover",
+   "poll": [],
+   "note": "270toWin shows same pres margin on old and new lines"
+  },
+  {
+   "district": "TX-34",
+   "incumbent": "Vicente Gonzalez",
+   "party": "D",
+   "open": false,
+   "cook": "Toss-up",
+   "sabato": "Lean D",
+   "ie": "Toss-up",
+   "pvi": "R+3",
+   "pres24": "R+10.1",
+   "house24": "D+2.6",
+   "dem_cand": "Vicente Gonzalez",
+   "rep_cand": "Eric Flores",
+   "lines": "new",
+   "pres_basis": "pvi",
+   "poll": [],
+   "note": "Old lines Trump +4.4 (crossover)"
+  },
+  {
+   "district": "VA-01",
+   "incumbent": "Rob Wittman",
+   "party": "R",
+   "open": false,
+   "cook": "Toss-up",
+   "sabato": "Toss-up",
+   "ie": "Lean R",
+   "pvi": "R+3",
+   "pres24": "R+4.9",
+   "house24": "R+12.8",
+   "dem_cand": "Shannon Taylor",
+   "rep_cand": "Rob Wittman",
+   "lines": "same",
+   "pres_basis": "xover",
+   "poll": [
+    {
+     "pollster": "Washington Post-Schar School",
+     "date": "listed 2026-10-01",
+     "n": 609,
+     "pop": "LV",
+     "dem": 50,
+     "rep": 46,
+     "oth": 4,
+     "url": "https://www.270towin.com/2026-house-polls/virginia/district-1"
+    }
+   ],
+   "src": [
+    "https://www.realclearpolling.com/latest-polls/house"
+   ]
+  },
+  {
+   "district": "VA-02",
+   "incumbent": "Jen Kiggans",
+   "party": "R",
+   "open": false,
+   "cook": "Toss-up",
+   "sabato": "Lean D",
+   "ie": "Toss-up",
+   "pvi": "EVEN",
+   "pres24": "R+0.2",
+   "house24": "R+3.8",
+   "dem_cand": "Elaine Luria",
+   "rep_cand": "Jen Kiggans",
+   "lines": "same",
+   "pres_basis": "xover",
+   "poll": []
+  },
+  {
+   "district": "WI-03",
+   "incumbent": "Derrick Van Orden",
+   "party": "R",
+   "open": false,
+   "cook": "Toss-up",
+   "sabato": "Toss-up",
+   "ie": "Toss-up",
+   "pvi": "R+3",
+   "pres24": "R+7.3",
+   "house24": "R+2.7",
+   "dem_cand": "Rebecca Cooke",
+   "rep_cand": "Derrick Van Orden",
+   "lines": "same",
+   "pres_basis": "xover",
+   "poll": []
+  },
+  {
+   "district": "CO-05",
+   "incumbent": "Jeff Crank",
+   "party": "R",
+   "open": false,
+   "cook": "Lean R",
+   "sabato": "Lean R",
+   "ie": "Tilt R",
+   "pvi": "R+5",
+   "pres24": "R+9.0",
+   "house24": "R+13.8",
+   "dem_cand": "Jessica Killin",
+   "rep_cand": "Jeff Crank",
+   "lines": "same",
+   "pres_basis": "xover",
+   "poll": []
+  },
+  {
+   "district": "FL-13",
+   "incumbent": "Anna Paulina Luna",
+   "party": "R",
+   "open": false,
+   "cook": "Lean R",
+   "sabato": "Likely R",
+   "ie": "Lean R",
+   "pvi": "R+6",
+   "pres24": "R+13.3",
+   "house24": "R+9.6",
+   "dem_cand": "Leela Gray",
+   "rep_cand": "Anna Paulina Luna",
+   "lines": "new",
+   "pres_basis": "pvi",
+   "poll": []
+  },
+  {
+   "district": "FL-27",
+   "incumbent": "Maria Elvira Salazar",
+   "party": "R",
+   "open": false,
+   "cook": "Lean R",
+   "sabato": "Lean R",
+   "ie": "Lean R",
+   "pvi": "R+6",
+   "pres24": "R+14.5",
+   "house24": "R+20.8",
+   "dem_cand": "Eliott Rodriguez",
+   "rep_cand": "Maria Elvira Salazar",
+   "lines": "new",
+   "pres_basis": "pvi",
+   "poll": []
+  },
+  {
+   "district": "KY-06",
+   "incumbent": "open",
+   "party": "R",
+   "open": true,
+   "cook": "Lean R",
+   "sabato": "Lean R",
+   "ie": "Lean R",
+   "pvi": "R+7",
+   "pres24": "R+15.0",
+   "house24": "R+26.8",
+   "dem_cand": "Zach Dembo",
+   "rep_cand": "Ralph Alvarado",
+   "lines": "same",
+   "pres_basis": "xover",
+   "poll": [],
+   "note": "Barr (R) running for Senate"
+  },
+  {
+   "district": "ME-02",
+   "incumbent": "open",
+   "party": "D",
+   "open": true,
+   "cook": "Lean R",
+   "sabato": "Lean R",
+   "ie": "Likely R",
+   "pvi": "R+4",
+   "pres24": "R+9.0",
+   "house24": "D+0.7",
+   "dem_cand": "Matthew Dunlap",
+   "rep_cand": "Paul LePage",
+   "lines": "same",
+   "pres_basis": "xover",
+   "poll": [
+    {
+     "pollster": "Univ. of New Hampshire",
+     "date": "listed 2026-09-24",
+     "n": 627,
+     "pop": "LV",
+     "dem": 51,
+     "rep": 45,
+     "oth": 4,
+     "url": "https://www.270towin.com/2026-house-polls/maine/district-2"
+    }
+   ],
+   "note": "Golden (D) not running; Trump-won D seat; house24 after RCV; Silver model GOP +0.3 (Oct 8)",
+   "src": [
+    "https://www.newsweek.com/democrat-chances-of-winning-house-senate-hit-new-high-nate-silver-forecast-12545290"
+   ]
+  },
+  {
+   "district": "MT-01",
+   "incumbent": "open",
+   "party": "R",
+   "open": true,
+   "cook": "Lean R",
+   "sabato": "Lean R",
+   "ie": "Lean R",
+   "pvi": "R+5",
+   "pres24": "R+11.5",
+   "house24": "R+7.7",
+   "dem_cand": "Sam Forstag",
+   "rep_cand": "Aaron Flint",
+   "lines": "same",
+   "pres_basis": "xover",
+   "poll": [
+    {
+     "pollster": "American Pulse",
+     "date": "listed 2026-09-28",
+     "n": 314,
+     "pop": "LV",
+     "dem": 45,
+     "rep": 46,
+     "oth": 9,
+     "url": "https://www.270towin.com/2026-house-polls/montana/district-1"
+    },
+    {
+     "pollster": "Rutgers-Eagleton",
+     "date": "listed 2026-09-14",
+     "n": 375,
+     "pop": "RV",
+     "dem": 41,
+     "rep": 42,
+     "oth": 17,
+     "url": "https://www.270towin.com/2026-house-polls/montana/district-1"
+    }
+   ],
+   "note": "Zinke (R) not running"
+  },
+  {
+   "district": "PA-01",
+   "incumbent": "Brian Fitzpatrick",
+   "party": "R",
+   "open": false,
+   "cook": "Lean R",
+   "sabato": "Lean R",
+   "ie": "Lean R",
+   "pvi": "D+1",
+   "pres24": "D+0.3",
+   "house24": "R+12.8",
+   "dem_cand": "Bob Harvie",
+   "rep_cand": "Brian Fitzpatrick",
+   "lines": "same",
+   "pres_basis": "xover",
+   "poll": [],
+   "note": "Harris-won R seat"
+  },
+  {
+   "district": "TX-35",
+   "incumbent": "open",
+   "party": "D",
+   "open": true,
+   "cook": "Lean R",
+   "sabato": "Lean R",
+   "ie": "Lean R",
+   "pvi": "R+4",
+   "pres24": "R+10.4",
+   "house24": "D+34.7",
+   "dem_cand": "Johnny Garcia",
+   "rep_cand": "Carlos De La Cruz",
+   "lines": "new",
+   "pres_basis": "pvi",
+   "poll": [],
+   "note": "Redrawn R-leaning new seat; Casar (D) not running here; nominee parties by 270toWin order (unlabeled)"
+  },
+  {
+   "district": "WI-01",
+   "incumbent": "Bryan Steil",
+   "party": "R",
+   "open": false,
+   "cook": "Lean R",
+   "sabato": "Lean R",
+   "ie": "Likely R",
+   "pvi": "R+2",
+   "pres24": "R+4.5",
+   "house24": "R+10.2",
+   "dem_cand": "Mitchell Berman",
+   "rep_cand": "Bryan Steil",
+   "lines": "same",
+   "pres_basis": "xover",
+   "poll": []
+  },
+  {
+   "district": "AK-AL",
+   "incumbent": "Nick Begich",
+   "party": "R",
+   "open": false,
+   "cook": "Likely R",
+   "sabato": "Likely R",
+   "ie": "Likely R",
+   "pvi": "R+6",
+   "pres24": "R+13.1",
+   "house24": "R+2.4",
+   "dem_cand": "Eric Hafner",
+   "rep_cand": "Nick Begich",
+   "lines": "same",
+   "pres_basis": "xover",
+   "poll": [
+    {
+     "pollster": "NYT/Siena",
+     "date": "2026-09-22/2026-10-01",
+     "n": null,
+     "pop": null,
+     "dem": null,
+     "rep": 53,
+     "oth": {
+      "Hill (I)": 47
+     },
+     "note": "Final-round head-to-head Begich (R) vs Hill (I)",
+     "url": "https://www.realclearpolling.com/polls/house/general/2026/alaska/at-large/begich-vs-hill"
+    },
+    {
+     "pollster": "NYT/Siena",
+     "date": "2026-09-22/2026-10-01 (listed Oct 3)",
+     "n": null,
+     "pop": null,
+     "dem": 8,
+     "rep": 47,
+     "oth": {
+      "Hill (I)": 35,
+      "McDermott (L)": 5
+     },
+     "note": "RCV first round",
+     "url": "https://www.realclearpolling.com/latest-polls/house"
+    },
+    {
+     "pollster": "Fabrizio/Anzalone",
+     "date": "listed 2026-09-17",
+     "n": null,
+     "pop": null,
+     "dem": 9,
+     "rep": 45,
+     "oth": {
+      "Hill (I)": 31,
+      "McDermott (L)": 3
+     },
+     "note": "RCV first round; same poll: Begich 57, Hafner 43 head-to-head",
+     "url": "https://www.realclearpolling.com/latest-polls/house"
+    },
+    {
+     "pollster": "Alaska Survey Research",
+     "date": "2026-08-20/2026-08-23",
+     "n": null,
+     "pop": null,
+     "dem": null,
+     "rep": 51,
+     "oth": {
+      "Hill (I)": 39
+     },
+     "note": "Begich vs Hill",
+     "url": "https://www.realclearpolling.com/polls/house/general/2026/alaska/at-large/begich-vs-hill"
+    },
+    {
+     "pollster": "Alaska Survey Research",
+     "date": "2026-08-02/2026-08-05",
+     "n": null,
+     "pop": null,
+     "dem": null,
+     "rep": 54,
+     "oth": {
+      "Hill (I)": 47
+     },
+     "note": "Begich vs Hill (as listed by RCP)",
+     "url": "https://www.realclearpolling.com/polls/house/general/2026/alaska/at-large/begich-vs-hill"
+    },
+    {
+     "pollster": "Data for Progress",
+     "date": "2026-07-28/2026-08-04",
+     "n": null,
+     "pop": null,
+     "dem": null,
+     "rep": 47,
+     "oth": {
+      "Hill (I)": 37
+     },
+     "note": "Begich vs Hill",
+     "url": "https://www.realclearpolling.com/polls/house/general/2026/alaska/at-large/begich-vs-hill"
+    }
+   ],
+   "note": "Top-4 + RCV: Begich (R), Bill Hill (I), Eric Hafner (D), Jim McDermott (L) per RCP labels; house24 after RCV",
+   "src": [
+    "https://www.realclearpolling.com/polls/house/general/2026/alaska/at-large/rcv-1st-round"
+   ]
+  },
+  {
+   "district": "AL-02",
+   "incumbent": "Shomari Figures",
+   "party": "D",
+   "open": false,
+   "cook": "Likely R",
+   "sabato": "Lean R",
+   "ie": "Likely R",
+   "pvi": "R+7",
+   "pres24": "R+14.3",
+   "house24": "D+9.2",
+   "dem_cand": "Shomari Figures",
+   "rep_cand": "Rhett Marques",
+   "lines": "new",
+   "pres_basis": "pvi",
+   "poll": [],
+   "note": "2023 map restored (SCOTUS stay June 2); old lines Harris +8.2"
+  },
+  {
+   "district": "AR-02",
+   "incumbent": "French Hill",
+   "party": "R",
+   "open": false,
+   "cook": "Likely R",
+   "sabato": "Likely R",
+   "ie": "Solid R*",
+   "pvi": "R+8",
+   "pres24": "R+15.5",
+   "house24": "R+17.9",
+   "dem_cand": "Chris Jones",
+   "rep_cand": "French Hill",
+   "lines": "same",
+   "pres_basis": "xover",
+   "poll": [
+    {
+     "pollster": "Hendrix College",
+     "date": "listed 2026-08-20",
+     "n": 1112,
+     "pop": "LV",
+     "dem": 48,
+     "rep": 44,
+     "oth": 8,
+     "url": "https://www.270towin.com/2026-house-polls/arkansas/district-2"
+    }
+   ]
+  },
+  {
+   "district": "AZ-02",
+   "incumbent": "Eli Crane",
+   "party": "R",
+   "open": false,
+   "cook": "Likely R",
+   "sabato": "Likely R",
+   "ie": "Likely R",
+   "pvi": "R+7",
+   "pres24": "R+14.9",
+   "house24": "R+9.0",
+   "dem_cand": "Jonathan Nez",
+   "rep_cand": "Eli Crane",
+   "lines": "same",
+   "pres_basis": "xover",
+   "poll": []
+  },
+  {
+   "district": "CO-03",
+   "incumbent": "Jeff Hurd",
+   "party": "R",
+   "open": false,
+   "cook": "Likely R",
+   "sabato": "Likely R",
+   "ie": "Likely R",
+   "pvi": "R+5",
+   "pres24": "R+9.7",
+   "house24": "R+5.0",
+   "dem_cand": "Dwayne Romero",
+   "rep_cand": "Jeff Hurd",
+   "lines": "same",
+   "pres_basis": "xover",
+   "poll": []
+  },
+  {
+   "district": "FL-07",
+   "incumbent": "open",
+   "party": "R",
+   "open": true,
+   "cook": "Likely R",
+   "sabato": "Likely R",
+   "ie": "Likely R",
+   "pvi": "R+5",
+   "pres24": "R+12.4",
+   "house24": "R+13.1",
+   "dem_cand": "Bale Dalton",
+   "rep_cand": "Ryan Elijah",
+   "lines": "new",
+   "pres_basis": "pvi",
+   "poll": [],
+   "note": "Mills (R) lost primary; nominee parties per Wikipedia",
+   "src": [
+    "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Florida"
+   ]
+  },
+  {
+   "district": "FL-09",
+   "incumbent": "Darren Soto",
+   "party": "D",
+   "open": false,
+   "cook": "Likely R",
+   "sabato": "Likely R",
+   "ie": "Likely R",
+   "pvi": "R+8",
+   "pres24": "R+17.7",
+   "house24": "D+12.6",
+   "dem_cand": "Darren Soto",
+   "rep_cand": "Dan Green",
+   "lines": "new",
+   "pres_basis": "pvi",
+   "poll": [],
+   "note": "Only a GOP-primary poll (8/7) listed; nominee parties per Wikipedia",
+   "src": [
+    "https://www.270towin.com/2026-house-polls/florida/district-9",
+    "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Florida"
+   ]
+  },
+  {
+   "district": "IN-05",
+   "incumbent": "Victoria Spartz",
+   "party": "R",
+   "open": false,
+   "cook": "Likely R",
+   "sabato": "Safe R*",
+   "ie": "Solid R*",
+   "pvi": "R+8",
+   "pres24": "R+16.8",
+   "house24": "R+18.6",
+   "dem_cand": "J.D. Ford",
+   "rep_cand": "Victoria Spartz",
+   "lines": "same",
+   "pres_basis": "xover",
+   "poll": []
+  },
+  {
+   "district": "MN-01",
+   "incumbent": "Brad Finstad",
+   "party": "R",
+   "open": false,
+   "cook": "Likely R",
+   "sabato": "Likely R",
+   "ie": "Lean R",
+   "pvi": "R+6",
+   "pres24": "R+12.0",
+   "house24": "R+17.1",
+   "dem_cand": "Jake Johnson",
+   "rep_cand": "Brad Finstad",
+   "lines": "same",
+   "pres_basis": "xover",
+   "poll": [],
+   "src": [
+    "https://www.270towin.com/2026-house-polls/minnesota/district-1"
+   ]
+  },
+  {
+   "district": "MO-02",
+   "incumbent": "Ann Wagner",
+   "party": "R",
+   "open": false,
+   "cook": "Likely R",
+   "sabato": "Lean R",
+   "ie": "Solid R*",
+   "pvi": "R+4",
+   "pres24": "R+7.9",
+   "house24": "R+12.0",
+   "dem_cand": "Fred Wellman",
+   "rep_cand": "Ann Wagner",
+   "lines": "same",
+   "pres_basis": "xover",
+   "poll": [],
+   "note": "2022 map governs (SCOTUS Sept 25)"
+  },
+  {
+   "district": "NV-02",
+   "incumbent": "open",
+   "party": "R",
+   "open": true,
+   "cook": "Likely R",
+   "sabato": "Likely R",
+   "ie": "Likely R",
+   "pvi": "R+7",
+   "pres24": "R+13.9",
+   "house24": "R+18.9",
+   "dem_cand": "Teresa Benitez-Thompson",
+   "rep_cand": "David Flippo",
+   "lines": "same",
+   "pres_basis": "xover",
+   "poll": [],
+   "note": "Amodei (R) not running; 2024 race had no major-party opponent",
+   "src": [
+    "https://www.270towin.com/2026-house-polls/nevada/district-2"
+   ]
+  },
+  {
+   "district": "NY-21",
+   "incumbent": "open",
+   "party": "R",
+   "open": true,
+   "cook": "Likely R",
+   "sabato": "Likely R",
+   "ie": "Likely R",
+   "pvi": "R+10",
+   "pres24": "R+20.6",
+   "house24": "R+24.0",
+   "dem_cand": "Blake Gendebien",
+   "rep_cand": "Anthony Constantino",
+   "lines": "same",
+   "pres_basis": "xover",
+   "poll": [],
+   "note": "Stefanik (R) retiring"
+  },
+  {
+   "district": "OH-10",
+   "incumbent": "Mike Turner",
+   "party": "R",
+   "open": false,
+   "cook": "Likely R",
+   "sabato": "Likely R",
+   "ie": "Solid R*",
+   "pvi": "R+4",
+   "pres24": "R+7.7",
+   "house24": "R+18.4",
+   "dem_cand": "Kristina Knickerbocker",
+   "rep_cand": "Mike Turner",
+   "lines": "new",
+   "pres_basis": "pvi",
+   "poll": []
+  },
+  {
+   "district": "OH-15",
+   "incumbent": "Mike Carey",
+   "party": "R",
+   "open": false,
+   "cook": "Likely R",
+   "sabato": "Likely R",
+   "ie": "Likely R",
+   "pvi": "R+5",
+   "pres24": "R+10.0",
+   "house24": "R+12.9",
+   "dem_cand": "Don Leonard",
+   "rep_cand": "Mike Carey",
+   "lines": "new",
+   "pres_basis": "pvi",
+   "poll": []
+  },
+  {
+   "district": "SC-01",
+   "incumbent": "open",
+   "party": "R",
+   "open": true,
+   "cook": "Likely R",
+   "sabato": "Likely R",
+   "ie": "Likely R",
+   "pvi": "R+6",
+   "pres24": "R+13.0",
+   "house24": "R+16.6",
+   "dem_cand": "Nancy Lacore",
+   "rep_cand": "Jenny Honeycutt",
+   "lines": "same",
+   "pres_basis": "xover",
+   "poll": [],
+   "note": "Mace (R) running for governor"
+  },
+  {
+   "district": "TX-09",
+   "incumbent": "open",
+   "party": "D",
+   "open": true,
+   "cook": "Likely R",
+   "sabato": "Likely R",
+   "ie": "Likely R",
+   "pvi": "R+9",
+   "pres24": "R+19.7",
+   "house24": "uncontested (old TX-9)",
+   "dem_cand": "Leticia Gutierrez",
+   "rep_cand": "Alex Mealer",
+   "lines": "new",
+   "pres_basis": "wiki",
+   "poll": [],
+   "note": "Redrawn R-leaning new seat (Trump 59.5% per Wikipedia); Green (D) not running here; old TX-9 was uncontested in 2024",
+   "src": [
+    "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Texas"
+   ]
+  },
+  {
+   "district": "TX-23",
+   "incumbent": "vacant",
+   "party": "R",
+   "open": true,
+   "cook": "Likely R",
+   "sabato": "Likely R",
+   "ie": "Likely R",
+   "pvi": "R+7",
+   "pres24": "R+14.8",
+   "house24": "R+24.6",
+   "dem_cand": "Katy Padilla Stout",
+   "rep_cand": "Brandon Herrera",
+   "lines": "new",
+   "pres_basis": "pvi",
+   "poll": [],
+   "note": "Vacant: Gonzales (R) resigned Apr 2026; Silver model's closest race on Oct 8 (GOP +0.2)",
+   "src": [
+    "https://www.newsweek.com/democrat-chances-of-winning-house-senate-hit-new-high-nate-silver-forecast-12545290"
+   ]
+  },
+  {
+   "district": "VA-05",
+   "incumbent": "John McGuire",
+   "party": "R",
+   "open": false,
+   "cook": "Likely R",
+   "sabato": "Lean R",
+   "ie": "Likely R",
+   "pvi": "R+6",
+   "pres24": "R+12.2",
+   "house24": "R+15.0",
+   "dem_cand": "Tom Perriello",
+   "rep_cand": "John McGuire",
+   "lines": "same",
+   "pres_basis": "xover",
+   "poll": [
+    {
+     "pollster": "Washington Post-Schar School",
+     "date": "listed 2026-10-01",
+     "n": 600,
+     "pop": "LV",
+     "dem": 45,
+     "rep": 51,
+     "oth": 4,
+     "url": "https://www.270towin.com/2026-house-polls/virginia/district-5"
+    }
+   ],
+   "src": [
+    "https://www.realclearpolling.com/latest-polls/house"
+   ]
+  }
+ ],
+ "forecasts": [
+  {
+   "source": "Silver Bulletin (FLIPR 'Deluxe')",
+   "type": "model",
+   "dem_prob": 93.1,
+   "rep_prob": 6.9,
+   "dem_seats": 238.7,
+   "rep_seats": 196.3,
+   "as_of": "2026-10-08",
+   "url": "https://www.newsweek.com/democrat-chances-of-winning-house-senate-hit-new-high-nate-silver-forecast-12545290",
+   "note": "Silver page (updated Oct 10) says 'up to nearly 94 percent'. Launch Aug 5: 85.5% (232.9 seats); low Sept 3: 81.1%",
+   "url2": "https://www.natesilver.net/p/nate-silver-2026-midterm-election-polls-model"
+  },
+  {
+   "source": "Decision Desk HQ / The Hill",
+   "type": "model",
+   "dem_prob": 76,
+   "rep_prob": 24,
+   "dem_seats": 235,
+   "rep_seats": 200,
+   "as_of": "2026-10-10",
+   "url": "https://votes.decisiondeskhq.com/forecast/2026/house",
+   "url2": "https://elections2026.thehill.com/forecast/2026/house/"
+  },
+  {
+   "source": "Race to the WH",
+   "type": "model",
+   "dem_prob": 88,
+   "rep_prob": null,
+   "dem_seats": 234,
+   "rep_seats": 201,
+   "as_of": "week of 2026-10-11",
+   "url": "https://dailykos.com/stories/2026/10/11/800110487/community/state-of-the-race-10-11",
+   "note": "Secondary (Daily Kos community diary); racetothewh.com numbers not readable"
+  },
+  {
+   "source": "FiftyPlusOne / Strength In Numbers (G. Elliott Morris)",
+   "type": "model",
+   "dem_prob": 99,
+   "rep_prob": null,
+   "dem_seats": 243,
+   "rep_seats": 192,
+   "as_of": "week of 2026-10-11",
+   "url": "https://dailykos.com/stories/2026/10/11/800110487/community/state-of-the-race-10-11",
+   "note": "Secondary. Oct 6 roundup: 'Strength In Numbers is at 98'. Launch Aug 3: 85%, median 230 (range 211-253)",
+   "url2": "https://blog.fiftyplusone.news/p/election-forecast-democrats-strongly-favored-house-tilt-senate"
+  },
+  {
+   "source": "Quantus Insights",
+   "type": "model",
+   "dem_prob": 85,
+   "rep_prob": 13,
+   "dem_seats": 229,
+   "rep_seats": 206,
+   "as_of": "2026-10-06",
+   "url": "https://jasonbcorley.substack.com/p/which-party-will-control-the-house"
+  },
+  {
+   "source": "The Economist",
+   "type": "model",
+   "dem_prob": 97.9,
+   "rep_prob": null,
+   "dem_seats": null,
+   "rep_seats": null,
+   "as_of": "2026-04-29",
+   "url": "https://theeconomistoffthecharts.substack.com/p/our-prediction-model-for-americas",
+   "note": "STALE: launch-era figure; current value not accessible (economist.com blocked)"
+  },
+  {
+   "source": "Split Ticket (now via The Argument)",
+   "type": "model",
+   "dem_prob": null,
+   "as_of": null,
+   "url": "https://www.270towin.com/2026-house-election/split-ticket-2026-house-ratings",
+   "note": "not found"
+  },
+  {
+   "source": "VoteHub",
+   "type": "model",
+   "dem_prob": null,
+   "as_of": null,
+   "url": "https://jasonbcorley.substack.com/p/which-party-will-control-the-house",
+   "note": "not found; Oct 6 roundup groups Silver Bulletin, VoteHub and Race to the WH at '86 to 87%' (date unclear)"
+  },
+  {
+   "source": "Kalshi",
+   "type": "market",
+   "dem_prob": 89,
+   "rep_prob": 11,
+   "as_of": "2026-10-11 (fetched; no timestamp)",
+   "url": "https://kalshi.com/markets/controlh/house-winner/controlh-2026",
+   "note": "Yes price 90c; odds panel showed 91%; volume $96,134,907. Earlier: 92% (Oct 6 roundup), 81% (Jul 3, Newsweek)"
+  },
+  {
+   "source": "Polymarket",
+   "type": "market",
+   "dem_prob": 91,
+   "rep_prob": 10,
+   "as_of": "2026-10-11 (fetched; no timestamp)",
+   "url": "https://polymarket.com/event/which-party-will-win-the-house-in-2026",
+   "note": "Volume $16,398,909. Earlier: 93% (Oct 6 roundup), 84% (Jul 3, Newsweek)"
+  },
+  {
+   "source": "Cook Political Report outlook",
+   "type": "ratings outlook",
+   "dem_seat_gain": "+9 to +19 (224-234 D seats)",
+   "as_of": "week of 2026-10-11",
+   "url": "https://dailykos.com/stories/2026/10/11/800110487/community/state-of-the-race-10-11",
+   "note": "Secondary"
+  },
+  {
+   "source": "Inside Elections outlook",
+   "type": "ratings outlook",
+   "dem_seat_gain": "+7 to +15",
+   "as_of": "2026-10 (page undated)",
+   "url": "http://insideelections.com/ratings/house/"
+  }
+ ]
+}
