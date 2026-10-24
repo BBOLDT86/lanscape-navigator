@@ -61,8 +61,19 @@ wx-center/index.html     WX Center, a separate page (see below); not part of the
 meridian/index.html      Meridian Flight Control, a separate page (see below); not part of the app
 election2026/            Election Desk 2026, a separate site (see below); www.electiondesk2026.com inside the app
 pinfall/                 Pinfall, a separate page with its home-screen icons (see below); not part of the app
+news/                    Sextant, a news site that updates six times a day (see below); www.sextantnews.com inside the app
 barnlife/index.html      Central Ohio Barn Hunt, a separate page (see below); not part of the app
 ```
+
+## Also hosted here: Sextant
+
+**Open it: <https://bboldt86.github.io/lanscape-navigator/news/>**
+
+The news six times a day, one edition for each ship's watch, Eastern time: Middle (12 a.m.), Morning (4 a.m.), Forenoon (8 a.m.), Afternoon (12 p.m.), Dog (4 p.m.) and First (8 p.m.). Each edition reads about 120 public news feeds across 13 desks (U.S., World, Politics, Business, Tech, Science, Health, Sports, Culture, Cars, Travel, Food and Long reads), groups the stories that several outlets are covering, and ranks them by how widely and how recently they're covered. Open any story to see how every outlet is covering it, side by side.
+
+It learns from its reader. The For You picks and the order of the desks on the front follow what you open, how long you stay with it, what you search for, and what you tell it (More or Less like this, Follow a topic, Hide an outlet), with a reason under each pick and, now and then, something outside your usual. That record stays in your browser; Your compass shows it and lets you change it. The watch dial at the top opens the day's earlier editions.
+
+A GitHub Actions workflow (`.github/workflows/news.yml`) runs `news/updater/run.py` once per watch and commits `news/data/edition.json`. Standard-library Python, no keys. See [news/UPDATER.md](news/UPDATER.md).
 
 ## Also hosted here: The Hinge
 

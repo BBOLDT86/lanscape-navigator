@@ -110,10 +110,11 @@ TAG = re.compile(r'<[^>]+>')
 WS = re.compile(r'\s+')
 BOILER = [re.compile(p, re.I) for p in (
     r'the post .{0,200}? appeared first on .{0,120}?\.?$', r'continue reading\W*$', r'read more\W*$', r'\[\s*(…|\.\.\.|&#8230;)\s*\]',
-    r'\(?\s*(full story|read the full story|click here).*$', r'^\s*(by|from)\s+[A-Z][^.]{0,60}\s{2,}', r'[\[\(]?\s*(?:Photo|Image|Video)\s*:.*?(?:\]|\)|$)')]
-JUNK_TITLE = re.compile(r"\b(wordle|connections hints?|strands hints?|crossword|horoscope|spelling bee|promo code|coupon|deals? of the day|"
-                        r"best .{0,40} deals|% off|prime day|black friday deals?|cyber monday deals?|giveaway|sponsored|lottery numbers|powerball numbers|mega millions numbers)\b", re.I)
-JUNK_URL = re.compile(r'/(opinion|opinions|commentisfree|video|videos|podcasts?|live-news|newsletters?|cartoons?|crosswords?|games|puzzles|coupons|deals|shopping|sponsored|weather/forecast)(/|$)', re.I)
+    r'\(?\s*(full story|read the full story|click here).*$', r'\b(get our|sign up (for|to)|subscribe to|download the|follow us on|listen to the)\b.*$', r'^\s*(by|from)\s+[A-Z][^.]{0,60}\s{2,}', r'[\[\(]?\s*(?:Photo|Image|Video)\s*:.*?(?:\]|\)|$)')]
+JUNK_TITLE = re.compile(r"\b(wordle|connections hints?|strands hints?|crossword|horoscope|spelling bee|promo code|bonus code|coupon|deals? of the day|"
+                        r"best .{0,40} deals|deals on|shop the|on sale now|sale is back|% off|prime day|black friday deals?|cyber monday deals?|giveaway|sponsored|"
+                        r"lottery numbers|powerball numbers|mega millions numbers|betting offer|odds boost|this week on)\b", re.I)
+JUNK_URL = re.compile(r'/(opinion|opinions|commentisfree|video|videos|podcasts?|live-news|newsletters?|cartoons?|crosswords?|games|puzzles|coupons|deals|shopping|select|sponsored|betting|weather/forecast)(/|$)', re.I)
 
 
 def clean(s):
@@ -323,9 +324,9 @@ PATH_SECTION = [  # desks before world before U.S.: NYT files politics under /us
     (r'/(science|space|climate|environment|newshour/science|weather)(/|$)', 'science'),
     (r'/(health|well|wellness|medicine|newshour/health|health-news)(/|$)', 'health'),
     (r'/(sports?|football|soccer|nfl|nba|mlb|nhl|ncaa|golf|tennis|college-football|basketball|baseball|hockey|olympics|motorsport|formula1|cricket|rugby-union)(/|$)', 'sports'),
-    (r'/(arts|culture|entertainment|movies|film|music|television|tv|books|theater|pop-culture|celebrity|media|style|newshour/arts|the-culture|tv-and-radio|stage|games)(/|$)', 'culture'),
+    (r'/(arts|culture|entertainment|movies|film|music|television|tv|books|theater|pop-culture|celebrity|style|newshour/arts|the-culture|tv-and-radio|stage|games)(/|$)', 'culture'),
     (r'/(travel)(/|$)', 'travel'),
-    (r'/(food|dining|cooking|recipes|restaurants|wine)(/|$)', 'food'),
+    (r'/(food|food-drink|dining|cooking|recipes|restaurants|wine)(/|$)', 'food'),
     (r'/(automobiles|cars|autos|wheels|car-reviews)(/|$)', 'cars'),
     (r'/(world|international|europe|asia|africa|middleeast|middle-east|americas|asia-pacific|uk-news|australia-news|global|news/world|newshour/world|canada|mexico|china|ukraine|israel)(/|$)', 'world'),
     (r'/(us-news|us|u-s|nation|national|news/us-news|newshour/nation|usa)(/|$)', 'us'),
@@ -333,7 +334,9 @@ PATH_SECTION = [  # desks before world before U.S.: NYT files politics under /us
 PATH_SECTION = [(re.compile(p, re.I), s) for p, s in PATH_SECTION]
 
 
-def _rx(words):
+def _rx(words, plurals=False):
+    if plurals:  # "Cuban" and "Cubans"
+        words = [w + 's?' if w.isalpha() and not w.endswith('s') else w for w in words]
     return re.compile(r'\b(' + '|'.join(words) + r')\b', re.I)
 
 
@@ -346,7 +349,8 @@ SECTION_WORDS = {
                    'head coach', 'innings?', 'rookie', 'draft pick', 'premier league', 'champions league', 'la liga', 'serie a', 'bundesliga',
                    'pga', 'lpga', 'wimbledon', 'us open', 'ufc', 'formula 1', 'f1', 'grand prix', 'nascar', 'olympics?', 'heisman',
                    'buckeyes', 'stanley cup', 'hat trick', 'striker', 'goalkeeper', 'home runs?', 'pitcher', 'linebacker', 'wide receiver',
-                   'running back', 'point guard', 'free agent', 'trade deadline', 'college football', 'march madness', 'ryder cup', 'touchdowns?', 'game \\d']
+                   'running back', 'point guard', 'free agent', 'trade deadline', 'college football', 'march madness', 'ryder cup', 'touchdowns?', 'game \\d',
+                   'roster', 'top-\\d+', 'cfb', 'week \\d+', 'wnba finals', 'wwe', 'boxing', 'title fight', 'knockout', 'tennis', 'season-ending', 'injury report']
                   + NFL + NBA + [t.replace(' ', r'\s') for t in MLB]),
     'politics': _rx(['senate', 'senators?', 'house speaker', 'congress', 'congressional', 'lawmakers?', 'gop', 'democrats?', 'republicans?',
                      'white house', 'campaign', 'elections?', 'ballots?', 'midterms?', 'governor', 'impeach\\w*', 'filibuster', 'cabinet',
@@ -356,11 +360,11 @@ SECTION_WORDS = {
     'business': _rx(['stocks?', 'dow', 's&p 500', 'nasdaq', 'earnings', 'shares', 'investors?', 'wall street', 'the fed', 'federal reserve',
                      'interest rates?', 'inflation', 'economy', 'economic', 'jobs report', 'unemployment', 'tariffs?', 'merger', 'acquisition',
                      'acquire', 'ipo', 'ceo', 'revenue', 'profit', 'layoffs?', 'banks?', 'oil prices?', 'mortgage', 'retail', 'gdp',
-                     'billion', 'deal', 'startup', 'bitcoin', 'crypto', 'treasury', 'bonds?', 'sales', 'consumers?']),
-    'tech': _rx(['ai', 'a\\.i\\.', 'artificial intelligence', 'openai', 'chatgpt', 'anthropic', 'google', 'apple', 'microsoft', 'meta', 'nvidia',
-                 'chips?', 'semiconductors?', 'software', 'apps?', 'iphone', 'android', 'cyber\\w*', 'hack\\w*', 'data breach', 'tiktok',
-                 'amazon', 'robots?', 'robotics', 'algorithm', 'smartphone', 'laptop', 'gaming', 'xbox', 'playstation', 'nintendo', 'elon musk',
-                 'spacex', 'starlink', 'quantum', 'silicon valley', 'tech']),
+                     'billion', 'deal', 'startup', 'bitcoin', 'crypto', 'treasury yields?', 'bond market', 'bond yields?', 'sales', 'consumers?']),
+    'tech': _rx(['ai', 'a\\.i', 'artificial intelligence', 'openai', 'chatgpt', 'anthropic', 'google', 'apple', 'microsoft', 'meta', 'nvidia',
+                 'chips?', 'semiconductors?', 'software', 'apps?', 'iphone', 'android', 'cyber\\w*', 'hack(s|ed|ers?|ing)?', 'data breach', 'tiktok',
+                 'amazon', 'robots?', 'robotics', 'algorithm', 'smartphone', 'gaming', 'xbox', 'playstation', 'nintendo', 'elon musk',
+                 'spacex', 'starlink', 'quantum', 'silicon valley', 'tech companies', 'big tech', 'tech giants?']),
     'science': _rx(['nasa', 'space', 'scientists?', 'study finds', 'researchers?', 'fossils?', 'species', 'climate', 'asteroid', 'telescope',
                     'physics', 'dinosaurs?', 'planets?', 'astronomers?', 'archaeolog\\w*', 'evolution', 'galaxy', 'comet', 'moon', 'mars',
                     'eclipse', 'genome', 'experiment', 'ocean', 'glacier', 'volcano', 'earthquake', 'hurricane', 'wildfire', 'tornado']),
@@ -375,16 +379,9 @@ SECTION_WORDS = {
     'travel': _rx(['airlines?', 'flights?', 'airports?', 'tsa', 'faa', 'hotels?', 'cruise', 'passengers', 'travelers?', 'vacation', 'resort',
                    'tourists?', 'tourism', 'lounge', 'frequent flyer', 'boeing', 'airbus', 'delta air lines', 'united airlines', 'american airlines', 'southwest airlines']),
     'food': _rx(['recipes?', 'restaurants?', 'chefs?', 'cooking', 'baking', 'wine', 'cocktails?', 'thanksgiving dinner']),
-    'world': _rx(['ukraine', 'ukrainian', 'russia', 'russian', 'putin', 'kremlin', 'kyiv', 'moscow', 'israel', 'israeli', 'gaza', 'hamas',
-                  'hezbollah', 'lebanon', 'iran', 'iranian', 'tehran', 'china', 'chinese', 'beijing', 'xi jinping', 'taiwan', 'japan', 'japanese',
-                  'india', 'indian', 'pakistan', 'afghanistan', 'syria', 'iraq', 'yemen', 'houthis?', 'saudi', 'turkey', 'egypt', 'sudan',
-                  'congo', 'nigeria', 'kenya', 'south africa', 'ethiopia', 'mexico', 'mexican', 'canada', 'canadian', 'brazil', 'argentina',
-                  'venezuela', 'colombia', 'cuba', 'haiti', 'peru', 'chile', 'europe', 'european', 'eu', 'nato', 'united nations', 'u\\.n\\.',
-                  'britain', 'british', 'uk', 'england', 'london', 'france', 'french', 'paris', 'germany', 'german', 'berlin', 'italy',
-                  'spain', 'poland', 'korea', 'korean', 'pyongyang', 'seoul', 'philippines', 'vietnam', 'indonesia', 'australia',
-                  'prime minister', 'parliament', 'west bank', 'netanyahu', 'zelensky', 'modi', 'macron', 'starmer', 'carney', 'sheinbaum',
-                  'lula', 'bolsonaro', 'milei', 'maduro', 'pope', 'vatican', 'jamaica', 'caribbean']),
+    'world': _rx(plurals=True, words=['afghanistan', 'afghan', 'albania', 'albanian', 'algeria', 'algerian', 'angola', 'argentina', 'argentine', 'armenia', 'armenian', 'australia', 'australian', 'austria', 'austrian', 'azerbaijan', 'bahrain', 'bangladesh', 'bangladeshi', 'belarus', 'belarusian', 'belgium', 'belgian', 'bolivia', 'bolivian', 'bosnia', 'bosnian', 'brazil', 'brazilian', 'bulgaria', 'bulgarian', 'burkina', 'cambodia', 'cambodian', 'cameroon', 'canada', 'canadian', 'chile', 'chilean', 'china', 'chinese', 'colombia', 'colombian', 'congo', 'congolese', 'croatia', 'croatian', 'cuba', 'cuban', 'cyprus', 'czech', 'denmark', 'danish', 'ecuador', 'egypt', 'egyptian', 'eritrea', 'estonia', 'estonian', 'ethiopia', 'ethiopian', 'finland', 'finnish', 'france', 'french', 'germany', 'german', 'ghana', 'ghanaian', 'greece', 'greek', 'guatemala', 'guatemalan', 'haiti', 'haitian', 'honduras', 'hungary', 'hungarian', 'iceland', 'icelandic', 'india', 'indian', 'indonesia', 'indonesian', 'iran', 'iranian', 'iraq', 'iraqi', 'ireland', 'irish', 'israel', 'israeli', 'italy', 'italian', 'jamaica', 'jamaican', 'japan', 'japanese', 'jordanian', 'kazakhstan', 'kenya', 'kenyan', 'kosovo', 'kuwait', 'kuwaiti', 'kyrgyzstan', 'laos', 'latvia', 'lebanon', 'lebanese', 'liberia', 'libya', 'libyan', 'lithuania', 'lithuanian', 'madagascar', 'malawi', 'malaysia', 'malaysian', 'mali', 'malian', 'malta', 'moldova', 'mongolia', 'montenegro', 'morocco', 'moroccan', 'mozambique', 'myanmar', 'namibia', 'nepal', 'nepalese', 'netherlands', 'dutch', 'nicaragua', 'nigeria', 'nigerian', 'norway', 'norwegian', 'oman', 'pakistan', 'pakistani', 'palestinian', 'palestinians', 'panama', 'paraguay', 'peru', 'peruvian', 'philippines', 'philippine', 'filipino', 'portugal', 'portuguese', 'qatar', 'qatari', 'romania', 'romanian', 'russia', 'russian', 'rwanda', 'saudi', 'senegal', 'serbia', 'serbian', 'singapore', 'slovakia', 'slovenia', 'somalia', 'somali', 'spain', 'spanish', 'sudan', 'sudanese', 'sweden', 'swedish', 'switzerland', 'swiss', 'syria', 'syrian', 'taiwan', 'taiwanese', 'tajikistan', 'tanzania', 'thailand', 'thai', 'tunisia', 'uganda', 'ukraine', 'ukrainian', 'uae', 'uruguay', 'uzbekistan', 'vanuatu', 'venezuela', 'venezuelan', 'vietnam', 'vietnamese', 'yemen', 'yemeni', 'zambia', 'zimbabwe', 'kyiv', 'moscow', 'beijing', 'tehran', 'gaza', 'jerusalem', 'london', 'paris', 'berlin', 'madrid', 'tokyo', 'seoul', 'delhi', 'mumbai', 'islamabad', 'kabul', 'baghdad', 'damascus', 'beirut', 'cairo', 'istanbul', 'ankara', 'brussels', 'geneva', 'taipei', 'manila', 'bangkok', 'jakarta', 'sydney', 'toronto', 'ottawa', 'havana', 'caracas', 'bogota', 'lima', 'buenos', 'kremlin', 'hebron', 'europe', 'european', 'nato', 'erdogan', 'türkiye', 'new zealand', 'south africa', 'south sudan', 'sri lanka', 'north korea', 'north korean', 'south korea', 'south korean', 'hong kong', 'el salvador', 'costa rica', 'ivory coast', 'sierra leone', 'papua new guinea', 'united arab emirates', 'saudi arabia', 'tel aviv', 'mexico city', 'rio de janeiro', 'sao paulo', 'in jordan', 'amman', "turkey's", 'turkish', 'united nations', 'u\\.n', 'u\\.k', 'uk', 'britain', 'british', 'england', 'scotland', 'wales', 'west bank', 'prime minister', 'parliament', 'european union', 'eu', 'netanyahu', 'zelensky', 'zelenskyy', 'putin', 'xi jinping', 'modi', 'macron', 'starmer', 'merz', 'carney', 'sheinbaum', 'lula', 'bolsonaro', 'milei', 'maduro', 'kim jong un', 'pope', 'vatican', 'hamas', 'hezbollah', 'houthis?', 'taliban', 'caribbean', 'mexican', 'mexico']),
 }
+SERVICE = re.compile(r'\b(where to watch|how to watch|live ?stream|start time|tv channel|odds,? (picks|predictions)|predictions?,? odds|live (results|updates|blog|scores?)|play-by-play)\b', re.I)
 DESKS = ('sports', 'politics', 'business', 'tech', 'science', 'health', 'culture', 'cars', 'travel', 'food')
 
 
@@ -428,8 +425,9 @@ after-hours year years week weeks day days today tonight yesterday tomorrow time
 monday tuesday wednesday thursday friday saturday sunday january february march april may june july august september october november december
 jan feb mar apr jun jul aug sep sept oct nov dec get gets got make makes made take takes took could set sets back still even ever way ways
 man woman men women people person thing things lot lots big small top best worst more less much many most least live update updates watch video
-photos photo what's here's it's that's there's who's don't can't won't isn't aren't doesn't didn't wasn't'''.split())
-CAP_COMMON = set('''The A An And But Or How Why What When Where Who Which Is Are Was Were This That These Those It Its Here There New Live Watch
+photos photo what's here's it's that's there's who's don't can't won't isn't aren't doesn't didn't wasn't
+takeaways takeaway know explained explainer things key everything need inside latest breaking analysis review'''.split())
+CAP_COMMON = set('''The A An And But Or How Why What When Where Who Which Is Are Was Were This That These Those It Its Here There Live Watch
 Breaking Opinion Analysis Exclusive Inside Meet Review Photos Video Update Updates Report Explainer Live: First Last Top Best Why: How: What: As After Before
 In On At For With From Of To By Up Down Out Over Under Into Can Could Should Would Will May Might Must Do Does Did Has Have Had Not No Yes More Most
 Some Many All Every Each Our Your My We You They He She I Former Ex Is Are Says Said Here's What's It's Why's Today Tonight This Week Weekend
@@ -440,7 +438,7 @@ GENERIC_ENT = {'u.s.', 'us', 'u.s', 'usa', 'america', 'american', 'americans', '
                'july', 'august', 'september', 'october', 'november', 'december', 'state', 'city', 'county', 'national', 'federal', 'mr', 'mrs', 'ms',
                'dr', 'tv', 'ceo', 'gop', 'faq', 'q&a', 'pm', 'am', 'et', 'ok', 'week', 'weekend', 'part', 'season', 'game', 'episode', 'chapter',
                'category', 'show hn', 'ask hn', 'tell hn', 'launch hn', 'hn', 'review', 'interview', 'recap', 'preview', 'podcast', 'quiz',
-               'st', 'jr', 'sr', 'inc', 'co', 'llc', 'no', 'vs', 'v', 'i', 'ii', 'iii', 'iv', 'ai'}  # AI is a topic
+               'st', 'jr', 'sr', 'inc', 'co', 'llc', 'stat', 'stat+', 'no', 'vs', 'v', 'i', 'ii', 'iii', 'iv', 'ai'}  # AI is a topic
 # demonyms and short forms -> one key, so "Chinese" and "China" are the same interest
 ENT_ALIAS = {'chinese': 'china', 'russian': 'russia', 'russians': 'russia', 'ukrainian': 'ukraine', 'ukrainians': 'ukraine',
              'israeli': 'israel', 'israelis': 'israel', 'iranian': 'iran', 'european': 'europe', 'europeans': 'europe', 'eu': 'european union',
@@ -458,7 +456,7 @@ ALIAS_LABEL = {'china': 'China', 'russia': 'Russia', 'ukraine': 'Ukraine', 'isra
                'new york city': 'New York City', 'los angeles': 'Los Angeles', 'republicans': 'Republicans', 'democrats': 'Democrats'}
 CONNECT = {'of', 'the', 'and', '&', 'de', 'la', 'del', 'for', 'van', 'von', 'da', 'du', 'le', 'al', 'bin', 'el'}
 TOPICS = [
-    ('ai', 'AI', r'\b((?-i:AI|A\.I\.)|artificial intelligence|chatbots?|chatgpt|openai|anthropic|llms?|generative ai)\b'),
+    ('ai', 'AI', r'\b((?-i:AI|A\.I)|artificial intelligence|chatbots?|chatgpt|openai|anthropic|llms?|generative ai)\b'),
     ('interest-rates', 'Interest rates', r'\b(interest rates?|rate cuts?|rate hikes?|Federal Reserve|the Fed|Powell)\b'),
     ('inflation', 'Inflation', r'\b(inflation|consumer prices|CPI)\b'),
     ('tariffs', 'Tariffs', r'\b(tariffs?|trade war)\b'),
@@ -506,6 +504,7 @@ TOPICS = [
     ('obituaries', 'Obituaries', r'\b(dies at \d+|dead at \d+|has died|obituary)\b'),
 ]
 TOPICS = [(k, l, re.compile(p, re.I)) for k, l, p in TOPICS]
+TOPIC_AS_NAME = {'ukraine-war': 'ukraine', 'china': 'china'}
 WORD = re.compile(r"[A-Za-z0-9][A-Za-z0-9'’.&\-]*[A-Za-z0-9]|[A-Za-z0-9]")
 
 
@@ -519,7 +518,8 @@ def is_title_case(words):
 
 
 def is_cap(w):
-    return bool(w) and (w[0].isupper() or (w[0].isdigit() and any(c.isupper() for c in w)))
+    # "Trump", "NASA", "iPhone", "eBay", "49ers"
+    return bool(w) and (w[0].isupper() or any(c.isupper() for c in w[1:]))
 
 
 def strip_poss(w):
@@ -567,11 +567,14 @@ def cap_phrases(words):
 
 def learn_entities(items):
     """names seen capitalized mid-sentence in sentence-case headlines -> {key: label}"""
-    seen = Counter(); label = {}
+    seen = Counter(); label = {}; lower = Counter()
     for it in items:
         if is_title_case(tokens_raw(it['t'])):
             continue
         for words in clauses(it['t']):
+            for w in words[1:]:
+                if w.islower():
+                    lower[ent_key(w)] += 1
             for ph, pos in cap_phrases(words):
                 k = ent_key(ph)
                 if not k or k in GENERIC_ENT or k in STOP or len(k) < 2:
@@ -583,9 +586,10 @@ def learn_entities(items):
     # acronyms count even at the head of a headline
     for it in items:
         for w in tokens_raw(it['t']):
-            if re.match(r'^([A-Z]{2,6}|([A-Z]\.){2,4})$', w) and ent_key(w) not in GENERIC_ENT:
+            if re.match(r'^([A-Z]{2,6}|([A-Z]\.){2,4})$', w) and ent_key(w) not in GENERIC_ENT and ent_key(w) not in STOP:
                 seen[ent_key(w)] += 1; label.setdefault(ent_key(w), ALIAS_LABEL.get(ent_key(w), w))
-    return {k: label[k] for k in seen}
+    # a single word that headlines mostly write in lower case ("duo", "fight") is not a name
+    return {k: label[k] for k in seen if ' ' in k or lower[k] < seen[k]}
 
 
 def item_keywords(it, ents):
@@ -601,7 +605,10 @@ def item_keywords(it, ents):
                         continue
                     ph = ' '.join(strip_poss(w) for w in words[i:i + size])
                     k = ent_key(ph)
-                    if k in ents and k not in GENERIC_ENT:
+                    if k in ents and k not in GENERIC_ENT and k not in STOP:
+                        lab = ents[k]
+                        if size == 1 and lab.replace('.', '').isupper() and not ph.replace('.', '').isupper():
+                            continue
                         found.append(k); used[i:i + size] = [True] * size
         else:
             for ph, pos in cap_phrases(words):
@@ -612,7 +619,7 @@ def item_keywords(it, ents):
                     found.append(k); ents.setdefault(k, ALIAS_LABEL.get(k, ph))
     topics = [k for k, _l, rx in TOPICS if rx.search(it['t']) or (rx.search(it.get('d', '')) and k not in ('crime', 'hotels', 'points-miles', 'music', 'movies'))]
     out = []
-    for k in found + ['#' + t for t in topics]:
+    for k in found + [TOPIC_AS_NAME.get(t, '#' + t) for t in topics]:  # "Ukraine" the topic is "Ukraine" the name
         if k not in out:
             out.append(k)
     return out[:8]
@@ -740,7 +747,7 @@ def main():
             cutoff = NOW_MIN - (WINDOW_H['slow'] if slow else WINDOW_H['default']) * 60
             for r in raw_items[:60]:
                 title, link = r['title'], r['link']
-                if not title or not link or len(title) < 12:
+                if not title or not link or len(title) < 12 or len(title.split()) < 4:
                     continue
                 if r['google']:
                     dom = norm_domain(r['src_url']) if r['src_url'] else ''
@@ -755,6 +762,7 @@ def main():
                 else:
                     dom = f.get('domain') or norm_domain(link)
                     outlet_name = OUTLETS.get(dom) or re.sub(r'\s+(U\.S\.|World|Politics|Business|Technology|Tech|Science|Health|Well|Sports?|Arts|Culture|Travel|Food|Automobiles|Markets|Investing|MoneyWatch|Long Read|Examiner Politics)$', '', f.get('name') or dom)
+                title = re.sub(r'^(STAT\+|Exclusive|EXCLUSIVE|Breaking|BREAKING|WATCH|LIVE|VIDEO)\s*[:|]\s*', '', title).strip()
                 if JUNK_TITLE.search(title) or JUNK_URL.search(urllib.parse.urlsplit(link).path or ''):
                     continue
                 when = r['when']
@@ -888,9 +896,14 @@ def main():
         s = (c['n'] ** 0.9) * math.exp(-age_h / 14)
         if c['sec'] in SLOW:
             s *= 0.35
+        if c['sec'] in ('sports', 'culture') and c['n'] < 6:  # a game or a premiere leads only when it is everywhere
+            s *= 0.6
+        if SERVICE.search(by_i[c['lead']]['t']):  # "where to watch", "live updates": useful, not a top story
+            s *= 0.3
         if c.get('rise'):
             s *= 1 + min(c['rise'], 8) * 0.05
         return s
+    by_i = {it['i']: it for it in items}
     clusters.sort(key=cscore, reverse=True)
     for ci, c in enumerate(clusters):
         c['id'] = ci
@@ -910,7 +923,7 @@ def main():
         'at': NOW.strftime('%Y-%m-%dT%H:%M:%SZ'), 'atMin': NOW_MIN, 'start': watch['start'], 'next': watch['next'],
         'sections': [{'k': k, 'name': n} for k, n in SECTIONS],
         'outlets': {d: OUTLETS.get(d, d) for d in sorted(used_out)},
-        'kw': {k: ents.get(k, k) for k in sorted({k for it in items for k in it.get('k', []) if not k.startswith('#')})},
+        'kw': {k: ents.get(k) or ALIAS_LABEL.get(k, k) for k in sorted({k for it in items for k in it.get('k', []) if not k.startswith('#')})},
         'topics': {k: l for k, l, _rx in TOPICS},
         'items': items, 'clusters': clusters, 'top': top,
         'feeds': {'total': len(feeds), 'read': len(feeds) - len(errors), 'failed': errors, 'stories': len(fresh)} if not OFFLINE else prev.get('feeds', {}),

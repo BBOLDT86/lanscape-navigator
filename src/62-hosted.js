@@ -8,6 +8,13 @@
 const HOSTED_HOME = 'https://bboldt86.github.io/lanscape-navigator/';
 const HOSTED_SITES = [
   {
+    id: 'sextant', host: 'www.sextantnews.com', title: 'Sextant', dir: 'news/', since: '2026-10-24', bytes: 5.2e5,
+    glyph: '⚓', color: '#15243B', panel: '#D6B25E', lines: ['SEXTANT', 'NEWS'], cat: 'News & Media',
+    blurb: 'The news six times a day, one edition for each ship’s watch (midnight, 4 a.m., 8 a.m., noon, 4 p.m. and 8 p.m. Eastern), read from about 120 live sources. It groups the stories several outlets are covering so you can compare them side by side, and its For You picks learn from what you open and how long you stay with it, privately, in your browser.',
+    mobile: 'Made for phones too: the sections scroll, stories open in a sheet, and it can be added to the home screen.',
+    keywords: 'sextant news headlines today top stories breaking world us politics business tech science health sports culture cars travel food long reads for you personalized feed rss watch edition newspaper'
+  },
+  {
     id: 'inbox-atlas', host: 'www.inboxatlas.com', title: 'Inbox Atlas', dir: 'inbox-atlas/', since: '2026-10-17', bytes: 8.4e6,
     glyph: '✉', color: '#1b2838', panel: '#e8d7a9', lines: ['INBOX', 'ATLAS'], cat: 'News & Media',
     blurb: 'A reading room for the released Epstein emails: 5,775 emails, 104 recovered text-message logs and 2,020 documents from the House Oversight and DOJ releases, with 26 sourced stories, films that replay the conversations on simulated phone and mail screens, reading trails, maps, Sankey flows, one edition per year and a studio for writing your own stories.',
