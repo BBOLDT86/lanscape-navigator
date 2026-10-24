@@ -5,10 +5,12 @@
                OpenSky Network /states/all (one global request; 400 free credits a day anonymous, 4 per request,
                so at most every 15 min; OPENSKY_CLIENT_ID / OPENSKY_CLIENT_SECRET raise it to 4,000)
                fallback: adsb.fi v3 point tiles over the network (1 request a second)
-             tails and types: airplanes.live /v2/hex/<up to 1000 hexes> for aircraft not seen before (cached)
-             routes: adsb.lol routeset (community route data) for callsigns not seen before (cached 12 h)
+             tails: from the Mode S hex code (US codes map one-to-one to N-numbers); types from the FAA aircraft
+               registry (Southwest's entries, refreshed weekly)
+             routes: the community route file for SWA (vradarserver/standing-data, refreshed daily), shown only when
+               the aircraft's position and track fit the route; airport positions from OurAirports
   ATC        FAA NAS Status: ground stops, ground delay programs, airspace flow programs, delays, closures
-  LUV        Southwest's share price (delayed), from Stooq, Yahoo as a fallback
+               (closures that only restrict general aviation are dropped)
 
 writes <out>/live.json. A source that fails keeps its last good values and is noted in `errors`.
 usage: python3 meridian/updater/fetch_live.py --out feed
@@ -155,77 +157,174 @@ def fleet_adsbfi():
     return list(seen.values()), 'adsb.fi'
 
 
-# ── enrichment ───────────────────────────────────────────────────────────
-def enrich_airframes(fleet, cache):
-    need = [f['hex'] for f in fleet if f['hex'] and f['hex'] not in cache and not f.get('reg')]
-    for f in fleet:
-        if f.get('reg') and f['hex'] not in cache:
-            cache[f['hex']] = {'reg': f['reg'], 'type': f.get('type', '')}
-    if need:
-        try:
-            js = json.loads(req('https://api.airplanes.live/v2/hex/' + ','.join(need[:900]), timeout=30, tag='airplaneslive'))
-            for a in readsb_rows(js):
-                if a.get('hex'):
-                    cache[a['hex']] = {'reg': a.get('r') or '', 'type': a.get('t') or ''}
-        except Exception as ex:
-            return f'airframes: {type(ex).__name__}: {str(ex)[:80]}'
-    for f in fleet:
-        c = cache.get(f['hex']) or {}
-        f['reg'] = f.get('reg') or c.get('reg', '')
-        f['type'] = f.get('type') or c.get('type', '')
-    return None
+# ── enrichment: tails ─────────────────────────────────────────────────────
+_CH, _DG = 'ABCDEFGHJKLMNPQRSTUVWXYZ', '0123456789'
+_SUF = 1 + len(_CH) * (1 + len(_CH)); _B4 = 1 + len(_CH) + len(_DG); _B3 = len(_DG) * _B4 + _SUF
+_B2 = len(_DG) * _B3 + _SUF; _B1 = len(_DG) * _B2 + _SUF
 
 
-def enrich_routes(fleet, cache, t0):
-    cut = t0.timestamp() - ROUTE_TTL_H * 3600
-    for k in [k for k, v in cache.items() if v.get('at', 0) < cut]:
-        del cache[k]
-    need = [f for f in fleet if f['cs'] not in cache]
-    err = None
-    for i in range(0, len(need), 100):
-        batch = need[i:i + 100]
-        try:
-            js = json.loads(req('https://api.adsb.lol/api/0/routeset', data={'planes': [{'callsign': f['cs'], 'lat': f['lat'], 'lng': f['lon']} for f in batch]},
-                                timeout=40, tag='adsblol_routes'))
-            for r in js if isinstance(js, list) else []:
-                cs = (r.get('callsign') or '').upper()
-                codes = r.get('_airport_codes_iata') or r.get('airport_codes') or ''
-                plausible = r.get('plausible')
-                cache[cs] = {'route': codes if codes and codes != 'unknown' else '', 'ok': plausible not in (0, False, '0'), 'at': int(t0.timestamp())}
-            for f in batch:
-                cache.setdefault(f['cs'], {'route': '', 'ok': False, 'at': int(t0.timestamp())})
-        except Exception as ex:
-            err = f'routes: {type(ex).__name__}: {str(ex)[:80]}'
-            break
-        time.sleep(1)
-    return err
+def _suffix(o):
+    if o == 0:
+        return ''
+    c0 = _CH[(o - 1) // (len(_CH) + 1)]; r = (o - 1) % (len(_CH) + 1)
+    return c0 if r == 0 else c0 + _CH[r - 1]
 
 
-def apply_routes(fleet, cache, by_iata, by_icao):
-    for f in fleet:
-        r = (cache.get(f['cs']) or {}).get('route', '')
-        legs = [x for x in r.split('-') if x]
-        org = dst = ''
-        if len(legs) >= 2:
-            pts = [by_iata.get(x) or by_icao.get(x) for x in legs]
-            # multi-stop routes (through flights): pick the leg whose great circle the aircraft is closest to
-            best = None
-            for a, b in zip(pts, pts[1:]):
-                if not a or not b:
+def hex_to_n(h):
+    """US Mode S codes A00001–ADF7C7 map one-to-one onto N-numbers N1–N99999."""
+    try:
+        i = int(h, 16) - 0xA00001
+    except (TypeError, ValueError):
+        return ''
+    if i < 0 or i >= 915399:
+        return ''
+    out = 'N' + str(i // _B1 + 1); r = i % _B1
+    for b in (_B2, _B3):
+        if r < _SUF:
+            return out + _suffix(r)
+        r -= _SUF; out += str(r // b); r %= b
+    if r < _SUF:
+        return out + _suffix(r)
+    r -= _SUF; out += str(r // _B4); r %= _B4
+    return out if r == 0 else out + (_CH + _DG)[r - 1]
+
+
+def faa_registry(state, t0):
+    """Southwest's aircraft from the FAA registry (MASTER + ACFTREF), refreshed weekly: hex -> model."""
+    reg = state.get('registry') or {}
+    if reg.get('at') and t0.timestamp() - reg['at'] < 7 * 86400 and reg.get('models'):
+        return None
+    if reg.get('tried') and t0.timestamp() - reg['tried'] < 6 * 3600:
+        return None
+    reg['tried'] = int(t0.timestamp()); state['registry'] = reg
+    import io, zipfile, csv
+    try:
+        raw = urllib.request.urlopen(urllib.request.Request('https://registry.faa.gov/database/ReleasableAircraft.zip', headers={
+            'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36 ' + UA}), timeout=120).read()
+        PROBE['faa_registry'] = {'status': 200, 'bytes': len(raw)}
+        z = zipfile.ZipFile(io.BytesIO(raw))
+        names = {n.upper(): n for n in z.namelist()}
+        ref = {}
+        with z.open(names['ACFTREF.TXT']) as f:
+            for row in csv.DictReader(io.TextIOWrapper(f, 'utf-8-sig', errors='replace')):
+                row = {k.strip().upper(): (v or '').strip() for k, v in row.items() if k}
+                ref[row.get('CODE', '')] = row.get('MODEL', '')
+        models = {}
+        with z.open(names['MASTER.TXT']) as f:
+            for row in csv.DictReader(io.TextIOWrapper(f, 'utf-8-sig', errors='replace')):
+                row = {k.strip().upper(): (v or '').strip() for k, v in row.items() if k}
+                if 'SOUTHWEST AIRLINES' not in row.get('NAME', ''):
                     continue
-                d = nm(f['lat'], f['lon'], a['lat'], a['lon']) + nm(f['lat'], f['lon'], b['lat'], b['lon']) - nm(a['lat'], a['lon'], b['lat'], b['lon'])
-                if best is None or d < best[0]:
-                    best = (d, a['iata'], b['iata'])
-            if best:
-                org, dst = best[1], best[2]
-            else:
-                org, dst = legs[-2][-3:], legs[-1][-3:]
+                hx = row.get('MODE S CODE HEX', '').lower()
+                if hx:
+                    models[hx] = ref.get(row.get('MFR MDL CODE', ''), '')
+        if models:
+            reg.update(models=models, at=int(t0.timestamp()))
+            print(f'FAA registry: {len(models)} Southwest aircraft')
+        return None
+    except Exception as ex:
+        PROBE['faa_registry'] = {'status': getattr(ex, 'code', None), 'error': f'{type(ex).__name__}: {str(ex)[:80]}'}
+        return f'FAA registry: {type(ex).__name__}: {str(ex)[:80]}'
+
+
+def type_of(model):
+    m = (model or '').upper().replace(' ', '')
+    if not m:
+        return ''
+    if re.fullmatch(r'737-8|737-8200|737MAX8', m):
+        return '7M8'
+    if re.fullmatch(r'737-7|737MAX7', m):
+        return '7M7'
+    if m.startswith('737-8'):
+        return '738'
+    if m.startswith('737-7'):
+        return '73G'
+    return m[:8]
+
+
+def enrich_airframes(fleet, state):
+    models = (state.get('registry') or {}).get('models') or {}
+    for f in fleet:
+        f['reg'] = f.get('reg') or hex_to_n(f.get('hex'))
+        f['type'] = f.get('type') or type_of(models.get((f.get('hex') or '').lower()))
+
+
+# ── enrichment: routes ───────────────────────────────────────────────────
+def route_db(state, t0):
+    """SWA callsign -> airports, from vradarserver/standing-data (daily), and positions for every airport in it."""
+    rd = state.get('routedb') or {}
+    if rd.get('at') and t0.timestamp() - rd['at'] < 86400 and rd.get('routes'):
+        return rd, None
+    try:
+        csvtxt = req('https://raw.githubusercontent.com/vradarserver/standing-data/main/routes/schema-01/S/SWA-all.csv',
+                     headers={'Accept': 'text/csv'}, timeout=40, tag='routes_db')
+        routes = {}
+        for ln in csvtxt.lstrip('﻿').splitlines()[1:]:
+            p = ln.strip().split(',')
+            if len(p) >= 5 and p[0].startswith('SWA'):
+                routes[p[0].upper()] = p[4].strip().upper()
+        need = sorted({c for r in routes.values() for c in r.split('-') if c})
+        apts = dict(rd.get('airports') or {})
+        missing = [c for c in need if c not in apts]
+        if missing:
+            ap = req('https://raw.githubusercontent.com/davidmegginson/ourairports-data/main/airports.csv', headers={'Accept': 'text/csv'},
+                     timeout=60, tag='ourairports')
+            import csv, io
+            want = set(missing)
+            for row in csv.DictReader(io.StringIO(ap)):
+                code = (row.get('icao_code') or row.get('gps_code') or row.get('ident') or '').upper()
+                if code in want:
+                    try:
+                        apts[code] = [round(float(row['latitude_deg']), 3), round(float(row['longitude_deg']), 3), (row.get('iata_code') or '').upper()]
+                    except (TypeError, ValueError):
+                        pass
+        rd = {'routes': routes, 'airports': apts, 'at': int(t0.timestamp())}
+        state['routedb'] = rd
+        print(f'route file: {len(routes)} SWA flight numbers, {len(apts)} airports placed')
+        return rd, None
+    except Exception as ex:
+        return rd, f'route file: {type(ex).__name__}: {str(ex)[:80]}'
+
+
+def bearing(lat1, lon1, lat2, lon2):
+    k = math.pi / 180
+    y = math.sin((lon2 - lon1) * k) * math.cos(lat2 * k)
+    x = math.cos(lat1 * k) * math.sin(lat2 * k) - math.sin(lat1 * k) * math.cos(lat2 * k) * math.cos((lon2 - lon1) * k)
+    return (math.atan2(y, x) / k + 360) % 360
+
+
+def apply_routes(fleet, rd):
+    """Show a route only when the aircraft fits it: near the leg's great circle and, once cruising, heading for its end."""
+    routes, apts = rd.get('routes') or {}, rd.get('airports') or {}
+    for f in fleet:
+        r = routes.get(f['cs'], '')
         f['route'] = r
-        f['org'], f['dst'] = org, dst
-        if dst and dst in by_iata and f.get('gs') and not f['gnd']:
-            d = by_iata[dst]
-            f['dist'] = round(nm(f['lat'], f['lon'], d['lat'], d['lon']))
-            f['ete'] = round(f['dist'] / max(f['gs'], 120) * 60 + 8)   # minutes, plus a few for the approach
+        codes = [c for c in r.split('-') if c]
+        best = None
+        for a, b in zip(codes, codes[1:]):
+            A, B = apts.get(a), apts.get(b)
+            if not A or not B:
+                continue
+            leg = nm(A[0], A[1], B[0], B[1])
+            dA, dB = nm(f['lat'], f['lon'], A[0], A[1]), nm(f['lat'], f['lon'], B[0], B[1])
+            excess = dA + dB - leg
+            if excess > max(60, 0.12 * leg):
+                continue
+            if not f['gnd'] and f.get('trk') is not None and dB > 40 and dA > 25:
+                off = abs((bearing(f['lat'], f['lon'], B[0], B[1]) - f['trk'] + 540) % 360 - 180)
+                if off > 60:
+                    continue
+            if best is None or excess < best[0]:
+                best = (excess, a, b, A, B, dB)
+        if best:
+            _, a, b, A, B, dB = best
+            f['org'], f['dst'] = (A[2] or a[-3:]), (B[2] or b[-3:])
+            f['orgIcao'], f['dstIcao'] = a, b
+            if not f['gnd'] and f.get('gs'):
+                f['dist'] = round(dB)
+                f['ete'] = round(dB / max(f['gs'], 120) * 60 + 8)   # minutes, with a few for the approach
+        else:
+            f['org'] = f['dst'] = ''
 
 
 # ── FAA NAS status ───────────────────────────────────────────────────────
@@ -262,31 +361,14 @@ def nas_status():
                 rec.update(type='DLY', dir=kind, min=txt(ad, 'Min') if ad is not None else '', max=txt(ad, 'Max') if ad is not None else '',
                            trend=txt(ad, 'Trend') if ad is not None else '')
             out.append(rec)
+    # closures that only keep out general aviation ("TO NON SKED TRANSIENT GA", "TO GA ACFT EXC PPR") don't touch an airline
+    out = [r for r in out if not (r['type'] == 'CLSD' and re.search(r'\b(NON SKED|TRANSIENT|GA ACFT|TO GA|PPR)\b', r.get('reason', '')))]
     seen, uniq = set(), []
     for r in out:
         k = json.dumps(r, sort_keys=True)
         if k not in seen:
             seen.add(k); uniq.append(r)
     return {'updated': upd, 'programs': uniq}
-
-
-# ── LUV ──────────────────────────────────────────────────────────────────
-def luv_quote():
-    try:
-        csv = req('https://stooq.com/q/l/?s=luv.us&f=sd2t2ohlcvp&h&e=csv', headers={'Accept': 'text/csv'}, tag='stooq')
-        rows = [r.split(',') for r in csv.strip().splitlines()]
-        hdr, val = rows[0], rows[1]
-        d = dict(zip([h.lower() for h in hdr], val))
-        close = float(d['close'])
-        prev = float(d['prev']) if d.get('prev') not in (None, '', 'N/D') else None
-        return {'sym': 'LUV', 'price': close, 'chg': round(close - prev, 2) if prev else None,
-                'pct': round((close / prev - 1) * 100, 2) if prev else None, 'asof': f"{d.get('date')} {d.get('time')}", 'src': 'Stooq (delayed)'}
-    except Exception:
-        js = json.loads(req('https://query1.finance.yahoo.com/v8/finance/chart/LUV?interval=1d&range=5d', tag='yahoo'))
-        m = js['chart']['result'][0]['meta']
-        p, prev = m.get('regularMarketPrice'), m.get('chartPreviousClose') or m.get('previousClose')
-        return {'sym': 'LUV', 'price': p, 'chg': round(p - prev, 2) if p and prev else None, 'pct': round((p / prev - 1) * 100, 2) if p and prev else None,
-                'asof': iso(dt.datetime.fromtimestamp(m.get('regularMarketTime') or time.time(), dt.timezone.utc)), 'src': 'Yahoo Finance (delayed)'}
 
 
 def main():
@@ -301,7 +383,8 @@ def main():
     old = load(os.path.join(a.out, 'live.json'), {})
     errors = []
     state = old.get('_state') or {}
-    air_cache, route_cache, first = state.get('airframes') or {}, state.get('routes') or {}, state.get('first') or {}
+    state.pop('airframes', None); state.pop('routes', None)
+    first = state.get('first') or {}
 
     fleet, src = old.get('fleet') or [], old.get('fleetSource') or ''
     fleet_at = old.get('fleetAt')
@@ -321,11 +404,12 @@ def main():
             errors.append(f'adsb.fi: {type(ex).__name__}: {str(ex)[:100]}')
     if got is not None:
         fleet, fleet_at = got, iso(t0)
-        e = enrich_airframes(fleet, air_cache)
+        e = faa_registry(state, t0)
         if e: errors.append(e)
-        e = enrich_routes([f for f in fleet if not f['gnd']], route_cache, t0)
+        enrich_airframes(fleet, state)
+        rd, e = route_db(state, t0)
         if e: errors.append(e)
-        apply_routes(fleet, route_cache, by_iata, by_icao)
+        apply_routes(fleet, rd)
         # first time each flight was seen airborne (to the updater's resolution), kept for 3 hours after it vanishes
         ts = int(t0.timestamp())
         for f in fleet:
@@ -345,19 +429,13 @@ def main():
     except Exception as ex:
         errors.append(f'NAS status: {type(ex).__name__}: {str(ex)[:100]}')
 
-    quote = old.get('quote')
-    try:
-        quote = luv_quote(); quote['fetched'] = iso(t0)
-        print(f'LUV: {quote["price"]} ({quote["src"]})')
-    except Exception as ex:
-        errors.append(f'LUV quote: {type(ex).__name__}: {str(ex)[:100]}')
-
-    state.update(airframes=air_cache, routes=route_cache, first=first)
-    keys = ('cs', 'hex', 'reg', 'type', 'lat', 'lon', 'alt', 'gs', 'trk', 'vs', 'sq', 'gnd', 'seen', 'route', 'org', 'dst', 'dist', 'ete', 'first')
-    doc = {'v': 1, 'generated': iso(now()), 'every': '10 min (GitHub Actions)', 'fleetAt': fleet_at, 'fleetSource': src,
+    state['first'] = first
+    keys = ('cs', 'hex', 'reg', 'type', 'lat', 'lon', 'alt', 'gs', 'trk', 'vs', 'sq', 'gnd', 'seen', 'org', 'dst', 'orgIcao', 'dstIcao', 'dist', 'ete', 'first')
+    doc = {'v': 1, 'generated': iso(now()), 'every': '10 min (GitHub Actions)', 'budgetNote': 'OpenSky anonymous: one global request at most every 14 min', 'fleetAt': fleet_at, 'fleetSource': src,
            'fleet': [{k: f.get(k) for k in keys if f.get(k) not in (None, '')} for f in sorted(fleet, key=lambda f: f['cs'])],
-           'atc': atc, 'quote': quote, 'errors': errors[:20], 'probe': PROBE,
-           'credits': {'fleet': src, 'routes': 'adsb.lol route data (community)', 'airframes': 'airplanes.live', 'atc': 'FAA NAS Status'},
+           'atc': atc, 'errors': errors[:20], 'probe': PROBE,
+           'credits': {'fleet': src, 'routes': 'vradarserver/standing-data (community), checked against position and track',
+                       'airframes': 'Mode S → N-number; types from the FAA aircraft registry', 'atc': 'FAA NAS Status'},
            '_state': state}
     with open(os.path.join(a.out, 'live.json'), 'w', encoding='utf-8') as f:
         json.dump(doc, f, separators=(',', ':'))
