@@ -67,6 +67,8 @@ table{width:100%;border-collapse:collapse;font-size:13px;font-variant-numeric:ta
 th,td{padding:6px 6px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
 th:first-child,td:first-child{text-align:left}th{font-size:11px;color:var(--mute);text-transform:uppercase;letter-spacing:.04em;font-weight:700;position:sticky;top:0;background:var(--card)}
 .tscroll{overflow:auto;max-height:70vh;-webkit-overflow-scrolling:touch;margin:0 -14px;padding:0 14px}
+.tscroll th:first-child,.tscroll td:first-child{position:sticky;left:0;background:var(--card);z-index:1}.tscroll th:first-child{z-index:2}
+@media (max-width:600px){th,td{padding:6px 4px;font-size:12px}.cand .big{font-size:34px}}
 .m{font-weight:700}.m.l{color:var(--lula)}.m.f{color:var(--flavio)}
 .swatch{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:5px;vertical-align:middle}
 .chart{width:100%;height:auto;display:block}
