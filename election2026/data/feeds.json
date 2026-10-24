@@ -12,8 +12,8 @@
    "url": "https://feeds.npr.org/1014/rss.xml",
    "scope": "national",
    "kind": "rss",
-   "verified": "2026-10-23",
-   "verifiedHow": "WebFetch returned RSS 2.0 XML, channel 'NPR Topics: Politics', 10 items; newest pubDate 'Fri, 23 Oct 2026 07:22:25 -0400' ('Military reinforcements move to Mideast. And, millions of Americans vote early'); next 'Fri, 23 Oct 2026 06:36:09 -0400' ('Trump's midterm campaign tour stops in Iowa').",
+   "verified": true,
+   "verifiedHow": "fetched and parsed by the Action run 2026-10-24T00:20Z",
    "notes": "Only 10 items per pull; poll every refresh cycle. Feed URL surfaced via a site:feeds.npr.org search and via Feedspot's political-news directory."
   },
   {
@@ -21,33 +21,34 @@
    "url": "https://rss.csmonitor.com/feeds/politics?format=xml",
    "scope": "national",
    "kind": "rss",
-   "verified": "2026-10-23",
-   "verifiedHow": "WebFetch returned RSS 2.0 XML, channel 'The Christian Science Monitor | Politics', 20 items; newest pubDate 'Fri, 23 Oct 2026 11:21:00 -0400' ('Whatever the outcome, Nov. 3 is a pivot point for Trump'); 'Thu, 22 Oct 2026 12:11:00 -0400'; 'Wed, 21 Oct 2026 05:00:11 -0400'.",
+   "verified": true,
+   "verifiedHow": "fetched and parsed by the Action run 2026-10-24T00:20Z",
    "notes": "Not on the requested outlet list, but it was the only other politics feed the search engine exposed as a raw URL; lower volume (a few items/day)."
   },
   {
    "name": "Politico",
-   "url": "https://www.politico.com/rss/politicopicks.xml",
+   "url": "https://rss.politico.com/politics-news.xml",
    "scope": "national",
    "kind": "rss",
    "verified": false,
-   "verifiedHow": "candidate; verified by the first automated run"
+   "verifiedHow": "failed in the Action run 2026-10-24T00:20Z: HTTPError: HTTP Error 403: Forbidden",
+   "note": "politico.com/rss/politicopicks.xml answered 403 to the Action on 2026-10-24; switched to the rss.politico.com politics feed"
   },
   {
    "name": "The Hill",
    "url": "https://thehill.com/feed/",
    "scope": "national",
    "kind": "rss",
-   "verified": false,
-   "verifiedHow": "candidate; verified by the first automated run"
+   "verified": true,
+   "verifiedHow": "fetched and parsed by the Action run 2026-10-24T00:20Z"
   },
   {
    "name": "New York Times Politics",
    "url": "https://rss.nytimes.com/services/xml/rss/nyt/Politics.xml",
    "scope": "national",
    "kind": "rss",
-   "verified": false,
-   "verifiedHow": "candidate; verified by the first automated run"
+   "verified": true,
+   "verifiedHow": "fetched and parsed by the Action run 2026-10-24T00:20Z"
   },
   {
    "name": "Washington Post Politics",
@@ -55,71 +56,71 @@
    "scope": "national",
    "kind": "rss",
    "verified": false,
-   "verifiedHow": "candidate; verified by the first automated run"
+   "verifiedHow": "failed in the Action run 2026-10-24T00:20Z: HTTPError: HTTP Error 502: Bad Gateway"
   },
   {
    "name": "CNN Politics",
    "url": "http://rss.cnn.com/rss/cnn_allpolitics.rss",
    "scope": "national",
    "kind": "rss",
-   "verified": false,
-   "verifiedHow": "candidate; verified by the first automated run"
+   "verified": true,
+   "verifiedHow": "fetched and parsed by the Action run 2026-10-24T00:20Z"
   },
   {
    "name": "Fox News Politics",
    "url": "https://moxie.foxnews.com/google-publisher/politics.xml",
    "scope": "national",
    "kind": "rss",
-   "verified": false,
-   "verifiedHow": "candidate; verified by the first automated run"
+   "verified": true,
+   "verifiedHow": "fetched and parsed by the Action run 2026-10-24T00:20Z"
   },
   {
    "name": "NBC News Politics",
    "url": "https://feeds.nbcnews.com/nbcnews/public/politics",
    "scope": "national",
    "kind": "rss",
-   "verified": false,
-   "verifiedHow": "candidate; verified by the first automated run"
+   "verified": true,
+   "verifiedHow": "fetched and parsed by the Action run 2026-10-24T00:20Z"
   },
   {
    "name": "CBS News Politics",
    "url": "https://www.cbsnews.com/latest/rss/politics",
    "scope": "national",
    "kind": "rss",
-   "verified": false,
-   "verifiedHow": "candidate; verified by the first automated run"
+   "verified": true,
+   "verifiedHow": "fetched and parsed by the Action run 2026-10-24T00:20Z"
   },
   {
    "name": "ABC News Politics",
    "url": "https://abcnews.go.com/abcnews/politicsheadlines",
    "scope": "national",
    "kind": "rss",
-   "verified": false,
-   "verifiedHow": "candidate; verified by the first automated run"
+   "verified": true,
+   "verifiedHow": "fetched and parsed by the Action run 2026-10-24T00:20Z"
   },
   {
    "name": "Axios",
    "url": "https://api.axios.com/feed/",
    "scope": "national",
    "kind": "rss",
-   "verified": false,
-   "verifiedHow": "candidate; verified by the first automated run"
+   "verified": true,
+   "verifiedHow": "fetched and parsed by the Action run 2026-10-24T00:20Z"
   },
   {
    "name": "AP News",
    "url": "https://news.google.com/rss/search?q=site:apnews.com+(election+OR+Senate+OR+governor+OR+midterms)&hl=en-US&gl=US&ceid=US:en",
    "scope": "national",
    "kind": "rss",
-   "verified": false,
-   "verifiedHow": "candidate; verified by the first automated run"
+   "verified": true,
+   "verifiedHow": "fetched and parsed by the Action run 2026-10-24T00:20Z"
   },
   {
    "name": "Reuters",
    "url": "https://news.google.com/rss/search?q=site:reuters.com+(election+OR+Senate+OR+governor+OR+midterms)&hl=en-US&gl=US&ceid=US:en",
    "scope": "national",
    "kind": "rss",
-   "verified": false,
-   "verifiedHow": "candidate; verified by the first automated run"
+   "verified": true,
+   "verifiedHow": "fetched and parsed by the Action run 2026-10-24T00:20Z"
   },
   {
    "name": "Ballotpedia News",
@@ -127,159 +128,161 @@
    "scope": "national",
    "kind": "rss",
    "verified": false,
-   "verifiedHow": "candidate; verified by the first automated run"
+   "verifiedHow": "failed in the Action run 2026-10-24T00:20Z: ParseError: not well-formed (invalid token): line 1, column 0",
+   "note": "answered with a non-XML page on 2026-10-24 (bot check?); retried with browser-like headers"
   },
   {
    "name": "Votebeat",
    "url": "https://www.votebeat.org/arc/outboundfeeds/rss/",
    "scope": "national (AZ, MI, PA, TX, WI bureaus)",
    "kind": "rss",
-   "verified": false,
-   "verifiedHow": "candidate; verified by the first automated run"
+   "verified": true,
+   "verifiedHow": "fetched and parsed by the Action run 2026-10-24T00:20Z"
   },
   {
    "name": "Election Law Blog",
    "url": "https://electionlawblog.org/feed/",
    "scope": "national",
    "kind": "rss",
-   "verified": false,
-   "verifiedHow": "candidate; verified by the first automated run"
+   "verified": true,
+   "verifiedHow": "fetched and parsed by the Action run 2026-10-24T00:20Z"
   },
   {
    "name": "Democracy Docket",
    "url": "https://www.democracydocket.com/feed/",
    "scope": "national",
    "kind": "rss",
-   "verified": false,
-   "verifiedHow": "candidate; verified by the first automated run"
+   "verified": true,
+   "verifiedHow": "fetched and parsed by the Action run 2026-10-24T00:20Z"
   },
   {
    "name": "RealClearPolitics",
    "url": "https://www.realclearpolitics.com/index.xml",
    "scope": "national",
    "kind": "rss",
-   "verified": false,
-   "verifiedHow": "candidate; verified by the first automated run"
+   "verified": true,
+   "verifiedHow": "fetched and parsed by the Action run 2026-10-24T00:20Z"
   },
   {
    "name": "Ohio Capital Journal",
    "url": "https://ohiocapitaljournal.com/feed/",
    "scope": "OH",
    "kind": "rss",
-   "verified": false,
-   "verifiedHow": "candidate; verified by the first automated run"
+   "verified": true,
+   "verifiedHow": "fetched and parsed by the Action run 2026-10-24T00:20Z"
   },
   {
    "name": "Cleveland.com Politics",
    "url": "https://www.cleveland.com/arc/outboundfeeds/rss/?outputType=xml",
    "scope": "OH",
    "kind": "rss",
-   "verified": false,
-   "verifiedHow": "candidate; verified by the first automated run"
+   "verified": true,
+   "verifiedHow": "fetched and parsed by the Action run 2026-10-24T00:20Z"
   },
   {
    "name": "Georgia Recorder",
    "url": "https://georgiarecorder.com/feed/",
    "scope": "GA",
    "kind": "rss",
-   "verified": false,
-   "verifiedHow": "candidate; verified by the first automated run"
+   "verified": true,
+   "verifiedHow": "fetched and parsed by the Action run 2026-10-24T00:20Z"
   },
   {
    "name": "Atlanta Journal-Constitution Politics",
-   "url": "https://www.ajc.com/arc/outboundfeeds/rss/category/politics/?outputType=xml",
+   "url": "https://www.ajc.com/arc/outboundfeeds/rss/?outputType=xml",
    "scope": "GA",
    "kind": "rss",
    "verified": false,
-   "verifiedHow": "candidate; verified by the first automated run"
+   "verifiedHow": "failed in the Action run 2026-10-24T00:20Z: HTTPError: HTTP Error 404: Not Found",
+   "note": "the /category/politics/ feed answered 404 on 2026-10-24; the main AJC feed is read instead and the relevance filter keeps the election items"
   },
   {
    "name": "NC Newsline",
    "url": "https://ncnewsline.com/feed/",
    "scope": "NC",
    "kind": "rss",
-   "verified": false,
-   "verifiedHow": "candidate; verified by the first automated run"
+   "verified": true,
+   "verifiedHow": "fetched and parsed by the Action run 2026-10-24T00:20Z"
   },
   {
    "name": "Maine Morning Star",
    "url": "https://mainemorningstar.com/feed/",
    "scope": "ME",
    "kind": "rss",
-   "verified": false,
-   "verifiedHow": "candidate; verified by the first automated run"
+   "verified": true,
+   "verifiedHow": "fetched and parsed by the Action run 2026-10-24T00:20Z"
   },
   {
    "name": "Bangor Daily News",
    "url": "https://www.bangordailynews.com/feed/",
    "scope": "ME",
    "kind": "rss",
-   "verified": false,
-   "verifiedHow": "candidate; verified by the first automated run"
+   "verified": true,
+   "verifiedHow": "fetched and parsed by the Action run 2026-10-24T00:20Z"
   },
   {
    "name": "Iowa Capital Dispatch",
    "url": "https://iowacapitaldispatch.com/feed/",
    "scope": "IA",
    "kind": "rss",
-   "verified": false,
-   "verifiedHow": "candidate; verified by the first automated run"
+   "verified": true,
+   "verifiedHow": "fetched and parsed by the Action run 2026-10-24T00:20Z"
   },
   {
    "name": "Michigan Advance",
    "url": "https://michiganadvance.com/feed/localFeed/",
    "scope": "MI",
    "kind": "rss",
-   "verified": false,
-   "verifiedHow": "candidate; verified by the first automated run"
+   "verified": true,
+   "verifiedHow": "fetched and parsed by the Action run 2026-10-24T00:20Z"
   },
   {
    "name": "Alaska Beacon",
    "url": "https://alaskabeacon.com/feed/",
    "scope": "AK",
    "kind": "rss",
-   "verified": false,
-   "verifiedHow": "candidate; verified by the first automated run"
+   "verified": true,
+   "verifiedHow": "fetched and parsed by the Action run 2026-10-24T00:20Z"
   },
   {
    "name": "The Texas Tribune",
    "url": "https://www.texastribune.org/feed/",
    "scope": "TX",
    "kind": "rss",
-   "verified": false,
-   "verifiedHow": "candidate; verified by the first automated run"
+   "verified": true,
+   "verifiedHow": "fetched and parsed by the Action run 2026-10-24T00:20Z"
   },
   {
    "name": "New Hampshire Bulletin",
    "url": "https://newhampshirebulletin.com/feed/",
    "scope": "NH",
    "kind": "rss",
-   "verified": false,
-   "verifiedHow": "candidate; verified by the first automated run"
+   "verified": true,
+   "verifiedHow": "fetched and parsed by the Action run 2026-10-24T00:20Z"
   },
   {
    "name": "Kansas Reflector",
    "url": "https://kansasreflector.com/feed/",
    "scope": "KS",
    "kind": "rss",
-   "verified": false,
-   "verifiedHow": "candidate; verified by the first automated run"
+   "verified": true,
+   "verifiedHow": "fetched and parsed by the Action run 2026-10-24T00:20Z"
   },
   {
    "name": "Nebraska Examiner",
    "url": "https://nebraskaexaminer.com/feed/",
    "scope": "NE",
    "kind": "rss",
-   "verified": false,
-   "verifiedHow": "candidate; verified by the first automated run"
+   "verified": true,
+   "verifiedHow": "fetched and parsed by the Action run 2026-10-24T00:20Z"
   },
   {
    "name": "Minnesota Reformer",
    "url": "https://minnesotareformer.com/feed/",
    "scope": "MN",
    "kind": "rss",
-   "verified": false,
-   "verifiedHow": "candidate; verified by the first automated run"
+   "verified": true,
+   "verifiedHow": "fetched and parsed by the Action run 2026-10-24T00:20Z"
   },
   {
    "name": "Florida Politics",
@@ -287,47 +290,47 @@
    "scope": "FL",
    "kind": "rss",
    "verified": false,
-   "verifiedHow": "candidate; verified by the first automated run"
+   "verifiedHow": "failed in the Action run 2026-10-24T00:20Z: HTTPError: HTTP Error 403: Forbidden"
   },
   {
    "name": "Arizona Capitol Times",
    "url": "https://azcapitoltimes.com/feed/",
    "scope": "AZ",
    "kind": "rss",
-   "verified": false,
-   "verifiedHow": "candidate; verified by the first automated run"
+   "verified": true,
+   "verifiedHow": "fetched and parsed by the Action run 2026-10-24T00:20Z"
   },
   {
    "name": "Wisconsin Examiner",
    "url": "https://wisconsinexaminer.com/feed/localFeed/",
    "scope": "WI",
    "kind": "rss",
-   "verified": false,
-   "verifiedHow": "candidate; verified by the first automated run"
+   "verified": true,
+   "verifiedHow": "fetched and parsed by the Action run 2026-10-24T00:20Z"
   },
   {
    "name": "Spotlight PA",
    "url": "https://www.spotlightpa.org/feeds/full.xml",
    "scope": "PA",
    "kind": "rss",
-   "verified": false,
-   "verifiedHow": "candidate; verified by the first automated run"
+   "verified": true,
+   "verifiedHow": "fetched and parsed by the Action run 2026-10-24T00:20Z"
   },
   {
    "name": "Nevada Current",
    "url": "https://nevadacurrent.com/feed/",
    "scope": "NV",
    "kind": "rss",
-   "verified": false,
-   "verifiedHow": "candidate; verified by the first automated run"
+   "verified": true,
+   "verifiedHow": "fetched and parsed by the Action run 2026-10-24T00:20Z"
   },
   {
    "name": "Virginia Mercury",
    "url": "https://virginiamercury.com/feed/",
    "scope": "VA",
    "kind": "rss",
-   "verified": false,
-   "verifiedHow": "candidate; verified by the first automated run"
+   "verified": true,
+   "verifiedHow": "fetched and parsed by the Action run 2026-10-24T00:20Z"
   }
  ],
  "resultsNight": {

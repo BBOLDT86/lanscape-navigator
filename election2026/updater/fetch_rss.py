@@ -3,10 +3,14 @@
 {asOf, items: [{t, title, link, source, scope}]} (last 72 hours, newest first, at most 200; titles are the outlets' own).
 A feed that fails is skipped and noted; nothing is invented.
 """
-import json, os, re, sys, time, html, datetime as dt, urllib.request, email.utils, xml.etree.ElementTree as ET
+import json, os, re, sys, time, html, gzip, datetime as dt, urllib.request, urllib.error, email.utils, xml.etree.ElementTree as ET
 
 HERE = os.path.dirname(os.path.abspath(__file__)); D = os.path.join(HERE, '..', 'data')
-UA = {'User-Agent': 'ElectionDesk2026/1.0 (+https://bboldt86.github.io/lanscape-navigator/election2026/)'}
+# Browser-like headers: several outlets answer a plain script UA with 403 or a bot-check page. The project URL stays in the UA
+# so a publisher can see who is reading the feed. Feeds are read once every 3 hours (every 15 minutes Nov. 3-6).
+UA = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36 ElectionDesk2026/1.0 (+https://bboldt86.github.io/lanscape-navigator/election2026/)',
+      'Accept': 'application/rss+xml, application/atom+xml, application/xml;q=0.9, text/xml;q=0.9, */*;q=0.8',
+      'Accept-Language': 'en-US,en;q=0.9'}
 def now(): return dt.datetime.now(dt.timezone.utc)
 def load(p, d):
     try: return json.load(open(p, encoding='utf-8'))
@@ -56,7 +60,22 @@ def fetch_raw(url, src):
         if not os.path.exists(fp): raise FileNotFoundError(fp)
         return open(fp, 'rb').read()
     req = urllib.request.Request(url, headers=UA)
-    with urllib.request.urlopen(req, timeout=20) as r: return r.read()
+    for attempt in (1, 2):  # one retry on a gateway error or a dropped connection
+        try:
+            with urllib.request.urlopen(req, timeout=20) as r: raw = r.read()
+            break
+        except urllib.error.HTTPError as ex:
+            if attempt == 1 and ex.code >= 500: time.sleep(3); continue
+            raise
+        except (urllib.error.URLError, TimeoutError, ConnectionError):
+            if attempt == 1: time.sleep(3); continue
+            raise
+    if raw[:2] == b'\x1f\x8b': raw = gzip.decompress(raw)
+    raw = raw.lstrip(b'\xef\xbb\xbf \t\r\n')
+    head = raw[:300].lower()
+    if head.startswith(b'<!doctype html') or head.startswith(b'<html') or b'<html' in head[:120]:
+        raise ValueError('returned an HTML page, not a feed (bot check or moved)')
+    return raw
 for f in feeds.get('rss') or []:
     url = f.get('url'); src = f.get('name') or url; scope = f.get('scope') or 'national'
     if not url: continue
