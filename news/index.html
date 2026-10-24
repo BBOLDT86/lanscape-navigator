@@ -994,9 +994,10 @@ function econFmt(e, v, big) {
 }
 function econWhen(e, d) {
   const dd = new Date(d + 'T12:00:00Z');
+  if (e.released) return 'Released ' + dd.toLocaleDateString('en-US', { month: 'short', day: 'numeric', timeZone: 'UTC' });
   if (e.id === 'GDP') return `Q${Math.floor(dd.getUTCMonth() / 3) + 1} ${dd.getUTCFullYear()}`;
   if (e.id === 'CURVE') return 'As of ' + dd.toLocaleDateString('en-US', { month: 'short', day: 'numeric', timeZone: 'UTC' });
-  if (['MORT', 'GAS', 'FED'].includes(e.id)) return 'Week of ' + dd.toLocaleDateString('en-US', { month: 'short', day: 'numeric', timeZone: 'UTC' });
+  if (['MORT', 'GAS', 'FED', 'CLAIMS'].includes(e.id)) return 'Week of ' + dd.toLocaleDateString('en-US', { month: 'short', day: 'numeric', timeZone: 'UTC' });
   return dd.toLocaleDateString('en-US', { month: 'long', year: 'numeric', timeZone: 'UTC' });
 }
 function econTile(e) {

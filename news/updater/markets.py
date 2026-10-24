@@ -108,6 +108,7 @@ STOCKS = [('AAPL', 'Apple'), ('MSFT', 'Microsoft'), ('NVDA', 'Nvidia'), ('AMZN',
           ('SHEL', 'Shell'), ('PBR', 'Petrobras'), ('VALE', 'Vale'), ('ITUB', 'Itaú Unibanco'), ('NU', 'Nu Holdings'), ('COIN', 'Coinbase'),
           ('SMCI', 'Super Micro'), ('ARM', 'Arm'), ('SNOW', 'Snowflake'), ('SHOP', 'Shopify')]
 CNBC_SYM = {'BRK-B': 'BRK.B'}
+US_CASH = {'^GSPC', '^DJI', '^IXIC', '^RUT', '^VIX'}
 
 errors = []
 START = time.monotonic()
@@ -286,7 +287,25 @@ def eia_gas():
 
 
 # how long each kind of number stays current; past that it is left off the page rather than shown as the latest
-FRESH_DAYS = {'CPI': 75, 'CORE': 75, 'UNRATE': 70, 'PAYEMS': 70, 'GDP': 200, 'GAS': 21, 'FED': 14, 'MORT': 21, 'SENT': 60, 'CURVE': 10}
+FRESH_DAYS = {'CPI': 100, 'CORE': 100, 'UNRATE': 100, 'PAYEMS': 70, 'CLAIMS': 14, 'GDP': 250, 'GAS': 21, 'FED': 14, 'MORT': 21, 'SENT': 60, 'CURVE': 10}
+
+
+def newest(*series):
+    """of several copies of the same official series, the one whose latest reading is newest"""
+    ok = []
+    for x in series:
+        if x:
+            ok.append(x)
+    if not ok:
+        raise ValueError('no data')
+    return max(ok, key=lambda x: x[-1][0])
+
+
+def safe(fn):
+    try:
+        return fn()
+    except Exception:  # noqa: BLE001
+        return []
 
 
 def yoy(pts):
@@ -312,9 +331,11 @@ def econ_series():
         out.append({'id': sid, 'n': name, 'unit': unit, 'x': explain, 'v': pts[-1][1], 'date': pts[-1][0], 'prev': pts[-2][1],
                     'pdate': pts[-2][0], 'pts': [[d, v] for d, v in pts], 'src': src})
     jobs = [
-        ('CPI', 'Inflation', '%', 'Consumer prices compared with a year earlier (BLS).', lambda: yoy(dbnomics('BLS/cu/CUUR0000SA0')), 'https://www.bls.gov/cpi/'),
+        ('CPI', 'Inflation', '%', 'Consumer prices compared with a year earlier (BLS figures; IMF copy when newer).',
+         lambda: newest(safe(lambda: yoy(dbnomics('BLS/cu/CUUR0000SA0'))), safe(lambda: yoy(dbnomics('IMF/CPI/M.US.PCPI_IX')))), 'https://www.bls.gov/cpi/'),
         ('CORE', 'Core inflation', '%', 'Prices without food and energy, compared with a year earlier. The Fed watches this one (BLS).', lambda: yoy(dbnomics('BLS/cu/CUUR0000SA0L1E')), 'https://www.bls.gov/cpi/'),
-        ('UNRATE', 'Unemployment', '%', 'Share of people looking for work who can’t find it (BLS).', lambda: dbnomics('BLS/ln/LNS14000000'), 'https://www.bls.gov/cps/'),
+        ('UNRATE', 'Unemployment', '%', 'Share of people looking for work who can’t find it (BLS figures; OECD copy when newer).',
+         lambda: newest(safe(lambda: dbnomics('BLS/ln/LNS14000000')), safe(lambda: dbnomics('OECD/DSD_LFS@DF_IALFS_UNE_M/USA..._Z.Y._T.Y_GE15..M'))), 'https://www.bls.gov/cps/'),
         ('PAYEMS', 'Jobs added', 'k', 'New payroll jobs in the month, in thousands (BLS).',
          lambda: (lambda p: [(p[i][0], round(p[i][1] - p[i - 1][1], 0)) for i in range(1, len(p))])(dbnomics('BLS/ce/CES0000000001')), 'https://www.bls.gov/ces/'),
         ('GDP', 'GDP growth', '%', 'How fast the economy grew in the quarter, at an annual rate, after inflation (BEA).', lambda: dbnomics('BEA/NIPA-T10101/A191RL-Q'), 'https://www.bea.gov/data/gdp/gross-domestic-product'),
@@ -424,6 +445,44 @@ def econ_events(day):
     return {'date': day.isoformat(), 'rows': us[:16] + rest[:8]}
 
 
+RELEASES = {  # Nasdaq calendar event -> (id, name, unit, what it is)
+    'PAYEMS': (r'^non ?-?farm payrolls$', 'Jobs added', 'k', 'New payroll jobs in the month, in thousands, as first reported (BLS, via Nasdaq’s calendar).'),
+    'CLAIMS': (r'^initial jobless claims$', 'Jobless claims', 'k', 'New claims for unemployment benefits in a week, in thousands. They rise early in a downturn (Labor Department, via Nasdaq’s calendar).'),
+}
+
+
+def release_actuals(cache):
+    """scan recent days of Nasdaq's calendar for the actual payrolls and claims numbers; remember what was found"""
+    cache = dict(cache or {})
+    back = 7 if cache else 32
+    d = NOW.astimezone(ETZ).date()
+    days = []
+    while len(days) < back:
+        if d.weekday() < 5:
+            days.append(d)
+        d -= dt.timedelta(days=1)
+    for day in days:
+        if late():
+            break
+        try:
+            j = json.loads(get(f'https://api.nasdaq.com/api/calendar/economicevents?date={day.isoformat()}', accept='application/json', headers=NASDAQ_H))
+        except Exception:  # noqa: BLE001
+            continue
+        for r in ((j.get('data') or {}).get('rows')) or []:
+            if (r.get('country') or '').strip() != 'United States':
+                continue
+            ev = re.sub(r'\s+', ' ', (r.get('eventName') or '').strip()).lower()
+            act = num(re.sub(r'[KkMm]$', '', (r.get('actual') or '').replace('&nbsp;', '').strip()))
+            prev = num(re.sub(r'[KkMm]$', '', (r.get('previous') or '').replace('&nbsp;', '').strip()))
+            for sid, (rx, *_rest) in RELEASES.items():
+                if re.match(rx, ev) and act is not None:
+                    if sid == 'CLAIMS' and act > 5000:
+                        act, prev = act / 1000, (prev / 1000 if prev else prev)
+                    if not cache.get(sid) or cache[sid]['date'] <= day.isoformat():
+                        cache[sid] = {'date': day.isoformat(), 'v': act, 'prev': prev}
+    return cache
+
+
 def current_watch():
     et = NOW.astimezone(ETZ)
     names = ['middle', 'morning', 'forenoon', 'afternoon', 'dog', 'first']
@@ -458,11 +517,29 @@ def main():
             q = quotes.get(cn)
             if not q:
                 errors.append(f'{name}: no quote'); continue
-            r = record(key, q, name, kind, x, intra[cn].result() if cn in intra else None, daily[cn].result(),
-                       ds=key if g == 'st' else None)
+            bars = intra[cn].result() if cn in intra else None
+            if bars and (g == 'sec' or key in US_CASH):  # U.S. cash markets: the regular session only
+                day0 = dt.datetime.fromtimestamp(bars[0][0], ETZ).date()
+                cut = dt.datetime(day0.year, day0.month, day0.day, 16, 5, tzinfo=ETZ).timestamp()
+                bars = [b for b in bars if b[0] <= cut] or bars
+            r = record(key, q, name, kind, x, bars, daily[cn].result(), ds=key if g == 'st' else None)
             if r:
                 recs[key] = r
         econ = ejob.result()
+    try:
+        rel = release_actuals(old.get('releases'))
+    except Exception as ex:  # noqa: BLE001
+        rel = old.get('releases') or {}; errors.append(f'release actuals: {type(ex).__name__} {str(ex)[:50]}')
+    have = {e['id'] for e in econ}
+    for sid, (_rx, name, unit, x) in RELEASES.items():
+        r = rel.get(sid)
+        if not r or sid in have:
+            continue
+        if (NOW.date() - dt.date.fromisoformat(r['date'])).days > FRESH_DAYS.get(sid, 40):
+            continue
+        econ.append({'id': sid, 'n': name, 'unit': unit, 'x': x, 'v': r['v'], 'date': r['date'], 'prev': r.get('prev'), 'pts': [],
+                     'released': True, 'src': 'https://www.nasdaq.com/market-activity/economic-calendar'})
+    order = ['CPI', 'CORE', 'UNRATE', 'PAYEMS', 'CLAIMS', 'GDP', 'FED', 'MORT', 'GAS', 'SENT', 'CURVE']
     board = []
     for g, label, items in BOARD:
         rows = [recs[k] for k, *_ in items if k in recs]
@@ -487,6 +564,7 @@ def main():
                          'x': 'The 10-year Treasury yield minus the 2-year. Below zero has often come before a recession.', 'src': 'https://www.cnbc.com/quotes/US10Y'})
         except Exception as ex:  # noqa: BLE001
             errors.append(f'yield curve: {type(ex).__name__} {str(ex)[:50]}')
+    econ.sort(key=lambda e: order.index(e['id']) if e['id'] in order else 99)
     earn, events = [], []
     for d in days:
         try:
@@ -502,7 +580,7 @@ def main():
            'board': board if got else old.get('board', []), 'sectors': sectors or old.get('sectors', []),
            'stocks': stocks or old.get('stocks', []), 'econ': econ or old.get('econ', []),
            'earnings': earn if any(e['rows'] for e in earn) else old.get('earnings', []),
-           'events': events if any(e['rows'] for e in events) else old.get('events', []),
+           'events': events if any(e['rows'] for e in events) else old.get('events', []), 'releases': rel,
            'stale': [k for k, v in (('board', got), ('sectors', sectors), ('stocks', stocks), ('econ', econ),
                                     ('earnings', any(e['rows'] for e in earn)), ('events', any(e['rows'] for e in events))) if not v],
            'errors': errors[:40],
