@@ -4,7 +4,8 @@
 Pulls, for every station in meridian/index.html:
   METAR + TAF   aviationweather.gov Data API (JSON; raw text as a fallback)
   D-ATIS        datis.clowd.io (all airports in one call), atis.info per airport as a fallback
-  NOTAMs        FAA NOTAM Search (every 3 hours; runway, taxiway, nav/ILS, aerodrome, service, IAP and apron items)
+  NOTAMs        every 3 hours: the FAA NOTAM API when FAA_CLIENT_ID / FAA_CLIENT_SECRET are set (free keys from
+                api.faa.gov); otherwise FAA NOTAM Search, which refuses GitHub's servers (403) as of Oct. 2026
 and writes  <out>/wx.json  and  <out>/notams.json.
 
 The page reads these files from the meridian-feed branch on raw.githubusercontent.com, which serves them with
@@ -338,50 +339,12 @@ def notams_search(sts):
     return out, errs
 
 
-def notams_dins(sts):
-    """FAA DINS (www.notams.faa.gov/dinsQueryWeb), the older public NOTAM query: raw domestic text inside <PRE> blocks."""
-    import html as _html
-    out, errs = {}, []
-    by_designator = {s['iata']: s['icao'] for s in sts}
-    icaos = [s['icao'] for s in sts]
-    for i in range(0, len(icaos), 20):
-        chunk = icaos[i:i + 20]
-        url = ('https://www.notams.faa.gov/dinsQueryWeb/queryRetrievalMapAction.do?reportType=Raw&formatType=DOMESTIC'
-               '&actionType=notamRetrievalByICAOs&retrieveLocId=' + '+'.join(chunk))
-        try:
-            req = urllib.request.Request(url, headers={'User-Agent': BROWSER_UA, 'Accept': 'text/html'})
-            with urllib.request.urlopen(req, timeout=40) as r:
-                page = r.read().decode('utf-8', 'replace')
-            pres = re.findall(r'<PRE>(.*?)</PRE>', page, re.S | re.I)
-            if not pres:
-                raise ValueError('no NOTAM blocks in the reply')
-            for pre in pres:
-                txt = re.sub(r'\s+', ' ', _html.unescape(re.sub(r'<[^>]+>', '', pre))).strip()
-                m = re.match(r'^!([A-Z0-9]{3,4})\s', txt)
-                if not m:
-                    continue
-                loc = m.group(1)
-                icao = loc if loc in chunk else by_designator.get(loc) or ('K' + loc if 'K' + loc in chunk else '')
-                if not icao and loc == 'FDC':
-                    m2 = re.match(r'^!FDC\s+\S+\s+([A-Z0-9]{3,4})\s', txt)
-                    icao = by_designator.get(m2.group(1), '') if m2 else ''
-                if icao in chunk:
-                    keep_notam(out, icao, txt, '', '')
-        except Exception as ex:
-            errs.append(f'DINS {chunk[0]}…: {type(ex).__name__}: {str(ex)[:90]}')
-        time.sleep(1.5)
-    return out, errs
-
-
 def get_notams(sts):
     cid, secret = os.environ.get('FAA_CLIENT_ID', '').strip(), os.environ.get('FAA_CLIENT_SECRET', '').strip()
     if cid and secret:
         out, errs = notams_faa_api(sts, cid, secret)
     else:
         out, errs = notams_search(sts)
-        if not out:
-            out, e2 = notams_dins(sts)
-            errs = (errs if not out else []) + e2
     pri = {k: n for n, k in enumerate(NOTAM_KINDS)}
     for icao in out:
         seen, keep = set(), []

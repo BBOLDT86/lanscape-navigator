@@ -24,10 +24,23 @@ the data on GitHub's servers instead and publishes it where any browser can read
 | METAR (latest of the last 3 h, SPECI marked) | aviationweather.gov Data API, `api/data/metar?format=json` | every run |
 | TAF (latest issue, amendments included) | aviationweather.gov Data API, `api/data/taf?format=json` | every run |
 | D-ATIS | datis.clowd.io `api/all`, with atis.info / clowd.io per airport as a fallback | every run |
-| NOTAMs (runway, nav/ILS, taxiway, aerodrome, IAP, service, apron, comm; up to 60 per airport) | FAA NOTAM Search | every 3 hours |
+| NOTAMs (runway, nav/ILS, taxiway, aerodrome, IAP, service, apron, comm; up to 60 per airport) | FAA NOTAM API (needs keys, see below) | every 3 hours |
 
 AWC asks clients to stay under 100 requests a minute and to send a descriptive User-Agent. One run makes 2 requests
 to AWC (4 if it falls back to raw text).
+
+## Turning on NOTAMs
+
+FAA NOTAM Search (notams.aim.faa.gov) refuses requests from GitHub's servers (HTTP 403), and the older DINS service
+is gone, so NOTAMs need the FAA's official NOTAM API. Its keys are free:
+
+1. Register at <https://api.faa.gov> and request access to the **NOTAM API**. You get a client ID and a client secret.
+2. In the repository: **Settings › Secrets and variables › Actions › New repository secret**. Add `FAA_CLIENT_ID`
+   and `FAA_CLIENT_SECRET`.
+3. **Actions › Meridian weather feed › Run workflow**, with "Refresh NOTAMs now" ticked.
+
+From then on `notams.json` appears on the feed branch and refreshes every 3 hours. Until it exists, the page says
+NOTAMs aren't in the feed and links each airport to FAA NOTAM Search. NOTAMs can also be pasted in by hand.
 
 ## When something fails
 
