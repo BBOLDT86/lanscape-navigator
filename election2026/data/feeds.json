@@ -1,0 +1,1850 @@
+{
+ "asOf": "2026-10-23",
+ "sessionNotes": {
+  "verificationMethod": "WebFetch could only open URLs that first appeared as WebSearch result links (session allowlist); URLs recalled from memory or seen only inside fetched page text were refused before any request was sent. Feed verification therefore required surfacing each feed URL through a search first. The container shell's proxy also denied every outside host (HTTP 403 on CONNECT), so no curl/batch checks were possible.",
+  "callBudget": "45 web calls executed (26 WebSearch + 19 WebFetch). 22 additional WebFetch attempts were refused by the allowlist without a request being made.",
+  "verifiedMeans": "For rss: fetched and returned RSS/Atom XML with items dated October 2026. For results pages: fetched the official page. Anything marked verified=false was not fetched today; its urlBasis says where the URL came from.",
+  "pollCloseSource": "The Green Papers, '2026 Polling Hours' (https://www.thegreenpapers.com/G26/PollingHours.phtml), fetched 2026-10-23. The page shows no modification date and marks some states 'reportedly'. Local times converted to Eastern Standard Time (DST ends 2026-11-01)."
+ },
+ "rss": [
+  {
+   "name": "NPR Politics",
+   "url": "https://feeds.npr.org/1014/rss.xml",
+   "scope": "national",
+   "kind": "rss",
+   "verified": "2026-10-23",
+   "verifiedHow": "WebFetch returned RSS 2.0 XML, channel 'NPR Topics: Politics', 10 items; newest pubDate 'Fri, 23 Oct 2026 07:22:25 -0400' ('Military reinforcements move to Mideast. And, millions of Americans vote early'); next 'Fri, 23 Oct 2026 06:36:09 -0400' ('Trump's midterm campaign tour stops in Iowa').",
+   "notes": "Only 10 items per pull; poll every refresh cycle. Feed URL surfaced via a site:feeds.npr.org search and via Feedspot's political-news directory."
+  },
+  {
+   "name": "Christian Science Monitor Politics",
+   "url": "https://rss.csmonitor.com/feeds/politics?format=xml",
+   "scope": "national",
+   "kind": "rss",
+   "verified": "2026-10-23",
+   "verifiedHow": "WebFetch returned RSS 2.0 XML, channel 'The Christian Science Monitor | Politics', 20 items; newest pubDate 'Fri, 23 Oct 2026 11:21:00 -0400' ('Whatever the outcome, Nov. 3 is a pivot point for Trump'); 'Thu, 22 Oct 2026 12:11:00 -0400'; 'Wed, 21 Oct 2026 05:00:11 -0400'.",
+   "notes": "Not on the requested outlet list, but it was the only other politics feed the search engine exposed as a raw URL; lower volume (a few items/day)."
+  },
+  {
+   "name": "Politico",
+   "url": "https://www.politico.com/rss/politicopicks.xml",
+   "scope": "national",
+   "kind": "rss",
+   "verified": false,
+   "verifiedHow": "candidate; verified by the first automated run"
+  },
+  {
+   "name": "The Hill",
+   "url": "https://thehill.com/feed/",
+   "scope": "national",
+   "kind": "rss",
+   "verified": false,
+   "verifiedHow": "candidate; verified by the first automated run"
+  },
+  {
+   "name": "New York Times Politics",
+   "url": "https://rss.nytimes.com/services/xml/rss/nyt/Politics.xml",
+   "scope": "national",
+   "kind": "rss",
+   "verified": false,
+   "verifiedHow": "candidate; verified by the first automated run"
+  },
+  {
+   "name": "Washington Post Politics",
+   "url": "https://feeds.washingtonpost.com/rss/politics",
+   "scope": "national",
+   "kind": "rss",
+   "verified": false,
+   "verifiedHow": "candidate; verified by the first automated run"
+  },
+  {
+   "name": "CNN Politics",
+   "url": "http://rss.cnn.com/rss/cnn_allpolitics.rss",
+   "scope": "national",
+   "kind": "rss",
+   "verified": false,
+   "verifiedHow": "candidate; verified by the first automated run"
+  },
+  {
+   "name": "Fox News Politics",
+   "url": "https://moxie.foxnews.com/google-publisher/politics.xml",
+   "scope": "national",
+   "kind": "rss",
+   "verified": false,
+   "verifiedHow": "candidate; verified by the first automated run"
+  },
+  {
+   "name": "NBC News Politics",
+   "url": "https://feeds.nbcnews.com/nbcnews/public/politics",
+   "scope": "national",
+   "kind": "rss",
+   "verified": false,
+   "verifiedHow": "candidate; verified by the first automated run"
+  },
+  {
+   "name": "CBS News Politics",
+   "url": "https://www.cbsnews.com/latest/rss/politics",
+   "scope": "national",
+   "kind": "rss",
+   "verified": false,
+   "verifiedHow": "candidate; verified by the first automated run"
+  },
+  {
+   "name": "ABC News Politics",
+   "url": "https://abcnews.go.com/abcnews/politicsheadlines",
+   "scope": "national",
+   "kind": "rss",
+   "verified": false,
+   "verifiedHow": "candidate; verified by the first automated run"
+  },
+  {
+   "name": "Axios",
+   "url": "https://api.axios.com/feed/",
+   "scope": "national",
+   "kind": "rss",
+   "verified": false,
+   "verifiedHow": "candidate; verified by the first automated run"
+  },
+  {
+   "name": "AP News",
+   "url": "https://news.google.com/rss/search?q=site:apnews.com+(election+OR+Senate+OR+governor+OR+midterms)&hl=en-US&gl=US&ceid=US:en",
+   "scope": "national",
+   "kind": "rss",
+   "verified": false,
+   "verifiedHow": "candidate; verified by the first automated run"
+  },
+  {
+   "name": "Reuters",
+   "url": "https://news.google.com/rss/search?q=site:reuters.com+(election+OR+Senate+OR+governor+OR+midterms)&hl=en-US&gl=US&ceid=US:en",
+   "scope": "national",
+   "kind": "rss",
+   "verified": false,
+   "verifiedHow": "candidate; verified by the first automated run"
+  },
+  {
+   "name": "Ballotpedia News",
+   "url": "https://news.ballotpedia.org/feed/",
+   "scope": "national",
+   "kind": "rss",
+   "verified": false,
+   "verifiedHow": "candidate; verified by the first automated run"
+  },
+  {
+   "name": "Votebeat",
+   "url": "https://www.votebeat.org/arc/outboundfeeds/rss/",
+   "scope": "national (AZ, MI, PA, TX, WI bureaus)",
+   "kind": "rss",
+   "verified": false,
+   "verifiedHow": "candidate; verified by the first automated run"
+  },
+  {
+   "name": "Election Law Blog",
+   "url": "https://electionlawblog.org/feed/",
+   "scope": "national",
+   "kind": "rss",
+   "verified": false,
+   "verifiedHow": "candidate; verified by the first automated run"
+  },
+  {
+   "name": "Democracy Docket",
+   "url": "https://www.democracydocket.com/feed/",
+   "scope": "national",
+   "kind": "rss",
+   "verified": false,
+   "verifiedHow": "candidate; verified by the first automated run"
+  },
+  {
+   "name": "RealClearPolitics",
+   "url": "https://www.realclearpolitics.com/index.xml",
+   "scope": "national",
+   "kind": "rss",
+   "verified": false,
+   "verifiedHow": "candidate; verified by the first automated run"
+  },
+  {
+   "name": "Ohio Capital Journal",
+   "url": "https://ohiocapitaljournal.com/feed/",
+   "scope": "OH",
+   "kind": "rss",
+   "verified": false,
+   "verifiedHow": "candidate; verified by the first automated run"
+  },
+  {
+   "name": "Cleveland.com Politics",
+   "url": "https://www.cleveland.com/arc/outboundfeeds/rss/?outputType=xml",
+   "scope": "OH",
+   "kind": "rss",
+   "verified": false,
+   "verifiedHow": "candidate; verified by the first automated run"
+  },
+  {
+   "name": "Georgia Recorder",
+   "url": "https://georgiarecorder.com/feed/",
+   "scope": "GA",
+   "kind": "rss",
+   "verified": false,
+   "verifiedHow": "candidate; verified by the first automated run"
+  },
+  {
+   "name": "Atlanta Journal-Constitution Politics",
+   "url": "https://www.ajc.com/arc/outboundfeeds/rss/category/politics/?outputType=xml",
+   "scope": "GA",
+   "kind": "rss",
+   "verified": false,
+   "verifiedHow": "candidate; verified by the first automated run"
+  },
+  {
+   "name": "NC Newsline",
+   "url": "https://ncnewsline.com/feed/",
+   "scope": "NC",
+   "kind": "rss",
+   "verified": false,
+   "verifiedHow": "candidate; verified by the first automated run"
+  },
+  {
+   "name": "Maine Morning Star",
+   "url": "https://mainemorningstar.com/feed/",
+   "scope": "ME",
+   "kind": "rss",
+   "verified": false,
+   "verifiedHow": "candidate; verified by the first automated run"
+  },
+  {
+   "name": "Bangor Daily News",
+   "url": "https://www.bangordailynews.com/feed/",
+   "scope": "ME",
+   "kind": "rss",
+   "verified": false,
+   "verifiedHow": "candidate; verified by the first automated run"
+  },
+  {
+   "name": "Iowa Capital Dispatch",
+   "url": "https://iowacapitaldispatch.com/feed/",
+   "scope": "IA",
+   "kind": "rss",
+   "verified": false,
+   "verifiedHow": "candidate; verified by the first automated run"
+  },
+  {
+   "name": "Michigan Advance",
+   "url": "https://michiganadvance.com/feed/localFeed/",
+   "scope": "MI",
+   "kind": "rss",
+   "verified": false,
+   "verifiedHow": "candidate; verified by the first automated run"
+  },
+  {
+   "name": "Alaska Beacon",
+   "url": "https://alaskabeacon.com/feed/",
+   "scope": "AK",
+   "kind": "rss",
+   "verified": false,
+   "verifiedHow": "candidate; verified by the first automated run"
+  },
+  {
+   "name": "The Texas Tribune",
+   "url": "https://www.texastribune.org/feed/",
+   "scope": "TX",
+   "kind": "rss",
+   "verified": false,
+   "verifiedHow": "candidate; verified by the first automated run"
+  },
+  {
+   "name": "New Hampshire Bulletin",
+   "url": "https://newhampshirebulletin.com/feed/",
+   "scope": "NH",
+   "kind": "rss",
+   "verified": false,
+   "verifiedHow": "candidate; verified by the first automated run"
+  },
+  {
+   "name": "Kansas Reflector",
+   "url": "https://kansasreflector.com/feed/",
+   "scope": "KS",
+   "kind": "rss",
+   "verified": false,
+   "verifiedHow": "candidate; verified by the first automated run"
+  },
+  {
+   "name": "Nebraska Examiner",
+   "url": "https://nebraskaexaminer.com/feed/",
+   "scope": "NE",
+   "kind": "rss",
+   "verified": false,
+   "verifiedHow": "candidate; verified by the first automated run"
+  },
+  {
+   "name": "Minnesota Reformer",
+   "url": "https://minnesotareformer.com/feed/",
+   "scope": "MN",
+   "kind": "rss",
+   "verified": false,
+   "verifiedHow": "candidate; verified by the first automated run"
+  },
+  {
+   "name": "Florida Politics",
+   "url": "https://floridapolitics.com/feed/",
+   "scope": "FL",
+   "kind": "rss",
+   "verified": false,
+   "verifiedHow": "candidate; verified by the first automated run"
+  },
+  {
+   "name": "Arizona Capitol Times",
+   "url": "https://azcapitoltimes.com/feed/",
+   "scope": "AZ",
+   "kind": "rss",
+   "verified": false,
+   "verifiedHow": "candidate; verified by the first automated run"
+  },
+  {
+   "name": "Wisconsin Examiner",
+   "url": "https://wisconsinexaminer.com/feed/localFeed/",
+   "scope": "WI",
+   "kind": "rss",
+   "verified": false,
+   "verifiedHow": "candidate; verified by the first automated run"
+  },
+  {
+   "name": "Spotlight PA",
+   "url": "https://www.spotlightpa.org/feeds/full.xml",
+   "scope": "PA",
+   "kind": "rss",
+   "verified": false,
+   "verifiedHow": "candidate; verified by the first automated run"
+  },
+  {
+   "name": "Nevada Current",
+   "url": "https://nevadacurrent.com/feed/",
+   "scope": "NV",
+   "kind": "rss",
+   "verified": false,
+   "verifiedHow": "candidate; verified by the first automated run"
+  },
+  {
+   "name": "Virginia Mercury",
+   "url": "https://virginiamercury.com/feed/",
+   "scope": "VA",
+   "kind": "rss",
+   "verified": false,
+   "verifiedHow": "candidate; verified by the first automated run"
+  }
+ ],
+ "resultsNight": {
+  "ap": {
+   "hubUrl": null,
+   "candidateUrl": "https://apnews.com/projects/election-results-2026/",
+   "verified": false,
+   "notes": "The 2026 hub could not be surfaced by search today (searches returned only syndicated AP copy). AP's 2024 free results hub was https://apnews.com/projects/election-results-2024/, so the 2026 equivalent is expected at the candidate URL, with topic hub https://apnews.com/hub/election-2026 (pattern, unverified). What is public: the apnews.com interactive results pages (HTML/JS; the JSON that feeds them is undocumented and unlicensed for reuse). What is not public: the AP Elections API (licensed, API key; results, race calls, county-level data) and AP's Google/partner feeds. AP race calls are what most outlets (NYT, NPR, PBS, Google) display."
+  },
+  "nyt": {
+   "hubUrl": null,
+   "candidateUrl": "https://www.nytimes.com/interactive/2026/11/03/us/elections/results-senate.html",
+   "verified": false,
+   "notes": "Not found by search today. Pattern from 2022 (/interactive/2022/11/08/us/elections/results-senate.html) and 2024 (/interactive/2024/11/05/us/elections/results-president.html); expect results-senate.html, results-governor.html, results-house.html and per-state pages such as results-ohio.html under /interactive/2026/11/03/us/elections/. NYT uses AP vote data and its own race calls/needle; the pages are HTML with undocumented JSON behind them; historically open on election night without a subscription."
+  },
+  "ddhq": {
+   "hubUrl": "https://ddhq.io/votes",
+   "verified": false,
+   "notes": "URL taken from a Decision Desk HQ press release (https://ddhq.io/press/decision-desk-hq-releases-2026-congressional-forecast-model, dated July 15, 2026; fetched 2026-10-23); the /votes page itself was not fetched. DDHQ now uses ddhq.io for its main site and votes.decisiondeskhq.com for its 2026 forecast model and polls. DDHQ results data is a licensed product (clients include media outlets and financial firms); the public pages are free to view but the press release does not describe a public API. DDHQ also powers partner results pages (e.g., The Hill) in past cycles."
+  },
+  "states": {
+   "AL": {
+    "officialResultsUrl": "https://www.sos.alabama.gov/alabama-votes/voter/election-information/2026",
+    "urlBasis": "Prior knowledge (SOS election page; election-night reporting runs at www2.alabamavotes.gov/electionnight/ with a per-election code)",
+    "format": "html",
+    "pollsCloseET": "20:00",
+    "pollsCloseLocal": "7:00pm CST",
+    "splitTime": false,
+    "countyLevelAvailable": true,
+    "verified": false,
+    "notes": "Senate (open, Tuberville running for governor) and governor. Green Papers: a few Eastern-zone places may stay open until 7pm ET local."
+   },
+   "AK": {
+    "officialResultsUrl": "https://www.elections.alaska.gov/election-results/",
+    "urlBasis": "Hub page (prior knowledge). 2022/2024 results lived at /results/22GENR/ and /results/24GENR/ with plain-text and CSV files; a 2022 file surfaced in search today (https://www.elections.alaska.gov/results/22GENR/15.txt). Expect /results/26GENR/.",
+    "format": "html + txt/csv",
+    "pollsCloseET": "00:00 (Nov 4)",
+    "pollsCloseLocal": "8:00pm AKST; 8:00pm HAST in the Aleutians west of 169 W",
+    "splitTime": true,
+    "pollsCloseETLast": "01:00 (Nov 4)",
+    "countyLevelAvailable": "by House district and precinct (no counties)",
+    "verified": false,
+    "notes": "Senate and governor. Election night shows first-choice totals only; ranked-choice tabulation runs after the absentee receipt window (about 15 days; date not verified)."
+   },
+   "AZ": {
+    "officialResultsUrl": "https://results.arizona.vote/",
+    "urlBasis": "2024 SOS results site (prior knowledge)",
+    "format": "html (JSON/CSV exports offered in 2024)",
+    "pollsCloseET": "21:00",
+    "pollsCloseLocal": "7:00pm MST (no DST)",
+    "splitTime": false,
+    "countyLevelAvailable": true,
+    "verified": false,
+    "notes": "Governor only (no Senate race). SOS posts after all polls close; Maricopa County posts separately. Green Papers marks the time 'reportedly'."
+   },
+   "AR": {
+    "officialResultsUrl": "https://results.enr.clarityelections.com/AR/",
+    "urlBasis": "Clarity/Scytl ENR used in 2024 (prior knowledge)",
+    "format": "html (Clarity JSON; CSV/XML exports)",
+    "pollsCloseET": "20:30",
+    "pollsCloseLocal": "7:30pm CST",
+    "splitTime": false,
+    "countyLevelAvailable": true,
+    "verified": false,
+    "notes": "Senate and governor."
+   },
+   "CA": {
+    "officialResultsUrl": "https://electionresults.sos.ca.gov/",
+    "urlBasis": "2024 SOS site (prior knowledge)",
+    "format": "html + csv/xls downloads",
+    "pollsCloseET": "23:00",
+    "pollsCloseLocal": "8:00pm PST",
+    "splitTime": false,
+    "countyLevelAvailable": true,
+    "verified": false,
+    "notes": "Governor only. Counting runs for weeks; ballots postmarked by Election Day count if received by Nov 10 (Elec. Code 3020; prior knowledge). Green Papers: 'reportedly'."
+   },
+   "CO": {
+    "officialResultsUrl": "https://results.enr.clarityelections.com/CO/",
+    "urlBasis": "Clarity ENR used in 2024 (prior knowledge)",
+    "format": "html (Clarity JSON; CSV/XML exports)",
+    "pollsCloseET": "21:00",
+    "pollsCloseLocal": "7:00pm MST",
+    "splitTime": false,
+    "countyLevelAvailable": true,
+    "verified": false,
+    "notes": "Senate and governor; all-mail state, large first batch right after close."
+   },
+   "CT": {
+    "officialResultsUrl": "https://electionresults.ct.gov/",
+    "urlBasis": "SOTS election-night reporting site (2024; prior knowledge)",
+    "format": "html (JSON behind)",
+    "pollsCloseET": "20:00",
+    "pollsCloseLocal": "8:00pm EST",
+    "splitTime": false,
+    "countyLevelAvailable": "town-level",
+    "verified": false,
+    "notes": "Governor only."
+   },
+   "DE": {
+    "officialResultsUrl": "https://elections.delaware.gov/results/html/index.shtml",
+    "urlBasis": "Prior knowledge",
+    "format": "html",
+    "pollsCloseET": "20:00",
+    "pollsCloseLocal": "8:00pm EST",
+    "splitTime": false,
+    "countyLevelAvailable": true,
+    "verified": false,
+    "notes": "Senate only."
+   },
+   "FL": {
+    "officialResultsUrl": "https://results.elections.myflorida.com/",
+    "urlBasis": "Division of Elections site; 2024 page was Index.asp?ElectionDate=11/5/2024&DATAMODE= (prior knowledge); expect ElectionDate=11/3/2026",
+    "format": "html + txt/csv downloads",
+    "pollsCloseET": "19:00",
+    "pollsCloseLocal": "7:00pm EST (most of state); 7:00pm CST in the western Panhandle",
+    "splitTime": true,
+    "pollsCloseETLast": "20:00",
+    "countyLevelAvailable": true,
+    "verified": false,
+    "notes": "Special Senate election and governor. Eastern-zone results post after 7pm ET; Panhandle after 8pm ET."
+   },
+   "GA": {
+    "officialResultsUrl": "https://results.sos.ga.gov/",
+    "urlBasis": "SOS results platform; 2024 page was /results/public/Georgia/elections/2024NovGen (prior knowledge); expect 2026NovGen",
+    "format": "html (JSON API behind; CSV export)",
+    "pollsCloseET": "19:00",
+    "pollsCloseLocal": "7:00pm EST",
+    "splitTime": false,
+    "countyLevelAvailable": true,
+    "verified": false,
+    "notes": "Senate and governor. Runoff Dec 1, 2026 if no majority (Wikipedia, fetched 2026-10-23; SB 202's four-week rule from prior knowledge). County certification due the Monday after (Nov 9; prior knowledge)."
+   },
+   "HI": {
+    "officialResultsUrl": "https://elections.hawaii.gov/election-results/",
+    "urlBasis": "Prior knowledge",
+    "format": "pdf/html (media .txt files in past cycles)",
+    "pollsCloseET": "00:00 (Nov 4)",
+    "pollsCloseLocal": "7:00pm HST",
+    "splitTime": false,
+    "countyLevelAvailable": true,
+    "verified": false,
+    "notes": "Governor only; all-mail; first printout shortly after close."
+   },
+   "ID": {
+    "officialResultsUrl": "https://voteidaho.gov/election-results/",
+    "urlBasis": "Prior knowledge",
+    "format": "html",
+    "pollsCloseET": "22:00",
+    "pollsCloseLocal": "8:00pm MST (most); 8:00pm PST in the northern Panhandle",
+    "splitTime": true,
+    "pollsCloseETLast": "23:00",
+    "countyLevelAvailable": true,
+    "verified": false,
+    "notes": "Senate and governor."
+   },
+   "IL": {
+    "officialResultsUrl": "https://www.elections.il.gov/",
+    "urlBasis": "State Board of Elections landing (prior knowledge); the Board's 2026 election-night reporting URL was not confirmed",
+    "format": "html",
+    "pollsCloseET": "20:00",
+    "pollsCloseLocal": "7:00pm CST",
+    "splitTime": false,
+    "countyLevelAvailable": true,
+    "verified": false,
+    "notes": "Senate (open) and governor. Election-night reporting is county-driven (Cook County Clerk, Chicago BOE). Green Papers: 'reportedly'."
+   },
+   "IA": {
+    "officialResultsUrl": "https://electionresults.iowa.gov/",
+    "urlBasis": "SOS election-night site (prior knowledge); SOS results/statistics page surfaced in search today: https://sos.iowa.gov/iowans/election-results-statistics",
+    "format": "html",
+    "pollsCloseET": "21:00",
+    "pollsCloseLocal": "8:00pm CST",
+    "splitTime": false,
+    "countyLevelAvailable": true,
+    "verified": false,
+    "notes": "Senate (open) and governor (open)."
+   },
+   "KS": {
+    "officialResultsUrl": "https://ers.sos.ks.gov/",
+    "urlBasis": "SOS Election Results System (prior knowledge)",
+    "format": "html",
+    "pollsCloseET": "20:00",
+    "pollsCloseLocal": "7:00pm CST (most); 7:00pm MST in 4 western counties",
+    "splitTime": true,
+    "pollsCloseETLast": "21:00",
+    "countyLevelAvailable": true,
+    "verified": false,
+    "notes": "Senate and governor (open)."
+   },
+   "KY": {
+    "officialResultsUrl": "https://elect.ky.gov/results/Pages/default.aspx",
+    "urlBasis": "State Board of Elections results page (prior knowledge); election-night ENR at https://results.enr.clarityelections.com/KY/ in recent cycles",
+    "format": "html (Clarity JSON)",
+    "pollsCloseET": "18:00",
+    "pollsCloseLocal": "6:00pm EST (eastern); 6:00pm CST (western)",
+    "splitTime": true,
+    "pollsCloseETLast": "19:00",
+    "countyLevelAvailable": true,
+    "verified": false,
+    "notes": "Senate only (open seat)."
+   },
+   "LA": {
+    "officialResultsUrl": "https://voterportal.sos.la.gov/graphical",
+    "urlBasis": "SOS results portal (prior knowledge)",
+    "format": "html (+ downloadable results files)",
+    "pollsCloseET": "21:00",
+    "pollsCloseLocal": "8:00pm CST",
+    "splitTime": false,
+    "countyLevelAvailable": "parish-level",
+    "verified": false,
+    "notes": "Senate only. Louisiana's 2026 closed-party-primary system changed the congressional calendar; Green Papers labels Nov 3 'Open Primary / Congressional' - confirm what is on the ballot."
+   },
+   "ME": {
+    "officialResultsUrl": "https://www.maine.gov/sos/cec/elec/results/index.html",
+    "urlBasis": "SOS results index (prior knowledge); the 2022 page surfaced in search today (https://www.maine.gov/sos/cec/elec/results/results22.html); expect results26.html",
+    "format": "html + xlsx/pdf tabulations posted after the election (not live)",
+    "pollsCloseET": "20:00",
+    "pollsCloseLocal": "8:00pm EST (opening times vary by town)",
+    "splitTime": false,
+    "countyLevelAvailable": "municipality-level",
+    "verified": false,
+    "notes": "Senate and governor (open). No live state ENR - media/AP compile town tallies. Ranked-choice voting applies to the Senate general; if no majority, the SOS tabulation in Augusta takes several days (about a week in 2018)."
+   },
+   "MD": {
+    "officialResultsUrl": "https://elections.maryland.gov/elections/2026/index.html",
+    "urlBasis": "State BOE; 2024 results were at /elections/2024/general_Results/gen_results_2024.html with CSV files (prior knowledge)",
+    "format": "html + csv",
+    "pollsCloseET": "20:00",
+    "pollsCloseLocal": "8:00pm EST",
+    "splitTime": false,
+    "countyLevelAvailable": true,
+    "verified": false,
+    "notes": "Governor only."
+   },
+   "MA": {
+    "officialResultsUrl": "https://electionstats.state.ma.us/",
+    "urlBasis": "Official results database, populated after the election (prior knowledge)",
+    "format": "html",
+    "pollsCloseET": "20:00",
+    "pollsCloseLocal": "8:00pm EST",
+    "splitTime": false,
+    "countyLevelAvailable": "municipality-level",
+    "verified": false,
+    "notes": "Senate and governor. No live state ENR; election-night numbers come from media/AP town tallies."
+   },
+   "MI": {
+    "officialResultsUrl": "https://mielections.us/election/results/",
+    "urlBasis": "SOS results; 2024 page was 2024GEN_CENR.html (prior knowledge); expect 2026GEN_CENR.html",
+    "format": "html",
+    "pollsCloseET": "20:00",
+    "pollsCloseLocal": "8:00pm EST (most); 8:00pm CST in 4 Upper Peninsula counties",
+    "splitTime": true,
+    "pollsCloseETLast": "21:00",
+    "countyLevelAvailable": true,
+    "verified": false,
+    "notes": "Senate (open) and governor (open). Early-vote and absentee tallies may post in large batches. Green Papers: 'reportedly'."
+   },
+   "MN": {
+    "officialResultsUrl": "https://electionresults.sos.mn.gov/",
+    "urlBasis": "SOS ENR (prior knowledge); SOS 2024 results page surfaced in search today (https://www.sos.mn.gov/elections-voting/election-results/2024/2024-general-election-results/2024-election-results-maps/)",
+    "format": "html + txt (media results files)",
+    "pollsCloseET": "21:00",
+    "pollsCloseLocal": "8:00pm CST",
+    "splitTime": false,
+    "countyLevelAvailable": true,
+    "verified": false,
+    "notes": "Senate (open) and governor (open)."
+   },
+   "MS": {
+    "officialResultsUrl": "https://www.sos.ms.gov/elections-voting/election-results",
+    "urlBasis": "SOS results page (prior knowledge); the election-night reporting site URL for 2026 not confirmed",
+    "format": "html/pdf",
+    "pollsCloseET": "20:00",
+    "pollsCloseLocal": "7:00pm CST",
+    "splitTime": false,
+    "countyLevelAvailable": true,
+    "verified": false,
+    "notes": "Senate only."
+   },
+   "MT": {
+    "officialResultsUrl": "https://electionresults.mt.gov/",
+    "urlBasis": "SOS ENR (prior knowledge)",
+    "format": "html",
+    "pollsCloseET": "22:00",
+    "pollsCloseLocal": "8:00pm MST",
+    "splitTime": false,
+    "countyLevelAvailable": true,
+    "verified": false,
+    "notes": "Senate only."
+   },
+   "NE": {
+    "officialResultsUrl": "https://electionresults.nebraska.gov/",
+    "urlBasis": "SOS ENR (prior knowledge); county PDF results at countyelectionresults.nebraska.gov surfaced in search today",
+    "format": "html (+ county PDFs)",
+    "pollsCloseET": "21:00",
+    "pollsCloseLocal": "8:00pm CST / 7:00pm MST (both 9:00pm ET)",
+    "splitTime": true,
+    "pollsCloseETLast": "21:00",
+    "countyLevelAvailable": true,
+    "verified": false,
+    "notes": "Senate and governor. Split local zones but a single Eastern closing time."
+   },
+   "NV": {
+    "officialResultsUrl": "https://silverstateelection.nv.gov/",
+    "urlBasis": "SOS results site (2024; prior knowledge)",
+    "format": "html + csv downloads",
+    "pollsCloseET": "22:00",
+    "pollsCloseLocal": "7:00pm PST",
+    "splitTime": false,
+    "countyLevelAvailable": true,
+    "verified": false,
+    "notes": "Governor only. Mail ballots postmarked by Election Day count if received by 5pm Nov 7 (NRS 293.269921; prior knowledge), so totals shift for days."
+   },
+   "NH": {
+    "officialResultsUrl": "https://www.sos.nh.gov/elections/elections/election-results",
+    "urlBasis": "SOS results page (prior knowledge); posted after the election",
+    "format": "html/pdf/xlsx (posted after)",
+    "pollsCloseET": "20:00",
+    "pollsCloseLocal": "7:00pm EST in most towns; up to 8:00pm in the largest cities",
+    "splitTime": true,
+    "pollsCloseETLast": "20:00",
+    "countyLevelAvailable": "municipality-level",
+    "verified": false,
+    "notes": "Senate (open) and governor. No live state ENR; AP compiles town results. Green Papers: 'reportedly'; only 13 cities may stay open to 8pm."
+   },
+   "NJ": {
+    "officialResultsUrl": "https://results.elections.nj.gov/",
+    "urlBasis": "Division of Elections results site (2024; prior knowledge)",
+    "format": "html + json/csv exports",
+    "pollsCloseET": "20:00",
+    "pollsCloseLocal": "8:00pm EST",
+    "splitTime": false,
+    "countyLevelAvailable": true,
+    "verified": false,
+    "notes": "Senate only."
+   },
+   "NM": {
+    "officialResultsUrl": "https://electionresults.sos.nm.gov/",
+    "urlBasis": "SOS ENR (prior knowledge)",
+    "format": "html",
+    "pollsCloseET": "21:00",
+    "pollsCloseLocal": "7:00pm MST",
+    "splitTime": false,
+    "countyLevelAvailable": true,
+    "verified": false,
+    "notes": "Senate and governor (open)."
+   },
+   "NY": {
+    "officialResultsUrl": "https://electionnightresults.elections.ny.gov/",
+    "urlBasis": "State BOE election-night site used in 2024 (prior knowledge); certified results later at https://www.elections.ny.gov/2026ElectionResults.html (pattern)",
+    "format": "html (JSON behind)",
+    "pollsCloseET": "21:00",
+    "pollsCloseLocal": "9:00pm EST",
+    "splitTime": false,
+    "countyLevelAvailable": true,
+    "verified": false,
+    "notes": "Governor only."
+   },
+   "NC": {
+    "officialResultsUrl": "https://er.ncsbe.gov/?election_dt=11/03/2026",
+    "urlBasis": "State Board of Elections dashboard; 2024 was ?election_dt=11/05/2024 (prior knowledge)",
+    "format": "html + csv/tsv downloads (https://www.ncsbe.gov/results-data/election-results)",
+    "pollsCloseET": "19:30",
+    "pollsCloseLocal": "7:30pm EST",
+    "splitTime": false,
+    "countyLevelAvailable": true,
+    "verified": false,
+    "notes": "Senate only (open seat). Early-vote and absentee totals post first after 7:30pm; counties may extend hours in extraordinary circumstances (Green Papers)."
+   },
+   "OH": {
+    "officialResultsUrl": "https://liveresults.ohiosos.gov/",
+    "urlBasis": "SOS election-night site used in 2024 (prior knowledge); official archive at https://www.ohiosos.gov/elections/election-results-and-data/",
+    "format": "html (JSON behind; CSV on official pages)",
+    "pollsCloseET": "19:30",
+    "pollsCloseLocal": "7:30pm EST",
+    "splitTime": false,
+    "countyLevelAvailable": true,
+    "verified": false,
+    "notes": "Special Senate election and governor (open). Early/absentee votes report first after 7:30pm."
+   },
+   "OK": {
+    "officialResultsUrl": "https://results.okelections.us/",
+    "urlBasis": "State Election Board ENR (prior knowledge; .us vs .gov domain not confirmed)",
+    "format": "html",
+    "pollsCloseET": "20:00",
+    "pollsCloseLocal": "7:00pm CST",
+    "splitTime": false,
+    "countyLevelAvailable": true,
+    "verified": false,
+    "notes": "Senate and governor (open)."
+   },
+   "OR": {
+    "officialResultsUrl": "https://results.oregonvotes.gov/",
+    "urlBasis": "SOS results site (prior knowledge)",
+    "format": "html (JSON behind)",
+    "pollsCloseET": "23:00",
+    "pollsCloseLocal": "8:00pm PST (most); 8:00pm MST in Malheur County",
+    "splitTime": true,
+    "pollsCloseETFirst": "22:00",
+    "pollsCloseETLast": "23:00",
+    "countyLevelAvailable": true,
+    "verified": false,
+    "notes": "Senate and governor; all-mail; ballots must arrive by 8pm local (Green Papers); results post after 8pm PT."
+   },
+   "PA": {
+    "officialResultsUrl": "https://www.electionreturns.pa.gov/",
+    "urlBasis": "Department of State returns site (prior knowledge)",
+    "format": "html + csv/json export",
+    "pollsCloseET": "20:00",
+    "pollsCloseLocal": "8:00pm EST",
+    "splitTime": false,
+    "countyLevelAvailable": true,
+    "verified": false,
+    "notes": "Governor only. Mail ballots due 8pm Election Day; pre-canvass cannot start before 7am Election Day (prior knowledge)."
+   },
+   "RI": {
+    "officialResultsUrl": "https://elections.ri.gov/election-results",
+    "urlBasis": "Board of Elections (prior knowledge; exact path uncertain)",
+    "format": "html",
+    "pollsCloseET": "20:00",
+    "pollsCloseLocal": "8:00pm EST",
+    "splitTime": false,
+    "countyLevelAvailable": "municipality-level",
+    "verified": false,
+    "notes": "Senate and governor."
+   },
+   "SC": {
+    "officialResultsUrl": "https://www.enr-scvotes.gov/",
+    "urlBasis": "Election Commission's Clarity ENR (2024; prior knowledge)",
+    "format": "html (Clarity JSON; CSV/XML exports)",
+    "pollsCloseET": "19:00",
+    "pollsCloseLocal": "7:00pm EST",
+    "splitTime": false,
+    "countyLevelAvailable": true,
+    "verified": false,
+    "notes": "Senate and governor (open)."
+   },
+   "SD": {
+    "officialResultsUrl": "https://electionresults.sd.gov/",
+    "urlBasis": "SOS ENR (prior knowledge)",
+    "format": "html",
+    "pollsCloseET": "20:00",
+    "pollsCloseLocal": "7:00pm CST (east); 7:00pm MST (west)",
+    "splitTime": true,
+    "pollsCloseETLast": "21:00",
+    "countyLevelAvailable": true,
+    "verified": false,
+    "notes": "Senate and governor."
+   },
+   "TN": {
+    "officialResultsUrl": "https://sos.tn.gov/elections/results",
+    "urlBasis": "SOS results landing (prior knowledge); 2026 election-night ENR URL not confirmed",
+    "format": "html/pdf",
+    "pollsCloseET": "20:00",
+    "pollsCloseLocal": "8:00pm EST (East TN) / 7:00pm CST (Middle and West) - both 8:00pm ET",
+    "splitTime": true,
+    "pollsCloseETLast": "20:00",
+    "countyLevelAvailable": true,
+    "verified": false,
+    "notes": "Senate and governor (open)."
+   },
+   "TX": {
+    "officialResultsUrl": "https://results.texas-election.com/",
+    "urlBasis": "SOS results site; 2024 used /races (prior knowledge)",
+    "format": "html (JSON behind)",
+    "pollsCloseET": "20:00",
+    "pollsCloseLocal": "7:00pm CST (most); 7:00pm MST in El Paso and Hudspeth counties",
+    "splitTime": true,
+    "pollsCloseETLast": "21:00",
+    "countyLevelAvailable": true,
+    "verified": false,
+    "notes": "Senate and governor. Early-vote totals typically post shortly after 7pm CT. Early voting ran Oct 19-30 (HeadCount, fetched 2026-10-23)."
+   },
+   "VT": {
+    "officialResultsUrl": "https://electionresults.vermont.gov/",
+    "urlBasis": "SOS results site (prior knowledge)",
+    "format": "html + csv export",
+    "pollsCloseET": "19:00",
+    "pollsCloseLocal": "7:00pm EST",
+    "splitTime": false,
+    "countyLevelAvailable": "municipality-level",
+    "verified": false,
+    "notes": "Governor only."
+   },
+   "VA": {
+    "officialResultsUrl": "https://results.elections.virginia.gov/",
+    "urlBasis": "Department of Elections; 2024 page was /vaelections/2024%20November%20General/Site/GeneralElection.html (prior knowledge); expect 2026%20November%20General",
+    "format": "html + json/csv",
+    "pollsCloseET": "19:00",
+    "pollsCloseLocal": "7:00pm EST",
+    "splitTime": false,
+    "countyLevelAvailable": true,
+    "verified": false,
+    "notes": "Senate only."
+   },
+   "WV": {
+    "officialResultsUrl": "https://results.enr.clarityelections.com/WV/",
+    "urlBasis": "SOS Clarity ENR (prior knowledge)",
+    "format": "html (Clarity JSON; exports)",
+    "pollsCloseET": "19:30",
+    "pollsCloseLocal": "7:30pm EST",
+    "splitTime": false,
+    "countyLevelAvailable": true,
+    "verified": false,
+    "notes": "Senate only. Green Papers: 'reportedly'."
+   },
+   "WI": {
+    "officialResultsUrl": "https://elections.wi.gov/elections/election-results",
+    "urlBasis": "Elections Commission results page; canvass results posted after (prior knowledge)",
+    "format": "html/pdf/xlsx (posted after)",
+    "pollsCloseET": "21:00",
+    "pollsCloseLocal": "8:00pm CST",
+    "splitTime": false,
+    "countyLevelAvailable": true,
+    "verified": false,
+    "notes": "Governor only (open). No live state ENR; county clerks post unofficial results and AP compiles; Milwaukee's central-count absentee totals often land late."
+   },
+   "WY": {
+    "officialResultsUrl": "https://sos.wyo.gov/Elections/ElectionResults.aspx",
+    "urlBasis": "SOS results page (prior knowledge)",
+    "format": "pdf/html",
+    "pollsCloseET": "21:00",
+    "pollsCloseLocal": "7:00pm MST",
+    "splitTime": false,
+    "countyLevelAvailable": true,
+    "verified": false,
+    "notes": "Senate and governor (open)."
+   }
+  }
+ },
+ "earlyVote": [
+  {
+   "name": "UF Election Lab - 2026 General Election Early Vote Statistics",
+   "url": "https://election.lab.ufl.edu/early-vote/2026-early-voting/",
+   "format": "html (JavaScript-rendered tables; per-state pages; 'Download image' only)",
+   "verified": "2026-10-23",
+   "notes": "Fetched 2026-10-23: page title 'UF Election Lab: 2026 General Election Early Vote Statistics', 'Last updated: Oct 23, 2026 @ 3:25pm Eastern Time'. National totals (total early, in-person, mail returned, mail requested) did not render in the fetch (placeholders), so the updater needs a JS-capable fetch or should scrape the state pages. No CSV/JSON download is linked; data archive at https://election.lab.ufl.edu/data-archive/ (not fetched). The 2024 tracker is at https://election.lab.ufl.edu/early-vote/2024-early-voting/."
+  },
+  {
+   "name": "NC State Board of Elections - absentee/early voting data",
+   "url": "https://www.ncsbe.gov/results-data/absentee-data",
+   "format": "zip/csv (daily statewide file of absentee-by-mail and one-stop early ballots)",
+   "verified": false,
+   "notes": "Prior knowledge; machine-readable daily files. Not fetched today."
+  },
+  {
+   "name": "Texas SOS - early voting turnout by county",
+   "url": "https://earlyvoting.texas-election.com/Elections/getElectionDetails.do",
+   "format": "html with per-day county tables (CSV export)",
+   "verified": false,
+   "notes": "Prior knowledge; updated daily during early voting (Oct 19-30). Not fetched."
+  },
+  {
+   "name": "Florida Division of Elections - vote-by-mail and early voting reports",
+   "url": "https://countyballotfiles.floridados.gov/VoteByMailEarlyVotingReports/PublicStats",
+   "format": "html (county tables; downloadable)",
+   "verified": false,
+   "notes": "Prior knowledge. Not fetched."
+  },
+  {
+   "name": "Georgia SOS - voter absentee files",
+   "url": "https://sos.ga.gov/page/voter-absentee-files",
+   "format": "zip/csv (daily STATEWIDE file of absentee and advance ballots)",
+   "verified": false,
+   "notes": "Prior knowledge. Not fetched."
+  },
+  {
+   "name": "TargetSmart TargetEarly",
+   "url": "https://targetearly.targetsmart.com/",
+   "format": "html dashboard with CSV download",
+   "verified": false,
+   "notes": "Modeled party/demographic breakdowns of early voters; proprietary modeling, used by NBC News. Not fetched."
+  },
+  {
+   "name": "Pennsylvania DOS - mail ballot request/return statistics",
+   "url": "https://data.pa.gov/",
+   "format": "csv/json (open-data dataset per election)",
+   "verified": false,
+   "notes": "Prior knowledge: DOS publishes a '2026 General Election Mail Ballot Requests' dataset on data.pa.gov (dataset id not known). Not fetched."
+  },
+  {
+   "name": "Nevada SOS - early voting and mail turnout",
+   "url": "https://www.nvsos.gov/sos/elections/election-information/2026-election-information",
+   "format": "pdf/xlsx daily turnout reports",
+   "verified": false,
+   "notes": "Prior knowledge; exact page path for 2026 unconfirmed. Not fetched."
+  }
+ ],
+ "markets": {
+  "polymarket": {
+   "gammaBase": "https://gamma-api.polymarket.com/events?slug=",
+   "events": [
+    {
+     "id": "SENATE",
+     "slug": "which-party-will-win-the-senate-in-2026",
+     "verified": "Gamma API, 2026-10-11"
+    },
+    {
+     "id": "HOUSE",
+     "slug": "which-party-will-win-the-house-in-2026",
+     "verified": "Gamma API, 2026-10-11"
+    },
+    {
+     "id": "NC-S",
+     "slug": "north-carolina-senate-election-winner",
+     "verified": "Gamma API, 2026-10-11"
+    },
+    {
+     "id": "ME-S",
+     "slug": "maine-senate-election-winner",
+     "verified": "Gamma API, 2026-10-11"
+    },
+    {
+     "id": "GA-S",
+     "slug": "georgia-senate-election-winner",
+     "verified": "Gamma API, 2026-10-11"
+    },
+    {
+     "id": "MI-S",
+     "slug": "michigan-senate-election-winner",
+     "verified": "Gamma API, 2026-10-11"
+    },
+    {
+     "id": "NH-S",
+     "slug": "new-hampshire-senate-election-winner",
+     "verified": "Gamma API, 2026-10-11"
+    },
+    {
+     "id": "IA-S",
+     "slug": "iowa-senate-election-winner",
+     "verified": "Gamma API, 2026-10-11"
+    },
+    {
+     "id": "TX-S",
+     "slug": "texas-senate-election-winner",
+     "verified": "Gamma API, 2026-10-11"
+    },
+    {
+     "id": "AK-S",
+     "slug": "alaska-senate-election-winner",
+     "verified": "Gamma API, 2026-10-11"
+    },
+    {
+     "id": "NE-S",
+     "slug": "nebraska-senate-election-winner",
+     "verified": "Gamma API, 2026-10-11"
+    },
+    {
+     "id": "MN-S",
+     "slug": "minnesota-senate-election-winner",
+     "verified": "Gamma API, 2026-10-11"
+    },
+    {
+     "id": "KS-S",
+     "slug": "kansas-senate-election-winner",
+     "verified": "Gamma API, 2026-10-11"
+    },
+    {
+     "id": "OH-S",
+     "slug": "ohio-senate-election-winner",
+     "verified": "Gamma API, 2026-10-11"
+    },
+    {
+     "id": "OH-G",
+     "slug": "ohio-governor-winner-2026",
+     "verified": "Gamma API, 2026-10-11"
+    }
+   ],
+   "notes": "270toWin's 2026 Senate and governor market pages (fetched 2026-10-23) link every race to Polymarket's U.S.-regulated site (polymarket.us) with uniform slugs: usse-<state>-2026-11-03 for Senate races, usgub-<state>-2026-11-03 for governor races, and usse-midterms-2026-11-03 for Senate control. Whether gamma-api.polymarket.com resolves these polymarket.us slugs is unverified; the updater should try gamma first and fall back to the polymarket.us page or its API (endpoint not verified).",
+   "researchOct23": [
+    {
+     "id": "SENATE",
+     "slug": null,
+     "polymarketUsSlug": "usse-midterms-2026-11-03",
+     "notes": "Senate-control market on polymarket.us (270toWin link, seen 2026-10-23). No separate polymarket.com Senate-only slug was found; see BALANCE."
+    },
+    {
+     "id": "HOUSE",
+     "slug": null,
+     "polymarketUsSlug": null,
+     "notes": "Not found today. 270toWin has a House hub (https://www.270towin.com/prediction-markets/polymarket-2026-house-elections/) that was not fetched."
+    },
+    {
+     "id": "BALANCE",
+     "slug": "balance-of-power-2026-midterms",
+     "platform": "polymarket.com",
+     "notes": "'Which parties will control the Senate and House after the 2026 midterms?' Slug taken from a mirror page (cryptobriefing.com, fetched 2026-10-23) that linked https://polymarket.com/event/balance-of-power-2026-midterms. Mirror prices as of Oct 22, 2026: Democrats sweep 68.5%, R Senate/D House 23.5%, Republicans sweep 7.5%, D Senate/R House 0.9%, Other 0.2% (standalone contract prices; sum 100.6%)."
+    },
+    {
+     "id": "AK-S",
+     "slug": null,
+     "polymarketUsSlug": "usse-ak-2026-11-03",
+     "candidatesListed": "Mary Peltola; Dan Sullivan (inc.)",
+     "kalshiOddsOct15": "75% Democratic (priced by party)",
+     "slugStatus": "seen"
+    },
+    {
+     "id": "AL-S",
+     "slug": null,
+     "polymarketUsSlug": "usse-al-2026-11-03",
+     "candidatesListed": "Everett Wess; Barry Moore",
+     "slugStatus": "seen"
+    },
+    {
+     "id": "AR-S",
+     "slug": null,
+     "polymarketUsSlug": "usse-ar-2026-11-03",
+     "candidatesListed": "Hallie Shoffner; Tom Cotton (inc.)",
+     "slugStatus": "seen"
+    },
+    {
+     "id": "CO-S",
+     "slug": null,
+     "polymarketUsSlug": "usse-co-2026-11-03",
+     "candidatesListed": "John Hickenlooper (inc.); Mark Baisley",
+     "slugStatus": "seen"
+    },
+    {
+     "id": "DE-S",
+     "slug": null,
+     "polymarketUsSlug": "usse-de-2026-11-03",
+     "candidatesListed": "Chris Coons (inc.); Michael Katz",
+     "slugStatus": "seen"
+    },
+    {
+     "id": "FL-S",
+     "slug": null,
+     "polymarketUsSlug": "usse-fl-2026-11-03",
+     "candidatesListed": "Angie Nixon; Ashley Moody (inc., special)",
+     "slugStatus": "seen"
+    },
+    {
+     "id": "GA-S",
+     "slug": null,
+     "polymarketUsSlug": "usse-ga-2026-11-03",
+     "candidatesListed": "Jon Ossoff (inc.); Mike Collins",
+     "kalshiOddsOct15": "95% Ossoff",
+     "slugStatus": "seen"
+    },
+    {
+     "id": "IA-S",
+     "slug": null,
+     "polymarketUsSlug": "usse-ia-2026-11-03",
+     "candidatesListed": "Josh Turek; Ashley Hinson",
+     "kalshiOddsOct15": "58% Hinson",
+     "slugStatus": "seen"
+    },
+    {
+     "id": "ID-S",
+     "slug": null,
+     "polymarketUsSlug": "usse-id-2026-11-03",
+     "candidatesListed": "Jim Risch (inc.); Todd Achilles",
+     "slugStatus": "seen"
+    },
+    {
+     "id": "IL-S",
+     "slug": null,
+     "polymarketUsSlug": "usse-il-2026-11-03",
+     "candidatesListed": "Juliana Stratton; Don Tracy",
+     "slugStatus": "seen"
+    },
+    {
+     "id": "KS-S",
+     "slug": null,
+     "polymarketUsSlug": "usse-ks-2026-11-03",
+     "candidatesListed": "Adam Hamilton; Roger Marshall (inc.)",
+     "kalshiOddsOct15": "65% Marshall",
+     "slugStatus": "seen"
+    },
+    {
+     "id": "ME-S",
+     "slug": null,
+     "polymarketUsSlug": "usse-me-2026-11-03",
+     "candidatesListed": "Troy Jackson; Susan Collins (inc.)",
+     "kalshiOddsOct15": "57% Jackson",
+     "slugStatus": "seen"
+    },
+    {
+     "id": "MI-S",
+     "slug": null,
+     "polymarketUsSlug": "usse-mi-2026-11-03",
+     "candidatesListed": "Abdul El-Sayed; Mike Rogers",
+     "kalshiOddsOct15": "68% El-Sayed",
+     "slugStatus": "seen"
+    },
+    {
+     "id": "MN-S",
+     "slug": null,
+     "polymarketUsSlug": "usse-mn-2026-11-03",
+     "candidatesListed": "Peggy Flanagan; Michele Tafoya",
+     "kalshiOddsOct15": "87% Flanagan",
+     "slugStatus": "seen"
+    },
+    {
+     "id": "MS-S",
+     "slug": null,
+     "polymarketUsSlug": "usse-ms-2026-11-03",
+     "candidatesListed": "Scott Colom; Cindy Hyde-Smith (inc.)",
+     "slugStatus": "seen"
+    },
+    {
+     "id": "NC-S",
+     "slug": null,
+     "polymarketUsSlug": "usse-nc-2026-11-03",
+     "candidatesListed": "Roy Cooper; Michael Whatley",
+     "kalshiOddsOct15": "95% Cooper",
+     "slugStatus": "seen"
+    },
+    {
+     "id": "NE-S",
+     "slug": null,
+     "polymarketUsSlug": "usse-ne-2026-11-03",
+     "candidatesListed": "Dan Osborn (I); Pete Ricketts (inc.)",
+     "kalshiOddsOct15": "75% Ricketts",
+     "slugStatus": "seen"
+    },
+    {
+     "id": "NH-S",
+     "slug": null,
+     "polymarketUsSlug": "usse-nh-2026-11-03",
+     "candidatesListed": "Chris Pappas; John Sununu",
+     "kalshiOddsOct15": "89% Pappas",
+     "slugStatus": "seen"
+    },
+    {
+     "id": "OH-S",
+     "slug": null,
+     "polymarketUsSlug": "usse-oh-2026-11-03",
+     "candidatesListed": "Sherrod Brown; Jon Husted (inc., special)",
+     "kalshiOddsOct15": "60% Brown",
+     "slugStatus": "seen"
+    },
+    {
+     "id": "SC-S",
+     "slug": null,
+     "polymarketUsSlug": "usse-sc-2026-11-03",
+     "candidatesListed": "Annie Andrews; Darline Graham",
+     "slugStatus": "seen"
+    },
+    {
+     "id": "TX-S",
+     "slug": null,
+     "polymarketUsSlug": "usse-tx-2026-11-03",
+     "candidatesListed": "James Talarico; Ken Paxton",
+     "kalshiOddsOct15": "62% Talarico",
+     "slugStatus": "seen"
+    },
+    {
+     "id": "KY-S",
+     "slug": null,
+     "polymarketUsSlug": "usse-ky-2026-11-03",
+     "slugStatus": "inferred-from-pattern (270toWin table truncated at KY)"
+    },
+    {
+     "id": "LA-S",
+     "slug": null,
+     "polymarketUsSlug": "usse-la-2026-11-03",
+     "slugStatus": "inferred-from-pattern"
+    },
+    {
+     "id": "MA-S",
+     "slug": null,
+     "polymarketUsSlug": "usse-ma-2026-11-03",
+     "slugStatus": "inferred-from-pattern"
+    },
+    {
+     "id": "MT-S",
+     "slug": null,
+     "polymarketUsSlug": "usse-mt-2026-11-03",
+     "slugStatus": "inferred-from-pattern"
+    },
+    {
+     "id": "NJ-S",
+     "slug": null,
+     "polymarketUsSlug": "usse-nj-2026-11-03",
+     "slugStatus": "inferred-from-pattern"
+    },
+    {
+     "id": "NM-S",
+     "slug": null,
+     "polymarketUsSlug": "usse-nm-2026-11-03",
+     "slugStatus": "inferred-from-pattern"
+    },
+    {
+     "id": "OK-S",
+     "slug": null,
+     "polymarketUsSlug": "usse-ok-2026-11-03",
+     "slugStatus": "inferred-from-pattern"
+    },
+    {
+     "id": "OR-S",
+     "slug": null,
+     "polymarketUsSlug": "usse-or-2026-11-03",
+     "slugStatus": "inferred-from-pattern"
+    },
+    {
+     "id": "RI-S",
+     "slug": null,
+     "polymarketUsSlug": "usse-ri-2026-11-03",
+     "slugStatus": "inferred-from-pattern"
+    },
+    {
+     "id": "SD-S",
+     "slug": null,
+     "polymarketUsSlug": "usse-sd-2026-11-03",
+     "slugStatus": "inferred-from-pattern"
+    },
+    {
+     "id": "TN-S",
+     "slug": null,
+     "polymarketUsSlug": "usse-tn-2026-11-03",
+     "slugStatus": "inferred-from-pattern"
+    },
+    {
+     "id": "VA-S",
+     "slug": null,
+     "polymarketUsSlug": "usse-va-2026-11-03",
+     "slugStatus": "inferred-from-pattern"
+    },
+    {
+     "id": "WV-S",
+     "slug": null,
+     "polymarketUsSlug": "usse-wv-2026-11-03",
+     "slugStatus": "inferred-from-pattern"
+    },
+    {
+     "id": "WY-S",
+     "slug": null,
+     "polymarketUsSlug": "usse-wy-2026-11-03",
+     "slugStatus": "inferred-from-pattern"
+    },
+    {
+     "id": "AK-G",
+     "slug": null,
+     "polymarketUsSlug": "usgub-ak-2026-11-03",
+     "candidatesListed": "Jonathan Kreiss-Tomkins; Dave Bronson; Treg Taylor; Bernadette Wilson",
+     "slugStatus": "seen"
+    },
+    {
+     "id": "AL-G",
+     "slug": null,
+     "polymarketUsSlug": "usgub-al-2026-11-03",
+     "candidatesListed": "Doug Jones; Tommy Tuberville",
+     "slugStatus": "seen"
+    },
+    {
+     "id": "AZ-G",
+     "slug": null,
+     "polymarketUsSlug": "usgub-az-2026-11-03",
+     "candidatesListed": "Katie Hobbs (inc.); Andy Biggs",
+     "slugStatus": "seen"
+    },
+    {
+     "id": "AR-G",
+     "slug": null,
+     "polymarketUsSlug": "usgub-ar-2026-11-03",
+     "candidatesListed": "Fred Love; Sarah Huckabee Sanders (inc.)",
+     "slugStatus": "seen"
+    },
+    {
+     "id": "CA-G",
+     "slug": null,
+     "polymarketUsSlug": "usgub-ca-2026-11-03",
+     "candidatesListed": "Xavier Becerra; Steve Hilton",
+     "slugStatus": "seen"
+    },
+    {
+     "id": "CO-G",
+     "slug": null,
+     "polymarketUsSlug": "usgub-co-2026-11-03",
+     "candidatesListed": "Phil Weiser; Victor Marx",
+     "slugStatus": "seen"
+    },
+    {
+     "id": "CT-G",
+     "slug": null,
+     "polymarketUsSlug": "usgub-ct-2026-11-03",
+     "candidatesListed": "Ned Lamont (inc.); Ryan Fazio",
+     "slugStatus": "seen"
+    },
+    {
+     "id": "FL-G",
+     "slug": null,
+     "polymarketUsSlug": "usgub-fl-2026-11-03",
+     "candidatesListed": "David Jolly; Byron Donalds",
+     "slugStatus": "seen"
+    },
+    {
+     "id": "GA-G",
+     "slug": null,
+     "polymarketUsSlug": "usgub-ga-2026-11-03",
+     "candidatesListed": "Keisha Lance Bottoms; Rick Jackson",
+     "slugStatus": "seen"
+    },
+    {
+     "id": "HI-G",
+     "slug": null,
+     "polymarketUsSlug": "usgub-hi-2026-11-03",
+     "candidatesListed": "Josh Green (inc.); Gary Cordery",
+     "slugStatus": "seen"
+    },
+    {
+     "id": "ID-G",
+     "slug": null,
+     "polymarketUsSlug": "usgub-id-2026-11-03",
+     "candidatesListed": "Terri Pickens; Brad Little (inc.)",
+     "slugStatus": "seen"
+    },
+    {
+     "id": "IL-G",
+     "slug": null,
+     "polymarketUsSlug": "usgub-il-2026-11-03",
+     "candidatesListed": "JB Pritzker (inc.); Darren Bailey",
+     "slugStatus": "seen"
+    },
+    {
+     "id": "IA-G",
+     "slug": null,
+     "polymarketUsSlug": "usgub-ia-2026-11-03",
+     "candidatesListed": "Rob Sand; Zach Lahn",
+     "slugStatus": "seen"
+    },
+    {
+     "id": "KS-G",
+     "slug": null,
+     "polymarketUsSlug": "usgub-ks-2026-11-03",
+     "candidatesListed": "Cindy Holscher; Ty Masterson",
+     "slugStatus": "seen"
+    },
+    {
+     "id": "ME-G",
+     "slug": null,
+     "polymarketUsSlug": "usgub-me-2026-11-03",
+     "candidatesListed": "Hannah Pingree; Robert Charles; Rick Bennett",
+     "slugStatus": "seen"
+    },
+    {
+     "id": "MD-G",
+     "slug": null,
+     "polymarketUsSlug": "usgub-md-2026-11-03",
+     "candidatesListed": "Wes Moore (inc.); Dan Cox",
+     "slugStatus": "seen"
+    },
+    {
+     "id": "MA-G",
+     "slug": null,
+     "polymarketUsSlug": "usgub-ma-2026-11-03",
+     "candidatesListed": "Maura Healey (inc.); Michael Minogue",
+     "slugStatus": "seen"
+    },
+    {
+     "id": "MI-G",
+     "slug": null,
+     "polymarketUsSlug": "usgub-mi-2026-11-03",
+     "candidatesListed": "Jocelyn Benson; John James",
+     "slugStatus": "seen"
+    },
+    {
+     "id": "MN-G",
+     "slug": null,
+     "polymarketUsSlug": "usgub-mn-2026-11-03",
+     "candidatesListed": "Amy Klobuchar; Lisa Demuth",
+     "slugStatus": "seen"
+    },
+    {
+     "id": "NE-G",
+     "slug": null,
+     "polymarketUsSlug": "usgub-ne-2026-11-03",
+     "candidatesListed": "Lynne Walz; Jim Pillen (inc.)",
+     "slugStatus": "seen"
+    },
+    {
+     "id": "NV-G",
+     "slug": null,
+     "polymarketUsSlug": "usgub-nv-2026-11-03",
+     "candidatesListed": "Aaron Ford; Joe Lombardo (inc.)",
+     "slugStatus": "seen"
+    },
+    {
+     "id": "NH-G",
+     "slug": null,
+     "polymarketUsSlug": "usgub-nh-2026-11-03",
+     "candidatesListed": "Cinde Warmington; Kelly Ayotte (inc.)",
+     "slugStatus": "seen"
+    },
+    {
+     "id": "NM-G",
+     "slug": null,
+     "polymarketUsSlug": "usgub-nm-2026-11-03",
+     "candidatesListed": "Deb Haaland; Greggory Hull",
+     "slugStatus": "seen"
+    },
+    {
+     "id": "NY-G",
+     "slug": null,
+     "polymarketUsSlug": "usgub-ny-2026-11-03",
+     "candidatesListed": "Kathy Hochul (inc.); Bruce Blakeman",
+     "slugStatus": "seen"
+    },
+    {
+     "id": "OH-G",
+     "slug": null,
+     "polymarketUsSlug": "usgub-oh-2026-11-03",
+     "candidatesListed": "Amy Acton; Vivek Ramaswamy",
+     "slugStatus": "seen"
+    },
+    {
+     "id": "OK-G",
+     "slug": null,
+     "polymarketUsSlug": "usgub-ok-2026-11-03",
+     "candidatesListed": "Cyndi Munson; Mike Mazzei",
+     "slugStatus": "seen"
+    },
+    {
+     "id": "OR-G",
+     "slug": null,
+     "polymarketUsSlug": "usgub-or-2026-11-03",
+     "candidatesListed": "Tina Kotek (inc.); Christine Drazan",
+     "slugStatus": "seen"
+    },
+    {
+     "id": "PA-G",
+     "slug": null,
+     "polymarketUsSlug": "usgub-pa-2026-11-03",
+     "candidatesListed": "Josh Shapiro (inc.); Stacy Garrity",
+     "slugStatus": "seen"
+    },
+    {
+     "id": "RI-G",
+     "slug": null,
+     "polymarketUsSlug": "usgub-ri-2026-11-03",
+     "candidatesListed": "Helena Foulkes; Aaron Guckian; Ken Block",
+     "slugStatus": "seen"
+    },
+    {
+     "id": "SC-G",
+     "slug": null,
+     "polymarketUsSlug": "usgub-sc-2026-11-03",
+     "candidatesListed": "Jermaine Johnson; Alan Wilson",
+     "slugStatus": "seen"
+    },
+    {
+     "id": "SD-G",
+     "slug": null,
+     "polymarketUsSlug": "usgub-sd-2026-11-03",
+     "candidatesListed": "Dan Ahlers; Larry Rhoden (inc.)",
+     "slugStatus": "seen"
+    },
+    {
+     "id": "TN-G",
+     "slug": null,
+     "polymarketUsSlug": "usgub-tn-2026-11-03",
+     "candidatesListed": "Jerri Green; Marsha Blackburn",
+     "slugStatus": "seen"
+    },
+    {
+     "id": "TX-G",
+     "slug": null,
+     "polymarketUsSlug": "usgub-tx-2026-11-03",
+     "candidatesListed": "Gina Hinojosa; Greg Abbott (inc.)",
+     "slugStatus": "seen"
+    },
+    {
+     "id": "VT-G",
+     "slug": null,
+     "polymarketUsSlug": "usgub-vt-2026-11-03",
+     "candidatesListed": "Amanda Janoo; Phil Scott (inc.)",
+     "slugStatus": "seen"
+    },
+    {
+     "id": "WI-G",
+     "slug": null,
+     "polymarketUsSlug": "usgub-wi-2026-11-03",
+     "candidatesListed": "David Crowley; Tom Tiffany",
+     "slugStatus": "seen"
+    },
+    {
+     "id": "WY-G",
+     "slug": null,
+     "polymarketUsSlug": "usgub-wy-2026-11-03",
+     "candidatesListed": "Ken Casner; Eric Barlow",
+     "slugStatus": "seen"
+    }
+   ]
+  },
+  "kalshi": {
+   "apiBase": "https://api.elections.kalshi.com/trade-api/v2",
+   "events": [
+    {
+     "id": "SENATE",
+     "ticker": "CONTROLS-2026",
+     "verified": "Kalshi API, 2026-10-11"
+    },
+    {
+     "id": "HOUSE",
+     "ticker": "CONTROLH-2026",
+     "verified": "Kalshi API, 2026-10-11"
+    },
+    {
+     "id": "OH-G",
+     "ticker": "GOVPARTYOH-26",
+     "verified": "Kalshi API, 2026-10-11"
+    },
+    {
+     "id": "OH-S",
+     "ticker": "SENATEOHS-26",
+     "verified": "Kalshi API, 2026-10-11"
+    },
+    {
+     "id": "NC-S",
+     "ticker": "SENATENC-26",
+     "verified": "Kalshi API, 2026-10-11"
+    },
+    {
+     "id": "ME-S",
+     "ticker": "SENATEME-26",
+     "verified": "Kalshi API, 2026-10-11"
+    },
+    {
+     "id": "GA-S",
+     "ticker": "SENATEGA-26",
+     "verified": "Kalshi API, 2026-10-11"
+    },
+    {
+     "id": "MI-S",
+     "ticker": "SENATEMI-26",
+     "verified": "Kalshi API, 2026-10-11"
+    },
+    {
+     "id": "NH-S",
+     "ticker": "SENATENH-26",
+     "verified": "Kalshi API, 2026-10-11"
+    },
+    {
+     "id": "IA-S",
+     "ticker": "SENATEIA-26",
+     "verified": "Kalshi API, 2026-10-11"
+    },
+    {
+     "id": "TX-S",
+     "ticker": "SENATETX-26",
+     "verified": "Kalshi API, 2026-10-11"
+    },
+    {
+     "id": "AK-S",
+     "ticker": "SENATEAK-26",
+     "verified": "Kalshi API, 2026-10-11"
+    },
+    {
+     "id": "NE-S",
+     "ticker": "SENATENE-26",
+     "verified": "Kalshi API, 2026-10-11"
+    },
+    {
+     "id": "MN-S",
+     "ticker": "SENATEMN-26",
+     "verified": "Kalshi API, 2026-10-11"
+    },
+    {
+     "id": "KS-S",
+     "ticker": "SENATEKS-26",
+     "verified": "Kalshi API, 2026-10-11"
+    }
+   ],
+   "notes": "event endpoint: /events/{ticker}?with_nested_markets=true; prices come back as yes_bid_dollars / yes_ask_dollars strings",
+   "researchOct23": {
+    "apiBase": "https://api.elections.kalshi.com/trade-api/v2",
+    "events": [
+     {
+      "id": "SENATE",
+      "ticker": "CONTROLS-2026",
+      "seriesTicker": "CONTROLS",
+      "url": "https://kalshi.com/markets/controls/senate-winner/controls-2026",
+      "source": "Kalshi's own post https://news.kalshi.com/p/who-will-control-the-senate-2026 (fetched 2026-10-23; 'Last updated: October 15, 2026'): Democrats 62%, Republicans 38% as of Oct 15. Same event also appeared in search as https://kalshi.com/markets/controls/which-party-will-win-the-u-s-senate/controls-2026."
+     },
+     {
+      "id": "SENATE-DEM-SEATS",
+      "ticker": "KXDSENATESEATS-27",
+      "seriesTicker": "KXDSENATESEATS",
+      "url": "https://kalshi.com/markets/kxdsenateseats/democratic-senate-seats/kxdsenateseats-27",
+      "source": "Same Kalshi post; 'Democratic seats above 52' at 36% was the most-traded outcome on Oct 15."
+     },
+     {
+      "id": "HOUSE",
+      "ticker": null,
+      "notes": "Not found today. By analogy with CONTROLS the House-control event is probably in a CONTROLH series (unverified); discover via GET /events?series_ticker=CONTROLH or GET /events?status=open&limit=200."
+     }
+    ],
+    "notes": "Public market-data endpoints need no auth (prior knowledge; not fetched today): GET {apiBase}/markets?event_ticker=CONTROLS-2026 returns each market's yes_bid, yes_ask, last_price (cents) and volume; GET {apiBase}/events/CONTROLS-2026?with_nested_markets=true returns the event with markets; GET {apiBase}/markets?series_ticker=KXDSENATESEATS for the seat-count ladder. Per-state Senate race tickers were not exposed by the Kalshi post (it gave odds only); find them with GET {apiBase}/events?status=open&limit=200 and filter titles, or via https://kalshi.com/category/elections/senate. Kalshi per-race odds as of 5:43pm ET Oct 15, 2026 (from the post): TX 62% Talarico; ME 57% Jackson; OH 60% Brown; IA 58% Hinson; KS 65% Marshall; AK 75% Democratic; MI 68% El-Sayed; NH 89% Pappas; NC 95% Cooper; GA 95% Ossoff; MN 87% Flanagan; NE 75% Ricketts."
+   }
+  }
+ },
+ "calendar": [
+  {
+   "date": "2026-10-13",
+   "text": "Georgia advance (early) in-person voting began; runs through the Friday before Election Day (Oct 30, per statute).",
+   "source": "https://georgia.gov/node/34066 (fetched 2026-10-23: 'starting October 13, 2026'); end date from O.C.G.A. 21-2-385 (prior knowledge)",
+   "verified": true
+  },
+  {
+   "date": "2026-10-15",
+   "text": "North Carolina one-stop early voting began (third Thursday before Election Day); same-day registration available at early-voting sites.",
+   "source": "N.C.G.S. 163-227.2 (prior knowledge; not fetched)",
+   "verified": false
+  },
+  {
+   "date": "2026-10-17",
+   "text": "Nevada early voting began (third Saturday before Election Day).",
+   "source": "NRS 293.3568 (prior knowledge)",
+   "verified": false
+  },
+  {
+   "date": "2026-10-19",
+   "text": "Texas early voting began.",
+   "source": "https://www.headcount.org/state/texas/ (fetched 2026-10-23: 'Early voting: October 19 to October 30, 2026')",
+   "verified": true
+  },
+  {
+   "date": "2026-10-19",
+   "text": "Alaska early voting began (15 days before Election Day). Florida counties could begin optional early voting (15th day before).",
+   "source": "AS 15.20.064; Fla. Stat. 101.657 (prior knowledge)",
+   "verified": false
+  },
+  {
+   "date": "2026-10-20",
+   "text": "Wisconsin in-person absentee voting may begin (14 days before; municipal schedules vary).",
+   "source": "Wis. Stat. 6.86 (prior knowledge)",
+   "verified": false
+  },
+  {
+   "date": "2026-10-23",
+   "text": "Texas deadline for counties to receive mail-ballot applications.",
+   "source": "https://www.headcount.org/state/texas/ (fetched 2026-10-23)",
+   "verified": true
+  },
+  {
+   "date": "2026-10-24",
+   "text": "Florida mandatory early-voting period begins (10th day before; through Oct 31, counties may extend through Nov 1). Michigan's statewide nine-day early voting period begins (through Nov 1).",
+   "source": "Fla. Stat. 101.657; MCL 168.720a (prior knowledge)",
+   "verified": false
+  },
+  {
+   "date": "2026-10-27",
+   "text": "Pennsylvania deadline to apply for a mail-in or absentee ballot (5pm; first Tuesday before Election Day).",
+   "source": "25 P.S. 3150.12a (prior knowledge)",
+   "verified": false
+  },
+  {
+   "date": "2026-10-29",
+   "text": "Maine: last day to request/vote an absentee ballot in person without special circumstances (third business day before the election).",
+   "source": "21-A M.R.S. 753-B (prior knowledge)",
+   "verified": false
+  },
+  {
+   "date": "2026-10-30",
+   "text": "Texas early voting ends.",
+   "source": "https://www.headcount.org/state/texas/ (fetched 2026-10-23)",
+   "verified": true
+  },
+  {
+   "date": "2026-10-30",
+   "text": "Early voting ends in Georgia (Friday before), Arizona (7pm Friday before) and Nevada (Friday before).",
+   "source": "O.C.G.A. 21-2-385; A.R.S. 16-542; NRS 293.3568 (prior knowledge)",
+   "verified": false
+  },
+  {
+   "date": "2026-10-31",
+   "text": "Early voting ends in North Carolina (3pm, last Saturday before), Virginia (Saturday before) and the mandatory Florida period (counties may run through Nov 1).",
+   "source": "N.C.G.S. 163-227.2; Va. Code 24.2-701.1; Fla. Stat. 101.657 (prior knowledge)",
+   "verified": false
+  },
+  {
+   "date": "2026-11-01",
+   "text": "Early voting ends in Michigan (Sunday before), Ohio (in-person early voting, Sunday 5pm) and Wisconsin (in-person absentee, Sunday before). Daylight saving time ends; Election Day closing times below are standard time.",
+   "source": "MCL 168.720a; Ohio R.C. 3509.051; Wis. Stat. 6.86 (prior knowledge)",
+   "verified": false
+  },
+  {
+   "date": "2026-11-02",
+   "text": "In-person early/absentee voting ends in Iowa (Monday before), Kansas (advance voting ends noon) and Minnesota (5pm).",
+   "source": "Iowa Code 53.10; K.S.A. 25-1122; Minn. Stat. 203B.081 (prior knowledge)",
+   "verified": false
+  },
+  {
+   "date": "2026-11-03",
+   "text": "Election Day. Same-day voter registration is available on Election Day in about 22 states plus DC (including CA, CO, CT, HI, ID, IL, IA, ME, MD, MI, MN, MT, NV, NH, NM, UT, VT, VA, WA, WI, WY); North Carolina allows it only during early voting.",
+   "source": "NCSL same-day registration table (prior knowledge; not fetched)",
+   "verified": false
+  },
+  {
+   "date": "2026-11-03",
+   "text": "Polls close 6:00pm ET: Kentucky (eastern zone; western zone 7:00pm ET). Indiana eastern zone also 6:00pm ET (no Senate/governor race).",
+   "source": "The Green Papers 2026 Polling Hours (fetched 2026-10-23)",
+   "verified": true
+  },
+  {
+   "date": "2026-11-03",
+   "text": "Polls close 7:00pm ET: Georgia, South Carolina, Virginia, Vermont, Florida (eastern zone), Kentucky (western zone).",
+   "source": "The Green Papers 2026 Polling Hours (fetched 2026-10-23)",
+   "verified": true
+  },
+  {
+   "date": "2026-11-03",
+   "text": "Polls close 7:30pm ET: North Carolina, Ohio, West Virginia.",
+   "source": "The Green Papers 2026 Polling Hours (fetched 2026-10-23)",
+   "verified": true
+  },
+  {
+   "date": "2026-11-03",
+   "text": "Polls close 8:00pm ET: Alabama, Connecticut, Delaware, Florida (Panhandle), Illinois, Kansas (central zone), Maine, Maryland, Massachusetts, Michigan (eastern zone), Mississippi, New Hampshire (latest; most towns 7:00pm), New Jersey, Oklahoma, Pennsylvania, Rhode Island, South Dakota (central zone), Tennessee (both zones), Texas (central zone); 8:30pm ET: Arkansas.",
+   "source": "The Green Papers 2026 Polling Hours (fetched 2026-10-23)",
+   "verified": true
+  },
+  {
+   "date": "2026-11-03",
+   "text": "Polls close 9:00pm ET: Arizona, Colorado, Iowa, Kansas (mountain zone), Louisiana, Michigan (Upper Peninsula central zone), Minnesota, Nebraska (both zones), New Mexico, New York, South Dakota (mountain zone), Texas (El Paso/Hudspeth), Wisconsin, Wyoming.",
+   "source": "The Green Papers 2026 Polling Hours (fetched 2026-10-23)",
+   "verified": true
+  },
+  {
+   "date": "2026-11-03",
+   "text": "Polls close 10:00pm ET: Idaho (mountain zone), Montana, Nevada, Oregon (Malheur County). 11:00pm ET: California, Idaho (Pacific zone), Oregon (Pacific zone). 12:00am ET Nov 4: Alaska (Alaska zone), Hawaii. 1:00am ET Nov 4: Alaska (Aleutians).",
+   "source": "The Green Papers 2026 Polling Hours (fetched 2026-10-23)",
+   "verified": true
+  },
+  {
+   "date": "2026-11-04",
+   "text": "Texas: deadline (5pm) to receive mail ballots postmarked by Election Day. Counting continues in CA, NV, OR, AZ (late early ballots), PA, MI, WI; Alaska and Maine ranked-choice tabulations pending.",
+   "source": "Tex. Elec. Code 86.007 (prior knowledge)",
+   "verified": false
+  },
+  {
+   "date": "2026-11-06",
+   "text": "Receipt deadlines for mail ballots postmarked by Election Day: Kansas (3 days), Massachusetts (5pm, 3rd day), Virginia (noon, 3rd day).",
+   "source": "K.S.A. 25-1132; M.G.L. c.54 s.95; Va. Code 24.2-709 (prior knowledge)",
+   "verified": false
+  },
+  {
+   "date": "2026-11-07",
+   "text": "Nevada: 5pm deadline to receive mail ballots postmarked by Election Day. Ohio: deadline to receive absentee ballots postmarked by Nov 2 (4th day after).",
+   "source": "NRS 293.269921; Ohio R.C. 3509.05 as amended by HB 458 (prior knowledge)",
+   "verified": false
+  },
+  {
+   "date": "2026-11-09",
+   "text": "Georgia: county certification deadline (5pm, Monday after Election Day). New Jersey: receipt deadline for mail ballots postmarked by Election Day (6 days).",
+   "source": "O.C.G.A. 21-2-493(k) as amended by SB 202; N.J.S.A. 19:63-22 (prior knowledge)",
+   "verified": false
+  },
+  {
+   "date": "2026-11-10",
+   "text": "Receipt deadlines (7 days after Election Day) for mail ballots postmarked by Election Day in California, New York and Oregon.",
+   "source": "Cal. Elec. Code 3020; N.Y. Elec. Law 8-412; ORS 253.070 (prior knowledge)",
+   "verified": false
+  },
+  {
+   "date": "2026-11-13",
+   "text": "Beyond the Nov 10 window but relevant: North Carolina county canvass (10 days after); Alaska domestic absentee receipt deadline (10 days; overseas 15 days, Nov 18) precedes the ranked-choice tabulation for the Senate race.",
+   "source": "N.C.G.S. 163-182.5; AS 15.20.081 (prior knowledge)",
+   "verified": false
+  },
+  {
+   "date": "2026-12-01",
+   "text": "Georgia general-election runoff (Senate, governor and other races) if no candidate exceeds 50% on Nov 3 - four weeks after the general election under current law.",
+   "source": "https://en.wikipedia.org/wiki/2026_Georgia_state_elections (fetched 2026-10-23: 'December 1, 2026'; page cites a July 2025 Augusta Chronicle article). Four-week rule: O.C.G.A. 21-2-501 as amended by SB 202 (2021) (prior knowledge).",
+   "verified": "date from Wikipedia; statute not fetched"
+  }
+ ],
+ "gaps": [
+  {
+   "item": "National RSS feeds not verified: Politico, The Hill, NYT Politics, Washington Post Politics, CNN Politics, Fox News Politics, NBC News Politics, CBS News Politics, ABC News Politics, Axios, AP, Reuters.",
+   "tried": "Direct WebFetch of each known feed URL (refused by the session allowlist, which only accepts URLs that appear in WebSearch results); site:-restricted searches to surface the feed URLs as results (only NPR and CSM feeds were indexed); two Feedspot directory pages (which list URLs for Politico, NYT, Fox, The Hill, but a URL seen only in fetched text is still not fetchable). Candidate URLs with their basis are in rssCandidates. AP has no native RSS; Reuters withdrew public RSS in 2020 - Google News RSS queries are the practical substitute."
+  },
+  {
+   "item": "State outlet RSS feeds not verified for OH, GA, NC, ME, IA, MI, AK, TX, NH, KS, NE, MN, FL, AZ, WI, PA, NV, VA.",
+   "tried": "Combined site:<domain>/feed searches for States Newsroom outlets (returned only article/about pages); Feedspot listings surfaced Texas Tribune, Michigan Advance, Wisconsin Examiner, Spotlight PA, Florida Politics and Arizona Capitol Times URLs; fetches of those were refused by the allowlist. Candidates (WordPress /feed/ for States Newsroom outlets; Arc outbound feeds for Advance/Gannett-era sites) are in rssCandidates."
+  },
+  {
+   "item": "Specialist feeds not verified: Votebeat, Democracy Docket, Election Law Blog, Ballotpedia News.",
+   "tried": "Feedspot listed Votebeat, Election Law Blog and Ballotpedia News URLs; the Votebeat fetch was refused by the allowlist; Democracy Docket URL is from prior knowledge."
+  },
+  {
+   "item": "No official state results page was fetched; all 45 state entries carry verified=false and a 2024-pattern or prior-knowledge URL.",
+   "tried": "Two site:-restricted searches across 17 official results domains; they surfaced only older pages for ME (2022), IA (statistics page), MN (2024), AK (2022 .txt) and NE county PDFs, which are recorded in urlBasis. The 2026 general-election pages for most states are unlikely to be indexed before Election Day; the updater should probe each URL in the days before Nov 3 and confirm it is the state's official site by domain."
+  },
+  {
+   "item": "Official 2026 election-night URLs uncertain for IL, MS, OK (.us vs .gov), RI, TN, NV (early-vote page) and the Alabama election-night code.",
+   "tried": "Not searched individually (budget)."
+  },
+  {
+   "item": "AP 2026 results hub URL and NYT 2026 results hub URL not found; DDHQ hub URL (https://ddhq.io/votes) seen only inside a press release.",
+   "tried": "Two searches for the AP hub (returned syndicated AP stories only); one combined search for AP/NYT/DDHQ; fetched the DDHQ press release. Candidate URLs follow 2022/2024 patterns."
+  },
+  {
+   "item": "Polymarket: no polymarket.com (gamma) slugs for individual Senate/governor races or a Senate-only/House-only control market; only the combined balance-of-power slug and polymarket.us slugs were found. Gamma compatibility with polymarket.us slugs is unknown; Polymarket US API endpoint not identified.",
+   "tried": "Search for Senate-control event (found a mirror linking balance-of-power-2026-midterms); 270toWin Senate and governor pages (polymarket.us links; 270toWin's Senate table was truncated after KY so 14 Senate slugs are pattern-inferred and flagged); gamma API itself could not be fetched (allowlist)."
+  },
+  {
+   "item": "Kalshi: House-control ticker and per-state race tickers not found; API endpoint not exercised today.",
+   "tried": "Search surfaced the Senate-control event URL (CONTROLS-2026); Kalshi's blog post gave per-race odds without tickers; 270toWin's Kalshi pages redirected to its Polymarket pages."
+  },
+  {
+   "item": "Early vote: UF Election Lab national totals not captured (JavaScript-rendered); no per-state dashboard URLs captured; state early-vote data files (NC, TX, FL, GA, PA, NV) not fetched.",
+   "tried": "Fetched the UF 2026 page (confirmed live and updated Oct 23, 2026, 3:25pm ET); other sources from prior knowledge."
+  },
+  {
+   "item": "Calendar: most early-voting start/end and ballot-receipt dates are derived from statutes (prior knowledge) rather than fetched; voter-registration deadlines were not compiled (nearly all passed before Oct 23); no Senate/governor debate schedule was compiled; canvass/certification deadlines beyond Georgia not compiled.",
+   "tried": "US Vote Foundation early-voting page (no dates on the index page); a generic calendar search (local-government pages only); HeadCount Texas page (verified TX dates); georgia.gov (verified GA start)."
+  },
+  {
+   "item": "Poll-closing times come from a single secondary compilation (The Green Papers) that shows no modification date and marks AZ, CA, IL, MI, NH, ND, WV and others 'reportedly'; NCSL/Ballotpedia were not reached.",
+   "tried": "A Ballotpedia-targeted search returned The Green Papers and no Ballotpedia page; Ballotpedia and NCSL URLs could not be fetched without appearing in search results."
+  },
+  {
+   "item": "Louisiana: which federal contests appear on the Nov 3, 2026 ballot under the new closed-primary system was not confirmed.",
+   "tried": "Not searched (budget); Green Papers labels the date 'Open Primary / Congressional'."
+  }
+ ]
+}

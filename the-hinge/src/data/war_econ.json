@@ -1,0 +1,2275 @@
+{
+ "meta": {
+  "created": "2026-10-11",
+  "description": "War and economy indicators for U.S. midterm elections 1946-2022 plus 2026 current values; every number sourced; null = not found / not yet collected.",
+  "status": "complete (see gaps)",
+  "updated": "2026-10-11",
+  "conventions": {
+   "null": "not found / not available",
+   "term_to_date": "calendar years from the start of the president's current four-year term through the election year",
+   "house_vote": "percent of all votes cast (not two-party)",
+   "sentiment": "UMich index, 1966:Q1=100"
+  }
+ },
+ "midterms": [
+  {
+   "year": 1946,
+   "rdi_pc": {
+    "level_q3": null,
+    "level_prev": null,
+    "level_annual": 10906,
+    "level_annual_prev": 11147,
+    "yoy_pct": -2.16,
+    "units": "chained 2017 dollars, annual",
+    "basis": "annual 1946 vs 1945 (quarterly series A229RX0Q048SBEA begins 1947Q1, so no Q3 1946 value)",
+    "series": "A229RX0A048NBEA (BEA via FRED)",
+    "source": "https://fred.stlouisfed.org/data/A229RX0A048NBEA"
+   },
+   "unemp_oct": {
+    "value": 3.9,
+    "month": null,
+    "basis": "ANNUAL AVERAGE 1946 (no monthly October figure: UNRATE begins Jan 1948); persons 14 years and over (pre-1947 definition); 1945 annual = 1.9",
+    "series": "BLS CPS annual averages, Table 1 (2009 edition)",
+    "source": "https://www.bls.gov/cps/aa2009/cpsaat1.pdf"
+   },
+   "house_vote": {
+    "d": 44.3,
+    "r": 53.5,
+    "basis": "share of all votes",
+    "source": "https://www.brookings.edu/wp-content/uploads/2026/04/Chapter-2-Full.pdf",
+    "source_note": "Percent of ALL House votes (not two-party), Brookings Vital Statistics on Congress Table 2-2 'Popular Vote and House Seats Won by Party, 1946-2024' (excludes districts with unopposed candidates where no vote was recorded).",
+    "wikipedia_check": {
+     "d": 45.0,
+     "r": 53.5,
+     "d_votes": 15491113,
+     "r_votes": 18422363,
+     "url": "https://en.wikipedia.org/wiki/1946_United_States_House_of_Representatives_elections"
+    }
+   },
+   "house_vote_prev": {
+    "year": 1944,
+    "d": 51.8,
+    "r": 47.1,
+    "d_votes": 23380045,
+    "r_votes": 21256035,
+    "basis": "share of all votes",
+    "source": "https://en.wikipedia.org/wiki/1944_United_States_House_of_Representatives_elections",
+    "source_note": "Wikipedia infobox/summary table (Brookings Table 2-2 starts in 1946, so 1944 is not on the Brookings basis)."
+   },
+   "war": {
+    "active": false,
+    "name": "None (post-World War II demobilization/occupation; U.S. combat ended August 1945)",
+    "us_hostile_deaths_year": null,
+    "us_hostile_deaths_term": null,
+    "source": "https://www.everycrsreport.com/files/20190924_RL32492_75dc0f1f826404a4728a7a3eb43ec2f8cb67905d.html",
+    "notes": "CRS/DCAS date World War II casualty data Dec 1, 1941 - Dec 31, 1946 (the official end of hostilities). No 1946 hostile-death count found."
+   },
+   "sentiment_oct": {
+    "value": null,
+    "source": "https://fred.stlouisfed.org/data/umcsent",
+    "note": "not available: UMCSENT begins 1952-11"
+   },
+   "gas_oct": {
+    "price": null,
+    "yoy_pct": 7.14,
+    "yoy_basis": "CPI gasoline (all types) index, 1946-10 vs 1945-10",
+    "index_level": 15.0,
+    "index_level_prev": 14.0,
+    "index_base": "1982-84=100, NSA",
+    "series": "CWUR0000SETB01 (BLS CPI-W gasoline, all types, via FRED)",
+    "source": "https://fred.stlouisfed.org/data/CWUR0000SETB01",
+    "note": "Pump price in dollars for October not found before 1976 (BLS average-price series APU000074714 begins 1976); YoY change is from the CPI gasoline index, not a dollar price."
+   },
+   "notes": "RDI and unemployment are annual figures (no quarterly/monthly data). No sentiment survey before Nov 1952. Gas change is from the CPI gasoline index (Oct/Oct). House vote prev (1944) is from Wikipedia; 1946 vote is from Brookings (Wikipedia's 1946 figure: D 45.0, R 53.5).",
+   "cpi_sep_yoy": {
+    "value_pct": 12.71,
+    "level": 20.4,
+    "level_prev": 18.1,
+    "basis": "CPI-U NSA Sept 1946 vs Sept 1945 (last CPI month published before Election Day)",
+    "series": "CPIAUCNS",
+    "source": "https://fred.stlouisfed.org/data/cpiaucns",
+    "note": "Convenience field; requester already holds monthly CPI-U."
+   }
+  },
+  {
+   "year": 1950,
+   "rdi_pc": {
+    "level_q3": 11331,
+    "level_prev": 10533,
+    "yoy_pct": 7.58,
+    "units": "chained 2017 dollars, SAAR, quarterly",
+    "basis": "Q3 1950 vs Q3 1949",
+    "series": "A229RX0Q048SBEA (BEA via FRED)",
+    "source": "https://fred.stlouisfed.org/data/A229RX0Q048SBEA"
+   },
+   "unemp_oct": {
+    "value": 4.2,
+    "month": "1950-10",
+    "series": "UNRATE (BLS, seasonally adjusted)",
+    "source": "https://fred.stlouisfed.org/data/unrate"
+   },
+   "house_vote": {
+    "d": 48.9,
+    "r": 48.9,
+    "basis": "share of all votes",
+    "source": "https://www.brookings.edu/wp-content/uploads/2026/04/Chapter-2-Full.pdf",
+    "source_note": "Percent of ALL House votes (not two-party), Brookings Vital Statistics on Congress Table 2-2 'Popular Vote and House Seats Won by Party, 1946-2024' (excludes districts with unopposed candidates where no vote was recorded).",
+    "wikipedia_check": {
+     "d": 49.6,
+     "r": 48.9,
+     "d_votes": 19991683,
+     "r_votes": 19735173,
+     "url": "https://en.wikipedia.org/wiki/1950_United_States_House_of_Representatives_elections"
+    }
+   },
+   "house_vote_prev": {
+    "d": 51.6,
+    "r": 45.4,
+    "basis": "share of all votes",
+    "source": "https://www.brookings.edu/wp-content/uploads/2026/04/Chapter-2-Full.pdf",
+    "source_note": "Percent of ALL House votes (not two-party), Brookings Vital Statistics on Congress Table 2-2 'Popular Vote and House Seats Won by Party, 1946-2024' (excludes districts with unopposed candidates where no vote was recorded).",
+    "wikipedia_check": {
+     "d": 52.6,
+     "r": 45.4,
+     "d_votes": 24217516,
+     "r_votes": 20894960,
+     "url": "https://en.wikipedia.org/wiki/1948_United_States_House_of_Representatives_elections"
+    },
+    "year": 1948
+   },
+   "war": {
+    "active": true,
+    "name": "Korean War (began June 25, 1950)",
+    "us_hostile_deaths_year": null,
+    "us_hostile_deaths_term": null,
+    "context_whole_war": {
+     "hostile_deaths": 33739,
+     "nonhostile_in_theater": 2835,
+     "period": "June 25, 1950 - July 27, 1953",
+     "source": "https://www.everycrsreport.com/files/20190924_RL32492_75dc0f1f826404a4728a7a3eb43ec2f8cb67905d.html"
+    },
+    "source": "https://www.everycrsreport.com/files/20190924_RL32492_75dc0f1f826404a4728a7a3eb43ec2f8cb67905d.html",
+    "notes": "Calendar-1950 (or pre-election) U.S. hostile-death count not found in sources reached (DCAS Korean War summary gives whole-war totals only). Hibbs cites 29,260 cumulative U.S. military deaths in Korea at the time of the 1952 election: https://mpra.ub.uni-muenchen.de/15910/1/MPRA_paper_15910.pdf"
+   },
+   "sentiment_oct": {
+    "value": null,
+    "source": "https://fred.stlouisfed.org/data/umcsent",
+    "note": "not available: UMCSENT begins 1952-11"
+   },
+   "gas_oct": {
+    "price": null,
+    "yoy_pct": -1.04,
+    "yoy_basis": "CPI gasoline (all types) index, 1950-09 vs 1949-09",
+    "index_level": 19.0,
+    "index_level_prev": 19.2,
+    "index_base": "1982-84=100, NSA",
+    "series": "CWUR0000SETB01 (BLS CPI-W gasoline, all types, via FRED)",
+    "source": "https://fred.stlouisfed.org/data/CWUR0000SETB01",
+    "note": "Pump price in dollars for October not found before 1976 (BLS average-price series APU000074714 begins 1976); YoY change is from the CPI gasoline index, not a dollar price. No October reading (index published quarterly Mar/Jun/Sep/Dec in this period); September used.",
+    "annual_avg_price_leaded_regular": 0.268,
+    "annual_avg_price_prev": 0.268,
+    "annual_source": "https://www.eia.gov/totalenergy/data/annual/pdf/sec5_59.pdf",
+    "annual_note": "EIA AER Table 5.24 (Platt's data), nominal $/gal: 1949 and 1950 both 0.268"
+   },
+   "notes": "Sentiment not available (survey began Nov 1952). Gas change uses September CPI gasoline readings (index was quarterly). Calendar-1950 Korea hostile deaths not found.",
+   "cpi_sep_yoy": {
+    "value_pct": 2.09,
+    "level": 24.4,
+    "level_prev": 23.9,
+    "basis": "CPI-U NSA Sept 1950 vs Sept 1949 (last CPI month published before Election Day)",
+    "series": "CPIAUCNS",
+    "source": "https://fred.stlouisfed.org/data/cpiaucns",
+    "note": "Convenience field; requester already holds monthly CPI-U."
+   }
+  },
+  {
+   "year": 1954,
+   "rdi_pc": {
+    "level_q3": 11992,
+    "level_prev": 12045,
+    "yoy_pct": -0.44,
+    "units": "chained 2017 dollars, SAAR, quarterly",
+    "basis": "Q3 1954 vs Q3 1953",
+    "series": "A229RX0Q048SBEA (BEA via FRED)",
+    "source": "https://fred.stlouisfed.org/data/A229RX0Q048SBEA"
+   },
+   "unemp_oct": {
+    "value": 5.7,
+    "month": "1954-10",
+    "series": "UNRATE (BLS, seasonally adjusted)",
+    "source": "https://fred.stlouisfed.org/data/unrate"
+   },
+   "house_vote": {
+    "d": 52.1,
+    "r": 47.0,
+    "basis": "share of all votes",
+    "source": "https://www.brookings.edu/wp-content/uploads/2026/04/Chapter-2-Full.pdf",
+    "source_note": "Percent of ALL House votes (not two-party), Brookings Vital Statistics on Congress Table 2-2 'Popular Vote and House Seats Won by Party, 1946-2024' (excludes districts with unopposed candidates where no vote was recorded)."
+   },
+   "house_vote_prev": {
+    "d": 49.2,
+    "r": 49.3,
+    "basis": "share of all votes",
+    "source": "https://www.brookings.edu/wp-content/uploads/2026/04/Chapter-2-Full.pdf",
+    "source_note": "Percent of ALL House votes (not two-party), Brookings Vital Statistics on Congress Table 2-2 'Popular Vote and House Seats Won by Party, 1946-2024' (excludes districts with unopposed candidates where no vote was recorded).",
+    "year": 1952
+   },
+   "war": {
+    "active": false,
+    "name": "None (Korean War armistice July 27, 1953)",
+    "us_hostile_deaths_year": null,
+    "us_hostile_deaths_term": null,
+    "source": "https://www.everycrsreport.com/files/20190924_RL32492_75dc0f1f826404a4728a7a3eb43ec2f8cb67905d.html",
+    "notes": "Term-to-date (Eisenhower, from Jan 1953) includes Korean War deaths from Jan-Jul 1953; count not found by date."
+   },
+   "sentiment_oct": {
+    "value": 87.0,
+    "survey_month": "1954-11",
+    "note": "No October survey before 1978; value is the nearest survey (November). FRED shows no fieldwork dates, so it may have been fielded around or after Election Day. No August 1954 reading in FRED; last earlier reading is 1954-05.",
+    "index_base": "1966:Q1=100",
+    "series": "UMCSENT (via FRED)",
+    "source": "https://fred.stlouisfed.org/data/umcsent",
+    "last_pre_election_value": 82.9,
+    "last_pre_election_month": "1954-05"
+   },
+   "gas_oct": {
+    "price": null,
+    "yoy_pct": -1.83,
+    "yoy_basis": "CPI gasoline (all types) index, 1954-09 vs 1953-09",
+    "index_level": 21.5,
+    "index_level_prev": 21.9,
+    "index_base": "1982-84=100, NSA",
+    "series": "CWUR0000SETB01 (BLS CPI-W gasoline, all types, via FRED)",
+    "source": "https://fred.stlouisfed.org/data/CWUR0000SETB01",
+    "note": "Pump price in dollars for October not found before 1976 (BLS average-price series APU000074714 begins 1976); YoY change is from the CPI gasoline index, not a dollar price. No October reading (quarterly index); September used."
+   },
+   "notes": "Sentiment value is Nov 1954 (nearest survey; may postdate Election Day Nov 2); May 1954 = 82.9. Gas change uses September readings.",
+   "cpi_sep_yoy": {
+    "value_pct": -0.37,
+    "level": 26.8,
+    "level_prev": 26.9,
+    "basis": "CPI-U NSA Sept 1954 vs Sept 1953 (last CPI month published before Election Day)",
+    "series": "CPIAUCNS",
+    "source": "https://fred.stlouisfed.org/data/cpiaucns",
+    "note": "Convenience field; requester already holds monthly CPI-U."
+   }
+  },
+  {
+   "year": 1958,
+   "rdi_pc": {
+    "level_q3": 13062,
+    "level_prev": 13106,
+    "yoy_pct": -0.34,
+    "units": "chained 2017 dollars, SAAR, quarterly",
+    "basis": "Q3 1958 vs Q3 1957",
+    "series": "A229RX0Q048SBEA (BEA via FRED)",
+    "source": "https://fred.stlouisfed.org/data/A229RX0Q048SBEA"
+   },
+   "unemp_oct": {
+    "value": 6.7,
+    "month": "1958-10",
+    "series": "UNRATE (BLS, seasonally adjusted)",
+    "source": "https://fred.stlouisfed.org/data/unrate"
+   },
+   "house_vote": {
+    "d": 55.5,
+    "r": 43.6,
+    "basis": "share of all votes",
+    "source": "https://www.brookings.edu/wp-content/uploads/2026/04/Chapter-2-Full.pdf",
+    "source_note": "Percent of ALL House votes (not two-party), Brookings Vital Statistics on Congress Table 2-2 'Popular Vote and House Seats Won by Party, 1946-2024' (excludes districts with unopposed candidates where no vote was recorded)."
+   },
+   "house_vote_prev": {
+    "d": 50.7,
+    "r": 48.7,
+    "basis": "share of all votes",
+    "source": "https://www.brookings.edu/wp-content/uploads/2026/04/Chapter-2-Full.pdf",
+    "source_note": "Percent of ALL House votes (not two-party), Brookings Vital Statistics on Congress Table 2-2 'Popular Vote and House Seats Won by Party, 1946-2024' (excludes districts with unopposed candidates where no vote was recorded).",
+    "year": 1956
+   },
+   "war": {
+    "active": false,
+    "name": "None (Lebanon landing, Jul-Oct 1958, not a war)",
+    "us_hostile_deaths_year": null,
+    "us_hostile_deaths_term": null,
+    "source": "https://www.everycrsreport.com/files/20190924_RL32492_75dc0f1f826404a4728a7a3eb43ec2f8cb67905d.html",
+    "notes": "1958 Lebanon operation not listed in CRS/DCAS tables reached; no count found."
+   },
+   "sentiment_oct": {
+    "value": 90.8,
+    "survey_month": "1958-11",
+    "note": "No October survey before 1978; value is the nearest survey (November). FRED shows no fieldwork dates, so it may have been fielded around or after Election Day. No August 1958 reading in FRED; last earlier reading is 1958-05.",
+    "index_base": "1966:Q1=100",
+    "series": "UMCSENT (via FRED)",
+    "source": "https://fred.stlouisfed.org/data/umcsent",
+    "last_pre_election_value": 80.9,
+    "last_pre_election_month": "1958-05"
+   },
+   "gas_oct": {
+    "price": null,
+    "yoy_pct": 0.0,
+    "yoy_basis": "CPI gasoline (all types) index, 1958-10 vs 1957-10",
+    "index_level": 23.5,
+    "index_level_prev": 23.5,
+    "index_base": "1982-84=100, NSA",
+    "series": "CWUR0000SETB01 (BLS CPI-W gasoline, all types, via FRED)",
+    "source": "https://fred.stlouisfed.org/data/CWUR0000SETB01",
+    "note": "Pump price in dollars for October not found before 1976 (BLS average-price series APU000074714 begins 1976); YoY change is from the CPI gasoline index, not a dollar price."
+   },
+   "notes": "Sentiment value is Nov 1958 (nearest); May 1958 = 80.9.",
+   "cpi_sep_yoy": {
+    "value_pct": 2.12,
+    "level": 28.9,
+    "level_prev": 28.3,
+    "basis": "CPI-U NSA Sept 1958 vs Sept 1957 (last CPI month published before Election Day)",
+    "series": "CPIAUCNS",
+    "source": "https://fred.stlouisfed.org/data/cpiaucns",
+    "note": "Convenience field; requester already holds monthly CPI-U."
+   }
+  },
+  {
+   "year": 1962,
+   "rdi_pc": {
+    "level_q3": 14096,
+    "level_prev": 13679,
+    "yoy_pct": 3.05,
+    "units": "chained 2017 dollars, SAAR, quarterly",
+    "basis": "Q3 1962 vs Q3 1961",
+    "series": "A229RX0Q048SBEA (BEA via FRED)",
+    "source": "https://fred.stlouisfed.org/data/A229RX0Q048SBEA"
+   },
+   "unemp_oct": {
+    "value": 5.4,
+    "month": "1962-10",
+    "series": "UNRATE (BLS, seasonally adjusted)",
+    "source": "https://fred.stlouisfed.org/data/unrate"
+   },
+   "house_vote": {
+    "d": 52.1,
+    "r": 47.1,
+    "basis": "share of all votes",
+    "source": "https://www.brookings.edu/wp-content/uploads/2026/04/Chapter-2-Full.pdf",
+    "source_note": "Percent of ALL House votes (not two-party), Brookings Vital Statistics on Congress Table 2-2 'Popular Vote and House Seats Won by Party, 1946-2024' (excludes districts with unopposed candidates where no vote was recorded)."
+   },
+   "house_vote_prev": {
+    "d": 54.4,
+    "r": 44.8,
+    "basis": "share of all votes",
+    "source": "https://www.brookings.edu/wp-content/uploads/2026/04/Chapter-2-Full.pdf",
+    "source_note": "Percent of ALL House votes (not two-party), Brookings Vital Statistics on Congress Table 2-2 'Popular Vote and House Seats Won by Party, 1946-2024' (excludes districts with unopposed candidates where no vote was recorded).",
+    "year": 1960
+   },
+   "war": {
+    "active": false,
+    "limited_operations": "U.S. military advisers in South Vietnam",
+    "name": "None (Vietnam advisory mission)",
+    "us_hostile_deaths_year": null,
+    "us_hostile_deaths_term": null,
+    "us_total_deaths_vietnam_year": 53,
+    "us_total_deaths_vietnam_term": 69,
+    "us_total_deaths_basis": "all Vietnam deaths (hostile + non-hostile) by year of death: 1961 = 16, 1962 = 53",
+    "source": "https://www.archives.gov/research/vietnam-war/casualty-statistics",
+    "notes": "Hostile-only split by year not found for 1961-62. NARA counts come from the DCAS Vietnam Conflict Extract File (as of April 29, 2008), 'not official statistics'. Term-to-date = calendar years from the start of the president's current four-year term through the election year (full calendar years, so it includes post-election November-December deaths and any January 1-19 deaths before inauguration)."
+   },
+   "sentiment_oct": {
+    "value": 95.0,
+    "survey_month": "1962-11",
+    "note": "No October survey before 1978; value is the nearest survey (November). FRED shows no fieldwork dates, so it may have been fielded around or after Election Day.",
+    "index_base": "1966:Q1=100",
+    "series": "UMCSENT (via FRED)",
+    "source": "https://fred.stlouisfed.org/data/umcsent",
+    "last_pre_election_value": 91.6,
+    "last_pre_election_month": "1962-08"
+   },
+   "gas_oct": {
+    "price": null,
+    "yoy_pct": 2.07,
+    "yoy_basis": "CPI gasoline (all types) index, 1962-10 vs 1961-10",
+    "index_level": 24.6,
+    "index_level_prev": 24.1,
+    "index_base": "1982-84=100, NSA",
+    "series": "CWUR0000SETB01 (BLS CPI-W gasoline, all types, via FRED)",
+    "source": "https://fred.stlouisfed.org/data/CWUR0000SETB01",
+    "note": "Pump price in dollars for October not found before 1976 (BLS average-price series APU000074714 begins 1976); YoY change is from the CPI gasoline index, not a dollar price."
+   },
+   "notes": "Sentiment value is Nov 1962 (nearest); Aug 1962 = 91.6. Vietnam deaths are totals (hostile + non-hostile).",
+   "cpi_sep_yoy": {
+    "value_pct": 1.33,
+    "level": 30.4,
+    "level_prev": 30.0,
+    "basis": "CPI-U NSA Sept 1962 vs Sept 1961 (last CPI month published before Election Day)",
+    "series": "CPIAUCNS",
+    "source": "https://fred.stlouisfed.org/data/cpiaucns",
+    "note": "Convenience field; requester already holds monthly CPI-U."
+   }
+  },
+  {
+   "year": 1966,
+   "rdi_pc": {
+    "level_q3": 16650,
+    "level_prev": 16107,
+    "yoy_pct": 3.37,
+    "units": "chained 2017 dollars, SAAR, quarterly",
+    "basis": "Q3 1966 vs Q3 1965",
+    "series": "A229RX0Q048SBEA (BEA via FRED)",
+    "source": "https://fred.stlouisfed.org/data/A229RX0Q048SBEA"
+   },
+   "unemp_oct": {
+    "value": 3.7,
+    "month": "1966-10",
+    "series": "UNRATE (BLS, seasonally adjusted)",
+    "source": "https://fred.stlouisfed.org/data/unrate"
+   },
+   "house_vote": {
+    "d": 50.5,
+    "r": 48.0,
+    "basis": "share of all votes",
+    "source": "https://www.brookings.edu/wp-content/uploads/2026/04/Chapter-2-Full.pdf",
+    "source_note": "Percent of ALL House votes (not two-party), Brookings Vital Statistics on Congress Table 2-2 'Popular Vote and House Seats Won by Party, 1946-2024' (excludes districts with unopposed candidates where no vote was recorded)."
+   },
+   "house_vote_prev": {
+    "d": 56.9,
+    "r": 42.4,
+    "basis": "share of all votes",
+    "source": "https://www.brookings.edu/wp-content/uploads/2026/04/Chapter-2-Full.pdf",
+    "source_note": "Percent of ALL House votes (not two-party), Brookings Vital Statistics on Congress Table 2-2 'Popular Vote and House Seats Won by Party, 1946-2024' (excludes districts with unopposed candidates where no vote was recorded).",
+    "year": 1964
+   },
+   "war": {
+    "active": true,
+    "name": "Vietnam War",
+    "us_hostile_deaths_year": 5008,
+    "us_hostile_deaths_term": 6377,
+    "term_detail": "LBJ elected term from Jan 1965: 1965 = 1,369 + 1966 = 5,008 (killed by hostile action)",
+    "us_total_deaths_year": 6350,
+    "us_total_deaths_term": 8278,
+    "total_source": "https://www.archives.gov/research/vietnam-war/casualty-statistics",
+    "source": "https://edmoise.sites.clemson.edu/VNStats.html",
+    "notes": "Hostile counts from Edwin Moise (Clemson) 'Selected Statistics on the Vietnam War'; the page does not cite its source. Totals (hostile + non-hostile) from the NARA/DCAS extract file. Term-to-date = calendar years from the start of the president's current four-year term through the election year (full calendar years, so it includes post-election November-December deaths and any January 1-19 deaths before inauguration)."
+   },
+   "sentiment_oct": {
+    "value": 88.3,
+    "survey_month": "1966-11",
+    "note": "No October survey before 1978; value is the nearest survey (November). FRED shows no fieldwork dates, so it may have been fielded around or after Election Day.",
+    "index_base": "1966:Q1=100",
+    "series": "UMCSENT (via FRED)",
+    "source": "https://fred.stlouisfed.org/data/umcsent",
+    "last_pre_election_value": 91.2,
+    "last_pre_election_month": "1966-08"
+   },
+   "gas_oct": {
+    "price": null,
+    "yoy_pct": 2.79,
+    "yoy_basis": "CPI gasoline (all types) index, 1966-09 vs 1965-06/1965-12",
+    "index_level": 25.8,
+    "index_level_prev": 25.1,
+    "index_base": "1982-84=100, NSA",
+    "series": "CWUR0000SETB01 (BLS CPI-W gasoline, all types, via FRED)",
+    "source": "https://fred.stlouisfed.org/data/CWUR0000SETB01",
+    "note": "Pump price in dollars for October not found before 1976 (BLS average-price series APU000074714 begins 1976); YoY change is from the CPI gasoline index, not a dollar price. No Sept or Oct 1965 reading (index published only for June and December 1965, both 25.1); comparison is Sept 1966 vs 25.1."
+   },
+   "notes": "Sentiment value is Nov 1966 (nearest); Aug 1966 = 91.2. Gas change is Sept 1966 vs. 1965 (June and Dec 1965 both 25.1).",
+   "cpi_sep_yoy": {
+    "value_pct": 3.48,
+    "level": 32.7,
+    "level_prev": 31.6,
+    "basis": "CPI-U NSA Sept 1966 vs Sept 1965 (last CPI month published before Election Day)",
+    "series": "CPIAUCNS",
+    "source": "https://fred.stlouisfed.org/data/cpiaucns",
+    "note": "Convenience field; requester already holds monthly CPI-U."
+   }
+  },
+  {
+   "year": 1970,
+   "rdi_pc": {
+    "level_q3": 18983,
+    "level_prev": 18344,
+    "yoy_pct": 3.48,
+    "units": "chained 2017 dollars, SAAR, quarterly",
+    "basis": "Q3 1970 vs Q3 1969",
+    "series": "A229RX0Q048SBEA (BEA via FRED)",
+    "source": "https://fred.stlouisfed.org/data/A229RX0Q048SBEA"
+   },
+   "unemp_oct": {
+    "value": 5.5,
+    "month": "1970-10",
+    "series": "UNRATE (BLS, seasonally adjusted)",
+    "source": "https://fred.stlouisfed.org/data/unrate"
+   },
+   "house_vote": {
+    "d": 53.0,
+    "r": 44.5,
+    "basis": "share of all votes",
+    "source": "https://www.brookings.edu/wp-content/uploads/2026/04/Chapter-2-Full.pdf",
+    "source_note": "Percent of ALL House votes (not two-party), Brookings Vital Statistics on Congress Table 2-2 'Popular Vote and House Seats Won by Party, 1946-2024' (excludes districts with unopposed candidates where no vote was recorded)."
+   },
+   "house_vote_prev": {
+    "d": 50.0,
+    "r": 48.2,
+    "basis": "share of all votes",
+    "source": "https://www.brookings.edu/wp-content/uploads/2026/04/Chapter-2-Full.pdf",
+    "source_note": "Percent of ALL House votes (not two-party), Brookings Vital Statistics on Congress Table 2-2 'Popular Vote and House Seats Won by Party, 1946-2024' (excludes districts with unopposed candidates where no vote was recorded).",
+    "year": 1968
+   },
+   "war": {
+    "active": true,
+    "name": "Vietnam War (incl. Cambodian incursion, May-June 1970)",
+    "us_hostile_deaths_year": 4221,
+    "us_hostile_deaths_term": 13635,
+    "term_detail": "Nixon term from Jan 1969: 1969 = 9,414 (6,340 first half + 3,074 second half) + 1970 = 4,221",
+    "us_total_deaths_year": 6173,
+    "us_total_deaths_term": 17953,
+    "total_source": "https://www.archives.gov/research/vietnam-war/casualty-statistics",
+    "source": "https://edmoise.sites.clemson.edu/VNStats.html",
+    "notes": "Hostile counts from Moise (no source cited on page); totals from NARA/DCAS extract file. 1969 includes Jan 1-19 under Johnson. Term-to-date = calendar years from the start of the president's current four-year term through the election year (full calendar years, so it includes post-election November-December deaths and any January 1-19 deaths before inauguration)."
+   },
+   "sentiment_oct": {
+    "value": 72.4,
+    "survey_month": "1970-11",
+    "note": "No October survey before 1978; value is the nearest survey (November). FRED shows no fieldwork dates, so it may have been fielded around or after Election Day.",
+    "index_base": "1966:Q1=100",
+    "series": "UMCSENT (via FRED)",
+    "source": "https://fred.stlouisfed.org/data/umcsent",
+    "last_pre_election_value": 77.6,
+    "last_pre_election_month": "1970-08"
+   },
+   "gas_oct": {
+    "price": null,
+    "yoy_pct": 1.08,
+    "yoy_basis": "CPI gasoline (all types) index, 1970-10 vs 1969-10",
+    "index_level": 28.1,
+    "index_level_prev": 27.8,
+    "index_base": "1982-84=100, NSA",
+    "series": "CWUR0000SETB01 (BLS CPI-W gasoline, all types, via FRED)",
+    "source": "https://fred.stlouisfed.org/data/CWUR0000SETB01",
+    "note": "Pump price in dollars for October not found before 1976 (BLS average-price series APU000074714 begins 1976); YoY change is from the CPI gasoline index, not a dollar price.",
+    "annual_avg_price_leaded_regular": 0.357,
+    "annual_source": "https://www.eia.gov/totalenergy/data/annual/pdf/sec5_59.pdf",
+    "annual_note": "EIA AER Table 5.24, nominal $/gal, 1970 annual average (1969 not shown in that table)"
+   },
+   "notes": "Sentiment value is Nov 1970 (nearest); Aug 1970 = 77.6.",
+   "cpi_sep_yoy": {
+    "value_pct": 5.66,
+    "level": 39.2,
+    "level_prev": 37.1,
+    "basis": "CPI-U NSA Sept 1970 vs Sept 1969 (last CPI month published before Election Day)",
+    "series": "CPIAUCNS",
+    "source": "https://fred.stlouisfed.org/data/cpiaucns",
+    "note": "Convenience field; requester already holds monthly CPI-U."
+   }
+  },
+  {
+   "year": 1974,
+   "rdi_pc": {
+    "level_q3": 20701,
+    "level_prev": 21193,
+    "yoy_pct": -2.32,
+    "units": "chained 2017 dollars, SAAR, quarterly",
+    "basis": "Q3 1974 vs Q3 1973",
+    "series": "A229RX0Q048SBEA (BEA via FRED)",
+    "source": "https://fred.stlouisfed.org/data/A229RX0Q048SBEA"
+   },
+   "unemp_oct": {
+    "value": 6.0,
+    "month": "1974-10",
+    "series": "UNRATE (BLS, seasonally adjusted)",
+    "source": "https://fred.stlouisfed.org/data/unrate"
+   },
+   "house_vote": {
+    "d": 57.1,
+    "r": 40.5,
+    "basis": "share of all votes",
+    "source": "https://www.brookings.edu/wp-content/uploads/2026/04/Chapter-2-Full.pdf",
+    "source_note": "Percent of ALL House votes (not two-party), Brookings Vital Statistics on Congress Table 2-2 'Popular Vote and House Seats Won by Party, 1946-2024' (excludes districts with unopposed candidates where no vote was recorded)."
+   },
+   "house_vote_prev": {
+    "d": 51.7,
+    "r": 46.4,
+    "basis": "share of all votes",
+    "source": "https://www.brookings.edu/wp-content/uploads/2026/04/Chapter-2-Full.pdf",
+    "source_note": "Percent of ALL House votes (not two-party), Brookings Vital Statistics on Congress Table 2-2 'Popular Vote and House Seats Won by Party, 1946-2024' (excludes districts with unopposed candidates where no vote was recorded).",
+    "year": 1972
+   },
+   "war": {
+    "active": false,
+    "name": "None (U.S. combat role in Vietnam ended with the Jan 27, 1973 cease-fire)",
+    "us_hostile_deaths_year": null,
+    "us_hostile_deaths_term": null,
+    "us_total_deaths_vietnam_year": 1,
+    "us_total_deaths_vietnam_term": 69,
+    "us_total_deaths_basis": "Vietnam deaths, all causes, by year of death: 1973 = 68, 1974 = 1",
+    "source": "https://www.archives.gov/research/vietnam-war/casualty-statistics",
+    "notes": "Nixon's second term began Jan 1973; Ford took office Aug 9, 1974. Term-to-date = calendar years from the start of the president's current four-year term through the election year (full calendar years, so it includes post-election November-December deaths and any January 1-19 deaths before inauguration)."
+   },
+   "sentiment_oct": {
+    "value": 59.5,
+    "survey_month": "1974-11",
+    "note": "No October survey before 1978; value is the nearest survey (November). FRED shows no fieldwork dates, so it may have been fielded around or after Election Day.",
+    "index_base": "1966:Q1=100",
+    "series": "UMCSENT (via FRED)",
+    "source": "https://fred.stlouisfed.org/data/umcsent",
+    "last_pre_election_value": 64.4,
+    "last_pre_election_month": "1974-08"
+   },
+   "gas_oct": {
+    "price": null,
+    "yoy_pct": 32.19,
+    "yoy_basis": "CPI gasoline (all types) index, 1974-10 vs 1973-10",
+    "index_level": 42.3,
+    "index_level_prev": 32.0,
+    "index_base": "1982-84=100, NSA",
+    "series": "CWUR0000SETB01 (BLS CPI-W gasoline, all types, via FRED)",
+    "source": "https://fred.stlouisfed.org/data/CWUR0000SETB01",
+    "note": "Pump price in dollars for October not found before 1976 (BLS average-price series APU000074714 begins 1976); YoY change is from the CPI gasoline index, not a dollar price."
+   },
+   "notes": "Sentiment value is Nov 1974 (nearest); Aug 1974 = 64.4. Gas change from the CPI gasoline index (Oct 1974 vs Oct 1973).",
+   "cpi_sep_yoy": {
+    "value_pct": 11.95,
+    "level": 50.6,
+    "level_prev": 45.2,
+    "basis": "CPI-U NSA Sept 1974 vs Sept 1973 (last CPI month published before Election Day)",
+    "series": "CPIAUCNS",
+    "source": "https://fred.stlouisfed.org/data/cpiaucns",
+    "note": "Convenience field; requester already holds monthly CPI-U."
+   }
+  },
+  {
+   "year": 1978,
+   "rdi_pc": {
+    "level_q3": 22821,
+    "level_prev": 22050,
+    "yoy_pct": 3.5,
+    "units": "chained 2017 dollars, SAAR, quarterly",
+    "basis": "Q3 1978 vs Q3 1977",
+    "series": "A229RX0Q048SBEA (BEA via FRED)",
+    "source": "https://fred.stlouisfed.org/data/A229RX0Q048SBEA"
+   },
+   "unemp_oct": {
+    "value": 5.8,
+    "month": "1978-10",
+    "series": "UNRATE (BLS, seasonally adjusted)",
+    "source": "https://fred.stlouisfed.org/data/unrate"
+   },
+   "house_vote": {
+    "d": 53.4,
+    "r": 44.7,
+    "basis": "share of all votes",
+    "source": "https://www.brookings.edu/wp-content/uploads/2026/04/Chapter-2-Full.pdf",
+    "source_note": "Percent of ALL House votes (not two-party), Brookings Vital Statistics on Congress Table 2-2 'Popular Vote and House Seats Won by Party, 1946-2024' (excludes districts with unopposed candidates where no vote was recorded)."
+   },
+   "house_vote_prev": {
+    "d": 56.2,
+    "r": 42.1,
+    "basis": "share of all votes",
+    "source": "https://www.brookings.edu/wp-content/uploads/2026/04/Chapter-2-Full.pdf",
+    "source_note": "Percent of ALL House votes (not two-party), Brookings Vital Statistics on Congress Table 2-2 'Popular Vote and House Seats Won by Party, 1946-2024' (excludes districts with unopposed candidates where no vote was recorded).",
+    "year": 1976
+   },
+   "war": {
+    "active": false,
+    "name": "None",
+    "us_hostile_deaths_year": null,
+    "us_hostile_deaths_term": null,
+    "source": "https://www.everycrsreport.com/files/20190924_RL32492_75dc0f1f826404a4728a7a3eb43ec2f8cb67905d.html",
+    "notes": "No operation with hostile deaths listed for 1977-78 in the CRS/DCAS tables reached; count not compiled."
+   },
+   "sentiment_oct": {
+    "value": 79.3,
+    "survey_month": "1978-10",
+    "index_base": "1966:Q1=100",
+    "series": "UMCSENT (University of Michigan Surveys of Consumers via FRED)",
+    "source": "https://fred.stlouisfed.org/data/umcsent"
+   },
+   "gas_oct": {
+    "price": 0.69,
+    "price_prev_oct": 0.665,
+    "yoy_pct": 3.76,
+    "units": "USD per gallon, unleaded regular, U.S. city average, not seasonally adjusted",
+    "series": "BLS APU000074714 (via FRED)",
+    "source": "https://fred.stlouisfed.org/data/APU000074714"
+   },
+   "notes": "First midterm with a monthly October sentiment reading and the BLS October average gas price.",
+   "cpi_sep_yoy": {
+    "value_pct": 8.31,
+    "level": 66.5,
+    "level_prev": 61.4,
+    "basis": "CPI-U NSA Sept 1978 vs Sept 1977 (last CPI month published before Election Day)",
+    "series": "CPIAUCNS",
+    "source": "https://fred.stlouisfed.org/data/cpiaucns",
+    "note": "Convenience field; requester already holds monthly CPI-U."
+   }
+  },
+  {
+   "year": 1982,
+   "rdi_pc": {
+    "level_q3": 23466,
+    "level_prev": 23351,
+    "yoy_pct": 0.49,
+    "units": "chained 2017 dollars, SAAR, quarterly",
+    "basis": "Q3 1982 vs Q3 1981",
+    "series": "A229RX0Q048SBEA (BEA via FRED)",
+    "source": "https://fred.stlouisfed.org/data/A229RX0Q048SBEA"
+   },
+   "unemp_oct": {
+    "value": 10.4,
+    "month": "1982-10",
+    "series": "UNRATE (BLS, seasonally adjusted)",
+    "source": "https://fred.stlouisfed.org/data/unrate"
+   },
+   "house_vote": {
+    "d": 55.2,
+    "r": 43.3,
+    "basis": "share of all votes",
+    "source": "https://www.brookings.edu/wp-content/uploads/2026/04/Chapter-2-Full.pdf",
+    "source_note": "Percent of ALL House votes (not two-party), Brookings Vital Statistics on Congress Table 2-2 'Popular Vote and House Seats Won by Party, 1946-2024' (excludes districts with unopposed candidates where no vote was recorded)."
+   },
+   "house_vote_prev": {
+    "d": 50.4,
+    "r": 48.0,
+    "basis": "share of all votes",
+    "source": "https://www.brookings.edu/wp-content/uploads/2026/04/Chapter-2-Full.pdf",
+    "source_note": "Percent of ALL House votes (not two-party), Brookings Vital Statistics on Congress Table 2-2 'Popular Vote and House Seats Won by Party, 1946-2024' (excludes districts with unopposed candidates where no vote was recorded).",
+    "year": 1980
+   },
+   "war": {
+    "active": false,
+    "limited_operations": "Lebanon peacekeeping deployment began Aug 25, 1982",
+    "name": "None (Lebanon peacekeeping)",
+    "us_hostile_deaths_year": null,
+    "us_hostile_deaths_term": null,
+    "context_operation_total": {
+     "operation": "Lebanon peacekeeping, Aug 25, 1982 - Feb 26, 1984",
+     "hostile": 256,
+     "nonhostile": 9,
+     "source": "https://www.everycrsreport.com/files/20190924_RL32492_75dc0f1f826404a4728a7a3eb43ec2f8cb67905d.html"
+    },
+    "source": "https://www.everycrsreport.com/files/20190924_RL32492_75dc0f1f826404a4728a7a3eb43ec2f8cb67905d.html",
+    "notes": "Whole-operation totals only; most hostile deaths came in the Oct 1983 Beirut barracks bombing (after this election). 1982 count not found."
+   },
+   "sentiment_oct": {
+    "value": 73.4,
+    "survey_month": "1982-10",
+    "index_base": "1966:Q1=100",
+    "series": "UMCSENT (University of Michigan Surveys of Consumers via FRED)",
+    "source": "https://fred.stlouisfed.org/data/umcsent"
+   },
+   "gas_oct": {
+    "price": 1.295,
+    "price_prev_oct": 1.371,
+    "yoy_pct": -5.54,
+    "units": "USD per gallon, unleaded regular, U.S. city average, not seasonally adjusted",
+    "series": "BLS APU000074714 (via FRED)",
+    "source": "https://fred.stlouisfed.org/data/APU000074714"
+   },
+   "notes": "",
+   "cpi_sep_yoy": {
+    "value_pct": 5.04,
+    "level": 97.9,
+    "level_prev": 93.2,
+    "basis": "CPI-U NSA Sept 1982 vs Sept 1981 (last CPI month published before Election Day)",
+    "series": "CPIAUCNS",
+    "source": "https://fred.stlouisfed.org/data/cpiaucns",
+    "note": "Convenience field; requester already holds monthly CPI-U."
+   }
+  },
+  {
+   "year": 1986,
+   "rdi_pc": {
+    "level_q3": 26842,
+    "level_prev": 25961,
+    "yoy_pct": 3.39,
+    "units": "chained 2017 dollars, SAAR, quarterly",
+    "basis": "Q3 1986 vs Q3 1985",
+    "series": "A229RX0Q048SBEA (BEA via FRED)",
+    "source": "https://fred.stlouisfed.org/data/A229RX0Q048SBEA"
+   },
+   "unemp_oct": {
+    "value": 7.0,
+    "month": "1986-10",
+    "series": "UNRATE (BLS, seasonally adjusted)",
+    "source": "https://fred.stlouisfed.org/data/unrate"
+   },
+   "house_vote": {
+    "d": 54.5,
+    "r": 44.6,
+    "basis": "share of all votes",
+    "source": "https://www.brookings.edu/wp-content/uploads/2026/04/Chapter-2-Full.pdf",
+    "source_note": "Percent of ALL House votes (not two-party), Brookings Vital Statistics on Congress Table 2-2 'Popular Vote and House Seats Won by Party, 1946-2024' (excludes districts with unopposed candidates where no vote was recorded)."
+   },
+   "house_vote_prev": {
+    "d": 52.1,
+    "r": 47.0,
+    "basis": "share of all votes",
+    "source": "https://www.brookings.edu/wp-content/uploads/2026/04/Chapter-2-Full.pdf",
+    "source_note": "Percent of ALL House votes (not two-party), Brookings Vital Statistics on Congress Table 2-2 'Popular Vote and House Seats Won by Party, 1946-2024' (excludes districts with unopposed candidates where no vote was recorded).",
+    "year": 1984
+   },
+   "war": {
+    "active": false,
+    "limited_operations": "April 1986 air strikes on Libya (Operation El Dorado Canyon)",
+    "name": "None",
+    "us_hostile_deaths_year": null,
+    "us_hostile_deaths_term": null,
+    "source": "https://www.everycrsreport.com/files/20190924_RL32492_75dc0f1f826404a4728a7a3eb43ec2f8cb67905d.html",
+    "notes": "Libya 1986 not listed in the CRS/DCAS tables reached; death count not found."
+   },
+   "sentiment_oct": {
+    "value": 95.6,
+    "survey_month": "1986-10",
+    "index_base": "1966:Q1=100",
+    "series": "UMCSENT (University of Michigan Surveys of Consumers via FRED)",
+    "source": "https://fred.stlouisfed.org/data/umcsent"
+   },
+   "gas_oct": {
+    "price": 0.831,
+    "price_prev_oct": 1.204,
+    "yoy_pct": -30.98,
+    "units": "USD per gallon, unleaded regular, U.S. city average, not seasonally adjusted",
+    "series": "BLS APU000074714 (via FRED)",
+    "source": "https://fred.stlouisfed.org/data/APU000074714"
+   },
+   "notes": "",
+   "cpi_sep_yoy": {
+    "value_pct": 1.75,
+    "level": 110.2,
+    "level_prev": 108.3,
+    "basis": "CPI-U NSA Sept 1986 vs Sept 1985 (last CPI month published before Election Day)",
+    "series": "CPIAUCNS",
+    "source": "https://fred.stlouisfed.org/data/cpiaucns",
+    "note": "Convenience field; requester already holds monthly CPI-U."
+   }
+  },
+  {
+   "year": 1990,
+   "rdi_pc": {
+    "level_q3": 28943,
+    "level_prev": 28587,
+    "yoy_pct": 1.25,
+    "units": "chained 2017 dollars, SAAR, quarterly",
+    "basis": "Q3 1990 vs Q3 1989",
+    "series": "A229RX0Q048SBEA (BEA via FRED)",
+    "source": "https://fred.stlouisfed.org/data/A229RX0Q048SBEA"
+   },
+   "unemp_oct": {
+    "value": 5.9,
+    "month": "1990-10",
+    "series": "UNRATE (BLS, seasonally adjusted)",
+    "source": "https://fred.stlouisfed.org/data/unrate"
+   },
+   "house_vote": {
+    "d": 52.9,
+    "r": 45.0,
+    "basis": "share of all votes",
+    "source": "https://www.brookings.edu/wp-content/uploads/2026/04/Chapter-2-Full.pdf",
+    "source_note": "Percent of ALL House votes (not two-party), Brookings Vital Statistics on Congress Table 2-2 'Popular Vote and House Seats Won by Party, 1946-2024' (excludes districts with unopposed candidates where no vote was recorded)."
+   },
+   "house_vote_prev": {
+    "d": 53.3,
+    "r": 45.5,
+    "basis": "share of all votes",
+    "source": "https://www.brookings.edu/wp-content/uploads/2026/04/Chapter-2-Full.pdf",
+    "source_note": "Percent of ALL House votes (not two-party), Brookings Vital Statistics on Congress Table 2-2 'Popular Vote and House Seats Won by Party, 1946-2024' (excludes districts with unopposed candidates where no vote was recorded).",
+    "year": 1988
+   },
+   "war": {
+    "active": false,
+    "limited_operations": "Operation Desert Shield deployment (no combat until Jan 17, 1991)",
+    "name": "None (Persian Gulf build-up)",
+    "us_hostile_deaths_year": 0,
+    "us_hostile_deaths_term": 23,
+    "term_detail": "Bush term from Jan 1989: Operation Just Cause (Panama, Dec 1989 - Jan 1990) 23 hostile deaths; Desert Shield 0 hostile (84 non-hostile)",
+    "source": "https://www.everycrsreport.com/files/20190924_RL32492_75dc0f1f826404a4728a7a3eb43ec2f8cb67905d.html",
+    "notes": "DCAS Table 2 lists only non-hostile deaths (84) for Desert Shield; the 148 hostile deaths came in Desert Storm (1991)."
+   },
+   "sentiment_oct": {
+    "value": 63.9,
+    "survey_month": "1990-10",
+    "index_base": "1966:Q1=100",
+    "series": "UMCSENT (University of Michigan Surveys of Consumers via FRED)",
+    "source": "https://fred.stlouisfed.org/data/umcsent"
+   },
+   "gas_oct": {
+    "price": 1.378,
+    "price_prev_oct": 1.027,
+    "yoy_pct": 34.18,
+    "units": "USD per gallon, unleaded regular, U.S. city average, not seasonally adjusted",
+    "series": "BLS APU000074714 (via FRED)",
+    "source": "https://fred.stlouisfed.org/data/APU000074714"
+   },
+   "notes": "",
+   "cpi_sep_yoy": {
+    "value_pct": 6.16,
+    "level": 132.7,
+    "level_prev": 125.0,
+    "basis": "CPI-U NSA Sept 1990 vs Sept 1989 (last CPI month published before Election Day)",
+    "series": "CPIAUCNS",
+    "source": "https://fred.stlouisfed.org/data/cpiaucns",
+    "note": "Convenience field; requester already holds monthly CPI-U."
+   }
+  },
+  {
+   "year": 1994,
+   "rdi_pc": {
+    "level_q3": 30025,
+    "level_prev": 29514,
+    "yoy_pct": 1.73,
+    "units": "chained 2017 dollars, SAAR, quarterly",
+    "basis": "Q3 1994 vs Q3 1993",
+    "series": "A229RX0Q048SBEA (BEA via FRED)",
+    "source": "https://fred.stlouisfed.org/data/A229RX0Q048SBEA"
+   },
+   "unemp_oct": {
+    "value": 5.8,
+    "month": "1994-10",
+    "series": "UNRATE (BLS, seasonally adjusted)",
+    "source": "https://fred.stlouisfed.org/data/unrate"
+   },
+   "house_vote": {
+    "d": 45.4,
+    "r": 52.4,
+    "basis": "share of all votes",
+    "source": "https://www.brookings.edu/wp-content/uploads/2026/04/Chapter-2-Full.pdf",
+    "source_note": "Percent of ALL House votes (not two-party), Brookings Vital Statistics on Congress Table 2-2 'Popular Vote and House Seats Won by Party, 1946-2024' (excludes districts with unopposed candidates where no vote was recorded)."
+   },
+   "house_vote_prev": {
+    "d": 50.8,
+    "r": 45.6,
+    "basis": "share of all votes",
+    "source": "https://www.brookings.edu/wp-content/uploads/2026/04/Chapter-2-Full.pdf",
+    "source_note": "Percent of ALL House votes (not two-party), Brookings Vital Statistics on Congress Table 2-2 'Popular Vote and House Seats Won by Party, 1946-2024' (excludes districts with unopposed candidates where no vote was recorded).",
+    "year": 1992
+   },
+   "war": {
+    "active": false,
+    "limited_operations": "Somalia withdrawal completed March 1994; Haiti intervention (Operation Uphold Democracy) from Sept 1994",
+    "name": "None",
+    "us_hostile_deaths_year": null,
+    "us_hostile_deaths_term": null,
+    "context_operation_total": {
+     "operation": "Somalia (Restore Hope / UNOSOM) 1992-1994",
+     "hostile": 29,
+     "nonhostile": 14,
+     "haiti_1994_96_nonhostile": 4,
+     "source": "https://www.everycrsreport.com/files/20190924_RL32492_75dc0f1f826404a4728a7a3eb43ec2f8cb67905d.html"
+    },
+    "source": "https://www.everycrsreport.com/files/20190924_RL32492_75dc0f1f826404a4728a7a3eb43ec2f8cb67905d.html",
+    "notes": "Whole-operation totals only; most Somalia hostile deaths came in 1993 (Oct 3-4, 1993 Mogadishu battle). Year split not found."
+   },
+   "sentiment_oct": {
+    "value": 92.7,
+    "survey_month": "1994-10",
+    "index_base": "1966:Q1=100",
+    "series": "UMCSENT (University of Michigan Surveys of Consumers via FRED)",
+    "source": "https://fred.stlouisfed.org/data/umcsent"
+   },
+   "gas_oct": {
+    "price": 1.152,
+    "price_prev_oct": 1.127,
+    "yoy_pct": 2.22,
+    "units": "USD per gallon, unleaded regular, U.S. city average, not seasonally adjusted",
+    "series": "BLS APU000074714 (via FRED)",
+    "source": "https://fred.stlouisfed.org/data/APU000074714"
+   },
+   "notes": "",
+   "cpi_sep_yoy": {
+    "value_pct": 2.96,
+    "level": 149.4,
+    "level_prev": 145.1,
+    "basis": "CPI-U NSA Sept 1994 vs Sept 1993 (last CPI month published before Election Day)",
+    "series": "CPIAUCNS",
+    "source": "https://fred.stlouisfed.org/data/cpiaucns",
+    "note": "Convenience field; requester already holds monthly CPI-U."
+   }
+  },
+  {
+   "year": 1998,
+   "rdi_pc": {
+    "level_q3": 33621,
+    "level_prev": 32046,
+    "yoy_pct": 4.91,
+    "units": "chained 2017 dollars, SAAR, quarterly",
+    "basis": "Q3 1998 vs Q3 1997",
+    "series": "A229RX0Q048SBEA (BEA via FRED)",
+    "source": "https://fred.stlouisfed.org/data/A229RX0Q048SBEA"
+   },
+   "unemp_oct": {
+    "value": 4.5,
+    "month": "1998-10",
+    "series": "UNRATE (BLS, seasonally adjusted)",
+    "source": "https://fred.stlouisfed.org/data/unrate"
+   },
+   "house_vote": {
+    "d": 47.1,
+    "r": 48.0,
+    "basis": "share of all votes",
+    "source": "https://www.brookings.edu/wp-content/uploads/2026/04/Chapter-2-Full.pdf",
+    "source_note": "Percent of ALL House votes (not two-party), Brookings Vital Statistics on Congress Table 2-2 'Popular Vote and House Seats Won by Party, 1946-2024' (excludes districts with unopposed candidates where no vote was recorded)."
+   },
+   "house_vote_prev": {
+    "d": 48.5,
+    "r": 48.9,
+    "basis": "share of all votes",
+    "source": "https://www.brookings.edu/wp-content/uploads/2026/04/Chapter-2-Full.pdf",
+    "source_note": "Percent of ALL House votes (not two-party), Brookings Vital Statistics on Congress Table 2-2 'Popular Vote and House Seats Won by Party, 1946-2024' (excludes districts with unopposed candidates where no vote was recorded).",
+    "year": 1996
+   },
+   "war": {
+    "active": false,
+    "name": "None (Operation Desert Fox air strikes came Dec 16-19, 1998, after the election)",
+    "us_hostile_deaths_year": null,
+    "us_hostile_deaths_term": null,
+    "source": "https://www.everycrsreport.com/files/20190924_RL32492_75dc0f1f826404a4728a7a3eb43ec2f8cb67905d.html",
+    "notes": "No count compiled."
+   },
+   "sentiment_oct": {
+    "value": 97.4,
+    "survey_month": "1998-10",
+    "index_base": "1966:Q1=100",
+    "series": "UMCSENT (University of Michigan Surveys of Consumers via FRED)",
+    "source": "https://fred.stlouisfed.org/data/umcsent"
+   },
+   "gas_oct": {
+    "price": 1.042,
+    "price_prev_oct": 1.242,
+    "yoy_pct": -16.1,
+    "units": "USD per gallon, unleaded regular, U.S. city average, not seasonally adjusted",
+    "series": "BLS APU000074714 (via FRED)",
+    "source": "https://fred.stlouisfed.org/data/APU000074714"
+   },
+   "notes": "",
+   "cpi_sep_yoy": {
+    "value_pct": 1.49,
+    "level": 163.6,
+    "level_prev": 161.2,
+    "basis": "CPI-U NSA Sept 1998 vs Sept 1997 (last CPI month published before Election Day)",
+    "series": "CPIAUCNS",
+    "source": "https://fred.stlouisfed.org/data/cpiaucns",
+    "note": "Convenience field; requester already holds monthly CPI-U."
+   }
+  },
+  {
+   "year": 2002,
+   "rdi_pc": {
+    "level_q3": 36857,
+    "level_prev": 36611,
+    "yoy_pct": 0.67,
+    "units": "chained 2017 dollars, SAAR, quarterly",
+    "basis": "Q3 2002 vs Q3 2001",
+    "series": "A229RX0Q048SBEA (BEA via FRED)",
+    "source": "https://fred.stlouisfed.org/data/A229RX0Q048SBEA"
+   },
+   "unemp_oct": {
+    "value": 5.7,
+    "month": "2002-10",
+    "series": "UNRATE (BLS, seasonally adjusted)",
+    "source": "https://fred.stlouisfed.org/data/unrate"
+   },
+   "house_vote": {
+    "d": null,
+    "r": null,
+    "source": "not collected here: requester already has 2002-2024 national House vote",
+    "brookings_check": {
+     "d": 45.0,
+     "r": 49.6,
+     "source": "https://www.brookings.edu/wp-content/uploads/2026/04/Chapter-2-Full.pdf"
+    }
+   },
+   "house_vote_prev": {
+    "d": 47.0,
+    "r": 47.3,
+    "basis": "share of all votes",
+    "source": "https://www.brookings.edu/wp-content/uploads/2026/04/Chapter-2-Full.pdf",
+    "source_note": "Percent of ALL House votes (not two-party), Brookings Vital Statistics on Congress Table 2-2 'Popular Vote and House Seats Won by Party, 1946-2024' (excludes districts with unopposed candidates where no vote was recorded).",
+    "year": 2000
+   },
+   "war": {
+    "active": true,
+    "name": "Afghanistan (Operation Enduring Freedom)",
+    "us_hostile_deaths_year": 18,
+    "us_hostile_deaths_jan_oct": 17,
+    "us_hostile_deaths_term": 21,
+    "us_total_deaths_year": 49,
+    "us_total_deaths_term": 60,
+    "term_detail": "Bush term from Jan 2001; OEF began Oct 7, 2001: 2001 hostile 3 (total 11) + 2002 hostile 18 (total 49)",
+    "source": "https://en.wikipedia.org/wiki/United_States_military_casualties_in_the_War_in_Afghanistan",
+    "notes": "DCAS monthly tables (all OEF/OFS theaters) reproduced on Wikipedia; hostile = 'U.S. KIA (hostile)'. Iraq war began March 2003 (after this election). Term-to-date = calendar years from the start of the president's current four-year term through the election year (full calendar years, so it includes post-election November-December deaths and any January 1-19 deaths before inauguration)."
+   },
+   "sentiment_oct": {
+    "value": 80.6,
+    "survey_month": "2002-10",
+    "index_base": "1966:Q1=100",
+    "series": "UMCSENT (University of Michigan Surveys of Consumers via FRED)",
+    "source": "https://fred.stlouisfed.org/data/umcsent"
+   },
+   "gas_oct": {
+    "price": 1.449,
+    "price_prev_oct": 1.362,
+    "yoy_pct": 6.39,
+    "units": "USD per gallon, unleaded regular, U.S. city average, not seasonally adjusted",
+    "series": "BLS APU000074714 (via FRED)",
+    "source": "https://fred.stlouisfed.org/data/APU000074714"
+   },
+   "notes": "House vote for the 2002 midterm itself is not collected here (the requester already has 2002-2024); Brookings figures are included as a cross-check.",
+   "cpi_sep_yoy": {
+    "value_pct": 1.51,
+    "level": 181.0,
+    "level_prev": 178.3,
+    "basis": "CPI-U NSA Sept 2002 vs Sept 2001 (last CPI month published before Election Day)",
+    "series": "CPIAUCNS",
+    "source": "https://fred.stlouisfed.org/data/cpiaucns",
+    "note": "Convenience field; requester already holds monthly CPI-U."
+   }
+  },
+  {
+   "year": 2006,
+   "rdi_pc": {
+    "level_q3": 39312,
+    "level_prev": 38422,
+    "yoy_pct": 2.32,
+    "units": "chained 2017 dollars, SAAR, quarterly",
+    "basis": "Q3 2006 vs Q3 2005",
+    "series": "A229RX0Q048SBEA (BEA via FRED)",
+    "source": "https://fred.stlouisfed.org/data/A229RX0Q048SBEA"
+   },
+   "unemp_oct": {
+    "value": 4.4,
+    "month": "2006-10",
+    "series": "UNRATE (BLS, seasonally adjusted)",
+    "source": "https://fred.stlouisfed.org/data/unrate"
+   },
+   "house_vote": {
+    "d": null,
+    "r": null,
+    "source": "not collected here: requester already has 2002-2024 national House vote",
+    "brookings_check": {
+     "d": 52.0,
+     "r": 45.6,
+     "source": "https://www.brookings.edu/wp-content/uploads/2026/04/Chapter-2-Full.pdf"
+    }
+   },
+   "house_vote_prev": {
+    "year": 2004,
+    "d": null,
+    "r": null,
+    "source": "not collected here: requester already has 2002-2024 national House vote",
+    "brookings_check": {
+     "d": 46.6,
+     "r": 49.2,
+     "source": "https://www.brookings.edu/wp-content/uploads/2026/04/Chapter-2-Full.pdf"
+    }
+   },
+   "war": {
+    "active": true,
+    "name": "Iraq (Operation Iraqi Freedom) and Afghanistan (OEF)",
+    "us_hostile_deaths_year": null,
+    "afghanistan": {
+     "hostile_year": 65,
+     "hostile_jan_oct": 59,
+     "total_year": 98,
+     "hostile_term_2005_06": 131,
+     "total_term_2005_06": 197,
+     "source": "https://en.wikipedia.org/wiki/United_States_military_casualties_in_the_War_in_Afghanistan"
+    },
+    "iraq": {
+     "total_deaths_year": 822,
+     "total_deaths_2005": 846,
+     "total_deaths_term_2005_06": 1668,
+     "total_source": "DoD 'Operation Iraqi Freedom U.S. Casualty Status' via Brookings Iraq Index (Feb 25, 2011)",
+     "jan_oct_2006_icasualties": {
+      "hostile_excluding_helicopter_losses": 541,
+      "helicopter_losses_mixed_hostile_nonhostile": 21,
+      "nonhostile": 78,
+      "total": 640,
+      "source_note": "Iraq Coalition Casualty Count (icasualties.org) cause-of-death table reproduced in the Brookings Iraq Index; helicopter losses combine hostile shoot-downs and accidents, so Jan-Oct 2006 hostile deaths were between 541 and 562",
+      "source": "https://www.brookings.edu/wp-content/uploads/2016/07/index20110225.pdf"
+     },
+     "source": "https://www.brookings.edu/wp-content/uploads/2016/07/index20110225.pdf"
+    },
+    "us_hostile_deaths_term": null,
+    "source": "https://www.brookings.edu/wp-content/uploads/2016/07/index20110225.pdf ; https://en.wikipedia.org/wiki/United_States_military_casualties_in_the_War_in_Afghanistan",
+    "notes": "Calendar-year Iraq hostile deaths on the DCAS basis not found (OIF whole-war: 3,481 hostile, 938 non-hostile per DCAS as of Sept 10, 2019, https://www.everycrsreport.com/files/20190924_RL32492_75dc0f1f826404a4728a7a3eb43ec2f8cb67905d.html). Combined 2006 total deaths, all causes: 822 Iraq + 98 Afghanistan = 920. Bush second term from Jan 2005. Term-to-date = calendar years from the start of the president's current four-year term through the election year (full calendar years, so it includes post-election November-December deaths and any January 1-19 deaths before inauguration).",
+    "us_hostile_deaths_partial": {
+     "year": 65,
+     "jan_oct": 59,
+     "term": 131,
+     "covers": "Afghanistan / all OEF-OFS theaters only (DCAS); excludes Iraq",
+     "source": "https://en.wikipedia.org/wiki/United_States_military_casualties_in_the_War_in_Afghanistan"
+    }
+   },
+   "sentiment_oct": {
+    "value": 93.6,
+    "survey_month": "2006-10",
+    "index_base": "1966:Q1=100",
+    "series": "UMCSENT (University of Michigan Surveys of Consumers via FRED)",
+    "source": "https://fred.stlouisfed.org/data/umcsent"
+   },
+   "gas_oct": {
+    "price": 2.272,
+    "price_prev_oct": 2.785,
+    "yoy_pct": -18.42,
+    "units": "USD per gallon, unleaded regular, U.S. city average, not seasonally adjusted",
+    "series": "BLS APU000074714 (via FRED)",
+    "source": "https://fred.stlouisfed.org/data/APU000074714"
+   },
+   "notes": "Iraq hostile deaths on the DCAS basis by calendar year not found; DoD all-cause totals and icasualties Jan-Oct breakdown provided instead.",
+   "cpi_sep_yoy": {
+    "value_pct": 2.06,
+    "level": 202.9,
+    "level_prev": 198.8,
+    "basis": "CPI-U NSA Sept 2006 vs Sept 2005 (last CPI month published before Election Day)",
+    "series": "CPIAUCNS",
+    "source": "https://fred.stlouisfed.org/data/cpiaucns",
+    "note": "Convenience field; requester already holds monthly CPI-U."
+   }
+  },
+  {
+   "year": 2010,
+   "rdi_pc": {
+    "level_q3": 40556,
+    "level_prev": 39713,
+    "yoy_pct": 2.12,
+    "units": "chained 2017 dollars, SAAR, quarterly",
+    "basis": "Q3 2010 vs Q3 2009",
+    "series": "A229RX0Q048SBEA (BEA via FRED)",
+    "source": "https://fred.stlouisfed.org/data/A229RX0Q048SBEA"
+   },
+   "unemp_oct": {
+    "value": 9.4,
+    "month": "2010-10",
+    "series": "UNRATE (BLS, seasonally adjusted)",
+    "source": "https://fred.stlouisfed.org/data/unrate"
+   },
+   "house_vote": {
+    "d": null,
+    "r": null,
+    "source": "not collected here: requester already has 2002-2024 national House vote",
+    "brookings_check": {
+     "d": 44.8,
+     "r": 51.4,
+     "source": "https://www.brookings.edu/wp-content/uploads/2026/04/Chapter-2-Full.pdf"
+    }
+   },
+   "house_vote_prev": {
+    "year": 2008,
+    "d": null,
+    "r": null,
+    "source": "not collected here: requester already has 2002-2024 national House vote",
+    "brookings_check": {
+     "d": 52.9,
+     "r": 42.3,
+     "source": "https://www.brookings.edu/wp-content/uploads/2026/04/Chapter-2-Full.pdf"
+    }
+   },
+   "war": {
+    "active": true,
+    "name": "Afghanistan (OEF, surge) and Iraq (OIF; Operation New Dawn from Sept 1, 2010)",
+    "us_hostile_deaths_year": null,
+    "afghanistan": {
+     "hostile_year": 437,
+     "hostile_jan_oct": 359,
+     "total_year": 498,
+     "hostile_term_2009_10": 708,
+     "total_term_2009_10": 809,
+     "source": "https://en.wikipedia.org/wiki/United_States_military_casualties_in_the_War_in_Afghanistan",
+     "crs_dmdc_totals_check": {
+      "2009": 311,
+      "2010": 499,
+      "source": "https://www.everycrsreport.com/files/20121206_R41084_f61416a669ea9d115f8867df20c7e944ca927c0d.html"
+     }
+    },
+    "iraq": {
+     "total_deaths_year": 60,
+     "total_deaths_2009": 149,
+     "total_deaths_term_2009_10": 209,
+     "total_source": "DoD via Brookings Iraq Index (Feb 25, 2011)",
+     "jan_oct_2010_icasualties": {
+      "hostile_excluding_helicopter_losses": 20,
+      "helicopter_losses_mixed": 3,
+      "nonhostile": 32,
+      "total": 55,
+      "source": "https://www.brookings.edu/wp-content/uploads/2016/07/index20110225.pdf",
+      "note": "icasualties monthly totals sum to 58 for all of 2010 vs. the DoD annual total of 60"
+     },
+     "source": "https://www.brookings.edu/wp-content/uploads/2016/07/index20110225.pdf"
+    },
+    "us_hostile_deaths_term": null,
+    "source": "https://en.wikipedia.org/wiki/United_States_military_casualties_in_the_War_in_Afghanistan ; https://www.brookings.edu/wp-content/uploads/2016/07/index20110225.pdf",
+    "notes": "Afghanistan hostile 2010 = 437 (DCAS). Iraq calendar-2010 hostile on DCAS basis not found (Jan-Oct 2010 icasualties hostile between 20 and 23). Obama term from Jan 2009. Term-to-date = calendar years from the start of the president's current four-year term through the election year (full calendar years, so it includes post-election November-December deaths and any January 1-19 deaths before inauguration).",
+    "us_hostile_deaths_partial": {
+     "year": 437,
+     "jan_oct": 359,
+     "term": 708,
+     "covers": "Afghanistan / all OEF-OFS theaters only (DCAS); excludes Iraq",
+     "source": "https://en.wikipedia.org/wiki/United_States_military_casualties_in_the_War_in_Afghanistan"
+    }
+   },
+   "sentiment_oct": {
+    "value": 67.7,
+    "survey_month": "2010-10",
+    "index_base": "1966:Q1=100",
+    "series": "UMCSENT (University of Michigan Surveys of Consumers via FRED)",
+    "source": "https://fred.stlouisfed.org/data/umcsent"
+   },
+   "gas_oct": {
+    "price": 2.795,
+    "price_prev_oct": 2.561,
+    "yoy_pct": 9.14,
+    "units": "USD per gallon, unleaded regular, U.S. city average, not seasonally adjusted",
+    "series": "BLS APU000074714 (via FRED)",
+    "source": "https://fred.stlouisfed.org/data/APU000074714"
+   },
+   "notes": "Iraq hostile deaths on the DCAS basis by calendar year not found; see war.iraq.",
+   "cpi_sep_yoy": {
+    "value_pct": 1.14,
+    "level": 218.439,
+    "level_prev": 215.969,
+    "basis": "CPI-U NSA Sept 2010 vs Sept 2009 (last CPI month published before Election Day)",
+    "series": "CPIAUCNS",
+    "source": "https://fred.stlouisfed.org/data/cpiaucns",
+    "note": "Convenience field; requester already holds monthly CPI-U."
+   }
+  },
+  {
+   "year": 2014,
+   "rdi_pc": {
+    "level_q3": 42010,
+    "level_prev": 40894,
+    "yoy_pct": 2.73,
+    "units": "chained 2017 dollars, SAAR, quarterly",
+    "basis": "Q3 2014 vs Q3 2013",
+    "series": "A229RX0Q048SBEA (BEA via FRED)",
+    "source": "https://fred.stlouisfed.org/data/A229RX0Q048SBEA"
+   },
+   "unemp_oct": {
+    "value": 5.7,
+    "month": "2014-10",
+    "series": "UNRATE (BLS, seasonally adjusted)",
+    "source": "https://fred.stlouisfed.org/data/unrate"
+   },
+   "house_vote": {
+    "d": null,
+    "r": null,
+    "source": "not collected here: requester already has 2002-2024 national House vote",
+    "brookings_check": {
+     "d": 45.5,
+     "r": 50.6,
+     "source": "https://www.brookings.edu/wp-content/uploads/2026/04/Chapter-2-Full.pdf"
+    }
+   },
+   "house_vote_prev": {
+    "year": 2012,
+    "d": null,
+    "r": null,
+    "source": "not collected here: requester already has 2002-2024 national House vote",
+    "brookings_check": {
+     "d": 48.3,
+     "r": 46.9,
+     "source": "https://www.brookings.edu/wp-content/uploads/2026/04/Chapter-2-Full.pdf"
+    }
+   },
+   "war": {
+    "active": true,
+    "name": "Afghanistan (OEF, final combat year) and Iraq/Syria air campaign vs. ISIS (Operation Inherent Resolve, from Aug 2014)",
+    "us_hostile_deaths_year": null,
+    "afghanistan": {
+     "hostile_year": 39,
+     "hostile_jan_oct": 33,
+     "total_year": 55,
+     "hostile_term_2013_14": 130,
+     "total_term_2013_14": 187,
+     "source": "https://en.wikipedia.org/wiki/United_States_military_casualties_in_the_War_in_Afghanistan"
+    },
+    "inherent_resolve": {
+     "hostile_2014": null,
+     "context": "OIR whole-operation through Sept 10, 2019: 86 deaths, 17 hostile (DCAS)",
+     "source": "https://www.everycrsreport.com/files/20190924_RL32492_75dc0f1f826404a4728a7a3eb43ec2f8cb67905d.html"
+    },
+    "us_hostile_deaths_term": null,
+    "source": "https://en.wikipedia.org/wiki/United_States_military_casualties_in_the_War_in_Afghanistan",
+    "notes": "Afghanistan-only hostile 2014 = 39 (DCAS). OIR by-year counts not found. Obama second term from Jan 2013. Term-to-date = calendar years from the start of the president's current four-year term through the election year (full calendar years, so it includes post-election November-December deaths and any January 1-19 deaths before inauguration).",
+    "us_hostile_deaths_partial": {
+     "year": 39,
+     "jan_oct": 33,
+     "term": 130,
+     "covers": "Afghanistan / all OEF-OFS theaters only (DCAS); excludes Iraq and Operation Inherent Resolve",
+     "source": "https://en.wikipedia.org/wiki/United_States_military_casualties_in_the_War_in_Afghanistan"
+    }
+   },
+   "sentiment_oct": {
+    "value": 86.9,
+    "survey_month": "2014-10",
+    "index_base": "1966:Q1=100",
+    "series": "UMCSENT (University of Michigan Surveys of Consumers via FRED)",
+    "source": "https://fred.stlouisfed.org/data/umcsent"
+   },
+   "gas_oct": {
+    "price": 3.182,
+    "price_prev_oct": 3.375,
+    "yoy_pct": -5.72,
+    "units": "USD per gallon, unleaded regular, U.S. city average, not seasonally adjusted",
+    "series": "BLS APU000074714 (via FRED)",
+    "source": "https://fred.stlouisfed.org/data/APU000074714"
+   },
+   "notes": "",
+   "cpi_sep_yoy": {
+    "value_pct": 1.66,
+    "level": 238.031,
+    "level_prev": 234.149,
+    "basis": "CPI-U NSA Sept 2014 vs Sept 2013 (last CPI month published before Election Day)",
+    "series": "CPIAUCNS",
+    "source": "https://fred.stlouisfed.org/data/cpiaucns",
+    "note": "Convenience field; requester already holds monthly CPI-U."
+   }
+  },
+  {
+   "year": 2018,
+   "rdi_pc": {
+    "level_q3": 46257,
+    "level_prev": 44878,
+    "yoy_pct": 3.07,
+    "units": "chained 2017 dollars, SAAR, quarterly",
+    "basis": "Q3 2018 vs Q3 2017",
+    "series": "A229RX0Q048SBEA (BEA via FRED)",
+    "source": "https://fred.stlouisfed.org/data/A229RX0Q048SBEA"
+   },
+   "unemp_oct": {
+    "value": 3.8,
+    "month": "2018-10",
+    "series": "UNRATE (BLS, seasonally adjusted)",
+    "source": "https://fred.stlouisfed.org/data/unrate"
+   },
+   "house_vote": {
+    "d": null,
+    "r": null,
+    "source": "not collected here: requester already has 2002-2024 national House vote",
+    "brookings_check": {
+     "d": 53.2,
+     "r": 44.5,
+     "source": "https://www.brookings.edu/wp-content/uploads/2026/04/Chapter-2-Full.pdf"
+    }
+   },
+   "house_vote_prev": {
+    "year": 2016,
+    "d": null,
+    "r": null,
+    "source": "not collected here: requester already has 2002-2024 national House vote",
+    "brookings_check": {
+     "d": 47.3,
+     "r": 48.2,
+     "source": "https://www.brookings.edu/wp-content/uploads/2026/04/Chapter-2-Full.pdf"
+    }
+   },
+   "war": {
+    "active": true,
+    "name": "Afghanistan (Operation Freedom's Sentinel) and Iraq/Syria (Operation Inherent Resolve), low intensity",
+    "us_hostile_deaths_year": null,
+    "afghanistan": {
+     "hostile_year": 13,
+     "hostile_jan_oct": 7,
+     "total_year": 16,
+     "total_year_note": "Table total 16; monthly entries sum to 15",
+     "hostile_term_2017_18": 25,
+     "total_term_2017_18": 31,
+     "source": "https://en.wikipedia.org/wiki/United_States_military_casualties_in_the_War_in_Afghanistan"
+    },
+    "inherent_resolve": {
+     "hostile_2018": null,
+     "source": "https://www.everycrsreport.com/files/20190924_RL32492_75dc0f1f826404a4728a7a3eb43ec2f8cb67905d.html"
+    },
+    "us_hostile_deaths_term": null,
+    "source": "https://en.wikipedia.org/wiki/United_States_military_casualties_in_the_War_in_Afghanistan",
+    "notes": "Afghanistan/OFS hostile 2018 = 13 (DCAS). OIR by-year counts not found. Trump term from Jan 2017. Term-to-date = calendar years from the start of the president's current four-year term through the election year (full calendar years, so it includes post-election November-December deaths and any January 1-19 deaths before inauguration).",
+    "us_hostile_deaths_partial": {
+     "year": 13,
+     "jan_oct": 7,
+     "term": 25,
+     "covers": "Afghanistan / all OEF-OFS theaters only (DCAS); excludes Iraq and Operation Inherent Resolve",
+     "source": "https://en.wikipedia.org/wiki/United_States_military_casualties_in_the_War_in_Afghanistan"
+    }
+   },
+   "sentiment_oct": {
+    "value": 98.6,
+    "survey_month": "2018-10",
+    "index_base": "1966:Q1=100",
+    "series": "UMCSENT (University of Michigan Surveys of Consumers via FRED)",
+    "source": "https://fred.stlouisfed.org/data/umcsent"
+   },
+   "gas_oct": {
+    "price": 2.887,
+    "price_prev_oct": 2.484,
+    "yoy_pct": 16.22,
+    "units": "USD per gallon, unleaded regular, U.S. city average, not seasonally adjusted",
+    "series": "BLS APU000074714 (via FRED)",
+    "source": "https://fred.stlouisfed.org/data/APU000074714"
+   },
+   "notes": "",
+   "cpi_sep_yoy": {
+    "value_pct": 2.28,
+    "level": 252.439,
+    "level_prev": 246.819,
+    "basis": "CPI-U NSA Sept 2018 vs Sept 2017 (last CPI month published before Election Day)",
+    "series": "CPIAUCNS",
+    "source": "https://fred.stlouisfed.org/data/cpiaucns",
+    "note": "Convenience field; requester already holds monthly CPI-U."
+   }
+  },
+  {
+   "year": 2022,
+   "rdi_pc": {
+    "level_q3": 48878,
+    "level_prev": 50796,
+    "yoy_pct": -3.78,
+    "units": "chained 2017 dollars, SAAR, quarterly",
+    "basis": "Q3 2022 vs Q3 2021",
+    "series": "A229RX0Q048SBEA (BEA via FRED)",
+    "source": "https://fred.stlouisfed.org/data/A229RX0Q048SBEA"
+   },
+   "unemp_oct": {
+    "value": 3.6,
+    "month": "2022-10",
+    "series": "UNRATE (BLS, seasonally adjusted)",
+    "source": "https://fred.stlouisfed.org/data/unrate"
+   },
+   "house_vote": {
+    "d": null,
+    "r": null,
+    "source": "not collected here: requester already has 2002-2024 national House vote",
+    "brookings_check": {
+     "d": 47.4,
+     "r": 50.0,
+     "source": "https://www.brookings.edu/wp-content/uploads/2026/04/Chapter-2-Full.pdf"
+    }
+   },
+   "house_vote_prev": {
+    "year": 2020,
+    "d": null,
+    "r": null,
+    "source": "not collected here: requester already has 2002-2024 national House vote",
+    "brookings_check": {
+     "d": 50.0,
+     "r": 47.0,
+     "source": "https://www.brookings.edu/wp-content/uploads/2026/04/Chapter-2-Full.pdf"
+    }
+   },
+   "war": {
+    "active": false,
+    "name": "None (Afghanistan withdrawal completed Aug 2021; counter-ISIS presence in Iraq/Syria continued)",
+    "us_hostile_deaths_year": null,
+    "us_hostile_deaths_term": null,
+    "term_detail": "Biden term from Jan 2021: 13 hostile deaths in Afghanistan in Aug 2021 (Kabul airport bombing); 2022 count not found",
+    "afghanistan": {
+     "hostile_2021": 13,
+     "source": "https://en.wikipedia.org/wiki/United_States_military_casualties_in_the_War_in_Afghanistan"
+    },
+    "source": "https://en.wikipedia.org/wiki/United_States_military_casualties_in_the_War_in_Afghanistan",
+    "notes": "No 2022 hostile-death count found."
+   },
+   "sentiment_oct": {
+    "value": 59.9,
+    "survey_month": "2022-10",
+    "index_base": "1966:Q1=100",
+    "series": "UMCSENT (University of Michigan Surveys of Consumers via FRED)",
+    "source": "https://fred.stlouisfed.org/data/umcsent"
+   },
+   "gas_oct": {
+    "price": 4.016,
+    "price_prev_oct": 3.385,
+    "yoy_pct": 18.64,
+    "units": "USD per gallon, unleaded regular, U.S. city average, not seasonally adjusted",
+    "series": "BLS APU000074714 (via FRED)",
+    "source": "https://fred.stlouisfed.org/data/APU000074714"
+   },
+   "notes": "No shooting war; 2022 hostile-death count not found.",
+   "cpi_sep_yoy": {
+    "value_pct": 8.2,
+    "level": 296.808,
+    "level_prev": 274.31,
+    "basis": "CPI-U NSA Sept 2022 vs Sept 2021 (last CPI month published before Election Day)",
+    "series": "CPIAUCNS",
+    "source": "https://fred.stlouisfed.org/data/cpiaucns",
+    "note": "Convenience field; requester already holds monthly CPI-U."
+   }
+  }
+ ],
+ "now_2026": {
+  "rdi_pc_yoy": {
+   "value_pct": 0.7,
+   "basis": "Q2 2026 vs Q2 2025 (latest quarter)",
+   "level_latest": 53375,
+   "level_prev": 53006,
+   "units": "chained 2017 dollars, SAAR",
+   "series": "A229RX0Q048SBEA",
+   "source": "https://fred.stlouisfed.org/data/A229RX0Q048SBEA",
+   "as_of": "FRED last updated 2026-09-30",
+   "monthly_latest": {
+    "value_pct": 1.06,
+    "basis": "Aug 2026 vs Aug 2025",
+    "level_latest": 53674,
+    "level_prev": 53113,
+    "series": "A229RX0 (monthly)",
+    "source": "https://fred.stlouisfed.org/data/A229RX0",
+    "as_of": "FRED last updated 2026-09-30"
+   },
+   "q3_to_date": {
+    "value_pct": 1.15,
+    "basis": "Jul-Aug 2026 average vs Jul-Aug 2025 average (comparable to the Q3 basis used for midterms; Sept 2026 not yet released)",
+    "source": "https://fred.stlouisfed.org/data/A229RX0"
+   }
+  },
+  "unemp": {
+   "value": 4.2,
+   "month": "2026-09",
+   "released": "2026-10-02",
+   "series": "UNRATE (BLS, SA)",
+   "source": "https://fred.stlouisfed.org/data/unrate",
+   "note": "Prior months: Aug 2026 4.1, Jul 2026 4.1. The October 2025 observation is missing ('.') in the FRED series."
+  },
+  "cpi_yoy": {
+   "value_pct": 3.4,
+   "month": "2026-08",
+   "released": "2026-09-11",
+   "core_yoy_pct": 2.4,
+   "gasoline_index_yoy_pct": 27.4,
+   "energy_index_yoy_pct": 16.3,
+   "monthly_sa_pct": 0.4,
+   "computed_check": {
+    "cpi_u_nsa_aug2026": 334.98,
+    "cpi_u_nsa_aug2025": 323.976,
+    "yoy_pct": 3.4,
+    "source": "https://fred.stlouisfed.org/data/cpiaucns"
+   },
+   "next_release": "September 2026 CPI scheduled for Wednesday, October 14, 2026",
+   "source": "https://www.bls.gov/news.release/CPI.htm"
+  },
+  "gdp": {
+   "value_pct_saar": 2.2,
+   "quarter": "2026Q2",
+   "estimate": "third estimate, released 2026-09-30 (incorporates 2026 annual update)",
+   "prior_quarter_pct_saar": 2.5,
+   "pce_price_index_pct_saar_q2": 5.0,
+   "source": "https://bea.gov/news/2026/gdp-third-estimate-industries-corporate-profits-state-gdp-and-state-personal-income-2nd",
+   "series_check": "https://fred.stlouisfed.org/data/A191RL1Q225SBEA",
+   "recent_quarters_pct_saar": {
+    "2025Q1": 0.1,
+    "2025Q2": 4.0,
+    "2025Q3": 3.9,
+    "2025Q4": 0.2,
+    "2026Q1": 2.5,
+    "2026Q2": 2.2
+   },
+   "recent_quarters_source": "https://fred.stlouisfed.org/data/A191RL1Q225SBEA (post-2026 annual update vintage)"
+  },
+  "sentiment": {
+   "value": 46.3,
+   "survey": "October 2026 preliminary",
+   "released": "2026-10-09",
+   "prior_value": 48.1,
+   "prior_survey": "September 2026 final",
+   "current_conditions": 44.7,
+   "expectations": 47.3,
+   "inflation_expectations_1yr_pct": 4.7,
+   "inflation_expectations_long_run_pct": 3.5,
+   "source": "https://investinglive.com/news/us-october-umich-prelim-consumer-sentiment-vs-47-8-expected/",
+   "source_2": "https://finance.yahoo.com/economy/article/consumer-sentiment-falls-to-5-month-low-as-frustration-mounts-over-higher-costs-143114047.html",
+   "fred_latest": {
+    "value": 51.7,
+    "month": "2026-08",
+    "source": "https://fred.stlouisfed.org/data/umcsent",
+    "note": "FRED carries UMCSENT with a one-month delay"
+   },
+   "final_release_due": "2026-10-23"
+  },
+  "gas": {
+   "now": 4.354,
+   "now_date": "week of 2026-10-05",
+   "year_ago": 3.124,
+   "year_ago_date": "week of 2025-10-06",
+   "yoy_pct": 39.37,
+   "pre_war": 2.937,
+   "pre_war_date": "week of 2026-02-23",
+   "recent_peak_weekly": {
+    "value": 4.478,
+    "date": "week of 2026-09-21",
+    "source": "https://fred.stlouisfed.org/data/GASREGW"
+   },
+   "units": "USD/gal, U.S. regular all formulations retail (EIA weekly)",
+   "series": "GASREGW",
+   "source": "https://fred.stlouisfed.org/data/GASREGW",
+   "as_of": "FRED last updated 2026-10-06",
+   "bls_monthly": {
+    "aug_2026": 4.2,
+    "aug_2025": 3.295,
+    "may_2026_peak": 4.651,
+    "series": "APU000074714",
+    "source": "https://fred.stlouisfed.org/data/APU000074714"
+   }
+  },
+  "approval": {
+   "gallup": {
+    "status": "Gallup stopped publishing presidential approval ratings at the beginning of 2026 (confirmed Feb 12, 2026).",
+    "source": "https://campaignsandelections.com/industry-news/gallup-says-it-will-no-longer-poll-presidential-approval/",
+    "last_gallup_readings": [
+     {
+      "dates": "2025-11-03 to 2025-11-25",
+      "approve": 36,
+      "disapprove": 60,
+      "url": "https://news.gallup.com/poll/699221/trump-approval-rating-drops-new-second-term-low.aspx"
+     },
+     {
+      "dates": "2025-12-01 to 2025-12-15",
+      "approve": 36,
+      "disapprove": null,
+      "url": "https://news.gallup.com/poll/700241/americans-end-year-gloomy-mood.aspx"
+     }
+    ]
+   },
+   "averages_as_of_2026_10_08": [
+    {
+     "average": "RealClearPolitics",
+     "approve": 38.3,
+     "disapprove": 59.5
+    },
+    {
+     "average": "New York Times",
+     "approve": 37,
+     "disapprove": 60
+    },
+    {
+     "average": "Silver Bulletin",
+     "approve": 37.1,
+     "disapprove": 60.1
+    }
+   ],
+   "averages_source": "https://spokesman.com/stories/2026/oct/08/trump-voters-not-excited-for-midterms-as-approval-",
+   "recent_polls": [
+    {
+     "pollster": "Pew Research Center",
+     "dates": "2026-09-28 to 2026-10-04",
+     "approve": 30,
+     "disapprove": 68,
+     "url": "https://pewresearch.org/politics/2026/10/08/trumps-approval-rating-drops-as-fewer-americans-are-confident-in-his-handling-of-the-economy-other-issues"
+    },
+    {
+     "pollster": "Quinnipiac (RV)",
+     "dates": "2026-09-24 to 2026-09-27",
+     "approve": 34,
+     "disapprove": 61,
+     "url": "https://www.wfsb.com/2026/09/29/new-quinnipiac-poll-shows-low-approval-trumps-job-performance/"
+    }
+   ]
+  },
+  "iran_war": {
+   "us_deaths": 21,
+   "us_deaths_hostile": 11,
+   "us_deaths_nonhostile": 10,
+   "us_wounded": 865,
+   "deaths_breakdown": "Operation Epic Fury (from Feb 28, 2026): 15 deaths, 417 wounded; 'overseas operations' (casualties since July 7, 2026): 6 deaths, 448 wounded. The Oct. 9-10 update added two noncombat deaths (a Mar. 6 death in Kuwait and a September Navy suicide).",
+   "as_of": "2026-10-09/10 (Pentagon / Defense Casualty Analysis System update)",
+   "source": "https://www.stripes.com/theaters/middle_east/2026-10-10/pentagon-death-toll-iran-war-23114546.html",
+   "source_hostile_split": "https://foxnews.com/live-news/us-iran-war-saudi-arabia-trump-putin-oil-energy-prices-10-10-26",
+   "status": "Active conflict without a formal ceasefire, but U.S. strikes on Iran are paused. Britannica (updated Oct 9, 2026) lists the war as 'February 28, 2026 - present' and notes Trump declared the earlier ceasefire over in July 2026. CBS reported Oct 8 that the U.S. 'hasn't announced strikes on Iran for weeks', and Trump posted Oct 8 that the U.S. 'will not be attacking Iran at any time prior to the Midterm Elections'. The U.S. naval blockade of Iranian ports continues (133 commercial vessels redirected per CENTCOM, Oct 9), attacks on shipping in and near the Strait of Hormuz continue, and talks are described as at an impasse.",
+   "status_sources": [
+    "https://www.britannica.com/event/2026-Iran-war",
+    "https://www.cbsnews.com/live-updates/iran-war-nuclear-donald-trump-vance-rubio-strait-of-hormuz/",
+    "https://foxnews.com/live-news/us-iran-war-saudi-arabia-trump-putin-oil-energy-prices-10-10-26",
+    "https://www.newarab.com/news/pentagon-raises-us-iran-war-toll-21-killed-over-800-wounded"
+   ],
+   "timeline": [
+    {
+     "date": "2026-02-28",
+     "event": "U.S. and Israel begin strikes on Iran (Operation Epic Fury)",
+     "source": "https://www.aljazeera.com/news/2026/7/20/what-we-know-about-us-soldiers-killed-in-iran-war-and-iranian-casualties"
+    },
+    {
+     "date": "2026-04-07/08",
+     "event": "Two-week U.S.-Iran ceasefire mediated by Pakistan takes effect",
+     "source": "https://en.wikipedia.org/wiki/2026_Iran_war_ceasefire"
+    },
+    {
+     "date": "2026-04-12/13",
+     "event": "Trump declares a naval blockade of Iranian ports",
+     "source": "https://en.wikipedia.org/wiki/2026_Iran_war_ceasefire"
+    },
+    {
+     "date": "2026-04-21",
+     "event": "Ceasefire extended pending negotiations; blockade kept",
+     "source": "https://en.wikipedia.org/wiki/2026_Iran_war_ceasefire"
+    },
+    {
+     "date": "2026-05-05",
+     "event": "Operation Epic Fury declared complete (per GlobalSecurity summary)",
+     "source": "https://www.globalsecurity.org/military/ops/iran-war-oprep.htm"
+    },
+    {
+     "date": "2026-06-17",
+     "event": "U.S.-Iran memorandum of understanding extends ceasefire 60 days for negotiations",
+     "source": "https://www.aljazeera.com/news/2026/7/20/what-we-know-about-us-soldiers-killed-in-iran-war-and-iranian-casualties"
+    },
+    {
+     "date": "2026-07",
+     "event": "Trump declares the ceasefire over (per Britannica related-question text; exact date not given)",
+     "source": "https://www.britannica.com/event/2026-Iran-war"
+    },
+    {
+     "date": "2026-07-07",
+     "event": "Large-scale hostilities resume; U.S. nightly strikes on Iran reported through at least July 19",
+     "source": "https://www.aljazeera.com/news/2026/7/20/what-we-know-about-us-soldiers-killed-in-iran-war-and-iranian-casualties"
+    },
+    {
+     "date": "2026-10-08",
+     "event": "Trump: 'we will not be attacking Iran at any time prior to the Midterm Elections'; blockade 'will remain in full force'",
+     "source": "https://www.cbsnews.com/live-updates/iran-war-nuclear-donald-trump-vance-rubio-strait-of-hormuz/"
+    }
+   ],
+   "strikes_and_deployments": [
+    {
+     "item": "Targets struck in Iran (CENTCOM cumulative)",
+     "value": "more than 13,000",
+     "as_of": "reported 2026-04-06",
+     "source": "https://www.kurdistan24.net/en/story/906181/centcom-over-13000-targets-hit-155-iranian-vessels-destroyed"
+    },
+    {
+     "item": "Iranian vessels damaged or destroyed (CENTCOM)",
+     "value": "over 155",
+     "as_of": "reported 2026-04-06",
+     "source": "https://www.kurdistan24.net/en/story/906181/centcom-over-13000-targets-hit-155-iranian-vessels-destroyed"
+    },
+    {
+     "item": "Commercial vessels redirected under the blockade (CENTCOM)",
+     "value": 133,
+     "as_of": "2026-10-09",
+     "source": "https://foxnews.com/live-news/us-iran-war-saudi-arabia-trump-putin-oil-energy-prices-10-10-26"
+    },
+    {
+     "item": "USS Abraham Lincoln strike group (Pentagon statistics): combat sorties / Tomahawks / Iranian warships sunk",
+     "value": "3,693 / 450 / 64; ship returned Oct 8 after 321 days deployed",
+     "as_of": "2026-10-07",
+     "source": "https://www.cbsnews.com/live-updates/iran-war-nuclear-donald-trump-vance-rubio-strait-of-hormuz/"
+    },
+    {
+     "item": "U.S. aircraft and drones lost or damaged (CRS report)",
+     "value": "at least 81 (incl. 45 MQ-9 Reapers, 12 F-15Es)",
+     "as_of": "2026-10-08",
+     "source": "https://www.cbsnews.com/live-updates/iran-war-nuclear-donald-trump-vance-rubio-strait-of-hormuz/"
+    },
+    {
+     "item": "Blockade enforcement force",
+     "value": "more than 15,000 U.S. troops; more than 200 aircraft and warships incl. two carrier strike groups",
+     "as_of": "2026-05-25",
+     "source": "https://www.globalsecurity.org/military/ops/iran-war-oprep.htm"
+    }
+   ],
+   "earlier_counts": [
+    {
+     "as_of": "2026-07-20",
+     "us_deaths": 17,
+     "us_wounded": "at least 420",
+     "source": "https://www.aljazeera.com/news/2026/7/20/what-we-know-about-us-soldiers-killed-in-iran-war-and-iranian-casualties"
+    },
+    {
+     "as_of": "2026-10-07 (AP)",
+     "us_deaths": 19,
+     "us_wounded": "more than 800",
+     "source": "https://www.cbsnews.com/live-updates/iran-war-nuclear-donald-trump-vance-rubio-strait-of-hormuz/"
+    }
+   ]
+  },
+  "polls_on_handling": [
+   {
+    "pollster": "Quinnipiac University (registered voters, n=1,032)",
+    "dates": "2026-09-24 to 2026-09-27",
+    "item": "Trump handling of the situation with Iran",
+    "approve": 28,
+    "disapprove": 66,
+    "url": "https://www.wfsb.com/2026/09/29/new-quinnipiac-poll-shows-low-approval-trumps-job-performance/"
+   },
+   {
+    "pollster": "Quinnipiac University (registered voters, n=1,032)",
+    "dates": "2026-09-24 to 2026-09-27",
+    "item": "Trump handling of the economy",
+    "approve": 31,
+    "disapprove": 65,
+    "url": "https://www.wfsb.com/2026/09/29/new-quinnipiac-poll-shows-low-approval-trumps-job-performance/"
+   },
+   {
+    "pollster": "AP-NORC (adults, n=2,140, +/-2.9)",
+    "dates": "2026-09-24 to 2026-09-28",
+    "item": "Trump handling of Iran",
+    "approve": null,
+    "disapprove": 71,
+    "note": "approve share not reported on the release page",
+    "url": "https://apnorc.org/projects/most-blame-president-trump-for-higher-prices-and-are-unhappy-with-how-he-is-handling-the-economy/"
+   },
+   {
+    "pollster": "AP-NORC (adults, n=2,140, +/-2.9)",
+    "dates": "2026-09-24 to 2026-09-28",
+    "item": "Higher-than-usual prices are the result of Trump's policies (agree)",
+    "approve": null,
+    "disapprove": null,
+    "value": 65,
+    "note": "69% say his handling of cost of living has been worse than expected",
+    "url": "https://apnorc.org/projects/most-blame-president-trump-for-higher-prices-and-are-unhappy-with-how-he-is-handling-the-economy/"
+   },
+   {
+    "pollster": "Pew Research Center (adults)",
+    "dates": "2026-09-28 to 2026-10-04",
+    "item": "Very/somewhat confident in Trump to make good decisions on economic policy",
+    "approve": 35,
+    "disapprove": null,
+    "note": "same share (35%) confident on foreign policy; overall job approval 30/68",
+    "url": "https://pewresearch.org/politics/2026/10/08/trumps-approval-rating-drops-as-fewer-americans-are-confident-in-his-handling-of-the-economy-other-issues"
+   },
+   {
+    "pollster": "UMass Amherst (n=1,000)",
+    "dates": "2026-08-21 to 2026-08-26",
+    "item": "Trump handling the war (well / not well)",
+    "approve": 25,
+    "disapprove": 68,
+    "url": "https://www.forbes.com/sites/saradorn/2026/09/30/trumps-approval-rating-on-the-economy-hits-all-time-low/"
+   },
+   {
+    "pollster": "Reuters/Ipsos (adults, n=1,167)",
+    "dates": "2026-08-28 to 2026-08-31",
+    "item": "Trump handling of the economy",
+    "approve": 22,
+    "disapprove": 71,
+    "url": "https://www.forbes.com/sites/saradorn/2026/09/30/trumps-approval-rating-on-the-economy-hits-all-time-low/"
+   },
+   {
+    "pollster": "Reuters/Ipsos (adults, n=1,215)",
+    "dates": "2026-08-21 to 2026-08-24",
+    "item": "Support U.S. military action in Iran",
+    "approve": 31,
+    "disapprove": null,
+    "url": "https://www.forbes.com/sites/saradorn/2026/09/30/trumps-approval-rating-on-the-economy-hits-all-time-low/"
+   },
+   {
+    "pollster": "Reuters/Ipsos (adults, n=1,272)",
+    "dates": "2026-03-20 to 2026-03-23",
+    "item": "Approve of U.S. strikes on Iran (early-war baseline)",
+    "approve": 35,
+    "disapprove": 61,
+    "url": "https://abcnews.com/Politics/americans-oppose-military-action-iran-give-trump-negative/story?id=131402231"
+   },
+   {
+    "pollster": "Pew Research Center (adults, n=3,524)",
+    "dates": "2026-03-16 to 2026-03-22",
+    "item": "Military action against Iran was the right/wrong decision (early-war baseline)",
+    "approve": 38,
+    "disapprove": 59,
+    "note": "61% disapproved of Trump's handling of the military action",
+    "url": "https://abcnews.com/Politics/americans-oppose-military-action-iran-give-trump-negative/story?id=131402231"
+   }
+  ],
+  "context_secondary": [
+   {
+    "item": "Estimated U.S. military cost of the Iran war",
+    "value": "$33.4 billion (Department of War estimate as of June 29, 2026, per Pentagon Inspector General report, Sept 2026)",
+    "source": "https://arabcenterdc.org/resource/americas-affordability-crisis-will-trumps-iran-war-cost-him-the-2026-midterms/",
+    "note": "secondary report (Arab Center Washington DC, Sept 25, 2026); not verified against the IG report"
+   },
+   {
+    "item": "House vote on Iran war powers resolution",
+    "value": "passed 220-204 on Sept 15, 2026, with seven Republicans joining Democrats",
+    "source": "https://arabcenterdc.org/resource/americas-affordability-crisis-will-trumps-iran-war-cost-him-the-2026-midterms/",
+    "note": "secondary report citing The Hill"
+   },
+   {
+    "item": "Concern about gasoline prices",
+    "value": "56% 'very concerned' (Pew Research Center, July 2026)",
+    "source": "https://arabcenterdc.org/resource/americas-affordability-crisis-will-trumps-iran-war-cost-him-the-2026-midterms/",
+    "note": "secondary report"
+   },
+   {
+    "item": "Brent crude",
+    "value": "about $99 (Oct 7) after a mid-September spike to $108; $103-105 on Oct 8, 2026",
+    "source": "https://www.cbsnews.com/live-updates/iran-war-nuclear-donald-trump-vance-rubio-strait-of-hormuz/"
+   },
+   {
+    "item": "Cost of living as top issue",
+    "value": "Reuters/Ipsos (n=4,506, completed Oct 5, 2026): cost of living ranks as the top issue heading into November",
+    "source": "https://spokesman.com/stories/2026/oct/08/trump-voters-not-excited-for-midterms-as-approval-"
+   }
+  ]
+ },
+ "models": [
+  {
+   "name": "Hibbs 'Bread and Peace' model (presidential elections)",
+   "finding": "Incumbent party's two-party presidential vote depends on only two things: (1) weighted-average growth of real disposable personal income per capita over the term (quarterly log changes x400, geometric lag weights over 15 quarters, lambda = 0.914; election-quarter weight cut to 1/3), and (2) cumulative U.S. military fatalities from hostile deployments the incumbent party started (Korea, Vietnam, Iraq), in thousands. 2007 estimates (N=14, 1952-2004): constant 46.2, +3.61 vote points per 1 pt of weighted income growth, -0.307 points per 1,000 fatalities; adjusted R2 = .826, root MSE = 2.42. Per-capita version: -0.050 points per fatality per million population. Fatality inputs: Korea 1952 = 29,260; Vietnam 1968 = 28,896; Vietnam 1972 = 0 (Nixon did not start the war); Iraq 2004 = 1,130 (end of Oct 2004).",
+   "how_fatalities_enter": "Linear penalty on cumulative KIA over the term, counted only for the party that initiated the deployment. Hibbs said fatalities were decisive only in 1952 and 1968, and that roughly 1,500 Afghanistan deaths under Obama (about 5 per million) were 'way too small to have great electoral effect'.",
+   "track_record": "In-sample errors: 1952 -1.30, 1968 +1.37, 1972 +2.52, 1996 +4.76, 2000 -4.49, 2004 -0.84 (1996 and 2000 are the only poorly fit years per Hibbs). Out-of-sample 2004 prediction 52.16% (error -0.92). Mean absolute error 1.49 points over 14 elections. 2012 forecast: Obama 47.2% of the two-party vote (a loss); Obama was re-elected.",
+   "application_2024_2026": "not found (no 2024 or 2026 Bread and Peace forecast found; douglas-hibbs.com returned a fetch error)",
+   "url": "https://mpra.ub.uni-muenchen.de/15910/1/MPRA_paper_15910.pdf",
+   "other_urls": [
+    "https://swopec.hhs.se/gunwpe/abs/gunwpe0020.htm",
+    "https://reason.com/?p=170634",
+    "https://foreignpolicy.com/2012/11/01/will-u-s-military-fatalities-sway-voters-on-election-day/",
+    "http://www.douglas-hibbs.com/Election2012/2012Election-MainPageHouseElection.htm"
+   ],
+   "original_paper": "Hibbs, D. A. (2000). Bread and Peace Voting in U.S. Presidential Elections. Public Choice 104(1-2): 149-180."
+  },
+  {
+   "name": "Tufte (1975) midterm referendum model",
+   "finding": "Midterm vote loss of the president's party (two-party House vote minus its average over the 8 prior elections) = -11.083 + 0.133 x September Gallup approval + 0.035 x yearly change in real disposable income per capita (dollars). R2 = 0.912, N = 8 midterms (1938-1970, excluding 1942). A 10-point change in approval is associated with 1.3 points of House vote; a $100 change in real income per capita with 3.5 points. Tufte calls the midterm 'a referendum on the performance of the President and his administration's management of the economy'. Its 1974 forecast was 60.8% Democratic vs. 58.9% actual.",
+   "url": "https://www.edwardtufte.com/wp-content/uploads/2024/10/Determinants-of-the-outcomes-of-midterm-congressional-elections-1975.pdf",
+   "citation": "Tufte, E. R. (1975). Determinants of the Outcomes of Midterm Congressional Elections. American Political Science Review 69(3): 812-826."
+  },
+  {
+   "name": "Lewis-Beck & Tien referendum / 'Structure-X' House model",
+   "finding": "House seat change of the president's party = f(June Gallup presidential approval, real disposable income growth over the first two quarters of the election year, midterm dummy). 2018 version: Seats = -44.83 + 0.82 x approval + 4.91 x income growth - 28.53 x midterm; R2 = .59, RMSE = 18.06 seats, N = 35. 2018 structural forecast -30 Republican seats, -44 after averaging with an expert index. 2010 forecast: Republican gain of 22 seats.",
+   "url": "https://centerforpolitics.org/crystalball/?p=18143",
+   "other_urls": [
+    "https://centerforpolitics.org/crystalball/?p=15698",
+    "https://www.acsu.buffalo.edu/~jcampbel/documents/PSIntro2010Midterm.pdf"
+   ]
+  },
+  {
+   "name": "Abramowitz generic-ballot model",
+   "finding": "Seat change of the president's party = f(generic congressional ballot margin, number of seats the party is defending); earlier versions (2010) also used presidential approval and a midterm term. April 2025 version (20 midterms, 1946-2022): each generic-ballot point is worth about 2.6 House seats; each extra seat defended costs about 0.54 seats; explains over 80% of House variance. With a tied generic ballot, it projects about a 13-seat Republican House loss in 2026. Track record: 16 of 20 House predictions within 10 seats; 2022 predicted a Democratic loss of 18 vs. 9 actual; largest misses were 1994 (underestimated Democratic losses by 22) and 2006 (overestimated Republican losses by 17). 2010 forecast: Republican gain of 43.",
+   "url": "https://www.rasmussenreports.com/public_content/political_commentary/commentary_by_alan_i_abramowitz/generic_ballot_model_gives_democrats_strong_chance_to_take_back_house_in_2026",
+   "other_urls": [
+    "https://centerforpolitics.org/crystalball/?p=22099",
+    "https://www.acsu.buffalo.edu/~jcampbel/documents/PSIntro2010Midterm.pdf"
+   ]
+  },
+  {
+   "name": "Campbell surge-and-decline (revised theory)",
+   "finding": "In presidential years, the winning presidential party gains House seats and votes (the surge); at the next midterm, that boost disappears. Midterm losses are proportional to the party's prior presidential vote margin. In Campbell's 1868-1988 estimates, the typical midterm penalty was over 4 points of House vote and about 44 seats; after accounting for the lost presidential surge, the remainder was about half that size. Campbell's 2010 seats-in-trouble/approval model forecast a Republican gain of 51-52 seats.",
+   "url": "https://www.acsu.buffalo.edu/~jcampbel/documents/JCJOP1991Surge.pdf",
+   "other_urls": [
+    "https://www.acsu.buffalo.edu/~jcampbel/documents/JCAJPS1987Surge.pdf",
+    "https://www.acsu.buffalo.edu/~jcampbel/documents/PSIntro2010Midterm.pdf"
+   ],
+   "citation": "Campbell, J. E. (1987). The Revised Theory of Surge and Decline. AJPS 31(4): 965-979; Campbell (1991), JOP 53(2): 477-487."
+  },
+  {
+   "name": "Other 2010 PS symposium midterm models (for comparison)",
+   "finding": "Bafumi, Erikson & Wlezien (generic ballot, two-step district model) forecast a Republican gain of 51; Cuzan (prior seats, incumbency, midterm, growth and inflation) forecast 27-30. Republicans gained 63 seats (Wikipedia 2010 page also reports 62 in one place).",
+   "url": "https://www.acsu.buffalo.edu/~jcampbel/documents/PSIntro2010Midterm.pdf",
+   "other_urls": [
+    "https://en.wikipedia.org/wiki/United_States_House_elections,_2010"
+   ]
+  },
+  {
+   "name": "Kramer (1971) aggregate economic voting model",
+   "finding": "Economic conditions in the year before an election explain about half of the variance in the congressional vote (1896-1964). Real personal income is the most important factor. Unemployment has no independent effect, and inflation was not significant in the original estimates but showed a role after a data correction (summary by Burdekin, Dallas Fed 1985).",
+   "url": "https://www.dallasfed.org/~/media/documents/research/papers/1985/wp8506.pdf",
+   "citation": "Kramer, G. H. (1971). Short-Term Fluctuations in U.S. Voting Behavior, 1896-1964. APSR 65(1): 131-143."
+  }
+ ],
+ "literature": [
+  {
+   "topic": "war",
+   "finding": "Public support for the Korean and Vietnam wars started high and fell in a logarithmic relationship to cumulative American casualties; specific events had little effect on the trends.",
+   "source": "Mueller, J. E. (1971). Trends in Popular Support for the Wars in Korea and Vietnam. APSR 65(2): 358-375 (also War, Presidents and Public Opinion, 1973)",
+   "url": "https://ideas.repec.org/a/cup/apsrev/v65y1971i02p358-375_13.html"
+  },
+  {
+   "topic": "war",
+   "finding": "In Korea, Vietnam and Iraq, 'as casualties mount, support decreases'. Support for Iraq eroded faster: by early 2005, with about 1,500 combat deaths, a majority called the war a mistake. That was about the share who said so about Vietnam at Tet (1968), when nearly 20,000 Americans had died.",
+   "source": "Mueller, J. (2005). The Iraq Syndrome. Foreign Affairs 84(6): 44-54",
+   "url": "https://politicalscience.osu.edu/faculty/jmueller/FAiraqsyndrome.pdf"
+  },
+  {
+   "topic": "war",
+   "finding": "Casualties predict wartime opinion, but Mueller's log-of-cumulative-casualties measure is 'problematic and incomplete'. Marginal (recent) casualties matter, especially when losses are accelerating (Korea and Vietnam data).",
+   "source": "Gartner, S. S. & Segura, G. M. (1998). War, Casualties, and Public Opinion. Journal of Conflict Resolution 42(3): 278-300",
+   "url": "https://ideas.repec.org/a/sae/jocore/v42y1998i3p278-300.html"
+  },
+  {
+   "topic": "war",
+   "finding": "Local losses: California respondents in counties with recently high killed-in-action rates were less likely to support the Vietnam War (about 6,500 respondents in nine polls). The effect was strong through Tet and faded after casualties slowed.",
+   "source": "Gartner et al., 'All Politics are Local: Local Losses and Individual Attitudes Towards the Vietnam War', JCR (UC Davis release, 1998)",
+   "url": "https://www.ucdavis.edu/news/local-casualties-key-opinion-war-study-finds"
+  },
+  {
+   "topic": "war",
+   "finding": "State-level Iraq casualties (dead and wounded per capita) significantly reduced Bush's 2004 vote share relative to 2000. Without the roughly 10,000 U.S. dead and wounded by Election Day, Bush would have won nearly 2% more of the national vote (about 52.3%, 366 electoral votes). Effects were largest in 'blue' states.",
+   "source": "Karol, D. & Miguel, E. (2007). The Electoral Cost of War: Iraq Casualties and the 2004 U.S. Presidential Election. Journal of Politics 69(3): 633-648",
+   "url": "https://emiguel.econ.berkeley.edu/research/the-electoral-cost-of-war-iraq-casualties-and-the-2004-us-presidential-election/",
+   "other_urls": [
+    "https://www.american.edu/spa/faculty/upload/electoralcostofwar.pdf",
+    "https://paulmusgrave.info/iraq-casualties-and-gop-vote-share-a-review-of-some-literature/"
+   ]
+  },
+  {
+   "topic": "war",
+   "finding": "In Republican-held districts, each two Iraq war deaths from the district were associated with about a 1-point Democratic swing (average 2.4 deaths per GOP district). Republicans who voted for the war suffered an extra swing of about 1.6 points. There was no comparable penalty for Democratic incumbents.",
+   "source": "Grose, C. R. & Oppenheimer, B. I. (2007). The Iraq War, Partisanship, and Candidate Attributes: Variation in Partisan Swing in the 2006 U.S. House Elections. Legislative Studies Quarterly 32(4): 531-557",
+   "url": "https://news.vanderbilt.edu/2007/09/04/2006-voters-in-districts-with-heavy-war-losses-blamed-gop-vanderbilt-study-finds-iraq-war-hurt-republican-not-democratic-house-members-58496",
+   "other_urls": [
+    "https://paulmusgrave.info/iraq-casualties-and-gop-vote-share-a-review-of-some-literature/"
+   ]
+  },
+  {
+   "topic": "war",
+   "finding": "Republican Senate candidates lost more vote share from 2000 to 2006 where local (state and county) Iraq casualty rates were higher. A two-standard-deviation increase in county casualties cost the Republican incumbent more than 2 points. The authors call this a 'democratic brake on military adventurism, even in small-scale wars'.",
+   "source": "Kriner, D. L. & Shen, F. X. (2007). Iraq Casualties and the 2006 Senate Elections. Legislative Studies Quarterly 32(4): 507-530, doi:10.3162/036298007782398486",
+   "url": "https://experts.umn.edu/en/publications/iraq-casualties-and-the-2006-senate-elections/",
+   "other_urls": [
+    "https://paulmusgrave.info/iraq-casualties-and-gop-vote-share-a-review-of-some-literature/"
+   ]
+  },
+  {
+   "topic": "war",
+   "finding": "Counter-evidence and conditioning factors: Gelpi, Feaver & Reifler (2005/06) find casualty tolerance depends mainly on beliefs about success. Fox (2009, JCR) finds log war fatalities lowered Democrats' and independents' approval of Bush but not Republicans'. Hill, Herron & Lewis (2010) find no county-level casualty effect in 2008.",
+   "source": "Literature review by Paul Musgrave summarizing these studies",
+   "url": "https://paulmusgrave.info/iraq-casualties-and-gop-vote-share-a-review-of-some-literature/"
+  },
+  {
+   "topic": "war",
+   "finding": "Hibbs: troop fatalities were decisive only in 1952 (about 29,260 U.S. deaths in Korea at election time) and 1968 (about 28,900 in Vietnam). Voters punish the party that initiated the deployment.",
+   "source": "Foreign Policy, 'Will U.S. military fatalities sway voters on Election Day?' (Nov 1, 2012)",
+   "url": "https://foreignpolicy.com/2012/11/01/will-u-s-military-fatalities-sway-voters-on-election-day/"
+  },
+  {
+   "topic": "economy",
+   "finding": "Midterm House vote responds to presidential approval and to the yearly change in real disposable income per capita (R2 = 0.91, 1938-1970).",
+   "source": "Tufte (1975), APSR",
+   "url": "https://www.edwardtufte.com/wp-content/uploads/2024/10/Determinants-of-the-outcomes-of-midterm-congressional-elections-1975.pdf"
+  },
+  {
+   "topic": "economy",
+   "finding": "Economic fluctuations in the year before an election explain about half of the variance in the congressional vote. Real personal income is the key variable; inflation shows a secondary role after a data correction.",
+   "source": "Kramer (1971) as summarized in Burdekin, Federal Reserve Bank of Dallas Research Paper 8506 (Oct 1985)",
+   "url": "https://www.dallasfed.org/~/media/documents/research/papers/1985/wp8506.pdf"
+  },
+  {
+   "topic": "gas",
+   "finding": "Fixed-effects analysis, 1976-2011: a 50-cent quarter-over-quarter rise in gas prices was associated with about a 3.5-point drop in presidential approval (30 cents: about 2 points); a 50-cent higher price level was associated with a 0.75-point drop in consumer sentiment. Simulations implied that a rise to $5 a gallon could cost an incumbent about 2.4 points of vote share. Nate Silver found gas prices add no explanatory power beyond GDP in vote models.",
+   "source": "John Sides, 'The Political Consequences of Gas Prices', Washington Monthly (Mar 13, 2012)",
+   "url": "https://washingtonmonthly.com/2012/03/13/the-political-consequences-of-gas-prices/"
+  },
+  {
+   "topic": "gas",
+   "finding": "Random-forest analysis finds a nonlinear link between real gasoline prices and U.S. presidential approval, with out-of-sample predictive value, consistent with a pocketbook mechanism.",
+   "source": "Gupta, R., Pierdzioch, C. & Tiwari, A. K. (2025). Gasoline Prices and Presidential Approval Ratings of the United States. American Politics Research 53(5): 469-480, doi:10.1177/1532673X251325458",
+   "url": "https://repository.up.ac.za/items/6bddf42c-55df-456e-a691-793464bda0b2/full"
+  },
+  {
+   "topic": "inflation",
+   "finding": "1974: Wikipedia's 1974 House elections page states that 'This scandal [Watergate], along with high inflation, allowed the Democrats to make large gains' (net +49 seats). Tufte's income-and-approval model predicted 60.8% Democratic vs 58.9% actual.",
+   "source": "Wikipedia; Tufte (1975)",
+   "url": "https://en.wikipedia.org/wiki/United_States_House_elections,_1974"
+  },
+  {
+   "topic": "inflation",
+   "finding": "2022 (AP VoteCast via KFF): half of midterm voters called inflation the single most important factor in their vote, and Republicans did better with them. Four in ten said the Dobbs decision had a major impact on whether they voted; about one in four called it the single most important factor, and about 7 in 10 of those backed Democratic House candidates.",
+   "source": "KFF analysis of AP VoteCast (Nov 11, 2022)",
+   "url": "https://www.kff.org/other/poll-finding/2022-midterm-election-kff-ap-votecast-analysis/"
+  },
+  {
+   "topic": "inflation",
+   "finding": "2026 context: the AP-NORC poll (Sept 24-28, 2026) found 65% of adults say higher-than-usual prices are the result of Trump's policies, and 69% say his handling of the cost of living has been worse than expected.",
+   "source": "AP-NORC (Oct 1, 2026)",
+   "url": "https://apnorc.org/projects/most-blame-president-trump-for-higher-prices-and-are-unhappy-with-how-he-is-handling-the-economy/"
+  }
+ ],
+ "cases": [
+  {
+   "year": 1950,
+   "title": "Korea: war at the start of the conflict",
+   "summary": "The Korean War began June 25, 1950, and Wikipedia notes that Truman's popularity 'plummeted for a second time' as it began. Democrats lost a net 28 seats (263 to 235) but kept the House. The economy was strong: real disposable income per capita rose 7.6% (Q3/Q3) and October unemployment was 4.2%. The Democratic share of the all-party House vote fell from 51.6% (1948) to 48.9% (Brookings). A calendar-1950 U.S. hostile-death count was not found.",
+   "sources": [
+    "https://en.wikipedia.org/wiki/1950_United_States_House_of_Representatives_elections",
+    "https://www.everycrsreport.com/files/20190924_RL32492_75dc0f1f826404a4728a7a3eb43ec2f8cb67905d.html",
+    "https://fred.stlouisfed.org/data/A229RX0Q048SBEA",
+    "https://fred.stlouisfed.org/data/unrate",
+    "https://www.brookings.edu/wp-content/uploads/2026/04/Chapter-2-Full.pdf"
+   ]
+  },
+  {
+   "year": 1966,
+   "title": "Vietnam escalation plus rising prices",
+   "summary": "U.S. hostile deaths in Vietnam rose from 1,369 in 1965 to 5,008 in 1966 (Moise). Wikipedia says Johnson's popularity fell 'as the Vietnam War continued to escalate and race riots exploded in cities across the country'; Republicans gained a net 47 seats. Consumer prices were up 3.5% year over year in September (CPI-U), unemployment was 3.7%, and UMich sentiment slipped from 100.0 (Feb) to 91.2 (Aug) and 88.3 (Nov). The Democratic House vote share fell from 56.9% (1964) to 50.5% (Brookings).",
+   "sources": [
+    "https://edmoise.sites.clemson.edu/VNStats.html",
+    "https://en.wikipedia.org/wiki/United_States_House_election,_1966",
+    "https://fred.stlouisfed.org/data/cpiaucns",
+    "https://fred.stlouisfed.org/data/unrate",
+    "https://fred.stlouisfed.org/data/umcsent",
+    "https://www.brookings.edu/wp-content/uploads/2026/04/Chapter-2-Full.pdf"
+   ]
+  },
+  {
+   "year": 1974,
+   "title": "Watergate plus inflation and recession",
+   "summary": "Held three months after Nixon's resignation, the election 'occurred in the wake of the Watergate scandal', which 'along with high inflation, allowed the Democrats to make large gains': a net +49 seats, to 291-144. CPI-U was up 11.95% year over year in September, the CPI gasoline index was up 32% from October 1973, real disposable income per capita was down 2.3% (Q3/Q3), and October unemployment was 6.0%. Tufte's model (approval plus real income) predicted a 60.8% Democratic two-party vote; the actual was 58.9%.",
+   "sources": [
+    "https://en.wikipedia.org/wiki/United_States_House_elections,_1974",
+    "https://fred.stlouisfed.org/data/cpiaucns",
+    "https://fred.stlouisfed.org/data/CWUR0000SETB01",
+    "https://fred.stlouisfed.org/data/A229RX0Q048SBEA",
+    "https://fred.stlouisfed.org/data/unrate",
+    "https://www.edwardtufte.com/wp-content/uploads/2024/10/Determinants-of-the-outcomes-of-midterm-congressional-elections-1975.pdf"
+   ]
+  },
+  {
+   "year": 1982,
+   "title": "Deep recession under a new president",
+   "summary": "Unemployment reached 10.4% in October 1982, and Wikipedia ties Reagan's sinking popularity to 'economic conditions under the 1982 recession'. Democrats gained 26 seats (243 to 269) and won 55.2% of the House vote to 43.4%. Real disposable income per capita was nearly flat (+0.5% Q3/Q3), inflation had cooled to 5.0% (September CPI-U), and gas prices were 5.5% lower than a year earlier.",
+   "sources": [
+    "https://fred.stlouisfed.org/data/unrate",
+    "https://en.wikipedia.org/wiki/1982_United_States_House_of_Representatives_elections",
+    "https://fred.stlouisfed.org/data/A229RX0Q048SBEA",
+    "https://fred.stlouisfed.org/data/cpiaucns",
+    "https://fred.stlouisfed.org/data/APU000074714"
+   ]
+  },
+  {
+   "year": 2006,
+   "title": "Iraq war midterm",
+   "summary": "Wikipedia cites the 'sixth-year itch', views of Bush, congressional Republican scandals and 'the handling of the Iraq War and the War in Afghanistan'. Democrats gained 31 seats (to 233) and won 52.3% of the vote to 44.3%. The economy was not a drag: unemployment 4.4%, real disposable income per capita +2.3%, gas prices 18% below a year earlier. The war was costly: DoD counted 822 U.S. deaths in Iraq in 2006 (640 from January to October) plus 65 hostile deaths in Afghanistan. District studies find larger Republican losses where local Iraq casualties were higher (Grose & Oppenheimer; Kriner & Shen).",
+   "sources": [
+    "https://en.wikipedia.org/wiki/2006_United_States_House_of_Representatives_elections",
+    "https://www.brookings.edu/wp-content/uploads/2016/07/index20110225.pdf",
+    "https://en.wikipedia.org/wiki/United_States_military_casualties_in_the_War_in_Afghanistan",
+    "https://fred.stlouisfed.org/data/unrate",
+    "https://fred.stlouisfed.org/data/APU000074714",
+    "https://news.vanderbilt.edu/2007/09/04/2006-voters-in-districts-with-heavy-war-losses-blamed-gop-vanderbilt-study-finds-iraq-war-hurt-republican-not-democratic-house-members-58496",
+    "https://experts.umn.edu/en/publications/iraq-casualties-and-the-2006-senate-elections/"
+   ]
+  },
+  {
+   "year": 2010,
+   "title": "Great Recession aftermath",
+   "summary": "Unemployment was 9.4% in October 2010, and Wikipedia links Republican gains to 'the continued economic recession' and to the stimulus and health care bills. Republicans won 242 seats (a 63-seat pickup; the page also says 62 in one place). The pre-election models in the PS symposium ranged from +22 (Lewis-Beck & Tien) to +51/52 (Campbell; Bafumi, Erikson & Wlezien). The Afghanistan surge also peaked: 437 U.S. hostile deaths in 2010 (DCAS).",
+   "sources": [
+    "https://fred.stlouisfed.org/data/unrate",
+    "https://en.wikipedia.org/wiki/United_States_House_elections,_2010",
+    "https://www.acsu.buffalo.edu/~jcampbel/documents/PSIntro2010Midterm.pdf",
+    "https://en.wikipedia.org/wiki/United_States_military_casualties_in_the_War_in_Afghanistan"
+   ]
+  },
+  {
+   "year": 2022,
+   "title": "Inflation versus Dobbs",
+   "summary": "CPI-U was up 8.2% year over year in September 2022, gasoline averaged $4.016 in October (+18.6%), and real disposable income per capita was down 3.8% (Q3/Q3), but unemployment was 3.6%. Republicans gained 9 seats (222-213) and won the vote 50.0% to 47.3%; Wikipedia says the 'widely predicted red wave' did not materialize, crediting abortion after Dobbs. In AP VoteCast, half of voters named inflation the top factor and about a quarter named Dobbs, and that quarter backed Democrats about 7 to 3. Abramowitz's generic-ballot model predicted a Democratic loss of 18 seats vs. 9 actual.",
+   "sources": [
+    "https://fred.stlouisfed.org/data/cpiaucns",
+    "https://fred.stlouisfed.org/data/APU000074714",
+    "https://fred.stlouisfed.org/data/A229RX0Q048SBEA",
+    "https://fred.stlouisfed.org/data/unrate",
+    "https://en.wikipedia.org/wiki/2022_United_States_House_of_Representatives_elections",
+    "https://www.kff.org/other/poll-finding/2022-midterm-election-kff-ap-votecast-analysis/",
+    "https://www.rasmussenreports.com/public_content/political_commentary/commentary_by_alan_i_abramowitz/generic_ballot_model_gives_democrats_strong_chance_to_take_back_house_in_2026"
+   ]
+  }
+ ],
+ "gaps": [
+  "Korean War: U.S. hostile deaths in calendar 1950 (and before the Nov 7, 1950 election) not found; DCAS/CRS give whole-war totals only (33,739 hostile).",
+  "Vietnam: hostile-only deaths for 1961-62 not found (NARA all-cause totals used: 16 and 53). Hostile counts for 1965-1970 come from Edwin Moise's Clemson page, which cites no source (each is below the matching NARA all-cause total, as expected). Jan-Oct splits for 1966 and 1970 not found.",
+  "Iraq (2006, 2010): calendar-year hostile deaths on the DCAS basis not found. Provided DoD all-cause annual totals (822 in 2006, 60 in 2010) and icasualties Jan-Oct cause-of-death splits (helicopter losses mix hostile and non-hostile).",
+  "Operation Inherent Resolve (2014, 2018) and any 2022 hostile deaths by year not found (OIR whole-operation total through Sept 2019: 86 deaths, 17 hostile).",
+  "Smaller operations (Lebanon 1958, Lebanon 1982, Libya 1986, Somalia/Haiti 1994): year-specific death counts not found; only whole-operation totals where DCAS lists them.",
+  "Gasoline: no October dollar pump price before 1976. 1946-1974 use the CPI gasoline index (CWUR0000SETB01) YoY; 1950, 1954 and 1966 use September readings because October was not published.",
+  "Consumer sentiment: no October survey before 1978. 1954-1974 values are the nearest (November) survey, with the last pre-election reading also given; 1946 and 1950 predate the survey.",
+  "RDI per capita 1946 is annual (quarterly series begins 1947); unemployment 1946 is the annual average for persons 14+ (UNRATE begins 1948).",
+  "House popular vote 1946-2000 uses Brookings Vital Statistics on Congress Table 2-2 (one consistent all-vote series) instead of per-year Wikipedia pages. Wikipedia checks were made only for 1944-1950, and its figures differ slightly (e.g., 1946 D 45.0 vs 44.3; 1948 D 52.6 vs 51.6; 1950 D 49.6 vs 48.9). The fetched text of the 1952 and 1958 Wikipedia pages did not include vote figures. 1944 comes from Wikipedia, so it is not on the Brookings basis.",
+  "Hibbs: douglas-hibbs.com returned a fetch error; no 2024 or 2026 Bread and Peace application found.",
+  "Gallup ended presidential approval polling at the start of 2026; its last readings (Nov and Dec 2025: 36%) are given with Oct 8, 2026 averages from RCP, NYT and Silver Bulletin.",
+  "Iran war: U.S. strike/target counts after April 2026 not found (CENTCOM reported more than 13,000 targets by early April). The latest troop deployment figure found is May 2026 (GlobalSecurity, secondary). The hostile/non-hostile split (11/10) comes from a Fox News live blog citing the Pentagon.",
+  "Inflation/gas studies: no specific peer-reviewed study tying inflation to 1978 or 1980 incumbent losses was found; the data are provided (Sept CPI YoY 1978: 8.3%) without a study.",
+  "Access note: the FRED .txt URLs given in the brief could not be fetched (permission/provenance block); the equivalent FRED 'Table Data' pages (same series) were used and spot-checked twice for consistency.",
+  "September 2026 CPI (due Oct 14) and Q3 2026 GDP/RDI were not yet released as of Oct 11, 2026."
+ ]
+}

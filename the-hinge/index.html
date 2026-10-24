@@ -89,7 +89,7 @@ button,input,select,textarea{font:inherit;color:inherit}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .count,:root:not([data-theme="light"]) .iconbtn{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.12)}}
 .count b{font:700 22px/1 var(--f-display)}
 .count span{font-size:12.5px;color:var(--ink)}
-.iconbtn{display:inline-flex;align-items:center;gap:7px;height:38px;padding:0 15px;border-radius:999px;border:1px solid rgba(255,255,255,.7);background:rgba(255,255,255,.55);backdrop-filter:blur(8px);cursor:pointer;font-weight:600;font-size:13px;color:var(--ink)}
+.iconbtn{display:inline-flex;align-items:center;gap:7px;height:38px;text-decoration:none;padding:0 15px;border-radius:999px;border:1px solid rgba(255,255,255,.7);background:rgba(255,255,255,.55);backdrop-filter:blur(8px);cursor:pointer;font-weight:600;font-size:13px;color:var(--ink)}
 .iconbtn:hover{background:rgba(255,255,255,.8)}
 .iconbtn svg{width:16px;height:16px}
 .calls{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px;padding:40px 0 18px;position:relative;z-index:2;max-width:880px}
@@ -441,6 +441,7 @@ details.script blockquote p:last-child{margin:0}
       </div>
       <div class="hero-ctl">
         <div class="count" id="countdown"><b>—</b><span>days to Election Day</span></div>
+        <a class="iconbtn" href="../election2026/" title="Election Desk 2026: the live map, early voting, results on election night"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6l6-2 6 2 6-2v14l-6 2-6-2-6 2z"/><path d="M9 4v14M15 6v14"/></svg>Election Desk</a>
         <button class="iconbtn" id="btnSettings" aria-haspopup="dialog"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg>Model settings</button>
         <button class="iconbtn" id="btnTheme" aria-label="Switch between light and dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
       </div>
