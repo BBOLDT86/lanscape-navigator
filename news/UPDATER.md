@@ -62,6 +62,25 @@ Yahoo Finance, Stooq, FRED and the BLS's own API refuse GitHub's runners, so the
 keeps its last good version and is listed under `stale`; individual misses are in `errors`. The page's Business desk
 writes its plain-English summary from these numbers only.
 
+## Power (`power.py` -> `data/power.json`; `data/datacenters.json`)
+
+The Power desk: news from the power-industry and data center press (Utility Dive, DCD, Canary Media, Latitude Media,
+Heatmap, POWER Magazine and three Google News searches), plus stories from every other feed about grids, utilities,
+electric bills and data centers. Above the stories, from `power.py` on every news run:
+- the grid: the Lower 48 and the EIA's 13 regions, hour by hour (the EIA's Hourly Electric Grid Monitor, Form
+  EIA-930): demand against the day-ahead forecast, generation by fuel, and carbon intensity from the EIA's average
+  emission rates per fuel (coal 1,048 g/kWh, gas 440, oil 1,080; power bought from neighbors isn't counted);
+- wholesale prices where the operator publishes them openly (ERCOT, NYISO);
+- what households pay: each state's average residential price (EIA Form 861M, once a day), the BLS's U.S. average and
+  the electricity line of the CPI (through DBnomics), and Henry Hub natural gas from `markets.json`.
+The EIA's API takes a key: add a free one (eia.gov/opendata) as the repository secret `EIA_API_KEY`; without it the
+shared `DEMO_KEY` is used, which allows only a few requests an hour.
+
+The data center tracker (`data/datacenters.json`) is kept by a weekly Claude task from filings and reporting: the
+biggest U.S. projects with their power need in megawatts, status, how they're powered, the grid they sit on and
+sources, plus a short summary of the week. `dctrack.py check` validates it. The page maps the projects on
+`data/usmap.json` (the states, Albers USA, built from the Election Desk's map).
+
 ## The week, three ways (`news/columns/`, `columns.py`)
 
 Every weekend a scheduled Claude task writes three market columns about the same week, in the voices of three

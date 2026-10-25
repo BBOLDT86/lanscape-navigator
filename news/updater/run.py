@@ -53,18 +53,20 @@ UA = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, 
 
 WATCHES = [(0, 'middle', 'Middle Watch'), (4, 'morning', 'Morning Watch'), (8, 'forenoon', 'Forenoon Watch'),
            (12, 'afternoon', 'Afternoon Watch'), (16, 'dog', 'Dog Watch'), (20, 'first', 'First Watch')]
-SECTIONS = [('us', 'U.S.'), ('world', 'World'), ('europe', 'Europe'), ('brazil', 'Brazil'), ('politics', 'Politics'), ('business', 'Business'), ('household', 'Household'), ('home', 'Home'), ('tech', 'Tech'),
+SECTIONS = [('us', 'U.S.'), ('world', 'World'), ('europe', 'Europe'), ('brazil', 'Brazil'), ('politics', 'Politics'), ('business', 'Business'), ('household', 'Household'), ('home', 'Home'), ('power', 'Power'), ('tech', 'Tech'),
             ('science', 'Science'), ('health', 'Health'), ('sports', 'Sports'), ('culture', 'Culture'), ('cars', 'Cars'),
             ('travel', 'Travel'), ('food', 'Food'), ('longreads', 'Long reads')]
 SLOW = {'cars', 'travel', 'food', 'longreads', 'home'}
 WINDOW_H = {'default': 36, 'slow': 96}
-WINDOW_BY_SEC = {'brazil': 72, 'household': 72}  # fewer English-language stories a day, so they stay up longer
-CAP = {'us': 100, 'world': 100, 'europe': 90, 'brazil': 70, 'household': 60, 'home': 60, 'politics': 80, 'business': 90, 'tech': 90, 'science': 55, 'health': 45, 'sports': 100,
+WINDOW_BY_SEC = {'brazil': 72, 'household': 72, 'power': 72}  # fewer English-language stories a day, so they stay up longer
+CAP = {'us': 100, 'world': 100, 'europe': 90, 'brazil': 70, 'household': 60, 'home': 60, 'power': 60, 'politics': 80, 'business': 90, 'tech': 90, 'science': 55, 'health': 45, 'sports': 100,
        'culture': 70, 'cars': 45, 'travel': 40, 'food': 35, 'longreads': 35}
 SNIP = 210
 
 # ------------------------------------------------------------------ outlets
 OUTLETS = {
+    'utilitydive.com': 'Utility Dive', 'datacenterdynamics.com': 'DCD', 'canarymedia.com': 'Canary Media', 'latitudemedia.com': 'Latitude Media',
+    'heatmap.news': 'Heatmap', 'powermag.com': 'POWER Magazine', 'eenews.net': 'E&E News', 'rtoinsider.com': 'RTO Insider',
     'apnews.com': 'AP', 'reuters.com': 'Reuters', 'nytimes.com': 'The New York Times', 'washingtonpost.com': 'The Washington Post',
     'wsj.com': 'The Wall Street Journal', 'bbc.com': 'BBC', 'npr.org': 'NPR', 'bloomberg.com': 'Bloomberg', 'theguardian.com': 'The Guardian',
     'cnn.com': 'CNN', 'cbsnews.com': 'CBS News', 'abcnews.go.com': 'ABC News', 'nbcnews.com': 'NBC News', 'foxnews.com': 'Fox News',
@@ -383,6 +385,13 @@ SECTION_WORDS = {
                  'home ?buyers?', 'homeowners?', 'listings?', 'realtors?', 'renovations?', 'remodel\\w*', 'kitchens?', 'bathrooms?', 'contractors?',
                  'hoa', 'property taxes', 'rent(ers|al)?', 'landlords?', 'condos?', 'starter homes?', 'zillow', 'redfin', 'home improvement',
                  'interior design', 'gardens?', 'backyard', 'curb appeal', 'square feet', 'bedrooms?']),
+    'power': _rx(['power grids?', 'electric grids?', 'the grid', 'grid operators?', 'grid reliability', 'utilit(y|ies)', 'electricity', 'electric rates?',
+                  'power plants?', 'data cent(er|re)s?', 'megawatts?', 'gigawatts?', 'kilowatt-hours?', 'nuclear (plants?|reactors?|power)',
+                  'small modular reactors?', 'transmission lines?', 'interconnection', 'ferc', 'pjm', 'ercot', 'caiso', 'miso', 'nyiso',
+                  'blackouts?', 'power outages?', 'solar (farms?|projects?|power|panels)', 'wind (farms?|power|turbines?)', 'offshore wind',
+                  'battery storage', 'gas-fired', 'coal plants?', 'rate case', 'power prices', 'capacity auction', 'constellation energy',
+                  'vistra', 'nextera', 'duke energy', 'dominion energy', 'southern company', 'entergy', 'xcel energy', 'ge vernova',
+                  'hyperscalers?', 'tennessee valley authority', 'tva']),
     'tech': _rx(['ai', 'a\\.i', 'artificial intelligence', 'openai', 'chatgpt', 'anthropic', 'google', 'apple', 'microsoft', 'meta', 'nvidia',
                  'chips?', 'semiconductors?', 'software', 'apps?', 'iphone', 'android', 'cyber\\w*', 'hack(s|ed|ers?|ing)?', 'data breach', 'tiktok',
                  'amazon', 'robots?', 'robotics', 'algorithm', 'smartphone', 'gaming', 'xbox', 'playstation', 'nintendo', 'elon musk',
@@ -427,7 +436,7 @@ def region(title, desc):
 
 
 # on a tie the more specific desk wins
-DESKS = ('sports', 'household', 'home', 'politics', 'business', 'tech', 'science', 'health', 'culture', 'cars', 'travel', 'food')
+DESKS = ('sports', 'household', 'home', 'power', 'politics', 'business', 'tech', 'science', 'health', 'culture', 'cars', 'travel', 'food')
 
 
 def section_scores(title, desc):

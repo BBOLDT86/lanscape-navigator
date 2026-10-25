@@ -328,6 +328,21 @@ a.imp-a{color:inherit;text-decoration:underline;text-decoration-color:var(--bras
 .cw.big{font-size:15px;margin:4px 0 8px}.cm{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;background:var(--cc);color:#fff;font-size:11px}
 .colc .ct2{font:400 22px/1.15 var(--serif)}.colc .cd{font-size:14.5px;color:var(--ink-2)}
 .colmore{margin-top:34px}
+.pcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px;margin:12px 0}
+.pc{border:1px solid var(--rule);background:var(--raise);border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:4px}
+.pc .pk{font-size:13px;font-weight:600;color:var(--ink-2);display:flex;align-items:center;gap:6px}.pc b{font:400 40px/1.05 var(--serif)}.pc b small{font:600 14px var(--sans);color:var(--ink-2);margin-left:4px}
+.pc>span{font-size:13.5px;color:var(--ink-2)}.pc.sm b{font-size:30px}.pc .spk{width:100%;height:50px;margin-top:6px}
+.pline{width:100%;height:60px;margin-top:6px}.pline path{fill:none;vector-effect:non-scaling-stroke}.pline .d{stroke:var(--ink);stroke-width:2}.pline .f{stroke:var(--brass);stroke-width:1.5;stroke-dasharray:4 4}
+.pl{font-size:12px;color:var(--ink-3);display:flex;gap:6px;align-items:center}.pl i{display:inline-block;width:14px;height:0;border-top:2px solid var(--ink)}.pl i.f{border-top:2px dashed var(--brass);margin-left:8px}
+.ph3{font:600 15px var(--sans);margin:14px 0 8px}
+.pmix{display:flex;height:18px;border-radius:5px;overflow:hidden;border:1px solid var(--rule)}.pmix span{display:block;height:100%}
+.pleg{display:flex;flex-wrap:wrap;gap:6px 16px;list-style:none;margin:8px 0 0;padding:0;font-size:13.5px;color:var(--ink-2)}.pleg i,.fdot{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:0}
+.ptab tbody tr{cursor:pointer}.pstates{margin-top:10px}.pstates summary{cursor:pointer;font-weight:600}
+.dcmap{display:block;width:100%;height:auto;margin:10px 0;border:1px solid var(--rule);border-radius:12px;background:var(--raise)}
+.dcmap .st path{fill:var(--shoal);stroke:var(--raise);stroke-width:1}.dcmap circle{fill-opacity:.62;stroke:var(--raise);stroke-width:1.2}.dcmap a:hover circle{fill-opacity:.9}
+.dcsum{max-width:70ch;font-size:16.5px}.dcl{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;margin-top:12px}
+.dc{border:1px solid var(--rule);background:var(--raise);border-radius:12px;padding:14px 16px;scroll-margin-top:90px}.dc h3{font:400 22px/1.15 var(--serif);margin:0 0 4px}.dc p{margin:0 0 6px;font-size:14.5px}.dcm{color:var(--ink-2);font-size:13.5px!important}.dcs2 a{color:var(--ink-2);font-size:13px}
+.dc:target{border-color:var(--brass);box-shadow:0 0 0 2px var(--brass)}
 .imp .ak{font-size:13px;font-weight:600;color:var(--ink-2);margin:26px 0 6px}.imp .ak a{color:inherit}
 .imp-h{font:400 clamp(34px,5vw,54px)/1.04 var(--serif);margin:0 0 6px}.imp-w{color:var(--ink-2);margin:0 0 10px;font-weight:600}
 .imp-f{font-size:15px;color:var(--ink-2);margin:0 0 10px}.imp-f b{color:var(--ink)}.imp-l{font:400 21px/1.35 var(--serif);margin:0 0 16px;max-width:52ch}
@@ -1223,7 +1238,8 @@ function renderDesk(k) {
   list.sort(deskSort === 'new' ? (a, b) => b.p - a.p : (a, b) => b.s - a.s);
   listPage(secName(k), T(list.length === 1 ? '{n} story' : '{n} stories', { n: list.length }), list.map(x => ({ it: x.it })),
     { controls: `<div class="seg" role="group" aria-label="Sort"><button type="button" data-sort="you" aria-pressed="${deskSort === 'you'}">Best for you</button><button type="button" data-sort="new" aria-pressed="${deskSort === 'new'}">Latest</button></div>`,
-      top: (k === 'politics' ? electionsHTML(true) : k === 'brazil' ? electionsHTML(true, 'br') : k === 'travel' ? weekenderPromo() : '') + deskBanner(k) });
+      top: (k === 'politics' ? electionsHTML(true) : k === 'brazil' ? electionsHTML(true, 'br') : k === 'travel' ? weekenderPromo() : k === 'power' ? `<div id="pwrWrap" class="mk">${powerHTML()}</div>` : '') + deskBanner(k) });
+  if (k === 'power') { if (!PWR) ensurePower().then(() => { const w = $('#pwrWrap'); if (w && view.t === 'desk' && view.k === 'power') { w.innerHTML = powerHTML(); bindPower(); } }); else bindPower(); }
 }
 let elxBusy = null;
 function ensureElections(full) { // fetch the desks' data, then redraw once it arrives
@@ -1483,6 +1499,105 @@ function renderBusiness() {
   if (f) f.addEventListener('input', () => { stockFilter = f.value.trim(); $('#stkWrap').innerHTML = stockTable(); });
   if (!IMP) ensureImpact().then(() => { const c = $('#calWrap'); if (c && view.t === 'desk' && view.k === 'business') c.innerHTML = calendarHTML(); });
   if (!COLS) ensureCols().then(() => { const c = $('#colsWrap'); if (c && view.t === 'desk' && view.k === 'business') c.innerHTML = colsHTML(); });
+}
+/* ================= Power: the grids' cost, carbon and the data center buildout (news/data/power.json, datacenters.json) ================= */
+let PWR = null, DCS = null, USMAP = null, pwrBusy = null;
+let pwrRegion = (() => { try { return localStorage.getItem('watch.pwr') || 'US48'; } catch (e) { return 'US48'; } })();
+function ensurePower() {
+  if (PWR) return Promise.resolve();
+  if (!pwrBusy) pwrBusy = Promise.all([getJSON('data/power.json').then(d => { PWR = d; }).catch(() => { PWR = {}; }),
+    getJSON('data/datacenters.json').then(d => { DCS = d; }).catch(() => { DCS = null; }),
+    getJSON('data/usmap.json').then(d => { USMAP = d; }).catch(() => { USMAP = null; })]).then(() => { pwrBusy = null; });
+  return pwrBusy;
+}
+const FUELC = { COL: '#5B5F66', NG: '#E08A2E', NUC: '#7A5BC7', OIL: '#8C4B2E', WAT: '#2F7FC1', SUN: '#E9B824', WND: '#2FAF9B', OTH: '#9AA5B1', BAT: '#2DBE6C', PS: '#5FA3D9', SNB: '#D9A521', GEO: '#B4654A', UNK: '#C8CED6' };
+const FUELN = { COL: 'Coal', NG: 'Natural gas', NUC: 'Nuclear', OIL: 'Oil', WAT: 'Hydro', SUN: 'Solar', WND: 'Wind', OTH: 'Other', BAT: 'Batteries', PS: 'Pumped storage', SNB: 'Solar with storage', GEO: 'Geothermal', UNK: 'Unknown' };
+const gw = mw => mw == null ? '–' : fnum(mw / 1000, mw >= 100000 ? 0 : 1);
+const hourET = h => { const d = new Date(h + ':00:00Z'); return d.toLocaleString(LOC(), { timeZone: 'America/New_York', weekday: 'short', hour: 'numeric' }); };
+function mixBar(mix) {
+  const pos = Object.entries(mix || {}).filter(([, v]) => v > 0), tot = pos.reduce((s, [, v]) => s + v, 0) || 1;
+  return `<div class="pmix" role="img" aria-label="${esc(pos.map(([f, v]) => `${T(FUELN[f] || f)} ${Math.round(v / tot * 100)}%`).join(', '))}">${pos.map(([f, v]) => `<span style="width:${(v / tot * 100).toFixed(2)}%;background:${FUELC[f] || '#ccc'}" title="${esc(T(FUELN[f] || f))} ${fnum(v / tot * 100, 0)}%"></span>`).join('')}</div>
+    <ul class="pleg">${pos.slice(0, 7).map(([f, v]) => `<li><i style="background:${FUELC[f] || '#ccc'}"></i>${esc(T(FUELN[f] || f))} <b>${fnum(v / tot * 100, 0)}%</b></li>`).join('')}</ul>`;
+}
+function pwrLine(arr, arr2, w, h) { // demand and the day-ahead forecast, the last 30 hours
+  const xs = (arr || []).map(v => v == null ? null : v), ys2 = (arr2 || []);
+  const all = xs.concat(ys2).filter(v => v != null); if (all.length < 2) return '';
+  const lo = Math.min(...all) * 0.97, hi = Math.max(...all) * 1.02, X = i => i / (xs.length - 1) * w, Y = v => h - (v - lo) / (hi - lo) * h;
+  const path = a => a.map((v, i) => v == null ? '' : `${i && a[i - 1] != null ? 'L' : 'M'}${X(i).toFixed(1)},${Y(v).toFixed(1)}`).join('');
+  return `<svg class="pline" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" aria-hidden="true"><path class="f" d="${path(ys2)}"/><path class="d" d="${path(xs)}"/></svg>`;
+}
+function albersUsa(lon, lat) { // d3.geoAlbersUsa().scale(1300).translate([487.5, 305]), the lower 48: the frame of news/data/usmap.json
+  const r = Math.PI / 180, s0 = Math.sin(29.5 * r), n = (s0 + Math.sin(45.5 * r)) / 2, c = 1 + s0 * (2 * n - s0), r0 = Math.sqrt(c) / n;
+  const raw = (l, p) => { const q = Math.sqrt(c - 2 * n * Math.sin(p)) / n; return [q * Math.sin(l * n), r0 - q * Math.cos(l * n)]; };
+  const [cx, cy] = raw(-0.6 * r, 38.7 * r), [x, y] = raw((lon + 96) * r, lat * r);
+  return [487.5 + 1300 * (x - cx), 305 - 1300 * (y - cy)];
+}
+const DCSTAT = { operating: '#1C7A4C', 'under construction': '#A9852F', permitted: '#2F5FA8', planned: '#2F5FA8', announced: '#8492A3', paused: '#C2412D', canceled: '#C2412D' };
+function dcMap(ps) {
+  if (!USMAP) return '';
+  const dots = ps.filter(p => p.lon > -125 && p.lat > 24 && p.lat < 50).map(p => { const [x, y] = albersUsa(+p.lon, +p.lat); return { x, y, r: Math.max(4, Math.sqrt(p.mw) * 0.55), p }; }).sort((a, b) => b.r - a.r);
+  return `<svg class="dcmap" viewBox="0 0 975 610" role="img" aria-label="${esc(T('Map of the data center projects'))}">
+    <g class="st">${USMAP.states.filter(s => s.id !== '02' && s.id !== '15').map(s => `<path d="${s.d}"/>`).join('')}</g>
+    ${dots.map(d => `<a href="#dc-${esc(d.p.id)}"><circle cx="${d.x.toFixed(1)}" cy="${d.y.toFixed(1)}" r="${d.r.toFixed(1)}" style="fill:${DCSTAT[d.p.status] || '#8492A3'}"><title>${esc(d.p.name)}: ${fnum(d.p.mw, 0)} MW, ${esc(T(d.p.status))}</title></circle></a>`).join('')}</svg>`;
+}
+function powerHTML() {
+  if (!PWR) return `<p class="note">${T('Loading the grid…')}</p>`;
+  const G = (PWR.grid || {}).regions || {}, order = (PWR.grid || {}).order || [], R = G[pwrRegion] || G.US48, US = G.US48;
+  const RT = ((PWR.retail || {}).states || {}), usr = RT.US, B = PWR.bls || {}, W = (PWR.whole || {}).regions || {};
+  const parts = [];
+  if (US) {
+    const mix = Object.entries(US.mix).filter(([, v]) => v > 0), tot = mix.reduce((s, [, v]) => s + v, 0) || 1;
+    const top = mix.slice(0, 3).map(([f, v]) => T('{p}% {fuel}', { p: fnum(v / tot * 100, 0), fuel: T(FUELN[f] || f).toLowerCase() })).join(', ');
+    let s = T('At {hour} ET the Lower 48 was using {gw} gigawatts: {top}.', { hour: hourET(US.at), gw: gw(US.demand), top });
+    if (US.co2 != null) s += ' ' + T('Each kilowatt-hour generated put out about {g} grams of CO2{cmp}.', { g: fnum(US.co2, 0), cmp: US.co2DayAgo ? (US.co2 < US.co2DayAgo ? T(', less than at the same hour yesterday ({y})', { y: fnum(US.co2DayAgo, 0) }) : US.co2 > US.co2DayAgo ? T(', more than at the same hour yesterday ({y})', { y: fnum(US.co2DayAgo, 0) }) : '') : '' });
+    if (usr) s += ' ' + T('Households paid an average of {c}¢ a kilowatt-hour in {m}{yoy}.', { c: fnum(usr.price, 1), m: new Date(usr.month + '-15T12:00:00Z').toLocaleDateString(LOC(), { month: 'long', year: 'numeric', timeZone: 'UTC' }), yoy: usr.yearAgo ? T(', {d} from a year earlier', { d: fpct((usr.price / usr.yearAgo - 1) * 100) }) : '' });
+    parts.push(`<p class="lede">${esc(s)}</p>`);
+  }
+  if (R) {
+    const ci = (R.ci || []).filter(v => v != null), best = R.ci && R.hours ? R.hours[R.ci.indexOf(Math.min(...ci))] : null;
+    const wh = W[pwrRegion];
+    parts.push(`<section class="blk pgrid"><div class="blk-h"><h2 class="sec-h">${T('Your grid')}</h2><label class="flt"><span class="sr">${T('Region')}</span><select id="pwrSel">${order.map(k => `<option value="${k}"${k === pwrRegion ? ' selected' : ''}>${esc(T(G[k].n))}${G[k].op ? ' (' + esc(G[k].op) + ')' : ''}</option>`).join('')}</select></label></div>
+      <p class="sub2">${esc(R.area ? T(R.area) : '')}. ${T('The hour ending {h} ET, from the EIA’s hourly grid monitor.', { h: hourET(R.at) })}</p>
+      <div class="pcards">
+        <div class="pc"><span class="pk">${T('Using now')}</span><b>${gw(R.demand)} <small>GW</small></b><span>${R.forecast ? T('Forecast {f} GW', { f: gw(R.forecast) }) : ''}${R.peak ? ' · ' + T('30-hour peak {p} GW', { p: gw(R.peak) }) : ''}</span>${pwrLine(R.d, R.df, 300, 60)}<small class="pl"><i class="d"></i>${T('demand')} <i class="f"></i>${T('forecast')}</small></div>
+        <div class="pc"><span class="pk">${T('Carbon')}</span><b>${fnum(R.co2, 0)} <small>g CO₂/kWh</small></b><span>${R.co2DayAgo != null ? T('{v} at the same hour yesterday', { v: fnum(R.co2DayAgo, 0) }) : ''}${best ? ' · ' + T('cleanest hour: {h}', { h: hourET(best) }) : ''}</span>${spark(R.ci, 300, 60, null, 'ink')}</div>
+        <div class="pc"><span class="pk">${T('Clean power')}</span><b>${fnum(R.clean, 0)}<small>%</small></b><span>${T('nuclear, hydro, wind and solar; {r}% renewable', { r: fnum(R.renew, 0) })}</span>
+          ${wh ? `<span class="pk" style="margin-top:12px">${T('Wholesale price now')}</span><b>$${fnum(wh.price, 2)} <small>/MWh</small></b><span>${esc(wh.n)}. ${T('Today’s average ${a}, high ${h}.', { a: fnum(wh.dayAvg, 2), h: fnum(wh.dayHigh, 2) })}</span>` : ''}</div>
+      </div>
+      <h3 class="ph3">${T('What’s making the power')}</h3>${mixBar(R.mix)}
+    </section>`);
+    parts.push(`<section class="blk"><h2 class="sec-h">${T('Every region, right now')}</h2><div class="stk-wrap"><table class="stk ptab"><thead><tr><th class="l">${T('Region')}</th><th>${T('Using')}</th><th>${T('Carbon')}</th><th>${T('Clean')}</th><th class="l">${T('Biggest source')}</th></tr></thead><tbody>
+      ${order.filter(k => k !== 'US48').map(k => { const x = G[k], f = Object.entries(x.mix).filter(([, v]) => v > 0)[0]; return `<tr data-pwr="${k}" tabindex="0"><th scope="row" class="l"><b>${esc(T(x.n))}</b> <span>${esc(x.op)}</span></th><td>${gw(x.demand)} GW</td><td>${fnum(x.co2, 0)} g</td><td>${fnum(x.clean, 0)}%</td><td class="l"><i class="fdot" style="background:${FUELC[f && f[0]] || '#ccc'}"></i>${f ? esc(T(FUELN[f[0]] || f[0])) : '–'}</td></tr>`; }).join('')}</tbody></table></div>
+      <p class="sub2">${T('Carbon counts what’s burned inside each region, at the EIA’s average rates per fuel (coal 1,048 g/kWh, gas 440, oil 1,080); power bought from neighbors isn’t counted.')}</p></section>`);
+  }
+  if (Object.keys(RT).length) {
+    const rows = Object.entries(RT).filter(([k]) => k !== 'US').sort((a, b) => b[1].price - a[1].price);
+    const use = (usr && usr.use) || 863;
+    parts.push(`<section class="blk"><h2 class="sec-h">${T('What households pay')}</h2>
+      <div class="pcards">${usr ? `<div class="pc"><span class="pk">${T('U.S. average, {m}', { m: new Date(usr.month + '-15T12:00:00Z').toLocaleDateString(LOC(), { month: 'short', year: 'numeric', timeZone: 'UTC' }) })}</span><b>${fnum(usr.price, 1)}<small>¢/kWh</small></b><span>${usr.yearAgo ? T('{d} from a year earlier', { d: fpct((usr.price / usr.yearAgo - 1) * 100) }) : ''}</span>${spark(usr.series, 300, 50, null, 'ink')}</div>
+        <div class="pc"><span class="pk">${T('A typical month')}</span><b>$${fnum(usr.price * use / 100, 0)}</b><span>${T('{k} kWh, the average home’s use that month, at the average price', { k: fnum(use, 0) })}</span></div>` : ''}
+        ${B.cpi ? `<div class="pc"><span class="pk">${T('Electricity inflation')}</span><b>${fpct(B.cpi.yoy)}</b><span>${T('the Consumer Price Index’s electricity line, {m}', { m: B.cpi.month })}</span>${spark(B.cpi.series, 300, 50, 0, 'ink')}</div>` : ''}
+        ${(PWR.fuel || {}).gas ? `<div class="pc"><span class="pk">${T('Natural gas')}</span><b>$${fnum(PWR.fuel.gas.p, 2)}<small>/MMBtu</small></b><span>${T('Henry Hub futures, the fuel that sets most power prices')} ${PWR.fuel.gas.cp != null ? `<i class="${dirc(PWR.fuel.gas.cp)}">${fpct(PWR.fuel.gas.cp)}</i>` : ''}</span>${spark((PWR.fuel.gas.d || []).slice(-130), 300, 50, null, 'ink')}</div>` : ''}</div>
+      <details class="pstates"><summary>${T('Every state, highest price first')}</summary><div class="stk-wrap"><table class="stk"><thead><tr><th class="l">${T('State')}</th><th>¢/kWh</th><th>${T('Year')}</th><th>${T('Typical month')}</th></tr></thead><tbody>
+        ${rows.map(([k, x]) => `<tr><th scope="row" class="l"><b>${esc(x.n)}</b></th><td>${fnum(x.price, 1)}</td><td class="${x.yearAgo ? dirc(x.price - x.yearAgo) : ''}">${x.yearAgo ? fpct((x.price / x.yearAgo - 1) * 100) : '–'}</td><td>$${fnum(x.price * (x.use || use) / 100, 0)}</td></tr>`).join('')}</tbody></table></div>
+        <p class="sub2">${T('Residential prices from the EIA’s monthly survey of utilities (Form 861M); a typical month uses each state’s own average use that month.')}</p></details></section>`);
+  }
+  if (DCS && DCS.projects && DCS.projects.length) {
+    const ps = DCS.projects.slice().sort((a, b) => b.mw - a.mw), by = {};
+    ps.forEach(p => { by[p.status] = (by[p.status] || 0) + p.mw; });
+    parts.push(`<section class="blk dcs"><h2 class="sec-h">${T('The data center buildout')}</h2>
+      <div class="dcsum">${md(DCS.summary || '', 0)}</div>
+      <div class="pcards">${['operating', 'under construction', 'permitted', 'planned', 'announced'].filter(s => by[s]).map(s => `<div class="pc sm"><span class="pk"><i class="fdot" style="background:${DCSTAT[s]}"></i>${esc(T(s.replace(/^./, c => c.toUpperCase())))}</span><b>${gw(by[s])} <small>GW</small></b></div>`).join('')}</div>
+      ${dcMap(ps)}
+      <div class="dcl">${ps.map(p => `<article class="dc" id="dc-${esc(p.id)}"><h3>${esc(p.name)}</h3><p class="dcm"><b>${fnum(p.mw, 0)} MW</b> · ${esc(p.company)} · ${esc(p.place)}, ${esc(p.state)}${p.grid ? ' · ' + esc(p.grid) : ''} · <span style="color:${DCSTAT[p.status] || 'inherit'}">${esc(T(p.status))}</span>${p.cost ? ' · ' + esc(p.cost) : ''}</p>
+        <p>${esc(p.note)}</p><p class="dcp"><b>${T('Power:')}</b> ${esc(p.power)}</p><p class="dcs2">${(p.sources || []).map(s => `<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.outlet)}</a>`).join(' · ')}</p></article>`).join('')}</div>
+      <p class="sub2">${T('Kept by Claude ({model}) from public filings and reporting, checked weekly; last updated {t}. Megawatts are what each project is reported to need at full build.', { model: esc(DCS.model || ''), t: new Date(DCS.updated).toLocaleDateString(LOC(), { month: 'long', day: 'numeric' }) })}</p></section>`);
+  }
+  return parts.join('') + (PWR.at ? `<p class="note">${T('Grid data from the EIA’s Hourly Electric Grid Monitor, ERCOT and NYISO; prices from the EIA and the BLS. Updated {t}.', { t: new Date(PWR.at).toLocaleString(LOC(), { timeZone: 'America/New_York', weekday: 'short', hour: 'numeric', minute: '2-digit' }) + ' ET' })}</p>` : '');
+}
+function bindPower() {
+  const sel = $('#pwrSel'); if (sel) sel.addEventListener('change', () => { pwrRegion = sel.value; try { localStorage.setItem('watch.pwr', pwrRegion); } catch (e) { /* storage off */ } $('#pwrWrap').innerHTML = powerHTML(); bindPower(); });
+  $$('.ptab tr[data-pwr]').forEach(tr => tr.addEventListener('click', () => { pwrRegion = tr.dataset.pwr; try { localStorage.setItem('watch.pwr', pwrRegion); } catch (e) { /* storage off */ } $('#pwrWrap').innerHTML = powerHTML(); bindPower(); $('.pgrid').scrollIntoView({ behavior: 'smooth', block: 'start' }); }));
 }
 /* ================= the week, three ways: the Bull, the Bear and the Outsider (news/columns/) ================= */
 let COLS = null, colsBusy = null; const COLC = {};

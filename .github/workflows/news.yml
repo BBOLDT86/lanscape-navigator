@@ -37,6 +37,13 @@ jobs:
         continue-on-error: true
         run: |
           python3 news/updater/impact.py ${{ github.event_name == 'workflow_dispatch' && '--force' || '' }} || echo "impact maps failed; the calendar works without them"
+      - name: The power grids, prices and carbon
+        timeout-minutes: 4
+        continue-on-error: true
+        env:
+          EIA_API_KEY: ${{ secrets.EIA_API_KEY }}
+        run: |
+          python3 news/updater/power.py ${{ github.event_name == 'workflow_dispatch' && '--force' || '' }} || echo "power data failed; kept the last copy"
       - name: Home market and saved searches
         timeout-minutes: 6
         continue-on-error: true
