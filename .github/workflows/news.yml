@@ -61,6 +61,11 @@ jobs:
         continue-on-error: true
         run: |
           python3 news/updater/media.py || echo "media failed; the page works without it"
+      - name: Late Night segments
+        timeout-minutes: 2
+        continue-on-error: true
+        run: |
+          python3 news/updater/latenight.py || echo "late-night feeds failed; kept the last copy"
       - name: Link preview cards for new reports
         timeout-minutes: 3
         continue-on-error: true

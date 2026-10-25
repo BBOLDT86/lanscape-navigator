@@ -117,6 +117,21 @@ The Food desk opens with a fridge camera. Nothing runs on the server and nothing
   key, `1`, which TheMealDB allows for educational and non-commercial use): up to six ingredients are searched, the
   meals that share the most are looked up, and each shows what the reader has and what to buy.
 
+## Late Night (`latenight.py` -> `data/latenight.json`; `news/latenight/`)
+
+`#/latenight`, in the bar after Video. On every news run `latenight.py` reads the official YouTube channels of The
+Daily Show, Last Week Tonight, Late Night with Seth Meyers and Jimmy Kimmel Live (the last ten days; Shorts and
+celebrity interviews left out) and ties each segment to the edition's story cluster it covers, with the same matcher
+as the Video page.
+
+Receipts: every Monday, after the weekend's shows, a scheduled Claude task writes two pieces in the spirit of the
+shows' segments: The Main Story (`kind: main`, 1,300 to 2,400 words on one subject, like Last Week Tonight's) and The
+Week, Unwrapped (`kind: desk`, 600 to 1,200 words through the week's headlines, like The Daily Show's desk). They are
+sharp and funny, and sourced like a report: every section is cited, about one citation per 110 words, every source
+is used, and the sources show as "The receipts". They aim at institutions and the powerful, never private people,
+and rotate their targets across parties and sectors. `latenight.py check` enforces the format
+(`latenight.py format` prints it); `latenight.py index` rebuilds `latenight/index.json`. Pieces open at `#/ln/<id>`.
+
 ## The week, three ways (`news/columns/`, `columns.py`)
 
 Every weekend a scheduled Claude task writes three market columns about the same week, in the voices of three

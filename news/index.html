@@ -397,6 +397,14 @@ h3.glb{font:600 12.5px var(--sans);letter-spacing:.07em;text-transform:uppercase
 .fsdl{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}.fsdb{display:flex;flex-direction:column;gap:2px;text-decoration:none;color:inherit;border:1px solid var(--rule);background:var(--raise);border-radius:10px;padding:12px 14px}
 .fsdb b{font:600 16px var(--sans)}.fsdb b::after{content:" ↗";color:var(--ink-3)}.fsdb span{font-size:13px;color:var(--ink-2)}.fsdb:hover{border-color:var(--brass)}
 .fsl{padding-left:1.1em;margin:6px 0 0}.fsl li{margin:7px 0;font-size:15.5px;line-height:1.5}.fsl .m{color:var(--ink-3);font-size:13.5px}
+.lng{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:18px;margin-top:8px;align-items:start}.lnr{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+.lnc{display:flex;flex-direction:column;gap:6px;text-decoration:none;color:inherit;background:var(--raise);border:1px solid var(--rule);border-radius:12px;overflow:hidden;padding-bottom:16px}
+.lnc:hover{border-color:var(--ink-3)}.lnc>span:not(.lni){padding:0 18px}.lni{display:block;aspect-ratio:16/9;background:#0b1320;overflow:hidden}.lni img{width:100%;height:100%;object-fit:cover}
+.lnc .k{font:700 11.5px var(--sans);letter-spacing:.07em;text-transform:uppercase;color:var(--dn);margin-top:12px}.lnc .t{font:400 26px/1.1 var(--serif)}.lnc.big .t{font-size:38px}
+.lnc .d{font-size:15px;color:var(--ink-2);line-height:1.45}.lnc .b{font:500 13px var(--sans);color:var(--ink-3)}
+.lnc.big{background:#0E1A2B;color:#EEF1F4;border-color:#0E1A2B;padding:0 0 18px}.lnc.big .d{color:#B9C3CF}.lnc.big .b{color:#8492A3}.lnc.big .k{color:#E07A5F}
+.art.piece .adis{border-left-color:var(--dn)}.lnv .vrel{margin-top:4px}
+@media (max-width:820px){.lng{grid-template-columns:1fr}.lnc.big .t{font-size:30px}}
 .fr .frg{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px;margin-top:8px}
 .frshot{position:relative;border:1.5px dashed var(--ink-3);border-radius:14px;min-height:220px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:20px;color:var(--ink-2);text-align:center;background:var(--raise);font-size:14.5px}
 .frshot svg{width:54px;height:54px;color:var(--brass)}.frshot.on{padding:0;border-style:solid;overflow:hidden;min-height:0}.frshot img{display:block;width:100%;max-height:420px;object-fit:cover}
@@ -1176,6 +1184,8 @@ function parseHash() {
   if (a === 'garage') return { t: 'garage' };
   if (a === 'build' && b) return { t: 'build', id: b };
   if (a === 'fsd') return { t: 'fsd' };
+  if (a === 'latenight') return { t: 'late' };
+  if (a === 'ln' && b) return { t: 'piece', id: b };
   if (a === 'col' && b) { const [wk, k] = b.split('/'); return { t: 'col', week: wk, k: k || 'bull' }; }
   return { t: 'home' };
 }
@@ -1193,8 +1203,8 @@ function storyRow(it, o = {}) {
 }
 
 function renderBar() {
-  const items = [['home', '', 'Front'], ['you', 'for-you', 'For you'], ['reports', 'reports', 'Reports'], ['pictures', 'pictures', 'Pictures'], ['video', 'video', 'Video'], ...E.sections.map(s => ['desk:' + s.k, 's/' + s.k, secName(s.k)]), ['files', 'files', 'Epstein files']];
-  const cur = view.t === 'desk' ? 'desk:' + view.k : view.t === 'article' ? 'reports' : ['impact', 'col', 'columns'].includes(view.t) ? 'desk:business' : ['garage', 'build', 'fsd'].includes(view.t) ? 'desk:cars' : view.t;
+  const items = [['home', '', 'Front'], ['you', 'for-you', 'For you'], ['reports', 'reports', 'Reports'], ['pictures', 'pictures', 'Pictures'], ['video', 'video', 'Video'], ['late', 'latenight', 'Late Night'], ...E.sections.map(s => ['desk:' + s.k, 's/' + s.k, secName(s.k)]), ['files', 'files', 'Epstein files']];
+  const cur = view.t === 'desk' ? 'desk:' + view.k : view.t === 'article' ? 'reports' : ['impact', 'col', 'columns'].includes(view.t) ? 'desk:business' : ['garage', 'build', 'fsd'].includes(view.t) ? 'desk:cars' : view.t === 'piece' ? 'late' : view.t;
   $('#bar').innerHTML = items.map(([id, h, label]) =>
     `<button type="button" data-go="#/${h}"${id === cur ? ' aria-current="page"' : ''}${id === 'you' ? ' class="you"' : ''}>${esc(label)}</button>`).join('');
   const on = $('#bar [aria-current]');
@@ -1381,6 +1391,8 @@ function render(keepScroll) {
   else if (view.t === 'garage') renderGarage();
   else if (view.t === 'build') renderBuild(view.id);
   else if (view.t === 'fsd') renderFSD();
+  else if (view.t === 'late') renderLate();
+  else if (view.t === 'piece') renderPiece(view.id);
   else if (view.t === 'col') renderCol(view.week, view.k);
   renderFoot();
   watchImpressions();
@@ -2036,6 +2048,63 @@ function bindFridge() {
   const ks = $('#frKeySave'); if (ks) ks.addEventListener('click', () => { const k = ($('#frKey').value || '').trim(); FR.key = k; frPrefsRead(); try { if (k) localStorage.setItem('watch.akey', k); else localStorage.removeItem('watch.akey'); } catch (e) { /* storage off */ } toast(k ? T('Key saved in this browser.') : T('Key removed.')); frFull(); });
   const kd = $('#frKeyDel'); if (kd) kd.addEventListener('click', () => { FR.key = ''; try { localStorage.removeItem('watch.akey'); } catch (e) { /* storage off */ } toast(T('Key removed.')); frFull(); });
 }
+/* ================= Late Night: the shows' news segments (news/data/latenight.json) and Receipts, Claude's fact-checked comedy (news/latenight/) ================= */
+let LNV = null, LNI = null, lnBusy = null, lnFilter = 'all'; const LNC = {};
+function ensureLate() {
+  if (LNV) return Promise.resolve();
+  if (!lnBusy) lnBusy = Promise.all([getJSON('data/latenight.json').then(d => { LNV = d || {}; }).catch(() => { LNV = {}; }),
+    getJSON('latenight/index.json').then(d => { LNI = d && d.pieces ? d.pieces : []; }).catch(() => { LNI = []; })]).then(() => { lnBusy = null; });
+  return lnBusy;
+}
+const LNK = { main: 'The Main Story', desk: 'The Week, Unwrapped' };
+function lnL(p) { const t = p.i18n && p.i18n[LANG]; return t && t.title ? t : p; }
+function lnCard(p, big) {
+  const L = lnL(p);
+  return `<a class="lnc${big ? ' big' : ''} ${esc(p.kind)}" href="#/ln/${esc(p.id)}">${p.thumb ? `<span class="lni"><img src="${esc(ytThumb(p.thumb, 'mqdefault'))}" alt="" loading="lazy" referrerpolicy="no-referrer"></span>` : ''}
+    <span class="k">${T('Receipts')} · ${esc(T(LNK[p.kind] || p.kind))}</span><span class="t">${esc(L.title)}</span><span class="d">${esc(L.dek)}</span>
+    <span class="b">${T('By Claude ({model}), {date}. {min} min read.', { model: esc(p.model), date: esc(new Date(p.written).toLocaleDateString(LOC(), { month: 'long', day: 'numeric' })), min: Math.max(1, Math.round(p.words / 230)) })}</span></a>`;
+}
+function lnVid(v) {
+  return `<article class="gv lnv"><div class="vframe"><img src="${esc(ytThumb(v.v, 'mqdefault'))}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><button type="button" class="vplay" data-dplay="${esc(v.v)}" aria-label="${esc(T('Play: {title}', { title: v.t }))}"><span>▶</span></button></div>
+    <h3>${esc(v.t)}</h3><p class="mt"><span class="ou">${esc(v.ch)}</span><span>${ago(isoMin(v.p))}</span></p>${v.story ? `<p class="vrel">${T('The story')}: <a href="${esc(v.story.u)}" target="_blank" rel="noopener">${esc(v.story.t)}</a></p>` : ''}</article>`;
+}
+async function renderLate() {
+  if (!LNV) { $('#main').innerHTML = `<div class="wrap state"><h2>${T('Opening Late Night…')}</h2></div>`; await ensureLate(); if (view.t !== 'late') return; }
+  const P = LNI || [], V = LNV.videos || [], S = LNV.shows || {}, shows = [...new Set(V.map(v => v.cid))];
+  if (lnFilter !== 'all' && !shows.includes(lnFilter)) lnFilter = 'all';
+  const vs = lnFilter === 'all' ? V : V.filter(v => v.cid === lnFilter);
+  const main = P.find(p => p.kind === 'main'), desk = P.find(p => p.kind === 'desk'), rest = P.filter(p => p !== main && p !== desk);
+  $('#main').innerHTML = `<div class="wrap mk late"><div class="page-h"><h1>${T('Late Night')}</h1><p>${T('The week’s news as the late shows tell it, and Receipts: our own takes, as sharp as the shows and sourced like a report.')}</p></div>
+    <section class="blk"><h2 class="sec-h">${T('Receipts')}</h2><p class="sub2">${T('Comedy with footnotes. Written each week by Claude in the spirit of a late show’s main story and its headlines desk: the jokes are opinion, the facts are cited, and the receipts are at the bottom of every piece.')}</p>
+      ${main || desk ? `<div class="lng">${main ? lnCard(main, true) : ''}${desk ? lnCard(desk) : ''}</div>` : `<p class="note">${T('The first pieces arrive Monday, after the weekend’s shows.')}</p>`}
+      ${rest.length ? `<h3 class="glb">${T('Earlier')}</h3><div class="lnr">${rest.slice(0, 12).map(p => lnCard(p)).join('')}</div>` : ''}</section>
+    <section class="blk"><h2 class="sec-h">${T('From the shows')}</h2><p class="sub2">${T('The last ten days of news segments from The Daily Show, Last Week Tonight, Late Night with Seth Meyers and Jimmy Kimmel Live, from their official channels, each tied to the story it’s about when it’s in this edition. Interviews are left out.')}</p>
+      <div class="tags" role="group" aria-label="${T('Filter by show')}"><button type="button" class="chip" data-lnf="all" aria-pressed="${lnFilter === 'all'}">${T('All')} <span class="x">${V.length}</span></button>${shows.map(c => `<button type="button" class="chip" data-lnf="${esc(c)}" aria-pressed="${lnFilter === c}">${esc((S[c] || {}).n || c)} <span class="x">${V.filter(v => v.cid === c).length}</span></button>`).join('')}</div>
+      <div class="gvg">${vs.slice(0, 48).map(lnVid).join('') || `<p class="note">${T('Nothing came in with this edition.')}</p>`}</div>
+      <p class="note" style="margin-top:18px">${T('Videos play in YouTube’s privacy-enhanced player (youtube-nocookie.com); the shows’ own settings apply.')}</p></section></div>`;
+  document.title = T('Late Night') + ' · The Watch';
+}
+async function renderPiece(id) {
+  $('#main').innerHTML = `<div class="wrap state"><h2>${T('Opening the piece…')}</h2></div>`;
+  ensureLate();
+  let d = LNC[id];
+  if (!d) { try { d = LNC[id] = await getJSON('latenight/' + encodeURIComponent(id) + '.json'); } catch (e) { d = null; } }
+  if (view.t !== 'piece' || view.id !== id) return;
+  if (!d || !d.body) { $('#main').innerHTML = `<div class="wrap state"><h2>${T('That piece isn’t here')}</h2><p><a href="#/latenight">${T('Late Night')}</a></p></div>`; return; }
+  const L = lnL(d), n = (d.sources || []).length;
+  $('#main').innerHTML = `<article class="wrap art piece ${esc(d.kind)}"${LANG !== 'en' ? ' lang="en"' : ''}>
+    <p class="ak"><a href="#/latenight">${T('Late Night')}</a> · ${T('Receipts')} · ${esc(T(LNK[d.kind] || d.kind))}</p>
+    <h1 id="artTitle"${L !== d ? ` lang="${LOC()}"` : ''}>${esc(L.title)}</h1>
+    <p class="adek"${L !== d ? ` lang="${LOC()}"` : ''}>${esc(L.dek)}</p>
+    <p class="aby">${T('By Claude ({model}), {date}.', { model: esc(d.model), date: esc(new Date(d.written).toLocaleString(LOC(), { timeZone: 'America/New_York', month: 'long', day: 'numeric', hour: 'numeric', minute: '2-digit' })) })}${LANG !== 'en' ? ' ' + T('In English.') : ''}</p>
+    <p class="adis">${T('Commentary with jokes. The opinions and the exaggerations are the writer’s; every fact is numbered to its source, and the receipts are below.')} ${T('Aimed at: {t}.', { t: esc((d.targets || []).join(', ')) })}</p>
+    <div class="abody">${md(d.body, n)}</div>
+    ${(d.related || []).length ? `<section class="blk"><h2 class="sec-h">${T('How the shows told it')}</h2><div class="gvg">${d.related.slice(0, 3).map(r => `<article class="gv"><div class="vframe"><img src="${esc(ytThumb(r.v, 'mqdefault'))}" alt="" loading="lazy" referrerpolicy="no-referrer"><button type="button" class="vplay" data-dplay="${esc(r.v)}" aria-label="${esc(T('Play: {title}', { title: r.t }))}"><span>▶</span></button></div><h3>${esc(r.t)}</h3><p class="mt"><span class="ou">${esc(r.ch)}</span></p></article>`).join('')}</div></section>` : ''}
+    <section class="asrc rcpt"><h2>${T('The receipts')}</h2><ol>${(d.sources || []).map((x, i) => `<li id="src-${i + 1}"><a href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.title)}</a> <span>${esc(x.outlet)}${x.date ? ', ' + esc(x.date) : ''}</span></li>`).join('')}</ol></section>
+    ${(LNI || []).some(p => p.id !== id) ? `<section class="blk"><h2 class="sec-h">${T('More Receipts')}</h2><div class="lnr">${LNI.filter(p => p.id !== id).slice(0, 3).map(p => lnCard(p)).join('')}</div></section>` : ''}
+  </article>`;
+  document.title = L.title + ' · The Watch';
+}
 /* ================= the week, three ways: the Bull, the Bear and the Outsider (news/columns/) ================= */
 let COLS = null, colsBusy = null; const COLC = {};
 function ensureCols() {
@@ -2612,6 +2681,7 @@ document.addEventListener('click', e => {
   if (ds.ssgo != null) { ssShow(+ds.ssgo, +ds.ssgo > SS.i ? 1 : -1); return; }
   if (ds.vf) { vidFilter = ds.vf; pageLimit = 40; render(true); return; }
   if (ds.gf) { garFilter = ds.gf; render(true); return; }
+  if (ds.lnf) { lnFilter = ds.lnf; render(true); return; }
   if (ds.frp) { const x = ds.frp; if (FR.picks.has(x)) FR.picks.delete(x); else FR.picks.add(x); a.setAttribute('aria-pressed', String(FR.picks.has(x))); return; }
   if (ds.frdel != null) { if (FR.res && FR.res.seen) { FR.res.seen.splice(+ds.frdel, 1); frRedraw(); } return; }
   if (ds.frre) { frRun([...new Set([...((FR.res && FR.res.seen) || []).map(x => x.item), ...FR.picks])]); return; }
