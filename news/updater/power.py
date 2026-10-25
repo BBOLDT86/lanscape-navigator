@@ -10,7 +10,7 @@ Writes news/data/power.json:
   whole    wholesale prices where the grid operator publishes them openly: ERCOT (Texas) and NYISO (New York).
   retail   what households pay: the average residential price per kilowatt-hour by state for the last 25 months (EIA
            Form 861M, through the EIA's API), the BLS's average U.S. price per kilowatt-hour, and the electricity line of
-           the Consumer Price Index (through DBnomics).
+           the Consumer Price Index (the BLS's API, or DBnomics when it doesn't answer; nothing older than nine months).
   fuel     natural gas (Henry Hub futures, from markets.json), the fuel that sets most power prices.
 The EIA's API needs a key: the repository secret EIA_API_KEY when there is one (free at eia.gov/opendata), the
 shared DEMO_KEY otherwise, which allows few requests an hour. Each block that fails keeps its last good copy.
@@ -22,6 +22,7 @@ import gzip
 import io
 import json
 import os
+import re
 import sys
 import time
 import urllib.parse
@@ -72,12 +73,27 @@ def get(url, headers=None, timeout=40):
     raise last
 
 
-def eia(path, params):
-    q = [('api_key', KEY)] + params
-    j = json.loads(get(f'https://api.eia.gov/v2/{path}/data/?' + urllib.parse.urlencode(q)))
-    if 'error' in j:
-        raise RuntimeError(str(j['error'])[:200])
-    return (j.get('response') or {}).get('data') or []
+def eia(path, params, pages=5):
+    """Every row the query matches, a page of 5,000 at a time (EIA caps each response at 5,000 rows)."""
+    out, off = [], 0
+    for _ in range(pages):
+        q = [('api_key', KEY)] + params + [('offset', off), ('length', 5000)]
+        j = json.loads(get(f'https://api.eia.gov/v2/{path}/data/?' + urllib.parse.urlencode(q, safe='[]')))
+        if 'error' in j:
+            raise RuntimeError(str(j['error'])[:200])
+        r = j.get('response') or {}
+        data = r.get('data') or []
+        out += data
+        off += len(data)
+        try:
+            total = int(r.get('total') or 0)
+        except (TypeError, ValueError):
+            total = 0
+        if not data or off >= total:
+            break
+    else:
+        errors.append(f'{path}: stopped after {off} rows')
+    return out
 
 
 def now_iso():
@@ -95,8 +111,7 @@ def num(v):
 def grid():
     start = (dt.datetime.now(dt.timezone.utc) - dt.timedelta(hours=34)).strftime('%Y-%m-%dT%H')
     resp = [('facets[respondent][]', r[0]) for r in REGIONS]
-    base = [('frequency', 'hourly'), ('data[0]', 'value'), ('start', start), ('sort[0][column]', 'period'), ('sort[0][direction]', 'asc'),
-            ('length', 5000)]
+    base = [('frequency', 'hourly'), ('data[0]', 'value'), ('start', start), ('sort[0][column]', 'period'), ('sort[0][direction]', 'desc')]
     rd = eia('electricity/rto/region-data', base + resp + [('facets[type][]', t) for t in ('D', 'DF', 'NG', 'TI')])
     fd = eia('electricity/rto/fuel-type-data', base + resp)
     hours = sorted({r['period'] for r in fd})
@@ -198,7 +213,7 @@ def retail():
     start = (dt.date.today() - dt.timedelta(days=800)).strftime('%Y-%m')
     rows = eia('electricity/retail-sales', [('frequency', 'monthly'), ('data[0]', 'price'), ('data[1]', 'sales'), ('data[2]', 'customers'),
                                             ('facets[sectorid][]', 'RES'), ('start', start), ('sort[0][column]', 'period'),
-                                            ('sort[0][direction]', 'asc'), ('length', 5000)])
+                                            ('sort[0][direction]', 'asc')])
     by = {}
     for r in rows:
         s = r.get('stateid')
@@ -229,25 +244,67 @@ def dbn(series):
     return pts
 
 
-def bls():
+def bls_api(ids):
+    """Monthly points per series from the BLS's own API (version 1 needs no key; 25 queries a day per address)."""
+    y = dt.date.today().year
+    body = json.dumps({'seriesid': ids, 'startyear': str(y - 3), 'endyear': str(y)}).encode()
+    req = urllib.request.Request('https://api.bls.gov/publicAPI/v1/timeseries/data/', data=body,
+                                 headers={'Content-Type': 'application/json', 'User-Agent': UA})
+    with urllib.request.urlopen(req, timeout=40) as r:
+        j = json.loads(r.read())
+    if j.get('status') != 'REQUEST_SUCCEEDED':
+        raise RuntimeError(' '.join(j.get('message') or [])[:200] or 'BLS said no')
     out = {}
+    for sr in (j.get('Results') or {}).get('series') or []:
+        pts = []
+        for d in sr.get('data') or []:
+            if not re.fullmatch(r'M(0[1-9]|1[0-2])', d.get('period') or ''):
+                continue
+            try:
+                pts.append((f"{d['year']}-{d['period'][1:]}", float(d['value'])))
+            except (KeyError, ValueError):
+                pass
+        out[sr.get('seriesID')] = sorted(pts)
+    return out
+
+
+def fresh(pts, months=9):
+    """Only numbers from the last nine months or so; an old figure is worse than none."""
+    if not pts:
+        return []
+    y, m = map(int, pts[-1][0][:7].split('-'))
+    t = dt.date.today()
+    return pts if (t.year - y) * 12 + t.month - m <= months else []
+
+
+def bls():
+    out, src = {}, 'BLS'
+    ids = ['APU000072610', 'CUUR0000SEHF01']
     try:
-        pts = dbn('BLS/ap/APU000072610')
-        if pts:
-            out['avgPrice'] = {'n': 'Average price, U.S. city average', 'month': pts[-1][0], 'v': pts[-1][1], 'yearAgo': pts[-13][1] if len(pts) > 12 else None,
-                               'series': [p[1] for p in pts[-37:]], 'units': 'dollars per kWh'}
+        got = bls_api(ids)
     except Exception as ex:  # noqa: BLE001
-        errors.append(f'bls ap: {ex}')
-    try:
-        pts = dbn('BLS/cu/CUUR0000SEHF01')
-        if len(pts) > 12:
-            out['cpi'] = {'n': 'Consumer Price Index, electricity', 'month': pts[-1][0], 'yoy': round((pts[-1][1] / pts[-13][1] - 1) * 100, 1),
-                          'series': [round((pts[i][1] / pts[i - 12][1] - 1) * 100, 1) for i in range(max(12, len(pts) - 36), len(pts))]}
-    except Exception as ex:  # noqa: BLE001
-        errors.append(f'bls cpi: {ex}')
+        errors.append(f'bls api: {ex}')
+        got = {}
+    for i in ids:
+        if not fresh(got.get(i)):
+            try:
+                pts = dbn(('BLS/ap/' if i.startswith('AP') else 'BLS/cu/') + i)
+                if fresh(pts):
+                    got[i] = pts
+                    src = 'BLS, through DBnomics'
+            except Exception as ex:  # noqa: BLE001
+                errors.append(f'dbnomics {i}: {ex}')
+    pts = fresh(got.get('APU000072610'))
+    if pts:
+        out['avgPrice'] = {'n': 'Average price, U.S. city average', 'month': pts[-1][0], 'v': pts[-1][1], 'yearAgo': pts[-13][1] if len(pts) > 12 else None,
+                           'series': [p[1] for p in pts[-37:]], 'units': 'dollars per kWh'}
+    pts = fresh(got.get('CUUR0000SEHF01'))
+    if len(pts) > 12:
+        out['cpi'] = {'n': 'Consumer Price Index, electricity', 'month': pts[-1][0], 'yoy': round((pts[-1][1] / pts[-13][1] - 1) * 100, 1),
+                      'series': [round((pts[i][1] / pts[i - 12][1] - 1) * 100, 1) for i in range(max(12, len(pts) - 36), len(pts))]}
     if not out:
-        raise RuntimeError('no BLS numbers')
-    return dict(out, at=now_iso(), source='BLS, through DBnomics')
+        raise RuntimeError('no recent BLS numbers')
+    return dict(out, at=now_iso(), source=src)
 
 
 def fuel():
@@ -268,8 +325,14 @@ def main():
     out = dict(old)
     stale = []
     jobs = [('grid', grid), ('whole', wholesale), ('fuel', fuel)]
-    if not old.get('retail') or (dt.datetime.now(dt.timezone.utc) - dt.datetime.fromisoformat(old['retail']['at'].replace('Z', '+00:00'))).total_seconds() > 20 * 3600 or '--force' in sys.argv:
-        jobs += [('retail', retail), ('bls', bls)]
+
+    def due(name, hours=20):  # the monthly numbers are fetched about once a day
+        b = old.get(name) or {}
+        if not b.get('at') or '--force' in sys.argv:
+            return True
+        age = dt.datetime.now(dt.timezone.utc) - dt.datetime.fromisoformat(b['at'].replace('Z', '+00:00'))
+        return age.total_seconds() > hours * 3600 or (name == 'bls' and not fresh([((b.get('cpi') or b.get('avgPrice') or {}).get('month') or '1900-01', 0)]))
+    jobs += [(n, f) for n, f in (('retail', retail), ('bls', bls)) if due(n)]
     for name, fn in jobs:
         try:
             out[name] = fn()
@@ -277,6 +340,8 @@ def main():
         except Exception as ex:  # noqa: BLE001
             stale.append(name)
             errors.append(f'{name}: {ex}')
+            if name == 'bls':  # an old copy that's out of date is dropped, not shown
+                out.pop('bls', None)
             print(f'{name}: failed ({ex}); kept the last good copy')
     out['at'] = now_iso()
     out['stale'] = stale
