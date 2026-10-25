@@ -9,7 +9,8 @@
 news/data/latenight.json: the last ten days (three weeks for Last Week Tonight) of the shows' official YouTube uploads (The Daily Show, Last Week Tonight
 with John Oliver, Late Night with Seth Meyers, Jimmy Kimmel Live), each id checked against the channel's own name.
 Kept: Last Week Tonight's main stories and segments, and from the others the segments about the news (matched to a
-story cluster in the edition, or a named news segment such as A Closer Look or a correspondent's piece). Celebrity
+story cluster in the edition, a named news segment such as A Closer Look or a correspondent's piece, or a title about
+politics and the news). Celebrity
 interviews and Shorts are left out. Each kept video carries the edition story it covers, when there is one. The page
 plays them in YouTube's privacy-enhanced player. Standard library only.
 """
@@ -35,6 +36,10 @@ SHOWS = [
     ('UCVTyTA7-g9nopHeHbeuvpRA', 'seth meyers', 'Late Night with Seth Meyers', 'LateNightSeth', 'NBC, weeknights'),
     ('UCa6vGFO9ty8v5KZJXQxdhaw', 'kimmel', 'Jimmy Kimmel Live', 'JimmyKimmelLive', 'ABC, weeknights'),
 ]
+NEWSY = re.compile(r"\b(trump|vance|gop|republicans?|democrats?|congress|senate|senators?|house speaker|elections?|midterms?|shutdown|supreme court|tariffs?|"
+                   r"ice|border|immigration|war|ukraine|gaza|israel|russia|putin|china|the fed|economy|inflation|governors?|mayors?|campaign|rally|polls?|"
+                   r"approval|white house|president|maga|musk|epstein|indicted|indictment|judge|doj|fbi|pentagon|hegseth|rubio|newsom|desantis|schumer|"
+                   r"mamdani|cuomo|kennedy|rfk|vaccines?|medicaid|social security|healthcare|national guard|military|strike|protests?|riots?)\b", re.I)
 SEG = re.compile(r'closer look|monologue|jon stewart|desi lydic|ronny chieng|jordan klepper|michael kosta|josh johnson|troy iwata|'
                  r'grace kuhlenschmidt|dulc[ée] sloan|lewis black|weekly news|headlines|news of the week|correspondent|fact[- ]check', re.I)
 
@@ -63,7 +68,7 @@ def build():
             c = E['clusters'][g]; lead = byid.get(c['lead'])
             if lead:
                 v['story'] = {'t': lead['t'], 'u': lead['u'], 'o': lead['o'], 'n': c['n']}
-        if lwt or 'story' in v or SEG.search(v['t']):
+        if lwt or 'story' in v or SEG.search(v['t']) or NEWSY.search(v['t']):
             keep.append(v)
     keep.sort(key=lambda v: v['p'], reverse=True)
     out = {'v': 1, 'at': NOW.strftime('%Y-%m-%dT%H:%M:%SZ'), 'shows': {s[0]: {'n': s[2], 'h': s[3], 'about': s[4]} for s in SHOWS},
