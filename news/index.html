@@ -385,7 +385,7 @@ h3.glb{font:600 12.5px var(--sans);letter-spacing:.07em;text-transform:uppercase
 .gb{display:inline-block;font:700 10px var(--sans);letter-spacing:.05em;text-transform:uppercase;border:1px solid var(--rule);border-radius:4px;padding:1px 5px;color:var(--ink-3);margin-left:4px}.gb.stated{color:var(--up);border-color:currentColor}
 .gvrange b{font:400 44px/1 var(--serif);color:var(--up)}.gval>p{max-width:70ch}
 .gverd .abody{border-left:3px solid var(--brass);padding-left:16px}
-.fsd .pcards{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}.fsd>.abody{margin-top:20px}.pc .pv strong{font-weight:700}.pc .sm2{font-size:30px!important}.pc .pv{font-size:14.5px;color:var(--ink);line-height:1.45}.pc .pv small{color:var(--ink-3)}
+.fsd .pcards{grid-template-columns:repeat(auto-fit,minmax(200px,1fr));align-items:start}.fsd>.abody{margin-top:20px}.pc .pv strong{font-weight:700}.pc .sm2{font-size:30px!important}.pc .pv{font-size:14.5px;color:var(--ink);line-height:1.45}.pc .pv small{color:var(--ink-3)}
 .hwd{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;vertical-align:0}
 .fsk{list-style:none;display:flex;flex-wrap:wrap;gap:6px 16px;padding:0;margin:6px 0 10px;font:600 13px var(--sans)}.fsk i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px}
 .fsm{display:grid;grid-template-columns:110px minmax(0,1fr);gap:12px;align-items:center;margin:8px 0}.fsm h3{margin:0;font:600 15px var(--sans)}
@@ -1737,7 +1737,7 @@ function fsdPromo() {
   const news = ((GAR && GAR.fsd) || {}).news || [];
   return `<a class="fsdp" href="#/fsd"><span class="k">Tesla · FSD (Supervised)</span><span class="t">${T('Every Tesla that runs FSD')}</span>
     <span class="d">${T('Which cars have which computer, what FSD costs now, the latest version for each, and searches for used ones near you.')}</span>
-    ${FSDD ? `<span class="fx">${FSDD.price && FSDD.price.subscription ? `<span>${esc(FSDD.price.subscription)}</span>` : ''}${fsdVer('AI4') ? `<span>AI4: ${esc(fsdVer('AI4'))}</span>` : ''}${fsdVer('HW3') ? `<span>HW3: ${esc(fsdVer('HW3'))}</span>` : ''}</span>` : ''}
+    ${FSDD ? `<span class="fx">${FSDD.price && FSDD.price.subscription ? `<span>${esc(nocite(FSDD.price.subscription))}</span>` : ''}${fsdVer('AI4') ? `<span>AI4: ${esc(fsdVer('AI4'))}</span>` : ''}${fsdVer('HW3') ? `<span>HW3: ${esc(fsdVer('HW3'))}</span>` : ''}</span>` : ''}
     <span class="fgo">${T('Open the FSD guide')} →</span></a>
     ${news.length ? `<h3 class="glb">${T('FSD in the news')}</h3>${glist(news, 5)}` : ''}`;
 }
@@ -1774,12 +1774,12 @@ async function renderGarage() {
   document.title = T('The garage') + ' · The Watch';
 }
 function moneyBars(d) {
-  const c = d.costs || {}, v = d.value, bought = c.bought ?? d.source.bought ?? 0, parts = c.parts || 0, rest = (c.labor || 0) + (c.other || 0);
+  const c = d.costs || {}, v = d.value, unk = c.bought == null && d.source.bought == null, bought = c.bought ?? d.source.bought ?? 0, parts = c.parts || 0, rest = (c.labor || 0) + (c.other || 0);
   const total = c.total || bought + parts + rest, max = Math.max(total, v.high) * 1.06 || 1, pc = x => (x / max * 100).toFixed(2) + '%';
   return `<div class="gm" role="img" aria-label="${esc(T('Into it: {t}. Worth: {lo} to {hi}.', { t: usd(total), lo: usd(v.low), hi: usd(v.high) }))}">
-    <div class="gmr"><span class="gml">${T('Into it')}</span><div class="gmb">${bought ? `<span class="b" style="width:${pc(bought)}" title="${esc(T('Bought'))} ${usd(bought)}"></span>` : ''}${parts ? `<span class="p" style="width:${pc(parts)}" title="${esc(T('Parts'))} ${usd(parts)}"></span>` : ''}${rest ? `<span class="o" style="width:${pc(rest)}" title="${esc(T('Labor and other'))} ${usd(rest)}"></span>` : ''}</div><b>${usd(total)}</b></div>
+    <div class="gmr"><span class="gml">${T('Into it')}</span><div class="gmb">${bought ? `<span class="b" style="width:${pc(bought)}" title="${esc(T('Bought'))} ${usd(bought)}"></span>` : ''}${parts ? `<span class="p" style="width:${pc(parts)}" title="${esc(T('Parts'))} ${usd(parts)}"></span>` : ''}${rest ? `<span class="o" style="width:${pc(rest)}" title="${esc(T('Labor and other'))} ${usd(rest)}"></span>` : ''}</div><b>${usd(total)}${unk ? '+' : ''}</b></div>
     <div class="gmr"><span class="gml">${T('Worth')}</span><div class="gmb"><span class="v" style="margin-left:${pc(v.low)};width:${pc(v.high - v.low)}"></span></div><b>${usdK(v.low)}–${usdK(v.high)}</b></div>
-    <ul class="gmk"><li><i class="b"></i>${T('Bought')} ${usd(bought)}</li><li><i class="p"></i>${T('Parts')} ${usd(parts)}</li>${rest ? `<li><i class="o"></i>${T('Labor and other')} ${usd(rest)}</li>` : ''}<li><i class="v"></i>${T('What it’s worth')}</li></ul></div>`;
+    <ul class="gmk"><li><i class="b"></i>${T('Bought')} ${unk ? T('(price not said)') : usd(bought)}</li><li><i class="p"></i>${T('Parts')} ${usd(parts)}</li>${rest ? `<li><i class="o"></i>${T('Labor and other')} ${usd(rest)}</li>` : ''}<li><i class="v"></i>${T('What it’s worth')}</li></ul></div>`;
 }
 async function renderBuild(id) {
   $('#main').innerHTML = `<div class="wrap state"><h2>${T('Opening the project file…')}</h2></div>`;
@@ -1799,8 +1799,8 @@ async function renderBuild(id) {
       <div><dt>${T('Where it came from')}</dt><dd>${esc(T(GKIND[s.kind] || s.kind))}: ${esc(s.where)}</dd></div><div><dt>${T('Title')}</dt><dd>${esc(T(GTITLE[s.title] || s.title))}</dd></div>
       <div><dt>${T('Status')}</dt><dd><span class="gs s-${esc(d.status.replace(/\s+/g, '-'))}">${esc(T(GSTAT[d.status] || d.status))}</span></dd></div><div><dt>${T('Time')}</dt><dd>${esc(d.time)}</dd></div></dl>
     <section class="gmoney"><h2 class="sec-h">${T('The money')}</h2>${moneyBars(d)}
-      <p class="note">${s.bought != null ? T('Bought for {p}: {how}.', { p: usd(s.bought), how: esc(s.boughtNote) }) + ' ' : ''}${esc(c.note || '')}</p></section>
-    <section class="gdmg"><h2 class="sec-h">${T('What was wrong with it')}</h2><p>${esc(s.damage)}</p></section>
+      <p class="note">${s.bought != null ? T('Bought for {p}: {how}.', { p: usd(s.bought), how: esc(s.boughtNote) }) + ' ' : ''}${cites(c.note || '', n)}</p></section>
+    <section class="gdmg"><h2 class="sec-h">${T('What was wrong with it')}</h2><p>${cites(s.damage, n)}</p></section>
     ${eps.length ? `<section class="geps"><h2 class="sec-h">${T('The videos')}</h2><div class="vframe big"><img src="${esc(ytThumb(eps[0].v, 'maxresdefault'))}" data-orig="${esc(ytThumb(eps[0].v))}" alt="" referrerpolicy="no-referrer" onerror="if(this.src!==this.dataset.orig){this.src=this.dataset.orig}"><button type="button" class="vplay" data-dplay="${esc(eps[0].v)}" aria-label="${esc(T('Play: {title}', { title: eps[0].t }))}"><span>▶</span></button></div>
       <ol class="gep">${eps.map(e => `<li><div class="vframe"><img src="${esc(ytThumb(e.v, 'mqdefault'))}" alt="" loading="lazy" referrerpolicy="no-referrer"><button type="button" class="vplay" data-dplay="${esc(e.v)}" aria-label="${esc(T('Play: {title}', { title: e.t }))}"><span>▶</span></button></div><div><p class="gt">${esc(e.t)}</p><p class="gd">${esc(dayFmt(e.date))}</p><p>${esc(e.what)}</p></div></li>`).join('')}</ol></section>` : ''}
     <div class="abody">${md(d.body, n)}</div>
@@ -1808,7 +1808,7 @@ async function renderBuild(id) {
       <tbody>${d.parts.map(p => `<tr><td><b>${esc(p.part)}</b></td><td>${esc(p.why)}</td><td class="r">${p.cost != null ? usd(p.cost) : '–'} <span class="gb ${esc(p.basis)}">${esc(T(p.basis === 'stated' ? 'stated' : p.basis === 'listed' ? 'listed' : 'estimate'))}</span></td></tr>`).join('')}</tbody>
       ${c.parts ? `<tfoot><tr><td colspan="2">${T('Parts in all')}</td><td class="r"><b>${usd(c.parts)}</b></td></tr></tfoot>` : ''}</table></div>
       <p class="note">${T('“Stated” is a price the builder gave on camera; “listed” is a retailer’s price; “estimate” is Claude’s reckoning from the sources.')}</p></section>
-    <section class="gval"><h2 class="sec-h">${T('What it’s worth')}</h2><p class="gvrange"><b>${usd(d.value.low)}–${usd(d.value.high)}</b></p><p>${esc(d.value.basis)}</p>
+    <section class="gval"><h2 class="sec-h">${T('What it’s worth')}</h2><p class="gvrange"><b>${usd(d.value.low)}–${usd(d.value.high)}</b></p><p>${cites(d.value.basis, n)}</p>
       <div class="stk-wrap"><table class="gtab"><thead><tr><th>${T('Comparable sale')}</th><th>${T('Where')}</th><th>${T('When')}</th><th class="r">${T('Price')}</th></tr></thead>
       <tbody>${(d.value.comps || []).map(x => `<tr><td><a href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.what)}</a></td><td>${esc(x.where)}</td><td>${x.date ? esc(dayFmt(x.date)) : ''}</td><td class="r"><b>${usd(x.price)}</b></td></tr>`).join('')}</tbody></table></div></section>
     <section class="gverd"><h2 class="sec-h">${T('The verdict')}</h2><div class="abody">${md(d.verdict, n)}</div></section>
@@ -1820,6 +1820,8 @@ async function renderBuild(id) {
 }
 
 /* ---- Tesla FSD: every car that runs it ---- */
+const cites = (t, n) => esc(t).replace(/\s*\[(\d{1,2})\]/g, (m, k) => +k >= 1 && +k <= n ? `<sup class="cite"><a href="#src-${k}" data-cite="${k}">${k}</a></sup>` : m); // a short text with its [n] marks
+const nocite = t => String(t || '').replace(/\s*\[\d{1,2}\]/g, '');
 const FSDM = { 'Model 3': ['m3', 'tesla-model_3', 'model-3'], 'Model Y': ['my', 'tesla-model_y', 'model-y'], 'Model S': ['ms', 'tesla-model_s', 'model-s'], 'Model X': ['mx', 'tesla-model_x', 'model-x'], Cybertruck: ['ct', 'tesla-cybertruck', 'cybertruck'] };
 const HWC = { HW2: '#A6AFB9', 'HW2.5': '#8492A3', HW3: '#2F6FB0', AI4: '#A9852F', AI5: '#7A5BC7' };
 const fsdPref = (() => { try { return JSON.parse(localStorage.getItem('watch.fsd') || '{}') || {}; } catch (e) { return {}; } })();
@@ -1843,7 +1845,7 @@ function fsdLinks() {
 function fsdStrip(model) { // one cell per model year, colored by the computer
   const now = new Date().getFullYear(), rows = (FSDD.hardware || []).filter(h => h.model === model), y0 = Math.min(...rows.map(h => h.from));
   const cells = []; for (let y = y0; y <= now; y++) { const hs = rows.filter(h => y >= h.from && y <= (h.to || now)); cells.push({ y, hs }); }
-  return `<div class="fsy" role="list">${cells.map(c => `<span role="listitem" class="${c.hs.length > 1 ? 'mix' : ''}" style="${c.hs.length === 1 ? `background:${HWC[c.hs[0].hw]}` : c.hs.length > 1 ? `background:linear-gradient(135deg,${HWC[c.hs[0].hw]} 50%,${HWC[c.hs[c.hs.length - 1].hw]} 50%)` : ''}" title="${esc(c.y + ': ' + c.hs.map(h => h.hw + ' — ' + h.fsd).join(' / '))}"><b>${String(c.y).slice(2)}</b><i>${esc(c.hs.length > 1 ? c.hs.map(h => h.hw.replace(/^HW/, '')).join('/') : c.hs.map(h => h.hw).join(''))}</i></span>`).join('')}</div>`;
+  return `<div class="fsy" role="list">${cells.map(c => `<span role="listitem" class="${c.hs.length > 1 ? 'mix' : ''}" style="${c.hs.length === 1 ? `background:${HWC[c.hs[0].hw]}` : c.hs.length > 1 ? `background:linear-gradient(135deg,${HWC[c.hs[0].hw]} 50%,${HWC[c.hs[c.hs.length - 1].hw]} 50%)` : ''}" title="${esc(c.y + ': ' + c.hs.map(h => h.hw + ' — ' + nocite(h.fsd)).join(' / '))}"><b>${String(c.y).slice(2)}</b><i>${esc(c.hs.length > 1 ? c.hs.map(h => h.hw.replace(/^HW/, '')).join('/') : c.hs.map(h => h.hw).join(''))}</i></span>`).join('')}</div>`;
 }
 async function renderFSD() {
   if (!GAR) { $('#main').innerHTML = `<div class="wrap state"><h2>${T('Opening the FSD guide…')}</h2></div>`; await ensureGarage(); if (view.t !== 'fsd') return; }
@@ -1859,27 +1861,27 @@ async function renderFSD() {
     <p class="adek">${T('Full Self-Driving (Supervised): which cars can run it, what it costs now, the latest version for each computer, and where to find a used one.')}</p>
     <p class="aby">${T('Guide by Claude ({model}), updated {date} from the sources below. The news updates with every edition.', { model: esc(F.model), date: esc(new Date(F.updated).toLocaleDateString(LOC(), { month: 'long', day: 'numeric', year: 'numeric' })) })}</p>
     <div class="abody"${tr && tr.summary ? ` lang="${LOC()}"` : LANG !== 'en' ? ' lang="en"' : ''}>${md(tr && tr.summary ? tr.summary : F.summary, n)}</div>
-    <div class="pcards"><div class="pc"><span class="pk">${T('To subscribe')}</span><b class="sm2">${esc(F.price.subscription)}</b></div>
-      <div class="pc"><span class="pk">${T('To buy outright')}</span><span class="pv">${esc(F.price.purchase)}</span></div>
-      <div class="pc"><span class="pk">${T('Latest versions')}</span>${(F.versions || []).map(v => `<span class="pv"><i class="hwd" style="background:${HWC[v.hw] || '#999'}"></i><strong>${esc(v.hw)}</strong> ${esc(v.version)}${v.build ? ` <small>(${esc(v.build)})</small>` : ''}${v.note ? ` — ${esc(v.note)}` : ''}</span>`).join('')}</div></div>
-    <p class="note">${esc(F.price.note)}</p>
+    <div class="pcards"><div class="pc"><span class="pk">${T('To subscribe')}</span><b class="sm2">${esc(nocite(F.price.subscription))}</b></div>
+      <div class="pc"><span class="pk">${T('To buy outright')}</span><span class="pv">${cites(F.price.purchase, n)}</span></div>
+      <div class="pc"><span class="pk">${T('Latest versions')}</span>${(F.versions || []).map(v => `<span class="pv"><i class="hwd" style="background:${HWC[v.hw] || '#999'}"></i><strong>${esc(v.hw)}</strong> ${esc(v.version)}${v.build ? ` <small>(${esc(v.build)})</small>` : ''}${v.note ? ` — ${cites(v.note, n)}` : ''}</span>`).join('')}</div></div>
+    <p class="note">${cites(F.price.note, n)}</p>
     <section class="blk"><h2 class="sec-h">${T('Which Teslas can run it')}</h2><p class="sub2">${T('Each square is a model year, colored by the self-driving computer the car was built with. Some years changed partway through; the table says how to tell.')}</p>
       <ul class="fsk">${Object.entries(HWC).filter(([h]) => (F.hardware || []).some(r => r.hw === h)).map(([h, c]) => `<li><i style="background:${c}"></i>${esc(h)}</li>`).join('')}</ul>
       ${models.map(m => `<div class="fsm"><h3>${esc(m)}</h3>${fsdStrip(m)}</div>`).join('')}
       <div class="stk-wrap"><table class="gtab fst"><thead><tr><th>${T('Model')}</th><th>${T('Years')}</th><th>${T('Computer')}</th><th>${T('What FSD it runs')}</th><th>${T('Notes')}</th></tr></thead>
-      <tbody>${(F.hardware || []).map(h => `<tr><td><b>${esc(h.model)}</b></td><td>${h.from}${h.to === h.from ? '' : '–' + (h.to || T('now'))}</td><td><i class="hwd" style="background:${HWC[h.hw] || '#999'}"></i>${esc(h.hw)}</td><td>${esc(h.fsd)}</td><td>${esc(h.note || '')}</td></tr>`).join('')}</tbody></table></div></section>
+      <tbody>${(F.hardware || []).map(h => `<tr><td><b>${esc(h.model)}</b></td><td>${h.from}${h.to === h.from ? '' : '–' + (h.to || T('now'))}</td><td><i class="hwd" style="background:${HWC[h.hw] || '#999'}"></i>${esc(h.hw)}</td><td>${cites(h.fsd, n)}</td><td>${cites(h.note || '', n)}</td></tr>`).join('')}</tbody></table></div></section>
     <section class="blk fsdfind"><h2 class="sec-h">${T('Find one near you')}</h2>
       <form class="fsdf" onsubmit="return false"><label>${T('ZIP code')}<input id="fsdZip" inputmode="numeric" maxlength="5" pattern="[0-9]{5}" placeholder="94103" value="${esc(fsdPref.zip || '')}"></label>
         <label>${T('Model')}<select id="fsdModel">${Object.keys(FSDM).map(m => `<option${(fsdPref.model || 'Model Y') === m ? ' selected' : ''}>${esc(m)}</option>`).join('')}</select></label>
         <label>${T('Computer')}<select id="fsdHw"><option value="any"${fsdPref.hw !== 'AI4' ? ' selected' : ''}>${T('HW3 or AI4')}</option><option value="AI4"${fsdPref.hw === 'AI4' ? ' selected' : ''}>${T('AI4 only (the newest FSD)')}</option></select></label>
         <label>${T('Distance')}<select id="fsdR">${['50', '100', '200', '500', 'all'].map(r => `<option value="${r}"${(fsdPref.r || '100') === r ? ' selected' : ''}>${r === 'all' ? T('Nationwide') : T('{n} miles', { n: r })}</option>`).join('')}</select></label></form>
       <div id="fsdOut">${fsdLinks()}</div></section>
-    <section class="blk two"><div><h2 class="sec-h">${T('How to tell which computer a car has')}</h2><ul class="fsl">${(F.check || []).map(x => `<li>${esc(x)}</li>`).join('')}</ul></div>
-      <div><h2 class="sec-h">${T('Buying used for FSD')}</h2><ul class="fsl">${(F.buying || []).map(x => `<li>${esc(x)}</li>`).join('')}</ul></div></section>
+    <section class="blk two"><div><h2 class="sec-h">${T('How to tell which computer a car has')}</h2><ul class="fsl">${(F.check || []).map(x => `<li>${cites(x, n)}</li>`).join('')}</ul></div>
+      <div><h2 class="sec-h">${T('Buying used for FSD')}</h2><ul class="fsl">${(F.buying || []).map(x => `<li>${cites(x, n)}</li>`).join('')}</ul></div></section>
     <section class="blk"><h2 class="sec-h">${T('Transferring FSD')}</h2><div class="abody"${LANG !== 'en' ? ' lang="en"' : ''}>${md(F.transfer, n)}</div></section>
-    <section class="blk two"><div><h2 class="sec-h">${T('Where it’s offered')}</h2><div class="tags ex">${(F.where || []).map(w => `<span class="chip">${esc(w)}</span>`).join('')}</div></div>
-      ${(F.robotaxi || []).length ? `<div><h2 class="sec-h">${T('Robotaxis')}</h2><ul class="fsl">${F.robotaxi.map(r => `<li><b>${esc(r.place)}</b>${r.since ? ` <span class="m">${T('since {d}', { d: esc(dayFmt(r.since)) })}</span>` : ''}: ${esc(r.status)}</li>`).join('')}</ul></div>` : ''}</section>
-    ${(F.changes || []).length ? `<section class="blk"><h2 class="sec-h">${T('What changed this week')}</h2><ul class="fsl">${F.changes.map(x => `<li>${esc(x)}</li>`).join('')}</ul></section>` : ''}
+    <section class="blk two"><div><h2 class="sec-h">${T('Where it’s offered')}</h2><div class="tags ex">${(F.where || []).map(w => `<span class="chip">${esc(nocite(w))}</span>`).join('')}</div></div>
+      ${(F.robotaxi || []).length ? `<div><h2 class="sec-h">${T('Robotaxis')}</h2><ul class="fsl">${F.robotaxi.map(r => `<li><b>${esc(r.place)}</b>${r.since ? ` <span class="m">${T('since {d}', { d: esc(dayFmt(r.since)) })}</span>` : ''}: ${cites(r.status, n)}</li>`).join('')}</ul></div>` : ''}</section>
+    ${(F.changes || []).length ? `<section class="blk"><h2 class="sec-h">${T('What changed this week')}</h2><ul class="fsl">${F.changes.map(x => `<li>${cites(x, n)}</li>`).join('')}</ul></section>` : ''}
     ${news.length ? `<section class="blk"><h2 class="sec-h">${T('FSD in the news')}</h2>${glist(news, 20)}</section>` : ''}
     <p class="adis">${T('FSD (Supervised) needs a driver paying attention at all times. Prices and versions change often; Tesla’s own pages have the final word.')}</p>
     <section class="asrc"><h2>${T('Sources')}</h2><ol>${(F.sources || []).map((x, i) => `<li id="src-${i + 1}"><a href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.title)}</a> <span>${esc(x.outlet)}${x.date ? ', ' + esc(x.date) : ''}</span></li>`).join('')}</ol></section>
