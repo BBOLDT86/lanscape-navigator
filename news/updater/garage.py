@@ -78,6 +78,15 @@ HAGERTY = 'https://www.hagerty.com/media/feed/'
 FSD_FEEDS = [GN + urllib.request.quote('Tesla FSD OR "Full Self-Driving" OR robotaxi when:4d'), 'https://www.teslarati.com/feed/',
              'https://www.notateslaapp.com/rss', 'https://electrek.co/feed/']
 FSD_RX = re.compile(r'\bFSD\b|full self[- ]driving|autopilot|robotaxi|cybercab|\bHW ?[34]\b|\bAI[456]\b|unsupervised|self-driving', re.I)
+# Google News finds everything, including shops and reposts: its items count only from outlets the edition already
+# reads or the car and EV press below
+CAR_PRESS = {'electrek.co', 'teslarati.com', 'notateslaapp.com', 'insideevs.com', 'caranddriver.com', 'motortrend.com', 'roadandtrack.com',
+             'jalopnik.com', 'motor1.com', 'autoblog.com', 'carscoops.com', 'thedrive.com', 'hagerty.com', 'autonews.com', 'driveteslacanada.ca',
+             'theverge.com', 'techcrunch.com', 'arstechnica.com', 'wired.com', 'engadget.com', 'businessinsider.com', 'fortune.com', 'forbes.com',
+             'electrive.com', 'carbuzz.com', 'topgear.com', 'autocar.co.uk', 'edmunds.com', 'kbb.com', 'cars.com', 'consumerreports.org',
+             'barrons.com', 'investopedia.com', 'latimes.com', 'sfchronicle.com', 'statesman.com', 'kxan.com', 'theinformation.com', 'semafor.com',
+             'mensjournal.com', 'robbreport.com', 'duPontregistry.com', 'classic.com', 'sportscarmarket.com', 'goodwood.com', 'carthrottle.com',
+             'cnet.com', 'zdnet.com', 'gizmodo.com', 'futurism.com', 'teslaoracle.com', 'carexpert.com.au', 'whichcar.com.au', 'drive.com.au'}
 MARKET_RX = re.compile(r'\bsold\b|auction|\bbid|market|valuation|price guide|record|values?\b|appreciat|depreciat|bring a trailer|cars ?(&|and) ?bids|mecum|barrett|rm sotheby|bonhams|gooding', re.I)
 
 
@@ -153,6 +162,11 @@ def stories(urls, keep=None, days=14, n=30, outlet=None):
             if not t or not link or not when or (NOW - when).days > days:
                 continue
             o = it['src_name'] or outlet or run.norm_domain(link)
+            if it['google']:
+                dom = run.norm_domain(it['src_url'])
+                if not dom or (dom not in run.OUTLETS and dom.lower() not in {d.lower() for d in CAR_PRESS}):
+                    continue
+                o = run.OUTLETS.get(dom) or it['src_name'] or dom
             if it['google'] and it['src_name'] and t.endswith(' - ' + it['src_name']):
                 t = t[: -len(it['src_name']) - 3].strip()
             text = t + ' ' + run.clean(re.sub(r'<[^>]+>', ' ', it['desc'] or ''))[:400]
