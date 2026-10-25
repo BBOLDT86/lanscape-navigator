@@ -39,6 +39,11 @@ jobs:
           RENTCAST_API_KEY: ${{ secrets.RENTCAST_API_KEY }}
         run: |
           python3 news/updater/home.py || echo "home failed, kept the last data"
+      - name: Pictures and video
+        timeout-minutes: 4
+        continue-on-error: true
+        run: |
+          python3 news/updater/media.py || echo "media failed; the page works without it"
       - name: Commit and push
         run: |
           git config user.name "The Watch updater"
