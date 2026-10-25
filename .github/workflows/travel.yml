@@ -1,0 +1,53 @@
+name: Weekender live data
+# Weekender (travel/): the weather, exchange rates and U.S. airport delays for the eight 3 Perfect Days cities, every
+# three hours; and, when a guide lands in travel/guides/, the pictures and map pins for its stops. With the repository
+# secret TRAVELPAYOUTS_TOKEN it also records the lowest fares travelers found for the coming weekend. See
+# travel/UPDATER.md.
+on:
+  schedule:
+    - cron: '41 */3 * * *'
+  push:
+    branches: [main]
+    paths: ['travel/guides/**']
+  workflow_dispatch:
+    inputs:
+      probe:
+        description: 'Print a sample of each service''s answer'
+        type: boolean
+        default: false
+permissions:
+  contents: write
+concurrency:
+  group: weekender-live
+  cancel-in-progress: false
+jobs:
+  live:
+    if: github.repository == 'BBOLDT86/lanscape-navigator'
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Guide index
+        run: python3 travel/updater/guides.py index
+      - name: Live data, pictures and places
+        timeout-minutes: 8
+        env:
+          TRAVELPAYOUTS_TOKEN: ${{ secrets.TRAVELPAYOUTS_TOKEN }}
+        run: python3 travel/updater/live.py ${{ inputs.probe && '--probe' || '' }}
+      - name: Commit and push
+        run: |
+          git config user.name "Weekender updater"
+          git config user.email "the-watch-news@users.noreply.github.com"
+          git add travel/data travel/guides/index.json
+          if git diff --cached --quiet; then echo "nothing new"; exit 0; fi
+          git commit -qm "Weekender: live data"
+          for i in 1 2 3; do
+            git pull --rebase -X theirs origin main && git push -q origin HEAD:main && exit 0
+            sleep 10
+          done
+          echo "push failed" >&2; exit 1

@@ -1,0 +1,30 @@
+{
+ "v": 1,
+ "note": "The eight cities that get a 3 Perfect Days guide every week. air: the code flight searches use (a city code where the city has several airports). kayak: KAYAK's own id for the city's hotel search. wiki: the English Wikipedia article whose picture stands in until a guide names its own.",
+ "cities": [
+  {"id": "sf", "name": "San Francisco", "short": "SF", "country": "United States", "cc": "US", "region": "CA", "tz": "America/Los_Angeles", "cur": "USD",
+   "lat": 37.7749, "lon": -122.4194, "air": "SFO", "airports": ["SFO", "OAK", "SJC"], "kayak": "San-Francisco,CA-c13852",
+   "color": "#D9472B", "wiki": "Golden Gate Bridge", "line": "Fog, sourdough and the bay"},
+  {"id": "la", "name": "Los Angeles", "short": "LA", "country": "United States", "cc": "US", "region": "CA", "tz": "America/Los_Angeles", "cur": "USD",
+   "lat": 34.0522, "lon": -118.2437, "air": "LAX", "airports": ["LAX", "BUR", "LGB", "SNA", "ONT"], "kayak": "Los-Angeles,CA-c16078",
+   "color": "#E8577E", "wiki": "Griffith Observatory", "line": "Tacos, canyons and the long golden hour"},
+  {"id": "miami", "name": "Miami", "short": "MIA", "country": "United States", "cc": "US", "region": "FL", "tz": "America/New_York", "cur": "USD",
+   "lat": 25.7617, "lon": -80.1918, "air": "MIA", "airports": ["MIA", "FLL"], "kayak": "Miami,FL-c14305",
+   "color": "#0FA3A3", "wiki": "South Beach", "line": "Cafecito, Art Deco and warm water"},
+  {"id": "nyc", "name": "New York", "short": "NYC", "country": "United States", "cc": "US", "region": "NY", "tz": "America/New_York", "cur": "USD",
+   "lat": 40.7128, "lon": -74.006, "air": "NYC", "airports": ["JFK", "LGA", "EWR"], "kayak": "New-York,NY-c15830",
+   "color": "#E0A100", "wiki": "Manhattan", "line": "Five boroughs, no wasted minutes"},
+  {"id": "paris", "name": "Paris", "short": "PAR", "country": "France", "cc": "FR", "region": "", "tz": "Europe/Paris", "cur": "EUR",
+   "lat": 48.8566, "lon": 2.3522, "air": "PAR", "airports": ["CDG", "ORY"], "kayak": "Paris,France-c36014",
+   "color": "#3451A3", "wiki": "Eiffel Tower", "line": "Long lunches and the Seine at dusk"},
+  {"id": "london", "name": "London", "short": "LON", "country": "United Kingdom", "cc": "GB", "region": "", "tz": "Europe/London", "cur": "GBP",
+   "lat": 51.5074, "lon": -0.1278, "air": "LON", "airports": ["LHR", "LGW", "LCY", "STN", "LTN"], "kayak": "London,England-c28501",
+   "color": "#C8102E", "wiki": "Tower Bridge", "line": "Markets, museums and a proper pub"},
+  {"id": "prague", "name": "Prague", "short": "PRG", "country": "Czechia", "cc": "CZ", "region": "", "tz": "Europe/Prague", "cur": "CZK",
+   "lat": 50.0755, "lon": 14.4378, "air": "PRG", "airports": ["PRG"], "kayak": "Prague,Czech-Republic-c19865",
+   "color": "#B36A12", "wiki": "Charles Bridge", "line": "Spires, cellar bars and the best beer in Europe"},
+  {"id": "vegas", "name": "Las Vegas", "short": "LAS", "country": "United States", "cc": "US", "region": "NV", "tz": "America/Los_Angeles", "cur": "USD",
+   "lat": 36.1147, "lon": -115.1728, "air": "LAS", "airports": ["LAS"], "kayak": "Las-Vegas,NV-c35107",
+   "color": "#B4239C", "wiki": "Las Vegas Strip", "line": "The Strip, the desert and the night"}
+ ]
+}
