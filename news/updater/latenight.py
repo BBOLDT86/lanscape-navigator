@@ -6,7 +6,7 @@
   python3 news/updater/latenight.py index        rebuild news/latenight/index.json
   python3 news/updater/latenight.py format       print the piece format
 
-news/data/latenight.json: the last ten days of the shows' official YouTube uploads (The Daily Show, Last Week Tonight
+news/data/latenight.json: the last ten days (three weeks for Last Week Tonight) of the shows' official YouTube uploads (The Daily Show, Last Week Tonight
 with John Oliver, Late Night with Seth Meyers, Jimmy Kimmel Live), each id checked against the channel's own name.
 Kept: Last Week Tonight's main stories and segments, and from the others the segments about the news (matched to a
 story cluster in the edition, or a named news segment such as A Closer Look or a correspondent's piece). Celebrity
@@ -48,23 +48,22 @@ def build():
         old = json.load(open(OUT, encoding='utf-8'))
     except (OSError, ValueError):
         old = {}
-    vids, failed = garage.channels(SHOWS, per=15, days=10)
+    vids, failed = garage.channels([s for s in SHOWS if s[0] != SHOWS[1][0]], per=15, days=10)
+    lwt_v, lwt_f = garage.channels([SHOWS[1]], per=8, days=21)  # Last Week Tonight is weekly: three weeks of it
+    vids, failed = vids + lwt_v, failed + lwt_f
     if not vids and old.get('videos'):
         print('latenight: no feed answered; kept the last copy'); return 0
-    for v in vids:  # match on the title and the first line of the description
-        v['_t'] = v['t']; v['t'] = v['t'] + ' ' + (v.get('d') or '')[:160]
-    hit = media.match(vids, E) if E else 0
+    hit = media.match(vids, E) if E else 0  # on the titles: the shows' descriptions are mostly the same boilerplate
     byid = {it['i']: it for it in (E or {}).get('items', [])}
     keep = []
     for v in vids:
-        v['t'] = v.pop('_t')
         lwt = v['cid'] == SHOWS[1][0]
         g = v.pop('g', None)
         if g is not None:
             c = E['clusters'][g]; lead = byid.get(c['lead'])
             if lead:
                 v['story'] = {'t': lead['t'], 'u': lead['u'], 'o': lead['o'], 'n': c['n']}
-        if lwt or 'story' in v or SEG.search(v['t'] + ' ' + (v.get('d') or '')[:120]):
+        if lwt or 'story' in v or SEG.search(v['t']):
             keep.append(v)
     keep.sort(key=lambda v: v['p'], reverse=True)
     out = {'v': 1, 'at': NOW.strftime('%Y-%m-%dT%H:%M:%SZ'), 'shows': {s[0]: {'n': s[2], 'h': s[3], 'about': s[4]} for s in SHOWS},
