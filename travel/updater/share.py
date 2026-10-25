@@ -8,7 +8,7 @@
 Each guide gets travel/s/<id>.png (its opening picture, the city's color, the title and the weekend's dates) and
 travel/s/<id>.html, whose tags carry that card and the guide's summary; a person who opens it goes straight on to the
 guide. Link previews can't see past the # in a URL, so this is how a shared guide shows its own picture and headline.
-Needs Pillow. Fonts: Bodoni Moda and Schibsted Grotesk (SIL Open Font License, in fonts/).
+Needs Pillow. Fonts: The Watch's Instrument Serif and Instrument Sans (SIL Open Font License, news/updater/fonts/).
 """
 import datetime as dt
 import hashlib
@@ -24,11 +24,11 @@ from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 TRAVEL = os.path.normpath(os.path.join(HERE, '..'))
-FONTS = os.path.join(HERE, 'fonts')
+FONTS = os.path.normpath(os.path.join(HERE, '..', '..', 'news', 'updater', 'fonts'))  # The Watch's: Instrument Serif and Sans
 PUBLIC = 'https://bboldt86.github.io/lanscape-navigator/travel/'
 UA = 'WeekenderBot/1.0 (https://bboldt86.github.io/lanscape-navigator/travel/; the-watch-news@users.noreply.github.com)'
 W, H, S = 1200, 630, 2
-BOARD, BOARD2, FLAP, FLAP2, AMBER, RED, BLUE, PAPER, INK = '#1E2329', '#2A3038', '#F1EBD8', '#BDB59E', '#F5BE41', '#D7263D', '#1F4E9C', '#F3F5F6', '#142130'
+BOARD, BOARD2, FLAP, FLAP2, AMBER, RED, BLUE, PAPER, INK = '#0E1A2B', '#16263B', '#E7EDF4', '#8FA0B5', '#E3C47E', '#A9852F', '#15243B', '#F5F7F6', '#15243B'
 
 
 def font(name, size, wght=None, opsz=None):
@@ -45,12 +45,12 @@ def font(name, size, wght=None, opsz=None):
     return f
 
 
-def bodoni(size, wght=500, italic=False, opsz=28):
-    return font('BodoniModa-Italic.ttf' if italic else 'BodoniModa.ttf', size, wght, opsz)  # a low optical size keeps the hairlines
+def bodoni(size, wght=400, italic=False, opsz=None):  # the display face: Instrument Serif, as on The Watch
+    return font('InstrumentSerif-Italic.ttf' if italic else 'InstrumentSerif-Regular.ttf', size)
 
 
 def sans(size, wght=600):
-    return font('SchibstedGrotesk.ttf', size, wght)
+    return font('InstrumentSans.ttf', size, wght)
 
 
 def t(d, xy, s, f, fill, anchor='la'):
@@ -73,11 +73,11 @@ def flap_row(d, x, y, text, n, size=30, fg=FLAP):
     for i in range(n):
         c = text[i] if i < len(text) else ' '
         x0 = x + i * (cw + 3)
-        d.rounded_rectangle([x0 * S, y * S, (x0 + cw) * S, (y + ch) * S], radius=3 * S, fill='#2B3139')
-        d.rectangle([x0 * S, (y + ch / 2) * S, (x0 + cw) * S, (y + ch) * S], fill='#252A31')
+        d.rounded_rectangle([x0 * S, y * S, (x0 + cw) * S, (y + ch) * S], radius=3 * S, fill='#1C2E46')
+        d.rectangle([x0 * S, (y + ch / 2) * S, (x0 + cw) * S, (y + ch) * S], fill='#16263B')
         if c != ' ':
             d.text(((x0 + cw / 2) * S, (y + ch / 2 + 1) * S), c, font=f, fill=fg, anchor='mm')
-        d.line([x0 * S, (y + ch / 2) * S, (x0 + cw) * S, (y + ch / 2) * S], fill='#14171B', width=S)
+        d.line([x0 * S, (y + ch / 2) * S, (x0 + cw) * S, (y + ch / 2) * S], fill='#081321', width=S)
     return x + n * (cw + 3)
 
 
@@ -96,17 +96,18 @@ def cities():
 def site_card():
     im = Image.new('RGB', (W * S, H * S), PAPER)
     d = ImageDraw.Draw(im)
-    airmail(d, 0, 10)
-    t(d, (64, 58), 'Weekender', bodoni(84, 700, True), INK)
-    t(d, (68, 166), 'Three perfect days,', bodoni(44, 600, opsz=12), INK)
-    t(d, (68, 216), 'every weekend.', bodoni(44, 600, opsz=12), INK)
+    d.rectangle([0, 0, W * S, 8 * S], fill=RED)
+    t(d, (64, 52), 'Weekender', bodoni(104), INK)
+    t(d, (70, 160), 'FROM THE WATCH', sans(15, 650), '#8492A3')
+    t(d, (68, 196), 'Three perfect days,', bodoni(48, italic=True), INK)
+    t(d, (68, 248), 'every weekend.', bodoni(48, italic=True), INK)
     lines = ['Eight cities planned day by day', 'for the coming weekend.', '', 'Live weather. What’s on.', 'Flights and hotels, filled in.']
-    y = 300
+    y = 322
     for ln in lines:
         if ln:
-            t(d, (70, y), ln, sans(23, 500), '#465567')
+            t(d, (70, y), ln, sans(23, 500), '#465770')
         y += 32 if ln else 16
-    t(d, (70, 560), 'Fresh every Monday  ·  Free, no sign-up', sans(18, 600), '#7A8795')
+    t(d, (70, 566), 'Fresh every Monday  ·  Free, no sign-up', sans(18, 600), '#8492A3')
     bx, by, bw, bh = 560, 54, 590, 520
     d.rounded_rectangle([bx * S, by * S, (bx + bw) * S, (by + bh) * S], radius=22 * S, fill=BOARD)
     t(d, (bx + 26, by + 22), 'Weekend departures', sans(19, 650), FLAP)
@@ -126,10 +127,10 @@ def icon():
     d = ImageDraw.Draw(im)
     for i, (ch, col) in enumerate((('W', FLAP), ('3', AMBER))):
         x0 = 22 + i * 72
-        d.rounded_rectangle([x0 * S, 36 * S, (x0 + 64) * S, 144 * S], radius=8 * S, fill='#2B3139')
-        d.rectangle([x0 * S, 90 * S, (x0 + 64) * S, 144 * S], fill='#252A31')
-        d.text(((x0 + 32) * S, 92 * S), ch, font=bodoni(64, 700), fill=col, anchor='mm')
-        d.line([x0 * S, 90 * S, (x0 + 64) * S, 90 * S], fill='#14171B', width=3 * S)
+        d.rounded_rectangle([x0 * S, 36 * S, (x0 + 64) * S, 144 * S], radius=8 * S, fill='#1C2E46')
+        d.rectangle([x0 * S, 90 * S, (x0 + 64) * S, 144 * S], fill='#16263B')
+        d.text(((x0 + 32) * S, 92 * S), ch, font=bodoni(76), fill=col, anchor='mm')
+        d.line([x0 * S, 90 * S, (x0 + 64) * S, 90 * S], fill='#081321', width=3 * S)
     im = im.resize((n, n), Image.LANCZOS)
     im.save(os.path.join(TRAVEL, 'icon-180.png'), 'PNG', optimize=True)
     print('wrote icon-180.png')
@@ -184,15 +185,15 @@ def guide_card(g, c, photo, path):
     im = Image.composite(Image.new('RGB', im.size, (8, 10, 14)), im, shade.point(lambda v: int(v * 0.9)))
     d = ImageDraw.Draw(im)
     d.rectangle([0, (H - 12) * S, W * S, H * S], fill=c['color'])
-    t(d, (56, 46), 'Weekender', bodoni(40, 700, True), '#FFFFFF')
+    t(d, (56, 42), 'Weekender', bodoni(46), '#FFFFFF')
     t(d, (W - 56, 54), f"{dates(g['weekend'])}", sans(22, 650), '#FFFFFF', anchor='ra')
     for size in (88, 80, 72, 64, 56):
-        lines = wrap(g['title'], bodoni(size, 600), 1060)
+        lines = wrap(g['title'], bodoni(size), 1060)
         if len(lines) <= 2:
             break
     y = 468 - (len(lines) - 1) * size * 0.98
     for ln in lines[:3]:
-        t(d, (54, y - size * 0.8), ln, bodoni(size, 600), '#FFFFFF')
+        t(d, (54, y - size * 0.8), ln, bodoni(size), '#FFFFFF')
         y += size * 0.98
     dek = wrap(g.get('dek', ''), sans(23, 500), 1040)[:1]
     if dek:
@@ -268,7 +269,7 @@ def guides(redo):
             c = C[g['city']]
             hero = (g.get('hero') or {}).get('wiki') or c['wiki']
             src = ((ph.get(hero) or ph.get(c['wiki']) or {}).get('img') or {}).get('src')
-            sig = hashlib.sha1(json.dumps([g['title'], g['dek'], g['weekend'], src, 2], ensure_ascii=False).encode()).hexdigest()[:10]
+            sig = hashlib.sha1(json.dumps([g['title'], g['dek'], g['weekend'], src, 3], ensure_ascii=False).encode()).hexdigest()[:10]
             page, stamp = os.path.join(out, g['id'] + '.html'), os.path.join(out, '.' + g['id'] + '.sig')
             if not redo and os.path.exists(page) and os.path.exists(stamp) and open(stamp).read().strip() == sig:
                 continue

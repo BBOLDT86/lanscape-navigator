@@ -63,5 +63,5 @@ at either end. The reader's airport, units and party size stay in their browser 
 
 - **A city:** `data/cities.json` (its airports, KAYAK hotel id, time zone, currency, color and a Wikipedia title),
   then the scheduled tasks' prompts.
-- **The page:** `travel/index.html`, one file. Fonts: Bodoni Moda and Schibsted Grotesk (Google Fonts; the card
-  fonts in `updater/fonts/` are under the SIL Open Font License). Maps: Leaflet with CARTO's OpenStreetMap tiles.
+- **The page:** `travel/index.html`, one file. It shares The Watch's look: Instrument Serif and Instrument Sans,
+  navy and brass (the cards use The Watch's font files in `news/updater/fonts/`, SIL Open Font License). Maps: Leaflet with CARTO's OpenStreetMap tiles.
