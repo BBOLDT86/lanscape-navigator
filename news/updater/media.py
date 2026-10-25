@@ -171,16 +171,20 @@ def pictures(E):
 
 # ------------------------------------------------------------------ video
 def channel(cid, expect, section, lean):
-    url = f'https://www.youtube.com/feeds/videos.xml?channel_id={cid}'
-    try:
-        raw, _ = get(url, timeout=10, accept='application/atom+xml,application/xml')
-    except urllib.error.HTTPError as ex:  # the feed answers 404 or 5xx now and then for channels that exist
-        if ex.code not in (404, 429, 500, 502, 503):
-            raise
-        time.sleep(2.5)
-        raw, _ = get(url, timeout=10, accept='application/atom+xml,application/xml')
+    # YouTube's feed answers 404 or 5xx now and then for channels that exist: try the channel feed, then the same
+    # channel's uploads playlist (UU + the rest of the id), then the channel feed again
+    urls = [f'https://www.youtube.com/feeds/videos.xml?channel_id={cid}', f'https://www.youtube.com/feeds/videos.xml?playlist_id=UU{cid[2:]}',
+            f'https://www.youtube.com/feeds/videos.xml?channel_id={cid}']
+    for k, url in enumerate(urls):
+        try:
+            raw, _ = get(url, timeout=10, accept='application/atom+xml,application/xml')
+            break
+        except urllib.error.HTTPError as ex:
+            if ex.code not in (404, 429, 500, 502, 503) or k == len(urls) - 1 or late():
+                raise
+            time.sleep(1.5 + 2 * k)
     root = ET.fromstring(raw)
-    name = (root.findtext('a:title', default='', namespaces=NS) or '').strip()
+    name = (root.findtext('a:author/a:name', default='', namespaces=NS) or root.findtext('a:title', default='', namespaces=NS) or '').strip()
     if expect.lower() not in name.lower():
         raise ValueError(f'channel is "{name}", expected {expect}')
     out = []
