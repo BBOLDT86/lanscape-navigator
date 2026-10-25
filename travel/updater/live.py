@@ -147,6 +147,9 @@ def faa():
                     row[label.lower()] = sub
                 else:
                     row[ch.tag.lower()] = txt(ch)
+            why = (row.get('reason') or '').upper()
+            if row['type'].lower().startswith('airport closure') and re.search(r'NON SKED|TRANSIENT|GA ACFT|\bPPR\b', why):
+                continue  # closed to private, non-scheduled planes only: airline passengers are not affected
             airports.setdefault(txt(a), []).append(row)
     upd = txt(root.find('Update_Time'))
     return {'at': now_iso(), 'updated': upd, 'airports': airports, 'source': 'FAA National Airspace System Status'}
@@ -203,33 +206,59 @@ def plain(s):
     return re.sub(r'\s+', ' ', html.unescape(s)).strip()
 
 
-def wiki_one(title):
-    t = urllib.parse.quote(title.replace(' ', '_'), safe='')
-    s = jget(f'https://en.wikipedia.org/api/rest_v1/page/summary/{t}?redirect=true', timeout=20)
-    row = {'title': s.get('title') or title, 'page': (s.get('content_urls') or {}).get('desktop', {}).get('page'),
-           'desc': s.get('description'), 'at': now_iso()}
-    co = s.get('coordinates') or {}
-    if co.get('lat') is not None:
-        row['lat'], row['lon'] = round(co['lat'], 5), round(co['lon'], 5)
-    img = (s.get('originalimage') or {}).get('source') or ''
-    m = re.search(r'upload\.wikimedia\.org/wikipedia/commons/(?:thumb/)?[0-9a-f]/[0-9a-f]{2}/([^/]+)', img)
-    if not m:
-        return row  # no picture, or one that is not free (it lives on English Wikipedia, not Commons): left out
-    fname = urllib.parse.unquote(m.group(1))
-    q = {'action': 'query', 'titles': 'File:' + fname, 'prop': 'imageinfo', 'iiprop': 'url|size|extmetadata', 'iiurlwidth': 1600,
-         'format': 'json', 'formatversion': 2}
-    d = jget('https://commons.wikimedia.org/w/api.php?' + urllib.parse.urlencode(q), timeout=20)
-    pg = (d.get('query') or {}).get('pages') or [{}]
-    ii = (pg[0].get('imageinfo') or [{}])[0]
-    md = ii.get('extmetadata') or {}
-    lic = plain((md.get('LicenseShortName') or {}).get('value'))
-    if not ii.get('thumburl') or not lic:
-        return row
-    row['img'] = {'src': ii['thumburl'], 'w': ii.get('thumbwidth'), 'h': ii.get('thumbheight'),
-                  'credit': plain((md.get('Artist') or {}).get('value'))[:140] or 'Wikimedia Commons',
-                  'license': lic, 'licenseUrl': plain((md.get('LicenseUrl') or {}).get('value')) or None,
-                  'file': ii.get('descriptionurl')}
-    return row
+def chunks(xs, n):
+    for i in range(0, len(xs), n):
+        yield xs[i:i + n]
+
+
+def wiki_batch(titles):
+    """titles -> rows: the article's free lead picture (pilicense=free keeps non-free posters and logos out), its
+    coordinates and description; then the picture's author and license from Commons"""
+    rows, files = {}, {}
+    for part in chunks(titles, 40):
+        q = {'action': 'query', 'titles': '|'.join(part), 'redirects': 1, 'prop': 'pageimages|coordinates|description|info',
+             'piprop': 'name|original', 'pilicense': 'free', 'inprop': 'url', 'format': 'json', 'formatversion': 2}
+        d = jget('https://en.wikipedia.org/w/api.php?' + urllib.parse.urlencode(q), timeout=25)
+        probe('wikipedia', d)
+        qd = d.get('query') or {}
+        back = {t: t for t in part}
+        for m in (qd.get('normalized') or []) + (qd.get('redirects') or []):
+            for orig, t in list(back.items()):
+                if t == m.get('from'):
+                    back[orig] = m.get('to')
+        by = {pg.get('title'): pg for pg in qd.get('pages') or []}
+        for orig, t in back.items():
+            pg = by.get(t)
+            if not pg or pg.get('missing') is not None or pg.get('invalid') is not None:
+                rows[orig] = {'title': orig, 'missing': True, 'at': now_iso()}
+                continue
+            row = {'title': pg.get('title'), 'page': pg.get('fullurl'), 'desc': pg.get('description'), 'at': now_iso()}
+            co = (pg.get('coordinates') or [{}])[0]
+            if co.get('lat') is not None:
+                row['lat'], row['lon'] = round(co['lat'], 5), round(co['lon'], 5)
+            if pg.get('pageimage'):
+                files.setdefault('File:' + pg['pageimage'].replace('_', ' '), []).append(orig)
+            rows[orig] = row
+    for part in chunks(sorted(files), 40):
+        q = {'action': 'query', 'titles': '|'.join(part), 'prop': 'imageinfo', 'iiprop': 'url|size|extmetadata', 'iiurlwidth': 1600,
+             'format': 'json', 'formatversion': 2}
+        d = jget('https://commons.wikimedia.org/w/api.php?' + urllib.parse.urlencode(q), timeout=25)
+        probe('commons', d)
+        qd = d.get('query') or {}
+        norm = {m['to']: m['from'] for m in qd.get('normalized') or []}
+        for pg in qd.get('pages') or []:
+            ii = (pg.get('imageinfo') or [{}])[0]
+            md = ii.get('extmetadata') or {}
+            lic = plain((md.get('LicenseShortName') or {}).get('value'))
+            if not ii.get('thumburl') or not lic:
+                continue
+            img = {'src': ii['thumburl'], 'w': ii.get('thumbwidth'), 'h': ii.get('thumbheight'),
+                   'credit': plain((md.get('Artist') or {}).get('value'))[:140] or 'Wikimedia Commons',
+                   'license': lic, 'licenseUrl': plain((md.get('LicenseUrl') or {}).get('value')) or None, 'file': ii.get('descriptionurl')}
+            key = pg.get('title')
+            for orig in files.get(key) or files.get(norm.get(key, ''), []) or []:
+                rows[orig]['img'] = img
+    return rows
 
 
 def wiki_titles():
@@ -266,22 +295,15 @@ def photos():
     T = cache.setdefault('titles', {})
     want = [t for t in sorted(wiki_titles()) if t not in T or (not T[t].get('img') and T[t].get('at', '') < (dt.datetime.now(dt.timezone.utc) - dt.timedelta(days=14)).strftime('%Y-%m-%d'))]
     got, errs = 0, []
-
-    def one(t):
-        try:
-            return t, wiki_one(t), None
-        except Exception as ex:  # noqa: BLE001
-            return t, None, str(ex)
-    with cf.ThreadPoolExecutor(4) as ex:
-        for t, row, err in ex.map(one, want[:220]):
-            if row:
-                T[t] = row; got += 1
-            else:
-                errs.append(f'{t}: {err}')
-    if want:
-        probe('wikipedia', T.get(want[0]) or errs[:1])
+    try:
+        rows = wiki_batch(want[:240])
+        for t, row in rows.items():
+            T[t] = row; got += 1
+    except Exception as ex:  # noqa: BLE001
+        errs.append(str(ex))
+    cache['last'] = {'wanted': len(want), 'got': got, 'pictures': sum(1 for t in want if (T.get(t) or {}).get('img')), 'errors': errs[:3]}
     cache['updated'] = now_iso()
-    cache['source'] = 'Wikipedia (article summaries) and Wikimedia Commons (pictures, with their authors and licenses)'
+    cache['source'] = 'Wikipedia (articles) and Wikimedia Commons (pictures, with their authors and licenses)'
     save('photos.json', cache)
     print(f'photos: {got} new of {len(want)} wanted, {len(T)} cached; {len(errs)} failed', (errs[:3] if errs else ''))
 
