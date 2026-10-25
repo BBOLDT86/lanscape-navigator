@@ -53,13 +53,13 @@ UA = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, 
 
 WATCHES = [(0, 'middle', 'Middle Watch'), (4, 'morning', 'Morning Watch'), (8, 'forenoon', 'Forenoon Watch'),
            (12, 'afternoon', 'Afternoon Watch'), (16, 'dog', 'Dog Watch'), (20, 'first', 'First Watch')]
-SECTIONS = [('us', 'U.S.'), ('world', 'World'), ('europe', 'Europe'), ('brazil', 'Brazil'), ('politics', 'Politics'), ('business', 'Business'), ('tech', 'Tech'),
+SECTIONS = [('us', 'U.S.'), ('world', 'World'), ('europe', 'Europe'), ('brazil', 'Brazil'), ('politics', 'Politics'), ('business', 'Business'), ('household', 'Household'), ('home', 'Home'), ('tech', 'Tech'),
             ('science', 'Science'), ('health', 'Health'), ('sports', 'Sports'), ('culture', 'Culture'), ('cars', 'Cars'),
             ('travel', 'Travel'), ('food', 'Food'), ('longreads', 'Long reads')]
-SLOW = {'cars', 'travel', 'food', 'longreads'}
+SLOW = {'cars', 'travel', 'food', 'longreads', 'home'}
 WINDOW_H = {'default': 36, 'slow': 96}
-WINDOW_BY_SEC = {'brazil': 72}  # fewer English-language stories a day, so they stay up longer
-CAP = {'us': 100, 'world': 100, 'europe': 90, 'brazil': 70, 'politics': 80, 'business': 90, 'tech': 90, 'science': 55, 'health': 45, 'sports': 100,
+WINDOW_BY_SEC = {'brazil': 72, 'household': 72}  # fewer English-language stories a day, so they stay up longer
+CAP = {'us': 100, 'world': 100, 'europe': 90, 'brazil': 70, 'household': 60, 'home': 60, 'politics': 80, 'business': 90, 'tech': 90, 'science': 55, 'health': 45, 'sports': 100,
        'culture': 70, 'cars': 45, 'travel': 40, 'food': 35, 'longreads': 35}
 SNIP = 210
 
@@ -86,7 +86,10 @@ OUTLETS = {
     'newyorker.com': 'The New Yorker', 'propublica.org': 'ProPublica', 'aeon.co': 'Aeon', 'longreads.com': 'Longreads',
     'usatoday.com': 'USA Today', 'latimes.com': 'Los Angeles Times', 'nypost.com': 'New York Post', 'newsweek.com': 'Newsweek',
     'time.com': 'Time', 'economist.com': 'The Economist', 'forbes.com': 'Forbes', 'businessinsider.com': 'Business Insider',
-    'theathletic.com': 'The Athletic', 'politico.eu': 'Politico Europe', 'euronews.com': 'Euronews',
+    'theathletic.com': 'The Athletic', 'kiplinger.com': 'Kiplinger', 'nerdwallet.com': 'NerdWallet', 'money.com': 'Money', 'clark.com': 'Clark Howard',
+    'thepennyhoarder.com': 'The Penny Hoarder', 'realtor.com': 'Realtor.com', 'redfin.com': 'Redfin', 'housingwire.com': 'HousingWire',
+    'inman.com': 'Inman', 'curbed.com': 'Curbed', 'apartmenttherapy.com': 'Apartment Therapy', 'architecturaldigest.com': 'Architectural Digest',
+    'thisoldhouse.com': 'This Old House', 'politico.eu': 'Politico Europe', 'euronews.com': 'Euronews',
     'kyivindependent.com': 'The Kyiv Independent', 'euractiv.com': 'Euractiv', 'brazilian.report': 'The Brazilian Report',
     'agenciabrasil.ebc.com.br': 'Agência Brasil', 'riotimesonline.com': 'The Rio Times', 'en.mercopress.com': 'MercoPress', 'si.com': 'Sports Illustrated', 'nfl.com': 'NFL.com', 'mlb.com': 'MLB.com', 'nba.com': 'NBA.com',
 }
@@ -326,6 +329,8 @@ def read_feed(f):
 
 # ------------------------------------------------------------------ sections
 PATH_SECTION = [  # desks before world before U.S.: NYT files politics under /us/politics/
+    (r'/(real-?estate|realestate|homes?|housing|home-improvement|home-design|interiors|renovation|mortgages?)(/|$)', 'home'),
+    (r'/(your-money|personal-finance|personalfinance|moneywatch/personal|consumer|money/(?!markets))(/|$)', 'household'),
     (r'/(politics|elections?|news/politics|newshour/politics|campaign|congress|white-house|supreme-court)(/|$)', 'politics'),
     (r'/(business|economy|markets|money|dealbook|your-money|finance|moneywatch|newshour/economy|personal-finance|real-estate|investing)(/|$)', 'business'),
     (r'/(technology|tech|science/technology|personaltech|gadgets|ai|innovation|cybersecurity)(/|$)', 'tech'),
@@ -367,8 +372,17 @@ SECTION_WORDS = {
                      'trump', 'vance', 'pelosi', 'schumer', 'thune', 'jeffries', 'johnson']),
     'business': _rx(['stocks?', 'dow', 's&p 500', 'nasdaq', 'earnings', 'shares', 'investors?', 'wall street', 'the fed', 'federal reserve',
                      'interest rates?', 'inflation', 'economy', 'economic', 'jobs report', 'unemployment', 'tariffs?', 'merger', 'acquisition',
-                     'acquire', 'ipo', 'ceo', 'revenue', 'profit', 'layoffs?', 'banks?', 'oil prices?', 'mortgage', 'retail', 'gdp',
+                     'acquire', 'ipo', 'ceo', 'revenue', 'profit', 'layoffs?', 'banks?', 'oil prices?', 'retail', 'gdp',
                      'billion', 'deal', 'startup', 'bitcoin', 'crypto', 'treasury yields?', 'bond market', 'bond yields?', 'sales', 'consumers?']),
+    'household': _rx(['groceries', 'grocery', 'grocery prices', 'egg prices', 'gas prices', 'utility bills?', 'electric bills?', 'energy bills?',
+                      'heating bills?', 'tax refunds?', 'tax brackets?', 'irs', 'credit cards?', 'credit scores?', 'savings accounts?', 'budget(ing)?',
+                      'insurance premiums?', 'car insurance', 'health insurance premiums', 'social security', 'open enrollment', '401\\(k\\)', 'ira',
+                      'retirement savings', 'student loans?', 'child ?care', 'cost of living', 'paycheck', 'household', 'shoppers', 'holiday shopping',
+                      'black friday', 'coupons?', 'price hikes?', 'subscriptions?', 'snap benefits', 'food stamps', 'medicare premiums', 'personal finance']),
+    'home': _rx(['mortgages?', 'mortgage rates?', 'home sales', 'housing market', 'home prices', 'home values?', 'real estate', 'homebuyers?',
+                 'home ?buyers?', 'homeowners?', 'listings?', 'realtors?', 'renovations?', 'remodel\\w*', 'kitchens?', 'bathrooms?', 'contractors?',
+                 'hoa', 'property taxes', 'rent(ers|al)?', 'landlords?', 'condos?', 'starter homes?', 'zillow', 'redfin', 'home improvement',
+                 'interior design', 'gardens?', 'backyard', 'curb appeal', 'square feet', 'bedrooms?']),
     'tech': _rx(['ai', 'a\\.i', 'artificial intelligence', 'openai', 'chatgpt', 'anthropic', 'google', 'apple', 'microsoft', 'meta', 'nvidia',
                  'chips?', 'semiconductors?', 'software', 'apps?', 'iphone', 'android', 'cyber\\w*', 'hack(s|ed|ers?|ing)?', 'data breach', 'tiktok',
                  'amazon', 'robots?', 'robotics', 'algorithm', 'smartphone', 'gaming', 'xbox', 'playstation', 'nintendo', 'elon musk',
@@ -412,7 +426,8 @@ def region(title, desc):
     return (best, bn) if bn >= 2 else (None, 0)
 
 
-DESKS = ('sports', 'politics', 'business', 'tech', 'science', 'health', 'culture', 'cars', 'travel', 'food')
+# on a tie the more specific desk wins
+DESKS = ('sports', 'household', 'home', 'politics', 'business', 'tech', 'science', 'health', 'culture', 'cars', 'travel', 'food')
 
 
 def section_scores(title, desc):
@@ -541,6 +556,7 @@ TOPICS = [
     ('shutdown', 'Government shutdown', r'\b(government shutdown|shutdown)\b'),
     ('weather', 'Weather', r'\b(snow|heat wave|forecast|winter storm|cold front|rainfall)\b'),
     ('crime', 'Crime & courts', r'\b(trial|verdict|sentenced|indicted|indictment|charged|jury|lawsuit|arrested|shooting)\b'),
+    ('epstein', 'Epstein files', r'\b(Epstein|Maxwell|Epstein files|Ghislaine)\b'),
     ('obituaries', 'Obituaries', r'\b(dies at \d+|dead at \d+|has died|obituary)\b'),
 ]
 TOPICS = [(k, l, re.compile(p, re.I)) for k, l, p in TOPICS]

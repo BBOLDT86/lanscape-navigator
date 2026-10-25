@@ -266,11 +266,11 @@ def dbnomics(path):
     return [(str(d)[:10], float(v)) for d, v in zip(days, val) if isinstance(v, (int, float))]
 
 
-def eia_gas():
-    """the EIA's weekly U.S. regular gasoline price, from its own spreadsheet; DBnomics' copy as a fallback"""
+def eia_gas(series='EMM_EPMR_PTE_NUS_DPG'):
+    """an EIA weekly U.S. fuel price (regular gasoline by default), from its own spreadsheet; DBnomics' copy as a fallback"""
     try:
         import xlrd  # noqa: PLC0415 - installed by the workflow; optional
-        raw = get('https://www.eia.gov/dnav/pet/hist_xls/EMM_EPMR_PTE_NUS_DPGw.xls', timeout=25)
+        raw = get(f'https://www.eia.gov/dnav/pet/hist_xls/{series}w.xls', timeout=25)
         book = xlrd.open_workbook(file_contents=raw)
         sh = book.sheet_by_name('Data 1')
         pts = []
@@ -282,12 +282,12 @@ def eia_gas():
         if pts:
             return pts
     except Exception as ex:  # noqa: BLE001
-        errors.append(f'GAS (EIA): {type(ex).__name__} {str(ex)[:60]}')
-    return dbnomics('EIA/PET/EMM_EPMR_PTE_NUS_DPG.W')
+        errors.append(f'{series} (EIA): {type(ex).__name__} {str(ex)[:60]}')
+    return dbnomics(f'EIA/PET/{series}.W')
 
 
 # how long each kind of number stays current; past that it is left off the page rather than shown as the latest
-FRESH_DAYS = {'CPI': 100, 'CORE': 100, 'UNRATE': 100, 'PAYEMS': 70, 'CLAIMS': 14, 'GDP': 250, 'GAS': 21, 'FED': 14, 'MORT': 21, 'SENT': 60, 'CURVE': 10}
+FRESH_DAYS = {'DIESEL': 21, 'MORT15': 21, 'CPI': 100, 'CORE': 100, 'UNRATE': 100, 'PAYEMS': 70, 'CLAIMS': 14, 'GDP': 250, 'GAS': 21, 'FED': 14, 'MORT': 21, 'SENT': 60, 'CURVE': 10}
 
 
 def newest(*series):
@@ -340,6 +340,8 @@ def econ_series():
          lambda: (lambda p: [(p[i][0], round(p[i][1] - p[i - 1][1], 0)) for i in range(1, len(p))])(dbnomics('BLS/ce/CES0000000001')), 'https://www.bls.gov/ces/'),
         ('GDP', 'GDP growth', '%', 'How fast the economy grew in the quarter, at an annual rate, after inflation (BEA).', lambda: dbnomics('BEA/NIPA-T10101/A191RL-Q'), 'https://www.bea.gov/data/gdp/gross-domestic-product'),
         ('GAS', 'Gas price', '$', 'The average price of a gallon of regular gasoline in the U.S. (EIA, weekly).', eia_gas, 'https://www.eia.gov/petroleum/gasdiesel/'),
+        ('DIESEL', 'Diesel', '$', 'The average price of a gallon of diesel in the U.S. (EIA, weekly). It feeds into what trucking adds to store prices.',
+         lambda: eia_gas('EMD_EPD2D_PTE_NUS_DPG'), 'https://www.eia.gov/petroleum/gasdiesel/'),
     ]
     for sid, name, unit, x, fn, src in jobs:
         try:
@@ -361,12 +363,16 @@ def econ_series():
     try:  # Freddie Mac's weekly survey
         raw = get('https://www.freddiemac.com/pmms/docs/PMMS_history.csv', accept='text/csv').decode('utf-8', 'replace')
         pts = []
-        for r in list(csv.DictReader(io.StringIO(raw)))[-160:]:
-            try:
-                m, d, y = r['date'].split('/'); pts.append((f'{y}-{int(m):02d}-{int(d):02d}', float(r['pmms30'])))
-            except (ValueError, KeyError):
-                pass
-        add('MORT', '30-year mortgage', '%', 'The average 30-year fixed mortgage rate, from Freddie Mac’s weekly survey.', pts, 'https://www.freddiemac.com/pmms', keep=52)
+        recs = list(csv.DictReader(io.StringIO(raw)))[-160:]
+        for col, sid, name, x in (('pmms30', 'MORT', '30-year mortgage', 'The average 30-year fixed mortgage rate, from Freddie Mac’s weekly survey.'),
+                                  ('pmms15', 'MORT15', '15-year mortgage', 'The average 15-year fixed mortgage rate, from Freddie Mac’s weekly survey.')):
+            pts = []
+            for r in recs:
+                try:
+                    m, d, y = r['date'].split('/'); pts.append((f'{y}-{int(m):02d}-{int(d):02d}', float(r[col])))
+                except (ValueError, KeyError):
+                    pass
+            add(sid, name, '%', x, pts, 'https://www.freddiemac.com/pmms', keep=52)
     except Exception as ex:  # noqa: BLE001
         errors.append(f'Mortgage (Freddie Mac): {type(ex).__name__} {str(ex)[:60]}')
     try:  # University of Michigan
@@ -539,7 +545,7 @@ def main():
             continue
         econ.append({'id': sid, 'n': name, 'unit': unit, 'x': x, 'v': r['v'], 'date': r['date'], 'prev': r.get('prev'), 'pts': [],
                      'released': True, 'src': 'https://www.nasdaq.com/market-activity/economic-calendar'})
-    order = ['CPI', 'CORE', 'UNRATE', 'PAYEMS', 'CLAIMS', 'GDP', 'FED', 'MORT', 'GAS', 'SENT', 'CURVE']
+    order = ['CPI', 'CORE', 'UNRATE', 'PAYEMS', 'CLAIMS', 'GDP', 'FED', 'MORT', 'MORT15', 'GAS', 'DIESEL', 'SENT', 'CURVE']
     board = []
     for g, label, items in BOARD:
         rows = [recs[k] for k, *_ in items if k in recs]

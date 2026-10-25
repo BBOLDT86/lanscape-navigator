@@ -1,0 +1,49 @@
+name: The Watch home search
+# Saves a home search from The Watch's Home desk. The page opens a GitHub issue titled "Home search: ..." with the
+# parsed filters in its body; this saves them to news/data/home/searches.json, fetches listings if a listings source
+# is connected, and closes the issue. "Home search remove: <id>" removes one. Only the repository owner's issues count.
+on:
+  issues:
+    types: [opened]
+permissions:
+  contents: write
+  issues: write
+concurrency: # its own group: a pending run in a shared group can be replaced by a newer one, and a search would be lost
+  group: the-watch-home-search
+  cancel-in-progress: false
+jobs:
+  save:
+    if: github.repository == 'BBOLDT86/lanscape-navigator' && startsWith(github.event.issue.title, 'Home search') && github.event.issue.user.login == github.repository_owner
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - name: Save the search
+        id: save
+        env:
+          ISSUE_BODY: ${{ github.event.issue.body }}
+          ISSUE_TITLE: ${{ github.event.issue.title }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          RENTCAST_API_KEY: ${{ secrets.RENTCAST_API_KEY }}
+        run: python3 news/updater/home.py --add-from-issue
+      - name: Commit and push
+        run: |
+          git config user.name "The Watch updater"
+          git config user.email "the-watch-news@users.noreply.github.com"
+          git add news/data/home
+          if git diff --cached --quiet; then echo "nothing changed"; exit 0; fi
+          git commit -qm "The Watch: home search from issue #${{ github.event.issue.number }}"
+          for i in 1 2 3; do
+            git pull --rebase -X theirs origin main && git push -q origin HEAD:main && exit 0
+            sleep 10
+          done
+          echo "push failed" >&2; exit 1
+      - name: Reply and close
+        env:
+          GH_TOKEN: ${{ github.token }}
+          MESSAGE: ${{ steps.save.outputs.message }}
+        run: |
+          gh issue comment ${{ github.event.issue.number }} --repo "$GITHUB_REPOSITORY" --body "${MESSAGE:-Done.} See it at https://bboldt86.github.io/lanscape-navigator/news/#/s/home"
+          gh issue close ${{ github.event.issue.number }} --repo "$GITHUB_REPOSITORY"

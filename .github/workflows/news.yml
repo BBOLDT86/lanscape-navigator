@@ -16,7 +16,7 @@ jobs:
   update:
     if: github.repository == 'BBOLDT86/lanscape-navigator'
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
         with:
@@ -32,6 +32,13 @@ jobs:
         run: |
           pip install --quiet xlrd==2.0.1 || echo "xlrd not installed; gas prices come from DBnomics"
           python3 news/updater/markets.py ${{ github.event_name == 'workflow_dispatch' && '--force' || '' }} || echo "markets failed, kept the last snapshot"
+      - name: Home market and saved searches
+        timeout-minutes: 6
+        continue-on-error: true
+        env:
+          RENTCAST_API_KEY: ${{ secrets.RENTCAST_API_KEY }}
+        run: |
+          python3 news/updater/home.py || echo "home failed, kept the last data"
       - name: Commit and push
         run: |
           git config user.name "The Watch updater"

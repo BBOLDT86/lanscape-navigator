@@ -41,7 +41,8 @@ invented. Failed feeds are listed in the edition and shown in the page's footer.
 
 ## Desks
 
-U.S., World, Europe, Brazil, Politics, Business, Tech, Science, Health, Sports, Culture, Cars, Travel, Food and Long reads.
+U.S., World, Europe, Brazil, Politics, Business, Household, Home, Tech, Science, Health, Sports, Culture, Cars, Travel,
+Food and Long reads, plus two pages that are not feed desks: Reports and the Epstein files.
 Europe and Brazil have sources of their own; stories about either region from the general and world feeds also file
 there (`region()` in `run.py`), unless a stronger topic (a match, a market) claims them. World is everywhere else.
 
@@ -60,6 +61,46 @@ Runs after the edition in the same workflow, with a four-minute limit that can't
 Yahoo Finance, Stooq, FRED and the BLS's own API refuse GitHub's runners, so they are not used. A block that fails
 keeps its last good version and is listed under `stale`; individual misses are in `errors`. The page's Business desk
 writes its plain-English summary from these numbers only.
+
+## Household and Home (`home.py` -> `data/home/`)
+
+Household is the cost-of-living desk: gas and diesel, 30- and 15-year mortgage rates, the Fed's rate, inflation and
+consumer sentiment from `markets.json`, the typical U.S. home value and rent, and news from the personal-finance feeds.
+
+Home searches for homes in plain English. The page reads a request like "4BR homes in 43215 under 750k" (bedrooms,
+baths, a price limit or range, a ZIP code or a city and state, the kind of home, square feet, features) into filters,
+shows that ZIP's market from `zips.json` (the typical home overall and by bedroom count against the budget, the typical
+rent, the change over a year) and links straight to the matching search on Zillow, Realtor.com and Redfin.
+
+- **Market numbers:** `home.py` reads Zillow's public research files (the Zillow Home Value Index by ZIP, overall and
+  for 1 to 5 bedrooms, and the Zillow Observed Rent Index). It checks them with a HEAD request on every run and
+  downloads them only when Zillow publishes new ones, about once a month. `zips.json` has one row per ZIP;
+  `market.json` the national figures and a three-year series for each saved search's ZIP.
+- **Saved searches:** Save this search opens a GitHub issue titled "Home search: ..." with the filters as JSON.
+  `.github/workflows/home-search.yml` runs only for issues opened by the repository's owner, saves the search to
+  `searches.json`, comments and closes the issue. "Home search remove: <id>" removes one. Issues in this repository
+  are public.
+- **Listings:** filled in only when a RentCast API key is stored as the repository secret `RENTCAST_API_KEY` (their
+  free tier is 50 requests a month; `home.py` refreshes one search per run, each every few days, to stay under it).
+  Listing sites' own search pages are not collected: their terms forbid it, and this site is public.
+
+## Reports (`news/articles/`, `articles.py`)
+
+One in-depth report a day, written by Claude through a scheduled task. Each is a JSON file named for its id
+(`2026-10-25-some-slug.json`): title, dek, desk, `byline: "Claude"`, the exact model name, the time written (with its
+UTC offset), a Markdown body with numbered citations, and the sources. Before committing, the writer runs
+`python3 news/updater/articles.py check <file>`: 1,100 to 3,200 words, at least three sections, no quotation over 25
+words, at least six sources from four outlets, each cited, the date matching the time written. Then
+`articles.py index` rebuilds `articles/index.json`, which the page reads. The page shows the newest on the front for
+four days and keeps all of them under Reports.
+
+## The Epstein files (`files.py` -> `data/files.json`)
+
+A compact index of Inbox Atlas's archive (`inbox-atlas/data/atlas.json.gz`): the counts, its sourced stories, the
+timeline, emails by year, the people who wrote most, and the 900 newest emails Inbox Atlas marks as notable, with
+excerpts and links to jmail.world and the source PDF. Emails Inbox Atlas files under sensitive categories, and
+duplicates, are left out. Run `python3 news/updater/files.py` again when Inbox Atlas's archive changes. The desk also
+lists the current edition's stories tagged Epstein.
 
 ## Elections
 
@@ -85,5 +126,6 @@ reading leaves the browser. Your compass (top right) shows and edits it; Start o
 
 ## Size
 
-Each edition is about 450 KB of JSON (about 110 KB over the wire); the markets file about 150 KB. Six commits a day add a few hundred KB to the
+Each edition is about 450 KB of JSON (about 110 KB over the wire); the markets file about 150 KB; the Epstein files
+index about 380 KB; Zillow's ZIP table about 1.5 MB, read only on the Home desk. Six commits a day add a few hundred KB to the
 repository's history per day after compression.
