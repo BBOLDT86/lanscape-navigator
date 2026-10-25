@@ -397,6 +397,35 @@ h3.glb{font:600 12.5px var(--sans);letter-spacing:.07em;text-transform:uppercase
 .fsdl{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}.fsdb{display:flex;flex-direction:column;gap:2px;text-decoration:none;color:inherit;border:1px solid var(--rule);background:var(--raise);border-radius:10px;padding:12px 14px}
 .fsdb b{font:600 16px var(--sans)}.fsdb b::after{content:" ↗";color:var(--ink-3)}.fsdb span{font-size:13px;color:var(--ink-2)}.fsdb:hover{border-color:var(--brass)}
 .fsl{padding-left:1.1em;margin:6px 0 0}.fsl li{margin:7px 0;font-size:15.5px;line-height:1.5}.fsl .m{color:var(--ink-3);font-size:13.5px}
+.fr .frg{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px;margin-top:8px}
+.frshot{position:relative;border:1.5px dashed var(--ink-3);border-radius:14px;min-height:220px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:20px;color:var(--ink-2);text-align:center;background:var(--raise);font-size:14.5px}
+.frshot svg{width:54px;height:54px;color:var(--brass)}.frshot.on{padding:0;border-style:solid;overflow:hidden;min-height:0}.frshot img{display:block;width:100%;max-height:420px;object-fit:cover}
+.frx{position:absolute;top:8px;right:8px;width:34px;height:34px;border-radius:50%;border:0;background:rgba(5,9,15,.7);color:#fff;font:600 20px/1 var(--sans)}
+.frbtns{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0}.frb,.frb2{cursor:pointer;margin:0}.frb2{display:inline-flex;align-items:center;color:var(--ink)}
+.fropts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.fropts label{display:flex;flex-direction:column;gap:4px;font:600 12.5px var(--sans);color:var(--ink-2)}.fropts .wide{grid-column:1/-1}
+.fropts select,.fropts input,.fradd input,.frkf input,.frkf select{font:500 15px var(--sans);border:1px solid var(--rule);background:var(--raise);color:var(--ink);border-radius:8px;padding:8px 10px;min-width:0}
+.frtags{margin-top:0}.frc[aria-pressed="true"]::before{content:"✓";font-weight:700}
+.fradd{display:flex;gap:8px;margin:12px 0 16px}.fradd input{flex:1}.fradd .loadmore{margin:0}
+.frgo{border:0;cursor:pointer}.frgo[disabled]{opacity:.6;cursor:wait}.frhow{margin-top:10px}
+.frkey{margin-top:18px;border-top:1px solid var(--rule);padding-top:10px}.frkey summary{cursor:pointer;font:600 14.5px var(--sans);color:var(--ink)}
+.frkf{display:flex;flex-wrap:wrap;gap:8px;align-items:center}.frkf input{flex:1 1 240px;font-family:ui-monospace,Menlo,monospace}.frkf .loadmore{margin:0}
+#frOut{scroll-margin-top:90px}.frwait{display:flex;align-items:center;gap:12px;margin:24px 0;font:500 16px var(--sans);color:var(--ink-2)}
+.spin{width:22px;height:22px;border-radius:50%;border:3px solid var(--rule);border-top-color:var(--brass);animation:spin 1s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
+.frerr{margin:20px 0;padding:12px 14px;border-left:3px solid var(--dn);background:color-mix(in srgb,var(--dn) 8%,transparent);font-size:15px}
+.frseen{margin-top:24px}.frseen .chip{gap:4px}.frdel{border:0;background:none;color:var(--ink-3);font:600 16px/1 var(--sans);padding:0 0 0 4px;cursor:pointer}
+.frseen .lnk{border:0;background:none;padding:0;font:inherit;color:var(--ink);text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.frnote{font:400 20px/1.45 var(--serif);margin:16px 0 4px;max-width:70ch}
+.frr{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:16px;margin:16px 0 10px}
+.frcard{background:var(--raise);border:1px solid var(--rule);border-radius:12px;padding:16px 18px;display:flex;flex-direction:column;gap:6px}
+.frcard.md{padding-top:0;overflow:hidden}.frcard.md img{margin:0 -18px 6px;width:calc(100% + 36px);aspect-ratio:16/10;object-fit:cover}
+.frcard .k{font:700 11.5px var(--sans);letter-spacing:.07em;text-transform:uppercase;color:var(--brass-ink)}.frcard h3{font:400 26px/1.1 var(--serif);margin:0}
+.frcard .d{margin:0;font-size:15px;color:var(--ink-2)}.frcard .m{display:flex;flex-wrap:wrap;gap:4px 12px;margin:0;font:600 13px var(--sans);color:var(--ink-2)}
+.frcard .u{margin:0;font-size:14.5px}.frcard .u.buy b{color:var(--dn)}.frcard .u.ok{color:var(--up);font-weight:600}
+.frcard details{margin-top:6px;border-top:1px solid var(--rule);padding-top:8px}.frcard summary{cursor:pointer;font:600 14.5px var(--sans)}
+.fri{list-style:none;padding:0;margin:10px 0;columns:2 140px;font-size:14px}.fri li{margin:3px 0;break-inside:avoid}.fri li.h{color:var(--up)}.fri li.h::before{content:"✓ "}
+.frs{padding-left:1.3em;margin:8px 0;font-size:15px;line-height:1.5}.frs li{margin:6px 0}.frs1 p{font-size:14.5px;line-height:1.5;margin:0 0 8px}
+.frtip{font-size:14px;color:var(--ink-2);margin:8px 0 0}
+@media (max-width:820px){.fr .frg{grid-template-columns:1fr;gap:18px}.fropts{grid-template-columns:repeat(2,minmax(0,1fr))}.frshot{min-height:170px}}
 @media (max-width:820px){.gpg.row{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:8px;scrollbar-width:thin}.gpg.row .gp{flex:0 0 82%;scroll-snap-align:start}.fst{min-width:640px}.gep li{grid-template-columns:120px minmax(0,1fr);gap:12px}.gmr{grid-template-columns:56px minmax(0,1fr)}.gmr b{grid-column:2;text-align:left}.fsm{grid-template-columns:1fr;gap:6px}.fsy span{width:40px;height:38px}.gvr .gv{flex-basis:230px}.fsdp .t{font-size:30px}.gvrange b{font-size:36px}}
 .imp .ak{font-size:13px;font-weight:600;color:var(--ink-2);margin:26px 0 6px}.imp .ak a{color:inherit}
 .imp-h{font:400 clamp(34px,5vw,54px)/1.04 var(--serif);margin:0 0 6px}.imp-w{color:var(--ink-2);margin:0 0 10px;font-weight:600}
@@ -1296,7 +1325,8 @@ function renderDesk(k) {
   list.sort(deskSort === 'new' ? (a, b) => b.p - a.p : (a, b) => b.s - a.s);
   listPage(secName(k), T(list.length === 1 ? '{n} story' : '{n} stories', { n: list.length }), list.map(x => ({ it: x.it })),
     { controls: `<div class="seg" role="group" aria-label="Sort"><button type="button" data-sort="you" aria-pressed="${deskSort === 'you'}">Best for you</button><button type="button" data-sort="new" aria-pressed="${deskSort === 'new'}">Latest</button></div>`,
-      top: (k === 'politics' ? electionsHTML(true) : k === 'brazil' ? electionsHTML(true, 'br') : k === 'travel' ? weekenderPromo() : k === 'power' ? `<div id="pwrWrap" class="mk">${powerHTML()}</div>` : k === 'cars' ? `<div id="garWrap">${garageHTML()}</div>` : '') + deskBanner(k) });
+      top: (k === 'politics' ? electionsHTML(true) : k === 'brazil' ? electionsHTML(true, 'br') : k === 'travel' ? weekenderPromo() : k === 'power' ? `<div id="pwrWrap" class="mk">${powerHTML()}</div>` : k === 'cars' ? `<div id="garWrap">${garageHTML()}</div>` : k === 'food' ? `<div id="fridgeWrap">${fridgeHTML()}</div>` : '') + deskBanner(k) });
+  if (k === 'food') bindFridge();
   if (k === 'cars' && !GAR) ensureGarage().then(() => { const w = $('#garWrap'); if (w && view.t === 'desk' && view.k === 'cars') w.innerHTML = garageHTML(); });
   if (k === 'power') { if (!PWR) ensurePower().then(() => { const w = $('#pwrWrap'); if (w && view.t === 'desk' && view.k === 'power') { w.innerHTML = powerHTML(); bindPower(); } }); else bindPower(); }
 }
@@ -1845,6 +1875,166 @@ async function renderFSD() {
   document.title = T('Every Tesla that runs FSD') + ' · The Watch';
   const upd = () => { fsdPref.zip = ($('#fsdZip').value || '').replace(/\D/g, '').slice(0, 5); fsdPref.model = $('#fsdModel').value; fsdPref.hw = $('#fsdHw').value; fsdPref.r = $('#fsdR').value; try { localStorage.setItem('watch.fsd', JSON.stringify(fsdPref)); } catch (e) { /* storage off */ } $('#fsdOut').innerHTML = fsdLinks(); };
   ['#fsdZip', '#fsdModel', '#fsdHw', '#fsdR'].forEach(s => $(s).addEventListener(s === '#fsdZip' ? 'input' : 'change', upd));
+}
+/* ================= what's for dinner: a picture of the fridge -> recipes (Claude with the reader's own key, or TheMealDB without one) ================= */
+const FR = { img: null, seen: [], picks: new Set(), res: null, busy: false, err: '', mode: '', key: '' };
+const frPref = (() => { try { return JSON.parse(localStorage.getItem('watch.fridge') || '{}') || {}; } catch (e) { return {}; } })();
+try { FR.key = localStorage.getItem('watch.akey') || ''; } catch (e) { /* storage off */ }
+const frSave = () => { try { localStorage.setItem('watch.fridge', JSON.stringify(frPref)); } catch (e) { /* storage off */ } };
+const FR_COMMON = ['Chicken', 'Ground beef', 'Steak', 'Pork', 'Bacon', 'Sausage', 'Salmon', 'Shrimp', 'Tofu', 'Eggs', 'Milk', 'Cream', 'Butter', 'Cheese', 'Parmesan', 'Yogurt',
+  'Onions', 'Garlic', 'Tomatoes', 'Bell peppers', 'Spinach', 'Broccoli', 'Carrots', 'Mushrooms', 'Zucchini', 'Potatoes', 'Lemons', 'Limes', 'Avocado', 'Cilantro',
+  'Rice', 'Pasta', 'Bread', 'Tortillas', 'Beans', 'Chickpeas', 'Coconut milk'];
+const FR_MODELS = [['claude-sonnet-5-5', 'Claude Sonnet 5.5'], ['claude-haiku-5-5', 'Claude Haiku 5.5 (cheaper)'], ['claude-opus-5-5', 'Claude Opus 5.5']];
+const FR_STAPLES = /^(salt|pepper|black pepper|water|olive oil|vegetable oil|oil|sunflower oil|butter|sugar|flour|plain flour|caster sugar|brown sugar|ice)$/i;
+const FR_SYN = { 'ground beef': 'Minced Beef', 'beef mince': 'Minced Beef', shrimp: 'King Prawns', prawns: 'King Prawns', 'bell peppers': 'Red Pepper', 'bell pepper': 'Red Pepper', peppers: 'Red Pepper',
+  scallions: 'Spring Onions', 'green onions': 'Spring Onions', cilantro: 'Coriander', zucchini: 'Courgettes', eggplant: 'Aubergine', cream: 'Double Cream', 'heavy cream': 'Double Cream',
+  cheese: 'Cheddar Cheese', steak: 'Beef', pork: 'Pork', eggs: 'Eggs', egg: 'Eggs', tomatoes: 'Tomatoes', potatoes: 'Potatoes', onions: 'Onion', onion: 'Onion', lemons: 'Lemon', limes: 'Lime',
+  mushrooms: 'Mushrooms', carrots: 'Carrots', beans: 'Kidney Beans', chickpeas: 'Chickpeas', tortillas: 'Flour Tortilla', pasta: 'Penne Rigate', sausage: 'Sausages', yogurt: 'Greek Yogurt' };
+const FR_MEAT = /\b(chicken|beef|pork|bacon|lamb|sausage|ham|turkey|duck|veal|mince|prawn|shrimp|salmon|fish|tuna|cod|anchov|chorizo|gelatin|lard|stock cube)\b/i;
+function frChips() {
+  const all = [...new Set([...FR_COMMON, ...FR.picks])];
+  return all.map(x => `<button type="button" class="chip frc" data-frp="${esc(x)}" aria-pressed="${FR.picks.has(x)}">${esc(T(x))}</button>`).join('');
+}
+function fridgeHTML() {
+  const has = !!FR.key, P = frPref;
+  return `<section class="blk fr" id="fridge"><div class="blk-h"><h2 class="sec-h">${T('What’s for dinner?')}</h2></div>
+    <p class="sub2">${T('Take a picture of your fridge and get three dinners you can make from what’s in it. Or tick what you have.')}</p>
+    <div class="frg">
+      <div class="frcam">
+        <div class="frshot${FR.img ? ' on' : ''}">${FR.img ? `<img src="${FR.img}" alt="${esc(T('Your fridge'))}"><button type="button" class="frx" data-frclear="1" aria-label="${esc(T('Remove the picture'))}">×</button>` : `<svg viewBox="0 0 48 48" aria-hidden="true"><rect x="10" y="4" width="28" height="40" rx="3" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M10 18h28M15 10v4M15 23v6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg><span>${T('Open the fridge, step back, and get the shelves in one shot.')}</span>`}</div>
+        <div class="frbtns"><label class="go frb"><input type="file" accept="image/*" capture="environment" id="frCam" hidden>${T('Take a picture')}</label><label class="loadmore frb2"><input type="file" accept="image/*" id="frPick" hidden>${T('Choose a photo')}</label></div>
+        <div class="fropts">
+          <label>${T('Serves')}<select id="frServes">${[1, 2, 3, 4, 6].map(n => `<option${(P.serves || 2) == n ? ' selected' : ''}>${n}</option>`).join('')}</select></label>
+          <label>${T('Time')}<select id="frTime">${[[20, 'up to 20 min'], [30, 'up to 30 min'], [45, 'up to 45 min'], [60, 'up to an hour'], [120, 'no rush']].map(([v, l]) => `<option value="${v}"${(P.time || 45) == v ? ' selected' : ''}>${T(l)}</option>`).join('')}</select></label>
+          <label>${T('Diet')}<select id="frDiet">${[['any', 'Anything'], ['vegetarian', 'Vegetarian'], ['vegan', 'Vegan'], ['gluten-free', 'Gluten-free'], ['dairy-free', 'Dairy-free'], ['low-carb', 'Low-carb']].map(([v, l]) => `<option value="${v}"${(P.diet || 'any') === v ? ' selected' : ''}>${T(l)}</option>`).join('')}</select></label>
+          <label class="wide">${T('Leave out (allergies, dislikes)')}<input id="frAvoid" value="${esc(P.avoid || '')}" placeholder="${esc(T('peanuts, cilantro'))}"></label>
+        </div>
+      </div>
+      <div class="frhave"><h3 class="glb">${T('Or tick what you have')}</h3><div class="tags frtags">${frChips()}</div>
+        <form class="fradd" id="frAdd"><input id="frAddIn" placeholder="${esc(T('Add something else'))}" autocomplete="off"><button type="submit" class="loadmore">${T('Add')}</button></form>
+        <button type="button" class="go frgo" id="frGo"${FR.busy ? ' disabled' : ''}>${FR.busy ? T('Thinking…') : FR.img && has ? T('Get dinner from the picture') : T('Find dinner')}</button>
+        <p class="note frhow">${has ? T('Claude reads the picture with your Anthropic API key: the photo goes from this browser straight to Anthropic, never to The Watch.') : T('Without a key, The Watch matches what you tick to TheMealDB’s free recipe collection. To read a picture, add your own Anthropic API key below.')}</p>
+      </div>
+    </div>
+    <details class="frkey"><summary>${has ? T('Claude is on (your key)') : T('Use Claude to read the picture (your API key)')}</summary>
+      <p class="note">${T('Get a key at console.anthropic.com and set a monthly spend limit. It’s kept only in this browser and sent only to Anthropic. A picture and three recipes usually cost a few cents.')}</p>
+      <div class="frkf"><input type="password" id="frKey" placeholder="sk-ant-…" value="${esc(FR.key)}" autocomplete="off" spellcheck="false">
+        <select id="frModel">${FR_MODELS.map(([v, l]) => `<option value="${v}"${(P.model || 'claude-sonnet-5-5') === v ? ' selected' : ''}>${esc(l)}</option>`).join('')}</select>
+        <button type="button" class="loadmore" id="frKeySave">${T('Save')}</button>${has ? `<button type="button" class="loadmore" id="frKeyDel">${T('Forget the key')}</button>` : ''}</div></details>
+    <div id="frOut" aria-live="polite">${frOutHTML()}</div></section>`;
+}
+function frOutHTML() {
+  if (FR.busy) return `<div class="frwait"><span class="spin" aria-hidden="true"></span>${esc(FR.mode === 'ai' ? T('Claude is looking in your fridge…') : T('Finding recipes…'))}</div>`;
+  if (FR.err) return `<p class="frerr">${esc(FR.err)}</p>`;
+  const R = FR.res; if (!R) return '';
+  if (R.kind === 'ai') {
+    return `${R.seen.length ? `<div class="frseen"><h3 class="glb">${T('What Claude sees')}</h3><div class="tags">${R.seen.map((s, i) => `<span class="chip">${esc(s.item)}${s.qty ? ` <span class="x">${esc(s.qty)}</span>` : ''}<button type="button" class="frdel" data-frdel="${i}" aria-label="${esc(T('Remove {x}', { x: s.item }))}">×</button></span>`).join('')}</div>
+      <p class="note">${T('Wrong? Remove what isn’t there, tick or add what’s missing, and ask again.')} <button type="button" class="lnk" data-frre="1">${T('Ask again with this list')}</button></p></div>` : ''}
+      ${R.notes ? `<p class="frnote">${esc(R.notes)}</p>` : ''}
+      <div class="frr">${R.recipes.map((r, i) => `<article class="frcard"><span class="k">${T('Dinner {n}', { n: i + 1 })}</span><h3>${esc(r.title)}</h3><p class="d">${esc(r.why || '')}</p>
+        <p class="m">${r.minutes ? `<span>${T('{n} min', { n: r.minutes })}</span>` : ''}${r.serves ? `<span>${T('serves {n}', { n: r.serves })}</span>` : ''}${r.difficulty ? `<span>${esc(r.difficulty)}</span>` : ''}</p>
+        ${(r.uses || []).length ? `<p class="u"><b>${T('From your fridge')}:</b> ${esc(r.uses.join(', '))}</p>` : ''}${(r.buy || []).length ? `<p class="u buy"><b>${T('To buy')}:</b> ${esc(r.buy.join(', '))}</p>` : `<p class="u ok">${T('Nothing to buy')}</p>`}
+        <details><summary>${T('Cook it')}</summary><ul class="fri">${(r.ingredients || []).map(x => `<li><b>${esc(x.amount || '')}</b> ${esc(x.item)}</li>`).join('')}</ul><ol class="frs">${(r.steps || []).map(s => `<li>${esc(s)}</li>`).join('')}</ol>${r.tip ? `<p class="frtip">${esc(r.tip)}</p>` : ''}</details></article>`).join('')}</div>
+      <p class="note">${T(R.from === 'picture' ? 'Written by {model} from your picture. Check anything that might be past its date, and cook meat, eggs and fish through.' : 'Written by {model} from your list. Check anything that might be past its date, and cook meat, eggs and fish through.', { model: esc(R.model) })}</p>`;
+  }
+  if (!R.meals.length) return `<p class="note">${T('No recipes matched. Tick a couple of main things (a meat or fish, a vegetable, rice or pasta) and try again.')}</p>`;
+  return `<div class="frr">${R.meals.map(m => `<article class="frcard md"><img src="${esc(m.img)}/medium" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><span class="k">${esc([m.area, m.cat].filter(Boolean).join(' · '))}</span><h3>${esc(m.name)}</h3>
+      <p class="m"><span>${T('You have {h} of {n}', { h: m.have.length, n: m.ing.length })}</span></p>${m.need.length ? `<p class="u buy"><b>${T('To buy')}:</b> ${esc(m.need.map(x => x.item).join(', '))}</p>` : `<p class="u ok">${T('Nothing to buy')}</p>`}
+      <details><summary>${T('Cook it')}</summary><ul class="fri">${m.ing.map(x => `<li class="${x.have ? 'h' : ''}"><b>${esc(x.amount)}</b> ${esc(x.item)}</li>`).join('')}</ul><div class="frs1">${esc(m.how).split(/\r?\n+/).filter(s => s.trim()).map(s => `<p>${s}</p>`).join('')}</div>
+      <p class="frtip">${m.yt ? `<a href="${esc(m.yt)}" target="_blank" rel="noopener">${T('Watch it made')}</a> · ` : ''}${m.src ? `<a href="${esc(m.src)}" target="_blank" rel="noopener">${T('Original recipe')}</a> · ` : ''}<a href="https://www.themealdb.com/meal/${esc(m.id)}" target="_blank" rel="noopener">TheMealDB</a></p></details></article>`).join('')}</div>
+    <p class="note">${T('Recipes from TheMealDB, a free, crowd-sourced collection. With your own Anthropic key, Claude reads your picture and writes recipes for exactly what you have.')}</p>`;
+}
+function frPrefsRead() {
+  const v = id => ($('#' + id) || {}).value;
+  Object.assign(frPref, { serves: +v('frServes') || 2, time: +v('frTime') || 45, diet: v('frDiet') || 'any', avoid: (v('frAvoid') || '').trim(), model: v('frModel') || frPref.model || 'claude-sonnet-5-5' });
+  frSave();
+}
+function frRedraw() { const w = $('#frOut'); if (w) w.innerHTML = frOutHTML(); const g = $('#frGo'); if (g) { g.disabled = FR.busy; g.textContent = FR.busy ? T('Thinking…') : FR.img && FR.key ? T('Get dinner from the picture') : T('Find dinner'); } }
+function frFull() { const w = $('#fridgeWrap'); if (w) { w.innerHTML = fridgeHTML(); bindFridge(); } }
+async function frLoadImage(file) { // shrink to 1568 px on the long side, JPEG: quicker to send, and what the model reads best
+  const url = URL.createObjectURL(file);
+  try {
+    const img = await new Promise((ok, bad) => { const i = new Image(); i.onload = () => ok(i); i.onerror = bad; i.src = url; });
+    const s = Math.min(1, 1568 / Math.max(img.naturalWidth, img.naturalHeight)), c = document.createElement('canvas');
+    c.width = Math.round(img.naturalWidth * s); c.height = Math.round(img.naturalHeight * s);
+    c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+    return c.toDataURL('image/jpeg', 0.85);
+  } finally { URL.revokeObjectURL(url); }
+}
+function frPrompt(list, extra) {
+  const P = frPref, lang = LANG === 'pt' ? 'Brazilian Portuguese' : LANG === 'de' ? 'German' : 'American English';
+  return `${list ? `These are the ingredients in my fridge: ${list.join(', ')}.` : 'This is a picture of the inside of my fridge.'}${extra && extra.length ? ` I also have: ${extra.join(', ')}.` : ''}
+Suggest three different dinners I can make tonight, mostly from what ${list ? 'I listed' : 'you can actually see'}. Assume a basic pantry: salt, pepper, cooking oil, butter, flour, sugar, vinegar, and common dried herbs and spices.
+- Serves ${P.serves || 2}; ready in ${(P.time || 45) >= 120 ? 'any time' : 'at most ' + (P.time || 45) + ' minutes'}${P.diet && P.diet !== 'any' ? `; ${P.diet}` : ''}.
+${P.avoid ? `- Never use: ${P.avoid}. This may be an allergy: leave it out entirely.\n` : ''}- Prefer dinners that use up the most of what's there, and things that won't keep. Keep the shopping list short or empty.
+${list ? '' : '- Only list items you can actually see; say "about" for amounts you are guessing. If the picture isn\'t of food, say so in notes and return no recipes.\n'}- Real, tested-style recipes with exact amounts and clear steps; cook meat, fish and eggs safely.
+Write everything in ${lang}. Reply with JSON only, no other text:
+{"seen":[{"item":"","qty":""}],"notes":"one or two sentences: what to use first, anything that looks past its best","recipes":[{"title":"","why":"one sentence","minutes":0,"serves":0,"difficulty":"easy or medium","uses":["items from the fridge"],"buy":["items to buy, if any"],"ingredients":[{"item":"","amount":""}],"steps":[""],"tip":""}]}`;
+}
+async function frClaude(list) {
+  const content = [];
+  if (!list && FR.img) content.push({ type: 'image', source: { type: 'base64', media_type: 'image/jpeg', data: FR.img.split(',')[1] } });
+  content.push({ type: 'text', text: frPrompt(list, list ? null : [...FR.picks]) });
+  const model = frPref.model || 'claude-sonnet-5-5';
+  let r;
+  try {
+    r = await fetch('https://api.anthropic.com/v1/messages', { method: 'POST', headers: { 'content-type': 'application/json', 'x-api-key': FR.key, 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' },
+      body: JSON.stringify({ model, max_tokens: 3000, messages: [{ role: 'user', content }] }) });
+  } catch (e) { throw new Error(T('Couldn’t reach Anthropic. Check your connection and try again.')); }
+  const j = await r.json().catch(() => ({}));
+  if (!r.ok) {
+    const m = (j.error && j.error.message) || r.statusText;
+    throw new Error(r.status === 401 ? T('Anthropic didn’t accept the key. Check it under “Use Claude”.') : r.status === 429 ? T('Too many requests on this key right now. Try again in a minute.') : r.status === 529 ? T('Claude is busy right now. Try again in a minute.') : T('Anthropic said: {m}', { m }));
+  }
+  const txt = (j.content || []).filter(c => c.type === 'text').map(c => c.text).join('');
+  const a = txt.indexOf('{'), b = txt.lastIndexOf('}');
+  let d; try { d = JSON.parse(txt.slice(a, b + 1)); } catch (e) { throw new Error(T('Claude’s answer didn’t come back in a form The Watch can read. Try again.')); }
+  const names = { 'claude-sonnet-5-5': 'Claude Sonnet 5.5', 'claude-haiku-5-5': 'Claude Haiku 5.5', 'claude-opus-5-5': 'Claude Opus 5.5' };
+  return { kind: 'ai', from: !list && FR.img ? 'picture' : 'list', model: names[model] || j.model || model, seen: (d.seen || []).filter(s => s && s.item).slice(0, 40), notes: d.notes || '', recipes: (d.recipes || []).filter(x => x && x.title).slice(0, 3) };
+}
+let MEALDB_ING = null;
+const mdb = p => fetch('https://www.themealdb.com/api/json/v1/1/' + p).then(r => r.ok ? r.json() : Promise.reject(new Error(r.status)));
+async function frMealDB(items) {
+  if (!MEALDB_ING) { const d = await mdb('list.php?i=list'); MEALDB_ING = (d.meals || []).map(x => x.strIngredient).filter(Boolean); }
+  const low = new Map(MEALDB_ING.map(n => [n.toLowerCase(), n]));
+  const map = s => { const k = s.toLowerCase().trim(); if (FR_SYN[k]) return FR_SYN[k]; if (low.has(k)) return low.get(k); const sg = k.replace(/(ies)$/, 'y').replace(/(es|s)$/, ''); if (low.has(sg)) return low.get(sg); return MEALDB_ING.find(n => n.toLowerCase().includes(sg) && sg.length > 3) || null; };
+  const mapped = [...new Set(items.map(map).filter(Boolean))];
+  if (!mapped.length) return { kind: 'db', meals: [] };
+  const lists = await Promise.all(mapped.slice(0, 6).map(n => mdb('filter.php?i=' + encodeURIComponent(n.replace(/ /g, '_'))).then(d => d.meals || []).catch(() => [])));
+  const count = new Map(); lists.forEach(l => l.forEach(m => count.set(m.idMeal, (count.get(m.idMeal) || 0) + 1)));
+  const ids = [...count.entries()].sort((a, b) => b[1] - a[1]).slice(0, 14).map(x => x[0]);
+  const full = (await Promise.all(ids.map(id => mdb('lookup.php?i=' + id).then(d => (d.meals || [])[0]).catch(() => null)))).filter(Boolean);
+  const words = new Set([...items, ...mapped].map(x => x.toLowerCase()));
+  const hasIt = n => { const k = n.toLowerCase(); if (FR_STAPLES.test(k)) return true; for (const w of words) { const s = w.replace(/(es|s)$/, ''); if (k.includes(s) || s.includes(k)) return true; } return false; };
+  const avoid = (frPref.avoid || '').toLowerCase().split(/[,;]+/).map(s => s.trim()).filter(Boolean), diet = frPref.diet || 'any';
+  const meals = full.map(m => {
+    const ing = []; for (let i = 1; i <= 20; i++) { const n = (m['strIngredient' + i] || '').trim(); if (n) ing.push({ item: n, amount: (m['strMeasure' + i] || '').trim(), have: hasIt(n) }); }
+    return { id: m.idMeal, name: m.strMeal, img: m.strMealThumb, cat: m.strCategory, area: m.strArea, how: m.strInstructions || '', yt: m.strYoutube, src: m.strSource, ing, have: ing.filter(x => x.have), need: ing.filter(x => !x.have && !FR_STAPLES.test(x.item)) };
+  }).filter(m => !avoid.some(a => m.ing.some(x => x.item.toLowerCase().includes(a)) || m.name.toLowerCase().includes(a)))
+    .filter(m => diet === 'any' || diet === 'low-carb' || diet === 'gluten-free' || diet === 'dairy-free' || ((diet === 'vegetarian' || diet === 'vegan') && !m.ing.some(x => FR_MEAT.test(x.item)) && (diet !== 'vegan' || !m.ing.some(x => /\b(egg|milk|cream|butter|cheese|yogurt|honey)/i.test(x.item)))))
+    .sort((a, b) => b.have.length / b.ing.length - a.have.length / a.ing.length || a.need.length - b.need.length).slice(0, 6);
+  return { kind: 'db', meals };
+}
+async function frRun(list) {
+  frPrefsRead();
+  const picks = [...FR.picks];
+  const useAI = !!FR.key && (FR.img || list || picks.length);
+  if (!useAI && !picks.length) { FR.err = FR.img ? T('To read a picture, add your Anthropic API key under “Use Claude”. Or tick what you see and press Find dinner.') : T('Take a picture or tick a few things you have.'); FR.res = null; frRedraw(); return; }
+  FR.busy = true; FR.err = ''; FR.mode = useAI ? 'ai' : 'db'; frRedraw();
+  try {
+    FR.res = useAI ? await frClaude(list || (FR.img ? null : picks)) : await frMealDB(picks);
+  } catch (e) { FR.err = e.message || String(e); FR.res = null; }
+  FR.busy = false; frRedraw();
+  const o = $('#frOut'); if (o && !FR.err) o.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+function bindFridge() {
+  const onFile = async e => { const f = e.target.files && e.target.files[0]; if (!f) return; try { FR.img = await frLoadImage(f); FR.res = null; FR.err = ''; } catch (x) { FR.err = T('That picture couldn’t be opened. Try another.'); } frFull(); if (FR.img && FR.key) frRun(); };
+  ['#frCam', '#frPick'].forEach(s => { const i = $(s); if (i) i.addEventListener('change', onFile); });
+  const add = $('#frAdd'); if (add) add.addEventListener('submit', e => { e.preventDefault(); const v = ($('#frAddIn').value || '').trim(); if (!v) return; v.split(/[,;]+/).map(s => s.trim()).filter(Boolean).forEach(s => FR.picks.add(s.charAt(0).toUpperCase() + s.slice(1))); $('#frAddIn').value = ''; $('.frtags').innerHTML = frChips(); });
+  const go = $('#frGo'); if (go) go.addEventListener('click', () => frRun());
+  ['#frServes', '#frTime', '#frDiet', '#frAvoid', '#frModel'].forEach(s => { const i = $(s); if (i) i.addEventListener('change', frPrefsRead); });
+  const ks = $('#frKeySave'); if (ks) ks.addEventListener('click', () => { const k = ($('#frKey').value || '').trim(); FR.key = k; frPrefsRead(); try { if (k) localStorage.setItem('watch.akey', k); else localStorage.removeItem('watch.akey'); } catch (e) { /* storage off */ } toast(k ? T('Key saved in this browser.') : T('Key removed.')); frFull(); });
+  const kd = $('#frKeyDel'); if (kd) kd.addEventListener('click', () => { FR.key = ''; try { localStorage.removeItem('watch.akey'); } catch (e) { /* storage off */ } toast(T('Key removed.')); frFull(); });
 }
 /* ================= the week, three ways: the Bull, the Bear and the Outsider (news/columns/) ================= */
 let COLS = null, colsBusy = null; const COLC = {};
@@ -2422,6 +2612,10 @@ document.addEventListener('click', e => {
   if (ds.ssgo != null) { ssShow(+ds.ssgo, +ds.ssgo > SS.i ? 1 : -1); return; }
   if (ds.vf) { vidFilter = ds.vf; pageLimit = 40; render(true); return; }
   if (ds.gf) { garFilter = ds.gf; render(true); return; }
+  if (ds.frp) { const x = ds.frp; if (FR.picks.has(x)) FR.picks.delete(x); else FR.picks.add(x); a.setAttribute('aria-pressed', String(FR.picks.has(x))); return; }
+  if (ds.frdel != null) { if (FR.res && FR.res.seen) { FR.res.seen.splice(+ds.frdel, 1); frRedraw(); } return; }
+  if (ds.frre) { frRun([...new Set([...((FR.res && FR.res.seen) || []).map(x => x.item), ...FR.picks])]); return; }
+  if (ds.frclear) { FR.img = null; FR.res = null; FR.err = ''; frFull(); return; }
   if (ds.dplay) { const f = a.closest('.vframe'); if (f) f.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${encodeURIComponent(ds.dplay)}?autoplay=1&playsinline=1&rel=0&modestbranding=1" title="Video" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>`; return; }
   if (ds.cite || (a.tagName === 'A' && /^#src-\d+$/.test(a.getAttribute('href') || ''))) { e.preventDefault(); const t = document.getElementById((a.getAttribute('href') || '').slice(1)); if (t) { t.scrollIntoView({ behavior: 'smooth', block: 'center' }); t.classList.add('hit'); setTimeout(() => t.classList.remove('hit'), 1600); } return; }
   if (ds.hq) { homeQ = ds.hq; const i = $('#hq'); if (i) { i.value = homeQ; const f2 = parseHomeQuery(homeQ); $('#hres').innerHTML = searchCard(homeQ, f2, { isSaved: isSavedF(f2) }); } return; }

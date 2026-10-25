@@ -104,6 +104,19 @@ A weekly scheduled Claude task writes the rest:
   changes. `garage.py fsdcheck` enforces it. The page builds searches on Tesla's used inventory, Cars.com,
   Autotrader and eBay Motors from the reader's ZIP, model and computer; nothing from those sites is copied.
 
+## What's for dinner (the Food desk; all in the page)
+
+The Food desk opens with a fridge camera. Nothing runs on the server and nothing is stored here:
+- With the reader's own Anthropic API key (entered on the page, kept in that browser's `localStorage` as
+  `watch.akey`), the picture is shrunk to 1,568 pixels on its long side and sent from the browser straight to
+  Anthropic's Messages API (`anthropic-dangerous-direct-browser-access`), with the reader's servings, time, diet and
+  things to leave out. Claude lists what it sees and writes three dinners as JSON, in the reader's language; the
+  reader can strike what it got wrong, tick or add what it missed, and ask again from the list. Sonnet 5.5 by
+  default; Haiku 5.5 and Opus 5.5 are offered.
+- Without a key, what the reader ticks or types is matched to TheMealDB's free recipe collection (its public test
+  key, `1`, which TheMealDB allows for educational and non-commercial use): up to six ingredients are searched, the
+  meals that share the most are looked up, and each shows what the reader has and what to buy.
+
 ## The week, three ways (`news/columns/`, `columns.py`)
 
 Every weekend a scheduled Claude task writes three market columns about the same week, in the voices of three
