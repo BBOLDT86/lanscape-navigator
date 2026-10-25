@@ -179,20 +179,20 @@ def guide_card(g, c, photo, path):
             print('photo failed:', ex)
     shade = Image.new('L', (1, 256))
     for y in range(256):
-        shade.putpixel((0, y), int(min(255, max(0, (y - 70) * 1.35))))
+        shade.putpixel((0, y), int(min(255, max(0, (y - 56) * 1.7))))
     shade = shade.resize((W * S, H * S))
-    im = Image.composite(Image.new('RGB', im.size, (8, 10, 14)), im, shade.point(lambda v: int(v * 0.86)))
+    im = Image.composite(Image.new('RGB', im.size, (8, 10, 14)), im, shade.point(lambda v: int(v * 0.9)))
     d = ImageDraw.Draw(im)
     d.rectangle([0, (H - 12) * S, W * S, H * S], fill=c['color'])
     t(d, (56, 46), 'Weekender', bodoni(40, 700, True), '#FFFFFF')
     t(d, (W - 56, 54), f"{dates(g['weekend'])}", sans(22, 650), '#FFFFFF', anchor='ra')
     for size in (88, 80, 72, 64, 56):
-        lines = wrap(g['title'], bodoni(size, 500), 1060)
+        lines = wrap(g['title'], bodoni(size, 600), 1060)
         if len(lines) <= 2:
             break
     y = 468 - (len(lines) - 1) * size * 0.98
     for ln in lines[:3]:
-        t(d, (54, y - size * 0.8), ln, bodoni(size, 500), '#FFFFFF')
+        t(d, (54, y - size * 0.8), ln, bodoni(size, 600), '#FFFFFF')
         y += size * 0.98
     dek = wrap(g.get('dek', ''), sans(23, 500), 1040)[:1]
     if dek:
@@ -268,7 +268,7 @@ def guides(redo):
             c = C[g['city']]
             hero = (g.get('hero') or {}).get('wiki') or c['wiki']
             src = ((ph.get(hero) or ph.get(c['wiki']) or {}).get('img') or {}).get('src')
-            sig = hashlib.sha1(json.dumps([g['title'], g['dek'], g['weekend'], src, 1], ensure_ascii=False).encode()).hexdigest()[:10]
+            sig = hashlib.sha1(json.dumps([g['title'], g['dek'], g['weekend'], src, 2], ensure_ascii=False).encode()).hexdigest()[:10]
             page, stamp = os.path.join(out, g['id'] + '.html'), os.path.join(out, '.' + g['id'] + '.sig')
             if not redo and os.path.exists(page) and os.path.exists(stamp) and open(stamp).read().strip() == sig:
                 continue

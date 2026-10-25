@@ -178,7 +178,7 @@ def get(url, headers=None, timeout=25):
         raise TimeoutError('out of time for this run')
     h = {'User-Agent': UA, 'Accept-Encoding': 'gzip', 'Accept-Language': 'en-US,en;q=0.9', **(headers or {})}
     last = None
-    for i in range(2):
+    for i in range(3):
         try:
             with urllib.request.urlopen(urllib.request.Request(url, headers=h), timeout=timeout) as r:
                 b = r.read()
@@ -187,7 +187,7 @@ def get(url, headers=None, timeout=25):
             last = ex
             if getattr(ex, 'code', 0) == 403 or late():
                 break
-            time.sleep(1.2)
+            time.sleep(4 * (i + 1) if getattr(ex, 'code', 0) == 429 else 1.2)
     raise last
 
 
@@ -392,7 +392,12 @@ def main():
                 return s, quote(s), None
             except Exception as ex:  # noqa: BLE001
                 return s, None, str(ex)[:120]
-        with cf.ThreadPoolExecutor(8) as ex:
+        have = set()  # prices the board already has; a quote only adds the implied volatility, so skip the ones we can
+        for g in mk.get('board') or []:
+            have.update(r['s'] for r in g.get('rows') or [])
+        have.update(r['s'] for r in (mk.get('stocks') or []) + (mk.get('sectors') or []))
+        need_quote = {s for s in need_quote if s not in have or s not in quotes}
+        with cf.ThreadPoolExecutor(4) as ex:
             for s, c, err in ex.map(cjob, sorted(need_chain)):
                 if c:
                     chains[s] = c
