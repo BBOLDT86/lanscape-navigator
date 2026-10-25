@@ -1,0 +1,21 @@
+name: Probe data services (temporary)
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python3 .github/probe/probe.py
+      - name: Push the answers to the probe-results branch
+        run: |
+          mkdir /tmp/out && cp probe.json /tmp/out/
+          cd /tmp/out && git init -q && git checkout -q -b probe-results && git add probe.json
+          git -c user.name="probe" -c user.email="the-watch-news@users.noreply.github.com" commit -qm "probe $(date -u +%FT%TZ)"
+          git push -qf "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" probe-results
