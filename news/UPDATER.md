@@ -72,7 +72,8 @@ electric bills and data centers. Above the stories, from `power.py` on every new
   emission rates per fuel (coal 1,048 g/kWh, gas 440, oil 1,080; power bought from neighbors isn't counted);
 - wholesale prices where the operator publishes them openly (ERCOT, NYISO);
 - what households pay: each state's average residential price (EIA Form 861M, once a day), the BLS's U.S. average and
-  the electricity line of the CPI (through DBnomics), and Henry Hub natural gas from `markets.json`.
+  the electricity line of the CPI (the BLS's own API, or DBnomics; anything older than nine months is dropped), and
+  Henry Hub natural gas from `markets.json`.
 The EIA's API takes a key: add a free one (eia.gov/opendata) as the repository secret `EIA_API_KEY`; without it the
 shared `DEMO_KEY` is used, which allows only a few requests an hour.
 
@@ -80,6 +81,28 @@ The data center tracker (`data/datacenters.json`) is kept by a weekly Claude tas
 biggest U.S. projects with their power need in megawatts, status, how they're powered, the grid they sit on and
 sources, plus a short summary of the week. `dctrack.py check` validates it. The page maps the projects on
 `data/usmap.json` (the states, Albers USA, built from the Election Desk's map).
+
+## The garage and FSD (`garage.py` -> `data/garage.json`; `news/garage/`; `data/fsd.json`)
+
+The Cars desk opens with the garage. On every news run `garage.py` reads, from the feeds the sites publish:
+- the last two months of uploads from YouTube builders who buy salvage, insurance write-offs and abandoned cars and fix
+  them (Goonzquad, Tavarish, Rich Rebuilds, Mat Armstrong, Hoovies Garage, Niko Brothers, Vice Grip Garage and more;
+  the list is `BUILDERS` in `garage.py`, each id checked against the channel's own name; Shorts are left out);
+- the auctions: Bring a Trailer and Cars & Bids sales in the news (Google News), what's on the block at Bring a
+  Trailer (its RSS feed: titles and links only, no prices or pictures copied), Hagerty's market stories, and the
+  Cars & Bids, Doug DeMuro and Hagerty channels;
+- Tesla FSD news: Google News, Teslarati, Not a Tesla App and Electrek, kept to FSD, Autopilot and robotaxi stories.
+
+A weekly scheduled Claude task writes the rest:
+- project files, `news/garage/<id>.json`, one per build: the car, where it came from and what it cost (prices said on
+  camera marked "stated", Claude's reckoning "estimate"), the damage, the episodes, the parts, the time, the money in
+  against a value range from comparable public sales with links, a verdict and a cited write-up. `garage.py check`
+  enforces the format (`python3 news/updater/garage.py format` prints it); `garage.py index` rebuilds
+  `garage/index.json`. They open at `#/build/<id>`; `#/garage` has every project, video and auction headline.
+- `data/fsd.json`, the FSD guide at `#/fsd`: price, the latest version for each computer, which computer every model
+  year has (HW2.5, HW3, AI4), how to tell, transfers, where it's offered, robotaxis, buying tips and the week's
+  changes. `garage.py fsdcheck` enforces it. The page builds searches on Tesla's used inventory, Cars.com,
+  Autotrader and eBay Motors from the reader's ZIP, model and computer; nothing from those sites is copied.
 
 ## The week, three ways (`news/columns/`, `columns.py`)
 
