@@ -1,0 +1,41 @@
+name: The Watch report share cards
+# When a report lands in news/articles/, draw its link-preview card and share page (news/r/<id>.png and .html), so
+# a shared report shows its own headline, summary and byline in iMessage, X, Facebook and the rest.
+on:
+  push:
+    branches: [main]
+    paths: ['news/articles/**']
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: the-watch-share
+  cancel-in-progress: false
+jobs:
+  cards:
+    if: github.repository == 'BBOLDT86/lanscape-navigator'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Draw the cards
+        run: |
+          pip install --quiet pillow
+          python3 news/updater/share.py
+      - name: Commit and push
+        run: |
+          git config user.name "The Watch updater"
+          git config user.email "the-watch-news@users.noreply.github.com"
+          git add news/r
+          if git diff --cached --quiet; then echo "nothing new"; exit 0; fi
+          git commit -qm "The Watch: report share cards"
+          for i in 1 2 3; do
+            git pull --rebase -X theirs origin main && git push -q origin HEAD:main && exit 0
+            sleep 10
+          done
+          echo "push failed" >&2; exit 1

@@ -3,8 +3,25 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>The Watch</title>
-<meta name="description" content="The Watch: the news six times a day, one edition per ship's watch, from about 120 live sources. It learns what you read and brings you more of it, privately, in your browser.">
+<title>The Watch · The news, six times a day</title>
+<meta name="description" content="Live news from 160+ sources, rebuilt six times a day. See how every outlet covers a story, swipe through the day in pictures and video, follow markets and elections, and get a front page that learns what you read. Free, no sign-up, private.">
+<link rel="canonical" href="https://bboldt86.github.io/lanscape-navigator/news/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="The Watch">
+<meta property="og:title" content="The Watch · The news, six times a day">
+<meta property="og:description" content="Live news from 160+ sources, rebuilt six times a day. See how every outlet covers a story, swipe through the day in pictures and video, follow markets and elections, and get a front page that learns what you read. Free, no sign-up, private.">
+<meta property="og:url" content="https://bboldt86.github.io/lanscape-navigator/news/">
+<meta property="og:image" content="https://bboldt86.github.io/lanscape-navigator/news/share.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="The Watch: every story, every outlet, side by side. Live news from 160+ sources, six editions a day.">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Watch · The news, six times a day">
+<meta name="twitter:description" content="Live news from 160+ sources, rebuilt six times a day. See how every outlet covers a story, swipe through the day in pictures and video, follow markets and elections, and get a front page that learns what you read. Free, no sign-up, private.">
+<meta name="twitter:image" content="https://bboldt86.github.io/lanscape-navigator/news/share.png">
+<meta name="twitter:image:alt" content="The Watch: every story, every outlet, side by side.">
+<meta name="application-name" content="The Watch">
 <meta name="theme-color" content="#F5F7F6" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0E1A2B" media="(prefers-color-scheme: dark)">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -354,6 +371,7 @@ body.dopen{overflow:hidden}
 .art h1{font:400 54px/1.04 var(--serif);margin:0 0 14px;letter-spacing:-.01em}
 .art .adek{font:400 23px/1.35 var(--serif);color:var(--ink-2);margin:0 0 16px}
 .art .aby{font:500 14.5px var(--sans);color:var(--ink-2);margin:0}
+.ashare{margin-left:6px;vertical-align:1px;padding:4px 11px;font-size:13px}
 .art .adis{font-size:14px;color:var(--ink-3);border-left:3px solid var(--brass);padding:2px 0 2px 12px;margin:16px 0 26px}
 .abody{font:400 19px/1.66 var(--serif);font-family:Georgia,'Iowan Old Style',serif;font-size:18.5px}
 .abody p{margin:0 0 1.05em}
@@ -644,6 +662,8 @@ if(t==='auto'){t=(h>=20||h<4)?'night':(matchMedia('(prefers-color-scheme: dark)'
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><circle cx="12" cy="12" r="9.2"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></svg><span class="lbl">Your compass</span></button>
     <button class="tbtn" id="themeBtn" type="button" aria-label="Day or night paper">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg><span class="lbl" id="themeLbl">Auto</span></button>
+    <button class="tbtn" id="shareBtn" type="button" aria-label="Share The Watch">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7.5 7.5L12 3l4.5 4.5"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg><span class="lbl">Share</span></button>
   </div>
 </header>
 <nav class="bar" aria-label="Sections"><div class="wrap" id="bar"></div></nav>
@@ -976,6 +996,7 @@ function renderFoot() {
     <div><h4>This edition</h4>
     <p>${(f.read != null ? `Read ${f.read} of ${f.total} sources at ${esc(clock(E.at))}.` : '')} ${E.items.length.toLocaleString()} stories, ${E.clusters.filter(c => c.n >= 3).length} covered by three or more outlets.</p>
     ${failed.length ? `<details><summary>${failed.length} source${failed.length > 1 ? 's' : ''} couldn’t be reached</summary><p>${failed.map(x => esc(x.feed)).join(', ')}. Their stories from earlier watches stay up until they age out.</p></details>` : ''}
+    <p style="margin-top:10px"><button type="button" class="chip" data-share="site">Share The Watch</button></p>
     <p style="margin-top:10px">Part of <a href="../">LANscape Navigator</a>.</p></div></div>`;
 }
 
@@ -1712,6 +1733,8 @@ document.addEventListener('click', e => {
   }
   if (a.id === 'backLatest') { loadLatest(true); return; }
   if (a.id === 'compassBtn') { compassDrawer(); return; }
+  if (a.id === 'shareBtn' || ds.share === 'site') { shareSite(); return; }
+  if (ds.share === 'report') { const r = (ART && ART.articles || []).find(x => x.id === ds.sid) || ARTC[ds.sid]; if (r) shareIt({ title: r.title, text: r.dek, url: `${PUBLIC}r/${encodeURIComponent(r.id)}.html` }); return; }
   if (a.id === 'themeBtn') { P.theme = { auto: 'day', day: 'night', night: 'auto' }[P.theme] || 'auto'; save(); applyTheme(); return; }
 });
 document.addEventListener('keydown', e => {
@@ -1799,7 +1822,7 @@ async function renderArticle(id) {
     <p class="ak"><a href="#/s/${esc(a.desk)}">${esc(secName(a.desk))}</a> · The Watch report</p>
     <h1 id="artTitle">${esc(a.title)}</h1>
     <p class="adek">${esc(a.dek)}</p>
-    <p class="aby">${byline(a)}. ${Math.max(1, Math.round(words / 230))} min read.</p>
+    <p class="aby">${byline(a)}. ${Math.max(1, Math.round(words / 230))} min read. <button type="button" class="chip ashare" data-share="report" data-sid="${esc(a.id)}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7.5 7.5L12 3l4.5 4.5"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg>Share</button></p>
     <p class="adis">This report was written by an AI model, Claude, from the published reporting and records listed at the end. Read the originals for anything you rely on.</p>
     <div class="abody">${md(a.body, n)}</div>
     <section class="asrc"><h2>Sources</h2><ol>${(a.sources || []).map((s, i) => `<li id="src-${i + 1}"><a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.title)}</a> <span>${esc(s.outlet)}${s.date ? ', ' + esc(s.date) : ''}</span></li>`).join('')}</ol></section>
@@ -2208,6 +2231,7 @@ function openShow(id, at) {
     <div class="sstop"><div class="ssh"><span class="ssk">${esc(show.kicker || '')}</span><span class="sst">${esc(show.title)}</span></div>
       <span class="ssc" aria-live="polite"></span>
       <button type="button" class="ssb" data-ss="play" aria-label="Play"></button>
+      <button type="button" class="ssb" data-ss="share" aria-label="Share this slideshow" title="Share"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7.5 7.5L12 3l4.5 4.5"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg></button>
       <button type="button" class="ssb" data-ss="layout" aria-label="${SS.wide ? 'Story view' : 'Wide view'}" title="${SS.wide ? 'Story view' : 'Wide view'}">⇆</button>
       <button type="button" class="ssb" data-ss="close" aria-label="Close slideshow"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
     <div class="ssstage"></div>
@@ -2349,6 +2373,7 @@ function ssAction(a) {
   if (a === 'prev') return ssShow(SS.i - 1, -1);
   if (a === 'play') { SS.playing = !SS.playing; if (SS.playing && SS.i >= SS.show.slides.length) return ssShow(0, 1); ssTime(false); return; }
   if (a === 'layout') { P.ssLayout = SS.wide ? 'tall' : 'wide'; save(); ssHalt(); const s = SS.show, i = Math.min(SS.i, s.slides.length - 1); SS.el.remove(); SS.el = null; openShow(s, i); return; }
+  if (a === 'share') { ssPause(true); shareIt({ title: SS.show.title + ' · The Watch', text: `${SS.show.title}: ${SS.show.slides.length} ${SS.show.video ? 'videos' : 'pictures'} from today's news in The Watch.`, url: PUBLIC + '#/pictures/' + encodeURIComponent(SS.show.id) }).finally(() => ssPause(false)); return; }
   if (a === 'playvid') { const sl = SS.show.slides[SS.i]; if (sl.kind === 'video') ssPlayVid(SS.el.querySelector('.sl.cur'), sl.v); return; }
   if (a === 'vidof') { const sl = SS.show.slides[SS.i]; if (sl.vid) { const cur = SS.el.querySelector('.sl.cur'); const m = cur.querySelector('.slmedia'); m.innerHTML = `<div class="vframe" data-v="${esc(sl.vid.v)}"></div>`; cur.classList.add('video'); ssPlayVid(cur, sl.vid); } }
 }
@@ -2363,6 +2388,13 @@ document.addEventListener('keydown', e => {
 }, true);
 document.addEventListener('visibilitychange', () => { if (SS.el) { if (document.visibilityState !== 'visible') ssPause(true); else ssPause(false); } });
 
+const SHARE_TEXT = 'The news six times a day from 160+ sources: every outlet side by side, the day in pictures and video, and a front page that learns what you read.';
+async function shareIt(o) { // the phone's own share sheet (Messages, Mail, X...), or copy the link
+  if (navigator.share) { try { await navigator.share(o); return; } catch (e) { if (e && e.name === 'AbortError') return; } }
+  try { await navigator.clipboard.writeText(o.url); toast('Link copied. Paste it anywhere: it shows a preview card.'); }
+  catch (e) { prompt('Copy this link:', o.url); }
+}
+const shareSite = () => shareIt({ title: 'The Watch', text: SHARE_TEXT, url: PUBLIC });
 function deskBanner(k) {
   const shows = allShows(), s = shows.find(x => x.desk === k), vs = VIDS().filter(v => v.c === k);
   if (!s && !vs.length) return '';

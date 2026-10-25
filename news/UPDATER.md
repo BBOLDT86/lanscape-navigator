@@ -122,6 +122,16 @@ Runs after the edition, with a four-minute limit that can't hold up the edition'
   the next, the left for the last, hold to pause, swipe down to close); on a computer as a wide gallery with a
   filmstrip and the arrow keys. ⇆ switches either way.
 
+## Link previews (`share.py`)
+
+What iMessage, X, Facebook, LinkedIn, Slack and WhatsApp show when someone shares a link. The page's Open Graph and
+Twitter tags carry the pitch and the site's card, `news/share.png` (1200 x 630, redrawn with `share.py --site`). Each
+report gets its own card and share page, `news/r/<id>.png` and `news/r/<id>.html`, with its headline, summary and
+byline; the share page sends a person straight on to the report, and lets link-preview bots read its tags. The Share
+buttons (top of the page, each report, each slideshow) open the phone's share sheet, or copy the link on a computer.
+`.github/workflows/share.yml` draws the cards when a report is pushed, and the news workflow does it too as a backstop.
+Pillow draws them with Instrument Serif and Instrument Sans (`updater/fonts/`, SIL Open Font License).
+
 ## Elections
 
 The Politics and Brazil desks, and the front page around an election, read the Election Desk

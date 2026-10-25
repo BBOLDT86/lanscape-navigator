@@ -78,6 +78,8 @@ Household tracks what things cost: gas and diesel, mortgage rates, the Fed's rat
 
 Pictures turns each edition into slideshows (the day in pictures, For you, every desk and busy topic, and every story's pictures from each outlet covering it) that play as full-screen stories on a phone and as a wide gallery on a computer, with fast transitions. Video brings in the last two days from about 30 news channels' YouTube uploads, filed by desk, tied to the stories they cover, with a vertical shorts reel; they also appear in the slideshows and in each story's sheet.
 
+Shared links unfurl with a designed card and a short pitch in iMessage, X, Facebook, LinkedIn and Slack; each report gets its own card with its headline and byline.
+
 It learns from its reader. The For You picks and the order of the desks on the front follow what you open, how long you stay with it, what you search for, and what you tell it (More or Less like this, Follow a topic, Hide an outlet), with a reason under each pick and, now and then, something outside your usual. That record stays in your browser; Your compass shows it and lets you change it. The watch dial at the top opens the day's earlier editions.
 
 A GitHub Actions workflow (`.github/workflows/news.yml`) runs `news/updater/run.py` once per watch and commits `news/data/edition.json`. Standard-library Python, no keys. See [news/UPDATER.md](news/UPDATER.md).
