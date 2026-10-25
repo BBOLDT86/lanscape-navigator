@@ -1,0 +1,584 @@
+{
+ "v": 1,
+ "updated": "2026-10-25T13:24:28+00:00",
+ "model": "Claude Opus 5.5",
+ "summary": "The week's news was less about new megaprojects than about who pays for the power behind them.\n\nIn Louisiana, Entergy put a number on Meta's Hyperion campus at a three-day hearing: 4,500 megawatts, served by seven proposed gas plants and a $12.9 billion buildout that regulators vote on Dec. 16. In New Mexico, Oracle asked Doña Ana County to let Project Jupiter connect to El Paso Electric for backup power, then pulled the request when commissioners said it broke the promise that the campus would supply its own power and leave residents' bills alone. In Wisconsin, Oracle offered to pay for nuclear power from Point Beach for the Port Washington campus, saying We Energies customers would save about $300 million; the state's regulators still have to approve it.\n\nMeta said the first phase of its Prometheus campus in Ohio is running, on the way to about a gigawatt. Mississippi regulators are seeking about $6.1 million from SpaceXAI over permits at its Southaven sites, and a federal judge kept the NAACP's lawsuit over the company's gas turbines alive. New proposals include a 1 GW campus on a former steel mill in Alton, Illinois, and another 1 GW near Taylor, Texas. Paducah's $100 billion campus on Energy Department land is on the ballot in a county race on Nov. 3.\n\nNot every project is going ahead. Oregon's pause on new data center permits led Umatilla to declare an emergency over lost tax revenue, and industry estimates cited this week say 30% to 50% of the capacity due to come online soon faces serious delays. For households, the open question is still whether the upgrades these campuses need get paid for in their tariffs or spread across everyone's rates. Duke Energy's new North Carolina deal puts some of that cost on all customers first.",
+ "projects": [
+  {
+   "id": "stargate-abilene",
+   "name": "Stargate Abilene",
+   "company": "Crusoe (developer); Oracle and OpenAI (tenants)",
+   "place": "Abilene",
+   "state": "TX",
+   "lat": 32.45,
+   "lon": -99.73,
+   "mw": 1200,
+   "status": "operating",
+   "power": "On-site natural gas plus grid power, including local wind (per Epoch AI)",
+   "grid": "ERCOT",
+   "cost": "not reported in the sources cited",
+   "note": "Partly operating: Epoch AI estimated four of eight buildings running in April, with completion projected for Q4 2026. A planned expansion toward 2 GW was dropped in March (see separate entry).",
+   "sources": [
+    {
+     "title": "OpenAI Stargate: where the US sites stand",
+     "outlet": "Epoch AI",
+     "url": "https://epoch.ai/publications/openai-stargate-where-the-us-sites-stand",
+     "date": "2026-04-17"
+    },
+    {
+     "title": "Oracle/OpenAI drop plans to expand flagship Abilene Stargate site, Meta in talks to pick up Crusoe capacity with Nvidia's help",
+     "outlet": "DCD",
+     "url": "https://www.datacenterdynamics.com/en/news/oracleopenai-drop-plans-to-expand-flagship-abilene-stargate-site-meta-in-talks-to-pick-up-crusoe-capacity-with-nvidias-help/",
+     "date": "2026-03-06"
+    }
+   ],
+   "updated": "2026-10-25"
+  },
+  {
+   "id": "abilene-expansion",
+   "name": "Abilene Stargate expansion",
+   "company": "Crusoe (developer); Oracle and OpenAI (dropped); Meta reported in talks",
+   "place": "Abilene",
+   "state": "TX",
+   "lat": 32.47,
+   "lon": -99.71,
+   "mw": 800,
+   "status": "canceled",
+   "power": "Not settled; DCD, citing The Information, reported power would not be ready at the site for about a year",
+   "grid": "ERCOT",
+   "cost": "not reported",
+   "note": "Oracle and OpenAI dropped plans to take the site from 1.2 GW to 2 GW (about 800 MW more); Nvidia reportedly paid Crusoe a $150 million deposit and courted Meta for the capacity, with no deal reported signed. A Stacker piece this week cited it as an example of the delays now hitting about half of planned capacity.",
+   "sources": [
+    {
+     "title": "Oracle/OpenAI drop plans to expand flagship Abilene Stargate site, Meta in talks to pick up Crusoe capacity with Nvidia's help",
+     "outlet": "DCD",
+     "url": "https://www.datacenterdynamics.com/en/news/oracleopenai-drop-plans-to-expand-flagship-abilene-stargate-site-meta-in-talks-to-pick-up-crusoe-capacity-with-nvidias-help/",
+     "date": "2026-03-06"
+    },
+    {
+     "title": "Tech companies need more data centers. So why are nearly half of all planned projects delayed or canceled?",
+     "outlet": "Stacker (via KEYT)",
+     "url": "https://keyt.com/stacker-technology/2026/10/19/tech-companies-need-more-data-centers-so-why-are-nearly-half-of-all-planned-projects-delayed-or-canceled/",
+     "date": "2026-10-19"
+    }
+   ],
+   "updated": "2026-10-25"
+  },
+  {
+   "id": "vantage-frontier",
+   "name": "Frontier campus (Stargate)",
+   "company": "Vantage Data Centers; part of the OpenAI/Oracle Stargate program",
+   "place": "Shackelford County (near Albany)",
+   "state": "TX",
+   "lat": 32.72,
+   "lon": -99.3,
+   "mw": 1400,
+   "status": "under construction",
+   "power": "On-site natural gas microgrid",
+   "grid": "ERCOT",
+   "cost": "more than $25 billion (as reported)",
+   "note": "Ten buildings planned; the first was expected online in the second half of 2026. Epoch AI put the Stargate share at 2 GW, above Vantage's 1.4 GW campus figure.",
+   "sources": [
+    {
+     "title": "Frontier Shackelford County Data Center Nears Power-On",
+     "outlet": "The Texas Dispatch",
+     "url": "https://thetexasdispatch.com/shackelford-county-data-center-frontier-stargate/",
+     "date": "2026-06-30"
+    },
+    {
+     "title": "OpenAI Stargate: where the US sites stand",
+     "outlet": "Epoch AI",
+     "url": "https://epoch.ai/publications/openai-stargate-where-the-us-sites-stand",
+     "date": "2026-04-17"
+    }
+   ],
+   "updated": "2026-10-25"
+  },
+  {
+   "id": "stargate-milam",
+   "name": "Stargate Milam County",
+   "company": "SB Energy (SoftBank); OpenAI",
+   "place": "Milam County",
+   "state": "TX",
+   "lat": 30.66,
+   "lon": -97.0,
+   "mw": 1200,
+   "status": "under construction",
+   "power": "SB Energy plans to build new generation and storage for most of the campus's power",
+   "grid": "ERCOT",
+   "cost": "not reported in the sources cited",
+   "note": "Steel framing and roofing visible on the first building in April; projected completion Q4 2028 per Epoch AI.",
+   "sources": [
+    {
+     "title": "OpenAI Stargate: where the US sites stand",
+     "outlet": "Epoch AI",
+     "url": "https://epoch.ai/publications/openai-stargate-where-the-us-sites-stand",
+     "date": "2026-04-17"
+    }
+   ],
+   "updated": "2026-10-25"
+  },
+  {
+   "id": "project-jupiter",
+   "name": "Project Jupiter (Stargate New Mexico)",
+   "company": "STACK Infrastructure and BorderPlex; Oracle (tenant)",
+   "place": "Santa Teresa, Doña Ana County",
+   "state": "NM",
+   "lat": 31.86,
+   "lon": -106.64,
+   "mw": 2200,
+   "status": "under construction",
+   "power": "Natural gas microgrids with Bloom Energy fuel cells and batteries; El Paso Electric backup service was proposed and withdrawn",
+   "grid": "WECC (El Paso Electric)",
+   "cost": "not reported in the sources cited",
+   "note": "On Oct. 13 Oracle pitched county commissioners a backup-power deal with El Paso Electric, plus up to $55 million a year in bill credits for three years, then withdrew it after commissioners said it tied the project to residents' bills despite promises it would power itself.",
+   "sources": [
+    {
+     "title": "Doña Ana County commissioners push back on Project Jupiter link to utility",
+     "outlet": "Albuquerque Journal",
+     "url": "https://www.abqjournal.com/news/project-jupiter-commissioners-push-back-on-el-paso-electric-connection/3141683",
+     "date": "2026-10-13"
+    },
+    {
+     "title": "OpenAI Stargate: where the US sites stand",
+     "outlet": "Epoch AI",
+     "url": "https://epoch.ai/publications/openai-stargate-where-the-us-sites-stand",
+     "date": "2026-04-17"
+    }
+   ],
+   "updated": "2026-10-25"
+  },
+  {
+   "id": "stargate-saline",
+   "name": "Stargate Michigan",
+   "company": "Related Digital; OpenAI and Oracle",
+   "place": "Saline Township",
+   "state": "MI",
+   "lat": 42.17,
+   "lon": -83.78,
+   "mw": 1400,
+   "status": "under construction",
+   "power": "DTE Energy supplies 100% under a contract approved by Michigan regulators, plus a project-financed battery system",
+   "grid": "MISO",
+   "cost": "not reported in the sources cited",
+   "note": "Foundation work under way in April; projected completion Q4 2028 per Epoch AI.",
+   "sources": [
+    {
+     "title": "OpenAI Stargate: where the US sites stand",
+     "outlet": "Epoch AI",
+     "url": "https://epoch.ai/publications/openai-stargate-where-the-us-sites-stand",
+     "date": "2026-04-17"
+    }
+   ],
+   "updated": "2026-10-25"
+  },
+  {
+   "id": "vantage-lighthouse",
+   "name": "Lighthouse campus (Stargate Wisconsin)",
+   "company": "Vantage Data Centers; OpenAI and Oracle",
+   "place": "Port Washington",
+   "state": "WI",
+   "lat": 43.39,
+   "lon": -87.88,
+   "mw": 1300,
+   "status": "under construction",
+   "power": "We Energies; Oracle would pay for 125 to 250 MW from the Point Beach nuclear plant under an extended NextEra contract",
+   "grid": "MISO",
+   "cost": "$15 billion (as reported)",
+   "note": "Oracle's Oct. 2 offer to buy Point Beach power, which it says would save We Energies customers about $300 million in fuel costs over 2027-2033, awaits Wisconsin PSC approval; data centers are now a bipartisan campaign issue in the state.",
+   "sources": [
+    {
+     "title": "Oracle reaches deal with We Energies that's slated to save utility customers $300M",
+     "outlet": "WPR",
+     "url": "https://www.wpr.org/news/oracle-deal-we-energies-utility-customers",
+     "date": "2026-10-06"
+    },
+    {
+     "title": "OpenAI Stargate: where the US sites stand",
+     "outlet": "Epoch AI",
+     "url": "https://epoch.ai/publications/openai-stargate-where-the-us-sites-stand",
+     "date": "2026-04-17"
+    }
+   ],
+   "updated": "2026-10-25"
+  },
+  {
+   "id": "meta-hyperion",
+   "name": "Hyperion",
+   "company": "Meta",
+   "place": "Richland Parish (Holly Ridge)",
+   "state": "LA",
+   "lat": 32.43,
+   "lon": -91.62,
+   "mw": 4500,
+   "status": "under construction",
+   "power": "Entergy Louisiana: three gas units approved in 2025, and seven more combined-cycle units (about 5,278 MW) proposed, with batteries and transmission",
+   "grid": "MISO",
+   "cost": "$12.9 billion for Entergy's proposed buildout; Meta's regional investment over $50 billion (as reported)",
+   "note": "Entergy disclosed a 4,500 MW load at an Oct. 7-9 hearing; Meta has said the campus will reach 5 GW. The seven-plant settlement goes to a Louisiana PSC vote on Dec. 16, and is still a proposal until then.",
+   "sources": [
+    {
+     "title": "4,500 megawatts: Entergy's Meta power hearing puts Louisiana's AI buildout on trial",
+     "outlet": "Louisiana AI",
+     "url": "https://louisianai.com/briefs/2026-10-09-louisiana-ai-feature-article",
+     "date": "2026-10-09"
+    }
+   ],
+   "updated": "2026-10-25"
+  },
+  {
+   "id": "meta-prometheus",
+   "name": "Prometheus",
+   "company": "Meta",
+   "place": "New Albany",
+   "state": "OH",
+   "lat": 40.08,
+   "lon": -82.81,
+   "mw": 1000,
+   "status": "operating",
+   "power": "Grid (AEP Ohio area); Meta's disclosure this week did not detail the power mix",
+   "grid": "PJM",
+   "cost": "not reported",
+   "note": "Meta said the first phase is live, with hundreds of thousands of GPUs and a plan to scale to about a gigawatt and roughly a million GPUs; 1,000 MW is the planned scale, not current draw.",
+   "sources": [
+    {
+     "title": "Meta details Ohio Prometheus data center campus, with first phase live",
+     "outlet": "DCD",
+     "url": "https://www.datacenterdynamics.com/en/news/meta-details-ohio-prometheus-data-center-campus-with-first-phase-live/",
+     "date": "2026-10-23"
+    },
+    {
+     "title": "Inside Prometheus: Meta's Journey to a Gigawatt-Scale Supercluster",
+     "outlet": "Engineering at Meta",
+     "url": "https://engineering.fb.com/2026/10/19/data-center-engineering/inside-prometheus-meta-gigawatt-scale-supercluster/",
+     "date": "2026-10-19"
+    }
+   ],
+   "updated": "2026-10-25"
+  },
+  {
+   "id": "xai-colossus-2",
+   "name": "Colossus 2 and Southaven sites",
+   "company": "SpaceXAI (formerly xAI), via MZX Tech",
+   "place": "Southaven",
+   "state": "MS",
+   "lat": 34.99,
+   "lon": -90.01,
+   "mw": 2000,
+   "status": "under construction",
+   "power": "On-site gas turbines in Southaven (41 permanent turbines permitted in March to replace 27 unpermitted ones) and Tesla Megapacks",
+   "grid": "SERC/TVA",
+   "cost": "more than $20 billion for the Mississippi facility (as reported)",
+   "note": "Mississippi regulators are seeking about $6.1 million in stormwater-permit penalties across three sites, and a federal judge refused the Justice Department's bid to end the NAACP's turbine lawsuit. The 2 GW figure is Musk's total for Colossus training compute, not a utility-filed load.",
+   "sources": [
+    {
+     "title": "Elon Musk's SpaceXAI facing $6.1m fine in Mississippi for building data centers without securing correct permits",
+     "outlet": "DCD",
+     "url": "https://www.datacenterdynamics.com/en/news/spacexai-data-center-mississippi-memphis-elon-musk/",
+     "date": "2026-10-24"
+    },
+    {
+     "title": "Mississippi Permit Board Grants xAI's Request for 41 Southaven Gas Turbines to Power Grok",
+     "outlet": "Mississippi Free Press",
+     "url": "https://www.mississippifreepress.org/mississippi-permit-board-grants-xais-request-for-41-southaven-gas-turbines-to-power-memphis-data-center/",
+     "date": "2026-03-10"
+    },
+    {
+     "title": "xAI commits $20B to 2 GW AI data center in Mississippi",
+     "outlet": "Converge Digest",
+     "url": "https://convergedigest.com/xai-commits-20b-to-2-gw-ai-data-center-in-mississippi/",
+     "date": "2026-01-08"
+    }
+   ],
+   "updated": "2026-10-25"
+  },
+  {
+   "id": "homer-city",
+   "name": "Homer City Energy Campus",
+   "company": "Homer City Redevelopment with Kiewit; Amazon Web Services (tenant)",
+   "place": "Homer City, Indiana County",
+   "state": "PA",
+   "lat": 40.54,
+   "lon": -79.16,
+   "mw": 4500,
+   "status": "under construction",
+   "power": "A 4.5 GW natural gas plant on the former coal plant site",
+   "grid": "PJM",
+   "cost": "not disclosed (as reported)",
+   "note": "AWS filed plans this month for 36 buildings on 1,100 acres, with data center construction in four stages from December 2026 to 2036. 4,500 MW is the gas plant's size; a campus load hasn't been reported.",
+   "sources": [
+    {
+     "title": "AWS is building a massive 36-building, 1,100-acre data center campus in Pennsylvania",
+     "outlet": "TechRadar",
+     "url": "https://www.techradar.com/pro/aws-is-building-a-massive-36-building-1-100-acre-data-center-campus-in-pennsylvania-homer-city-energy-campus-will-create-around-1-500-2-000-jobs-and-be-powered-by-natural-gas",
+     "date": "2026-10-10"
+    },
+    {
+     "title": "From Coal Plant to AI Campus: FracTracker Documents Construction at Homer City",
+     "outlet": "FracTracker Alliance",
+     "url": "https://fractracker.org/2026/04/homer-city-ai-campus-gas-power-construction/",
+     "date": "2026-04"
+    }
+   ],
+   "updated": "2026-10-25"
+  },
+  {
+   "id": "amazon-susquehanna",
+   "name": "Susquehanna campus",
+   "company": "Amazon Web Services; Talen Energy (power)",
+   "place": "Salem Township, Luzerne County",
+   "state": "PA",
+   "lat": 41.09,
+   "lon": -76.15,
+   "mw": 1920,
+   "status": "operating",
+   "power": "Up to 1,920 MW from Talen's Susquehanna nuclear plant under a 17-year PPA, moving from behind-the-meter to grid-connected retail service",
+   "grid": "PJM",
+   "cost": "PPA notionally $18 billion (as reported)",
+   "note": "Deliveries ramp to 840-1,200 MW by 2029 and the full 1,920 MW by 2032; the original 300 MW behind-the-meter setup was to be reconfigured during a spring 2026 refueling outage.",
+   "sources": [
+    {
+     "title": "Talen, Amazon Launch $18B Nuclear PPA—A Grid-Connected IPP Model for the Data Center Era",
+     "outlet": "POWER Magazine",
+     "url": "https://www.powermag.com/talen-amazon-launch-18b-nuclear-ppa-a-grid-connected-ipp-model-for-the-data-center-era/",
+     "date": "2025-06-12"
+    }
+   ],
+   "updated": "2026-10-25"
+  },
+  {
+   "id": "amazon-rainier",
+   "name": "Project Rainier",
+   "company": "Amazon Web Services; Anthropic (user)",
+   "place": "New Carlisle",
+   "state": "IN",
+   "lat": 41.7,
+   "lon": -86.51,
+   "mw": 2200,
+   "status": "operating",
+   "power": "Indiana Michigan Power (AEP) for Phase I; NIPSCO for Phase II",
+   "grid": "PJM / MISO",
+   "cost": "$11 billion Phase I plus $15 billion Phase II (as reported)",
+   "note": "Phase I has run since October 2025 and Phase II was slated to start in 2026; the profile cited gives conflicting counts of buildings live.",
+   "sources": [
+    {
+     "title": "AWS Project Rainier, Indiana: Latest Updates (2026)",
+     "outlet": "Blackridge Research",
+     "url": "https://www.blackridgeresearch.com/project-profiles/aws-project-rainier-new-carlisle-indiana-usa-data-center-supercluster-cost-contractors-timeline-latest-updates",
+     "date": "2026-04-15"
+    },
+    {
+     "title": "Amazon opens $11 billion AI data center Project Rainier in Indiana",
+     "outlet": "CNBC",
+     "url": "https://www.cnbc.com/2025/10/29/amazon-opens-11-billion-ai-data-center-project-rainier-in-indiana.html",
+     "date": "2025-10-29"
+    }
+   ],
+   "updated": "2026-10-25"
+  },
+  {
+   "id": "microsoft-fairwater-wi",
+   "name": "Fairwater",
+   "company": "Microsoft",
+   "place": "Mount Pleasant",
+   "state": "WI",
+   "lat": 42.7,
+   "lon": -87.9,
+   "mw": 450,
+   "status": "operating",
+   "power": "We Energies",
+   "grid": "MISO",
+   "cost": "$4.7 billion of Wisconsin construction spending 2024-2028 (as reported)",
+   "note": "The first building went live in June, a second is due in 2028 and 15 more were approved in January. Microsoft hasn't published a load; 450 MW is a tracker site's estimate.",
+   "sources": [
+    {
+     "title": "Microsoft's first data center at Mount Pleasant, Wisconsin, campus now operational",
+     "outlet": "DCD",
+     "url": "https://www.datacenterdynamics.com/en/news/microsofts-first-data-center-at-mount-pleasant-wisconsin-campus-now-operational/",
+     "date": "2026-06-23"
+    },
+    {
+     "title": "Microsoft Fairwater AI Data Center - Mount Pleasant: 450 MW",
+     "outlet": "ServerCountry",
+     "url": "https://servercountry.org/data/projects/microsoft-fairwater-ai-data-center-mount-pleasant-wi/",
+     "date": "2026"
+    }
+   ],
+   "updated": "2026-10-25"
+  },
+  {
+   "id": "paducah-doe",
+   "name": "Paducah AI campus (DOE site)",
+   "company": "Brookfield (developer); NextEra Energy (power); no tenant named",
+   "place": "Paducah, McCracken County",
+   "state": "KY",
+   "lat": 37.11,
+   "lon": -88.81,
+   "mw": 1800,
+   "status": "announced",
+   "power": "NextEra-built generation of up to 2 GW of grid-connected gas and 2.6 GW of batteries; Big Rivers Electric wholesale, Jackson Purchase Energy retail",
+   "grid": "MISO",
+   "cost": "$100 billion (as reported)",
+   "note": "Up to 1.8 GW of utility capacity for more than 1.2 GW of compute on the former uranium enrichment plant; the project has become the issue in the Nov. 3 county judge/executive race, where the challenger wants a community benefit agreement.",
+   "sources": [
+    {
+     "title": "Brookfield, NextEra to Develop $100B Data Center Campus at DOE's Paducah Site, Paired With 4.6 GW of Dedicated Generation",
+     "outlet": "POWER Magazine",
+     "url": "https://www.powermag.com/brookfield-nextera-to-develop-100b-data-center-campus-at-does-paducah-site-paired-with-4-6-gw-of-dedicated-generation/",
+     "date": "2026-07-29"
+    },
+    {
+     "title": "The Most Important Data Center Election You've Never Heard Of",
+     "outlet": "Heatmap",
+     "url": "https://heatmap.news/plus/the-fight/spotlight/the-most-important-data-center-election-youve-never-heard-of",
+     "date": "2026-10-23"
+    }
+   ],
+   "updated": "2026-10-25"
+  },
+  {
+   "id": "fermi-matador",
+   "name": "Project Matador (HyperGrid)",
+   "company": "Fermi America with Texas Tech University System; TensorWave (tenant); AMD (credit support)",
+   "place": "Amarillo",
+   "state": "TX",
+   "lat": 35.22,
+   "lon": -101.83,
+   "mw": 11000,
+   "status": "planned",
+   "power": "Mostly behind the meter: gas turbines first, with four AP1000 reactors under NRC review, plus solar, wind, batteries and grid power",
+   "grid": "SPP",
+   "cost": "not reported; TensorWave lease up to $6.5 billion over 15 years (as reported)",
+   "note": "AMD agreed this month to guarantee financing for the first 222 MW (IT load) building, due online in the second half of 2027. Fermi has cited 11 GW of power and, more recently, up to 17 GW of data center capacity.",
+   "sources": [
+    {
+     "title": "Fermi and AMD sign credit support deal for build-out of Project Matador campus in Amarillo, Texas",
+     "outlet": "DCD",
+     "url": "https://www.datacenterdynamics.com/en/news/fermi-and-amd-sign-credit-support-deal-for-build-out-of-project-matador-campus-in-amarillo-texas/",
+     "date": "2026-10-14"
+    },
+    {
+     "title": "Fermi America acquires 600MW of gas turbines for 11GW AI mega campus in Amarillo, Texas",
+     "outlet": "DCD",
+     "url": "https://www.datacenterdynamics.com/en/news/fermi-america-acquires-600mw-of-gas-turbines-for-11gw-ai-mega-campus-in-amarillo-texas/",
+     "date": "2025-07-03"
+    }
+   ],
+   "updated": "2026-10-25"
+  },
+  {
+   "id": "project-jade",
+   "name": "Project Jade",
+   "company": "Black Hills Corp. (developer after Crusoe's exit); Tallgrass Energy (power); undisclosed customer",
+   "place": "Cheyenne",
+   "state": "WY",
+   "lat": 41.14,
+   "lon": -104.82,
+   "mw": 1800,
+   "status": "planned",
+   "power": "Tallgrass's 2.7 GW Cheyenne Power Hub (gas) next to the campus",
+   "grid": "WECC (Black Hills Energy)",
+   "cost": "customer committed over $200 million to milestones (as reported)",
+   "note": "Crusoe paused work in June 'at the request of our customer' and then left the project; Black Hills says it is continuing with an undisclosed large-load customer.",
+   "sources": [
+    {
+     "title": "Crusoe pauses work on 1.8GW Cheyenne, Wyoming, data center \"at the request of our customer\"",
+     "outlet": "DCD",
+     "url": "https://www.datacenterdynamics.com/en/news/crusoe-pauses-work-on-18gw-cheyenne-wyoming-data-center-at-the-request-of-our-customer/",
+     "date": "2026-06-10"
+    },
+    {
+     "title": "Jade without the builder: Crusoe out on Wyoming's 1.8 GW project",
+     "outlet": "Enverus",
+     "url": "https://www.enverus.com/blog/jade-without-the-builder-crusoe-out-on-wyomings-1-8-gw-project/",
+     "date": "2026-06-23"
+    }
+   ],
+   "updated": "2026-10-25"
+  },
+  {
+   "id": "terrawatt-alton",
+   "name": "Alton Steel site campus",
+   "company": "TerraWatt",
+   "place": "Alton, Madison County",
+   "state": "IL",
+   "lat": 38.89,
+   "lon": -90.18,
+   "mw": 1000,
+   "status": "announced",
+   "power": "Grid-connected through Ameren Illinois, with TerraWatt paying for local upgrades",
+   "grid": "MISO",
+   "cost": "not disclosed",
+   "note": "New this week: up to 1 GW in 200 MW blocks on a former steel mill, contingent on rezoning and an Ameren study; first block late 2027 to early 2029 and no tenant signed.",
+   "sources": [
+    {
+     "title": "Gigawatt-scale data center proposed for steel mill in Illinois",
+     "outlet": "DCD",
+     "url": "https://www.datacenterdynamics.com/en/news/gigawatt-scale-data-center-proposed-for-steel-mill-in-illinois/",
+     "date": "2026-10-23"
+    }
+   ],
+   "updated": "2026-10-25"
+  },
+  {
+   "id": "taylor-tech-campus",
+   "name": "Taylor Technology Campus",
+   "company": "Big Watt Digital and PowerHouse Data Centers",
+   "place": "Taylor",
+   "state": "TX",
+   "lat": 30.57,
+   "lon": -97.41,
+   "mw": 1000,
+   "status": "planned",
+   "power": "500 MW under the city agreement with an option for 500 MW more; natural gas available for behind-the-meter generation",
+   "grid": "ERCOT",
+   "cost": "not disclosed",
+   "note": "Taylor's council unanimously approved an economic development agreement this month; construction 2027-2029 with first power in the first half of 2028.",
+   "sources": [
+    {
+     "title": "1 GW Data Center Project Advances Near Austin",
+     "outlet": "Commercial Property Executive",
+     "url": "https://www.commercialsearch.com/news/1-gw-data-center-project-advances-near-austin/",
+     "date": "2026-10-12"
+    }
+   ],
+   "updated": "2026-10-25"
+  },
+  {
+   "id": "meta-el-paso",
+   "name": "El Paso data center",
+   "company": "Meta",
+   "place": "El Paso",
+   "state": "TX",
+   "lat": 31.76,
+   "lon": -106.49,
+   "mw": 1000,
+   "status": "under construction",
+   "power": "El Paso Electric via McCloud Generation, 366 MW of modular gas units next to the site paid for by Meta, as a five-year bridge from 2027",
+   "grid": "WECC (El Paso Electric)",
+   "cost": "not reported",
+   "note": "Meta's request grew from 220 MW to over 440 MW by 2027 and possibly 1 GW by 2029; 1,000 MW is that upper figure, and the plant stays off EPE's transmission system with long-term cost recovery left for later.",
+   "sources": [
+    {
+     "title": "Meta funds El Paso nat gas plant as interim power fix",
+     "outlet": "Argus Media",
+     "url": "https://www.argusmedia.com/en/news-and-insights/latest-market-news/2810465-meta-funds-el-paso-nat-gas-plant-as-interim-power-fix",
+     "date": "2026-04-06"
+    }
+   ],
+   "updated": "2026-10-25"
+  }
+ ],
+ "changes": [
+  "New tracker: 20 projects, from Abilene to Paducah, with sources.",
+  "Meta Hyperion: Entergy disclosed a 4,500 MW load; the seven-gas-plant settlement goes to a Louisiana PSC vote on Dec. 16.",
+  "Project Jupiter: Oracle withdrew a proposed El Paso Electric backup-power deal after county commissioners objected (Oct. 13).",
+  "Lighthouse (Port Washington): Oracle offered to pay for 125-250 MW of Point Beach nuclear power; awaiting Wisconsin PSC approval.",
+  "Meta Prometheus: first phase live in New Albany, scaling to about 1 GW.",
+  "SpaceXAI Southaven: about $6.1 million in proposed Mississippi penalties; the NAACP's turbine suit survived a DOJ bid to dismiss it.",
+  "Homer City: AWS named as tenant in plans filed for 36 buildings, construction starting December 2026.",
+  "Fermi Matador: AMD credit support for the first 222 MW (IT) building, due online in the second half of 2027.",
+  "Added: TerraWatt's 1 GW Alton, Illinois proposal and the 1 GW Taylor Technology Campus in Texas.",
+  "Paducah: the $100 billion DOE-site campus is the issue in the Nov. 3 McCracken County judge/executive race."
+ ]
+}
