@@ -259,7 +259,7 @@ DBN = 'https://api.db.nomics.world/v22/series/{}?observations=1&format=json'
 
 
 def dbnomics(path):
-    j = json.loads(get(DBN.format(path), accept='application/json', timeout=25))
+    j = json.loads(get(DBN.format(path), accept='application/json', timeout=14))
     doc = (((j.get('series') or {}).get('docs')) or [{}])[0]
     per, val = doc.get('period') or [], doc.get('value') or []
     days = doc.get('period_start_day') or per
@@ -270,7 +270,7 @@ def eia_gas(series='EMM_EPMR_PTE_NUS_DPG'):
     """an EIA weekly U.S. fuel price (regular gasoline by default), from its own spreadsheet; DBnomics' copy as a fallback"""
     try:
         import xlrd  # noqa: PLC0415 - installed by the workflow; optional
-        raw = get(f'https://www.eia.gov/dnav/pet/hist_xls/{series}w.xls', timeout=25)
+        raw = get(f'https://www.eia.gov/dnav/pet/hist_xls/{series}w.xls', timeout=20)
         book = xlrd.open_workbook(file_contents=raw)
         sh = book.sheet_by_name('Data 1')
         pts = []
@@ -321,6 +321,7 @@ def yoy(pts):
 
 def econ_series():
     out = []
+
     def add(sid, name, unit, explain, pts, src, keep=40):
         pts = pts[-keep:]
         if len(pts) < 2:
@@ -328,8 +329,65 @@ def econ_series():
         age = (NOW.date() - dt.date.fromisoformat(pts[-1][0])).days
         if age > FRESH_DAYS.get(sid, 90):
             raise ValueError(f'latest reading is from {pts[-1][0]}, too old to show as current')
-        out.append({'id': sid, 'n': name, 'unit': unit, 'x': explain, 'v': pts[-1][1], 'date': pts[-1][0], 'prev': pts[-2][1],
-                    'pdate': pts[-2][0], 'pts': [[d, v] for d, v in pts], 'src': src})
+        rec = {'id': sid, 'n': name, 'unit': unit, 'x': explain, 'v': pts[-1][1], 'date': pts[-1][0], 'prev': pts[-2][1],
+               'pdate': pts[-2][0], 'pts': [[d, v] for d, v in pts], 'src': src}
+        out.append(rec)
+        return rec
+
+    def series_job(sid, name, unit, x, fn, src):
+        try:
+            add(sid, name, unit, x, fn(), src, keep=52 if sid in ('GAS', 'DIESEL') else 36)
+        except Exception as ex:  # noqa: BLE001
+            errors.append(f'{sid} (DBnomics): {type(ex).__name__} {str(ex)[:60]}')
+
+    def fed():  # the Fed's target range, from the New York Fed
+        try:
+            j = json.loads(get('https://markets.newyorkfed.org/api/rates/unsecured/effr/last/260.json', accept='application/json'))
+            rows = sorted(j.get('refRates') or [], key=lambda r: r['effectiveDate'])
+            wk = {}
+            for r in rows:
+                wk[dt.date.fromisoformat(r['effectiveDate']).isocalendar()[:2]] = (r['effectiveDate'], r.get('targetRateTo'))
+            pts = [x for x in sorted(wk.values()) if x[1] is not None]
+            rec = add('FED', 'Fed rate', '%', f"The Federal Reserve’s target range for its benchmark rate is {rows[-1]['targetRateFrom']:.2f}% to {rows[-1]['targetRateTo']:.2f}%; banks lent overnight at {rows[-1]['percentRate']:.2f}% (New York Fed).",
+                      pts, 'https://www.newyorkfed.org/markets/reference-rates/effr', keep=52)
+            rec['range'] = [rows[-1]['targetRateFrom'], rows[-1]['targetRateTo']]
+        except Exception as ex:  # noqa: BLE001
+            errors.append(f'Fed rate (New York Fed): {type(ex).__name__} {str(ex)[:60]}')
+
+    def freddie():  # Freddie Mac's weekly survey
+        try:
+            raw = get('https://www.freddiemac.com/pmms/docs/PMMS_history.csv', accept='text/csv').decode('utf-8', 'replace')
+            recs = list(csv.DictReader(io.StringIO(raw)))[-160:]
+            for col, sid, name, x in (('pmms30', 'MORT', '30-year mortgage', 'The average 30-year fixed mortgage rate, from Freddie Mac’s weekly survey.'),
+                                      ('pmms15', 'MORT15', '15-year mortgage', 'The average 15-year fixed mortgage rate, from Freddie Mac’s weekly survey.')):
+                pts = []
+                for r in recs:
+                    try:
+                        m, d, y = r['date'].split('/'); pts.append((f'{y}-{int(m):02d}-{int(d):02d}', float(r[col])))
+                    except (ValueError, KeyError):
+                        pass
+                try:
+                    add(sid, name, '%', x, pts, 'https://www.freddiemac.com/pmms', keep=52)
+                except Exception as ex:  # noqa: BLE001
+                    errors.append(f'{sid} (Freddie Mac): {type(ex).__name__} {str(ex)[:60]}')
+        except Exception as ex:  # noqa: BLE001
+            errors.append(f'Mortgage (Freddie Mac): {type(ex).__name__} {str(ex)[:60]}')
+
+    def michigan():
+        try:
+            raw = get('https://www.sca.isr.umich.edu/files/tbmics.csv', accept='text/csv').decode('utf-8', 'replace')
+            months = {m: i for i, m in enumerate(['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'], 1)}
+            pts = []
+            for r in csv.reader(io.StringIO(raw)):
+                if len(r) >= 3 and r[0].strip() in months:
+                    try:
+                        pts.append((f'{int(r[1]):04d}-{months[r[0].strip()]:02d}-01', float(r[2])))
+                    except ValueError:
+                        pass
+            add('SENT', 'Consumer sentiment', '', 'The University of Michigan’s monthly survey of how people feel about the economy. 100 was the level in 1966.', sorted(pts), 'https://www.sca.isr.umich.edu/', keep=36)
+        except Exception as ex:  # noqa: BLE001
+            errors.append(f'Sentiment (Michigan): {type(ex).__name__} {str(ex)[:60]}')
+
     jobs = [
         ('CPI', 'Inflation', '%', 'Consumer prices compared with a year earlier (BLS figures; IMF copy when newer).',
          lambda: newest(safe(lambda: yoy(dbnomics('BLS/cu/CUUR0000SA0'))), safe(lambda: yoy(dbnomics('IMF/CPI/M.US.PCPI_IX')))), 'https://www.bls.gov/cpi/'),
@@ -343,51 +401,10 @@ def econ_series():
         ('DIESEL', 'Diesel', '$', 'The average price of a gallon of diesel in the U.S. (EIA, weekly). It feeds into what trucking adds to store prices.',
          lambda: eia_gas('EMD_EPD2D_PTE_NUS_DPG'), 'https://www.eia.gov/petroleum/gasdiesel/'),
     ]
-    for sid, name, unit, x, fn, src in jobs:
-        try:
-            add(sid, name, unit, x, fn(), src, keep=36 if sid != 'GAS' else 52)
-        except Exception as ex:  # noqa: BLE001
-            errors.append(f'{sid} (DBnomics): {type(ex).__name__} {str(ex)[:60]}')
-    try:  # the Fed's target range, from the New York Fed
-        j = json.loads(get('https://markets.newyorkfed.org/api/rates/unsecured/effr/last/260.json', accept='application/json'))
-        rows = sorted(j.get('refRates') or [], key=lambda r: r['effectiveDate'])
-        wk = {}
-        for r in rows:
-            wk[dt.date.fromisoformat(r['effectiveDate']).isocalendar()[:2]] = (r['effectiveDate'], r.get('targetRateTo'))
-        pts = [x for x in sorted(wk.values()) if x[1] is not None]
-        add('FED', 'Fed rate', '%', f"The Federal Reserve’s target range for its benchmark rate is {rows[-1]['targetRateFrom']:.2f}% to {rows[-1]['targetRateTo']:.2f}%; banks lent overnight at {rows[-1]['percentRate']:.2f}% (New York Fed).",
-            pts, 'https://www.newyorkfed.org/markets/reference-rates/effr', keep=52)
-        out[-1]['range'] = [rows[-1]['targetRateFrom'], rows[-1]['targetRateTo']]
-    except Exception as ex:  # noqa: BLE001
-        errors.append(f'Fed rate (New York Fed): {type(ex).__name__} {str(ex)[:60]}')
-    try:  # Freddie Mac's weekly survey
-        raw = get('https://www.freddiemac.com/pmms/docs/PMMS_history.csv', accept='text/csv').decode('utf-8', 'replace')
-        pts = []
-        recs = list(csv.DictReader(io.StringIO(raw)))[-160:]
-        for col, sid, name, x in (('pmms30', 'MORT', '30-year mortgage', 'The average 30-year fixed mortgage rate, from Freddie Mac’s weekly survey.'),
-                                  ('pmms15', 'MORT15', '15-year mortgage', 'The average 15-year fixed mortgage rate, from Freddie Mac’s weekly survey.')):
-            pts = []
-            for r in recs:
-                try:
-                    m, d, y = r['date'].split('/'); pts.append((f'{y}-{int(m):02d}-{int(d):02d}', float(r[col])))
-                except (ValueError, KeyError):
-                    pass
-            add(sid, name, '%', x, pts, 'https://www.freddiemac.com/pmms', keep=52)
-    except Exception as ex:  # noqa: BLE001
-        errors.append(f'Mortgage (Freddie Mac): {type(ex).__name__} {str(ex)[:60]}')
-    try:  # University of Michigan
-        raw = get('https://www.sca.isr.umich.edu/files/tbmics.csv', accept='text/csv').decode('utf-8', 'replace')
-        months = {m: i for i, m in enumerate(['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'], 1)}
-        pts = []
-        for r in csv.reader(io.StringIO(raw)):
-            if len(r) >= 3 and r[0].strip() in months:
-                try:
-                    pts.append((f'{int(r[1]):04d}-{months[r[0].strip()]:02d}-01', float(r[2])))
-                except ValueError:
-                    pass
-        add('SENT', 'Consumer sentiment', '', 'The University of Michigan’s monthly survey of how people feel about the economy. 100 was the level in 1966.', sorted(pts), 'https://www.sca.isr.umich.edu/', keep=36)
-    except Exception as ex:  # noqa: BLE001
-        errors.append(f'Sentiment (Michigan): {type(ex).__name__} {str(ex)[:60]}')
+    with cf.ThreadPoolExecutor(max_workers=10) as pool:  # each source on its own thread: one slow mirror can't use up the run
+        futs = [pool.submit(fed), pool.submit(freddie), pool.submit(michigan)] + [pool.submit(series_job, *j) for j in jobs]
+        for f in futs:
+            f.result()
     return out
 
 
@@ -545,6 +562,10 @@ def main():
             continue
         econ.append({'id': sid, 'n': name, 'unit': unit, 'x': x, 'v': r['v'], 'date': r['date'], 'prev': r.get('prev'), 'pts': [],
                      'released': True, 'src': 'https://www.nasdaq.com/market-activity/economic-calendar'})
+    have = {e['id'] for e in econ}
+    for e in old.get('econ') or []:  # a source that failed this time: keep its last reading while that is still current
+        if e['id'] not in have and e['id'] != 'CURVE' and e.get('date') and (NOW.date() - dt.date.fromisoformat(e['date'])).days <= FRESH_DAYS.get(e['id'], 40):
+            econ.append(dict(e, kept=True)); have.add(e['id'])
     order = ['CPI', 'CORE', 'UNRATE', 'PAYEMS', 'CLAIMS', 'GDP', 'FED', 'MORT', 'MORT15', 'GAS', 'DIESEL', 'SENT', 'CURVE']
     board = []
     for g, label, items in BOARD:

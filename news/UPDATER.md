@@ -127,5 +127,5 @@ reading leaves the browser. Your compass (top right) shows and edits it; Start o
 ## Size
 
 Each edition is about 450 KB of JSON (about 110 KB over the wire); the markets file about 150 KB; the Epstein files
-index about 380 KB; Zillow's ZIP table about 1.5 MB, read only on the Home desk. Six commits a day add a few hundred KB to the
+index about 380 KB; Zillow's ZIP table about 2.2 MB (about 700 KB over the wire), read only on the Home desk. Six commits a day add a few hundred KB to the
 repository's history per day after compression.
