@@ -24,6 +24,7 @@ import os
 import re
 import sys
 import time
+import urllib.error
 import urllib.parse
 import urllib.request
 import xml.etree.ElementTree as ET
@@ -77,8 +78,10 @@ CHANNELS = [
 ]
 NS = {'a': 'http://www.w3.org/2005/Atom', 'yt': 'http://www.youtube.com/xml/schemas/2015', 'm': 'http://search.yahoo.com/mrss/'}
 GENERIC_IMG = re.compile(r'logo|default|placeholder|fallback|social[-_]?share|share[-_]?image|brand|favicon|sprite|blank\.', re.I)
-VIDEO_WORDS = set('live video videos watch news full episode update updates breaking latest report reports says new shorts today '
-                  'show explained explainer clip interview exclusive analysis day week minute minutes hour hours'.split())
+VIDEO_WORDS = set('live video videos watch news full episode update updates breaking latest report reports says said new shorts today '
+                  'show explained explainer clip interview exclusive analysis day week minute minutes hour hours ahead after amid over '
+                  'takes take calls call could would first last more see it\'s inside why what how who dw france24 english sky nbc bbc '
+                  'cnbc fox pbs newshour reuters bloomberg verge wsj world'.split())
 
 
 def late():
@@ -168,7 +171,14 @@ def pictures(E):
 
 # ------------------------------------------------------------------ video
 def channel(cid, expect, section, lean):
-    raw, _ = get(f'https://www.youtube.com/feeds/videos.xml?channel_id={cid}', timeout=10, accept='application/atom+xml,application/xml')
+    url = f'https://www.youtube.com/feeds/videos.xml?channel_id={cid}'
+    try:
+        raw, _ = get(url, timeout=10, accept='application/atom+xml,application/xml')
+    except urllib.error.HTTPError as ex:  # the feed answers 404 or 5xx now and then for channels that exist
+        if ex.code not in (404, 429, 500, 502, 503):
+            raise
+        time.sleep(2.5)
+        raw, _ = get(url, timeout=10, accept='application/atom+xml,application/xml')
     root = ET.fromstring(raw)
     name = (root.findtext('a:title', default='', namespaces=NS) or '').strip()
     if expect.lower() not in name.lower():
@@ -197,7 +207,7 @@ def channel(cid, expect, section, lean):
         desc1 = re.split(r'\n\s*\n|#\w+|Subscribe|SUBSCRIBE|Follow us|Read more', desc1)[0].strip()
         desc1 = run.WS.sub(' ', desc1)[:260]
         desk = run.classify(section, lean, '', title, desc1[:200])
-        out.append({'v': vid, 't': html.unescape(title), 'ch': name, 'p': when.strftime('%Y-%m-%dT%H:%M:%SZ'), 'd': html.unescape(desc1),
+        out.append({'v': vid, 't': html.unescape(title), 'ch': name, 'cid': cid, 'p': when.strftime('%Y-%m-%dT%H:%M:%SZ'), 'd': html.unescape(desc1),
                     's': 1 if '/shorts/' in href else 0, 'c': desk, 'views': views})
     return name, out[:10]
 
@@ -207,31 +217,35 @@ def words(s):
 
 
 def match(videos, E):
+    """tie a video to the story cluster whose headlines share its distinctive words (each word weighted by how many of
+    the cluster's headlines use it, so a big cluster's stray words don't pull in every loosely related video)"""
     byid = {it['i']: it for it in E['items']}
     cl = []
     for c in E['clusters']:
-        ws = set()
-        for i in c['ids']:
-            if i in byid:
-                ws |= words(byid[i]['t'])
-        cl.append(ws)
+        heads = [words(byid[i]['t']) for i in c['ids'] if i in byid]
+        frac = {}
+        for ws in heads:
+            for w in ws:
+                frac[w] = frac.get(w, 0) + 1 / len(heads)
+        cl.append(frac)
     df = {}
-    for ws in cl:
-        for w in ws:
+    for frac in cl:
+        for w in frac:
             df[w] = df.get(w, 0) + 1
     n = max(1, len(cl))
     hit = 0
     for v in videos:
+        v.pop('g', None)
         vw = words(v['t'])
         best, bs = None, 0.0
-        for cid, ws in enumerate(cl):
-            sh = vw & ws
-            if len(sh) < 2:
+        for cid, frac in enumerate(cl):
+            sh = [w for w in vw if w in frac]
+            if len(sh) < 3 or sum(1 for w in sh if df[w] <= 3) < 2:
                 continue
-            s = sum(math.log(1 + n / df[w]) for w in sh)
-            if len(sh) >= 3 and s > bs:
+            s = sum(math.log(1 + n / df[w]) * min(1.0, 2 * frac[w]) for w in sh)
+            if s > bs:
                 best, bs = cid, s
-        if best is not None and bs >= 6.5:
+        if best is not None and bs >= 7:
             v['g'] = best; hit += 1
     return hit
 
@@ -250,6 +264,14 @@ def videos(E):
                     failed.append(c[1]); errors.append(f'video {c[1]}: {type(ex).__name__} {str(ex)[:80]}')
         except cf.TimeoutError:
             errors.append('video: out of time; kept what arrived')
+    try:
+        old = json.load(open(OUT, encoding='utf-8')).get('videos') or []
+    except (OSError, ValueError):
+        old = []
+    bad = {c[0] for c in CHANNELS if c[1] in failed}
+    for v in old:  # a channel that failed this time keeps its videos from the last run while they are recent
+        if v.get('cid') in bad and (NOW - dt.datetime.fromisoformat(v['p'].replace('Z', '+00:00'))).total_seconds() < 48 * 3600:
+            got.append(v)
     seen, out = set(), []
     for v in sorted(got, key=lambda v: v['p'], reverse=True):
         if v['v'] not in seen:

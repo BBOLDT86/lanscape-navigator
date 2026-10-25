@@ -42,7 +42,7 @@ invented. Failed feeds are listed in the edition and shown in the page's footer.
 ## Desks
 
 U.S., World, Europe, Brazil, Politics, Business, Household, Home, Tech, Science, Health, Sports, Culture, Cars, Travel,
-Food and Long reads, plus two pages that are not feed desks: Reports and the Epstein files.
+Food and Long reads, plus four pages that are not feed desks: Reports, Pictures, Video and the Epstein files.
 Europe and Brazil have sources of their own; stories about either region from the general and world feeds also file
 there (`region()` in `run.py`), unless a stronger topic (a match, a market) claims them. World is everywhere else.
 
@@ -101,6 +101,26 @@ timeline, emails by year, the people who wrote most, and the 900 newest emails I
 excerpts and links to jmail.world and the source PDF. Emails Inbox Atlas files under sensitive categories, and
 duplicates, are left out. Run `python3 news/updater/files.py` again when Inbox Atlas's archive changes. The desk also
 lists the current edition's stories tagged Epstein.
+
+## Pictures and video (`media.py` -> `data/media.json`)
+
+Runs after the edition, with a four-minute limit that can't hold up the edition's commit.
+
+- **Pictures:** about half the stories arrive with a picture in their feed. For the leading stories and desks that
+  arrive without one, `media.py` reads the article page's own share image (`og:image`, the picture the outlet picks
+  for link previews). A share image the same outlet uses on two different stories is a logo and is dropped. Pictures
+  stay on the outlets' servers; the page asks a few image servers (NYT, BBC, Fox) for a larger size where the URL says
+  how, and falls back to the feed's picture.
+- **Video:** the public YouTube feeds of about 30 news channels (`CHANNELS`), the last two days of uploads. Each feed
+  is checked against the channel's own name, so a wrong id can't slip in; YouTube's feed answers 404 now and then for
+  real channels, so a failed channel is tried twice and keeps its videos from the last run. Each video is filed under
+  a desk with the edition's own classifier and tied to the story cluster whose headlines share its distinctive words.
+  Shorts are flagged. The page plays them in YouTube's privacy-enhanced embedded player (youtube-nocookie.com).
+- **Slideshows** are built in the page from the edition, so they follow the reader: the day in pictures (the leading
+  stories), For you (once the page has learned what you read), one per desk and per busy topic, today's video and
+  news shorts, and one per story from every outlet's picture. On a phone they play as stories (tap the right side for
+  the next, the left for the last, hold to pause, swipe down to close); on a computer as a wide gallery with a
+  filmstrip and the arrow keys. ⇆ switches either way.
 
 ## Elections
 

@@ -409,12 +409,170 @@ body.dopen{overflow:hidden}
 .fpeople a{text-decoration:none}.fpeople span{color:var(--ink-2);font-size:13px}.fpeople small{display:block;color:var(--ink-3);font-size:12.5px;line-height:1.4;margin-top:2px}
 .fm .mt a{font-weight:600;text-decoration:none;color:var(--brass-ink)}
 
+/* ---------- slideshow cards */
+.pstrip{margin-top:34px}
+.pstrip .sh{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:10px}
+.pstrip .sh a{font:600 14px var(--sans);text-decoration:none;color:var(--ink-2)}
+.scrow{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:2px 2px 10px;scrollbar-width:thin;overscroll-behavior-x:contain}
+.scrow .sc{flex:0 0 168px;scroll-snap-align:start}.scrow .sc.big{flex-basis:300px}
+.sc{display:block;border:0;padding:0;background:none;text-align:left;color:#fff;cursor:pointer;position:relative;border-radius:12px;overflow:hidden;isolation:isolate}
+.sci{display:block;aspect-ratio:3/4;background:#1d2b3e;position:relative}
+.sci img{width:100%;height:100%;object-fit:cover;transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+.sc:hover .sci img{transform:scale(1.045)}
+.sci.mosaic{display:grid;grid-template-columns:2fr 1fr;grid-template-rows:1fr 1fr 1fr;gap:2px}
+.sci.mosaic img:first-child{grid-row:1/4}
+.sc.big .sci{aspect-ratio:300/400}
+.sc::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,9,15,0) 38%,rgba(5,9,15,.86) 100%);pointer-events:none}
+.scx{position:absolute;left:0;right:0;bottom:0;z-index:1;padding:12px 13px 13px;display:flex;flex-direction:column;gap:2px}
+.sck{font:700 11px var(--sans);letter-spacing:.07em;text-transform:uppercase;color:#E3C47E}
+.sct{font:400 21px/1.08 var(--serif);text-wrap:balance}.sc.big .sct{font-size:30px}
+.scn{font:600 12.5px var(--sans);color:rgba(255,255,255,.78);margin-top:3px}
+.sc.vid .sci::before{content:'▶';position:absolute;z-index:2;top:10px;right:10px;width:30px;height:30px;border-radius:50%;background:rgba(5,9,15,.6);display:grid;place-items:center;font-size:12px;color:#fff}
+.scgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(176px,1fr));gap:14px;margin-top:12px}
+.phero{margin-top:18px}.phero .sc{width:100%}.phero .sc.big .sci{aspect-ratio:16/7}.phero .sc.big .sct{font-size:44px}
+.ssban{display:flex;gap:12px;flex-wrap:wrap;margin:0 0 14px}
+.ssban button{display:inline-flex;align-items:center;gap:10px;border:1px solid var(--rule);background:var(--raise);border-radius:999px;padding:5px 14px 5px 5px;font:600 14px var(--sans)}
+.ssban img{width:30px;height:30px;border-radius:50%;object-fit:cover;background:var(--shoal)}
+.ssban button:hover{border-color:var(--ink-3)}
+
+/* ---------- video desk */
+.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:22px 18px;margin-top:20px}
+.vgrid.shorts{grid-template-columns:repeat(auto-fill,minmax(165px,1fr))}
+.vrow{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 2px 10px;margin-top:10px;scrollbar-width:thin}
+.vrow .vc{flex:0 0 150px;scroll-snap-align:start}.vrow .vc h3{font-size:14px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.vrow .vc .mt span:nth-child(3),.vrow .vrel{display:none}
+.vc h3{margin:9px 0 2px;font:600 16.5px/1.3 var(--sans)}
+.vc h3 button{border:0;background:none;padding:0;text-align:left;font:inherit;color:inherit}
+.vc h3 button:hover{text-decoration:underline;text-underline-offset:3px}
+.vt{display:block;position:relative;width:100%;border:0;padding:0;border-radius:10px;overflow:hidden;aspect-ratio:16/9;background:#0b1320}
+.vc.short .vt{aspect-ratio:9/16}
+.vt img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
+.vt:hover img{transform:scale(1.04)}
+.pb{position:absolute;left:10px;bottom:10px;width:38px;height:38px;border-radius:50%;background:rgba(5,9,15,.72);color:#fff;display:grid;place-items:center;font-size:14px}
+.vs{position:absolute;top:8px;left:8px;background:#C2412D;color:#fff;font:700 11px var(--sans);border-radius:4px;padding:2px 6px;letter-spacing:.04em;text-transform:uppercase}
+.vrel{margin:4px 0 0;font-size:13.5px;color:var(--ink-2);line-height:1.4}.vrel a{color:var(--ink)}
+.dvid{margin:18px 0 6px}.dvid .vframe{border-radius:10px;overflow:hidden}
+.vframe{position:relative;aspect-ratio:16/9;width:100%;background:#000}
+.vframe img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.vframe iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.vplay{position:absolute;inset:0;margin:auto;width:76px;height:76px;border-radius:50%;border:0;background:rgba(255,255,255,.92);color:#0E1A2B;display:grid;place-items:center;font-size:26px;box-shadow:0 10px 40px rgba(0,0,0,.35);transition:transform .15s}
+.vplay span{margin-left:5px}.vplay:hover{transform:scale(1.07)}
+
+/* ---------- the viewer */
+body.ssopen{overflow:hidden}
+.ss{position:fixed;inset:0;z-index:35;background:#04070c;color:#fff;overflow:hidden;--cap:400px;-webkit-tap-highlight-color:transparent}
+.ss:focus{outline:none}
+.ss button{color:inherit}
+.ssstage{position:absolute;inset:0;touch-action:none;user-select:none;-webkit-user-select:none}
+.sl{position:absolute;inset:0;overflow:hidden}
+.slbg{position:absolute;inset:-60px;width:calc(100% + 120px);height:calc(100% + 120px);object-fit:cover;filter:blur(34px) brightness(.5) saturate(1.25);transform:scale(1.05)}
+.slmedia{position:absolute;display:flex;align-items:center;justify-content:center}
+.slim{max-width:100%;max-height:100%;object-fit:contain;animation:kb 9s ease-out both;box-shadow:0 18px 60px rgba(0,0,0,.45)}
+@keyframes kb{from{transform:scale(1)}to{transform:scale(1.06)}}
+.slcap{position:absolute;z-index:2}
+.slk{margin:0 0 6px;font:700 11.5px var(--sans);letter-spacing:.07em;text-transform:uppercase;color:#E3C47E}
+.slcap h2{margin:0 0 8px;font:400 31px/1.06 var(--serif);letter-spacing:-.005em;text-wrap:balance}
+.sld{margin:0 0 8px;font-size:15.5px;line-height:1.48;color:rgba(255,255,255,.86);display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+.slsrc{margin:0 0 12px;font:500 12.5px var(--sans);color:rgba(255,255,255,.62)}
+.slacts{display:flex;flex-wrap:wrap;gap:8px;margin:0}
+.ss .go{background:#fff;color:#0E1A2B;padding:10px 18px;font-size:15px}
+.ss .go:hover{background:#E3C47E}
+.ss .chip{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.35);color:#fff;backdrop-filter:blur(6px)}
+.ss .chip:hover{border-color:#fff}
+.sl.noimg .slmedia{display:none}
+.sl.noimg{background:linear-gradient(160deg,#15243B,#0b1424 60%,#2a2414)}
+.sl.end{background:linear-gradient(160deg,#15243B,#070c15)}
+.sl.end .slcap{inset:auto 0 0 0;top:auto}
+.ssnext{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:8px}
+.ssnext .sc .sci{aspect-ratio:4/3}.ssnext .sct{font-size:18px}
+.ssbars{position:absolute;z-index:5;display:flex;gap:3px;pointer-events:none}
+.ssbars i{flex:1;height:3px;border-radius:2px;background:rgba(255,255,255,.28);overflow:hidden}
+.ssbars b{display:block;height:100%;width:0;background:#fff}
+.ssbars i.done b{width:100%}
+.ssbars i.now b{animation:ssbar 6500ms linear forwards}
+.ss.many .ssbars{display:none}
+@keyframes ssbar{from{width:0}to{width:100%}}
+.sstop{position:absolute;z-index:6;display:flex;align-items:center;gap:6px}
+.ssh{flex:1;min-width:0;display:flex;flex-direction:column;line-height:1.2}
+.ssk{font:700 10.5px var(--sans);letter-spacing:.08em;text-transform:uppercase;color:#E3C47E}
+.sst{font:600 14.5px var(--sans);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ssc{font:600 12.5px var(--sans);color:rgba(255,255,255,.7);font-variant-numeric:tabular-nums;margin-right:4px;white-space:nowrap}
+.ssb{width:38px;height:38px;border-radius:50%;border:0;background:rgba(255,255,255,.12);display:grid;place-items:center;font:700 17px var(--sans);backdrop-filter:blur(8px)}
+.ssb:hover{background:rgba(255,255,255,.24)}
+.ssnav{position:absolute;z-index:4;top:50%;width:54px;height:54px;margin-top:-27px;border-radius:50%;border:0;background:rgba(255,255,255,.12);font:300 34px/1 var(--sans);display:none;place-items:center;padding-bottom:4px;backdrop-filter:blur(8px)}
+.ssnav:hover{background:rgba(255,255,255,.26)}.ssnav:disabled{opacity:0;pointer-events:none}
+.ssstrip{position:absolute;z-index:4;left:0;right:0;bottom:0;display:none;gap:8px;overflow-x:auto;padding:12px 22px 16px;scrollbar-width:none}
+.ssstrip::-webkit-scrollbar{display:none}
+.ssstrip button{flex:0 0 96px;height:60px;border-radius:6px;overflow:hidden;border:0;padding:0;opacity:.45;position:relative;background:#1d2b3e;transition:opacity .15s}
+.ssstrip button.on{opacity:1;outline:2px solid #E3C47E;outline-offset:2px}.ssstrip button:hover{opacity:.85}
+.ssstrip img{width:100%;height:100%;object-fit:cover}
+.ssstrip span{position:absolute;inset:0;display:grid;place-items:center;font-size:13px;text-shadow:0 1px 4px #000}
+
+/* the story layout: a phone's whole screen, or a phone-shaped column on a big one */
+.ss.tall{--w:min(100vw,calc(100dvh * .5625))}
+.ss.tall .ssstage,.ss.tall .ssbars,.ss.tall .sstop{left:calc(50% - var(--w) / 2);width:var(--w)}
+.ss.tall .ssbars{top:calc(8px + env(safe-area-inset-top));padding:0 10px}
+.ss.tall .sstop{top:calc(18px + env(safe-area-inset-top));padding:0 10px 0 14px}
+.ss.tall .slmedia{left:0;right:0;top:calc(66px + env(safe-area-inset-top));height:52%}
+.ss.tall .slcap{left:0;right:0;bottom:0;padding:70px 18px calc(22px + env(safe-area-inset-bottom));background:linear-gradient(180deg,rgba(4,7,12,0),rgba(4,7,12,.82) 34%,rgba(4,7,12,.94))}
+.ss.tall .sl.noimg .slcap,.ss.tall .sl.end .slcap{top:0;display:flex;flex-direction:column;justify-content:center;background:none}
+.ss.tall .sl.noimg h2{font-size:40px}
+.ss.tall .sl.video .slmedia{top:calc(66px + env(safe-area-inset-top));height:auto;left:10px;right:10px}
+.ss.tall .sl.video.short .slmedia{left:0;right:0;top:0;bottom:0;height:auto;padding:58px 0 0}
+.ss.tall .sl.video.short .vframe{aspect-ratio:9/16;height:100%;width:auto;max-width:100%}
+.ss.tall .sl.video.short .slcap{padding-top:40px}
+.ss.tall .sl.video.short .sld{display:none}
+.ss.tall .vframe{border-radius:10px;overflow:hidden}
+
+/* the wide layout: the picture large, the words beside it, a filmstrip below */
+.ss.wide .ssbars{top:62px;left:0;right:0;padding:0 22px;gap:2px}
+.ss.wide .ssbars i{height:2px}
+.ss.wide .sstop{top:12px;left:22px;right:16px}
+.ss.wide .sst{font:400 22px var(--serif)}
+.ss.wide .ssstage{top:72px;bottom:92px}
+.ss.wide .slmedia{left:0;top:0;bottom:0;right:var(--cap);padding:18px 84px}
+.ss.wide .slmedia img.slim{border-radius:3px}
+.ss.wide .slcap{top:0;bottom:0;right:0;width:var(--cap);padding:0 44px 0 6px;display:flex;flex-direction:column;justify-content:center}
+.ss.wide .slcap h2{font-size:40px}
+.ss.wide .sld{-webkit-line-clamp:8;font-size:16.5px}
+.ss.wide .sl.video .vframe{max-height:100%;width:100%;max-width:calc((100vh - 200px) * 16 / 9)}
+.ss.wide .sl.video.short .vframe{aspect-ratio:9/16;height:100%;width:auto}
+.ss.wide .sl.noimg .slcap,.ss.wide .sl.end .slcap{left:0;right:0;width:auto;max-width:760px;margin:0 auto;padding:0 32px}
+.ss.wide .sl.noimg .slcap h2{font-size:56px}
+.ss.wide .ssnav{display:grid}
+.ss.wide .ssnav.prev{left:18px}.ss.wide .ssnav.next{right:calc(var(--cap) + 14px)}
+.ss.wide .ssstrip{display:flex}
+.ss.wide .ssnext{grid-template-columns:repeat(4,minmax(0,1fr))}
+
+/* fast transitions */
+.sl.in-next{animation:slInN .22s cubic-bezier(.2,.8,.2,1) both}
+.sl.in-prev{animation:slInP .22s cubic-bezier(.2,.8,.2,1) both}
+.sl.out-next{animation:slOutN .2s ease-in both;pointer-events:none}
+.sl.out-prev{animation:slOutP .2s ease-in both;pointer-events:none}
+@keyframes slInN{from{opacity:0;transform:translateX(8%) scale(1.02)}to{opacity:1;transform:none}}
+@keyframes slInP{from{opacity:0;transform:translateX(-8%) scale(1.02)}to{opacity:1;transform:none}}
+@keyframes slOutN{to{opacity:0;transform:translateX(-6%) scale(.98)}}
+@keyframes slOutP{to{opacity:0;transform:translateX(6%) scale(.98)}}
+.sl.cur .slcap>*{animation:capIn .34s cubic-bezier(.2,.8,.2,1) both}
+.sl.cur .slcap>:nth-child(2){animation-delay:.04s}.sl.cur .slcap>:nth-child(3){animation-delay:.08s}.sl.cur .slcap>:nth-child(n+4){animation-delay:.12s}
+@keyframes capIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.ss.wide.paused .ssbars{opacity:.35}
+@media (prefers-reduced-motion:reduce){
+  .slim,.sl.cur .slcap>*{animation:none}
+  .sl.in-next,.sl.in-prev{animation:fadeIn .12s both}.sl.out-next,.sl.out-prev{animation:fadeOut .12s both}
+}
+@keyframes fadeIn{from{opacity:0}}@keyframes fadeOut{to{opacity:0}}
+@media (max-width:1080px){.ss.wide{--cap:340px}.ss.wide .slmedia{padding:14px 70px}.ss.wide .slcap h2{font-size:32px}}
+
 /* ---------- smaller screens */
 @media (max-width:1080px){
   .shelves{grid-template-columns:repeat(2,minmax(0,1fr))}
   .search input{width:190px}
 }
 @media (max-width:820px){
+  .scgrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.scgrid .sct{font-size:18px}
+  .phero .sc.big .sci{aspect-ratio:4/3}.phero .sc.big .sct{font-size:32px}
+  .vgrid{grid-template-columns:1fr}.vgrid.shorts{grid-template-columns:repeat(2,minmax(0,1fr))}
   .art h1{font-size:38px}.art .adek{font-size:20px}.abody{font-size:17.5px}.abody h2{font-size:26px}
   .rep .rt{font-size:26px}.rep.big .rt{font-size:30px}.rep.big{padding:18px 18px 20px}
   #hq{font-size:18px;padding:13px 14px}
@@ -531,7 +689,7 @@ try { const s = sessionStorage.getItem('watch.prev'); prevLast = s != null ? +s 
 P.last = Math.floor(Date.now() / 60000); save();
 
 const W = { // how much each thing you do counts, by section, outlet and topic
-  peek: [0.6, 0.35, 0.8], open: [1.5, 1.2, 1.6], dwell: [1.0, 0.8, 1.3], more: [1.6, 0.4, 3.2], less: [-1.2, -0.3, -3.2] };
+  peek: [0.6, 0.35, 0.8], view: [0.3, 0.12, 0.4], open: [1.5, 1.2, 1.6], dwell: [1.0, 0.8, 1.3], more: [1.6, 0.4, 3.2], less: [-1.2, -0.3, -3.2] };
 const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
 function learn(it, kind) {
   if (!it) return;
@@ -764,6 +922,8 @@ function parseHash() {
   if (a === 'reports') return { t: 'reports' };
   if (a === 'a' && b) return { t: 'article', id: b };
   if (a === 'files') return { t: 'files' };
+  if (a === 'pictures') return { t: 'pictures', show: b || '' };
+  if (a === 'video') return { t: 'video' };
   return { t: 'home' };
 }
 function go(hash) { if (location.hash !== hash) location.hash = hash; else render(); }
@@ -780,7 +940,7 @@ function storyRow(it, o = {}) {
 }
 
 function renderBar() {
-  const items = [['home', '', 'Front'], ['you', 'for-you', 'For you'], ['reports', 'reports', 'Reports'], ...E.sections.map(s => ['desk:' + s.k, 's/' + s.k, s.name]), ['files', 'files', 'Epstein files']];
+  const items = [['home', '', 'Front'], ['you', 'for-you', 'For you'], ['reports', 'reports', 'Reports'], ['pictures', 'pictures', 'Pictures'], ['video', 'video', 'Video'], ...E.sections.map(s => ['desk:' + s.k, 's/' + s.k, s.name]), ['files', 'files', 'Epstein files']];
   const cur = view.t === 'desk' ? 'desk:' + view.k : view.t === 'article' ? 'reports' : view.t;
   $('#bar').innerHTML = items.map(([id, h, label]) =>
     `<button type="button" data-go="#/${h}"${id === cur ? ' aria-current="page"' : ''}${id === 'you' ? ' class="you"' : ''}>${esc(label)}</button>`).join('');
@@ -810,7 +970,7 @@ function renderFoot() {
     <h4>How The Watch works</h4>
     <p>The Watch comes out six times a day, once for each of a ship’s watches, Eastern time: the Middle Watch at midnight, Morning at 4 a.m., Forenoon at 8 a.m., Afternoon at noon, the Dog Watch at 4 p.m. and the First Watch at 8 p.m. Each edition reads ${f.total || 'about 120'} public news feeds, groups stories that several outlets are covering, and ranks them by how widely and how recently they’re covered.</p>
     <p>The “For you” picks learn from what you open, how long you stay with it, what you search for, and what you tell it with More or Less like this. That record stays in this browser; nothing about your reading leaves it. Open Your compass to see or change it.</p>
-    <p>Headlines and summaries belong to their outlets, and every story links to the original. Market prices and charts come from CNBC; economic numbers from the BLS, BEA and EIA (through DBnomics), the New York Fed, Freddie Mac and the University of Michigan; calendars from Nasdaq. They are a snapshot at each edition, not a live feed. Home values and rents come from Zillow’s public research data. Election numbers are read live from the Election Desk and the Brazil desk on this site, and the Epstein files from Inbox Atlas.</p>
+    <p>Headlines and summaries belong to their outlets, and every story links to the original. Market prices and charts come from CNBC; economic numbers from the BLS, BEA and EIA (through DBnomics), the New York Fed, Freddie Mac and the University of Michigan; calendars from Nasdaq. They are a snapshot at each edition, not a live feed. Home values and rents come from Zillow’s public research data. Slideshow pictures stay on the outlets’ sites, and videos play in YouTube’s player from news channels’ public uploads. Election numbers are read live from the Election Desk and the Brazil desk on this site, and the Epstein files from Inbox Atlas.</p>
     <p>Reports are written by Claude, an AI model made by Anthropic, one a day. Each is signed with the model that wrote it and the time it was written, and cites the reporting it draws on.</p></div>
     <div><h4>This edition</h4>
     <p>${(f.read != null ? `Read ${f.read} of ${f.total} sources at ${esc(clock(E.at))}.` : '')} ${E.items.length.toLocaleString()} stories, ${E.clusters.filter(c => c.n >= 3).length} covered by three or more outlets.</p>
@@ -863,6 +1023,7 @@ function renderHome() {
     <div class="wrap front">${leadHTML}
       <div class="toplist"><h2>Top stories</h2><ol>${rest.map(it => `<li>${storyRow(it, { img: false })}</li>`).join('')}</ol></div>
     </div>
+    ${picturesStrip()}
     ${viewingArchive ? '' : frontReport()}
     ${viewingArchive ? '' : frontElections()}
     <section class="bearing"><div class="wrap">
@@ -896,7 +1057,7 @@ function renderDesk(k) {
   list.sort(deskSort === 'new' ? (a, b) => b.p - a.p : (a, b) => b.s - a.s);
   listPage(secName(k), `${list.length} stories`, list.map(x => ({ it: x.it })),
     { controls: `<div class="seg" role="group" aria-label="Sort"><button type="button" data-sort="you" aria-pressed="${deskSort === 'you'}">Best for you</button><button type="button" data-sort="new" aria-pressed="${deskSort === 'new'}">Latest</button></div>`,
-      top: k === 'politics' ? electionsHTML(true) : k === 'brazil' ? electionsHTML(true, 'br') : '' });
+      top: (k === 'politics' ? electionsHTML(true) : k === 'brazil' ? electionsHTML(true, 'br') : '') + deskBanner(k) });
 }
 let elxBusy = null;
 function ensureElections(full) { // fetch the desks' data, then redraw once it arrives
@@ -942,6 +1103,8 @@ function render(keepScroll) {
   else if (view.t === 'reports') renderReports();
   else if (view.t === 'article') renderArticle(view.id);
   else if (view.t === 'files') renderFiles();
+  else if (view.t === 'pictures') { renderPictures(); if (view.show && !SS.el && deepShow !== location.hash) { deepShow = location.hash; openShow(view.show); } }
+  else if (view.t === 'video') renderVideo();
   renderFoot();
   watchImpressions();
   if (!keepScroll) window.scrollTo(0, 0);
@@ -1344,14 +1507,16 @@ function openDrawer(html, label) {
   const d = $('#drawer');
   d.innerHTML = `<div class="dr"><div class="close"><button type="button" data-close aria-label="Close"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>${html}</div>`;
   d.setAttribute('aria-label', label || 'Story');
-  if (!document.body.classList.contains('dopen')) { document.body.classList.add('dopen'); history.pushState({ sx: 'drawer' }, ''); }
+  if (!document.body.classList.contains('dopen')) { document.body.classList.add('dopen'); history.pushState({ sx: 'drawer' }, ''); if (SS.el) ssPause(true); }
   d.scrollTop = 0;
   setTimeout(() => d.focus({ preventScroll: true }), 30);
 }
 function closeDrawer(fromPop) {
   if (!document.body.classList.contains('dopen')) return;
   document.body.classList.remove('dopen');
-  if (!fromPop && history.state && history.state.sx === 'drawer') history.back();
+  if (!fromPop && history.state && history.state.sx === 'drawer') { skipPop = true; history.back(); }
+  if (SS.el) ssPause(false);
+  $$('#drawer iframe').forEach(f => f.remove());
   // keep the page still under the reader: mark what was read; new picks take effect on the next view
   for (const id of Object.keys(P.read)) $$(`#main [data-id="${id}"]`).forEach(el => el.classList.add('read'));
   drawerFor = null;
@@ -1370,7 +1535,8 @@ function storyDrawer(it) {
       .filter(r => r.s > 0).sort((a, b) => b.s - a.s).slice(0, 5).map(r => r.x);
   })();
   openDrawer(`
-    ${it.m ? `<img class="hero" src="${esc(it.m)}" alt="" referrerpolicy="no-referrer" onerror="this.remove()">` : ''}
+    ${picOf(it) ? `<img class="hero" src="${esc(picOf(it))}" alt="" referrerpolicy="no-referrer" onerror="this.remove()">` : ''}
+    ${(() => { const g = getShow('story-' + it.i); return g && g.slides.length >= 2 ? `<p class="ssban" style="margin:12px 0 0"><button type="button" data-show="story-${it.i}"><img src="${esc(coverImg(g))}" alt="" referrerpolicy="no-referrer">${g.slides.filter(x => x.kind === 'story').length > 1 ? `Pictures from ${g.slides.filter(x => x.kind === 'story').length} outlets` : 'Pictures and video'}${g.slides.some(x => x.kind === 'video') ? ` · ${g.slides.filter(x => x.kind === 'video').length} video${g.slides.filter(x => x.kind === 'video').length > 1 ? 's' : ''}` : ''}</button></p>` : ''; })()}
     <p class="src"><b>${esc(outlet(it.o))}</b><span>${esc(clock(new Date(it.p * 60000).toISOString()))}, ${ago(it.p).toLowerCase()}</span><span>${esc(secName(it.c))}</span></p>
     <h2 id="drTitle">${esc(it.t)}</h2>
     ${it.d ? `<p class="sn">${esc(it.d)}</p>` : ''}
@@ -1381,6 +1547,7 @@ function storyDrawer(it) {
       <button type="button" data-less="${it.i}">Less like this</button>
       <button type="button" data-hide="${esc(it.o)}">Hide ${esc(outlet(it.o))}</button>
     </div>
+    ${(() => { const vs = vidsFor(c); return vs.length ? `<h3 class="lbl">Watch</h3>${vs.slice(0, 2).map(v => `<div class="dvid"><div class="vframe" data-v="${esc(v.v)}"><img src="${esc(ytThumb(v.v))}" alt="" referrerpolicy="no-referrer"><button type="button" class="vplay" data-dplay="${esc(v.v)}" aria-label="Play video: ${esc(v.t)}"><span>▶</span></button></div><p class="m" style="margin:6px 0 0;font-size:14px"><b>${esc(v.ch)}</b> · ${esc(v.t)} · ${ago(vidMin(v))}</p></div>`).join('')}` : ''; })()}
     ${members.length ? `<h3 class="lbl">How ${c.n} outlets are covering it</h3><ul class="cov">${members.slice(0, 24).map(m => `<li><a href="${esc(m.u)}" target="_blank" rel="noopener" data-out="${m.i}">${esc(m.t)}</a>
       <span class="m"><b>${esc(outlet(m.o))}</b> ${ago(m.p)}</span>${m.d ? `<span class="sn2">${esc(m.d)}</span>` : ''}</li>`).join('')}</ul>` : ''}
     ${tags.length ? `<h3 class="lbl">In this story</h3><div class="tags">${tags.map(k => `<a class="chip" href="#/t/${encodeURIComponent(k)}" data-topic="${esc(k)}">${esc(kwLabel(k))}${P.follow[k] ? ' <span class="x">following</span>' : ''}</a>`).join('')}</div>` : ''}
@@ -1522,6 +1689,11 @@ document.addEventListener('click', e => {
   if (ds.topic) { e.preventDefault(); bump(P.kw, ds.topic, 0.5); if (document.body.classList.contains('dopen')) { document.body.classList.remove('dopen'); drawerFor = null; history.replaceState(null, ''); } go('#/t/' + encodeURIComponent(ds.topic)); return; }
   if (ds.seed) { const k = ds.seed; const on = (P.sec[k] || 0) > 0; P.sec[k] = on ? 0 : 3; P.n += on ? -1 : 1; save(); render(true); return; }
   if (ds.sort) { deskSort = ds.sort; render(true); return; }
+  if (ds.show) { e.preventDefault(); if (document.body.classList.contains('dopen')) closeDrawer(); if (SS.el && SS.show && SS.show.id !== ds.show) { ssHalt(); SS.el.remove(); SS.el = null; } openShow(ds.show, ds.at); return; }
+  if (ds.ss) { e.preventDefault(); ssAction(ds.ss); return; }
+  if (ds.ssgo != null) { ssShow(+ds.ssgo, +ds.ssgo > SS.i ? 1 : -1); return; }
+  if (ds.vf) { vidFilter = ds.vf; pageLimit = 40; render(true); return; }
+  if (ds.dplay) { const f = a.closest('.vframe'); if (f) f.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${encodeURIComponent(ds.dplay)}?autoplay=1&playsinline=1&rel=0&modestbranding=1" title="Video" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>`; return; }
   if (ds.cite || (a.tagName === 'A' && /^#src-\d+$/.test(a.getAttribute('href') || ''))) { e.preventDefault(); const t = document.getElementById((a.getAttribute('href') || '').slice(1)); if (t) { t.scrollIntoView({ behavior: 'smooth', block: 'center' }); t.classList.add('hit'); setTimeout(() => t.classList.remove('hit'), 1600); } return; }
   if (ds.hq) { homeQ = ds.hq; const i = $('#hq'); if (i) { i.value = homeQ; const f2 = parseHomeQuery(homeQ); $('#hres').innerHTML = searchCard(homeQ, f2, { isSaved: isSavedF(f2) }); } return; }
   if (ds.savehome) { // keep it here until the updater has it
@@ -1548,7 +1720,12 @@ document.addEventListener('keydown', e => {
   if (e.key === '/' && !/INPUT|TEXTAREA/.test(document.activeElement.tagName)) { e.preventDefault(); $('#q').focus(); }
 });
 $('#scrim').addEventListener('click', () => closeDrawer());
-window.addEventListener('popstate', () => { if (document.body.classList.contains('dopen')) closeDrawer(true); });
+let skipPop = false, deepShow = '';
+window.addEventListener('popstate', () => {
+  if (skipPop) { skipPop = false; return; } // our own history.back() after a close
+  if (document.body.classList.contains('dopen')) closeDrawer(true);
+  else if (SS.el) closeShow(true);
+});
 window.addEventListener('hashchange', () => { pageLimit = 40; render(); });
 function refreshDrawer() {
   if (!document.body.classList.contains('dopen')) return;
@@ -1864,6 +2041,332 @@ function mailRows(list) {
     <p class="sn">${esc(m.x)}</p>${m.n ? `<p class="why">${esc(m.n)}</p>` : ''}
     <p class="mt"><span class="ou">${esc(m.a || 'Unknown sender')}</span><span>${esc(m.t ? m.t.slice(0, 10) : 'undated')}</span><span>${esc(m.c)}</span><a href="${esc(m.u)}" target="_blank" rel="noopener">jmail.world</a>${m.su ? `<a href="${esc(m.su)}" target="_blank" rel="noopener">Source PDF</a>` : ''}</p></div></article>`).join('') + (list.length > mailN ? `<button type="button" class="loadmore" id="mailMore">Show ${Math.min(40, list.length - mailN)} more of ${list.length}</button>` : `<p class="endnote">Search all ${fnum(FILES.counts.emails, 0)} emails, the text logs and the documents in <a href="../inbox-atlas/">Inbox Atlas</a>.</p>`);
 }
+/* ================= pictures and video: slideshows built from the edition (news/data/media.json adds pictures and videos) ================= */
+let MEDIA = null;
+const picOf = it => (it && (it.m || (MEDIA && MEDIA.img && MEDIA.img[it.i]))) || null;
+function bigImg(u) { // ask the outlet's image server for a larger size where its URL says how
+  if (!u) return u;
+  if (/static01\.nyt\.com/.test(u)) return u.replace(/-(mediumSquareAt3X|thumbStandard|thumbLarge|moth|articleLarge|articleInline|jumbo|threeByTwoMediumAt2X|videoSixteenByNine\w*)\.(jpg|png|webp)/, '-superJumbo.$2');
+  if (/ichef\.bbci\.co\.uk/.test(u)) return u.replace(/\/standard\/\d+\//, '/standard/976/');
+  if (/a57\.foxnews\.com/.test(u)) return u.replace(/\/\d{2,4}\/\d{2,4}\/([^/]+)$/, '/1280/720/$1');
+  return u;
+}
+const ytThumb = (v, q) => `https://i.ytimg.com/vi/${encodeURIComponent(v)}/${q || 'hqdefault'}.jpg`;
+const vidMin = v => Math.floor(Date.parse(v.p) / 60000);
+const VIDS = () => ((MEDIA && MEDIA.videos) || []).filter(v => !P.mute.kw['#video-' + v.ch]);
+const vidsFor = c => c ? VIDS().filter(v => v.g === c.id) : [];
+
+function withPic(it) { // a story, or the version of a shared story that has a picture
+  if (!it) return null;
+  if (picOf(it)) return it;
+  const c = clusterOf(it); if (!c) return null;
+  for (const id of c.ids) { const x = byId.get(id); if (x && picOf(x) && !muted(x)) return x; }
+  return null;
+}
+function storySlides(list, max) {
+  const out = [], seen = new Set();
+  for (const it0 of list) {
+    if (out.length >= max) break;
+    const it = withPic(it0); if (!it || muted(it)) continue;
+    const k = unitKey(it); if (seen.has(k)) continue; seen.add(k);
+    const c = clusterOf(it), vs = vidsFor(c);
+    out.push({ kind: 'story', it, img: bigImg(picOf(it)), orig: picOf(it), vid: vs[0] || null });
+  }
+  return out;
+}
+const vidSlides = list => list.map(v => ({ kind: 'video', v }));
+let SHOWS = null, showsFor = '';
+function allShows() {
+  const key = E.id + '|' + (MEDIA ? MEDIA.at : '') + '|' + P.n;
+  if (SHOWS && showsFor === key) return SHOWS;
+  const shows = [];
+  const w = (WATCHES.find(x => x[0] === E.watch) || WATCHES[0])[1];
+  const top = E.top.map(id => E.clusters[id]).filter(Boolean).map(c => rep(c));
+  const byCover = units().filter(it => withPic(it)).sort((a, b) => ((clusterOf(b) || { n: 1 }).n - (clusterOf(a) || { n: 1 }).n) || b.p - a.p);
+  shows.push({ id: 'day', title: 'The day in pictures', kicker: `The ${w}`, slides: storySlides([...top, ...byCover], 16) });
+  if (warmProfile()) shows.push({ id: 'you', title: 'For you, in pictures', kicker: 'Picked from what you read', slides: storySlides(forYou(80).map(x => x.it), 14) });
+  for (const k of deskOrder()) {
+    const list = deskUnits(k).map(it => ({ it, s: score(it) })).filter(x => x.s > 0).sort((a, b) => b.s - a.s).map(x => x.it);
+    const sl = storySlides(list, 14);
+    if (sl.length >= 5) shows.push({ id: 'desk-' + k, desk: k, title: `${secName(k)} in pictures`, kicker: secName(k), slides: sl });
+  }
+  const tc = {};
+  for (const it of units()) for (const k of (it.k || []).slice(0, 4)) if (withPic(it)) tc[k] = (tc[k] || 0) + 1;
+  Object.entries(tc).filter(([k, n]) => n >= 6 && !P.mute.kw[k]).sort((a, b) => b[1] - a[1]).slice(0, 4).forEach(([k]) => {
+    const sl = storySlides(units(it => (it.k || []).includes(k)).sort((a, b) => b.p - a.p), 14);
+    if (sl.length >= 5) shows.push({ id: 'topic-' + k, topic: k, title: kwLabel(k), kicker: 'In pictures', slides: sl });
+  });
+  const vids = VIDS();
+  if (vids.length) {
+    const long = vids.filter(v => !v.s), shorts = vids.filter(v => v.s);
+    const ranked = long.map(v => ({ v, s: (v.g != null ? 3 + (E.clusters[v.g] ? E.clusters[v.g].n / 4 : 0) : 0) + Math.max(0, (P.sec[v.c] || 0)) / 6 - (refMin() - vidMin(v)) / 720 })).sort((a, b) => b.s - a.s).map(x => x.v);
+    if (ranked.length) shows.push({ id: 'video', title: 'Today’s video', kicker: 'Watch', video: true, slides: vidSlides(ranked.slice(0, 24)) });
+    if (shorts.length >= 3) shows.push({ id: 'shorts', title: 'News shorts', kicker: 'Vertical video', video: true, tall: true, slides: vidSlides(shorts.slice(0, 30)) });
+  }
+  SHOWS = shows.filter(s => s.slides.length); showsFor = key;
+  return SHOWS;
+}
+function getShow(id) {
+  const s = allShows().find(x => x.id === id);
+  if (s) return s;
+  if (id.startsWith('vids-')) { // a list of videos from the video desk: vids-<desk|all|shorts>[~s|~l] (~s shorts only, ~l the rest)
+    const [f, kind] = id.slice(5).split('~');
+    const list = vidList(f, kind);
+    const tall = f === 'shorts' || kind === 's';
+    return list.length ? { id, title: f === 'all' ? (tall ? 'News shorts' : 'Video') : f === 'shorts' ? 'News shorts' : `${secName(f)} ${tall ? 'shorts' : 'video'}`, kicker: 'Watch', video: true, tall, slides: vidSlides(list) } : null;
+  }
+  if (id.startsWith('story-')) { // one story's pictures and video, from every outlet covering it
+    const it = byId.get(id.slice(6)), c = clusterOf(it);
+    if (!it) return null;
+    const members = c ? c.ids.map(x => byId.get(x)).filter(x => x && picOf(x) && !muted(x)) : (picOf(it) ? [it] : []);
+    const seenImg = new Set();
+    const sl = members.filter(x => { const u = picOf(x); if (seenImg.has(u)) return false; seenImg.add(u); return true; })
+      .map(x => ({ kind: 'story', it: x, img: bigImg(picOf(x)), orig: picOf(x), vid: null }));
+    return { id, title: it.t, kicker: 'This story', slides: [...sl, ...vidSlides(vidsFor(c))] };
+  }
+  return null;
+}
+function coverImg(s) {
+  const f = s.slides[0];
+  return f.kind === 'video' ? ytThumb(f.v.v) : f.img;
+}
+function showCard(s, big) {
+  const n = s.slides.length;
+  const imgs = s.slides.slice(0, big ? 4 : 1).map(sl => sl.kind === 'video' ? ytThumb(sl.v.v) : sl.img);
+  return `<button type="button" class="sc${big ? ' big' : ''}${s.video ? ' vid' : ''}" data-show="${esc(s.id)}" aria-label="${esc(s.title)}, ${n} ${s.video ? 'videos' : 'pictures'}">
+    <span class="sci${big && imgs.length >= 4 ? ' mosaic' : ''}">${imgs.map((u, i) => `<img src="${esc(u)}" data-orig="${esc(s.slides[i].orig || '')}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="if(this.dataset.orig&&this.src!==this.dataset.orig){this.src=this.dataset.orig}else{this.style.visibility='hidden'}">`).join('')}</span>
+    <span class="scx"><span class="sck">${esc(s.kicker || '')}</span><span class="sct">${esc(s.title)}</span><span class="scn">${s.video ? '<b>▶</b> ' : ''}${n} ${s.video ? (n === 1 ? 'video' : 'videos') : 'pictures'}</span></span></button>`;
+}
+function picturesStrip() {
+  const shows = allShows();
+  if (!shows.length) return '';
+  const order = [...shows.filter(s => s.id === 'day' || s.id === 'you' || s.id === 'video' || s.id === 'shorts'), ...shows.filter(s => s.desk && (P.sec[s.desk] || 0) > 0).slice(0, 3), ...shows.filter(s => s.topic).slice(0, 2), ...shows.filter(s => s.desk)];
+  const seen = new Set(), list = order.filter(s => !seen.has(s.id) && seen.add(s.id)).slice(0, 9);
+  return `<section class="wrap pstrip"><div class="sh"><h2 class="sec-h">In pictures and video</h2><a href="#/pictures">All slideshows</a></div>
+    <div class="scrow">${list.map((s, i) => showCard(s, i === 0)).join('')}</div></section>`;
+}
+function renderPictures() {
+  const shows = allShows();
+  const day = shows.find(s => s.id === 'day');
+  const rest = shows.filter(s => s !== day);
+  $('#main').innerHTML = `<div class="wrap mk"><div class="page-h"><h1>Pictures</h1><p>Slideshows of this watch’s stories, rebuilt every edition: each slide is a story, its picture and its outlet. On a phone they play as stories (tap or swipe); on a computer as a wide gallery (arrow keys). Switch either way with <b>⇆</b> in the viewer.</p></div>
+    ${day ? `<div class="phero">${showCard(day, true)}</div>` : '<p class="endnote">No pictures in this watch yet.</p>'}
+    ${rest.filter(s => s.video).length ? `<h2 class="sec-h" style="margin-top:34px">Video</h2><div class="scgrid">${rest.filter(s => s.video).map(s => showCard(s)).join('')}</div>` : ''}
+    ${rest.filter(s => !s.video).length ? `<h2 class="sec-h" style="margin-top:34px">By desk and topic</h2><div class="scgrid">${rest.filter(s => !s.video).map(s => showCard(s)).join('')}</div>` : ''}
+    <p class="note" style="margin-top:26px">Pictures belong to the outlets that published them and stay on their sites; every slide links to its story.${MEDIA && MEDIA.videos && MEDIA.videos.length ? ' Videos play in YouTube’s own player from the news channels’ public uploads.' : ''}</p>
+  </div>`;
+}
+let vidFilter = 'all';
+const vidList = (f, kind) => VIDS().filter(v => (f === 'all' || (f === 'shorts' ? v.s : v.c === f)) && (kind === 's' ? v.s : kind === 'l' ? !v.s : true)).sort((a, b) => vidMin(b) - vidMin(a));
+function videoCard(v, i, fid) {
+  const c = v.g != null ? E.clusters[v.g] : null, lead = c ? byId.get(c.lead) : null;
+  return `<article class="vc${v.s ? ' short' : ''}"><button type="button" class="vt" data-show="vids-${esc(fid)}" data-at="${i}" aria-label="Play: ${esc(v.t)}">
+      <img src="${esc(ytThumb(v.v, v.s ? 'hq720' : 'mqdefault'))}" data-orig="${esc(ytThumb(v.v))}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="if(this.src!==this.dataset.orig){this.src=this.dataset.orig}">
+      <span class="pb" aria-hidden="true">▶</span>${v.s ? '<span class="vs">Short</span>' : ''}</button>
+    <h3><button type="button" data-show="vids-${esc(fid)}" data-at="${i}">${esc(v.t)}</button></h3>
+    <p class="mt"><span class="ou">${esc(v.ch)}</span><span>${ago(vidMin(v))}</span><span>${esc(secName(v.c))}</span></p>
+    ${lead ? `<p class="vrel">Related story: <a href="${esc(lead.u)}" data-open="${lead.i}">${esc(lead.t)}</a></p>` : ''}</article>`;
+}
+function renderVideo() {
+  const all = VIDS();
+  if (!MEDIA) { $('#main').innerHTML = `<div class="wrap state"><h2>Loading video…</h2></div>`; return; }
+  const desks = [...new Set(all.map(v => v.c))].sort((a, b) => all.filter(v => v.c === b).length - all.filter(v => v.c === a).length);
+  if (vidFilter !== 'all' && vidFilter !== 'shorts' && !desks.includes(vidFilter)) vidFilter = 'all';
+  const shortsOnly = vidFilter === 'shorts';
+  const longs = shortsOnly ? vidList('shorts') : vidList(vidFilter, 'l'), shorts = shortsOnly ? [] : vidList(vidFilter, 's');
+  const fid = shortsOnly ? 'shorts' : vidFilter + '~l';
+  const ch = MEDIA.channels || {};
+  $('#main').innerHTML = `<div class="wrap mk"><div class="page-h"><h1>Video</h1><p>The last two days from ${ch.read || 'the'} news channels, newest first, filed by desk and tied to the story they cover. Tap one to watch; swipe or use the arrows for the next.</p></div>
+    <div class="tags" role="group" aria-label="Show">${[['all', 'All'], ...(all.some(v => v.s) ? [['shorts', 'Shorts']] : []), ...desks.map(k => [k, secName(k)])].map(([k, l]) => `<button type="button" class="chip" data-vf="${esc(k)}" aria-pressed="${vidFilter === k}">${esc(l)} <span class="x">${k === 'all' ? all.length : k === 'shorts' ? all.filter(v => v.s).length : all.filter(v => v.c === k).length}</span></button>`).join('')}</div>
+    ${shorts.length ? `<h2 class="sec-h" style="margin-top:26px">Shorts</h2><div class="vrow">${shorts.slice(0, 24).map((v, i) => videoCard(v, i, vidFilter + '~s')).join('')}</div>` : ''}
+    ${longs.length ? `${shorts.length ? '<h2 class="sec-h" style="margin-top:22px">Latest</h2>' : ''}<div class="vgrid${shortsOnly ? ' shorts' : ''}">${longs.slice(0, pageLimit + 20).map((v, i) => videoCard(v, i, fid)).join('')}</div>` : shorts.length ? '' : '<p class="endnote">No videos came in with this watch. They return with the next edition.</p>'}
+    ${longs.length > pageLimit + 20 ? `<button type="button" class="loadmore" id="more">Show more</button>` : ''}
+    <p class="note" style="margin-top:22px">Videos play in YouTube’s privacy-enhanced player (youtube-nocookie.com); the channels’ own settings apply, and a few can only be watched on YouTube.</p>
+  </div>`;
+}
+
+/* ---- the viewer ---- */
+const SS = { show: null, i: 0, el: null, playing: false, wide: false, left: 0, t0: 0, timer: 0, held: false, viewT: 0, autoVid: false };
+const SS_MS = 6500;
+function ssLayoutDefault(show) {
+  if (show && show.tall) return false; // vertical video plays in the story layout; ⇆ still switches
+  if (P.ssLayout === 'wide' || P.ssLayout === 'tall') return P.ssLayout === 'wide';
+  return innerWidth >= 900 && innerWidth > innerHeight * 1.05 && !(show && show.tall);
+}
+function openShow(id, at) {
+  const show = typeof id === 'string' ? getShow(id) : id;
+  if (!show || !show.slides.length) { toast('That slideshow is no longer in this watch.'); return; }
+  SS.show = show; SS.i = clamp(+at || 0, 0, show.slides.length - 1); SS.wide = ssLayoutDefault(show);
+  SS.playing = !SS.wide && !show.video; SS.held = false;
+  let el = $('#ss');
+  if (!el) { el = document.createElement('div'); el.id = 'ss'; document.body.appendChild(el); }
+  el.className = 'ss' + (SS.wide ? ' wide' : ' tall') + (show.slides.length > 30 ? ' many' : '');
+  el.setAttribute('role', 'dialog'); el.setAttribute('aria-modal', 'true'); el.setAttribute('aria-label', show.title); el.tabIndex = -1;
+  const n = show.slides.length;
+  el.innerHTML = `<div class="ssbars" aria-hidden="true">${show.slides.map(() => '<i><b></b></i>').join('')}</div>
+    <div class="sstop"><div class="ssh"><span class="ssk">${esc(show.kicker || '')}</span><span class="sst">${esc(show.title)}</span></div>
+      <span class="ssc" aria-live="polite"></span>
+      <button type="button" class="ssb" data-ss="play" aria-label="Play"></button>
+      <button type="button" class="ssb" data-ss="layout" aria-label="${SS.wide ? 'Story view' : 'Wide view'}" title="${SS.wide ? 'Story view' : 'Wide view'}">⇆</button>
+      <button type="button" class="ssb" data-ss="close" aria-label="Close slideshow"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+    <div class="ssstage"></div>
+    <button type="button" class="ssnav prev" data-ss="prev" aria-label="Previous">‹</button><button type="button" class="ssnav next" data-ss="next" aria-label="Next">›</button>
+    <div class="ssstrip">${show.slides.map((sl, i) => `<button type="button" data-ssgo="${i}" aria-label="Slide ${i + 1} of ${n}"><img src="${esc(sl.kind === 'video' ? ytThumb(sl.v.v, 'mqdefault') : sl.orig)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.visibility='hidden'">${sl.kind === 'video' ? '<span>▶</span>' : ''}</button>`).join('')}</div>`;
+  SS.el = el;
+  if (!document.body.classList.contains('ssopen')) { document.body.classList.add('ssopen'); history.pushState({ sx: 'ss' }, ''); }
+  SS.t0 = 0; clearTimeout(SS.timer);
+  ssBind(el);
+  ssShow(SS.i, 0);
+  setTimeout(() => el.focus({ preventScroll: true }), 20);
+}
+function closeShow(fromPop) {
+  if (!SS.el) return;
+  ssHalt(); ssCount();
+  SS.el.remove(); SS.el = null; SS.show = null;
+  document.body.classList.remove('ssopen');
+  if (!fromPop && history.state && history.state.sx === 'ss') { skipPop = true; history.back(); }
+}
+function ssCount() { // a slide you stayed on for a couple of seconds counts, lightly, toward your picks
+  const sl = SS.show && SS.show.slides[SS.i];
+  if (sl && sl.kind === 'story' && sl.it && SS.viewT && performance.now() - SS.viewT > 2500 && !counted.has('view' + sl.it.i)) { counted.add('view' + sl.it.i); learn(sl.it, 'view'); }
+  if (sl && sl.kind === 'video' && SS.viewT && performance.now() - SS.viewT > 4000 && !counted.has('vview' + sl.v.v)) { counted.add('vview' + sl.v.v); bump(P.sec, sl.v.c, 0.3); }
+  SS.viewT = 0;
+}
+function slideHTML(sl, i) {
+  const n = SS.show.slides.length;
+  if (sl.kind === 'video') {
+    const v = sl.v, c = v.g != null ? E.clusters[v.g] : null, lead = c ? byId.get(c.lead) : null;
+    return `<div class="sl video${v.s ? ' short' : ''}"><img class="slbg" src="${esc(ytThumb(v.v))}" alt="" referrerpolicy="no-referrer">
+      <div class="slmedia"><div class="vframe" data-v="${esc(v.v)}"><img src="${esc(ytThumb(v.v, v.s ? 'hq720' : 'maxresdefault'))}" data-orig="${esc(ytThumb(v.v))}" alt="" referrerpolicy="no-referrer" onerror="if(this.src!==this.dataset.orig){this.src=this.dataset.orig}">
+        <button type="button" class="vplay" data-ss="playvid" aria-label="Play video: ${esc(v.t)}"><span>▶</span></button></div></div>
+      <div class="slcap"><p class="slk">Video · ${esc(v.ch)} · ${ago(vidMin(v))}</p><h2>${esc(v.t)}</h2>${v.d ? `<p class="sld">${esc(v.d)}</p>` : ''}
+        <p class="slacts"><button type="button" class="go" data-ss="playvid">▶ Play</button><a class="chip" href="https://www.youtube.com/watch?v=${encodeURIComponent(v.v)}" target="_blank" rel="noopener">Watch on YouTube</a>${lead ? `<button type="button" class="chip" data-open="${lead.i}">The story${c.n > 1 ? `, ${c.n} outlets` : ''}</button>` : ''}</p></div></div>`;
+  }
+  const it = sl.it, c = clusterOf(it);
+  return `<div class="sl story"><img class="slbg" src="${esc(sl.orig)}" alt="" referrerpolicy="no-referrer">
+    <div class="slmedia"><img class="slim" src="${esc(sl.img)}" data-orig="${esc(sl.orig)}" alt="" referrerpolicy="no-referrer" onerror="ssImgErr(this)"></div>
+    <div class="slcap"><p class="slk">${esc(secName(it.c))}${c && c.n > 1 ? ` · ${c.n} outlets` : ''} · ${ago(it.p)}</p>
+      <h2>${esc(it.t)}</h2>${it.d ? `<p class="sld">${esc(it.d)}</p>` : ''}
+      <p class="slsrc">Picture and story: ${esc(outlet(it.o))}</p>
+      <p class="slacts"><a class="go" href="${esc(it.u)}" target="_blank" rel="noopener" data-out="${it.i}">Read it ${ICON_OUT}</a>${c && c.n > 1 ? `<button type="button" class="chip" data-open="${it.i}">Compare ${c.n} outlets</button>` : `<button type="button" class="chip" data-open="${it.i}">More</button>`}${sl.vid ? `<button type="button" class="chip" data-ss="vidof">▶ Watch</button>` : ''}</p></div></div>`;
+}
+window.ssImgErr = img => { // the larger size didn't exist: fall back to the feed's picture, then to type alone
+  if (img.dataset.orig && img.src !== img.dataset.orig) { img.src = img.dataset.orig; return; }
+  const sl = img.closest('.sl'); if (sl) sl.classList.add('noimg'); img.remove();
+};
+const stageHas = () => !!(SS.el && SS.el.querySelector('.ssstage .sl.cur'));
+function endHTML() {
+  const others = allShows().filter(s => s.id !== SS.show.id).slice(0, 4);
+  return `<div class="sl end"><div class="slcap"><p class="slk">${esc(SS.show.kicker || '')}</p><h2>That’s ${esc(SS.show.title.replace(/^The /, 'the '))}.</h2>
+    <p class="slacts"><button type="button" class="go" data-ssgo="0">Start again</button><button type="button" class="chip" data-ss="close">Back to the news</button></p>
+    ${others.length ? `<p class="slk" style="margin-top:26px">Up next</p><div class="ssnext">${others.map(s => showCard(s)).join('')}</div>` : ''}</div></div>`;
+}
+function ssShow(i, dir) {
+  const show = SS.show, el = SS.el; if (!show || !el) return;
+  ssCount();
+  const n = show.slides.length;
+  if (i > n) i = n;
+  if (i < 0) i = 0;
+  if (i === SS.i && dir && stageHas()) return; // already there (the first or the last)
+  SS.i = i;
+  const stage = el.querySelector('.ssstage');
+  const old = stage.querySelector('.sl.cur');
+  stage.insertAdjacentHTML('beforeend', i === n ? endHTML() : slideHTML(show.slides[i], i));
+  const neu = stage.lastElementChild;
+  neu.classList.add('cur');
+  if (old) {
+    old.classList.remove('cur');
+    if (dir) { neu.classList.add(dir > 0 ? 'in-next' : 'in-prev'); old.classList.add(dir > 0 ? 'out-next' : 'out-prev'); }
+    old.querySelectorAll('iframe').forEach(f => f.remove());
+    setTimeout(() => old.remove(), 230);
+  }
+  const sl = show.slides[i] || { kind: 'end' };
+  el.querySelector('.ssc').textContent = i === n ? 'The end' : `${i + 1} / ${n}`;
+  el.querySelectorAll('.ssbars i').forEach((b, k) => { b.className = k < i ? 'done' : k === i ? 'now' : ''; });
+  el.querySelectorAll('.ssstrip button').forEach((b, k) => { b.classList.toggle('on', k === i); if (k === i) b.scrollIntoView({ block: 'nearest', inline: 'center' }); });
+  el.querySelector('.prev').disabled = i === 0;
+  el.querySelector('.next').disabled = i === n;
+  for (const k of [i + 1, i + 2]) { const s2 = show.slides[k]; if (s2) { const im = new Image(); im.referrerPolicy = 'no-referrer'; im.src = s2.kind === 'video' ? ytThumb(s2.v.v) : s2.img; } }
+  SS.viewT = performance.now();
+  if (sl.kind === 'video' && SS.autoVid) ssPlayVid(neu, sl.v);
+  ssTime(true);
+}
+function ssHalt() { clearTimeout(SS.timer); if (SS.t0) { SS.left = Math.max(200, SS.left - (performance.now() - SS.t0)); SS.t0 = 0; } }
+function ssTime(fresh) { // the autoplay clock: the bar's animation and a timer that agree
+  ssHalt();
+  const el = SS.el; if (!el || !SS.show) return;
+  const end = SS.i >= SS.show.slides.length;
+  const sl = SS.show.slides[SS.i];
+  const wait = end || (sl && sl.kind === 'video'); // a video waits for you
+  if (fresh) SS.left = SS_MS;
+  const run = SS.playing && !SS.held && !wait && !document.body.classList.contains('dopen') && document.visibilityState === 'visible';
+  el.classList.toggle('paused', !SS.playing);
+  const pb = el.querySelector('[data-ss="play"]');
+  if (pb) { pb.innerHTML = SS.playing ? '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="5" y="4" width="5" height="16" rx="1"/><rect x="14" y="4" width="5" height="16" rx="1"/></svg>' : '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4l13 8-13 8z"/></svg>'; pb.setAttribute('aria-label', SS.playing ? 'Pause' : 'Play'); }
+  const bar = el.querySelector('.ssbars i.now b');
+  if (bar) {
+    if (fresh) { bar.style.animation = 'none'; void bar.offsetWidth; bar.style.animation = ''; bar.style.animationDuration = SS_MS + 'ms'; }
+    bar.style.animationPlayState = run ? 'running' : 'paused';
+  }
+  if (run) { SS.t0 = performance.now(); SS.timer = setTimeout(() => ssShow(SS.i + 1, 1), SS.left); }
+}
+function ssPause(on) { if (!SS.el || SS.held === on) return; SS.held = on; ssTime(false); } // hold to pause; let go to carry on
+function ssPlayVid(slideEl, v) {
+  const f = slideEl.querySelector('.vframe'); if (!f || f.querySelector('iframe')) return;
+  f.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${encodeURIComponent(v.v)}?autoplay=1&playsinline=1&rel=0&modestbranding=1" title="${esc(v.t)}" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>`;
+  SS.autoVid = true; SS.playing = false; ssTime(false);
+}
+function ssBind(el) {
+  const stage = el.querySelector('.ssstage');
+  let sx = 0, sy = 0, st = 0, hold = 0, moved = false, down = false;
+  stage.addEventListener('pointerdown', e => {
+    if (e.target.closest('a,button,iframe,.vframe')) return;
+    down = true; moved = false; sx = e.clientX; sy = e.clientY; st = performance.now();
+    if (!SS.wide) hold = setTimeout(() => ssPause(true), 220);
+  });
+  stage.addEventListener('pointermove', e => { if (down && (Math.abs(e.clientX - sx) > 12 || Math.abs(e.clientY - sy) > 12)) moved = true; });
+  const up = e => {
+    if (!down) return; down = false; clearTimeout(hold);
+    const dx = e.clientX - sx, dy = e.clientY - sy, wasHeld = SS.held;
+    if (wasHeld) { ssPause(false); if (!moved) return; }
+    if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy)) { ssShow(SS.i + (dx < 0 ? 1 : -1), dx < 0 ? 1 : -1); return; }
+    if (dy > 90 && Math.abs(dy) > Math.abs(dx) && !SS.wide) { closeShow(); return; }
+    if (moved || performance.now() - st > 600) return;
+    if (e.target.closest('a,button,iframe,.vframe')) return;
+    const r = stage.getBoundingClientRect();
+    if (SS.wide) { if (e.target.closest('.slmedia')) ssShow(SS.i + 1, 1); return; }
+    ssShow(SS.i + (e.clientX - r.left < r.width * 0.3 ? -1 : 1), e.clientX - r.left < r.width * 0.3 ? -1 : 1);
+  };
+  stage.addEventListener('pointerup', up);
+  stage.addEventListener('pointercancel', () => { down = false; clearTimeout(hold); ssPause(false); });
+  stage.addEventListener('contextmenu', e => { if (!SS.wide) e.preventDefault(); });
+}
+function ssAction(a) {
+  if (!SS.el) return;
+  if (a === 'close') return closeShow();
+  if (a === 'next') return ssShow(SS.i + 1, 1);
+  if (a === 'prev') return ssShow(SS.i - 1, -1);
+  if (a === 'play') { SS.playing = !SS.playing; if (SS.playing && SS.i >= SS.show.slides.length) return ssShow(0, 1); ssTime(false); return; }
+  if (a === 'layout') { P.ssLayout = SS.wide ? 'tall' : 'wide'; save(); ssHalt(); const s = SS.show, i = Math.min(SS.i, s.slides.length - 1); SS.el.remove(); SS.el = null; openShow(s, i); return; }
+  if (a === 'playvid') { const sl = SS.show.slides[SS.i]; if (sl.kind === 'video') ssPlayVid(SS.el.querySelector('.sl.cur'), sl.v); return; }
+  if (a === 'vidof') { const sl = SS.show.slides[SS.i]; if (sl.vid) { const cur = SS.el.querySelector('.sl.cur'); const m = cur.querySelector('.slmedia'); m.innerHTML = `<div class="vframe" data-v="${esc(sl.vid.v)}"></div>`; cur.classList.add('video'); ssPlayVid(cur, sl.vid); } }
+}
+document.addEventListener('keydown', e => {
+  if (!SS.el || document.body.classList.contains('dopen')) return;
+  if (e.key === 'ArrowRight' || e.key === 'PageDown') { e.preventDefault(); ssShow(SS.i + 1, 1); }
+  else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); ssShow(SS.i - 1, -1); }
+  else if (e.key === ' ' || e.key === 'k') { if (!/INPUT|TEXTAREA|BUTTON|A/.test(document.activeElement.tagName) || document.activeElement === SS.el) { e.preventDefault(); ssAction('play'); } }
+  else if (e.key === 'Escape') { e.stopImmediatePropagation(); closeShow(); }
+  else if (e.key === 'Home') ssShow(0, -1);
+  else if (e.key === 'End') ssShow(SS.show.slides.length - 1, 1);
+}, true);
+document.addEventListener('visibilitychange', () => { if (SS.el) { if (document.visibilityState !== 'visible') ssPause(true); else ssPause(false); } });
+
+function deskBanner(k) {
+  const shows = allShows(), s = shows.find(x => x.desk === k), vs = VIDS().filter(v => v.c === k);
+  if (!s && !vs.length) return '';
+  return `<div class="ssban">${s ? `<button type="button" data-show="${esc(s.id)}"><img src="${esc(coverImg(s))}" alt="" referrerpolicy="no-referrer">${esc(s.title)} · ${s.slides.length}</button>` : ''}${vs.length ? `<button type="button" data-show="vids-${esc(k)}"><img src="${esc(ytThumb(vs[0].v, 'mqdefault'))}" alt="" referrerpolicy="no-referrer">▶ ${vs.length} video${vs.length > 1 ? 's' : ''}</button>` : ''}</div>`;
+}
 function frontReport() {
   const a = ART && ART.articles && ART.articles[0];
   if (!a || Date.now() - new Date(a.written) > 4 * 864e5) return '';
@@ -1873,7 +2376,8 @@ function frontReport() {
 /* ================= loading ================= */
 async function loadLatest(scrollTop) {
   try {
-    const [ed, mk, art] = await Promise.all([getJSON('data/edition.json'), getJSON('data/markets.json').catch(() => null), getJSON('articles/index.json').catch(() => null)]);
+    const [ed, mk, art, md] = await Promise.all([getJSON('data/edition.json'), getJSON('data/markets.json').catch(() => null), getJSON('articles/index.json').catch(() => null), getJSON('data/media.json').catch(() => null)]);
+    if (md && md.v) MEDIA = md;
     MK = mk && mk.board ? mk : null;
     if (art && art.articles) ART = art;
     LATEST = { id: ed.id, at: ed.at, archive: ed.archive };
