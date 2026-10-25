@@ -1,60 +1,45 @@
-"""Temporary: what do these public data services answer from GitHub's runners? Writes probe.json."""
-import datetime as dt, gzip, json, urllib.request
+"""Temporary: YouTube rebuild channels, auction-site feeds. Writes probe.json."""
+import gzip, json, re, urllib.request
 UA = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36'
-NQ = {'Origin': 'https://www.nasdaq.com', 'Referer': 'https://www.nasdaq.com/', 'Accept': 'application/json'}
-d = dt.date.today(); y = d - dt.timedelta(days=1)
-T = {
- 'nasdaq_chain_xom': ('https://api.nasdaq.com/api/quote/XOM/option-chain?assetclass=stocks&limit=40&fromdate=2026-10-30&todate=2026-11-06&excode=oprac&callput=callput&money=at&type=all', NQ),
- 'nasdaq_chain_spy': ('https://api.nasdaq.com/api/quote/SPY/option-chain?assetclass=etf&limit=40&fromdate=2026-10-26&todate=2026-10-30&excode=oprac&callput=callput&money=at&type=all', NQ),
- 'nasdaq_profile_xom': ('https://api.nasdaq.com/api/company/XOM/company-profile', NQ),
- 'cboe_xom': ('https://cdn.cboe.com/api/global/delayed_quotes/options/XOM.json', {}),
- 'cboe_spy': ('https://cdn.cboe.com/api/global/delayed_quotes/options/SPY.json', {}),
- 'cboe_quote_spy': ('https://cdn.cboe.com/api/global/delayed_quotes/quotes/SPY.json', {}),
- 'eia_demo': ('https://api.eia.gov/v2/electricity/rto/region-data/data/?api_key=DEMO_KEY&frequency=hourly&data[0]=value&facets[respondent][]=US48&sort[0][column]=period&sort[0][direction]=desc&length=5', {}),
- 'eia_930_internal': (f'https://www.eia.gov/electricity/930-api/region_data/series_data?type[0]=D&respondent[0]=US48&frequency=hourly&limit=5&offset=0', {}),
- 'ercot_fuel': ('https://www.ercot.com/api/1/services/read/dashboards/fuel-mix.json', {}),
- 'ercot_supply': ('https://www.ercot.com/api/1/services/read/dashboards/supply-demand.json', {}),
- 'ercot_prices': ('https://www.ercot.com/api/1/services/read/dashboards/systemWidePrices.json', {}),
- 'caiso_fuel': ('https://www.caiso.com/outlook/current/fuelsource.csv', {}),
- 'caiso_demand': ('https://www.caiso.com/outlook/current/demand.csv', {}),
- 'caiso_co2': ('https://www.caiso.com/outlook/current/co2.csv', {}),
- 'miso_fuel': ('https://api.misoenergy.org/MISORTWDDataBroker/DataBrokerServices.asmx?messageType=getfuelmix&returnType=json', {}),
- 'miso_lmp': ('https://api.misoenergy.org/MISORTWDDataBroker/DataBrokerServices.asmx?messageType=getLMPConsolidatedTable&returnType=json', {}),
- 'nyiso_fuel': (f'https://mis.nyiso.com/public/csv/rtfuelmix/{y:%Y%m%d}rtfuelmix.csv', {}),
- 'nyiso_lbmp': (f'https://mis.nyiso.com/public/csv/realtime/{y:%Y%m%d}realtime_zone.csv', {}),
- 'isone_fuel': (f'https://www.iso-ne.com/transform/csv/genfuelmix?start={y:%Y%m%d}', {}),
- 'isone_ws': ('https://webservices.iso-ne.com/api/v1.1/genfuelmix/current.json', {}),
- 'spp_mix': ('https://portal.spp.org/chart-api/gen-mix-365/asFile', {}),
- 'spp_mix2': ('https://marketplace.spp.org/chart-api/gen-mix/asFile', {}),
- 'pjm_fuel': ('https://api.pjm.com/api/v1/gen_by_fuel?rowCount=20&startRow=1&sort=datetime_beginning_ept&order=desc', {}),
- 'pjm_settings': ('https://dataminer2.pjm.com/config/settings.json', {}),
- 'dbnomics_bls_elec': ('https://api.db.nomics.world/v22/series/BLS/ap/APU000072610?observations=1', {}),
- 'dbnomics_eia': ('https://api.db.nomics.world/v22/providers/EIA', {}),
- 'gridstatus_open': ('https://api.gridstatus.io/v1/datasets', {}),
- 'dcd_rss': ('https://www.datacenterdynamics.com/en/rss/', {}),
- 'dcf_rss': ('https://www.datacenterfrontier.com/rss', {}),
- 'utilitydive_rss': ('https://www.utilitydive.com/feeds/news/', {}),
- 'canary_rss': ('https://www.canarymedia.com/rss.rss', {}),
- 'latitude_rss': ('https://www.latitudemedia.com/feed', {}),
- 'heatmap_rss': ('https://heatmap.news/feeds/feed.rss', {}),
- 'powermag_rss': ('https://www.powermag.com/feed/', {}),
- 'eenews_rss': ('https://www.eenews.net/feed/', {}),
-}
-out = {}
-for k, (u, h) in T.items():
+def get(u, h=None):
+    req = urllib.request.Request(u, headers={'User-Agent': UA, 'Accept-Encoding': 'gzip', 'Accept-Language': 'en-US,en;q=0.9', **(h or {})})
+    with urllib.request.urlopen(req, timeout=30) as r:
+        b = r.read(); return r.status, (gzip.decompress(b) if b[:2] == b'\x1f\x8b' else b)
+out = {'channels': {}, 'feeds': {}}
+HANDLES = ['Goonzquad', 'Tavarish', 'RichRebuilds', 'MatArmstrongbmx', 'MatArmstrong', 'HooviesGarage', 'BisforBuild', 'NikoBrothers', 'SavingSalvage',
+           'SalvageNation', 'VehicleVirgins', 'WatchJRGo', 'TheStradman', 'DougDeMuro', 'CarsandBids', 'bringatrailer', 'Hagerty', 'CarWizard', 'samcrac',
+           'SalvageRebuilds', 'RebuildingDepot', 'TheSalvageGuy', 'BoostedBoiz', 'JunkyardDigs', 'VinWiki', 'EdBolian', 'Cleetus', 'WhistlinDiesel', 'CopartUSA']
+for h in HANDLES:
     try:
-        req = urllib.request.Request(u, headers={'User-Agent': UA, 'Accept-Encoding': 'gzip', 'Accept-Language': 'en-US,en;q=0.9', **h})
-        with urllib.request.urlopen(req, timeout=40) as r:
-            b = r.read()
-            if b[:2] == b'\x1f\x8b': b = gzip.decompress(b)
-            out[k] = {'status': r.status, 'len': len(b), 'ctype': r.headers.get('Content-Type'), 'head': b[:2500].decode('utf-8', 'replace')}
-            if k.startswith('cboe_') and b[:1] == b'{':
-                j = json.loads(b); dd = j.get('data') or {}
-                out[k]['keys'] = list(dd.keys())[:40]
-                ops = dd.get('options') or []
-                out[k]['n_options'] = len(ops); out[k]['sample'] = ops[:3]
-                out[k]['meta'] = {kk: vv for kk, vv in dd.items() if kk != 'options'}
+        st, b = get(f'https://www.youtube.com/@{h}')
+        t = b.decode('utf-8', 'replace')
+        m = re.search(r'"externalId":"(UC[\w-]{22})"', t) or re.search(r'<link rel="canonical" href="https://www.youtube.com/channel/(UC[\w-]{22})"', t)
+        title = re.search(r'<meta property="og:title" content="([^"]+)"', t)
+        subs = re.search(r'"subscriberCountText":\{"accessibility":\{"accessibilityData":\{"label":"([^"]+)"', t) or re.search(r'([\d.]+[KM]) subscribers', t)
+        row = {'id': m.group(1) if m else None, 'title': title.group(1) if title else None, 'subs': subs.group(1) if subs else None}
+        if m:
+            st2, f = get(f'https://www.youtube.com/feeds/videos.xml?channel_id={m.group(1)}')
+            ft = f.decode('utf-8', 'replace')
+            row['feed'] = st2; row['latest'] = re.findall(r'<entry>.*?<title>([^<]+)</title>.*?<published>([^<]+)</published>', ft, re.S)[:3]
+        out['channels'][h] = row
     except Exception as ex:
-        out[k] = {'error': repr(ex)[:400]}
+        out['channels'][h] = {'error': repr(ex)[:200]}
+FEEDS = {'bat_feed': 'https://bringatrailer.com/feed/', 'bat_auctions': 'https://bringatrailer.com/auctions/feed/', 'cnb_feed': 'https://carsandbids.com/feed',
+         'cnb_rss': 'https://carsandbids.com/rss', 'cnb_blog': 'https://carsandbids.com/blog/feed', 'hagerty': 'https://www.hagerty.com/media/feed/',
+         'gn_bat': 'https://news.google.com/rss/search?q=site:bringatrailer.com+when:7d&hl=en-US&gl=US&ceid=US:en',
+         'gn_cnb': 'https://news.google.com/rss/search?q=%22Cars+%26+Bids%22+OR+%22Bring+a+Trailer%22+sold+when:7d&hl=en-US&gl=US&ceid=US:en',
+         'gn_fsd': 'https://news.google.com/rss/search?q=Tesla+FSD+OR+%22Full+Self-Driving%22+when:3d&hl=en-US&gl=US&ceid=US:en',
+         'teslarati': 'https://www.teslarati.com/feed/', 'electrek': 'https://electrek.co/feed/', 'notateslaapp': 'https://www.notateslaapp.com/rss',
+         'themealdb': 'https://www.themealdb.com/api/json/v1/1/filter.php?i=chicken_breast',
+         'yt_dailyshow': 'https://www.youtube.com/feeds/videos.xml?channel_id=UCwWhs_6x42TyRM4Wstoq8HA',
+         'yt_lwt': 'https://www.youtube.com/feeds/videos.xml?channel_id=UC3XTzVzaHQEd30rQbuvCtTQ',
+         'yt_seth': 'https://www.youtube.com/feeds/videos.xml?channel_id=UCVTyTA7-g9nopHeHbeuvpRA',
+         'yt_kimmel': 'https://www.youtube.com/feeds/videos.xml?channel_id=UCa6vGFO9ty8v5KZJXQxdhaw'}
+for k, u in FEEDS.items():
+    try:
+        st, b = get(u); t = b.decode('utf-8', 'replace')
+        out['feeds'][k] = {'status': st, 'len': len(b), 'items': len(re.findall(r'<item|<entry', t)), 'titles': re.findall(r'<title>(?:<!\[CDATA\[)?([^<\]]+)', t)[:5], 'head': t[:300]}
+    except Exception as ex:
+        out['feeds'][k] = {'error': repr(ex)[:200]}
 json.dump(out, open('probe.json', 'w'), indent=1)
-print({k: v.get('status', v.get('error', '')[:60]) for k, v in out.items()})
+print('done')
