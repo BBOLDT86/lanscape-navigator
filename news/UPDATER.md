@@ -62,6 +62,17 @@ Yahoo Finance, Stooq, FRED and the BLS's own API refuse GitHub's runners, so the
 keeps its last good version and is listed under `stale`; individual misses are in `errors`. The page's Business desk
 writes its plain-English summary from these numbers only.
 
+## The week, three ways (`news/columns/`, `columns.py`)
+
+Every weekend a scheduled Claude task writes three market columns about the same week, in the voices of three
+fictional characters (`python3 news/updater/columns.py who`): Cal Mercer, the Bull, a former Wall Street equity
+strategist; Ruth Voss, the Bear, who has run money through three crashes; and June Kowalski, the Outsider, who runs a
+machine shop in Ohio and checks Wall Street's story against her order book. One file a week,
+`news/columns/<Sunday>.json`: the shared facts, the three columns (550 to 950 words each, cited), the sources, and
+Portuguese and German translations. `columns.py check` enforces it, including that no character tells a reader to
+buy or sell a particular security; `columns.py index` rebuilds `columns/index.json`. The Business desk shows the
+latest three side by side; each opens at `#/col/<week>/<bull|bear|outsider>`, and `#/columns` keeps every week.
+
 ## What the week's reports move (`impact.py` -> `data/impact.json`)
 
 Every U.S. release on the week's calendar is grouped into a family (PCE, jobless claims, GDP, housing, an auction)

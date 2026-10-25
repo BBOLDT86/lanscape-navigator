@@ -320,6 +320,14 @@ body.dopen{overflow:hidden}
 .cev .ct{font-weight:600;color:var(--ink-2);font-variant-numeric:tabular-nums}.cev .cn{font-weight:600}
 .cev .cc{grid-column:2;color:var(--ink-2);font-size:13px}.cev .cc b{color:var(--ink)}.cev .none{display:block;color:var(--ink-2)}
 a.imp-a{color:inherit;text-decoration:underline;text-decoration-color:var(--brass);text-decoration-thickness:2px;text-underline-offset:3px}a.imp-a svg{margin-left:4px;vertical-align:-1px;color:var(--brass-ink)}
+.cols .colg,.colmore .colg{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+@media (max-width:820px){.cols .colg,.colmore .colg{grid-template-columns:1fr}}
+.colc{display:flex;flex-direction:column;gap:6px;text-decoration:none;color:inherit;border:1px solid var(--rule);border-top:4px solid var(--cc);background:var(--raise);border-radius:12px;padding:14px 16px}
+.colc:hover{border-color:var(--cc)}.colc.bull,.col.bull{--cc:var(--up)}.colc.bear,.col.bear{--cc:var(--dn)}.colc.outsider,.col.outsider{--cc:var(--brass)}
+.cw{display:flex;align-items:center;gap:8px;font-size:13.5px;color:var(--ink-2)}.cw b{color:var(--ink);font-weight:650}
+.cw.big{font-size:15px;margin:4px 0 8px}.cm{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;background:var(--cc);color:#fff;font-size:11px}
+.colc .ct2{font:400 22px/1.15 var(--serif)}.colc .cd{font-size:14.5px;color:var(--ink-2)}
+.colmore{margin-top:34px}
 .imp .ak{font-size:13px;font-weight:600;color:var(--ink-2);margin:26px 0 6px}.imp .ak a{color:inherit}
 .imp-h{font:400 clamp(34px,5vw,54px)/1.04 var(--serif);margin:0 0 6px}.imp-w{color:var(--ink-2);margin:0 0 10px;font-weight:600}
 .imp-f{font-size:15px;color:var(--ink-2);margin:0 0 10px}.imp-f b{color:var(--ink)}.imp-l{font:400 21px/1.35 var(--serif);margin:0 0 16px;max-width:52ch}
@@ -1065,6 +1073,8 @@ function parseHash() {
   if (a === 'pictures') return { t: 'pictures', show: b || '' };
   if (a === 'video') return { t: 'video' };
   if (a === 'impact') return { t: 'impact', id: b || '' };
+  if (a === 'columns') return { t: 'columns' };
+  if (a === 'col' && b) { const [wk, k] = b.split('/'); return { t: 'col', week: wk, k: k || 'bull' }; }
   return { t: 'home' };
 }
 function go(hash) { if (location.hash !== hash) location.hash = hash; else render(); }
@@ -1082,7 +1092,7 @@ function storyRow(it, o = {}) {
 
 function renderBar() {
   const items = [['home', '', 'Front'], ['you', 'for-you', 'For you'], ['reports', 'reports', 'Reports'], ['pictures', 'pictures', 'Pictures'], ['video', 'video', 'Video'], ...E.sections.map(s => ['desk:' + s.k, 's/' + s.k, secName(s.k)]), ['files', 'files', 'Epstein files']];
-  const cur = view.t === 'desk' ? 'desk:' + view.k : view.t === 'article' ? 'reports' : view.t;
+  const cur = view.t === 'desk' ? 'desk:' + view.k : view.t === 'article' ? 'reports' : ['impact', 'col', 'columns'].includes(view.t) ? 'desk:business' : view.t;
   $('#bar').innerHTML = items.map(([id, h, label]) =>
     `<button type="button" data-go="#/${h}"${id === cur ? ' aria-current="page"' : ''}${id === 'you' ? ' class="you"' : ''}>${esc(label)}</button>`).join('');
   const on = $('#bar [aria-current]');
@@ -1262,6 +1272,8 @@ function render(keepScroll) {
   else if (view.t === 'pictures') { renderPictures(); if (view.show && !SS.el && deepShow !== location.hash) { deepShow = location.hash; openShow(view.show); } }
   else if (view.t === 'video') renderVideo();
   else if (view.t === 'impact') renderImpact(view.id);
+  else if (view.t === 'columns') renderColumns();
+  else if (view.t === 'col') renderCol(view.week, view.k);
   renderFoot();
   watchImpressions();
   if (!keepScroll) window.scrollTo(0, 0);
@@ -1449,6 +1461,7 @@ function renderBusiness() {
     <div class="page-h"><h1>${secName('business')}</h1><p>${MK ? mkAsOf() : T('Market prices aren’t available in this edition.')}</p></div>
     ${lede ? `<p class="lede">${esc(lede)}</p>` : ''}
     ${big.length ? `<div class="bigs">${big.map(r => `<button type="button" class="big ${dirc(r.cp)}" data-tick="${esc(r.s)}"><span class="bn">${esc(r.n)}</span><span class="bp">${fprice(r)}</span><span class="bc">${r.c != null ? sgn(r.c) + fnum(Math.abs(r.c), 2) : ''} <i>${fchg(r)}</i></span>${spark(r.i && r.i.length > 2 ? r.i : (r.d || []).slice(-22), 300, 64, r.i && r.i.length > 2 ? r.pc : null, dirc(r.cp))}</button>`).join('')}</div>` : ''}
+    <div id="colsWrap">${colsHTML()}</div>
     ${MK ? `<div class="boards">${(MK.board || []).filter(g => g.g !== 'us').map(g => `<section class="bd"><h3>${esc(T(g.label))}</h3>${g.rows.map(boardRow).join('')}</section>`).join('')}
       ${['^RUT', '^VIX'].map(mkRow).filter(Boolean).length ? `<section class="bd"><h3>More U.S. stocks</h3>${['^RUT', '^VIX'].map(mkRow).filter(Boolean).map(boardRow).join('')}</section>` : ''}</div>` : ''}
     ${sec.length ? `<section class="blk"><h2 class="sec-h">Sectors</h2><p class="sub2">The S&P 500’s 11 sectors, through their SPDR funds. Darker means a bigger move.</p>
@@ -1469,6 +1482,58 @@ function renderBusiness() {
   const f = $('#stkFilter');
   if (f) f.addEventListener('input', () => { stockFilter = f.value.trim(); $('#stkWrap').innerHTML = stockTable(); });
   if (!IMP) ensureImpact().then(() => { const c = $('#calWrap'); if (c && view.t === 'desk' && view.k === 'business') c.innerHTML = calendarHTML(); });
+  if (!COLS) ensureCols().then(() => { const c = $('#colsWrap'); if (c && view.t === 'desk' && view.k === 'business') c.innerHTML = colsHTML(); });
+}
+/* ================= the week, three ways: the Bull, the Bear and the Outsider (news/columns/) ================= */
+let COLS = null, colsBusy = null; const COLC = {};
+function ensureCols() {
+  if (COLS) return Promise.resolve(COLS);
+  if (!colsBusy) colsBusy = getJSON('columns/index.json').then(d => { COLS = d && d.weeks ? d : { weeks: [], who: {} }; }).catch(() => { COLS = { weeks: [], who: {} }; }).then(() => { colsBusy = null; return COLS; });
+  return colsBusy;
+}
+const COLORDER = ['bull', 'bear', 'outsider'];
+const colMark = k => `<span class="cm ${k}" aria-hidden="true">${k === 'bull' ? '▲' : k === 'bear' ? '▼' : '◆'}</span>`;
+function colL(w, k) { const t = w && w.columns && w.columns[k] && w.columns[k].i18n && w.columns[k].i18n[LANG]; return t && t.title ? t : {}; }
+function colsHTML() {
+  if (!COLS || !COLS.weeks.length) return '';
+  const w = COLS.weeks[0], who = COLS.who || {};
+  return `<section class="blk cols"><h2 class="sec-h">${T('The week, three ways')}</h2>
+    <p class="sub2">${T('Three columnists read the same week: a bull, a bear and an outsider who runs a machine shop. They are characters, written each weekend by Claude ({model}) from the week’s numbers and reporting; they argue, and none of it is advice.', { model: esc(w.model) })}</p>
+    <div class="colg">${COLORDER.filter(k => w.columns[k]).map(k => { const c = w.columns[k], L = colL(w, k), p = who[k] || {}; return `<a class="colc ${k}" href="#/col/${esc(w.week)}/${k}">
+      <span class="cw">${colMark(k)}<b>${esc(p.name || '')}</b><span>${esc(T(p.role || ''))}</span></span>
+      <span class="ct2">${esc(L.title || c.title)}</span><span class="cd">${esc(L.dek || c.dek)}</span></a>`; }).join('')}</div>
+    ${COLS.weeks.length > 1 ? `<p class="note"><a href="#/columns">${T('Earlier weeks')}</a></p>` : ''}</section>`;
+}
+async function renderCol(week, k) {
+  $('#main').innerHTML = `<div class="wrap state"><h2>${T('Opening the column…')}</h2></div>`;
+  await ensureCols();
+  let w = COLC[week];
+  if (!w) { try { w = COLC[week] = await getJSON('columns/' + encodeURIComponent(week) + '.json'); } catch (e) { w = null; } }
+  if (view.t !== 'col') return;
+  const c = w && w.columns && w.columns[k];
+  if (!c) { $('#main').innerHTML = `<div class="wrap state"><h2>${T('That column isn’t here')}</h2><p><a href="#/columns">${T('All columns')}</a></p></div>`; return; }
+  const p = (COLS.who || {})[k] || {}, tr = w.i18n && w.i18n[LANG] && w.i18n[LANG][k], L = tr && !artOrig ? tr : {};
+  const body = L.body || c.body, n = (w.sources || []).length;
+  const wk = new Date(week + 'T12:00:00Z').toLocaleDateString(LOC(), { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
+  $('#main').innerHTML = `<article class="wrap art col ${k}"${L.body ? ` lang="${LOC()}"` : LANG !== 'en' ? ' lang="en"' : ''}>
+    <p class="ak"><a href="#/s/business">${secName('business')}</a> · ${T('The week, three ways')}</p>
+    <p class="cw big">${colMark(k)}<b>${esc(p.name || '')}</b><span>${esc(T(p.role || ''))}</span></p>
+    <h1 id="artTitle">${esc(L.title || c.title)}</h1>
+    <p class="adek">${esc(L.dek || c.dek)}</p>
+    <p class="aby">${T('Week of {date}. {name} is a character, written by Claude ({model}): {bio}', { date: esc(wk), name: esc(p.name || ''), model: esc(w.model), bio: esc(T(p.bio || '')) })}</p>
+    <p class="adis">${T('A column of opinion in a character’s voice, built on the week’s published numbers and reporting listed below. It argues one side on purpose; read the other two. Not investment advice.')}${tr ? ` <button type="button" class="lnk" data-artorig="1">${T(artOrig ? 'Read it in your language' : 'Read the English original')}</button>` : ''}</p>
+    <div class="abody">${md(body, n)}</div>
+    <section class="colmore"><h2 class="sec-h">${T('The same week, the other way')}</h2><div class="colg">${COLORDER.filter(x => x !== k && w.columns[x]).map(x => { const q = (COLS.who || {})[x] || {}, LL = (w.i18n && w.i18n[LANG] && w.i18n[LANG][x]) || {}; return `<a class="colc ${x}" href="#/col/${esc(week)}/${x}"><span class="cw">${colMark(x)}<b>${esc(q.name || '')}</b><span>${esc(T(q.role || ''))}</span></span><span class="ct2">${esc(LL.title || w.columns[x].title)}</span></a>`; }).join('')}</div></section>
+    <section class="asrc"><h2>${T('Sources')}</h2><ol>${(w.sources || []).map((s, i) => `<li id="src-${i + 1}"><a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.title)}</a> <span>${esc(s.outlet)}${s.date ? ', ' + esc(s.date) : ''}</span></li>`).join('')}</ol></section>
+  </article>`;
+  document.title = (L.title || c.title) + ' · The Watch';
+  $$('.art [data-artorig]').forEach(b => b.addEventListener('click', () => { artOrig = !artOrig; renderCol(week, k); }));
+}
+async function renderColumns() {
+  await ensureCols(); if (view.t !== 'columns') return;
+  const who = COLS.who || {};
+  $('#main').innerHTML = `<div class="wrap page"><div class="page-h"><h1>${T('The week, three ways')}</h1><p>${T('Every weekend: the Bull, the Bear and the Outsider on the same week.')}</p></div>
+    ${COLS.weeks.map(w => `<section class="blk"><h2 class="sec-h">${esc(new Date(w.week + 'T12:00:00Z').toLocaleDateString(LOC(), { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' }))}</h2><div class="colg">${COLORDER.filter(k => w.columns[k]).map(k => { const c = w.columns[k], L = colL(w, k); return `<a class="colc ${k}" href="#/col/${esc(w.week)}/${k}"><span class="cw">${colMark(k)}<b>${esc((who[k] || {}).name || '')}</b><span>${esc(T((who[k] || {}).role || ''))}</span></span><span class="ct2">${esc(L.title || c.title)}</span><span class="cd">${esc(L.dek || c.dek)}</span></a>`; }).join('')}</div></section>`).join('') || `<p class="note">${T('The first columns arrive this weekend.')}</p>`}</div>`;
 }
 /* ================= impact maps: what a report usually moves, and the move options are pricing (news/data/impact.json) ================= */
 let IMP = null, impBusy = null, impScen = 'above';
