@@ -95,7 +95,7 @@ function normalizeInput(input) {
   if (!/\s/.test(s) && /^[a-z0-9-]+(\.[a-z0-9-]+)+(:\d+)?(\/.*)?$/i.test(s)) return 'http://' + s;
   if (/^[a-z0-9-]+$/i.test(s)) {
     const w = s.toLowerCase();
-    for (const t of ['com', 'net', 'org', 'edu']) {
+    for (const t of ['com', 'net', 'org', 'edu', 'travel']) {
       const h = 'www.' + w + '.' + t;
       if (S.hostMap.has(h) || PORTAL_ROUTES[h] || APP_HOSTS[h] || HOSTED_BY_HOST[h]) return 'http://' + h + '/';
     }

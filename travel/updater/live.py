@@ -240,7 +240,7 @@ def wiki_batch(titles):
                 files.setdefault('File:' + pg['pageimage'].replace('_', ' '), []).append(orig)
             rows[orig] = row
     for part in chunks(sorted(files), 40):
-        q = {'action': 'query', 'titles': '|'.join(part), 'prop': 'imageinfo', 'iiprop': 'url|size|extmetadata', 'iiurlwidth': 1600,
+        q = {'action': 'query', 'titles': '|'.join(part), 'prop': 'imageinfo', 'iiprop': 'url|size|extmetadata', 'iiurlwidth': 1280,
              'format': 'json', 'formatversion': 2}
         d = jget('https://commons.wikimedia.org/w/api.php?' + urllib.parse.urlencode(q), timeout=25)
         probe('commons', d)
@@ -350,12 +350,30 @@ def places():
     print(f'places: {n} looked up, {len(want) - n} left for the next run, {len(Pl)} cached')
 
 
+# ------------------------------------------------------------------ travel news, from The Watch's latest edition
+def news():
+    e = json.load(open(os.path.join(TRAVEL, '..', 'news', 'data', 'edition.json'), encoding='utf-8'))
+    items = [i for i in e.get('items') or [] if not i.get('l')]
+    keep = lambda i: {k: i[k] for k in ('i', 't', 'u', 'o', 'p', 'm', 'd') if i.get(k)}  # noqa: E731
+    travel = sorted((i for i in items if i.get('c') == 'travel'), key=lambda i: -(i.get('p') or 0))[:16]
+    names = {'sf': ['San Francisco', 'Bay Area', 'SFO'], 'la': ['Los Angeles', 'L.A.', 'LAX', 'Hollywood'], 'miami': ['Miami'],
+             'nyc': ['New York', 'NYC', 'Manhattan', 'Brooklyn'], 'paris': ['Paris'], 'london': ['London'], 'prague': ['Prague', 'Czech'],
+             'vegas': ['Las Vegas', 'Vegas']}
+    cities = {}
+    for cid, ns in names.items():
+        rx = re.compile(r'\b(' + '|'.join(re.escape(n) for n in ns) + r')\b')
+        hits = sorted((i for i in items if rx.search(i.get('t', ''))), key=lambda i: -(i.get('p') or 0))
+        cities[cid] = [keep(i) for i in hits[:5]]
+    return {'at': now_iso(), 'edition': e.get('id'), 'label': e.get('label'), 'travel': [keep(i) for i in travel], 'cities': cities,
+            'source': 'The Watch (headlines are the outlets\' own)'}
+
+
 # ------------------------------------------------------------------ run
 def main():
     os.makedirs(DATA, exist_ok=True)
     live = load('live.json', {'v': 1})
     stale = []
-    for name, fn in (('weather', weather), ('fx', fx), ('faa', faa)):
+    for name, fn in (('weather', weather), ('fx', fx), ('faa', faa), ('news', news)):
         try:
             live[name] = fn()
             print(f'{name}: ok')

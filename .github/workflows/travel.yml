@@ -39,11 +39,17 @@ jobs:
         env:
           TRAVELPAYOUTS_TOKEN: ${{ secrets.TRAVELPAYOUTS_TOKEN }}
         run: python3 travel/updater/live.py ${{ inputs.probe && '--probe' || '' }}
+      - name: Link preview cards for new guides
+        timeout-minutes: 3
+        continue-on-error: true
+        run: |
+          pip install --quiet pillow || echo "pillow not installed"
+          python3 travel/updater/share.py || echo "cards failed; links still work"
       - name: Commit and push
         run: |
           git config user.name "Weekender updater"
           git config user.email "the-watch-news@users.noreply.github.com"
-          git add travel/data travel/guides/index.json
+          git add travel/data travel/guides/index.json travel/s
           if git diff --cached --quiet; then echo "nothing new"; exit 0; fi
           git commit -qm "Weekender: live data"
           for i in 1 2 3; do

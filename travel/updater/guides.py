@@ -19,7 +19,7 @@ One guide per city per weekend, in travel/guides/<Friday>/<city>.json, where <Fr
             {Saturday}, {Sunday}],
    "stay": [{"tier": "splurge", "name": "...", "area": "...", "text": "...", "url": "https://...", "wiki": "...", "price": "$$$$"},
             {"tier": "classic", ...}, {"tier": "value", ...}],
-   "weekend": [{"name": "...", "date": "2026-10-31", "when": "Sat. 7 p.m.", "where": "...", "text": "...", "url": "https://..."}, ...],
+   "events": [{"name": "...", "date": "2026-10-31", "when": "Sat. 7 p.m.", "where": "...", "text": "...", "url": "https://..."}, ...],
    "know": ["practical things: getting in from the airport, transit, tipping, the clock change", ...],
    "sources": [{"title": "...", "outlet": "...", "url": "https://...", "date": "2026-10-25"}, ...]}
 kind is one of eat, drink, see, do, walk, shop, night. wiki is an English Wikipedia article title; the updater
@@ -64,7 +64,7 @@ def all_text(g):
         out.append(d.get('intro', ''))
         out += [s.get('text', '') for s in d.get('stops') or []]
     out += [s.get('text', '') for s in g.get('stay') or []]
-    out += [e.get('text', '') for e in g.get('weekend') or []]
+    out += [e.get('text', '') for e in g.get('events') or []]
     out += list(g.get('know') or [])
     return out
 
@@ -76,7 +76,7 @@ def check(path, now=None):
         g = json.load(open(path, encoding='utf-8'))
     except (OSError, ValueError) as ex:
         return [f'not readable JSON: {ex}'], None
-    for k in ('id', 'city', 'weekend', 'title', 'dek', 'byline', 'model', 'written', 'hero', 'intro', 'days', 'stay', 'weekend', 'know', 'sources'):
+    for k in ('id', 'city', 'weekend', 'title', 'dek', 'byline', 'model', 'written', 'hero', 'intro', 'days', 'stay', 'events', 'know', 'sources'):
         if not g.get(k):
             P.append(f'missing {k}')
     if P:
@@ -164,22 +164,22 @@ def check(path, now=None):
                 P.append(f'stay {x["tier"]}: price is a tier, $ to $$$$, never a figure')
             if x.get('url') and not URL.match(x['url']):
                 P.append(f'stay {x["tier"]}: url must be an http(s) address')
-    ev = g['weekend']
+    ev = g['events']
     if not isinstance(ev, list) or not 2 <= len(ev) <= 8:
-        P.append('weekend: list 2 to 8 things happening this weekend only')
+        P.append('events: list 2 to 8 things happening this weekend only')
     else:
         for e in ev:
             for k in ('name', 'date', 'when', 'where', 'text', 'url'):
                 if not e.get(k):
-                    P.append(f'weekend event "{e.get("name", "?")}": missing {k}')
+                    P.append(f'event "{e.get("name", "?")}": missing {k}')
             try:
                 d = dt.date.fromisoformat(e.get('date', ''))
                 if fri and not -1 <= (d - fri).days <= 3:
-                    P.append(f'weekend event "{e.get("name")}": its date must fall between Thursday and Monday of that weekend')
+                    P.append(f'event "{e.get("name")}": its date must fall between Thursday and Monday of that weekend')
             except ValueError:
-                P.append(f'weekend event "{e.get("name")}": date must be YYYY-MM-DD')
+                P.append(f'event "{e.get("name")}": date must be YYYY-MM-DD')
             if e.get('url') and not URL.match(e['url']):
-                P.append(f'weekend event "{e.get("name")}": url must be an http(s) address')
+                P.append(f'event "{e.get("name")}": url must be an http(s) address')
     know = g['know']
     if not isinstance(know, list) or not 3 <= len(know) <= 8:
         P.append('know: 3 to 8 practical tips')
@@ -228,7 +228,7 @@ def index():
                 weeks.setdefault(wk, []).append({
                     'id': g['id'], 'city': g['city'], 'title': g['title'], 'dek': g['dek'], 'hero': g.get('hero', {}).get('wiki'),
                     'written': g['written'], 'model': g['model'], 'words': sum(words(t) for t in all_text(g)),
-                    'stops': sum(len(d.get('stops') or []) for d in g.get('days') or []), 'events': len(g.get('weekend') or [])})
+                    'stops': sum(len(d.get('stops') or []) for d in g.get('days') or []), 'events': len(g.get('events') or [])})
     order = list(C)
     out = [{'weekend': wk, 'guides': sorted(v, key=lambda r: order.index(r['city']))} for wk, v in sorted(weeks.items(), reverse=True)]
     os.makedirs(G, exist_ok=True)
@@ -249,7 +249,7 @@ def main():
                 print(f'NOT READY: {p}'); [print('  -', x) for x in problems]
             else:
                 print(f"ok: {p}: “{g['title']}”, {sum(words(t) for t in all_text(g))} words, "
-                      f"{sum(len(d['stops']) for d in g['days'])} stops, {len(g['weekend'])} events, {len(g['sources'])} sources, {g['model']}")
+                      f"{sum(len(d['stops']) for d in g['days'])} stops, {len(g['events'])} events, {len(g['sources'])} sources, {g['model']}")
         return 1 if bad else 0
     if len(sys.argv) >= 2 and sys.argv[1] == 'index':
         index()

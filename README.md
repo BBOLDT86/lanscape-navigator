@@ -63,8 +63,19 @@ meridian/updater/        Meridian's feed updater (run by .github/workflows/merid
 election2026/            Election Desk 2026, a separate site (see below); www.electiondesk2026.com inside the app
 pinfall/                 Pinfall, a separate page with its home-screen icons (see below); not part of the app
 news/                    The Watch, a news site that updates six times a day (see below); www.thewatch.com inside the app
+travel/                  Weekender, a travel site with weekly guides and flight and hotel search (see below); www.weekender.travel inside the app
 barnlife/index.html      Central Ohio Barn Hunt, a separate page (see below); not part of the app
 ```
+
+## Also hosted here: Weekender
+
+**Open it: <https://bboldt86.github.io/lanscape-navigator/travel/>**
+
+Three perfect days in San Francisco, Los Angeles, Miami, New York, Paris, London, Prague and Las Vegas, written every Monday by Claude for the weekend that follows: what's on only that weekend, three days of places in time order on a map, three hotels at three prices, and the practical things (getting in from the airport, a holiday, a clock change), each with its sources. The front is a departures board of the eight cities with the local time, the weather now and for the weekend, the flying time from your airport, a one-line remark (rain Saturday, airport delays) and, once a Travelpayouts token is added as the `TRAVELPAYOUTS_TOKEN` secret, the lowest fare travelers found for that weekend.
+
+Flight and hotel search work like KAYAK's: type a city or an airport, pick dates and travelers, and your trip opens on KAYAK, Google Flights, Skyscanner, Expedia and momondo, or KAYAK, Booking.com, Expedia, Hotels.com, Google Hotels and Airbnb, filled in. Beside them: the distance, the flying time, the time difference, the forecast for your dates, the exchange rate and FAA delays. Every guide has the same panel, set for its weekend: a boarding pass with your airport and the overnight flight when there is one, and each hotel pick one tap from its rates.
+
+Live data: Open-Meteo (weather), the European Central Bank via Frankfurter (rates), the FAA (U.S. airport status), Wikimedia Commons (credited pictures), OpenStreetMap (maps and places) and OurAirports (airports). `.github/workflows/travel.yml` refreshes it every three hours; see [travel/UPDATER.md](travel/UPDATER.md).
 
 ## Also hosted here: The Watch
 

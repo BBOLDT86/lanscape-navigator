@@ -462,6 +462,9 @@ body.dopen{overflow:hidden}
 .scgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(176px,1fr));gap:14px;margin-top:12px}
 .phero{margin-top:18px}.phero .sc{width:100%}.phero .sc.big .sci{aspect-ratio:16/7}.phero .sc.big .sct{font-size:44px}
 .ssban{display:flex;gap:12px;flex-wrap:wrap;margin:0 0 14px}
+.wkpromo{display:flex;gap:14px;align-items:center;text-decoration:none;color:inherit;border:1px solid var(--rule);background:var(--raise);border-radius:14px;padding:12px 16px;margin:0 0 16px}
+.wkpromo b{display:block;font:600 16px/1.3 var(--sans)}.wkpromo span span{display:block;font-size:14px;color:var(--ink2);margin-top:2px}
+.wkp-b{flex:none;width:42px;height:42px;border-radius:10px;background:#1E2329;color:#F5BE41;display:grid;place-items:center;font-size:20px}.wkp-go{margin-left:auto;font-size:22px;color:var(--ink3)}
 .ssban button{display:inline-flex;align-items:center;gap:10px;border:1px solid var(--rule);background:var(--raise);border-radius:999px;padding:5px 14px 5px 5px;font:600 14px var(--sans)}
 .ssban img{width:30px;height:30px;border-radius:50%;object-fit:cover;background:var(--shoal)}
 .ssban button:hover{border-color:var(--ink-3)}
@@ -1188,7 +1191,7 @@ function renderDesk(k) {
   list.sort(deskSort === 'new' ? (a, b) => b.p - a.p : (a, b) => b.s - a.s);
   listPage(secName(k), T(list.length === 1 ? '{n} story' : '{n} stories', { n: list.length }), list.map(x => ({ it: x.it })),
     { controls: `<div class="seg" role="group" aria-label="Sort"><button type="button" data-sort="you" aria-pressed="${deskSort === 'you'}">Best for you</button><button type="button" data-sort="new" aria-pressed="${deskSort === 'new'}">Latest</button></div>`,
-      top: (k === 'politics' ? electionsHTML(true) : k === 'brazil' ? electionsHTML(true, 'br') : '') + deskBanner(k) });
+      top: (k === 'politics' ? electionsHTML(true) : k === 'brazil' ? electionsHTML(true, 'br') : k === 'travel' ? weekenderPromo() : '') + deskBanner(k) });
 }
 let elxBusy = null;
 function ensureElections(full) { // fetch the desks' data, then redraw once it arrives
@@ -2558,6 +2561,9 @@ async function shareIt(o) { // the phone's own share sheet (Messages, Mail, X...
   catch (e) { prompt(T('Copy this link:'), o.url); }
 }
 const shareSite = () => shareIt({ title: 'The Watch', text: T(SHARE_TEXT), url: PUBLIC + (LANG === 'pt' || LANG === 'de' ? LANG + '.html' : '') }); // pt.html / de.html: the preview in that language
+function weekenderPromo() { // the travel site next door: a plan for the coming weekend in eight cities
+  return `<a class="wkpromo" href="../travel/"><span class="wkp-b" aria-hidden="true">✈</span><span><b>${T('Weekender: three perfect days, this weekend')}</b><span>${T('San Francisco, Los Angeles, Miami, New York, Paris, London, Prague and Las Vegas, planned day by day for the coming weekend, with live weather and flights and hotels filled in.')}</span></span><span class="wkp-go" aria-hidden="true">›</span></a>`;
+}
 function deskBanner(k) {
   const shows = allShows(), s = shows.find(x => x.desk === k), vs = VIDS().filter(v => v.c === k);
   if (!s && !vs.length) return '';
