@@ -32,6 +32,11 @@ jobs:
         run: |
           pip install --quiet xlrd==2.0.1 || echo "xlrd not installed; gas prices come from DBnomics"
           python3 news/updater/markets.py ${{ github.event_name == 'workflow_dispatch' && '--force' || '' }} || echo "markets failed, kept the last snapshot"
+      - name: What the week's reports move, and what options price
+        timeout-minutes: 4
+        continue-on-error: true
+        run: |
+          python3 news/updater/impact.py ${{ github.event_name == 'workflow_dispatch' && '--force' || '' }} || echo "impact maps failed; the calendar works without them"
       - name: Home market and saved searches
         timeout-minutes: 6
         continue-on-error: true

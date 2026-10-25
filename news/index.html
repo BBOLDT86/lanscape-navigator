@@ -319,6 +319,27 @@ body.dopen{overflow:hidden}
 .cev li{display:grid;grid-template-columns:54px minmax(0,1fr);gap:1px 10px;padding:7px 0;border-bottom:1px solid var(--rule);font-size:14px}
 .cev .ct{font-weight:600;color:var(--ink-2);font-variant-numeric:tabular-nums}.cev .cn{font-weight:600}
 .cev .cc{grid-column:2;color:var(--ink-2);font-size:13px}.cev .cc b{color:var(--ink)}.cev .none{display:block;color:var(--ink-2)}
+a.imp-a{color:inherit;text-decoration:underline;text-decoration-color:var(--brass);text-decoration-thickness:2px;text-underline-offset:3px}a.imp-a svg{margin-left:4px;vertical-align:-1px;color:var(--brass-ink)}
+.imp .ak{font-size:13px;font-weight:600;color:var(--ink-2);margin:26px 0 6px}.imp .ak a{color:inherit}
+.imp-h{font:400 clamp(34px,5vw,54px)/1.04 var(--serif);margin:0 0 6px}.imp-w{color:var(--ink-2);margin:0 0 10px;font-weight:600}
+.imp-f{font-size:15px;color:var(--ink-2);margin:0 0 10px}.imp-f b{color:var(--ink)}.imp-l{font:400 21px/1.35 var(--serif);margin:0 0 16px;max-width:52ch}
+.imp-s{margin:6px 0 10px;flex-wrap:wrap}.imp-s button{white-space:normal;text-align:left}
+.sk{width:100%;overflow:hidden;border:1px solid var(--rule);border-radius:12px;background:var(--raise);padding:16px 10px 12px 12px}
+.sankey{display:block;width:100%;height:auto;font-family:var(--sans)}
+.sankey path{fill:none;transition:opacity .15s}.sankey path.sk-l{stroke:var(--ink-3);stroke-width:1}.sankey path.dim{opacity:.12}
+.sk-a{stroke:var(--ink-3);stroke-opacity:.28}.sk-b.up{stroke:var(--up);stroke-opacity:.42}.sk-b.dn{stroke:var(--dn);stroke-opacity:.42}.sk-b.fl{stroke:var(--ink-3);stroke-opacity:.35}
+.sk-n{fill:var(--ink)}.sk-n.up{fill:var(--up)}.sk-n.dn{fill:var(--dn)}.sk-n.fl{fill:var(--ink-3)}
+.sk-t{font-size:13px;font-weight:600;fill:var(--ink);paint-order:stroke;stroke:var(--raise);stroke-width:4px;stroke-linejoin:round}
+.sk-t.s{font-size:11.5px;font-weight:500;fill:var(--ink-2)}.sk-t tspan.up{fill:var(--up)}.sk-t tspan.dn{fill:var(--dn)}.sk-t tspan.fl{fill:var(--ink-3)}
+.imp-k{display:flex;gap:6px 16px;flex-wrap:wrap;font-size:13px;color:var(--ink-2);margin:10px 0 0}.imp-k .up{color:var(--up)}.imp-k .dn{color:var(--dn)}.imp-k .fl{color:var(--ink-3)}
+.imp-why{display:grid;grid-template-columns:minmax(120px,200px) 1fr;gap:10px 18px;margin:0}.imp-why dt{font-weight:600}.imp-why dd{margin:0;color:var(--ink-2)}
+@media (max-width:560px){.imp-why{grid-template-columns:1fr;gap:2px}.imp-why dd{margin-bottom:10px}.sk{padding:12px 4px 10px 6px}}
+.imp-t td i{font-style:normal;font-size:12.5px}.imp-t td i.up{color:var(--up)}.imp-t td i.dn{color:var(--dn)}
+.imp-n{margin-top:22px}
+.impday h2{font:400 26px var(--serif);margin:26px 0 10px}
+.impl{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px}
+.impc{display:grid;grid-template-columns:1fr auto;gap:2px 10px;text-decoration:none;color:inherit;border:1px solid var(--rule);background:var(--raise);border-radius:12px;padding:10px 12px}
+.impc:hover{border-color:var(--brass)}.impc b{font-weight:600}.impc span{font-size:13px;color:var(--ink-2);white-space:nowrap}.impc small{grid-column:1/-1;color:var(--ink-2);font-size:13px}
 .cearn{font-size:14px;color:var(--ink-2);margin:10px 0 0;line-height:1.5}.cearn b{color:var(--ink)}.cearn span{color:var(--ink-3)}
 .blk.news .page-h{margin-bottom:0}.narrow{max-width:860px}
 .mkerr{margin-top:28px;font-size:13px;color:var(--ink-2)}.mkerr summary{cursor:pointer}
@@ -1043,6 +1064,7 @@ function parseHash() {
   if (a === 'files') return { t: 'files' };
   if (a === 'pictures') return { t: 'pictures', show: b || '' };
   if (a === 'video') return { t: 'video' };
+  if (a === 'impact') return { t: 'impact', id: b || '' };
   return { t: 'home' };
 }
 function go(hash) { if (location.hash !== hash) location.hash = hash; else render(); }
@@ -1239,6 +1261,7 @@ function render(keepScroll) {
   else if (view.t === 'files') renderFiles();
   else if (view.t === 'pictures') { renderPictures(); if (view.show && !SS.el && deepShow !== location.hash) { deepShow = location.hash; openShow(view.show); } }
   else if (view.t === 'video') renderVideo();
+  else if (view.t === 'impact') renderImpact(view.id);
   renderFoot();
   watchImpressions();
   if (!keepScroll) window.scrollTo(0, 0);
@@ -1409,8 +1432,8 @@ function calendarHTML() {
   for (const e of MK.events || []) { const x = days.get(e.date) || { earn: null, ev: null }; x.ev = e; days.set(e.date, x); }
   if (!days.size) return '';
   return [...days.entries()].sort().map(([d, x]) => `<div class="cday"><h4>${esc(fmtCalDay(d))}</h4>
-    ${x.ev && x.ev.rows.length ? `<ul class="cev">${x.ev.rows.filter(r => r.country === 'U.S.').slice(0, 8).map(r => `<li><span class="ct">${esc(h12(r.time).replace(' a.m.', 'a').replace(' p.m.', 'p'))}</span><span class="cn">${esc(r.ev)}</span><span class="cc">${r.act ? `<b>${esc(r.act)}</b>` : ''}${r.cons ? ` ${T('Forecast {v}.', { v: esc(r.cons) })}` : ''}${r.prev ? ` ${T('Last {v}.', { v: esc(r.prev) })}` : ''}</span></li>`).join('') || `<li class="none">${T('No U.S. releases listed.')}</li>`}</ul>` : ''}
-    ${x.earn && x.earn.rows.length ? `<p class="cearn"><b>${T('Earnings:')}</b> <span class="nolc">${x.earn.rows.slice(0, 8).map(r => `${esc(coName(r.n))}${r.when ? ` <span>(${esc(T(r.when))})</span>` : ''}`).join(', ')}${x.earn.n > 8 ? `, ${esc(T('and {n} more', { n: x.earn.n - 8 }))}` : ''}.</span></p>` : ''}
+    ${x.ev && x.ev.rows.length ? `<ul class="cev">${x.ev.rows.filter(r => r.country === 'U.S.').slice(0, 8).map(r => `<li><span class="ct">${esc(h12(r.time).replace(' a.m.', 'a').replace(' p.m.', 'p'))}</span>${impId(d, r.ev) ? `<a class="cn imp-a" href="#/impact/${esc(impId(d, r.ev))}">${esc(r.ev)}<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M3 6c7 0 9 12 18 12M3 6c7 0 9-2 18-2M3 6c7 0 9 7 18 7"/></svg></a>` : `<span class="cn">${esc(r.ev)}</span>`}<span class="cc">${r.act ? `<b>${esc(r.act)}</b>` : ''}${r.cons ? ` ${T('Forecast {v}.', { v: esc(r.cons) })}` : ''}${r.prev ? ` ${T('Last {v}.', { v: esc(r.prev) })}` : ''}</span></li>`).join('') || `<li class="none">${T('No U.S. releases listed.')}</li>`}</ul>` : ''}
+    ${x.earn && x.earn.rows.length ? `<p class="cearn"><b>${T('Earnings:')}</b> <span class="nolc">${x.earn.rows.slice(0, 8).map(r => `${impEarnId(d, r.s) ? `<a class="imp-a" href="#/impact/${esc(impEarnId(d, r.s))}">${esc(coName(r.n))}</a>` : esc(coName(r.n))}${r.when ? ` <span>(${esc(T(r.when))})</span>` : ''}`).join(', ')}${x.earn.n > 8 ? `, ${esc(T('and {n} more', { n: x.earn.n - 8 }))}` : ''}.</span></p>` : ''}
   </div>`).join('');
 }
 function renderBusiness() {
@@ -1435,7 +1458,7 @@ function renderBusiness() {
 ` : ''}
     ${MK && (MK.econ || []).length ? `<section class="blk"><h2 class="sec-h">The economy</h2><p class="sub2">The latest official numbers: the Labor Department, the Commerce Department and the Energy Department (through DBnomics), the New York Fed, Freddie Mac and the University of Michigan. Tap one for its source.</p><div class="econ">${MK.econ.map(econTile).join('')}</div>
       ${(MK.econMissing || []).length ? `<p class="note" style="margin-top:12px">${T('Not shown in this edition: {list}. No reading from the last few months reached the updater, so an old number isn’t passed off as the latest.', { list: esc(MK.econMissing.map(x => T(x)).join(', ').replace(/, ([^,]*)$/, ' ' + T('and|list') + ' $1')) })}</p>` : ''}</section>` : ''}
-    ${MK && ((MK.earnings || []).length || (MK.events || []).length) ? `<section class="blk"><h2 class="sec-h">This week</h2><p class="sub2">U.S. economic releases (Eastern time) and the biggest companies reporting earnings, from Nasdaq’s calendars.</p><div class="cal">${calendarHTML()}</div></section>` : ''}
+    ${MK && ((MK.earnings || []).length || (MK.events || []).length) ? `<section class="blk"><h2 class="sec-h">This week</h2><p class="sub2">U.S. economic releases (Eastern time) and the biggest companies reporting earnings, from Nasdaq’s calendars. Tap a release or a company to see what it usually moves and the move the options market is pricing. <a href="#/impact">${T('All of this week’s, on one page')}</a></p><div class="cal" id="calWrap">${calendarHTML()}</div></section>` : ''}
     ${st.length ? `<section class="blk"><div class="blk-h"><h2 class="sec-h">Big companies</h2><label class="flt"><span class="sr">Filter companies</span><input id="stkFilter" type="search" placeholder="Filter by name or ticker" value="${esc(stockFilter)}"></label></div>
       <p class="sub2">The largest U.S.-listed companies and the most traded Brazilian and European names. Tap a column to sort; tap a row for its chart.</p><div class="stk-wrap" id="stkWrap">${stockTable()}</div></section>` : ''}
     <section class="blk news"><div class="page-h"><h2 class="sec-h">${T('Business news')}</h2><p>${T('{n} stories', { n: news.length })}</p><div class="seg" role="group" aria-label="Sort"><button type="button" data-sort="you" aria-pressed="${deskSort === 'you'}">Best for you</button><button type="button" data-sort="new" aria-pressed="${deskSort === 'new'}">Latest</button></div></div>
@@ -1445,6 +1468,142 @@ function renderBusiness() {
   </div>`;
   const f = $('#stkFilter');
   if (f) f.addEventListener('input', () => { stockFilter = f.value.trim(); $('#stkWrap').innerHTML = stockTable(); });
+  if (!IMP) ensureImpact().then(() => { const c = $('#calWrap'); if (c && view.t === 'desk' && view.k === 'business') c.innerHTML = calendarHTML(); });
+}
+/* ================= impact maps: what a report usually moves, and the move options are pricing (news/data/impact.json) ================= */
+let IMP = null, impBusy = null, impScen = 'above';
+function ensureImpact() {
+  if (IMP) return Promise.resolve(IMP);
+  if (!impBusy) impBusy = getJSON('data/impact.json').then(d => { IMP = d && d.reports ? d : { reports: [], instruments: {}, channels: {} }; }).catch(() => { IMP = { reports: [], instruments: {}, channels: {} }; }).then(() => { impBusy = null; return IMP; });
+  return impBusy;
+}
+function impId(date, ev) { // the impact map for a calendar row, if there is one
+  if (!IMP) return null;
+  const r = IMP.reports.find(x => x.kind === 'econ' && x.date === date && x.rows.some(y => y.ev === ev));
+  return r ? r.id : null;
+}
+function impEarnId(date, s) { if (!IMP) return null; const r = IMP.reports.find(x => x.kind === 'earn' && x.date === date && x.s === s); return r ? r.id : null; }
+const impKey = r => r.date + '|' + (r.kind === 'earn' && /after/.test(r.when || '') ? 'post' : 'pre');
+const impMove = (inst, r) => inst && inst.moves ? inst.moves[impKey(r)] : null;
+const fexp = e => new Date(e + 'T12:00:00Z').toLocaleDateString(LOC(), { weekday: 'short', month: 'short', day: 'numeric', timeZone: 'UTC' });
+function impLevel(x) { // an instrument's level now: yields in percent, index points, the rest in dollars
+  if (x.p == null) return '';
+  if (x.yield) return fnum(x.p, 2) + '%';
+  if (x.kind === 'idx' || x.kind === 'per') return fnum(x.p, x.p >= 1000 ? 0 : 2);
+  return '$' + fnum(x.p, x.p >= 1000 ? 0 : 2);
+}
+const impChg = x => x.yield ? (x.c != null ? sgn(x.c) + fnum(Math.abs(x.c), 2) : '') : fpct(x.cp);
+function sankeySVG(r, scen, W) {
+  const I = IMP.instruments, flip = scen === 'below' ? -1 : 1;
+  const flows = r.flows.map(f => ({ c: f.c, i: f.i, w: f.w, d: f.d * flip }));
+  const chs = [...new Set(flows.map(f => f.c))];
+  const ins = []; flows.forEach(f => { if (!ins.includes(f.i)) ins.push(f.i); });
+  const sum = a => a.reduce((s, f) => s + f.w, 0), tot = sum(flows);
+  const narrow = W < 560, gap = narrow ? 8 : 10, nw = 9;
+  const H = Math.max(ins.length * 34, chs.length * 46, 240);
+  const k = (H - gap * (Math.max(ins.length, chs.length) - 1)) / tot;
+  const x1 = Math.round(W * 0.27), x2 = Math.round(W * (narrow ? 0.56 : 0.57));
+  const cw = Object.fromEntries(chs.map(c => [c, sum(flows.filter(f => f.c === c))]));
+  const iw = Object.fromEntries(ins.map(i => [i, sum(flows.filter(f => f.i === i))]));
+  const stack = (keys, wt) => { const t = keys.reduce((s, x) => s + wt[x] * k, 0) + gap * (keys.length - 1); let y = (H - t) / 2; const o = {}; keys.forEach(x => { o[x] = { y, h: wt[x] * k }; y += wt[x] * k + gap; }); return o; };
+  const C = stack(chs, cw), N = stack(ins, iw), R = { y: (H - tot * k) / 2, h: tot * k };
+  const band = (xa, ya, xb, yb, h, cls, data) => { const xm = (xa + xb) / 2, a = (ya + h / 2).toFixed(1), b = (yb + h / 2).toFixed(1); return `<path class="${cls}" ${data} d="M${xa},${a}C${xm},${a} ${xm},${b} ${xb},${b}" stroke-width="${Math.max(1.5, h - 1).toFixed(1)}"/>`; };
+  let ry = R.y; const out = {}, inn = {};
+  chs.forEach(c => { out[c] = C[c].y; }); ins.forEach(i => { inn[i] = N[i].y; });
+  const p1 = chs.map(c => { const h = cw[c] * k, s = band(nw, ry, x1, C[c].y, h, 'sk-a', `data-c="${c}"`); ry += h; return s; }).join('');
+  const p2 = flows.slice().sort((a, b) => chs.indexOf(a.c) - chs.indexOf(b.c) || ins.indexOf(a.i) - ins.indexOf(b.i)).map(f => {
+    const h = f.w * k, s = band(x1 + nw, out[f.c], x2, inn[f.i], h, 'sk-b ' + (f.d > 0 ? 'up' : f.d < 0 ? 'dn' : 'fl'), `data-c="${f.c}" data-i="${esc(f.i)}"`);
+    out[f.c] += h; inn[f.i] += h; return s;
+  }).join('');
+  const CHS = { self: 'The stock', peers: 'Peers', sector: 'Sector fund', sup: 'Suppliers', cust: 'Customers', index: 'Indexes', fed: 'Fed odds', rates: 'Yields', dollar: 'Dollar', stocks: 'Valuations', ratesens: 'Rate-sensitive', gold: 'Gold', growth: 'Growth', cyclicals: 'Cyclicals', commod: 'Commodities', defensive: 'Defensives', spend: 'Spending', housing: 'Housing', supply: 'Oil supply', travel: 'Fuel costs', demand: 'Demand', risk: 'Risk appetite', gas: 'Gas supply' };
+  const chName = c => T(narrow ? CHS[c] || c : (IMP.channels || {})[c] || c);
+  const relax = (ys, minGap, lo, hi) => { // labels that would collide are spread out, keeping their order
+    const o = ys.map((y, j) => ({ y, j })).sort((p, q) => p.y - q.y);
+    for (let j = 1; j < o.length; j++) o[j].y = Math.max(o[j].y, o[j - 1].y + minGap);
+    const over = o.length ? o[o.length - 1].y - hi : 0;
+    if (over > 0) { o[o.length - 1].y -= over; for (let j = o.length - 2; j >= 0; j--) o[j].y = Math.min(o[j].y, o[j + 1].y - minGap); }
+    if (o.length && o[0].y < lo) { const d = lo - o[0].y; o.forEach(x => { x.y += d; }); }
+    const out = []; o.forEach(x => { out[x.j] = x.y; }); return out;
+  };
+  const ly = relax(ins.map(i => N[i].y + N[i].h / 2), 31, 12, H - 6);
+  const cly = relax(chs.map(c => C[c].y + C[c].h / 2), 20, 10, H - 4);
+  const nodes = `<rect class="sk-n r" x="0" y="${R.y.toFixed(1)}" width="${nw}" height="${R.h.toFixed(1)}" rx="2"/>`
+    + chs.map((c, j) => `<rect class="sk-n" x="${x1}" y="${C[c].y.toFixed(1)}" width="${nw}" height="${C[c].h.toFixed(1)}" rx="2"/><text class="sk-t c" x="${x1 + nw + 6}" y="${(cly[j] + 4).toFixed(1)}" data-c="${c}">${esc(chName(c))}</text>`).join('')
+    + ins.map((i, j) => {
+      const x = I[i] || { n: i, sn: i }, d = flows.filter(f => f.i === i).reduce((s, f) => s + Math.sign(f.d), 0);
+      const arrow = d > 0 ? '▲' : d < 0 ? '▼' : '◆', mv = impMove(x, r);
+      const sub = mv ? T('±{v}% priced', { v: fnum(mv.pct, 1) }) : impLevel(x);
+      const cy = ly[j], ny = N[i].y + N[i].h / 2, lead = Math.abs(cy - ny) > 3 ? `<path class="sk-l" d="M${x2 + nw},${ny.toFixed(1)}L${x2 + nw + 4},${(sub ? cy - 5 : cy).toFixed(1)}"/>` : '';
+      return `<rect class="sk-n ${d > 0 ? 'up' : d < 0 ? 'dn' : 'fl'}" x="${x2}" y="${N[i].y.toFixed(1)}" width="${nw}" height="${N[i].h.toFixed(1)}" rx="2"/>${lead}`
+        + `<text class="sk-t i" x="${x2 + nw + 6}" y="${(cy + (sub ? -1 : 4)).toFixed(1)}" data-i="${esc(i)}"><tspan class="${d > 0 ? 'up' : d < 0 ? 'dn' : 'fl'}">${arrow}</tspan> ${esc(narrow ? x.sn || x.n : x.n)}</text>`
+        + (sub ? `<text class="sk-t s" x="${x2 + nw + 6}" y="${(cy + 13).toFixed(1)}">${esc(sub)}</text>` : '');
+    }).join('');
+  return `<svg class="sankey" viewBox="0 -4 ${W} ${H + 18}" width="${W}" height="${H + 18}" role="img" aria-label="${esc(T('Flow from the report through channels to the markets it usually moves'))}">${p1}${p2}${nodes}</svg>`;
+}
+function impWhen(r) {
+  const day = new Date(r.date + 'T12:00:00Z').toLocaleDateString(LOC(), { weekday: 'long', month: 'long', day: 'numeric', timeZone: 'UTC' });
+  if (r.kind === 'earn') return r.when ? `${day}, ${T(r.when)}` : day;
+  return r.time ? `${day}, ${h12(r.time)} ET` : day;
+}
+function impCard(r) { // a line in the week's list
+  const I = IMP.instruments;
+  const lead = r.kind === 'earn' ? I[r.s] : I.SPY;
+  const mv = impMove(lead, r);
+  const txt = r.kind === 'earn' ? (mv ? T('Options price ±{v}% for {s}', { v: fnum(mv.pct, 1), s: r.s }) : r.s)
+    : (mv ? T('S&P 500: ±{v}% priced for the day', { v: fnum(mv.pct, 1) }) : r.rows.map(x => x.cons ? T('Forecast {v}.', { v: x.cons }) : '').filter(Boolean)[0] || '');
+  return `<a class="impc" href="#/impact/${esc(r.id)}"><b>${esc(r.kind === 'earn' ? r.n : T(r.title))}</b><span>${esc(r.kind === 'earn' ? (r.when ? T(r.when) : '') : r.time ? h12(r.time) : '')}</span><small>${esc(txt)}</small></a>`;
+}
+function renderImpactList() {
+  const days = new Map();
+  for (const r of IMP.reports) { if (!days.has(r.date)) days.set(r.date, []); days.get(r.date).push(r); }
+  $('#main').innerHTML = `<div class="wrap imp"><p class="ak"><a href="#/s/business">${secName('business')}</a></p>
+    <div class="page-h"><h1>${T('What could move markets this week')}</h1><p>${T('Every economic release and big earnings report on the calendar, with the markets each one usually moves and the size of the move the options market is pricing. Tap one for its map.')}</p></div>
+    ${[...days.entries()].map(([d, rs]) => `<section class="impday"><h2>${esc(fmtCalDay(d))}</h2><div class="impl">${rs.map(impCard).join('')}</div></section>`).join('') || `<p class="note">${T('The calendar for the week isn’t in yet.')}</p>`}
+    ${impNote()}</div>`;
+}
+function impNote() {
+  return `<p class="note imp-n">${T('The arrows are the usual first reaction when a number comes in above or below forecast, as market commentary and the Fed’s own research describe it. They are not a forecast, and markets often do something else. Option prices give the size of the move traders are paying for, not its direction: the price of a call plus a put at the current price, on the first expiry after the event, from Cboe’s delayed quotes{at}. Not investment advice.', { at: IMP.optionsAt ? ', ' + T('as of {t}', { t: new Date(IMP.optionsAt).toLocaleString(LOC(), { timeZone: 'America/New_York', weekday: 'short', hour: 'numeric', minute: '2-digit' }) + ' ET' }) : '' })}</p>`;
+}
+async function renderImpact(id) {
+  if (!IMP) { $('#main').innerHTML = `<div class="wrap state"><h2>${T('Drawing the map…')}</h2></div>`; await ensureImpact(); if (view.t !== 'impact') return; }
+  if (!id) return renderImpactList();
+  const r = IMP.reports.find(x => x.id === id);
+  if (!r) { $('#main').innerHTML = `<div class="wrap state"><h2>${T('That report isn’t on this week’s calendar')}</h2><p><a href="#/impact">${T('See the week')}</a></p></div>`; return; }
+  const I = IMP.instruments;
+  const above = r.kind === 'earn' ? T('Beats and raises') : T(r.above), below = r.kind === 'earn' ? T('Misses or cuts') : T(r.below);
+  const facts = r.kind === 'earn'
+    ? [r.eps ? T('Analysts expect earnings of {v} a share for {q}.', { v: r.eps, q: r.q || '' }) : '', r.cap ? T('Market value {v}.', { v: capFmt(r.cap) }) : ''].filter(Boolean).join(' ')
+    : r.rows.map(x => `${esc(x.ev)}${x.act ? `: <b>${esc(x.act)}</b>` : ''}${x.cons ? ` ${T('Forecast {v}.', { v: esc(x.cons) })}` : ''}${x.prev ? ` ${T('Last {v}.', { v: esc(x.prev) })}` : ''}`).join('<br>');
+  const lead = r.kind === 'earn' ? I[r.s] : I.SPY, lm = impMove(lead, r);
+  const leadLine = lm ? (r.kind === 'earn'
+    ? T('Options price a move of ±{v}% in {s} by {e}, against ±{n}% in a normal stretch that long.', { v: fnum(lm.pct, 1), s: r.s, e: fexp(lm.e), n: lm.normal != null ? fnum(lm.normal, 1) : '–' })
+    : T('Options price a move of ±{v}% in the S&P 500 by {e}, against ±{n}% in a normal stretch that long.', { v: fnum(lm.pct, 1), e: fexp(lm.e), n: lm.normal != null ? fnum(lm.normal, 1) : '–' })) : '';
+  const rows = [...new Set(r.flows.map(f => f.i))].map(i => [i, I[i]]).filter(([, x]) => x);
+  const why = r.why || {};
+  const others = IMP.reports.filter(x => x.id !== r.id && x.date >= r.date).slice(0, 8);
+  $('#main').innerHTML = `<div class="wrap imp"><p class="ak"><a href="#/s/business">${secName('business')}</a> · <a href="#/impact">${T('This week')}</a></p>
+    <h1 class="imp-h">${esc(r.kind === 'earn' ? T('{n} reports', { n: r.n }) : T(r.title))}</h1>
+    <p class="imp-w">${esc(impWhen(r))}</p>
+    ${facts ? `<p class="imp-f">${facts}</p>` : ''}
+    ${leadLine ? `<p class="imp-l">${esc(leadLine)}</p>` : ''}
+    <div class="seg imp-s" role="group" aria-label="${esc(T('Scenario'))}"><button type="button" data-scen="above" aria-pressed="${impScen === 'above'}">${esc(above)}</button><button type="button" data-scen="below" aria-pressed="${impScen === 'below'}">${esc(below)}</button></div>
+    <div class="sk" id="sk"></div>
+    <p class="imp-k"><span class="up">▲ ${T('usually rises')}</span><span class="dn">▼ ${T('usually falls')}</span><span class="fl">◆ ${T('mixed')}</span><span>${T('Wider bands: a stronger usual response.')}</span></p>
+    <section class="blk"><h2 class="sec-h">${T('How it travels')}</h2><dl class="imp-why">${[...new Set(r.flows.map(f => f.c))].map(c => `<dt>${esc(T((IMP.channels || {})[c] || c))}</dt><dd>${esc((why[c] || [])[impScen === 'above' ? 0 : 1] || '')}</dd>`).join('')}</dl></section>
+    <section class="blk"><h2 class="sec-h">${T('What options are pricing')}</h2><div class="stk-wrap"><table class="stk imp-t"><thead><tr><th class="l">${T('Market')}</th><th>${T('Now')}</th><th>${T('Move priced')}</th><th>${T('By')}</th><th>${T('Normal stretch')}</th></tr></thead>
+      <tbody>${rows.map(([i, x]) => { const m = impMove(x, r); return `<tr><th scope="row" class="l"><b>${esc(x.n)}</b>${x.sym && x.sym !== i ? ` <span>${esc(x.sym)}</span>` : ''}</th><td>${impLevel(x) || '–'}${x.cp != null ? ` <i class="${dirc(x.cp)}">${impChg(x)}</i>` : ''}</td><td>${m ? '±' + fnum(m.pct, 1) + '%' : '–'}</td><td>${m ? esc(fexp(m.e)) : ''}</td><td>${m && m.normal != null ? '±' + fnum(m.normal, 1) + '%' : x.day != null ? T('±{v}% a day', { v: fnum(x.day, 1) }) : '–'}</td></tr>`; }).join('')}</tbody></table></div>
+      <p class="sub2">${T('A move priced well above the normal stretch is the event premium: what traders pay for this report in particular.')}</p></section>
+    ${impNote()}
+    ${others.length ? `<section class="blk"><h2 class="sec-h">${T('Next on the calendar')}</h2><div class="impl">${others.map(impCard).join('')}</div></section>` : ''}
+  </div>`;
+  const draw = () => { const el = $('#sk'); if (!el) return; el.innerHTML = sankeySVG(r, impScen, Math.min(860, el.clientWidth || 340)); };
+  draw();
+  $$('.imp-s [data-scen]').forEach(b => b.addEventListener('click', () => { impScen = b.dataset.scen; $$('.imp-s [data-scen]').forEach(x => x.setAttribute('aria-pressed', x === b)); draw(); $$('.imp-why dd').forEach((dd, j) => { const c = [...new Set(r.flows.map(f => f.c))][j]; dd.textContent = (why[c] || [])[impScen === 'above' ? 0 : 1] || ''; }); }));
+  const sk = $('#sk');
+  sk.addEventListener('mouseover', e => { const t = e.target.closest('[data-c],[data-i]'); $$('.sankey path', sk).forEach(p => p.classList.toggle('dim', !!t && !(t.dataset.i ? p.dataset.i === t.dataset.i || (!p.dataset.i && r.flows.some(f => f.i === t.dataset.i && f.c === p.dataset.c)) : p.dataset.c === t.dataset.c))); });
+  sk.addEventListener('mouseleave', () => $$('.sankey path', sk).forEach(p => p.classList.remove('dim')));
+  addEventListener('resize', draw, { once: true });
+  document.title = (r.kind === 'earn' ? r.n : r.title) + ' · The Watch';
 }
 const ALIASES = { '^GSPC': ['S&P 500', 'stocks', 'Wall Street', 'stock market'], '^DJI': ['Dow'], '^IXIC': ['Nasdaq'], '^VIX': ['VIX', 'volatility'],
   '^TNX': ['Treasury', 'bond', 'yields'], '^IRX': ['Treasury', 'Fed'], '^FVX': ['Treasury'], '^TYX': ['Treasury', 'bond'], 'CL=F': ['oil', 'crude', 'OPEC'],

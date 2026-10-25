@@ -62,6 +62,21 @@ Yahoo Finance, Stooq, FRED and the BLS's own API refuse GitHub's runners, so the
 keeps its last good version and is listed under `stale`; individual misses are in `errors`. The page's Business desk
 writes its plain-English summary from these numbers only.
 
+## What the week's reports move (`impact.py` -> `data/impact.json`)
+
+Every U.S. release on the week's calendar is grouped into a family (PCE, jobless claims, GDP, housing, an auction)
+and every company worth $60 billion or more that reports gets a map: from the report, through the channels it works
+on (Fed rate expectations, bond yields, the dollar, valuations, peers, suppliers), to the markets it usually moves,
+with the usual first direction when the number comes in above or below forecast. The rules are in `impact.py`
+(`CATS`, `FAMILIES`); who moves with whom is in `data/peers.json` (sector fund, peers, suppliers, customers), with
+Nasdaq's company profile (`data/profiles.json`, cached) for companies not listed there.
+
+The size comes from the options market: Cboe's delayed quotes (`cdn.cboe.com`), the at-the-money straddle on the
+first expiry after the event, as a percentage of the price, next to a normal stretch of the same length from the 30-day
+implied volatility. Option prices are fetched at most every five hours (a manual run always fetches). The page
+draws each map as a Sankey diagram (`#/impact/<id>`, and the week at `#/impact`); the calendar rows and the
+companies link to them. Directions are the usual reactions, not forecasts; the options give size, not direction.
+
 ## Household and Home (`home.py` -> `data/home/`)
 
 Household is the cost-of-living desk: gas and diesel, 30- and 15-year mortgage rates, the Fed's rate, inflation and
