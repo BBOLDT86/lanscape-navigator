@@ -10,8 +10,11 @@ An article is one JSON file in news/articles/, named for its id:
    "body": "Markdown: paragraphs, ## and ### headings, > quotes, - lists, **bold**, *italic*, [links](https://...),
             and numbered citations like [3] that point at sources[2]",
    "sources": [{"title": "...", "outlet": "...", "url": "https://...", "date": "2026-10-24"}, ...],
-   "edition": "2026-10-25-morning", "story": "the edition story id it grew out of, if any"}
-Standard library only.
+   "edition": "2026-10-25-morning", "story": "the edition story id it grew out of, if any",
+   "i18n": {"pt": {"title": "...", "dek": "...", "body": "the whole body in Brazilian Portuguese, same [n] citations",
+                   "model": "Claude Opus 5.5"},
+            "de": {... the same in German ...}}}
+The i18n block is optional; when it is there each translation is checked too. Standard library only.
 """
 import datetime as dt
 import json
@@ -25,7 +28,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 A = os.path.normpath(os.path.join(HERE, '..', 'articles'))
 DESKS = {'us', 'world', 'europe', 'brazil', 'politics', 'business', 'household', 'home', 'tech', 'science', 'health', 'sports',
          'culture', 'cars', 'travel', 'food', 'longreads', 'files'}
-WORDS = re.compile(r"[A-Za-z0-9’'][A-Za-z0-9’'.,%$-]*")
+WORDS = re.compile(r"[^\W_][\w’'.,%$-]*")
+LANGS = {'pt', 'de'}
 
 
 def words(s):
@@ -98,6 +102,35 @@ def check(path, now=None):
         bad = sorted(c for c in cited if c < 1 or c > len(srcs))
         if bad:
             problems.append(f'citations {bad} point past the end of the sources list')
+        tr = a.get('i18n')
+        if tr is not None:
+            if not isinstance(tr, dict):
+                problems.append('i18n must be an object like {"pt": {...}, "de": {...}}')
+                tr = {}
+            for lang, t in tr.items():
+                if lang not in LANGS:
+                    problems.append(f'i18n.{lang}: only {sorted(LANGS)} are used'); continue
+                if not isinstance(t, dict):
+                    problems.append(f'i18n.{lang} must be an object'); continue
+                for k in ('title', 'dek', 'body'):
+                    if not t.get(k):
+                        problems.append(f'i18n.{lang} is missing {k}')
+                if not t.get('body'):
+                    continue
+                if t.get('model') and not re.fullmatch(r'Claude [A-Za-z]+ \d+(\.\d+)?', t['model']):
+                    problems.append(f'i18n.{lang}.model must be the exact model name')
+                ratio = words(t['body']) / max(1, n)
+                if not 0.75 <= ratio <= 1.45:
+                    problems.append(f'i18n.{lang}.body is {words(t["body"])} words against {n} in English; translate all of it, no summary')
+                if len(re.findall(r'^## ', t['body'], re.M)) != len(re.findall(r'^## ', body, re.M)):
+                    problems.append(f'i18n.{lang}.body should keep the same ## sections as the English')
+                tc = {int(x) for x in re.findall(r'\[(\d{1,2})\](?!\()', t['body'])}
+                if tc != cited:
+                    problems.append(f'i18n.{lang}.body must keep the same [n] citations as the English (missing {sorted(cited - tc)}, extra {sorted(tc - cited)})')
+                if re.search(r'<\s*/?\s*[a-zA-Z][^>]*>', t['body']):
+                    problems.append(f'i18n.{lang}: no HTML in the body')
+                if len(t.get('dek', '')) > 360:
+                    problems.append(f'i18n.{lang}.dek should be at most 360 characters')
     return problems, a
 
 
@@ -112,8 +145,13 @@ def index():
         except (OSError, ValueError):
             continue
         n = words(a.get('body', ''))
-        rows.append({'id': a['id'], 'title': a['title'], 'dek': a['dek'], 'desk': a['desk'], 'byline': a['byline'], 'model': a['model'],
-                     'written': a['written'], 'words': n, 'min': max(1, round(n / 230)), 'sources': len(a.get('sources') or [])})
+        row = {'id': a['id'], 'title': a['title'], 'dek': a['dek'], 'desk': a['desk'], 'byline': a['byline'], 'model': a['model'],
+               'written': a['written'], 'words': n, 'min': max(1, round(n / 230)), 'sources': len(a.get('sources') or [])}
+        tr = {k: {'title': v['title'], 'dek': v['dek']} for k, v in (a.get('i18n') or {}).items()
+              if k in LANGS and isinstance(v, dict) and v.get('title') and v.get('dek') and v.get('body')}
+        if tr:
+            row['i18n'] = tr
+        rows.append(row)
     rows.sort(key=lambda r: r['written'], reverse=True)
     with open(os.path.join(A, 'index.json'), 'w', encoding='utf-8') as fh:
         json.dump({'v': 1, 'updated': dt.datetime.now(dt.timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ'), 'articles': rows}, fh, ensure_ascii=False, indent=1)
@@ -126,7 +164,8 @@ def main():
         if problems:
             print('NOT READY:'); [print('  -', p) for p in problems]
             return 1
-        print(f"ok: “{a['title']}”, {words(a['body'])} words, {len(a['sources'])} sources, by {a['byline']} ({a['model']}), {a['written']}")
+        langs = ', '.join(sorted((a.get('i18n') or {}).keys())) or 'none'
+        print(f"ok: “{a['title']}”, {words(a['body'])} words, {len(a['sources'])} sources, by {a['byline']} ({a['model']}), {a['written']}; translations: {langs}")
         return 0
     if len(sys.argv) >= 2 and sys.argv[1] == 'index':
         index()

@@ -440,8 +440,28 @@ def best_desk(sc):
     return best, sc[best]
 
 
-def classify(feed_section, lean, link, title, desc):
+# Portuguese and German outlets file their stories under paths like these; a general feed's story moves to that desk
+FOREIGN_PATH = [(re.compile(p, re.I), s) for p, s in (
+    (r'/(mundo|internacional|ausland|international|welt)(/|$)', 'world'),
+    (r'/(economia|mercado|mercados|financas|finan[cç]as|negocios|wirtschaft|finanzen|unternehmen|boerse|b[öo]rse)(/|$)', 'business'),
+    (r'/(esporte|esportes|futebol|sport|fussball|fu[ßs]ball)(/|$)', 'sports'),
+    (r'/(tecnologia|tec|digital|netzwelt|technik)(/|$)', 'tech'),
+    (r'/(ciencia|ci[êe]ncia|wissen|wissenschaft)(/|$)', 'science'),
+    (r'/(saude|sa[úu]de|gesundheit)(/|$)', 'health'),
+    (r'/(cultura|kultur|pop-arte|entretenimento|panorama)(/|$)', 'culture'),
+    (r'/(turismo-e-viagem|viagem|reise|reisen)(/|$)', 'travel'),
+)]
+
+
+def classify(feed_section, lean, link, title, desc, lang=None):
     """a story's section: its feed's desk; for a general feed, the outlet's URL path, its region, then the words in it"""
+    if lang in ('pt', 'de'):  # an outlet writing in Portuguese or German: its feed's desk, unless its URL files it elsewhere
+        path = urllib.parse.urlsplit(link).path if link else ''
+        if feed_section in ('brazil', 'europe', 'world', 'auto'):
+            for rx, sec in FOREIGN_PATH:
+                if rx.search(path) and not (sec == 'world' and feed_section == 'world'):
+                    return sec
+        return feed_section if feed_section != 'auto' else ('brazil' if lang == 'pt' else 'europe')
     if feed_section == 'brazil' and not BRAZIL.search(title + ' ' + desc):
         feed_section = 'world'  # Brazil outlets also cover the rest of Latin America
     if feed_section in ('household', 'home') and 'news.google.com' in (link or ''):  # a search route also catches world news
@@ -565,7 +585,7 @@ TOPICS = [
 ]
 TOPICS = [(k, l, re.compile(p, re.I)) for k, l, p in TOPICS]
 TOPIC_AS_NAME = {'ukraine-war': 'ukraine', 'china': 'china'}
-WORD = re.compile(r"[A-Za-z0-9][A-Za-z0-9'’.&\-]*[A-Za-z0-9]|[A-Za-z0-9]")
+WORD = re.compile(r"[^\W_][\w'’.&\-]*[^\W_]|[^\W_]")  # letters in any alphabet: "São Paulo", "Flávio", "Süddeutsche"
 
 
 def tokens_raw(title):
@@ -629,7 +649,7 @@ def learn_entities(items):
     """names seen capitalized mid-sentence in sentence-case headlines -> {key: label}"""
     seen = Counter(); label = {}; lower = Counter()
     for it in items:
-        if is_title_case(tokens_raw(it['t'])):
+        if it.get('l') == 'de' or is_title_case(tokens_raw(it['t'])):
             continue
         for words in clauses(it['t']):
             for w in words[1:]:
@@ -645,6 +665,8 @@ def learn_entities(items):
                 label.setdefault(k, ALIAS_LABEL.get(k, ph))
     # acronyms count even at the head of a headline
     for it in items:
+        if it.get('l'):
+            continue
         for w in tokens_raw(it['t']):
             if re.match(r'^([A-Z]{2,6}|([A-Z]\.){2,4})$', w) and ent_key(w) not in GENERIC_ENT and ent_key(w) not in STOP:
                 seen[ent_key(w)] += 1; label.setdefault(ent_key(w), ALIAS_LABEL.get(ent_key(w), w))
@@ -655,7 +677,7 @@ def learn_entities(items):
 def item_keywords(it, ents):
     found = []
     title_case = is_title_case(tokens_raw(it['t']))
-    for words in clauses(it['t']):
+    for words in clauses(it['t']) if it.get('l') != 'de' else []:
         if title_case:
             n = len(words)
             used = [False] * n
@@ -675,9 +697,9 @@ def item_keywords(it, ents):
                 k = ent_key(ph)
                 if k in ents and k not in GENERIC_ENT:
                     found.append(k)
-                elif ' ' in ph and k not in GENERIC_ENT and k not in STOP:
+                elif ' ' in ph and k not in GENERIC_ENT and k not in STOP and not (it.get('l') and set(k.split()) & FOREIGN_STOP):
                     found.append(k); ents.setdefault(k, ALIAS_LABEL.get(k, ph))
-    topics = [k for k, _l, rx in TOPICS if rx.search(it['t']) or (rx.search(it.get('d', '')) and k not in ('crime', 'hotels', 'points-miles', 'music', 'movies'))]
+    topics = [] if it.get('l') else [k for k, _l, rx in TOPICS if rx.search(it['t']) or (rx.search(it.get('d', '')) and k not in ('crime', 'hotels', 'points-miles', 'music', 'movies'))]
     out = []
     for k in found + [TOPIC_AS_NAME.get(t, '#' + t) for t in topics]:  # "Ukraine" the topic is "Ukraine" the name
         if k not in out:
@@ -695,11 +717,19 @@ def stem(w):
     return w
 
 
+FOREIGN_STOP = set('''a o os as um uma uns umas de do da dos das em no na nos nas por pelo pela pelos pelas para com sem sob sobre e ou mas que se
+nao não é ao aos à às como mais menos após apos até ate entre seu sua seus suas ele ela eles elas isso este esta esse essa diz diz-se
+der die das den dem des ein eine einer eines einem einen und oder aber nicht ist sind war wird werden hat haben im in am an auf aus bei mit
+nach von vor zu zum zur für fur über uber unter gegen um wie was wer sich auch noch nur so es er sie wir ihr ihre sein seine dass als bis
+'''.split())
+
+
 def cluster_tokens(it):
     toks = set()
+    fs = FOREIGN_STOP if it.get('l') else ()
     for w in tokens_raw(it['t']):
         lw = w.lower()
-        if lw in STOP or len(lw) < 3 and not lw.isdigit():
+        if lw in STOP or lw in fs or len(lw) < 3 and not lw.isdigit():
             continue
         toks.add(stem(lw))
     for k in it.get('k', []):
@@ -837,8 +867,10 @@ def main():
                     dom = 'news.ycombinator.com'; outlet_name = 'Hacker News'
                 else:
                     d = '' if r['google'] else snippet(desc, title)
-                sec = classify(f.get('section', 'auto'), f.get('lean'), link, title, d)
+                sec = classify(f.get('section', 'auto'), f.get('lean'), link, title, d, f.get('lang'))
                 it = {'i': ident(link), 't': title[:240], 'u': link, 'o': dom, 'c': sec, 'p': p, 'f': NOW_MIN}
+                if f.get('lang') in ('pt', 'de'):
+                    it['l'] = f['lang']
                 if d:
                     it['d'] = d
                 if r['img']:
@@ -973,7 +1005,8 @@ def main():
     for c in clusters:
         for i in c['ids']:
             items[idx[i]]['g'] = c['id']
-    top = [c['id'] for c in clusters if c['sec'] not in SLOW][:30]
+    top = [c['id'] for c in clusters if c['sec'] not in SLOW and not by_i[c['lead']].get('l')][:30]
+    top_lang = {lg: [c['id'] for c in clusters if c['sec'] not in SLOW and by_i[c['lead']].get('l') == lg][:12] for lg in ('pt', 'de')}
     for it in items:
         if not it['k']:
             del it['k']
@@ -985,7 +1018,7 @@ def main():
         'outlets': {d: OUTLETS.get(d, d) for d in sorted(used_out)},
         'kw': {k: ents.get(k) or ALIAS_LABEL.get(k, k) for k in sorted({k for it in items for k in it.get('k', []) if not k.startswith('#')})},
         'topics': {k: l for k, l, _rx in TOPICS},
-        'items': items, 'clusters': clusters, 'top': top,
+        'items': items, 'clusters': clusters, 'top': top, 'topLang': top_lang,
         'feeds': {'total': len(feeds), 'read': len(feeds) - len(errors), 'failed': errors, 'stories': len(fresh)} if not OFFLINE else prev.get('feeds', {}),
     }
     # the archive: the last seven editions, by id

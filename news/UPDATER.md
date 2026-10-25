@@ -24,7 +24,7 @@ always builds, and replaces the current watch's edition.
 
 ## What a run does
 
-1. Reads every feed in `news/data/feeds.json` (about 120; 20 at a time, 18-second timeout, one retry).
+1. Reads every feed in `news/data/feeds.json` (about 195, 35 of them in Portuguese or German; 20 at a time, 18-second timeout, one retry).
    Google News items take the outlet from the feed's `<source>`. Opinion, video, podcast, shopping and puzzle pages are skipped.
 2. Merges with the last edition's stories, so a feed that is down for a watch does not empty its section.
    News desks keep 36 hours; Cars, Travel, Food and Long reads keep 96.
@@ -90,7 +90,8 @@ One in-depth report a day, written by Claude through a scheduled task. Each is a
 (`2026-10-25-some-slug.json`): title, dek, desk, `byline: "Claude"`, the exact model name, the time written (with its
 UTC offset), a Markdown body with numbered citations, and the sources. Before committing, the writer runs
 `python3 news/updater/articles.py check <file>`: 1,100 to 3,200 words, at least three sections, no quotation over 25
-words, at least six sources from four outlets, each cited, the date matching the time written. Then
+words, at least six sources from four outlets, each cited, the date matching the time written, and, when the report
+carries Portuguese and German translations (`i18n`), that each is complete and keeps the sections and citations. Then
 `articles.py index` rebuilds `articles/index.json`, which the page reads. The page shows the newest on the front for
 four days and keeps all of them under Reports.
 
@@ -146,6 +147,31 @@ file straight from the TSE every minute.
 - **Tune sorting or tags:** `run.py` (`SECTION_WORDS`, `PATH_SECTION`, `TOPICS`). Rebuild the last edition without the
   network to see the effect: `python3 news/updater/run.py --offline`.
 - **The page:** `news/index.html`, one file.
+
+## Languages: English, Portuguese, German
+
+- **The interface** is translated in the page: `T('English text')` looks the phrase up in `news/i18n/<lang>.json`
+  (`t`: phrase to translation, `"text|context"` keys when one English word needs two translations, `{slots}` filled
+  in; `re`: patterns for text with numbers in it, `{N}` a number and `{X}` any text). Whatever the page draws without
+  `T()` is caught by a watcher that translates text and the `aria-label`, `placeholder` and `title` attributes as they
+  appear, skipping headlines, summaries and outlet names (the `SKIP` list). The language comes from `?lang=pt|de|en`,
+  then the reader's last choice (`localStorage` `watch.lang`), then the browser's languages. `?lang=xx` is a test mode
+  that records every phrase with no translation in `window.__watchMissing`.
+- **Adding a phrase:** add it to both files. A phrase missing from a file shows in English; nothing breaks.
+- **Dates and numbers** use `Intl` with the reader's locale (`pt-BR`, `de-DE`). The markets summary is written from the
+  numbers in whole sentences per language, never assembled word by word.
+- **Sources:** feeds with `"lang": "pt"` or `"de"` in `feeds.json` (about 35: g1, Folha, Estadão, UOL, BBC News Brasil,
+  CNN Brasil, Agência Brasil, Poder360, Valor, InfoMoney, ge, Público, Observador; tagesschau, Spiegel, Zeit, FAZ, SZ,
+  DW, Tagesspiegel, Handelsblatt, heise, kicker, NZZ, ORF). Their items carry `l`, file by the URL path and their
+  feed's desk (the topic and name learners are English-only), and lead their own lists, `topLang.pt` and `topLang.de`,
+  which head the front page for readers in that language; everywhere else a reader's own language weighs 1.7 and
+  other non-English items 0.3. Headlines and summaries are never machine-translated: they stay the outlet's own.
+- **Reports** carry `i18n.pt` and `i18n.de` (title, dek, the whole body, the translating model), written by the
+  daily report task and checked by `articles.py check` (complete, same sections, same citations). The page shows the
+  translation with a link to the English original, and the index carries the translated titles.
+- **Link previews:** `share.py --site` draws `share-pt.png` and `share-de.png` and writes `pt.html` and `de.html`,
+  whose tags carry the pitch in that language and which send people on to `./?lang=pt` or `de`; a translated report gets
+  `r/<id>.pt.html` and `.de.html` with their own cards. The Share buttons use them when the reader's language is pt or de.
 
 ## The For You picks
 

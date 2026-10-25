@@ -1,6 +1,6 @@
 {
- "note": "Sextant's sources. section: auto | us | world | europe | brazil | politics | business | household | home | tech | science | health | sports | culture | cars | travel | food | longreads. 'auto' sorts each story by its URL path and words. Google News items take the outlet from the feed's <source>. A feed that fails is skipped and listed in the edition; nothing is invented. Add a line to add a source.",
- "feeds": [
+  "note": "Sextant's sources. section: auto | us | world | europe | brazil | politics | business | household | home | tech | science | health | sports | culture | cars | travel | food | longreads. 'auto' sorts each story by its URL path and words. Google News items take the outlet from the feed's <source>. A feed that fails is skipped and listed in the edition; nothing is invented. Add a line to add a source. Feeds with \"lang\" (pt, de) write in Portuguese or German; readers of that language see them first.",
+  "feeds": [
   {"name": "Google News", "url": "https://news.google.com/rss?hl=en-US&gl=US&ceid=US:en", "section": "auto"},
   {"name": "Google News U.S.", "url": "https://news.google.com/rss/headlines/section/topic/NATION?hl=en-US&gl=US&ceid=US:en", "section": "us"},
   {"name": "Google News World", "url": "https://news.google.com/rss/headlines/section/topic/WORLD?hl=en-US&gl=US&ceid=US:en", "section": "world"},
@@ -163,6 +163,40 @@
   {"name": "The New Yorker", "url": "https://www.newyorker.com/feed/everything", "section": "longreads", "domain": "newyorker.com"},
   {"name": "ProPublica", "url": "https://www.propublica.org/feeds/propublica/main", "section": "longreads", "domain": "propublica.org"},
   {"name": "Aeon", "url": "https://aeon.co/feed.rss", "section": "longreads", "domain": "aeon.co"},
-  {"name": "Longreads", "url": "https://longreads.com/feed/", "section": "longreads", "domain": "longreads.com"}
- ]
+  {"name": "Longreads", "url": "https://longreads.com/feed/", "section": "longreads", "domain": "longreads.com"},
+  {"name": "g1", "url": "https://g1.globo.com/rss/g1/", "section": "brazil", "lang": "pt", "domain": "g1.globo.com"},
+  {"name": "g1 Política", "url": "https://g1.globo.com/rss/g1/politica/", "section": "brazil", "lang": "pt", "domain": "g1.globo.com"},
+  {"name": "g1 Economia", "url": "https://g1.globo.com/rss/g1/economia/", "section": "business", "lang": "pt", "domain": "g1.globo.com"},
+  {"name": "g1 Mundo", "url": "https://g1.globo.com/rss/g1/mundo/", "section": "world", "lang": "pt", "domain": "g1.globo.com"},
+  {"name": "Folha de S.Paulo", "url": "https://feeds.folha.uol.com.br/emcimadahora/rss091.xml", "section": "brazil", "lang": "pt", "domain": "folha.uol.com.br"},
+  {"name": "Folha Mercado", "url": "https://feeds.folha.uol.com.br/mercado/rss091.xml", "section": "business", "lang": "pt", "domain": "folha.uol.com.br"},
+  {"name": "Folha Mundo", "url": "https://feeds.folha.uol.com.br/mundo/rss091.xml", "section": "world", "lang": "pt", "domain": "folha.uol.com.br"},
+  {"name": "Estadão", "url": "https://news.google.com/rss/search?q=site:estadao.com.br+when:2d&hl=pt-BR&gl=BR&ceid=BR:pt-419", "section": "brazil", "lang": "pt"},
+  {"name": "UOL Notícias", "url": "https://rss.uol.com.br/feed/noticias.xml", "section": "brazil", "lang": "pt", "domain": "noticias.uol.com.br"},
+  {"name": "BBC News Brasil", "url": "https://feeds.bbci.co.uk/portuguese/rss.xml", "section": "brazil", "lang": "pt", "domain": "bbc.com/portuguese"},
+  {"name": "CNN Brasil", "url": "https://www.cnnbrasil.com.br/feed/", "section": "brazil", "lang": "pt", "domain": "cnnbrasil.com.br"},
+  {"name": "Agência Brasil (português)", "url": "https://agenciabrasil.ebc.com.br/rss/ultimasnoticias/feed.xml", "section": "brazil", "lang": "pt", "domain": "agenciabrasil.ebc.com.br"},
+  {"name": "Poder360", "url": "https://www.poder360.com.br/feed/", "section": "brazil", "lang": "pt", "domain": "poder360.com.br"},
+  {"name": "Valor Econômico", "url": "https://news.google.com/rss/search?q=site:valor.globo.com+when:2d&hl=pt-BR&gl=BR&ceid=BR:pt-419", "section": "business", "lang": "pt"},
+  {"name": "InfoMoney", "url": "https://www.infomoney.com.br/feed/", "section": "business", "lang": "pt", "domain": "infomoney.com.br"},
+  {"name": "ge", "url": "https://ge.globo.com/rss/ge/", "section": "sports", "lang": "pt", "domain": "ge.globo.com"},
+  {"name": "Tecnoblog", "url": "https://tecnoblog.net/feed/", "section": "tech", "lang": "pt", "domain": "tecnoblog.net"},
+  {"name": "DW Brasil", "url": "https://rss.dw.com/rdf/rss-br-all", "section": "world", "lang": "pt", "domain": "dw.com/pt-br"},
+  {"name": "Público", "url": "https://news.google.com/rss/search?q=site:publico.pt+when:2d&hl=pt-BR&gl=BR&ceid=BR:pt-419", "section": "europe", "lang": "pt"},
+  {"name": "Observador", "url": "https://observador.pt/feed/", "section": "europe", "lang": "pt", "domain": "observador.pt"},
+  {"name": "tagesschau", "url": "https://www.tagesschau.de/inland/index~rss2.xml", "section": "europe", "lang": "de", "domain": "tagesschau.de"},
+  {"name": "tagesschau Ausland", "url": "https://www.tagesschau.de/ausland/index~rss2.xml", "section": "world", "lang": "de", "domain": "tagesschau.de"},
+  {"name": "tagesschau Wirtschaft", "url": "https://www.tagesschau.de/wirtschaft/index~rss2.xml", "section": "business", "lang": "de", "domain": "tagesschau.de"},
+  {"name": "Der Spiegel", "url": "https://www.spiegel.de/schlagzeilen/index.rss", "section": "europe", "lang": "de", "domain": "spiegel.de"},
+  {"name": "Die Zeit", "url": "https://newsfeed.zeit.de/index", "section": "europe", "lang": "de", "domain": "zeit.de"},
+  {"name": "FAZ", "url": "https://www.faz.net/rss/aktuell/", "section": "europe", "lang": "de", "domain": "faz.net"},
+  {"name": "Süddeutsche Zeitung", "url": "https://rss.sueddeutsche.de/rss/Topthemen", "section": "europe", "lang": "de", "domain": "sueddeutsche.de"},
+  {"name": "DW Deutsch", "url": "https://rss.dw.com/rdf/rss-de-all", "section": "world", "lang": "de", "domain": "dw.com/de"},
+  {"name": "Tagesspiegel", "url": "https://news.google.com/rss/search?q=site:tagesspiegel.de+when:2d&hl=de&gl=DE&ceid=DE:de", "section": "europe", "lang": "de"},
+  {"name": "Handelsblatt", "url": "https://news.google.com/rss/search?q=site:handelsblatt.com+when:2d&hl=de&gl=DE&ceid=DE:de", "section": "business", "lang": "de"},
+  {"name": "heise online", "url": "https://www.heise.de/rss/heise-atom.xml", "section": "tech", "lang": "de", "domain": "heise.de"},
+  {"name": "kicker", "url": "https://newsfeed.kicker.de/news/aktuell", "section": "sports", "lang": "de", "domain": "kicker.de"},
+  {"name": "NZZ", "url": "https://www.nzz.ch/recent.rss", "section": "europe", "lang": "de", "domain": "nzz.ch"},
+  {"name": "ORF", "url": "https://rss.orf.at/news.xml", "section": "europe", "lang": "de", "domain": "orf.at"}
+  ]
 }

@@ -6,6 +6,10 @@
 <title>The Watch · The news, six times a day</title>
 <meta name="description" content="Live news from 160+ sources, rebuilt six times a day. See how every outlet covers a story, swipe through the day in pictures and video, follow markets and elections, and get a front page that learns what you read. Free, no sign-up, private.">
 <link rel="canonical" href="https://bboldt86.github.io/lanscape-navigator/news/">
+<link rel="alternate" hreflang="pt-BR" href="https://bboldt86.github.io/lanscape-navigator/news/pt.html">
+<link rel="alternate" hreflang="de" href="https://bboldt86.github.io/lanscape-navigator/news/de.html">
+<meta property="og:locale:alternate" content="pt_BR">
+<meta property="og:locale:alternate" content="de_DE">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="The Watch">
 <meta property="og:title" content="The Watch · The news, six times a day">
@@ -89,6 +93,11 @@ img{display:block}
 .tbtn{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--rule);background:var(--raise);border-radius:999px;padding:8px 13px;font:600 14px var(--sans)}
 .tbtn svg{width:17px;height:17px}
 .tbtn:hover{border-color:var(--ink-3)}
+.tbtn .code{font:700 12.5px var(--sans);letter-spacing:.04em}
+.langmenu{position:absolute;z-index:30;min-width:190px;background:var(--raise);border:1px solid var(--rule);border-radius:12px;box-shadow:0 18px 50px rgba(14,26,43,.22);padding:6px}
+.langmenu button{display:flex;width:100%;align-items:center;justify-content:space-between;gap:14px;border:0;background:none;border-radius:8px;padding:10px 12px;font:600 15px var(--sans);text-align:left}
+.langmenu button:hover,.langmenu button[aria-checked="true"]{background:var(--shoal)}
+.langmenu small{font:700 11.5px var(--sans);color:var(--ink-3);letter-spacing:.05em}
 
 /* ---------- desks bar */
 .bar{position:sticky;top:0;z-index:20;background:var(--paper);border-bottom:1px solid var(--rule)}
@@ -174,6 +183,7 @@ img{display:block}
 .seg button{border:0;background:none;border-radius:999px;padding:5px 12px;font:600 14px var(--sans);color:var(--ink-2)}
 .seg button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
 .loadmore{margin:18px 0 0;border:1px solid var(--rule);background:var(--raise);border-radius:999px;padding:9px 18px;font:600 15px var(--sans)}
+.mt .lg{font:700 10.5px var(--sans);letter-spacing:.05em;border:1px solid var(--rule);border-radius:4px;padding:0 4px;color:var(--ink-2)}
 .endnote{margin:26px 0 0;font:italic 400 19px/1.35 var(--serif);color:var(--ink-2)}
 .archived{background:var(--ink);color:var(--paper);font:500 15px var(--sans)}
 .archived .wrap{display:flex;gap:14px;align-items:center;padding-top:10px;padding-bottom:10px;flex-wrap:wrap}
@@ -372,6 +382,7 @@ body.dopen{overflow:hidden}
 .art .adek{font:400 23px/1.35 var(--serif);color:var(--ink-2);margin:0 0 16px}
 .art .aby{font:500 14.5px var(--sans);color:var(--ink-2);margin:0}
 .ashare{margin-left:6px;vertical-align:1px;padding:4px 11px;font-size:13px}
+.art .adis .lnk{border:0;background:none;padding:0;font:inherit;color:var(--ink-2);text-decoration:underline;text-underline-offset:3px;cursor:pointer}
 .art .adis{font-size:14px;color:var(--ink-3);border-left:3px solid var(--brass);padding:2px 0 2px 12px;margin:16px 0 26px}
 .abody{font:400 19px/1.66 var(--serif);font-family:Georgia,'Iowan Old Style',serif;font-size:18.5px}
 .abody p{margin:0 0 1.05em}
@@ -428,6 +439,8 @@ body.dopen{overflow:hidden}
 .fm .mt a{font-weight:600;text-decoration:none;color:var(--brass-ink)}
 
 /* ---------- slideshow cards */
+.native{margin-top:34px}.native .sh{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:6px}
+.ncols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 28px}
 .pstrip{margin-top:34px}
 .pstrip .sh{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:10px}
 .pstrip .sh a{font:600 14px var(--sans);text-decoration:none;color:var(--ink-2)}
@@ -588,6 +601,7 @@ body.ssopen{overflow:hidden}
   .search input{width:190px}
 }
 @media (max-width:820px){
+  .ncols{grid-template-columns:1fr}
   .scgrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.scgrid .sct{font-size:18px}
   .phero .sc.big .sci{aspect-ratio:4/3}.phero .sc.big .sct{font-size:32px}
   .vgrid{grid-template-columns:1fr}.vgrid.shorts{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -662,6 +676,8 @@ if(t==='auto'){t=(h>=20||h<4)?'night':(matchMedia('(prefers-color-scheme: dark)'
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><circle cx="12" cy="12" r="9.2"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></svg><span class="lbl">Your compass</span></button>
     <button class="tbtn" id="themeBtn" type="button" aria-label="Day or night paper">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg><span class="lbl" id="themeLbl">Auto</span></button>
+    <button class="tbtn lang" id="langBtn" type="button" aria-label="Language" aria-haspopup="true" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9.2"/><path d="M2.8 12h18.4M12 2.8c2.6 2.6 3.9 5.6 3.9 9.2s-1.3 6.6-3.9 9.2c-2.6-2.6-3.9-5.6-3.9-9.2s1.3-6.6 3.9-9.2z"/></svg><span class="code" id="langLbl">EN</span></button>
     <button class="tbtn" id="shareBtn" type="button" aria-label="Share The Watch">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7.5 7.5L12 3l4.5 4.5"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg><span class="lbl">Share</span></button>
   </div>
@@ -683,6 +699,81 @@ const WATCHES = [['middle', 'Middle Watch', 0], ['morning', 'Morning Watch', 4],
 const $ = (s, el = document) => el.querySelector(s);
 const $$ = (s, el = document) => [...el.querySelectorAll(s)];
 const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+/* ================= languages: English, Português (Brasil), Deutsch ================= */
+// The interface speaks the reader's language; the news itself stays in the language each outlet wrote it in, and
+// outlets that write in Portuguese or German come first for readers of those languages.
+const LANGS = { en: ['English', 'en-US', 'EN'], pt: ['Português', 'pt-BR', 'PT'], de: ['Deutsch', 'de-DE', 'DE'] };
+const LANG = (() => {
+  let q = null;
+  try { q = new URLSearchParams(location.search).get('lang'); } catch (e) { /* old browser */ }
+  if (q === 'xx') { LANGS.xx = ['Test', 'en-US', 'XX']; return 'xx'; } // finds untranslated text
+  try {
+    if (q && LANGS[q]) { localStorage.setItem('watch.lang', q); return q; }
+    const s = localStorage.getItem('watch.lang'); if (s && LANGS[s]) return s;
+  } catch (e) { /* storage off */ }
+  for (const l of navigator.languages || [navigator.language || 'en']) { const b = String(l).slice(0, 2).toLowerCase(); if (LANGS[b]) return b; }
+  return 'en';
+})();
+const LOC = () => LANGS[LANG][1];
+document.documentElement.lang = LANG === 'xx' ? 'en' : LOC();
+let DICT = { t: {}, re: [] };
+const MISS = new Set(); window.__watchMissing = MISS;
+function T(s, v) { // a phrase in the reader's language; {name} slots are filled from v; "text|context" tells two uses apart
+  let r = s.includes('|') ? s.slice(0, s.indexOf('|')) : s;
+  if (LANG !== 'en') { const d = DICT.t[s]; if (d != null) r = d; else MISS.add(s); }
+  if (v) r = r.replace(/\{(\w+)\}/g, (m, k) => v[k] != null ? v[k] : m);
+  return r;
+}
+async function loadLang() {
+  if (LANG === 'en' || LANG === 'xx') return;
+  try {
+    const d = await getJSON('i18n/' + LANG + '.json');
+    const NUM = '([-+−]?[$€R]*[\\d][\\d.,:]*\\s?[%KMBk]?)';
+    DICT = { t: d.t || {}, re: (d.re || []).map(([a, b]) => [new RegExp('^' + a.replace(/\{N\}/g, NUM).replace(/\{X\}/g, '(.+?)') + '$'), b]) };
+  } catch (e) { console.warn('language file did not load', e); }
+}
+const L10N = (() => { // translates the interface text that the page draws, wherever it is drawn
+  const SKIP = '.st h3,.lead h2,.sn,.sn2,.cov a,.abody,#artTitle,.adek,.slcap h2,.sld,.fs b,.fs>span:not(.rk),.fm h3,.vc h3,.vrel a,.ou,.rt,.rd,.ftl,.fpeople small,.fpeople b,.rise h3,.slsrc,.sct,.asrc,.sch,.nolc,[data-nolc],script,style,svg,code,textarea,.ssh .sst';
+  const ATTR = ['aria-label', 'placeholder', 'title'];
+  const tr = t => {
+    const k = t.trim(); if (!k || !/[A-Za-z]/.test(k)) return null;
+    const d = DICT.t[k];
+    if (d != null) return d === k ? null : t.replace(k, d);
+    for (const [re, rep] of DICT.re) { if (re.test(k)) return t.replace(k, k.replace(re, (...m) => rep.replace(/\$(\d)/g, (x, i) => { const v = m[+i]; return v == null ? '' : (DICT.t[v] != null ? DICT.t[v] : v); }))); }
+    if (LANG === 'xx') MISS.add(k);
+    return null;
+  };
+  function textNode(n) {
+    const p = n.parentElement; if (!p || p.closest(SKIP)) return;
+    const r = tr(n.data); if (r != null && r !== n.data) n.data = r;
+  }
+  function el(e) {
+    for (const a of ATTR) { const v = e.getAttribute && e.getAttribute(a); if (v) { const r = tr(v); if (r != null && r !== v) e.setAttribute(a, r); } }
+  }
+  function apply(root) {
+    if (LANG === 'en' || !root) return;
+    if (root.nodeType === 3) return textNode(root);
+    if (root.nodeType !== 1 || root.closest && root.closest(SKIP)) return;
+    el(root);
+    const w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT | NodeFilter.SHOW_ELEMENT, { acceptNode: x => x.nodeType === 1 && x.matches(SKIP) ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT });
+    let n; while ((n = w.nextNode())) { if (n.nodeType === 3) textNode(n); else el(n); }
+  }
+  let q = new Set(), busy = false;
+  const flush = () => { busy = false; const a = [...q]; q = new Set(); for (const n of a) if (n.isConnected) apply(n); };
+  function watch() {
+    if (LANG === 'en') return;
+    new MutationObserver(ms => {
+      for (const m of ms) {
+        if (m.type === 'childList') m.addedNodes.forEach(n => q.add(n));
+        else if (m.type === 'characterData') q.add(m.target);
+        else if (m.type === 'attributes') q.add(m.target);
+      }
+      if (!busy) { busy = true; queueMicrotask(flush); }
+    }).observe(document.body, { childList: true, subtree: true, characterData: true, attributes: true, attributeFilter: ATTR });
+    apply(document.body);
+  }
+  return { apply, watch };
+})();
 const ICON_OUT = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 5h11v11"/><path d="M19 5L6 18"/></svg>';
 
 /* ================= what The Watch has learned (this browser only) ================= */
@@ -727,8 +818,10 @@ function bump(map, k, v) { map[k] = clamp((map[k] || 0) + v, -14, 30); P.n++; sa
 let E = null, LATEST = null, byId = new Map(), DF = {}, viewingArchive = false;
 const outlet = o => (E && E.outlets[o]) || o;
 const DESK_NAMES = { household: 'Household', home: 'Home', files: 'Epstein files' };
-const secName = k => ((E && E.sections.find(s => s.k === k)) || { name: DESK_NAMES[k] || k }).name;
-const kwLabel = k => k.startsWith('#') ? ((E && E.topics[k.slice(1)]) || k.slice(1)) : ((E && E.kw[k]) || k);
+const secName = k => T(((E && E.sections.find(s => s.k === k)) || { name: DESK_NAMES[k] || k }).name);
+const watchName = key => T((WATCHES.find(w => w[0] === key) || WATCHES[0])[1]);
+const hourName = h => LANG === 'en' || LANG === 'xx' ? `${h % 12 || 12} ${h < 12 ? 'a.m.' : 'p.m.'}` : new Intl.DateTimeFormat(LOC(), { hour: 'numeric', minute: '2-digit', timeZone: 'UTC' }).format(new Date(Date.UTC(2020, 0, 1, h)));
+const kwLabel = k => k.startsWith('#') ? T((E && E.topics[k.slice(1)]) || k.slice(1)) : ((E && E.kw[k]) || k);
 const clusterOf = it => (it && it.g != null && E) ? E.clusters[it.g] : null;
 const refMin = () => viewingArchive ? E.atMin : Math.floor(Date.now() / 60000);
 
@@ -752,39 +845,41 @@ function useEdition(ed, archived) {
 }
 
 /* ================= time ================= */
-const fmtTime = new Intl.DateTimeFormat('en-US', { timeZone: 'America/New_York', hour: 'numeric', minute: '2-digit' });
-const fmtDay = new Intl.DateTimeFormat('en-US', { timeZone: 'America/New_York', weekday: 'long', month: 'long', day: 'numeric' });
-const fmtShort = new Intl.DateTimeFormat('en-US', { timeZone: 'America/New_York', month: 'short', day: 'numeric' });
-const fmtParts = new Intl.DateTimeFormat('en-US', { timeZone: 'America/New_York', year: 'numeric', month: '2-digit', day: '2-digit', hour: 'numeric', minute: 'numeric', hourCycle: 'h23' });
+const fmtTime = new Intl.DateTimeFormat(LOC(), { timeZone: 'America/New_York', hour: 'numeric', minute: '2-digit' });
+const fmtDay = new Intl.DateTimeFormat(LOC(), { timeZone: 'America/New_York', weekday: 'long', month: 'long', day: 'numeric' });
+const fmtShort = new Intl.DateTimeFormat(LOC(), { timeZone: 'America/New_York', month: 'short', day: 'numeric' });
+const fmtParts = new Intl.DateTimeFormat(LOC(), { timeZone: 'America/New_York', year: 'numeric', month: '2-digit', day: '2-digit', hour: 'numeric', minute: 'numeric', hourCycle: 'h23' });
 function et(d) { const p = {}; for (const x of fmtParts.formatToParts(d)) p[x.type] = x.value; return { h: +p.hour % 24, m: +p.minute, date: `${p.year}-${p.month}-${p.day}` }; }
 function ago(pm) {
   const m = refMin() - pm;
-  if (m < 2) return 'Just now';
-  if (m < 60) return m + 'm ago';
-  if (m < 60 * 24) return Math.round(m / 60) + 'h ago';
+  if (m < 2) return T('Just now');
+  if (m < 60) return T('{n}m ago', { n: m });
+  if (m < 60 * 24) return T('{n}h ago', { n: Math.round(m / 60) });
   return fmtShort.format(new Date(pm * 60000));
 }
-const clock = iso => fmtTime.format(new Date(iso)).replace(':00 ', ' ');
+const clock = iso => LANG === 'en' || LANG === 'xx' ? fmtTime.format(new Date(iso)).replace(':00 ', ' ') : fmtTime.format(new Date(iso));
 
 /* ================= ranking: what's big, what's yours ================= */
 const kwWeight = k => 1 / (1 + Math.log(1 + (DF[k] || 1) / 12)); // a word in every story says little about you
 function affinity(it) {
   let a = 0, best = 0, why = '';
-  const s = (P.sec[it.c] || 0) * 0.5; a += s; if (s > best) { best = s; why = `You read a lot of ${secName(it.c)}`; }
-  const o = (P.src[it.o] || 0) * 0.45; a += o; if (o > best) { best = o; why = `You often open ${outlet(it.o)}`; }
+  const s = (P.sec[it.c] || 0) * 0.5; a += s; if (s > best) { best = s; why = T('You read a lot of {desk}', { desk: secName(it.c) }); }
+  const o = (P.src[it.o] || 0) * 0.45; a += o; if (o > best) { best = o; why = T('You often open {outlet}', { outlet: outlet(it.o) }); }
   for (const k of it.k || []) {
     let v = (P.kw[k] || 0) * kwWeight(k);
     if (P.follow[k]) v += 4;
     a += v;
-    if (v > best) { best = v; why = P.follow[k] ? `You follow ${kwLabel(k)}` : `Because you read about ${kwLabel(k)}`; }
+    if (v > best) { best = v; why = T(P.follow[k] ? 'You follow {topic}' : 'Because you read about {topic}', { topic: kwLabel(k) }); }
   }
   return { a, why: best >= 0.8 ? why : '' };
 }
 function base(it) {
   const age = Math.max(0, (refMin() - it.p) / 60);
   const c = clusterOf(it);
-  return Math.exp(-age / (SLOW.has(it.c) ? 60 : 16)) * (1 + 0.45 * Math.log2(c ? c.n : 1)) * (SERVICE.test(it.t) ? 0.35 : 1);
+  return Math.exp(-age / (SLOW.has(it.c) ? 60 : 16)) * (1 + 0.45 * Math.log2(c ? c.n : 1)) * (SERVICE.test(it.t) ? 0.35 : 1) * langFactor(it);
 }
+// stories written in the reader's language come first; ones in a language they didn't choose sink but stay findable
+const langFactor = it => !it.l ? 1 : it.l === LANG ? 1.7 : 0.3;
 const SERVICE = /\b(where to watch|how to watch|live ?stream|start time|tv channel|odds,? (picks|predictions)|predictions?,? odds|live (results|updates|blog|scores?)|play-by-play)\b/i;
 const muted = it => !!(P.mute.src[it.o] || (it.k || []).some(k => P.mute.kw[k]));
 function score(it, warm = warmProfile()) {
@@ -833,8 +928,8 @@ function deskUnits(k) {
 const unitKey = it => it.g != null ? 'c' + it.g : 'i' + it.i;
 function coverWhy(it) {
   const c = clusterOf(it);
-  if (c && c.n >= 6) return `One of the most covered stories right now`;
-  if (prevLast && it.f > prevLast) return 'New since your last visit';
+  if (c && c.n >= 6) return T('One of the most covered stories right now');
+  if (prevLast && it.f > prevLast) return T('New since your last visit');
   return '';
 }
 function sampler(limit, skip) { // a first visit: the best story from each desk, so your first clicks teach it a lot
@@ -873,7 +968,7 @@ function forYou(limit, skip) {
         const b = base(x);
         if (b > exs) { exs = b; ex = i; }
       }
-      if (ex >= 0) { const x = pool.splice(ex, 1)[0].it; out.push({ it: x, why: `Outside your usual: ${secName(x.c)}` }); usedSec.add(x.c); }
+      if (ex >= 0) { const x = pool.splice(ex, 1)[0].it; out.push({ it: x, why: T('Outside your usual: {desk}', { desk: secName(x.c) }) }); usedSec.add(x.c); }
     }
   }
   return out;
@@ -902,20 +997,20 @@ function drawDial() {
     const [x0, y0] = polar(major ? 92 : 95, h), [x1, y1] = polar(101, h);
     s += `<line class="tick${major ? ' major' : ''}" x1="${x0.toFixed(1)}" y1="${y0.toFixed(1)}" x2="${x1.toFixed(1)}" y2="${y1.toFixed(1)}"/>`;
   }
-  ['12a', '4a', '8a', '12p', '4p', '8p'].forEach((t, i) => {
+  (LANG === 'en' || LANG === 'xx' ? ['12a', '4a', '8a', '12p', '4p', '8p'] : ['0', '4', '8', '12', '16', '20']).forEach((t, i) => {
     const [x, y] = polar(116, i * 4);
     s += `<text class="hr" x="${x.toFixed(1)}" y="${(y + 5).toFixed(1)}" text-anchor="middle">${t}</text>`;
   });
   for (const [key, label, h0] of WATCHES) {
     const ed = [...arch].reverse().find(a => a.id.endsWith('-' + key));
-    let cls = 'arc', title = `${label}, ${h0 === 0 ? '12' : h0 > 12 ? h0 - 12 : h0} ${h0 < 12 ? 'a.m.' : 'p.m.'} edition`;
+    let cls = 'arc', title = T('{watch}, {time} edition', { watch: T(label), time: hourName(h0) });
     let tab = '';
     if (ed) {
       const isLatest = ed.id === latestId;
       const isToday = ed.id.slice(0, 10) === now.date || (isLatest);
       cls += isLatest ? ' now' : isToday ? ' past' : ' yday';
       if (ed.id === E.id && viewingArchive) cls += ' reading';
-      title = `${isToday ? '' : 'Yesterday’s '}${label}, out at ${clock(ed.at)}${isLatest ? ' (latest)' : ''}`;
+      title = T(isToday ? (isLatest ? '{watch}, out at {time} (latest)' : '{watch}, out at {time}') : 'Yesterday’s {watch}, out at {time}', { watch: T(label), time: clock(ed.at) });
       tab = ` tabindex="0" role="button" data-ed="${ed.id}" aria-label="${esc(title)}"`;
     }
     s += `<path class="${cls}" d="${arcPath(h0, h0 + 4, 70, 88)}"${tab}><title>${esc(title)}</title></path>`;
@@ -924,10 +1019,10 @@ function drawDial() {
   const [nx, ny] = polar(101, nh), [mx, my] = polar(62, nh);
   s += `<line class="needle" x1="${mx.toFixed(1)}" y1="${my.toFixed(1)}" x2="${nx.toFixed(1)}" y2="${ny.toFixed(1)}"/><circle class="hub" cx="${nx.toFixed(1)}" cy="${ny.toFixed(1)}" r="4"/>`;
   const w = WATCHES.find(x => x[0] === E.watch) || WATCHES[0];
-  const word = w[1].replace(' Watch', '');
-  s += `<text class="c1" x="110" y="113" text-anchor="middle" style="font-size:${word.length > 7 ? 25 : word.length > 5 ? 29 : 34}px">${esc(word)}</text><text class="c2" x="110" y="131" text-anchor="middle">watch</text>`;
+  const word = T(w[1].replace(' Watch', '') + '|dial');
+  s += `<text class="c1" x="110" y="113" text-anchor="middle" style="font-size:${word.length > 9 ? 21 : word.length > 7 ? 25 : word.length > 5 ? 29 : 34}px">${esc(word)}</text><text class="c2" x="110" y="131" text-anchor="middle">${esc(T('watch|dial'))}</text>`;
   svg.innerHTML = s;
-  svg.setAttribute('aria-label', `The six watches of the day. You are reading the ${w[1]}.`);
+  svg.setAttribute('aria-label', T('The six watches of the day. You are reading the {watch}.', { watch: T(w[1]) }));
 }
 
 /* ================= views ================= */
@@ -954,14 +1049,14 @@ function storyRow(it, o = {}) {
   const isNew = prevLast && it.f > prevLast;
   const img = it.m && o.img !== false ? `<img class="th" src="${esc(it.m)}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.remove()">` : '';
   return `<article class="st${o.top ? ' top' : ''}${P.read[it.i] ? ' read' : ''}" data-id="${it.i}">${img}
-    <div class="tx"><h3><a href="${esc(it.u)}" target="_blank" rel="noopener" data-open="${it.i}">${esc(it.t)}</a></h3>
+    <div class="tx"><h3${it.l ? ` lang="${it.l === 'pt' ? 'pt-BR' : 'de'}"` : LANG !== 'en' && LANG !== 'xx' ? ' lang="en"' : ''}><a href="${esc(it.u)}" target="_blank" rel="noopener" data-open="${it.i}">${esc(it.t)}</a></h3>
     ${o.snip && it.d ? `<p class="sn">${esc(it.d)}</p>` : ''}
-    <p class="mt"><span class="ou">${esc(outlet(it.o))}</span><span>${ago(it.p)}</span>${n > 1 ? `<span class="cv">${n} outlets</span>` : ''}${isNew && !P.read[it.i] ? '<span class="nw">New</span>' : ''}</p>
+    <p class="mt"><span class="ou">${esc(outlet(it.o))}</span>${it.l && it.l !== LANG ? `<span class="lg" title="${it.l === 'pt' ? 'Português' : 'Deutsch'}">${it.l.toUpperCase()}</span>` : ''}<span>${ago(it.p)}</span>${n > 1 ? `<span class="cv">${T('{n} outlets', { n })}</span>` : ''}${isNew && !P.read[it.i] ? '<span class="nw">New</span>' : ''}</p>
     ${o.why ? `<p class="why">${esc(o.why)}</p>` : ''}</div></article>`;
 }
 
 function renderBar() {
-  const items = [['home', '', 'Front'], ['you', 'for-you', 'For you'], ['reports', 'reports', 'Reports'], ['pictures', 'pictures', 'Pictures'], ['video', 'video', 'Video'], ...E.sections.map(s => ['desk:' + s.k, 's/' + s.k, s.name]), ['files', 'files', 'Epstein files']];
+  const items = [['home', '', 'Front'], ['you', 'for-you', 'For you'], ['reports', 'reports', 'Reports'], ['pictures', 'pictures', 'Pictures'], ['video', 'video', 'Video'], ...E.sections.map(s => ['desk:' + s.k, 's/' + s.k, secName(s.k)]), ['files', 'files', 'Epstein files']];
   const cur = view.t === 'desk' ? 'desk:' + view.k : view.t === 'article' ? 'reports' : view.t;
   $('#bar').innerHTML = items.map(([id, h, label]) =>
     `<button type="button" data-go="#/${h}"${id === cur ? ' aria-current="page"' : ''}${id === 'you' ? ' class="you"' : ''}>${esc(label)}</button>`).join('');
@@ -974,30 +1069,31 @@ function renderMast() {
   const outlets = new Set(E.items.map(it => it.o)).size;
   const newN = prevLast ? E.items.filter(it => it.f > prevLast).length : 0;
   const nextAt = clock(E.next);
-  $('#edline').innerHTML = `The <b>${esc(w[1])}</b> edition, out at ${esc(clock(E.at))} ${esc(fmtDay.format(new Date(E.at)))}.<br>
-    ${E.items.length.toLocaleString()} stories from ${outlets} outlets.${newN && !viewingArchive ? ` <span class="nwc">${newN} new since your last visit.</span>` : ''}
-    <span class="x2">${viewingArchive ? '' : `Next edition at ${esc(nextAt)}.`}</span>`;
-  document.title = viewingArchive ? `The Watch: ${w[1]}, ${clock(E.at)}` : 'The Watch';
+  $('#edline').innerHTML = `${T('The <b>{watch}</b> edition, out at {time} {day}.', { watch: esc(T(w[1])), time: esc(clock(E.at)), day: esc(fmtDay.format(new Date(E.at))) })}<br>
+    ${T('{n} stories from {m} outlets.', { n: E.items.length.toLocaleString(LOC()), m: outlets })}${newN && !viewingArchive ? ` <span class="nwc">${T(newN === 1 ? '{n} new since your last visit.|one' : '{n} new since your last visit.', { n: newN })}</span>` : ''}
+    <span class="x2">${viewingArchive ? '' : T('Next edition at {time}.', { time: esc(nextAt) })}</span>`;
+  document.title = viewingArchive ? T('The Watch: {watch}, {time}', { watch: T(w[1]), time: clock(E.at) }) : 'The Watch';
   const ab = $('#archived');
   if (viewingArchive) {
     ab.hidden = false;
-    ab.innerHTML = `<div class="wrap"><span>You’re reading an earlier edition: the ${esc(w[1])} from ${esc(clock(E.at))}, ${esc(fmtDay.format(new Date(E.at)))}.</span><button type="button" id="backLatest">Back to the latest</button></div>`;
+    ab.innerHTML = `<div class="wrap"><span>${T('You’re reading an earlier edition: the {watch} from {time}, {day}.', { watch: esc(T(w[1])), time: esc(clock(E.at)), day: esc(fmtDay.format(new Date(E.at))) })}</span><button type="button" id="backLatest">${T('Back to the latest')}</button></div>`;
   } else ab.hidden = true;
 }
 function renderFoot() {
   const f = E.feeds || {};
   const failed = (f.failed || []);
   $('#foot').innerHTML = `<div class="wrap"><div>
-    <h4>How The Watch works</h4>
-    <p>The Watch comes out six times a day, once for each of a ship’s watches, Eastern time: the Middle Watch at midnight, Morning at 4 a.m., Forenoon at 8 a.m., Afternoon at noon, the Dog Watch at 4 p.m. and the First Watch at 8 p.m. Each edition reads ${f.total || 'about 120'} public news feeds, groups stories that several outlets are covering, and ranks them by how widely and how recently they’re covered.</p>
-    <p>The “For you” picks learn from what you open, how long you stay with it, what you search for, and what you tell it with More or Less like this. That record stays in this browser; nothing about your reading leaves it. Open Your compass to see or change it.</p>
-    <p>Headlines and summaries belong to their outlets, and every story links to the original. Market prices and charts come from CNBC; economic numbers from the BLS, BEA and EIA (through DBnomics), the New York Fed, Freddie Mac and the University of Michigan; calendars from Nasdaq. They are a snapshot at each edition, not a live feed. Home values and rents come from Zillow’s public research data. Slideshow pictures stay on the outlets’ sites, and videos play in YouTube’s player from news channels’ public uploads. Election numbers are read live from the Election Desk and the Brazil desk on this site, and the Epstein files from Inbox Atlas.</p>
-    <p>Reports are written by Claude, an AI model made by Anthropic, one a day. Each is signed with the model that wrote it and the time it was written, and cites the reporting it draws on.</p></div>
-    <div><h4>This edition</h4>
-    <p>${(f.read != null ? `Read ${f.read} of ${f.total} sources at ${esc(clock(E.at))}.` : '')} ${E.items.length.toLocaleString()} stories, ${E.clusters.filter(c => c.n >= 3).length} covered by three or more outlets.</p>
-    ${failed.length ? `<details><summary>${failed.length} source${failed.length > 1 ? 's' : ''} couldn’t be reached</summary><p>${failed.map(x => esc(x.feed)).join(', ')}. Their stories from earlier watches stay up until they age out.</p></details>` : ''}
-    <p style="margin-top:10px"><button type="button" class="chip" data-share="site">Share The Watch</button></p>
-    <p style="margin-top:10px">Part of <a href="../">LANscape Navigator</a>.</p></div></div>`;
+    <h4>${T('How The Watch works')}</h4>
+    <p>${T('The Watch comes out six times a day, once for each of a ship’s watches, Eastern time: the Middle Watch at midnight, Morning at 4 a.m., Forenoon at 8 a.m., Afternoon at noon, the Dog Watch at 4 p.m. and the First Watch at 8 p.m. Each edition reads {n} public news feeds, groups stories that several outlets are covering, and ranks them by how widely and how recently they’re covered.', { n: f.total || 160 })}</p>
+    <p>${T('The “For you” picks learn from what you open, how long you stay with it, what you search for, and what you tell it with More or Less like this. That record stays in this browser; nothing about your reading leaves it. Open Your compass to see or change it.')}</p>
+    ${LANG !== 'en' ? `<p>${T('Headlines and stories stay in the language each outlet publishes in. Outlets that write in your language come first; the reports are translated by Claude.')}</p>` : ''}
+    <p>${T('Headlines and summaries belong to their outlets, and every story links to the original. Market prices and charts come from CNBC; economic numbers from the BLS, BEA and EIA (through DBnomics), the New York Fed, Freddie Mac and the University of Michigan; calendars from Nasdaq. They are a snapshot at each edition, not a live feed. Home values and rents come from Zillow’s public research data. Slideshow pictures stay on the outlets’ sites, and videos play in YouTube’s player from news channels’ public uploads. Election numbers are read live from the Election Desk and the Brazil desk on this site, and the Epstein files from Inbox Atlas.')}</p>
+    <p>${T('Reports are written by Claude, an AI model made by Anthropic, one a day. Each is signed with the model that wrote it and the time it was written, and cites the reporting it draws on.')}</p></div>
+    <div><h4>${T('This edition')}</h4>
+    <p>${(f.read != null ? T('Read {read} of {total} sources at {time}.', { read: f.read, total: f.total, time: esc(clock(E.at)) }) : '')} ${T('{n} stories, {m} covered by three or more outlets.', { n: E.items.length.toLocaleString(LOC()), m: E.clusters.filter(c => c.n >= 3).length })}</p>
+    ${failed.length ? `<details><summary>${T(failed.length > 1 ? '{n} sources couldn’t be reached' : '{n} source couldn’t be reached', { n: failed.length })}</summary><p>${failed.map(x => esc(x.feed)).join(', ')}. ${T('Their stories from earlier watches stay up until they age out.')}</p></details>` : ''}
+    <p style="margin-top:10px"><button type="button" class="chip" data-share="site">${T('Share The Watch')}</button></p>
+    <p style="margin-top:10px">${T('Part of {link}.', { link: '<a href="../">LANscape Navigator</a>' })}</p></div></div>`;
 }
 
 function renderHome() {
@@ -1016,18 +1112,19 @@ function renderHome() {
       <h2><a href="${esc(lead.u)}" target="_blank" rel="noopener" data-open="${lead.i}">${esc(lead.t)}</a></h2>
       ${lead.d ? `<p class="sn">${esc(lead.d)}</p>` : ''}
       <p class="mt"><span class="ou">${esc(outlet(lead.o))}</span><span>${ago(lead.p)}</span></p>
-      ${lc ? `<p class="covers"><b>${lc.n} outlets are covering this.</b> ${shown.map(esc).join(', ')}${others.length > shown.length ? ` and ${others.length - shown.length} more` : ''}. <button type="button" data-open="${lead.i}">Compare the coverage</button></p>` : ''}
+      ${lc ? `<p class="covers"><b>${T('{n} outlets are covering this.', { n: lc.n })}</b> <span class="nolc">${shown.map(esc).join(', ')}${others.length > shown.length ? ` ${esc(T('and {n} more', { n: others.length - shown.length }))}` : ''}.</span> <button type="button" data-open="${lead.i}">${T('Compare the coverage')}</button></p>` : ''}
       ${lead.m ? `<a class="fig" href="${esc(lead.u)}" target="_blank" rel="noopener" data-open="${lead.i}" tabindex="-1" aria-hidden="true"><img src="${esc(lead.m)}" alt="" referrerpolicy="no-referrer" onerror="this.parentNode.remove()"></a>` : ''}
     </article>`;
   }
   const rest = six.slice(1);
+  const nativeHTML = nativeShelf(shown);
   const warm = warmProfile();
   const fy = warm ? forYou(8, shown) : sampler(8, shown);
   fy.forEach(x => shown.add(unitKey(x.it)));
   const rising = E.clusters.filter(c => !shown.has('c' + c.id) && ((c.rise || 0) >= 2 || (c.new && c.n >= 4))).sort((a, b) => (b.rise || b.n) - (a.rise || a.n)).slice(0, 4)
     .map(c => ({ c, it: rep(c) })).filter(x => !muted(x.it));
   rising.forEach(x => shown.add('c' + x.c.id));
-  const prevLabel = (() => { const a = (E.archive || []); const i = a.findIndex(x => x.id === E.id); return i > 0 ? a[i - 1].label : 'last watch'; })();
+  const prevLabel = (() => { const a = (E.archive || []); const i = a.findIndex(x => x.id === E.id); return i > 0 ? T(a[i - 1].label) : T('last watch'); })();
   const shelves = deskOrder().map(k => {
     const all = deskUnits(k);
     const list = all.filter(it => !shown.has(unitKey(it))).map(it => ({ it, s: score(it) })).filter(x => x.s > 0).sort((a, b) => b.s - a.s).slice(0, 5).map(x => x.it);
@@ -1036,15 +1133,16 @@ function renderHome() {
     const ordered = [withImg, ...list.filter(x => x !== withImg)].slice(0, 4);
     ordered.forEach(it => shown.add(unitKey(it)));
     const count = all.length;
-    return `<section class="shelf"><div class="sh"><h2 class="sec-h">${esc(secName(k))}</h2><a href="#/s/${k}">All ${count}</a></div>
+    return `<section class="shelf"><div class="sh"><h2 class="sec-h">${esc(secName(k))}</h2><a href="#/s/${k}">${T('All {n}', { n: count })}</a></div>
       ${ordered.map((it, i) => storyRow(it, { top: i === 0, img: i === 0 })).join('')}</section>`;
   }).join('');
-  const coldChips = warm ? '' : `<div class="cold"><span>Or tap the desks you follow:</span>${E.sections.map(s => `<button type="button" class="chip" data-seed="${s.k}" aria-pressed="${(P.sec[s.k] || 0) > 0 ? 'true' : 'false'}">${esc(s.name)}</button>`).join('')}</div>`;
+  const coldChips = warm ? '' : `<div class="cold"><span>Or tap the desks you follow:</span>${E.sections.map(s => `<button type="button" class="chip" data-seed="${s.k}" aria-pressed="${(P.sec[s.k] || 0) > 0 ? 'true' : 'false'}">${esc(secName(s.k))}</button>`).join('')}</div>`;
   ensureElections(false);
   $('#main').innerHTML = `${!viewingArchive && MK ? `<div class="wrap">${tapeHTML()}</div>` : ''}
     <div class="wrap front">${leadHTML}
       <div class="toplist"><h2>Top stories</h2><ol>${rest.map(it => `<li>${storyRow(it, { img: false })}</li>`).join('')}</ol></div>
     </div>
+    ${nativeHTML}
     ${picturesStrip()}
     ${viewingArchive ? '' : frontReport()}
     ${viewingArchive ? '' : frontElections()}
@@ -1054,15 +1152,26 @@ function renderHome() {
       <div class="cols">${fy.map(x => storyRow(x.it, { why: x.why })).join('')}</div>
     </div></section>
     ${rising.length ? `<section class="wrap rising"><h2 class="sec-h">Gaining coverage</h2><div class="rise-row">${rising.map(({ c, it }) => `<div class="rise" data-id="${it.i}"><h3><a href="${esc(it.u)}" target="_blank" rel="noopener" data-open="${it.i}">${esc(it.t)}</a></h3>
-      <p>${c.rise ? `<b>${c.n} outlets</b>, up ${c.rise} since the ${esc(prevLabel)}` : `<b>New this watch</b>, already at ${c.n} outlets`}</p></div>`).join('')}</div></section>` : ''}
+      <p>${c.rise ? T('<b>{n} outlets</b>, up {r} since the {watch}', { n: c.n, r: c.rise, watch: esc(prevLabel) }) : T('<b>New this watch</b>, already at {n} outlets', { n: c.n })}</p></div>`).join('')}</div></section>` : ''}
     <div class="wrap shelves">${shelves}</div>`;
+}
+function nativeShelf(shown) { // for readers of Portuguese or German: the top stories from outlets writing in their language
+  if (LANG !== 'pt' && LANG !== 'de') return '';
+  const fromTop = ((E.topLang || {})[LANG] || []).map(id => E.clusters[id]).filter(Boolean).map(c => rep(c));
+  const rest = units(it => it.l === LANG).sort((a, b) => score(b) - score(a));
+  const list = [], seen = new Set();
+  for (const it of [...fromTop, ...rest]) { const k = unitKey(it); if (seen.has(k) || shown.has(k) || muted(it)) continue; seen.add(k); list.push(it); if (list.length >= 6) break; }
+  if (!list.length) return '';
+  list.forEach(it => shown.add(unitKey(it)));
+  return `<section class="wrap native"><div class="sh"><h2 class="sec-h">${T(LANG === 'pt' ? 'In Portuguese' : 'In German')}</h2><span class="note">${T(LANG === 'pt' ? 'From outlets that write in Portuguese' : 'From outlets that write in German')}</span></div>
+    <div class="ncols">${list.map((it, i) => storyRow(it, { top: i === 0, img: i < 3, snip: i === 0 })).join('')}</div></section>`;
 }
 function listPage(title, sub, list, o = {}) {
   const shown = list.slice(0, pageLimit);
   $('#main').innerHTML = `<div class="wrap">${o.top ? `<div class="desk-top"><h1 class="sr">${esc(title)}</h1>${o.top}</div>` : ''}<div class="page">
     <div class="page-h"><h1>${esc(title)}</h1>${sub ? `<p>${sub}</p>` : ''}${o.controls || ''}</div>
     ${shown.length ? shown.map(x => storyRow(x.it || x, { snip: true, why: x.why })).join('') : `<p class="endnote">${o.empty || 'Nothing here this watch.'}</p>`}
-    ${list.length > shown.length ? `<button type="button" class="loadmore" id="more">Show ${Math.min(40, list.length - shown.length)} more</button>` : shown.length ? `<p class="endnote">${o.end || `That’s everything for now. The next edition is out at ${clock(E.next)}.`}</p>` : ''}
+    ${list.length > shown.length ? `<button type="button" class="loadmore" id="more">${T('Show {n} more', { n: Math.min(40, list.length - shown.length) })}</button>` : shown.length ? `<p class="endnote">${o.end || T('That’s everything for now. The next edition is out at {time}.', { time: clock(E.next) })}</p>` : ''}
   </div></div>`;
 }
 function renderYou() {
@@ -1077,7 +1186,7 @@ function renderDesk(k) {
   if (k === 'politics' || k === 'brazil') ensureElections(true);
   const list = deskUnits(k).map(it => ({ it, s: score(it), p: it.p })).filter(x => x.s > 0);
   list.sort(deskSort === 'new' ? (a, b) => b.p - a.p : (a, b) => b.s - a.s);
-  listPage(secName(k), `${list.length} stories`, list.map(x => ({ it: x.it })),
+  listPage(secName(k), T(list.length === 1 ? '{n} story' : '{n} stories', { n: list.length }), list.map(x => ({ it: x.it })),
     { controls: `<div class="seg" role="group" aria-label="Sort"><button type="button" data-sort="you" aria-pressed="${deskSort === 'you'}">Best for you</button><button type="button" data-sort="new" aria-pressed="${deskSort === 'new'}">Latest</button></div>`,
       top: (k === 'politics' ? electionsHTML(true) : k === 'brazil' ? electionsHTML(true, 'br') : '') + deskBanner(k) });
 }
@@ -1096,7 +1205,7 @@ setInterval(() => { // count night: keep the Brazil numbers fresh while someone 
 function renderTopic(k) {
   const list = units(it => (it.k || []).includes(k)).sort((a, b) => b.p - a.p);
   const f = !!P.follow[k], m = !!P.mute.kw[k];
-  listPage(kwLabel(k), `${list.length} ${list.length === 1 ? 'story' : 'stories'}`, list,
+  listPage(kwLabel(k), T(list.length === 1 ? '{n} story' : '{n} stories', { n: list.length }), list,
     { controls: `<div class="seg" role="group" aria-label="This topic"><button type="button" data-follow="${esc(k)}" aria-pressed="${f}">${f ? 'Following' : 'Follow'}</button><button type="button" data-mute="${esc(k)}" aria-pressed="${m}">${m ? 'Hidden' : 'Hide'}</button></div>`,
       empty: 'No stories on this in the current watch.' });
 }
@@ -1109,7 +1218,7 @@ function renderSearch(q) {
       return terms.every(t => hay.includes(t));
     }).map(it => ({ it, s: Math.max(0.001, score(it)) })).sort((a, b) => b.s - a.s).map(x => x.it);
   }
-  listPage(q ? `“${q}”` : 'Search', q ? `${list.length} ${list.length === 1 ? 'story' : 'stories'} in this watch` : '', list,
+  listPage(q ? `“${q}”` : T('Search'), q ? T(list.length === 1 ? '{n} story in this watch' : '{n} stories in this watch', { n: list.length }) : '', list,
     { empty: q ? 'No stories match. Try fewer or different words.' : 'Type a word, a name or an outlet.' });
 }
 function render(keepScroll) {
@@ -1135,7 +1244,7 @@ function render(keepScroll) {
 /* ================= markets: a snapshot at each edition (news/data/markets.json) ================= */
 let MK = null;
 const CENTS = new Set(['ZC=F']);
-const fnum = (v, d) => v == null || isNaN(v) ? '–' : Number(v).toLocaleString('en-US', { minimumFractionDigits: d, maximumFractionDigits: d });
+const fnum = (v, d) => v == null || isNaN(v) ? '–' : Number(v).toLocaleString(LOC(), { minimumFractionDigits: d, maximumFractionDigits: d });
 const sgn = v => (v > 0 ? '+' : v < 0 ? '−' : '');
 const dirc = v => v > 0 ? 'up' : v < 0 ? 'dn' : 'fl';
 function mkRow(sym) {
@@ -1170,54 +1279,60 @@ function spark(arr, w, h, base, cls) {
   const b = base != null ? `<line class="base" x1="0" x2="${w}" y1="${Y(base).toFixed(1)}" y2="${Y(base).toFixed(1)}"/>` : '';
   return `<svg class="spk ${cls || ''}" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" aria-hidden="true">${b}<path d="${d}" vector-effect="non-scaling-stroke"/></svg>`;
 }
-const fmtWeekday = new Intl.DateTimeFormat('en-US', { timeZone: 'America/New_York', weekday: 'long' });
+const fmtWeekday = new Intl.DateTimeFormat(LOC(), { timeZone: 'America/New_York', weekday: 'long' });
 function session(r) { // has the U.S. session behind this quote ended?
   const t = new Date((r.t || 0) * 1000), q = et(t), now = et(new Date()), mins = now.h * 60 + now.m;
   const wk = new Date().toLocaleString('en-US', { timeZone: 'America/New_York', weekday: 'short' });
   const closed = q.date !== now.date || mins >= 16 * 60 + 2 || mins < 9 * 60 + 30 || wk === 'Sat' || wk === 'Sun';
-  return { closed, today: q.date === now.date, day: fmtWeekday.format(t) };
+  return { closed, today: q.date === now.date, day: fmtWeekday.format(t), dayEn: t.toLocaleString('en-US', { timeZone: 'America/New_York', weekday: 'long' }) };
 }
 function mkAsOf() {
   if (!MK) return '';
   const spx = mkRow('^GSPC');
   const s = spx && spx.t ? session(spx) : null;
-  return `Prices as of ${clock(MK.at)} ET${s && s.closed ? `, with U.S. stocks at ${s.today ? 'today’s' : s.day + '’s'} close` : ''}. The next update comes with the ${esc(clock(E.next))} edition.`;
+  const tm = clock(MK.at), nx = esc(clock(E.next));
+  if (s && s.closed) return T(s.today ? 'Prices as of {time} ET, with U.S. stocks at today’s close. The next update comes with the {next} edition.' : 'Prices as of {time} ET, with U.S. stocks at {onday} close. The next update comes with the {next} edition.', { time: tm, onday: T(s.dayEn + '’s|close'), next: nx });
+  return T('Prices as of {time} ET. The next update comes with the {next} edition.', { time: tm, next: nx });
 }
 function marketsLede() { // the day in markets, in plain words, built only from the numbers on the page
   const spx = mkRow('^GSPC'), dji = mkRow('^DJI'), ndq = mkRow('^IXIC');
   if (!spx || spx.cp == null) return '';
   const s = session(spx), open = !s.closed;
   const pc = r => fnum(Math.abs(r.cp), 1) + '%';
-  const mv = r => open ? (r.cp > 0.05 ? `up ${pc(r)}` : r.cp < -0.05 ? `down ${pc(r)}` : 'flat')
-    : (r.cp > 0.05 ? `rose ${pc(r)}` : r.cp < -0.05 ? `fell ${pc(r)}` : 'was flat');
+  const dirOf = (cp, e = 0.05) => cp > e ? 'up' : cp < -e ? 'down' : 'flat';
+  const MV = { now: { up: 'up {pc}|now', down: 'down {pc}|now', flat: 'flat|now' }, past: { up: 'rose {pc}|past', down: 'fell {pc}|past', flat: 'was flat|past' } };
+  const mv = r => T(MV[open ? 'now' : 'past'][dirOf(r.cp)], { pc: pc(r) });
   const out = [];
-  const dir = spx.cp > 0.1 ? (open ? 'are up' : 'rose') : spx.cp < -0.1 ? (open ? 'are down' : 'fell') : (open ? 'are little changed' : 'were little changed');
-  const lead = open ? `is ${mv(spx)} at` : (spx.cp > 0.05 ? `gained ${pc(spx)} to` : spx.cp < -0.05 ? `lost ${pc(spx)} to` : 'held at');
-  out.push(`Stocks ${dir} ${open ? 'so far today' : s.today ? 'today' : 'on ' + s.day}. The S&P 500 ${lead} ${fnum(spx.p, 0)}` +
-    (dji && ndq && dji.cp != null && ndq.cp != null ? `, the Dow ${mv(dji)} and the Nasdaq ${mv(ndq)}.` : '.'));
+  const d0 = dirOf(spx.cp, 0.1);
+  if (open) out.push(T({ up: 'Stocks are up so far today.', down: 'Stocks are down so far today.', flat: 'Stocks are little changed so far today.' }[d0]));
+  else if (s.today) out.push(T({ up: 'Stocks rose today.', down: 'Stocks fell today.', flat: 'Stocks were little changed today.' }[d0]));
+  else out.push(T({ up: 'Stocks rose {onday}.', down: 'Stocks fell {onday}.', flat: 'Stocks were little changed {onday}.' }[d0], { onday: T('on ' + s.dayEn) }));
+  const lv = fnum(spx.p, 0);
+  let lead = open ? T('The S&P 500 is {mv} at {lvl}', { mv: mv(spx), lvl: lv })
+    : T({ up: 'The S&P 500 gained {pc} to {lvl}', down: 'The S&P 500 lost {pc} to {lvl}', flat: 'The S&P 500 held at {lvl}' }[dirOf(spx.cp)], { pc: pc(spx), lvl: lv });
+  out.push(lead + (dji && ndq && dji.cp != null && ndq.cp != null ? T(', the Dow {a} and the Nasdaq {b}.', { a: mv(dji), b: mv(ndq) }) : '.'));
   const tnx = mkRow('^TNX');
   if (tnx && tnx.c != null) {
-    const bp = Math.round(tnx.c * 100);
-    out.push(Math.abs(bp) < 1 ? `The 10-year Treasury yield held at ${fnum(tnx.p, 2)}%.` :
-      `The 10-year Treasury yield ${open ? (bp > 0 ? 'is up' : 'is down') : (bp > 0 ? 'rose' : 'fell')} ${Math.abs(bp)} basis point${Math.abs(bp) === 1 ? '' : 's'} ${open ? 'at' : 'to'} ${fnum(tnx.p, 2)}%.`);
+    const bp = Math.round(tnx.c * 100), a = Math.abs(bp), y = fnum(tnx.p, 2);
+    if (a < 1) out.push(T('The 10-year Treasury yield held at {y}%.', { y }));
+    else out.push(T(open ? (bp > 0 ? (a === 1 ? 'The 10-year Treasury yield is up {bp} basis point at {y}%.' : 'The 10-year Treasury yield is up {bp} basis points at {y}%.') : (a === 1 ? 'The 10-year Treasury yield is down {bp} basis point at {y}%.' : 'The 10-year Treasury yield is down {bp} basis points at {y}%.'))
+      : (bp > 0 ? (a === 1 ? 'The 10-year Treasury yield rose {bp} basis point to {y}%.' : 'The 10-year Treasury yield rose {bp} basis points to {y}%.') : (a === 1 ? 'The 10-year Treasury yield fell {bp} basis point to {y}%.' : 'The 10-year Treasury yield fell {bp} basis points to {y}%.')), { bp: a, y }));
   }
   const oil = mkRow('CL=F'), gold = mkRow('GC=F');
-  const bits = [];
-  if (oil && oil.cp != null) bits.push(`oil ${oil.cp > 0.05 ? 'rose' : oil.cp < -0.05 ? 'fell' : 'held'}${Math.abs(oil.cp) > 0.05 ? ' ' + pc(oil) : ''} to $${fnum(oil.p, 2)} a barrel`);
-  if (gold && gold.cp != null) bits.push(`gold ${gold.cp > 0.05 ? 'gained' : gold.cp < -0.05 ? 'slipped' : 'held'}${Math.abs(gold.cp) > 0.05 ? ' ' + pc(gold) : ''} to $${fnum(gold.p, 0)} an ounce`);
-  if (bits.length) out.push(bits.join(', and ').replace(/^./, c => c.toUpperCase()) + '.');
+  if (oil && oil.cp != null) out.push(T({ up: 'Oil rose {pc} to ${p} a barrel.', down: 'Oil fell {pc} to ${p} a barrel.', flat: 'Oil held at ${p} a barrel.' }[dirOf(oil.cp)], { pc: pc(oil), p: fnum(oil.p, 2) }));
+  if (gold && gold.cp != null) out.push(T({ up: 'Gold gained {pc} to ${p} an ounce.', down: 'Gold slipped {pc} to ${p} an ounce.', flat: 'Gold held at ${p} an ounce.' }[dirOf(gold.cp)], { pc: pc(gold), p: fnum(gold.p, 0) }));
   const sec = (MK.sectors || []).filter(r => r.cp != null).sort((a, b) => b.cp - a.cp);
-  if (sec.length > 3) out.push(`${sec[0].n} led the 11 sectors (${fpct(sec[0].cp)}); ${sec[sec.length - 1].n.toLowerCase()} ${sec[sec.length - 1].cp < 0 ? 'lagged' : 'trailed'} (${fpct(sec[sec.length - 1].cp)}).`);
+  if (sec.length > 3) out.push(T('{a} led the 11 sectors ({ap}); {b} trailed ({bp}).', { a: T(sec[0].n), ap: fpct(sec[0].cp), b: LANG === 'de' ? T(sec[sec.length - 1].n) : T(sec[sec.length - 1].n).toLowerCase(), bp: fpct(sec[sec.length - 1].cp) }));
   const st = (MK.stocks || []).filter(r => r.cp != null).sort((a, b) => b.cp - a.cp);
   if (st.length > 4 && (st[0].cp > 2 || st[st.length - 1].cp < -2)) {
     const t = st[0], b = st[st.length - 1];
-    out.push(`Among the biggest companies, ${t.n} ${t.cp > 0 ? (t.cp > 5 ? 'jumped' : 'rose') : 'held up best, down'} ${pc(t)} and ${b.n} ${b.cp < 0 ? (b.cp < -5 ? 'slid' : 'fell') : 'trailed, up'} ${pc(b)}.`);
+    out.push(T('Among the biggest companies, {a} {am} and {b} {bm}.', { a: t.n, am: T(t.cp > 0 ? (t.cp > 5 ? 'jumped {pc}' : 'rose {pc}') : 'held up best, down {pc}', { pc: pc(t) }), b: b.n, bm: T(b.cp < 0 ? (b.cp < -5 ? 'slid {pc}' : 'fell {pc}') : 'trailed, up {pc}', { pc: pc(b) }) }));
   }
   const btc = mkRow('BTC-USD');
-  if (btc && btc.cp != null) out.push(`Bitcoin is at $${fnum(btc.p, 0)}, ${btc.cp >= 0 ? 'up' : 'down'} ${pc(btc)} on the day.`);
+  if (btc && btc.cp != null) out.push(T(btc.cp >= 0 ? 'Bitcoin is at ${p}, up {pc} on the day.' : 'Bitcoin is at ${p}, down {pc} on the day.', { p: fnum(btc.p, 0), pc: pc(btc) }));
   const vix = mkRow('^VIX');
-  if (vix && vix.p >= 25) out.push(`The VIX, Wall Street’s fear gauge, is elevated at ${fnum(vix.p, 1)}.`);
-  else if (vix && vix.p && vix.p <= 14) out.push(`The VIX, Wall Street’s fear gauge, is calm at ${fnum(vix.p, 1)}.`);
+  if (vix && vix.p >= 25) out.push(T('The VIX, Wall Street’s fear gauge, is elevated at {v}.', { v: fnum(vix.p, 1) }));
+  else if (vix && vix.p && vix.p <= 14) out.push(T('The VIX, Wall Street’s fear gauge, is calm at {v}.', { v: fnum(vix.p, 1) }));
   return out.join(' ');
 }
 const TAPE = ['^GSPC', '^DJI', '^IXIC', '^TNX', 'CL=F', 'GC=F', 'BTC-USD', 'EURUSD=X'];
@@ -1226,11 +1341,11 @@ function tapeHTML() {
   if (!MK) return '';
   const rows = TAPE.map(mkRow).filter(r => r && r.p != null);
   if (!rows.length) return '';
-  return `<div class="tape" role="list" aria-label="Markets">${rows.map(r => `<button type="button" class="tk ${dirc(r.cp)}" data-tick="${esc(r.s)}" role="listitem"><b>${esc(TAPE_NAME[r.s] || r.n)}</b> <span>${fprice(r)}</span> <i>${fchg(r)}</i></button>`).join('')}
+  return `<div class="tape" role="list" aria-label="Markets">${rows.map(r => `<button type="button" class="tk ${dirc(r.cp)}" data-tick="${esc(r.s)}" role="listitem"><b>${esc(T(TAPE_NAME[r.s] || r.n))}</b> <span>${fprice(r)}</span> <i>${fchg(r)}</i></button>`).join('')}
     <a class="tk more" href="#/s/business">Markets</a></div>`;
 }
 function boardRow(r) {
-  return `<button type="button" class="br ${dirc(r.cp)}" data-tick="${esc(r.s)}"><span class="bn">${esc(r.n)}</span><span class="bp">${fprice(r)}</span><span class="bc">${fchg(r)}</span>${spark(r.i && r.i.length > 2 ? r.i : (r.d || []).slice(-22), 64, 22, r.i && r.i.length > 2 ? r.pc : null, dirc(r.cp))}</button>`;
+  return `<button type="button" class="br ${dirc(r.cp)}" data-tick="${esc(r.s)}"><span class="bn">${esc(T(r.n))}</span><span class="bp">${fprice(r)}</span><span class="bc">${fchg(r)}</span>${spark(r.i && r.i.length > 2 ? r.i : (r.d || []).slice(-22), 64, 22, r.i && r.i.length > 2 ? r.pc : null, dirc(r.cp))}</button>`;
 }
 function heat(cp) { // a diverging tint by the size of the move
   if (cp == null) return '';
@@ -1253,7 +1368,7 @@ function stockTable() {
     <tbody>${rows.map(r => `<tr data-tick="${esc(r.s)}" tabindex="0"><th scope="row" class="l"><b>${esc(r.n)}</b> <span>${esc(r.s)}</span></th><td>${fprice(r)}</td><td class="${dirc(r.cp)}">${fchg(r)}</td>
       <td class="${dirc((r.ch || {}).w)}">${fpct((r.ch || {}).w)}</td><td class="${dirc((r.ch || {}).m)}">${fpct((r.ch || {}).m)}</td><td class="${dirc((r.ch || {}).ytd)}">${fpct((r.ch || {}).ytd)}</td>
       <td class="sp">${spark(r.q, 90, 22, null, dirc((r.ch || {}).q))}</td></tr>`).join('')}</tbody></table>
-    ${cut ? `<button type="button" class="loadmore" id="stkAll">Show all ${total} companies</button>` : ''}`;
+    ${cut ? `<button type="button" class="loadmore" id="stkAll">${T('Show all {n} companies', { n: total })}</button>` : ''}`;
 }
 function econFmt(e, v, big) {
   if (v == null) return '–';
@@ -1266,18 +1381,19 @@ function econFmt(e, v, big) {
 }
 function econWhen(e, d) {
   const dd = new Date(d + 'T12:00:00Z');
-  if (e.released) return 'Released ' + dd.toLocaleDateString('en-US', { month: 'short', day: 'numeric', timeZone: 'UTC' });
-  if (e.id === 'GDP') return `Q${Math.floor(dd.getUTCMonth() / 3) + 1} ${dd.getUTCFullYear()}`;
-  if (e.id === 'CURVE') return 'As of ' + dd.toLocaleDateString('en-US', { month: 'short', day: 'numeric', timeZone: 'UTC' });
-  if (['MORT', 'GAS', 'FED', 'CLAIMS'].includes(e.id)) return 'Week of ' + dd.toLocaleDateString('en-US', { month: 'short', day: 'numeric', timeZone: 'UTC' });
-  return dd.toLocaleDateString('en-US', { month: 'long', year: 'numeric', timeZone: 'UTC' });
+  const sd = dd.toLocaleDateString(LOC(), { month: 'short', day: 'numeric', timeZone: 'UTC' });
+  if (e.released) return T('Released {date}', { date: sd });
+  if (e.id === 'GDP') return T('Q{q} {y}', { q: Math.floor(dd.getUTCMonth() / 3) + 1, y: dd.getUTCFullYear() });
+  if (e.id === 'CURVE') return T('As of {date}', { date: sd });
+  if (['MORT', 'MORT15', 'GAS', 'DIESEL', 'FED', 'CLAIMS'].includes(e.id)) return T('Week of {date}', { date: sd });
+  return dd.toLocaleDateString(LOC(), { month: 'long', year: 'numeric', timeZone: 'UTC' });
 }
 function econTile(e) {
-  const ch = e.prev == null ? '' : e.v > e.prev ? `Up from ${econFmt(e, e.prev)}` : e.v < e.prev ? `Down from ${econFmt(e, e.prev)}` : 'Unchanged';
-  return `<a class="ec" href="${esc(e.src)}" target="_blank" rel="noopener"><span class="en">${esc(e.n)}</span><span class="ev">${econFmt(e, e.v, true)}</span>
+  const ch = e.prev == null ? '' : T(e.v > e.prev ? 'Up from {v}' : e.v < e.prev ? 'Down from {v}' : 'Unchanged', { v: econFmt(e, e.prev) });
+  return `<a class="ec" href="${esc(e.src)}" target="_blank" rel="noopener"><span class="en">${esc(T(e.n))}</span><span class="ev">${econFmt(e, e.v, true)}</span>
     <span class="ew">${esc(econWhen(e, e.date))}${ch ? '. ' + esc(ch) + '.' : ''}</span>${spark(e.pts.map(p => p[1]), 160, 34, null, 'ink')}<span class="ex">${esc(e.x)}</span></a>`;
 }
-const fmtCalDay = d => new Date(d + 'T12:00:00Z').toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric', timeZone: 'UTC' });
+const fmtCalDay = d => new Date(d + 'T12:00:00Z').toLocaleDateString(LOC(), { weekday: 'long', month: 'short', day: 'numeric', timeZone: 'UTC' });
 function coName(n) { // "Coca-Cola Company (The)" -> "Coca-Cola"
   let s = String(n || '').replace(/\s*\(The\)/i, '').trim();
   for (let i = 0; i < 3; i++) s = s.replace(/,?\s+(Inc|Corp|Corporation|Co|Ltd|plc|N\.?V|S\.?A|Holdings?|Group|Company|Incorporated|Limited|AG|SE)\.?$/i, '').trim();
@@ -1290,8 +1406,8 @@ function calendarHTML() {
   for (const e of MK.events || []) { const x = days.get(e.date) || { earn: null, ev: null }; x.ev = e; days.set(e.date, x); }
   if (!days.size) return '';
   return [...days.entries()].sort().map(([d, x]) => `<div class="cday"><h4>${esc(fmtCalDay(d))}</h4>
-    ${x.ev && x.ev.rows.length ? `<ul class="cev">${x.ev.rows.filter(r => r.country === 'U.S.').slice(0, 8).map(r => `<li><span class="ct">${esc(h12(r.time).replace(' a.m.', 'a').replace(' p.m.', 'p'))}</span><span class="cn">${esc(r.ev)}</span><span class="cc">${r.act ? `<b>${esc(r.act)}</b>` : ''}${r.cons ? ` Forecast ${esc(r.cons)}.` : ''}${r.prev ? ` Last ${esc(r.prev)}.` : ''}</span></li>`).join('') || '<li class="none">No U.S. releases listed.</li>'}</ul>` : ''}
-    ${x.earn && x.earn.rows.length ? `<p class="cearn"><b>Earnings:</b> ${x.earn.rows.slice(0, 8).map(r => `${esc(coName(r.n))}${r.when ? ` <span>(${esc(r.when)})</span>` : ''}`).join(', ')}${x.earn.n > 8 ? `, and ${x.earn.n - 8} more` : ''}.</p>` : ''}
+    ${x.ev && x.ev.rows.length ? `<ul class="cev">${x.ev.rows.filter(r => r.country === 'U.S.').slice(0, 8).map(r => `<li><span class="ct">${esc(h12(r.time).replace(' a.m.', 'a').replace(' p.m.', 'p'))}</span><span class="cn">${esc(r.ev)}</span><span class="cc">${r.act ? `<b>${esc(r.act)}</b>` : ''}${r.cons ? ` ${T('Forecast {v}.', { v: esc(r.cons) })}` : ''}${r.prev ? ` ${T('Last {v}.', { v: esc(r.prev) })}` : ''}</span></li>`).join('') || `<li class="none">${T('No U.S. releases listed.')}</li>`}</ul>` : ''}
+    ${x.earn && x.earn.rows.length ? `<p class="cearn"><b>${T('Earnings:')}</b> <span class="nolc">${x.earn.rows.slice(0, 8).map(r => `${esc(coName(r.n))}${r.when ? ` <span>(${esc(T(r.when))})</span>` : ''}`).join(', ')}${x.earn.n > 8 ? `, ${esc(T('and {n} more', { n: x.earn.n - 8 }))}` : ''}.</span></p>` : ''}
   </div>`).join('');
 }
 function renderBusiness() {
@@ -1304,25 +1420,25 @@ function renderBusiness() {
   const st = MK ? (MK.stocks || []).filter(r => r.cp != null).slice().sort((a, b) => b.cp - a.cp) : [];
   const mover = r => `<button type="button" class="mv ${dirc(r.cp)}" data-tick="${esc(r.s)}"><b>${esc(r.n)}</b><span>${fprice(r)}</span><i>${fchg(r)}</i></button>`;
   $('#main').innerHTML = `<div class="wrap mk">
-    <div class="page-h"><h1>Business</h1><p>${MK ? mkAsOf() : 'Market prices aren’t available in this edition.'}</p></div>
+    <div class="page-h"><h1>${secName('business')}</h1><p>${MK ? mkAsOf() : T('Market prices aren’t available in this edition.')}</p></div>
     ${lede ? `<p class="lede">${esc(lede)}</p>` : ''}
     ${big.length ? `<div class="bigs">${big.map(r => `<button type="button" class="big ${dirc(r.cp)}" data-tick="${esc(r.s)}"><span class="bn">${esc(r.n)}</span><span class="bp">${fprice(r)}</span><span class="bc">${r.c != null ? sgn(r.c) + fnum(Math.abs(r.c), 2) : ''} <i>${fchg(r)}</i></span>${spark(r.i && r.i.length > 2 ? r.i : (r.d || []).slice(-22), 300, 64, r.i && r.i.length > 2 ? r.pc : null, dirc(r.cp))}</button>`).join('')}</div>` : ''}
-    ${MK ? `<div class="boards">${(MK.board || []).filter(g => g.g !== 'us').map(g => `<section class="bd"><h3>${esc(g.label)}</h3>${g.rows.map(boardRow).join('')}</section>`).join('')}
+    ${MK ? `<div class="boards">${(MK.board || []).filter(g => g.g !== 'us').map(g => `<section class="bd"><h3>${esc(T(g.label))}</h3>${g.rows.map(boardRow).join('')}</section>`).join('')}
       ${['^RUT', '^VIX'].map(mkRow).filter(Boolean).length ? `<section class="bd"><h3>More U.S. stocks</h3>${['^RUT', '^VIX'].map(mkRow).filter(Boolean).map(boardRow).join('')}</section>` : ''}</div>` : ''}
     ${sec.length ? `<section class="blk"><h2 class="sec-h">Sectors</h2><p class="sub2">The S&P 500’s 11 sectors, through their SPDR funds. Darker means a bigger move.</p>
-      <div class="heat">${sec.map(r => `<button type="button" class="ht ${dirc(r.cp)}${Math.abs(r.cp || 0) >= 2 ? ' hot' : ''}" style="${heat(r.cp)}" data-tick="${esc(r.s)}"><b>${esc(r.n)}</b><span>${fchg(r)}</span><small>Week ${fpct((r.ch || {}).w)}</small></button>`).join('')}</div></section>` : ''}
+      <div class="heat">${sec.map(r => `<button type="button" class="ht ${dirc(r.cp)}${Math.abs(r.cp || 0) >= 2 ? ' hot' : ''}" style="${heat(r.cp)}" data-tick="${esc(r.s)}"><b>${esc(T(r.n))}</b><span>${fchg(r)}</span><small>${T('Week {v}', { v: fpct((r.ch || {}).w) })}</small></button>`).join('')}</div></section>` : ''}
     ${st.length ? `<section class="blk two"><div><h2 class="sec-h">Biggest gainers</h2><div class="mvs">${st.slice(0, 6).filter(r => r.cp > 0).map(mover).join('') || '<p class="note">None of the big companies is up today.</p>'}</div></div>
       <div><h2 class="sec-h">Biggest decliners</h2><div class="mvs">${st.slice(-6).reverse().filter(r => r.cp < 0).map(mover).join('') || '<p class="note">None of the big companies is down today.</p>'}</div></div></section>
 ` : ''}
     ${MK && (MK.econ || []).length ? `<section class="blk"><h2 class="sec-h">The economy</h2><p class="sub2">The latest official numbers: the Labor Department, the Commerce Department and the Energy Department (through DBnomics), the New York Fed, Freddie Mac and the University of Michigan. Tap one for its source.</p><div class="econ">${MK.econ.map(econTile).join('')}</div>
-      ${(MK.econMissing || []).length ? `<p class="note" style="margin-top:12px">Not shown in this edition: ${esc(MK.econMissing.join(', ').replace(/, ([^,]*)$/, ' and $1'))}. No reading from the last few months reached the updater, so an old number isn’t passed off as the latest.</p>` : ''}</section>` : ''}
+      ${(MK.econMissing || []).length ? `<p class="note" style="margin-top:12px">${T('Not shown in this edition: {list}. No reading from the last few months reached the updater, so an old number isn’t passed off as the latest.', { list: esc(MK.econMissing.map(x => T(x)).join(', ').replace(/, ([^,]*)$/, ' ' + T('and|list') + ' $1')) })}</p>` : ''}</section>` : ''}
     ${MK && ((MK.earnings || []).length || (MK.events || []).length) ? `<section class="blk"><h2 class="sec-h">This week</h2><p class="sub2">U.S. economic releases (Eastern time) and the biggest companies reporting earnings, from Nasdaq’s calendars.</p><div class="cal">${calendarHTML()}</div></section>` : ''}
     ${st.length ? `<section class="blk"><div class="blk-h"><h2 class="sec-h">Big companies</h2><label class="flt"><span class="sr">Filter companies</span><input id="stkFilter" type="search" placeholder="Filter by name or ticker" value="${esc(stockFilter)}"></label></div>
       <p class="sub2">The largest U.S.-listed companies and the most traded Brazilian and European names. Tap a column to sort; tap a row for its chart.</p><div class="stk-wrap" id="stkWrap">${stockTable()}</div></section>` : ''}
-    <section class="blk news"><div class="page-h"><h2 class="sec-h">Business news</h2><p>${news.length} stories</p><div class="seg" role="group" aria-label="Sort"><button type="button" data-sort="you" aria-pressed="${deskSort === 'you'}">Best for you</button><button type="button" data-sort="new" aria-pressed="${deskSort === 'new'}">Latest</button></div></div>
+    <section class="blk news"><div class="page-h"><h2 class="sec-h">${T('Business news')}</h2><p>${T('{n} stories', { n: news.length })}</p><div class="seg" role="group" aria-label="Sort"><button type="button" data-sort="you" aria-pressed="${deskSort === 'you'}">Best for you</button><button type="button" data-sort="new" aria-pressed="${deskSort === 'new'}">Latest</button></div></div>
       <div class="narrow">${shown.map(x => storyRow(x.it, { snip: true })).join('')}
-      ${news.length > shown.length ? `<button type="button" class="loadmore" id="more">Show ${Math.min(40, news.length - shown.length)} more</button>` : ''}</div></section>
-    ${MK && (MK.errors || []).length ? `<details class="mkerr"><summary>${MK.errors.length} price${MK.errors.length > 1 ? 's' : ''} couldn’t be read this time</summary><p>${MK.errors.map(esc).join('; ')}</p></details>` : ''}
+      ${news.length > shown.length ? `<button type="button" class="loadmore" id="more">${T('Show {n} more', { n: Math.min(40, news.length - shown.length) })}</button>` : ''}</div></section>
+    ${MK && (MK.errors || []).length ? `<details class="mkerr"><summary>${T(MK.errors.length > 1 ? '{n} prices couldn’t be read this time' : '{n} price couldn’t be read this time', { n: MK.errors.length })}</summary><p>${MK.errors.map(esc).join('; ')}</p></details>` : ''}
   </div>`;
   const f = $('#stkFilter');
   if (f) f.addEventListener('input', () => { stockFilter = f.value.trim(); $('#stkWrap').innerHTML = stockTable(); });
@@ -1352,12 +1468,12 @@ function bigChart(r, rng) {
   const line = xs.map((v, i) => (i ? 'L' : 'M') + X(i).toFixed(1) + ' ' + Y(v).toFixed(1)).join('');
   const up = xs[xs.length - 1] >= (base != null ? base : xs[0]);
   const fp = v => fprice(Object.assign({}, r, { p: v }));
-  const lab = t => t ? new Date(t * 1000).toLocaleString('en-US', rng === '1d' ? { timeZone: 'America/New_York', hour: 'numeric', minute: '2-digit' } : { month: 'short', day: 'numeric', year: rng === '1y' ? 'numeric' : undefined }) : '';
+  const lab = t => t ? new Date(t * 1000).toLocaleString(LOC(), rng === '1d' ? { timeZone: 'America/New_York', hour: 'numeric', minute: '2-digit' } : { month: 'short', day: 'numeric', year: rng === '1y' ? 'numeric' : undefined }) : '';
   return `<div class="chart"><svg viewBox="0 0 ${W} ${H}" class="bc ${up ? 'up' : 'dn'}" data-vals="${esc(JSON.stringify(xs))}" data-fmt="${esc(r.s)}" role="img" aria-label="${esc(r.n)} chart">
     <path class="area" d="${line}L${X(xs.length - 1).toFixed(1)} ${H - P}L${P} ${H - P}Z"/><path class="ln" d="${line}"/>
     ${base != null ? `<line class="base" x1="${P}" x2="${W - P}" y1="${Y(base).toFixed(1)}" y2="${Y(base).toFixed(1)}"/>` : ''}
     <line class="cross" x1="0" x2="0" y1="0" y2="${H}" style="display:none"/><circle class="dot" r="4" style="display:none"/></svg>
-    <div class="ax"><span>${esc(lab(t0))}</span><span class="rd" aria-live="polite">High ${fp(Math.max(...xs))}, low ${fp(Math.min(...xs))}</span><span>${esc(lab(t1))}</span></div></div>`;
+    <div class="ax"><span>${esc(lab(t0))}</span><span class="rd" aria-live="polite">${T('High {hi}, low {lo}', { hi: fp(Math.max(...xs)), lo: fp(Math.min(...xs)) })}</span><span>${esc(lab(t1))}</span></div></div>`;
 }
 function tickerDrawer(sym) {
   const r = mkRow(sym);
@@ -1370,22 +1486,22 @@ function tickerDrawer(sym) {
   const range52 = r.h52 && r.l52 && r.p != null ? Math.max(0, Math.min(100, (r.p - r.l52) / (r.h52 - r.l52) * 100)) : null;
   const ranges = [['1d', 'Today'], ['1m', 'Month'], ['6m', '6 months'], ['1y', 'Year']].filter(([k]) => k !== '1d' || (r.i && r.i.length > 2));
   openDrawer(`
-    <p class="src">${r.ds ? `<b>${esc(r.ds)}</b>` : ''}<span>${esc(r.src || '')}</span>${r.t ? `<span>${esc(new Date(r.t * 1000).toLocaleString('en-US', { timeZone: 'America/New_York', weekday: 'short', hour: 'numeric', minute: '2-digit' }))} ET</span>` : ''}</p>
-    <h2 id="drTitle">${esc(r.n)}</h2>
-    <p class="qt ${dirc(r.cp)}"><span class="qp">${fprice(r)}</span> <span class="qc">${r.c != null ? sgn(r.c) + fnum(Math.abs(r.c), r.kind === 'pct' ? 2 : 2) : ''} ${r.kind === 'pct' ? 'pts' : `(${fchg(r)})`}</span></p>
-    ${r.x ? `<p class="sn">${esc(r.x)}</p>` : ''}
+    <p class="src">${r.ds ? `<b>${esc(r.ds)}</b>` : ''}<span>${esc(r.src || '')}</span>${r.t ? `<span>${esc(new Date(r.t * 1000).toLocaleString(LOC(), { timeZone: 'America/New_York', weekday: 'short', hour: 'numeric', minute: '2-digit' }))} ET</span>` : ''}</p>
+    <h2 id="drTitle">${esc(T(r.n))}</h2>
+    <p class="qt ${dirc(r.cp)}"><span class="qp">${fprice(r)}</span> <span class="qc">${r.c != null ? sgn(r.c) + fnum(Math.abs(r.c), r.kind === 'pct' ? 2 : 2) : ''} ${r.kind === 'pct' ? T('pts') : `(${fchg(r)})`}</span></p>
+    ${r.x ? `<p class="sn">${esc(T(r.x))}</p>` : ''}
     <div class="seg rng" role="group" aria-label="Chart range">${ranges.map(([k, l]) => `<button type="button" data-range="${k}" aria-pressed="${chartRange === k}">${l}</button>`).join('')}</div>
     <div id="bigChart">${bigChart(r, chartRange)}</div>
     <dl class="stats">
       <div><dt>Previous close</dt><dd>${r.pc != null ? fprice(Object.assign({}, r, { p: r.pc })) : '–'}</dd></div>
-      <div><dt>Day’s range</dt><dd>${r.lo != null && r.hi != null ? fprice(Object.assign({}, r, { p: r.lo })) + ' to ' + fprice(Object.assign({}, r, { p: r.hi })) : '–'}</dd></div>
-      <div class="wide"><dt>52-week range</dt><dd>${r.l52 != null ? fprice(Object.assign({}, r, { p: r.l52 })) + ' to ' + fprice(Object.assign({}, r, { p: r.h52 })) : '–'}${range52 != null ? `<span class="r52"><i style="left:${range52.toFixed(0)}%"></i></span>` : ''}</dd></div>
+      <div><dt>Day’s range</dt><dd>${r.lo != null && r.hi != null ? T('{a} to {b}', { a: fprice(Object.assign({}, r, { p: r.lo })), b: fprice(Object.assign({}, r, { p: r.hi })) }) : '–'}</dd></div>
+      <div class="wide"><dt>52-week range</dt><dd>${r.l52 != null ? T('{a} to {b}', { a: fprice(Object.assign({}, r, { p: r.l52 })), b: fprice(Object.assign({}, r, { p: r.h52 })) }) : '–'}${range52 != null ? `<span class="r52"><i style="left:${range52.toFixed(0)}%"></i></span>` : ''}</dd></div>
       ${r.v ? `<div><dt>Volume</dt><dd>${fnum(r.v, 0)}</dd></div>` : ''}
-      ${[['w', 'Week'], ['m', 'Month'], ['q', '3 months'], ['ytd', 'This year'], ['y', '1 year']].map(([k, l]) => `<div><dt>${l}</dt><dd class="${dirc(ch[k])}">${r.kind === 'pct' ? (ch[k] == null ? '–' : sgn(ch[k]) + fnum(Math.abs(ch[k]), 2) + ' pts') : fpct(ch[k])}</dd></div>`).join('')}
+      ${[['w', 'Week'], ['m', 'Month'], ['q', '3 months'], ['ytd', 'This year'], ['y', '1 year']].map(([k, l]) => `<div><dt>${l}</dt><dd class="${dirc(ch[k])}">${r.kind === 'pct' ? (ch[k] == null ? '–' : sgn(ch[k]) + fnum(Math.abs(ch[k]), 2) + ' ' + T('pts')) : fpct(ch[k])}</dd></div>`).join('')}
     </dl>
     ${related.length ? `<h3 class="lbl">In the news</h3>${related.map(x => storyRow(x, { img: false })).join('')}` : ''}
-    <p class="note" style="margin-top:22px">A snapshot from ${esc(clock(MK.at))} ET, not a live quote. Prices can be delayed by the exchange.</p>
-  `, r.n);
+    <p class="note" style="margin-top:22px">${T('A snapshot from {time} ET, not a live quote. Prices can be delayed by the exchange.', { time: esc(clock(MK.at)) })}</p>
+  `, T(r.n));
   drawerFor = 'tick:' + sym;
 }
 function chartHover(e) {
@@ -1433,17 +1549,18 @@ async function tseLive() { // on count night, the TSE's own national file, strai
     ELX.tse = { pct: brNum((j.s || {}).pst), cands, time: (j.dg || '') + ' ' + (j.hg || ''), at: Date.now() };
   } catch (e) { /* the desk's own copy is used instead */ }
 }
+const raceName = n => { const m = String(n).match(/^(.+) (Senate|Governor)( \(special\))?$/); return m ? T(`{state} ${m[2]}${m[3] ? ' (special)' : ''}`, { state: m[1] }) : n; };
 const daysTo = iso => Math.round((Date.parse(iso + 'T12:00:00-04:00') - Date.now()) / 864e5);
-const whenWord = n => n > 1 ? `in ${n} days` : n === 1 ? 'tomorrow' : n === 0 ? 'today' : n === -1 ? 'yesterday' : `${-n} days ago`;
+const whenWord = n => n > 1 ? T('in {n} days', { n }) : n === 1 ? T('tomorrow') : n === 0 ? T('today') : n === -1 ? T('yesterday') : T('{n} days ago', { n: -n });
 const pc0 = v => v == null ? '–' : Math.round(v * 100) + '%';
-const shortDate = iso => new Date(iso + 'T12:00:00Z').toLocaleDateString('en-US', { month: 'short', day: 'numeric', timeZone: 'UTC' });
+const shortDate = iso => new Date(iso + 'T12:00:00Z').toLocaleDateString(LOC(), { month: 'short', day: 'numeric', timeZone: 'UTC' });
 function dateSpan(w) { // "2026-10-16 – 2026-10-23" -> "Oct 16–23"
   const m = String(w || '').match(/(\d{4}-\d{2}-\d{2}).*?(\d{4}-\d{2}-\d{2})/);
   if (!m) return w || '';
   const a = shortDate(m[1]), b = shortDate(m[2]);
   return a.split(' ')[0] === b.split(' ')[0] ? `${a}–${b.split(' ')[1]}` : `${a}–${b}`;
 }
-const h12 = hm => { const m = String(hm || '').match(/(\d{1,2}):(\d{2})/); if (!m) return hm; const h = +m[1]; return `${h % 12 || 12}${m[2] !== '00' ? ':' + m[2] : ''} ${h < 12 ? 'a.m.' : 'p.m.'}`; };
+const h12 = hm => { const m = String(hm || '').match(/(\d{1,2}):(\d{2})/); if (!m) return hm; const h = +m[1]; if (LANG !== 'en' && LANG !== 'xx') return LANG === 'pt' ? `${h}h${m[2] !== '00' ? m[2] : ''}` : `${h}:${m[2]}`; return `${h % 12 || 12}${m[2] !== '00' ? ':' + m[2] : ''} ${h < 12 ? 'a.m.' : 'p.m.'}`; };
 function brCard(full) {
   const b = ELX.br; if (!b || !b.election) return '';
   const el = b.election, cands = el.candidates || [], byKey = Object.fromEntries(cands.map(c => [c.key, c]));
@@ -1459,24 +1576,24 @@ function brCard(full) {
   let body;
   if (count && count.pct > 0) {
     const rows = count.rows.slice().sort((a, b) => (b.pct || 0) - (a.pct || 0));
-    body = `<p class="eh">${winner ? `<b>The TSE has declared ${esc(winner.c.short || winner.c.name)} elected.</b>` : `<b>The count: ${fnum(count.pct, 1)}% of polling sections counted.</b>`}</p>
+    body = `<p class="eh">${winner ? `<b>${T('The TSE has declared {name} elected.', { name: esc(winner.c.short || winner.c.name) })}</b>` : `<b>${T('The count: {pct}% of polling sections counted.', { pct: fnum(count.pct, 1) })}</b>`}</p>
       ${bar(rows.map(x => ({ c: x.c, v: x.pct })))}
-      <ul class="cands">${rows.map(x => `<li><i style="background:${esc(x.c.color)}"></i><b>${esc(x.c.short || x.c.name)}</b> <span>${esc(x.c.party)}</span><em>${fnum(x.pct, 2)}%</em>${x.votes ? `<small>${fnum(x.votes, 0)} votes</small>` : ''}</li>`).join('')}</ul>
-      <p class="esrc">Valid votes. ${esc(count.src)}${count.time ? `, file of ${esc(count.time)} Brasília time` : ''}.</p>`;
+      <ul class="cands">${rows.map(x => `<li><i style="background:${esc(x.c.color)}"></i><b>${esc(x.c.short || x.c.name)}</b> <span>${esc(x.c.party)}</span><em>${fnum(x.pct, 2)}%</em>${x.votes ? `<small>${T('{n} votes', { n: fnum(x.votes, 0) })}</small>` : ''}</li>`).join('')}</ul>
+      <p class="esrc">${T('Valid votes.')} ${esc(T(count.src))}${count.time ? T(', file of {time} Brasília time', { time: esc(count.time) }) : ''}.</p>`;
   } else {
     const rows = cands.map(c => ({ c, v: avg[c.key] })).sort((a, b) => (b.v || 0) - (a.v || 0));
-    body = `<p class="eh"><b>Poll average:</b> ${rows.map(x => `${esc(x.c.short || x.c.name)} ${fnum(x.v, 0)}`).join(', ')} <span>(share of valid votes, latest poll from each of ${avg.n || '?'} pollsters, ${esc(dateSpan(avg.window))})</span></p>
+    body = `<p class="eh"><b>${T('Poll average:')}</b> ${rows.map(x => `${esc(x.c.short || x.c.name)} ${fnum(x.v, 0)}`).join(', ')} <span>${T('(share of valid votes, latest poll from each of {n} pollsters, {span})', { n: avg.n || '?', span: esc(dateSpan(avg.window)) })}</span></p>
       ${bar(rows)}
-      ${mk.venue ? `<p class="eh"><b>Prediction markets:</b> ${rows.map(x => `${esc(x.c.short || x.c.name)} ${pc0(mk[x.c.key])}`).join(', ')} on ${esc(mk.venue)}${mk.kalshi ? `; ${rows.map(x => `${esc(x.c.short || x.c.name)} ${pc0(mk.kalshi[x.c.key])}`).join(', ')} on Kalshi` : ''}.</p>` : ''}
-      ${r1.candidates ? `<p class="eh"><b>First round, ${esc(shortDate(el.election.round1))}:</b> ${rows.map(x => { const y = r1.candidates.find(z => z.key === x.c.key || z.n === x.c.n) || {}; return `${esc(x.c.short || x.c.name)} ${fnum(y.pctValid ?? y.pct, 1)}%`; }).join(', ')}.</p>` : ''}`;
+      ${mk.venue ? `<p class="eh"><b>${T('Prediction markets:')}</b> ${T('{list} on {venue}', { list: rows.map(x => `${esc(x.c.short || x.c.name)} ${pc0(mk[x.c.key])}`).join(', '), venue: esc(mk.venue) })}${mk.kalshi ? `; ${T('{list} on {venue}', { list: rows.map(x => `${esc(x.c.short || x.c.name)} ${pc0(mk.kalshi[x.c.key])}`).join(', '), venue: 'Kalshi' })}` : ''}.</p>` : ''}
+      ${r1.candidates ? `<p class="eh"><b>${T('First round, {date}:', { date: esc(shortDate(el.election.round1)) })}</b> ${rows.map(x => { const y = r1.candidates.find(z => z.key === x.c.key || z.n === x.c.n) || {}; return `${esc(x.c.short || x.c.name)} ${fnum(y.pctValid ?? y.pct, 1)}%`; }).join(', ')}.</p>` : ''}`;
   }
-  const head = declared || winner ? 'Brazil’s new president' : day >= 0 ? `Brazil votes ${whenWord(day)}` : count ? 'Brazil’s count' : 'Brazil’s runoff';
+  const head = declared || winner ? T('Brazil’s new president') : day >= 0 ? T('Brazil votes {when}', { when: whenWord(day) }) : count ? T('Brazil’s count') : T('Brazil’s runoff');
   return `<section class="ecard">
     <h3>${esc(head)}</h3>
-    <p class="edate">Presidential runoff, ${esc(new Date(el.election.runoff + 'T12:00:00Z').toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', timeZone: 'UTC' }))}: ${cands.map(c => `${esc(c.name)} (${esc(c.party)})`).join(' and ')}.${el.election.countStartsET ? ` Polls close and the count starts at ${esc(h12(el.election.countStartsBrasilia))} Brasília time, ${esc(h12(el.election.countStartsET))} Eastern.` : ''}</p>
+    <p class="edate">${T('Presidential runoff, {date}: {cands}.', { date: esc(new Date(el.election.runoff + 'T12:00:00Z').toLocaleDateString(LOC(), { weekday: 'long', month: 'long', day: 'numeric', timeZone: 'UTC' })), cands: cands.map(c => `${esc(c.name)} (${esc(c.party)})`).join(' ' + T('and|list') + ' ') })}${el.election.countStartsET ? ' ' + T('Polls close and the count starts at {br} Brasília time, {et} Eastern.', { br: esc(h12(el.election.countStartsBrasilia)), et: esc(h12(el.election.countStartsET)) }) : ''}</p>
     ${body}
-    ${full && (el.calendar || []).length ? `<ul class="ecal">${el.calendar.slice(-4).map(c => `<li><b>${esc(shortDate(c.date))}</b> ${esc(c.en)}</li>`).join('')}</ul>` : ''}
-    <p class="elinks"><a href="../brazil2026/">Open the Brazil desk</a>${full ? '' : ' <a href="#/s/brazil">Brazil news</a>'}</p>
+    ${full && (el.calendar || []).length ? `<ul class="ecal">${el.calendar.slice(-4).map(c => `<li><b>${esc(shortDate(c.date))}</b> <span class="nolc">${esc(LANG === 'pt' && c.pt ? c.pt : LANG === 'de' && c.de ? c.de : T(c.en))}</span></li>`).join('')}</ul>` : ''}
+    <p class="elinks"><a href="../brazil2026/">${T('Open the Brazil desk')}</a>${full ? '' : ` <a href="#/s/brazil">${T('Brazil news')}</a>`}</p>
   </section>`;
 }
 function usCard(full) {
@@ -1484,7 +1601,7 @@ function usCard(full) {
   if (!m && !mk) return '';
   const day = daysTo((m && m.meta.electionDay) || '2026-11-03');
   const hinge = (m && m.hinge) || {};
-  const ctl = (k, label) => { const x = mk && mk[k]; if (!x) return ''; return `<p class="eh"><b>${label}:</b> Democrats ${pc0(x.D)}, Republicans ${pc0(x.R)} on ${esc(x.venue)}${x.kalshi ? ` (Kalshi: ${pc0(x.kalshi.D)} / ${pc0(x.kalshi.R)})` : ''}${hinge[k.toUpperCase()] != null ? `. The Hinge’s blend: Democrats ${pc0(hinge[k.toUpperCase()])}` : ''}.</p>
+  const ctl = (k, label) => { const x = mk && mk[k]; if (!x) return ''; return `<p class="eh"><b>${T(label)}:</b> ${T('Democrats {d}, Republicans {r} on {venue}', { d: pc0(x.D), r: pc0(x.R), venue: esc(x.venue) })}${x.kalshi ? ` (Kalshi: ${pc0(x.kalshi.D)} / ${pc0(x.kalshi.R)})` : ''}${hinge[k.toUpperCase()] != null ? '. ' + T('The Hinge’s blend: Democrats {d}', { d: pc0(hinge[k.toUpperCase()]) }) : ''}.</p>
       <div class="vbar"><span style="flex:${x.D};background:var(--dem)"></span><span style="flex:${x.R};background:var(--rep)"></span></div>`; };
   const bal = m && m.balance, gb = m && m.house && m.house.gb && m.house.gb.avg, ev = m && m.early && m.early.national;
   let races = '';
@@ -1492,19 +1609,19 @@ function usCard(full) {
     const list = Object.entries(m.markets.races).map(([id, x]) => ({ id, x, r: m.races[id] })).filter(o => o.r)
       .sort((a, b) => Math.abs(a.x.D - 0.5) - Math.abs(b.x.D - 0.5));
     const side = (r, p) => (r.cands || []).find(c => c.p === p) || (p === 'D' ? (r.cands || []).find(c => c.p === 'I') : null);
-    races = `<h4 class="eh4">The closest races, by prediction market</h4><div class="races"><table><thead><tr><th scope="col" class="l">Race</th><th scope="col" class="l">Democratic side</th><th scope="col" class="l">Republican</th><th scope="col">Polls</th><th scope="col">Market</th><th scope="col">The Hinge</th><th scope="col" class="l">Cook</th></tr></thead><tbody>
-      ${list.map(({ id, x, r }) => { const d = side(r, 'D'), rp = side(r, 'R'); return `<tr><th scope="row" class="l">${esc(r.name)}</th><td class="l">${d ? esc(d.n) + (d.p === 'I' ? ' (I)' : '') : '–'}</td><td class="l">${rp ? esc(rp.n) : '–'}</td>
-        <td>${r.avg && r.avg.d != null ? `D ${fnum(r.avg.d, 1)}, R ${fnum(r.avg.r, 1)}` : '–'}</td><td><span class="pd">D ${pc0(x.D)}</span></td><td>${hinge[id] != null ? 'D ' + pc0(hinge[id]) : '–'}</td><td class="l">${esc((r.ratings || {}).cook || '–')}</td></tr>`; }).join('')}
-      </tbody></table></div><p class="esrc">Polls: the Election Desk’s average of recent public polls. Market: ${esc((Object.values(m.markets.races)[0] || {}).venue || 'Polymarket')}, the Democratic side’s chance. The Hinge blends polls, history and markets. Ratings: Cook Political Report.</p>`;
+    races = `<h4 class="eh4">${T('The closest races, by prediction market')}</h4><div class="races"><table><thead><tr><th scope="col" class="l">${T('Race')}</th><th scope="col" class="l">${T('Democratic side')}</th><th scope="col" class="l">${T('Republican')}</th><th scope="col">${T('Polls')}</th><th scope="col">${T('Market')}</th><th scope="col">The Hinge</th><th scope="col" class="l">Cook</th></tr></thead><tbody>
+      ${list.map(({ id, x, r }) => { const d = side(r, 'D'), rp = side(r, 'R'); return `<tr><th scope="row" class="l">${esc(raceName(r.name))}</th><td class="l">${d ? esc(d.n) + (d.p === 'I' ? ' (I)' : '') : '–'}</td><td class="l">${rp ? esc(rp.n) : '–'}</td>
+        <td>${r.avg && r.avg.d != null ? `D ${fnum(r.avg.d, 1)}, R ${fnum(r.avg.r, 1)}` : '–'}</td><td><span class="pd">D ${pc0(x.D)}</span></td><td>${hinge[id] != null ? 'D ' + pc0(hinge[id]) : '–'}</td><td class="l">${esc(T((r.ratings || {}).cook || '–'))}</td></tr>`; }).join('')}
+      </tbody></table></div><p class="esrc">${T('Polls: the Election Desk’s average of recent public polls. Market: {venue}, the Democratic side’s chance. The Hinge blends polls, history and markets. Ratings: Cook Political Report.', { venue: esc((Object.values(m.markets.races)[0] || {}).venue || 'Polymarket') })}</p>`;
   }
   return `<section class="ecard">
-    <h3>${day >= 0 ? `U.S. midterms ${whenWord(day)}` : 'U.S. midterms'}</h3>
-    <p class="edate">Tuesday, November 3: all 435 House seats, 35 Senate seats and 36 governors.${bal ? ` The Senate is now ${bal.senate.current.R} Republicans, ${bal.senate.current.D + (bal.senate.current.I || 0)} Democrats and independents who caucus with them; the House ${bal.house.current.R} to ${bal.house.current.D}.` : ''}</p>
+    <h3>${day >= 0 ? T('U.S. midterms {when}', { when: whenWord(day) }) : T('U.S. midterms')}</h3>
+    <p class="edate">${T('Tuesday, November 3: all 435 House seats, 35 Senate seats and 36 governors.')}${bal ? ' ' + T('The Senate is now {r} Republicans, {d} Democrats and independents who caucus with them; the House {hr} to {hd}.', { r: bal.senate.current.R, d: bal.senate.current.D + (bal.senate.current.I || 0), hr: bal.house.current.R, hd: bal.house.current.D }) : ''}</p>
     ${ctl('senate', 'Senate control')}${ctl('house', 'House control')}
-    ${gb ? `<p class="eh"><b>Generic ballot, House:</b> Democrats ${fnum(gb.d, 1)}, Republicans ${fnum(gb.r, 1)} <span>(average of ${gb.n_polls} recent polls)</span>.</p>` : ''}
-    ${ev && ev.totalBallots ? `<p class="eh"><b>Early vote:</b> ${fnum(ev.totalBallots / 1e6, 1)} million ballots cast so far in ${ev.statesReporting} states.</p>` : ''}
+    ${gb ? `<p class="eh"><b>${T('Generic ballot, House:')}</b> ${T('Democrats {d}, Republicans {r}', { d: fnum(gb.d, 1), r: fnum(gb.r, 1) })} <span>${T('(average of {n} recent polls)', { n: gb.n_polls })}</span>.</p>` : ''}
+    ${ev && ev.totalBallots ? `<p class="eh"><b>${T('Early vote:')}</b> ${T('{n} million ballots cast so far in {s} states.', { n: fnum(ev.totalBallots / 1e6, 1), s: ev.statesReporting })}</p>` : ''}
     ${races}
-    <p class="elinks"><a href="../election2026/">Open the Election Desk</a> <a href="../the-hinge/">The Hinge forecast</a></p>
+    <p class="elinks"><a href="../election2026/">${T('Open the Election Desk')}</a> <a href="../the-hinge/">${T('The Hinge forecast')}</a></p>
   </section>`;
 }
 function electionsHTML(full, only) {
@@ -1520,7 +1637,7 @@ function frontElections() { // the front shows an election from a few days befor
   if (b && b.election) { const d = daysTo(b.election.election.runoff); if (d <= 3 && d >= -2) show.push('br'); }
   const d2 = daysTo((ELX.us && ELX.us.meta.electionDay) || '2026-11-03'); if (d2 <= 14 && d2 >= -3 && (ELX.us || ELX.usM)) show.push('us');
   if (!show.length) return '';
-  return `<section class="wrap fe"><h2 class="sec-h">Elections</h2>${electionsHTML(false, show.length === 1 ? show[0] : null)}</section>`;
+  return `<section class="wrap fe"><h2 class="sec-h">${T('Elections')}</h2>${electionsHTML(false, show.length === 1 ? show[0] : null)}</section>`;
 }
 
 /* ================= the drawer ================= */
@@ -1558,22 +1675,22 @@ function storyDrawer(it) {
   })();
   openDrawer(`
     ${picOf(it) ? `<img class="hero" src="${esc(picOf(it))}" alt="" referrerpolicy="no-referrer" onerror="this.remove()">` : ''}
-    ${(() => { const g = getShow('story-' + it.i); return g && g.slides.length >= 2 ? `<p class="ssban" style="margin:12px 0 0"><button type="button" data-show="story-${it.i}"><img src="${esc(coverImg(g))}" alt="" referrerpolicy="no-referrer">${g.slides.filter(x => x.kind === 'story').length > 1 ? `Pictures from ${g.slides.filter(x => x.kind === 'story').length} outlets` : 'Pictures and video'}${g.slides.some(x => x.kind === 'video') ? ` · ${g.slides.filter(x => x.kind === 'video').length} video${g.slides.filter(x => x.kind === 'video').length > 1 ? 's' : ''}` : ''}</button></p>` : ''; })()}
+    ${(() => { const g = getShow('story-' + it.i); return g && g.slides.length >= 2 ? `<p class="ssban" style="margin:12px 0 0"><button type="button" data-show="story-${it.i}"><img src="${esc(coverImg(g))}" alt="" referrerpolicy="no-referrer">${(() => { const ns = g.slides.filter(x => x.kind === 'story').length, nv = g.slides.filter(x => x.kind === 'video').length; return (ns > 1 ? T('Pictures from {n} outlets', { n: ns }) : T('Pictures and video')) + (nv ? ' · ' + T(nv > 1 ? '{n} videos' : '{n} video', { n: nv }) : ''); })()}</button></p>` : ''; })()}
     <p class="src"><b>${esc(outlet(it.o))}</b><span>${esc(clock(new Date(it.p * 60000).toISOString()))}, ${ago(it.p).toLowerCase()}</span><span>${esc(secName(it.c))}</span></p>
     <h2 id="drTitle">${esc(it.t)}</h2>
     ${it.d ? `<p class="sn">${esc(it.d)}</p>` : ''}
-    <a class="go" href="${esc(it.u)}" target="_blank" rel="noopener" data-out="${it.i}">Read it at ${esc(outlet(it.o))} ${ICON_OUT}</a>
-    ${it.x ? ` <a class="chip" href="${esc(it.x)}" target="_blank" rel="noopener" data-out="${it.i}" style="margin-left:6px">Discussion</a>` : ''}
+    <a class="go" href="${esc(it.u)}" target="_blank" rel="noopener" data-out="${it.i}">${T('Read it at {outlet}', { outlet: esc(outlet(it.o)) })} ${ICON_OUT}</a>
+    ${it.x ? ` <a class="chip" href="${esc(it.x)}" target="_blank" rel="noopener" data-out="${it.i}" style="margin-left:6px">${T('Discussion')}</a>` : ''}
     <div class="fb" role="group" aria-label="Tune your picks">
-      <button type="button" data-more="${it.i}">More like this</button>
-      <button type="button" data-less="${it.i}">Less like this</button>
-      <button type="button" data-hide="${esc(it.o)}">Hide ${esc(outlet(it.o))}</button>
+      <button type="button" data-more="${it.i}">${T('More like this')}</button>
+      <button type="button" data-less="${it.i}">${T('Less like this')}</button>
+      <button type="button" data-hide="${esc(it.o)}">${T('Hide {outlet}', { outlet: esc(outlet(it.o)) })}</button>
     </div>
-    ${(() => { const vs = vidsFor(c); return vs.length ? `<h3 class="lbl">Watch</h3>${vs.slice(0, 2).map(v => `<div class="dvid"><div class="vframe" data-v="${esc(v.v)}"><img src="${esc(ytThumb(v.v))}" alt="" referrerpolicy="no-referrer"><button type="button" class="vplay" data-dplay="${esc(v.v)}" aria-label="Play video: ${esc(v.t)}"><span>▶</span></button></div><p class="m" style="margin:6px 0 0;font-size:14px"><b>${esc(v.ch)}</b> · ${esc(v.t)} · ${ago(vidMin(v))}</p></div>`).join('')}` : ''; })()}
-    ${members.length ? `<h3 class="lbl">How ${c.n} outlets are covering it</h3><ul class="cov">${members.slice(0, 24).map(m => `<li><a href="${esc(m.u)}" target="_blank" rel="noopener" data-out="${m.i}">${esc(m.t)}</a>
+    ${(() => { const vs = vidsFor(c); return vs.length ? `<h3 class="lbl">${T('Watch')}</h3>${vs.slice(0, 2).map(v => `<div class="dvid"><div class="vframe" data-v="${esc(v.v)}"><img src="${esc(ytThumb(v.v))}" alt="" referrerpolicy="no-referrer"><button type="button" class="vplay" data-dplay="${esc(v.v)}" aria-label="Play video: ${esc(v.t)}"><span>▶</span></button></div><p class="m" style="margin:6px 0 0;font-size:14px"><b>${esc(v.ch)}</b> · ${esc(v.t)} · ${ago(vidMin(v))}</p></div>`).join('')}` : ''; })()}
+    ${members.length ? `<h3 class="lbl">${T('How {n} outlets are covering it', { n: c.n })}</h3><ul class="cov">${members.slice(0, 24).map(m => `<li><a href="${esc(m.u)}" target="_blank" rel="noopener" data-out="${m.i}">${esc(m.t)}</a>
       <span class="m"><b>${esc(outlet(m.o))}</b> ${ago(m.p)}</span>${m.d ? `<span class="sn2">${esc(m.d)}</span>` : ''}</li>`).join('')}</ul>` : ''}
-    ${tags.length ? `<h3 class="lbl">In this story</h3><div class="tags">${tags.map(k => `<a class="chip" href="#/t/${encodeURIComponent(k)}" data-topic="${esc(k)}">${esc(kwLabel(k))}${P.follow[k] ? ' <span class="x">following</span>' : ''}</a>`).join('')}</div>` : ''}
-    ${related.length ? `<h3 class="lbl">Related</h3>${related.map(x => storyRow(x, { img: false })).join('')}` : ''}
+    ${tags.length ? `<h3 class="lbl">${T('In this story')}</h3><div class="tags">${tags.map(k => `<a class="chip" href="#/t/${encodeURIComponent(k)}" data-topic="${esc(k)}">${esc(kwLabel(k))}${P.follow[k] ? ' <span class="x">following</span>' : ''}</a>`).join('')}</div>` : ''}
+    ${related.length ? `<h3 class="lbl">${T('Related')}</h3>${related.map(x => storyRow(x, { img: false })).join('')}` : ''}
   `, it.t);
 }
 function compassDrawer() {
@@ -1593,7 +1710,7 @@ function compassDrawer() {
     const [nx, ny] = pt(top, R * 0.9);
     rose += `<line class="needle" x1="${cx}" y1="${cy}" x2="${nx.toFixed(1)}" y2="${ny.toFixed(1)}"/><circle class="pt" cx="${cx}" cy="${cy}" r="4"/>`;
   }
-  secs.forEach((s, i) => { const [x, y] = pt(i, R + 18); rose += `<text class="${vals[i] > 0 ? 'on' : ''}" x="${x.toFixed(1)}" y="${(y + 3.5).toFixed(1)}" text-anchor="${x < cx - 8 ? 'end' : x > cx + 8 ? 'start' : 'middle'}">${esc(s.name)}</text>`; });
+  secs.forEach((s, i) => { const [x, y] = pt(i, R + 18); rose += `<text class="${vals[i] > 0 ? 'on' : ''}" x="${x.toFixed(1)}" y="${(y + 3.5).toFixed(1)}" text-anchor="${x < cx - 8 ? 'end' : x > cx + 8 ? 'start' : 'middle'}">${esc(secName(s.k))}</text>`; });
   rose += '</svg>';
   const kws = Object.entries(P.kw).filter(([k, v]) => v > 0.3 && !P.mute.kw[k]).sort((a, b) => b[1] - a[1]).slice(0, 14);
   for (const k of Object.keys(P.follow)) if (!kws.find(x => x[0] === k)) kws.unshift([k, P.kw[k] || 4]);
@@ -1603,8 +1720,8 @@ function compassDrawer() {
   const hiddenK = Object.keys(P.mute.kw), hiddenS = Object.keys(P.mute.src);
   const readN = Object.keys(P.read).length;
   openDrawer(`
-    <h2 id="drTitle">Your compass</h2>
-    <p class="note">What The Watch has picked up from your reading${readN ? `, ${readN} ${readN === 1 ? 'story' : 'stories'} this week` : ''}. It points “For you” and the order of the sections on the front.</p>
+    <h2 id="drTitle" data-kind="compass">${T('Your compass')}</h2>
+    <p class="note">${T(readN ? (readN === 1 ? 'What The Watch has picked up from your reading, {n} story this week. It points “For you” and the order of the sections on the front.' : 'What The Watch has picked up from your reading, {n} stories this week. It points “For you” and the order of the sections on the front.') : 'What The Watch has picked up from your reading. It points “For you” and the order of the sections on the front.', { n: readN })}</p>
     ${rose}
     ${any ? '' : '<p class="note" style="text-align:center">This fills in as you read.</p>'}
     <h3 class="lbl">Topics you read about</h3>
@@ -1691,7 +1808,7 @@ document.addEventListener('click', e => {
   }
   if (ds.hide) {
     const o = ds.hide; P.mute.src[o] = 1; save();
-    toast(`${outlet(o)} hidden.`, () => { delete P.mute.src[o]; save(); refreshDrawer(); render(true); });
+    toast(T('{outlet} hidden.', { outlet: outlet(o) }), () => { delete P.mute.src[o]; save(); refreshDrawer(); render(true); });
     refreshDrawer(); render(true); return;
   }
   if (ds.unhide) { delete P.mute.src[ds.unhide]; save(); refreshDrawer(); return; }
@@ -1728,13 +1845,13 @@ document.addEventListener('click', e => {
   if (a.id === 'mailMore') { mailN += 40; const m2 = filesQ ? FILES.mail.filter(m => (m.j + ' ' + m.x + ' ' + m.a + ' ' + m.n).toLowerCase().includes(filesQ.toLowerCase())) : FILES.mail; $('#fmail').innerHTML = mailRows(m2); return; }
   if (a.id === 'stkAll') { stockAll = true; $('#stkWrap').innerHTML = stockTable(); return; }
   if (a.id === 'resetAll') {
-    if (confirm('Forget everything The Watch has learned about your reading in this browser?')) { const t = P.theme; P = blank(); P.theme = t; save(); closeDrawer(); toast('Starting fresh.'); }
+    if (confirm(T('Forget everything The Watch has learned about your reading in this browser?'))) { const t = P.theme; P = blank(); P.theme = t; save(); closeDrawer(); toast('Starting fresh.'); }
     return;
   }
   if (a.id === 'backLatest') { loadLatest(true); return; }
   if (a.id === 'compassBtn') { compassDrawer(); return; }
   if (a.id === 'shareBtn' || ds.share === 'site') { shareSite(); return; }
-  if (ds.share === 'report') { const r = (ART && ART.articles || []).find(x => x.id === ds.sid) || ARTC[ds.sid]; if (r) shareIt({ title: r.title, text: r.dek, url: `${PUBLIC}r/${encodeURIComponent(r.id)}.html` }); return; }
+  if (ds.share === 'report') { const r = (ART && ART.articles || []).find(x => x.id === ds.sid) || ARTC[ds.sid]; if (r) { const L = artL(r), loc = L.title && (LANG === 'pt' || LANG === 'de'); shareIt({ title: L.title || r.title, text: L.dek || r.dek, url: `${PUBLIC}r/${encodeURIComponent(r.id)}${loc ? '.' + LANG : ''}.html` }); } return; }
   if (a.id === 'themeBtn') { P.theme = { auto: 'day', day: 'night', night: 'auto' }[P.theme] || 'auto'; save(); applyTheme(); return; }
 });
 document.addEventListener('keydown', e => {
@@ -1753,7 +1870,7 @@ window.addEventListener('popstate', () => {
 window.addEventListener('hashchange', () => { pageLimit = 40; render(); });
 function refreshDrawer() {
   if (!document.body.classList.contains('dopen')) return;
-  if ($('#drTitle') && $('#drTitle').textContent === 'Your compass') { const st = $('#drawer').scrollTop; compassDrawer(); $('#drawer').scrollTop = st; }
+  if ($('#drTitle') && $('#drTitle').dataset.kind === 'compass') { const st = $('#drawer').scrollTop; compassDrawer(); $('#drawer').scrollTop = st; }
 }
 let qT = 0;
 $('#q').addEventListener('input', e => {
@@ -1770,16 +1887,18 @@ $('#q').addEventListener('keydown', e => {
 });
 function applyTheme() {
   let t = P.theme || 'auto';
-  $('#themeLbl').textContent = { auto: 'Auto', day: 'Day', night: 'Night' }[t];
-  $('#themeBtn').setAttribute('aria-label', `Paper: ${$('#themeLbl').textContent}. Change it.`);
+  $('#themeLbl').textContent = T({ auto: 'Auto', day: 'Day', night: 'Night' }[t]);
+  $('#themeBtn').setAttribute('aria-label', T('Paper: {mode}. Change it.', { mode: $('#themeLbl').textContent }));
   if (t === 'auto') { const h = et(new Date()).h; t = (h >= 20 || h < 4) ? 'night' : (matchMedia('(prefers-color-scheme: dark)').matches ? 'night' : 'day'); }
   document.documentElement.dataset.theme = t;
 }
 
 /* ================= reports: in-depth articles written by Claude, one a day (news/articles/) ================= */
 let ART = null; const ARTC = {};
-const fmtLong = new Intl.DateTimeFormat('en-US', { timeZone: 'America/New_York', weekday: 'long', month: 'long', day: 'numeric', year: 'numeric', hour: 'numeric', minute: '2-digit' });
-function byline(a) { return `By <b>${esc(a.byline)}</b>, written with ${esc(a.model)} on ${esc(fmtLong.format(new Date(a.written)))} ET`; }
+const fmtLong = new Intl.DateTimeFormat(LOC(), { timeZone: 'America/New_York', weekday: 'long', month: 'long', day: 'numeric', year: 'numeric', hour: 'numeric', minute: '2-digit' });
+function byline(a) { return T('By <b>{by}</b>, written with {model} on {date} ET', { by: esc(a.byline), model: esc(a.model), date: esc(fmtLong.format(new Date(a.written))) }); }
+const artL = a => (a && a.i18n && a.i18n[LANG]) || {}; // a report's translation into the reader's language, if there is one
+let artOrig = false;
 function md(src, nSources) { // a small, safe Markdown: everything is escaped first
   const inline = t => esc(t)
     .replace(/\*\*([^*]+)\*\*/g, '<b>$1</b>').replace(/\*([^*]+)\*/g, '<i>$1</i>')
@@ -1798,9 +1917,10 @@ function md(src, nSources) { // a small, safe Markdown: everything is escaped fi
   return out.join('');
 }
 function reportCard(a, big) {
-  return `<a class="rep${big ? ' big' : ''}" href="#/a/${esc(a.id)}"><span class="rk">${esc(secName(a.desk))} · The Watch report</span>
-    <span class="rt">${esc(a.title)}</span><span class="rd">${esc(a.dek)}</span>
-    <span class="rb">By Claude (${esc(a.model)}), ${esc(new Date(a.written).toLocaleDateString('en-US', { timeZone: 'America/New_York', month: 'long', day: 'numeric' }))}. ${a.min} min read, ${a.sources} sources.</span></a>`;
+  const L = artL(a);
+  return `<a class="rep${big ? ' big' : ''}" href="#/a/${esc(a.id)}"><span class="rk">${esc(secName(a.desk))} · ${T('The Watch report')}</span>
+    <span class="rt">${esc(L.title || a.title)}</span><span class="rd">${esc(L.dek || a.dek)}</span>
+    <span class="rb">${T('By Claude ({model}), {date}. {min} min read, {n} sources.', { model: esc(a.model), date: esc(new Date(a.written).toLocaleDateString(LOC(), { timeZone: 'America/New_York', month: 'long', day: 'numeric' })), min: a.min, n: a.sources })}${LANG !== 'en' && !L.title ? ' ' + T('In English.') : ''}</span></a>`;
 }
 function renderReports() {
   const list = (ART && ART.articles) || [];
@@ -1810,25 +1930,28 @@ function renderReports() {
   </div></div>`;
 }
 async function renderArticle(id) {
-  $('#main').innerHTML = `<div class="wrap state"><h2>Opening the report…</h2></div>`;
+  $('#main').innerHTML = `<div class="wrap state"><h2>${T('Opening the report…')}</h2></div>`;
   let a = ARTC[id];
   if (!a) { try { a = ARTC[id] = await getJSON('articles/' + encodeURIComponent(id) + '.json'); } catch (e) { a = null; } }
-  if (!a) { $('#main').innerHTML = `<div class="wrap state"><h2>That report isn’t here</h2><p>It may have been renamed. <a href="#/reports">See all reports</a>.</p></div>`; return; }
+  if (!a) { $('#main').innerHTML = `<div class="wrap state"><h2>${T('That report isn’t here')}</h2><p>${T('It may have been renamed.')} <a href="#/reports">${T('See all reports')}</a>.</p></div>`; return; }
   if (view.t !== 'article' || view.id !== id) return;
   const n = (a.sources || []).length;
-  const words = (a.body.match(/\S+/g) || []).length;
+  const L0 = artL(a), L = artOrig ? {} : L0;
+  const body = L.body || a.body;
+  const words = (body.match(/\S+/g) || []).length;
   bump(P.sec, a.desk, 0.6);
-  $('#main').innerHTML = `<article class="wrap art">
-    <p class="ak"><a href="#/s/${esc(a.desk)}">${esc(secName(a.desk))}</a> · The Watch report</p>
-    <h1 id="artTitle">${esc(a.title)}</h1>
-    <p class="adek">${esc(a.dek)}</p>
-    <p class="aby">${byline(a)}. ${Math.max(1, Math.round(words / 230))} min read. <button type="button" class="chip ashare" data-share="report" data-sid="${esc(a.id)}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7.5 7.5L12 3l4.5 4.5"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg>Share</button></p>
-    <p class="adis">This report was written by an AI model, Claude, from the published reporting and records listed at the end. Read the originals for anything you rely on.</p>
-    <div class="abody">${md(a.body, n)}</div>
-    <section class="asrc"><h2>Sources</h2><ol>${(a.sources || []).map((s, i) => `<li id="src-${i + 1}"><a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.title)}</a> <span>${esc(s.outlet)}${s.date ? ', ' + esc(s.date) : ''}</span></li>`).join('')}</ol></section>
-    <p class="aby" style="margin-top:28px"><a href="#/reports">All reports</a></p>
+  $('#main').innerHTML = `<article class="wrap art"${L.body ? ` lang="${LOC()}"` : LANG !== 'en' ? ' lang="en"' : ''}>
+    <p class="ak"><a href="#/s/${esc(a.desk)}">${esc(secName(a.desk))}</a> · ${T('The Watch report')}</p>
+    <h1 id="artTitle">${esc(L.title || a.title)}</h1>
+    <p class="adek">${esc(L.dek || a.dek)}</p>
+    <p class="aby">${byline(a)}. ${T('{n} min read.', { n: Math.max(1, Math.round(words / 230)) })} <button type="button" class="chip ashare" data-share="report" data-sid="${esc(a.id)}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7.5 7.5L12 3l4.5 4.5"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg>${T('Share')}</button></p>
+    <p class="adis">${T('This report was written by an AI model, Claude, from the published reporting and records listed at the end. Read the originals for anything you rely on.')}${L0.body ? ` ${T(artOrig ? 'You are reading the English original.' : 'Translated from English by Claude ({model}).', { model: esc(L0.model || a.model) })} <button type="button" class="lnk" data-artorig="1">${T(artOrig ? 'Read it in your language' : 'Read the English original')}</button>` : LANG !== 'en' ? ' ' + T('This report is in English; a translation comes with the next report.') : ''}</p>
+    <div class="abody">${md(body, n)}</div>
+    <section class="asrc"><h2>${T('Sources')}</h2><ol>${(a.sources || []).map((s, i) => `<li id="src-${i + 1}"><a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.title)}</a> <span>${esc(s.outlet)}${s.date ? ', ' + esc(s.date) : ''}</span></li>`).join('')}</ol></section>
+    <p class="aby" style="margin-top:28px"><a href="#/reports">${T('All reports')}</a></p>
   </article>`;
-  document.title = a.title + ' · The Watch';
+  document.title = (L.title || a.title) + ' · The Watch';
+  $$('.art .adis [data-artorig]').forEach(b => b.addEventListener('click', () => { artOrig = !artOrig; renderArticle(id); }));
 }
 
 /* ================= household: what things cost ================= */
@@ -1850,9 +1973,9 @@ const money0 = v => v == null ? '–' : '$' + fnum(Math.round(v), 0);
 const moneyK = v => v == null ? '–' : v >= 1e6 ? '$' + fnum(v / 1e6, v >= 1e7 ? 0 : 2).replace(/\.?0+$/, '') + 'M' : '$' + fnum(Math.round(v / 1000), 0) + 'K';
 function natTile(x, name, unit, explain) {
   if (!x) return '';
-  return `<a class="ec" href="https://www.zillow.com/research/data/" target="_blank" rel="noopener"><span class="en">${esc(name)}</span><span class="ev">${money0(x.v)}${unit}</span>
-    <span class="ew">${esc(new Date(x.month + '-15T12:00:00Z').toLocaleDateString('en-US', { month: 'long', year: 'numeric', timeZone: 'UTC' }))}${x.ch != null ? `. ${x.ch >= 0 ? 'Up' : 'Down'} ${fnum(Math.abs(x.ch), 1)}% in a year.` : ''}</span>
-    ${spark((x.pts || []).map(p => p[1]), 160, 34, null, 'ink')}<span class="ex">${esc(explain)}</span></a>`;
+  return `<a class="ec" href="https://www.zillow.com/research/data/" target="_blank" rel="noopener"><span class="en">${esc(T(name))}</span><span class="ev">${money0(x.v)}${unit ? T(unit) : ''}</span>
+    <span class="ew">${esc(new Date(x.month + '-15T12:00:00Z').toLocaleDateString(LOC(), { month: 'long', year: 'numeric', timeZone: 'UTC' }))}${x.ch != null ? '. ' + T(x.ch >= 0 ? 'Up {pc}% in a year.' : 'Down {pc}% in a year.', { pc: fnum(Math.abs(x.ch), 1) }) : ''}</span>
+    ${spark((x.pts || []).map(p => p[1]), 160, 34, null, 'ink')}<span class="ex">${esc(T(explain))}</span></a>`;
 }
 function renderHousehold() {
   if (!HOME.at) loadHome(false).then(() => { if (view.t === 'desk' && view.k === 'household') render(true); });
@@ -1868,20 +1991,34 @@ function renderHousehold() {
     ${tiles.length || us.value ? `<section class="blk" style="margin-top:6px"><h2 class="sec-h">What things cost</h2><p class="sub2">The newest official and survey figures, each with its date. Tap one for its source.</p>
       <div class="econ">${tiles.map(econTile).join('')}${natTile(us.value, 'Typical U.S. home', '', 'The middle of the market for U.S. homes (Zillow Home Value Index).')}${natTile(us.rent, 'Typical U.S. rent', '/mo', 'The typical asking rent for a U.S. home or apartment (Zillow Observed Rent Index).')}</div>
       ${wallet.length ? `<h3 class="eh4">Commodities that reach your bills</h3><div class="mvs" style="max-width:640px">${wallet.map(r => `<button type="button" class="mv ${dirc(r.cp)}" data-tick="${esc(r.s)}"><b>${esc(r.n)}</b><span>${fprice(r)}</span><i>${fchg(r)}</i></button>`).join('')}</div>` : ''}</section>` : ''}
-    <section class="blk news"><div class="page-h"><h2 class="sec-h">Household news</h2><p>${list.length} stories</p><div class="seg" role="group" aria-label="Sort"><button type="button" data-sort="you" aria-pressed="${deskSort === 'you'}">Best for you</button><button type="button" data-sort="new" aria-pressed="${deskSort === 'new'}">Latest</button></div></div>
+    <section class="blk news"><div class="page-h"><h2 class="sec-h">${T('Household news')}</h2><p>${T('{n} stories', { n: list.length })}</p><div class="seg" role="group" aria-label="Sort"><button type="button" data-sort="you" aria-pressed="${deskSort === 'you'}">Best for you</button><button type="button" data-sort="new" aria-pressed="${deskSort === 'new'}">Latest</button></div></div>
       <div class="narrow">${shown.map(x => storyRow(x.it, { snip: true })).join('') || '<p class="endnote">No household stories in this watch yet.</p>'}
-      ${list.length > shown.length ? `<button type="button" class="loadmore" id="more">Show ${Math.min(40, list.length - shown.length)} more</button>` : ''}</div></section>
+      ${list.length > shown.length ? `<button type="button" class="loadmore" id="more">${T('Show {n} more', { n: Math.min(40, list.length - shown.length) })}</button>` : ''}</div></section>
   </div>`;
 }
 
 /* ================= home: search homes in plain English ================= */
 const ST = { alabama: 'AL', alaska: 'AK', arizona: 'AZ', arkansas: 'AR', california: 'CA', colorado: 'CO', connecticut: 'CT', delaware: 'DE', florida: 'FL', georgia: 'GA', hawaii: 'HI', idaho: 'ID', illinois: 'IL', indiana: 'IN', iowa: 'IA', kansas: 'KS', kentucky: 'KY', louisiana: 'LA', maine: 'ME', maryland: 'MD', massachusetts: 'MA', michigan: 'MI', minnesota: 'MN', mississippi: 'MS', missouri: 'MO', montana: 'MT', nebraska: 'NE', nevada: 'NV', 'new hampshire': 'NH', 'new jersey': 'NJ', 'new mexico': 'NM', 'new york': 'NY', 'north carolina': 'NC', 'north dakota': 'ND', ohio: 'OH', oklahoma: 'OK', oregon: 'OR', pennsylvania: 'PA', 'rhode island': 'RI', 'south carolina': 'SC', 'south dakota': 'SD', tennessee: 'TN', texas: 'TX', utah: 'UT', vermont: 'VT', virginia: 'VA', washington: 'WA', 'west virginia': 'WV', wisconsin: 'WI', wyoming: 'WY', 'district of columbia': 'DC' };
-const NUMW = { one: 1, two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7 };
+const NUMW = { one: 1, two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, um: 1, uma: 1, dois: 2, duas: 2, 'três': 3, tres: 3, quatro: 4, cinco: 5, seis: 6, sete: 7, ein: 1, eine: 1, zwei: 2, drei: 3, vier: 4, 'fünf': 5, sechs: 6, sieben: 7 };
+const HOMEWORDS = [ // Portuguese and German requests, read as the English the parser knows
+  [/\b(quartos?|dormit[óo]rios?|su[íi]tes?|schlafzimmer[n]?)\b/g, 'bedrooms'], [/\b(banheiros?|b[äa]der|bad|badezimmer)\b/g, 'baths'],
+  [/\b(abaixo de|menos de|at[ée]|no m[áa]ximo|unter|bis zu|bis|h[öo]chstens|max\.?)\s/g, 'under '], [/\b(acima de|mais de|a partir de|no m[íi]nimo|[üu]ber|ab|mindestens)\s/g, 'over '],
+  [/\bentre\b/g, 'between'], [/\bzwischen\b/g, 'between'], [/\s(e|und)\s(?=\$?\s*\d)/g, ' and '],
+  [/(\d)\s*(mil|tsd\.?|tausend)\b/g, '$1k'], [/(\d)\s*(milh[õo]es|milh[ãa]o|mio\.?|millionen|million)\b/g, '$1m'],
+  [/\b(em|no|na|perto de|in|bei|nahe)\s/g, 'in '], [/\b(casas?|h[äa]user|haus|einfamilienh[äa]user|einfamilienhaus)\b/g, 'houses'],
+  [/\b(apartamentos?|apto|wohnungen|wohnung|eigentumswohnung(en)?)\b/g, 'condos'], [/\b(sobrados?|reihenh[äa]user|reihenhaus)\b/g, 'townhouses'],
+  [/\b(terrenos?|lotes?|grundst[üu]cke?)\b/g, 'land'], [/\b(piscina)\b/g, 'pool'], [/\b(garagem)\b/g, 'garage'], [/\b(por[ãa]o|keller)\b/g, 'basement'],
+  [/\b(lareira|kamin)\b/g, 'fireplace'], [/\b(quintal|garten)\b/g, 'yard'], [/\b(m[²2]|quadratmeter)\b/g, 'm2'], [/\bmit\b|\bcom\b/g, 'with'],
+];
 function parseHomeQuery(q) { // "4BR homes in 43215 under 750k" -> {beds: 4, zip: '43215', max: 750000}
-  const s = ' ' + String(q || '').toLowerCase().replace(/[–—]/g, '-') + ' ';
+  let s = ' ' + String(q || '').toLowerCase().replace(/[–—]/g, '-') + ' ';
+  if (/[a-zà-ÿ]/.test(s)) for (const [re, w] of HOMEWORDS) s = s.replace(re, w);
+  s = s.replace(/(\d)\.(\d{3})(?!\d)/g, '$1,$2').replace(/(\d),(\d{1,2})(?!\d)/g, '$1.$2'); // 750.000 and 1,2 as written in Brazil and Germany
   const f = {}; let m;
-  if ((m = s.match(/\b(\d{1,2}|one|two|three|four|five|six|seven)\s*\+?\s*-?\s*(?:br|bd|bdr|bdrm|bed|beds|bedroom|bedrooms)\b/))) f.beds = +(NUMW[m[1]] || m[1]);
-  if ((m = s.match(/\b(\d(?:\.5)?|one|two|three|four)\s*\+?\s*-?\s*(?:ba|bth|bath|baths|bathroom|bathrooms)\b/))) f.baths = +(NUMW[m[1]] || m[1]);
+  const NW = Object.keys(NUMW).join('|');
+  if ((m = s.match(new RegExp('(?:^|\\s)(\\d{1,2}|' + NW + ')\\s*\\+?\\s*-?\\s*(?:br|bd|bdr|bdrm|bed|beds|bedroom|bedrooms)\\b')))) f.beds = +(NUMW[m[1]] || m[1]);
+  if ((m = s.match(new RegExp('(?:^|\\s)(\\d(?:[.,]5)?|' + NW + ')\\s*\\+?\\s*-?\\s*(?:ba|bth|bath|baths|bathroom|bathrooms)\\b')))) f.baths = +(NUMW[m[1]] || String(m[1]).replace(',', '.'));
+  if (!f.beds && (m = s.match(/(\d)\s*-?\s*zimmer[n]?\b/))) f.beds = Math.max(1, +m[1] - 1); // a German "4-Zimmer" flat counts the living room
   const amt = '\\$?\\s*(\\d[\\d,]*(?:\\.\\d+)?)\\s*(k|m|mm|million|thousand|mil)?';
   const val = (n, u, sib) => { let v = parseFloat(String(n).replace(/,/g, '')); const x = (u || sib || '').toLowerCase(); if (x === 'k' || x === 'thousand') v *= 1e3; else if (/^(m|mm|mil|million)$/.test(x)) v *= 1e6; else if (v < 10000) v *= 1000; return Math.round(v); };
   if ((m = s.match(new RegExp('between\\s+' + amt + '\\s+(?:and|to|-)\\s+' + amt)))) { f.min = val(m[1], m[2], m[4]); f.max = val(m[3], m[4]); }
@@ -1905,6 +2042,7 @@ function parseHomeQuery(q) { // "4BR homes in 43215 under 750k" -> {beds: 4, zip
   else if (/\b(mobile|manufactured)\b/.test(s)) f.type = 'manufactured';
   else if (/\b(houses?|single[- ]family)\b/.test(s)) f.type = 'house';
   if ((m = s.match(/\b(\d[\d,]{2,})\s*\+?\s*(?:sq\.?\s*ft|sqft|square feet|sf)\b/))) f.sqft = +m[1].replace(/,/g, '');
+  else if ((m = s.match(/\b(\d[\d,]{1,})\s*\+?\s*m2\b/))) f.sqft = Math.round(+m[1].replace(/,/g, '') * 10.764); // square meters
   const feats = ['pool', 'garage', 'basement', 'waterfront', 'fireplace', 'new construction', 'view', 'yard', 'acre'];
   const fs = feats.filter(x => s.includes(' ' + x));
   if (fs.length) f.features = fs;
@@ -1913,11 +2051,11 @@ function parseHomeQuery(q) { // "4BR homes in 43215 under 750k" -> {beds: 4, zip
 const TYPE_NAME = { house: 'Houses', condo: 'Condos', townhouse: 'Townhouses', land: 'Land', multi: 'Multi-family', manufactured: 'Manufactured homes' };
 function filterChips(f) {
   const c = [];
-  if (f.zip) c.push(`ZIP ${f.zip}`); else if (f.city) c.push(`${f.city}, ${f.state}`);
-  if (f.beds) c.push(`${f.beds}+ bedrooms`); if (f.baths) c.push(`${f.baths}+ baths`);
-  if (f.min && f.max) c.push(`${moneyK(f.min)} to ${moneyK(f.max)}`); else if (f.max) c.push(`Up to ${moneyK(f.max)}`); else if (f.min) c.push(`From ${moneyK(f.min)}`);
-  if (f.type && f.type !== 'any') c.push(TYPE_NAME[f.type]); if (f.sqft) c.push(`${fnum(f.sqft, 0)}+ sq ft`);
-  for (const x of f.features || []) c.push(x.replace(/^\w/, ch => ch.toUpperCase()));
+  if (f.zip) c.push(T('ZIP {zip}', { zip: f.zip })); else if (f.city) c.push(`${f.city}, ${f.state}`);
+  if (f.beds) c.push(T('{n}+ bedrooms', { n: f.beds })); if (f.baths) c.push(T('{n}+ baths', { n: f.baths }));
+  if (f.min && f.max) c.push(T('{a} to {b}', { a: moneyK(f.min), b: moneyK(f.max) })); else if (f.max) c.push(T('Up to {v}', { v: moneyK(f.max) })); else if (f.min) c.push(T('From {v}', { v: moneyK(f.min) }));
+  if (f.type && f.type !== 'any') c.push(T(TYPE_NAME[f.type])); if (f.sqft) c.push(T('{n}+ sq ft', { n: fnum(f.sqft, 0) }) + (LANG !== 'en' ? ` (${fnum(Math.round(f.sqft / 10.764), 0)} m²)` : ''));
+  for (const x of f.features || []) c.push(T(x.replace(/^\w/, ch => ch.toUpperCase())));
   return c;
 }
 function homeLinks(f) {
@@ -1948,25 +2086,26 @@ function zipRec(z) { const Z = HOME.zips; if (!Z || !Z.z[z]) return null; const 
 function cityRecs(city, st) { const Z = HOME.zips; if (!Z) return []; const out = []; for (const z in Z.z) { const r = Z.z[z]; if (r[1] === st && String(r[0]).toLowerCase() === city.toLowerCase()) { const o = { zip: z }; Z.cols.forEach((c, i) => { o[c] = r[i]; }); out.push(o); } } return out; }
 const median = xs => { const a = xs.filter(v => v != null).sort((x, y) => x - y); if (!a.length) return null; const m = Math.floor(a.length / 2); return a.length % 2 ? a[m] : (a[m - 1] + a[m]) / 2; };
 function marketLines(f) {
-  if (!HOME.zips) return `<p class="note">${HOME.zipsTried && !HOME.busy ? 'The ZIP code market numbers aren’t available right now. The links below still work.' : 'Loading the market numbers…'}</p>`;
-  const bk = f.beds ? 'b' + Math.min(5, Math.max(1, f.beds)) : null, bl = f.beds ? (f.beds >= 5 ? '5-bedroom or larger' : `${f.beds}-bedroom`) : '';
+  if (!HOME.zips) return `<p class="note">${T(HOME.zipsTried && !HOME.busy ? 'The ZIP code market numbers aren’t available right now. The links below still work.' : 'Loading the market numbers…')}</p>`;
+  const bk = f.beds ? 'b' + Math.min(5, Math.max(1, f.beds)) : null;
   let place, all, allCh, bed, rent, extra = '';
   if (f.zip) {
     const r = zipRec(f.zip);
-    if (!r) return `<p class="note">Zillow publishes no market numbers for ZIP ${esc(f.zip)}. It may be a P.O. box or a very small ZIP.</p>`;
-    place = `ZIP ${f.zip} (${r.city}, ${r.st})`; all = r.all; allCh = r.allCh; bed = bk ? r[bk] : null; rent = r.rent;
+    if (!r) return `<p class="note">${T('Zillow publishes no market numbers for ZIP {zip}. It may be a P.O. box or a very small ZIP.', { zip: esc(f.zip) })}</p>`;
+    place = `${T('ZIP {zip}', { zip: f.zip })} (${r.city}, ${r.st})`; all = r.all; allCh = r.allCh; bed = bk ? r[bk] : null; rent = r.rent;
   } else if (f.city) {
     const rs = cityRecs(f.city, f.state);
-    if (!rs.length) return `<p class="note">No ZIP codes named ${esc(f.city)}, ${esc(f.state)} in Zillow’s data. Try a ZIP code.</p>`;
+    if (!rs.length) return `<p class="note">${T('No ZIP codes named {place} in Zillow’s data. Try a ZIP code.', { place: esc(f.city + ', ' + f.state) })}</p>`;
     place = `${f.city}, ${f.state}`; all = median(rs.map(r => r.all)); allCh = median(rs.map(r => r.allCh)); bed = bk ? median(rs.map(r => r[bk])) : null; rent = median(rs.map(r => r.rent));
-    extra = ` Medians across ${rs.length} ZIP code${rs.length > 1 ? 's' : ''}.`;
+    extra = ' ' + T(rs.length > 1 ? 'Medians across {n} ZIP codes.' : 'Medians across {n} ZIP code.', { n: rs.length });
   } else return '';
-  const lines = [`The typical home in ${esc(place)} is worth about <b>${money0(all)}</b>${allCh != null ? `, ${allCh >= 0 ? 'up' : 'down'} ${fnum(Math.abs(allCh), 1)}% in a year` : ''}.`];
-  if (bed) lines.push(`For a typical ${bl} home it’s about <b>${money0(bed)}</b>.`);
+  const lines = [allCh != null ? T(allCh >= 0 ? 'The typical home in {place} is worth about <b>{v}</b>, up {pc}% in a year.' : 'The typical home in {place} is worth about <b>{v}</b>, down {pc}% in a year.', { place: esc(place), v: money0(all), pc: fnum(Math.abs(allCh), 1) })
+    : T('The typical home in {place} is worth about <b>{v}</b>.', { place: esc(place), v: money0(all) })];
+  if (bed) lines.push(T(f.beds >= 5 ? 'For a typical home with 5 or more bedrooms it’s about <b>{v}</b>.' : 'For a typical {n}-bedroom home it’s about <b>{v}</b>.', { n: f.beds, v: money0(bed) }));
   const ref = bed || all;
-  if (f.max && ref) lines.push(ref <= f.max ? `That’s within your ${moneyK(f.max)} limit, with about ${moneyK(f.max - ref)} to spare.` : `That’s about ${moneyK(ref - f.max)} above your ${moneyK(f.max)} limit, so expect fewer matches or smaller homes.`);
-  if (rent) lines.push(`Typical rent: ${money0(rent)} a month.`);
-  return `<p class="hm">${lines.join(' ')}${extra} <span class="note">Zillow Home Value Index, ${esc(HOME.zips.asOf || '')}.</span></p>`;
+  if (f.max && ref) lines.push(ref <= f.max ? T('That’s within your {max} limit, with about {d} to spare.', { max: moneyK(f.max), d: moneyK(f.max - ref) }) : T('That’s about {d} above your {max} limit, so expect fewer matches or smaller homes.', { max: moneyK(f.max), d: moneyK(ref - f.max) }));
+  if (rent) lines.push(T('Typical rent: {v} a month.', { v: money0(rent) }));
+  return `<p class="hm">${lines.join(' ')}${extra} <span class="note">${T('Zillow Home Value Index, {date}.', { date: esc(HOME.zips.asOf || '') })}</span></p>`;
 }
 const HOMEKEY = 'watch.home';
 const homePending = () => { try { return JSON.parse(localStorage.getItem(HOMEKEY) || '[]'); } catch (e) { return []; } };
@@ -1981,10 +2120,11 @@ function listingsHTML(sid) {
   if (!L || !L.source) return `<p class="note">No listings source is connected yet, so use the links above for live listings. Adding a RentCast API key (their free tier) as the repository secret RENTCAST_API_KEY fills matching listings in here on each update.</p>`;
   const r = (L.searches || {})[sid];
   if (!r) return `<p class="note">Listings for this search come with the next update.</p>`;
-  if (!r.rows.length) return `<p class="note">No active listings matched on ${esc(new Date(r.at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }))} (of ${r.scanned} scanned).</p>`;
-  return `<p class="note">${r.n} active listing${r.n === 1 ? '' : 's'} matched, ${esc(new Date(r.at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }))}, from ${esc(L.source)}.</p><div class="lst">${r.rows.map(x => `<a class="li" href="https://www.zillow.com/homes/${encodeURIComponent((x.addr || '').replace(/,/g, ''))}_rb/" target="_blank" rel="noopener">
+  const rd = esc(new Date(r.at).toLocaleDateString(LOC(), { month: 'short', day: 'numeric' }));
+  if (!r.rows.length) return `<p class="note">${T('No active listings matched on {date} (of {n} scanned).', { date: rd, n: r.scanned })}</p>`;
+  return `<p class="note">${T(r.n === 1 ? '{n} active listing matched, {date}, from {src}.' : '{n} active listings matched, {date}, from {src}.', { n: r.n, date: rd, src: esc(L.source) })}</p><div class="lst">${r.rows.map(x => `<a class="li" href="https://www.zillow.com/homes/${encodeURIComponent((x.addr || '').replace(/,/g, ''))}_rb/" target="_blank" rel="noopener">
     <b>${money0(x.price)}</b><span>${[x.beds && x.beds + ' bd', x.baths && x.baths + ' ba', x.sqft && fnum(x.sqft, 0) + ' sq ft'].filter(Boolean).join(', ')}</span><span class="la">${esc(x.addr || '')}</span>
-    <small>${esc(x.type || '')}${x.listed ? `, listed ${esc(x.listed)}` : ''}${x.dom != null ? `, ${x.dom} days on market` : ''}</small></a>`).join('')}</div>`;
+    <small>${esc(x.type || '')}${x.listed ? ', ' + T('listed {date}', { date: esc(x.listed) }) : ''}${x.dom != null ? ', ' + T('{n} days on market', { n: x.dom }) : ''}</small></a>`).join('')}</div>`;
 }
 function searchCard(q, f, o = {}) {
   const chips = filterChips(f);
@@ -1993,8 +2133,8 @@ function searchCard(q, f, o = {}) {
     ${o.saved ? `<h3>${esc(q)}</h3>` : ''}
     <div class="tags">${chips.map(c => `<span class="chip">${esc(c)}</span>`).join('') || '<span class="note">Add a ZIP code or a city and state, a budget, bedrooms…</span>'}</div>
     ${(f.zip || f.city) ? marketLines(f) : ''}
-    ${links.length ? `<p class="elinks">${links.map(([n, u]) => `<a href="${esc(u)}" target="_blank" rel="noopener">Matching homes on ${esc(n)}</a>`).join('')}</p>` : ''}
-    ${o.saved ? listingsHTML(o.id) + `<p class="note">${o.pending ? 'Waiting for the updater to pick it up.' : `Saved ${esc(new Date(o.savedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }))}.`} <a href="https://github.com/BBOLDT86/lanscape-navigator/issues/new?title=${encodeURIComponent('Home search remove: ' + (o.id || ''))}" target="_blank" rel="noopener">Remove</a></p>`
+    ${links.length ? `<p class="elinks">${links.map(([n, u]) => `<a href="${esc(u)}" target="_blank" rel="noopener">${T('Matching homes on {site}', { site: esc(n) })}</a>`).join('')}</p>` : ''}
+    ${o.saved ? listingsHTML(o.id) + `<p class="note">${o.pending ? T('Waiting for the updater to pick it up.') : T('Saved {date}.', { date: esc(new Date(o.savedAt).toLocaleDateString(LOC(), { month: 'short', day: 'numeric' })) })} <a href="https://github.com/BBOLDT86/lanscape-navigator/issues/new?title=${encodeURIComponent('Home search remove: ' + (o.id || ''))}" target="_blank" rel="noopener">Remove</a></p>`
     : o.isSaved ? `<p class="note" style="margin-top:14px">This search is saved. It’s below.</p>`
     : (f.zip || f.city) ? `<p class="hsave"><a class="go" href="${esc(issueUrl(q, f))}" target="_blank" rel="noopener" data-savehome="1">Save this search for updates ${ICON_OUT}</a><span class="note">Opens a GitHub issue with the search filled in. Submit it and the updater saves it. Issues in this public repository are public, so the ZIP and budget will be visible.</span></p>` : ''}
   </section>`;
@@ -2012,14 +2152,14 @@ function renderHomeDesk() {
   $('#main').innerHTML = `<div class="wrap mk">
     <div class="page-h"><h1>Home</h1><p>Search for homes the way you’d say it, see what that market looks like, and save searches for the updater to follow.</p></div>
     <div class="hsearch"><label for="hq" class="sr">Describe the home you want</label>
-      <input id="hq" type="search" autocomplete="off" placeholder="4BR homes in 43215 under 750k" value="${esc(homeQ)}">
-      <div class="tags ex">${['4BR homes in 43215 under 750k', '3 bed condos in Columbus, OH between 250k and 400k', 'townhouses in 02116 under 1.2m', 'houses with a pool in 33139 over 2,000 sq ft'].map(x => `<button type="button" class="chip" data-hq="${esc(x)}">${esc(x)}</button>`).join('')}</div>
+      <input id="hq" type="search" autocomplete="off" placeholder="${esc(LANG === 'pt' ? 'casas com 4 quartos em 43215 até 750 mil' : LANG === 'de' ? 'Häuser mit 4 Schlafzimmern in 43215 bis 750.000' : '4BR homes in 43215 under 750k')}" value="${esc(homeQ)}" class="nolc">
+      <div class="tags ex">${(LANG === 'pt' ? ['casas com 4 quartos em 43215 até 750 mil', 'apartamentos de 3 quartos em Columbus, OH entre 250 mil e 400 mil', 'sobrados em 02116 até 1,2 milhão', 'casas com piscina em 33139'] : LANG === 'de' ? ['Häuser mit 4 Schlafzimmern in 43215 bis 750.000', 'Wohnungen mit 3 Zimmern in Columbus, OH zwischen 250k und 400k', 'Reihenhäuser in 02116 bis 1,2 Mio', 'Häuser mit Pool in 33139'] : ['4BR homes in 43215 under 750k', '3 bed condos in Columbus, OH between 250k and 400k', 'townhouses in 02116 under 1.2m', 'houses with a pool in 33139 over 2,000 sq ft']).map(x => `<button type="button" class="chip" data-hq="${esc(x)}">${esc(x)}</button>`).join('')}</div>
       <div id="hres">${homeQ ? searchCard(homeQ, f, { isSaved: isSavedF(f) }) : ''}</div></div>
     ${saved.length || pend.length ? `<section class="blk"><h2 class="sec-h">Saved searches</h2>${saved.map(s => searchCard(s.q, s.f, { saved: true, id: s.id, savedAt: s.saved })).join('')}${pend.map(p => searchCard(p.q, p.f, { saved: true, pending: true })).join('')}</section>` : ''}
     ${us.value ? `<section class="blk"><h2 class="sec-h">The national market</h2><div class="econ">${natTile(us.value, 'Typical U.S. home', '', 'The middle of the market for U.S. homes (Zillow Home Value Index).')}${natTile(us.rent, 'Typical U.S. rent', '/mo', 'The typical asking rent (Zillow Observed Rent Index).')}${MK ? ['MORT', 'MORT15'].map(id => (MK.econ || []).find(e => e.id === id)).filter(Boolean).map(econTile).join('') : ''}</div></section>` : ''}
-    <section class="blk news"><div class="page-h"><h2 class="sec-h">Home news</h2><p>${list.length} stories: real estate, building, design</p><div class="seg" role="group" aria-label="Sort"><button type="button" data-sort="you" aria-pressed="${deskSort === 'you'}">Best for you</button><button type="button" data-sort="new" aria-pressed="${deskSort === 'new'}">Latest</button></div></div>
+    <section class="blk news"><div class="page-h"><h2 class="sec-h">${T('Home news')}</h2><p>${T('{n} stories: real estate, building, design', { n: list.length })}</p><div class="seg" role="group" aria-label="Sort"><button type="button" data-sort="you" aria-pressed="${deskSort === 'you'}">Best for you</button><button type="button" data-sort="new" aria-pressed="${deskSort === 'new'}">Latest</button></div></div>
       <div class="narrow">${shown.map(x => storyRow(x.it, { snip: true })).join('') || '<p class="endnote">No home stories in this watch yet.</p>'}
-      ${list.length > shown.length ? `<button type="button" class="loadmore" id="more">Show ${Math.min(40, list.length - shown.length)} more</button>` : ''}</div></section>
+      ${list.length > shown.length ? `<button type="button" class="loadmore" id="more">${T('Show {n} more', { n: Math.min(40, list.length - shown.length) })}</button>` : ''}</div></section>
   </div>`;
   const inp = $('#hq');
   let t = 0;
@@ -2041,18 +2181,18 @@ function renderFiles() {
   const ymax = Math.max(1, ...yrs.map(([, n]) => n));
   const mail = filesQ ? F.mail.filter(m => (m.j + ' ' + m.x + ' ' + m.a + ' ' + m.n).toLowerCase().includes(filesQ.toLowerCase())) : F.mail;
   $('#main').innerHTML = `<div class="wrap mk files">
-    <div class="page-h"><h1>The Epstein files</h1><p>The emails, text logs and documents released by the House Oversight Committee in November 2025 and by the Justice Department under the Epstein Files Transparency Act, organized by <a href="${ia('')}">Inbox Atlas</a>, plus today’s coverage.</p></div>
-    <div class="fcount">${[[c.emails, 'emails'], [c.texts, 'text-message logs'], [c.docs, 'documents'], [c.people, 'people'], [c.stories, 'stories']].map(([n, l]) => `<div><b>${fnum(n, 0)}</b><span>${l}</span></div>`).join('')}
+    <div class="page-h"><h1>${T('The Epstein files')}</h1><p>${T('The emails, text logs and documents released by the House Oversight Committee in November 2025 and by the Justice Department under the Epstein Files Transparency Act, organized by {link}, plus today’s coverage.', { link: `<a href="${ia('')}">Inbox Atlas</a>` })}${LANG !== 'en' ? ' ' + T('The documents themselves are in English.') : ''}</p></div>
+    <div class="fcount">${[[c.emails, 'emails'], [c.texts, 'text-message logs'], [c.docs, 'documents'], [c.people, 'people'], [c.stories, 'stories']].map(([n, l]) => `<div><b>${fnum(n, 0)}</b><span>${T(l + '|count')}</span></div>`).join('')}
       <a class="go" href="${ia('')}">Open Inbox Atlas ${ICON_OUT}</a></div>
     ${news.length ? `<section class="blk"><h2 class="sec-h">In the news</h2><div class="narrow">${news.map(it => storyRow(it, { snip: true })).join('')}</div></section>` : ''}
     <section class="blk"><h2 class="sec-h">Stories from the archive</h2><p class="sub2">Inbox Atlas’s sourced stories. Each opens with the documents behind it.</p>
-      <div class="fstories">${F.stories.slice(0, filesAll ? 99 : 9).map(s => `<a class="fs" href="${ia('story-' + s.id)}"><span class="rk">${esc(s.kicker || '')}${s.period ? ' · ' + esc(s.period) : ''}</span><b>${esc(s.title)}</b><span>${esc(s.dek)}</span><small>${s.min ? s.min + ' min' : ''}${s.people && s.people.length ? (s.min ? ', ' : '') + esc(s.people.slice(0, 3).join(', ')) : ''}</small></a>`).join('')}</div>
-      ${!filesAll && F.stories.length > 9 ? `<button type="button" class="loadmore" id="filesAll">Show all ${F.stories.length} stories</button>` : ''}</section>
+      <div class="fstories">${F.stories.slice(0, filesAll ? 99 : 9).map(s => `<a class="fs" href="${ia('story-' + s.id)}"><span class="rk">${esc(s.kicker || '')}${s.period ? ' · ' + esc(s.period) : ''}</span><b>${esc(s.title)}</b><span>${esc(s.dek)}</span><small>${s.min ? T('{n} min', { n: s.min }) : ''}${s.people && s.people.length ? (s.min ? ', ' : '') + esc(s.people.slice(0, 3).join(', ')) : ''}</small></a>`).join('')}</div>
+      ${!filesAll && F.stories.length > 9 ? `<button type="button" class="loadmore" id="filesAll">${T('Show all {n} stories', { n: F.stories.length })}</button>` : ''}</section>
     <section class="blk two"><div><h2 class="sec-h">The timeline</h2><ul class="ftl">${(F.events || []).map(e => `<li><b>${esc(e[0])}</b> ${esc(e[1])}</li>`).join('')}</ul></div>
-      <div><h2 class="sec-h">Emails by year</h2><div class="fyears">${yrs.map(([y, n]) => `<div title="${n} emails"><span style="height:${Math.max(2, Math.round(n / ymax * 100))}%"></span><small>${y.slice(2)}</small></div>`).join('')}</div>
-      <h2 class="sec-h" style="margin-top:26px">Who wrote most</h2><ul class="fpeople">${F.people.slice(0, 16).map(p => `<li><a href="${ia('person-' + encodeURIComponent(p.n))}"><b>${esc(p.n)}</b></a> <span>${fnum(p.by, 0)} sent, ${fnum(p.to, 0)} received</span>${p.bio ? `<small>${esc(p.bio)}</small>` : ''}</li>`).join('')}</ul></div></section>
+      <div><h2 class="sec-h">Emails by year</h2><div class="fyears">${yrs.map(([y, n]) => `<div title="${esc(T('{n} emails', { n }))}"><span style="height:${Math.max(2, Math.round(n / ymax * 100))}%"></span><small>${y.slice(2)}</small></div>`).join('')}</div>
+      <h2 class="sec-h" style="margin-top:26px">Who wrote most</h2><ul class="fpeople">${F.people.slice(0, 16).map(p => `<li><a href="${ia('person-' + encodeURIComponent(p.n))}"><b>${esc(p.n)}</b></a> <span>${T('{a} sent, {b} received', { a: fnum(p.by, 0), b: fnum(p.to, 0) })}</span>${p.bio ? `<small>${esc(p.bio)}</small>` : ''}</li>`).join('')}</ul></div></section>
     <section class="blk"><div class="blk-h"><h2 class="sec-h">Notable emails</h2><label class="flt"><span class="sr">Search notable emails</span><input id="fq" type="search" placeholder="Search names, subjects, text" value="${esc(filesQ)}"></label></div>
-      <p class="sub2">${fnum(c.notable, 0)} emails Inbox Atlas marks as notable; the newest ${F.mail.length} are here. Emails in sensitive categories and duplicates are left out; Inbox Atlas has the full archive.</p>
+      <p class="sub2">${T('{n} emails Inbox Atlas marks as notable; the newest {m} are here. Emails in sensitive categories and duplicates are left out; Inbox Atlas has the full archive.', { n: fnum(c.notable, 0), m: F.mail.length })}</p>
       <div class="narrow" id="fmail">${mailRows(mail)}</div></section>
   </div>`;
   const fq = $('#fq');
@@ -2063,7 +2203,7 @@ function mailRows(list) {
   if (!list.length) return '<p class="endnote">No notable email matches. Try Inbox Atlas’s full search.</p>';
   return list.slice(0, mailN).map(m => `<article class="st fm"><div class="tx"><h3><a href="../inbox-atlas/#email-${esc(m.i)}">${esc(m.j)}</a></h3>
     <p class="sn">${esc(m.x)}</p>${m.n ? `<p class="why">${esc(m.n)}</p>` : ''}
-    <p class="mt"><span class="ou">${esc(m.a || 'Unknown sender')}</span><span>${esc(m.t ? m.t.slice(0, 10) : 'undated')}</span><span>${esc(m.c)}</span><a href="${esc(m.u)}" target="_blank" rel="noopener">jmail.world</a>${m.su ? `<a href="${esc(m.su)}" target="_blank" rel="noopener">Source PDF</a>` : ''}</p></div></article>`).join('') + (list.length > mailN ? `<button type="button" class="loadmore" id="mailMore">Show ${Math.min(40, list.length - mailN)} more of ${list.length}</button>` : `<p class="endnote">Search all ${fnum(FILES.counts.emails, 0)} emails, the text logs and the documents in <a href="../inbox-atlas/">Inbox Atlas</a>.</p>`);
+    <p class="mt"><span class="ou">${esc(m.a || T('Unknown sender'))}</span><span>${esc(m.t ? m.t.slice(0, 10) : T('undated'))}</span><span>${esc(T(m.c))}</span><a href="${esc(m.u)}" target="_blank" rel="noopener">jmail.world</a>${m.su ? `<a href="${esc(m.su)}" target="_blank" rel="noopener">Source PDF</a>` : ''}</p></div></article>`).join('') + (list.length > mailN ? `<button type="button" class="loadmore" id="mailMore">${T('Show {n} more of {m}', { n: Math.min(40, list.length - mailN), m: list.length })}</button>` : `<p class="endnote">${T('Search all {n} emails, the text logs and the documents in {link}.', { n: fnum(FILES.counts.emails, 0), link: '<a href="../inbox-atlas/">Inbox Atlas</a>' })}</p>`);
 }
 /* ================= pictures and video: slideshows built from the edition (news/data/media.json adds pictures and videos) ================= */
 let MEDIA = null;
@@ -2107,25 +2247,25 @@ function allShows() {
   const w = (WATCHES.find(x => x[0] === E.watch) || WATCHES[0])[1];
   const top = E.top.map(id => E.clusters[id]).filter(Boolean).map(c => rep(c));
   const byCover = units().filter(it => withPic(it)).sort((a, b) => ((clusterOf(b) || { n: 1 }).n - (clusterOf(a) || { n: 1 }).n) || b.p - a.p);
-  shows.push({ id: 'day', title: 'The day in pictures', kicker: `The ${w}`, slides: storySlides([...top, ...byCover], 16) });
-  if (warmProfile()) shows.push({ id: 'you', title: 'For you, in pictures', kicker: 'Picked from what you read', slides: storySlides(forYou(80).map(x => x.it), 14) });
+  shows.push({ id: 'day', title: T('The day in pictures'), kicker: T('The {watch}', { watch: T(w) }), slides: storySlides([...top, ...byCover], 16) });
+  if (warmProfile()) shows.push({ id: 'you', title: T('For you, in pictures'), kicker: T('Picked from what you read'), slides: storySlides(forYou(80).map(x => x.it), 14) });
   for (const k of deskOrder()) {
     const list = deskUnits(k).map(it => ({ it, s: score(it) })).filter(x => x.s > 0).sort((a, b) => b.s - a.s).map(x => x.it);
     const sl = storySlides(list, 14);
-    if (sl.length >= 5) shows.push({ id: 'desk-' + k, desk: k, title: `${secName(k)} in pictures`, kicker: secName(k), slides: sl });
+    if (sl.length >= 5) shows.push({ id: 'desk-' + k, desk: k, title: T('{desk} in pictures', { desk: secName(k) }), kicker: secName(k), slides: sl });
   }
   const tc = {};
   for (const it of units()) for (const k of (it.k || []).slice(0, 4)) if (withPic(it)) tc[k] = (tc[k] || 0) + 1;
   Object.entries(tc).filter(([k, n]) => n >= 6 && !P.mute.kw[k]).sort((a, b) => b[1] - a[1]).slice(0, 4).forEach(([k]) => {
     const sl = storySlides(units(it => (it.k || []).includes(k)).sort((a, b) => b.p - a.p), 14);
-    if (sl.length >= 5) shows.push({ id: 'topic-' + k, topic: k, title: kwLabel(k), kicker: 'In pictures', slides: sl });
+    if (sl.length >= 5) shows.push({ id: 'topic-' + k, topic: k, title: kwLabel(k), kicker: T('In pictures'), slides: sl });
   });
   const vids = VIDS();
   if (vids.length) {
     const long = vids.filter(v => !v.s), shorts = vids.filter(v => v.s);
     const ranked = long.map(v => ({ v, s: (v.g != null ? 3 + (E.clusters[v.g] ? E.clusters[v.g].n / 4 : 0) : 0) + Math.max(0, (P.sec[v.c] || 0)) / 6 - (refMin() - vidMin(v)) / 720 })).sort((a, b) => b.s - a.s).map(x => x.v);
-    if (ranked.length) shows.push({ id: 'video', title: 'Today’s video', kicker: 'Watch', video: true, slides: vidSlides(ranked.slice(0, 24)) });
-    if (shorts.length >= 3) shows.push({ id: 'shorts', title: 'News shorts', kicker: 'Vertical video', video: true, tall: true, slides: vidSlides(shorts.slice(0, 30)) });
+    if (ranked.length) shows.push({ id: 'video', title: T('Today’s video'), kicker: T('Watch'), video: true, slides: vidSlides(ranked.slice(0, 24)) });
+    if (shorts.length >= 3) shows.push({ id: 'shorts', title: T('News shorts'), kicker: T('Vertical video'), video: true, tall: true, slides: vidSlides(shorts.slice(0, 30)) });
   }
   SHOWS = shows.filter(s => s.slides.length); showsFor = key;
   return SHOWS;
@@ -2137,7 +2277,7 @@ function getShow(id) {
     const [f, kind] = id.slice(5).split('~');
     const list = vidList(f, kind);
     const tall = f === 'shorts' || kind === 's';
-    return list.length ? { id, title: f === 'all' ? (tall ? 'News shorts' : 'Video') : f === 'shorts' ? 'News shorts' : `${secName(f)} ${tall ? 'shorts' : 'video'}`, kicker: 'Watch', video: true, tall, slides: vidSlides(list) } : null;
+    return list.length ? { id, title: f === 'all' ? T(tall ? 'News shorts' : 'Video') : f === 'shorts' ? T('News shorts') : T(tall ? '{desk} shorts' : '{desk} video', { desk: secName(f) }), kicker: T('Watch'), video: true, tall, slides: vidSlides(list) } : null;
   }
   if (id.startsWith('story-')) { // one story's pictures and video, from every outlet covering it
     const it = byId.get(id.slice(6)), c = clusterOf(it);
@@ -2146,7 +2286,7 @@ function getShow(id) {
     const seenImg = new Set();
     const sl = members.filter(x => { const u = picOf(x); if (seenImg.has(u)) return false; seenImg.add(u); return true; })
       .map(x => ({ kind: 'story', it: x, img: bigImg(picOf(x)), orig: picOf(x), vid: null }));
-    return { id, title: it.t, kicker: 'This story', slides: [...sl, ...vidSlides(vidsFor(c))] };
+    return { id, title: it.t, kicker: T('This story'), slides: [...sl, ...vidSlides(vidsFor(c))] };
   }
   return null;
 }
@@ -2157,9 +2297,9 @@ function coverImg(s) {
 function showCard(s, big) {
   const n = s.slides.length;
   const imgs = s.slides.slice(0, big ? 4 : 1).map(sl => sl.kind === 'video' ? ytThumb(sl.v.v) : sl.img);
-  return `<button type="button" class="sc${big ? ' big' : ''}${s.video ? ' vid' : ''}" data-show="${esc(s.id)}" aria-label="${esc(s.title)}, ${n} ${s.video ? 'videos' : 'pictures'}">
+  return `<button type="button" class="sc${big ? ' big' : ''}${s.video ? ' vid' : ''}" data-show="${esc(s.id)}" aria-label="${esc(s.title)}, ${esc(T(s.video ? (n === 1 ? '{n} video' : '{n} videos') : '{n} pictures', { n }))}">
     <span class="sci${big && imgs.length >= 4 ? ' mosaic' : ''}">${imgs.map((u, i) => `<img src="${esc(u)}" data-orig="${esc(s.slides[i].orig || '')}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="if(this.dataset.orig&&this.src!==this.dataset.orig){this.src=this.dataset.orig}else{this.style.visibility='hidden'}">`).join('')}</span>
-    <span class="scx"><span class="sck">${esc(s.kicker || '')}</span><span class="sct">${esc(s.title)}</span><span class="scn">${s.video ? '<b>▶</b> ' : ''}${n} ${s.video ? (n === 1 ? 'video' : 'videos') : 'pictures'}</span></span></button>`;
+    <span class="scx"><span class="sck">${esc(s.kicker || '')}</span><span class="sct">${esc(s.title)}</span><span class="scn">${s.video ? '<b>▶</b> ' : ''}${T(s.video ? (n === 1 ? '{n} video' : '{n} videos') : '{n} pictures', { n })}</span></span></button>`;
 }
 function picturesStrip() {
   const shows = allShows();
@@ -2173,7 +2313,7 @@ function renderPictures() {
   const shows = allShows();
   const day = shows.find(s => s.id === 'day');
   const rest = shows.filter(s => s !== day);
-  $('#main').innerHTML = `<div class="wrap mk"><div class="page-h"><h1>Pictures</h1><p>Slideshows of this watch’s stories, rebuilt every edition: each slide is a story, its picture and its outlet. On a phone they play as stories (tap or swipe); on a computer as a wide gallery (arrow keys). Switch either way with <b>⇆</b> in the viewer.</p></div>
+  $('#main').innerHTML = `<div class="wrap mk"><div class="page-h"><h1>${T('Pictures')}</h1><p>${T('Slideshows of this watch’s stories, rebuilt every edition: each slide is a story, its picture and its outlet. On a phone they play as stories (tap or swipe); on a computer as a wide gallery (arrow keys). Switch either way with <b>⇆</b> in the viewer.')}</p></div>
     ${day ? `<div class="phero">${showCard(day, true)}</div>` : '<p class="endnote">No pictures in this watch yet.</p>'}
     ${rest.filter(s => s.video).length ? `<h2 class="sec-h" style="margin-top:34px">Video</h2><div class="scgrid">${rest.filter(s => s.video).map(s => showCard(s)).join('')}</div>` : ''}
     ${rest.filter(s => !s.video).length ? `<h2 class="sec-h" style="margin-top:34px">By desk and topic</h2><div class="scgrid">${rest.filter(s => !s.video).map(s => showCard(s)).join('')}</div>` : ''}
@@ -2184,7 +2324,7 @@ let vidFilter = 'all';
 const vidList = (f, kind) => VIDS().filter(v => (f === 'all' || (f === 'shorts' ? v.s : v.c === f)) && (kind === 's' ? v.s : kind === 'l' ? !v.s : true)).sort((a, b) => vidMin(b) - vidMin(a));
 function videoCard(v, i, fid) {
   const c = v.g != null ? E.clusters[v.g] : null, lead = c ? byId.get(c.lead) : null;
-  return `<article class="vc${v.s ? ' short' : ''}"><button type="button" class="vt" data-show="vids-${esc(fid)}" data-at="${i}" aria-label="Play: ${esc(v.t)}">
+  return `<article class="vc${v.s ? ' short' : ''}"><button type="button" class="vt" data-show="vids-${esc(fid)}" data-at="${i}" aria-label="${esc(T('Play: {title}', { title: v.t }))}">
       <img src="${esc(ytThumb(v.v, v.s ? 'hq720' : 'mqdefault'))}" data-orig="${esc(ytThumb(v.v))}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="if(this.src!==this.dataset.orig){this.src=this.dataset.orig}">
       <span class="pb" aria-hidden="true">▶</span>${v.s ? '<span class="vs">Short</span>' : ''}</button>
     <h3><button type="button" data-show="vids-${esc(fid)}" data-at="${i}">${esc(v.t)}</button></h3>
@@ -2200,8 +2340,8 @@ function renderVideo() {
   const longs = shortsOnly ? vidList('shorts') : vidList(vidFilter, 'l'), shorts = shortsOnly ? [] : vidList(vidFilter, 's');
   const fid = shortsOnly ? 'shorts' : vidFilter + '~l';
   const ch = MEDIA.channels || {};
-  $('#main').innerHTML = `<div class="wrap mk"><div class="page-h"><h1>Video</h1><p>The last two days from ${ch.read || 'the'} news channels, newest first, filed by desk and tied to the story they cover. Tap one to watch; swipe or use the arrows for the next.</p></div>
-    <div class="tags" role="group" aria-label="Show">${[['all', 'All'], ...(all.some(v => v.s) ? [['shorts', 'Shorts']] : []), ...desks.map(k => [k, secName(k)])].map(([k, l]) => `<button type="button" class="chip" data-vf="${esc(k)}" aria-pressed="${vidFilter === k}">${esc(l)} <span class="x">${k === 'all' ? all.length : k === 'shorts' ? all.filter(v => v.s).length : all.filter(v => v.c === k).length}</span></button>`).join('')}</div>
+  $('#main').innerHTML = `<div class="wrap mk"><div class="page-h"><h1>${T('Video')}</h1><p>${T('The last two days from {n} news channels, newest first, filed by desk and tied to the story they cover. Tap one to watch; swipe or use the arrows for the next.', { n: ch.read || 30 })}</p></div>
+    <div class="tags" role="group" aria-label="${T('Filter videos')}">${[['all', 'All'], ...(all.some(v => v.s) ? [['shorts', 'Shorts']] : []), ...desks.map(k => [k, secName(k)])].map(([k, l]) => `<button type="button" class="chip" data-vf="${esc(k)}" aria-pressed="${vidFilter === k}">${esc(l)} <span class="x">${k === 'all' ? all.length : k === 'shorts' ? all.filter(v => v.s).length : all.filter(v => v.c === k).length}</span></button>`).join('')}</div>
     ${shorts.length ? `<h2 class="sec-h" style="margin-top:26px">Shorts</h2><div class="vrow">${shorts.slice(0, 24).map((v, i) => videoCard(v, i, vidFilter + '~s')).join('')}</div>` : ''}
     ${longs.length ? `${shorts.length ? '<h2 class="sec-h" style="margin-top:22px">Latest</h2>' : ''}<div class="vgrid${shortsOnly ? ' shorts' : ''}">${longs.slice(0, pageLimit + 20).map((v, i) => videoCard(v, i, fid)).join('')}</div>` : shorts.length ? '' : '<p class="endnote">No videos came in with this watch. They return with the next edition.</p>'}
     ${longs.length > pageLimit + 20 ? `<button type="button" class="loadmore" id="more">Show more</button>` : ''}
@@ -2230,13 +2370,13 @@ function openShow(id, at) {
   el.innerHTML = `<div class="ssbars" aria-hidden="true">${show.slides.map(() => '<i><b></b></i>').join('')}</div>
     <div class="sstop"><div class="ssh"><span class="ssk">${esc(show.kicker || '')}</span><span class="sst">${esc(show.title)}</span></div>
       <span class="ssc" aria-live="polite"></span>
-      <button type="button" class="ssb" data-ss="play" aria-label="Play"></button>
-      <button type="button" class="ssb" data-ss="share" aria-label="Share this slideshow" title="Share"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7.5 7.5L12 3l4.5 4.5"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg></button>
-      <button type="button" class="ssb" data-ss="layout" aria-label="${SS.wide ? 'Story view' : 'Wide view'}" title="${SS.wide ? 'Story view' : 'Wide view'}">⇆</button>
-      <button type="button" class="ssb" data-ss="close" aria-label="Close slideshow"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+      <button type="button" class="ssb" data-ss="play" aria-label="${T('Play')}"></button>
+      <button type="button" class="ssb" data-ss="share" aria-label="${T('Share this slideshow')}" title="${T('Share')}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7.5 7.5L12 3l4.5 4.5"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg></button>
+      <button type="button" class="ssb" data-ss="layout" aria-label="${T(SS.wide ? 'Story view' : 'Wide view')}" title="${T(SS.wide ? 'Story view' : 'Wide view')}">⇆</button>
+      <button type="button" class="ssb" data-ss="close" aria-label="${T('Close slideshow')}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
     <div class="ssstage"></div>
-    <button type="button" class="ssnav prev" data-ss="prev" aria-label="Previous">‹</button><button type="button" class="ssnav next" data-ss="next" aria-label="Next">›</button>
-    <div class="ssstrip">${show.slides.map((sl, i) => `<button type="button" data-ssgo="${i}" aria-label="Slide ${i + 1} of ${n}"><img src="${esc(sl.kind === 'video' ? ytThumb(sl.v.v, 'mqdefault') : sl.orig)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.visibility='hidden'">${sl.kind === 'video' ? '<span>▶</span>' : ''}</button>`).join('')}</div>`;
+    <button type="button" class="ssnav prev" data-ss="prev" aria-label="${T('Previous')}">‹</button><button type="button" class="ssnav next" data-ss="next" aria-label="${T('Next')}">›</button>
+    <div class="ssstrip">${show.slides.map((sl, i) => `<button type="button" data-ssgo="${i}" aria-label="${esc(T('Slide {i} of {n}', { i: i + 1, n }))}"><img src="${esc(sl.kind === 'video' ? ytThumb(sl.v.v, 'mqdefault') : sl.orig)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.visibility='hidden'">${sl.kind === 'video' ? '<span>▶</span>' : ''}</button>`).join('')}</div>`;
   SS.el = el;
   if (!document.body.classList.contains('ssopen')) { document.body.classList.add('ssopen'); history.pushState({ sx: 'ss' }, ''); }
   SS.t0 = 0; clearTimeout(SS.timer);
@@ -2263,17 +2403,17 @@ function slideHTML(sl, i) {
     const v = sl.v, c = v.g != null ? E.clusters[v.g] : null, lead = c ? byId.get(c.lead) : null;
     return `<div class="sl video${v.s ? ' short' : ''}"><img class="slbg" src="${esc(ytThumb(v.v))}" alt="" referrerpolicy="no-referrer">
       <div class="slmedia"><div class="vframe" data-v="${esc(v.v)}"><img src="${esc(ytThumb(v.v, v.s ? 'hq720' : 'maxresdefault'))}" data-orig="${esc(ytThumb(v.v))}" alt="" referrerpolicy="no-referrer" onerror="if(this.src!==this.dataset.orig){this.src=this.dataset.orig}">
-        <button type="button" class="vplay" data-ss="playvid" aria-label="Play video: ${esc(v.t)}"><span>▶</span></button></div></div>
-      <div class="slcap"><p class="slk">Video · ${esc(v.ch)} · ${ago(vidMin(v))}</p><h2>${esc(v.t)}</h2>${v.d ? `<p class="sld">${esc(v.d)}</p>` : ''}
-        <p class="slacts"><button type="button" class="go" data-ss="playvid">▶ Play</button><a class="chip" href="https://www.youtube.com/watch?v=${encodeURIComponent(v.v)}" target="_blank" rel="noopener">Watch on YouTube</a>${lead ? `<button type="button" class="chip" data-open="${lead.i}">The story${c.n > 1 ? `, ${c.n} outlets` : ''}</button>` : ''}</p></div></div>`;
+        <button type="button" class="vplay" data-ss="playvid" aria-label="${esc(T('Play video: {title}', { title: v.t }))}"><span>▶</span></button></div></div>
+      <div class="slcap"><p class="slk">${T('Video')} · ${esc(v.ch)} · ${ago(vidMin(v))}</p><h2>${esc(v.t)}</h2>${v.d ? `<p class="sld">${esc(v.d)}</p>` : ''}
+        <p class="slacts"><button type="button" class="go" data-ss="playvid">▶ ${T('Play')}</button><a class="chip" href="https://www.youtube.com/watch?v=${encodeURIComponent(v.v)}" target="_blank" rel="noopener">${T('Watch on YouTube')}</a>${lead ? `<button type="button" class="chip" data-open="${lead.i}">${c.n > 1 ? T('The story, {n} outlets', { n: c.n }) : T('The story')}</button>` : ''}</p></div></div>`;
   }
   const it = sl.it, c = clusterOf(it);
   return `<div class="sl story"><img class="slbg" src="${esc(sl.orig)}" alt="" referrerpolicy="no-referrer">
     <div class="slmedia"><img class="slim" src="${esc(sl.img)}" data-orig="${esc(sl.orig)}" alt="" referrerpolicy="no-referrer" onerror="ssImgErr(this)"></div>
-    <div class="slcap"><p class="slk">${esc(secName(it.c))}${c && c.n > 1 ? ` · ${c.n} outlets` : ''} · ${ago(it.p)}</p>
+    <div class="slcap"><p class="slk">${esc(secName(it.c))}${c && c.n > 1 ? ' · ' + T('{n} outlets', { n: c.n }) : ''} · ${ago(it.p)}</p>
       <h2>${esc(it.t)}</h2>${it.d ? `<p class="sld">${esc(it.d)}</p>` : ''}
-      <p class="slsrc">Picture and story: ${esc(outlet(it.o))}</p>
-      <p class="slacts"><a class="go" href="${esc(it.u)}" target="_blank" rel="noopener" data-out="${it.i}">Read it ${ICON_OUT}</a>${c && c.n > 1 ? `<button type="button" class="chip" data-open="${it.i}">Compare ${c.n} outlets</button>` : `<button type="button" class="chip" data-open="${it.i}">More</button>`}${sl.vid ? `<button type="button" class="chip" data-ss="vidof">▶ Watch</button>` : ''}</p></div></div>`;
+      <p class="slsrc">${T('Picture and story: {outlet}', { outlet: esc(outlet(it.o)) })}</p>
+      <p class="slacts"><a class="go" href="${esc(it.u)}" target="_blank" rel="noopener" data-out="${it.i}">${T('Read it')} ${ICON_OUT}</a>${c && c.n > 1 ? `<button type="button" class="chip" data-open="${it.i}">${T('Compare {n} outlets', { n: c.n })}</button>` : `<button type="button" class="chip" data-open="${it.i}">${T('More|chip')}</button>`}${sl.vid ? `<button type="button" class="chip" data-ss="vidof">▶ ${T('Watch')}</button>` : ''}</p></div></div>`;
 }
 window.ssImgErr = img => { // the larger size didn't exist: fall back to the feed's picture, then to type alone
   if (img.dataset.orig && img.src !== img.dataset.orig) { img.src = img.dataset.orig; return; }
@@ -2282,7 +2422,7 @@ window.ssImgErr = img => { // the larger size didn't exist: fall back to the fee
 const stageHas = () => !!(SS.el && SS.el.querySelector('.ssstage .sl.cur'));
 function endHTML() {
   const others = allShows().filter(s => s.id !== SS.show.id).slice(0, 4);
-  return `<div class="sl end"><div class="slcap"><p class="slk">${esc(SS.show.kicker || '')}</p><h2>That’s ${esc(SS.show.title.replace(/^The /, 'the '))}.</h2>
+  return `<div class="sl end"><div class="slcap"><p class="slk">${esc(SS.show.kicker || '')}</p><h2>${T('That’s {title}.', { title: esc(LANG === 'en' ? SS.show.title.replace(/^The /, 'the ') : SS.show.title) })}</h2>
     <p class="slacts"><button type="button" class="go" data-ssgo="0">Start again</button><button type="button" class="chip" data-ss="close">Back to the news</button></p>
     ${others.length ? `<p class="slk" style="margin-top:26px">Up next</p><div class="ssnext">${others.map(s => showCard(s)).join('')}</div>` : ''}</div></div>`;
 }
@@ -2306,7 +2446,7 @@ function ssShow(i, dir) {
     setTimeout(() => old.remove(), 230);
   }
   const sl = show.slides[i] || { kind: 'end' };
-  el.querySelector('.ssc').textContent = i === n ? 'The end' : `${i + 1} / ${n}`;
+  el.querySelector('.ssc').textContent = i === n ? T('The end') : `${i + 1} / ${n}`;
   el.querySelectorAll('.ssbars i').forEach((b, k) => { b.className = k < i ? 'done' : k === i ? 'now' : ''; });
   el.querySelectorAll('.ssstrip button').forEach((b, k) => { b.classList.toggle('on', k === i); if (k === i) b.scrollIntoView({ block: 'nearest', inline: 'center' }); });
   el.querySelector('.prev').disabled = i === 0;
@@ -2373,7 +2513,7 @@ function ssAction(a) {
   if (a === 'prev') return ssShow(SS.i - 1, -1);
   if (a === 'play') { SS.playing = !SS.playing; if (SS.playing && SS.i >= SS.show.slides.length) return ssShow(0, 1); ssTime(false); return; }
   if (a === 'layout') { P.ssLayout = SS.wide ? 'tall' : 'wide'; save(); ssHalt(); const s = SS.show, i = Math.min(SS.i, s.slides.length - 1); SS.el.remove(); SS.el = null; openShow(s, i); return; }
-  if (a === 'share') { ssPause(true); shareIt({ title: SS.show.title + ' · The Watch', text: `${SS.show.title}: ${SS.show.slides.length} ${SS.show.video ? 'videos' : 'pictures'} from today's news in The Watch.`, url: PUBLIC + '#/pictures/' + encodeURIComponent(SS.show.id) }).finally(() => ssPause(false)); return; }
+  if (a === 'share') { ssPause(true); shareIt({ title: SS.show.title + ' · The Watch', text: T(SS.show.video ? '{title}: {n} videos from today’s news in The Watch.' : '{title}: {n} pictures from today’s news in The Watch.', { title: SS.show.title, n: SS.show.slides.length }), url: PUBLIC + '#/pictures/' + encodeURIComponent(SS.show.id) }).finally(() => ssPause(false)); return; }
   if (a === 'playvid') { const sl = SS.show.slides[SS.i]; if (sl.kind === 'video') ssPlayVid(SS.el.querySelector('.sl.cur'), sl.v); return; }
   if (a === 'vidof') { const sl = SS.show.slides[SS.i]; if (sl.vid) { const cur = SS.el.querySelector('.sl.cur'); const m = cur.querySelector('.slmedia'); m.innerHTML = `<div class="vframe" data-v="${esc(sl.vid.v)}"></div>`; cur.classList.add('video'); ssPlayVid(cur, sl.vid); } }
 }
@@ -2388,22 +2528,45 @@ document.addEventListener('keydown', e => {
 }, true);
 document.addEventListener('visibilitychange', () => { if (SS.el) { if (document.visibilityState !== 'visible') ssPause(true); else ssPause(false); } });
 
+function langButton() {
+  const b = $('#langBtn'); if (!b) return;
+  $('#langLbl').textContent = LANGS[LANG][2];
+  b.addEventListener('click', e => {
+    e.stopPropagation();
+    let m = $('#langmenu');
+    if (m) { m.remove(); b.setAttribute('aria-expanded', 'false'); return; }
+    m = document.createElement('div'); m.id = 'langmenu'; m.className = 'langmenu nolc'; m.setAttribute('role', 'menu');
+    m.innerHTML = Object.entries(LANGS).filter(([k]) => k !== 'xx').map(([k, [name, , code]]) => `<button type="button" role="menuitemradio" aria-checked="${k === LANG}" data-lang="${k}">${name}<small>${code}</small></button>`).join('');
+    document.body.appendChild(m);
+    const r = b.getBoundingClientRect();
+    m.style.top = (r.bottom + scrollY + 8) + 'px'; m.style.left = Math.max(8, Math.min(innerWidth - m.offsetWidth - 8, r.right - m.offsetWidth)) + 'px';
+    b.setAttribute('aria-expanded', 'true');
+    const cur = m.querySelector('[aria-checked="true"]') || m.querySelector('button'); if (cur) cur.focus();
+  });
+  document.addEventListener('click', e => {
+    const m = $('#langmenu'); if (!m) return;
+    const c = e.target.closest('[data-lang]');
+    if (c) { try { localStorage.setItem('watch.lang', c.dataset.lang); } catch (er) { /* storage off */ } const u = new URL(location.href); if (u.searchParams.has('lang')) { u.searchParams.delete('lang'); location.replace(u.toString()); } else location.reload(); return; }
+    if (!e.target.closest('#langmenu')) { m.remove(); b.setAttribute('aria-expanded', 'false'); }
+  });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && $('#langmenu')) { $('#langmenu').remove(); b.setAttribute('aria-expanded', 'false'); b.focus(); } });
+}
 const SHARE_TEXT = 'The news six times a day from 160+ sources: every outlet side by side, the day in pictures and video, and a front page that learns what you read.';
 async function shareIt(o) { // the phone's own share sheet (Messages, Mail, X...), or copy the link
   if (navigator.share) { try { await navigator.share(o); return; } catch (e) { if (e && e.name === 'AbortError') return; } }
   try { await navigator.clipboard.writeText(o.url); toast('Link copied. Paste it anywhere: it shows a preview card.'); }
-  catch (e) { prompt('Copy this link:', o.url); }
+  catch (e) { prompt(T('Copy this link:'), o.url); }
 }
-const shareSite = () => shareIt({ title: 'The Watch', text: SHARE_TEXT, url: PUBLIC });
+const shareSite = () => shareIt({ title: 'The Watch', text: T(SHARE_TEXT), url: PUBLIC + (LANG === 'pt' || LANG === 'de' ? LANG + '.html' : '') }); // pt.html / de.html: the preview in that language
 function deskBanner(k) {
   const shows = allShows(), s = shows.find(x => x.desk === k), vs = VIDS().filter(v => v.c === k);
   if (!s && !vs.length) return '';
-  return `<div class="ssban">${s ? `<button type="button" data-show="${esc(s.id)}"><img src="${esc(coverImg(s))}" alt="" referrerpolicy="no-referrer">${esc(s.title)} · ${s.slides.length}</button>` : ''}${vs.length ? `<button type="button" data-show="vids-${esc(k)}"><img src="${esc(ytThumb(vs[0].v, 'mqdefault'))}" alt="" referrerpolicy="no-referrer">▶ ${vs.length} video${vs.length > 1 ? 's' : ''}</button>` : ''}</div>`;
+  return `<div class="ssban">${s ? `<button type="button" data-show="${esc(s.id)}"><img src="${esc(coverImg(s))}" alt="" referrerpolicy="no-referrer">${esc(s.title)} · ${s.slides.length}</button>` : ''}${vs.length ? `<button type="button" data-show="vids-${esc(k)}"><img src="${esc(ytThumb(vs[0].v, 'mqdefault'))}" alt="" referrerpolicy="no-referrer">▶ ${T(vs.length > 1 ? '{n} videos' : '{n} video', { n: vs.length })}</button>` : ''}</div>`;
 }
 function frontReport() {
   const a = ART && ART.articles && ART.articles[0];
   if (!a || Date.now() - new Date(a.written) > 4 * 864e5) return '';
-  return `<section class="wrap repfront"><h2 class="sec-h">Today’s report</h2>${reportCard(a, true)}<p class="note"><a href="#/reports">All reports</a></p></section>`;
+  return `<section class="wrap repfront"><h2 class="sec-h">${T('Today’s report')}</h2>${reportCard(a, true)}<p class="note"><a href="#/reports">${T('All reports')}</a></p></section>`;
 }
 
 /* ================= loading ================= */
@@ -2445,7 +2608,7 @@ async function poll() { // a new watch while the page is open
 setInterval(poll, 10 * 60000);
 setInterval(() => { if (E) drawDial(); }, 60000);
 applyTheme();
-loadLatest(true);
+loadLang().then(() => { applyTheme(); L10N.watch(); langButton(); loadLatest(true); });
 })();
 </script>
 </body>
