@@ -15,7 +15,9 @@ const md = (iso) => (iso && /^\d{4}-\d{2}-\d{2}/.test(iso)) ? MON[+iso.slice(5, 
 const dates = (a, b) => { const x = md(a), y = md(b); if (x && y && x !== y) return (x.slice(0, 3) === y.slice(0, 3) ? x + '–' + y.slice(4) : x + ' – ' + y); return y || x || '—'; };
 const ET = (iso, opt = {}) => { if (!iso) return '—'; const d = new Date(iso); if (isNaN(d)) return iso; return d.toLocaleString('en-US', Object.assign({ timeZone: 'America/New_York', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' }, opt)) + ' ET'; };
 const ABBR = B.fips; const FIPS_BY_ABBR = {}; for (const f in ABBR) FIPS_BY_ABBR[ABBR[f]] = f;
-const COL = { D: '#3b7ff0', R: '#e24a4a', I: '#2fb39c', T: '#d6a93a', none: '#232d4a', dim: '#1b2440' };
+// party and map colors are CSS custom properties (template.html), so they follow the light and dark themes
+const COL = { D: 'var(--d)', R: 'var(--r)', I: 'var(--i)', T: 'var(--t)', none: 'var(--map-none)', dim: 'var(--map-dim)', mid: 'var(--map-mid)' };
+const brassAt = (a) => `color-mix(in srgb,var(--brass) ${Math.round(100 * a)}%,transparent)`;
 const PARTY_NAME = { D: 'Democrat', R: 'Republican', I: 'Independent', L: 'Libertarian', G: 'Green', O: 'Other' };
 const S = { tab: 'S', mode: null, st: null, co: null, pollsTab: 'S' }; // ui state
 let M = window.M;
@@ -83,10 +85,10 @@ function renderBOP() {
       const n = { leadD: 0, leadR: 0, open: 0 };
       for (const r of rs) { if (leanOf(r) === 'called') continue; const l = leader(r); if (!l) n.open++; else if (l.party === 'R') n.leadR++; else n.leadD++; }
       const np = [{ n: dBase, c: '#163a85', l: 'Democrats not up' }, { n: k.callD + k.callI, c: '#2e6fdb', l: 'Called for Democrats' }, { n: n.leadD, c: 'rgba(59,127,240,.45)', l: 'Leading, uncalled' },
-        { n: n.open, c: '#2a3550', l: 'No results yet' }, { n: n.leadR, c: 'rgba(226,74,74,.45)', l: 'Leading, uncalled' }, { n: k.callR, c: '#d63a3a', l: 'Called for Republicans' }, { n: rBase, c: '#7a1d1d', l: 'Republicans not up' }];
+        { n: n.open, c: COL.mid, l: 'No results yet' }, { n: n.leadR, c: 'rgba(226,74,74,.45)', l: 'Leading, uncalled' }, { n: k.callR, c: '#d63a3a', l: 'Called for Republicans' }, { n: rBase, c: '#7a1d1d', l: 'Republicans not up' }];
       const unc = rs.length - k.callD - k.callR - k.callI;
       return bopBar(title, `${k.callD + k.callR + k.callI} of ${rs.length} called`, np, total, midLabel, { d: dBase + k.callD + k.callI, r: rBase + k.callR, t: unc ? unc + ' uncalled' : 'all called' },
-        [{ c: '#163a85', t: 'not up' }, { c: '#2e6fdb', t: 'called' }, { c: 'rgba(59,127,240,.45)', t: 'leading' }, { c: '#2a3550', t: 'no results' }]);
+        [{ c: '#163a85', t: 'not up' }, { c: '#2e6fdb', t: 'called' }, { c: 'rgba(59,127,240,.45)', t: 'leading' }, { c: COL.mid, t: 'no results' }]);
     }
     const dTot = dBase + k.callD + k.callI + k.D + k.leanD, rTot = rBase + k.callR + k.R + k.leanR;
     const sub = `${rs.length} races · ${k.T} toss-ups`;
@@ -96,8 +98,8 @@ function renderBOP() {
   const hs = M.results && M.results.house; const hr = (M.house.ratings || [])[0] || {};
   let houseHtml;
   if (night && hs && (hs.calledD || hs.calledR)) {
-    const parts = [{ n: hs.calledD || 0, c: '#2e6fdb', l: 'Called D' }, { n: hs.leadD || 0, c: '#6f9ff0', l: 'Leading D' }, { n: 435 - (hs.calledD || 0) - (hs.calledR || 0) - (hs.leadD || 0) - (hs.leadR || 0), c: '#2a3550', l: 'Uncalled' }, { n: hs.leadR || 0, c: '#f08c7a', l: 'Leading R' }, { n: hs.calledR || 0, c: '#d63a3a', l: 'Called R' }];
-    houseHtml = bopBar('House', `${(hs.calledD || 0) + (hs.calledR || 0)} of 435 called · ${ET(hs.asOf)}`, parts, 435, '218', { d: hs.calledD || 0, r: hs.calledR || 0, t: 'called' }, [{ c: '#2e6fdb', t: 'called D' }, { c: '#6f9ff0', t: 'leading D' }, { c: '#2a3550', t: 'uncalled' }, { c: '#f08c7a', t: 'leading R' }, { c: '#d63a3a', t: 'called R' }]);
+    const parts = [{ n: hs.calledD || 0, c: '#2e6fdb', l: 'Called D' }, { n: hs.leadD || 0, c: '#6f9ff0', l: 'Leading D' }, { n: 435 - (hs.calledD || 0) - (hs.calledR || 0) - (hs.leadD || 0) - (hs.leadR || 0), c: COL.mid, l: 'Uncalled' }, { n: hs.leadR || 0, c: '#f08c7a', l: 'Leading R' }, { n: hs.calledR || 0, c: '#d63a3a', l: 'Called R' }];
+    houseHtml = bopBar('House', `${(hs.calledD || 0) + (hs.calledR || 0)} of 435 called · ${ET(hs.asOf)}`, parts, 435, '218', { d: hs.calledD || 0, r: hs.calledR || 0, t: 'called' }, [{ c: '#2e6fdb', t: 'called D' }, { c: '#6f9ff0', t: 'leading D' }, { c: COL.mid, t: 'uncalled' }, { c: '#f08c7a', t: 'leading R' }, { c: '#d63a3a', t: 'called R' }]);
   } else {
     const parts = [{ n: hr.solidD || 0, c: '#1d4db5', l: 'Solid D' }, { n: hr.likelyD || 0, c: '#2e6fdb', l: 'Likely D' }, { n: hr.leanD || 0, c: '#6f9ff0', l: 'Lean D' }, { n: hr.tossup || 0, c: COL.T, l: 'Toss-up' }, { n: hr.leanR || 0, c: '#f08c7a', l: 'Lean R' }, { n: hr.likelyR || 0, c: '#d63a3a', l: 'Likely R' }, { n: hr.solidR || 0, c: '#9c2020', l: 'Solid R' }];
     const dT = (hr.solidD || 0) + (hr.likelyD || 0) + (hr.leanD || 0), rT = (hr.solidR || 0) + (hr.likelyR || 0) + (hr.leanR || 0);
@@ -117,10 +119,10 @@ const MODE_LABEL = { results: 'Results', ratings: 'Ratings', polls: 'Poll margin
 function currentModes() { return MODES[isNight() ? 'night' : 'pre']; }
 function renderModes() { const ms = currentModes(); if (!ms.includes(S.mode)) S.mode = ms[0]; $('#modes').innerHTML = ms.map((m) => `<button data-mode="${m}" aria-pressed="${m === S.mode}">${MODE_LABEL[m]}</button>`).join(''); }
 function stateFill(fips) {
-  if (S.tab === 'H') { const n = (M.house.competitive || []).filter((d) => d.state === ABBR[fips]).length; return n ? `rgba(214,169,58,${(0.25 + 0.18 * Math.min(n, 4)).toFixed(2)})` : COL.none; }
+  if (S.tab === 'H') { const n = (M.house.competitive || []).filter((d) => d.state === ABBR[fips]).length; return n ? brassAt(0.25 + 0.18 * Math.min(n, 4)) : COL.none; }
   const rs = racesIn(fips, S.tab); const r = rs[0];
   if (S.mode === 'pres24') return marginFill(pres24Margin(fips), 35);
-  if (S.mode === 'early') { const e = M.early && M.early.states && M.early.states[ABBR[fips]]; const v = e && (e.pctOf2022Final != null ? e.pctOf2022Final : (e.totalBallots ? 1 : null)); return v == null ? COL.none : `rgba(240,196,90,${(0.2 + 0.8 * clamp(v / 100, 0, 1)).toFixed(2)})`; }
+  if (S.mode === 'early') { const e = M.early && M.early.states && M.early.states[ABBR[fips]]; const v = e && (e.pctOf2022Final != null ? e.pctOf2022Final : (e.totalBallots ? 1 : null)); return v == null ? COL.none : brassAt(0.2 + 0.8 * clamp(v / 100, 0, 1)); }
   if (!r) return COL.none;
   if (S.mode === 'results') { const l = leader(r); if (!l) return COL.dim; const c = l.party === 'D' ? '59,127,240' : l.party === 'R' ? '226,74,74' : '47,179,156'; return l.call ? `rgb(${c})` : `rgba(${c},.45)`; }
   if (S.mode === 'polls') { const m = pollMargin(r); return m == null ? COL.dim : marginFill(m, 15); }
@@ -153,13 +155,13 @@ function tipCounty(f) {
 }
 function legend() {
   const L = $('#maplegend');
-  const ramp = (a, b) => `<span class="ramp" style="background:linear-gradient(90deg,${a},#2a3550,${b})"></span>`;
-  if (S.tab === 'H') { L.innerHTML = `<span><span class="sw" style="background:rgba(214,169,58,.9)"></span>more competitive House districts (Cook toss-up and lean)</span>`; return; }
+  const ramp = (a, b) => `<span class="ramp" style="background:linear-gradient(90deg,${a},${COL.mid},${b})"></span>`;
+  if (S.tab === 'H') { L.innerHTML = `<span><span class="sw" style="background:${brassAt(0.9)}"></span>more competitive House districts (Cook toss-up and lean)</span>`; return; }
   if (S.mode === 'ratings') L.innerHTML = [['#1d4db5', 'Solid D'], ['#2e6fdb', 'Likely D'], ['#6f9ff0', 'Lean D'], [COL.T, 'Toss-up'], ['#f08c7a', 'Lean R'], ['#d63a3a', 'Likely R'], ['#9c2020', 'Solid R'], [COL.none, 'no race']].map(([c, t]) => `<span><span class="sw" style="background:${c}"></span>${t}</span>`).join('') + '<span>consensus of Cook, Sabato and Inside Elections</span>';
   else if (S.mode === 'results') L.innerHTML = `<span><span class="sw" style="background:rgb(59,127,240)"></span>called D</span><span><span class="sw" style="background:rgba(59,127,240,.45)"></span>leading D</span><span><span class="sw" style="background:rgba(226,74,74,.45)"></span>leading R</span><span><span class="sw" style="background:rgb(226,74,74)"></span>called R</span><span><span class="sw" style="background:${COL.dim}"></span>no results yet</span><span>counties: margin, 2026</span>`;
   else if (S.mode === 'polls') L.innerHTML = `<span>D +15</span>${ramp('rgba(59,127,240,1)', 'rgba(226,74,74,1)')}<span>R +15 · average of recent polls</span>`;
   else if (S.mode === 'markets') L.innerHTML = `<span>D 95%</span>${ramp('rgba(59,127,240,1)', 'rgba(226,74,74,1)')}<span>R 95% · prediction-market price</span>`;
-  else if (S.mode === 'early') L.innerHTML = `<span>few</span><span class="ramp" style="background:linear-gradient(90deg,rgba(240,196,90,.2),rgba(240,196,90,1))"></span><span>many · ballots cast as a share of the 2022 early vote</span>`;
+  else if (S.mode === 'early') L.innerHTML = `<span>few</span><span class="ramp" style="background:linear-gradient(90deg,${brassAt(0.2)},${brassAt(1)})"></span><span>many · ballots cast as a share of the 2022 early vote</span>`;
   else L.innerHTML = `<span>Harris +35</span>${ramp('rgba(59,127,240,1)', 'rgba(226,74,74,1)')}<span>Trump +35 · 2024 presidential margin</span>`;
 }
 function renderCrumb() {

@@ -31,7 +31,7 @@ const MAP = (() => {
     const gS = el('g', { class: 'g-states' }), gC = el('g', { class: 'g-counties' }), gL = el('g', { class: 'g-labels' });
     if (view.level === 'us') {
       svg.setAttribute('viewBox', '0 0 975 610');
-      for (const id in states) { const s = states[id]; const p = el('path', { d: s.d, class: 'st', 'data-id': id, tabindex: 0, role: 'button', 'aria-label': s.name }); p.style.fill = handlers.fillState ? handlers.fillState(id) : '#223'; gS.append(p); }
+      for (const id in states) { const s = states[id]; const p = el('path', { d: s.d, class: 'st', 'data-id': id, tabindex: 0, role: 'button', 'aria-label': s.name }); p.style.fill = handlers.fillState ? handlers.fillState(id) : 'var(--map-none)'; gS.append(p); }
       for (const id in states) { const s = states[id]; const lab = handlers.labelState ? handlers.labelState(id) : null; if (!lab) continue; const n = NUDGE[id] || [0, 0]; const t = el('text', { x: s.c[0] + n[0], y: s.c[1] + n[1] + 3, class: 'lab' }); t.textContent = lab; gL.append(t); }
       svg.append(gS, gL);
     } else {
@@ -40,11 +40,11 @@ const MAP = (() => {
       let vw = w + pad * 2, vh = h + pad * 2; if (vw / vh < 975 / 610) vw = vh * 975 / 610; else vh = vw * 610 / 975;
       svg.setAttribute('viewBox', `${x0 + w / 2 - vw / 2} ${y0 + h / 2 - vh / 2} ${vw} ${vh}`);
       // neighbours, dimmed
-      for (const id in states) { if (id === view.st) continue; const p = el('path', { d: states[id].d, class: 'st dim', 'data-id': id }); p.style.fill = '#1b2440'; gS.append(p); }
+      for (const id in states) { if (id === view.st) continue; const p = el('path', { d: states[id].d, class: 'st dim', 'data-id': id }); p.style.fill = 'var(--map-dim)'; gS.append(p); }
       const list = byState[view.st] || [];
-      for (const c of list) { const p = el('path', { d: c.d, class: 'co', 'data-id': c.id, 'data-st': c.st }); p.style.fill = handlers.fillCounty ? handlers.fillCounty(c.id) : '#334'; if (view.co === c.id) p.classList.add('sel'); gC.append(p); }
+      for (const c of list) { const p = el('path', { d: c.d, class: 'co', 'data-id': c.id, 'data-st': c.st }); p.style.fill = handlers.fillCounty ? handlers.fillCounty(c.id) : 'var(--map-none)'; if (view.co === c.id) p.classList.add('sel'); gC.append(p); }
       // state outline on top
-      gC.append(el('path', { d: s.d, class: 'st', style: 'fill:none;stroke:#fff;stroke-width:1.4;pointer-events:none' }));
+      gC.append(el('path', { d: s.d, class: 'st', style: 'fill:none;stroke:var(--ink);stroke-width:1.4;pointer-events:none' }));
       svg.append(gS, gC);
       if (handlers.labelCounty) { const big = list.slice().sort((a, b) => (handlers.sizeCounty(b.id) || 0) - (handlers.sizeCounty(a.id) || 0)).slice(0, Math.min(10, Math.max(3, Math.ceil(list.length / 8)))); for (const c of big) { const lab = handlers.labelCounty(c.id); if (!lab || !c.c) continue; const t = el('text', { x: c.c[0], y: c.c[1] + 2, class: 'lab', style: `font-size:${Math.max(2, Math.min(8, vw / 140))}px;stroke-width:${Math.max(.5, vw / 600)}px` }); t.textContent = lab; gL.append(t); } svg.append(gL); }
     }
