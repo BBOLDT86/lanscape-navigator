@@ -1,0 +1,343 @@
+{
+ "updated": "2026-10-25T10:30:00-04:00",
+ "model": "Claude Opus 5.5",
+ "summary": "FSD (Supervised) is now a subscription product in the U.S.: Tesla's support page lists $99 a month and says it cannot be bought outright [2], after the one-time purchase was dropped in February 2026 [3]. Tesla reported 1.74 million active FSD subscriptions at the end of Q3, a count that includes earlier lifetime purchases, and says more than 75% of new North American deliveries in the quarter included FSD [4].\n\nThis week's software is update 2026.38.5.10, released October 20: FSD v14.3.13 for AI4 (HW4) cars and a new \"v14.3 Lite\" that brings parking, unparking and reversing to HW3 cars [1]. HW3 owners have still been told their computers will not run unsupervised FSD, with no clear upgrade plan [5]. On the Q3 call Tesla targeted Q2 2027 for unsupervised FSD in customer cars, starting with owners adding cars to its Robotaxi fleet inside Robotaxi zones [5][6]. AI5 has entered trial production but is not in customer cars [6].\n\nRobotaxi runs without anyone on board in six metros (Austin, Dallas, Houston, Miami, Orlando, Tampa) and with a safety driver in the Bay Area; Las Vegas, Phoenix, Jacksonville and San Antonio are listed as coming soon [7][8]. Tesla's new safety site claims 3.1 million autonomous miles through October 18 with no reported injuries; that is company data [8].\n\nIn Europe the product is now called Tesla Assisted Driving; nine countries have approved it and an EU-wide vote is expected in December [6][11]. In California, police said a Tesla driver told them FSD was engaged when the car struck and killed a 71-year-old pedestrian on Interstate 80 on October 23; it is not established whether the driver or the software braked and steered [10].",
+ "price": {
+  "subscription": "$99 a month in the U.S. [2]",
+  "purchase": "Can't be bought outright: Tesla says FSD (Supervised) is subscription-only [2]. The $8,000 one-time purchase ended after February 14, 2026 [3].",
+  "note": "FSD bought outright by an earlier owner stays with the car unless it was transferred away before March 31, 2026; a previous owner's subscription does not carry over, and Luxe Package FSD may carry over depending on when it was bought [2]."
+ },
+ "versions": [
+  {
+   "hw": "AI4",
+   "version": "v14.3.13",
+   "build": "2026.38.5.10",
+   "date": "2026-10",
+   "note": "Released October 20; MLIR compiler rewrite, better emergency-vehicle, school-bus and traffic-light handling, unified model with Robotaxi and Smart Summon [1]."
+  },
+  {
+   "hw": "HW3",
+   "version": "v14.3 Lite",
+   "build": "2026.38.5.10",
+   "date": "2026-10",
+   "note": "Distilled from v14 for HW3: adds parking, unparking, reversing and Arrival Options [1]."
+  }
+ ],
+ "hardware": [
+  {
+   "model": "Model S",
+   "from": 2016,
+   "to": 2017,
+   "hw": "HW2",
+   "fsd": "None as built: HW2 is not FSD capable [13].",
+   "note": "HW2 went into S and X from October 2016 to about August 2017; S/X built earlier in 2016 have the older Autopilot 1 hardware and no FSD path [13]."
+  },
+  {
+   "model": "Model S",
+   "from": 2017,
+   "to": 2019,
+   "hw": "HW2.5",
+   "fsd": "None as built; runs FSD (Supervised) only if the computer was retrofitted to HW3, which Tesla did free for owners who had bought FSD [13].",
+   "note": "HW2.5 from about August 2017 to March 2019; 2017 is a split year with HW2. Check the Autopilot computer line in Additional Vehicle Information [12][13]."
+  },
+  {
+   "model": "Model S",
+   "from": 2019,
+   "to": 2023,
+   "hw": "HW3",
+   "fsd": "FSD (Supervised) v14.3 Lite [1]; Tesla has said HW3 will not run unsupervised FSD [5].",
+   "note": "HW3 from March 22, 2019 [13]; 2019 is a split year with HW2.5 and 2023 a split year with AI4 (cars bought after March 2023 likely AI4) [12]."
+  },
+  {
+   "model": "Model S",
+   "from": 2023,
+   "to": null,
+   "hw": "AI4",
+   "fsd": "FSD (Supervised) v14.3.13, the current full release [1].",
+   "note": "AI4 from about March 2023 [12]. Front camera housing shows two red lenses and one black dummy lens [12]."
+  },
+  {
+   "model": "Model X",
+   "from": 2016,
+   "to": 2017,
+   "hw": "HW2",
+   "fsd": "None as built: HW2 is not FSD capable [13].",
+   "note": "HW2 went into S and X from October 2016 to about August 2017; S/X built earlier in 2016 have the older Autopilot 1 hardware and no FSD path [13]."
+  },
+  {
+   "model": "Model X",
+   "from": 2017,
+   "to": 2019,
+   "hw": "HW2.5",
+   "fsd": "None as built; runs FSD (Supervised) only if the computer was retrofitted to HW3, which Tesla did free for owners who had bought FSD [13].",
+   "note": "HW2.5 from about August 2017 to March 2019; 2017 is a split year with HW2. Check the Autopilot computer line in Additional Vehicle Information [12][13]."
+  },
+  {
+   "model": "Model X",
+   "from": 2019,
+   "to": 2023,
+   "hw": "HW3",
+   "fsd": "FSD (Supervised) v14.3 Lite [1]; Tesla has said HW3 will not run unsupervised FSD [5].",
+   "note": "HW3 from March 22, 2019 [13]; 2019 is a split year with HW2.5 and 2023 a split year with AI4 (cars bought after March 2023 likely AI4) [12]."
+  },
+  {
+   "model": "Model X",
+   "from": 2023,
+   "to": null,
+   "hw": "AI4",
+   "fsd": "FSD (Supervised) v14.3.13, the current full release [1].",
+   "note": "AI4 from about March 2023 [12]. Front camera housing shows two red lenses and one black dummy lens [12]."
+  },
+  {
+   "model": "Model 3",
+   "from": 2017,
+   "to": 2019,
+   "hw": "HW2.5",
+   "fsd": "None as built; runs FSD (Supervised) only if the computer was retrofitted to HW3, which Tesla did free for owners who had bought FSD [13].",
+   "note": "Model 3 started with HW2.5 in July 2017 [13]; HW3 from April 12, 2019, so 2019 is a split year [13]."
+  },
+  {
+   "model": "Model 3",
+   "from": 2019,
+   "to": 2023,
+   "hw": "HW3",
+   "fsd": "FSD (Supervised) v14.3 Lite [1]; Tesla has said HW3 will not run unsupervised FSD [5].",
+   "note": "2019-2023 Model 3s have HW3 [12][13]."
+  },
+  {
+   "model": "Model 3",
+   "from": 2024,
+   "to": null,
+   "hw": "AI4",
+   "fsd": "FSD (Supervised) v14.3.13, the current full release [1].",
+   "note": "The refreshed 2024 Model 3 has AI4 [12]."
+  },
+  {
+   "model": "Model Y",
+   "from": 2020,
+   "to": 2023,
+   "hw": "HW3",
+   "fsd": "FSD (Supervised) v14.3 Lite [1]; Tesla has said HW3 will not run unsupervised FSD [5].",
+   "note": "Every Model Y from launch in 2020 had HW3 [13]; U.S.-built cars after late May 2023 likely have AI4, so 2023 is a split year [12]."
+  },
+  {
+   "model": "Model Y",
+   "from": 2023,
+   "to": null,
+   "hw": "AI4",
+   "fsd": "FSD (Supervised) v14.3.13, the current full release [1].",
+   "note": "AI4 from about late May 2023 for U.S.-built cars; other factories switched on different dates, so confirm in the car [12]."
+  },
+  {
+   "model": "Cybertruck",
+   "from": 2023,
+   "to": null,
+   "hw": "AI4",
+   "fsd": "FSD (Supervised) v14.3.13, the current full release [1].",
+   "note": "Cybertruck is listed only for the HW4 build; no HW3 Cybertruck exists [1]."
+  }
+ ],
+ "check": [
+  "In the car: Controls > Software > Additional Vehicle Information shows the Autopilot computer (2.5, 3 or 4); this needs software 2024.38 or later [12].",
+  "Controls > Software also shows whether Full Self-Driving Capability is in the car's included package [2].",
+  "Front cameras: AI4 cars show two red lenses and one black dummy lens; AI4 side repeaters have a red tint [12].",
+  "Build date: S/X after about March 2023, U.S. Model Y after late May 2023 and the 2024 Model 3 are likely AI4 [12]."
+ ],
+ "transfer": "You can no longer move FSD to another car or account: Tesla's FSD (Supervised) Transfer Program ended on March 31, 2026 [2][3]. If you sell a car whose FSD was bought outright, the purchase stays with that car, so the next owner gets it [2]. If you had a subscription, it ends with your ownership and the buyer must subscribe on their own Tesla account [2]. Owners who bought FSD before the change keep it on the car permanently, but a new Tesla means a new $99 subscription [3]. We found no current transfer offer; the Tesla app 4.62 adds FSD referral rewards, which are not a transfer [18].",
+ "where": [
+  "United States",
+  "Canada",
+  "Mexico",
+  "Puerto Rico",
+  "China (limited)",
+  "South Korea",
+  "Australia",
+  "New Zealand",
+  "Netherlands",
+  "Belgium",
+  "Denmark",
+  "Lithuania",
+  "Estonia",
+  "Slovenia",
+  "Czech Republic",
+  "Croatia",
+  "Slovakia (approved October 16; rollout date not announced)"
+ ],
+ "robotaxi": [
+  {
+   "place": "Austin, TX",
+   "status": "No one on board; Cybercabs in the fleet; geofence expanded to Circuit of the Americas for the Grand Prix [9][14]",
+   "since": "2025-06"
+  },
+  {
+   "place": "Dallas, TX",
+   "status": "No one on board; Cybercab rides due in November [6][14]",
+   "since": "2026-04"
+  },
+  {
+   "place": "Houston, TX",
+   "status": "No one on board [14]",
+   "since": "2026-04"
+  },
+  {
+   "place": "Miami, FL",
+   "status": "No one on board [14]",
+   "since": "2026-07"
+  },
+  {
+   "place": "Orlando, FL",
+   "status": "No one on board [14]",
+   "since": "2026-07"
+  },
+  {
+   "place": "Tampa, FL",
+   "status": "No one on board [14]",
+   "since": "2026-07"
+  },
+  {
+   "place": "San Francisco Bay Area, CA",
+   "status": "Safety driver required by California rules; not driverless [5][7]",
+   "since": null
+  },
+  {
+   "place": "Las Vegas, Phoenix, Jacksonville, San Antonio",
+   "status": "Announced as coming soon; no dates [7][8]",
+   "since": null
+  }
+ ],
+ "buying": [
+  "Check Controls > Software for Full Self-Driving Capability: only an outright purchase stays with the car [2].",
+  "Don't count on moving FSD from your old car; transfers ended March 31, 2026 [2].",
+  "Prefer AI4: HW3 gets the Lite build and won't run unsupervised FSD [1][5].",
+  "On a 2017-2019 S/X or early Model 3, confirm the computer is HW3 or later, not HW2/HW2.5 [12][13].",
+  "Budget $99 a month if the car has no purchased FSD [2]."
+ ],
+ "changes": [
+  "FSD v14.3.13 (AI4) and v14.3 Lite (HW3) rolled out in 2026.38.5.10 [1].",
+  "Tesla named Las Vegas, Phoenix, Jacksonville and San Antonio as next Robotaxi cities and launched a safety-data site [7][8].",
+  "Q3 results: 1.74 million FSD subscriptions; over 75% of new North American deliveries included FSD [4].",
+  "Unsupervised FSD for owners targeted for Q2 2027 [5][6].",
+  "Austin Cybercab geofence expanded for the U.S. Grand Prix [9].",
+  "NHTSA proposed optional cyan marker lights for cars driven by an automated system [15].",
+  "Fatal I-80 pedestrian crash in California; the driver told police FSD was engaged [10].",
+  "Tesla app 4.62 adds FSD referral rewards [18]; Cybertruck cancelled in Australia and New Zealand [17]."
+ ],
+ "sources": [
+  {
+   "title": "2026.38.5.10 (FSD 14.3 Lite & 14.3.13) Official Tesla Release Notes",
+   "outlet": "Not a Tesla App",
+   "url": "https://www.notateslaapp.com/software-updates/version/2026.38.5.10/release-notes",
+   "date": "2026-10-20"
+  },
+  {
+   "title": "Full Self-Driving (Supervised) support page",
+   "outlet": "Tesla",
+   "url": "https://www.tesla.com/support/fsd",
+   "date": "2026-10"
+  },
+  {
+   "title": "Tesla Kills FSD Ownership, Forces $99 Monthly Subscription",
+   "outlet": "Gadget Review via Yahoo Autos",
+   "url": "https://autos.yahoo.com/ev-and-future-tech/articles/tesla-kills-fsd-ownership-forces-155310481.html",
+   "date": "2026-01-23"
+  },
+  {
+   "title": "Tesla FSD Hits Record Subs, Purchased With 75% of New Orders",
+   "outlet": "Not a Tesla App",
+   "url": "https://www.notateslaapp.com/news/4862/tesla-fsd-hits-record-subs-purchased-with-75-of-new-orders",
+   "date": "2026-10-21"
+  },
+  {
+   "title": "Tesla pushes unsupervised FSD to Q2 2027, and only inside Robotaxi zones",
+   "outlet": "Electrek",
+   "url": "https://electrek.co/2026/10/21/tesla-unsupervised-fsd-q2-2027-robotaxi-fleet/",
+   "date": "2026-10-21"
+  },
+  {
+   "title": "Tesla Q3 2026 Earnings Call Recap: Everything You Need to Know",
+   "outlet": "Not a Tesla App",
+   "url": "https://www.notateslaapp.com/news/4867/tesla-q3-2026-earnings-call-recap-everything-you-need-to-know",
+   "date": "2026-10-22"
+  },
+  {
+   "title": "Tesla Names Next Robotaxi Cities, Shares Miles Driven & Safety Data",
+   "outlet": "Not a Tesla App",
+   "url": "https://www.notateslaapp.com/news/4860/tesla-names-next-robotaxi-cities-shares-miles-driven-safety-data",
+   "date": "2026-10-21"
+  },
+  {
+   "title": "Tesla announces Robotaxi launch in four more cities, releases safety data via new website",
+   "outlet": "Tesla Oracle",
+   "url": "https://www.teslaoracle.com/2026/10/23/tesla-announces-robotaxi-launch-in-four-more-cities-releases-safety-data-via-new-website-no-kittens-were-hurt/",
+   "date": "2026-10-23"
+  },
+  {
+   "title": "Tesla expands Cybercab Robotaxi Austin geofence ahead of 2026 US Grand Prix",
+   "outlet": "Tesla Oracle",
+   "url": "https://www.teslaoracle.com/2026/10/23/tesla-expands-cybercab-robotaxi-austin-geofence-ahead-of-2026-us-grand-prix/",
+   "date": "2026-10-23"
+  },
+  {
+   "title": "Man Dies After Being Mowed Down by Self-Driving Tesla, Police Say",
+   "outlet": "Futurism",
+   "url": "https://futurism.com/advanced-transport/man-dies-tesla-self-driving",
+   "date": "2026-10-23"
+  },
+  {
+   "title": "Tesla Renames FSD to 'Tesla Assisted Driving' in Europe",
+   "outlet": "Not a Tesla App",
+   "url": "https://www.notateslaapp.com/news/4794/tesla-renames-fsd-to-tesla-assisted-driving-in-europe",
+   "date": "2026-10-08"
+  },
+  {
+   "title": "How to Check If Your Tesla Has Hardware 3 (HW3) or Hardware 4 (AI4)",
+   "outlet": "Not a Tesla App",
+   "url": "https://www.notateslaapp.com/news/2173/how-to-check-if-your-tesla-has-hardware-4-ai4-or-hardware-3",
+   "date": "2024-08-08"
+  },
+  {
+   "title": "Tesla Hardware Versions Explained: HW2, HW3, HW4",
+   "outlet": "Carnex",
+   "url": "https://carnex.ca/blog/tesla-hardware-versions-hw2-hw3-hw4-guide",
+   "date": "2026-04-16"
+  },
+  {
+   "title": "Tesla Robotaxi",
+   "outlet": "Wikipedia",
+   "url": "https://en.wikipedia.org/wiki/Tesla_Robotaxi",
+   "date": "2026-10"
+  },
+  {
+   "title": "Feds want robotaxis to signal 'I'm driving' with cyan-colored lights",
+   "outlet": "Wilson's Media (citing The Verge)",
+   "url": "https://www.wilsonsmedia.com/feds-want-robotaxis-to-signal-im-driving-with-cyan-colored-lights/",
+   "date": "2026-10-23"
+  },
+  {
+   "title": "Tesla FSD (Supervised) Now Live in 17 Countries Across 4 Continents",
+   "outlet": "Basenor",
+   "url": "https://www.basenor.com/blogs/news/tesla-fsd-supervised-now-live-in-17-countries-across-4-continents",
+   "date": "2026-10-16"
+  },
+  {
+   "title": "Tesla Cancels Cybertruck in Australia and New Zealand",
+   "outlet": "Not a Tesla App",
+   "url": "https://www.notateslaapp.com/news/4883/tesla-cancels-cybertruck-in-australia-and-new-zealand",
+   "date": "2026-10-23"
+  },
+  {
+   "title": "Tesla App Update 4.62: iPad Support, FSD Referral Rewards, X Money Support and More",
+   "outlet": "Not a Tesla App",
+   "url": "https://www.notateslaapp.com/tesla-app-updates/version/4.62.0/release-notes",
+   "date": "2026-10-23"
+  }
+ ],
+ "i18n": {
+  "pt": {
+   "summary": "O FSD (Supervised) agora é vendido só por assinatura nos EUA: a página de suporte da Tesla indica US$ 99 por mês e diz que não é possível comprá-lo à vista [2]; a compra única acabou em fevereiro de 2026 [3]. A Tesla informou 1,74 milhão de assinaturas ativas no fim do 3º trimestre, número que inclui compras vitalícias antigas, e diz que mais de 75% das entregas novas na América do Norte incluíram FSD [4].\n\nO software desta semana é a atualização 2026.38.5.10, de 20 de outubro: FSD v14.3.13 para carros AI4 (HW4) e uma nova versão \"v14.3 Lite\" que leva estacionamento, saída de vaga e marcha à ré aos carros HW3 [1]. Donos de HW3 continuam ouvindo que o computador não rodará FSD sem supervisão, sem plano claro de troca [5]. A Tesla mira o 2º trimestre de 2027 para FSD sem supervisão em carros de clientes, começando pela inclusão desses carros na frota Robotaxi, dentro das zonas do serviço [5][6]. O AI5 está em produção experimental, mas não chegou aos carros [6].\n\nO Robotaxi roda sem ninguém a bordo em seis regiões (Austin, Dallas, Houston, Miami, Orlando, Tampa) e com motorista de segurança na Baía de São Francisco; Las Vegas, Phoenix, Jacksonville e San Antonio vêm a seguir [7][8]. Na Europa o produto passou a se chamar Tesla Assisted Driving; nove países o aprovaram e uma votação na UE é esperada em dezembro [6][11]. Na Califórnia, a polícia disse que um motorista afirmou que o FSD estava ativo quando o carro atropelou e matou um pedestre de 71 anos na Interstate 80 em 23 de outubro; não está claro se foi o motorista ou o software que freou e desviou [10]."
+  },
+  "de": {
+   "summary": "FSD (Supervised) gibt es in den USA inzwischen nur noch im Abo: Teslas Supportseite nennt 99 Dollar im Monat und sagt, ein Kauf sei nicht möglich [2]; der Einmalkauf endete im Februar 2026 [3]. Tesla meldete zum Ende des dritten Quartals 1,74 Millionen aktive FSD-Abos, einschließlich früherer Käufe, und sagt, dass mehr als 75 % der Neuauslieferungen in Nordamerika FSD enthielten [4].\n\nAktuelle Software ist das Update 2026.38.5.10 vom 20. Oktober: FSD v14.3.13 für AI4-Fahrzeuge (HW4) und ein neues \"v14.3 Lite\", das Einparken, Ausparken und Rückwärtsfahren auf HW3-Autos bringt [1]. HW3-Besitzern wurde weiterhin gesagt, dass ihr Computer kein unbeaufsichtigtes FSD schaffen wird; einen klaren Upgrade-Plan gibt es nicht [5]. Tesla peilt das zweite Quartal 2027 für unbeaufsichtigtes FSD in Kundenautos an, zunächst indem Besitzer ihre Autos in die Robotaxi-Flotte innerhalb der Robotaxi-Zonen einbringen [5][6]. AI5 ist in der Testproduktion, aber nicht in Kundenautos [6].\n\nRobotaxi fährt in sechs Regionen (Austin, Dallas, Houston, Miami, Orlando, Tampa) ohne Person an Bord, in der Bay Area mit Sicherheitsfahrer; Las Vegas, Phoenix, Jacksonville und San Antonio sollen folgen [7][8]. In Europa heißt das Produkt jetzt Tesla Assisted Driving; neun Länder haben es zugelassen, eine EU-weite Abstimmung wird im Dezember erwartet [6][11]. In Kalifornien sagte die Polizei, ein Fahrer habe angegeben, FSD sei aktiv gewesen, als sein Auto am 23. Oktober auf der Interstate 80 einen 71-jährigen Fußgänger tödlich erfasste; ob Fahrer oder Software bremste und auswich, ist offen [10]."
+  }
+ }
+}
