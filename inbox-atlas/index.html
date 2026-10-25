@@ -1323,14 +1323,14 @@ function renderFlows(tab){
   ({traffic: flowTraffic, topics: flowTopics, release: flowRelease, press: flowPress, stories: flowStories})[tab](p);
 }
 function flowTraffic(p){
-  p.innerHTML = `<div class="ctl"><label>Year <select id="fy"><option value="">All years</option>${Array.from(new Set(DB.emails.map(e=>e.t.slice(0,4)).filter(Boolean))).sort().map(y=>`<option>${y}</option>`).join('')}</select></label><label>Top <select id="fn"><option>12</option><option selected>18</option><option>26</option></select> each side</label><span class="mu">Left: who wrote to Epstein. Right: whom Epstein wrote to. Middle node is the account.</span></div><div id="fs"></div>`;
+  p.innerHTML = `<div class="ctl"><label>Year <select id="fy"><option value="">All years</option>${Array.from(new Set(DB.emails.map(e=>e.t.slice(0,4)).filter(Boolean))).sort().map(y=>`<option>${y}</option>`).join('')}</select></label><label>Top <select id="fn"><option>12</option><option selected>18</option><option>26</option></select> each side</label><span class="mu">Left: who wrote to Epstein. Right: whom Epstein wrote to. Middle node is the account.</span></div><div id="flowchart"></div>`;
   const draw = () => {
     const y = $('#fy').value, n = +$('#fn').value; const inc = {}, out = {};
     for (const e of DB.emails){ if (e.d || isSens(e) || (y && e.t.slice(0,4)!==y)) continue; if (e.a==='Jeffrey Epstein'){ for (const r of e.r){ if (r && r!=='Jeffrey Epstein' && PP[r]) out[r]=(out[r]||0)+1; } } else if (e.a && PP[e.a] && e.p.includes('Jeffrey Epstein')) inc[e.a]=(inc[e.a]||0)+1; }
     const topI = Object.entries(inc).sort((a,b)=>b[1]-a[1]).slice(0,n), topO = Object.entries(out).sort((a,b)=>b[1]-a[1]).slice(0,n);
     const nodes = [...topI.map(x=>x[0]+' →'), 'Jeffrey Epstein', ...topO.map(x=>'→ '+x[0])];
     const links = [...topI.map(([k,v])=>({s:k+' →', t:'Jeffrey Epstein', v})), ...topO.map(([k,v])=>({s:'Jeffrey Epstein', t:'→ '+k, v}))];
-    drawSankey($('#fs'), nodes, links, 620, name => go('person-'+encodeURIComponent(name.replace(/^→ |\s→$/g,''))));
+    drawSankey($('#flowchart'), nodes, links, 620, name => go('person-'+encodeURIComponent(name.replace(/^→ |\s→$/g,''))));
   };
   $('#fy').onchange = draw; $('#fn').onchange = draw; draw();
 }
@@ -1340,16 +1340,16 @@ function flowTopics(p){
   const top = Object.entries(ppl).sort((a,b)=>b[1]-a[1]).slice(0,22).map(x=>x[0]); const ts=new Set(top);
   const links = Object.entries(counts).filter(([k])=>ts.has(k.split('|')[0])).map(([k,v])=>{ const [n,c]=k.split('|'); return {s:n, t:catLabel(c), v}; });
   const nodes = [...top, ...Array.from(new Set(links.map(l=>l.t)))];
-  p.innerHTML = `<div class="ctl"><span class="mu">The 22 people who appear most in curated-topic emails, and the topics those emails were filed under. The general bucket is excluded.</span></div><div id="fs"></div>`;
-  drawSankey($('#fs'), nodes, links, 640, name => { if (PP[name]) go('person-'+encodeURIComponent(name)); });
+  p.innerHTML = `<div class="ctl"><span class="mu">The 22 people who appear most in curated-topic emails, and the topics those emails were filed under. The general bucket is excluded.</span></div><div id="flowchart"></div>`;
+  drawSankey($('#flowchart'), nodes, links, 640, name => { if (PP[name]) go('person-'+encodeURIComponent(name)); });
 }
 function flowRelease(p){
   const l1={}, l2={};
   for (const e of DB.emails){ if (e.d||isSens(e)) continue; const src = e.s==='H'?'House Oversight':e.s==='D'?'DOJ':'Yahoo'; const y=e.t.slice(0,4)||'undated'; const yb = y<'2009'?'≤2008': y>'2019'? '2020+' : y; const k1=src+'|'+yb; l1[k1]=(l1[k1]||0)+1; const k2=yb+'|'+catLabel(e.c); l2[k2]=(l2[k2]||0)+1; }
   const links = [...Object.entries(l1).map(([k,v])=>{const [s,t]=k.split('|'); return {s,t,v};}), ...Object.entries(l2).map(([k,v])=>{const [s,t]=k.split('|'); return {s,t,v};})].filter(l=>l.v>=8);
   const nodes = Array.from(new Set(links.flatMap(l=>[l.s,l.t])));
-  p.innerHTML = `<div class="ctl"><span class="mu">Which release each year's mail came from, and how the archive's curators filed it. Bands under 8 emails are dropped for legibility.</span></div><div id="fs"></div>`;
-  drawSankey($('#fs'), nodes, links, 700);
+  p.innerHTML = `<div class="ctl"><span class="mu">Which release each year's mail came from, and how the archive's curators filed it. Bands under 8 emails are dropped for legibility.</span></div><div id="flowchart"></div>`;
+  drawSankey($('#flowchart'), nodes, links, 700);
 }
 function flowPress(p){
   const rx = /\b(inquiry|request for comment|comment|reporter|journalist|interview|story|article|press|deadline)\b/i; const outlets = /\b(ABC|NBC|CBS|CNN|BBC|Times|Post|Herald|Journal|Daily|Mail|Vanity Fair|Vice|Viceland|Bloomberg|Reuters|Guardian|Beast|BuzzFeed|Politico|Forbes|Fortune|Newsweek|Page Six|Observer|Telegraph|New Yorker)\b/;
@@ -1357,9 +1357,9 @@ function flowPress(p){
   for (const e of DB.emails){ if (e.d || isSens(e) || e.t<'2009') continue; const txt = (e.j+' '+(e.b||e.T).slice(0,1500)); if (!(rx.test(txt) && outlets.test(txt))) continue; const m = txt.match(outlets); const src = m? m[0] : 'press'; const lawyers = e.p.filter(x=>PP[x] && /law/.test(PP[x].g||'')); const who = e.a && PP[e.a] ? e.a : (lawyers[0]||''); if (!who) continue; n++; const k1 = 'Mentions '+src+'|'+who; l[k1]=(l[k1]||0)+1; for (const r of e.r.slice(0,3)){ if (r && r!==who && PP[r]){ const k2 = who+'|'+r; l[k2]=(l[k2]||0)+1; } } }
   const links = Object.entries(l).map(([k,v])=>{ const [s,t]=k.split('|'); return {s,t,v}; }).filter(x=>x.v>=2);
   const nodes = Array.from(new Set(links.flatMap(x=>[x.s,x.t])));
-  p.innerHTML = `<div class="ctl"><span class="mu">A rough map of press traffic: ${fmt(n)} emails that mention a news outlet together with words like inquiry, comment or deadline, from the person who wrote them to the people they went to. Bands under 2 are dropped. See <a href="#story-hotmic">The Hot Mic</a> for the worked example.</span></div><div id="fs"></div>`;
-  if (!links.length){ $('#fs').innerHTML = '<div class="mu">Nothing to draw.</div>'; return; }
-  drawSankey($('#fs'), nodes, links, 640, name => { if (PP[name]) go('person-'+encodeURIComponent(name)); });
+  p.innerHTML = `<div class="ctl"><span class="mu">A rough map of press traffic: ${fmt(n)} emails that mention a news outlet together with words like inquiry, comment or deadline, from the person who wrote them to the people they went to. Bands under 2 are dropped. See <a href="#story-hotmic">The Hot Mic</a> for the worked example.</span></div><div id="flowchart"></div>`;
+  if (!links.length){ $('#flowchart').innerHTML = '<div class="mu">Nothing to draw.</div>'; return; }
+  drawSankey($('#flowchart'), nodes, links, 640, name => { if (PP[name]) go('person-'+encodeURIComponent(name)); });
 }
 function flowStories(p){
   const ss = [...DB.stories, ...USER_STORIES].filter(s=>s.flow && s.flow.links && s.flow.links.length);
