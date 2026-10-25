@@ -444,6 +444,10 @@ def classify(feed_section, lean, link, title, desc):
     """a story's section: its feed's desk; for a general feed, the outlet's URL path, its region, then the words in it"""
     if feed_section == 'brazil' and not BRAZIL.search(title + ' ' + desc):
         feed_section = 'world'  # Brazil outlets also cover the rest of Latin America
+    if feed_section in ('household', 'home') and 'news.google.com' in (link or ''):  # a search route also catches world news
+        sc0 = section_scores(title, desc)
+        if sc0['world'] >= 2 and sc0['world'] > sc0[feed_section]:
+            return 'world'
     if feed_section not in ('auto', 'us', 'world'):
         return feed_section
     sc = section_scores(title, desc)
