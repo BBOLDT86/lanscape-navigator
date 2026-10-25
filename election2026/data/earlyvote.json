@@ -1,5 +1,5 @@
 {
- "asOf": "2026-10-24",
+ "asOf": "2026-10-25",
  "primarySource": {
   "name": "UF Election Lab 2026 Early Voting tracker (Michael McDonald)",
   "url": "https://election.lab.ufl.edu/early-vote/2026-early-voting/",
@@ -10,17 +10,17 @@
   "scriptHint": "GET https://election.lab.ufl.edu/data-downloads/earlyvote/2026/US.csv once or twice daily (cache-bust with a query string); parse CSV; sum voted_all/accept_all/inperson_all/request_all for national; per state use voted_all, accept_all, inperson_all, request_all, voted_dem/voted_rep/voted_none, last_update, updates_today."
  },
  "national": {
-  "totalBallots": 24274661,
-  "mailReturned": 13357291,
-  "inPerson": 10917370,
-  "mailRequested": 59332375,
+  "totalBallots": 26681083,
+  "mailReturned": 14059279,
+  "inPerson": 12621804,
+  "mailRequested": 59404593,
   "statesReporting": 48,
   "byParty": {
-   "D": 5492179,
-   "R": 3676576,
-   "other": 2881581,
+   "D": 5959961,
+   "R": 4060199,
+   "other": 3189324,
    "statesWithPartyData": 27,
-   "note": "registration, not vote choice (UF Election Lab US.csv, pulled by the Action 2026-10-24T08:15:04Z)"
+   "note": "registration, not vote choice (UF Election Lab US.csv, pulled by the Action 2026-10-25T11:43:19Z)"
   },
   "comparison": {
    "text": "The UF 2026 page publishes no same-point 2022 or 2024 comparison text; it offers a map option '2026 Early Vote to 2022 Total Turnout Ratio' (early votes divided by each state's total 2022 turnout, the turn_2022 column). Final 2024 early+mail total across the 49 UF-tracked jurisdictions = sum of voted_all in the archived 2024 US.csv. AP (via Fox 10 Phoenix, 2026-10-17) reported about 6 million early/mail ballots cast across 39 states as of Thursday Oct 15, 2026; no 2022 comparison given. Michigan SOS press release of 2026-10-06 is titled 'Four weeks before Election Day, mail ballot returns are up 30% over same point in 2022' (title only; body not fetched).",
@@ -29,7 +29,7 @@
    "final2024Source": "https://election.lab.ufl.edu/data-downloads/earlyvote/2024/US.csv",
    "turnout2022TotalTrackedStates": 109979856
   },
-  "asOf": "2026-10-24T08:15:04Z",
+  "asOf": "2026-10-25T11:43:19Z",
   "source": "https://election.lab.ufl.edu/early-vote/2026-early-voting/",
   "altSources": [
    {
