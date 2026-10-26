@@ -31,6 +31,9 @@ main>*,.two>*,.grid2>*,.hero>*{min-width:0}
 .card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:14px}
 .card h2{margin:0 0 8px;font-size:15px;letter-spacing:.02em;text-transform:uppercase;color:var(--mute);font-weight:700}
 .card h2 .asof{float:right;font-weight:500;text-transform:none;letter-spacing:0;font-size:12px}
+.hinge{display:flex;align-items:center;gap:10px;justify-content:space-between;flex-wrap:wrap;margin:0 0 12px;padding:12px 16px;border-radius:var(--r);background:var(--accent);color:var(--bg);text-decoration:none;font-weight:600}
+.hinge b{font-weight:800}.hinge:hover{opacity:.92}.hinge .go{white-space:nowrap}
+html[lang="pt-BR"] .hinge [lang="en"],html:not([lang="pt-BR"]) .hinge [lang="pt-BR"]{display:none}
 .banner{border-left:5px solid var(--ok);padding:10px 14px;background:var(--card);border-radius:var(--r);font-weight:600}
 .banner.wait{border-left-color:var(--warn)}
 /* hero */
@@ -94,6 +97,7 @@ footer{color:var(--mute);font-size:12px;padding:10px 0 30px}
   <div class="lang" role="group" aria-label="Language / Idioma"><button id="lang-en" aria-pressed="true">EN</button><button id="lang-pt" aria-pressed="false">PT</button></div>
 </div></header>
 <main class="wrap" id="main">
+  <a class="hinge" href="../the-hinge/#brazil"><span lang="en"><b>How the polls and the markets got it wrong:</b> every poll against the count, the vote flows and a replay of the night, in The Hinge</span><span lang="pt-BR"><b>Como as pesquisas e os mercados erraram:</b> cada pesquisa contra a apuração, o fluxo de votos e o replay da noite, no The Hinge (em inglês)</span><span class="go">→</span></a>
   <div id="banner"></div>
   <section class="card" id="hero"></section>
   <div class="two">

@@ -1,6 +1,6 @@
 /* =========================================================== shell */
-const TABS = [['brief', 'Briefing'], ['senate', 'Senate'], ['house', 'House'], ['ohio', 'Ohio'], ['markets', 'Markets'], ['money', 'Money'], ['history', 'History'], ['info', 'Information age'], ['lab', 'Swing Lab'], ['tracker', 'Tracker'], ['method', 'Method'], ['sources', 'Sources']];
-const VIEWS = { brief: viewBrief, senate: viewSenate, house: viewHouse, ohio: viewOhio, markets: viewMarkets, money: viewMoney, history: viewHistory, info: viewInfo, lab: viewLab, tracker: viewTracker, method: viewMethod, sources: viewSources };
+const TABS = [['brief', 'Briefing'], ['brazil', 'Brazil'], ['senate', 'Senate'], ['house', 'House'], ['ohio', 'Ohio'], ['markets', 'Markets'], ['money', 'Money'], ['history', 'History'], ['info', 'Information age'], ['lab', 'Swing Lab'], ['tracker', 'Tracker'], ['method', 'Method'], ['sources', 'Sources']];
+const VIEWS = { brief: viewBrief, brazil: viewBrazil, senate: viewSenate, house: viewHouse, ohio: viewOhio, markets: viewMarkets, money: viewMoney, history: viewHistory, info: viewInfo, lab: viewLab, tracker: viewTracker, method: viewMethod, sources: viewSources };
 let ACTIVE = (location.hash || '').replace('#', '');
 if (!VIEWS[ACTIVE]) ACTIVE = LS.get('tab', 'brief'); if (!VIEWS[ACTIVE]) ACTIVE = 'brief';
 function buildTabs() {
