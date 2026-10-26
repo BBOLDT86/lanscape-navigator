@@ -35,7 +35,7 @@ OK = {
     'apnews.com', 'reuters.com', 'nytimes.com', 'washingtonpost.com', 'wsj.com', 'latimes.com', 'usatoday.com', 'cnn.com', 'nbcnews.com', 'cbsnews.com',
     'abcnews.go.com', 'npr.org', 'bbc.com', 'bbc.co.uk', 'theguardian.com', 'independent.co.uk', 'telegraph.co.uk', 'thetimes.com', 'ft.com', 'bloomberg.com',
     'espn.com', 'theathletic.com', 'nfl.com', 'nba.com', 'wnba.com', 'mlb.com', 'nhl.com', 'mlssoccer.com', 'si.com', 'cbssports.com', 'foxsports.com',
-    'nbcsports.com', 'sports.yahoo.com', 'yahoo.com', 'bleacherreport.com', 'theringer.com', 'formula1.com', 'motorsport.com', 'the-race.com', 'racefans.net',
+    'nbcsports.com', 'bleacherreport.com', 'theringer.com', 'formula1.com', 'motorsport.com', 'the-race.com', 'racefans.net',
     'autosport.com', 'skysports.com', 'atptour.com', 'wtatennis.com', 'pgatour.com', 'lpga.com', 'olympics.com', 'teamusa.com', 'goal.com', 'fifa.com', 'uefa.com',
     'people.com', 'vogue.com', 'vogue.co.uk', 'harpersbazaar.com', 'elle.com', 'gq.com', 'gq-magazine.co.uk', 'esquire.com', 'vanityfair.com', 'wwd.com',
     'instyle.com', 'glamour.com', 'cosmopolitan.com', 'marieclaire.com', 'townandcountrymag.com', 'hellomagazine.com', 'tatler.com', 'whowhatwear.com',
@@ -47,7 +47,7 @@ OK = {
     'tagesschau.de', 'n-tv.de', 'rtl.de', 'welt.de', 'derstandard.at', 'nzz.ch', 'marca.com', 'as.com', 'elpais.com', 'lequipe.fr', 'gazzetta.it', 'corriere.it',
 }
 NEVER = re.compile(r'dailymail|thesun\.|mirror\.co|dailystar|tmz\.|radaronline|okmagazine|intouchweekly|pagesix|nypost|starmagazine|thesun\b|bild\.de|bunte\.de', re.I)
-SKIP = re.compile(r'pregnan|baby bump|bump |grávida|gravidez|schwanger|bikini|body[- ]?shaming|weight loss|nude|naked|topless|cheat(ed|ing)? rumou?r|affair rumou?r'
+SKIP = re.compile(r'pregnan|baby bump|bump |grávida|gravidez|gesta[çc][ãa]o|gestante|schwanger|babybauch|bikini|body[- ]?shaming|weight loss|nude|naked|topless|cheat(ed|ing)? rumou?r|affair rumou?r'
                   r'|\bbab(y|ies)\b|\bnewborn|\bkids?\b|\bchild(ren)?\b|\bsons?\b|\bdaughters?\b|\bfilh[oa]s?\b|\bbeb[êe]s?\b|\bKinder\b|\bTochter|\bSohn\b'
                   r'|\bmansion|\bnet worth|\bhouse (hunting|tour)|\bhome (tour|for sale)', re.I)  # nothing about children, homes or money
 TEXT_SKIP = re.compile(r'pregnan|baby bump|grávida|gravidez|schwanger|bikini|nude|naked|topless|body[- ]?shaming', re.I)  # for the written text
@@ -75,8 +75,27 @@ def searches(c):
     return out
 
 
+def names(c):
+    """Patterns a headline must match for each of the two: a headline that names only one of them is usually about
+    something else (a game, a release, or someone in their family), so it is left out."""
+    a = re.sub(r'\s+(Jr\.?|Sr\.?|II|III|IV)$', '', c['athlete']['name'].replace("'Mondo' ", ''))
+    p_all = c['partner']['name']
+    p = re.sub(r'\s*\(.*\)$', '', p_all)
+    alt = [x.strip() for x in re.findall(r'\((.*)\)', p_all)]
+    w = lambda x: r'\b' + re.escape(x) + r'(?!\w)'
+    a_parts, p_parts = a.split(), p.split()
+    p_names = [p] + alt
+    p_lasts = {x.split()[-1].lower() for x in p_names if len(x.split()) > 1}
+    ra = [w(a)] + ([w(a_parts[0][:5])] if len(a_parts) > 1 and a_parts[-1].lower() in p_lasts else [w(a_parts[-1])])
+    rp = [w(x) for x in p_names] + [w(x.split()[-1]) for x in p_names if len(x.split()) > 1 and x.split()[-1].lower() != a_parts[-1].lower()]
+    if len(a_parts) > 1 and a_parts[-1].lower() in p_lasts:  # the Currys, the Goffs: first names do the work
+        rp += [w(x.split()[0]) for x in p_names]
+    return re.compile('|'.join(ra), re.I), re.compile('|'.join(rp), re.I)
+
+
 def couple_news(c):
     import run  # noqa: E402
+    rx_a, rx_p = names(c)
     got, seen = [], set()
     for url in searches(c):
         name, items, err = run.read_feed({'name': c['id'], 'url': url})
@@ -93,7 +112,7 @@ def couple_news(c):
                 continue
             if it['src_name'] and t.endswith(' - ' + it['src_name']):
                 t = t[: -len(it['src_name']) - 3].strip()
-            if SKIP.search(t):
+            if SKIP.search(t) or not (rx_p.search(t) and rx_a.search(rx_p.sub(' ', t))):
                 continue
             key = re.sub(r'\W+', ' ', t.lower()).strip()[:72]
             if key in seen:
@@ -113,13 +132,10 @@ def from_edition(cs):
         return {}
     out = {}
     for c in cs:
-        a, p = c['athlete']['name'], re.sub(r'\s*\(.*\)$', '', c['partner']['name'])
-        same = a.split()[-1].lower() == p.split()[-1].lower()  # the Currys: then only the athlete's full name counts
-        rx_a = re.compile(r'\b' + re.escape(a) + r'\b' + ('' if same or len(a.split()) < 2 else r'|\b' + re.escape(a.split()[-1]) + r'\b'), re.I)
-        rx_p = re.compile(r'\b' + re.escape(p) + r'\b', re.I)  # the partner by full name: a shared surname alone is not enough
+        rx_a, rx_p = names(c)
         for it in e.get('items', []):
-            text = it.get('t', '') + ' ' + (it.get('d') or '')
-            if rx_p.search(text) and rx_a.search(rx_p.sub(' ', text)) and not SKIP.search(it.get('t', '')):
+            t = it.get('t', '')
+            if rx_p.search(t) and rx_a.search(rx_p.sub(' ', t)) and not SKIP.search(t):
                 out.setdefault(c['id'], []).append({'t': it['t'], 'u': it['u'], 'o': (e.get('outlets') or {}).get(it['o'], it['o']),
                                                     'p': dt.datetime.fromtimestamp(it['p'] * 60, dt.timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ'), 'm': it.get('m'), 'l': it.get('l')})
     return out
