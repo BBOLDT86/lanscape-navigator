@@ -1,7 +1,10 @@
 name: The Hinge, Brazil data (manual)
 # Pulls the TSE's per-state files for both rounds of Brazil's 2026 presidential election for The Hinge's Brazil tab.
-# Run by hand (workflow_dispatch); the TSE's servers answer GitHub's runners but not every sandbox.
+# Every two hours through Oct. 28 (to pick up the final count and the TSE's proclamation), and by hand.
+# The TSE's servers answer GitHub's runners but not every sandbox.
 on:
+  schedule:
+    - cron: '23 */2 26-28 10 *'
   workflow_dispatch:
 permissions:
   contents: write
@@ -14,11 +17,19 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
       - run: python3 the-hinge/src/brazil/fetch_tse.py
+      - name: Rebuild The Hinge's Brazil tab
+        run: |
+          pip install --quiet numpy scipy
+          python3 the-hinge/src/brazil/build_brazil.py
+          python3 the-hinge/src/v2/build_html2.py
       - run: |
           git config user.name "The Hinge updater"
           git config user.email "election-desk@users.noreply.github.com"
-          git add the-hinge/src/brazil/tse_rounds.json
+          git add the-hinge/src/brazil/tse_rounds.json the-hinge/src/v2/brazil_data.js the-hinge/index.html
           git diff --cached --quiet && exit 0
           git commit -qm "The Hinge: TSE files for both rounds (Brazil)"
           for i in 1 2 3; do git pull --rebase origin main && git push -q origin HEAD:main && exit 0; sleep 8; done
