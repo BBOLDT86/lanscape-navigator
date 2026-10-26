@@ -49,7 +49,8 @@ OK = {
 NEVER = re.compile(r'dailymail|thesun\.|mirror\.co|dailystar|tmz\.|radaronline|okmagazine|intouchweekly|pagesix|nypost|starmagazine|thesun\b|bild\.de|bunte\.de', re.I)
 SKIP = re.compile(r'pregnan|baby bump|bump |grávida|gravidez|gesta[çc][ãa]o|gestante|schwanger|babybauch|bikini|body[- ]?shaming|weight loss|nude|naked|topless|cheat(ed|ing)? rumou?r|affair rumou?r'
                   r'|\bbab(y|ies)\b|\bnewborn|\bkids?\b|\bchild(ren)?\b|\bsons?\b|\bdaughters?\b|\bfilh[oa]s?\b|\bbeb[êe]s?\b|\bKinder\b|\bTochter|\bSohn\b'
-                  r'|\bmansion|\bnet worth|\bhouse (hunting|tour)|\bhome (tour|for sale)', re.I)  # nothing about children, homes or money
+                  r'|\bmansion|\bnet worth|\bhouse (hunting|tour)|\bhome (tour|for sale)'
+                  r'|festa d[aeo]|anivers[áa]rio|\b\d{1,2} anos\b|quanto custa|mans[ãa]o|fortuna|sal[áa]rio|R\$|Kindergeburtstag|Vermögen|Gehalt|birthday party', re.I)  # nothing about children, homes or money
 TEXT_SKIP = re.compile(r'pregnan|baby bump|grávida|gravidez|schwanger|bikini|nude|naked|topless|body[- ]?shaming', re.I)  # for the written text
 SPLIT = re.compile(r'\b(split|splits|split up|break ?up|broke up|breakup|divorc\w*|separat\w*|call(s|ed)? off (their|the) engagement|termin\w+|separa\w*|trennung|getrennt|scheidung)\b', re.I)
 PT = re.compile(r'brazil|brasil|portug', re.I)
