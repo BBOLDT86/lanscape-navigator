@@ -1299,14 +1299,14 @@ function ptsTransfers() {
 }
 const PTAG = [['Amex', /\bamex\b|american express|membership rewards/i], ['Chase', /\bchase\b|sapphire|ultimate rewards/i], ['Capital One', /capital one|venture x/i], ['Citi', /\bciti\b|thankyou|strata/i], ['Bilt', /\bbilt\b/i],
   ['Hotels', /hyatt|marriott|bonvoy|hilton|ihg|four seasons|ritz|fhr|fine hotels|the edit/i], ['Airlines', /united|delta|american airlines|aadvantage|southwest|alaska|atmos|jetblue|aeroplan|flying blue|avios|virgin/i],
-  ['Transfer bonus', /transfer bonus|bonus (on|when) transfer/i]];
+  ['Transfer bonus', /transfer bonus|bonus (on|when) transfer|transfer\b.{0,80}\b\d+% bonus|\d+% (transfer )?bonus\b.{0,40}transfer/i]];
 function ptsNews(tag) {
   const N = (LIVE.points && LIVE.points.items) || [];
   if (!N.length) return '';
   const list = N.filter(n => !tag || (PTAG.find(t => t[0] === tag) || [0, /./])[1].test(n.t));
   return `<section class="psec" id="news"><h2 class="sec-h">This week in points</h2><p class="sec-p">From ${esc([...new Set(N.map(n => n.o))].slice(0, 8).join(', '))}.</p>
     <div class="pcities">${['', ...PTAG.map(t => t[0])].map(t => `<button type="button" class="chip" data-ptag="${esc(t)}" aria-pressed="${(tag || '') === t}">${esc(t || 'Everything')}</button>`).join('')}</div>
-    <ul class="pnews">${list.slice(0, 30).map(n => `<li${/transfer bonus/i.test(n.t) ? ' class="tb"' : ''}><a href="${esc(n.u)}" target="_blank" rel="noopener">${esc(n.t)}</a><small>${esc(n.o)} · ${esc(new Date(n.p).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' }))}</small></li>`).join('') || '<li>Nothing on that this week.</li>'}</ul></section>`;
+    <ul class="pnews">${list.slice(0, 30).map(n => `<li${PTAG[PTAG.length - 1][1].test(n.t) ? ' class="tb"' : ''}><a href="${esc(n.u)}" target="_blank" rel="noopener">${esc(n.t)}</a><small>${esc(n.o)} · ${esc(new Date(n.p).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' }))}</small></li>`).join('') || '<li>Nothing on that this week.</li>'}</ul></section>`;
 }
 let ptsCity = null, ptsTag = '';
 async function renderPoints() {
