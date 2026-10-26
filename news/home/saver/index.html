@@ -1,0 +1,490 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Home Saver · The Watch</title>
+<meta name="description" content="Keep the homes you're looking at in one place: paste a listing from Zillow, Redfin, Realtor.com or Trulia with the price, beds, baths and your notes, star the ones you like, archive the ones that sold, and pin any of them to Vision. Runs in your browser; nothing is uploaded.">
+<link rel="canonical" href="https://bboldt86.github.io/lanscape-navigator/news/home/saver/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="The Watch">
+<meta property="og:title" content="Home Saver · The Watch">
+<meta property="og:description" content="Every home you're looking at, in one place: the listing, the price, your notes, and a star for the ones you like. Private, in your browser.">
+<meta property="og:url" content="https://bboldt86.github.io/lanscape-navigator/news/home/saver/">
+<meta property="og:image" content="https://bboldt86.github.io/lanscape-navigator/news/home/saver/share.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Home Saver, from The Watch: every home you're looking at, in one place.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Home Saver · The Watch">
+<meta name="twitter:description" content="Every home you're looking at, in one place: the listing, the price, your notes, and a star for the ones you like.">
+<meta name="twitter:image" content="https://bboldt86.github.io/lanscape-navigator/news/home/saver/share.png">
+<meta name="theme-color" content="#F5F7F6" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0E1A2B" media="(prefers-color-scheme: dark)">
+<meta name="apple-mobile-web-app-title" content="Home Saver">
+<link rel="apple-touch-icon" href="../../icon-180.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%2315243B'/%3E%3Cpath d='M18 33l14-12 14 12v15H18z' fill='none' stroke='%23D6B25E' stroke-width='4' stroke-linejoin='round'/%3E%3Cpath d='M28 48V38h8v10' fill='none' stroke='%23F5F7F6' stroke-width='3'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F5F7F6; --raise:#FFFFFF; --ink:#15243B; --ink-2:#465770; --ink-3:#7A889A; --rule:rgba(21,36,59,.12); --rule-2:rgba(21,36,59,.22);
+  --shoal:#D7E7EC; --shoal-2:#C3DAE2; --brass:#A9852F; --brass-ink:#7A5E1C; --brass-soft:rgba(169,133,47,.12); --signal:#C2412D; --ok:#2F7A55; --scrim:rgba(14,26,43,.42);
+  --serif:'Instrument Serif','Iowan Old Style',Georgia,serif;
+  --sans:'Instrument Sans',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="day"]){
+    --paper:#0E1A2B; --raise:#142539; --ink:#E7EDF4; --ink-2:#AEBBCB; --ink-3:#8492A6; --rule:rgba(231,237,244,.12); --rule-2:rgba(231,237,244,.24);
+    --shoal:#12293F; --shoal-2:#1A3A55; --brass:#D6B25E; --brass-ink:#E3C47E; --brass-soft:rgba(214,178,94,.16); --signal:#E8705A; --ok:#5BC48C; --scrim:rgba(4,9,16,.6); color-scheme:dark;
+  }
+}
+:root[data-theme="night"]{
+  --paper:#0E1A2B; --raise:#142539; --ink:#E7EDF4; --ink-2:#AEBBCB; --ink-3:#8492A6; --rule:rgba(231,237,244,.12); --rule-2:rgba(231,237,244,.24);
+  --shoal:#12293F; --shoal-2:#1A3A55; --brass:#D6B25E; --brass-ink:#E3C47E; --brass-soft:rgba(214,178,94,.16); --signal:#E8705A; --ok:#5BC48C; --scrim:rgba(4,9,16,.6); color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 16px/1.5 var(--sans);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+a{color:inherit}
+button{font:inherit;color:inherit;cursor:pointer;background:none;border:0;padding:0}
+:focus-visible{outline:2px solid var(--brass);outline-offset:2px;border-radius:4px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+@media (max-width:640px){.wrap{padding:0 16px}}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* masthead */
+.mast{border-bottom:1px solid var(--rule);background:var(--paper);position:sticky;top:0;z-index:30}
+.mast .wrap{display:flex;align-items:center;justify-content:space-between;height:52px;gap:12px}
+.back{display:inline-flex;align-items:center;gap:10px;text-decoration:none;font-weight:600;font-size:15px;min-width:0}
+.back svg{width:26px;height:26px;flex:none}
+.back span{color:var(--ink-3);font-weight:500}
+.mast-r{display:flex;gap:6px;align-items:center}
+.tbtn{font-size:14px;color:var(--ink-2);border:1px solid var(--rule);border-radius:999px;padding:5px 12px;background:var(--raise)}
+.tbtn:hover{border-color:var(--brass)}
+
+/* the page head */
+.head{padding-top:40px;padding-bottom:18px;display:flex;align-items:flex-end;justify-content:space-between;gap:18px;flex-wrap:wrap}
+.head h1{font:400 58px/1 var(--serif);letter-spacing:-.01em;margin:0 0 8px}
+.lede{margin:0;color:var(--ink-2);font-size:17px;max-width:58ch}
+@media (max-width:640px){.head{padding-top:26px}.head h1{font-size:42px}.lede{font-size:15.5px}}
+.btn{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:15px;border-radius:999px;padding:9px 16px;border:1px solid var(--rule-2);background:var(--raise);text-decoration:none;white-space:nowrap}
+.btn:hover{border-color:var(--brass)}
+.btn.solid{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.btn.solid:hover{background:var(--brass-ink);border-color:var(--brass-ink)}
+.btn svg{width:17px;height:17px;flex:none}
+.btn[disabled]{opacity:.55;cursor:default}
+
+/* the numbers */
+.stats{display:flex;gap:26px;flex-wrap:wrap;padding:14px 0 6px;border-top:1px solid var(--rule)}
+.stats div{min-width:0}
+.stats b{display:block;font:400 30px/1.05 var(--serif);letter-spacing:-.01em}
+.stats span{display:block;font:600 11.5px/1.3 var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin-top:4px}
+.stats:empty{display:none}
+
+/* tabs and tools */
+.tools{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:18px 0 14px;position:sticky;top:52px;z-index:20;background:var(--paper)}
+.tabs{display:flex;gap:2px;border-bottom:1px solid var(--rule);margin-right:auto;overflow-x:auto;scrollbar-width:none;max-width:100%}
+.tabs::-webkit-scrollbar{display:none}
+.tabs button{flex:none;padding:8px 11px 9px;font:600 15px var(--sans);color:var(--ink-2);border-bottom:2px solid transparent;margin-bottom:-1px;display:inline-flex;gap:7px;align-items:center}
+.tabs button:hover{color:var(--ink)}
+.tabs button[aria-current="page"]{color:var(--ink);border-bottom-color:var(--brass)}
+.tabs small{font:600 12px var(--sans);color:var(--ink-3);background:var(--shoal);border-radius:999px;padding:1px 7px}
+.tabs button[aria-current="page"] small{background:var(--brass);color:#15243B}
+.search{position:relative;flex:1;min-width:200px;max-width:360px}
+.search input{width:100%;font:500 15px var(--sans);color:var(--ink);background:var(--raise);border:1px solid var(--rule);border-radius:999px;padding:8px 14px 8px 36px}
+.search input::placeholder{color:var(--ink-3)}
+.search input:focus{outline:2px solid var(--brass);outline-offset:0;border-color:transparent}
+.search svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);width:16px;height:16px;stroke:var(--ink-3);fill:none;stroke-width:2;pointer-events:none}
+.sort{font:600 14px var(--sans);color:var(--ink-2);border:1px solid var(--rule);background:var(--raise);border-radius:999px;padding:7px 12px;white-space:nowrap}
+.sort[aria-pressed="true"]{border-color:var(--brass);color:var(--brass-ink);background:var(--brass-soft)}
+@media (max-width:640px){.tools{position:static}.tabs{width:100%;margin-right:0}.search{max-width:none}}
+
+/* the homes */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px;padding-bottom:50px}
+@media (max-width:640px){.grid{grid-template-columns:1fr;gap:12px}}
+.home{background:var(--raise);border:1px solid var(--rule);border-radius:14px;padding:16px 18px 14px;display:flex;flex-direction:column;min-width:0;animation:in .3s ease both}
+.home:hover{border-color:var(--rule-2)}
+.home.arch{opacity:.72}
+.home.arch .title a{text-decoration:line-through;text-decoration-color:var(--ink-3)}
+@keyframes in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.home{animation:none}}
+.src{display:inline-flex;align-items:center;gap:6px;font:600 11.5px/1 var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--brass-ink);margin-bottom:8px}
+.src i{width:8px;height:8px;border-radius:50%;background:var(--brass);flex:none}
+.src.zillow i{background:#2A6AD4}.src.redfin i{background:#C2412D}.src.realtor i{background:#D92228}.src.trulia i{background:#2F7A55}.src.homes i{background:#8A4FC8}.src.other i{background:var(--ink-3)}
+.src .fav{margin-left:auto;color:var(--brass);font-size:14px;letter-spacing:0}
+.title{font:400 23px/1.2 var(--serif);margin:0 0 8px;letter-spacing:-.005em;overflow-wrap:anywhere}
+.title a{text-decoration:none}
+.title a:hover{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
+.title .ext{font:400 12px var(--sans);color:var(--ink-3);margin-left:6px;vertical-align:middle;white-space:nowrap}
+.facts{display:flex;flex-wrap:wrap;gap:4px 14px;font:500 14px/1.4 var(--sans);color:var(--ink-2);margin:0 0 6px}
+.facts b{font-weight:600;color:var(--ink);font-variant-numeric:tabular-nums}
+.facts .price{font:400 22px/1.1 var(--serif);color:var(--ink);width:100%;margin-bottom:2px}
+.facts .price small{font:500 13px var(--sans);color:var(--ink-3);margin-left:6px}
+.notes{margin:8px 0 0;padding:8px 12px;border-left:2px solid var(--brass);color:var(--ink-2);font-size:14px;line-height:1.5;background:var(--brass-soft);border-radius:0 8px 8px 0;white-space:pre-line;overflow-wrap:anywhere}
+.tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px}
+.tag{font:600 12px var(--sans);color:var(--ink-2);border:1px solid var(--rule);background:var(--paper);border-radius:999px;padding:3px 9px}
+.tag:hover{border-color:var(--brass);color:var(--brass-ink)}
+.foot{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:auto;padding-top:12px;border-top:1px solid var(--rule);margin-top:14px}
+.when{font:500 12.5px var(--sans);color:var(--ink-3);white-space:nowrap}
+.acts{display:flex;gap:2px}
+.acts button{width:32px;height:32px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;color:var(--ink-3)}
+.acts button svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.acts button:hover{background:var(--shoal);color:var(--ink)}
+.acts button[aria-pressed="true"]{color:var(--brass)}
+.acts button[aria-pressed="true"] svg{fill:currentColor}
+.acts button.del:hover{color:var(--signal)}
+.vpin{display:inline-flex;align-items:center;gap:5px;border:1px solid var(--rule);background:var(--raise);border-radius:999px;padding:4px 11px 4px 8px;font:600 12.5px var(--sans);color:var(--ink-2);white-space:nowrap;margin-right:auto}
+.vpin svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linejoin:round}
+.vpin:hover{border-color:var(--brass)}
+.vpin[aria-pressed="true"]{color:var(--signal);border-color:var(--signal)}
+.vpin[aria-pressed="true"] svg{fill:currentColor}
+
+/* nothing yet */
+.empty{padding:50px 0 70px;max-width:60ch}
+.empty h2{font:400 32px/1.15 var(--serif);margin:0 0 8px}
+.empty p{color:var(--ink-2);margin:0 0 18px}
+.empty .ex{display:grid;gap:8px;margin-top:22px;padding:16px 18px;border:1px solid var(--rule);border-radius:14px;background:var(--raise);font-size:14.5px;color:var(--ink-2)}
+.empty .ex b{color:var(--ink);font-weight:600}
+
+/* the sheet: add or edit a home */
+.scrim{position:fixed;inset:0;z-index:55;background:var(--scrim);display:none}
+.scrim.on{display:block}
+.sheet{position:fixed;z-index:60;left:50%;top:50%;transform:translate(-50%,-50%);width:min(560px,calc(100vw - 24px));max-height:calc(100vh - 32px);overflow:auto;background:var(--raise);border:1px solid var(--rule-2);border-radius:16px;box-shadow:0 18px 48px rgba(14,26,43,.22);display:none}
+.sheet.on{display:block}
+.sheet form{padding:20px 22px 22px}
+.sheet h2{font:400 30px/1.1 var(--serif);margin:0 0 4px}
+.sheet .sub{margin:0 0 16px;font-size:14px;color:var(--ink-3)}
+.sheet label{display:block;font:600 12px/1.3 var(--sans);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);margin:12px 0 5px}
+.sheet input,.sheet textarea,.sheet select{width:100%;font:400 15.5px var(--sans);color:var(--ink);background:var(--paper);border:1px solid var(--rule-2);border-radius:10px;padding:10px 12px}
+.sheet input:focus,.sheet textarea:focus,.sheet select:focus{outline:2px solid var(--brass);outline-offset:0;border-color:transparent}
+.sheet textarea{min-height:72px;resize:vertical}
+.sheet .row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.sheet .row.two{grid-template-columns:1fr 1fr}
+.sheet .hint{font-size:12.5px;color:var(--ink-3);margin:5px 0 0}
+.sheet .ok{color:var(--ok)}
+.sheet .foot2{display:flex;gap:8px;justify-content:flex-end;align-items:center;margin-top:20px;flex-wrap:wrap}
+.sheet .foot2 .del{margin-right:auto;color:var(--signal);font-weight:600;font-size:14px}
+@media (max-width:640px){
+  .sheet{left:0;right:0;top:auto;bottom:0;transform:none;width:100%;border-radius:18px 18px 0 0;max-height:92vh}
+  .sheet form{padding:18px 16px calc(18px + env(safe-area-inset-bottom))}
+  .sheet .row{grid-template-columns:1fr 1fr}
+}
+
+footer{border-top:1px solid var(--rule);padding:26px 0 50px;color:var(--ink-3);font-size:13px}
+footer p{max-width:80ch;margin:0 0 8px}
+footer a{color:var(--ink-2)}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:80;background:var(--ink);color:var(--paper);padding:10px 16px;border-radius:12px;font-size:14px;box-shadow:0 10px 30px rgba(0,0,0,.25);max-width:calc(100vw - 32px);display:flex;gap:12px;align-items:center}
+.toast[hidden]{display:none}
+.toast a,.toast button{color:var(--paper);font-weight:700}
+.toast button{text-decoration:underline}
+</style>
+</head>
+<body>
+<script>
+// the same paper as The Watch: day, night, or follow the watch (8 p.m. to 4 a.m. Eastern is night)
+(function(){try{var p=JSON.parse(localStorage.getItem('watch.v1')||'{}');var t=p.theme||'auto';var h=+new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',hour:'numeric',hourCycle:'h23'}).format(new Date());
+if(t==='auto'){t=(h>=20||h<4)?'night':(matchMedia('(prefers-color-scheme: dark)').matches?'night':'day')}document.documentElement.dataset.theme=t;}catch(e){}})();
+</script>
+<header class="mast"><div class="wrap">
+  <a class="back" href="../../#/s/home"><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" fill="#15243B"/><circle cx="32" cy="32" r="21" fill="none" stroke="#D6B25E" stroke-width="6" stroke-dasharray="19 3"/><path d="M32 32 L46 14" stroke="#F5F7F6" stroke-width="4" stroke-linecap="round"/></svg>The Watch <span>Home</span></a>
+  <div class="mast-r"><button class="tbtn" id="export" type="button" title="Download your saved homes as a file">Back up</button><button class="tbtn" id="theme" type="button" aria-label="Switch between day and night paper">Night</button></div>
+</div></header>
+
+<main class="wrap" id="main">
+  <div class="head">
+    <div><h1>Home Saver</h1><p class="lede">Every home you're looking at, in one place. Paste the listing, note what you thought, star the ones you like and archive the ones that sold. It stays in this browser; pin any of them to Vision to share with your partner.</p></div>
+    <button class="btn solid" id="add" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>Save a home</button>
+  </div>
+  <div class="stats" id="stats"></div>
+  <div class="tools">
+    <div class="tabs" role="tablist" id="tabs">
+      <button type="button" data-tab="active" aria-current="page">Looking <small id="nActive">0</small></button>
+      <button type="button" data-tab="fav">Starred <small id="nFav">0</small></button>
+      <button type="button" data-tab="arch">Archive <small id="nArch">0</small></button>
+    </div>
+    <div class="search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><label class="sr" for="q">Search your homes</label><input id="q" type="search" placeholder="Address, notes, tags, price…" autocomplete="off"></div>
+    <button class="sort" type="button" id="sortPrice" aria-pressed="false">Price</button>
+    <button class="sort" type="button" id="sortDate" aria-pressed="false">Date</button>
+  </div>
+  <div class="grid" id="grid"></div>
+  <div class="empty" id="empty" hidden></div>
+</main>
+
+<footer><div class="wrap">
+  <p><b>Where this lives.</b> Nothing here is uploaded. The homes you save stay in this browser's own storage, so clear the browser's data and they go with it: <button type="button" id="export2" style="text-decoration:underline;color:var(--ink-2)">Back up</button> downloads them as a file, and <label style="text-decoration:underline;cursor:pointer;color:var(--ink-2)">Restore<input type="file" id="import" accept="application/json,.json" class="sr"></label> brings one back. A pin goes to Vision through this browser too, so open Vision here once after pinning.</p>
+  <p>Listing sites are linked, never read: the price, the beds and the baths are what you typed. For what a whole ZIP code costs, and to save a search the updater follows, use the <a href="../../#/s/home">Home desk</a>.</p>
+  <p><a href="../../#/s/home">The Watch · Home</a> · <a href="../../#/shop">Shopping</a> · <a href="../../../shop/#/s/home">For the house, from Finds</a> · <a href="../../../vision/">Vision</a></p>
+</div></footer>
+
+<div class="scrim" id="scrim"></div>
+<div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetH">
+  <form id="form" novalidate>
+    <h2 id="sheetH">Save a home</h2>
+    <p class="sub">Paste the listing and whatever you know about it. Only the address is required.</p>
+    <label for="fUrl">Listing</label>
+    <input id="fUrl" type="url" placeholder="https://www.zillow.com/homedetails/…" inputmode="url" autocomplete="off">
+    <p class="hint" id="urlHint">Zillow, Redfin, Realtor.com, Trulia, Homes.com or any page.</p>
+    <label for="fTitle">Address</label>
+    <input id="fTitle" type="text" placeholder="742 Evergreen Terrace, Springfield" autocomplete="off" required>
+    <div class="row">
+      <div><label for="fPrice">Price</label><input id="fPrice" type="text" placeholder="$425,000" inputmode="decimal" autocomplete="off"></div>
+      <div><label for="fBeds">Beds</label><select id="fBeds"><option value="">–</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6+</option></select></div>
+      <div><label for="fBaths">Baths</label><select id="fBaths"><option value="">–</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>3.5</option><option>4+</option></select></div>
+    </div>
+    <div class="row two">
+      <div><label for="fSqft">Square feet</label><input id="fSqft" type="text" placeholder="1,850" inputmode="numeric" autocomplete="off"></div>
+      <div><label for="fTags">Tags</label><input id="fTags" type="text" placeholder="pool, garage, fixer-upper" autocomplete="off"></div>
+    </div>
+    <label for="fNotes">Notes</label>
+    <textarea id="fNotes" placeholder="Great backyard, roof looks tired, two blocks from the school…"></textarea>
+    <div class="foot2">
+      <button type="button" class="del" id="fDel" hidden>Delete this home</button>
+      <button type="button" class="btn" id="fCancel">Cancel</button>
+      <button type="submit" class="btn solid" id="fSave">Save</button>
+    </div>
+  </form>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+<script>
+'use strict';
+/* Home Saver. One list in this browser ('watch.homes'); pins go to Vision through 'vision.inbox', the way the rest of The Watch pins. */
+const $ = (s, el = document) => el.querySelector(s);
+const $$ = (s, el = document) => [...el.querySelectorAll(s)];
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const KEY = 'watch.homes', VISION = '../../../vision/';
+const LS = {
+  get(k, d) { try { const v = JSON.parse(localStorage.getItem(k)); return v == null ? d : v; } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); return true; } catch (e) { return false; } }
+};
+function load() {
+  let d = LS.get(KEY, null);
+  if (!d) { // a list kept by the earlier HomeVault page, if this browser has one
+    const old = LS.get('homevault_entries', null);
+    d = { v: 1, items: Array.isArray(old) ? old.map(e => Object.assign({}, e, { id: e.id || uid() })) : [] };
+  }
+  if (!Array.isArray(d.items)) d.items = [];
+  return d;
+}
+const S = load();
+const save = () => { if (!LS.set(KEY, S)) toast('This browser isn’t saving anything, so the list won’t be kept.'); };
+const uid = () => 'h' + Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+let tab = 'active', sort = '', q = '', editing = null;
+
+/* ---------- a listing's site, from its address */
+const SITES = [['zillow.com', 'zillow', 'Zillow'], ['redfin.com', 'redfin', 'Redfin'], ['realtor.com', 'realtor', 'Realtor.com'], ['trulia.com', 'trulia', 'Trulia'], ['homes.com', 'homes', 'Homes.com']];
+function site(url) {
+  let h = ''; try { h = new URL(url).hostname.toLowerCase(); } catch (e) { return ['other', url ? 'Link' : 'No link']; }
+  for (const [d, id, n] of SITES) if (h === d || h.endsWith('.' + d)) return [id, n];
+  return ['other', h.replace(/^www\./, '')];
+}
+const safeUrl = u => /^https?:\/\//i.test(u || '') ? u : '';
+const priceN = p => { const n = parseFloat(String(p || '').replace(/[^0-9.]/g, '')); if (!n) return 0; return /k$/i.test(String(p).trim()) ? n * 1000 : /m$/i.test(String(p).trim()) ? n * 1e6 : n; };
+const money = n => '$' + Math.round(n).toLocaleString('en-US');
+const priceText = p => { const n = priceN(p); return n ? money(n) : (p || ''); };
+const when = iso => { const d = new Date(iso); return isNaN(d) ? '' : d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: d.getFullYear() === new Date().getFullYear() ? undefined : 'numeric' }); };
+const tagsOf = e => Array.isArray(e.tags) ? e.tags : [];
+
+/* ---------- Vision */
+const vinbox = () => { const v = LS.get('vision.inbox', []); return Array.isArray(v) ? v : []; };
+function onVision(key) {
+  let on = false;
+  const b = LS.get('vision.v1', null);
+  if (b && b.items) on = Object.values(b.items).some(it => it.key === key && !it.del);
+  for (const p of vinbox()) if (p.key === key) on = !p.unpin;
+  return on;
+}
+function pinVision(e) {
+  const key = 'listing:' + (safeUrl(e.url) || e.id), on = onVision(key);
+  const q2 = vinbox().filter(x => x.key !== key);
+  if (on) q2.push({ key, unpin: true, at: Date.now() });
+  else {
+    const facts = [e.beds && e.beds + ' bd', e.baths && e.baths + ' ba', e.sqft && e.sqft + ' sq ft'].filter(Boolean).join(' · ');
+    q2.push({ key, lane: 'home', kind: 'listing', title: String(e.title).slice(0, 160), url: safeUrl(e.url), price: priceN(e.price) || null, cur: 'USD', site: site(e.url)[1] === 'Link' || site(e.url)[1] === 'No link' ? 'The Watch' : site(e.url)[1],
+      note: [facts, e.notes].filter(Boolean).join('\n').slice(0, 600), at: Date.now() });
+  }
+  if (!LS.set('vision.inbox', q2.slice(-150))) { toast('This browser isn’t saving anything, so it can’t be pinned.'); return; }
+  toast(on ? 'Taken off Vision' : `Pinned to Vision: ${e.title}`, on ? '' : `<a href="${VISION}">Open Vision</a>`);
+  render();
+}
+
+/* ---------- the list */
+function shown() {
+  let list = S.items.filter(e => tab === 'arch' ? e.archived : tab === 'fav' ? e.favorite && !e.archived : !e.archived);
+  if (q) { const k = q.toLowerCase(); list = list.filter(e => [e.title, e.url, e.notes, e.price, e.beds, e.baths, e.sqft, ...tagsOf(e)].join(' ').toLowerCase().includes(k)); }
+  const pn = e => priceN(e.price) || Infinity; // no price: last
+  const by = { 'price-asc': (a, b) => pn(a) - pn(b), 'price-desc': (a, b) => priceN(b.price) - priceN(a.price), 'date-asc': (a, b) => Date.parse(a.created) - Date.parse(b.created) }[sort] || ((a, b) => Date.parse(b.created) - Date.parse(a.created));
+  return list.slice().sort(by);
+}
+const ICON = {
+  star: '<svg viewBox="0 0 24 24"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2L12 17.3 6.4 20.2l1.1-6.2L3 9.6l6.2-.9z"/></svg>',
+  edit: '<svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>',
+  box: '<svg viewBox="0 0 24 24"><path d="M3 7h18v3H3z"/><path d="M5 10v10h14V10"/><path d="M10 14h4"/></svg>',
+  unbox: '<svg viewBox="0 0 24 24"><path d="M3 7h18v3H3z"/><path d="M5 10v10h14V10"/><path d="M12 17v-5"/><path d="m9.5 14.5 2.5-2.5 2.5 2.5"/></svg>',
+  del: '<svg viewBox="0 0 24 24"><path d="M4 7h16"/><path d="M10 11v6M14 11v6"/><path d="M6 7l1 13h10l1-13"/><path d="M9 7V4h6v3"/></svg>',
+  heart: '<svg viewBox="0 0 24 24"><path d="M12 20.5s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.6a4.3 4.3 0 0 1 7.5 2.7c0 5.6-7.5 10.2-7.5 10.2z"/></svg>'
+};
+function card(e) {
+  const [sid, sname] = site(e.url), url = safeUrl(e.url), key = 'listing:' + (url || e.id), on = onVision(key);
+  const facts = [e.beds && `<span><b>${esc(e.beds)}</b> bd</span>`, e.baths && `<span><b>${esc(e.baths)}</b> ba</span>`, e.sqft && `<span><b>${esc(e.sqft)}</b> sq ft</span>`].filter(Boolean).join('');
+  const pr = priceText(e.price), n = priceN(e.price), sq = parseFloat(String(e.sqft || '').replace(/[^0-9.]/g, ''));
+  return `<article class="home${e.archived ? ' arch' : ''}" data-id="${esc(e.id)}">
+    <div class="src ${sid}"><i></i>${esc(sname)}${e.favorite ? '<span class="fav" aria-label="Starred">★</span>' : ''}</div>
+    <h2 class="title">${url ? `<a href="${esc(url)}" target="_blank" rel="noopener">${esc(e.title)}</a><span class="ext" aria-hidden="true">↗</span>` : esc(e.title)}</h2>
+    ${pr || facts ? `<div class="facts">${pr ? `<span class="price">${esc(pr)}${n && sq ? `<small>${money(n / sq)}/sq ft</small>` : ''}</span>` : ''}${facts}</div>` : ''}
+    ${e.notes ? `<p class="notes">${esc(e.notes)}</p>` : ''}
+    ${tagsOf(e).length ? `<div class="tags">${tagsOf(e).map(t => `<button type="button" class="tag" data-tag="${esc(t)}">${esc(t)}</button>`).join('')}</div>` : ''}
+    <div class="foot">
+      <button type="button" class="vpin" data-pin="${esc(e.id)}" aria-pressed="${on}" title="Pin it to Vision, the board you share with your partner">${ICON.heart}${on ? 'On Vision' : 'Vision'}</button>
+      <span class="when">${esc(when(e.created))}</span>
+      <div class="acts">
+        <button type="button" data-fav="${esc(e.id)}" aria-pressed="${!!e.favorite}" title="${e.favorite ? 'Unstar' : 'Star'}" aria-label="${e.favorite ? 'Unstar' : 'Star'}">${ICON.star}</button>
+        <button type="button" data-edit="${esc(e.id)}" title="Edit" aria-label="Edit">${ICON.edit}</button>
+        <button type="button" data-arch="${esc(e.id)}" title="${e.archived ? 'Bring back' : 'Archive'}" aria-label="${e.archived ? 'Bring back' : 'Archive'}">${e.archived ? ICON.unbox : ICON.box}</button>
+        <button type="button" class="del" data-del="${esc(e.id)}" title="Delete" aria-label="Delete">${ICON.del}</button>
+      </div>
+    </div>
+  </article>`;
+}
+function render() {
+  const list = shown(), grid = $('#grid'), empty = $('#empty');
+  grid.innerHTML = list.map(card).join('');
+  $$('.home', grid).forEach((el, i) => { el.style.animationDelay = Math.min(i, 12) * 30 + 'ms'; });
+  if (!list.length) {
+    empty.hidden = false;
+    empty.innerHTML = q ? `<h2>Nothing matches “${esc(q)}”</h2><p>Try an address, a tag or a note.</p>`
+      : tab === 'arch' ? `<h2>Nothing archived</h2><p>Homes that sold, or that you've ruled out, go here. They keep their notes.</p>`
+      : tab === 'fav' ? `<h2>Nothing starred yet</h2><p>Star the homes you'd actually go see, and they gather here.</p>`
+      : `<h2>No homes saved yet</h2><p>When you find one on Zillow, Redfin, Realtor.com or anywhere else, paste the link here with the price and what you thought of it.</p><button type="button" class="btn solid" data-add="1">Save the first one</button>
+         <div class="ex"><b>What it keeps</b><span>The listing link, the price, beds, baths and square feet, your tags and notes, and a star.</span><b>What it does with them</b><span>Sorts by price or date, searches everything, works out the price per square foot, and pins any home to Vision.</span></div>`;
+  } else empty.hidden = true;
+  // counts, and the numbers at the top
+  const act = S.items.filter(e => !e.archived), fav = act.filter(e => e.favorite), arch = S.items.filter(e => e.archived);
+  $('#nActive').textContent = act.length; $('#nFav').textContent = fav.length; $('#nArch').textContent = arch.length;
+  const ps = act.map(e => priceN(e.price)).filter(Boolean);
+  const stat = (v, l) => `<div><b>${v}</b><span>${l}</span></div>`;
+  $('#stats').innerHTML = act.length ? stat(act.length, act.length === 1 ? 'home' : 'homes') + (fav.length ? stat(fav.length, 'starred') : '')
+    + (ps.length ? stat(money(ps.reduce((a, b) => a + b, 0) / ps.length), 'typical price') : '') + (ps.length >= 2 ? stat(`${money(Math.min(...ps))} – ${money(Math.max(...ps))}`, 'range') : '') : '';
+  $$('#tabs button').forEach(b => b.dataset.tab === tab ? b.setAttribute('aria-current', 'page') : b.removeAttribute('aria-current'));
+  $('#sortPrice').setAttribute('aria-pressed', sort.startsWith('price')); $('#sortPrice').textContent = sort === 'price-asc' ? 'Price ↑' : sort === 'price-desc' ? 'Price ↓' : 'Price';
+  $('#sortDate').setAttribute('aria-pressed', sort.startsWith('date')); $('#sortDate').textContent = sort === 'date-asc' ? 'Oldest first' : 'Date';
+}
+
+/* ---------- the sheet */
+const F = ['fUrl', 'fTitle', 'fPrice', 'fBeds', 'fBaths', 'fSqft', 'fTags', 'fNotes'].reduce((o, id) => (o[id] = $('#' + id), o), {});
+function openSheet(e) {
+  editing = e ? e.id : null;
+  $('#sheetH').textContent = e ? 'Edit this home' : 'Save a home';
+  $('#fSave').textContent = e ? 'Save changes' : 'Save';
+  $('#fDel').hidden = !e;
+  F.fUrl.value = e ? e.url || '' : ''; F.fTitle.value = e ? e.title || '' : ''; F.fPrice.value = e ? e.price || '' : '';
+  F.fBeds.value = e ? e.beds || '' : ''; F.fBaths.value = e ? e.baths || '' : ''; F.fSqft.value = e ? e.sqft || '' : '';
+  F.fTags.value = e ? tagsOf(e).join(', ') : ''; F.fNotes.value = e ? e.notes || '' : '';
+  urlHint();
+  $('#scrim').classList.add('on'); $('#sheet').classList.add('on');
+  (e ? F.fTitle : F.fUrl).focus();
+}
+function closeSheet() { $('#scrim').classList.remove('on'); $('#sheet').classList.remove('on'); editing = null; }
+function urlHint() {
+  const u = F.fUrl.value.trim(), h = $('#urlHint');
+  if (!u) { h.textContent = 'Zillow, Redfin, Realtor.com, Trulia, Homes.com or any page.'; h.className = 'hint'; return; }
+  if (!safeUrl(u)) { h.textContent = 'That doesn’t look like a web address; it needs to start with https://'; h.className = 'hint'; return; }
+  const [id, n] = site(u); h.textContent = id === 'other' ? `A page on ${n}.` : `A ${n} listing.`; h.className = 'hint ok';
+  if (!F.fTitle.value.trim()) { const g = guessTitle(u); if (g) F.fTitle.value = g; }
+}
+function guessTitle(u) { // Zillow and Redfin put the address in the path: /homedetails/742-Evergreen-Terrace-Springfield-OR-97477/…, /OR/Springfield/742-Evergreen-Ter-97477/home/…
+  try {
+    const parts = new URL(u).pathname.split('/').filter(Boolean);
+    const seg = parts.find(p => /^\d+-[A-Za-z]/.test(p) && /-\d{5}$/.test(p) && !/_zpid$/.test(p)) || parts.find(p => /^\d+-[A-Za-z]/.test(p) && p.length > 10);
+    if (!seg) return '';
+    const w = seg.replace(/-\d{5}$/, '').split('-').filter(Boolean);
+    return w.map((x, i) => i && /^[A-Z]{2}$/.test(x) ? x : x.replace(/^\w/, c => c.toUpperCase())).join(' ');
+  } catch (e) { return ''; }
+}
+$('#form').addEventListener('submit', ev => {
+  ev.preventDefault();
+  const title = F.fTitle.value.trim();
+  if (!title) { F.fTitle.focus(); toast('Give it an address, or any name.'); return; }
+  const url = F.fUrl.value.trim();
+  if (url && !safeUrl(url)) { F.fUrl.focus(); toast('The listing needs to be a web address (https://…), or leave it empty.'); return; }
+  const d = { url, title, price: F.fPrice.value.trim(), beds: F.fBeds.value, baths: F.fBaths.value, sqft: F.fSqft.value.trim(),
+    tags: F.fTags.value.split(',').map(t => t.trim()).filter(Boolean).slice(0, 12), notes: F.fNotes.value.trim() };
+  const e = editing && S.items.find(x => x.id === editing);
+  if (e) { Object.assign(e, d); toast('Saved'); }
+  else { S.items.push(Object.assign({ id: uid(), created: new Date().toISOString(), archived: false, favorite: false }, d)); if (tab === 'arch') tab = 'active'; toast('Saved'); }
+  save(); closeSheet(); render();
+});
+$('#fCancel').addEventListener('click', closeSheet);
+$('#scrim').addEventListener('click', closeSheet);
+$('#fDel').addEventListener('click', () => { const e = S.items.find(x => x.id === editing); if (e) { closeSheet(); del(e); } });
+F.fUrl.addEventListener('input', urlHint);
+F.fUrl.addEventListener('change', urlHint);
+document.addEventListener('keydown', ev => { if (ev.key === 'Escape' && $('#sheet').classList.contains('on')) closeSheet(); });
+
+/* ---------- actions */
+function del(e) {
+  const i = S.items.indexOf(e); if (i < 0) return;
+  S.items.splice(i, 1); save(); render();
+  toast(`Deleted ${e.title}`, `<button type="button" id="undo">Undo</button>`);
+  $('#undo').addEventListener('click', () => { S.items.splice(Math.min(i, S.items.length), 0, e); save(); render(); hideToast(); });
+}
+document.addEventListener('click', ev => {
+  const b = ev.target.closest('button'); if (!b) return;
+  const id = b.dataset.fav || b.dataset.edit || b.dataset.arch || b.dataset.del || b.dataset.pin;
+  const e = id && S.items.find(x => x.id === id);
+  if (b.dataset.add || b.id === 'add') openSheet(null);
+  else if (b.dataset.tab) { tab = b.dataset.tab; render(); }
+  else if (b.dataset.tag != null) { $('#q').value = q = b.dataset.tag; render(); }
+  else if (!e) return;
+  else if (b.dataset.fav) { e.favorite = !e.favorite; save(); render(); toast(e.favorite ? `Starred ${e.title}` : 'Unstarred'); }
+  else if (b.dataset.edit) openSheet(e);
+  else if (b.dataset.arch) { e.archived = !e.archived; save(); render(); toast(e.archived ? 'Archived; it keeps its notes' : 'Back in the list'); }
+  else if (b.dataset.del) del(e);
+  else if (b.dataset.pin) pinVision(e);
+});
+$('#q').addEventListener('input', () => { q = $('#q').value.trim(); render(); });
+$('#sortPrice').addEventListener('click', () => { sort = sort === 'price-asc' ? 'price-desc' : sort === 'price-desc' ? '' : 'price-asc'; render(); });
+$('#sortDate').addEventListener('click', () => { sort = sort === 'date-asc' ? '' : 'date-asc'; render(); });
+
+/* ---------- back up and restore */
+function backup() {
+  const blob = new Blob([JSON.stringify(S, null, 1)], { type: 'application/json' });
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `homes-${new Date().toISOString().slice(0, 10)}.json`; document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+  toast(`Backed up ${S.items.length} ${S.items.length === 1 ? 'home' : 'homes'}`);
+}
+$('#export').addEventListener('click', backup); $('#export2').addEventListener('click', backup);
+$('#import').addEventListener('change', ev => {
+  const f = ev.target.files && ev.target.files[0]; if (!f) return;
+  f.text().then(t => {
+    const d = JSON.parse(t), items = Array.isArray(d) ? d : d && Array.isArray(d.items) ? d.items : null;
+    if (!items) throw new Error('not a backup');
+    let n = 0;
+    for (const x of items) { if (!x || !x.title) continue; const id = x.id || uid(); const e = S.items.find(y => y.id === id); if (e) Object.assign(e, x); else { S.items.push(Object.assign({ created: new Date().toISOString(), archived: false, favorite: false }, x, { id })); n++; } }
+    save(); render(); toast(`Restored: ${n} new, ${items.length - n} already here`);
+  }).catch(() => toast('That file isn’t a Home Saver backup.'));
+  ev.target.value = '';
+});
+
+/* ---------- toast, theme */
+let toastT = 0;
+function toast(msg, html) { const t = $('#toast'); t.innerHTML = esc(msg) + (html ? ' ' + html : ''); t.hidden = false; clearTimeout(toastT); toastT = setTimeout(hideToast, html ? 6000 : 2600); }
+function hideToast() { $('#toast').hidden = true; }
+function themeLabel() { $('#theme').textContent = document.documentElement.dataset.theme === 'night' ? 'Day' : 'Night'; }
+$('#theme').addEventListener('click', () => {
+  const t = document.documentElement.dataset.theme === 'night' ? 'day' : 'night';
+  document.documentElement.dataset.theme = t;
+  const w = LS.get('watch.v1', {}) || {}; w.theme = t; LS.set('watch.v1', w);
+  themeLabel();
+});
+themeLabel();
+window.addEventListener('storage', ev => { if (ev.key === 'vision.inbox' || ev.key === 'vision.v1') render(); });
+// ?add=<url> opens the sheet with the listing filled in (a bookmarklet or a share can send one)
+(function () { const p = new URLSearchParams(location.search), u = p.get('add') || p.get('url'); if (u) { history.replaceState(null, '', location.pathname); openSheet(null); F.fUrl.value = u; if (p.get('title')) F.fTitle.value = p.get('title'); urlHint(); } })();
+render();
+</script>
+</body>
+</html>
