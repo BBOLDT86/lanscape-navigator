@@ -1326,6 +1326,7 @@ function parseHash() {
   if (a === 'impact') return { t: 'impact', id: b || '' };
   if (a === 'columns') return { t: 'columns' };
   if (a === 'garage') return { t: 'garage' };
+  if (a === 'sports') return b ? { t: 'sports', p: b } : { t: 'desk', k: 'sports' };
   if (a === 'build' && b) return { t: 'build', id: b };
   if (a === 'fsd') return { t: 'fsd' };
   if (a === 'latenight') return { t: 'late' };
@@ -1350,7 +1351,7 @@ function storyRow(it, o = {}) {
 
 function renderBar() {
   const items = [['home', '', 'Front'], ['you', 'for-you', 'For you'], ['reports', 'reports', 'Reports'], ['pictures', 'pictures', 'Pictures'], ['video', 'video', 'Video'], ['late', 'latenight', 'Late Night'], ['weather', 'weather', 'Weather'], ['shop', 'shop', 'Shopping'], ['vision', '../vision/', 'Vision'], ...deskList().map(s => ['desk:' + s.k, 's/' + s.k, secName(s.k)]), ['files', 'files', 'Epstein files']];
-  const cur = view.t === 'desk' ? 'desk:' + view.k : view.t === 'article' ? 'reports' : ['impact', 'col', 'columns'].includes(view.t) ? 'desk:business' : ['garage', 'build', 'fsd'].includes(view.t) ? 'desk:cars' : view.t === 'piece' ? 'late' : view.t;
+  const cur = view.t === 'desk' ? 'desk:' + view.k : view.t === 'article' ? 'reports' : ['impact', 'col', 'columns'].includes(view.t) ? 'desk:business' : ['garage', 'build', 'fsd'].includes(view.t) ? 'desk:cars' : view.t === 'sports' ? 'desk:sports' : view.t === 'piece' ? 'late' : view.t;
   $('#bar').innerHTML = items.map(([id, h, label]) =>
     `<button type="button" data-go="${h.startsWith('../') ? h : '#/' + h}"${id === cur ? ' aria-current="page"' : ''}${id === 'you' ? ' class="you"' : ''}>${esc(label)}</button>`).join('');
   const on = $('#bar [aria-current]');
@@ -1382,6 +1383,7 @@ function renderFoot() {
     <p>${T('The “For you” picks learn from what you open, how long you stay with it, what you search for, and what you tell it with More or Less like this. That record stays in this browser; nothing about your reading leaves it. Open Your compass to see or change it.')}</p>
     ${LANG !== 'en' ? `<p>${T('Headlines and stories stay in the language each outlet publishes in. Outlets that write in your language come first; the reports are translated by Claude.')}</p>` : ''}
     <p>${T('Headlines and summaries belong to their outlets, and every story links to the original. Market prices and charts come from CNBC; economic numbers from the BLS, BEA and EIA (through DBnomics), the New York Fed, Freddie Mac and the University of Michigan; calendars from Nasdaq. They are a snapshot at each edition, not a live feed. Home values and rents come from Zillow’s public research data. Slideshow pictures stay on the outlets’ sites, and videos play in YouTube’s player from news channels’ public uploads. Election numbers are read live from the Election Desk and the Brazil desk on this site, and the Epstein files from Inbox Atlas.')}</p>
+    <p>${T('Scores, schedules, standings, TV listings and ticket prices on the Sports pages come from ESPN, live while you look.')}</p>
     <p>${T('Reports are written by Claude, an AI model made by Anthropic, one a day. Each is signed with the model that wrote it and the time it was written, and cites the reporting it draws on.')}</p></div>
     <div><h4>${T('This edition')}</h4>
     <p>${(f.read != null ? T('Read {read} of {total} sources at {time}.', { read: f.read, total: f.total, time: esc(clock(E.at)) }) : '')} ${T('{n} stories, {m} covered by three or more outlets.', { n: E.items.length.toLocaleString(LOC()), m: E.clusters.filter(c => c.n >= 3).length })}</p>
@@ -1496,6 +1498,7 @@ function renderDesk(k) {
       top: (k === 'politics' ? electionsHTML(true) : k === 'brazil' ? brMissPromo() + electionsHTML(true, 'br') : k === 'travel' ? lifeSlot(lifeTravel) : k === 'power' ? `<div id="pwrWrap" class="mk">${powerHTML()}</div>` : k === 'cars' ? `<div id="garWrap">${garageHTML()}</div>` : k === 'food' ? `<div id="fridgeWrap">${fridgeHTML()}</div>` : k === 'sports' ? finalsFeature() : k === 'lifestyle' ? togetherFeature() + dateNightFeature() + visionFeature() : '') + deskBanner(k) + deskShop(k),
       empty: k === 'lifestyle' ? T('Lifestyle stories start with the next edition.') : undefined });
   if (k === 'food') bindFridge();
+  if (k === 'sports') sportsTop();
   if (k === 'cars' && !GAR) ensureGarage().then(() => { const w = $('#garWrap'); if (w && view.t === 'desk' && view.k === 'cars') w.innerHTML = garageHTML(); });
   if (k === 'power') { if (!PWR) ensurePower().then(() => { const w = $('#pwrWrap'); if (w && view.t === 'desk' && view.k === 'power') { w.innerHTML = powerHTML(); bindPower(); } }); else bindPower(); }
 }
@@ -1992,6 +1995,7 @@ function render(keepScroll) {
   else if (view.t === 'impact') renderImpact(view.id);
   else if (view.t === 'columns') renderColumns();
   else if (view.t === 'garage') renderGarage();
+  else if (view.t === 'sports') renderSports(view.p);
   else if (view.t === 'build') renderBuild(view.id);
   else if (view.t === 'fsd') renderFSD();
   else if (view.t === 'late') renderLate();
@@ -3279,6 +3283,38 @@ window.addEventListener('focus', cameBack);
 setInterval(() => { // time spent on a section's page counts toward it
   if (document.visibilityState === 'visible' && view.t === 'desk' && !document.body.classList.contains('dopen')) { P.sec[view.k] = clamp((P.sec[view.k] || 0) + 0.15, -12, 30); save(); }
 }, 20000);
+
+/* ================= sports: scores, schedules, standings (news/sports/sports.js, loaded on the Sports pages) ================= */
+let spBusy = null;
+function ensureSports() {
+  if (window.WatchSports) return Promise.resolve(window.WatchSports);
+  if (spBusy) return spBusy;
+  window.WatchKit = { T, esc, $, $$, getJSON, lsGet, lsSet, toast, go, storyRow, LOC, lang: () => LANG, edition: () => E, view: () => view };
+  const base = /^https?:$/.test(location.protocol) ? 'sports/' : PUBLIC + 'sports/', v = '?v=' + Math.floor(Date.now() / 600000);
+  spBusy = new Promise((ok, no) => {
+    const l = document.createElement('link'); l.rel = 'stylesheet'; l.href = base + 'sports.css' + v; document.head.appendChild(l);
+    const sc = document.createElement('script'); sc.src = base + 'sports.js' + v;
+    sc.onload = () => window.WatchSports ? ok(window.WatchSports) : no(new Error('no WatchSports'));
+    sc.onerror = () => { spBusy = null; l.remove(); sc.remove(); no(new Error('sports.js did not load')); };
+    document.head.appendChild(sc);
+  });
+  return spBusy;
+}
+function renderSports(p) {
+  if (!window.WatchSports) $('#main').innerHTML = `<div class="wrap"><p class="note" style="padding:48px 0">${T('Loading the scores…')}</p></div>`;
+  ensureSports().then(S => { if (view.t === 'sports' && view.p === p) S.page(p); })
+    .catch(() => { if (view.t === 'sports') $('#main').innerHTML = `<div class="wrap"><p class="note" style="padding:48px 0">${T('The scores didn’t load. Check your connection and try again.')} <a href="#/s/sports">${T('Sports')}</a></p></div>`; });
+}
+function sportsTop() { // the scores sit at the top of the Sports desk, above its stories
+  if (!$('#spTop')) {
+    const w = $('#main .wrap'); if (!w) return;
+    const el = document.createElement('div'); el.id = 'spTop';
+    let dt = w.querySelector('.desk-top');
+    if (!dt) { dt = document.createElement('div'); dt.className = 'desk-top'; w.prepend(dt); }
+    dt.prepend(el);
+  }
+  ensureSports().then(S => { const el = $('#spTop'); if (el && view.t === 'desk' && view.k === 'sports') S.top(el); }).catch(() => { const el = $('#spTop'); if (el) el.remove(); });
+}
 
 /* ================= toasts ================= */
 let toastT = 0;

@@ -82,6 +82,40 @@ biggest U.S. projects with their power need in megawatts, status, how they're po
 sources, plus a short summary of the week. `dctrack.py check` validates it. The page maps the projects on
 `data/usmap.json` (the states, Albers USA, built from the Election Desk's map).
 
+## Sports (`sports.py` -> `data/sports/`; the page's part in `news/sports/`)
+
+The Sports desk opens with the day's games across the leagues, and each league has its own page: the NFL, NBA, MLB,
+NHL, WNBA, MLS and soccer (the Premier League, the Champions League, LaLiga, the Bundesliga, Serie A, Ligue 1, the
+Europa League and the Brasileirão). On every news run `sports.py` reads ESPN's public scoreboard, standings, teams and
+news service (`site.api.espn.com`), which answers GitHub's runners, and writes one file per league:
+- the games: a few days back to a week or more ahead, one day at a time (ESPN takes one date per request); the NFL by
+  week, last week to two weeks on, with the season's week calendar and the teams on a bye. Each game carries the score
+  and line score, the status, the series or round ("World Series - Game 3", "MIL leads series 2-0"), the venue, the
+  national TV and streaming services and the teams' local channels, ESPN's lowest ticket price and how many are for
+  sale with its ticket partner's link, the betting line before kickoff, the recap headline after, and while it's on the
+  count and runners (baseball) or the down and distance (football);
+- the standings (the NFL, NBA, NHL and MLB by division; soccer tables with ESPN's qualification and relegation notes);
+- the teams (names, colors, logos, which competition);
+- the league's news: ESPN's own list, CBS Sports, The Athletic, Yahoo Sports and a few others per league (Pro Football
+  Talk, MLB.com, the Guardian and BBC Sport for soccer, a Google News search for MLS kept to sports outlets), deduplicated,
+  tagged with the teams they name, no outlet more than half the list.
+
+`data/sports/index.json` has every league's state in a line (the phase of the season, live and today's games, the
+next game, a champion once a final is over), today's games across the leagues, and the big ones (finals and playoff
+games, the NFL's night games, the Champions League). A league that fails keeps its last good file; `python3
+news/updater/sports.py check` validates them, and `--record DIR` / `--replay DIR` save and replay every answer for tests.
+
+The page loads `news/sports/sports.js` and `sports.css` only when a Sports page opens (`ensureSports()` in
+`index.html` hands them the page's helpers as `window.WatchKit`). ESPN lets browsers read it, so while a page is open
+the scores come live from ESPN, every 30 seconds while a game is on, and the edition's files are what draws first and
+what shows, dated, if ESPN can't be reached. Pages: `#/s/sports` (the desk), `#/sports/<league>/<scores|schedule|
+standings|news|teams>`, `#/sports/soccer/<competition>/...`, a game at `#/sports/<league>/g/<id>` (live from ESPN's
+game summary: line score, win probability, scoring plays or goals and cards, leaders, team stats, the box score,
+injuries, the last five games) and a team at `#/sports/<league>/t/<id>` (its schedule and results from ESPN, its
+standing and its news). Readers can follow teams (kept in their browser, `watch.teams`): their games come first on the
+desk and the schedule and news can be narrowed to them. Ticket buttons list ESPN's price and links to search Vivid
+Seats, SeatGeek, StubHub, Ticketmaster and Gametime for that game; nothing is bought or collected here.
+
 ## The garage and FSD (`garage.py` -> `data/garage.json`; `news/garage/`; `data/fsd.json`)
 
 The Cars desk opens with the garage. On every news run `garage.py` reads, from the feeds the sites publish:
@@ -286,7 +320,7 @@ file straight from the TSE every minute.
   general feed whose stories default to World rather than U.S.). Then Run workflow.
 - **Tune sorting or tags:** `run.py` (`SECTION_WORDS`, `PATH_SECTION`, `TOPICS`). Rebuild the last edition without the
   network to see the effect: `python3 news/updater/run.py --offline`.
-- **The page:** `news/index.html`, one file.
+- **The page:** `news/index.html`, one file, plus `news/sports/sports.js` and `sports.css` for the Sports pages.
 
 ## Languages: English, Portuguese, German
 
