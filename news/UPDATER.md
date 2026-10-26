@@ -287,6 +287,20 @@ tag in `watch.v1`; or reading The Watch in Portuguese. Someone who has already o
 (`watch.br.hinge`) sees it once. The count and the closed state live in `watch.brmiss`. While it is pinned, the
 Today's report slot skips the same report.
 
+## Weather (`#/weather`)
+
+The reader's forecast (Open-Meteo: now, 24 hours, ten days, air quality), the National Weather Service's warnings,
+radar loop and forecaster text for U.S. places, the Storm Prediction Center's outlook for the day (and whether the
+reader's spot is inside a risk area), the severe and extreme warnings in force nationwide, the National Hurricane
+Center's active storms and seven-day outlooks, the weather news from the edition, and **the airports**: live METARs,
+TAFs and FAA ground stops and delay programs from Meridian's feed (`meridian-feed` branch, every 5 minutes), shown as
+flight categories with the nearest airport's observation on the forecast card. All of these allow browsers to read
+them, so the page fetches them live. Two things don't, so `news/updater/weather.py` writes them into
+`news/data/weather.json` with every run of the news workflow: Meridian's station list (from `meridian/index.html`) and
+the hurricane center's active storms. The place a reader picks (search, ZIP code, or their device's location) is kept
+in their browser (`watch.wx`); until then the page guesses from the time zone and says so. The masthead shows the
+temperature there, and the front page carries a red band while a severe or extreme warning is in force for it.
+
 ## Size
 
 Each edition is about 450 KB of JSON (about 110 KB over the wire); the markets file about 150 KB; the Epstein files

@@ -61,6 +61,11 @@ jobs:
         continue-on-error: true
         run: |
           python3 news/updater/media.py || echo "media failed; the page works without it"
+      - name: Weather (the airports and the tropics)
+        timeout-minutes: 2
+        continue-on-error: true
+        run: |
+          python3 news/updater/weather.py || echo "weather failed; kept the last copy"
       - name: Late Night segments
         timeout-minutes: 2
         continue-on-error: true
