@@ -82,6 +82,12 @@ Frequent Miler, Doctor of Credit and AwardWallet, with sources on each card. A s
   the most of it.
 - **Hotels by city**: the program hotels in the eight Weekender cities, each with a source showing membership
   (`hotels` in points.json; filled by research, never guessed).
+- **The Amex Platinum guide** (`#/points/amex`, short link `travel/amex/`): every Platinum credit with how to use it and
+  the tricks, a year tracker that shares its checkmarks with My credits, the day-one setup list, a worth-it calculator,
+  lounges, hotel status and FHR, protections, transfer partners, sweet spots, the welcome offer and links. Content in
+  `travel/points/amex-platinum.json`, built from Brad's two March 2026 Platinum guides and reconciled with the Oct 26,
+  2026 check (Saks credit gone after June 30, 2026; Etihad dropped; Cathay and Emirates at 5:4; CLEAR+ $219); credit
+  amounts and partners come from points.json, so the monthly refresh keeps both current.
 - **Points news**: `live.py` reads the feeds of The Points Guy, One Mile at a Time, Frequent Miler, Doctor of Credit,
   View from the Wing, Upgraded Points, Thrifty Traveler and AwardWallet every three hours (last 7 days, into
   `live.json` as `points`).

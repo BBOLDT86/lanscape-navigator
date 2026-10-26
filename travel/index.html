@@ -433,6 +433,62 @@ footer a{color:var(--ink2)}
 .pnews li small{display:block;color:var(--ink3);font-size:13px}.pnews li.tb a::before{content:"Transfer bonus · ";color:var(--air-red)}
 .pdisc{margin-top:40px}
 @media (max-width:700px){.ptot{grid-template-columns:1fr}.ptrk li{grid-template-columns:96px minmax(0,1fr);}.ptrk .pt-d{grid-column:2;text-align:left}.pval li{grid-template-columns:130px minmax(0,1fr) 46px}.pgrid{grid-template-columns:1fr}}
+
+/* the Amex Platinum guide */
+.crumb{font-size:14px;color:var(--ink3);margin:22px 0 0}.crumb a{color:var(--brass-ink);font-weight:600;text-decoration:none}
+.axhero{display:grid;grid-template-columns:minmax(0,360px) minmax(0,1fr);gap:34px;align-items:center;padding:22px 0 8px}
+.axhero .pcard{max-width:360px}.axhero h1{font:400 clamp(38px,5.6vw,68px)/.98 var(--display);margin:0 0 12px;letter-spacing:-.02em}
+.axhero .kick{font:700 12px var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--brass-ink);margin:0 0 8px}
+.axkpi{display:flex;gap:10px;flex-wrap:wrap;margin:6px 0 12px}.axkpi div{background:var(--card);border:1px solid var(--rule);border-radius:14px;padding:10px 14px}
+.axkpi b{display:block;font:400 30px/1 var(--display)}.axkpi span{font-size:13px;color:var(--ink2)}
+.pjump a.ax,.chip.ax{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.axjump{position:sticky;top:0;z-index:5;background:var(--paper);padding:10px 0;margin-top:18px;border-bottom:1px solid var(--rule);overflow-x:auto;flex-wrap:nowrap;scrollbar-width:none}
+.axjump a{flex:none}
+.amex .psec{scroll-margin-top:64px}
+.axprose p{max-width:70ch;color:var(--ink2);margin:0 0 10px}.axprose ul{color:var(--ink2);max-width:70ch}
+.axcred{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+.axcred article{background:var(--card);border:1px solid var(--rule);border-radius:18px;padding:16px 18px;display:flex;flex-direction:column;gap:8px}
+.axcred article.used{border-color:color-mix(in srgb,var(--brass) 60%,transparent)}
+.axc-h{display:flex;align-items:baseline;gap:8px}.axc-h b{font:400 34px/1 var(--display)}.axc-h span{font-size:13px;color:var(--ink3)}
+.axcred h3{font:650 17px/1.25 var(--sans);margin:0}.axcred p{margin:0;font-size:14.5px;color:var(--ink2)}
+.axcred ul{margin:0;padding-left:18px;font-size:14px;color:var(--ink2);display:grid;gap:4px}
+.axc-f{margin-top:auto;padding-top:10px;border-top:1px solid var(--rule);display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center;font-size:13.5px}
+.axc-f label{display:flex;gap:7px;align-items:center;font-weight:600;cursor:pointer}.axc-f input{width:18px;height:18px;accent-color:var(--brass)}
+.axc-f small{color:var(--ink3)}.axc-f small.soon{color:var(--air-red);font-weight:650}.axc-f a{color:var(--brass-ink);font-weight:600;text-decoration:none}
+.axbar{background:var(--card);border:1px solid var(--rule);border-radius:16px;padding:14px 18px;margin-bottom:12px}
+.axbar b{font:400 32px/1 var(--display)}.axbar small{color:var(--ink3);font-size:13px}
+.axtrack{height:10px;border-radius:5px;background:var(--paper2);overflow:hidden;margin:10px 0 6px}.axtrack i{display:block;height:100%;background:linear-gradient(90deg,var(--brass),#4a9d6e);border-radius:5px;transition:width .4s}
+.axyr{border-collapse:collapse;width:100%;min-width:720px}.axyr th{text-align:left;font-size:14px;font-weight:650;padding:10px 14px;width:230px;border-top:1px solid var(--rule);vertical-align:middle}
+.axyr th small{display:block;font-weight:400;color:var(--ink3);font-size:12.5px}.axyr td{border-top:1px solid var(--rule);padding:8px 14px 8px 0}
+.axyr tr:first-child th,.axyr tr:first-child td{border-top:0}
+.axcells{display:grid;gap:4px}.axcells.n12{grid-template-columns:repeat(12,1fr)}.axcells.n4{grid-template-columns:repeat(4,1fr)}.axcells.n2{grid-template-columns:repeat(2,1fr)}.axcells.n1{grid-template-columns:1fr}
+.axcells label{position:relative;display:grid;place-items:center;height:34px;border-radius:8px;border:1px solid var(--rule);background:var(--paper);font-size:12px;font-weight:600;color:var(--ink2);cursor:pointer}
+.axcells input{position:absolute;opacity:0;inset:0;cursor:pointer}.axcells label.on{background:var(--brass);border-color:var(--brass);color:#fff}
+.axcells label.gone{opacity:.45}.axcells label.now{box-shadow:0 0 0 2px var(--ink) inset}
+.axcells label:focus-within{outline:2px solid var(--brass);outline-offset:1px}
+.axsetup{list-style:none;counter-reset:s;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:8px}
+.axsetup li{counter-increment:s;background:var(--card);border:1px solid var(--rule);border-radius:14px;padding:12px 14px}
+.axsetup label{display:grid;grid-template-columns:22px minmax(0,1fr);gap:10px;cursor:pointer;font-size:14.5px}.axsetup input{width:20px;height:20px;accent-color:var(--brass);margin:1px 0 0}
+.axsetup input:checked+span{color:var(--ink3);text-decoration:line-through}
+.axworth{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:8px 22px;background:var(--card);border:1px solid var(--rule);border-radius:16px;padding:14px 18px}
+.axworth label{display:grid;grid-template-columns:150px minmax(0,1fr) 64px;gap:2px 10px;align-items:center;font-size:14px}
+.axworth label small{grid-column:3;color:var(--ink3);font-size:12px;margin-top:-4px}.axworth input{accent-color:var(--brass);width:100%}.axworth b{text-align:right}
+.axsum{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:12px}
+.axsum div{background:var(--card);border:1px solid var(--rule);border-radius:16px;padding:12px 16px}.axsum b{display:block;font:400 36px/1 var(--display)}.axsum span{font-size:13.5px;color:var(--ink2)}
+.axsum .pos b{color:#2e7d4f}.axsum .neg b{color:var(--air-red)}
+.axl{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:8px}
+.axl div{background:var(--card);border:1px solid var(--rule);border-radius:12px;padding:10px 12px;display:flex;flex-direction:column}
+.axl b{font:700 15px var(--sans);letter-spacing:.04em;color:var(--brass-ink)}.axl span{font-size:14px}.axl small{font-size:12px;color:var(--ink3)}
+.axl div.soon{border-style:dashed}
+.axt td{text-align:left;white-space:normal}.axt th{text-align:left}
+.axhacks,.axtips{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin-top:14px}
+.axhacks div,.axtips div{background:var(--card);border:1px solid var(--rule);border-radius:16px;padding:14px 16px}
+.axhacks b{font-weight:650}.axhacks p{margin:6px 0 0;font-size:14px;color:var(--ink2)}
+.axtips h3{font:400 24px/1.1 var(--display);margin:0 0 8px}.axtips ul{margin:0;padding-left:18px;font-size:14px;color:var(--ink2);display:grid;gap:6px}
+.axlinks{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:8px}
+.axlinks a{background:var(--card);border:1px solid var(--rule);border-radius:12px;padding:10px 14px;text-decoration:none;display:flex;flex-direction:column}
+.axlinks a:hover{border-color:var(--ink3)}.axlinks small{color:var(--ink3);font-size:12.5px}
+@media (max-width:760px){.axhero{grid-template-columns:1fr;gap:16px}.axhero .pcard{max-width:300px}.axsum{grid-template-columns:1fr}.axworth label{grid-template-columns:120px minmax(0,1fr) 56px}.axworth{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -1259,7 +1315,7 @@ function ptsCards() {
       ${c.bonus && c.bonus.text ? `<p class="pc-o"><b>Welcome offer:</b> ${esc(c.bonus.text)} <small>Seen ${esc(c.bonus.seen || PTS.updated)}${c.bonus.src ? `, <a href="${esc(c.bonus.src)}" target="_blank" rel="noopener">${esc(host(c.bonus.src))}</a>` : ''}</small></p>` : ''}
       <details><summary>Every credit and perk</summary>${(c.credits || []).length ? `<ul class="pc-l">${c.credits.map(x => `<li><b>${usd(x.amount)}</b> ${esc(PERN[x.period] || x.period)} · ${esc(x.name)}${x.note ? `<small>${esc(x.note)}</small>` : ''}</li>`).join('')}</ul>` : ''}
         ${(c.perks || []).length ? `<ul class="pc-l">${c.perks.map(p => `<li>${esc(p)}</li>`).join('')}</ul>` : ''}<p class="disc">${(c.sources || []).slice(0, 4).map(u => `<a href="${esc(u)}" target="_blank" rel="noopener">${esc(host(u))}</a>`).join(' · ')}</p></details>
-      <div class="pc-a"><button type="button" class="chip" data-wallet="${c.id}" aria-pressed="${W.includes(c.id)}">${W.includes(c.id) ? '✓ In my wallet' : '+ I have this card'}</button>${c.url ? `<a class="chip" href="${esc(c.url)}" target="_blank" rel="noopener">Issuer’s page ↗</a>` : ''}</div></div></article>`; }).join('')}</div>`;
+      <div class="pc-a">${c.id === 'amex-platinum' ? '<a class="chip ax" href="#/points/amex">The full Platinum guide →</a>' : ''}<button type="button" class="chip" data-wallet="${c.id}" aria-pressed="${W.includes(c.id)}">${W.includes(c.id) ? '✓ In my wallet' : '+ I have this card'}</button>${c.url ? `<a class="chip" href="${esc(c.url)}" target="_blank" rel="noopener">Issuer’s page ↗</a>` : ''}</div></div></article>`; }).join('')}</div>`;
 }
 function ptsLulu() {
   const L = PTS.lulu; if (!L || !(L.items || []).length) return '';
@@ -1308,7 +1364,7 @@ function ptsNews(tag) {
     <div class="pcities">${['', ...PTAG.map(t => t[0])].map(t => `<button type="button" class="chip" data-ptag="${esc(t)}" aria-pressed="${(tag || '') === t}">${esc(t || 'Everything')}</button>`).join('')}</div>
     <ul class="pnews">${list.slice(0, 30).map(n => `<li${PTAG[PTAG.length - 1][1].test(n.t) ? ' class="tb"' : ''}><a href="${esc(n.u)}" target="_blank" rel="noopener">${esc(n.t)}</a><small>${esc(n.o)} · ${esc(new Date(n.p).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' }))}</small></li>`).join('') || '<li>Nothing on that this week.</li>'}</ul></section>`;
 }
-let ptsCity = null, ptsTag = '';
+let ptsCity = null, ptsTag = '', ptsJump = '';
 async function renderPoints() {
   view = 'points'; setNav('#/points'); document.title = 'Points Hacker · Weekender';
   if (!PTS) { $('#main').innerHTML = '<div class="wrap state"><h2>Opening Points Hacker…</h2></div>'; try { PTS = await getJSON('points/points.json', true); } catch (e) { $('#main').innerHTML = '<div class="wrap state"><h2>Points Hacker didn’t load</h2><p>Check your connection and try again.</p></div>'; return; } if (view !== 'points') return; }
@@ -1316,11 +1372,12 @@ async function renderPoints() {
   const W = ptsWallet();
   $('#main').innerHTML = `<div class="wrap pts"><section class="phero"><p class="kick">Points Hacker</p><h1>Get every dollar out of the cards.</h1>
       <p class="sec-p">The standard points-hacker wallet: what each card earns and costs, every credit it carries and when it resets, the hotel programs, where the points transfer, and the week’s news from The Points Guy, One Mile at a Time, Frequent Miler and Doctor of Credit.</p>
-      <nav class="pjump"><a href="#wallet" data-to="wallet">My credits</a><a href="#cards" data-to="cards">The cards</a><a href="#lulu" data-to="lulu">lululemon $75</a><a href="#hotels" data-to="hotels">Hotel programs</a><a href="#transfers" data-to="transfers">Transfers</a><a href="#news" data-to="news">News</a></nav></section>
+      <nav class="pjump"><a href="#/points/amex" class="ax">The Amex Platinum guide</a><a href="#wallet" data-to="wallet">My credits</a><a href="#cards" data-to="cards">The cards</a><a href="#lulu" data-to="lulu">lululemon $75</a><a href="#hotels" data-to="hotels">Hotel programs</a><a href="#transfers" data-to="transfers">Transfers</a><a href="#news" data-to="news">News</a></nav></section>
     <section class="psec" id="wallet"><h2 class="sec-h">My credits${W.length ? ` <small>${W.length} card${W.length === 1 ? '' : 's'}</small>` : ''}</h2><div id="ptrk">${ptsTracker()}</div></section>
     <section class="psec" id="cards"><h2 class="sec-h">The cards</h2><p class="sec-p">Fees, earning, credits and the current public welcome offers, as of ${esc(PTS.updated)}. Offers change often and some are targeted; the issuer’s page is the final word.</p><div id="pcards">${ptsCards()}</div></section>
     ${ptsLulu()}<div id="phot">${ptsHotels(ptsCity)}</div>${ptsTransfers()}<div id="pnews">${ptsNews(ptsTag)}</div>
     <p class="disc pdisc">Weekender isn’t paid by any bank or hotel, and nothing here is an affiliate link. This is information, not financial advice: credit cards cost real money if you carry a balance or don’t use what you pay for.</p></div>`;
+  if (ptsJump) { const t = document.getElementById(ptsJump); ptsJump = ''; if (t) setTimeout(() => t.scrollIntoView({ block: 'start' }), 60); }
 }
 function ptsRepaint() { const t = $('#ptrk'); if (t) t.innerHTML = ptsTracker(); const c = $('#pcards'); if (c) c.innerHTML = ptsCards(); const h = $('#wallet .sec-h'); if (h) { const n = ptsWallet().length; h.innerHTML = `My credits${n ? ` <small>${n} card${n === 1 ? '' : 's'}</small>` : ''}`; } }
 document.addEventListener('click', e => {
@@ -1335,6 +1392,119 @@ document.addEventListener('change', e => {
   if (e.target.dataset && e.target.dataset.used) { const U = ptsUsed(); if (e.target.checked) U[e.target.dataset.used] = Date.now(); else delete U[e.target.dataset.used]; for (const k of Object.keys(U)) if (Date.now() - U[k] > 4 * 366 * 864e5) delete U[k]; store.set('used', U); const t = $('#ptrk'); if (t) t.innerHTML = ptsTracker(); }
 });
 
+/* ---------------- The Amex Platinum, all of it (#/points/amex): every credit with how to use it and a year tracker that
+   shares its checkmarks with My credits, the day-one setup list, a worth-it calculator, lounges, hotel status and FHR,
+   protections, transfer partners, sweet spots, the welcome offer and the tips. Facts: travel/points/amex-platinum.json
+   (Brad's two March 2026 guides, reconciled with the Oct 26 check) and travel/points/points.json. */
+let AMX = null;
+const amxSetup = () => store.get('amexsetup', {});
+const amxWorth = () => store.get('amexworth', null);
+function amxCells(x, y) { // every period of the year for one credit: [key, label, last day]
+  const id = `amex-platinum:${x.id}:`;
+  if (x.period === 'month') return [...Array(12)].map((_, m) => [id + `${y}-${m + 1}`, new Date(y, m, 1).toLocaleDateString('en-US', { month: 'short' }), new Date(y, m + 1, 0)]);
+  if (x.period === 'quarter') return [0, 1, 2, 3].map(q => [id + `${y}-Q${q + 1}`, `Q${q + 1}`, new Date(y, q * 3 + 3, 0)]);
+  if (x.period === 'half') return [0, 1].map(h => [id + `${y}-H${h + 1}`, h ? 'Jul–Dec' : 'Jan–Jun', new Date(y, h * 6 + 6, 0)]);
+  if (x.period === 'year') return [[id + `${y}`, `${y}`, new Date(y, 11, 31)]];
+  return [[id + '4y', 'every 4 years', null]];
+}
+function amxCaptured() {
+  const U = ptsUsed(), y = new Date().getFullYear(), card = PTS.cards.find(c => c.id === 'amex-platinum');
+  let got = 0, all = 0;
+  for (const x of card.credits) { if (x.period === '4years') continue; for (const [k] of amxCells(x, y)) { all += x.amount; if (U[k]) got += x.amount; } }
+  return { got, all };
+}
+function amxTrackerHTML() {
+  const card = PTS.cards.find(c => c.id === 'amex-platinum'), U = ptsUsed(), y = new Date().getFullYear(), today = new Date(new Date().toDateString());
+  const { got, all } = amxCaptured();
+  const pct = all ? Math.round(got / all * 100) : 0;
+  return `<div class="axbar"><div><b>${usd(Math.round(got))}</b> of ${usd(Math.round(all))} captured in ${y}</div><div class="axtrack"><i style="width:${pct}%"></i></div><small>${pct}% · tick each credit as you use it; My credits on the Points Hacker page shows the same checkmarks</small></div>
+    <div class="ptw"><table class="axyr"><tbody>${card.credits.map(x => `<tr><th>${esc(x.name)}<small>${usd(x.amount)} ${esc(PERN[x.period] || '')}</small></th><td><div class="axcells n${amxCells(x, y).length}">${amxCells(x, y).map(([k, lab, end]) => { const past = end && end < today, cur = end && !past && (amxCells(x, y).find(c => c[2] && c[2] >= today) || [])[0] === k;
+      return `<label class="${U[k] ? 'on' : ''}${past && !U[k] ? ' gone' : ''}${cur ? ' now' : ''}" title="${esc(lab)}"><input type="checkbox" data-used="${esc(k)}"${U[k] ? ' checked' : ''}><span>${esc(lab)}</span></label>`; }).join('')}</div></td></tr>`).join('')}</tbody></table></div>
+    <p class="disc">Calendar periods, the way Amex counts these credits. A greyed box is a period that ended unused. Checkmarks stay in this browser.</p>`;
+}
+function amxSumHTML(tot, fee) {
+  return `<div><b>${usd(tot)}</b><span>what you’d actually use</span></div><div><b>−${usd(fee)}</b><span>annual fee</span></div><div class="${tot - fee >= 0 ? 'pos' : 'neg'}"><b>${tot - fee >= 0 ? '+' : '−'}${usd(Math.abs(tot - fee))}</b><span>${tot - fee >= 0 ? 'ahead of the fee' : 'short of the fee'}</span></div>`;
+}
+function amxWorthHTML() {
+  const card = PTS.cards.find(c => c.id === 'amex-platinum'), W = amxWorth() || AMX.worth.defaults, lounge = (amxWorth() || {}).__lounge ?? AMX.worth.lounge;
+  const rows = card.credits.map(x => { const max = Math.round(x.amount * (PER[x.period] || 0) * (x.period === '4years' ? 1 : 1)); const v = Math.min(max, W[x.id] ?? 0); return { x, max, v }; });
+  const tot = rows.reduce((s, r) => s + r.v, 0) + lounge, fee = card.fee;
+  return `<div class="axworth">${rows.map(r => `<label><span>${esc(r.x.name)}</span><input type="range" min="0" max="${r.max}" step="${r.max > 300 ? 25 : 5}" value="${r.v}" data-worth="${esc(r.x.id)}"><b>${usd(r.v)}</b><small>of ${usd(r.max)}</small></label>`).join('')}
+    <label><span>Lounge access, to you</span><input type="range" min="0" max="1500" step="50" value="${lounge}" data-worth="__lounge"><b>${usd(lounge)}</b><small>your estimate</small></label></div>
+    <div class="axsum" id="axsum">${amxSumHTML(tot, fee)}</div>
+    <p class="disc">Starts from the March guide’s “realistic frequent traveler” scenario (the $200 Oura and Equinox credits set to zero, Global Entry spread over four years). Slide each one to what you’d really spend; it’s kept in this browser. <button type="button" class="chip" data-worthreset>Reset</button></p>`;
+}
+async function renderAmex() {
+  view = 'amex'; setNav('#/points'); document.title = 'The Amex Platinum · Points Hacker · Weekender';
+  if (!PTS || !AMX) {
+    $('#main').innerHTML = '<div class="wrap state"><h2>Opening the Platinum guide…</h2></div>';
+    try { [PTS, AMX] = await Promise.all([PTS ? PTS : getJSON('points/points.json', true), getJSON('points/amex-platinum.json', true)]); }
+    catch (e) { $('#main').innerHTML = '<div class="wrap state"><h2>The Platinum guide didn’t load</h2><p>Check your connection and try again.</p></div>'; return; }
+    if (view !== 'amex') return;
+  }
+  const card = PTS.cards.find(c => c.id === 'amex-platinum'), A = AMX, W = ptsWallet(), S = amxSetup();
+  const yr = Math.round(ptsYear(card));
+  const fhr = (PTS.programs || []).filter(p => p.id === 'fhr' || p.id === 'thc');
+  const mr = (PTS.transfers || {})['Amex Membership Rewards'] || [];
+  const cpp = ((PTS.valuations || {}).cpp || {})['Amex Membership Rewards'];
+  const sec = (id, title, body, sub) => `<section class="psec" id="ax-${id}"><h2 class="sec-h">${title}</h2>${sub ? `<p class="sec-p">${sub}</p>` : ''}${body}</section>`;
+  $('#main').innerHTML = `<div class="wrap pts amex"><p class="crumb"><a href="#/points">Points Hacker</a> › The Amex Platinum</p>
+    <section class="axhero">${ptsCardArt(card)}<div><p class="kick">The complete guide</p><h1>The Amex Platinum, all of it.</h1>
+      <p class="sec-p">Every credit and how to actually use it, a tracker for the year, the lounges, the hotel perks, the protections, where the points go, and the tricks the points crowd uses.</p>
+      <div class="axkpi"><div><b>${usd(card.fee)}</b><span>a year</span></div><div><b>${usd(yr)}</b><span>in credits a year</span></div><div><b>${esc((card.earn[0] || ['5x'])[0])}</b><span>on flights</span></div>${cpp ? `<div><b>${cpp.toFixed(1)}¢</b><span>a point (TPG)</span></div>` : ''}</div>
+      <div class="pc-a"><button type="button" class="chip" data-wallet="amex-platinum" aria-pressed="${W.includes('amex-platinum')}">${W.includes('amex-platinum') ? '✓ In my wallet' : '+ I have this card'}</button><a class="chip" href="${esc(card.url)}" target="_blank" rel="noopener">Amex’s page ↗</a></div></div></section>
+    <nav class="pjump axjump">${[['credits', 'Credits'], ['year', 'Year tracker'], ['setup', 'Day-one setup'], ['worth', 'Worth it?'], ['lounges', 'Lounges'], ['hotels', 'Hotels'], ['protect', 'Protections'], ['transfers', 'Transfers'], ['sweet', 'Sweet spots'], ['welcome', 'Welcome offer'], ['tips', 'Tips'], ['links', 'Links']].map(([i, t]) => `<a href="#ax-${i}" data-to="ax-${i}">${t}</a>`).join('')}</nav>
+    ${sec('fee', 'The fee and the math', `<div class="axprose">${A.fee.lines.map(l => `<p>${esc(l)}</p>`).join('')}<p class="note"><b>Break-even:</b> ${esc(A.fee.breakeven)}</p></div>`)}
+    ${sec('credits', 'Every credit', `<div class="axcred">${card.credits.map(x => { const d = A.credits[x.id] || {}; const p = ptsPeriod(x.period), k = `amex-platinum:${x.id}:${p.k}`, used = !!ptsUsed()[k], left = ptsDays(p.end);
+        return `<article class="${used ? 'used' : ''}"><div class="axc-h"><b>${usd(x.amount)}</b><span>${esc(PERN[x.period] || x.period)}</span></div><h3>${esc(x.name)}</h3>
+        <p>${esc(d.how || x.note || '')}</p>${(d.tips || []).length ? `<ul>${d.tips.map(t => `<li>${esc(t)}</li>`).join('')}</ul>` : ''}
+        ${d.status ? `<p class="disc">${esc(d.status)}</p>` : ''}
+        <div class="axc-f"><label><input type="checkbox" data-used="${esc(k)}"${used ? ' checked' : ''}> ${x.period === '4years' ? 'Used' : `Used for ${esc(p.lab)}`}</label>${x.period !== '4years' && !used && left != null ? `<small${left <= 21 ? ' class="soon"' : ''}>${left} days left</small>` : ''}
+        ${(d.links || []).map(([n, u]) => `<a href="${esc(u)}" target="_blank" rel="noopener">${esc(n)} ↗</a>`).join('')}${d.shopper ? '<a href="#/points" data-pjump="lulu">Shop under $75 →</a>' : ''}${x.id === 'hotel' ? '<a href="#/points" data-pjump="hotels">Program hotels by city →</a>' : ''}</div></article>`; }).join('')}</div>
+      ${A.retired.map(r => `<p class="note"><b>Gone: ${esc(r.name)}</b> (${esc(r.was)}). ${esc(r.note)} <a href="${esc(r.src)}" target="_blank" rel="noopener">Source</a></p>`).join('')}`, `Amounts from Amex’s Platinum page, checked ${esc(PTS.updated)}; how-to and tips from the guides. Enroll first: most credits don’t trigger without it.`)}
+    ${sec('year', 'The year at a glance', `<div id="axyear">${amxTrackerHTML()}</div>`)}
+    ${sec('setup', 'Day-one setup', `<ol class="axsetup">${A.setup.map((s, i) => `<li><label><input type="checkbox" data-setup="${i}"${S[i] ? ' checked' : ''}><span>${esc(s)}</span></label></li>`).join('')}</ol>`, 'Do these the day the card arrives, before you spend a dollar.')}
+    ${sec('worth', 'Is it worth it to you?', `<div id="axworth">${amxWorthHTML()}</div>`)}
+    ${sec('lounges', 'Lounges', `<p class="axprose">${esc(A.lounges.summary)}</p><h3 class="psub">Centurion Lounges in the U.S.</h3>
+      <div class="axl">${A.lounges.us.map(([c, n, d]) => `<div><b>${esc(c)}</b><span>${esc(n)}</span>${d ? `<small>${esc(d)}</small>` : ''}</div>`).join('')}</div>
+      <h3 class="psub">Abroad</h3><div class="axl">${A.lounges.intl.map(([c, n]) => `<div><b>${esc(c)}</b><span>${esc(n)}</span></div>`).join('')}</div>
+      <h3 class="psub">Announced</h3><div class="axl">${A.lounges.coming.map(([c, n, d]) => `<div class="soon"><b>${esc(c)}</b><span>${esc(n)}</span><small>${esc(d)}</small></div>`).join('')}</div>
+      <div class="note"><b>Access rules</b><ul>${A.lounges.rules.map(r => `<li>${esc(r)}</li>`).join('')}</ul></div><p class="disc">${esc(A.lounges.asOf)} <a href="https://www.thecenturionlounge.com" target="_blank" rel="noopener">thecenturionlounge.com</a></p>`)}
+    ${sec('hotels', 'Hotel status, FHR and The Hotel Collection', `<div class="ptw"><table class="ptab axt"><thead><tr><th>Program</th><th>Status</th><th>What it gets you</th></tr></thead><tbody>${A.status.map(r => `<tr><td>${esc(r[0])}</td><td><b>${esc(r[1])}</b></td><td>${esc(r[2])}</td></tr>`).join('')}</tbody></table></div>
+      <div class="pprog" style="margin-top:14px">${fhr.map(p => `<article><h3>${esc(p.name)}</h3><ul class="pc-l">${p.benefits.map(b => `<li>${esc(b)}</li>`).join('')}</ul><a class="chip" href="${esc(p.search)}" target="_blank" rel="noopener">Search ↗</a></article>`).join('')}</div>
+      <p class="note">Program hotels in this weekend’s eight cities are on the <a href="#/points" data-pjump="hotels">Points Hacker page</a>. MaxFHR finds the cheapest FHR nights.</p>`)}
+    ${sec('protect', 'Insurance and protections', `<div class="ptw"><table class="ptab axt"><thead><tr><th>Protection</th><th>Coverage</th><th>The catch</th></tr></thead><tbody>${A.insurance.map(r => `<tr><td>${esc(r[0])}</td><td><b>${esc(r[1])}</b></td><td>${esc(r[2])}</td></tr>`).join('')}</tbody></table></div><p class="note"><b>Read this before you book:</b> ${esc(A.insuranceWarn)}</p><p class="disc">Coverage as summarized in the March guides; Amex’s benefit terms are the final word.</p>`)}
+    ${sec('transfers', 'Where the points go', `<div class="axprose">${A.transferNotes.map(t => `<p>${esc(t)}</p>`).join('')}</div>
+      <div class="ptw"><table class="ptab axt"><thead><tr><th>Partner</th><th>Ratio</th><th>Best for</th></tr></thead><tbody>${mr.map(([n, r]) => `<tr><td>${esc(n)}</td><td><b>${esc(r)}</b></td><td>${esc(A.partnerNotes[n] || '')}</td></tr>`).join('')}</tbody></table></div>
+      <div class="axhacks">${A.hacks.map(([t, d]) => `<div><b>${esc(t)}</b><p>${esc(d)}</p></div>`).join('')}</div>`, `Partners and ratios as of ${esc(PTS.updated)}.`)}
+    ${sec('sweet', 'Sweet spots', `<div class="ptw"><table class="ptab axt"><thead><tr><th>Route</th><th>Cabin</th><th>Transfer to</th><th>Points, one way</th><th>Cash fare</th></tr></thead><tbody>${A.sweetspots.map(r => `<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td><td><b>${esc(r[3])}</b></td><td>${esc(r[4])}</td></tr>`).join('')}</tbody></table></div><p class="disc">${esc(A.sweetNote)}</p>`)}
+    ${sec('welcome', 'The welcome offer', `<div class="axprose">${A.welcome.lines.map(l => `<p>${esc(l)}</p>`).join('')}${card.bonus ? `<p class="note"><b>As seen ${esc(card.bonus.seen)}:</b> ${esc(card.bonus.text)} <a href="${esc(card.bonus.src)}" target="_blank" rel="noopener">Source</a></p>` : ''}<h3 class="psub">Hitting the spend</h3><ul>${A.welcome.tips.map(t => `<li>${esc(t)}</li>`).join('')}</ul></div>`)}
+    ${sec('tips', 'Tips and tricks', `<div class="axtips">${A.tips.map(([h, l]) => `<div><h3>${esc(h)}</h3><ul>${l.map(t => `<li>${esc(t)}</li>`).join('')}</ul></div>`).join('')}</div>`)}
+    ${sec('links', 'Links', `<div class="axlinks">${A.links.map(([n, u]) => `<a href="${esc(u)}" target="_blank" rel="noopener"><b>${esc(n)}</b><small>${esc(host(u))}</small></a>`).join('')}</div>`)}
+    <p class="disc pdisc">${esc(A.basis)} Information, not financial advice; Weekender isn’t paid by American Express and has no affiliate links.</p></div>`;
+}
+function amxRepaint() { const y = $('#axyear'); if (y) y.innerHTML = amxTrackerHTML(); $$('.axcred input[data-used]').forEach(i => { i.checked = !!ptsUsed()[i.dataset.used]; i.closest('article').classList.toggle('used', i.checked); }); }
+document.addEventListener('input', e => {
+  if (view !== 'amex' || !e.target.dataset || e.target.dataset.worth == null) return;
+  const W = amxWorth() || { ...AMX.worth.defaults, __lounge: AMX.worth.lounge }; W[e.target.dataset.worth] = +e.target.value; store.set('amexworth', W);
+  const lab = e.target.nextElementSibling; if (lab) lab.textContent = usd(+e.target.value);
+  const tot = $$('#axworth [data-worth]').reduce((s, i) => s + +i.value, 0), fee = PTS.cards.find(c => c.id === 'amex-platinum').fee;
+  const s = $('#axsum'); if (s) s.innerHTML = amxSumHTML(tot, fee);
+});
+document.addEventListener('change', e => {
+  if (view !== 'amex' || !e.target.dataset) return;
+  if (e.target.dataset.used) { const U = ptsUsed(); if (e.target.checked) U[e.target.dataset.used] = Date.now(); else delete U[e.target.dataset.used]; store.set('used', U); amxRepaint(); }
+  if (e.target.dataset.setup != null) { const S = amxSetup(); if (e.target.checked) S[e.target.dataset.setup] = 1; else delete S[e.target.dataset.setup]; store.set('amexsetup', S); }
+});
+document.addEventListener('click', e => {
+  const b = e.target.closest('[data-pjump],[data-worthreset],[data-wallet],[data-to]'); if (!b) return;
+  if (b.dataset.pjump) { ptsJump = b.dataset.pjump; return; } // the Points Hacker page scrolls there once it opens
+  if (view !== 'amex') return;
+  if (b.dataset.worthreset != null) { store.set('amexworth', null); $('#axworth').innerHTML = amxWorthHTML(); return; }
+  if (b.dataset.wallet) { const w = ptsWallet(), i = w.indexOf(b.dataset.wallet); if (i >= 0) w.splice(i, 1); else w.push(b.dataset.wallet); store.set('wallet', w); b.setAttribute('aria-pressed', String(i < 0)); b.textContent = i < 0 ? '✓ In my wallet' : '+ I have this card'; return; }
+  if (b.dataset.to) { e.preventDefault(); const t = document.getElementById(b.dataset.to); if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+});
+
 /* ---------------- routing ---------------- */
 function route() {
   document.body.classList.remove('guide-page');
@@ -1345,7 +1515,7 @@ function route() {
   if (parts[0] === 'g') return renderGuide(parts[1], parts[2]);
   if (parts[0] === 'flights' || parts[0] === 'hotels') return renderSearchPage(parts[0], p);
   if (parts[0] === 'past') return renderPast();
-  if (parts[0] === 'points') return renderPoints();
+  if (parts[0] === 'points') return parts[1] === 'amex' ? renderAmex() : renderPoints();
   renderHome();
 }
 window.addEventListener('hashchange', () => { route(); if (!location.hash.startsWith('#/g/')) window.scrollTo(0, 0); });
