@@ -27,7 +27,10 @@ jobs:
         with:
           python-version: '3.12'
       - name: Read the places
-        run: python3 news/lifestyle/date-night/prefetch.py
+        # the public map servers can be slow: keep whatever cities were read in time
+        timeout-minutes: 30
+        continue-on-error: true
+        run: python3 -u news/lifestyle/date-night/prefetch.py
       - name: Commit and push
         run: |
           git config user.name "Date Night updater"

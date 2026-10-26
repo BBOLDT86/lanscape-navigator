@@ -31,6 +31,7 @@ KEEP = {'name', 'amenity', 'leisure', 'tourism', 'shop', 'craft', 'man_made', 'c
         'diet:vegetarian', 'diet:vegan', 'diet:gluten_free', 'wheelchair', 'brand', 'brand:wikidata', 'wikidata',
         'wikipedia', 'addr:housenumber', 'addr:street', 'addr:city', 'addr:full', 'takeaway', 'bar', 'drink',
         'theatre:genre', 'access', 'disused', 'abandoned', 'lit'}
+DEADLINE = time.time() + float(os.environ.get('DN_BUDGET', '1500'))  # stop asking after 25 minutes; whatever is written gets committed
 UA = 'TheWatch-DateNight/1.0 (+https://bboldt86.github.io/lanscape-navigator/news/lifestyle/date-night/)'
 
 
@@ -98,7 +99,7 @@ def query(anchors):
                f'nwr["leisure"~"^(bowling_alley|escape_game|miniature_golf|amusement_arcade|ice_rink|park|garden|marina)$"]["name"]{A(R_DO)};',
                f'nwr["tourism"~"^(museum|gallery|viewpoint|aquarium)$"]["name"]{A(R_DO)};',
                f'nwr["man_made"="pier"]["name"]{A(R_DO)};']
-    return '[out:json][timeout:170];(\n' + '\n'.join(st) + '\n);out center;'
+    return '[out:json][timeout:120];(\n' + '\n'.join(st) + '\n);out center;'
 
 
 def overpass(q):
@@ -106,9 +107,12 @@ def overpass(q):
     last = None
     for attempt in range(2):
         for ep in ENDPOINTS:
+            left = DEADLINE - time.time()
+            if left < 30:
+                raise RuntimeError('out of time')
             try:
                 req = urllib.request.Request(ep, data=body, headers={'User-Agent': UA, 'Content-Type': 'application/x-www-form-urlencoded'})
-                with urllib.request.urlopen(req, timeout=200) as r:
+                with urllib.request.urlopen(req, timeout=min(150, left)) as r:
                     j = json.load(r)
                 if not j.get('elements') and 'remark' in j:
                     raise RuntimeError(j['remark'][:200])
