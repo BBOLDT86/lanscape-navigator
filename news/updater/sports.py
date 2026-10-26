@@ -767,6 +767,22 @@ def marquee(g, lg):
     return 0
 
 
+def f1_next():
+    """the next grand prix from the F1 hub's data (news/data/f1.json, news/updater/f1.py), for the desk's F1 chip"""
+    try:
+        d = json.load(open(os.path.join(D, '..', 'f1.json'), encoding='utf-8'))
+    except (OSError, ValueError):
+        return None
+    gone = {str(x.get('r') if isinstance(x, dict) else x) for x in d.get('cancelled') or []}
+    for r in d.get('races') or []:
+        t = _p(r.get('start') or '')
+        if not t or str(r.get('r')) in gone or t + dt.timedelta(hours=3) < NOW:
+            continue
+        nxt = next(((k, iso) for k, iso in r.get('sessions') or [] if _p(iso) and _p(iso) + dt.timedelta(hours=2) > NOW), None)
+        return {'name': r.get('name'), 'r': r.get('r'), 'start': r.get('start'), 'session': list(nxt) if nxt else None}
+    return None
+
+
 def build_index(files):
     today = NOW.astimezone(ETZ).strftime('%Y-%m-%d')
     lim = NOW + dt.timedelta(hours=40)
@@ -800,7 +816,8 @@ def build_index(files):
             continue
         seen.add(g['id']); mq.append(g)
     mq = sorted(mq[:8], key=lambda g: ({'in': 0, 'pre': 1, 'post': 2}[g['st']], g['d']))
-    return {'v': 1, 'at': NOW.strftime('%Y-%m-%dT%H:%M:%SZ'), 'day': today, 'leagues': leagues,
+    f1 = f1_next()
+    return {'v': 1, 'at': NOW.strftime('%Y-%m-%dT%H:%M:%SZ'), 'day': today, 'leagues': leagues, 'f1': f1,
             'today': sorted(todays, key=lambda g: ({'in': 0, 'pre': 1, 'post': 2}[g['st']], g['d'])), 'big': mq, 'errors': errors[:30]}
 
 

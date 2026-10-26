@@ -32,8 +32,16 @@ const COMPS = { // soccer competitions: ESPN slug, name
 const COMP_ORDER = ['epl', 'ucl', 'laliga', 'bund', 'seriea', 'ligue1', 'uel', 'bra'];
 // other sports sections on The Watch get a chip next to the leagues: [key, name, link, a few words, shown until (ET day)]
 const EXTRA = [
+  ['f1', 'F1', '#/f1', '', ''], // the Formula 1 hub (f1/app.js); its line comes from index.json's f1
+  ['film', 'Film Room', 'sports/fantasy/', 'Fantasy football', ''], // the fantasy football section
   ['dressage', 'Dressage', 'sports/dressage-finals/', 'Finals Sat Oct 31', '2026-11-01'],
 ].concat(window.WatchSportsExtra || []);
+function f1Line() { // the next grand prix, or its session on now
+  const f = S.idx && S.idx.f1; if (!f || !f.start) return T('Races, drivers and cars');
+  const gp = String(f.name || '').replace(/ Grand Prix$/, ' GP');
+  const ses = f.session; if (ses && until(ses[1]) < 0) return `<i class="spdot"></i>${esc(gp)}`;
+  return esc(gp) + ' · ' + esc(dayName(dayKey(f.start)));
+}
 const TABS = [['scores', 'Scores'], ['schedule', 'Schedule'], ['standings', 'Standings'], ['news', 'News'], ['teams', 'Teams']];
 const FAVK = 'watch.teams';
 const S = { idx: null, lg: {}, live: {}, sum: {}, team: {}, busy: {}, timer: 0, at: {} };
@@ -264,7 +272,7 @@ function lgChip(lg, info, cur) {
   return `<a class="sp-lgc${cur === lg ? ' on' : ''}" href="#/sports/${lg}"><b>${esc(l.n)}</b>${sub ? `<span>${sub}</span>` : ''}</a>`;
 }
 function extraChips(cur) {
-  return EXTRA.filter(x => !x[4] || todayKey() <= x[4]).map(([k, n, href, sub]) => `<a class="sp-lgc ext${cur === k ? ' on' : ''}" href="${esc(href)}"><b>${esc(T(n))}</b>${sub ? `<span>${esc(T(sub))}</span>` : ''}</a>`).join('');
+  return EXTRA.filter(x => !x[4] || todayKey() <= x[4]).map(([k, n, href, sub]) => `<a class="sp-lgc ext${cur === k ? ' on' : ''}" href="${esc(href)}"><b>${esc(T(n))}</b><span>${k === 'f1' ? f1Line() : esc(T(sub))}</span></a>`).join('');
 }
 function leagueBar(cur) {
   const L = (S.idx && S.idx.leagues) || {};
