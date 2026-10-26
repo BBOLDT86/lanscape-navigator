@@ -1,0 +1,143 @@
+{
+ "apple-chart-podcasts": {
+  "error": "TimeoutError: The read operation timed out"
+ },
+ "apple-chart-books": {
+  "status": 200,
+  "bytes": 8598,
+  "ms": 317,
+  "cors": null,
+  "type": "application/json; charset=utf-8",
+  "head": "{\"feed\":{\"title\":\"Top Paid\",\"id\":\"https://rss.marketingtools.apple.com/api/v2/us/books/top-paid/10/books.json\",\"author\":{\"name\":\"Apple\",\"url\":\"https://www.apple.com/\"},\"links\":[{\"self\":\"https://rss.marketingtools.apple.com/api/v2/us/books/top-paid/10/books.json\"}],\"copyright\":\"Copyright \u00a9 2026 Appl"
+ },
+ "apple-chart-albums": {
+  "status": 200,
+  "bytes": 6953,
+  "ms": 559,
+  "cors": null,
+  "type": "application/json; charset=utf-8",
+  "head": "{\"feed\":{\"title\":\"Top Albums\",\"id\":\"https://rss.marketingtools.apple.com/api/v2/us/music/most-played/10/albums.json\",\"author\":{\"name\":\"Apple\",\"url\":\"https://www.apple.com/\"},\"links\":[{\"self\":\"https://rss.marketingtools.apple.com/api/v2/us/music/most-played/10/albums.json\"}],\"copyright\":\"Copyright \u00a9"
+ },
+ "itunes-lookup": {
+  "status": 200,
+  "bytes": 3301,
+  "ms": 215,
+  "cors": "*",
+  "type": "text/javascript; charset=utf-8",
+  "head": "\n\n\n{\n \"resultCount\":2,\n \"results\": [\n{\"wrapperType\":\"track\", \"kind\":\"podcast\", \"artistId\":121664449, \"collectionId\":1200361736, \"trackId\":1200361736, \"artistName\":\"The New York Times\", \"collectionName\":\"The Daily\", \"trackName\":\"The Daily\", \"collectionCensoredName\":\"The Daily\", \"trackCensoredName\":\"T"
+ },
+ "itunes-lookup-episodes": {
+  "status": 200,
+  "bytes": 12878,
+  "ms": 355,
+  "cors": "*",
+  "type": "text/javascript; charset=utf-8",
+  "head": "\n\n\n{\n \"resultCount\":4,\n \"results\": [\n{\"wrapperType\":\"track\", \"kind\":\"podcast\", \"artistId\":121664449, \"collectionId\":1528594034, \"trackId\":1528594034, \"artistName\":\"The New York Times\", \"collectionName\":\"Hard Fork\", \"trackName\":\"Hard Fork\", \"collectionCensoredName\":\"Hard Fork\", \"trackCensoredName\":\"H"
+ },
+ "itunes-search-podcast": {
+  "status": 200,
+  "bytes": 3258,
+  "ms": 390,
+  "cors": "*",
+  "type": "text/javascript; charset=utf-8",
+  "head": "\n\n\n{\n \"resultCount\":2,\n \"results\": [\n{\"wrapperType\":\"track\", \"kind\":\"podcast\", \"artistId\":121664449, \"collectionId\":1528594034, \"trackId\":1528594034, \"artistName\":\"The New York Times\", \"collectionName\":\"Hard Fork\", \"trackName\":\"Hard Fork\", \"collectionCensoredName\":\"Hard Fork\", \"trackCensoredName\":\"H"
+ },
+ "itunes-search-movie": {
+  "status": 200,
+  "bytes": 42,
+  "ms": 218,
+  "cors": "*",
+  "type": "text/javascript; charset=utf-8",
+  "head": "\n\n\n{\n \"resultCount\":0,\n \"results\": []\n}\n\n\n"
+ },
+ "itunes-search-tv": {
+  "status": 200,
+  "bytes": 42,
+  "ms": 180,
+  "cors": "*",
+  "type": "text/javascript; charset=utf-8",
+  "head": "\n\n\n{\n \"resultCount\":0,\n \"results\": []\n}\n\n\n"
+ },
+ "openlibrary-search": {
+  "status": 200,
+  "bytes": 449,
+  "ms": 3554,
+  "cors": "*",
+  "type": "application/json",
+  "head": "{\"numFound\":461,\"start\":0,\"numFoundExact\":true,\"num_found\":461,\"documentation_url\":\"https://openlibrary.org/dev/docs/api/search\",\"q\":\"the hobbit\",\"offset\":null,\"docs\":[{\"author_name\":[\"J.R.R. Tolkien\"],\"cover_i\":14627509,\"first_publish_year\":1937,\"key\":\"/works/OL27482W\",\"title\":\"The Hobbit\"},{\"autho"
+ },
+ "openlibrary-trending": {
+  "status": 200,
+  "bytes": 11389,
+  "ms": 3970,
+  "cors": "*",
+  "type": "application/json",
+  "head": "{\"query\":\"/trending/daily\",\"works\":[{\"key\":\"/works/OL17930368W\",\"title\":\"Atomic Habits\",\"author_name\":[\"James Clear\"],\"author_key\":[\"OL7422948A\"],\"cover_edition_key\":\"OL36647151M\",\"cover_height\":500,\"cover_i\":12539702,\"cover_width\":369,\"ebook_access\":\"printdisabled\",\"edition_count\":42,\"first_publish"
+ },
+ "openlibrary-cover": {
+  "status": 200,
+  "bytes": 23979,
+  "ms": 705,
+  "cors": "https://bboldt86.github.io",
+  "type": "image/jpeg",
+  "head": "\ufffd\ufffd\ufffd\ufffd\u0000\u0010JFIF\u0000\u0001\u0001\u0000\u0000\u0001\u0000\u0001\u0000\u0000\ufffd\ufffd\u0000C\u0000\u0003\u0002\u0002\u0003\u0002\u0002\u0003\u0003\u0003\u0003\u0004\u0003\u0003\u0004\u0005\b\u0005\u0005\u0004\u0004\u0005\n\u0007\u0007\u0006\b\f\n\f\f\u000b\n\u000b\u000b\r\u000e\u0012\u0010\r\u000e\u0011\u000e\u000b\u000b\u0010\u0016\u0010\u0011\u0013\u0014\u0015\u0015\u0015\f\u000f\u0017\u0018\u0016\u0014\u0018\u0012\u0014\u0015\u0014\ufffd\ufffd\u0000C\u0001\u0003\u0004\u0004\u0005\u0004\u0005\t\u0005\u0005\t\u0014\r\u000b\r\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\ufffd\ufffd\u0000\u0011\b\u0001\u0013\u0000\ufffd\u0003\u0001\"\u0000\u0002\u0011\u0001\u0003\u0011\u0001\ufffd\ufffd\u0000\u001f\u0000\u0000\u0001\u0005\u0001\u0001\u0001\u0001\u0001\u0001\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0001\u0002\u0003\u0004\u0005\u0006\u0007\b\t\n\u000b\ufffd\ufffd\u0000\ufffd\u0010\u0000\u0002\u0001\u0003\u0003\u0002\u0004\u0003\u0005\u0005\u0004\u0004\u0000\u0000\u0001}\u0001\u0002\u0003\u0000\u0004\u0011\u0005\u0012!1A\u0006\u0013Qa\u0007\"q\u00142\ufffd\ufffd\ufffd\b#B\ufffd\ufffd\u0015R\ufffd\ufffd$3br\ufffd\t\n\u0016\u0017\u0018\u0019\u001a%&'()*456789:CDEFGHIJSTUV"
+ },
+ "gutendex": {
+  "error": "TimeoutError: The read operation timed out"
+ },
+ "wikipedia-summary": {
+  "status": 200,
+  "bytes": 2668,
+  "ms": 159,
+  "cors": "*",
+  "type": "application/json; charset=utf-8; profile=\"https://www.mediawiki.org/wiki/Specs/Summary/1.5.0\"",
+  "head": "{\"type\":\"standard\",\"title\":\"Severance (TV series)\",\"displaytitle\":\"<i>Severance</i> (TV series)\",\"namespace\":{\"id\":0,\"text\":\"\"},\"wikibase_item\":\"Q101096725\",\"titles\":{\"canonical\":\"Severance_(TV_series)\",\"normalized\":\"Severance (TV series)\",\"display\":\"<i>Severance</i> (TV series)\"},\"pageid\":65745435,"
+ },
+ "wikipedia-search": {
+  "status": 200,
+  "bytes": 4398,
+  "ms": 249,
+  "cors": "*",
+  "type": "application/json; charset=utf-8",
+  "head": "{\"batchcomplete\":\"\",\"continue\":{\"sroffset\":10,\"continue\":\"-||\"},\"query\":{\"searchinfo\":{\"totalhits\":1341,\"suggestion\":\"severence tv series\",\"suggestionsnippet\":\"severence tv series\"},\"search\":[{\"ns\":0,\"title\":\"Severance (TV series)\",\"pageid\":65745435,\"size\":123781,\"wordcount\":8168,\"snippet\":\"their jo"
+ },
+ "simplecast-feed": {
+  "status": 200,
+  "bytes": 400000,
+  "ms": 51,
+  "cors": "*",
+  "type": "application/xml",
+  "head": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<rss version=\"2.0\" xmlns:atom=\"http://www.w3.org/2005/Atom\" xmlns:content=\"http://purl.org/rss/1.0/modules/content/\" xmlns:googleplay=\"http://www.google.com/schemas/play-podcasts/1.0\" xmlns:itunes=\"http://www.itunes.com/dtds/podcast-1.0.dtd\" xmlns:media=\"http:/"
+ },
+ "newyorker-feed": {
+  "status": 200,
+  "bytes": 39027,
+  "ms": 102,
+  "cors": "*",
+  "type": "application/xml",
+  "head": "<?xml version=\"1.0\" encoding=\"utf-8\"?><rss xmlns:atom=\"http://www.w3.org/2005/Atom\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:media=\"http://search.yahoo.com/mrss/\" version=\"2.0\"><channel><title>Everything</title><description>Channel Description</description><link>https://www.newyorker.com</l"
+ },
+ "substack-feed": {
+  "status": 403,
+  "error": "HTTP Error 403: Forbidden",
+  "cors": null
+ },
+ "youtube-feed": {
+  "status": 200,
+  "bytes": 20518,
+  "ms": 14,
+  "cors": null,
+  "type": "text/xml; charset=UTF-8",
+  "head": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<feed xmlns:yt=\"http://www.youtube.com/xml/schemas/2015\" xmlns:media=\"http://search.yahoo.com/mrss/\" xmlns=\"http://www.w3.org/2005/Atom\">\n <link rel=\"self\" href=\"http://www.youtube.com/feeds/videos.xml?channel_id=UCBJycsmduvYEL83R_U4JriQ\"/>\n <id>yt:channel:BJyc"
+ },
+ "podcastindex-public": {
+  "status": 403,
+  "error": "HTTP Error 403: Forbidden",
+  "cors": null
+ },
+ "mediastack-none": {
+  "status": 403,
+  "error": "HTTP Error 403: Forbidden",
+  "cors": null
+ }
+}
