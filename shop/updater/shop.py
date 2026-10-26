@@ -5,6 +5,8 @@
   python3 shop/updater/shop.py check    check shop/picks/*.json against the format (exit 1 on problems)
 
 Three sources, all read from GitHub's servers, never scraped from a page:
+  0. Pinfall (pinfall/index.html): its resale finds from eBay, Poshmark, Mercari and Grailed, blended into Fashion as
+     pre-owned, with all-in prices and how far below new they are. With the eBay keys, sold eBay listings drop out.
   1. The stores in shop/sources.json. Each runs on Shopify and publishes its catalog as JSON
      (/collections/<handle>/products.json); the updater reads the collection named there (its best sellers, usually),
      or with "auto" picks the store's best-seller collection itself. Name, picture, price, sale price, stock.
@@ -154,6 +156,8 @@ def store_items(s):
             continue
         names.add(key)
         it['coll'] = handle
+        if s.get('cond'):
+            it['cond'] = s['cond']; it['tg'].append('pre-owned')
         out.append(it)
         if len(out) >= n:
             break
@@ -236,6 +240,105 @@ def trends():
             out.append({'t': t, 'u': it['link'], 'o': run.OUTLETS.get(dom) or it.get('src_name') or dom, 'p': it['when'].strftime('%Y-%m-%dT%H:%M:%SZ')})
     out.sort(key=lambda x: x['p'], reverse=True)
     return out[:24]
+
+
+# ---------- Pinfall's resale finds (pinfall/index.html): eBay, Poshmark, Mercari and Grailed listings Claude gathered for
+# the Pinfall board, with all-in prices and an estimate of the new price. Read straight from that page, so refreshing
+# Pinfall refreshes these.
+PIN_SRC = {'eb': ('eBay', lambda p: f"https://i.ebayimg.com/images/g/{p['im']}/s-l500.webp", lambda p: f"https://www.ebay.com/itm/{p['i'][1:]}"),
+           'pm': ('Poshmark', lambda p: f"https://di2ponv0v5otw.cloudfront.net/posts/{p['im']}", lambda p: f"https://poshmark.com/listing/{p.get('u', '')}-{p['i'][1:]}"),
+           'mc': ('Mercari', lambda p: f"https://u-mercari-images.mercdn.net/photos/{p['i']}_1.jpg?width=480", lambda p: f"https://www.mercari.com/us/item/{p['i']}/"),
+           'gr': ('Grailed', lambda p: f"https://media-assets.grailed.com/prd/listing/{p['im']}", lambda p: f"https://www.grailed.com/listings/{p['i'][1:]}")}
+PIN_BOARDS = {'ssm': 'Scotch & Soda, pre-owned', 'tm': 'TravisMathew, pre-owned', 'ssw': 'Scotch & Soda women’s, pre-owned', 'cl': 'Levi’s, cashmere and basics, pre-owned'}
+
+
+def js_literal(src):
+    """A JavaScript object or array literal (unquoted keys, double-quoted strings) as JSON."""
+    out, i, n, last = [], 0, len(src), ''
+    while i < n:
+        ch = src[i]
+        if ch == '"':
+            j = i + 1
+            while src[j] != '"':
+                j += 2 if src[j] == '\\' else 1
+            out.append(src[i:j + 1]); last = '"'; i = j + 1; continue
+        if ch == "'":
+            j = i + 1
+            while src[j] != "'":
+                j += 2 if src[j] == '\\' else 1
+            out.append(json.dumps(src[i + 1:j].replace("\\'", "'"))); last = '"'; i = j + 1; continue
+        m = re.match(r'[A-Za-z_$][\w$]*', src[i:])
+        if m and last in ('{', ','):
+            k = m.group(0); rest = src[i + len(k):].lstrip()
+            if rest.startswith(':'):
+                out.append(json.dumps(k)); i += len(k); last = 'k'; continue
+        if not ch.isspace():
+            last = ch
+        out.append(ch); i += 1
+    txt = ''.join(out)
+    txt = re.sub(r',\s*([}\]])', r'\1', txt)
+    return json.loads(txt)
+
+
+def pinfall():
+    s = open(os.path.join(ROOT, 'pinfall', 'index.html'), encoding='utf-8').read()
+    def block(name, opener):
+        m = re.search(r'const ' + name + r'\s*=\s*' + re.escape(opener), s)
+        if not m:
+            raise ValueError(f'{name} not found in pinfall/index.html')
+        i, depth, j = m.end() - 1, 0, m.end() - 1
+        instr = False
+        while True:
+            c = s[j]
+            if instr:
+                if c == '\\': j += 1
+                elif c == '"': instr = False
+            elif c == '"': instr = True
+            elif c in '[{': depth += 1
+            elif c in ']}':
+                depth -= 1
+                if depth == 0:
+                    break
+            j += 1
+        return js_literal(re.sub(r'//[^\n]*', '', s[i:j + 1]))
+    pins, est, depts = block('PINS', '['), block('EST', '{'), block('DEPTS', '[')
+    cats = {c['k']: c['label'] for c in block('CATS', '[')}
+    brand = {d['k']: d['brand'] for d in depts}
+    cap = re.search(r"const CAPTURED = '([^']+)'", s)
+    seen = cap.group(1) if cap else None
+    fiber, bump = re.compile(r'wool|cashmere|alpaca|merino|lambswool|yak', re.I), {'knit', 'nordic', 'cardigan', 'collar', 'overshirt', 'qzip'}
+    out = []
+    for p in pins:
+        if p.get('s') not in PIN_SRC or not p.get('i'):
+            continue
+        label, img, url = PIN_SRC[p['s']]
+        sh = p.get('sh') or 0
+        total = round(p['p'] + sh, 2)
+        b = p['d'] in ('ssm', 'ssw') and p.get('m') and fiber.search(p['m']) and p['c'] in bump
+        new = p.get('e') or (est.get(p['d'], {}).get(p['c']) or 0) + (30 if b else 0)
+        retail = p.get('rt') or new
+        off = max(0.0, 1 - total / retail) if retail else 0
+        br = p.get('br') if p['d'] == 'cl' else brand.get(p['d'], '')
+        sizes = [z.strip().upper().replace('2XL', 'XXL') for z in str(p.get('z') or '').replace('+', '').split('/') if z.strip()]
+        out.append({'i': 'u-' + p['i'], 's': 'fashion', 'b': 'pinfall-' + p['d'], 'n': p['n'], 'br': (br or label) + (' · women’s' if p['d'] == 'ssw' else ''),
+                    'st': label, 'u': url(p), 'im': img(p), 'w': 500, 'h': round(500 * min(1.45, max(0.8, p.get('r') or 1))), 'p': total, 'pp': p['p'], 'sh': sh,
+                    'c': 'USD', 'av': True, 'k': 'used', 'cond': p.get('k') or 'Pre-owned', 'z': p.get('z'), 'sz': sizes,
+                    'nw': retail, 'nwk': 'listed' if p.get('rt') else 'estimate', 'off': round(off, 3), 'lt': p.get('t'), 'm': p.get('m'), 'bo': bool(p.get('bo')),
+                    'note': p.get('note'), 'seen': seen, 'via': 'Pinfall', 'q': p.get('t'),
+                    'tg': [t for t in [band(total), 'pre-owned', (cats.get(p['c']) or '').lower()] if t]})
+    return out
+
+
+def ebay_alive(tok, legacy):
+    try:
+        d = jget('https://api.ebay.com/buy/browse/v1/item/get_item_by_legacy_id?' + urllib.parse.urlencode({'legacy_item_id': legacy}),
+                 headers={'Authorization': 'Bearer ' + tok, 'X-EBAY-C-MARKETPLACE-ID': 'EBAY_US'})
+    except urllib.error.HTTPError as e:
+        return e.code not in (404, 410)
+    except Exception:  # noqa: BLE001  can't tell: keep it
+        return True
+    end = d.get('itemEndDate')
+    return not end or end > NOW.strftime('%Y-%m-%dT%H:%M:%S')
 
 
 # ---------- picks
@@ -328,6 +431,7 @@ def main():
             card['tg'].append(band(card['p']))
         items.append(card)
         seen_urls[it['url'].split('?')[0]] = card['i']
+    seen_ids = set(); items = [it for it in items if not (it['i'] in seen_ids or seen_ids.add(it['i']))]  # one card per product
     # a store product that is also a pick shows once, as the pick
     items = [it for it in items if not (it.get('k') == 'store' and it['u'] in seen_urls)]
     for it in items:
@@ -335,6 +439,13 @@ def main():
             b = band(it['p'])
             if b and b not in it['tg']:
                 it['tg'].append(b)
+    # Pinfall's resale finds, blended into Fashion
+    try:
+        used = pinfall(); items += used
+        print(f'pinfall: {len(used)} resale finds')
+    except Exception as e:  # noqa: BLE001  keep the last copy
+        items += [it for it in old.get('items') or [] if it.get('via') == 'Pinfall']
+        errors.append(f'pinfall: {type(e).__name__} {str(e)[:80]}')
     # eBay
     has_ebay = False
     try:
@@ -343,6 +454,15 @@ def main():
         tok = None; errors.append(f'eBay token: {type(e).__name__} {str(e)[:80]}')
     if tok:
         has_ebay = True
+        gone = set()
+        eb = [it for it in items if it.get('via') == 'Pinfall' and it['st'] == 'eBay'][:300]
+        with cf.ThreadPoolExecutor(6) as ex:
+            for it, alive in zip(eb, ex.map(lambda x: ebay_alive(tok, x['i'][3:]), eb)):
+                if not alive:
+                    gone.add(it['i'])
+        items = [it for it in items if it['i'] not in gone]
+        if gone:
+            print(f'eBay: {len(gone)} Pinfall listings have sold or ended')
         qs = [(c, c['q']) for c in items if c.get('k') == 'pick' and c.get('q')]
         def both(q):
             try:
@@ -370,7 +490,11 @@ def main():
     secs = []
     for sec in src['sections']:
         n = sum(1 for it in items if it['s'] == sec['id'])
-        secs.append({'id': sec['id'], 'title': sec['title'], 'dek': sec['dek'], 'n': n, 'boards': (meta.get(sec['id']) or {}).get('boards') or [],
+        boards = list((meta.get(sec['id']) or {}).get('boards') or [])
+        for b, t in PIN_BOARDS.items():
+            if any(it.get('b') == 'pinfall-' + b and it['s'] == sec['id'] for it in items):
+                boards.append({'id': 'pinfall-' + b, 'title': t})
+        secs.append({'id': sec['id'], 'title': sec['title'], 'dek': sec['dek'], 'n': n, 'boards': boards, 'used': sum(1 for it in items if it['s'] == sec['id'] and (it.get('k') in ('used', 'ebay') or it.get('cond'))),
                      'stores': sorted({s.get('name') for s in sec.get('stores') or []}), 'ebay': sec.get('ebay') or []})
     out = {'v': 1, 'at': NOW.strftime('%Y-%m-%dT%H:%M:%SZ'), 'ebay': has_ebay, 'sections': secs, 'items': items, 'trends': tr,
            'stores': stores, 'errors': errors[:40]}

@@ -30,7 +30,8 @@ scheduled task. `shop/updater/shop.py` reads these, adds live prices, pictures a
       "ebay": "normcore tamper 53.3mm",       // a short eBay search that finds this exact item, new or used
       "tags": ["espresso", "under-50"],       // lowercase; include a price band: under-25, under-50, under-100, under-250, splurge
       "trend": { "where": "TikTok", "note": "What the trend is, one sentence.", "src": "https://dated article documenting it" },  // trending items only
-      "sources": ["https://review or report backing the 'why'"]
+      "sources": ["https://review or report backing the 'why'"],
+      "cond": "Pre-owned"                     // optional: for a used, refurbished, open-box or vintage pick; leave out for new
     }
   ],
   "stores": [                                 // brand stores on Shopify worth pulling a live 'selling now' row from
@@ -40,6 +41,11 @@ scheduled task. `shop/updater/shop.py` reads these, adds live prices, pictures a
 ```
 
 Sections: fashion, trending, gifts, coffee, kitchen, home, remodel, tech, garage, outdoors, wellness, equestrian.
+
+Blend new and used: about a quarter of picks can be pre-owned. Prefer the brands' own certified pre-owned, refurbished or
+vintage programs (Fellow Rebrew, Clive's certified pre-owned, Weber Renewed, Patagonia Worn Wear and the like); a single
+resale listing (eBay, Poshmark) works for a hard-to-find piece, with "cond" set and the price including shipping. Fashion
+also blends in Pinfall's resale finds (pinfall/index.html) automatically.
 
 Rules: real products on sale now, each URL checked; prices and pictures only as seen, never estimated; claims in `why`
 backed by `sources` (reviews, trend reporting); trending items need a dated source documenting the trend on TikTok or

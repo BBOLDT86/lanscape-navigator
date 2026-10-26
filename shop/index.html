@@ -123,6 +123,14 @@ img{display:block;max-width:100%}
 .pm .pr.sale{color:var(--sale)}
 .pm s{color:var(--ink-3);font-weight:400;margin-left:4px}
 .pm .why{font-size:14px;line-height:1.4;color:var(--ink-2);margin:6px 0 0;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;letter-spacing:-.01em}
+.seg2{display:inline-flex;background:var(--fill);border-radius:999px;padding:3px;gap:2px}
+.seg2 button{border:0;background:none;border-radius:999px;padding:6px 13px;font:500 14px var(--sf);letter-spacing:-.01em;color:var(--ink-2)}
+.seg2 button[aria-pressed="true"]{background:var(--card);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.szl{font:500 13px var(--sf);color:var(--ink-3)}
+.pm .sz{font:600 11.5px/1 var(--sf);border:1px solid var(--hair);border-radius:6px;padding:3px 5px;color:var(--ink-2);flex:none}.pm .sz.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.pm .pr small{font-weight:400;color:var(--ink-3);font-size:12px}
+.info .pnote{font:400 15px var(--sf);color:var(--ink-3)}
+.deal2{margin:6px 0 0;font-size:15px;color:var(--ink-2)}.deal2 b{color:var(--sale)}
 .more{display:block;margin:30px auto 0;border:0;background:var(--card);box-shadow:inset 0 0 0 1px var(--hair);border-radius:999px;padding:12px 22px;font:500 15px var(--sf)}
 .empty{padding:70px 0;text-align:center;color:var(--ink-3)}
 .empty b{display:block;font:700 26px var(--sfd);color:var(--ink);letter-spacing:-.03em;margin-bottom:6px}
@@ -246,6 +254,21 @@ const warm = () => Object.keys(P.saved).length + Object.keys(P.open).length >= 3
 /* ---------- formatting */
 const money = (p, c = 'USD') => p == null ? '' : new Intl.NumberFormat('en-US', { style: 'currency', currency: c || 'USD', maximumFractionDigits: p % 1 && p < 100 ? 2 : 0 }).format(p);
 const off = it => it.was && it.p ? Math.round((1 - it.p / it.was) * 100) : 0;
+const isUsed = it => it.k === 'used' || it.k === 'ebay' || !!it.cond;
+const offAny = it => it.k === 'used' ? Math.round((it.off || 0) * 100) : off(it);
+const condLab = it => { const c = it.cond || ''; return it.k === 'ebay' ? (it.auc ? 'Auction' : 'Pre-owned') : /^new with tags/i.test(c) ? 'New with tags' : /^new\b/i.test(c) ? 'New, resale' : /like new/i.test(c) ? 'Like new' : /refurb|renew/i.test(c) ? 'Refurbished' : /open box/i.test(c) ? 'Open box' : /vintage/i.test(c) ? 'Vintage' : /second/i.test(c) ? 'Seconds' : 'Pre-owned'; };
+const LS = { get(k, d) { try { const v = localStorage.getItem(k); return v == null ? d : JSON.parse(v); } catch (e) { return d; } }, set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) { /* storage off */ } } };
+let COND = LS.get('finds.cond', 'all'), SIZES = LS.get('finds.sizes', []);
+const condOk = it => COND === 'all' || (COND === 'used' ? isUsed(it) : !isUsed(it));
+const sizeOk = it => !SIZES.length || !it.sz || !it.sz.length || it.sz.some(z => SIZES.includes(z));
+const condSeg = () => `<span class="seg2" role="group" aria-label="New or pre-owned">${[['all', 'New & pre-owned'], ['new', 'New'], ['used', 'Pre-owned']].map(([k, l]) => `<button type="button" data-cond="${k}" aria-pressed="${COND === k}">${l}</button>`).join('')}</span>`;
+const sizeChips = list => list.some(it => it.sz && it.sz.length) ? `<span class="sep"></span><span class="szl">Size</span>${['S', 'M', 'L', 'XL', 'XXL'].map(z => `<button class="chip" type="button" data-size="${z}" aria-pressed="${SIZES.includes(z)}">${z}</button>`).join('')}` : '';
+function roundRobin(list) { // For You: every section gets its turn, more often the ones this reader saves and opens
+  const by = new Map(); for (const it of list) { if (!by.has(it.s)) by.set(it.s, []); by.get(it.s).push(it); }
+  const out = [], taken = {};
+  while (out.length < list.length) { let best = null, bv = -1; for (const [k, q] of by) { if (!q.length) continue; const v = (1 + Math.max(0, P.sec[k] || 0) * .35) / ((taken[k] || 0) + 1); if (v > bv) { bv = v; best = k; } } out.push(by.get(best).shift()); taken[best] = (taken[best] || 0) + 1; }
+  return out;
+}
 const ago = iso => { const m = Math.round((Date.now() - new Date(iso)) / 60000); return m < 60 ? `${Math.max(1, m)} min ago` : m < 1440 ? `${Math.round(m / 60)} h ago` : `${Math.round(m / 1440)} days ago`; };
 const secOf = id => (F.sections.find(s => s.id === id) || { title: id });
 const BANDS = [['under-25', 'Under $25'], ['under-50', 'Under $50'], ['under-100', 'Under $100'], ['under-250', 'Under $250'], ['splurge', 'Splurge']];
@@ -257,7 +280,7 @@ const daySeed = Math.floor(Date.now() / 864e5);
 function jitter(id) { let h = daySeed; for (const c of id) h = (h * 31 + c.charCodeAt(0)) | 0; return ((h >>> 0) % 1000) / 1000; }
 function score(it) {
   if (P.hide[it.i]) return -99;
-  let s = it.k === 'pick' ? 1.6 : it.k === 'ebay' ? .7 : 1;
+  let s = it.k === 'pick' ? 1.6 : it.k === 'ebay' ? .7 : it.k === 'used' ? .8 + (it.off || 0) * .7 : 1;
   if (!it.im) s -= .8;
   if (it.av === false) s -= 1.2;
   if (it.was) s += .25 + off(it) / 200;
@@ -275,13 +298,13 @@ function mix(list, key = 's', n = 3) { // no wall of one store: at most n in a r
 /* ---------- cards and the masonry */
 function card(it) {
   const r = it.w && it.h ? clamp(it.h / it.w, .72, 1.5) : it.k === 'pick' ? 1.22 : 1;
-  const badges = [it.k === 'pick' ? '<span class="bd pick">Pick</span>' : '', it.tr ? `<span class="bd trend">${esc(it.tr.where || 'Trending')}</span>` : '', off(it) >= 10 ? `<span class="bd sale">−${off(it)}%</span>` : '',
-    it.k === 'ebay' ? `<span class="bd used">${esc(it.auc ? 'Auction' : 'Pre-owned')}</span>` : '', it.av === false ? '<span class="bd out">Sold out</span>' : it.new ? '<span class="bd">New</span>' : ''].join('');
+  const badges = [it.k === 'pick' ? '<span class="bd pick">Pick</span>' : '', it.tr ? `<span class="bd trend">${esc(it.tr.where || 'Trending')}</span>` : '', offAny(it) >= 10 ? `<span class="bd sale">−${offAny(it)}%${it.k === 'used' ? ' vs new' : ''}</span>` : '',
+    isUsed(it) ? `<span class="bd used">${esc(condLab(it))}${it.k === 'used' ? ' · ' + esc(it.st) : ''}</span>` : '', it.av === false ? '<span class="bd out">Sold out</span>' : it.new && !isUsed(it) ? '<span class="bd">New</span>' : ''].join('');
   return `<article class="pin" data-id="${it.i}">
     <a class="ph" href="#/p/${it.i}" style="aspect-ratio:1/${r.toFixed(3)}" aria-label="${esc(it.n)}">${it.im ? `<img src="${esc(it.im)}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" onload="this.classList.add('ld')" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'tx',textContent:this.closest('.pin').querySelector('.nm').textContent}))">` : `<span class="tx">${esc(it.n)}</span>`}</a>
     <div class="badges">${badges}</div>
     <button class="heart" type="button" data-save="${it.i}" aria-pressed="${!!P.saved[it.i]}" aria-label="Save">${P.saved[it.i] ? IC.heartF : IC.heart}</button>
-    <div class="pm"><p class="nm">${esc(it.n)}</p><p class="sub"><span class="br">${esc(it.br || it.st)}</span>${it.p != null ? `<span class="pr${it.was ? ' sale' : ''}">${money(it.p, it.c)}${it.was ? `<s>${money(it.was, it.c)}</s>` : ''}</span>` : ''}</p>
+    <div class="pm"><p class="nm">${esc(it.n)}</p><p class="sub"><span class="br">${esc(it.br || it.st)}</span>${it.z ? `<span class="sz${SIZES.some(z => (it.sz || []).includes(z)) ? ' on' : ''}">${esc(it.z)}</span>` : ''}${it.p != null ? `<span class="pr${it.was ? ' sale' : ''}">${money(it.p, it.c)}${it.was ? `<s>${money(it.was, it.c)}</s>` : ''}${it.k === 'used' ? '<small> all-in</small>' : ''}</span>` : ''}</p>
     ${it.y ? `<p class="why">${esc(it.y)}</p>` : ''}</div></article>`;
 }
 function est(it, cw) { const r = it.w && it.h ? clamp(it.h / it.w, .72, 1.5) : it.k === 'pick' ? 1.22 : 1; return cw * r + 62 + (it.y && cw > 200 ? 62 : 0); }
@@ -307,7 +330,7 @@ function watchMore() { const m = $('#moreW'); if (io && m) { io.disconnect(); io
 /* ---------- pages */
 function secNav() {
   const cur = view.t === 'sec' ? 's:' + view.id : view.t;
-  const items = [['home', '#/', 'For You'], ...F.sections.map(s => ['s:' + s.id, '#/s/' + s.id, s.title]), ['deals', '#/deals', 'Deals'], ['saved', '#/saved', 'Saved']];
+  const items = [['home', '#/', 'For You'], ...F.sections.map(s => ['s:' + s.id, '#/s/' + s.id, s.title]), ['used', '#/used', 'Pre-owned'], ['deals', '#/deals', 'Deals'], ['saved', '#/saved', 'Saved']];
   $('#secs').innerHTML = items.map(([id, h, l]) => `<a href="${h}"${id === cur ? ' aria-current="page"' : ''}>${esc(l)}</a>`).join('');
   const on = $('#secs [aria-current]'); if (on) on.scrollIntoView({ block: 'nearest', inline: 'center' });
 }
@@ -315,34 +338,34 @@ function hello() { const h = new Date().getHours(); return h < 5 ? 'Up late?' : 
 function home() {
   document.title = 'Finds';
   const pool = F.items.filter(it => it.im && it.av !== false && it.k !== 'ebay');
-  const tiles = F.sections.map(s => { const c = pool.filter(it => it.s === s.id).sort((a, b) => (b.k === 'pick') - (a.k === 'pick') || score(b) - score(a))[0]; return `<a class="tile" href="#/s/${s.id}">${c ? `<img src="${esc(c.im)}" alt="" loading="lazy" referrerpolicy="no-referrer">` : ''}<b>${esc(s.title)}</b><span>${s.n} finds</span></a>`; }).join('');
-  const fy = mix(F.items.filter(it => it.k !== 'ebay' || warm()).map(it => ({ it, s: score(it) })).sort((a, b) => b.s - a.s).map(x => x.it), 's', 2);
+  const usedTop = pool.filter(isUsed).sort((a, b) => offAny(b) - offAny(a))[0];
+  const tiles = F.sections.map(s => { const c = pool.filter(it => it.s === s.id).sort((a, b) => (b.k === 'pick') - (a.k === 'pick') || score(b) - score(a))[0]; return `<a class="tile" href="#/s/${s.id}">${c ? `<img src="${esc(c.im)}" alt="" loading="lazy" referrerpolicy="no-referrer">` : ''}<b>${esc(s.title)}</b><span>${s.n} finds</span></a>`; }).join('') + (usedTop ? `<a class="tile" href="#/used"><img src="${esc(usedTop.im)}" alt="" loading="lazy" referrerpolicy="no-referrer"><b>Pre-owned</b><span>${F.items.filter(isUsed).length} used, refurbished and vintage</span></a>` : '');
+  const fy = roundRobin(F.items.filter(it => condOk(it) && sizeOk(it) && !P.hide[it.i]).map(it => ({ it, s: score(it) })).sort((a, b) => b.s - a.s).map(x => x.it));
   const top = Object.entries(P.sec).filter(x => x[1] > .5).sort((a, b) => b[1] - a[1]).slice(0, 3).map(x => secOf(x[0]).title);
   $('#main').innerHTML = `<section class="hero"><p class="eyebrow">${esc(hello())}</p><h1 class="h1">${warm() ? 'Finds for you.' : 'Things worth having.'}</h1>
-    <p class="dek">${warm() && top.length ? `Tuned to what you save and open: more <b>${esc(top.join(', '))}</b>.` : 'Real things from the stores that make them, <b>picked with reasons and priced live.</b> Save what you like and this page learns your taste.'}</p>
+    <p class="dek">${warm() && top.length ? `Tuned to what you save and open: more <b>${esc(top.join(', '))}</b>.` : 'New from the stores that make them and pre-owned from eBay, Poshmark and the brands’ own resale, <b>picked with reasons and priced live.</b> Save what you like and this page learns your taste.'}</p>
     <p class="meta-line">${F.items.length.toLocaleString()} finds from ${new Set(F.items.map(i => i.st)).size} stores · prices checked ${ago(F.at)}</p></section>
     <div class="tiles" aria-label="Sections">${tiles}</div>
     ${F.trends && F.trends.length ? `<h2 class="h2">What’s trending <a href="#/s/trending">See the trending board</a></h2><div class="rail">${F.trends.slice(0, 12).map(t => `<a class="story" href="${esc(t.u)}" target="_blank" rel="noopener"><span class="o">${esc(t.o)}</span><b>${esc(t.t)}</b><time>${ago(t.p)}</time></a>`).join('')}</div>` : ''}
-    <h2 class="h2">${warm() ? 'Picked for you' : 'A little of everything'}</h2><div id="board"></div>`;
+    <h2 class="h2">${warm() ? 'Picked for you' : 'A little of everything'}</h2><div class="bar2">${condSeg()}${sizeChips(F.items)}</div><div id="board"></div>`;
   grid(fy, $('#board')); watchMore();
 }
 function filters(list, s) {
   const boards = (s && s.boards) || [];
   const has = k => list.some(it => (it.tg || []).includes(k));
-  return `<div class="bar2" role="group" aria-label="Filters">
+  return `<div class="bar2" role="group" aria-label="Filters">${condSeg()}<span class="sep"></span>
     ${boards.length ? `<button class="chip b" type="button" data-board="" aria-pressed="${!filt.board}">Everything</button><button class="chip b" type="button" data-board="picks" aria-pressed="${filt.board === 'picks'}">Picks</button>${boards.map(b => `<button class="chip b" type="button" data-board="${esc(b.id)}" aria-pressed="${filt.board === b.id}">${esc(b.title)}</button>`).join('')}<span class="sep"></span>` : ''}
-    ${list.some(it => it.k === 'ebay') ? `<button class="chip b" type="button" data-board="ebay" aria-pressed="${filt.board === 'ebay'}">Pre-owned</button><span class="sep"></span>` : ''}
     ${BANDS.filter(b => has(b[0])).map(b => `<button class="chip" type="button" data-band="${b[0]}" aria-pressed="${filt.band === b[0]}">${b[1]}</button>`).join('')}
-    ${list.some(it => it.was) ? `<button class="chip" type="button" data-sale aria-pressed="${filt.sale}">On sale</button>` : ''}${list.some(it => it.new) ? `<button class="chip" type="button" data-nw aria-pressed="${filt.nw}">New</button>` : ''}
-    <label class="sort">Sort <select id="sort"><option value="you"${filt.sort === 'you' ? ' selected' : ''}>For you</option><option value="lo"${filt.sort === 'lo' ? ' selected' : ''}>Price: low to high</option><option value="hi"${filt.sort === 'hi' ? ' selected' : ''}>Price: high to low</option><option value="off"${filt.sort === 'off' ? ' selected' : ''}>Biggest discount</option></select></label></div>`;
+    ${sizeChips(list)}${list.some(it => it.was) ? `<button class="chip" type="button" data-sale aria-pressed="${filt.sale}">On sale</button>` : ''}${list.some(it => it.new) ? `<button class="chip" type="button" data-nw aria-pressed="${filt.nw}">New</button>` : ''}
+    <label class="sort">Sort <select id="sort"><option value="you"${filt.sort === 'you' ? ' selected' : ''}>For you</option><option value="lo"${filt.sort === 'lo' ? ' selected' : ''}>Price: low to high</option><option value="hi"${filt.sort === 'hi' ? ' selected' : ''}>Price: high to low</option><option value="off"${filt.sort === 'off' ? ' selected' : ''}>Biggest discount</option><option value="shuffle"${filt.sort === 'shuffle' ? ' selected' : ''}>Shuffle</option></select></label></div>`;
 }
 function apply(list) {
-  let l = list.filter(it => !P.hide[it.i]);
+  let l = list.filter(it => !P.hide[it.i] && condOk(it) && sizeOk(it));
   if (filt.board === 'picks') l = l.filter(it => it.k === 'pick'); else if (filt.board === 'ebay') l = l.filter(it => it.k === 'ebay'); else if (filt.board) l = l.filter(it => it.b === filt.board);
   if (filt.band) l = l.filter(it => (it.tg || []).includes(filt.band));
   if (filt.sale) l = l.filter(it => it.was);
   if (filt.nw) l = l.filter(it => it.new);
-  const by = { lo: (a, b) => (a.p ?? 1e9) - (b.p ?? 1e9), hi: (a, b) => (b.p ?? -1) - (a.p ?? -1), off: (a, b) => off(b) - off(a) }[filt.sort];
+  const sh = Math.random() * 1e9 | 0, by = { lo: (a, b) => (a.p ?? 1e9) - (b.p ?? 1e9), hi: (a, b) => (b.p ?? -1) - (a.p ?? -1), off: (a, b) => offAny(b) - offAny(a), shuffle: (a, b) => (jitter(a.i + sh) - jitter(b.i + sh)) }[filt.sort];
   return by ? l.sort(by) : mix(l.map(it => ({ it, s: score(it) })).sort((a, b) => b.s - a.s).map(x => x.it), 'st', 2);
 }
 function section(id) {
@@ -356,6 +379,16 @@ function section(id) {
     <div id="fl">${filters(list, s)}</div><div id="board"></div>
     ${!F.ebay && s.ebay && s.ebay.length ? `<p class="meta-line" style="margin-top:28px">Pre-owned on eBay: ${s.ebay.map(q => `<a style="color:var(--link)" href="${ebaySearch(q, true)}" target="_blank" rel="noopener">${esc(q)}</a>`).join(' · ')}</p>` : ''}`;
   grid(apply(list), $('#board')); watchMore();
+}
+function usedPage() {
+  document.title = 'Pre-owned · Finds';
+  const all = F.items.filter(it => isUsed(it) && !P.hide[it.i]);
+  const list = all.filter(sizeOk).sort((a, b) => offAny(b) - offAny(a) || score(b) - score(a));
+  const src = [...new Set(all.map(it => it.st))];
+  $('#main').innerHTML = `<section class="hero"><p class="eyebrow">${all.length} pre-owned</p><h1 class="h1">Pre-owned.</h1><p class="dek">Used, refurbished, open-box and vintage, <b>the biggest savings against new first.</b></p>
+    <p class="meta-line">From ${esc(src.slice(0, 12).join(', '))}. Resale prices include the seller’s shipping; listings sell fast.</p></section>
+    <div class="bar2">${sizeChips(all)}</div><div id="board"></div>`;
+  grid(list, $('#board')); watchMore();
 }
 function deals() {
   document.title = 'Deals · Finds';
@@ -398,17 +431,19 @@ function openSheet(id) {
   $('#sheet').innerHTML = `<div class="sx"><button type="button" data-share aria-label="Share">${IC.share}</button><button type="button" data-close aria-label="Close">${IC.x}</button></div>
     <div class="sg"><div class="gal"><div class="main" id="gm">${ims.length ? ims.map(u => `<img src="${esc(u)}" alt="${esc(it.n)}" loading="lazy" referrerpolicy="no-referrer">`).join('') : `<span class="tx" style="position:relative;display:flex;align-items:flex-end;padding:22px;font:700 30px/1.1 var(--sfd);width:100%">${esc(it.n)}</span>`}</div>
       ${ims.length > 1 ? `<div class="th">${ims.map((u, i) => `<button type="button" data-gi="${i}"${i ? '' : ' aria-current="true"'}><img src="${esc(u)}" alt="" loading="lazy" referrerpolicy="no-referrer"></button>`).join('')}</div>` : ''}</div>
-    <div class="info"><p class="k"><a href="#/s/${it.s}">${esc(s.title)}</a> · ${esc(it.br || it.st)}${it.st && it.st !== it.br ? ` at ${esc(it.st)}` : ''}</p><h2 id="shT">${esc(it.n)}</h2>
-      ${it.p != null ? `<p class="price${it.was ? ' sale' : ''}"><span>${money(it.p, it.c)}</span>${it.was ? `<s>${money(it.was, it.c)}</s><span style="font-size:15px">Save ${off(it)}%</span>` : ''}</p>` : ''}
-      <p class="stock${it.av !== false ? ' ok' : ''}">${it.k === 'ebay' ? esc(`${it.cond || 'Pre-owned'} on eBay${it.auc ? ', auction' : ''}${it.sel ? ` · seller ${it.sel}% positive` : ''}`) : it.av === false ? 'Sold out at the store right now' : it.live || it.k === 'store' ? `In stock at ${esc(it.st)} · checked ${ago(F.at)}` : it.seen ? `Price as seen ${esc(it.seen)}` : ''}</p>
+    <div class="info"><p class="k"><a href="#/s/${it.s}">${esc(s.title)}</a> · ${esc(it.br || it.st)}${it.st && it.st !== it.br ? (it.k === 'used' ? ` · listed on ${esc(it.st)}` : ` at ${esc(it.st)}`) : ''}</p><h2 id="shT">${esc(it.n)}</h2>
+      ${it.k === 'used' ? `<p class="price"><span>${money(it.p, it.c)}</span><span class="pnote">all-in${it.sh ? `: ${money(it.pp)} + ${money(it.sh)} shipping` : ', free shipping'}</span></p><p class="deal2"><b>About ${offAny(it)}% below new.</b> ${money(it.nw)} new (${it.nwk === 'listed' ? 'retail in the listing' : 'typical retail, estimated'}).</p>`
+        : it.p != null ? `<p class="price${it.was ? ' sale' : ''}"><span>${money(it.p, it.c)}</span>${it.was ? `<s>${money(it.was, it.c)}</s><span style="font-size:15px">Save ${off(it)}%</span>` : ''}</p>` : ''}
+      <p class="stock${it.av !== false ? ' ok' : ''}">${it.k === 'used' ? esc(`${it.cond} on ${it.st}${it.z ? ' · size ' + it.z : ''}${it.bo ? ' · takes offers' : ''}`) : it.cond ? esc(`${it.cond}, from ${it.st}'s own resale · checked ${ago(F.at)}`) : it.k === 'ebay' ? esc(`${it.cond || 'Pre-owned'} on eBay${it.auc ? ', auction' : ''}${it.sel ? ` · seller ${it.sel}% positive` : ''}`) : it.av === false ? 'Sold out at the store right now' : it.live || it.k === 'store' ? `In stock at ${esc(it.st)} · checked ${ago(F.at)}` : it.seen ? `Price as seen ${esc(it.seen)}` : ''}</p>
       ${it.y ? `<div class="why2"><h3>Why it’s here</h3><p>${esc(it.y)}</p>${it.tr ? `<p style="margin-top:8px;font-size:15px"><b>${esc(it.tr.where)}:</b> ${esc(it.tr.note || '')}</p>` : ''}${(it.src || []).length || (it.tr && it.tr.src) ? `<ul>${[...(it.src || []), ...(it.tr && it.tr.src ? [it.tr.src] : [])].slice(0, 5).map(u => `<li><a href="${esc(u)}" target="_blank" rel="noopener">${esc(new URL(u).hostname.replace(/^www\./, ''))} ↗</a></li>`).join('')}</ul>` : ''}</div>` : ''}
+      ${it.k === 'used' ? `<div class="why2"><h3>The listing</h3><p>${esc(it.lt || it.n)}</p>${it.m || it.note ? `<p style="margin-top:6px;font-size:15px">${esc([it.m, it.note].filter(Boolean).join('. '))}</p>` : ''}<ul><li>Found for <a href="../pinfall/">Pinfall</a>, ${esc(it.seen || '')}. Resale listings sell fast: if it’s gone, the eBay link below finds others like it.</li></ul></div>` : ''}
       ${it.d ? `<p class="desc">${esc(it.d)}</p>` : ''}
-      <div class="acts"><a class="btn p" href="${esc(it.u)}" target="_blank" rel="noopener" data-out="${it.i}">${it.k === 'ebay' ? 'View on eBay' : `Buy at ${esc(it.st)}`} ${IC.out}</a>
+      <div class="acts"><a class="btn p" href="${esc(it.u)}" target="_blank" rel="noopener" data-out="${it.i}">${it.k === 'ebay' || it.k === 'used' ? `View on ${esc(it.st)}` : `Buy at ${esc(it.st)}`} ${IC.out}</a>
         <button class="btn" type="button" data-save="${it.i}" aria-pressed="${!!P.saved[it.i]}">${P.saved[it.i] ? IC.heartF + 'Saved' : IC.heart + 'Save'}</button>
-        ${it.k !== 'ebay' ? `<a class="btn" href="${ebaySearch(qOf(it), true)}" target="_blank" rel="noopener" data-out="${it.i}">Used on eBay ${IC.out}</a>` : ''}</div>
+        ${it.k !== 'ebay' ? `<a class="btn" href="${ebaySearch(it.k === 'used' ? (it.lt || it.n) : qOf(it), true)}" target="_blank" rel="noopener" data-out="${it.i}">${it.k === 'used' ? 'More like it on eBay' : 'Used on eBay'} ${IC.out}</a>` : ''}</div>
       ${eb ? ebRows(eb.used, 'Used on eBay now') + ebRows(eb.new, 'New on eBay now') : ''}
       <div class="boards">${P.saved[id] ? `Boards: ${Object.keys(P.boards).map(b => `<button class="chip" type="button" data-bd="${esc(b)}" aria-pressed="${myBoards.includes(b)}">${esc(b)}</button>`).join('')}<input id="nb" placeholder="New board" aria-label="New board name" enterkeyhint="done">` : ''}</div>
-      <p class="fine">${it.k === 'ebay' ? 'Listing from eBay’s API; check the listing before you bid or buy.' : `Price and stock from ${esc(it.st)}’s own catalog. Finds isn’t paid by any store.`} <button type="button" data-hide="${it.i}" style="border:0;background:none;color:var(--link);padding:0;font:inherit">Not for me</button></p></div></div>
+      <p class="fine">${it.k === 'used' ? `A seller’s listing on ${esc(it.st)}; check its condition, size and photos there before you buy.` : it.k === 'ebay' ? 'Listing from eBay’s API; check the listing before you bid or buy.' : `Price and stock from ${esc(it.st)}’s own catalog. Finds isn’t paid by any store.`} <button type="button" data-hide="${it.i}" style="border:0;background:none;color:var(--link);padding:0;font:inherit">Not for me</button></p></div></div>
     ${like.length ? `<div class="sml"><h2 class="h2">More like this</h2><div id="sm"></div></div>` : ''}`;
   if (like.length) { const g = $('#sm'); g.innerHTML = `<div class="grid">${[...Array(Math.min(4, cols()))].map((_, c) => `<div class="col">${like.filter((_, i) => i % Math.min(4, cols()) === c).map(card).join('')}</div>`).join('')}</div>`; }
   $('#scrim').classList.add('on'); $('#sheet').classList.add('on'); $('#sheet').scrollTop = 0; $('#sheet').focus({ preventScroll: true });
@@ -449,6 +484,8 @@ document.addEventListener('click', e => {
   if (d.hide) { const id = d.hide; P.hide[id] = 1; learn(BY.get(id), -3); save(); closeSheet(); toast('Fewer like that', () => { delete P.hide[id]; learn(BY.get(id), 3); save(); route(true); }); return; }
   if (d.bd) { const b = d.bd, l = P.boards[b] || (P.boards[b] = []); const i = l.indexOf(sheetFor); if (i >= 0) l.splice(i, 1); else l.push(sheetFor); save(); openSheet(sheetFor); return; }
   if (d.share != null) { const it = BY.get(sheetFor); const url = PUBLIC + '#/p/' + sheetFor; if (navigator.share) navigator.share({ title: it.n, url }).catch(() => {}); else navigator.clipboard && navigator.clipboard.writeText(url).then(() => toast('Link copied')); return; }
+  if (d.cond) { COND = d.cond; LS.set('finds.cond', COND); route(true); return; }
+  if (d.size) { const i = SIZES.indexOf(d.size); if (i >= 0) SIZES.splice(i, 1); else SIZES.push(d.size); LS.set('finds.sizes', SIZES); route(true); return; }
   if (d.board != null) { filt.board = filt.board === d.board ? '' : d.board; refresh(); return; }
   if (d.band) { filt.band = filt.band === d.band ? '' : d.band; refresh(); return; }
   if (d.sale != null) { filt.sale = !filt.sale; refresh(); return; }
@@ -473,6 +510,7 @@ function parse() {
   if (a === 'p' && b) return { t: 'p', id: b };
   if (a === 'q' && b) return { t: 'q', q: b };
   if (a === 'deals') return { t: 'deals' };
+  if (a === 'used') return { t: 'used' };
   if (a === 'saved') return { t: 'saved', board: b || '' };
   return { t: 'home' };
 }
@@ -486,7 +524,7 @@ function route(keep) {
   const key = JSON.stringify(v);
   if (key !== lastView) { filt = { band: '', sale: false, nw: false, board: '', sort: 'you' }; }
   view = v; secNav();
-  if (v.t === 'sec') section(v.id); else if (v.t === 'deals') deals(); else if (v.t === 'saved') saved(); else if (v.t === 'q') { search(v.q); if (document.activeElement !== $('#q')) $('#q').value = v.q; } else home();
+  if (v.t === 'sec') section(v.id); else if (v.t === 'used') usedPage(); else if (v.t === 'deals') deals(); else if (v.t === 'saved') saved(); else if (v.t === 'q') { search(v.q); if (document.activeElement !== $('#q')) $('#q').value = v.q; } else home();
   if (!keep && key !== lastView) scrollTo(0, 0);
   lastView = key;
 }
@@ -503,7 +541,7 @@ load().then(d => {
   BY = new Map(F.items.map(it => [it.i, it]));
   F.sections = F.sections.filter(s => s.n);
   counts();
-  $('#foot').innerHTML = `<p>Finds doesn’t sell anything and isn’t paid by any store. Products, prices and stock come from each store’s own published catalog, checked every six hours (last ${ago(F.at)}); check the store before you buy. Picks are Claude’s, each with the reviews or reporting behind it linked.${F.ebay ? ' Pre-owned listings come from eBay’s API.' : ' eBay links open eBay’s own search.'} Trend stories link to the outlets that reported them.</p>
+  $('#foot').innerHTML = `<p>Finds doesn’t sell anything and isn’t paid by any store. New products, prices and stock come from each store’s own published catalog, checked every six hours; pre-owned comes from the brands’ own resale and refurbished collections, from Pinfall’s resale finds on eBay, Poshmark, Mercari and Grailed (all-in prices, as found) (last ${ago(F.at)}); check the store before you buy. Picks are Claude’s, each with the reviews or reporting behind it linked.${F.ebay ? ' Pre-owned listings come from eBay’s API.' : ' eBay links open eBay’s own search.'} Trend stories link to the outlets that reported them.</p>
     <p>What you save and open stays in this browser. From the makers of <a href="../news/">The Watch</a> and <a href="../travel/">Weekender</a>.</p>`;
   route();
 }).catch(() => { $('#main').innerHTML = '<div class="empty"><b>Finds didn’t load</b>Check your connection and try again.</div>'; });

@@ -1,159 +1,861 @@
 {
- "note": "Finds: the stores each section draws from. Every store here runs on Shopify and publishes its catalog (checked from GitHub's servers on Oct 26, 2026). 'c' is the collection to read (its best sellers, usually); 'auto' lets the updater pick the best-seller or newest collection itself. 'n' caps how many products a store contributes. 'skip' drops product titles matching a pattern. 'ebay' is a list of searches for the section's Pre-owned row (used only when the eBay API keys are set). Edit freely; the updater runs on every push to this file.",
+ "note": "Finds: the stores each section draws from. Every store here runs on Shopify and publishes its catalog (checked from GitHub's servers on Oct 26, 2026). 'c' is the collection to read (its best sellers, usually); 'auto' lets the updater pick the best-seller or newest collection itself. 'n' caps how many products a store contributes. 'skip' drops product titles matching a pattern. 'cond' marks a brand's own pre-owned, refurbished, open-box or vintage collection (shown as pre-owned and blended in). 'ebay' is a list of searches for the section's Pre-owned row (used only when the eBay API keys are set). Edit freely; the updater runs on every push to this file.",
  "sections": [
-  {"id": "trending", "title": "Trending", "dek": "The brands all over TikTok and Instagram, and this week's reporting on what's taking off.",
+  {
+   "id": "trending",
+   "title": "Trending",
+   "dek": "The brands all over TikTok and Instagram, and this week's reporting on what's taking off.",
    "stores": [
-    {"d": "stanley1913.com", "name": "Stanley", "c": "best-selling-products", "n": 8, "skip": "lid|straw|replacement|boot|sleeve"},
-    {"d": "rhodeskin.com", "name": "rhode", "c": "auto", "n": 6},
-    {"d": "glossier.com", "name": "Glossier", "c": "best-sellers", "n": 6},
-    {"d": "summerfridays.com", "name": "Summer Fridays", "c": "best-sellers", "n": 6},
-    {"d": "comfrt.com", "name": "Comfrt", "c": "best-sellers", "n": 6},
-    {"d": "shopbala.com", "name": "Bala", "c": "best-sellers", "n": 6},
-    {"d": "fromourplace.com", "name": "Our Place", "c": "bestsellers", "n": 6},
-    {"d": "solawave.co", "name": "Solawave", "c": "best-sellers", "n": 4},
-    {"d": "touchland.com", "name": "Touchland", "c": "best-sellers", "n": 4},
-    {"d": "mielleorganics.com", "name": "Mielle", "c": "best-selling-hair-care-products", "n": 4},
-    {"d": "tower28beauty.com", "name": "Tower 28", "c": "allure-best-of-beauty-winners", "n": 4},
-    {"d": "drinkolipop.com", "name": "Olipop", "c": "auto", "n": 4}
+    {
+     "d": "stanley1913.com",
+     "name": "Stanley",
+     "c": "best-selling-products",
+     "n": 8,
+     "skip": "lid|straw|replacement|boot|sleeve"
+    },
+    {
+     "d": "rhodeskin.com",
+     "name": "rhode",
+     "c": "auto",
+     "n": 6
+    },
+    {
+     "d": "glossier.com",
+     "name": "Glossier",
+     "c": "best-sellers",
+     "n": 6
+    },
+    {
+     "d": "summerfridays.com",
+     "name": "Summer Fridays",
+     "c": "best-sellers",
+     "n": 6
+    },
+    {
+     "d": "comfrt.com",
+     "name": "Comfrt",
+     "c": "best-sellers",
+     "n": 6
+    },
+    {
+     "d": "shopbala.com",
+     "name": "Bala",
+     "c": "best-sellers",
+     "n": 6
+    },
+    {
+     "d": "fromourplace.com",
+     "name": "Our Place",
+     "c": "bestsellers",
+     "n": 6
+    },
+    {
+     "d": "solawave.co",
+     "name": "Solawave",
+     "c": "best-sellers",
+     "n": 4
+    },
+    {
+     "d": "touchland.com",
+     "name": "Touchland",
+     "c": "best-sellers",
+     "n": 4
+    },
+    {
+     "d": "mielleorganics.com",
+     "name": "Mielle",
+     "c": "best-selling-hair-care-products",
+     "n": 4
+    },
+    {
+     "d": "tower28beauty.com",
+     "name": "Tower 28",
+     "c": "allure-best-of-beauty-winners",
+     "n": 4
+    },
+    {
+     "d": "drinkolipop.com",
+     "name": "Olipop",
+     "c": "auto",
+     "n": 4
+    }
    ],
-   "ebay": ["stanley quencher 40 oz", "owala freesip", "bala bangles", "our place always pan"]},
-  {"id": "fashion", "title": "Fashion", "dek": "Fall layers, good shoes and the pieces that finish an outfit.",
+   "ebay": [
+    "stanley quencher 40 oz",
+    "owala freesip",
+    "bala bangles",
+    "our place always pan"
+   ]
+  },
+  {
+   "id": "fashion",
+   "title": "Fashion",
+   "dek": "Fall layers, good shoes and the pieces that finish an outfit.",
    "stores": [
-    {"d": "travismathew.com", "name": "TravisMathew", "c": "best-sellers", "n": 8},
-    {"d": "toddsnyder.com", "name": "Todd Snyder", "c": "auto", "n": 8},
-    {"d": "taylorstitch.com", "name": "Taylor Stitch", "c": "mens-best-sellers", "n": 8},
-    {"d": "fahertybrand.com", "name": "Faherty", "c": "auto", "n": 6},
-    {"d": "marinelayer.com", "name": "Marine Layer", "c": "his-best-sellers", "n": 5},
-    {"d": "marinelayer.com", "name": "Marine Layer", "c": "best-sellers-gals", "n": 5},
-    {"d": "aloyoga.com", "name": "Alo", "c": "bestsellers-all", "n": 6},
-    {"d": "outerknown.com", "name": "Outerknown", "c": "dual-gender-best-sellers", "n": 5},
-    {"d": "rothys.com", "name": "Rothy's", "c": "best-sellers", "n": 5},
-    {"d": "thursdayboots.com", "name": "Thursday Boot Co.", "c": "auto", "n": 5},
-    {"d": "allbirds.com", "name": "Allbirds", "c": "community-favorites", "n": 4},
-    {"d": "kotn.com", "name": "Kotn", "c": "2025-best-sellers", "n": 4},
-    {"d": "mackweldon.com", "name": "Mack Weldon", "c": "bestsellers", "n": 4},
-    {"d": "unboundmerino.com", "name": "Unbound Merino", "c": "best-sellers-1", "n": 4},
-    {"d": "ministryofsupply.com", "name": "Ministry of Supply", "c": "auto", "n": 4}
+    {
+     "d": "travismathew.com",
+     "name": "TravisMathew",
+     "c": "best-sellers",
+     "n": 8
+    },
+    {
+     "d": "toddsnyder.com",
+     "name": "Todd Snyder",
+     "c": "auto",
+     "n": 8
+    },
+    {
+     "d": "taylorstitch.com",
+     "name": "Taylor Stitch",
+     "c": "mens-best-sellers",
+     "n": 8
+    },
+    {
+     "d": "fahertybrand.com",
+     "name": "Faherty",
+     "c": "auto",
+     "n": 6
+    },
+    {
+     "d": "marinelayer.com",
+     "name": "Marine Layer",
+     "c": "his-best-sellers",
+     "n": 5
+    },
+    {
+     "d": "marinelayer.com",
+     "name": "Marine Layer",
+     "c": "best-sellers-gals",
+     "n": 5
+    },
+    {
+     "d": "aloyoga.com",
+     "name": "Alo",
+     "c": "bestsellers-all",
+     "n": 6
+    },
+    {
+     "d": "outerknown.com",
+     "name": "Outerknown",
+     "c": "dual-gender-best-sellers",
+     "n": 5
+    },
+    {
+     "d": "rothys.com",
+     "name": "Rothy's",
+     "c": "best-sellers",
+     "n": 5
+    },
+    {
+     "d": "thursdayboots.com",
+     "name": "Thursday Boot Co.",
+     "c": "auto",
+     "n": 5
+    },
+    {
+     "d": "allbirds.com",
+     "name": "Allbirds",
+     "c": "community-favorites",
+     "n": 4
+    },
+    {
+     "d": "kotn.com",
+     "name": "Kotn",
+     "c": "2025-best-sellers",
+     "n": 4
+    },
+    {
+     "d": "mackweldon.com",
+     "name": "Mack Weldon",
+     "c": "bestsellers",
+     "n": 4
+    },
+    {
+     "d": "unboundmerino.com",
+     "name": "Unbound Merino",
+     "c": "best-sellers-1",
+     "n": 4
+    },
+    {
+     "d": "ministryofsupply.com",
+     "name": "Ministry of Supply",
+     "c": "auto",
+     "n": 4
+    },
+    {
+     "d": "toddsnyder.com",
+     "name": "Todd Snyder Foundwell",
+     "c": "foundwell",
+     "n": 8,
+     "cond": "Vintage"
+    }
    ],
-   "ebay": ["scotch soda mens sweater", "travismathew quarter zip", "todd snyder jacket", "lululemon abc pant"]},
-  {"id": "coffee", "title": "Coffee & Barista", "dek": "Everything for a better shot and a silkier latte at home.",
+   "ebay": [
+    "scotch soda mens sweater",
+    "travismathew quarter zip",
+    "todd snyder jacket",
+    "lululemon abc pant"
+   ]
+  },
+  {
+   "id": "coffee",
+   "title": "Coffee & Barista",
+   "dek": "Everything for a better shot and a silkier latte at home.",
    "stores": [
-    {"d": "fellowproducts.com", "name": "Fellow", "c": "bestsellers", "n": 8, "skip": "subscription|gift card"},
-    {"d": "normcorewares.com", "name": "Normcore", "c": "best-sellers", "n": 8},
-    {"d": "clivecoffee.com", "name": "Clive Coffee", "c": "staff-favorites", "n": 6},
-    {"d": "weberworkshops.com", "name": "Weber Workshops", "c": "bestsellers", "n": 5},
-    {"d": "onyxcoffeelab.com", "name": "Onyx Coffee Lab", "c": "best-sellers", "n": 5},
-    {"d": "subminimal.com", "name": "Subminimal", "c": "auto", "n": 4},
-    {"d": "timemore.com", "name": "Timemore", "c": "best-seller", "n": 5},
-    {"d": "counterculturecoffee.com", "name": "Counter Culture", "c": "bestsellers", "n": 4},
-    {"d": "kinto-usa.com", "name": "Kinto", "c": "best-sellers", "n": 4},
-    {"d": "acaia.co", "name": "Acaia", "c": "auto", "n": 4},
-    {"d": "loveramics.com", "name": "Loveramics", "c": "auto", "n": 4}
+    {
+     "d": "fellowproducts.com",
+     "name": "Fellow",
+     "c": "bestsellers",
+     "n": 8,
+     "skip": "subscription|gift card"
+    },
+    {
+     "d": "normcorewares.com",
+     "name": "Normcore",
+     "c": "best-sellers",
+     "n": 8
+    },
+    {
+     "d": "clivecoffee.com",
+     "name": "Clive Coffee",
+     "c": "staff-favorites",
+     "n": 6
+    },
+    {
+     "d": "weberworkshops.com",
+     "name": "Weber Workshops",
+     "c": "bestsellers",
+     "n": 5
+    },
+    {
+     "d": "onyxcoffeelab.com",
+     "name": "Onyx Coffee Lab",
+     "c": "best-sellers",
+     "n": 5
+    },
+    {
+     "d": "subminimal.com",
+     "name": "Subminimal",
+     "c": "auto",
+     "n": 4
+    },
+    {
+     "d": "timemore.com",
+     "name": "Timemore",
+     "c": "best-seller",
+     "n": 5
+    },
+    {
+     "d": "counterculturecoffee.com",
+     "name": "Counter Culture",
+     "c": "bestsellers",
+     "n": 4
+    },
+    {
+     "d": "kinto-usa.com",
+     "name": "Kinto",
+     "c": "best-sellers",
+     "n": 4
+    },
+    {
+     "d": "acaia.co",
+     "name": "Acaia",
+     "c": "auto",
+     "n": 4
+    },
+    {
+     "d": "loveramics.com",
+     "name": "Loveramics",
+     "c": "auto",
+     "n": 4
+    },
+    {
+     "d": "fellowproducts.com",
+     "name": "Fellow Rebrew",
+     "c": "refurbished-gear",
+     "n": 6,
+     "cond": "Refurbished by Fellow"
+    },
+    {
+     "d": "clivecoffee.com",
+     "name": "Clive Coffee",
+     "c": "open-box",
+     "n": 8,
+     "cond": "Open box or certified pre-owned"
+    },
+    {
+     "d": "weberworkshops.com",
+     "name": "Weber Workshops",
+     "c": "renewed",
+     "n": 6,
+     "cond": "Renewed by Weber"
+    }
    ],
-   "ebay": ["breville bambino plus", "baratza encore esp", "fellow opus grinder", "la marzocco linea micra", "df64 grinder", "rancilio silvia"]},
-  {"id": "kitchen", "title": "Kitchen", "dek": "Cookware, knives and tools that cooks actually use.",
+   "ebay": [
+    "breville bambino plus",
+    "baratza encore esp",
+    "fellow opus grinder",
+    "la marzocco linea micra",
+    "df64 grinder",
+    "rancilio silvia"
+   ]
+  },
+  {
+   "id": "kitchen",
+   "title": "Kitchen",
+   "dek": "Cookware, knives and tools that cooks actually use.",
    "stores": [
-    {"d": "hexclad.com", "name": "HexClad", "c": "best-sellers", "n": 6},
-    {"d": "greatjonesgoods.com", "name": "Great Jones", "c": "crowd-favorites", "n": 6},
-    {"d": "materialkitchen.com", "name": "Material", "c": "bestsellers", "n": 6},
-    {"d": "misen.com", "name": "Misen", "c": "best-sellers", "n": 6},
-    {"d": "japanesechefsknife.com", "name": "Japanese Chef's Knife", "c": "popular-knives", "n": 6},
-    {"d": "dalstrong.com", "name": "Dalstrong", "c": "dalstrong-best-sellers", "n": 5},
-    {"d": "ooni.com", "name": "Ooni", "c": "best-sellers", "n": 5},
-    {"d": "brightland.co", "name": "Brightland", "c": "best-sellers", "n": 4},
-    {"d": "graza.co", "name": "Graza", "c": "auto", "n": 4}
+    {
+     "d": "hexclad.com",
+     "name": "HexClad",
+     "c": "best-sellers",
+     "n": 6
+    },
+    {
+     "d": "greatjonesgoods.com",
+     "name": "Great Jones",
+     "c": "crowd-favorites",
+     "n": 6
+    },
+    {
+     "d": "materialkitchen.com",
+     "name": "Material",
+     "c": "bestsellers",
+     "n": 6
+    },
+    {
+     "d": "misen.com",
+     "name": "Misen",
+     "c": "best-sellers",
+     "n": 6
+    },
+    {
+     "d": "japanesechefsknife.com",
+     "name": "Japanese Chef's Knife",
+     "c": "popular-knives",
+     "n": 6
+    },
+    {
+     "d": "dalstrong.com",
+     "name": "Dalstrong",
+     "c": "dalstrong-best-sellers",
+     "n": 5
+    },
+    {
+     "d": "ooni.com",
+     "name": "Ooni",
+     "c": "best-sellers",
+     "n": 5
+    },
+    {
+     "d": "brightland.co",
+     "name": "Brightland",
+     "c": "best-sellers",
+     "n": 4
+    },
+    {
+     "d": "graza.co",
+     "name": "Graza",
+     "c": "auto",
+     "n": 4
+    }
    ],
-   "ebay": ["kitchenaid stand mixer artisan", "le creuset dutch oven", "shun classic chef knife", "all-clad d3 skillet", "vitamix 5200"]},
-  {"id": "home", "title": "Home", "dek": "Bedding, lighting and the things that make a room.",
+   "ebay": [
+    "kitchenaid stand mixer artisan",
+    "le creuset dutch oven",
+    "shun classic chef knife",
+    "all-clad d3 skillet",
+    "vitamix 5200"
+   ]
+  },
+  {
+   "id": "home",
+   "title": "Home",
+   "dek": "Bedding, lighting and the things that make a room.",
    "stores": [
-    {"d": "brooklinen.com", "name": "Brooklinen", "c": "best-sellers-shop", "n": 6},
-    {"d": "parachutehome.com", "name": "Parachute", "c": "best-sellers-feature", "n": 6},
-    {"d": "schoolhouse.com", "name": "Schoolhouse", "c": "auto", "n": 6},
-    {"d": "bollandbranch.com", "name": "Boll & Branch", "c": "auto", "n": 5},
-    {"d": "cozyearth.com", "name": "Cozy Earth", "c": "five-star-favorites", "n": 5},
-    {"d": "luluandgeorgia.com", "name": "Lulu and Georgia", "c": "bestsellers", "n": 8},
-    {"d": "snowehome.com", "name": "Snowe", "c": "best-sellers", "n": 5},
-    {"d": "floydhome.com", "name": "Floyd", "c": "new-arrivals", "n": 4},
-    {"d": "tuftandneedle.com", "name": "Tuft & Needle", "c": "bestsellers", "n": 3}
+    {
+     "d": "brooklinen.com",
+     "name": "Brooklinen",
+     "c": "best-sellers-shop",
+     "n": 6
+    },
+    {
+     "d": "parachutehome.com",
+     "name": "Parachute",
+     "c": "best-sellers-feature",
+     "n": 6
+    },
+    {
+     "d": "schoolhouse.com",
+     "name": "Schoolhouse",
+     "c": "auto",
+     "n": 6
+    },
+    {
+     "d": "bollandbranch.com",
+     "name": "Boll & Branch",
+     "c": "auto",
+     "n": 5
+    },
+    {
+     "d": "cozyearth.com",
+     "name": "Cozy Earth",
+     "c": "five-star-favorites",
+     "n": 5
+    },
+    {
+     "d": "luluandgeorgia.com",
+     "name": "Lulu and Georgia",
+     "c": "bestsellers",
+     "n": 8
+    },
+    {
+     "d": "snowehome.com",
+     "name": "Snowe",
+     "c": "best-sellers",
+     "n": 5
+    },
+    {
+     "d": "floydhome.com",
+     "name": "Floyd",
+     "c": "new-arrivals",
+     "n": 4
+    },
+    {
+     "d": "tuftandneedle.com",
+     "name": "Tuft & Needle",
+     "c": "bestsellers",
+     "n": 3
+    },
+    {
+     "d": "luluandgeorgia.com",
+     "name": "Lulu and Georgia",
+     "c": "curated-vintage",
+     "n": 8,
+     "cond": "Vintage"
+    }
    ],
-   "ebay": ["live edge walnut slab", "brass table lamp vintage", "persian runner rug wool", "mid century credenza"]},
-  {"id": "remodel", "title": "Remodel", "dek": "Hardware, finishes, lighting and shop tools for the next project.",
+   "ebay": [
+    "live edge walnut slab",
+    "brass table lamp vintage",
+    "persian runner rug wool",
+    "mid century credenza"
+   ]
+  },
+  {
+   "id": "remodel",
+   "title": "Remodel",
+   "dek": "Hardware, finishes, lighting and shop tools for the next project.",
    "stores": [
-    {"d": "schoolhouse.com", "name": "Schoolhouse", "c": "cabinet-hardware", "n": 8},
-    {"d": "rubiomonocoatusa.com", "name": "Rubio Monocoat", "c": "best-seller", "n": 6},
-    {"d": "totalboat.com", "name": "TotalBoat", "c": "best-sellers", "n": 6},
-    {"d": "woodpeck.com", "name": "Woodpeckers", "c": "best-sellers", "n": 8},
-    {"d": "coastaltool.com", "name": "Coastal Tool", "c": "sawstop", "n": 5}
+    {
+     "d": "schoolhouse.com",
+     "name": "Schoolhouse",
+     "c": "cabinet-hardware",
+     "n": 8
+    },
+    {
+     "d": "rubiomonocoatusa.com",
+     "name": "Rubio Monocoat",
+     "c": "best-seller",
+     "n": 6
+    },
+    {
+     "d": "totalboat.com",
+     "name": "TotalBoat",
+     "c": "best-sellers",
+     "n": 6
+    },
+    {
+     "d": "woodpeck.com",
+     "name": "Woodpeckers",
+     "c": "best-sellers",
+     "n": 8
+    },
+    {
+     "d": "coastaltool.com",
+     "name": "Coastal Tool",
+     "c": "sawstop",
+     "n": 5
+    },
+    {
+     "d": "woodpeck.com",
+     "name": "Woodpeckers",
+     "c": "factory-refurbed",
+     "n": 6,
+     "cond": "Open box or used"
+    }
    ],
-   "ebay": ["festool domino df 500", "sawstop jobsite saw", "kreg pocket hole jig 720", "milwaukee m18 combo kit", "festool sander ets"]},
-  {"id": "gifts", "title": "Gifts", "dek": "Gift-ready best sellers for the holidays, at every budget.",
+   "ebay": [
+    "festool domino df 500",
+    "sawstop jobsite saw",
+    "kreg pocket hole jig 720",
+    "milwaukee m18 combo kit",
+    "festool sander ets"
+   ]
+  },
+  {
+   "id": "gifts",
+   "title": "Gifts",
+   "dek": "Gift-ready best sellers for the holidays, at every budget.",
    "stores": [
-    {"d": "brightland.co", "name": "Brightland", "c": "best-selling-gifts", "n": 5},
-    {"d": "ember.com", "name": "Ember", "c": "best-sellers", "n": 4},
-    {"d": "ridge.com", "name": "Ridge", "c": "best-sellers", "n": 5},
-    {"d": "travismathew.com", "name": "TravisMathew", "c": "mens-best-selling-gifts", "n": 5},
-    {"d": "satechi.net", "name": "Satechi", "c": "best-gifts-for-tech-enthusiasts", "n": 4},
-    {"d": "tower28beauty.com", "name": "Tower 28", "c": "our-best-gifts", "n": 4},
-    {"d": "greatjonesgoods.com", "name": "Great Jones", "c": "gifts-for-the-new-cook", "n": 4},
-    {"d": "timemore.com", "name": "Timemore", "c": "best-gift-for-espresso", "n": 4},
-    {"d": "snowehome.com", "name": "Snowe", "c": "gifts-best-sellers", "n": 3},
-    {"d": "cotopaxi.com", "name": "Cotopaxi", "c": "best-sellers-under-100", "n": 5},
-    {"d": "misen.com", "name": "Misen", "c": "best-selling-gifts", "n": 3}
+    {
+     "d": "brightland.co",
+     "name": "Brightland",
+     "c": "best-selling-gifts",
+     "n": 5
+    },
+    {
+     "d": "ember.com",
+     "name": "Ember",
+     "c": "best-sellers",
+     "n": 4
+    },
+    {
+     "d": "ridge.com",
+     "name": "Ridge",
+     "c": "best-sellers",
+     "n": 5
+    },
+    {
+     "d": "travismathew.com",
+     "name": "TravisMathew",
+     "c": "mens-best-selling-gifts",
+     "n": 5
+    },
+    {
+     "d": "satechi.net",
+     "name": "Satechi",
+     "c": "best-gifts-for-tech-enthusiasts",
+     "n": 4
+    },
+    {
+     "d": "tower28beauty.com",
+     "name": "Tower 28",
+     "c": "our-best-gifts",
+     "n": 4
+    },
+    {
+     "d": "greatjonesgoods.com",
+     "name": "Great Jones",
+     "c": "gifts-for-the-new-cook",
+     "n": 4
+    },
+    {
+     "d": "timemore.com",
+     "name": "Timemore",
+     "c": "best-gift-for-espresso",
+     "n": 4
+    },
+    {
+     "d": "snowehome.com",
+     "name": "Snowe",
+     "c": "gifts-best-sellers",
+     "n": 3
+    },
+    {
+     "d": "cotopaxi.com",
+     "name": "Cotopaxi",
+     "c": "best-sellers-under-100",
+     "n": 5
+    },
+    {
+     "d": "misen.com",
+     "name": "Misen",
+     "c": "best-selling-gifts",
+     "n": 3
+    }
    ],
-   "ebay": ["vintage rolex submariner", "leica q2", "hermes tie", "polaroid sx-70"]},
-  {"id": "tech", "title": "Tech", "dek": "Desk, audio and everyday carry that earn their spot.",
+   "ebay": [
+    "vintage rolex submariner",
+    "leica q2",
+    "hermes tie",
+    "polaroid sx-70"
+   ]
+  },
+  {
+   "id": "tech",
+   "title": "Tech",
+   "dek": "Desk, audio and everyday carry that earn their spot.",
    "stores": [
-    {"d": "peakdesign.com", "name": "Peak Design", "c": "best-sellers", "n": 6},
-    {"d": "twelvesouth.com", "name": "Twelve South", "c": "best-selling-products", "n": 5},
-    {"d": "satechi.net", "name": "Satechi", "c": "best-sellers", "n": 5},
-    {"d": "nativeunion.com", "name": "Native Union", "c": "best-sellers", "n": 5},
-    {"d": "keychron.com", "name": "Keychron", "c": "best-sellers", "n": 5},
-    {"d": "orbitkey.com", "name": "Orbitkey", "c": "best-sellers", "n": 4},
-    {"d": "nanoleaf.me", "name": "Nanoleaf", "c": "auto", "n": 4},
-    {"d": "us.soundcore.com", "name": "Soundcore", "c": "best-speakers-for-music", "n": 4},
-    {"d": "ugreen.com", "name": "UGREEN", "c": "auto", "n": 4},
-    {"d": "ember.com", "name": "Ember", "c": "top-tech-gifts-for-men", "n": 3}
+    {
+     "d": "peakdesign.com",
+     "name": "Peak Design",
+     "c": "best-sellers",
+     "n": 6
+    },
+    {
+     "d": "twelvesouth.com",
+     "name": "Twelve South",
+     "c": "best-selling-products",
+     "n": 5
+    },
+    {
+     "d": "satechi.net",
+     "name": "Satechi",
+     "c": "best-sellers",
+     "n": 5
+    },
+    {
+     "d": "nativeunion.com",
+     "name": "Native Union",
+     "c": "best-sellers",
+     "n": 5
+    },
+    {
+     "d": "keychron.com",
+     "name": "Keychron",
+     "c": "best-sellers",
+     "n": 5
+    },
+    {
+     "d": "orbitkey.com",
+     "name": "Orbitkey",
+     "c": "best-sellers",
+     "n": 4
+    },
+    {
+     "d": "nanoleaf.me",
+     "name": "Nanoleaf",
+     "c": "auto",
+     "n": 4
+    },
+    {
+     "d": "us.soundcore.com",
+     "name": "Soundcore",
+     "c": "best-speakers-for-music",
+     "n": 4
+    },
+    {
+     "d": "ugreen.com",
+     "name": "UGREEN",
+     "c": "auto",
+     "n": 4
+    },
+    {
+     "d": "ember.com",
+     "name": "Ember",
+     "c": "top-tech-gifts-for-men",
+     "n": 3
+    }
    ],
-   "ebay": ["imac g4", "sonos era 300", "apple studio display", "leica d-lux 8", "macbook pro m4"]},
-  {"id": "garage", "title": "Garage", "dek": "Detailing, care and storage for the cars you love.",
+   "ebay": [
+    "imac g4",
+    "sonos era 300",
+    "apple studio display",
+    "leica d-lux 8",
+    "macbook pro m4"
+   ]
+  },
+  {
+   "id": "garage",
+   "title": "Garage",
+   "dek": "Detailing, care and storage for the cars you love.",
    "stores": [
-    {"d": "adamspolishes.com", "name": "Adam's Polishes", "c": "best-sellers-this-month", "n": 8},
-    {"d": "chemicalguys.com", "name": "Chemical Guys", "c": "best-car-detailing-products", "n": 8},
-    {"d": "theragcompany.com", "name": "The Rag Company", "c": "auto", "n": 6},
-    {"d": "obsessedgarage.com", "name": "Obsessed Garage", "c": "new-products", "n": 8}
+    {
+     "d": "adamspolishes.com",
+     "name": "Adam's Polishes",
+     "c": "best-sellers-this-month",
+     "n": 8
+    },
+    {
+     "d": "chemicalguys.com",
+     "name": "Chemical Guys",
+     "c": "best-car-detailing-products",
+     "n": 8
+    },
+    {
+     "d": "theragcompany.com",
+     "name": "The Rag Company",
+     "c": "auto",
+     "n": 6
+    },
+    {
+     "d": "obsessedgarage.com",
+     "name": "Obsessed Garage",
+     "c": "new-products",
+     "n": 8
+    },
+    {
+     "d": "obsessedgarage.com",
+     "name": "Obsessed Garage",
+     "c": "clearance-and-open-box",
+     "n": 6,
+     "cond": "Open box or clearance"
+    }
    ],
-   "ebay": ["porsche 911 floor mats", "porsche cayenne 958 tequipment", "ctek battery charger", "rupes polisher"]},
-  {"id": "outdoors", "title": "Outdoors & Travel", "dek": "Bags, layers and camp gear for weekends away.",
+   "ebay": [
+    "porsche 911 floor mats",
+    "porsche cayenne 958 tequipment",
+    "ctek battery charger",
+    "rupes polisher"
+   ]
+  },
+  {
+   "id": "outdoors",
+   "title": "Outdoors & Travel",
+   "dek": "Bags, layers and camp gear for weekends away.",
    "stores": [
-    {"d": "cotopaxi.com", "name": "Cotopaxi", "c": "bestselling-packs", "n": 6},
-    {"d": "topodesigns.com", "name": "Topo Designs", "c": "best-sellers", "n": 6},
-    {"d": "snowpeak.com", "name": "Snow Peak", "c": "best-sellers", "n": 6},
-    {"d": "rumpl.com", "name": "Rumpl", "c": "best-sellers", "n": 5},
-    {"d": "bioliteenergy.com", "name": "BioLite", "c": "best-sellers", "n": 5},
-    {"d": "monos.com", "name": "Monos", "c": "new-arrivals", "n": 5},
-    {"d": "tropicfeel.com", "name": "Tropicfeel", "c": "best-sellers-hp", "n": 4},
-    {"d": "stanley1913.com", "name": "Stanley", "c": "stanley-favorites", "n": 4, "skip": "lid|straw|replacement"},
-    {"d": "kelty.com", "name": "Kelty", "c": "new-arrivals", "n": 4}
+    {
+     "d": "cotopaxi.com",
+     "name": "Cotopaxi",
+     "c": "bestselling-packs",
+     "n": 6
+    },
+    {
+     "d": "topodesigns.com",
+     "name": "Topo Designs",
+     "c": "best-sellers",
+     "n": 6
+    },
+    {
+     "d": "snowpeak.com",
+     "name": "Snow Peak",
+     "c": "best-sellers",
+     "n": 6
+    },
+    {
+     "d": "rumpl.com",
+     "name": "Rumpl",
+     "c": "best-sellers",
+     "n": 5
+    },
+    {
+     "d": "bioliteenergy.com",
+     "name": "BioLite",
+     "c": "best-sellers",
+     "n": 5
+    },
+    {
+     "d": "monos.com",
+     "name": "Monos",
+     "c": "new-arrivals",
+     "n": 5
+    },
+    {
+     "d": "tropicfeel.com",
+     "name": "Tropicfeel",
+     "c": "best-sellers-hp",
+     "n": 4
+    },
+    {
+     "d": "stanley1913.com",
+     "name": "Stanley",
+     "c": "stanley-favorites",
+     "n": 4,
+     "skip": "lid|straw|replacement"
+    },
+    {
+     "d": "kelty.com",
+     "name": "Kelty",
+     "c": "new-arrivals",
+     "n": 4
+    }
    ],
-   "ebay": ["arcteryx beta jacket", "rimowa carry on", "osprey farpoint 40", "hilleberg tent"]},
-  {"id": "wellness", "title": "Wellness", "dek": "Recovery, training, sleep and the morning ritual.",
+   "ebay": [
+    "arcteryx beta jacket",
+    "rimowa carry on",
+    "osprey farpoint 40",
+    "hilleberg tent"
+   ]
+  },
+  {
+   "id": "wellness",
+   "title": "Wellness",
+   "dek": "Recovery, training, sleep and the morning ritual.",
    "stores": [
-    {"d": "hyperice.com", "name": "Hyperice", "c": "auto", "n": 5},
-    {"d": "livemomentous.com", "name": "Momentous", "c": "best-sellers", "n": 5},
-    {"d": "mudwtr.com", "name": "MUD\\WTR", "c": "auto", "n": 5},
-    {"d": "tenthousand.cc", "name": "Ten Thousand", "c": "best-sellers", "n": 5},
-    {"d": "manduka.com", "name": "Manduka", "c": "best-sellers", "n": 5},
-    {"d": "icebarrel.com", "name": "Ice Barrel", "c": "auto", "n": 3},
-    {"d": "mantasleep.com", "name": "Manta Sleep", "c": "auto", "n": 3}
+    {
+     "d": "hyperice.com",
+     "name": "Hyperice",
+     "c": "auto",
+     "n": 5
+    },
+    {
+     "d": "livemomentous.com",
+     "name": "Momentous",
+     "c": "best-sellers",
+     "n": 5
+    },
+    {
+     "d": "mudwtr.com",
+     "name": "MUD\\WTR",
+     "c": "auto",
+     "n": 5
+    },
+    {
+     "d": "tenthousand.cc",
+     "name": "Ten Thousand",
+     "c": "best-sellers",
+     "n": 5
+    },
+    {
+     "d": "manduka.com",
+     "name": "Manduka",
+     "c": "best-sellers",
+     "n": 5
+    },
+    {
+     "d": "icebarrel.com",
+     "name": "Ice Barrel",
+     "c": "auto",
+     "n": 3
+    },
+    {
+     "d": "mantasleep.com",
+     "name": "Manta Sleep",
+     "c": "auto",
+     "n": 3
+    }
    ],
-   "ebay": ["theragun pro", "peloton bike", "whoop 5.0", "oura ring gen 4"]},
-  {"id": "equestrian", "title": "Equestrian", "dek": "Riding apparel, tack and barn gear.",
+   "ebay": [
+    "theragun pro",
+    "peloton bike",
+    "whoop 5.0",
+    "oura ring gen 4"
+   ]
+  },
+  {
+   "id": "equestrian",
+   "title": "Equestrian",
+   "dek": "Riding apparel, tack and barn gear.",
    "stores": [
-    {"d": "doversaddlery.com", "name": "Dover Saddlery", "c": "auto", "n": 12},
-    {"d": "ogilvyequestrian.com", "name": "Ogilvy Equestrian", "c": "auto", "n": 8},
-    {"d": "horsepilot.com", "name": "Horse Pilot", "c": "best-sellers-femme", "n": 5},
-    {"d": "horsepilot.com", "name": "Horse Pilot", "c": "best-sellers-homme", "n": 4}
+    {
+     "d": "doversaddlery.com",
+     "name": "Dover Saddlery",
+     "c": "auto",
+     "n": 12
+    },
+    {
+     "d": "ogilvyequestrian.com",
+     "name": "Ogilvy Equestrian",
+     "c": "auto",
+     "n": 8
+    },
+    {
+     "d": "horsepilot.com",
+     "name": "Horse Pilot",
+     "c": "best-sellers-femme",
+     "n": 5
+    },
+    {
+     "d": "horsepilot.com",
+     "name": "Horse Pilot",
+     "c": "best-sellers-homme",
+     "n": 4
+    },
+    {
+     "d": "ogilvyequestrian.com",
+     "name": "Ogilvy Equestrian",
+     "c": "seconds-sale-2026",
+     "n": 6,
+     "cond": "Seconds"
+    }
    ],
-   "ebay": ["dressage saddle 17.5", "samshield helmet", "cavallo dressage boots", "lemieux saddle pad dressage"]}
+   "ebay": [
+    "dressage saddle 17.5",
+    "samshield helmet",
+    "cavallo dressage boots",
+    "lemieux saddle pad dressage"
+   ]
+  }
  ]
 }
