@@ -405,6 +405,7 @@ def openf1_sessions():
 def tracks(cal, meets, old):
     """Each circuit's outline and corners from MultiViewer (linked from OpenF1's meetings), fetched once."""
     have = dict(old or {})
+    miss = have.pop('_miss', {})  # circuits MultiViewer has no file for: asked again once a week
     by_date = {}
     for m in meets or []:
         if m.get('is_cancelled') or 'Testing' in (m.get('meeting_name') or ''):
@@ -412,7 +413,7 @@ def tracks(cal, meets, old):
         by_date[m['date_start'][:10]] = m
     n = 0
     for r in cal:
-        if r['cid'] in have:
+        if r['cid'] in have or miss.get(r['cid'], '') > (NOW - dt.timedelta(days=7)).strftime('%Y-%m-%d'):
             continue
         race = dt.date.fromisoformat(r['date'])
         m = next((by_date[k] for k in by_date if 0 <= (race - dt.date.fromisoformat(k)).days <= 3), None)
@@ -428,6 +429,7 @@ def tracks(cal, meets, old):
                     if ex.code != 404:
                         raise
             if not c:
+                miss[r['cid']] = NOW.strftime('%Y-%m-%d')
                 continue
             xs, ys = c.get('x') or [], c.get('y') or []
             if len(xs) < 20:
@@ -440,6 +442,8 @@ def tracks(cal, meets, old):
             time.sleep(0.5)
         except Exception as ex:  # noqa: BLE001
             errors.append(f'track {r["cid"]}: {type(ex).__name__} {str(ex)[:80]}')
+    if miss:
+        have['_miss'] = miss
     return have
 
 
