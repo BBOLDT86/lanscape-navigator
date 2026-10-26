@@ -42,7 +42,7 @@ invented. Failed feeds are listed in the edition and shown in the page's footer.
 ## Desks
 
 U.S., World, Europe, Brazil, Politics, Business, Household, Home, Tech, Science, Health, Sports, Culture, Cars, Travel,
-Food, Lifestyle and Long reads, plus four pages that are not feed desks: Reports, Pictures, Video and the Epstein files.
+Food, Lifestyle and Long reads, plus pages that are not feed desks: Reports, Pictures, Video, Shopping (Finds' feed, `shop/data/feed.json`) and the Epstein files. Travel and Shopping also read Weekender's `travel/` data; pins go to Vision (`vision/`) through the browser.
 Europe and Brazil have sources of their own; stories about either region from the general and world feeds also file
 there (`region()` in `run.py`), unless a stronger topic (a match, a market) claims them. World is everywhere else.
 

@@ -357,6 +357,14 @@ button.code{border-bottom:2px dotted var(--ink3)!important}
 footer{margin-top:60px;border-top:1px solid var(--rule);padding:26px 0 46px;font-size:13.5px;color:var(--ink3)}
 footer p{margin:0 0 8px;max-width:90ch}
 footer a{color:var(--ink2)}
+.vpin{display:inline-flex;align-items:center;gap:6px;font-size:13.5px;font-weight:650;border:1px solid var(--rule);border-radius:999px;padding:4px 12px 4px 9px;background:var(--card);color:var(--ink);cursor:pointer;font-family:inherit}
+.vpin svg{width:15px;height:15px;flex:none}
+.vpin:hover{border-color:#C2785C}
+.vpin[aria-pressed="true"]{background:#C2785C;border-color:#C2785C;color:#fff}
+.g-pin{margin:18px 0 0}
+.g-head .vpin{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.55);color:#fff;font-size:15px;padding:7px 16px 7px 12px;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.g-head .vpin[aria-pressed="true"]{background:#C2785C;border-color:#C2785C}
+.toast a{color:inherit;margin-left:10px;text-decoration:underline;text-underline-offset:3px}
 .toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%);background:var(--ink);color:var(--paper);padding:10px 16px;border-radius:999px;font-weight:600;font-size:14px;z-index:90}
 .ic{flex:none}
 
@@ -496,7 +504,7 @@ footer a{color:var(--ink2)}
   <div class="wrap mast-in">
     <a class="logo" href="#/" aria-label="Weekender, home">Weekender<small>from The Watch</small></a>
     <nav class="nav" aria-label="Sections">
-      <a href="#/">This weekend</a><a href="#/flights">Flights</a><a href="#/hotels">Hotels</a><a href="#/points">Points</a><a href="#/past">Past weekends</a>
+      <a href="#/">This weekend</a><a href="#/flights">Flights</a><a href="#/hotels">Hotels</a><a href="#/points">Points</a><a href="#/past">Past weekends</a><a href="../vision/">Vision</a>
     </nav>
     <div class="tools">
       <button class="tbtn" id="unitBtn" type="button" aria-label="Switch temperature units">°F</button>
@@ -1112,10 +1120,12 @@ async function renderGuide(cityId, wkArg) {
   const stayHTML = g.stay.map(s => {
     const p = photo(s.wiki, 500); const h = { q: `${s.name}, ${c.name}`, in: td.in, out: td.out, n: prefs.guests || 2, rooms: 1, hotel: true };
     const links = [['Booking.com', HOTELS[1][2](h)], ['Expedia', HOTELS[2][2](h)], ['Google', HOTELS[4][2](h)]].concat(s.url ? [['Hotel’s site', s.url]] : []);
+    const big = photo(s.wiki, 960), tierW = { splurge: 'Splurge', classic: 'Classic', value: 'Good value' }[s.tier];
+    const hpin = { key: `weekender-hotel:${c.id}:${s.name}`, lane: 'travel', kind: 'hotel', city: c.id, title: s.name, area: s.area, tier: `${tierW}, ${s.price}`, url: s.url || '', img: big ? big.src : '', credit: big ? { by: big.credit, lic: big.license, file: big.file } : null, links: links.slice(0, 3), dates: { from: td.in, to: td.out }, note: plain(s.text).slice(0, 400), site: 'Weekender' };
     return `<div class="stay"><div class="sp">${p ? img(p, s.name, '', 500) : `<span class="pt" aria-hidden="true">${esc(s.price)}</span>`}</div><div>
       <span class="tier">${esc({ splurge: 'Splurge', classic: 'Classic', value: 'Good value' }[s.tier])}, ${esc(s.price)}</span><h3>${esc(s.name)}</h3><p class="ar">${esc(s.area)}</p>
       <div class="tx md">${md(s.text)}</div>
-      <p class="st-links">${links.map(([n, u], i) => `<a class="lk${i === 0 ? ' bk' : ''}" href="${esc(u)}" target="_blank" rel="noopener">${i === 0 ? 'Check ' + esc(mday(td.in)) + '–' + esc(mday(td.out)) + ' on ' : ''}${esc(n)}</a>`).join('')}</p>
+      <p class="st-links">${links.map(([n, u], i) => `<a class="lk${i === 0 ? ' bk' : ''}" href="${esc(u)}" target="_blank" rel="noopener">${i === 0 ? 'Check ' + esc(mday(td.in)) + '–' + esc(mday(td.out)) + ' on ' : ''}${esc(n)}</a>`).join('')}${vpinBtn(hpin)}</p>
       ${p ? credit(p) : ''}</div></div>`;
   }).join('');
   const evHTML = g.events.slice().sort((a, b) => a.date < b.date ? -1 : 1).map(e => `<li><div class="edate"><small>${esc(dow(e.date))}</small><b>${esc(DD(e.date).getUTCDate())}</b></div><div>
@@ -1124,7 +1134,7 @@ async function renderGuide(cityId, wkArg) {
   const others = CITIES.filter(x => x.id !== c.id);
   $('#main').innerHTML = `<article class="guide" style="--c:${c.color}">
     <header class="g-hero">${hero ? img(hero, (g.hero && g.hero.caption) || c.name, '', 1920, true) : ''}
-      <div class="wrap g-head"><p class="g-when">${past ? 'From the weekend of ' : ''}${esc(dowLong(gwk))}, ${esc(mdayLong(gwk))} to ${esc(dowLong(addDays(gwk, 2)))}, ${esc(mdayLong(addDays(gwk, 2)))}</p><h1>${esc(g.title)}</h1><p class="g-dek">${esc(g.dek)}</p></div>
+      <div class="wrap g-head"><p class="g-when">${past ? 'From the weekend of ' : ''}${esc(dowLong(gwk))}, ${esc(mdayLong(gwk))} to ${esc(dowLong(addDays(gwk, 2)))}, ${esc(mdayLong(addDays(gwk, 2)))}</p><h1>${esc(g.title)}</h1><p class="g-dek">${esc(g.dek)}</p><p class="g-pin">${vpinBtn({ key: 'weekender:' + c.id, lane: 'travel', kind: 'trip', city: c.id, title: `${c.name}, ${range(gwk, addDays(gwk, 2))}`, img: hero ? hero.src.replace(/\/\d+px-/, '/960px-') : '', credit: hero ? { by: hero.credit, lic: hero.license, file: hero.file } : null, place: { name: c.name, country: c.country, lat: c.lat, lon: c.lon, tz: c.tz }, dates: { from: td.in, to: td.out }, note: g.dek, site: 'Weekender' }, 'Pin this weekend to Vision')}</p></div>
       ${hero ? `<p class="credit">${g.hero && g.hero.caption ? esc(g.hero.caption.replace(/[.\s]+$/, '')) + '. ' : ''}Photo: <a href="${esc(hero.file)}" target="_blank" rel="noopener">${esc(hero.credit)}</a>, ${esc(hero.license)}</p>` : ''}
     </header>
     <div class="wrap g-strip" id="gstrip"></div>
@@ -1251,7 +1261,31 @@ async function share(title, text, url) {
   try { if (navigator.share) { await navigator.share({ title, text, url }); return; } } catch (e) { if (e && e.name === 'AbortError') return; }
   try { await navigator.clipboard.writeText(url); toast('Link copied'); } catch (e) { prompt('Copy this link', url); }
 }
-function toast(t) { const d = document.createElement('div'); d.className = 'toast'; d.textContent = t; document.body.append(d); setTimeout(() => d.remove(), 2200); }
+function toast(t, link) { const d = document.createElement('div'); d.className = 'toast'; d.textContent = t; if (link) { const a = document.createElement('a'); a.href = link[1]; a.textContent = link[0]; d.append(a); } document.body.append(d); setTimeout(() => d.remove(), link ? 3600 : 2200); }
+/* Vision (../vision/): the board two people share. Pins wait in this browser ('vision.inbox') until Vision picks them up. */
+const plain = t => String(t || '').replace(/\[([^\]]+)\]\([^)]*\)/g, '$1').replace(/[*_`#>]/g, '').replace(/\s+/g, ' ').trim();
+const VSN = {
+  get(k, d) { try { const v = JSON.parse(localStorage.getItem(k) || 'null'); return v == null ? d : v; } catch (e) { return d; } },
+  onBoard(k) { const s = this.get('vision.v1', null); return !!(s && s.items && Object.values(s.items).some(it => it.key === k && !it.del)); },
+  has(k) { let on = this.onBoard(k); for (const p of this.get('vision.inbox', [])) if (p.key === k) on = !p.unpin; return on; },
+  toggle(p) {
+    const on = this.has(p.key), q = this.get('vision.inbox', []).filter(x => x.key !== p.key);
+    if (!on) q.push(Object.assign({ at: Date.now() }, p)); else if (this.onBoard(p.key)) q.push({ key: p.key, unpin: true, at: Date.now() });
+    try { localStorage.setItem('vision.inbox', JSON.stringify(q.slice(-150))); } catch (e) { return null; }
+    return !on;
+  }
+};
+const VP = new Map();
+const VHEART = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" aria-hidden="true"><path d="M12 20.5s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.6a4.3 4.3 0 0 1 7.5 2.7c0 5.6-7.5 10.2-7.5 10.2z"/></svg>';
+function vpinBtn(pin, label) { VP.set(pin.key, pin); const on = VSN.has(pin.key); return `<button type="button" class="vpin" data-vpin="${esc(pin.key)}" data-vl="${esc(label || 'Vision')}" aria-pressed="${on}" title="Pin it to Vision, the board you share with your partner">${VHEART}${esc(on ? 'On Vision' : label || 'Vision')}</button>`; }
+document.addEventListener('click', e => {
+  const b = e.target.closest('[data-vpin]'); if (!b) return;
+  e.preventDefault();
+  const p = VP.get(b.dataset.vpin); if (!p) return;
+  const on = VSN.toggle(p); if (on == null) { toast('This browser isn’t saving anything, so pins can’t be kept.'); return; }
+  $$('[data-vpin]').filter(x => x.dataset.vpin === p.key).forEach(x => { x.setAttribute('aria-pressed', String(on)); x.innerHTML = VHEART + esc(on ? 'On Vision' : x.dataset.vl || 'Vision'); });
+  toast(on ? `Pinned to Vision: ${p.title}` : `Taken off Vision: ${p.title}`, ['Open Vision', '../vision/']);
+});
 $('#shareBtn').addEventListener('click', () => {
   const m = view.startsWith('guide:') && location.hash.match(/#\/g\/([^/?]+)(?:\/(\d{4}-\d{2}-\d{2}))?/);
   if (m) { const wk = m[2] || weekendOf(); const r = guideRow(m[1], wk) || guideRow(m[1], ((IDX.weekends || []).find(x => x.guides.some(y => y.city === m[1])) || {}).weekend); if (r) return share(r.title, r.dek, `${PUBLIC}s/${r.id}.html`); }

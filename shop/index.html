@@ -50,6 +50,8 @@ img{display:block;max-width:100%}
 .tb svg{width:19px;height:19px}
 .tb .n{font:600 12px/1 var(--sf);background:var(--ink);color:var(--bg);border-radius:999px;padding:3px 6px;min-width:18px;text-align:center}
 .tb .n:empty{display:none}
+.btn.vp[aria-pressed="true"]{background:#C2785C;color:#fff}
+.tb .vv{width:24px;height:16px}
 .secs{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding:2px 0 10px;scroll-padding:0 22px}
 .secs::-webkit-scrollbar{display:none}
 .secs a{flex:none;font:500 14px/1 var(--sf);letter-spacing:-.01em;padding:9px 14px;border-radius:999px;color:var(--ink-2);white-space:nowrap}
@@ -209,6 +211,7 @@ footer a{color:var(--link)}
     <a class="logo" href="#/" aria-label="Finds, home"><i><svg viewBox="0 0 24 24" fill="none" stroke="var(--bg)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M8 20V4h10M8 12h8"/></svg></i><span>Finds</span></a>
     <label class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.6-3.6"/></svg>
       <span class="sr">Search Finds</span><input id="q" type="search" placeholder="Search Finds" autocomplete="off" enterkeyhint="search"></label>
+    <a class="tb" href="../vision/" aria-label="Vision, the board you share with your partner"><svg class="vv" viewBox="0 0 40 26" aria-hidden="true"><circle cx="14" cy="13" r="11" fill="#C2785C" fill-opacity=".3" stroke="#C2785C" stroke-width="1.6"/><circle cx="26" cy="13" r="11" fill="#5B7FA1" fill-opacity=".3" stroke="#5B7FA1" stroke-width="1.6"/></svg><span class="lb">Vision</span></a>
     <a class="tb" href="#/saved" aria-label="Saved"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 20.5s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.6a4.3 4.3 0 0 1 7.5 2.7c0 5.6-7.5 10.2-7.5 10.2z"/></svg><span class="lb">Saved</span><span class="n" id="savedN"></span></a>
   </div>
   <nav class="in secs" id="secs" aria-label="Sections"></nav>
@@ -403,7 +406,7 @@ function saved() {
   const list = ids.map(id => BY.get(id)).filter(Boolean);
   $('#main').innerHTML = `<section class="hero"><p class="eyebrow">${Object.keys(P.saved).length} saved</p><h1 class="h1">${view.board ? esc(view.board) : 'Saved.'}</h1><p class="dek">Kept in this browser. ${names.length ? '' : 'Name boards from any product to sort them.'}</p></section>
     ${names.length ? `<div class="bar2"><a class="chip b" href="#/saved" aria-pressed="${!view.board}">All saved</a>${names.map(b => `<a class="chip b" href="#/saved/${encodeURIComponent(b)}" aria-pressed="${view.board === b}">${esc(b)} · ${P.boards[b].length}</a>`).join('')}</div>` : ''}<div id="board"></div>`;
-  if (list.length) grid(list, $('#board')); else $('#board').innerHTML = '<div class="empty"><b>Nothing saved yet</b>Tap the heart on anything you like.</div>';
+  if (list.length) { grid(list, $('#board')); $('#board').insertAdjacentHTML('beforebegin', `<div class="bar2"><button class="chip b" type="button" data-vall>Pin ${list.length === 1 ? 'it' : 'all ' + list.length} to Vision</button><a class="chip b" href="../vision/">Open Vision ›</a></div>`); } else $('#board').innerHTML = '<div class="empty"><b>Nothing saved yet</b>Tap the heart on anything you like.</div>';
   watchMore();
 }
 function search(q) {
@@ -440,6 +443,7 @@ function openSheet(id) {
       ${it.d ? `<p class="desc">${esc(it.d)}</p>` : ''}
       <div class="acts"><a class="btn p" href="${esc(it.u)}" target="_blank" rel="noopener" data-out="${it.i}">${it.k === 'ebay' || it.k === 'used' ? `View on ${esc(it.st)}` : `Buy at ${esc(it.st)}`} ${IC.out}</a>
         <button class="btn" type="button" data-save="${it.i}" aria-pressed="${!!P.saved[it.i]}">${P.saved[it.i] ? IC.heartF + 'Saved' : IC.heart + 'Save'}</button>
+        <button class="btn vp" type="button" data-vpin="${it.i}" aria-pressed="${VSN.has('finds:' + it.i)}" title="Pin it to Vision, the board you share with your partner">${VSN.has('finds:' + it.i) ? 'On Vision' : 'Pin to Vision'}</button>
         ${it.k !== 'ebay' ? `<a class="btn" href="${ebaySearch(it.k === 'used' ? (it.lt || it.n) : qOf(it), true)}" target="_blank" rel="noopener" data-out="${it.i}">${it.k === 'used' ? 'More like it on eBay' : 'Used on eBay'} ${IC.out}</a>` : ''}</div>
       ${eb ? ebRows(eb.used, 'Used on eBay now') + ebRows(eb.new, 'New on eBay now') : ''}
       <div class="boards">${P.saved[id] ? `Boards: ${Object.keys(P.boards).map(b => `<button class="chip" type="button" data-bd="${esc(b)}" aria-pressed="${myBoards.includes(b)}">${esc(b)}</button>`).join('')}<input id="nb" placeholder="New board" aria-label="New board name" enterkeyhint="done">` : ''}</div>
@@ -473,10 +477,26 @@ function toast(msg, undo) {
   t.classList.add('on'); clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('on'), undo ? 5000 : 1800);
 }
 const counts = () => { const n = Object.keys(P.saved).length; $('#savedN').textContent = n || ''; };
+/* Vision (../vision/): the board two people share. Pins wait in this browser ('vision.inbox') until Vision picks them up. */
+const VSN = {
+  get(k, d) { try { const v = JSON.parse(localStorage.getItem(k) || 'null'); return v == null ? d : v; } catch (e) { return d; } },
+  onBoard(k) { const s = this.get('vision.v1', null); return !!(s && s.items && Object.values(s.items).some(it => it.key === k && !it.del)); },
+  has(k) { let on = this.onBoard(k); for (const p of this.get('vision.inbox', [])) if (p.key === k) on = !p.unpin; return on; },
+  set(pins, on) {
+    let q = this.get('vision.inbox', []); const ks = new Set(pins.map(p => p.key)); q = q.filter(x => !ks.has(x.key));
+    for (const p of pins) { if (on) q.push(Object.assign({ at: Date.now() }, p)); else if (this.onBoard(p.key)) q.push({ key: p.key, unpin: true, at: Date.now() }); }
+    try { localStorage.setItem('vision.inbox', JSON.stringify(q.slice(-200))); return true; } catch (e) { return false; }
+  }
+};
+const vPin = it => ({ key: 'finds:' + it.i, kind: 'product', sec: it.s, sid: it.i, title: it.n, brand: it.br || '', store: it.st || '', url: it.u, img: it.im, ar: it.w && it.h ? +(it.h / it.w).toFixed(3) : 1, price: it.p, was: it.was || null, cur: it.c || 'USD', site: 'Finds',
+  note: it.y || (it.k === 'used' ? [it.cond, it.z ? 'size ' + it.z : '', it.nw && it.p ? `about ${Math.round((1 - it.p / it.nw) * 100)}% under new` : ''].filter(Boolean).join(', ') : '') });
+function vToast(msg) { toast(msg); const t = $('#toast'); t.insertAdjacentHTML('beforeend', '<a href="../vision/" style="color:inherit;font-weight:600;margin-left:12px">Open Vision</a>'); clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('on'), 3600); }
 document.addEventListener('click', e => {
   const a = e.target.closest('a,button'); if (!a) return;
   const d = a.dataset;
   if (d.save) { e.preventDefault(); toggleSave(d.save); return; }
+  if (d.vpin) { e.preventDefault(); const it = BY.get(d.vpin); if (!it) return; const on = !VSN.has('finds:' + it.i); if (!VSN.set([vPin(it)], on)) { toast('This browser isn’t saving anything.'); return; } $$(`[data-vpin="${d.vpin}"]`).forEach(b => { b.setAttribute('aria-pressed', String(on)); b.textContent = on ? 'On Vision' : 'Pin to Vision'; }); vToast(on ? 'Pinned to Vision' : 'Taken off Vision'); return; }
+  if (d.vall != null) { const ids = view.board ? (P.boards[view.board] || []) : Object.keys(P.saved); const pins = ids.map(id => BY.get(id)).filter(Boolean).map(vPin); if (VSN.set(pins, true)) vToast(`${pins.length} pinned to Vision`); return; }
   if (d.close != null) { closeSheet(); return; }
   if (d.more != null) { shown += 48; paintGrid(); return; }
   if (d.out) { learn(BY.get(d.out), 2); return; }
@@ -542,7 +562,7 @@ load().then(d => {
   F.sections = F.sections.filter(s => s.n);
   counts();
   $('#foot').innerHTML = `<p>Finds doesn’t sell anything and isn’t paid by any store. New products, prices and stock come from each store’s own published catalog, checked every six hours; pre-owned comes from the brands’ own resale and refurbished collections, from Pinfall’s resale finds on eBay, Poshmark, Mercari and Grailed (all-in prices, as found) (last ${ago(F.at)}); check the store before you buy. Picks are Claude’s, each with the reviews or reporting behind it linked.${F.ebay ? ' Pre-owned listings come from eBay’s API.' : ' eBay links open eBay’s own search.'} Trend stories link to the outlets that reported them.</p>
-    <p>What you save and open stays in this browser. From the makers of <a href="../news/">The Watch</a> and <a href="../travel/">Weekender</a>.</p>`;
+    <p>What you save and open stays in this browser. From the makers of <a href="../news/">The Watch</a> and <a href="../travel/">Weekender</a>. Pin anything to <a href="../vision/">Vision</a>, the board you share with your partner.</p>`;
   route();
 }).catch(() => { $('#main').innerHTML = '<div class="empty"><b>Finds didn’t load</b>Check your connection and try again.</div>'; });
 </script>

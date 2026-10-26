@@ -612,6 +612,75 @@ h3.glb{font:600 12.5px var(--sans);letter-spacing:.07em;text-transform:uppercase
 .t90t b{display:block;font:400 28px/1.15 var(--serif);margin:4px 0 6px}.t90t .d{display:block;font-size:15px;line-height:1.5;color:var(--ink2);max-width:62ch}
 .t90t .go{display:inline-block;margin-top:10px;font:600 14px var(--sans);color:var(--brass)}
 @media (max-width:620px){.t90f{flex-direction:column;align-items:flex-start;gap:10px}.t90v{width:96px}.t90t b{font-size:24px}}
+/* ---------- plans: Weekender, Finds and Vision inside The Watch */
+.pl-h{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:12px}
+.pl-h .note{margin:3px 0 0;max-width:72ch}
+.pl-more{font:600 14px var(--sans);color:var(--brass-ink);text-decoration:none;white-space:nowrap}.pl-more:hover{text-decoration:underline}
+.pl-row{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:2px 2px 10px;scrollbar-width:thin;overscroll-behavior-x:contain}
+.pl-c{flex:0 0 236px;scroll-snap-align:start;border:1px solid var(--rule);background:var(--raise);border-radius:14px;overflow:hidden;display:flex;flex-direction:column}
+.pl-ph{position:relative;display:block;aspect-ratio:4/3;background:var(--shoal);overflow:hidden}
+.pl-ph img{width:100%;height:100%;object-fit:cover}
+.pl-ph::after{content:'';position:absolute;left:0;right:0;bottom:0;height:62%;background:linear-gradient(transparent,rgba(8,14,24,.66));pointer-events:none}
+.pl-cn{position:absolute;left:12px;bottom:10px;z-index:1;color:#fff;font:400 27px/1 var(--serif)}
+.pl-now{position:absolute;right:9px;top:9px;z-index:1;display:inline-flex;gap:4px;align-items:center;background:rgba(255,255,255,.92);color:#15243B;border-radius:999px;padding:3px 9px 3px 6px;font:600 13px var(--sans)}
+.pl-now svg{width:16px;height:16px}
+.pl-b{padding:10px 12px 12px;display:flex;flex-direction:column;gap:8px;flex:1}
+.pl-t{margin:0;font:600 14.5px/1.35 var(--sans)}.pl-t a{text-decoration:none}.pl-t a:hover{text-decoration:underline}
+.pl-fc{margin:0;display:flex;gap:5px;flex-wrap:wrap}
+.pl-fc span{display:inline-flex;align-items:center;gap:3px;background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:2px 7px;font-size:12.5px;white-space:nowrap}
+.pl-fc svg{width:14px;height:14px}.pl-fc small{color:var(--ink-3);font-size:11.5px}
+.pl-m{margin:auto 0 0;display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:13px;color:var(--ink-3)}
+.vpin{display:inline-flex;align-items:center;gap:5px;border:1px solid var(--rule);background:var(--raise);border-radius:999px;padding:4px 11px 4px 8px;font:600 12.5px var(--sans);color:var(--ink-2);white-space:nowrap}
+.vpin svg{width:14px;height:14px;flex:none}
+.vpin:hover{border-color:#C2785C;color:var(--ink)}
+.vpin[aria-pressed="true"]{background:#C2785C;border-color:#C2785C;color:#fff}
+.pl-fly{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end;border:1px solid var(--rule);background:var(--raise);border-radius:14px;padding:14px 16px;margin:8px 0 16px}
+.pl-fly label{display:flex;flex-direction:column;gap:3px;font:600 11.5px var(--sans);color:var(--ink-3);text-transform:uppercase;letter-spacing:.06em}
+.pl-fly input,.pl-fly select{font:500 15px var(--sans);color:var(--ink);background:var(--paper);border:1px solid var(--rule);border-radius:10px;padding:8px 10px;min-width:0;text-transform:none;letter-spacing:0}
+.pl-fly input[name=from]{width:84px;text-transform:uppercase}
+.pl-fh{font:400 25px/1.1 var(--serif);margin-right:8px;align-self:center}
+.pl-fly .chip{padding:9px 15px}
+.pl-go{background:var(--ink)!important;color:var(--paper)!important;border-color:var(--ink)!important}
+.pl-pts{display:grid;grid-template-columns:minmax(190px,250px) minmax(0,1fr);gap:18px;align-items:start;border-top:1px solid var(--rule);padding-top:14px;margin-bottom:16px}
+.pl-ptl{text-decoration:none}.pl-ptl b{display:block;font:400 25px/1.1 var(--serif)}.pl-ptl span{font-size:14px;color:var(--ink-2)}
+.pl-pts ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:7px}
+.pl-pts li{font-size:14.5px;line-height:1.4}.pl-pts li a{text-decoration:none;font-weight:600}.pl-pts li a:hover{text-decoration:underline}.pl-pts small{color:var(--ink-3);margin-left:4px}
+.pl-f{flex:0 0 178px;scroll-snap-align:start;border:1px solid var(--rule);background:var(--raise);border-radius:14px;overflow:hidden;display:flex;flex-direction:column}
+.pl-fp{position:relative;display:block;aspect-ratio:1;background:#fff;overflow:hidden}
+.pl-fp img{width:100%;height:100%;object-fit:cover}
+.pl-off{position:absolute;left:8px;top:8px;background:var(--signal);color:#fff;border-radius:999px;padding:2px 8px;font:700 11.5px var(--sans)}
+.pl-off.u{background:#1E2329}
+.pl-fb{padding:9px 10px 10px;display:flex;flex-direction:column;gap:5px;flex:1}
+.pl-fn{margin:0;font:600 13.5px/1.3 var(--sans);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.pl-fn a{text-decoration:none}
+.pl-fm{margin:0;display:flex;gap:6px;align-items:baseline;flex-wrap:wrap;font-size:12.5px;color:var(--ink-3)}
+.pl-fm b{color:var(--ink);font-size:14px}.pl-fm s{color:var(--ink-3)}
+.pl-why{margin:0;font-size:13px;color:var(--ink-2);line-height:1.45;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+.pl-fb .vpin{margin-top:auto;align-self:flex-start}
+.pl-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(176px,1fr));gap:12px}
+.pl-grid .pl-f{flex:none}
+.pl-st{margin:4px 0 22px}
+.pl-st .sec-h,.pl-tr .sec-h{margin:0}
+.pl-tr{margin:0 0 8px}
+.pl-trend{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.6fr);gap:24px;align-items:start}
+.pl-trend ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px}
+.pl-trend li a{font:600 15px/1.35 var(--sans);text-decoration:none}.pl-trend li a:hover{text-decoration:underline}.pl-trend li small{display:block;color:var(--ink-3);font-size:13px;margin-top:2px}
+.pl-secs{display:flex;flex-wrap:wrap;gap:8px}
+.pl-fr{margin-top:34px}.pl-lazy{min-height:330px}
+.pl-3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.pl-t3{display:flex;flex-direction:column;text-decoration:none;color:inherit;border:1px solid var(--rule);background:var(--raise);border-radius:16px;overflow:hidden;min-width:0}
+.pl-t3:hover{border-color:var(--brass)}
+.pl-t3 .im{position:relative;aspect-ratio:16/9;background:var(--shoal);overflow:hidden;display:flex;align-items:center;justify-content:center}.pl-t3 .im img{width:100%;height:100%;object-fit:cover}
+.pl-t3 .im svg{width:46%;height:auto}
+.pl-t3 .im text{font:italic 34px var(--serif);fill:var(--ink)}
+.pl-t3 .tx{padding:12px 15px 15px;display:flex;flex-direction:column;gap:5px}
+.pl-t3 .k{font:600 12px/1.3 var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--brass-ink)}
+.pl-t3 b{font:400 23px/1.15 var(--serif)}
+.pl-t3 .d{font-size:14px;color:var(--ink-2);line-height:1.45}
+.pl-nudge{display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-size:14px;color:var(--ink-2);margin:2px 0 16px}
+.pl-nudge svg{width:26px;height:17px;flex:none}
+.pl-nudge a{font-weight:600;color:var(--brass-ink);text-decoration:none}
+.toast a.tlink{color:var(--paper);font:600 13.5px var(--sans);margin-left:12px;text-decoration:underline;text-underline-offset:3px}
+@media (max-width:820px){.pl-3{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:8px}.pl-t3{flex:0 0 80%;scroll-snap-align:start}.pl-pts,.pl-trend{grid-template-columns:1fr}.pl-c{flex-basis:208px}.pl-f{flex-basis:156px}.pl-fly{padding:12px}.pl-fh{width:100%}}
 .wkp-b{flex:none;width:42px;height:42px;border-radius:10px;background:#1E2329;color:#F5BE41;display:grid;place-items:center;font-size:20px}.wkp-go{margin-left:auto;font-size:22px;color:var(--ink3)}
 .ssban button{display:inline-flex;align-items:center;gap:10px;border:1px solid var(--rule);background:var(--raise);border-radius:999px;padding:5px 14px 5px 5px;font:600 14px var(--sans)}
 .ssban img{width:30px;height:30px;border-radius:50%;object-fit:cover;background:var(--shoal)}
@@ -1261,6 +1330,7 @@ function parseHash() {
   if (a === 'fsd') return { t: 'fsd' };
   if (a === 'latenight') return { t: 'late' };
   if (a === 'weather') return { t: 'weather' };
+  if (a === 'shop') return { t: 'shop' };
   if (a === 'ln' && b) return { t: 'piece', id: b };
   if (a === 'col' && b) { const [wk, k] = b.split('/'); return { t: 'col', week: wk, k: k || 'bull' }; }
   return { t: 'home' };
@@ -1279,10 +1349,10 @@ function storyRow(it, o = {}) {
 }
 
 function renderBar() {
-  const items = [['home', '', 'Front'], ['you', 'for-you', 'For you'], ['reports', 'reports', 'Reports'], ['pictures', 'pictures', 'Pictures'], ['video', 'video', 'Video'], ['late', 'latenight', 'Late Night'], ['weather', 'weather', 'Weather'], ...deskList().map(s => ['desk:' + s.k, 's/' + s.k, secName(s.k)]), ['files', 'files', 'Epstein files']];
+  const items = [['home', '', 'Front'], ['you', 'for-you', 'For you'], ['reports', 'reports', 'Reports'], ['pictures', 'pictures', 'Pictures'], ['video', 'video', 'Video'], ['late', 'latenight', 'Late Night'], ['weather', 'weather', 'Weather'], ['shop', 'shop', 'Shopping'], ['vision', '../vision/', 'Vision'], ...deskList().map(s => ['desk:' + s.k, 's/' + s.k, secName(s.k)]), ['files', 'files', 'Epstein files']];
   const cur = view.t === 'desk' ? 'desk:' + view.k : view.t === 'article' ? 'reports' : ['impact', 'col', 'columns'].includes(view.t) ? 'desk:business' : ['garage', 'build', 'fsd'].includes(view.t) ? 'desk:cars' : view.t === 'piece' ? 'late' : view.t;
   $('#bar').innerHTML = items.map(([id, h, label]) =>
-    `<button type="button" data-go="#/${h}"${id === cur ? ' aria-current="page"' : ''}${id === 'you' ? ' class="you"' : ''}>${esc(label)}</button>`).join('');
+    `<button type="button" data-go="${h.startsWith('../') ? h : '#/' + h}"${id === cur ? ' aria-current="page"' : ''}${id === 'you' ? ' class="you"' : ''}>${esc(label)}</button>`).join('');
   const on = $('#bar [aria-current]');
   if (on) on.scrollIntoView({ block: 'nearest', inline: 'nearest' });
 }
@@ -1307,7 +1377,7 @@ function renderFoot() {
   const failed = (f.failed || []);
   $('#foot').innerHTML = `<div class="wrap"><div>
     <h4>${T('How The Watch works')}</h4>
-    <p>${T('More from The Watch:')} <a href="../travel/">Weekender</a> · <a href="../travel/#/points">Points Hacker</a> · <a href="../shop/">Finds</a> · <a href="../the-hinge/">The Hinge</a></p>
+    <p>${T('More from The Watch:')} <a href="../travel/">Weekender</a> · <a href="../travel/#/points">Points Hacker</a> · <a href="../shop/">Finds</a> · <a href="../vision/">Vision</a> · <a href="../the-hinge/">The Hinge</a></p>
     <p>${T('The Watch comes out six times a day, once for each of a ship’s watches, Eastern time: the Middle Watch at midnight, Morning at 4 a.m., Forenoon at 8 a.m., Afternoon at noon, the Dog Watch at 4 p.m. and the First Watch at 8 p.m. Each edition reads {n} public news feeds, groups stories that several outlets are covering, and ranks them by how widely and how recently they’re covered.', { n: f.total || 160 })}</p>
     <p>${T('The “For you” picks learn from what you open, how long you stay with it, what you search for, and what you tell it with More or Less like this. That record stays in this browser; nothing about your reading leaves it. Open Your compass to see or change it.')}</p>
     ${LANG !== 'en' ? `<p>${T('Headlines and stories stay in the language each outlet publishes in. Outlets that write in your language come first; the reports are translated by Claude.')}</p>` : ''}
@@ -1371,6 +1441,7 @@ function renderHome() {
     </div>
     ${nativeHTML}
     ${picturesStrip()}
+    ${viewingArchive ? '' : lifeSlot(lifeFront, true)}
     ${viewingArchive ? '' : frontReport(brf ? BRM.id : null)}
     ${viewingArchive ? '' : frontElections()}
     <section class="bearing"><div class="wrap">
@@ -1422,7 +1493,7 @@ function renderDesk(k) {
   list.sort(deskSort === 'new' ? (a, b) => b.p - a.p : (a, b) => b.s - a.s);
   listPage(secName(k), T(list.length === 1 ? '{n} story' : '{n} stories', { n: list.length }), list.map(x => ({ it: x.it })),
     { controls: `<div class="seg" role="group" aria-label="Sort"><button type="button" data-sort="you" aria-pressed="${deskSort === 'you'}">Best for you</button><button type="button" data-sort="new" aria-pressed="${deskSort === 'new'}">Latest</button></div>`,
-      top: (k === 'politics' ? electionsHTML(true) : k === 'brazil' ? brMissPromo() + electionsHTML(true, 'br') : k === 'travel' ? weekenderPromo() + pointsPromo() : k === 'power' ? `<div id="pwrWrap" class="mk">${powerHTML()}</div>` : k === 'cars' ? `<div id="garWrap">${garageHTML()}</div>` : k === 'food' ? `<div id="fridgeWrap">${fridgeHTML()}</div>` : k === 'lifestyle' ? togetherFeature() : '') + deskBanner(k),
+      top: (k === 'politics' ? electionsHTML(true) : k === 'brazil' ? brMissPromo() + electionsHTML(true, 'br') : k === 'travel' ? lifeSlot(lifeTravel) : k === 'power' ? `<div id="pwrWrap" class="mk">${powerHTML()}</div>` : k === 'cars' ? `<div id="garWrap">${garageHTML()}</div>` : k === 'food' ? `<div id="fridgeWrap">${fridgeHTML()}</div>` : k === 'lifestyle' ? togetherFeature() + visionFeature() : '') + deskBanner(k) + deskShop(k),
       empty: k === 'lifestyle' ? T('Lifestyle stories start with the next edition.') : undefined });
   if (k === 'food') bindFridge();
   if (k === 'cars' && !GAR) ensureGarage().then(() => { const w = $('#garWrap'); if (w && view.t === 'desk' && view.k === 'cars') w.innerHTML = garageHTML(); });
@@ -1904,7 +1975,7 @@ function wxGPS(btn) {
 
 function render(keepScroll) {
   if (!E) return;
-  view = parseHash();
+  view = parseHash(); VKEYS = null;
   renderMast(); renderBar();
   if (!wxChipT) { wxChipT = setInterval(() => wxChip(), 20 * 60000); wxChip(); }
   if (view.t !== 'search' && document.activeElement !== $('#q')) $('#q').value = '';
@@ -1925,6 +1996,7 @@ function render(keepScroll) {
   else if (view.t === 'fsd') renderFSD();
   else if (view.t === 'late') renderLate();
   else if (view.t === 'weather') renderWeather();
+  else if (view.t === 'shop') renderShop();
   else if (view.t === 'piece') renderPiece(view.id);
   else if (view.t === 'col') renderCol(view.week, view.k);
   renderFoot();
@@ -3243,7 +3315,9 @@ document.addEventListener('click', e => {
   if (ds.wxretry != null) { wxFill(true); return; }
   if (ds.brmx != null) { brmMark('done'); const c = $('#brf'); if (c) c.remove(); toast(T('Hidden. The report stays in Reports.'), () => { brmMark('undo'); if (view.t === 'home') render(true); }); return; }
   if (ds.brm != null) brmMark('done'); // then the link does its work
-  if (ds.go) { e.preventDefault(); go(ds.go); return; }
+  if (ds.vpin) { e.preventDefault(); vpinClick(ds.vpin); return; }
+  if (ds.plhotel != null) { const f = $('#plFly'), c = f && LIFE && LIFE.cby[f.to.value]; const q = new URLSearchParams(Object.entries({ q: c ? `${c.name}, ${c.region || c.country}` : '', in: f ? f.dep.value : '', out: f ? f.ret.value : '', n: f ? f.n.value : '' }).filter(([, v]) => v)); location.href = '../travel/#/hotels?' + q.toString(); return; }
+  if (ds.go) { e.preventDefault(); if (ds.go.startsWith('../')) location.href = ds.go; else go(ds.go); return; }
   if (ds.open) {
     const it = byId.get(ds.open);
     if (!it) return;
@@ -3452,6 +3526,7 @@ function renderHousehold() {
     ${tiles.length || us.value ? `<section class="blk" style="margin-top:6px"><h2 class="sec-h">What things cost</h2><p class="sub2">The newest official and survey figures, each with its date. Tap one for its source.</p>
       <div class="econ">${tiles.map(econTile).join('')}${natTile(us.value, 'Typical U.S. home', '', 'The middle of the market for U.S. homes (Zillow Home Value Index).')}${natTile(us.rent, 'Typical U.S. rent', '/mo', 'The typical asking rent for a U.S. home or apartment (Zillow Observed Rent Index).')}</div>
       ${wallet.length ? `<h3 class="eh4">Commodities that reach your bills</h3><div class="mvs" style="max-width:640px">${wallet.map(r => `<button type="button" class="mv ${dirc(r.cp)}" data-tick="${esc(r.s)}"><b>${esc(r.n)}</b><span>${fprice(r)}</span><i>${fchg(r)}</i></button>`).join('')}</div>` : ''}</section>` : ''}
+    <div class="blk">${deskShop('household')}</div>
     <section class="blk news"><div class="page-h"><h2 class="sec-h">${T('Household news')}</h2><p>${T('{n} stories', { n: list.length })}</p><div class="seg" role="group" aria-label="Sort"><button type="button" data-sort="you" aria-pressed="${deskSort === 'you'}">Best for you</button><button type="button" data-sort="new" aria-pressed="${deskSort === 'new'}">Latest</button></div></div>
       <div class="narrow">${shown.map(x => storyRow(x.it, { snip: true })).join('') || '<p class="endnote">No household stories in this watch yet.</p>'}
       ${list.length > shown.length ? `<button type="button" class="loadmore" id="more">${T('Show {n} more', { n: Math.min(40, list.length - shown.length) })}</button>` : ''}</div></section>
@@ -3595,6 +3670,7 @@ function searchCard(q, f, o = {}) {
     <div class="tags">${chips.map(c => `<span class="chip">${esc(c)}</span>`).join('') || '<span class="note">Add a ZIP code or a city and state, a budget, bedrooms…</span>'}</div>
     ${(f.zip || f.city) ? marketLines(f) : ''}
     ${links.length ? `<p class="elinks">${links.map(([n, u]) => `<a href="${esc(u)}" target="_blank" rel="noopener">${T('Matching homes on {site}', { site: esc(n) })}</a>`).join('')}</p>` : ''}
+    ${(f.zip || f.city) ? `<p class="hsave" style="margin-top:8px">${vpinBtn({ key: 'home:' + JSON.stringify(f), lane: 'home', kind: 'homesearch', title: String(q).replace(/^\w/, c => c.toUpperCase()), f, site: 'The Watch' })}<span class="note">${T('Pin this search to Vision, the board you share with your partner. It shows what the typical home there costs against your budget.')}</span></p>` : ''}
     ${o.saved ? listingsHTML(o.id) + `<p class="note">${o.pending ? T('Waiting for the updater to pick it up.') : T('Saved {date}.', { date: esc(new Date(o.savedAt).toLocaleDateString(LOC(), { month: 'short', day: 'numeric' })) })} <a href="https://github.com/BBOLDT86/lanscape-navigator/issues/new?title=${encodeURIComponent('Home search remove: ' + (o.id || ''))}" target="_blank" rel="noopener">Remove</a></p>`
     : o.isSaved ? `<p class="note" style="margin-top:14px">This search is saved. It’s below.</p>`
     : (f.zip || f.city) ? `<p class="hsave"><a class="go" href="${esc(issueUrl(q, f))}" target="_blank" rel="noopener" data-savehome="1">Save this search for updates ${ICON_OUT}</a><span class="note">Opens a GitHub issue with the search filled in. Submit it and the updater saves it. Issues in this public repository are public, so the ZIP and budget will be visible.</span></p>` : ''}
@@ -3616,6 +3692,7 @@ function renderHomeDesk() {
       <input id="hq" type="search" autocomplete="off" placeholder="${esc(LANG === 'pt' ? 'casas com 4 quartos em 43215 até 750 mil' : LANG === 'de' ? 'Häuser mit 4 Schlafzimmern in 43215 bis 750.000' : '4BR homes in 43215 under 750k')}" value="${esc(homeQ)}" class="nolc">
       <div class="tags ex">${(LANG === 'pt' ? ['casas com 4 quartos em 43215 até 750 mil', 'apartamentos de 3 quartos em Columbus, OH entre 250 mil e 400 mil', 'sobrados em 02116 até 1,2 milhão', 'casas com piscina em 33139'] : LANG === 'de' ? ['Häuser mit 4 Schlafzimmern in 43215 bis 750.000', 'Wohnungen mit 3 Zimmern in Columbus, OH zwischen 250k und 400k', 'Reihenhäuser in 02116 bis 1,2 Mio', 'Häuser mit Pool in 33139'] : ['4BR homes in 43215 under 750k', '3 bed condos in Columbus, OH between 250k and 400k', 'townhouses in 02116 under 1.2m', 'houses with a pool in 33139 over 2,000 sq ft']).map(x => `<button type="button" class="chip" data-hq="${esc(x)}">${esc(x)}</button>`).join('')}</div>
       <div id="hres">${homeQ ? searchCard(homeQ, f, { isSaved: isSavedF(f) }) : ''}</div></div>
+    <div class="blk">${deskShop('home')}</div>
     ${saved.length || pend.length ? `<section class="blk"><h2 class="sec-h">Saved searches</h2>${saved.map(s => searchCard(s.q, s.f, { saved: true, id: s.id, savedAt: s.saved })).join('')}${pend.map(p => searchCard(p.q, p.f, { saved: true, pending: true })).join('')}</section>` : ''}
     ${us.value ? `<section class="blk"><h2 class="sec-h">The national market</h2><div class="econ">${natTile(us.value, 'Typical U.S. home', '', 'The middle of the market for U.S. homes (Zillow Home Value Index).')}${natTile(us.rent, 'Typical U.S. rent', '/mo', 'The typical asking rent (Zillow Observed Rent Index).')}${MK ? ['MORT', 'MORT15'].map(id => (MK.econ || []).find(e => e.id === id)).filter(Boolean).map(econTile).join('') : ''}</div></section>` : ''}
     <section class="blk news"><div class="page-h"><h2 class="sec-h">${T('Home news')}</h2><p>${T('{n} stories: real estate, building, design', { n: list.length })}</p><div class="seg" role="group" aria-label="Sort"><button type="button" data-sort="you" aria-pressed="${deskSort === 'you'}">Best for you</button><button type="button" data-sort="new" aria-pressed="${deskSort === 'new'}">Latest</button></div></div>
@@ -4029,6 +4106,202 @@ function togetherFeature() { // Lifestyle opens with Together / 90, the couples 
     <span class="d">${T('A workbook for couples: what actually lands as love for each of you, the topics you both steer around, how you fight, and by week eleven the decisions you have been putting off, made out loud and with dates. It runs in your browser, with no account; nothing you write is sent anywhere.')}</span>
     <span class="go">${T('Open Together / 90')} ›</span></span></a>`;
 }
+/* ================= plans: Weekender's weekends, Finds' shop and the Vision board, brought into The Watch =================
+   Read from the sister sites' own data files (travel/, shop/). Pins go to Vision (vision/) through this browser's storage
+   ('vision.inbox'); the board itself is 'vision.v1', kept and synced by Vision. */
+let LIFE = null, lifeBusy = null, lslotN = 0, VKEYS = null;
+const LSLOT = new Map(), VP = new Map();
+function ensureLife() {
+  if (LIFE) return Promise.resolve(LIFE);
+  if (!lifeBusy) lifeBusy = Promise.all(['../travel/guides/index.json', '../travel/data/cities.json', '../travel/data/live.json', '../travel/data/photos.json', '../shop/data/feed.json'].map(p => getJSON(p).catch(() => null)))
+    .then(([g, c, l, ph, f]) => { LIFE = { g, cities: (c && c.cities) || [], cby: {}, live: l, photos: ph, finds: f && f.items ? f : null }; for (const x of LIFE.cities) LIFE.cby[x.id] = x; return LIFE; });
+  return lifeBusy;
+}
+function lifeFill() { for (const el of $$('[data-life]')) { const fn = LSLOT.get(el.dataset.life); LSLOT.delete(el.dataset.life); if (fn) el.outerHTML = fn() || ''; } }
+let lifeIO = null;
+function lifeSlot(fn, lazy) { // drawn now when the data is here, otherwise a placeholder filled in when it arrives
+  if (LIFE) return fn() || '';
+  const id = 'l' + (++lslotN); LSLOT.set(id, fn);
+  if (!lazy) ensureLife().then(lifeFill);
+  else setTimeout(() => { const el = $(`[data-life="${id}"]`); if (!el) return; if (!('IntersectionObserver' in window)) { ensureLife().then(lifeFill); return; }
+    lifeIO = lifeIO || new IntersectionObserver(es => { if (es.some(x => x.isIntersecting)) { lifeIO.disconnect(); ensureLife().then(lifeFill); } }, { rootMargin: '700px 0px' }); lifeIO.observe(el); }, 0);
+  return `<div data-life="${id}"${lazy ? ' class="pl-lazy"' : ''}></div>`;
+}
+const isoDay = d => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+const dayOf = s => { const [y, m, d] = s.split('-').map(Number); return new Date(y, m - 1, d); };
+const addD = (s, n) => { const d = dayOf(s); d.setDate(d.getDate() + n); return isoDay(d); };
+const nextFri = () => { const d = new Date(); d.setDate(d.getDate() + (((5 - d.getDay() + 7) % 7) || 7)); return isoDay(d); };
+const dShort = s => dayOf(s).toLocaleDateString(LOC(), { weekday: 'short' });
+const dRange = (a, b) => { const f = new Intl.DateTimeFormat(LOC(), { month: 'short', day: 'numeric' }); return f.formatRange ? f.formatRange(dayOf(a), dayOf(b)) : f.format(dayOf(a)) + ' – ' + f.format(dayOf(b)); };
+const fToC = f => f == null ? null : (f - 32) * 5 / 9;
+const cash = (p, c = 'USD') => p == null ? '' : new Intl.NumberFormat(LOC(), { style: 'currency', currency: c || 'USD', maximumFractionDigits: p % 1 && p < 100 ? 2 : 0 }).format(p);
+const jit = s => { let h = Math.floor(Date.now() / 864e5); for (const ch of s) h = (h * 31 + ch.charCodeAt(0)) | 0; return (h >>> 0) % 997; };
+function wkWeekendL() {
+  const ws = ((LIFE.g && LIFE.g.weekends) || []).slice().sort((a, b) => a.weekend < b.weekend ? -1 : 1), t = isoDay(new Date());
+  return ws.find(w => addD(w.weekend, 2) >= t) || ws[ws.length - 1] || null;
+}
+function plPhoto(title, w = 500) { const p = title && LIFE.photos && LIFE.photos.titles && LIFE.photos.titles[title]; return p && p.img && p.img.src ? p.img.src.replace(/\/\d+px-/, '/' + w + 'px-') : ''; }
+function plCredit(title) { const p = title && LIFE.photos && LIFE.photos.titles && LIFE.photos.titles[title]; return p && p.img ? { by: p.img.credit, lic: p.img.license, file: p.img.file } : null; }
+function wkFrom() { try { const p = JSON.parse(localStorage.getItem('wk.prefs') || '{}'); return p && p.from && p.from.code ? p.from.code : ''; } catch (e) { return ''; } }
+const cityTime = tz => { try { return new Intl.DateTimeFormat(LOC(), { timeZone: tz, hour: 'numeric', minute: '2-digit' }).format(new Date()); } catch (e) { return ''; } };
+
+/* ---------- Vision: the board two people share */
+function visionState() { try { const s = JSON.parse(localStorage.getItem('vision.v1') || 'null'); return s && s.v === 1 && s.items ? s : null; } catch (e) { return null; } }
+const VSN = {
+  inbox() { try { const q = JSON.parse(localStorage.getItem('vision.inbox') || '[]'); return Array.isArray(q) ? q : []; } catch (e) { return []; } },
+  onBoard(k) { const s = visionState(); return !!(s && Object.values(s.items).some(it => it.key === k && !it.del)); },
+  keys() { const k = new Set(), s = visionState(); if (s) for (const it of Object.values(s.items)) if (it.key && !it.del) k.add(it.key); for (const p of this.inbox()) { if (p.unpin) k.delete(p.key); else k.add(p.key); } return k; },
+  toggle(p) {
+    const on = this.keys().has(p.key), q = this.inbox().filter(x => x.key !== p.key);
+    if (!on) q.push(Object.assign({ at: Date.now() }, p)); else if (this.onBoard(p.key)) q.push({ key: p.key, unpin: true, at: Date.now() });
+    try { localStorage.setItem('vision.inbox', JSON.stringify(q.slice(-150))); } catch (e) { return null; }
+    VKEYS = null; return !on;
+  }
+};
+const vk = () => VKEYS || (VKEYS = VSN.keys());
+const VHEART = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" aria-hidden="true"><path d="M12 20.5s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.6a4.3 4.3 0 0 1 7.5 2.7c0 5.6-7.5 10.2-7.5 10.2z"/></svg>';
+const VVENN = '<svg viewBox="0 0 40 26" aria-hidden="true"><circle cx="14" cy="13" r="11" fill="#C2785C" fill-opacity=".3" stroke="#C2785C" stroke-width="1.5"/><circle cx="26" cy="13" r="11" fill="#5B7FA1" fill-opacity=".3" stroke="#5B7FA1" stroke-width="1.5"/></svg>';
+const vpinInner = on => VHEART + esc(on ? T('On Vision') : T('Vision'));
+function vpinBtn(pin) {
+  VP.set(pin.key, pin);
+  const on = vk().has(pin.key);
+  return `<button type="button" class="vpin" data-vpin="${esc(pin.key)}" aria-pressed="${on}" title="${esc(T('Pin it to Vision, the board you share with your partner'))}">${vpinInner(on)}</button>`;
+}
+function vpinClick(key) {
+  const p = VP.get(key); if (!p) return;
+  const on = VSN.toggle(p);
+  if (on == null) { toast(T('This browser isn’t saving anything, so pins can’t be kept.')); return; }
+  $$('[data-vpin]').filter(b => b.dataset.vpin === key).forEach(b => { b.setAttribute('aria-pressed', String(on)); b.innerHTML = vpinInner(on); });
+  toast(on ? T('Pinned to Vision: {title}', { title: p.title }) : T('Taken off Vision: {title}', { title: p.title }));
+  const t = $('#toast'); t.classList.remove('plain'); t.insertAdjacentHTML('beforeend', `<a class="tlink" href="../vision/">${T('Open Vision')}</a>`);
+}
+function visionSummary() {
+  const s = visionState(); if (!s) return null;
+  const items = Object.values(s.items).filter(x => !x.del), n = s.board && s.board.names || {};
+  return { n: items.length + VSN.inbox().filter(p => !p.unpin && !items.some(it => it.key === p.key)).length, both: items.filter(x => x.ha && x.hb).length, names: [n.a, n.b].filter(Boolean).join(' & ') };
+}
+function visionFeature() { // Lifestyle, next to Together / 90
+  const v = visionSummary();
+  return `<a class="t90f" href="../vision/"><span class="t90v" aria-hidden="true"><svg viewBox="0 0 132 88"><circle cx="48" cy="44" r="36" fill="#C2785C" fill-opacity=".18" stroke="#C2785C" stroke-width="2"/><circle cx="84" cy="44" r="36" fill="#5B7FA1" fill-opacity=".18" stroke="#5B7FA1" stroke-width="2"/><path d="M66 13.9A36 36 0 0 1 66 74.1A36 36 0 0 1 66 13.9Z" fill="#8B7355" fill-opacity=".4"/>${v ? `<text x="66" y="54" text-anchor="middle">${v.both}</text>` : ''}</svg></span>
+    <span class="t90t"><span class="k">${T('Vision · for two people')}</span><b>${v ? esc(T(v.n === 1 ? '{names}: {n} pin, {b} you both want' : '{names}: {n} pins, {b} you both want', { names: v.names || T('Your board'), n: v.n, b: v.both })) : T('One board for the trips, the things and the home you want')}</b>
+    <span class="d">${T('Pin trips from Weekender, things from Finds and homes from the Home desk, heart what you want, and what you both want lands in the middle. It syncs phone to phone, with no account and no server.')}</span>
+    <span class="go">${v ? T('Open your board') : T('Start a board together')} ›</span></span></a>`;
+}
+function visionNudge() {
+  const v = visionSummary();
+  return `<p class="pl-nudge">${VVENN}<span>${v && v.n ? T(v.n === 1 ? '{n} pin on your Vision board.' : '{n} pins on your Vision board.', { n: v.n }) : T('Tap Vision on anything here to pin it to the board you share with your partner.')}</span><a href="../vision/">${v ? T('Open Vision') : T('What’s Vision?')} ›</a></p>`;
+}
+
+/* ---------- travel: Weekender's eight cities for the coming weekend */
+function plCity(c, w) {
+  const r = w && w.guides.find(g => g.city === c.id);
+  const title = (r && r.hero) || c.wiki, ph = plPhoto(title, 500) || plPhoto(c.wiki, 500);
+  const wx = LIFE.live && LIFE.live.weather && LIFE.live.weather.cities && LIFE.live.weather.cities[c.id];
+  const now = wx && wx.current;
+  const days = wx && wx.daily && w ? [0, 1, 2].map(i => { const d = addD(w.weekend, i), j = wx.daily.time.indexOf(d); return j < 0 ? null : { d, code: wx.daily.weather_code[j], hi: wx.daily.temperature_2m_max[j], pop: (wx.daily.precipitation_probability_max || [])[j] }; }).filter(Boolean) : [];
+  const pin = { key: 'weekender:' + c.id, lane: 'travel', kind: 'trip', city: c.id, title: c.name, site: 'Weekender', img: plPhoto(title, 960) || plPhoto(c.wiki, 960), credit: plCredit(title), place: { name: c.name, country: c.country, lat: c.lat, lon: c.lon, tz: c.tz }, note: r ? r.dek : c.line };
+  return `<article class="pl-c"><a class="pl-ph" href="../travel/#/g/${esc(c.id)}">${ph ? `<img src="${esc(ph)}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.remove()">` : ''}<span class="pl-cn nolc">${esc(c.name)}</span>${now ? `<span class="pl-now">${wxIcon(now.weather_code, now.is_day, 16)}${wxT(fToC(now.temperature_2m))}</span>` : ''}</a>
+    <div class="pl-b"><p class="pl-t nolc" lang="en"><a href="../travel/#/g/${esc(c.id)}">${esc(r ? r.title : c.line)}</a></p>
+    ${days.length ? `<p class="pl-fc">${days.map(x => `<span title="${esc(wxName(x.code))}${x.pop >= 30 ? esc(', ' + T('{n}% chance of rain', { n: x.pop })) : ''}"><b>${esc(dShort(x.d))}</b>${wxIcon(x.code, 1, 14)}${wxT(fToC(x.hi))}${x.pop >= 40 ? `<small>${x.pop}%</small>` : ''}</span>`).join('')}</p>` : ''}
+    <p class="pl-m"><span>${esc(T('{time} there', { time: cityTime(c.tz) }))}</span>${vpinBtn(pin)}</p></div></article>`;
+}
+function plFly(cs, w) {
+  const dep = w ? w.weekend : nextFri();
+  return `<form class="pl-fly" id="plFly"><b class="pl-fh">${T('Fly there')}</b>
+    <label>${T('From')}<input name="from" value="${esc(wkFrom())}" placeholder="CMH" maxlength="3" autocomplete="off" aria-label="${esc(T('Airport you fly from, as a three-letter code'))}"></label>
+    <label>${T('To')}<select name="to" class="nolc">${cs.map(c => `<option value="${esc(c.id)}">${esc(c.name)}</option>`).join('')}<option value="">${T('Somewhere else')}</option></select></label>
+    <label>${T('Depart')}<input type="date" name="dep" value="${esc(dep)}"></label>
+    <label>${T('Return')}<input type="date" name="ret" value="${esc(addD(dep, 3))}"></label>
+    <label>${T('Travelers')}<select name="n">${[1, 2, 3, 4, 5, 6].map(n => `<option${n === 2 ? ' selected' : ''}>${n}</option>`).join('')}</select></label>
+    <button type="submit" class="chip pl-go">${T('Search flights')}</button><button type="button" class="chip" data-plhotel>${T('Hotels')}</button></form>`;
+}
+function lifeTravel() {
+  const w = wkWeekendL(), cs = LIFE.cities;
+  if (!cs.length) return weekenderPromo() + pointsPromo();
+  const pts = ((LIFE.live && LIFE.live.points && LIFE.live.points.items) || []).slice(0, 4);
+  return `<section class="pl-tr"><div class="pl-h"><div><h2 class="sec-h">${w ? T('This weekend: three perfect days') : T('Three perfect days')}</h2><p class="note">${w ? T('Weekender’s eight cities, planned day by day for {dates}: what’s on, where to eat and stay, and the forecast.', { dates: esc(dRange(w.weekend, addD(w.weekend, 2))) }) : T('Weekender’s eight cities, planned day by day every weekend.')}</p></div><a class="pl-more" href="../travel/">Weekender ›</a></div>
+    <div class="pl-row">${cs.map(c => plCity(c, w)).join('')}</div>
+    ${plFly(cs, w)}
+    ${pts.length ? `<div class="pl-pts"><a class="pl-ptl" href="../travel/#/points"><b>Points Hacker</b><span>${T('Every card credit and when it resets, the hotel programs and where your points transfer')} ›</span></a><ul>${pts.map(n => `<li lang="en" class="nolc"><a href="${esc(n.u)}" target="_blank" rel="noopener">${esc(n.t)}</a><small>${esc(n.o)}</small></li>`).join('')}</ul></div>` : pointsPromo()}
+    ${lifeStrip(['outdoors'], T('Pack for it, from Finds'), '../shop/#/s/outdoors')}
+    ${visionNudge()}</section>`;
+}
+
+/* ---------- shopping: Finds' products, priced live from the stores' own catalogs */
+const fItems = () => (LIFE && LIFE.finds && LIFE.finds.items) || [];
+const fOff = x => x.was && x.p ? Math.round((1 - x.p / x.was) * 100) : x.k === 'used' && x.nw && x.p ? Math.round((1 - x.p / x.nw) * 100) : 0;
+function fPin(x) {
+  return { key: 'finds:' + x.i, kind: 'product', sec: x.s, sid: x.i, title: x.n, brand: x.br || '', store: x.st || '', url: x.u, img: x.im, ar: x.w && x.h ? +(x.h / x.w).toFixed(3) : 1, price: x.p, was: x.was || null, cur: x.c || 'USD', site: 'Finds',
+    note: x.y || (x.k === 'used' ? [x.cond, x.z ? 'size ' + x.z : '', x.nw ? `about ${fOff(x)}% under new` : ''].filter(Boolean).join(', ') : '') };
+}
+function fTile(x, why) {
+  const off = fOff(x);
+  return `<article class="pl-f"><a class="pl-fp" href="../shop/#/p/${encodeURIComponent(x.i)}"><img src="${esc(x.im)}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.remove()">${x.k === 'used' ? `<span class="pl-off u">${esc(T('Pre-owned'))}${off >= 20 ? ` −${off}%` : ''}</span>` : off >= 10 ? `<span class="pl-off">−${off}%</span>` : ''}</a>
+    <div class="pl-fb"><p class="pl-fn nolc" lang="en"><a href="../shop/#/p/${encodeURIComponent(x.i)}">${esc(x.n)}</a></p><p class="pl-fm"><span class="nolc">${esc(x.br || x.st)}</span><b>${cash(x.p, x.c)}</b>${x.was ? `<s>${cash(x.was, x.c)}</s>` : ''}</p>
+    ${why && x.y ? `<p class="pl-why nolc" lang="en">${esc(x.y)}</p>` : ''}${vpinBtn(fPin(x))}</div></article>`;
+}
+function fPick(list, n, rank) { // picks first, then markdowns, then the rest, shuffled by the day; no more than two in a row from one store
+  rank = rank || (x => (x.k === 'pick' ? 0 : x.was ? 1 : 2) * 1000 + jit(x.i));
+  const out = [], q = list.slice().sort((a, b) => rank(a) - rank(b));
+  while (q.length && out.length < n) { let j = q.findIndex(x => out.slice(-2).filter(y => y.st === x.st).length < 2); if (j < 0) j = 0; out.push(q.splice(j, 1)[0]); }
+  return out;
+}
+function lifeStrip(secs, title, more, deals) {
+  const all = fItems().filter(x => x.im && x.av !== false && (!secs || secs.includes(x.s)));
+  const l = deals ? fPick(all.filter(x => x.was && x.p && x.k !== 'used'), 12, x => -fOff(x)) : fPick(all, 12);
+  if (!l.length) return '';
+  return `<section class="pl-st"><div class="pl-h"><h2 class="sec-h">${esc(title)}</h2><a class="pl-more" href="${esc(more)}">${T('More in Finds')} ›</a></div><div class="pl-row">${l.map(x => fTile(x)).join('')}</div></section>`;
+}
+function deskShop(k) { // a row of Finds on the desks where shopping belongs
+  const S = { home: [['home', 'remodel'], 'For the house, from Finds', '../shop/#/s/home'], food: [['kitchen', 'coffee'], 'For the kitchen, from Finds', '../shop/#/s/kitchen'], cars: [['garage'], 'For the garage, from Finds', '../shop/#/s/garage'],
+    lifestyle: [['fashion', 'gifts', 'wellness', 'trending'], 'From Finds', '../shop/'], household: [null, 'Marked down at the stores', '../shop/#/deals', true] }[k];
+  return S ? lifeSlot(() => lifeStrip(S[0], T(S[1]), S[2], S[3])) : '';
+}
+function renderShop() {
+  if (!LIFE) { $('#main').innerHTML = `<div class="wrap state"><h2>${T('Opening Finds…')}</h2></div>`; ensureLife().then(() => { if (view.t === 'shop') render(true); }); return; }
+  const F = LIFE.finds;
+  if (!F) { $('#main').innerHTML = `<div class="wrap state"><h2>${T('Finds didn’t load')}</h2><p><a href="../shop/">${T('Open Finds')}</a></p></div>`; return; }
+  const it = fItems().filter(x => x.im && x.av !== false);
+  const deals = fPick(it.filter(x => x.was && x.p && x.k !== 'used'), 12, x => -fOff(x)), had = new Set(deals.map(x => x.i));
+  const picks = fPick(it.filter(x => x.k === 'pick' && !had.has(x.i)), 12);
+  const used = fPick(it.filter(x => x.k === 'used' && fOff(x) >= 40), 12);
+  const trend = fPick(it.filter(x => x.s === 'trending' && !had.has(x.i)), 12);
+  const stories = (F.trends || []).slice(0, 6);
+  const secs = (F.sections || []).filter(s => s.n);
+  $('#main').innerHTML = `<div class="wrap mk">
+    <div class="page-h"><h1>${T('Shopping')}</h1><p>${T('From Finds: real products from about 80 stores’ own catalogs and pre-owned finds from the resale sites, priced every six hours (last checked {ago}).', { ago: esc(ago(Math.floor(Date.parse(F.at) / 60000))) })}</p></div>
+    ${visionNudge()}
+    <section class="blk" style="margin-top:14px"><div class="pl-h"><h2 class="sec-h">${T('Biggest markdowns')}</h2><a class="pl-more" href="../shop/#/deals">${T('All deals')} ›</a></div><div class="pl-grid">${deals.map(x => fTile(x)).join('')}</div></section>
+    ${stories.length || trend.length ? `<section class="blk"><div class="pl-h"><h2 class="sec-h">${T('What’s trending')}</h2><a class="pl-more" href="../shop/#/s/trending">${T('Trending in Finds')} ›</a></div>
+      <div class="pl-trend">${stories.length ? `<ul>${stories.map(s => `<li lang="en" class="nolc"><a href="${esc(s.u)}" target="_blank" rel="noopener">${esc(s.t)}</a><small>${esc(s.o)}</small></li>`).join('')}</ul>` : ''}<div class="pl-row">${trend.map(x => fTile(x)).join('')}</div></div></section>` : ''}
+    ${picks.length ? `<section class="blk"><div class="pl-h"><div><h2 class="sec-h">${T('Claude’s picks')}</h2><p class="note">${T('Each with the reason it’s here and the reviews behind it, in Finds.')}</p></div></div><div class="pl-grid">${picks.map(x => fTile(x, true)).join('')}</div></section>` : ''}
+    ${used.length ? `<section class="blk"><div class="pl-h"><div><h2 class="sec-h">${T('Pre-owned, well under new')}</h2><p class="note">${T('From eBay, Poshmark, Mercari and Grailed, and the brands’ own pre-owned and open-box shelves; all-in prices.')}</p></div><a class="pl-more" href="../shop/#/s/fashion">${T('More in Finds')} ›</a></div><div class="pl-row">${used.map(x => fTile(x)).join('')}</div></section>` : ''}
+    <section class="blk"><h2 class="sec-h">${T('Every section')}</h2><div class="pl-secs">${secs.map(s => `<a class="chip nolc" href="../shop/#/s/${esc(s.id)}" lang="en">${esc(s.title)} <small>${s.n}</small></a>`).join('')}</div>
+      <p class="note" style="margin-top:14px">${T('Finds doesn’t sell anything and isn’t paid by any store. Check the store before you buy.')}</p></section>
+  </div>`;
+}
+
+/* ---------- the front: this weekend, the deal of the watch, and your board */
+function lifeFront() {
+  const w = wkWeekendL(), out = [];
+  if (w && w.guides.length) {
+    const r = w.guides.slice().sort((a, b) => jit(a.city) - jit(b.city))[0], c = LIFE.cby[r.city];
+    if (c) { const ph = plPhoto(r.hero || c.wiki, 960) || plPhoto(c.wiki, 960); out.push(`<a class="pl-t3" href="../travel/#/g/${esc(c.id)}"><span class="im">${ph ? `<img src="${esc(ph)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">` : ''}</span><span class="tx"><span class="k">${T('Weekender · {dates}', { dates: esc(dRange(w.weekend, addD(w.weekend, 2))) })}</span><b lang="en" class="nolc">${esc(r.title)}</b><span class="d nolc" lang="en">${esc(r.dek)}</span></span></a>`); }
+  }
+  const deal = fPick(fItems().filter(x => x.im && x.av !== false && x.k !== 'used' && fOff(x) >= 15), 1)[0];
+  if (deal) out.push(`<a class="pl-t3" href="../shop/#/p/${encodeURIComponent(deal.i)}"><span class="im" style="background:#fff"><img src="${esc(deal.im)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"></span><span class="tx"><span class="k">${T('Finds · {n}% off this watch', { n: fOff(deal) })}</span><b lang="en" class="nolc">${esc(deal.n)}</b><span class="d nolc">${esc(deal.br || deal.st)} · ${cash(deal.p, deal.c)} <s>${cash(deal.was, deal.c)}</s></span></span></a>`);
+  const v = visionSummary();
+  out.push(`<a class="pl-t3" href="../vision/"><span class="im"><svg viewBox="0 0 132 88" aria-hidden="true"><circle cx="48" cy="44" r="36" fill="#C2785C" fill-opacity=".2" stroke="#C2785C" stroke-width="2"/><circle cx="84" cy="44" r="36" fill="#5B7FA1" fill-opacity=".2" stroke="#5B7FA1" stroke-width="2"/><path d="M66 13.9A36 36 0 0 1 66 74.1A36 36 0 0 1 66 13.9Z" fill="#8B7355" fill-opacity=".4"/>${v ? `<text x="66" y="54" text-anchor="middle">${v.both}</text>` : ''}</svg></span><span class="tx"><span class="k">${T('Vision · for two people')}</span>
+    <b>${v ? esc(T(v.n === 1 ? '{names}: {n} pin, {b} you both want' : '{names}: {n} pins, {b} you both want', { names: v.names || T('Your board'), n: v.n, b: v.both })) : T('One board for the trips, the things and the home you want')}</b><span class="d">${T('Pin from Weekender, Finds and the Home desk, and it syncs to your partner’s phone.')}</span></span></a>`);
+  return `<section class="wrap pl-fr"><div class="pl-h"><h2 class="sec-h">${T('Plans and finds')}</h2><a class="pl-more" href="#/shop">${T('Shopping')} ›</a></div><div class="pl-3">${out.join('')}</div></section>`;
+}
+document.addEventListener('submit', e => {
+  if (e.target.id !== 'plFly') return;
+  e.preventDefault();
+  const f = e.target, c = LIFE && LIFE.cby[f.to.value], from = String(f.from.value || '').trim().toUpperCase();
+  const q = new URLSearchParams(Object.entries({ from: /^[A-Z]{3}$/.test(from) ? from : '', to: c ? c.air : '', dep: f.dep.value, ret: f.ret.value, n: f.n.value }).filter(([, v]) => v));
+  location.href = '../travel/#/flights?' + q.toString();
+});
 function pointsPromo() { // Weekender's Points Hacker
   return `<a class="wkpromo" href="../travel/#/points"><span class="wkp-b" aria-hidden="true">◆</span><span><b>${T('Points Hacker: get every dollar out of the cards')}</b><span>${T('Every credit on the Amex, Chase, Capital One and Citi cards and when it resets, the hotel programs, the transfer partners and the week’s points news.')}</span></span><span class="wkp-go" aria-hidden="true">›</span></a>`;
 }

@@ -1,0 +1,1582 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Vision · Build your dream life together</title>
+<meta name="description" content="One shared board for the trips, the things and the home you two want. Pin from The Watch, Weekender and Finds, and it syncs phone to phone. No app, no account, no server.">
+<link rel="canonical" href="https://bboldt86.github.io/lanscape-navigator/vision/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Vision">
+<meta property="og:title" content="Vision · Build your dream life together">
+<meta property="og:description" content="One shared board for the trips, the things and the home you two want. Pin from The Watch, Weekender and Finds, and it syncs phone to phone. No app, no account, no server.">
+<meta property="og:url" content="https://bboldt86.github.io/lanscape-navigator/vision/">
+<meta property="og:image" content="https://bboldt86.github.io/lanscape-navigator/vision/share.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Vision: one board for the two of you. Trips, things and home, synced phone to phone.">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Vision · Build your dream life together">
+<meta name="twitter:description" content="One shared board for the trips, the things and the home you two want, synced phone to phone. No app, no account.">
+<meta name="twitter:image" content="https://bboldt86.github.io/lanscape-navigator/vision/share.png">
+<meta name="application-name" content="Vision">
+<meta name="theme-color" content="#F8F7F4" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#191613" media="(prefers-color-scheme: dark)">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Vision">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='24' cy='32' r='18' fill='%23C2785C' fill-opacity='.85'/%3E%3Ccircle cx='40' cy='32' r='18' fill='%235B7FA1' fill-opacity='.85'/%3E%3Cpath d='M32 17.1a18 18 0 0 1 0 29.8a18 18 0 0 1 0-29.8z' fill='%238B7355'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400..700;1,9..40,400..600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F8F7F4; --raise:#FFFFFF; --sunk:#EFEBE4; --ink:#2A251F; --ink2:#62594F; --ink3:#968B7E; --rule:rgba(42,37,31,.12); --rule2:rgba(42,37,31,.22);
+  --a:#C2785C; --a-soft:rgba(194,120,92,.15); --b:#5B7FA1; --b-soft:rgba(91,127,161,.15); --gold:#8B7355; --gold-soft:rgba(139,115,85,.16); --lens:#A88A5E;
+  --ok:#3D7A55; --warn:#B4532F; --scrim:rgba(30,25,20,.45); --on:#fff;
+  --shadow:0 1px 2px rgba(42,37,31,.05),0 8px 24px rgba(42,37,31,.07);
+  --serif:'Instrument Serif','Iowan Old Style',Georgia,serif;
+  --sans:'DM Sans',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#191613; --raise:#24201B; --sunk:#131110; --ink:#F2EDE6; --ink2:#C6BCAF; --ink3:#918679; --rule:rgba(242,237,230,.12); --rule2:rgba(242,237,230,.24);
+    --a:#E39B7F; --a-soft:rgba(227,155,127,.17); --b:#8FB1D2; --b-soft:rgba(143,177,210,.17); --gold:#CDB089; --gold-soft:rgba(205,176,137,.17); --lens:#BFA27A;
+    --ok:#7EC39B; --warn:#F08C66; --scrim:rgba(0,0,0,.62); --on:#191613; --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 28px rgba(0,0,0,.34); color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#191613; --raise:#24201B; --sunk:#131110; --ink:#F2EDE6; --ink2:#C6BCAF; --ink3:#918679; --rule:rgba(242,237,230,.12); --rule2:rgba(242,237,230,.24);
+  --a:#E39B7F; --a-soft:rgba(227,155,127,.17); --b:#8FB1D2; --b-soft:rgba(143,177,210,.17); --gold:#CDB089; --gold-soft:rgba(205,176,137,.17); --lens:#BFA27A;
+  --ok:#7EC39B; --warn:#F08C66; --scrim:rgba(0,0,0,.62); --on:#191613; --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 28px rgba(0,0,0,.34); color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.5 var(--sans);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;overflow-x:hidden}
+a{color:inherit}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:6px}
+img{display:block;max-width:100%}
+.in{max-width:1280px;margin:0 auto;padding:0 28px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.serif{font-family:var(--serif);font-weight:400}
+
+/* ---------- top bar */
+.top{position:sticky;top:0;z-index:30;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:saturate(1.4) blur(14px);-webkit-backdrop-filter:saturate(1.4) blur(14px);border-bottom:1px solid var(--rule)}
+.top .in{display:flex;align-items:center;gap:14px;height:62px}
+.logo{display:flex;align-items:center;gap:9px;text-decoration:none;flex:none}
+.logo svg{width:34px;height:24px}
+.logo span{font:400 29px/1 var(--serif);letter-spacing:-.01em}
+.who{margin:0;flex:1;min-width:0;font-size:15px;color:var(--ink2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.who b{font-weight:600;color:var(--ink)}
+.tools{display:flex;align-items:center;gap:8px;flex:none}
+.pill{display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 14px;border-radius:999px;border:1px solid var(--rule2);background:var(--raise);font-size:14px;font-weight:550;white-space:nowrap}
+.pill i{width:8px;height:8px;border-radius:50%;background:var(--ink3);flex:none}
+.pill.on i{background:var(--ok);box-shadow:0 0 0 4px color-mix(in srgb,var(--ok) 22%,transparent)}
+.pill.wait i{background:var(--gold);animation:pulse 1.4s infinite}
+.pill.off i{background:transparent;border:1.5px solid var(--ink3)}
+@keyframes pulse{50%{opacity:.35}}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;height:40px;padding:0 18px;border-radius:999px;border:1px solid var(--rule2);background:var(--raise);font-size:15px;font-weight:600;text-decoration:none;white-space:nowrap}
+.btn:hover{border-color:var(--ink3)}
+.btn.p{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.btn.p:hover{opacity:.9}
+.btn.sm{height:34px;padding:0 13px;font-size:14px}
+.btn.gold{background:var(--gold);border-color:var(--gold);color:var(--on)}
+.btn svg{width:16px;height:16px}
+.ic{width:40px;height:40px;border-radius:50%;border:1px solid var(--rule2);background:var(--raise);display:inline-flex;align-items:center;justify-content:center;padding:0}
+.ic svg{width:18px;height:18px}
+.lk{background:none;border:0;padding:0;color:var(--gold);font-weight:600;text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px}
+
+/* ---------- hero: the Venn and the lanes */
+.hero{display:grid;grid-template-columns:minmax(260px,380px) 1fr;gap:34px;align-items:center;padding-top:30px;padding-bottom:12px}
+.hero>*,.land-g>*,.g2>*,.form>*{min-width:0}
+.venn{width:100%;height:auto;overflow:visible}
+.venn .ca{fill:var(--a);fill-opacity:.2;stroke:var(--a);stroke-width:1.5}
+.venn .cb{fill:var(--b);fill-opacity:.2;stroke:var(--b);stroke-width:1.5}
+.venn .lens{fill:var(--lens);fill-opacity:.42}
+.venn .hit{fill:transparent;cursor:pointer}
+.venn .hit:hover+.hl,.venn .sel{opacity:1}
+.venn .hl{opacity:0;fill:none;stroke:var(--ink);stroke-width:2.5;pointer-events:none;transition:opacity .15s}
+.venn text{fill:var(--ink);pointer-events:none}
+.venn .vn{font:400 23px var(--serif)}
+.venn .vc{font:600 13px var(--sans);fill:var(--ink2)}
+.venn .vb{font:400 21px var(--serif)}
+.hero h1{margin:0;font:400 clamp(38px,5.4vw,64px)/1.02 var(--serif);letter-spacing:-.015em}
+.hero h1 em{font-style:italic;color:var(--gold)}
+.hero .sub{margin:10px 0 0;color:var(--ink2);font-size:17px;max-width:62ch}
+.lanes{display:flex;gap:8px;margin:22px 0 0;flex-wrap:wrap}
+.lane-b{display:inline-flex;align-items:center;gap:8px;height:42px;padding:0 16px;border-radius:999px;border:1px solid var(--rule2);background:var(--raise);font-weight:600;font-size:15px}
+.lane-b small{font-weight:500;color:var(--ink3);font-size:13px}
+.lane-b[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.lane-b[aria-pressed="true"] small{color:color-mix(in srgb,var(--bg) 70%,transparent)}
+.lane-b svg{width:17px;height:17px}
+.tot{display:flex;gap:26px;flex-wrap:wrap;margin:18px 0 0;padding:14px 0 0;border-top:1px solid var(--rule)}
+.tot div{min-width:0}
+.tot b{display:block;font:400 30px/1.05 var(--serif)}
+.tot span{font-size:13px;color:var(--ink3)}
+.tot .bw b{color:var(--gold)}
+
+/* ---------- controls */
+.ctl{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding-top:18px;padding-bottom:14px}
+.chip{display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 12px;border-radius:999px;border:1px solid var(--rule2);background:transparent;font-size:14px;font-weight:550;white-space:nowrap}
+.chip[aria-pressed="true"]{background:var(--sunk);border-color:var(--ink3)}
+.chip.x{background:var(--gold-soft);border-color:transparent}
+.ctl .sp{flex:1}
+.ctl select{height:32px;border-radius:999px;border:1px solid var(--rule2);background:var(--raise);padding:0 12px;font-size:14px}
+
+/* ---------- the board */
+.grid{display:flex;gap:16px;align-items:flex-start}
+.col{flex:1;min-width:0;display:flex;flex-direction:column;gap:16px}
+.card{position:relative;background:var(--raise);border:1px solid var(--rule);border-radius:18px;overflow:hidden;box-shadow:var(--shadow);transition:transform .18s,box-shadow .18s}
+.card:hover{transform:translateY(-2px)}
+.card.both{border-color:color-mix(in srgb,var(--gold) 55%,transparent);box-shadow:0 0 0 2px var(--gold-soft),var(--shadow)}
+.card .ph{display:block;position:relative;background:var(--sunk);cursor:pointer;width:100%;border:0;padding:0}
+.card .ph img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+.card .ph .gt{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:16px;text-align:left;color:#fff;font:400 30px/1.02 var(--serif)}
+.card .ph .gt small{display:block;font:600 12px/1.3 var(--sans);letter-spacing:.06em;text-transform:uppercase;opacity:.85;margin-bottom:6px}
+.card .ph.g-travel,.g-travel{background:linear-gradient(150deg,#C2785C,#8B5A44 70%,#5E3C2E)}
+.card .ph.g-shop,.g-shop{background:linear-gradient(150deg,#A08562,#6A5640)}
+.card .ph.g-home,.g-home{background:linear-gradient(150deg,#5B7FA1,#3E5A75 75%)}
+.ribbon{position:absolute;left:10px;top:10px;z-index:2;display:inline-flex;align-items:center;gap:5px;height:26px;padding:0 10px 0 8px;border-radius:999px;background:var(--gold);color:#fff;font-size:12px;font-weight:650}
+.ribbon svg{width:15px;height:15px}
+.nwb{position:absolute;right:10px;top:10px;z-index:2;height:24px;padding:0 9px;border-radius:999px;background:var(--raise);color:var(--ink);font-size:12px;font-weight:650;display:inline-flex;align-items:center;box-shadow:var(--shadow)}
+.cbd{padding:13px 15px 12px}
+.lane{margin:0 0 3px;font-size:11.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--ink3);display:flex;gap:6px;align-items:center}
+.lane i{width:7px;height:7px;border-radius:50%}
+.l-travel i{background:var(--a)}.l-shop i{background:var(--gold)}.l-home i{background:var(--b)}
+.card h3{margin:0;font:600 16.5px/1.28 var(--sans);letter-spacing:-.005em}
+.card h3 button{all:unset;cursor:pointer}
+.card h3 button:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:4px}
+.card.k-note h3{font:400 24px/1.12 var(--serif)}
+.meta{margin:5px 0 0;font-size:14px;color:var(--ink2);display:flex;flex-wrap:wrap;gap:4px 10px}
+.meta .pr{font-weight:650;color:var(--ink)}
+.meta s{color:var(--ink3);font-weight:450;margin-left:5px}
+.note-t{margin:7px 0 0;font-size:14.5px;color:var(--ink2);white-space:pre-wrap;overflow-wrap:anywhere}
+.live{margin:8px 0 0;font-size:13.5px;color:var(--ink2);display:flex;flex-direction:column;gap:3px}
+.live:empty{display:none}
+.live .up{color:var(--warn);font-weight:600}.live .dn{color:var(--ok);font-weight:600}
+.live .wx{display:inline-flex;align-items:center;gap:5px}
+.live .wx svg{width:16px;height:16px;flex:none}
+.fcl{font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink3);margin-top:3px}
+.fcs{display:flex;flex-wrap:wrap;gap:4px}
+.fc{display:inline-flex;align-items:center;gap:3px;background:var(--sunk);border-radius:8px;padding:3px 7px;font-size:12.5px;white-space:nowrap}
+.fc b{font-weight:650}
+.fc svg{width:14px;height:14px}
+.fc small{color:var(--b);font-weight:650}
+.links{margin:9px 0 0;display:flex;flex-wrap:wrap;gap:6px}
+.links a{font-size:13px;font-weight:600;text-decoration:none;padding:4px 10px;border-radius:999px;background:var(--sunk)}
+.links a:hover{background:var(--gold-soft)}
+.cf{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:11px;padding-top:10px;border-top:1px solid var(--rule)}
+.hrt{display:inline-flex;align-items:center;gap:5px;height:32px;padding:0 11px 0 9px;border-radius:999px;border:1px solid var(--rule2);background:transparent;font-size:13px;font-weight:600}
+.hrt svg{width:17px;height:17px}
+.hrt[aria-pressed="true"]{border-color:transparent;background:var(--me-soft,var(--a-soft));color:var(--me,var(--a))}
+.pd{display:inline-flex;align-items:center;gap:5px;font-size:12.5px;color:var(--ink3)}
+.pd i{width:10px;height:10px;border-radius:50%;border:1.5px solid var(--them,var(--b))}
+.pd.on i{background:var(--them,var(--b))}
+.pd.on{color:var(--ink2)}
+.stb{margin-left:auto;height:28px;padding:0 10px;border-radius:999px;border:0;background:var(--sunk);font-size:12.5px;font-weight:650;color:var(--ink2)}
+.stb.s-plan{background:var(--b-soft);color:var(--b)}
+.stb.s-done{background:color-mix(in srgb,var(--ok) 16%,transparent);color:var(--ok)}
+.byi{width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:10.5px;font-weight:700;color:#fff;flex:none;margin-left:auto;letter-spacing:0}
+.byi.a{background:var(--a)}.byi.b{background:var(--b)}
+.card.k-note{background:var(--nbg,var(--raise))}
+.card.k-note .cbd{padding-top:18px}
+
+/* ---------- empty board, ideas */
+.empty{border:1.5px dashed var(--rule2);border-radius:22px;padding:38px 28px;text-align:center;margin:8px 0 10px}
+.empty h2{margin:0;font:400 36px/1.1 var(--serif)}
+.empty p{margin:8px auto 18px;max-width:52ch;color:var(--ink2)}
+.empty .row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.ideas{padding-top:30px;padding-bottom:10px}
+.sh{display:flex;align-items:baseline;gap:14px;justify-content:space-between;flex-wrap:wrap}
+.sh h2,.h2{margin:0;font:400 32px/1.1 var(--serif)}
+.sh p{margin:0;color:var(--ink3);font-size:14px}
+.rail{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(200px,230px);gap:14px;overflow-x:auto;padding:16px 2px 14px;scroll-snap-type:x mandatory;scrollbar-width:thin}
+.idea{scroll-snap-align:start;background:var(--raise);border:1px solid var(--rule);border-radius:16px;overflow:hidden;display:flex;flex-direction:column}
+.idea .ip{aspect-ratio:4/3;background:var(--sunk);position:relative;overflow:hidden}
+.idea .ip img{width:100%;height:100%;object-fit:cover}
+.idea .ip .gt{position:absolute;inset:0;display:flex;align-items:flex-end;padding:12px;color:#fff;font:400 24px/1.05 var(--serif)}
+.idea .it{padding:10px 12px 12px;display:flex;flex-direction:column;gap:4px;flex:1}
+.idea .it b{font-size:14.5px;line-height:1.3;font-weight:600}
+.idea .it small{color:var(--ink3);font-size:12.5px}
+.idea .it .btn{margin-top:auto;align-self:flex-start}
+.pinned{background:var(--gold-soft)!important;border-color:transparent!important;color:var(--gold)!important}
+
+/* ---------- landing / first run */
+.land{padding-top:46px}
+.land-g{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
+.eyebrow{margin:0 0 12px;font-size:13px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--gold)}
+.land h1{margin:0;font:400 clamp(46px,7vw,88px)/.98 var(--serif);letter-spacing:-.02em}
+.land h1 em{color:var(--a);font-style:italic}
+.lede{margin:18px 0 0;font-size:19px;line-height:1.5;color:var(--ink2);max-width:56ch}
+.form{margin:26px 0 0;display:grid;grid-template-columns:1fr 1fr auto;gap:10px;align-items:end;max-width:640px}
+.fld{display:flex;flex-direction:column;gap:5px;min-width:0}
+.fld label,.fld .lb{font-size:13px;font-weight:650;color:var(--ink2)}
+.fld input,.fld select,.fld textarea{height:46px;border-radius:12px;border:1px solid var(--rule2);background:var(--raise);padding:0 14px;font-size:16px;width:100%;min-width:0}
+.fld textarea{height:auto;min-height:84px;padding:11px 14px;resize:vertical;line-height:1.45}
+.fld input:focus,.fld select:focus,.fld textarea:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px var(--gold-soft)}
+.form .btn{height:46px}
+.joinl{margin:14px 0 0;font-size:15px;color:var(--ink2)}
+.land-art{position:relative;aspect-ratio:1/0.86}
+.land-art svg{width:100%;height:100%}
+.mini{position:absolute;background:var(--raise);border:1px solid var(--rule);border-radius:14px;padding:10px 12px;box-shadow:var(--shadow);font-size:13px;max-width:44%;line-height:1.3}
+.mini b{display:block;font-size:14px}
+.mini small{color:var(--ink3)}
+.mini i{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px;vertical-align:1px}
+.feat{list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:54px auto 0;padding-top:0}
+.feat li{border-top:1px solid var(--rule2);padding:16px 4px 0}
+.feat b{display:block;font:400 26px/1.1 var(--serif);margin-bottom:6px}
+.feat span{color:var(--ink2);font-size:15px}
+.how{list-style:none;counter-reset:s;display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:46px auto 0}
+.how li{counter-increment:s;background:var(--raise);border:1px solid var(--rule);border-radius:18px;padding:20px}
+.how li::before{content:counter(s);display:inline-flex;width:30px;height:30px;border-radius:50%;background:var(--gold-soft);color:var(--gold);font-weight:700;align-items:center;justify-content:center;margin-bottom:10px}
+.how b{display:block;font-size:17px;margin-bottom:4px}
+.how span{color:var(--ink2);font-size:15px}
+.faq{margin:46px auto 0;max-width:820px}
+.faq details{border-bottom:1px solid var(--rule);padding:14px 0}
+.faq summary{cursor:pointer;font-weight:600;font-size:17px;list-style:none;display:flex;justify-content:space-between;gap:10px}
+.faq summary::after{content:'+';color:var(--ink3);font-size:22px;line-height:1}
+.faq details[open] summary::after{content:'–'}
+.faq p{margin:8px 0 0;color:var(--ink2)}
+
+/* ---------- sheet */
+.scrim{position:fixed;inset:0;background:var(--scrim);opacity:0;pointer-events:none;transition:opacity .2s;z-index:40}
+.scrim.on{opacity:1;pointer-events:auto}
+.sheet{position:fixed;z-index:41;top:0;right:0;bottom:0;width:min(560px,100%);background:var(--bg);box-shadow:-10px 0 40px rgba(0,0,0,.18);transform:translateX(102%);transition:transform .26s cubic-bezier(.2,.8,.2,1);overflow-y:auto;overscroll-behavior:contain;padding:0 0 calc(30px + env(safe-area-inset-bottom))}
+.sheet.on{transform:none}
+.shh{position:sticky;top:0;z-index:2;display:flex;align-items:center;gap:10px;padding:14px 18px;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--rule)}
+.shh h2{margin:0;flex:1;font:400 28px/1.1 var(--serif)}
+.shb{padding:18px}
+.tabs{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;margin:0 0 16px}
+.tabs::-webkit-scrollbar{display:none}
+.tabs button{height:38px;padding:0 15px;border-radius:999px;border:1px solid var(--rule2);background:var(--raise);font-weight:600;font-size:14.5px;white-space:nowrap}
+.tabs button[aria-selected="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.srch{display:flex;gap:8px;margin:0 0 12px}
+.srch input{flex:1;height:46px;border-radius:12px;border:1px solid var(--rule2);background:var(--raise);padding:0 14px;font-size:16px;min-width:0}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 14px}
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+.tile{position:relative;border:1px solid var(--rule);background:var(--raise);border-radius:14px;overflow:hidden;display:flex;flex-direction:column}
+.tile .tp{aspect-ratio:1;background:var(--sunk);position:relative}
+.tile .tp img{width:100%;height:100%;object-fit:cover}
+.tile .tp .gt{position:absolute;inset:0;display:flex;align-items:flex-end;padding:10px;color:#fff;font:400 22px/1.05 var(--serif)}
+.tile .tt{padding:8px 10px 10px;font-size:13px;line-height:1.3;display:flex;flex-direction:column;gap:2px;flex:1}
+.tile .tt b{font-weight:600}
+.tile .tt small{color:var(--ink3)}
+.tile .add{position:absolute;right:8px;top:8px;width:34px;height:34px;border-radius:50%;border:0;background:var(--raise);box-shadow:var(--shadow);display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:600;line-height:1}
+.tile .add.pinned{background:var(--gold)!important;color:#fff!important}
+.tile .tp.sale::after{content:attr(data-off);position:absolute;left:8px;top:8px;background:var(--warn);color:#fff;font-size:11.5px;font-weight:700;padding:2px 7px;border-radius:999px}
+.stack{display:flex;flex-direction:column;gap:12px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.hint{font-size:13.5px;color:var(--ink3);margin:6px 0 0}
+.res{display:flex;flex-direction:column;gap:6px;margin-top:8px}
+.res button{text-align:left;border:1px solid var(--rule);background:var(--raise);border-radius:12px;padding:10px 12px;font-size:15px}
+.res button small{color:var(--ink3);margin-left:6px}
+.mk{border:1px solid var(--rule);background:var(--raise);border-radius:16px;padding:14px 16px;margin-top:10px}
+.mk h4{margin:0 0 6px;font-size:15px}
+.mk p{margin:3px 0;font-size:14.5px;color:var(--ink2)}
+.tags{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0}
+.tag{font-size:13px;font-weight:600;background:var(--sunk);border-radius:999px;padding:3px 10px}
+.detail .dimg{border-radius:16px;overflow:hidden;background:var(--sunk);margin-bottom:14px;max-height:340px}
+.detail .dimg img{width:100%;max-height:340px;object-fit:cover}
+.seg{display:inline-flex;border:1px solid var(--rule2);border-radius:999px;padding:3px;gap:3px;background:var(--raise)}
+.seg button{border:0;background:transparent;height:34px;padding:0 14px;border-radius:999px;font-weight:600;font-size:14px}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.swatches{display:flex;gap:8px}
+.swatches button{width:30px;height:30px;border-radius:50%;border:2px solid var(--rule2)}
+.swatches button[aria-pressed="true"]{border-color:var(--ink)}
+.danger{color:var(--warn)}
+.box .code,.code{font:400 54px/1 var(--serif);letter-spacing:.06em;text-align:center;margin:6px 0 2px}
+.qr{width:200px;height:200px;margin:12px auto;background:#fff;border-radius:14px;padding:10px}
+.qr svg{width:100%;height:100%;display:block}
+.box{border:1px solid var(--rule);background:var(--raise);border-radius:18px;padding:18px;margin-bottom:14px}
+.box h3{margin:0 0 4px;font-size:17px}
+.box p{margin:4px 0;color:var(--ink2);font-size:15px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.status{margin:10px 0 0;font-size:14px;font-weight:600}
+.status.ok{color:var(--ok)}.status.bad{color:var(--warn)}
+.menu-l{display:flex;flex-direction:column;gap:2px}
+.menu-l button,.menu-l a{display:flex;flex-direction:column;align-items:flex-start;gap:1px;text-align:left;border:0;background:transparent;padding:12px 4px;border-bottom:1px solid var(--rule);text-decoration:none;font-weight:600;font-size:16px}
+.menu-l small{font-weight:400;color:var(--ink3);font-size:13.5px}
+.banner{background:var(--gold-soft);border-radius:16px;padding:14px 16px;margin:16px 0 0;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.banner p{margin:0;flex:1;min-width:200px}
+
+/* ---------- toast, fab, footer */
+.toast{position:fixed;left:50%;bottom:calc(22px + env(safe-area-inset-bottom));transform:translate(-50%,20px);opacity:0;visibility:hidden;pointer-events:none;z-index:60;background:var(--ink);color:var(--bg);padding:11px 14px 11px 18px;border-radius:999px;display:flex;gap:12px;align-items:center;font-size:15px;font-weight:550;box-shadow:0 10px 30px rgba(0,0,0,.25);transition:transform .25s,opacity .25s,visibility .25s;max-width:calc(100% - 32px)}
+.toast.on{transform:translate(-50%,0);opacity:1;visibility:visible;pointer-events:auto}
+.toast button,.toast a{background:none;border:0;color:var(--bg);font-weight:700;text-decoration:underline;padding:0 4px}
+.fab{display:none}
+.foot{margin-top:56px;border-top:1px solid var(--rule);padding:26px 0 calc(40px + env(safe-area-inset-bottom));color:var(--ink3);font-size:14px}
+.foot p{margin:0 0 8px;max-width:90ch}
+.foot a{color:var(--ink2)}
+
+@media (max-width:900px){
+  .hero{grid-template-columns:1fr;gap:6px;padding-top:18px}
+  .venn-wrap{max-width:330px;margin:0 auto;width:100%}
+  .hero-r{text-align:left}
+  .land-g{grid-template-columns:1fr;gap:20px}
+  .land-art{max-width:460px;width:100%;margin:0 auto}
+  .feat,.how{grid-template-columns:1fr}
+}
+@media (max-width:640px){
+  .in{padding:0 16px}
+  .top .in{height:56px;gap:8px}
+  .who{display:none}
+  .tools #addBtn{display:none}
+  .pill{padding:0 11px;font-size:13px;height:34px}
+  .ic{width:36px;height:36px}
+  .hero h1{font-size:38px}
+  .venn-wrap{max-width:270px}
+  .lanes{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin-left:-16px;margin-right:-16px;padding:0 16px}
+  .lanes::-webkit-scrollbar{display:none}
+  .lane-b{height:40px;padding:0 14px}
+  .tot{gap:18px}.tot b{font-size:25px}
+  .grid,.col{gap:10px}
+  .cbd{padding:10px 11px 10px}
+  .card h3{font-size:14.5px}.card.k-note h3{font-size:20px}
+  .meta{font-size:13px}.live{font-size:12.5px}
+  .card .ph .gt{font-size:23px;padding:12px}
+  .cf{flex-wrap:wrap;gap:6px}
+  .hrt{height:30px;padding:0 9px 0 7px}
+  .hrt .hl{display:none}
+  .stb{height:26px}
+  .form{grid-template-columns:1fr}
+  .fab{display:flex;position:fixed;right:16px;bottom:calc(18px + env(safe-area-inset-bottom));z-index:35;height:54px;padding:0 22px;border-radius:999px;border:0;background:var(--ink);color:var(--bg);font-weight:700;font-size:16px;align-items:center;gap:8px;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+  .fab svg{width:20px;height:20px}
+  .toast{bottom:calc(84px + env(safe-area-inset-bottom))}
+  .g2{grid-template-columns:1fr}
+  .land{padding-top:26px}
+  .lede{font-size:17px}
+  .mini{font-size:12px;padding:8px 10px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<header class="top"><div class="in">
+  <a class="logo" href="#/" aria-label="Vision, your board"><svg viewBox="0 0 34 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="var(--a)" fill-opacity=".85"/><circle cx="22" cy="12" r="10" fill="var(--b)" fill-opacity=".85"/><path d="M17 3.34a10 10 0 0 1 0 17.32a10 10 0 0 1 0-17.32z" fill="var(--gold)"/></svg><span>Vision</span></a>
+  <p class="who" id="who"></p>
+  <div class="tools">
+    <button class="pill off" id="pairBtn" type="button" hidden><i></i><span>Connect</span></button>
+    <button class="btn p sm" id="addBtn" type="button" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Add</button>
+    <button class="ic" id="menuBtn" type="button" aria-label="Menu"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg></button>
+  </div>
+</div></header>
+<main id="main"><div class="in" style="padding-top:80px;text-align:center;color:var(--ink3)">Opening Vision…</div></main>
+<footer class="foot"><div class="in" id="foot"></div></footer>
+<button class="fab" id="fab" type="button" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Add</button>
+<div class="scrim" id="scrim"></div>
+<aside class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="shT" tabindex="-1"></aside>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="https://cdn.jsdelivr.net/npm/peerjs@1.5.4/dist/peerjs.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js" defer></script>
+<script>
+'use strict';
+/* Vision: one shared board for two people (trips, things, the home), synced phone to phone over WebRTC (PeerJS).
+   The board lives in each browser (localStorage 'vision.v1'). Other pages on this site pin to it through
+   'vision.inbox' (same origin): The Watch, Weekender and Finds. Live data: Finds' feed (prices, stock), Weekender's
+   cities, guides and weather, Open-Meteo for any other place, and Zillow's research data via The Watch (home values).
+   Sync is a last-writer-wins map per field, so both partners can edit offline and merge cleanly. */
+(() => {
+const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const PUBLIC = 'https://bboldt86.github.io/lanscape-navigator/';
+const APP = PUBLIC + 'vision/';
+const KEY = 'vision.v1', INBOX = 'vision.inbox', THEME = 'vision.theme';
+const LS = {
+  get(k, d) { try { const v = localStorage.getItem(k); return v == null ? d : JSON.parse(v); } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); return true; } catch (e) { return false; } },
+  del(k) { try { localStorage.removeItem(k); } catch (e) { /* storage off */ } }
+};
+const ALPH = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789';
+const code6 = () => { const a = new Uint32Array(6); crypto.getRandomValues(a); return [...a].map(x => ALPH[x % ALPH.length]).join(''); };
+const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+function h32(s) { let h = 2166136261; for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); } return (h >>> 0).toString(36); }
+const fmtCode = c => c ? c.slice(0, 3) + '-' + c.slice(3) : '';
+const cleanCode = s => String(s || '').toUpperCase().replace(/[^A-Z0-9]/g, '');
+const okCode = c => c.length === 6 && [...c].every(ch => ALPH.includes(ch));
+const clone = o => JSON.parse(JSON.stringify(o));
+const pad = n => String(n).padStart(2, '0');
+const isoDay = (d = new Date()) => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+const DD = s => { const [y, m, d] = s.split('-').map(Number); return new Date(y, m - 1, d); };
+const addDays = (s, n) => { const d = DD(s); d.setDate(d.getDate() + n); return isoDay(d); };
+const comingFriday = () => { const d = new Date(); const w = d.getDay(); d.setDate(d.getDate() + (((5 - w + 7) % 7) || (w === 5 ? 0 : 7))); return isoDay(d); };
+const md = s => DD(s).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+const dow = s => DD(s).toLocaleDateString('en-US', { weekday: 'short' });
+function range(a, b) { if (!a) return ''; if (!b || a === b) return md(a); const A = DD(a), B = DD(b); return A.getMonth() === B.getMonth() ? `${md(a)}–${B.getDate()}` : `${md(a)} – ${md(b)}`; }
+const money = (p, c = 'USD') => p == null || isNaN(p) ? '' : new Intl.NumberFormat('en-US', { style: 'currency', currency: c || 'USD', maximumFractionDigits: p % 1 && p < 100 ? 2 : 0 }).format(p);
+const moneyK = v => v >= 1e6 ? '$' + (v / 1e6).toFixed(v % 1e6 ? 2 : 0).replace(/\.?0+$/, '') + 'M' : v >= 1e3 ? '$' + Math.round(v / 1e3) + 'k' : money(v);
+const host = u => { try { return new URL(u).hostname.replace(/^www\./, ''); } catch (e) { return ''; } };
+const safeUrl = u => { if (!u || typeof u !== 'string') return ''; try { const x = new URL(u.trim()); return /^https?:$/.test(x.protocol) ? x.href : ''; } catch (e) { return ''; } };
+const okHref = u => typeof u === 'string' && (/^https?:\/\//i.test(u) || /^\.\.\/[\w#/?=&%.,:+-]*$/.test(u));
+const okImg = u => typeof u === 'string' && (/^https:\/\//i.test(u) || /^data:image\/(jpeg|png|webp);base64,/.test(u));
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const qp = new URLSearchParams(location.search);
+
+const IC = {
+  heart: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 20.5s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.6a4.3 4.3 0 0 1 7.5 2.7c0 5.6-7.5 10.2-7.5 10.2z"/></svg>',
+  heartF: '<svg viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 20.5s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.6a4.3 4.3 0 0 1 7.5 2.7c0 5.6-7.5 10.2-7.5 10.2z"/></svg>',
+  both: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="9" cy="12" r="6"/><circle cx="15" cy="12" r="6"/></svg>',
+  x: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>',
+  out: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M8 5h11v11"/><path d="M19 5L6 18"/></svg>',
+  plane: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M2.5 13.5l7-2.2L14 3.8c.5-.8 1.8-.6 2 .3l-.9 6.2 5 1.6c.9.3.9 1.6 0 1.9l-5 1.6.9 4.9c.2.9-.9 1.4-1.5.8L11 18l-3.6.6-.8 2.4-2.2-1 .8-2.6-2.7-1.9z"/></svg>',
+  bag: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M5 8h14l-1 12H6z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>',
+  house: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 11l8-7 8 7"/><path d="M6 9.5V20h12V9.5"/><path d="M10 20v-5h4v5"/></svg>',
+  all: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="7" height="9" rx="2"/><rect x="13" y="4" width="7" height="5" rx="2"/><rect x="4" y="15" width="7" height="5" rx="2"/><rect x="13" y="11" width="7" height="9" rx="2"/></svg>'
+};
+const LANES = { travel: { name: 'Travel', icon: IC.plane, done: 'Booked' }, shop: { name: 'Shopping', icon: IC.bag, done: 'Bought' }, home: { name: 'Home', icon: IC.house, done: 'Done' } };
+const STATUS = ['dream', 'plan', 'done'];
+const statusName = it => it.status === 'plan' ? 'Planning' : it.status === 'done' ? LANES[it.lane].done : 'Dreaming';
+const NOTE_COLORS = ['', '#F3E3D8', '#DDE6EF', '#EDE4D3', '#E3EBDD', '#EFE0E6'];
+const NOTE_DARK = { '#F3E3D8': '#3A2A22', '#DDE6EF': '#22303D', '#EDE4D3': '#352D22', '#E3EBDD': '#26302A', '#EFE0E6': '#382A30' };
+
+/* ================= state ================= */
+let S = LS.get(KEY, null);
+if (S && S.v !== 1) S = null;
+let lastStamp = 0, SALT = 0;
+function initClock() { SALT = parseInt(h32(S ? S.dev : 'x'), 36) % 97; for (const it of Object.values((S && S.items) || {})) for (const v of Object.values(it._t || {})) if (v > lastStamp) lastStamp = v; }
+function stamp() { const t = Math.max(Date.now(), Math.floor(lastStamp / 100) + 1); lastStamp = t * 100 + SALT; return lastStamp; }
+const seeStamp = n => { if (n > lastStamp) lastStamp = n; };
+function blankState(me) {
+  return { v: 1, dev: (S && S.dev) || code6(), me, joined: false, board: { id: 'b' + uid(), names: { a: '', b: '' }, title: '', _t: {} }, items: {}, partner: null, created: Date.now(), seen: Date.now() };
+}
+const other = () => S.me === 'a' ? 'b' : 'a';
+const nameOf = slot => (S.board.names[slot] || '').trim() || (slot === S.me ? 'You' : 'Your partner');
+const myName = () => nameOf(S.me), theirName = () => nameOf(other());
+const initial = slot => (nameOf(slot)[0] || '?').toUpperCase();
+const first = slot => { const n = nameOf(slot); return n === 'Your partner' ? 'Partner' : n === 'You' ? 'You' : n.split(' ')[0]; };
+function setName(slot, n) { S.board.names[slot] = String(n || '').trim().slice(0, 30); S.board._t['n' + slot] = stamp(); }
+let saveT = 0, saveWarned = false;
+function save(now) {
+  clearTimeout(saveT);
+  const go = () => { if (!S) return; if (!LS.set(KEY, S) && !saveWarned) { saveWarned = true; toast('This browser’s storage is full. Remove a photo or two so the board can save.'); } };
+  if (now) go(); else saveT = setTimeout(go, 120);
+}
+function live() { return Object.values(S.items).filter(it => !it.del); }
+function setF(it, f) { const t = stamp(); for (const k of Object.keys(f)) { it[k] = f[k]; it._t[k] = t; } return it; }
+function create(id, f) { const it = { id, _t: {} }; setF(it, f); S.items[id] = it; return it; }
+function mergeItem(r) {
+  if (!r || !r.id) return false;
+  for (const v of Object.values(r._t || {})) seeStamp(v);
+  const L = S.items[r.id];
+  if (!L) { S.items[r.id] = clone(r); return true; }
+  let ch = false;
+  for (const k of Object.keys(r._t || {})) if ((r._t[k] || 0) > (L._t[k] || 0)) { L[k] = r[k]; L._t[k] = r._t[k]; ch = true; }
+  return ch;
+}
+function mergeBoard(rb) {
+  if (!rb || !rb._t) return false;
+  let ch = false;
+  for (const [k, field] of [['na', 'a'], ['nb', 'b']]) if ((rb._t[k] || 0) > (S.board._t[k] || 0)) { S.board.names[field] = rb.names[field]; S.board._t[k] = rb._t[k]; ch = true; }
+  if ((rb._t.title || 0) > (S.board._t.title || 0)) { S.board.title = rb.title; S.board._t.title = rb._t.title; ch = true; }
+  return ch;
+}
+function swapSlots() { // two devices both thought they were partner A: the one that joined moves over
+  S.me = other();
+  const n = S.board.names, t = S.board._t;
+  [n.a, n.b] = [n.b, n.a]; [t.na, t.nb] = [t.nb, t.na];
+  for (const it of Object.values(S.items)) {
+    [it.ha, it.hb] = [it.hb, it.ha]; [it._t.ha, it._t.hb] = [it._t.hb, it._t.ha];
+    if (it.by) it.by = it.by === 'a' ? 'b' : 'a';
+    for (const k of ['ha', 'hb']) { if (it[k] === undefined) delete it[k]; if (it._t[k] === undefined) delete it._t[k]; }
+  }
+}
+
+/* ================= pins arriving from The Watch, Weekender and Finds ================= */
+function laneGuess(p) {
+  if (p.lane && LANES[p.lane]) return p.lane;
+  if (p.kind === 'trip' || p.kind === 'hotel') return 'travel';
+  if (p.kind === 'homesearch' || p.kind === 'listing') return 'home';
+  if (p.sec && /^(home|remodel)$/.test(p.sec)) return 'home';
+  return 'shop';
+}
+function fromPin(p) {
+  if (!p || (!p.title && !p.unpin)) return null;
+  const id = p.key ? 'k' + h32(p.key) : 'i' + uid();
+  const ex = S.items[id];
+  if (p.unpin) { if (ex && !ex.del) setF(ex, { del: true }); return ex || null; }
+  const f = {
+    key: p.key || '', lane: laneGuess(p), kind: p.kind || 'link', title: String(p.title).slice(0, 160), note: p.note ? String(p.note).slice(0, 600) : '',
+    url: safeUrl(p.url || ''), img: /^data:image\/(jpeg|png|webp);base64,/.test(p.img || '') ? p.img : safeUrl(p.img || ''), ar: p.ar || null, price: p.price != null ? +p.price : null, was: p.was != null ? +p.was : null, cur: p.cur || 'USD',
+    store: p.store || '', brand: p.brand || '', site: p.site || '', city: p.city || '', place: p.place || null, dates: p.dates || null, f: p.f || null, links: (p.links || []).filter(l => l && safeUrl(l[1])).slice(0, 6),
+    sid: p.sid || '', sec: p.sec || '', tier: p.tier || '', area: p.area || '', cost: p.cost != null ? +p.cost : null, credit: p.credit || null,
+    p0: p.price != null ? +p.price : null, by: S.me, at: p.at || Date.now(), status: 'dream', del: false, ['h' + S.me]: true
+  };
+  if (ex) { setF(ex, ex.del ? f : { ['h' + S.me]: true }); return ex; }
+  return create(id, f);
+}
+function drainInbox(quiet) {
+  if (!S) return [];
+  const q = LS.get(INBOX, []);
+  if (!Array.isArray(q) || !q.length) return [];
+  LS.set(INBOX, []);
+  const changed = q.map(fromPin).filter(Boolean);
+  if (changed.length) {
+    save(true); broadcast(changed);
+    const adds = q.filter(p => !p.unpin).length;
+    if (!quiet && adds) toast(adds === 1 ? `Pinned: ${q.find(p => !p.unpin).title}` : `${adds} new pins on your board`);
+  }
+  return changed;
+}
+
+/* ================= live data from the rest of the site ================= */
+const D = { finds: null, fby: new Map(), cities: [], cby: {}, live: null, gidx: null, photos: null, zips: null, zipsBusy: null };
+async function getJSON(rel, minutes = 10) {
+  const tries = /^https?:$/.test(location.protocol) ? ['../' + rel, PUBLIC + rel] : [PUBLIC + rel];
+  for (const u of tries) {
+    try { const r = await fetch(u + (u.includes('?') ? '&' : '?') + 'v=' + Math.floor(Date.now() / (minutes * 60000)), { cache: 'no-cache' }); if (r.ok) return await r.json(); } catch (e) { /* next */ }
+  }
+  return null;
+}
+let liveBusy = null;
+function loadLive() {
+  if (liveBusy) return liveBusy;
+  liveBusy = Promise.all(['shop/data/feed.json', 'travel/data/cities.json', 'travel/data/live.json', 'travel/guides/index.json', 'travel/data/photos.json'].map(p => getJSON(p))).then(([f, c, l, g, ph]) => {
+    if (f && f.items) { D.finds = f; D.fby = new Map(f.items.map(it => [it.i, it])); }
+    if (c && c.cities) { D.cities = c.cities; D.cby = Object.fromEntries(c.cities.map(x => [x.id, x])); }
+    D.live = l; D.gidx = g; D.photos = ph;
+    if (S && live().some(it => it.kind === 'homesearch' && it.f && it.f.zip)) loadZips();
+  });
+  return liveBusy;
+}
+function loadZips() {
+  if (D.zips || D.zipsBusy) return D.zipsBusy;
+  D.zipsBusy = getJSON('news/data/home/zips.json', 720).then(z => { D.zips = z; paintLive(); });
+  return D.zipsBusy;
+}
+function wkWeekend() {
+  const ws = ((D.gidx && D.gidx.weekends) || []).slice().sort((a, b) => a.weekend < b.weekend ? -1 : 1);
+  if (!ws.length) return null;
+  const t = isoDay();
+  return ws.find(w => addDays(w.weekend, 2) >= t) || ws[ws.length - 1];
+}
+const wkRow = id => { const w = wkWeekend(); return w ? w.guides.find(g => g.city === id) : null; };
+function wikiImg(title, w = 960) {
+  const t = D.photos && D.photos.titles && D.photos.titles[title];
+  return t && t.img && t.img.src ? t.img.src.replace(/\/\d+px-/, '/' + w + 'px-') : '';
+}
+const cityImg = (c, w) => c ? wikiImg((wkRow(c.id) || {}).hero || c.wiki, w) || wikiImg(c.wiki, w) : '';
+function cityCredit(c) {
+  const T = D.photos && D.photos.titles; if (!c || !T) return null;
+  const t = T[(wkRow(c.id) || {}).hero] || T[c.wiki];
+  return t && t.img ? { by: t.img.credit, lic: t.img.license, file: t.img.file } : null;
+}
+const creditHTML = cr => cr && okHref(cr.file) ? `<p class="hint">Photo: <a href="${esc(cr.file)}" target="_blank" rel="noopener">${esc(cr.by || 'Wikimedia Commons')}</a>${cr.lic ? ', ' + esc(cr.lic) : ''}</p>` : '';
+function wkPrefs() { return LS.get('wk.prefs', {}) || {}; }
+function wkFrom() { const p = wkPrefs(); return p.from && p.from.code ? p.from.code : ''; }
+const qs = o => Object.entries(o).filter(([, v]) => v != null && v !== '').map(([k, v]) => k + '=' + encodeURIComponent(v)).join('&');
+function tripDates(it) {
+  if (it.dates && it.dates.from) return { a: it.dates.from, b: it.dates.to || addDays(it.dates.from, 3) };
+  const f = comingFriday(); return { a: f, b: addDays(f, 3), guess: true };
+}
+function flightsUrl(it, air) { const d = tripDates(it); return '../travel/#/flights?' + qs({ from: wkFrom(), to: air, dep: d.a, ret: d.b, n: 2 }); }
+function hotelsUrl(it, q) { const d = tripDates(it); return '../travel/#/hotels?' + qs({ q, in: d.a, out: d.b, n: 2 }); }
+
+/* ---------- weather: Weekender's eight cities from its feed, anywhere else from Open-Meteo */
+const WXC = new Map();
+function placeWx(lat, lon) {
+  const k = (+lat).toFixed(2) + ',' + (+lon).toFixed(2);
+  if (!WXC.has(k)) WXC.set(k, fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weather_code,is_day&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max&temperature_unit=fahrenheit&timezone=auto&forecast_days=16`).then(r => r.ok ? r.json() : null).catch(() => null));
+  return WXC.get(k);
+}
+function wxGlyph(code, day = 1) {
+  const s = 'fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"';
+  const cloud = '<path d="M7 18h10a4 4 0 0 0 .4-8 5.5 5.5 0 0 0-10.6 1.5A3.3 3.3 0 0 0 7 18z"/>';
+  if (code == null) return '';
+  if (code <= 1) return day ? `<svg viewBox="0 0 24 24" ${s}><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.5 1.5M17.2 17.2l1.5 1.5M5.3 18.7l1.5-1.5M17.2 6.8l1.5-1.5"/></svg>` : `<svg viewBox="0 0 24 24" ${s}><path d="M19 14.5A7.5 7.5 0 0 1 9.5 5a7.5 7.5 0 1 0 9.5 9.5z"/></svg>`;
+  if (code <= 3) return `<svg viewBox="0 0 24 24" ${s}>${cloud}</svg>`;
+  if (code <= 48) return `<svg viewBox="0 0 24 24" ${s}><path d="M4 9h16M3 13h18M5 17h14"/></svg>`;
+  if (code >= 71 && code <= 77 || code === 85 || code === 86) return `<svg viewBox="0 0 24 24" ${s}>${cloud}<path d="M9 21h.01M13 21h.01"/></svg>`;
+  if (code >= 95) return `<svg viewBox="0 0 24 24" ${s}>${cloud}<path d="M12 17l-2 4h3l-1.5 3"/></svg>`;
+  return `<svg viewBox="0 0 24 24" ${s}>${cloud}<path d="M9 20l-1 2M13 20l-1 2M17 20l-1 2"/></svg>`;
+}
+const WXW = c => c == null ? '' : c <= 1 ? 'clear' : c <= 3 ? 'cloudy' : c <= 48 ? 'fog' : c <= 57 ? 'drizzle' : c <= 67 ? 'rain' : c <= 77 ? 'snow' : c <= 82 ? 'showers' : c <= 86 ? 'snow showers' : 'storms';
+const deg = v => v == null ? '' : Math.round(v) + '°';
+function wxLines(w, it) { // now, and the trip's days when the forecast reaches them
+  if (!w) return '';
+  const out = [];
+  if (w.current) out.push(`<span class="wx">${wxGlyph(w.current.weather_code, w.current.is_day)}${deg(w.current.temperature_2m)} and ${WXW(w.current.weather_code)} now</span>`);
+  const d = w.daily, td = tripDates(it);
+  if (d && d.time) {
+    const days = d.time.map((t, i) => ({ t, i })).filter(x => x.t >= td.a && x.t <= td.b).slice(0, 4);
+    const pp = x => d.precipitation_probability_max ? d.precipitation_probability_max[x.i] : 0;
+    if (days.length) out.push(`<span class="fcl">${td.guess ? 'This weekend' : 'Your dates'}</span><span class="fcs">${days.map(x => `<span class="fc" title="${esc(WXW(d.weather_code[x.i]))}${pp(x) >= 30 ? `, ${pp(x)}% chance of rain` : ''}"><b>${dow(x.t)}</b>${wxGlyph(d.weather_code[x.i], 1)}${deg(d.temperature_2m_max[x.i])}${pp(x) >= 40 ? `<small>${pp(x)}%</small>` : ''}</span>`).join('')}</span>`);
+  }
+  return out.join('');
+}
+function localTime(tz) { try { return new Intl.DateTimeFormat('en-US', { timeZone: tz, hour: 'numeric', minute: '2-digit' }).format(new Date()); } catch (e) { return ''; } }
+
+/* ---------- homes: plain-English search (ported from The Watch's Home desk) */
+const ST = { alabama: 'AL', alaska: 'AK', arizona: 'AZ', arkansas: 'AR', california: 'CA', colorado: 'CO', connecticut: 'CT', delaware: 'DE', florida: 'FL', georgia: 'GA', hawaii: 'HI', idaho: 'ID', illinois: 'IL', indiana: 'IN', iowa: 'IA', kansas: 'KS', kentucky: 'KY', louisiana: 'LA', maine: 'ME', maryland: 'MD', massachusetts: 'MA', michigan: 'MI', minnesota: 'MN', mississippi: 'MS', missouri: 'MO', montana: 'MT', nebraska: 'NE', nevada: 'NV', 'new hampshire': 'NH', 'new jersey': 'NJ', 'new mexico': 'NM', 'new york': 'NY', 'north carolina': 'NC', 'north dakota': 'ND', ohio: 'OH', oklahoma: 'OK', oregon: 'OR', pennsylvania: 'PA', 'rhode island': 'RI', 'south carolina': 'SC', 'south dakota': 'SD', tennessee: 'TN', texas: 'TX', utah: 'UT', vermont: 'VT', virginia: 'VA', washington: 'WA', 'west virginia': 'WV', wisconsin: 'WI', wyoming: 'WY', 'district of columbia': 'DC' };
+const STC = Object.values(ST);
+function parseHome(q) {
+  const s = ' ' + String(q || '').toLowerCase().replace(/[–—]/g, '-') + ' ';
+  const f = {}; let m;
+  const NW = { one: 1, two: 2, three: 3, four: 4, five: 5, six: 6 };
+  if ((m = s.match(/(?:^|\s)(\d{1,2}|one|two|three|four|five|six)\s*\+?\s*-?\s*(?:br|bd|bdr|bdrm|bed|beds|bedroom|bedrooms)\b/))) f.beds = +(NW[m[1]] || m[1]);
+  if ((m = s.match(/(?:^|\s)(\d(?:\.5)?)\s*\+?\s*-?\s*(?:ba|bath|baths|bathroom|bathrooms)\b/))) f.baths = +m[1];
+  const amt = '\\$?\\s*(\\d[\\d,]*(?:\\.\\d+)?)\\s*(k|m|million|thousand)?';
+  const val = (n, u, sib) => { let v = parseFloat(String(n).replace(/,/g, '')); const x = (u || sib || '').toLowerCase(); if (x === 'k' || x === 'thousand') v *= 1e3; else if (x === 'm' || x === 'million') v *= 1e6; else if (v < 10000) v *= 1000; return Math.round(v); };
+  if ((m = s.match(new RegExp('between\\s+' + amt + '\\s+(?:and|to|-)\\s+' + amt)))) { f.min = val(m[1], m[2], m[4]); f.max = val(m[3], m[4]); }
+  else {
+    const notSize = '(?![\\d,]|\\.\\d|\\s*(?:sq|square|acres?|ft|feet|sf|bed|bath|br|ba)\\b)';
+    if ((m = s.match(new RegExp('(?:under|below|less than|max|up to|at most|<)\\s*' + amt + notSize)))) f.max = val(m[1], m[2]);
+    if ((m = s.match(new RegExp('(?:over|above|more than|at least|min|from|>)\\s*' + amt + notSize)))) f.min = val(m[1], m[2]);
+  }
+  for (const z of s.matchAll(/(?:^|[^$\d.])(\d{5})(?![\d,]|\s*k\b)/g)) { f.zip = z[1]; break; }
+  if (!f.zip) {
+    const states = Object.keys(ST).join('|') + '|' + STC.map(x => x.toLowerCase()).join('|');
+    if ((m = s.match(new RegExp('\\b(?:in|near|around)\\s+([a-z][a-z .\'-]{1,40}?)\\s*,?\\s+(' + states + ')\\b')))) { f.city = m[1].trim().replace(/\b\w/g, c => c.toUpperCase()); f.state = ST[m[2]] || m[2].toUpperCase(); }
+  }
+  if (/\b(condo|condos|apartments?)\b/.test(s)) f.type = 'condo';
+  else if (/\b(town ?houses?|town ?homes?)\b/.test(s)) f.type = 'townhouse';
+  else if (/\b(land|lots?|acreage)\b/.test(s)) f.type = 'land';
+  else if (/\b(houses?|single[- ]family)\b/.test(s)) f.type = 'house';
+  if ((m = s.match(/\b(\d[\d,]{2,})\s*\+?\s*(?:sq\.?\s*ft|sqft|square feet|sf)\b/))) f.sqft = +m[1].replace(/,/g, '');
+  const fs = ['pool', 'garage', 'basement', 'waterfront', 'fireplace', 'view', 'yard', 'barn', 'acre'].filter(x => s.includes(' ' + x));
+  if (fs.length) f.features = fs;
+  return f;
+}
+const TYPEN = { house: 'Houses', condo: 'Condos', townhouse: 'Townhouses', land: 'Land' };
+function homeChips(f) {
+  const c = [];
+  if (f.zip) c.push('ZIP ' + f.zip); else if (f.city) c.push(`${f.city}, ${f.state}`);
+  if (f.beds) c.push(f.beds + '+ beds'); if (f.baths) c.push(f.baths + '+ baths');
+  if (f.min && f.max) c.push(`${moneyK(f.min)} to ${moneyK(f.max)}`); else if (f.max) c.push('Up to ' + moneyK(f.max)); else if (f.min) c.push('From ' + moneyK(f.min));
+  if (f.type) c.push(TYPEN[f.type] || f.type); if (f.sqft) c.push(f.sqft.toLocaleString() + '+ sq ft');
+  for (const x of f.features || []) c.push(x[0].toUpperCase() + x.slice(1));
+  return c;
+}
+function homeLinks(f) {
+  const out = [], where = f.zip || (f.city ? `${f.city}, ${f.state}` : '');
+  if (!where) return out;
+  const fs = {};
+  if (f.beds) fs.beds = { min: f.beds }; if (f.baths) fs.baths = { min: f.baths };
+  if (f.min || f.max) fs.price = Object.assign({}, f.min ? { min: f.min } : {}, f.max ? { max: f.max } : {});
+  if (f.sqft) fs.sqft = { min: f.sqft };
+  const off = { value: false };
+  if (f.type === 'house') Object.assign(fs, { con: off, tow: off, mf: off, land: off, apa: off, manu: off, apco: off });
+  if (f.type === 'condo') Object.assign(fs, { sf: off, tow: off, mf: off, land: off, manu: off });
+  if (f.type === 'townhouse') Object.assign(fs, { sf: off, con: off, mf: off, land: off, apa: off, manu: off, apco: off });
+  const zslug = f.zip ? `homes/for_sale/${f.zip}_rb/` : `${f.city.toLowerCase().replace(/\s+/g, '-')}-${f.state.toLowerCase()}/`;
+  out.push(['Zillow', `https://www.zillow.com/${zslug}?searchQueryState=${encodeURIComponent(JSON.stringify({ isMapVisible: true, isListVisible: true, usersSearchTerm: where, filterState: fs }))}`]);
+  const rt = { house: 'single-family-home', condo: 'condo', townhouse: 'townhome', land: 'land' }[f.type];
+  const rp = [f.zip || `${f.city.replace(/\s+/g, '-')}_${f.state}`, f.beds && `beds-${f.beds}`, f.baths && `baths-${f.baths}`, (f.min || f.max) && `price-${f.min || 'na'}-${f.max || 'na'}`, rt && `type-${rt}`, f.sqft && `sqft-${f.sqft}`].filter(Boolean);
+  out.push(['Realtor.com', `https://www.realtor.com/realestateandhomes-search/${rp.map(encodeURIComponent).join('/')}`]);
+  if (f.zip) {
+    const fp = [f.beds && `min-beds=${f.beds}`, f.baths && `min-baths=${f.baths}`, f.min && `min-price=${Math.round(f.min / 1000)}k`, f.max && `max-price=${Math.round(f.max / 1000)}k`, { house: 'property-type=house', condo: 'property-type=condo', townhouse: 'property-type=townhouse', land: 'property-type=land' }[f.type], f.sqft && `min-sqft=${f.sqft}-sqft`].filter(Boolean);
+    out.push(['Redfin', `https://www.redfin.com/zipcode/${f.zip}${fp.length ? '/filter/' + fp.join(',') : ''}`]);
+  }
+  return out;
+}
+function zipMarket(f) { // [city, st, all, allCh, b1..b5, rent, rentCh] from Zillow's research data
+  if (!f || !f.zip || !D.zips || !D.zips.z) return null;
+  const r = D.zips.z[f.zip]; if (!r) return { none: true };
+  const ix = Object.fromEntries((D.zips.cols || []).map((c, i) => [c, i]));
+  const b = f.beds ? Math.min(5, f.beds) : 0;
+  const v = (b && r[ix['b' + b]]) || r[ix.all];
+  return { city: r[ix.city], st: r[ix.st], v, beds: b && r[ix['b' + b]] ? b : 0, ch: r[ix.allCh], rent: r[ix.rent], asOf: D.zips.asOf };
+}
+function homeTitle(f, q) {
+  const where = f.zip ? (zipMarket(f) && zipMarket(f).city ? `${zipMarket(f).city} ${f.zip}` : 'ZIP ' + f.zip) : f.city ? `${f.city}, ${f.state}` : q;
+  return `${f.beds ? f.beds + '-bed ' : ''}${f.type === 'condo' ? 'condo' : f.type === 'townhouse' ? 'townhouse' : f.type === 'land' ? 'land' : 'home'} in ${where}${f.max ? ', up to ' + moneyK(f.max) : ''}`;
+}
+
+/* ================= P2P: PeerJS's free server only introduces the two devices; the board goes phone to phone ================= */
+const PID = c => 'lanscape-vision-' + String(c).toLowerCase();
+let peer = null, net = 'idle', netMsg = '', dialT = 0, wantCode = '', pendingAsk = null;
+const conns = new Set();
+function peerOpts() {
+  const q = qp.get('peer'); // ?peer=localhost:9000 for a self-hosted PeerJS server (tests)
+  if (q) { const [h, p] = q.split(':'); return { host: h, port: +p || 9000, path: '/', secure: location.protocol === 'https:', debug: 0 }; }
+  return { debug: 0 };
+}
+const openConns = () => [...conns].filter(c => c.open);
+function setNet(n, msg) { net = n; netMsg = msg || ''; paintPresence(); const st = $('#pairStatus'); if (st) paintPairStatus(); }
+function startPeer() {
+  if (!S || peer) return;
+  if (!window.Peer) {
+    if (document.readyState === 'loading') { setNet('starting'); document.addEventListener('DOMContentLoaded', startPeer, { once: true }); }
+    else setNet('nolib', 'The sync library didn’t load. Your board still works on this device; you can send it as a link.');
+    return;
+  }
+  setNet('starting');
+  try { peer = new window.Peer(PID(S.dev), peerOpts()); } catch (e) { peer = null; setNet('error', 'Sync couldn’t start in this browser.'); return; }
+  peer.on('open', () => { setNet(S.partner || S.pending ? 'dialing' : 'ready'); if (S.partner) dial(S.partner.code, true); if (S.pending) dial(S.pending, !wantCode); });
+  peer.on('connection', c => wire(c, false));
+  peer.on('disconnected', () => { if (!openConns().length) setNet('offline', 'Lost the matchmaking server. Trying again…'); setTimeout(() => { if (peer && !peer.destroyed && peer.disconnected) try { peer.reconnect(); } catch (e) { /* later */ } }, 4000); });
+  peer.on('close', () => { peer = null; });
+  peer.on('error', e => {
+    const t = e && e.type;
+    if (t === 'unavailable-id') { setNet('elsewhere', 'Vision is open in another tab or window on this device; that one keeps the connection. Changes here still reach it.'); try { peer.destroy(); } catch (er) { /* gone */ } peer = null; return; }
+    if (t === 'peer-unavailable') { if (openConns().length) return; if (S.pending) setNet('away', `${theirName()}’s board isn’t open right now (code ${fmtCode(S.pending)}). Vision keeps trying while this page is open, so leave it open or come back later.`); else setNet('away'); wantCode = ''; return; }
+    if (t === 'network' || t === 'server-error' || t === 'socket-error' || t === 'socket-closed') { if (!openConns().length) setNet('noserver', 'Can’t reach the matchmaking server right now. Your board still works here, and you can send it as a link.'); return; }
+    if (t === 'browser-incompatible') { setNet('nolib', 'This browser can’t make direct connections. Send the board as a link instead.'); return; }
+    if (!openConns().length) setNet('error', 'Sync hit a snag (' + (t || 'unknown') + ').');
+  });
+}
+function dial(code, auto) {
+  if (!peer || peer.destroyed || peer.disconnected) return;
+  if (code === S.dev) return;
+  if (openConns().some(c => c.peer === PID(code))) return;
+  if (!auto) setNet('dialing');
+  const c = peer.connect(PID(code), { reliable: true, metadata: { v: 1 } });
+  wire(c, true, code);
+}
+function wire(c, outgoing, code) {
+  conns.add(c);
+  c._hello = false; c._sent = false;
+  // the device that dials says hello first; the one being dialed answers only once it has accepted the caller
+  c.on('open', () => { if (outgoing) { c._sent = true; send(c, hello()); } paintPresence(); });
+  c.on('data', d => { try { onMsg(c, d, outgoing, code); } catch (e) { console.warn('vision: bad message', e); } });
+  c.on('close', () => { conns.delete(c); if (!openConns().length) setNet(S.partner ? 'away' : 'ready'); paintPresence(); });
+  c.on('error', () => { conns.delete(c); paintPresence(); });
+}
+function send(c, m) { try { if (c.open) c.send(m); } catch (e) { /* the channel closed */ } }
+function hello() { return { t: 'hello', v: 1, dev: S.dev, me: S.me, joined: !!S.joined, board: S.board, items: S.items, name: myName() }; }
+function broadcast(items) {
+  if (!items || !items.length) return;
+  const m = { t: 'put', items: items.map(it => S.items[it.id] || it) };
+  for (const c of openConns()) if (c._hello) send(c, m);
+}
+function onMsg(c, d, outgoing, code) {
+  if (!d || typeof d !== 'object') return;
+  if (d.t === 'hello') {
+    if (d.dev === S.dev) return;
+    const known = S.partner && S.partner.code === d.dev;
+    if (!known && S.partner && !outgoing && !c._ok) { // a device we haven't seen asks to connect
+      pendingAsk = { c, d }; askAccept(d); return;
+    }
+    acceptHello(c, d, outgoing);
+    return;
+  }
+  if (!c._hello) return;
+  if (d.t === 'put' && Array.isArray(d.items)) {
+    const before = new Set(live().map(it => it.id));
+    const ch = d.items.filter(mergeItem);
+    if (ch.length) {
+      save();
+      if (ch.length === 1 && before.has(ch[0].id) && !ch[0].del) soft(ch[0].id); else render(true);
+      const fresh = ch.filter(it => !before.has(it.id) && !it.del && it.by === other());
+      if (fresh.length) toast(fresh.length === 1 ? `${theirName()} pinned ${fresh[0].title}` : `${theirName()} pinned ${fresh.length} things`);
+    }
+  } else if (d.t === 'board' && d.board) { if (mergeBoard(d.board)) { save(); render(true); } }
+}
+function acceptHello(c, d, outgoing) {
+  c._ok = true;
+  let wait = false, swapped = false; // both devices think they're the same partner: one moves over and says hello again
+  if (d.me === S.me) { const yieldMe = S.joined && !d.joined ? true : !S.joined && d.joined ? false : S.dev > d.dev; if (yieldMe) { swapSlots(); swapped = true; } else wait = true; }
+  const first = !S.partner || S.partner.code !== d.dev;
+  S.partner = { code: d.dev, at: Date.now() };
+  if (S.pending) S.pending = null;
+  if (first && S.joined && !Object.keys(S.items).length && d.board && d.board.id) S.board.id = d.board.id;
+  const before = new Set(live().map(it => it.id));
+  if (!wait) { mergeBoard(d.board); for (const it of Object.values(d.items || {})) mergeItem(it); S.joined = false; }
+  save(true);
+  c._hello = true;
+  if (!c._sent || swapped) { c._sent = true; send(c, hello()); }
+  setNet('on');
+  wantCode = '';
+  render(true);
+  const got = live().filter(it => !before.has(it.id)).length;
+  if (first && !wait) toast(`Connected with ${theirName()}.${got ? ` ${got} of their pins came over.` : ''}`);
+  else if (got && !wait) toast(`${got} new from ${theirName()}`);
+  if ($('#sheet').classList.contains('on') && sheetKind === 'pair') openPair();
+}
+function askAccept(d) {
+  openSheet('ask', `<div class="shh"><h2 id="shT">Connect a new device?</h2><button class="ic" data-close aria-label="Close">${IC.x}</button></div>
+    <div class="shb"><div class="box"><h3>${esc(d.name || 'Someone')} wants to join this board</h3><p>A device you haven’t connected before used your code. If it’s ${esc(theirName())}’s new phone or computer, let it in; it will get a copy of the board.</p>
+    <div class="row" style="margin-top:12px"><button class="btn p" data-accept>Let it in</button><button class="btn" data-reject>Not now</button></div></div></div>`);
+}
+function startDialLoop() {
+  clearInterval(dialT);
+  dialT = setInterval(() => {
+    if (!S || !(S.partner || S.pending) || document.hidden) return;
+    if (!S.partner) { if (!peer) startPeer(); else if (!peer.disconnected && !openConns().length) dial(S.pending, true); return; }
+    if (!peer) { startPeer(); return; }
+    if (peer.disconnected && !peer.destroyed) { try { peer.reconnect(); } catch (e) { /* later */ } return; }
+    if (!openConns().length) { dial(S.partner.code, true); if (S.pending && S.pending !== S.partner.code) dial(S.pending, true); }
+  }, 15000);
+}
+
+/* ---------- the fallback: the whole board as a link or a file */
+const b64u = buf => btoa(String.fromCharCode(...new Uint8Array(buf))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+const unb64u = s => Uint8Array.from(atob(s.replace(/-/g, '+').replace(/_/g, '/') + '==='.slice((s.length + 3) % 4)), c => c.charCodeAt(0));
+async function packBoard() {
+  const items = {};
+  for (const [id, it] of Object.entries(S.items)) { const x = clone(it); if (/^data:/.test(x.img || '')) { x.img = ''; delete x._t.img; } items[id] = x; }
+  const json = JSON.stringify({ v: 1, from: myName(), me: S.me, board: S.board, items });
+  if (window.CompressionStream) {
+    try { const s = new Blob([json]).stream().pipeThrough(new CompressionStream('deflate-raw')); return 'z' + b64u(await new Response(s).arrayBuffer()); } catch (e) { /* plain below */ }
+  }
+  return 'j' + b64u(new TextEncoder().encode(json));
+}
+async function unpackBoard(s) {
+  const bytes = unb64u(s.slice(1));
+  if (s[0] === 'z') { const st = new Blob([bytes]).stream().pipeThrough(new DecompressionStream('deflate-raw')); return JSON.parse(await new Response(st).text()); }
+  return JSON.parse(new TextDecoder().decode(bytes));
+}
+function mergePacked(p) { // a board that came as a link or a file
+  if (!p || !p.items) return 0;
+  if (p.me === S.me && p.from !== myName()) { // they're the other partner; their 'me' is our 'other'
+    const T = { a: 'b', b: 'a' };
+    for (const it of Object.values(p.items)) { [it.ha, it.hb] = [it.hb, it.ha]; if (it._t) [it._t.ha, it._t.hb] = [it._t.hb, it._t.ha]; if (it.by) it.by = T[it.by]; for (const k of ['ha', 'hb']) { if (it[k] === undefined) delete it[k]; if (it._t && it._t[k] === undefined) delete it._t[k]; } }
+    if (p.board) { const n = p.board.names, t = p.board._t || {}; [n.a, n.b] = [n.b, n.a]; [t.na, t.nb] = [t.nb, t.na]; }
+  }
+  if (p.board) mergeBoard(p.board);
+  let n = 0; const ch = [];
+  for (const it of Object.values(p.items)) if (mergeItem(it)) { n++; ch.push(it); }
+  save(true); broadcast(ch);
+  return n;
+}
+
+/* ================= rendering ================= */
+let view = { lane: 'all', venn: '', status: '', sort: 'new' };
+try { Object.assign(view, JSON.parse(sessionStorage.getItem('vision.view') || '{}')); } catch (e) { /* fine */ }
+const keepView = () => { try { sessionStorage.setItem('vision.view', JSON.stringify(view)); } catch (e) { /* fine */ } };
+let seenPrev = 0;
+
+function vennSVG(c) {
+  const sel = view.venn;
+  const lens = 'M150 20.3A78 78 0 0 1 150 159.7A78 78 0 0 1 150 20.3Z';
+  const lbl = (n, x) => { n = n.length > 12 ? n.slice(0, 11) + '…' : n; return `<text class="vn" x="${x}" y="80" text-anchor="middle" style="font-size:${n.length <= 6 ? 23 : n.length <= 9 ? 18 : 15}px">${esc(n)}</text>`; };
+  return `<svg class="venn" viewBox="0 0 300 180" role="group" aria-label="Who wants what">
+    <circle class="ca" cx="115" cy="90" r="78"/><circle class="cb" cx="185" cy="90" r="78"/><path class="lens" d="${lens}"/>
+    <circle class="hit" cx="115" cy="90" r="78" data-venn="a" tabindex="0" role="button" aria-label="Only ${esc(nameOf('a'))}: ${c.a}"/><circle class="hl${sel === 'a' ? ' sel' : ''}" cx="115" cy="90" r="76"/>
+    <circle class="hit" cx="185" cy="90" r="78" data-venn="b" tabindex="0" role="button" aria-label="Only ${esc(nameOf('b'))}: ${c.b}"/><circle class="hl${sel === 'b' ? ' sel' : ''}" cx="185" cy="90" r="76"/>
+    <path class="hit" d="${lens}" data-venn="both" tabindex="0" role="button" aria-label="You both want: ${c.both}"/><path class="hl${sel === 'both' ? ' sel' : ''}" d="${lens}"/>
+    ${lbl(nameOf('a'), 78)}<text class="vc" x="78" y="102" text-anchor="middle">${c.a} only</text>
+    ${lbl(nameOf('b'), 222)}<text class="vc" x="222" y="102" text-anchor="middle">${c.b} only</text>
+    <text class="vb" x="150" y="88" text-anchor="middle">${c.both}</text><text class="vc" x="150" y="106" text-anchor="middle">both</text>
+  </svg>`;
+}
+function counts(list) {
+  const c = { a: 0, b: 0, both: 0, none: 0 };
+  for (const it of list) { if (it.ha && it.hb) c.both++; else if (it.ha) c.a++; else if (it.hb) c.b++; else c.none++; }
+  return c;
+}
+function filtered() {
+  let l = live();
+  if (view.lane !== 'all') l = l.filter(it => it.lane === view.lane);
+  if (view.venn === 'a') l = l.filter(it => it.ha && !it.hb); else if (view.venn === 'b') l = l.filter(it => it.hb && !it.ha); else if (view.venn === 'both') l = l.filter(it => it.ha && it.hb);
+  if (view.status) l = l.filter(it => (it.status || 'dream') === view.status);
+  const pr = it => curPrice(it) ?? it.cost ?? -1;
+  l.sort(view.sort === 'both' ? (x, y) => ((y.ha && y.hb) - (x.ha && x.hb)) || y.at - x.at : view.sort === 'price' ? (x, y) => pr(y) - pr(x) : view.sort === 'soon' ? (x, y) => ((x.dates && x.dates.from) || '9') < ((y.dates && y.dates.from) || '9') ? -1 : 1 : (x, y) => y.at - x.at);
+  return l;
+}
+function curPrice(it) { if (it.sid && D.fby.has(it.sid)) { const f = D.fby.get(it.sid); if (f.p != null) return f.p; } return it.price != null ? it.price : null; }
+function totals(list) {
+  let sum = 0, both = 0, n = 0, trips = 0, est = 0;
+  for (const it of list) {
+    const p = curPrice(it) ?? it.cost;
+    if (it.lane === 'travel') { trips++; if (it.cost) est += it.cost; }
+    if (p != null && it.lane !== 'travel') { sum += p; n++; if (it.ha && it.hb) both += p; }
+  }
+  return { sum, both, n, trips, est };
+}
+function cardImg(it, est) {
+  const ar = it.ar && it.ar > .5 && it.ar < 2 ? it.ar : it.kind === 'product' ? 1 : it.kind === 'note' ? 0 : .72;
+  if (it.kind === 'note' && !it.img) return '';
+  let src = okImg(it.img) ? it.img : '';
+  if (!src && it.city && D.cby[it.city]) src = cityImg(D.cby[it.city], 960);
+  if (!src && it.kind === 'homesearch') return `<button class="ph g-home" type="button" data-open="${it.id}" style="aspect-ratio:1/.62" aria-label="Open ${esc(it.title)}"><span class="gt"><small>Home search</small>${esc(it.f && it.f.zip ? it.f.zip : (it.f && it.f.city) || 'Home')}</span></button>`;
+  if (!src && (it.kind === 'link' || it.kind === 'listing' || it.kind === 'product')) return '';
+  if (!src) return `<button class="ph g-${it.lane}" type="button" data-open="${it.id}" style="aspect-ratio:1/.7" aria-label="Open ${esc(it.title)}"><span class="gt"><small>${esc(LANES[it.lane].name)}</small>${esc(it.place && it.place.name || it.title)}</span></button>`;
+  return `<button class="ph" type="button" data-open="${it.id}" style="aspect-ratio:1/${(ar || .72).toFixed(3)}" aria-label="Open ${esc(it.title)}"><img src="${esc(src)}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.remove()"></button>`;
+}
+function metaHTML(it) {
+  const m = [];
+  if (it.lane === 'travel') {
+    if (it.dates && it.dates.from) m.push(esc(range(it.dates.from, it.dates.to))); else m.push('Someday');
+    if (it.kind === 'hotel' && it.tier) m.push(esc(it.tier));
+    if (it.place && it.place.country && it.kind !== 'hotel') m.push(esc(it.place.country));
+    if (it.area) m.push(esc(it.area));
+    if (it.cost) m.push(`<span class="pr">≈ ${money(it.cost)}</span>`);
+  } else if (it.kind === 'homesearch') {
+    const f = it.f || {};
+    if (f.beds) m.push(f.beds + '+ beds'); if (f.max) m.push('up to ' + moneyK(f.max)); else if (f.min) m.push('from ' + moneyK(f.min));
+  } else {
+    if (it.brand || it.store) m.push(esc(it.brand || it.store));
+    const p = curPrice(it);
+    if (p != null) { const f = it.sid && D.fby.get(it.sid); const was = f ? f.was : it.was; m.push(`<span class="pr">${money(p, it.cur)}${was && was > p ? `<s>${money(was, it.cur)}</s>` : ''}</span>`); }
+    else if (it.cost) m.push(`<span class="pr">≈ ${money(it.cost)}</span>`);
+    if (!it.brand && !it.store && it.url) m.push(esc(host(it.url)));
+  }
+  return m.length ? `<p class="meta">${m.map(x => `<span>${x}</span>`).join('')}</p>` : '';
+}
+function liveHTML(it) {
+  const out = [];
+  if (it.kind === 'product' && it.sid) {
+    const f = D.fby.get(it.sid);
+    if (f) {
+      if (f.av === false) out.push('<span class="up">Sold out at the store right now</span>');
+      if (it.p0 != null && f.p != null && Math.abs(f.p - it.p0) >= 0.5) out.push(f.p < it.p0 ? `<span class="dn">Down ${money(it.p0 - f.p, it.cur)} since you pinned it</span>` : `<span class="up">Up ${money(f.p - it.p0, it.cur)} since you pinned it</span>`);
+      else if (f.was && f.p) out.push(`<span class="dn">On sale, ${Math.round((1 - f.p / f.was) * 100)}% off</span>`);
+    }
+  }
+  if (it.lane === 'travel') {
+    const c = it.city && D.cby[it.city];
+    if (c) {
+      out.push(`<span>${esc(localTime(c.tz))} in ${esc(c.name)}</span>`);
+      const w = D.live && D.live.weather && D.live.weather.cities && D.live.weather.cities[c.id];
+      if (w) out.push(wxLines(w, it));
+    } else if (it.place && it.place.lat != null) {
+      if (it.place.tz) out.push(`<span>${esc(localTime(it.place.tz))} there</span>`);
+      out.push(`<span data-pwx="${it.id}"></span>`);
+    }
+  }
+  if (it.kind === 'homesearch' && it.f && it.f.zip) {
+    const mk = zipMarket(it.f);
+    if (mk && !mk.none && mk.v) {
+      out.push(`<span>Typical ${mk.beds ? mk.beds + '-bed ' : ''}home in ${esc(mk.city)}: <b>${moneyK(mk.v)}</b></span>${mk.ch != null ? `<span>Home values there ${mk.ch > 0 ? 'up ' + mk.ch : mk.ch < 0 ? 'down ' + Math.abs(mk.ch) : 'flat, 0'}% in a year</span>` : ''}`);
+      if (it.f.max) out.push(mk.v <= it.f.max ? `<span class="dn">Within your ${moneyK(it.f.max)} budget</span>` : `<span class="up">${moneyK(mk.v - it.f.max)} over your budget at the typical price</span>`);
+    } else if (!D.zips) out.push('<span>Reading the market…</span>');
+  }
+  return out.join('');
+}
+function linksHTML(it) {
+  let L = [];
+  if (it.lane === 'travel') {
+    const c = it.city && D.cby[it.city];
+    if (c) { if (wkRow(c.id)) L.push(['This weekend’s guide', `../travel/#/g/${c.id}`]); L.push(['Flights', flightsUrl(it, c.air)]); if (it.kind !== 'hotel') L.push(['Hotels', hotelsUrl(it, `${c.name}, ${c.region || c.country}`)]); }
+    else if (it.place) { L.push(['Flights', flightsUrl(it, '')]); L.push(['Hotels', hotelsUrl(it, [it.place.name, it.place.admin || it.place.country].filter(Boolean).join(', '))]); }
+  }
+  if (it.kind === 'homesearch' && it.f) for (const l of homeLinks(it.f)) L.push(l);
+  for (const l of it.links || []) if (!L.some(x => x[1] === l[1])) L.push(l);
+  if (it.url && !L.some(x => x[1] === it.url)) L.unshift([it.kind === 'product' ? (it.store ? 'At ' + it.store : 'Store') : it.kind === 'hotel' ? 'Hotel' : host(it.url) || 'Link', it.url]);
+  if (it.kind === 'product' && it.sid) L.push(['In Finds', `../shop/#/p/${encodeURIComponent(it.sid)}`]);
+  L = L.filter(l => okHref(l[1]));
+  return L.length ? `<p class="links">${L.slice(0, 5).map(([n, u]) => `<a href="${esc(u)}"${/^\.\.\//.test(u) ? '' : ' target="_blank" rel="noopener"'}>${esc(n)}</a>`).join('')}</p>` : '';
+}
+function card(it) {
+  const me = S.me, them = other(), mine = !!it['h' + me], theirs = !!it['h' + them], both = it.ha && it.hb;
+  const nbg = it.kind === 'note' && it.color ? (document.documentElement.dataset.dark ? NOTE_DARK[it.color] || '' : it.color) : '';
+  const isNew = seenPrev && it.by === them && it.at > seenPrev;
+  return `<article class="card k-${esc(it.kind)}${both ? ' both' : ''}" data-id="${esc(it.id)}"${nbg ? ` style="--nbg:${nbg}"` : ''}>
+    ${cardImg(it)}${both ? `<span class="ribbon">${IC.both}Both</span>` : ''}${isNew ? '<span class="nwb">New</span>' : ''}
+    <div class="cbd">
+      <p class="lane l-${it.lane}"><i></i>${esc(LANES[it.lane].name)}${it.site ? ` · ${esc(it.site)}` : ''}<span class="byi ${esc(it.by || me)}" title="Pinned by ${esc(nameOf(it.by || me))}">${esc(initial(it.by || me))}</span></p>
+      <h3><button type="button" data-open="${esc(it.id)}">${esc(it.title)}</button></h3>
+      ${metaHTML(it)}
+      ${it.note ? `<p class="note-t">${esc(it.note.length > 170 ? it.note.slice(0, 160).replace(/\s+\S*$/, '') + '…' : it.note)}</p>` : ''}
+      <div class="live" data-live="${esc(it.id)}">${liveHTML(it)}</div>
+      ${linksHTML(it)}
+      <div class="cf">
+        <button class="hrt" type="button" data-heart="${esc(it.id)}" aria-pressed="${mine}" aria-label="${mine ? 'You want this. Tap to take your heart back' : 'Heart it'}">${mine ? IC.heartF : IC.heart}<span class="hl">${mine ? 'You' : 'Want'}</span></button>
+        <span class="pd${theirs ? ' on' : ''}" title="${esc(theirName())} ${theirs ? 'wants this too' : 'hasn’t hearted it yet'}"><i></i>${esc(first(other()))}</span>
+        <button class="stb s-${esc(it.status || 'dream')}" type="button" data-status="${esc(it.id)}" title="Tap to move it along">${esc(statusName(it))}</button>
+      </div>
+    </div></article>`;
+}
+function estH(it, cw) {
+  const ar = it.kind === 'note' && !it.img ? 0 : it.ar && it.ar > .5 && it.ar < 2 ? it.ar : it.kind === 'product' ? 1 : it.kind === 'homesearch' && !it.img ? .62 : .72;
+  return cw * ar + 120 + Math.min(4, Math.ceil(it.title.length / 26)) * 20 + (it.note ? Math.min(5, Math.ceil(Math.min(170, it.note.length) / 34)) * 19 : 0) + (it.lane === 'travel' ? 80 : 30);
+}
+function colN() { const w = innerWidth; return w < 340 ? 1 : w < 700 ? 2 : w < 1020 ? 3 : 4; }
+let GRID = [];
+function paintGrid() {
+  const g = $('#grid'); if (!g) return;
+  const n = colN(), cw = Math.max(150, (g.clientWidth - (n - 1) * 16) / n), hs = Array(n).fill(0), B = [...Array(n)].map(() => []);
+  for (const it of GRID) { const j = hs.indexOf(Math.min(...hs)); B[j].push(it); hs[j] += estH(it, cw) + 16; }
+  g.innerHTML = B.map(b => `<div class="col">${b.map(card).join('')}</div>`).join('');
+  g.dataset.n = n;
+  paintPlaceWx();
+}
+function paintLive() { for (const el of $$('[data-live]')) { const it = S.items[el.dataset.live]; if (it) el.innerHTML = liveHTML(it); } paintPlaceWx(); }
+function paintPlaceWx() {
+  for (const el of $$('[data-pwx]')) {
+    const it = S.items[el.dataset.pwx]; if (!it || !it.place || it.place.lat == null) continue;
+    placeWx(it.place.lat, it.place.lon).then(w => { if (w && el.isConnected) el.outerHTML = wxLines(w, it); });
+  }
+}
+function ideas() { // things worth pinning this week, from Weekender and Finds
+  const out = [], have = new Set(live().map(it => it.key));
+  const w = wkWeekend();
+  if (w && D.cities.length) {
+    const day = Math.floor(Date.now() / 864e5);
+    const g = w.guides.slice().sort((a, b) => ((h32(a.city + day) > h32(b.city + day)) ? 1 : -1)).slice(0, 4);
+    for (const r of g) { const c = D.cby[r.city]; if (c) out.push({ lane: 'travel', pin: tripPin(c, w.weekend), img: cityImg(c, 500), title: c.name, sub: r.title }); }
+  }
+  if (D.finds) {
+    const fi = D.finds.items.filter(x => x.im && x.av !== false);
+    const picks = fi.filter(x => x.k === 'pick').sort((a, b) => h32(a.i + Math.floor(Date.now() / 864e5)) > h32(b.i + Math.floor(Date.now() / 864e5)) ? 1 : -1);
+    const homey = fi.filter(x => /^(home|remodel)$/.test(x.s) && (x.k === 'pick' || x.was)).sort((a, b) => h32(a.i + Math.floor(Date.now() / 864e5)) > h32(b.i + Math.floor(Date.now() / 864e5)) ? 1 : -1).slice(0, 3);
+    const rest = picks.filter(x => !/^(home|remodel)$/.test(x.s)).slice(0, 3);
+    const deals = fi.filter(x => x.was && x.p).sort((a, b) => (b.was - b.p) / b.was - (a.was - a.p) / a.was).slice(0, 2);
+    for (const x of [...homey, ...rest, ...deals]) out.push({ lane: laneGuess({ sec: x.s }), pin: findsPin(x), img: x.im, title: x.n, sub: `${x.br || x.st} · ${money(x.p, x.c)}${x.was ? ' (was ' + money(x.was, x.c) + ')' : ''}` });
+  }
+  const lane = view.lane;
+  return out.filter(x => lane === 'all' || x.lane === lane).filter((x, i, a) => a.findIndex(y => y.pin.key === x.pin.key) === i).map(x => ({ ...x, pinned: have.has(x.pin.key) }));
+}
+let IDEAS = [];
+function ideasHTML() {
+  IDEAS = ideas();
+  if (!IDEAS.length) return '';
+  return `<section class="ideas in"><div class="sh"><h2>Ideas from this week</h2><p>From Weekender’s guides and Finds’ picks and markdowns.</p></div>
+    <div class="rail">${IDEAS.map((x, i) => `<div class="idea"><div class="ip">${x.img ? `<img src="${esc(x.img)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">` : ''}${x.lane === 'travel' ? `<span class="gt">${esc(x.title)}</span>` : ''}</div>
+      <div class="it"><b>${esc(x.lane === 'travel' ? x.sub : x.title)}</b><small>${esc(x.lane === 'travel' ? 'Weekender, ' + range(x.pin.dates.from, x.pin.dates.to) : x.sub)}</small>
+      <button class="btn sm${x.pinned ? ' pinned' : ''}" type="button" data-idea="${i}">${x.pinned ? 'On the board' : '+ Pin'}</button></div></div>`).join('')}</div></section>`;
+}
+function tripPin(c, wk) {
+  const r = wk ? (wkWeekend() && wkWeekend().guides.find(g => g.city === c.id)) : null;
+  return { key: `weekender:${c.id}`, lane: 'travel', kind: 'trip', title: `${c.name}${r ? ', ' + range(wk, addDays(wk, 2)) : ''}`, city: c.id, site: 'Weekender', url: '', img: cityImg(c, 960), credit: cityCredit(c), place: { name: c.name, country: c.country, lat: c.lat, lon: c.lon, tz: c.tz }, dates: wk ? { from: wk, to: addDays(wk, 3) } : null, note: r ? r.dek : c.line };
+}
+function findsPin(x) {
+  return { key: 'finds:' + x.i, kind: 'product', sec: x.s, sid: x.i, title: x.n, brand: x.br || '', store: x.st || '', url: x.u, img: x.im, ar: x.w && x.h ? +(x.h / x.w).toFixed(3) : 1, price: x.p, was: x.was, cur: x.c || 'USD', site: 'Finds', note: x.y || '' };
+}
+
+function headHTML() {
+  const all = live();
+  const laneL = view.lane === 'all' ? all : all.filter(it => it.lane === view.lane);
+  const c = counts(laneL);
+  const t = totals(filtered());
+  const lc = k => all.filter(it => it.lane === k).length;
+  $('#who').innerHTML = `<b>${esc(nameOf('a'))}</b> &amp; <b>${esc(nameOf('b'))}</b>`;
+  const titleHTML = S.board.title ? esc(S.board.title) : `${esc(nameOf('a'))} <em>&amp;</em> ${esc(nameOf('b'))}`;
+  document.title = `Vision · ${S.board.title || nameOf('a') + ' & ' + nameOf('b')}`;
+  const sum = all.length ? `${all.length} pin${all.length > 1 ? 's' : ''}: ${lc('travel')} trip${lc('travel') === 1 ? '' : 's'}, ${lc('shop')} thing${lc('shop') === 1 ? '' : 's'} to buy, ${lc('home')} for the home. ${counts(all).both ? `You both want ${counts(all).both}.` : 'Heart what you want; what you both want lands in the middle.'}` : 'Pin trips, things and homes from anywhere on The Watch, Weekender and Finds, or add your own.';
+  const totHTML = view.lane === 'travel'
+    ? `<div><b>${t.trips}</b><span>trip${t.trips === 1 ? '' : 's'} shown</span></div>${t.est ? `<div><b>${moneyK(t.est)}</b><span>estimated, where you set a budget</span></div>` : ''}<div class="bw"><b>${filtered().filter(it => it.ha && it.hb).length}</b><span>you both want</span></div>`
+    : `<div><b>${t.n ? moneyK(t.sum) : '–'}</b><span>${t.n} priced ${t.n === 1 ? 'pin' : 'pins'} shown</span></div><div class="bw"><b>${t.both ? moneyK(t.both) : '–'}</b><span>what you both want</span></div>${view.lane === 'all' ? `<div><b>${t.trips}</b><span>trip${t.trips === 1 ? '' : 's'}</span></div>` : ''}`;
+  const vennName = { a: `only ${nameOf('a')} wants`, b: `only ${nameOf('b')} wants`, both: 'you both want' }[view.venn];
+  return `
+    ${mergeOffer ? `<div class="in"><div class="banner"><p><b>${esc(mergeOffer.from || theirName())} sent their board</b>: ${Object.values(mergeOffer.items || {}).filter(x => !x.del).length} pins. Merge them into yours?</p><button class="btn p sm" data-mergeok>Merge</button><button class="btn sm" data-mergeno>Not now</button></div></div>` : ''}
+    <section class="hero in">
+      <div class="venn-wrap">${vennSVG(c)}</div>
+      <div class="hero-r">
+        <h1>${titleHTML}</h1>
+        <p class="sub">${esc(sum)}</p>
+        <div class="lanes" role="group" aria-label="Lanes">${[['all', 'Everything', IC.all, all.length], ['travel', 'Travel', IC.plane, lc('travel')], ['shop', 'Shopping', IC.bag, lc('shop')], ['home', 'Home', IC.house, lc('home')]].map(([k, n, ic, cnt]) => `<button class="lane-b" type="button" data-lane="${k}" aria-pressed="${view.lane === k}">${ic}${n} <small>${cnt}</small></button>`).join('')}</div>
+        <div class="tot">${totHTML}</div>
+      </div>
+    </section>
+    <div class="ctl in">
+      ${['', 'dream', 'plan', 'done'].map(s => `<button class="chip" type="button" data-st="${s}" aria-pressed="${view.status === s}">${s === '' ? 'Any stage' : s === 'dream' ? 'Dreaming' : s === 'plan' ? 'Planning' : 'Done'}</button>`).join('')}
+      ${view.venn ? `<button class="chip x" type="button" data-venn="">Showing what ${esc(vennName)} ✕</button>` : ''}
+      <span class="sp"></span>
+      <label class="sr" for="sort">Sort</label><select id="sort">${[['new', 'Newest'], ['both', 'Both first'], ['price', 'Price'], ['soon', 'Soonest trip']].map(([k, n]) => `<option value="${k}"${view.sort === k ? ' selected' : ''}>${n}</option>`).join('')}</select>
+    </div>`;
+}
+function render(keep) {
+  if (!S) return renderLanding();
+  document.body.classList.remove('landing');
+  $('#addBtn').hidden = false; $('#fab').hidden = false; $('#pairBtn').hidden = false;
+  const list = filtered();
+  $('#main').innerHTML = `<div id="head">${headHTML()}</div>
+    <section class="in" id="boardSec">${list.length ? '<div class="grid" id="grid"></div>' : emptyHTML(live().length)}</section>
+    <div id="ideasW">${ideasHTML()}</div>`;
+  GRID = list; paintGrid();
+  paintPresence();
+  if (!keep) window.scrollTo(0, 0);
+}
+function soft(id) { // one pin changed: redraw it in place, and the counts
+  const el = id && $(`.card[data-id="${CSS.escape(id)}"]`), it = id && S.items[id];
+  if (!el || !it || it.del || view.venn || view.status || view.sort !== 'new' || !$('#head')) return render(true);
+  el.outerHTML = card(it);
+  $('#head').innerHTML = headHTML();
+  paintPlaceWx();
+}
+function emptyHTML(any) {
+  if (any) return `<div class="empty"><h2>Nothing here with these filters</h2><p>Try another lane or stage.</p><div class="row"><button class="btn" data-clear>Show everything</button></div></div>`;
+  return `<div class="empty"><h2>Your board is ready</h2><p>Pin the trips you want to take, the things you want to buy and the home you want, from Weekender, Finds and The Watch, or add your own. Then connect ${esc(theirName())} so it fills in from both sides.</p>
+    <div class="row"><button class="btn p" data-add="trips">${IC.plane}A trip</button><button class="btn p" data-add="finds">${IC.bag}Something to buy</button><button class="btn p" data-add="homes">${IC.house}A home</button><button class="btn" data-pair>Connect ${esc(theirName())}</button></div></div>`;
+}
+function renderLanding() {
+  document.body.classList.add('landing');
+  $('#addBtn').hidden = true; $('#fab').hidden = true; $('#pairBtn').hidden = true;
+  $('#who').textContent = '';
+  const join = pairLink;
+  $('#main').innerHTML = `<section class="land">
+    <div class="in land-g">
+      <div>
+        <p class="eyebrow">From The Watch · Free · Private</p>
+        <h1>Build your dream life <em>together.</em></h1>
+        <p class="lede">One shared board for the trips you want to take, the things you want to buy and the home you want to make. Pin from The Watch, Weekender and Finds, heart what you want, and see what you both want in the middle. It syncs phone to phone. No app, no account, nothing kept on a server.</p>
+        ${join ? `<form class="form" id="joinForm" style="grid-template-columns:${join.code ? '1fr auto' : '1fr 1fr auto'}">
+            ${join.code ? '' : `<div class="fld"><label for="jc">Your partner’s code</label><input id="jc" name="code" required maxlength="7" placeholder="ABC-234" autocomplete="off" autocapitalize="characters" style="text-transform:uppercase;letter-spacing:.1em"></div>`}
+            <div class="fld"><label for="jn">${join.from ? `Join ${esc(join.from)}’s board. Your name` : 'Your name'}</label><input id="jn" name="me" autocomplete="given-name" required maxlength="30" placeholder="Your first name"></div>
+            <button class="btn p" type="submit">Join the board</button></form>
+            <p class="joinl">${join.code ? `Code ${esc(fmtCode(join.code))}. ` : ''}<button class="lk" type="button" data-unjoin>Start a new board instead</button></p><p class="status bad" id="joinMsg"></p>`
+        : mergeOffer ? `<form class="form" id="startForm"><div class="fld"><label for="sm">Your name</label><input id="sm" name="me" required maxlength="30" autocomplete="given-name"></div><div class="fld"><label for="st">${esc(mergeOffer.from || 'Your partner')}</label><input id="st" name="them" value="${esc(mergeOffer.from || '')}" maxlength="30"></div><button class="btn p" type="submit">Open their board</button></form>`
+        : `<form class="form" id="startForm">
+            <div class="fld"><label for="sm">Your name</label><input id="sm" name="me" required maxlength="30" autocomplete="given-name" placeholder="Brad"></div>
+            <div class="fld"><label for="st">Your partner’s name</label><input id="st" name="them" required maxlength="30" placeholder="Sam"></div>
+            <button class="btn p" type="submit">Start our board</button></form>
+          <p class="joinl">Got a code from your partner? <button class="lk" type="button" data-joincode>Join their board</button></p>`}
+        ${(LS.get(INBOX, []) || []).length ? `<p class="joinl"><b>${(LS.get(INBOX, []) || []).length} pin${(LS.get(INBOX, []) || []).length > 1 ? 's' : ''} waiting</b> from your browsing. They land on the board as soon as it’s set up.</p>` : ''}
+      </div>
+      <div class="land-art" aria-hidden="true">
+        <svg viewBox="0 0 400 344"><circle cx="150" cy="172" r="128" fill="var(--a)" fill-opacity=".18" stroke="var(--a)" stroke-width="1.5"/><circle cx="250" cy="172" r="128" fill="var(--b)" fill-opacity=".18" stroke="var(--b)" stroke-width="1.5"/><path d="M200 61.1A128 128 0 0 1 200 282.9A128 128 0 0 1 200 61.1Z" fill="var(--lens)" fill-opacity=".4"/></svg>
+        <div class="mini" style="left:2%;top:26%"><b>Three days in Paris</b><small><i style="background:var(--a)"></i>Travel · this spring</small></div>
+        <div class="mini" style="left:31%;top:46%;max-width:38%"><b>The Dutch oven</b><small><i style="background:var(--gold)"></i>You both want it</small></div>
+        <div class="mini" style="right:1%;top:20%"><b>4 beds, a barn, 43082</b><small><i style="background:var(--b)"></i>Home · up to $750k</small></div>
+        <div class="mini" style="right:6%;bottom:8%"><b>Down $40</b><small>since you pinned it</small></div>
+      </div>
+    </div>
+    <ul class="feat in"><li><b>No account needed</b><span>Type your two names and you have a board. There’s no sign-up and no password.</span></li>
+      <li><b>Real-time, phone to phone</b><span>Share a six-letter code once. After that, every pin, heart and note shows up on the other phone as it happens.</span></li>
+      <li><b>Private and offline</b><span>The board lives in your two browsers and travels directly between them, encrypted. It works offline and catches up when you reconnect.</span></li></ul>
+    <ol class="how in"><li><b>Add your names</b><span>Start the board on one phone.</span></li><li><b>Share your code</b><span>Your partner scans the QR code or taps your link, and the boards join.</span></li><li><b>Pin together</b><span>Hearts from both of you put a pin in the middle: that’s the plan.</span></li></ol>
+    <section class="faq in"><h2 class="h2" style="margin-bottom:8px">Questions</h2>
+      <details><summary>Is it really free?</summary><p>Yes. There’s nothing to buy and no ads. It’s part of The Watch.</p></details>
+      <details><summary>Do we need to be online at the same time?</summary><p>To sync, both phones need Vision open at once, even for a moment. Each of you can pin and heart offline; the next time you’re both on, the boards catch up with each other. You can also send your whole board as a link from the menu.</p></details>
+      <details><summary>Where is our board kept? Is it private?</summary><p>On your two devices, in the browser. It travels directly between them over an encrypted WebRTC connection; PeerJS’s free matchmaking server only introduces the two devices and never sees the board. Clearing this site’s data in the browser erases it, so export a backup from the menu now and then.</p></details>
+      <details><summary>How do pins from The Watch, Weekender and Finds get here?</summary><p>Tap “Vision” on a product in Finds, a weekend guide or hotel in Weekender, or a home search or travel pick on The Watch. The pin waits in this browser and lands on your board the next time you open Vision.</p></details>
+      <details><summary>Can we use it without a partner?</summary><p>Sure. It’s a good wish list on its own; connect a partner whenever you like.</p></details>
+    </section></section>`;
+}
+function paintPresence() {
+  const b = $('#pairBtn'); if (!b || !S) return;
+  const on = openConns().some(c => c._hello);
+  let cls = 'off', txt = `Connect ${first(other())}`;
+  if (on) { cls = 'on'; txt = `${first(other())} is here`; }
+  else if (S.partner || S.pending) { if (net === 'dialing' || net === 'starting') { cls = 'wait'; txt = 'Connecting…'; } else if (net === 'noserver' || net === 'nolib' || net === 'error') { cls = 'off'; txt = 'Sync off'; } else if (net === 'elsewhere') { cls = 'wait'; txt = 'Synced in other tab'; } else { cls = 'off'; txt = `${first(other())} is away`; } }
+  b.className = 'pill ' + cls; b.querySelector('span').textContent = txt;
+  b.setAttribute('aria-label', on ? `${theirName()} is connected. Open connection settings.` : 'Connect your partner');
+}
+function renderFoot() {
+  $('#foot').innerHTML = `<p>Vision is part of <a href="../news/">The Watch</a>, with <a href="../travel/">Weekender</a> and <a href="../shop/">Finds</a>. Your board lives in your two browsers and travels directly between them over an encrypted WebRTC link; <a href="https://peerjs.com" target="_blank" rel="noopener">PeerJS</a>’s free server only introduces the two devices. Nothing is stored on a server.</p>
+    <p>Prices and stock come from the stores’ own catalogs through Finds (checked every six hours); trips, guides and weather from Weekender and Open-Meteo; home values from Zillow’s public research data through The Watch. Check the store, the airline or the agent before you buy or book.</p>`;
+}
+
+/* ================= sheets ================= */
+let sheetKind = '', sheetId = '', lastFocus = null;
+function openSheet(kind, html) {
+  sheetKind = kind; lastFocus = document.activeElement;
+  const sh = $('#sheet'); sh.innerHTML = html; sh.scrollTop = 0;
+  $('#scrim').classList.add('on'); sh.classList.add('on'); document.body.style.overflow = 'hidden';
+  setTimeout(() => { const f = sh.querySelector('[autofocus]') || sh; f.focus({ preventScroll: true }); }, 60);
+}
+function closeSheet() {
+  if (!sheetKind) return;
+  if (sheetKind === 'ask' && pendingAsk) { try { pendingAsk.c.close(); } catch (e) { /* gone */ } pendingAsk = null; }
+  sheetKind = ''; sheetId = '';
+  $('#scrim').classList.remove('on'); $('#sheet').classList.remove('on'); document.body.style.overflow = '';
+  if (lastFocus && lastFocus.focus) lastFocus.focus({ preventScroll: true });
+}
+const head = (t, extra = '') => `<div class="shh"><h2 id="shT">${t}</h2>${extra}<button class="ic" type="button" data-close aria-label="Close">${IC.x}</button></div>`;
+
+/* ---------- add */
+let addTab = 'finds', findQ = '', findSec = '', placeHits = [], homeQ = '';
+function openAdd(tab) {
+  if (tab) addTab = tab;
+  openSheet('add', head('Pin something') + `<div class="shb">
+    <div class="tabs" role="tablist">${[['finds', 'Finds'], ['trips', 'Trips'], ['homes', 'Homes'], ['own', 'Your own']].map(([k, n]) => `<button role="tab" type="button" data-tab="${k}" aria-selected="${addTab === k}">${n}</button>`).join('')}</div>
+    <div id="addBody"></div></div>`);
+  paintAdd();
+}
+function paintAdd() {
+  const el = $('#addBody'); if (!el) return;
+  $$('[data-tab]').forEach(b => b.setAttribute('aria-selected', String(b.dataset.tab === addTab)));
+  const have = new Set(live().map(it => it.key));
+  if (addTab === 'finds') {
+    if (!D.finds) { el.innerHTML = '<p class="hint">Opening Finds…</p>'; loadLive().then(() => { if (sheetKind === 'add') paintAdd(); }); return; }
+    const secs = D.finds.sections.filter(s => s.n);
+    const ws = findQ.toLowerCase().split(/\s+/).filter(Boolean);
+    let l = D.finds.items.filter(x => x.im);
+    if (findSec === 'deals') l = l.filter(x => x.was && x.p).sort((a, b) => (b.was - b.p) / b.was - (a.was - a.p) / a.was);
+    else if (findSec === 'picks') l = l.filter(x => x.k === 'pick');
+    else if (findSec) l = l.filter(x => x.s === findSec);
+    if (ws.length) l = l.filter(x => { const h = `${x.n} ${x.br} ${x.st} ${(x.tg || []).join(' ')} ${x.y || ''}`.toLowerCase(); return ws.every(w => h.includes(w)); });
+    if (!ws.length && !findSec) l = l.filter(x => x.k === 'pick').concat(l.filter(x => x.k !== 'pick' && x.was));
+    el.innerHTML = `<div class="srch"><label class="sr" for="fq">Search Finds</label><input id="fq" type="search" placeholder="Search 600 products: Dutch oven, cashmere, espresso…" value="${esc(findQ)}" autocomplete="off" enterkeyhint="search"></div>
+      <div class="chips">${[['', 'Picks & deals'], ['deals', 'Deals'], ...secs.map(s => [s.id, s.title])].map(([k, n]) => `<button class="chip" type="button" data-fsec="${esc(k)}" aria-pressed="${findSec === k}">${esc(n)}</button>`).join('')}</div>
+      <div class="tiles">${l.slice(0, 48).map(x => { const k = 'finds:' + x.i, on = have.has(k), off = x.was && x.p ? Math.round((1 - x.p / x.was) * 100) : 0; return `<div class="tile"><div class="tp${off >= 10 ? ' sale' : ''}" data-off="−${off}%"><img src="${esc(x.im)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"></div>
+        <button class="add${on ? ' pinned' : ''}" type="button" data-fpin="${esc(x.i)}" aria-label="${on ? 'On the board' : 'Pin ' + esc(x.n)}">${on ? '✓' : '+'}</button>
+        <div class="tt"><b>${esc(x.n.length > 60 ? x.n.slice(0, 58) + '…' : x.n)}</b><small>${esc(x.br || x.st)} · ${money(x.p, x.c)}${x.was ? ' <s>' + money(x.was, x.c) + '</s>' : ''}</small></div></div>`; }).join('') || '<p class="hint">Nothing matches. Try another word, or add it as your own.</p>'}</div>
+      <p class="hint">Products and live prices from <a href="../shop/">Finds</a>. Things on sale are marked.</p>`;
+    const fq = $('#fq'); let t = 0;
+    fq.addEventListener('input', () => { clearTimeout(t); t = setTimeout(() => { findQ = fq.value.trim(); const pos = fq.selectionStart; paintAdd(); const n = $('#fq'); n.focus(); n.setSelectionRange(pos, pos); }, 220); });
+  } else if (addTab === 'trips') {
+    if (!D.cities.length) { el.innerHTML = '<p class="hint">Opening Weekender…</p>'; loadLive().then(() => { if (sheetKind === 'add') paintAdd(); }); return; }
+    const w = wkWeekend();
+    el.innerHTML = `<div class="stack">
+      <div class="box" style="margin:0"><h3>Somewhere else</h3><p>Type a city, an island, a national park.</p>
+        <div class="srch" style="margin-top:10px"><label class="sr" for="pq">Destination</label><input id="pq" type="search" placeholder="Kyoto, Lisbon, Turks and Caicos…" autocomplete="off"></div><div class="res" id="pres"></div>
+        <div class="g2" style="margin-top:6px"><div class="fld"><label for="pa">From</label><input id="pa" type="date"></div><div class="fld"><label for="pb">To</label><input id="pb" type="date"></div></div>
+        <div class="fld" style="margin-top:8px"><label for="pc">Budget for the two of you (optional)</label><input id="pc" inputmode="numeric" placeholder="$3,000"></div>
+        <p class="hint">Leave the dates blank for “someday”. With dates in the next two weeks, the card shows the forecast.</p></div>
+      <div><h3 style="margin:6px 0 2px;font:400 26px/1.1 var(--serif)">Weekender’s eight, ${w ? 'this weekend' : 'any weekend'}</h3><p class="hint" style="margin:0 0 10px">${w ? `Planned day by day for ${range(w.weekend, addDays(w.weekend, 2))}.` : ''} The card links the guide, flights and hotels with the dates filled in.</p>
+      <div class="tiles">${D.cities.map(c => { const r = wkRow(c.id), on = have.has('weekender:' + c.id); return `<div class="tile"><div class="tp" style="aspect-ratio:4/3">${cityImg(c, 500) ? `<img src="${esc(cityImg(c, 500))}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">` : ''}<span class="gt">${esc(c.name)}</span></div>
+        <button class="add${on ? ' pinned' : ''}" type="button" data-cpin="${esc(c.id)}" aria-label="${on ? 'On the board' : 'Pin ' + esc(c.name)}">${on ? '✓' : '+'}</button><div class="tt"><small>${esc(r ? r.title : c.line)}</small></div></div>`; }).join('')}</div></div></div>`;
+    const pq = $('#pq'); let t = 0;
+    pq.addEventListener('input', () => { clearTimeout(t); const v = pq.value.trim(); t = setTimeout(() => geoSearch(v), 280); });
+    const pa = $('#pa'), pb = $('#pb'); pa.min = pb.min = isoDay(); pa.addEventListener('change', () => { if (!pb.value || pb.value < pa.value) pb.value = addDays(pa.value, 3); pb.min = pa.value; });
+  } else if (addTab === 'homes') {
+    const f = parseHome(homeQ);
+    if (f.zip) loadZips().then(() => { if (sheetKind === 'add' && addTab === 'homes') { const m = $('#hmk'); if (m) m.innerHTML = homeMk(parseHome(homeQ)); } });
+    el.innerHTML = `<div class="stack"><div class="box" style="margin:0"><h3>Describe the home</h3><p>The way you’d say it: “4BR in 43215 under 750k”, “3 bed condo in Columbus, OH between 250k and 400k”, “house with a barn in 43082”.</p>
+      <div class="srch" style="margin-top:10px"><label class="sr" for="hq">Home search</label><input id="hq" type="search" value="${esc(homeQ)}" placeholder="4BR in 43215 under 750k" autocomplete="off"></div>
+      <div id="hprev">${homePrev(f)}</div></div>
+      <div class="box" style="margin:0"><h3>Or a listing you found</h3><p>Paste a Zillow, Redfin or Realtor.com link.</p>
+        <div class="stack" style="margin-top:10px"><div class="fld"><label for="lu">Link</label><input id="lu" type="url" placeholder="https://www.zillow.com/homedetails/…" inputmode="url"></div>
+        <div class="g2"><div class="fld"><label for="lt">What is it?</label><input id="lt" placeholder="The farmhouse on Miller Rd"></div><div class="fld"><label for="lp">Price</label><input id="lp" inputmode="numeric" placeholder="$689,000"></div></div>
+        <div class="fld"><label for="li">Photo link (optional)</label><input id="li" type="url" placeholder="Right-click the listing photo, copy its address"></div>
+        <button class="btn p" type="button" data-addlisting>Pin the listing</button></div></div>
+      <p class="hint">Home values from Zillow’s public research data (Zillow Home Value Index), through <a href="../news/#/s/home">The Watch’s Home desk</a>. Finds’ Home, Remodel and Kitchen products are under the Finds tab.</p></div>`;
+    const hq = $('#hq'); let t = 0;
+    hq.addEventListener('input', () => { clearTimeout(t); t = setTimeout(() => { homeQ = hq.value.trim(); const f2 = parseHome(homeQ); $('#hprev').innerHTML = homePrev(f2); if (f2.zip) loadZips().then(() => { const m = $('#hmk'); if (m) m.innerHTML = homeMk(parseHome(homeQ)); }); }, 200); });
+  } else {
+    el.innerHTML = `<div class="stack">
+      <div class="seg" role="group" aria-label="Lane" id="ownLane">${Object.entries(LANES).map(([k, l], i) => `<button type="button" data-ownlane="${k}" aria-pressed="${(ownLane || 'shop') === k}">${l.name}</button>`).join('')}</div>
+      <div class="fld"><label for="ot">Title</label><input id="ot" maxlength="140" placeholder="A weekend in Asheville, the green sofa, a herb garden…" autofocus></div>
+      <div class="fld"><label for="ou">Link (optional)</label><input id="ou" type="url" inputmode="url" placeholder="https://"></div>
+      <div class="g2"><div class="fld"><label for="op">Price or budget (optional)</label><input id="op" inputmode="numeric" placeholder="$250"></div>
+        <div class="fld"><span class="lb">Photo (optional)</span><input id="of" type="file" accept="image/*" style="padding:10px"></div></div>
+      <div class="fld"><label for="oi">Or a photo link</label><input id="oi" type="url" placeholder="https://…jpg"></div>
+      <div class="fld"><label for="on">Note</label><textarea id="on" maxlength="600" placeholder="Why it’s on the board"></textarea></div>
+      <div class="fld"><span class="lb">Card color (for notes without a photo)</span><div class="swatches">${NOTE_COLORS.map(c => `<button type="button" data-swatch="${c}" aria-pressed="${ownColor === c}" style="background:${c || 'var(--raise)'}" aria-label="${c ? 'Color' : 'Plain'}"></button>`).join('')}</div></div>
+      <button class="btn p" type="button" data-addown>Pin it</button></div>`;
+  }
+}
+let ownLane = 'shop', ownColor = '';
+function homePrev(f) {
+  const ch = homeChips(f);
+  if (!ch.length) return '<p class="hint">Add a ZIP code or a city and state, and a budget or bedrooms.</p>';
+  const ok = f.zip || f.city;
+  return `<div class="tags">${ch.map(c => `<span class="tag">${esc(c)}</span>`).join('')}</div><div id="hmk">${homeMk(f)}</div>
+    ${ok ? `<div class="row" style="margin-top:10px"><button class="btn p" type="button" data-addhome>Pin this search</button>${homeLinks(f).map(([n, u]) => `<a class="btn sm" href="${esc(u)}" target="_blank" rel="noopener">${esc(n)} ${IC.out}</a>`).join('')}</div>` : '<p class="hint">Add where: a ZIP code, or a city and state.</p>'}`;
+}
+function homeMk(f) {
+  if (!f.zip) return '';
+  if (!D.zips) return '<div class="mk"><p>Reading the market for ' + esc(f.zip) + '…</p></div>';
+  const m = zipMarket(f);
+  if (!m || m.none) return `<div class="mk"><p>Zillow’s research data has no home values for ZIP ${esc(f.zip)}.</p></div>`;
+  return `<div class="mk"><h4>${esc(m.city)}, ${esc(m.st)} ${esc(f.zip)}</h4><p>Typical ${m.beds ? m.beds + '-bed ' : ''}home: <b>${money(m.v)}</b>${m.ch != null ? `, ${m.ch > 0 ? '+' : ''}${m.ch}% in a year` : ''}</p>${m.rent ? `<p>Typical rent: ${money(m.rent)} a month</p>` : ''}${f.max ? `<p>${m.v <= f.max ? 'The typical home there is within your budget.' : 'The typical home there is ' + moneyK(m.v - f.max) + ' over your budget.'}</p>` : ''}<p class="hint">Zillow Home Value Index, ${esc(m.asOf || '')}.</p></div>`;
+}
+let geoT = 0;
+async function geoSearch(q) {
+  const el = $('#pres'); if (!el) return;
+  if (q.length < 2) { el.innerHTML = ''; placeHits = []; return; }
+  const my = ++geoT;
+  try {
+    const r = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(q)}&count=6&language=en&format=json`);
+    const d = r.ok ? await r.json() : {};
+    if (my !== geoT) return;
+    placeHits = (d.results || []);
+    el.innerHTML = placeHits.length ? placeHits.map((p, i) => `<button type="button" data-place="${i}">${esc(p.name)}<small>${esc([p.admin1, p.country].filter(Boolean).join(', '))}</small></button>`).join('') : `<button type="button" data-place="-1">Pin “${esc(q)}” as it is</button>`;
+  } catch (e) { placeHits = []; el.innerHTML = `<button type="button" data-place="-1">Pin “${esc(q)}” as it is</button>`; }
+}
+async function wikiThumb(name) {
+  try { const r = await fetch('https://en.wikipedia.org/api/rest_v1/page/summary/' + encodeURIComponent(name.replace(/ /g, '_'))); if (!r.ok) return null; const j = await r.json(); return j && j.type !== 'disambiguation' && (j.originalimage || j.thumbnail) ? { src: (j.thumbnail && j.thumbnail.source || j.originalimage.source).replace(/\/\d+px-/, '/960px-'), w: (j.originalimage || j.thumbnail).width, h: (j.originalimage || j.thumbnail).height, page: j.content_urls && j.content_urls.desktop && j.content_urls.desktop.page } : null; } catch (e) { return null; }
+}
+const num = s => { const v = parseFloat(String(s || '').replace(/[^\d.]/g, '')); if (isNaN(v)) return null; return /k\b/i.test(s) ? v * 1e3 : /m\b/i.test(s) ? v * 1e6 : v; };
+async function addPlace(i) {
+  const q = ($('#pq') || {}).value || '';
+  const p = i >= 0 ? placeHits[i] : null;
+  const a = ($('#pa') || {}).value, b = ($('#pb') || {}).value, cost = num(($('#pc') || {}).value);
+  const name = p ? p.name : q.trim(); if (!name) return;
+  const known = D.cities.find(c => c.name.toLowerCase() === name.toLowerCase());
+  if (known) { pinIt(Object.assign(tripPin(known, null), { key: `weekender:${known.id}`, dates: a ? { from: a, to: b || addDays(a, 3) } : null, title: known.name, cost })); return; }
+  const it = pinIt({ key: 'place:' + (p ? p.id || (p.latitude + ',' + p.longitude) : name.toLowerCase()), lane: 'travel', kind: 'trip', title: name, place: p ? { name: p.name, admin: p.admin1 || '', country: p.country || '', lat: p.latitude, lon: p.longitude, tz: p.timezone || '' } : { name }, dates: a ? { from: a, to: b || addDays(a, 3) } : null, cost });
+  const th = await wikiThumb(p ? p.name : name);
+  if (th && it && !it.img) { setF(it, { img: th.src, ar: th.w && th.h ? +(th.h / th.w).toFixed(3) : .7, links: [['Wikipedia', th.page]].filter(l => l[1]) }); save(); broadcast([it]); render(true); }
+}
+function pinIt(p, quiet) {
+  const it = fromPin(Object.assign({ at: Date.now() }, p));
+  if (!it) return null;
+  save(); broadcast([it]); render(true);
+  if (!quiet) toast(`Pinned: ${it.title}`, () => { setF(it, { del: true }); save(); broadcast([it]); render(true); if (sheetKind === 'add') paintAdd(); });
+  if (sheetKind === 'add') paintAdd();
+  return it;
+}
+function shrink(file) { // a photo from the phone, made small enough to sync and to keep
+  return new Promise((res, rej) => {
+    const r = new FileReader();
+    r.onload = () => { const im = new Image(); im.onload = () => { const s = Math.min(1, 900 / Math.max(im.width, im.height)); const c = document.createElement('canvas'); c.width = Math.round(im.width * s); c.height = Math.round(im.height * s); c.getContext('2d').drawImage(im, 0, 0, c.width, c.height); res({ src: c.toDataURL('image/jpeg', .78), ar: +(c.height / c.width).toFixed(3) }); }; im.onerror = rej; im.src = r.result; };
+    r.onerror = rej; r.readAsDataURL(file);
+  });
+}
+
+/* ---------- one pin, opened */
+function openDetail(id) {
+  const it = S.items[id]; if (!it) return;
+  sheetId = id;
+  const img = (okImg(it.img) && it.img) || (it.city && D.cby[it.city] ? cityImg(D.cby[it.city], 1280) : '');
+  openSheet('detail', head(esc(LANES[it.lane].name)) + `<div class="shb detail">
+    ${img ? `<div class="dimg"><img src="${esc(img)}" alt="" referrerpolicy="no-referrer" onerror="this.parentNode.remove()"></div>${creditHTML(it.credit || (!okImg(it.img) && it.city ? cityCredit(D.cby[it.city]) : null))}` : ''}
+    <div class="stack">
+      <div class="fld"><label for="dt">Title</label><input id="dt" value="${esc(it.title)}" maxlength="160"></div>
+      ${metaHTML(it)}<div class="live">${liveHTML(it)}</div>${linksHTML(it)}
+      <div class="row"><button class="hrt" type="button" data-heart="${esc(it.id)}" aria-pressed="${!!it['h' + S.me]}">${it['h' + S.me] ? IC.heartF : IC.heart}<span>${it['h' + S.me] ? 'You want it' : 'Heart it'}</span></button>
+        <span class="pd${it['h' + other()] ? ' on' : ''}"><i></i>${esc(theirName())} ${it['h' + other()] ? 'wants it too' : 'hasn’t hearted it'}</span></div>
+      <div class="fld"><span class="lb">Where it stands</span><div class="seg" role="group">${STATUS.map(s => `<button type="button" data-setst="${s}" aria-pressed="${(it.status || 'dream') === s}">${s === 'dream' ? 'Dreaming' : s === 'plan' ? 'Planning' : LANES[it.lane].done}</button>`).join('')}</div></div>
+      <div class="fld"><span class="lb">Lane</span><div class="seg" role="group">${Object.entries(LANES).map(([k, l]) => `<button type="button" data-setlane="${k}" aria-pressed="${it.lane === k}">${l.name}</button>`).join('')}</div></div>
+      ${it.lane === 'travel' ? `<div class="g2"><div class="fld"><label for="da">From</label><input id="da" type="date" value="${esc(it.dates && it.dates.from || '')}"></div><div class="fld"><label for="db">To</label><input id="db" type="date" value="${esc(it.dates && it.dates.to || '')}"></div></div>` : ''}
+      ${it.kind !== 'product' ? `<div class="fld"><label for="dc">${it.lane === 'travel' ? 'Budget for the trip' : 'Price or budget'}</label><input id="dc" inputmode="numeric" value="${it.cost != null ? esc(it.cost) : it.price != null ? esc(it.price) : ''}" placeholder="$"></div>` : ''}
+      <div class="fld"><label for="dn">Note</label><textarea id="dn" maxlength="600" placeholder="Why it’s on the board, what to check, whose turn it is…">${esc(it.note || '')}</textarea></div>
+      <div class="row"><button class="btn p" type="button" data-savedetail>Save</button><button class="btn danger" type="button" data-del="${esc(it.id)}">Take it off the board</button></div>
+      <p class="hint">Pinned by ${esc(nameOf(it.by || S.me))}, ${esc(new Date(it.at).toLocaleDateString('en-US', { month: 'long', day: 'numeric' }))}${it.site ? `, from ${esc(it.site)}` : ''}.</p>
+    </div></div>`);
+}
+function saveDetail() {
+  const it = S.items[sheetId]; if (!it) return;
+  const f = {};
+  const t = $('#dt').value.trim(); if (t && t !== it.title) f.title = t.slice(0, 160);
+  const n = $('#dn').value.trim(); if (n !== (it.note || '')) f.note = n.slice(0, 600);
+  if ($('#da')) { const a = $('#da').value, b = $('#db').value; const nd = a ? { from: a, to: b && b >= a ? b : addDays(a, 3) } : null; if (JSON.stringify(nd) !== JSON.stringify(it.dates || null)) f.dates = nd; }
+  if ($('#dc')) { const v = num($('#dc').value); if (v !== (it.cost != null ? it.cost : it.price != null && it.kind !== 'product' ? it.price : null)) f.cost = v; }
+  if (Object.keys(f).length) { setF(it, f); save(); broadcast([it]); }
+  closeSheet(); render(true);
+}
+
+/* ---------- connect your partner */
+function openPair() {
+  const link = APP + '#pair=' + S.dev + '&from=' + encodeURIComponent(myName());
+  const on = openConns().some(c => c._hello);
+  openSheet('pair', head(on ? `Connected with ${esc(theirName())}` : `Connect ${esc(theirName())}`) + `<div class="shb">
+    ${on ? `<div class="box"><h3>● Live</h3><p>Every pin, heart and note you make shows up on ${esc(theirName())}’s board as it happens, and theirs on yours.</p></div>` : ''}
+    <div class="box"><h3>${S.partner ? 'Your code' : `Give ${esc(theirName())} your code`}</h3><p>${S.partner ? `${esc(theirName())}’s device knows this code and reconnects by itself whenever you both have Vision open.` : `On ${esc(theirName())}’s phone: scan this, or open the link you send. Their board and yours become one.`}</p>
+      <p class="code">${esc(fmtCode(S.dev))}</p><div class="qr" id="qr" aria-label="QR code for your Vision link"></div>
+      <div class="row" style="justify-content:center"><button class="btn p sm" type="button" data-sharelink>Send the link</button><button class="btn sm" type="button" data-copylink>Copy link</button></div>
+      <p class="status" id="pairStatus" aria-live="polite" style="text-align:center"></p></div>
+    <div class="box"${S.partner ? ' hidden' : ''}><h3>Or enter ${esc(theirName())}’s code</h3><p>If they started a board on their phone first.</p>
+      <div class="srch" style="margin-top:10px"><label class="sr" for="pcode">Partner’s code</label><input id="pcode" placeholder="ABC-123" autocapitalize="characters" autocomplete="off" maxlength="7" style="text-transform:uppercase;letter-spacing:.12em"><button class="btn p" type="button" data-dial>Connect</button></div></div>
+    <div class="box"><h3>No connection? Send the board as a link</h3><p>For when you can’t both be online: the whole board (without photos you uploaded) fits in a link. When ${esc(theirName())} opens it, Vision merges it into theirs.</p>
+      <div class="row" style="margin-top:10px"><button class="btn sm" type="button" data-sendboard>Send my board</button><button class="btn sm" type="button" data-export>Save a backup file</button><label class="btn sm" style="cursor:pointer">Open a backup<input type="file" accept="application/json,.json" data-import hidden></label></div></div>
+    ${S.partner ? `<p class="hint">Paired with device ${esc(fmtCode(S.partner.code))}. <button class="lk" type="button" data-forget>Forget it</button></p>` : ''}
+  </div>`);
+  paintPairStatus();
+  const draw = () => { const q = $('#qr'); if (!q) return; if (window.qrcode) { const qr = window.qrcode(0, 'M'); qr.addData(link); qr.make(); q.innerHTML = qr.createSvgTag({ cellSize: 4, margin: 0, scalable: true }); } else q.innerHTML = '<p class="hint" style="text-align:center;padding-top:70px">Send the link instead.</p>'; };
+  if (window.qrcode) draw(); else setTimeout(draw, 900);
+  const pc = $('#pcode'); pc.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); dialFromInput(); } });
+  pc.addEventListener('input', () => { const c = cleanCode(pc.value).slice(0, 6); const v = c.length > 3 ? c.slice(0, 3) + '-' + c.slice(3) : c; if (pc.value !== v) pc.value = v; });
+}
+function paintPairStatus() {
+  const st = $('#pairStatus'); if (!st) return;
+  const on = openConns().some(c => c._hello);
+  st.className = 'status' + (on ? ' ok' : netMsg && net !== 'dialing' ? ' bad' : '');
+  st.textContent = on ? `Connected with ${theirName()}.` : netMsg || (S.pending ? `Connecting to ${theirName()}’s board (code ${fmtCode(S.pending)})…` : net === 'dialing' ? 'Connecting…' : '');
+}
+function dialFromInput() {
+  const c = cleanCode($('#pcode').value);
+  if (!okCode(c)) { netMsg = 'That code doesn’t look right: six letters and numbers, like ABC-234.'; paintPairStatus(); return; }
+  if (c === S.dev) { netMsg = 'That’s your own code. Enter the one on your partner’s screen.'; paintPairStatus(); return; }
+  if (!S.partner || S.partner.code !== c) { S.joined = true; S.pending = c; }
+  wantCode = c; netMsg = ''; save(true);
+  if (!peer) startPeer(); else dial(c);
+  paintPairStatus();
+}
+async function shareLink(url, text) {
+  if (navigator.share) { try { await navigator.share({ title: 'Vision', text, url }); return; } catch (e) { if (e && e.name === 'AbortError') return; } }
+  try { await navigator.clipboard.writeText(url); toast('Link copied. Paste it into a message.'); } catch (e) { prompt('Copy this link:', url); }
+}
+
+/* ---------- menu */
+function openMenu() {
+  openSheet('menu', head('Vision') + `<div class="shb"><nav class="menu-l">
+    ${S ? `<button type="button" data-names>Names and board title<small>${esc(nameOf('a'))} &amp; ${esc(nameOf('b'))}. You are ${esc(myName())}.</small></button>
+    <button type="button" data-pair>Connect ${esc(theirName())}<small>Your code, the QR code, or send the board as a link</small></button>
+    <button type="button" data-export>Save a backup<small>The whole board as a file, photos included</small></button>
+    <label style="display:flex;flex-direction:column;gap:1px;padding:12px 4px;border-bottom:1px solid var(--rule);font-weight:600;font-size:16px;cursor:pointer">Open a backup<small style="font-weight:400;color:var(--ink3);font-size:13.5px">Merges a board file into this one</small><input type="file" accept="application/json,.json" data-import hidden></label>` : ''}
+    <button type="button" data-theme>Appearance<small>${({ light: 'Light', dark: 'Dark' })[LS.get(THEME, '')] || 'Matches your device'}</small></button>
+    <button type="button" data-saveapp>Save Vision as a file<small>One HTML file that opens in any browser, even offline. Pins from The Watch only reach the copy here, on this site.</small></button>
+    <a href="../news/">The Watch<small>The news, six times a day</small></a>
+    <a href="../travel/">Weekender<small>Three perfect days, every weekend</small></a>
+    <a href="../shop/">Finds<small>Real products, priced live</small></a>
+    ${S ? `<button type="button" data-reset class="danger">Start over on this device<small>Clears this device’s copy of the board. ${esc(theirName())}’s copy stays.</small></button>` : ''}
+  </nav></div>`);
+}
+function openNames() {
+  openSheet('names', head('Names') + `<div class="shb"><div class="stack">
+    <div class="fld"><label for="na">${S.me === 'a' ? 'You' : 'Partner'}</label><input id="na" value="${esc(S.board.names.a)}" maxlength="30"></div>
+    <div class="fld"><label for="nb">${S.me === 'b' ? 'You' : 'Partner'}</label><input id="nb" value="${esc(S.board.names.b)}" maxlength="30"></div>
+    <div class="fld"><label for="ntt">Board title</label><input id="ntt" value="${esc(S.board.title)}" maxlength="60" placeholder="${esc(nameOf('a'))} & ${esc(nameOf('b'))}"></div>
+    <button class="btn p" type="button" data-savenames>Save</button></div></div>`);
+}
+async function saveApp() {
+  try {
+    const r = await fetch(location.href.split('#')[0], { cache: 'no-cache' }); const html = await r.text();
+    const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([html], { type: 'text/html' })); a.download = 'vision.html'; document.body.append(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1000);
+  } catch (e) { toast('Couldn’t save the file here. Use your browser’s Save Page instead.'); }
+}
+function exportBoard() {
+  const data = JSON.stringify({ v: 1, kind: 'vision-board', from: myName(), me: S.me, board: S.board, items: S.items, saved: new Date().toISOString() });
+  const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([data], { type: 'application/json' })); a.download = `vision-${(S.board.title || nameOf('a') + '-' + nameOf('b')).toLowerCase().replace(/[^a-z0-9]+/g, '-')}-${isoDay()}.json`; document.body.append(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1000);
+}
+function importBoard(file) {
+  const r = new FileReader();
+  r.onload = () => { try { const p = JSON.parse(r.result); if (!p || !p.items) throw 0; const n = mergePacked(p); closeSheet(); render(true); toast(n ? `${n} pins merged in` : 'Nothing new in that file'); } catch (e) { toast('That file isn’t a Vision board.'); } };
+  r.readAsText(file);
+}
+
+/* ================= events ================= */
+let toastT = 0;
+function toast(msg, undo, link) {
+  const t = $('#toast');
+  t.innerHTML = `<span>${esc(msg)}</span>${undo ? '<button type="button" id="undo">Undo</button>' : ''}${link ? `<a href="${esc(link[1])}">${esc(link[0])}</a>` : ''}`;
+  if (undo) $('#undo').onclick = () => { undo(); t.classList.remove('on'); };
+  t.classList.add('on'); clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('on'), undo ? 6000 : 3000);
+}
+function heart(id) {
+  const it = S.items[id]; if (!it) return;
+  const k = 'h' + S.me, on = !it[k];
+  setF(it, { [k]: on }); save(); broadcast([it]);
+  if (on && it['h' + other()]) toast(`You both want ${it.title}`);
+  if (sheetKind === 'detail') openDetail(id);
+  soft(id);
+}
+function cycleStatus(id) { const it = S.items[id]; if (!it) return; const s = STATUS[(STATUS.indexOf(it.status || 'dream') + 1) % 3]; setF(it, { status: s }); save(); broadcast([it]); soft(id); }
+function del(id) {
+  const it = S.items[id]; if (!it) return;
+  setF(it, { del: true }); save(); broadcast([it]); closeSheet(); render(true);
+  toast('Taken off the board', () => { setF(it, { del: false }); save(); broadcast([it]); render(true); });
+}
+document.addEventListener('click', async e => {
+  const a = e.target.closest('button,a,[data-venn]'); if (!a) return;
+  const d = a.dataset;
+  if (d.close != null) { closeSheet(); return; }
+  if (d.venn != null) { view.venn = view.venn === d.venn ? '' : d.venn; keepView(); render(true); return; }
+  if (d.lane) { view.lane = d.lane; keepView(); render(true); return; }
+  if (d.st != null) { view.status = d.st; keepView(); render(true); return; }
+  if (d.clear != null) { view = { lane: 'all', venn: '', status: '', sort: view.sort }; keepView(); render(true); return; }
+  if (d.open) { openDetail(d.open); return; }
+  if (d.heart) { heart(d.heart); return; }
+  if (d.status) { cycleStatus(d.status); return; }
+  if (d.del) { del(d.del); return; }
+  if (d.add) { openAdd(d.add); return; }
+  if (d.tab) { addTab = d.tab; paintAdd(); return; }
+  if (d.fsec != null) { findSec = d.fsec; paintAdd(); return; }
+  if (d.fpin) { const x = D.fby.get(d.fpin); if (!x) return; const k = 'finds:' + x.i; const ex = live().find(it => it.key === k); if (ex) { setF(ex, { del: true }); save(); broadcast([ex]); render(true); paintAdd(); toast('Taken off the board'); } else pinIt(findsPin(x)); return; }
+  if (d.cpin) { const c = D.cby[d.cpin]; if (!c) return; const ex = live().find(it => it.key === 'weekender:' + c.id); if (ex) { setF(ex, { del: true }); save(); broadcast([ex]); render(true); paintAdd(); toast('Taken off the board'); } else { const a = ($('#pa') || {}).value, b = ($('#pb') || {}).value, cost = num(($('#pc') || {}).value); pinIt(Object.assign(tripPin(c, null), { dates: a ? { from: a, to: b || addDays(a, 3) } : null, cost })); } return; }
+  if (d.place != null) { addPlace(+d.place); return; }
+  if (d.addhome != null) { const f = parseHome(homeQ); if (!f.zip && !f.city) return; loadZips().then(() => paintLive()); pinIt({ key: 'home:' + JSON.stringify(f), lane: 'home', kind: 'homesearch', title: homeTitle(f, homeQ), f, note: '', site: '' }); return; }
+  if (d.addlisting != null) { const u = safeUrl($('#lu').value.trim()); const t = $('#lt').value.trim() || (u ? 'A home on ' + host(u) : ''); if (!t) { $('#lu').focus(); return; } pinIt({ key: u ? 'url:' + u : '', lane: 'home', kind: 'listing', title: t, url: u, price: num($('#lp').value), img: safeUrl($('#li').value.trim()) }); ['#lu', '#lt', '#lp', '#li'].forEach(s => { const x = $(s); if (x) x.value = ''; }); return; }
+  if (d.ownlane) { ownLane = d.ownlane; $$('[data-ownlane]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.ownlane === ownLane))); return; }
+  if (d.swatch != null) { ownColor = d.swatch; $$('[data-swatch]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.swatch === ownColor))); return; }
+  if (d.addown != null) {
+    const t = $('#ot').value.trim(); if (!t) { $('#ot').focus(); return; }
+    const u = safeUrl($('#ou').value.trim()), f = $('#of').files && $('#of').files[0];
+    let img = safeUrl($('#oi').value.trim()), ar = null;
+    if (f) { try { const s = await shrink(f); img = s.src; ar = s.ar; } catch (er) { toast('That photo couldn’t be read.'); } }
+    const price = num($('#op').value);
+    const it = pinIt({ key: '', lane: ownLane, kind: img || u ? 'link' : 'note', title: t, url: u, img, ar, note: $('#on').value.trim(), [ownLane === 'travel' ? 'cost' : 'price']: price });
+    if (it && ownColor && !img) { setF(it, { color: ownColor }); save(); broadcast([it]); render(true); }
+    ownColor = '';
+    closeSheet(); return;
+  }
+  if (d.idea != null) { const x = IDEAS[+d.idea]; if (!x) return; if (x.pinned) { toast('Already on the board'); return; } pinIt(x.pin); return; }
+  if (d.setst) { const it = S.items[sheetId]; if (it) { setF(it, { status: d.setst }); save(); broadcast([it]); openDetail(sheetId); render(true); } return; }
+  if (d.setlane) { const it = S.items[sheetId]; if (it) { setF(it, { lane: d.setlane }); save(); broadcast([it]); openDetail(sheetId); render(true); } return; }
+  if (d.savedetail != null) { saveDetail(); return; }
+  if (d.pair != null || a.id === 'pairBtn') { openPair(); return; }
+  if (d.dial != null) { dialFromInput(); return; }
+  if (d.sharelink != null) { shareLink(APP + '#pair=' + S.dev + '&from=' + encodeURIComponent(myName()), `Join our Vision board. My code is ${fmtCode(S.dev)}.`); return; }
+  if (d.copylink != null) { try { await navigator.clipboard.writeText(APP + '#pair=' + S.dev + '&from=' + encodeURIComponent(myName())); toast('Link copied'); } catch (er) { prompt('Copy this link:', APP + '#pair=' + S.dev); } return; }
+  if (d.sendboard != null) { const p = await packBoard(); shareLink(APP + '#merge=' + p, `${myName()}’s Vision board`); return; }
+  if (d.export != null) { exportBoard(); return; }
+  if (d.forget != null) { S.partner = null; save(true); for (const c of conns) try { c.close(); } catch (er) { /* gone */ } conns.clear(); setNet(peer ? 'ready' : 'idle'); openPair(); return; }
+  if (d.accept != null) { const p = pendingAsk; pendingAsk = null; if (p) { closeSheet(); acceptHello(p.c, p.d, false); } return; }
+  if (d.reject != null) { closeSheet(); return; }
+  if (d.mergeok != null) { const n = mergePacked(mergeOffer); mergeOffer = null; render(true); toast(n ? `${n} pins merged in` : 'You already had all of those'); return; }
+  if (d.mergeno != null) { mergeOffer = null; render(true); return; }
+  if (d.names != null) { openNames(); return; }
+  if (d.savenames != null) { const na = $('#na').value.trim(), nb = $('#nb').value.trim(), tt = $('#ntt').value.trim(); if (na !== S.board.names.a) setName('a', na); if (nb !== S.board.names.b) setName('b', nb); if (tt !== S.board.title) { S.board.title = tt.slice(0, 60); S.board._t.title = stamp(); } save(true); for (const c of openConns()) if (c._hello) send(c, { t: 'board', board: S.board }); closeSheet(); render(true); return; }
+  if (d.theme != null) { const cur = LS.get(THEME, ''); const nx = cur === '' ? 'light' : cur === 'light' ? 'dark' : ''; if (nx) LS.set(THEME, nx); else LS.del(THEME); applyTheme(); openMenu(); return; }
+  if (d.saveapp != null) { saveApp(); return; }
+  if (d.reset != null) { if (!confirm('Clear this device’s copy of the board? Your partner’s copy stays, and you can reconnect to get it back.')) return; LS.del(KEY); location.hash = ''; location.reload(); return; }
+  if (d.joincode != null) { pairLink = { code: '', from: '' }; renderLanding(); const c = $('#jc'); if (c) c.focus(); return; }
+  if (d.unjoin != null) { pairLink = null; history.replaceState(null, '', location.pathname + location.search); renderLanding(); return; }
+  if (a.id === 'addBtn' || a.id === 'fab') { openAdd(); return; }
+  if (a.id === 'menuBtn') { openMenu(); return; }
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && sheetKind) closeSheet();
+  if ((e.key === 'Enter' || e.key === ' ') && e.target.matches && e.target.matches('.hit')) { e.preventDefault(); e.target.dispatchEvent(new MouseEvent('click', { bubbles: true })); }
+});
+document.addEventListener('change', e => {
+  if (e.target.id === 'sort') { view.sort = e.target.value; keepView(); render(true); }
+  if (e.target.matches('[data-import]') && e.target.files[0]) importBoard(e.target.files[0]);
+});
+document.addEventListener('submit', e => {
+  e.preventDefault();
+  const f = e.target;
+  if (f.id === 'startForm') {
+    const me = f.me.value.trim(), them = (f.them && f.them.value.trim()) || '';
+    if (!me) return;
+    S = blankState('a'); initClock();
+    setName('a', me); setName('b', them);
+    if (mergeOffer) { S.me = mergeOffer.me === 'a' ? 'b' : 'a'; S.board.names = { a: '', b: '' }; S.board._t = {}; setName(S.me, me); setName(other(), them || mergeOffer.from || ''); const n = mergePacked(mergeOffer); mergeOffer = null; toast(`${n} pins from ${theirName()} came over`); }
+    save(true); begin();
+  }
+  if (f.id === 'joinForm') {
+    const me = f.me.value.trim(); if (!me) return;
+    if (f.code) { const c = cleanCode(f.code.value); if (!okCode(c)) { $('#joinMsg').textContent = 'That code doesn’t look right: six letters and numbers, like ABC-234.'; f.code.focus(); return; } pairLink.code = c; }
+    S = blankState('b'); initClock(); S.joined = true;
+    setName('b', me); if (pairLink.from) setName('a', pairLink.from);
+    wantCode = pairLink.code; S.pending = pairLink.code; S.partner = null;
+    save(true); pairLink = null; history.replaceState(null, '', location.pathname + location.search);
+    begin(); setNet('dialing');
+    openPair();
+  }
+});
+$('#scrim').addEventListener('click', closeSheet);
+addEventListener('storage', e => {
+  if (!S) { if (e.key === KEY && e.newValue) { S = LS.get(KEY, null); if (S) { initClock(); begin(); } } return; }
+  if (e.key === INBOX) { if (drainInbox().length) render(true); return; }
+  if (e.key !== KEY || !e.newValue) return;
+  let o; try { o = JSON.parse(e.newValue); } catch (er) { return; }
+  if (!o || o.v !== 1) return;
+  if (o.me !== S.me) { S = o; initClock(); render(true); return; }
+  const ch = Object.values(o.items || {}).filter(mergeItem);
+  const bch = mergeBoard(o.board);
+  if (o.partner && (!S.partner || S.partner.code !== o.partner.code)) S.partner = o.partner;
+  if (ch.length || bch) { broadcast(ch); if (bch) for (const c of openConns()) if (c._hello) send(c, { t: 'board', board: S.board }); render(true); }
+});
+let rsT = 0, lastN = 0;
+addEventListener('resize', () => { clearTimeout(rsT); rsT = setTimeout(() => { if (S && colN() !== lastN) { lastN = colN(); paintGrid(); } }, 150); });
+document.addEventListener('visibilitychange', () => {
+  if (!S) return;
+  if (document.hidden) { S.seen = Date.now(); save(true); }
+  else { if (drainInbox().length) render(true); if (S.partner && !openConns().length) { if (!peer) startPeer(); else dial(S.partner.code, true); } }
+});
+addEventListener('pagehide', () => { if (S) { S.seen = Date.now(); save(true); } });
+function applyTheme() {
+  const t = LS.get(THEME, '');
+  if (t) document.documentElement.dataset.theme = t; else delete document.documentElement.dataset.theme;
+  const dark = t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches);
+  if (dark) document.documentElement.dataset.dark = '1'; else delete document.documentElement.dataset.dark;
+  if (S && $('#grid')) paintGrid();
+}
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change', applyTheme);
+
+/* ================= start ================= */
+let pairLink = null, mergeOffer = null;
+function readHash() {
+  const h = new URLSearchParams(location.hash.replace(/^#\/?/, ''));
+  if (h.get('pair')) { const c = cleanCode(h.get('pair')); if (okCode(c)) pairLink = { code: c, from: (h.get('from') || '').slice(0, 30) }; }
+  return h.get('merge');
+}
+function begin() {
+  lastN = colN();
+  seenPrev = S.seen || 0;
+  drainInbox(true);
+  render();
+  renderFoot();
+  loadLive().then(() => { if (S) render(true); });
+  startPeer(); startDialLoop();
+  if (navigator.storage && navigator.storage.persist) navigator.storage.persist().catch(() => {});
+}
+(async () => {
+  applyTheme(); renderFoot();
+  const m = readHash();
+  if (m) { try { mergeOffer = await unpackBoard(m); } catch (e) { mergeOffer = null; toast('That board link is incomplete. Ask for it again.'); } history.replaceState(null, '', location.pathname + location.search); }
+  if (S) {
+    initClock();
+    if (pairLink) { // opened a partner's link on a device that already has a board
+      if (pairLink.code !== S.dev && (!S.partner || S.partner.code !== pairLink.code)) { S.joined = true; S.pending = wantCode = pairLink.code; save(true); }
+      pairLink = null; history.replaceState(null, '', location.pathname + location.search);
+    }
+    if (mergeOffer && mergeOffer.board && mergeOffer.board.id === S.board.id && mergeOffer.from === myName()) mergeOffer = null; // our own link
+    begin();
+    if (wantCode) { setNet('dialing'); openPair(); }
+  } else { renderLanding(); loadLive(); }
+})();
+})();
+</script>
+</body>
+</html>
