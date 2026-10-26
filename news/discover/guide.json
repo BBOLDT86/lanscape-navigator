@@ -1,0 +1,7158 @@
+{
+ "v": 1,
+ "updated": "2026-10-26T11:10:25-0400",
+ "model": "Claude Fable 5.1",
+ "note": "Discover on The Watch: the curated layer. Every id and feed is checked against the live source by news/updater/discover.py; wrong ids fail loudly rather than mis-attribute. Written text is in English.",
+ "podcasts": {
+  "categories": [
+   {
+    "key": "news",
+    "name": "News & Politics",
+    "dek": "The morning shows and the arguments"
+   },
+   {
+    "key": "business",
+    "name": "Business & Money",
+    "dek": "Markets, founders, and how money moves"
+   },
+   {
+    "key": "tech",
+    "name": "Tech & AI",
+    "dek": "The industry, the gadgets and the people building AI"
+   },
+   {
+    "key": "ideas",
+    "name": "Science & Ideas",
+    "dek": "Curiosity, well produced"
+   },
+   {
+    "key": "culture",
+    "name": "Culture",
+    "dek": "Film, TV and the week in pop culture"
+   },
+   {
+    "key": "comedy",
+    "name": "Comedy & Talk",
+    "dek": "Long conversations and funny people"
+   },
+   {
+    "key": "stories",
+    "name": "True Crime & Stories",
+    "dek": "Narrative series and the cases"
+   },
+   {
+    "key": "history",
+    "name": "History",
+    "dek": "The past, told well"
+   },
+   {
+    "key": "health",
+    "name": "Health & Mind",
+    "dek": "Bodies, minds and habits"
+   },
+   {
+    "key": "sports",
+    "name": "Sports",
+    "dek": "The leagues, the fantasy desk and the paddock"
+   },
+   {
+    "key": "food",
+    "name": "Food & Travel",
+    "dek": "What to cook, where to go"
+   },
+   {
+    "key": "cars",
+    "name": "Cars",
+    "dek": "The car world, weekly"
+   },
+   {
+    "key": "hobbies",
+    "name": "Poker, Horses & the Shop",
+    "dek": "For the Hobbies desk"
+   },
+   {
+    "key": "books",
+    "name": "Books & Writing",
+    "dek": "The review pages, out loud"
+   },
+   {
+    "key": "music",
+    "name": "Music",
+    "dek": "How songs get made"
+   },
+   {
+    "key": "design",
+    "name": "Design, Style & Home",
+    "dek": "Taste, explained"
+   }
+  ],
+  "shows": [
+   {
+    "key": "the-daily",
+    "name": "The Daily",
+    "apple": 1200361736,
+    "cat": "news",
+    "host": "The New York Times",
+    "about": "Twenty minutes a day on one story, from the Times newsroom."
+   },
+   {
+    "key": "up-first",
+    "name": "Up First",
+    "apple": 510318008,
+    "cat": "news",
+    "host": "NPR",
+    "about": "The three biggest stories of the day in about 12 minutes."
+   },
+   {
+    "key": "the-journal",
+    "name": "The Journal.",
+    "apple": 1469394914,
+    "cat": "news",
+    "host": "The Wall Street Journal",
+    "about": "Money, business and power, one story a day."
+   },
+   {
+    "key": "post-reports",
+    "name": "Post Reports",
+    "apple": 1444873564,
+    "cat": "news",
+    "host": "The Washington Post",
+    "about": "The Post’s daily, with the reporters who wrote it."
+   },
+   {
+    "key": "today-explained",
+    "name": "Today, Explained",
+    "apple": 1346207297,
+    "cat": "news",
+    "host": "Vox",
+    "about": "One news story a day, explained from the beginning."
+   },
+   {
+    "key": "ezra-klein",
+    "name": "The Ezra Klein Show",
+    "apple": 1548604447,
+    "cat": "news",
+    "host": "The New York Times",
+    "about": "Long interviews on ideas, politics and how people think."
+   },
+   {
+    "key": "pod-save-america",
+    "name": "Pod Save America",
+    "apple": 1192761536,
+    "cat": "news",
+    "host": "Crooked Media",
+    "about": "Four former Obama aides on the week in politics, from the left."
+   },
+   {
+    "key": "ben-shapiro",
+    "name": "The Ben Shapiro Show",
+    "apple": 1047335260,
+    "cat": "news",
+    "host": "The Daily Wire",
+    "about": "The day’s news from the right, fast."
+   },
+   {
+    "key": "rest-is-politics",
+    "name": "The Rest Is Politics",
+    "apple": 1611374685,
+    "cat": "news",
+    "host": "Goalhanger",
+    "about": "Alastair Campbell and Rory Stewart disagree agreeably about politics."
+   },
+   {
+    "key": "global-news-podcast",
+    "name": "Global News Podcast",
+    "apple": 135067274,
+    "cat": "news",
+    "host": "BBC World Service",
+    "about": "The world’s news twice a day from the BBC."
+   },
+   {
+    "key": "npr-politics",
+    "name": "The NPR Politics Podcast",
+    "apple": 1057255460,
+    "cat": "news",
+    "host": "NPR",
+    "about": "Washington, every weekday."
+   },
+   {
+    "key": "pivot",
+    "name": "Pivot",
+    "apple": 1073226719,
+    "cat": "news",
+    "host": "New York Magazine",
+    "about": "Kara Swisher and Scott Galloway on tech, business and politics."
+   },
+   {
+    "key": "the-interview",
+    "name": "The Interview",
+    "apple": 1736713577,
+    "cat": "news",
+    "host": "The New York Times",
+    "about": "One long conversation a week with someone shaping the culture."
+   },
+   {
+    "key": "breaking-points",
+    "name": "Breaking Points with Krystal and Saagar",
+    "apple": 1570045963,
+    "cat": "news",
+    "host": "Breaking Points",
+    "about": "Populist takes from both sides of the aisle, daily."
+   },
+   {
+    "key": "bulwark",
+    "name": "The Bulwark Podcast",
+    "apple": 1457129525,
+    "cat": "news",
+    "host": "The Bulwark",
+    "about": "Tim Miller and the Bulwark on politics, from the never-Trump right."
+   },
+   {
+    "key": "economist-intelligence",
+    "name": "The Intelligence from The Economist",
+    "apple": 1449631195,
+    "cat": "news",
+    "host": "The Economist",
+    "about": "The Economist’s correspondents on the day, worldwide."
+   },
+   {
+    "key": "honestly",
+    "name": "Honestly with Bari Weiss",
+    "apple": 1570872415,
+    "cat": "news",
+    "host": "The Free Press",
+    "about": "Debates and interviews from The Free Press."
+   },
+   {
+    "key": "planet-money",
+    "name": "Planet Money",
+    "apple": 290783428,
+    "cat": "business",
+    "host": "NPR",
+    "about": "The economy, explained through stories, twice a week."
+   },
+   {
+    "key": "the-indicator",
+    "name": "The Indicator from Planet Money",
+    "apple": 1320118593,
+    "cat": "business",
+    "host": "NPR",
+    "about": "One economic idea in ten minutes, every weekday."
+   },
+   {
+    "key": "marketplace",
+    "name": "Marketplace",
+    "apple": 201853034,
+    "cat": "business",
+    "host": "APM",
+    "about": "Kai Ryssdal’s evening business report."
+   },
+   {
+    "key": "odd-lots",
+    "name": "Odd Lots",
+    "apple": 1056200096,
+    "cat": "business",
+    "host": "Bloomberg",
+    "about": "Joe Weisenthal and Tracy Alloway on the strangest corners of markets."
+   },
+   {
+    "key": "acquired",
+    "name": "Acquired",
+    "apple": 1050462261,
+    "cat": "business",
+    "host": "Ben Gilbert and David Rosenthal",
+    "about": "The full history of one great company, three or four hours at a time."
+   },
+   {
+    "key": "how-i-built-this",
+    "name": "How I Built This with Guy Raz",
+    "apple": 1150510297,
+    "cat": "business",
+    "host": "Wondery",
+    "about": "Founders on how they built the thing."
+   },
+   {
+    "key": "masters-of-scale",
+    "name": "Masters of Scale",
+    "apple": 1227971746,
+    "cat": "business",
+    "host": "WaitWhat",
+    "about": "Reid Hoffman and leaders on how companies grow."
+   },
+   {
+    "key": "freakonomics",
+    "name": "Freakonomics Radio",
+    "apple": 354668519,
+    "cat": "business",
+    "host": "Freakonomics Radio Network",
+    "about": "Stephen Dubner on the hidden side of everything."
+   },
+   {
+    "key": "all-in",
+    "name": "All-In with Chamath, Jason, Sacks & Friedberg",
+    "apple": 1502871393,
+    "cat": "business",
+    "host": "All-In",
+    "about": "Four investors on tech, markets and politics, weekly."
+   },
+   {
+    "key": "prof-g",
+    "name": "The Prof G Pod with Scott Galloway",
+    "apple": 1498802610,
+    "cat": "business",
+    "host": "Vox Media",
+    "about": "Scott Galloway on business, markets and the big tech companies."
+   },
+   {
+    "key": "invest-like-the-best",
+    "name": "Invest Like the Best with Patrick O’Shaughnessy",
+    "apple": 1154105909,
+    "cat": "business",
+    "host": "Colossus",
+    "about": "Investors and operators on how they think."
+   },
+   {
+    "key": "motley-fool-money",
+    "name": "Motley Fool Money",
+    "apple": 306106212,
+    "cat": "business",
+    "host": "The Motley Fool",
+    "about": "The week on Wall Street for long-term investors."
+   },
+   {
+    "key": "tim-ferriss",
+    "name": "The Tim Ferriss Show",
+    "apple": 863897795,
+    "cat": "business",
+    "host": "Tim Ferriss",
+    "about": "World-class performers on their routines and tools."
+   },
+   {
+    "key": "diary-of-a-ceo",
+    "name": "The Diary Of A CEO with Steven Bartlett",
+    "apple": 1291423644,
+    "cat": "business",
+    "host": "Steven Bartlett",
+    "about": "Long interviews on business, health and life."
+   },
+   {
+    "key": "my-first-million",
+    "name": "My First Million",
+    "apple": 1469759170,
+    "cat": "business",
+    "host": "Hubspot",
+    "about": "Sam Parr and Shaan Puri brainstorm business ideas."
+   },
+   {
+    "key": "twenty-minute-vc",
+    "name": "The Twenty Minute VC (20VC)",
+    "apple": 958230465,
+    "cat": "business",
+    "host": "Harry Stebbings",
+    "about": "Venture capital, with the people writing the checks."
+   },
+   {
+    "key": "lennys-podcast",
+    "name": "Lenny’s Podcast",
+    "apple": 1627920305,
+    "cat": "business",
+    "host": "Lenny Rachitsky",
+    "about": "Product and growth, with the people who built the products you use."
+   },
+   {
+    "key": "business-wars",
+    "name": "Business Wars",
+    "apple": 1353263736,
+    "cat": "business",
+    "host": "Wondery",
+    "about": "The rivalries that made brands."
+   },
+   {
+    "key": "ramsey-show",
+    "name": "The Ramsey Show",
+    "apple": 77001367,
+    "cat": "business",
+    "host": "Ramsey Network",
+    "about": "Callers on debt, budgets and money."
+   },
+   {
+    "key": "animal-spirits",
+    "name": "Animal Spirits Podcast",
+    "apple": 1310192007,
+    "cat": "business",
+    "host": "Ritholtz Wealth",
+    "about": "Michael Batnick and Ben Carlson on markets, weekly."
+   },
+   {
+    "key": "compound-and-friends",
+    "name": "The Compound and Friends",
+    "apple": 1456467014,
+    "cat": "business",
+    "host": "Ritholtz Wealth",
+    "about": "Josh Brown and guests on the week in markets."
+   },
+   {
+    "key": "money-stuff",
+    "name": "Money Stuff: The Podcast",
+    "apple": 1752310468,
+    "cat": "business",
+    "host": "Bloomberg",
+    "about": "Matt Levine and Katie Greifeld on the week’s finance stories."
+   },
+   {
+    "key": "bloomberg-big-take",
+    "name": "Big Take",
+    "apple": 1580563226,
+    "cat": "business",
+    "host": "Bloomberg",
+    "about": "One big Bloomberg story a day."
+   },
+   {
+    "key": "biggerpockets",
+    "name": "BiggerPockets Real Estate Podcast",
+    "apple": 594419649,
+    "cat": "business",
+    "host": "BiggerPockets",
+    "about": "Real estate investing, step by step."
+   },
+   {
+    "key": "hard-fork",
+    "name": "Hard Fork",
+    "apple": 1528594034,
+    "cat": "tech",
+    "host": "The New York Times",
+    "about": "Kevin Roose and Casey Newton on the future that’s already here."
+   },
+   {
+    "key": "decoder",
+    "name": "Decoder with Nilay Patel",
+    "apple": 1011668648,
+    "cat": "tech",
+    "host": "The Verge",
+    "about": "How leaders make decisions, from The Verge’s editor."
+   },
+   {
+    "key": "vergecast",
+    "name": "The Vergecast",
+    "apple": 430333725,
+    "cat": "tech",
+    "host": "The Verge",
+    "about": "The flagship gadget and tech-culture show."
+   },
+   {
+    "key": "atp",
+    "name": "Accidental Tech Podcast",
+    "apple": 617416468,
+    "cat": "tech",
+    "host": "Marco Arment, Casey Liss, John Siracusa",
+    "about": "Three nerds on Apple and everything around it."
+   },
+   {
+    "key": "lex-fridman",
+    "name": "Lex Fridman Podcast",
+    "apple": 1434243584,
+    "cat": "tech",
+    "host": "Lex Fridman",
+    "about": "Long conversations about AI, science and power."
+   },
+   {
+    "key": "darknet-diaries",
+    "name": "Darknet Diaries",
+    "apple": 1296350485,
+    "cat": "tech",
+    "host": "Jack Rhysider",
+    "about": "True stories from the dark side of the internet."
+   },
+   {
+    "key": "search-engine",
+    "name": "Search Engine",
+    "apple": 1614253637,
+    "cat": "tech",
+    "host": "PJ Vogt",
+    "about": "No question too big, no question too small."
+   },
+   {
+    "key": "waveform",
+    "name": "Waveform: The MKBHD Podcast",
+    "apple": 1474429475,
+    "cat": "tech",
+    "host": "Marques Brownlee",
+    "about": "Tech, from the reviewer."
+   },
+   {
+    "key": "dwarkesh",
+    "name": "Dwarkesh Podcast",
+    "apple": 1516093381,
+    "cat": "tech",
+    "host": "Dwarkesh Patel",
+    "about": "Deep interviews with the people building AI."
+   },
+   {
+    "key": "no-priors",
+    "name": "No Priors: Artificial Intelligence | Technology | Startups",
+    "apple": 1668002688,
+    "cat": "tech",
+    "host": "Sarah Guo and Elad Gil",
+    "about": "AI founders and researchers, weekly."
+   },
+   {
+    "key": "ai-daily-brief",
+    "name": "The AI Daily Brief",
+    "apple": 1680633614,
+    "cat": "tech",
+    "host": "Nathanael Whittemore",
+    "about": "The day in AI, daily."
+   },
+   {
+    "key": "latent-space",
+    "name": "Latent Space: The AI Engineer Podcast",
+    "apple": 1674008350,
+    "cat": "tech",
+    "host": "swyx and Alessio",
+    "about": "For engineers building with AI."
+   },
+   {
+    "key": "techmeme-ride-home",
+    "name": "Techmeme Ride Home",
+    "apple": 1355212895,
+    "cat": "tech",
+    "host": "Brian McCullough",
+    "about": "The day’s tech news in fifteen minutes."
+   },
+   {
+    "key": "on-with-kara-swisher",
+    "name": "On with Kara Swisher",
+    "apple": 1643307527,
+    "cat": "tech",
+    "host": "Vox Media",
+    "about": "Kara Swisher interviews the powerful."
+   },
+   {
+    "key": "big-technology",
+    "name": "Big Technology Podcast",
+    "apple": 1522960417,
+    "cat": "tech",
+    "host": "Alex Kantrowitz",
+    "about": "Big Tech, with its insiders and critics."
+   },
+   {
+    "key": "the-talk-show",
+    "name": "The Talk Show With John Gruber",
+    "apple": 528458508,
+    "cat": "tech",
+    "host": "Daring Fireball",
+    "about": "Apple, from the longest-running Apple blog."
+   },
+   {
+    "key": "changelog",
+    "name": "The Changelog: Software Development, Open Source",
+    "apple": 341623264,
+    "cat": "tech",
+    "host": "Changelog Media",
+    "about": "Open source and the people who make it."
+   },
+   {
+    "key": "sharp-tech",
+    "name": "Sharp Tech with Ben Thompson",
+    "apple": 1636915088,
+    "cat": "tech",
+    "host": "Stratechery",
+    "about": "Ben Thompson on the strategy behind the tech news."
+   },
+   {
+    "key": "radiolab",
+    "name": "Radiolab",
+    "apple": 152249110,
+    "cat": "ideas",
+    "host": "WNYC Studios",
+    "about": "Curiosity, sound-designed."
+   },
+   {
+    "key": "99pi",
+    "name": "99% Invisible",
+    "apple": 394775318,
+    "cat": "ideas",
+    "host": "Roman Mars",
+    "about": "The design you don’t notice."
+   },
+   {
+    "key": "hidden-brain",
+    "name": "Hidden Brain",
+    "apple": 1028908750,
+    "cat": "ideas",
+    "host": "Shankar Vedantam",
+    "about": "The unconscious patterns that drive behaviour."
+   },
+   {
+    "key": "science-vs",
+    "name": "Science Vs",
+    "apple": 1051557000,
+    "cat": "ideas",
+    "host": "Spotify Studios",
+    "about": "Wendy Zukerman tests fads and fears against the evidence."
+   },
+   {
+    "key": "startalk",
+    "name": "StarTalk Radio",
+    "apple": 325404506,
+    "cat": "ideas",
+    "host": "Neil deGrasse Tyson",
+    "about": "Space, science and pop culture."
+   },
+   {
+    "key": "stuff-you-should-know",
+    "name": "Stuff You Should Know",
+    "apple": 278981407,
+    "cat": "ideas",
+    "host": "iHeartPodcasts",
+    "about": "Josh and Chuck explain one thing, twice a week."
+   },
+   {
+    "key": "infinite-monkey-cage",
+    "name": "The Infinite Monkey Cage",
+    "apple": 325061118,
+    "cat": "ideas",
+    "host": "BBC Radio 4",
+    "about": "Brian Cox and Robin Ince’s science panel show."
+   },
+   {
+    "key": "ologies",
+    "name": "Ologies with Alie Ward",
+    "apple": 1278815517,
+    "cat": "ideas",
+    "host": "Alie Ward",
+    "about": "An -ologist a week, asked the smart questions and the dumb ones."
+   },
+   {
+    "key": "short-wave",
+    "name": "Short Wave",
+    "apple": 1482575241,
+    "cat": "ideas",
+    "host": "NPR",
+    "about": "Daily science in about 12 minutes."
+   },
+   {
+    "key": "nature-podcast",
+    "name": "Nature Podcast",
+    "apple": 81934659,
+    "cat": "ideas",
+    "host": "Springer Nature",
+    "about": "The week’s research, from the journal."
+   },
+   {
+    "key": "mindscape",
+    "name": "Sean Carroll’s Mindscape",
+    "apple": 1406534739,
+    "cat": "ideas",
+    "host": "Sean Carroll",
+    "about": "A physicist talks with scientists, philosophers and writers."
+   },
+   {
+    "key": "conversations-with-tyler",
+    "name": "Conversations with Tyler",
+    "apple": 983795625,
+    "cat": "ideas",
+    "host": "Mercatus Center",
+    "about": "Tyler Cowen asks the questions nobody else does."
+   },
+   {
+    "key": "econtalk",
+    "name": "EconTalk",
+    "apple": 135066958,
+    "cat": "ideas",
+    "host": "Russ Roberts",
+    "about": "Economics and ideas, one hour at a time, since 2006."
+   },
+   {
+    "key": "philosophize-this",
+    "name": "Philosophize This!",
+    "apple": 659155419,
+    "cat": "ideas",
+    "host": "Stephen West",
+    "about": "The history of philosophy, in order."
+   },
+   {
+    "key": "making-sense",
+    "name": "Making Sense with Sam Harris",
+    "apple": 733163012,
+    "cat": "ideas",
+    "host": "Sam Harris",
+    "about": "Mind, ethics, politics and meditation."
+   },
+   {
+    "key": "unexplainable",
+    "name": "Unexplainable",
+    "apple": 1554578197,
+    "cat": "ideas",
+    "host": "Vox",
+    "about": "The questions science hasn’t answered yet."
+   },
+   {
+    "key": "knowledge-project",
+    "name": "The Knowledge Project with Shane Parrish",
+    "apple": 990149481,
+    "cat": "ideas",
+    "host": "Farnam Street",
+    "about": "Mental models and decision-making."
+   },
+   {
+    "key": "ted-talks-daily",
+    "name": "TED Talks Daily",
+    "apple": 160904630,
+    "cat": "ideas",
+    "host": "TED",
+    "about": "A TED talk every weekday."
+   },
+   {
+    "key": "revisionist-history",
+    "name": "Revisionist History",
+    "apple": 1119389968,
+    "cat": "ideas",
+    "host": "Pushkin",
+    "about": "Malcolm Gladwell reconsiders the overlooked."
+   },
+   {
+    "key": "cautionary-tales",
+    "name": "Cautionary Tales with Tim Harford",
+    "apple": 1484511465,
+    "cat": "ideas",
+    "host": "Pushkin",
+    "about": "Stories of catastrophe and what they teach."
+   },
+   {
+    "key": "daily-stoic",
+    "name": "The Daily Stoic",
+    "apple": 1430315931,
+    "cat": "ideas",
+    "host": "Ryan Holiday",
+    "about": "A stoic thought a day."
+   },
+   {
+    "key": "gray-area",
+    "name": "The Gray Area with Sean Illing",
+    "apple": 1081584611,
+    "cat": "ideas",
+    "host": "Vox",
+    "about": "Philosophy for the news."
+   },
+   {
+    "key": "pchh",
+    "name": "Pop Culture Happy Hour",
+    "apple": 329298796,
+    "cat": "culture",
+    "host": "NPR",
+    "about": "What to watch, read and listen to, daily."
+   },
+   {
+    "key": "big-picture",
+    "name": "The Big Picture",
+    "apple": 1314086528,
+    "cat": "culture",
+    "host": "The Ringer",
+    "about": "Sean Fennessey and Amanda Dobbins on movies."
+   },
+   {
+    "key": "rewatchables",
+    "name": "The Rewatchables",
+    "apple": 1261339908,
+    "cat": "culture",
+    "host": "The Ringer",
+    "about": "Bill Simmons and friends rewatch the movies you can’t turn off."
+   },
+   {
+    "key": "the-watch-ringer",
+    "name": "The Watch",
+    "apple": 1243247464,
+    "cat": "culture",
+    "host": "The Ringer",
+    "about": "Andy Greenwald and Chris Ryan on television. No relation."
+   },
+   {
+    "key": "las-culturistas",
+    "name": "Las Culturistas with Matt Rogers and Bowen Yang",
+    "apple": 1142487736,
+    "cat": "culture",
+    "host": "Big Money Players",
+    "about": "Culture, with rules."
+   },
+   {
+    "key": "keep-it",
+    "name": "Keep It",
+    "apple": 1335213710,
+    "cat": "culture",
+    "host": "Crooked Media",
+    "about": "Pop culture and politics, weekly."
+   },
+   {
+    "key": "fresh-air",
+    "name": "Fresh Air",
+    "apple": 214089682,
+    "cat": "culture",
+    "host": "NPR",
+    "about": "Terry Gross and Tonya Mosley’s interviews."
+   },
+   {
+    "key": "new-yorker-radio-hour",
+    "name": "The New Yorker Radio Hour",
+    "apple": 1050430296,
+    "cat": "culture",
+    "host": "WNYC Studios",
+    "about": "David Remnick and the magazine’s writers."
+   },
+   {
+    "key": "culture-gabfest",
+    "name": "Slate Culture",
+    "apple": 73802905,
+    "cat": "culture",
+    "host": "Slate",
+    "about": "The Culture Gabfest’s weekly argument."
+   },
+   {
+    "key": "filmspotting",
+    "name": "Filmspotting",
+    "apple": 73329284,
+    "cat": "culture",
+    "host": "Adam Kempenaar and Josh Larsen",
+    "about": "Movie reviews and top-five lists since 2005."
+   },
+   {
+    "key": "blank-check",
+    "name": "Blank Check with Griffin & David",
+    "apple": 1067981690,
+    "cat": "culture",
+    "host": "Griffin Newman and David Sims",
+    "about": "Directors’ filmographies, one movie at a time."
+   },
+   {
+    "key": "you-must-remember-this",
+    "name": "You Must Remember This",
+    "apple": 858124601,
+    "cat": "culture",
+    "host": "Karina Longworth",
+    "about": "The secret and forgotten history of Hollywood."
+   },
+   {
+    "key": "vultures-good-one",
+    "name": "Good One: A Podcast About Jokes",
+    "apple": 1248483889,
+    "cat": "culture",
+    "host": "Vulture",
+    "about": "Comedians take apart one joke."
+   },
+   {
+    "key": "office-ladies",
+    "name": "Office Ladies",
+    "apple": 1480311435,
+    "cat": "culture",
+    "host": "Jenna Fischer and Angela Kinsey",
+    "about": "The Office, episode by episode."
+   },
+   {
+    "key": "who-weekly",
+    "name": "Who? Weekly",
+    "apple": 1091730289,
+    "cat": "culture",
+    "host": "Bobby Finger and Lindsey Weber",
+    "about": "Everything you need to know about the celebrities you don’t."
+   },
+   {
+    "key": "handsome",
+    "name": "Handsome",
+    "apple": 1708213337,
+    "cat": "culture",
+    "host": "Tig Notaro, Fortune Feimster, Mae Martin",
+    "about": "Three comedians answer one question a week."
+   },
+   {
+    "key": "smartless",
+    "name": "SmartLess",
+    "apple": 1521578868,
+    "cat": "comedy",
+    "host": "Jason Bateman, Sean Hayes, Will Arnett",
+    "about": "A surprise guest and three friends."
+   },
+   {
+    "key": "armchair-expert",
+    "name": "Armchair Expert with Dax Shepard",
+    "apple": 1345682353,
+    "cat": "comedy",
+    "host": "Dax Shepard",
+    "about": "The messiness of being human."
+   },
+   {
+    "key": "conan",
+    "name": "Conan O’Brien Needs A Friend",
+    "apple": 1438054347,
+    "cat": "comedy",
+    "host": "Team Coco",
+    "about": "Conan, still looking for a friend."
+   },
+   {
+    "key": "wtf",
+    "name": "WTF with Marc Maron Podcast",
+    "apple": 329875043,
+    "cat": "comedy",
+    "host": "Marc Maron",
+    "about": "The garage interview, since 2009."
+   },
+   {
+    "key": "call-her-daddy",
+    "name": "Call Her Daddy",
+    "apple": 1418960261,
+    "cat": "comedy",
+    "host": "Alex Cooper",
+    "about": "Interviews and advice, enormous audience."
+   },
+   {
+    "key": "joe-rogan",
+    "name": "The Joe Rogan Experience",
+    "apple": 360084272,
+    "cat": "comedy",
+    "host": "Joe Rogan",
+    "about": "Three hours with whoever came by."
+   },
+   {
+    "key": "theo-von",
+    "name": "This Past Weekend w/ Theo Von",
+    "apple": 1192775236,
+    "cat": "comedy",
+    "host": "Theo Von",
+    "about": "Theo Von’s weekly show."
+   },
+   {
+    "key": "bad-friends",
+    "name": "Bad Friends",
+    "apple": 1470594282,
+    "cat": "comedy",
+    "host": "Andrew Santino and Bobby Lee",
+    "about": "Two comedians, barely friends."
+   },
+   {
+    "key": "two-bears",
+    "name": "2 Bears, 1 Cave with Tom Segura & Bert Kreischer",
+    "apple": 1494527480,
+    "cat": "comedy",
+    "host": "YMH Studios",
+    "about": "Two bears, one cave."
+   },
+   {
+    "key": "kill-tony",
+    "name": "Kill Tony",
+    "apple": 1166138768,
+    "cat": "comedy",
+    "host": "Tony Hinchcliffe",
+    "about": "Open-mic minutes, judged live in Austin."
+   },
+   {
+    "key": "mel-robbins",
+    "name": "The Mel Robbins Podcast",
+    "apple": 1646101002,
+    "cat": "comedy",
+    "host": "Mel Robbins",
+    "about": "Advice for getting out of your own way."
+   },
+   {
+    "key": "good-hang",
+    "name": "Good Hang with Amy Poehler",
+    "apple": 1792590667,
+    "cat": "comedy",
+    "host": "The Ringer",
+    "about": "Amy Poehler hangs out with people she likes."
+   },
+   {
+    "key": "normal-gossip",
+    "name": "Normal Gossip",
+    "apple": 1579895420,
+    "cat": "comedy",
+    "host": "Kelsey McKinney",
+    "about": "Delicious gossip about strangers."
+   },
+   {
+    "key": "comedy-bang-bang",
+    "name": "Comedy Bang Bang: The Podcast",
+    "apple": 316829925,
+    "cat": "comedy",
+    "host": "Scott Aukerman",
+    "about": "Improvised characters and chaos since 2009."
+   },
+   {
+    "key": "how-did-this-get-made",
+    "name": "How Did This Get Made?",
+    "apple": 468014350,
+    "cat": "comedy",
+    "host": "Paul Scheer, June Diane Raphael, Jason Mantzoukas",
+    "about": "Bad movies, lovingly."
+   },
+   {
+    "key": "serial",
+    "name": "Serial",
+    "apple": 917918570,
+    "cat": "stories",
+    "host": "Serial Productions",
+    "about": "The podcast that made podcasts."
+   },
+   {
+    "key": "this-american-life",
+    "name": "This American Life",
+    "apple": 201671138,
+    "cat": "stories",
+    "host": "Ira Glass",
+    "about": "A theme and the stories that fit it, weekly since 1995."
+   },
+   {
+    "key": "crime-junkie",
+    "name": "Crime Junkie",
+    "apple": 1322200189,
+    "cat": "stories",
+    "host": "audiochuck",
+    "about": "Ashley Flowers on a case a week."
+   },
+   {
+    "key": "my-favorite-murder",
+    "name": "My Favorite Murder with Karen Kilgariff and Georgia Hardstark",
+    "apple": 1074507850,
+    "cat": "stories",
+    "host": "Exactly Right",
+    "about": "True crime, comedy, stay sexy."
+   },
+   {
+    "key": "dateline",
+    "name": "Dateline NBC",
+    "apple": 1464919521,
+    "cat": "stories",
+    "host": "NBC News",
+    "about": "The television mysteries, as audio."
+   },
+   {
+    "key": "morbid",
+    "name": "Morbid",
+    "apple": 1379959217,
+    "cat": "stories",
+    "host": "Wondery",
+    "about": "Ash and Alaina on the macabre."
+   },
+   {
+    "key": "casefile",
+    "name": "Casefile True Crime",
+    "apple": 998568017,
+    "cat": "stories",
+    "host": "Casefile Presents",
+    "about": "Anonymous host, meticulous research."
+   },
+   {
+    "key": "criminal",
+    "name": "Criminal",
+    "apple": 809264944,
+    "cat": "stories",
+    "host": "Vox Media",
+    "about": "Phoebe Judge on people who have done wrong, been wronged, or got caught in the middle."
+   },
+   {
+    "key": "the-moth",
+    "name": "The Moth",
+    "apple": 275699983,
+    "cat": "stories",
+    "host": "The Moth",
+    "about": "True stories told live."
+   },
+   {
+    "key": "rotten-mango",
+    "name": "Rotten Mango",
+    "apple": 1505125566,
+    "cat": "stories",
+    "host": "Stephanie Soo",
+    "about": "True crime, deeply researched."
+   },
+   {
+    "key": "reveal",
+    "name": "Reveal",
+    "apple": 886009669,
+    "cat": "stories",
+    "host": "The Center for Investigative Reporting",
+    "about": "Investigative journalism, weekly."
+   },
+   {
+    "key": "slow-burn",
+    "name": "Slow Burn",
+    "apple": 1315040130,
+    "cat": "stories",
+    "host": "Slate",
+    "about": "How a scandal unfolded, season by season."
+   },
+   {
+    "key": "dr-death",
+    "name": "Dr. Death",
+    "apple": 1431873665,
+    "cat": "stories",
+    "host": "Wondery",
+    "about": "Doctors who should not have been."
+   },
+   {
+    "key": "rest-is-classified",
+    "name": "The Rest Is Classified",
+    "apple": 1771302226,
+    "cat": "stories",
+    "host": "Goalhanger",
+    "about": "Spy stories from a former CIA analyst and a journalist."
+   },
+   {
+    "key": "heavyweight",
+    "name": "Heavyweight",
+    "apple": 1150830526,
+    "cat": "stories",
+    "host": "Jonathan Goldstein",
+    "about": "Going back to the moment everything changed."
+   },
+   {
+    "key": "rest-is-history",
+    "name": "The Rest Is History",
+    "apple": 1537788786,
+    "cat": "history",
+    "host": "Goalhanger",
+    "about": "Tom Holland and Dominic Sandbrook, the biggest history podcast in the world."
+   },
+   {
+    "key": "hardcore-history",
+    "name": "Dan Carlin’s Hardcore History",
+    "apple": 173001861,
+    "cat": "history",
+    "host": "Dan Carlin",
+    "about": "Five-hour episodes, years apart, worth it."
+   },
+   {
+    "key": "revolutions",
+    "name": "Revolutions",
+    "apple": 703889772,
+    "cat": "history",
+    "host": "Mike Duncan",
+    "about": "Political revolutions, one at a time."
+   },
+   {
+    "key": "youre-wrong-about",
+    "name": "You’re Wrong About",
+    "apple": 1380008439,
+    "cat": "history",
+    "host": "Sarah Marshall",
+    "about": "The events we misremember."
+   },
+   {
+    "key": "throughline",
+    "name": "Throughline",
+    "apple": 1451109634,
+    "cat": "history",
+    "host": "NPR",
+    "about": "The history behind the headlines."
+   },
+   {
+    "key": "history-of-rome",
+    "name": "The History of Rome",
+    "apple": 261654474,
+    "cat": "history",
+    "host": "Mike Duncan",
+    "about": "From Romulus to Romulus Augustulus."
+   },
+   {
+    "key": "history-extra",
+    "name": "History Extra podcast",
+    "apple": 256580326,
+    "cat": "history",
+    "host": "BBC History Magazine",
+    "about": "Historians on their subjects."
+   },
+   {
+    "key": "in-our-time",
+    "name": "In Our Time",
+    "apple": 73330895,
+    "cat": "history",
+    "host": "BBC Radio 4",
+    "about": "Melvyn Bragg and three academics, since 1998."
+   },
+   {
+    "key": "empire",
+    "name": "Empire",
+    "apple": 1639561921,
+    "cat": "history",
+    "host": "Goalhanger",
+    "about": "William Dalrymple and Anita Anand on empires."
+   },
+   {
+    "key": "american-history-tellers",
+    "name": "American History Tellers",
+    "apple": 1313596069,
+    "cat": "history",
+    "host": "Wondery",
+    "about": "American history, told as narrative."
+   },
+   {
+    "key": "lore",
+    "name": "Lore",
+    "apple": 978052928,
+    "cat": "history",
+    "host": "Aaron Mahnke",
+    "about": "The darker side of history."
+   },
+   {
+    "key": "fall-of-civilizations",
+    "name": "Fall of Civilizations Podcast",
+    "apple": 1449884495,
+    "cat": "history",
+    "host": "Paul Cooper",
+    "about": "How great societies collapsed."
+   },
+   {
+    "key": "behind-the-bastards",
+    "name": "Behind the Bastards",
+    "apple": 1373812661,
+    "cat": "history",
+    "host": "iHeartPodcasts",
+    "about": "The worst people in history."
+   },
+   {
+    "key": "the-ancients",
+    "name": "The Ancients",
+    "apple": 1520403988,
+    "cat": "history",
+    "host": "History Hit",
+    "about": "The ancient world, twice a week."
+   },
+   {
+    "key": "short-history-of",
+    "name": "Short History Of...",
+    "apple": 1551573236,
+    "cat": "history",
+    "host": "Noiser",
+    "about": "One subject, one hour, well told."
+   },
+   {
+    "key": "real-dictators",
+    "name": "Real Dictators",
+    "apple": 1518456064,
+    "cat": "history",
+    "host": "Noiser",
+    "about": "Paul McGann narrates the tyrants."
+   },
+   {
+    "key": "stuff-you-missed",
+    "name": "Stuff You Missed in History Class",
+    "apple": 283605519,
+    "cat": "history",
+    "host": "iHeartPodcasts",
+    "about": "The history that didn’t make the textbook."
+   },
+   {
+    "key": "huberman-lab",
+    "name": "Huberman Lab",
+    "apple": 1545953110,
+    "cat": "health",
+    "host": "Andrew Huberman",
+    "about": "Neuroscience and protocols for daily life."
+   },
+   {
+    "key": "peter-attia",
+    "name": "The Peter Attia Drive",
+    "apple": 1400828889,
+    "cat": "health",
+    "host": "Peter Attia",
+    "about": "Longevity, in depth."
+   },
+   {
+    "key": "zoe",
+    "name": "ZOE Science & Nutrition",
+    "apple": 1611216298,
+    "cat": "health",
+    "host": "ZOE",
+    "about": "Nutrition science, with the scientists."
+   },
+   {
+    "key": "feel-better-live-more",
+    "name": "Feel Better, Live More with Dr Rangan Chatterjee",
+    "apple": 1333552422,
+    "cat": "health",
+    "host": "Dr Rangan Chatterjee",
+    "about": "Health and happiness, in conversation."
+   },
+   {
+    "key": "ten-percent-happier",
+    "name": "Ten Percent Happier with Dan Harris",
+    "apple": 1087147821,
+    "cat": "health",
+    "host": "Dan Harris",
+    "about": "Meditation for skeptics."
+   },
+   {
+    "key": "on-purpose",
+    "name": "On Purpose with Jay Shetty",
+    "apple": 1450994021,
+    "cat": "health",
+    "host": "Jay Shetty",
+    "about": "Conversations about purpose and wellbeing."
+   },
+   {
+    "key": "maintenance-phase",
+    "name": "Maintenance Phase",
+    "apple": 1535408667,
+    "cat": "health",
+    "host": "Aubrey Gordon and Michael Hobbes",
+    "about": "Debunking the wellness and weight-loss industry."
+   },
+   {
+    "key": "rich-roll",
+    "name": "The Rich Roll Podcast",
+    "apple": 582272991,
+    "cat": "health",
+    "host": "Rich Roll",
+    "about": "Health, performance and meaning."
+   },
+   {
+    "key": "foundmyfitness",
+    "name": "FoundMyFitness",
+    "apple": 818198322,
+    "cat": "health",
+    "host": "Rhonda Patrick",
+    "about": "The research on aging, nutrition and exercise."
+   },
+   {
+    "key": "modern-wisdom",
+    "name": "Modern Wisdom",
+    "apple": 1347973549,
+    "cat": "health",
+    "host": "Chris Williamson",
+    "about": "Psychology, productivity and the big questions."
+   },
+   {
+    "key": "unlocking-us",
+    "name": "Unlocking Us with Brené Brown",
+    "apple": 1494350511,
+    "cat": "health",
+    "host": "Brené Brown",
+    "about": "Vulnerability, courage and connection."
+   },
+   {
+    "key": "happiness-lab",
+    "name": "The Happiness Lab with Dr. Laurie Santos",
+    "apple": 1474245040,
+    "cat": "health",
+    "host": "Pushkin",
+    "about": "The science of happiness, from the Yale course."
+   },
+   {
+    "key": "where-should-we-begin",
+    "name": "Where Should We Begin? with Esther Perel",
+    "apple": 1237931798,
+    "cat": "health",
+    "host": "Esther Perel",
+    "about": "Real couples in real sessions."
+   },
+   {
+    "key": "mind-pump",
+    "name": "Mind Pump: Raw Fitness Truth",
+    "apple": 1038262463,
+    "cat": "health",
+    "host": "Mind Pump Media",
+    "about": "Training and nutrition without the hype."
+   },
+   {
+    "key": "bill-simmons",
+    "name": "The Bill Simmons Podcast",
+    "apple": 1043699613,
+    "cat": "sports",
+    "host": "The Ringer",
+    "about": "Sports, pop culture and a lot of NBA."
+   },
+   {
+    "key": "pardon-my-take",
+    "name": "Pardon My Take",
+    "apple": 1089022756,
+    "cat": "sports",
+    "host": "Barstool Sports",
+    "about": "Big Cat and PFT Commenter, three times a week."
+   },
+   {
+    "key": "new-heights",
+    "name": "New Heights with Jason & Travis Kelce",
+    "apple": 1643745036,
+    "cat": "sports",
+    "host": "Wave Sports + Entertainment",
+    "about": "The Kelce brothers on football and everything else."
+   },
+   {
+    "key": "pat-mcafee",
+    "name": "The Pat McAfee Show",
+    "apple": 1419486434,
+    "cat": "sports",
+    "host": "ESPN",
+    "about": "Pat McAfee’s daily show."
+   },
+   {
+    "key": "fantasy-footballers",
+    "name": "Fantasy Footballers - Fantasy Football Podcast",
+    "apple": 1021909636,
+    "cat": "sports",
+    "host": "The Fantasy Footballers",
+    "about": "Start/sit and waivers all season."
+   },
+   {
+    "key": "ringer-nba",
+    "name": "The Ringer NBA Show",
+    "apple": 1118826616,
+    "cat": "sports",
+    "host": "The Ringer",
+    "about": "The NBA, daily in season."
+   },
+   {
+    "key": "zach-lowe",
+    "name": "The Zach Lowe Show",
+    "apple": 1759617587,
+    "cat": "sports",
+    "host": "The Ringer",
+    "about": "Zach Lowe on the NBA."
+   },
+   {
+    "key": "mina-kimes",
+    "name": "The Mina Kimes Show featuring Lenny",
+    "apple": 1497578456,
+    "cat": "sports",
+    "host": "ESPN",
+    "about": "The NFL, with Mina Kimes."
+   },
+   {
+    "key": "men-in-blazers",
+    "name": "Men in Blazers",
+    "apple": 721003893,
+    "cat": "sports",
+    "host": "Men in Blazers",
+    "about": "Soccer, with Rog."
+   },
+   {
+    "key": "rest-is-football",
+    "name": "The Rest Is Football",
+    "apple": 1663003603,
+    "cat": "sports",
+    "host": "Goalhanger",
+    "about": "Gary Lineker, Alan Shearer and Micah Richards."
+   },
+   {
+    "key": "football-weekly",
+    "name": "Football Weekly",
+    "apple": 73330872,
+    "cat": "sports",
+    "host": "The Guardian",
+    "about": "The Guardian’s football podcast."
+   },
+   {
+    "key": "effectively-wild",
+    "name": "Effectively Wild: A FanGraphs Baseball Podcast",
+    "apple": 528516236,
+    "cat": "sports",
+    "host": "FanGraphs",
+    "about": "Baseball, almost daily."
+   },
+   {
+    "key": "spittin-chiclets",
+    "name": "Spittin Chiclets",
+    "apple": 1112425552,
+    "cat": "sports",
+    "host": "Barstool Sports",
+    "about": "Hockey, with former players."
+   },
+   {
+    "key": "no-laying-up",
+    "name": "No Laying Up - Golf Podcast",
+    "apple": 1016009178,
+    "cat": "sports",
+    "host": "No Laying Up",
+    "about": "Golf, for people who love golf."
+   },
+   {
+    "key": "beyond-the-grid",
+    "name": "F1: Beyond The Grid",
+    "apple": 1352002744,
+    "cat": "sports",
+    "host": "Formula 1",
+    "about": "Tom Clarkson’s interviews with the paddock."
+   },
+   {
+    "key": "f1-nation",
+    "name": "F1 Nation",
+    "apple": 1497564209,
+    "cat": "sports",
+    "host": "Formula 1",
+    "about": "The official preview and review show."
+   },
+   {
+    "key": "the-race-f1",
+    "name": "The Race F1 Podcast",
+    "apple": 1466615052,
+    "cat": "sports",
+    "host": "The Race",
+    "about": "Analysis after every grand prix."
+   },
+   {
+    "key": "club-shay-shay",
+    "name": "Club Shay Shay",
+    "apple": 1569608567,
+    "cat": "sports",
+    "host": "Shannon Sharpe",
+    "about": "Shannon Sharpe’s long interviews."
+   },
+   {
+    "key": "tennis-podcast",
+    "name": "The Tennis Podcast",
+    "apple": 500081139,
+    "cat": "sports",
+    "host": "David Law, Catherine Whitaker, Matt Roberts",
+    "about": "Tennis, every tournament."
+   },
+   {
+    "key": "sporkful",
+    "name": "The Sporkful",
+    "apple": 335066541,
+    "cat": "food",
+    "host": "Dan Pashman",
+    "about": "It’s not for foodies, it’s for eaters."
+   },
+   {
+    "key": "home-cooking",
+    "name": "Home Cooking",
+    "apple": 1507395931,
+    "cat": "food",
+    "host": "Samin Nosrat and Hrishikesh Hirway",
+    "about": "Samin Nosrat helps you cook what you have."
+   },
+   {
+    "key": "splendid-table",
+    "name": "The Splendid Table",
+    "apple": 73330881,
+    "cat": "food",
+    "host": "APM",
+    "about": "Francis Lam on food, cooking and the people behind it."
+   },
+   {
+    "key": "gastropod",
+    "name": "Gastropod",
+    "apple": 1000053087,
+    "cat": "food",
+    "host": "Cynthia Graber and Nicola Twilley",
+    "about": "Food through the lens of science and history."
+   },
+   {
+    "key": "milk-street-radio",
+    "name": "Christopher Kimball’s Milk Street Radio",
+    "apple": 1163542367,
+    "cat": "food",
+    "host": "Milk Street",
+    "about": "Cooking, with questions answered."
+   },
+   {
+    "key": "dave-chang",
+    "name": "The Dave Chang Show",
+    "apple": 1385936464,
+    "cat": "food",
+    "host": "The Ringer",
+    "about": "David Chang on food and more."
+   },
+   {
+    "key": "dinner-sos",
+    "name": "Dinner SOS by Bon Appétit",
+    "apple": 1588817208,
+    "cat": "food",
+    "host": "Bon Appétit",
+    "about": "Test-kitchen editors solve your dinner."
+   },
+   {
+    "key": "radio-cherry-bombe",
+    "name": "Radio Cherry Bombe",
+    "apple": 1012559606,
+    "cat": "food",
+    "host": "Cherry Bombe",
+    "about": "Women in food."
+   },
+   {
+    "key": "proof",
+    "name": "Proof",
+    "apple": 1375727181,
+    "cat": "food",
+    "host": "America’s Test Kitchen",
+    "about": "Investigative food stories."
+   },
+   {
+    "key": "off-menu",
+    "name": "Off Menu with Ed Gamble and James Acaster",
+    "apple": 1442950743,
+    "cat": "food",
+    "host": "Plosive",
+    "about": "Guests order their dream meal."
+   },
+   {
+    "key": "table-manners",
+    "name": "Table Manners with Jessie and Lennie Ware",
+    "apple": 1314195572,
+    "cat": "food",
+    "host": "Jessie Ware",
+    "about": "Dinner, cooked by Lennie, with a famous guest."
+   },
+   {
+    "key": "women-who-travel",
+    "name": "Women Who Travel",
+    "apple": 1283478908,
+    "cat": "food",
+    "host": "Condé Nast Traveler",
+    "about": "Travel stories, weekly."
+   },
+   {
+    "key": "travel-with-rick-steves",
+    "name": "Travel with Rick Steves",
+    "apple": 76166128,
+    "cat": "food",
+    "host": "Rick Steves",
+    "about": "Travel conversations from public radio."
+   },
+   {
+    "key": "amateur-traveler",
+    "name": "Amateur Traveler",
+    "apple": 73329516,
+    "cat": "food",
+    "host": "Chris Christensen",
+    "about": "One destination an episode since 2005."
+   },
+   {
+    "key": "smoking-tire",
+    "name": "The Smoking Tire",
+    "apple": 1021125283,
+    "cat": "cars",
+    "host": "Matt Farah",
+    "about": "Car culture, interviews and the week’s drives."
+   },
+   {
+    "key": "spikes-car-radio",
+    "name": "Spike’s Car Radio",
+    "apple": 1329543417,
+    "cat": "cars",
+    "host": "Spike Feresten",
+    "about": "Spike Feresten, Paul Zuckerman and the cars."
+   },
+   {
+    "key": "carcast",
+    "name": "CarCast",
+    "apple": 526431823,
+    "cat": "cars",
+    "host": "Adam Carolla and Bill Goldberg",
+    "about": "Automotive talk with Adam Carolla."
+   },
+   {
+    "key": "car-dealership-guy",
+    "name": "Car Dealership Guy Podcast",
+    "apple": 1684466405,
+    "cat": "cars",
+    "host": "Car Dealership Guy",
+    "about": "The car business from the inside."
+   },
+   {
+    "key": "everyday-driver",
+    "name": "Everyday Driver Car Debate",
+    "apple": 1032359187,
+    "cat": "cars",
+    "host": "Everyday Driver",
+    "about": "Listener car-buying dilemmas, debated."
+   },
+   {
+    "key": "collecting-cars",
+    "name": "The Collecting Cars Podcast with Chris Harris",
+    "apple": 1529694436,
+    "cat": "cars",
+    "host": "Collecting Cars",
+    "about": "Chris Harris talks cars."
+   },
+   {
+    "key": "autopian-podcast",
+    "name": "The Autopian Podcast",
+    "apple": null,
+    "cat": "cars",
+    "host": "The Autopian",
+    "about": "The Autopian’s writers on the week in cars."
+   },
+   {
+    "key": "thinking-poker",
+    "name": "The Thinking Poker Podcast",
+    "apple": 584497069,
+    "cat": "hobbies",
+    "host": "Andrew Brokos and Carlos Welch",
+    "about": "Strategy and interviews for serious players."
+   },
+   {
+    "key": "dat-poker",
+    "name": "DAT Poker Podcast",
+    "apple": 1371498322,
+    "cat": "hobbies",
+    "host": "Daniel Negreanu, Adam Schwartz, Terrence Chan",
+    "about": "Negreanu and friends on the poker world."
+   },
+   {
+    "key": "chip-race",
+    "name": "The Chip Race",
+    "apple": 1152016236,
+    "cat": "hobbies",
+    "host": "David Lappin and Dara O’Kearney",
+    "about": "Strategy and the poker scene from Ireland."
+   },
+   {
+    "key": "only-friends",
+    "name": "Only Friends Pod",
+    "apple": 1500240742,
+    "cat": "hobbies",
+    "host": "Matt Berkey and Landon Tice",
+    "about": "High-stakes players on the game and the industry."
+   },
+   {
+    "key": "recpoker",
+    "name": "RecPoker Podcast",
+    "apple": 936104098,
+    "cat": "hobbies",
+    "host": "RecPoker",
+    "about": "For the recreational player."
+   },
+   {
+    "key": "horses-in-the-morning",
+    "name": "Horses in the Morning",
+    "apple": 350563372,
+    "cat": "hobbies",
+    "host": "Horse Radio Network",
+    "about": "The daily equestrian morning show."
+   },
+   {
+    "key": "dressage-radio",
+    "name": "Dressage Radio Show",
+    "apple": 446372216,
+    "cat": "hobbies",
+    "host": "Horse Radio Network",
+    "about": "Dressage news and training."
+   },
+   {
+    "key": "shop-talk-live",
+    "name": "Shop Talk Live - Fine Woodworking",
+    "apple": 596069216,
+    "cat": "hobbies",
+    "host": "Fine Woodworking",
+    "about": "The magazine’s editors answer shop questions."
+   },
+   {
+    "key": "wood-talk",
+    "name": "Wood Talk | Woodworking",
+    "apple": 376384366,
+    "cat": "hobbies",
+    "host": "Marc Spagnuolo, Shannon Rogers, Matt Cremona",
+    "about": "Woodworking talk, weekly."
+   },
+   {
+    "key": "making-it",
+    "name": "Making It With Jimmy Diresta, Bob Clagett and David Picciuto",
+    "apple": 1061304081,
+    "cat": "hobbies",
+    "host": "Jimmy DiResta",
+    "about": "Makers talk making."
+   },
+   {
+    "key": "book-review",
+    "name": "The Book Review",
+    "apple": 120315179,
+    "cat": "books",
+    "host": "The New York Times",
+    "about": "The Times’s book critics and editors, weekly."
+   },
+   {
+    "key": "backlisted",
+    "name": "Backlisted",
+    "apple": 1178071617,
+    "cat": "books",
+    "host": "John Mitchinson and Andy Miller",
+    "about": "Giving new life to old books."
+   },
+   {
+    "key": "what-should-i-read-next",
+    "name": "What Should I Read Next?",
+    "apple": 1113195470,
+    "cat": "books",
+    "host": "Anne Bogel",
+    "about": "A reader describes three books; Anne prescribes three more."
+   },
+   {
+    "key": "the-stacks",
+    "name": "The Stacks",
+    "apple": 1401160455,
+    "cat": "books",
+    "host": "Traci Thomas",
+    "about": "Books and the people who love them."
+   },
+   {
+    "key": "between-the-covers",
+    "name": "Between The Covers : Conversations with Writers in Fiction, Nonfiction & Poetry",
+    "apple": 1038127339,
+    "cat": "books",
+    "host": "David Naimon",
+    "about": "Long conversations with writers."
+   },
+   {
+    "key": "reading-glasses",
+    "name": "Reading Glasses",
+    "apple": 1247011447,
+    "cat": "books",
+    "host": "Brea Grant and Mallory O’Meara",
+    "about": "Reading better and more."
+   },
+   {
+    "key": "bookworm",
+    "name": "Bookworm",
+    "apple": 160904545,
+    "cat": "books",
+    "host": "KCRW",
+    "about": "Michael Silverblatt’s interviews with authors."
+   },
+   {
+    "key": "otherppl",
+    "name": "Otherppl with Brad Listi",
+    "apple": 455254478,
+    "cat": "books",
+    "host": "Brad Listi",
+    "about": "Writers on their lives and work."
+   },
+   {
+    "key": "new-yorker-fiction",
+    "name": "The New Yorker: Fiction",
+    "apple": 256945396,
+    "cat": "books",
+    "host": "The New Yorker",
+    "about": "A writer reads another writer’s story."
+   },
+   {
+    "key": "levar-burton-reads",
+    "name": "LeVar Burton Reads",
+    "apple": 1244649384,
+    "cat": "books",
+    "host": "LeVar Burton",
+    "about": "A short story, read beautifully."
+   },
+   {
+    "key": "if-books-could-kill",
+    "name": "If Books Could Kill",
+    "apple": 1651876897,
+    "cat": "books",
+    "host": "Michael Hobbes and Peter Shamshiri",
+    "about": "The airport bestsellers, taken apart."
+   },
+   {
+    "key": "writing-excuses",
+    "name": "Writing Excuses",
+    "apple": 299848826,
+    "cat": "books",
+    "host": "Brandon Sanderson, Mary Robinette Kowal and friends",
+    "about": "Fifteen minutes on craft."
+   },
+   {
+    "key": "poetry-unbound",
+    "name": "Poetry Unbound",
+    "apple": 1521473153,
+    "cat": "books",
+    "host": "On Being Studios",
+    "about": "Pádraig Ó Tuama reads one poem."
+   },
+   {
+    "key": "sentimental-garbage",
+    "name": "Sentimental Garbage",
+    "apple": 1428612434,
+    "cat": "books",
+    "host": "Caroline O’Donoghue",
+    "about": "The culture we love but don’t admit to."
+   },
+   {
+    "key": "song-exploder",
+    "name": "Song Exploder",
+    "apple": 788236947,
+    "cat": "music",
+    "host": "Hrishikesh Hirway",
+    "about": "Musicians take apart a song."
+   },
+   {
+    "key": "switched-on-pop",
+    "name": "Switched on Pop",
+    "apple": 934552872,
+    "cat": "music",
+    "host": "Vox Media",
+    "about": "How pop music works."
+   },
+   {
+    "key": "popcast",
+    "name": "Popcast",
+    "apple": 120315823,
+    "cat": "music",
+    "host": "The New York Times",
+    "about": "The Times’s pop music critics."
+   },
+   {
+    "key": "dissect",
+    "name": "Dissect",
+    "apple": 1143845868,
+    "cat": "music",
+    "host": "Cole Cuchna",
+    "about": "One album, a season at a time."
+   },
+   {
+    "key": "broken-record",
+    "name": "Broken Record with Rick Rubin, Malcolm Gladwell, Bruce Headlam and Justin Richmond",
+    "apple": 1311004083,
+    "cat": "music",
+    "host": "Pushkin",
+    "about": "Liner notes for the digital age."
+   },
+   {
+    "key": "all-songs-considered",
+    "name": "All Songs Considered",
+    "apple": 79687345,
+    "cat": "music",
+    "host": "NPR Music",
+    "about": "New music, from NPR."
+   },
+   {
+    "key": "sound-opinions",
+    "name": "Sound Opinions",
+    "apple": 73334695,
+    "cat": "music",
+    "host": "Jim DeRogatis and Greg Kot",
+    "about": "The rock and roll talk show."
+   },
+   {
+    "key": "questlove-supreme",
+    "name": "Questlove Supreme",
+    "apple": 1120326573,
+    "cat": "music",
+    "host": "iHeartPodcasts",
+    "about": "Questlove’s long musical conversations."
+   },
+   {
+    "key": "60-songs",
+    "name": "60 Songs That Explain the ’90s",
+    "apple": 1532125251,
+    "cat": "music",
+    "host": "The Ringer",
+    "about": "Rob Harvilla on the ’90s, one song at a time."
+   },
+   {
+    "key": "bandsplain",
+    "name": "Bandsplain",
+    "apple": 1543012006,
+    "cat": "music",
+    "host": "The Ringer",
+    "about": "Yasi Salek explains cult bands."
+   },
+   {
+    "key": "tape-notes",
+    "name": "Tape Notes",
+    "apple": 1332434366,
+    "cat": "music",
+    "host": "In The Woods",
+    "about": "Artists and producers on how records were made."
+   },
+   {
+    "key": "rolling-stone-music-now",
+    "name": "Rolling Stone Music Now",
+    "apple": 1049226538,
+    "cat": "music",
+    "host": "Rolling Stone",
+    "about": "The magazine’s music writers."
+   },
+   {
+    "key": "design-matters",
+    "name": "Design Matters with Debbie Millman",
+    "apple": 328074695,
+    "cat": "design",
+    "host": "Debbie Millman",
+    "about": "The first podcast about design, since 2005."
+   },
+   {
+    "key": "business-of-fashion",
+    "name": "The Business of Fashion Podcast",
+    "apple": 1095913200,
+    "cat": "design",
+    "host": "The Business of Fashion",
+    "about": "Fashion’s business, with Imran Amed."
+   },
+   {
+    "key": "articles-of-interest",
+    "name": "Articles of Interest",
+    "apple": 1443726007,
+    "cat": "design",
+    "host": "Avery Trufelman",
+    "about": "What we wear and why."
+   },
+   {
+    "key": "throwing-fits",
+    "name": "Throwing Fits",
+    "apple": 1457135689,
+    "cat": "design",
+    "host": "James Harris and Lawrence Schlossman",
+    "about": "Menswear and the culture around it."
+   },
+   {
+    "key": "blamo",
+    "name": "Blamo!",
+    "apple": 1136926201,
+    "cat": "design",
+    "host": "Jeremy Kirkland",
+    "about": "Conversations with the people who make fashion."
+   },
+   {
+    "key": "clever",
+    "name": "Clever",
+    "apple": 1200111640,
+    "cat": "design",
+    "host": "Amy Devers",
+    "about": "Designers on their lives and work."
+   },
+   {
+    "key": "the-urbanist",
+    "name": "The Urbanist",
+    "apple": 1101433498,
+    "cat": "design",
+    "host": "Monocle",
+    "about": "Monocle’s show about cities."
+   },
+   {
+    "key": "monocle-the-stack",
+    "name": "The Stack",
+    "apple": 1105010848,
+    "cat": "design",
+    "host": "Monocle",
+    "about": "Monocle on magazines, newspapers and publishing."
+   },
+   {
+    "key": "monocle-the-menu",
+    "name": "The Menu",
+    "apple": 1111826108,
+    "cat": "design",
+    "host": "Monocle",
+    "about": "Monocle on food and drink."
+   },
+   {
+    "key": "how-to-decorate",
+    "name": "How to Decorate",
+    "apple": 1194366208,
+    "cat": "design",
+    "host": "Ballard Designs",
+    "about": "Designers on how to decorate."
+   }
+  ]
+ },
+ "magazines": {
+  "categories": [
+   {
+    "key": "ideas",
+    "name": "Ideas & Letters"
+   },
+   {
+    "key": "culture",
+    "name": "Culture"
+   },
+   {
+    "key": "science",
+    "name": "Science & Tech"
+   },
+   {
+    "key": "business",
+    "name": "Business & Politics"
+   },
+   {
+    "key": "style",
+    "name": "Style"
+   },
+   {
+    "key": "home",
+    "name": "Design & Home"
+   },
+   {
+    "key": "food",
+    "name": "Food & Travel"
+   },
+   {
+    "key": "outdoors",
+    "name": "Cars, Sport & Outdoors"
+   },
+   {
+    "key": "hobbies",
+    "name": "For the Hobbies desk"
+   }
+  ],
+  "titles": [
+   {
+    "key": "new-yorker",
+    "name": "The New Yorker",
+    "site": "https://www.newyorker.com",
+    "feed": "https://www.newyorker.com/feed/everything",
+    "cat": "ideas",
+    "since": 1925,
+    "cadence": "Weekly",
+    "about": "Reporting, criticism, fiction and the cartoons.",
+    "mark": "NY",
+    "color": "#1B1B1B"
+   },
+   {
+    "key": "atlantic",
+    "name": "The Atlantic",
+    "site": "https://www.theatlantic.com",
+    "feed": "https://www.theatlantic.com/feed/all/",
+    "cat": "ideas",
+    "since": 1857,
+    "cadence": "Monthly",
+    "about": "Long-form on politics, ideas and culture.",
+    "mark": "A",
+    "color": "#C8102E"
+   },
+   {
+    "key": "harpers",
+    "name": "Harper’s Magazine",
+    "site": "https://harpers.org",
+    "feed": "https://harpers.org/feed/",
+    "cat": "ideas",
+    "since": 1850,
+    "cadence": "Monthly",
+    "about": "The oldest general-interest monthly in America; the Index, the Readings.",
+    "mark": "H",
+    "color": "#6B2E2A"
+   },
+   {
+    "key": "nyrb",
+    "name": "The New York Review of Books",
+    "site": "https://www.nybooks.com",
+    "feed": "https://www.nybooks.com/feed/",
+    "cat": "ideas",
+    "since": 1963,
+    "cadence": "Every two weeks",
+    "about": "Long essays on books and ideas.",
+    "mark": "NYRB",
+    "color": "#143B6A"
+   },
+   {
+    "key": "lrb",
+    "name": "London Review of Books",
+    "site": "https://www.lrb.co.uk",
+    "feed": "https://www.lrb.co.uk/feeds/rss",
+    "cat": "ideas",
+    "since": 1979,
+    "cadence": "Every two weeks",
+    "about": "Europe’s leading literary magazine; the personals are gone, the essays remain.",
+    "mark": "LRB",
+    "color": "#C62828"
+   },
+   {
+    "key": "aeon",
+    "name": "Aeon",
+    "site": "https://aeon.co",
+    "feed": "https://aeon.co/feed.rss",
+    "cat": "ideas",
+    "since": 2012,
+    "cadence": "Daily",
+    "about": "Essays on philosophy, science and society.",
+    "mark": "Æ",
+    "color": "#2E6E4E"
+   },
+   {
+    "key": "nautilus",
+    "name": "Nautilus",
+    "site": "https://nautil.us",
+    "feed": "https://nautil.us/feed/",
+    "cat": "science",
+    "since": 2013,
+    "cadence": "Monthly",
+    "about": "Science as literature.",
+    "mark": "N",
+    "color": "#1F5F8B"
+   },
+   {
+    "key": "quanta",
+    "name": "Quanta Magazine",
+    "site": "https://www.quantamagazine.org",
+    "feed": "https://api.quantamagazine.org/feed/",
+    "cat": "science",
+    "since": 2012,
+    "cadence": "Weekly",
+    "about": "Math, physics, biology and computer science, for readers who want the real thing.",
+    "mark": "Q",
+    "color": "#FF8600"
+   },
+   {
+    "key": "mit-tech-review",
+    "name": "MIT Technology Review",
+    "site": "https://www.technologyreview.com",
+    "feed": "https://www.technologyreview.com/feed/",
+    "cat": "science",
+    "since": 1899,
+    "cadence": "Every two months",
+    "about": "Technology and its consequences.",
+    "mark": "TR",
+    "color": "#0E7C86"
+   },
+   {
+    "key": "scientific-american",
+    "name": "Scientific American",
+    "site": "https://www.scientificamerican.com",
+    "feed": "http://rss.sciam.com/ScientificAmerican-Global",
+    "cat": "science",
+    "since": 1845,
+    "cadence": "Monthly",
+    "about": "Science for the general reader since 1845.",
+    "mark": "SA",
+    "color": "#B22222"
+   },
+   {
+    "key": "wired",
+    "name": "WIRED",
+    "site": "https://www.wired.com",
+    "feed": "https://www.wired.com/feed/rss",
+    "cat": "science",
+    "since": 1993,
+    "cadence": "Monthly",
+    "about": "Where the future is made.",
+    "mark": "W",
+    "color": "#000000"
+   },
+   {
+    "key": "smithsonian",
+    "name": "Smithsonian Magazine",
+    "site": "https://www.smithsonianmag.com",
+    "feed": "https://www.smithsonianmag.com/rss/latest_articles/",
+    "cat": "science",
+    "since": 1970,
+    "cadence": "Monthly",
+    "about": "History, science, arts and travel from the Smithsonian.",
+    "mark": "S",
+    "color": "#8A1E3C"
+   },
+   {
+    "key": "national-geographic",
+    "name": "National Geographic",
+    "site": "https://www.nationalgeographic.com",
+    "feed": "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US:en&q=site%3Anationalgeographic.com%20when%3A7d",
+    "cat": "science",
+    "since": 1888,
+    "cadence": "Monthly",
+    "about": "The yellow border.",
+    "mark": "NG",
+    "color": "#FFCC00"
+   },
+   {
+    "key": "new-scientist",
+    "name": "New Scientist",
+    "site": "https://www.newscientist.com",
+    "feed": "https://www.newscientist.com/feed/home/",
+    "cat": "science",
+    "since": 1956,
+    "cadence": "Weekly",
+    "about": "The week in science, from London.",
+    "mark": "NS",
+    "color": "#0A4F8A"
+   },
+   {
+    "key": "popular-mechanics",
+    "name": "Popular Mechanics",
+    "site": "https://www.popularmechanics.com",
+    "feed": "https://www.popularmechanics.com/rss/all.xml/",
+    "cat": "science",
+    "since": 1902,
+    "cadence": "Every two months",
+    "about": "How things work, and how to fix them.",
+    "mark": "PM",
+    "color": "#D4A017"
+   },
+   {
+    "key": "economist",
+    "name": "The Economist",
+    "site": "https://www.economist.com",
+    "feed": "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US:en&q=site%3Aeconomist.com%20when%3A7d",
+    "cat": "business",
+    "since": 1843,
+    "cadence": "Weekly",
+    "about": "The week, without bylines.",
+    "mark": "E",
+    "color": "#E3120B"
+   },
+   {
+    "key": "businessweek",
+    "name": "Bloomberg Businessweek",
+    "site": "https://www.bloomberg.com/businessweek",
+    "feed": "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US:en&q=site%3Abloomberg.com/news/features%20when%3A10d",
+    "cat": "business",
+    "since": 1929,
+    "cadence": "Monthly",
+    "about": "Bloomberg’s long reads.",
+    "mark": "BW",
+    "color": "#000000"
+   },
+   {
+    "key": "fast-company",
+    "name": "Fast Company",
+    "site": "https://www.fastcompany.com",
+    "feed": "https://www.fastcompany.com/latest/rss",
+    "cat": "business",
+    "since": 1995,
+    "cadence": "Quarterly",
+    "about": "Innovation and the people behind it.",
+    "mark": "FC",
+    "color": "#E8003D"
+   },
+   {
+    "key": "foreign-affairs",
+    "name": "Foreign Affairs",
+    "site": "https://www.foreignaffairs.com",
+    "feed": "https://www.foreignaffairs.com/rss.xml",
+    "cat": "business",
+    "since": 1922,
+    "cadence": "Every two months",
+    "about": "The essays policymakers read.",
+    "mark": "FA",
+    "color": "#1B3A6B"
+   },
+   {
+    "key": "foreign-policy",
+    "name": "Foreign Policy",
+    "site": "https://foreignpolicy.com",
+    "feed": "https://foreignpolicy.com/feed/",
+    "cat": "business",
+    "since": 1970,
+    "cadence": "Quarterly",
+    "about": "Global politics and economics.",
+    "mark": "FP",
+    "color": "#D62828"
+   },
+   {
+    "key": "new-republic",
+    "name": "The New Republic",
+    "site": "https://newrepublic.com",
+    "feed": "https://newrepublic.com/rss.xml",
+    "cat": "business",
+    "since": 1914,
+    "cadence": "Monthly",
+    "about": "Politics and culture from the left.",
+    "mark": "TNR",
+    "color": "#A2191F"
+   },
+   {
+    "key": "the-nation",
+    "name": "The Nation",
+    "site": "https://www.thenation.com",
+    "feed": "https://www.thenation.com/feed/?post_type=article",
+    "cat": "business",
+    "since": 1865,
+    "cadence": "Monthly",
+    "about": "America’s oldest weekly, now monthly.",
+    "mark": "N",
+    "color": "#D92D20"
+   },
+   {
+    "key": "national-review",
+    "name": "National Review",
+    "site": "https://www.nationalreview.com",
+    "feed": "https://www.nationalreview.com/feed/",
+    "cat": "business",
+    "since": 1955,
+    "cadence": "Every two weeks",
+    "about": "Conservatism’s magazine of record.",
+    "mark": "NR",
+    "color": "#0B2A5B"
+   },
+   {
+    "key": "reason",
+    "name": "Reason",
+    "site": "https://reason.com",
+    "feed": "https://reason.com/latest/feed/",
+    "cat": "business",
+    "since": 1968,
+    "cadence": "Monthly",
+    "about": "Free minds and free markets.",
+    "mark": "R",
+    "color": "#D71920"
+   },
+   {
+    "key": "jacobin",
+    "name": "Jacobin",
+    "site": "https://jacobin.com",
+    "feed": "https://jacobin.com/feed/",
+    "cat": "business",
+    "since": 2010,
+    "cadence": "Quarterly",
+    "about": "Socialist perspectives on politics and culture.",
+    "mark": "J",
+    "color": "#E31B23"
+   },
+   {
+    "key": "time",
+    "name": "TIME",
+    "site": "https://time.com",
+    "feed": "https://time.com/feed/",
+    "cat": "business",
+    "since": 1923,
+    "cadence": "Every two weeks",
+    "about": "The red border.",
+    "mark": "T",
+    "color": "#E90606"
+   },
+   {
+    "key": "the-week",
+    "name": "The Week",
+    "site": "https://theweek.com",
+    "feed": "https://theweek.com/rss",
+    "cat": "business",
+    "since": 1995,
+    "cadence": "Weekly",
+    "about": "All you need to know about everything that matters.",
+    "mark": "TW",
+    "color": "#0D3B66"
+   },
+   {
+    "key": "noema",
+    "name": "Noema",
+    "site": "https://www.noemamag.com",
+    "feed": "https://www.noemamag.com/feed/",
+    "cat": "ideas",
+    "since": 2020,
+    "cadence": "Twice a year",
+    "about": "Essays on the big transitions, from the Berggruen Institute.",
+    "mark": "NO",
+    "color": "#2B2B2B"
+   },
+   {
+    "key": "works-in-progress",
+    "name": "Works in Progress",
+    "site": "https://worksinprogress.co",
+    "feed": "https://worksinprogress.co/feed/",
+    "cat": "ideas",
+    "since": 2020,
+    "cadence": "Quarterly",
+    "about": "Underrated ideas to improve the world.",
+    "mark": "WIP",
+    "color": "#1D4ED8"
+   },
+   {
+    "key": "the-baffler",
+    "name": "The Baffler",
+    "site": "https://thebaffler.com",
+    "feed": "https://thebaffler.com/feed",
+    "cat": "ideas",
+    "since": 1988,
+    "cadence": "Every two months",
+    "about": "The journal that blunts the cutting edge.",
+    "mark": "B",
+    "color": "#000000"
+   },
+   {
+    "key": "n-plus-one",
+    "name": "n+1",
+    "site": "https://www.nplusonemag.com",
+    "feed": "https://www.nplusonemag.com/feed/",
+    "cat": "ideas",
+    "since": 2004,
+    "cadence": "Three times a year",
+    "about": "Literature, culture and politics from Brooklyn.",
+    "mark": "n+1",
+    "color": "#C0392B"
+   },
+   {
+    "key": "paris-review",
+    "name": "The Paris Review",
+    "site": "https://www.theparisreview.org",
+    "feed": "https://www.theparisreview.org/blog/feed/",
+    "cat": "ideas",
+    "since": 1953,
+    "cadence": "Quarterly",
+    "about": "Fiction, poetry and the Art of Fiction interviews.",
+    "mark": "PR",
+    "color": "#1A1A1A"
+   },
+   {
+    "key": "granta",
+    "name": "Granta",
+    "site": "https://granta.com",
+    "feed": "https://granta.com/feed/",
+    "cat": "ideas",
+    "since": 1889,
+    "cadence": "Quarterly",
+    "about": "New writing, from Cambridge then London.",
+    "mark": "G",
+    "color": "#111111"
+   },
+   {
+    "key": "laphams",
+    "name": "Lapham’s Quarterly",
+    "site": "https://www.laphamsquarterly.org",
+    "feed": "https://www.laphamsquarterly.org/rss.xml",
+    "cat": "ideas",
+    "since": 2007,
+    "cadence": "Quarterly",
+    "about": "History, by theme, from the archive of everything.",
+    "mark": "LQ",
+    "color": "#5A3E36"
+   },
+   {
+    "key": "new-york-mag",
+    "name": "New York",
+    "site": "https://nymag.com",
+    "feed": "https://nymag.com/intelligencer/rss.xml",
+    "cat": "culture",
+    "since": 1968,
+    "cadence": "Every two weeks",
+    "about": "Intelligencer: politics, business and the city.",
+    "mark": "NY",
+    "color": "#000000"
+   },
+   {
+    "key": "vulture",
+    "name": "Vulture",
+    "site": "https://www.vulture.com",
+    "feed": "https://www.vulture.com/rss.xml",
+    "cat": "culture",
+    "since": 2007,
+    "cadence": "Daily",
+    "about": "New York’s culture desk.",
+    "mark": "V",
+    "color": "#E4002B"
+   },
+   {
+    "key": "the-cut",
+    "name": "The Cut",
+    "site": "https://www.thecut.com",
+    "feed": "https://www.thecut.com/rss.xml",
+    "cat": "style",
+    "since": 2008,
+    "cadence": "Daily",
+    "about": "Style, self and culture, from New York.",
+    "mark": "TC",
+    "color": "#000000"
+   },
+   {
+    "key": "vanity-fair",
+    "name": "Vanity Fair",
+    "site": "https://www.vanityfair.com",
+    "feed": "https://www.vanityfair.com/feed/rss",
+    "cat": "culture",
+    "since": 1913,
+    "cadence": "Monthly",
+    "about": "Hollywood, power and the Oscars issue.",
+    "mark": "VF",
+    "color": "#000000"
+   },
+   {
+    "key": "rolling-stone",
+    "name": "Rolling Stone",
+    "site": "https://www.rollingstone.com",
+    "feed": "https://www.rollingstone.com/feed/",
+    "cat": "culture",
+    "since": 1967,
+    "cadence": "Monthly",
+    "about": "Music, politics and culture since 1967.",
+    "mark": "RS",
+    "color": "#D50000"
+   },
+   {
+    "key": "pitchfork",
+    "name": "Pitchfork",
+    "site": "https://pitchfork.com",
+    "feed": "https://pitchfork.com/rss/reviews/albums/",
+    "cat": "culture",
+    "since": 1996,
+    "cadence": "Daily",
+    "about": "The album reviews, scored to one decimal.",
+    "mark": "P",
+    "color": "#000000"
+   },
+   {
+    "key": "the-ringer",
+    "name": "The Ringer",
+    "site": "https://www.theringer.com",
+    "feed": "https://www.theringer.com/rss/index.xml",
+    "cat": "culture",
+    "since": 2016,
+    "cadence": "Daily",
+    "about": "Sports and pop culture, from Bill Simmons.",
+    "mark": "R",
+    "color": "#0E1E2B"
+   },
+   {
+    "key": "slate",
+    "name": "Slate",
+    "site": "https://slate.com",
+    "feed": "https://slate.com/feeds/all.rss",
+    "cat": "culture",
+    "since": 1996,
+    "cadence": "Daily",
+    "about": "The contrarian take, since the web was young.",
+    "mark": "S",
+    "color": "#5B2A86"
+   },
+   {
+    "key": "longreads",
+    "name": "Longreads",
+    "site": "https://longreads.com",
+    "feed": "https://longreads.com/feed/",
+    "cat": "ideas",
+    "since": 2009,
+    "cadence": "Daily",
+    "about": "The best long-form, picked by editors.",
+    "mark": "LR",
+    "color": "#C0392B"
+   },
+   {
+    "key": "texas-monthly",
+    "name": "Texas Monthly",
+    "site": "https://www.texasmonthly.com",
+    "feed": "https://www.texasmonthly.com/feed/",
+    "cat": "culture",
+    "since": 1973,
+    "cadence": "Monthly",
+    "about": "The national magazine of Texas; barbecue rankings included.",
+    "mark": "TM",
+    "color": "#C8102E"
+   },
+   {
+    "key": "the-new-criterion",
+    "name": "The New Criterion",
+    "site": "https://newcriterion.com",
+    "feed": "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US:en&q=site%3Anewcriterion.com%20when%3A14d",
+    "cat": "culture",
+    "since": 1982,
+    "cadence": "Monthly",
+    "about": "Arts and letters, from the right.",
+    "mark": "NC",
+    "color": "#7B1F1F"
+   },
+   {
+    "key": "vogue",
+    "name": "Vogue",
+    "site": "https://www.vogue.com",
+    "feed": "https://www.vogue.com/feed/rss",
+    "cat": "style",
+    "since": 1892,
+    "cadence": "Monthly",
+    "about": "Fashion’s magazine of record.",
+    "mark": "V",
+    "color": "#000000"
+   },
+   {
+    "key": "gq",
+    "name": "GQ",
+    "site": "https://www.gq.com",
+    "feed": "https://www.gq.com/feed/rss",
+    "cat": "style",
+    "since": 1957,
+    "cadence": "Monthly",
+    "about": "Menswear, profiles and the GQ Recommends desk.",
+    "mark": "GQ",
+    "color": "#000000"
+   },
+   {
+    "key": "esquire",
+    "name": "Esquire",
+    "site": "https://www.esquire.com",
+    "feed": "https://www.esquire.com/rss/all.xml/",
+    "cat": "style",
+    "since": 1933,
+    "cadence": "Every two months",
+    "about": "Men’s style and long-form since 1933.",
+    "mark": "E",
+    "color": "#000000"
+   },
+   {
+    "key": "harpers-bazaar",
+    "name": "Harper’s BAZAAR",
+    "site": "https://www.harpersbazaar.com",
+    "feed": "https://www.harpersbazaar.com/rss/all.xml/",
+    "cat": "style",
+    "since": 1867,
+    "cadence": "Monthly",
+    "about": "America’s first fashion magazine.",
+    "mark": "HB",
+    "color": "#000000"
+   },
+   {
+    "key": "elle",
+    "name": "ELLE",
+    "site": "https://www.elle.com",
+    "feed": "https://www.elle.com/rss/all.xml/",
+    "cat": "style",
+    "since": 1945,
+    "cadence": "Monthly",
+    "about": "Fashion, beauty and culture.",
+    "mark": "E",
+    "color": "#000000"
+   },
+   {
+    "key": "monocle",
+    "name": "Monocle",
+    "site": "https://monocle.com",
+    "feed": "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US:en&q=site%3Amonocle.com%20when%3A14d",
+    "cat": "style",
+    "since": 2007,
+    "cadence": "Ten a year",
+    "about": "Global affairs, business, culture and design, from Tyler Brûlé.",
+    "mark": "M",
+    "color": "#000000"
+   },
+   {
+    "key": "hodinkee",
+    "name": "Hodinkee",
+    "site": "https://www.hodinkee.com",
+    "feed": "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US:en&q=site%3Ahodinkee.com%20when%3A7d",
+    "cat": "style",
+    "since": 2008,
+    "cadence": "Daily",
+    "about": "Watches, written seriously.",
+    "mark": "H",
+    "color": "#000000"
+   },
+   {
+    "key": "architectural-digest",
+    "name": "Architectural Digest",
+    "site": "https://www.architecturaldigest.com",
+    "feed": "https://www.architecturaldigest.com/feed/rss",
+    "cat": "home",
+    "since": 1920,
+    "cadence": "Monthly",
+    "about": "The homes, and the open-door videos.",
+    "mark": "AD",
+    "color": "#000000"
+   },
+   {
+    "key": "dwell",
+    "name": "Dwell",
+    "site": "https://www.dwell.com",
+    "feed": "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US:en&q=site%3Adwell.com%20when%3A7d",
+    "cat": "home",
+    "since": 2000,
+    "cadence": "Every two months",
+    "about": "Modern homes, lived in.",
+    "mark": "D",
+    "color": "#000000"
+   },
+   {
+    "key": "dezeen",
+    "name": "Dezeen",
+    "site": "https://www.dezeen.com",
+    "feed": "https://www.dezeen.com/feed/",
+    "cat": "home",
+    "since": 2006,
+    "cadence": "Daily",
+    "about": "Architecture, interiors and design news.",
+    "mark": "Dz",
+    "color": "#000000"
+   },
+   {
+    "key": "fine-woodworking",
+    "name": "Fine Woodworking",
+    "site": "https://www.finewoodworking.com",
+    "feed": "https://www.finewoodworking.com/feed",
+    "cat": "hobbies",
+    "since": 1975,
+    "cadence": "Seven a year",
+    "about": "The craft, from Taunton Press.",
+    "mark": "FW",
+    "color": "#5C3A1E"
+   },
+   {
+    "key": "bon-appetit",
+    "name": "Bon Appétit",
+    "site": "https://www.bonappetit.com",
+    "feed": "https://www.bonappetit.com/feed/rss",
+    "cat": "food",
+    "since": 1956,
+    "cadence": "Ten a year",
+    "about": "Recipes and the test kitchen.",
+    "mark": "BA",
+    "color": "#D32F2F"
+   },
+   {
+    "key": "saveur",
+    "name": "Saveur",
+    "site": "https://www.saveur.com",
+    "feed": "https://www.saveur.com/feed/",
+    "cat": "food",
+    "since": 1994,
+    "cadence": "Quarterly",
+    "about": "Food and the places it comes from.",
+    "mark": "S",
+    "color": "#B71C1C"
+   },
+   {
+    "key": "food-and-wine",
+    "name": "Food & Wine",
+    "site": "https://www.foodandwine.com",
+    "feed": "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US:en&q=site%3Afoodandwine.com%20when%3A5d",
+    "cat": "food",
+    "since": 1978,
+    "cadence": "Monthly",
+    "about": "Restaurants, recipes and wine.",
+    "mark": "F&W",
+    "color": "#8B0000"
+   },
+   {
+    "key": "conde-nast-traveler",
+    "name": "Condé Nast Traveler",
+    "site": "https://www.cntraveler.com",
+    "feed": "https://www.cntraveler.com/feed/rss",
+    "cat": "food",
+    "since": 1987,
+    "cadence": "Eight a year",
+    "about": "Where to go next.",
+    "mark": "CNT",
+    "color": "#000000"
+   },
+   {
+    "key": "travel-leisure",
+    "name": "Travel + Leisure",
+    "site": "https://www.travelandleisure.com",
+    "feed": "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US:en&q=site%3Atravelandleisure.com%20when%3A5d",
+    "cat": "food",
+    "since": 1971,
+    "cadence": "Monthly",
+    "about": "Hotels, cities and the World’s Best lists.",
+    "mark": "T+L",
+    "color": "#000000"
+   },
+   {
+    "key": "afar",
+    "name": "AFAR",
+    "site": "https://www.afar.com",
+    "feed": "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US:en&q=site%3Aafar.com%20when%3A10d",
+    "cat": "food",
+    "since": 2009,
+    "cadence": "Quarterly",
+    "about": "Travel that matters.",
+    "mark": "AF",
+    "color": "#F26522"
+   },
+   {
+    "key": "outside",
+    "name": "Outside",
+    "site": "https://www.outsideonline.com",
+    "feed": "https://www.outsideonline.com/feed/",
+    "cat": "outdoors",
+    "since": 1977,
+    "cadence": "Every two months",
+    "about": "The outdoors, gear and the people out there.",
+    "mark": "O",
+    "color": "#F5A623"
+   },
+   {
+    "key": "car-and-driver",
+    "name": "Car and Driver",
+    "site": "https://www.caranddriver.com",
+    "feed": "https://www.caranddriver.com/rss/all.xml/",
+    "cat": "outdoors",
+    "since": 1955,
+    "cadence": "Monthly",
+    "about": "Tests, reviews and the 10Best.",
+    "mark": "C/D",
+    "color": "#000000"
+   },
+   {
+    "key": "road-and-track",
+    "name": "Road & Track",
+    "site": "https://www.roadandtrack.com",
+    "feed": "https://www.roadandtrack.com/rss/all.xml/",
+    "cat": "outdoors",
+    "since": 1947,
+    "cadence": "Quarterly",
+    "about": "Cars, driving and racing.",
+    "mark": "R&T",
+    "color": "#C00000"
+   },
+   {
+    "key": "motortrend",
+    "name": "MotorTrend",
+    "site": "https://www.motortrend.com",
+    "feed": "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US:en&q=site%3Amotortrend.com%20when%3A5d",
+    "cat": "outdoors",
+    "since": 1949,
+    "cadence": "Monthly",
+    "about": "The Car of the Year people.",
+    "mark": "MT",
+    "color": "#D7262A"
+   },
+   {
+    "key": "hagerty-drivers-club",
+    "name": "Hagerty Media",
+    "site": "https://www.hagerty.com/media",
+    "feed": "https://www.hagerty.com/media/feed/",
+    "cat": "outdoors",
+    "since": 2019,
+    "cadence": "Every two months",
+    "about": "Collector cars and the market.",
+    "mark": "HG",
+    "color": "#1E2A38"
+   },
+   {
+    "key": "golf-digest",
+    "name": "Golf Digest",
+    "site": "https://www.golfdigest.com",
+    "feed": "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US:en&q=site%3Agolfdigest.com%20when%3A5d",
+    "cat": "outdoors",
+    "since": 1950,
+    "cadence": "Monthly",
+    "about": "Golf instruction and the courses.",
+    "mark": "GD",
+    "color": "#1B5E20"
+   },
+   {
+    "key": "mens-health",
+    "name": "Men’s Health",
+    "site": "https://www.menshealth.com",
+    "feed": "https://www.menshealth.com/rss/all.xml/",
+    "cat": "outdoors",
+    "since": 1987,
+    "cadence": "Ten a year",
+    "about": "Fitness, nutrition and health.",
+    "mark": "MH",
+    "color": "#D32F2F"
+   },
+   {
+    "key": "chronicle-of-the-horse",
+    "name": "The Chronicle of the Horse",
+    "site": "https://www.chronofhorse.com",
+    "feed": "https://www.chronofhorse.com/feed/",
+    "cat": "hobbies",
+    "since": 1937,
+    "cadence": "Monthly",
+    "about": "Hunters, jumpers, eventing and dressage.",
+    "mark": "COTH",
+    "color": "#2E7D32"
+   },
+   {
+    "key": "practical-horseman",
+    "name": "Practical Horseman",
+    "site": "https://practicalhorsemanmag.com",
+    "feed": "https://practicalhorsemanmag.com/feed/",
+    "cat": "hobbies",
+    "since": 1973,
+    "cadence": "Quarterly",
+    "about": "English riding and training.",
+    "mark": "PH",
+    "color": "#6D4C41"
+   },
+   {
+    "key": "horse-and-hound",
+    "name": "Horse & Hound",
+    "site": "https://www.horseandhound.co.uk",
+    "feed": "https://www.horseandhound.co.uk/feed",
+    "cat": "hobbies",
+    "since": 1884,
+    "cadence": "Weekly",
+    "about": "The British equestrian weekly.",
+    "mark": "H&H",
+    "color": "#8B0000"
+   },
+   {
+    "key": "card-player",
+    "name": "Card Player",
+    "site": "https://www.cardplayer.com",
+    "feed": "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US:en&q=site%3Acardplayer.com%20when%3A7d",
+    "cat": "hobbies",
+    "since": 1988,
+    "cadence": "Monthly",
+    "about": "Poker’s magazine since 1988.",
+    "mark": "CP",
+    "color": "#B71C1C"
+   },
+   {
+    "key": "pokernews",
+    "name": "PokerNews",
+    "site": "https://www.pokernews.com",
+    "feed": "https://www.pokernews.com/rss.xml",
+    "cat": "hobbies",
+    "since": 2002,
+    "cadence": "Daily",
+    "about": "Live reporting from the tournaments.",
+    "mark": "PN",
+    "color": "#D32F2F"
+   },
+   {
+    "key": "the-verge",
+    "name": "The Verge",
+    "site": "https://www.theverge.com",
+    "feed": "https://www.theverge.com/rss/index.xml",
+    "cat": "science",
+    "since": 2011,
+    "cadence": "Daily",
+    "about": "Tech, science, art and culture.",
+    "mark": "V",
+    "color": "#5200FF"
+   },
+   {
+    "key": "ars-technica",
+    "name": "Ars Technica",
+    "site": "https://arstechnica.com",
+    "feed": "https://feeds.arstechnica.com/arstechnica/index",
+    "cat": "science",
+    "since": 1998,
+    "cadence": "Daily",
+    "about": "The technica.",
+    "mark": "ARS",
+    "color": "#FF4E00"
+   },
+   {
+    "key": "cooks-illustrated",
+    "name": "Cook’s Illustrated",
+    "site": "https://www.americastestkitchen.com/cooksillustrated",
+    "feed": "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US:en&q=site%3Aamericastestkitchen.com%20when%3A10d",
+    "cat": "food",
+    "since": 1980,
+    "cadence": "Every two months",
+    "about": "Why recipes work, from America’s Test Kitchen.",
+    "mark": "CI",
+    "color": "#8D6E63"
+   },
+   {
+    "key": "kinfolk",
+    "name": "Kinfolk",
+    "site": "https://www.kinfolk.com",
+    "feed": "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US:en&q=site%3Akinfolk.com%20when%3A30d",
+    "cat": "home",
+    "since": 2011,
+    "cadence": "Quarterly",
+    "about": "Slow living, beautifully printed.",
+    "mark": "K",
+    "color": "#9E9E9E"
+   },
+   {
+    "key": "the-strategist",
+    "name": "The Strategist",
+    "site": "https://nymag.com/strategist",
+    "feed": "https://nymag.com/strategist/rss.xml",
+    "cat": "style",
+    "since": 2016,
+    "cadence": "Daily",
+    "about": "New York’s shopping desk: what to buy.",
+    "mark": "ST",
+    "color": "#000000"
+   },
+   {
+    "key": "wirecutter",
+    "name": "Wirecutter",
+    "site": "https://www.nytimes.com/wirecutter/",
+    "feed": "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US:en&q=site%3Anytimes.com/wirecutter%20when%3A5d",
+    "cat": "style",
+    "since": 2011,
+    "cadence": "Daily",
+    "about": "The Times’s tested recommendations.",
+    "mark": "WC",
+    "color": "#1A1A1A"
+   }
+  ]
+ },
+ "creators": {
+  "categories": [
+   {
+    "key": "tech",
+    "name": "Tech & Gadgets",
+    "dek": "The reviewers and the explainers"
+   },
+   {
+    "key": "science",
+    "name": "Science & Learning",
+    "dek": "The best teachers on the internet"
+   },
+   {
+    "key": "food",
+    "name": "Food",
+    "dek": "Home cooks with cameras"
+   },
+   {
+    "key": "money",
+    "name": "Money & Business",
+    "dek": "Investing, careers and the hustle"
+   },
+   {
+    "key": "cars",
+    "name": "Cars",
+    "dek": "Builders, reviewers and racers"
+   },
+   {
+    "key": "fitness",
+    "name": "Fitness & Outdoors",
+    "dek": "Training, trails and the road"
+   },
+   {
+    "key": "travel",
+    "name": "Travel",
+    "dek": "Always somewhere else"
+   },
+   {
+    "key": "home",
+    "name": "Design, Home & Making",
+    "dek": "Houses, furniture and the shop"
+   },
+   {
+    "key": "style",
+    "name": "Style & Beauty",
+    "dek": "Fashion and the face"
+   },
+   {
+    "key": "culture",
+    "name": "Comedy & Commentary",
+    "dek": "The video essayists and the entertainers"
+   },
+   {
+    "key": "social",
+    "name": "Instagram & TikTok",
+    "dek": "The feeds that set the trends"
+   },
+   {
+    "key": "poker",
+    "name": "Poker",
+    "dek": "The vloggers and the coaches"
+   },
+   {
+    "key": "horses",
+    "name": "Horses",
+    "dek": "Riders and trainers"
+   },
+   {
+    "key": "writers",
+    "name": "Writers & Newsletters",
+    "dek": "The best of Substack and the independent web"
+   }
+  ],
+  "people": [
+   {
+    "key": "mkbhd",
+    "name": "Marques Brownlee",
+    "cat": "tech",
+    "about": "The tech reviewer of record; Waveform podcast and the Studio.",
+    "yt": {
+     "id": "UCBJycsmduvYEL83R_U4JriQ",
+     "expect": "marques",
+     "handle": "mkbhd"
+    },
+    "feed": null,
+    "links": {
+     "ig": "mkbhd",
+     "x": "MKBHD"
+    }
+   },
+   {
+    "key": "ltt",
+    "name": "Linus Tech Tips",
+    "cat": "tech",
+    "about": "PC hardware, labs-grade testing and a floatplane.",
+    "yt": {
+     "id": "UCXuqSBlHAE6Xw-yeJA0Tunw",
+     "expect": "linus",
+     "handle": "LinusTechTips"
+    },
+    "feed": null,
+    "links": {
+     "x": "LinusTech"
+    }
+   },
+   {
+    "key": "mrwhosetheboss",
+    "name": "Mrwhosetheboss",
+    "cat": "tech",
+    "about": "Arun Maini’s phone reviews and smartphone showdowns.",
+    "yt": {
+     "id": "UCMiJRAwDNSNzuYeN2uWa0pA",
+     "expect": "mrwhosetheboss",
+     "handle": "Mrwhosetheboss"
+    },
+    "feed": null,
+    "links": {
+     "ig": "mrwhosetheboss"
+    }
+   },
+   {
+    "key": "unbox-therapy",
+    "name": "Unbox Therapy",
+    "cat": "tech",
+    "about": "Lew Later unboxes everything.",
+    "yt": {
+     "id": "UCsTcErHg8oDvUnTzoqsYeNw",
+     "expect": "unbox",
+     "handle": "unboxtherapy"
+    },
+    "feed": null,
+    "links": {
+     "x": "UnboxTherapy"
+    }
+   },
+   {
+    "key": "dave2d",
+    "name": "Dave2D",
+    "cat": "tech",
+    "about": "Laptops and the minimalist review.",
+    "yt": {
+     "id": "UCVYamHliCI9rw1tHR1xbkfw",
+     "expect": "dave",
+     "handle": "Dave2D"
+    },
+    "feed": null,
+    "links": {
+     "x": "Dave2D"
+    }
+   },
+   {
+    "key": "ijustine",
+    "name": "iJustine",
+    "cat": "tech",
+    "about": "Apple, gadgets and the early YouTube era, still going.",
+    "yt": {
+     "id": "UCey_c7U86mJGz1VJWH5CYPA",
+     "expect": "ijustine",
+     "handle": "ijustine"
+    },
+    "feed": null,
+    "links": {
+     "ig": "ijustine"
+    }
+   },
+   {
+    "key": "austin-evans",
+    "name": "Austin Evans",
+    "cat": "tech",
+    "about": "Consoles, PCs and gadgets.",
+    "yt": {
+     "id": "UCXGgrKt94gR6lmN4aN3mYTg",
+     "expect": "austin",
+     "handle": "austinevans"
+    },
+    "feed": null,
+    "links": {
+     "x": "austinnotduncan"
+    }
+   },
+   {
+    "key": "jerryrig",
+    "name": "JerryRigEverything",
+    "cat": "tech",
+    "about": "Durability tests and teardowns.",
+    "yt": {
+     "id": "UCWFKCr40YwOZQx8FHU_ZqqQ",
+     "expect": "jerryrig",
+     "handle": "JerryRigEverything"
+    },
+    "feed": null,
+    "links": {
+     "x": "ZacksJerryRig"
+    }
+   },
+   {
+    "key": "gamers-nexus",
+    "name": "Gamers Nexus",
+    "cat": "tech",
+    "about": "Hardware journalism, with charts.",
+    "yt": {
+     "id": "UChIs72whgZI9w6d6FhwGGHA",
+     "expect": "gamers nexus",
+     "handle": "GamersNexus"
+    },
+    "feed": null,
+    "links": {
+     "x": "GamersNexus"
+    }
+   },
+   {
+    "key": "fireship",
+    "name": "Fireship",
+    "cat": "tech",
+    "about": "Code in 100 seconds and the week in tech, fast.",
+    "yt": {
+     "id": "UCsBjURrPoezykLs9EqgamOA",
+     "expect": "fireship",
+     "handle": "Fireship"
+    },
+    "feed": null,
+    "links": {
+     "x": "fireship_dev"
+    }
+   },
+   {
+    "key": "coffeezilla",
+    "name": "Coffeezilla",
+    "cat": "tech",
+    "about": "Investigating scams, crypto and influencers.",
+    "yt": {
+     "id": "UCFQMnBA3CS502aghlcr0_aw",
+     "expect": "coffeezilla",
+     "handle": "Coffeezilla"
+    },
+    "feed": null,
+    "links": {
+     "x": "coffeebreak_YT"
+    }
+   },
+   {
+    "key": "jeff-geerling",
+    "name": "Jeff Geerling",
+    "cat": "tech",
+    "about": "Raspberry Pi, homelabs and open hardware.",
+    "yt": {
+     "id": "UCR-DXc1voovS8nhAvccRZhg",
+     "expect": "geerling",
+     "handle": "JeffGeerling"
+    },
+    "feed": "https://www.jeffgeerling.com/blog.xml",
+    "links": {
+     "site": "https://www.jeffgeerling.com"
+    }
+   },
+   {
+    "key": "cleo-abram",
+    "name": "Cleo Abram",
+    "cat": "tech",
+    "about": "Huge If True: optimistic tech explainers.",
+    "yt": {
+     "id": "UC-uhvujip5deVcEtLxnW8qg",
+     "expect": "cleo",
+     "handle": "CleoAbram"
+    },
+    "feed": null,
+    "links": {
+     "ig": "cleoabram"
+    }
+   },
+   {
+    "key": "mrbeast",
+    "name": "MrBeast",
+    "cat": "tech",
+    "about": "The biggest channel on YouTube.",
+    "yt": {
+     "id": "UCX6OQ3DkcsbYNE6H8uQQuVA",
+     "expect": "mrbeast",
+     "handle": "MrBeast"
+    },
+    "feed": null,
+    "links": {
+     "ig": "mrbeast",
+     "x": "MrBeast"
+    }
+   },
+   {
+    "key": "veritasium",
+    "name": "Veritasium",
+    "cat": "science",
+    "about": "Derek Muller’s science documentaries.",
+    "yt": {
+     "id": "UCHnyfMqiRRG1u-2MsSQLbXA",
+     "expect": "veritasium",
+     "handle": "veritasium"
+    },
+    "feed": null,
+    "links": {
+     "x": "veritasium"
+    }
+   },
+   {
+    "key": "kurzgesagt",
+    "name": "Kurzgesagt – In a Nutshell",
+    "cat": "science",
+    "about": "Animated explainers on the biggest questions.",
+    "yt": {
+     "id": "UCsXVk37bltHxD1rDPwtNM8Q",
+     "expect": "kurzgesagt",
+     "handle": "kurzgesagt"
+    },
+    "feed": null,
+    "links": {
+     "x": "Kurz_Gesagt"
+    }
+   },
+   {
+    "key": "mark-rober",
+    "name": "Mark Rober",
+    "cat": "science",
+    "about": "Former NASA engineer; glitter bombs and squirrel mazes.",
+    "yt": {
+     "id": "UCY1kMZp36IQSyNx_9h4mpCg",
+     "expect": "rober",
+     "handle": "MarkRober"
+    },
+    "feed": null,
+    "links": {
+     "ig": "markrober"
+    }
+   },
+   {
+    "key": "3blue1brown",
+    "name": "3Blue1Brown",
+    "cat": "science",
+    "about": "Grant Sanderson makes math visible.",
+    "yt": {
+     "id": "UCYO_jab_esuFRV4b17AJtAw",
+     "expect": "3blue1brown",
+     "handle": "3blue1brown"
+    },
+    "feed": null,
+    "links": {
+     "x": "3blue1brown"
+    }
+   },
+   {
+    "key": "vsauce",
+    "name": "Vsauce",
+    "cat": "science",
+    "about": "Michael Stevens. Hey, Vsauce.",
+    "yt": {
+     "id": "UC6nSFpj9HTCZ5t-N3Rm3-HA",
+     "expect": "vsauce",
+     "handle": "Vsauce"
+    },
+    "feed": null,
+    "links": {
+     "x": "tweetsauce"
+    }
+   },
+   {
+    "key": "smarter-every-day",
+    "name": "SmarterEveryDay",
+    "cat": "science",
+    "about": "Destin Sandlin explores the world with a high-speed camera.",
+    "yt": {
+     "id": "UC6107grRI4m0o2-emgoDnAA",
+     "expect": "smarter",
+     "handle": "smartereveryday"
+    },
+    "feed": null,
+    "links": {
+     "x": "smartereveryday"
+    }
+   },
+   {
+    "key": "tom-scott",
+    "name": "Tom Scott",
+    "cat": "science",
+    "about": "Things you might not know, from places you haven’t been.",
+    "yt": {
+     "id": "UCBa659QWEk1AI4Tg--mrJ2A",
+     "expect": "tom scott",
+     "handle": "TomScottGo"
+    },
+    "feed": "https://www.tomscott.com/newsletter/feed/",
+    "links": {
+     "site": "https://www.tomscott.com"
+    }
+   },
+   {
+    "key": "steve-mould",
+    "name": "Steve Mould",
+    "cat": "science",
+    "about": "Physics demonstrations that make you say “huh.”",
+    "yt": {
+     "id": "UCEIwxahdLz7bap-VDs9h35A",
+     "expect": "mould",
+     "handle": "SteveMould"
+    },
+    "feed": null,
+    "links": {
+     "x": "MouldS"
+    }
+   },
+   {
+    "key": "johnny-harris",
+    "name": "Johnny Harris",
+    "cat": "science",
+    "about": "Maps, borders and the stories behind the news.",
+    "yt": {
+     "id": "UCmGSJVG3mCRXVOP4yZrU1Dw",
+     "expect": "johnny harris",
+     "handle": "johnnyharris"
+    },
+    "feed": null,
+    "links": {
+     "ig": "johnny.harris"
+    }
+   },
+   {
+    "key": "wendover",
+    "name": "Wendover Productions",
+    "cat": "science",
+    "about": "Logistics, geography and how the world moves.",
+    "yt": {
+     "id": "UC9RM-iSvTu1uPJb8X5yp3EQ",
+     "expect": "wendover",
+     "handle": "Wendoverproductions"
+    },
+    "feed": null,
+    "links": {
+     "x": "WendoverPro"
+    }
+   },
+   {
+    "key": "real-engineering",
+    "name": "Real Engineering",
+    "cat": "science",
+    "about": "Engineering, explained from first principles.",
+    "yt": {
+     "id": "UCR1IuLEqb6UEA_zQ81kwXfg",
+     "expect": "real engineering",
+     "handle": "RealEngineering"
+    },
+    "feed": null,
+    "links": {
+     "x": "Real_Engineering"
+    }
+   },
+   {
+    "key": "practical-engineering",
+    "name": "Practical Engineering",
+    "cat": "science",
+    "about": "Grady Hillhouse on the infrastructure around you.",
+    "yt": {
+     "id": "UCMOqf8ab-42UUQIdVoKwjlQ",
+     "expect": "practical engineering",
+     "handle": "PracticalEngineeringChannel"
+    },
+    "feed": "https://practical.engineering/blog?format=rss",
+    "links": {
+     "site": "https://practical.engineering"
+    }
+   },
+   {
+    "key": "nilered",
+    "name": "NileRed",
+    "cat": "science",
+    "about": "Chemistry, done for real.",
+    "yt": {
+     "id": "UCFhXFikryT4aFcLkLw2LBLA",
+     "expect": "nilered",
+     "handle": "NileRed"
+    },
+    "feed": null,
+    "links": {
+     "x": "NileRed2"
+    }
+   },
+   {
+    "key": "sabine",
+    "name": "Sabine Hossenfelder",
+    "cat": "science",
+    "about": "A physicist on science news, skeptically.",
+    "yt": {
+     "id": "UC1yNl2E66ZzKApQdRuTQ4tw",
+     "expect": "sabine",
+     "handle": "SabineHossenfelder"
+    },
+    "feed": null,
+    "links": {
+     "x": "skdh"
+    }
+   },
+   {
+    "key": "vlogbrothers",
+    "name": "vlogbrothers",
+    "cat": "science",
+    "about": "Hank and John Green, since 2007.",
+    "yt": {
+     "id": "UCGaVdbSav8xWuFWTadK6loA",
+     "expect": "vlogbrothers",
+     "handle": "vlogbrothers"
+    },
+    "feed": null,
+    "links": {
+     "x": "hankgreen"
+    }
+   },
+   {
+    "key": "primitive-technology",
+    "name": "Primitive Technology",
+    "cat": "science",
+    "about": "Building from nothing, in silence.",
+    "yt": {
+     "id": "UCAL3JXZSzSm8AlZyD3nQdBA",
+     "expect": "primitive",
+     "handle": "primitivetechnology9550"
+    },
+    "feed": null,
+    "links": {}
+   },
+   {
+    "key": "stuff-made-here",
+    "name": "Stuff Made Here",
+    "cat": "science",
+    "about": "Shane Wighton over-engineers everything.",
+    "yt": {
+     "id": "UCj1VqrHhDte54oLgPG4xpuQ",
+     "expect": "stuff made here",
+     "handle": "StuffMadeHere"
+    },
+    "feed": null,
+    "links": {}
+   },
+   {
+    "key": "simone-giertz",
+    "name": "Simone Giertz",
+    "cat": "science",
+    "about": "Queen of the (formerly) useless robots.",
+    "yt": {
+     "id": "UC3KEoMzNz8eYnwBC34RaKCQ",
+     "expect": "giertz",
+     "handle": "simonegiertz"
+    },
+    "feed": null,
+    "links": {
+     "ig": "simonegiertz"
+    }
+   },
+   {
+    "key": "tested",
+    "name": "Adam Savage’s Tested",
+    "cat": "science",
+    "about": "One-day builds and the cave.",
+    "yt": {
+     "id": "UCiDJtJKMICpb9B1qf7qjEOA",
+     "expect": "tested",
+     "handle": "tested"
+    },
+    "feed": null,
+    "links": {
+     "x": "testedcom"
+    }
+   },
+   {
+    "key": "technology-connections",
+    "name": "Technology Connections",
+    "cat": "science",
+    "about": "Alec on the technology of everyday things, at length.",
+    "yt": {
+     "id": "UCy0tKL1T7wFoYcxCe0xjN6Q",
+     "expect": "technology connections",
+     "handle": "TechnologyConnections"
+    },
+    "feed": null,
+    "links": {}
+   },
+   {
+    "key": "cgp-grey",
+    "name": "CGP Grey",
+    "cat": "science",
+    "about": "Explainers with stick figures and rigour.",
+    "yt": {
+     "id": "UC2C_jShtL725hvbm1arSV9w",
+     "expect": "grey",
+     "handle": "CGPGrey"
+    },
+    "feed": null,
+    "links": {
+     "x": "cgpgrey"
+    }
+   },
+   {
+    "key": "polymatter",
+    "name": "PolyMatter",
+    "cat": "science",
+    "about": "Geopolitics and economics, explained.",
+    "yt": {
+     "id": "UCgNg3vwj3xt7QOrcIDaHdFg",
+     "expect": "polymatter",
+     "handle": "PolyMatter"
+    },
+    "feed": null,
+    "links": {}
+   },
+   {
+    "key": "half-as-interesting",
+    "name": "Half as Interesting",
+    "cat": "science",
+    "about": "Wendover’s quick, odd facts.",
+    "yt": {
+     "id": "UCuCkxoKLYO_EQ2GeFtbM_bw",
+     "expect": "half as interesting",
+     "handle": "halfasinteresting"
+    },
+    "feed": null,
+    "links": {}
+   },
+   {
+    "key": "tasting-history",
+    "name": "Tasting History with Max Miller",
+    "cat": "science",
+    "about": "Historical recipes, cooked and explained.",
+    "yt": {
+     "id": "UCsaGKqPZnGp_7N80hcHySGQ",
+     "expect": "tasting history",
+     "handle": "TastingHistory"
+    },
+    "feed": null,
+    "links": {
+     "ig": "tastinghistorywithmaxmiller"
+    }
+   },
+   {
+    "key": "babish",
+    "name": "Babish Culinary Universe",
+    "cat": "food",
+    "about": "Binging with Babish: recipes from film and TV, and the basics.",
+    "yt": {
+     "id": "UCJHA_jMfCvEnv-3kRjTCQXw",
+     "expect": "babish",
+     "handle": "babishculinaryuniverse"
+    },
+    "feed": null,
+    "links": {
+     "ig": "bingingwithbabish"
+    }
+   },
+   {
+    "key": "joshua-weissman",
+    "name": "Joshua Weissman",
+    "cat": "food",
+    "about": "But better, but cheaper, but faster.",
+    "yt": {
+     "id": "UChBEbMKI1eCcejTtmI32UEw",
+     "expect": "weissman",
+     "handle": "JoshuaWeissman"
+    },
+    "feed": null,
+    "links": {
+     "ig": "joshuaweissman"
+    }
+   },
+   {
+    "key": "nick-digiovanni",
+    "name": "Nick DiGiovanni",
+    "cat": "food",
+    "about": "MasterChef finalist, world records and big flavors.",
+    "yt": {
+     "id": "UCjYrw2w_ZTj9LMe9SxYUYHg",
+     "expect": "digiovanni",
+     "handle": "NickDiGiovanni"
+    },
+    "feed": null,
+    "links": {
+     "ig": "nick.digiovanni"
+    }
+   },
+   {
+    "key": "adam-ragusea",
+    "name": "Adam Ragusea",
+    "cat": "food",
+    "about": "Why the recipe works, from a former journalist.",
+    "yt": {
+     "id": "UC9_p50tH3WmMslWRWKnM7dQ",
+     "expect": "ragusea",
+     "handle": "aragusea"
+    },
+    "feed": null,
+    "links": {}
+   },
+   {
+    "key": "ethan-chlebowski",
+    "name": "Ethan Chlebowski",
+    "cat": "food",
+    "about": "Food science for weeknights.",
+    "yt": {
+     "id": "UCDq5v10l4wkV5-ZBIJJFbzQ",
+     "expect": "chlebowski",
+     "handle": "EthanChlebowski"
+    },
+    "feed": null,
+    "links": {
+     "ig": "echleb"
+    }
+   },
+   {
+    "key": "kenji",
+    "name": "J. Kenji López-Alt",
+    "cat": "food",
+    "about": "The Food Lab’s author, cooking POV in his own kitchen.",
+    "yt": {
+     "id": "UCqqJQ_cXSat0KIAVfIfKkVA",
+     "expect": "kenji",
+     "handle": "JKenjiLopezAlt"
+    },
+    "feed": null,
+    "links": {
+     "ig": "kenjilopezalt"
+    }
+   },
+   {
+    "key": "sam-the-cooking-guy",
+    "name": "SAM THE COOKING GUY",
+    "cat": "food",
+    "about": "Big sandwiches and better burgers.",
+    "yt": {
+     "id": "UCbRj3Tcy1Zoz3rcf83nW5kw",
+     "expect": "sam the cooking guy",
+     "handle": "samthecookingguy"
+    },
+    "feed": null,
+    "links": {
+     "ig": "samthecookingguy"
+    }
+   },
+   {
+    "key": "alex-french-guy",
+    "name": "Alex",
+    "cat": "food",
+    "about": "French Guy Cooking: obsessive quests for the perfect croissant or ramen.",
+    "yt": {
+     "id": "UCPzFLpOblZEaIx2lpym1l1A",
+     "expect": "alex",
+     "handle": "FrenchGuyCooking"
+    },
+    "feed": null,
+    "links": {
+     "ig": "frenchguycooking"
+    }
+   },
+   {
+    "key": "food-wishes",
+    "name": "Food Wishes",
+    "cat": "food",
+    "about": "Chef John. You are, after all, the Boss of your sauce.",
+    "yt": {
+     "id": "UCRIZtPl9nb9RiXc9btSTQNw",
+     "expect": "food wishes",
+     "handle": "foodwishes"
+    },
+    "feed": null,
+    "links": {}
+   },
+   {
+    "key": "brian-lagerstrom",
+    "name": "Brian Lagerstrom",
+    "cat": "food",
+    "about": "Restaurant technique for home cooks.",
+    "yt": {
+     "id": "UCKYCdL9RXoI_YNrLbkKD3ug",
+     "expect": "lagerstrom",
+     "handle": "BrianLagerstrom"
+    },
+    "feed": null,
+    "links": {
+     "ig": "brian_lagerstrom"
+    }
+   },
+   {
+    "key": "matty-matheson",
+    "name": "Matty Matheson",
+    "cat": "food",
+    "about": "The Bear’s Fak, cooking loudly.",
+    "yt": {
+     "id": "UCvTYvewHahHqvUmi9OEXz-Q",
+     "expect": "matheson",
+     "handle": "mattymatheson"
+    },
+    "feed": null,
+    "links": {
+     "ig": "mattymatheson"
+    }
+   },
+   {
+    "key": "internet-shaquille",
+    "name": "Internet Shaquille",
+    "cat": "food",
+    "about": "Short, sharp lessons in cooking better.",
+    "yt": {
+     "id": "UCPfEOQR7TikbMsdNcjIr2DQ",
+     "expect": "shaquille",
+     "handle": "InternetShaquille"
+    },
+    "feed": null,
+    "links": {}
+   },
+   {
+    "key": "jamie-oliver",
+    "name": "Jamie Oliver",
+    "cat": "food",
+    "about": "Thirty years of easy dinners.",
+    "yt": {
+     "id": "UCpSgg_ECBj25s9moCDfSTsA",
+     "expect": "jamie",
+     "handle": "JamieOliver"
+    },
+    "feed": null,
+    "links": {
+     "ig": "jamieoliver"
+    }
+   },
+   {
+    "key": "bon-appetit-yt",
+    "name": "Bon Appétit",
+    "cat": "food",
+    "about": "The test kitchen on video.",
+    "yt": {
+     "id": "UCbpMy0Fg74eXXkvxJrtEn3w",
+     "expect": "bon app",
+     "handle": "bonappetit"
+    },
+    "feed": null,
+    "links": {
+     "ig": "bonappetitmag"
+    }
+   },
+   {
+    "key": "pro-home-cooks",
+    "name": "Pro Home Cooks",
+    "cat": "food",
+    "about": "Mike Greenfield’s fermenting, bread and meal prep.",
+    "yt": {
+     "id": "UCzH5n3Ih5kgQoiDAQt2FwLw",
+     "expect": "pro home cooks",
+     "handle": "ProHomeCooks"
+    },
+    "feed": null,
+    "links": {}
+   },
+   {
+    "key": "chinese-cooking-demystified",
+    "name": "Chinese Cooking Demystified",
+    "cat": "food",
+    "about": "Authentic Chinese cooking, properly explained.",
+    "yt": {
+     "id": "UC54SLBnD5k5U3Q6N__UjbAw",
+     "expect": "chinese cooking",
+     "handle": "ChineseCookingDemystified"
+    },
+    "feed": null,
+    "links": {}
+   },
+   {
+    "key": "guga",
+    "name": "Guga Foods",
+    "cat": "food",
+    "about": "Steak experiments and sous vide everything.",
+    "yt": {
+     "id": "UCfE5Cz44GlZVyoaYTHJbuZw",
+     "expect": "guga",
+     "handle": "GugaFoods"
+    },
+    "feed": null,
+    "links": {
+     "ig": "gugafoods"
+    }
+   },
+   {
+    "key": "graham-stephan",
+    "name": "Graham Stephan",
+    "cat": "money",
+    "about": "Personal finance and the markets, daily.",
+    "yt": {
+     "id": "UCV6KDgJskWaEckne5aPA0aQ",
+     "expect": "graham",
+     "handle": "GrahamStephan"
+    },
+    "feed": null,
+    "links": {
+     "x": "GrahamStephan"
+    }
+   },
+   {
+    "key": "andrei-jikh",
+    "name": "Andrei Jikh",
+    "cat": "money",
+    "about": "Investing, with card tricks.",
+    "yt": {
+     "id": "UCGy7SkBjcIAgTiwkXEtPnYg",
+     "expect": "jikh",
+     "handle": "AndreiJikh"
+    },
+    "feed": null,
+    "links": {}
+   },
+   {
+    "key": "alex-hormozi",
+    "name": "Alex Hormozi",
+    "cat": "money",
+    "about": "Business advice from someone who sold the businesses.",
+    "yt": {
+     "id": "UCUyDOdBWhC1MCxEjC46d-zw",
+     "expect": "hormozi",
+     "handle": "AlexHormozi"
+    },
+    "feed": null,
+    "links": {
+     "ig": "hormozi"
+    }
+   },
+   {
+    "key": "ali-abdaal",
+    "name": "Ali Abdaal",
+    "cat": "money",
+    "about": "Productivity and the creator business.",
+    "yt": {
+     "id": "UCoOae5nYA7VqaXzerajD0lg",
+     "expect": "abdaal",
+     "handle": "aliabdaal"
+    },
+    "feed": "https://aliabdaal.com/feed/",
+    "links": {
+     "ig": "aliabdaal"
+    }
+   },
+   {
+    "key": "humphrey-yang",
+    "name": "Humphrey Yang",
+    "cat": "money",
+    "about": "Money, explained with props.",
+    "yt": {
+     "id": "UCFBpVaKCHDTfvjLo5JuGdLQ",
+     "expect": "humphrey",
+     "handle": "humphrey"
+    },
+    "feed": null,
+    "links": {
+     "tt": "humphreytalks"
+    }
+   },
+   {
+    "key": "plain-bagel",
+    "name": "The Plain Bagel",
+    "cat": "money",
+    "about": "Richard Coffin: investing without the hype.",
+    "yt": {
+     "id": "UCFCEuCsyWP0YkP3CZ3Mr01Q",
+     "expect": "plain bagel",
+     "handle": "ThePlainBagel"
+    },
+    "feed": null,
+    "links": {}
+   },
+   {
+    "key": "patrick-boyle",
+    "name": "Patrick Boyle",
+    "cat": "money",
+    "about": "A former hedge fund manager on finance, drily.",
+    "yt": {
+     "id": "UCASM0cgfkJxQ1ICmRilfHLw",
+     "expect": "boyle",
+     "handle": "PBoyle"
+    },
+    "feed": null,
+    "links": {
+     "x": "PatrickEBoyle"
+    }
+   },
+   {
+    "key": "ben-felix",
+    "name": "Ben Felix",
+    "cat": "money",
+    "about": "Evidence-based investing, from the research.",
+    "yt": {
+     "id": "UCDXTQ8nWmx_EhZ2v-kp7QxA",
+     "expect": "felix",
+     "handle": "BenFelixCSI"
+    },
+    "feed": null,
+    "links": {
+     "x": "benjaminwfelix"
+    }
+   },
+   {
+    "key": "economics-explained",
+    "name": "Economics Explained",
+    "cat": "money",
+    "about": "Economies, one country at a time.",
+    "yt": {
+     "id": "UCZ4AMrDcNrfy3X6nsU8-rPg",
+     "expect": "economics explained",
+     "handle": "EconomicsExplained"
+    },
+    "feed": null,
+    "links": {}
+   },
+   {
+    "key": "y-combinator",
+    "name": "Y Combinator",
+    "cat": "money",
+    "about": "Startup School and founder talks.",
+    "yt": {
+     "id": "UCcefcZRL2oaA_uBNeo5UOWg",
+     "expect": "combinator",
+     "handle": "ycombinator"
+    },
+    "feed": null,
+    "links": {
+     "x": "ycombinator"
+    }
+   },
+   {
+    "key": "nischa",
+    "name": "Nischa",
+    "cat": "money",
+    "about": "A former banker on money habits.",
+    "yt": {
+     "id": "UCQpPo9BNwezg54N9hMFQp6Q",
+     "expect": "nischa",
+     "handle": "nischa"
+    },
+    "feed": null,
+    "links": {
+     "ig": "nischa.me"
+    }
+   },
+   {
+    "key": "codie-sanchez",
+    "name": "Codie Sanchez",
+    "cat": "money",
+    "about": "Boring businesses and buying them.",
+    "yt": {
+     "id": "UCZtY1ebxB5T4YaJndIUrA2Q",
+     "expect": "codie",
+     "handle": "CodieSanchezCT"
+    },
+    "feed": null,
+    "links": {
+     "ig": "codiesanchez"
+    }
+   },
+   {
+    "key": "doug-demuro",
+    "name": "Doug DeMuro",
+    "cat": "cars",
+    "about": "The quirks and features, and Cars & Bids.",
+    "yt": {
+     "id": "UCsqjHFMB_JYTaEnf_vmTNqg",
+     "expect": "doug demuro",
+     "handle": "DougDeMuro"
+    },
+    "feed": null,
+    "links": {
+     "x": "dougdemuro"
+    }
+   },
+   {
+    "key": "hoovies",
+    "name": "Hoovies Garage",
+    "cat": "cars",
+    "about": "The dumbest automotive fleet in America.",
+    "yt": {
+     "id": "UCdEczn3MVkx_4PnMZ10MVFA",
+     "expect": "hoovies",
+     "handle": "HooviesGarage"
+    },
+    "feed": null,
+    "links": {}
+   },
+   {
+    "key": "tavarish",
+    "name": "Tavarish",
+    "cat": "cars",
+    "about": "Wrecked exotics, rebuilt.",
+    "yt": {
+     "id": "UCvAhDxNNUDhi78tMXVGBUaQ",
+     "expect": "tavarish",
+     "handle": "Tavarish"
+    },
+    "feed": null,
+    "links": {}
+   },
+   {
+    "key": "mat-armstrong",
+    "name": "Mat Armstrong",
+    "cat": "cars",
+    "about": "Insurance write-offs rebuilt in England.",
+    "yt": {
+     "id": "UCcLYOTz3ct6_lk9iLToxxAw",
+     "expect": "mat armstrong",
+     "handle": "MatArmstrongbmx"
+    },
+    "feed": null,
+    "links": {
+     "ig": "mat_armstrong"
+    }
+   },
+   {
+    "key": "rich-rebuilds",
+    "name": "Rich Rebuilds",
+    "cat": "cars",
+    "about": "Salvage EVs and the right to repair.",
+    "yt": {
+     "id": "UCfV0_wbjG8KJADuZT2ct4SA",
+     "expect": "rich rebuilds",
+     "handle": "RichRebuilds"
+    },
+    "feed": null,
+    "links": {}
+   },
+   {
+    "key": "donut",
+    "name": "Donut",
+    "cat": "cars",
+    "about": "Car culture, fast and funny.",
+    "yt": {
+     "id": "UCL6JmiMXKoXS6bpP1D3bk8g",
+     "expect": "donut",
+     "handle": "Donut"
+    },
+    "feed": null,
+    "links": {
+     "ig": "donutmedia"
+    }
+   },
+   {
+    "key": "throttle-house",
+    "name": "Throttle House",
+    "cat": "cars",
+    "about": "Thomas and James drive everything.",
+    "yt": {
+     "id": "UCUrKAhjSo9DW2mu8GqMXXxA",
+     "expect": "throttle",
+     "handle": "ThrottleHouse"
+    },
+    "feed": null,
+    "links": {}
+   },
+   {
+    "key": "straight-pipes",
+    "name": "TheStraightPipes",
+    "cat": "cars",
+    "about": "Yuri and Jakub review cars in Canada.",
+    "yt": {
+     "id": "UCHYOMKfR6XyalOtq9GpW-wA",
+     "expect": "straight pipes",
+     "handle": "TheStraightPipes"
+    },
+    "feed": null,
+    "links": {}
+   },
+   {
+    "key": "savagegeese",
+    "name": "savagegeese",
+    "cat": "cars",
+    "about": "The most thorough car reviews on YouTube.",
+    "yt": {
+     "id": "UCFAGnBRGaVtoAlVikk0Ddag",
+     "expect": "savagegeese",
+     "handle": "savagegeese"
+    },
+    "feed": null,
+    "links": {}
+   },
+   {
+    "key": "carwow",
+    "name": "carwow",
+    "cat": "cars",
+    "about": "Mat Watson’s drag races and reviews.",
+    "yt": {
+     "id": "UCUhFaUpnq31m6TNX2VKVSVA",
+     "expect": "carwow",
+     "handle": "carwow"
+    },
+    "feed": null,
+    "links": {}
+   },
+   {
+    "key": "jay-leno",
+    "name": "Jay Leno’s Garage",
+    "cat": "cars",
+    "about": "The collection and the guests.",
+    "yt": {
+     "id": "UCQMELFlXQL38KPm8kM-4Adg",
+     "expect": "leno",
+     "handle": "JayLenosGarage"
+    },
+    "feed": null,
+    "links": {}
+   },
+   {
+    "key": "cleetus",
+    "name": "Cleetus McFarland",
+    "cat": "cars",
+    "about": "Freedom Factory and absurd horsepower.",
+    "yt": {
+     "id": "UCJ2MxwNgY36YjE2YjIEVJJQ",
+     "expect": "cleetus",
+     "handle": "CleetusMcFarland"
+    },
+    "feed": null,
+    "links": {}
+   },
+   {
+    "key": "shmee150",
+    "name": "Shmee150",
+    "cat": "cars",
+    "about": "Supercar ownership, documented.",
+    "yt": {
+     "id": "UCIRgR4iANHI2taJdz8hjwLw",
+     "expect": "shmee",
+     "handle": "Shmee150"
+    },
+    "feed": null,
+    "links": {
+     "ig": "shmee150"
+    }
+   },
+   {
+    "key": "chrisfix",
+    "name": "ChrisFix",
+    "cat": "cars",
+    "about": "The DIY car repair channel.",
+    "yt": {
+     "id": "UCes1EvRjcKU4sY_UEavndBw",
+     "expect": "chrisfix",
+     "handle": "chrisfix"
+    },
+    "feed": null,
+    "links": {}
+   },
+   {
+    "key": "engineering-explained",
+    "name": "Engineering Explained",
+    "cat": "cars",
+    "about": "Jason Fenske and the whiteboard.",
+    "yt": {
+     "id": "UClqhvGmHcvWL9w3R48t9QXQ",
+     "expect": "engineering explained",
+     "handle": "EngineeringExplained"
+    },
+    "feed": null,
+    "links": {
+     "x": "jasonfenske13"
+    }
+   },
+   {
+    "key": "top-gear",
+    "name": "Top Gear",
+    "cat": "cars",
+    "about": "The BBC show’s channel.",
+    "yt": {
+     "id": "UCjOl2AUblVmg2rA_cRgZkFg",
+     "expect": "top gear",
+     "handle": "TopGear"
+    },
+    "feed": null,
+    "links": {}
+   },
+   {
+    "key": "hagerty-yt",
+    "name": "Hagerty",
+    "cat": "cars",
+    "about": "Jason Cammisa, Redline Rebuild and the market.",
+    "yt": {
+     "id": "UCLgEVx4mzk3T3mzgbKG54Eg",
+     "expect": "hagerty",
+     "handle": "Hagerty"
+    },
+    "feed": null,
+    "links": {}
+   },
+   {
+    "key": "stradman",
+    "name": "TheStradman",
+    "cat": "cars",
+    "about": "Supercars, rebuilt and modified.",
+    "yt": {
+     "id": "UC21Kozr_K0yDM-VjoihG9Aw",
+     "expect": "stradman",
+     "handle": "TheStradman"
+    },
+    "feed": null,
+    "links": {}
+   },
+   {
+    "key": "whistlindiesel",
+    "name": "WhistlinDiesel",
+    "cat": "cars",
+    "about": "Trucks and machines, destroyed scientifically.",
+    "yt": {
+     "id": "UCdqp0KK_Io7TwK5cJMBvB0Q",
+     "expect": "whistlindiesel",
+     "handle": "WhistlinDiesel"
+    },
+    "feed": null,
+    "links": {}
+   },
+   {
+    "key": "supercar-blondie",
+    "name": "Supercar Blondie",
+    "cat": "cars",
+    "about": "Alex Hirschi and the world’s rarest cars.",
+    "yt": {
+     "id": "UCoiEnpGF1q-12MIN0cRo7LQ",
+     "expect": "supercar blondie",
+     "handle": "SupercarBlondie"
+    },
+    "feed": null,
+    "links": {
+     "ig": "supercarblondie"
+    }
+   },
+   {
+    "key": "goonzquad",
+    "name": "Goonzquad",
+    "cat": "cars",
+    "about": "Salvage supercars rebuilt in Ohio.",
+    "yt": {
+     "id": "UCwO_xoYm2vjhu4kZSxFO5mA",
+     "expect": "goonzquad",
+     "handle": "goonzquad"
+    },
+    "feed": null,
+    "links": {}
+   },
+   {
+    "key": "jeff-nippard",
+    "name": "Jeff Nippard",
+    "cat": "fitness",
+    "about": "Science-based lifting.",
+    "yt": {
+     "id": "UC68TLK0mAEzUyHx5x5k-S1Q",
+     "expect": "nippard",
+     "handle": "JeffNippard"
+    },
+    "feed": null,
+    "links": {
+     "ig": "jeffnippard"
+    }
+   },
+   {
+    "key": "athlean-x",
+    "name": "ATHLEAN-X™",
+    "cat": "fitness",
+    "about": "Jeff Cavaliere’s training and rehab.",
+    "yt": {
+     "id": "UCe0TLA0EsQbE-MjuHXevj2A",
+     "expect": "athlean",
+     "handle": "athleanx"
+    },
+    "feed": null,
+    "links": {}
+   },
+   {
+    "key": "doctor-mike",
+    "name": "Doctor Mike",
+    "cat": "fitness",
+    "about": "A family physician reacts, explains and corrects.",
+    "yt": {
+     "id": "UC0QHWhjbe5fGJEPz3sVb6nw",
+     "expect": "mike",
+     "handle": "DoctorMike"
+    },
+    "feed": null,
+    "links": {
+     "ig": "doctor.mike"
+    }
+   },
+   {
+    "key": "beau-miles",
+    "name": "Beau Miles",
+    "cat": "fitness",
+    "about": "Odd adventures and a kind of poetry.",
+    "yt": {
+     "id": "UCm325cMiw9B15xl22_gr6Dw",
+     "expect": "beau",
+     "handle": "BeauMiles"
+    },
+    "feed": null,
+    "links": {}
+   },
+   {
+    "key": "yes-theory",
+    "name": "Yes Theory",
+    "cat": "fitness",
+    "about": "Seek discomfort.",
+    "yt": {
+     "id": "UCvK4bOhULCpmLabd2pDMtnA",
+     "expect": "yes theory",
+     "handle": "YesTheory"
+    },
+    "feed": null,
+    "links": {
+     "ig": "yestheory"
+    }
+   },
+   {
+    "key": "casey-neistat",
+    "name": "Casey Neistat",
+    "cat": "fitness",
+    "about": "The vlog that defined the form.",
+    "yt": {
+     "id": "UCtinbF-Q-fVthA0qrFQTgXQ",
+     "expect": "neistat",
+     "handle": "casey"
+    },
+    "feed": null,
+    "links": {
+     "ig": "caseyneistat"
+    }
+   },
+   {
+    "key": "peter-mckinnon",
+    "name": "Peter McKinnon",
+    "cat": "fitness",
+    "about": "Photography, coffee and gear.",
+    "yt": {
+     "id": "UC3DkFux8Iv-aYnTRWzwaiBA",
+     "expect": "mckinnon",
+     "handle": "PeterMcKinnon"
+    },
+    "feed": null,
+    "links": {
+     "ig": "petermckinnon"
+    }
+   },
+   {
+    "key": "body-coach",
+    "name": "The Body Coach TV",
+    "cat": "fitness",
+    "about": "Joe Wicks’s home workouts.",
+    "yt": {
+     "id": "UCAxW1XT0iEJo0TYlRfn6rYQ",
+     "expect": "body coach",
+     "handle": "TheBodyCoachTV"
+    },
+    "feed": null,
+    "links": {}
+   },
+   {
+    "key": "nick-bare",
+    "name": "Nick Bare",
+    "cat": "fitness",
+    "about": "Hybrid training and the run.",
+    "yt": {
+     "id": "UCvRNXs4Y-Fm_frp9BeO_eZA",
+     "expect": "bare",
+     "handle": "nickbare"
+    },
+    "feed": null,
+    "links": {
+     "ig": "nickbarefitness"
+    }
+   },
+   {
+    "key": "kara-and-nate",
+    "name": "Kara and Nate",
+    "cat": "travel",
+    "about": "Full-time travel since 2016; 100 countries and counting.",
+    "yt": {
+     "id": "UCWVHPSaRGIK8gpFLYKx_oQQ",
+     "expect": "kara",
+     "handle": "karaandnate"
+    },
+    "feed": null,
+    "links": {
+     "ig": "karaandnate"
+    }
+   },
+   {
+    "key": "drew-binsky",
+    "name": "Drew Binsky",
+    "cat": "travel",
+    "about": "Every country, and the people in them.",
+    "yt": {
+     "id": "UC0Ize0RLIbGdH5x4wI45G-A",
+     "expect": "binsky",
+     "handle": "drewbinsky"
+    },
+    "feed": null,
+    "links": {
+     "ig": "drewbinsky"
+    }
+   },
+   {
+    "key": "mark-wiens",
+    "name": "Mark Wiens",
+    "cat": "travel",
+    "about": "Street food around the world, joyfully.",
+    "yt": {
+     "id": "UCyEd6QBSgat5kkC6svyjudA",
+     "expect": "wiens",
+     "handle": "MarkWiens"
+    },
+    "feed": null,
+    "links": {
+     "ig": "migrationology"
+    }
+   },
+   {
+    "key": "best-ever-food-review",
+    "name": "Best Ever Food Review Show",
+    "cat": "travel",
+    "about": "Sonny Side eats everything, everywhere.",
+    "yt": {
+     "id": "UCcAd5Np7fO8SeejB1FVKcYw",
+     "expect": "best ever food",
+     "handle": "BestEverFoodReviewShow"
+    },
+    "feed": null,
+    "links": {}
+   },
+   {
+    "key": "eva-zu-beck",
+    "name": "Eva zu Beck",
+    "cat": "travel",
+    "about": "Overlanding and off-grid travel.",
+    "yt": {
+     "id": "UC1JrK9ow6FOYxw9l4VCJHMQ",
+     "expect": "eva",
+     "handle": "evazubeck"
+    },
+    "feed": null,
+    "links": {
+     "ig": "evazubeck"
+    }
+   },
+   {
+    "key": "lost-leblanc",
+    "name": "Lost LeBlanc",
+    "cat": "travel",
+    "about": "Christian LeBlanc’s cinematic travel.",
+    "yt": {
+     "id": "UCSmGv1VgFKh6t5uFS0Z2uvQ",
+     "expect": "leblanc",
+     "handle": "LostLeBlanc"
+    },
+    "feed": null,
+    "links": {
+     "ig": "lostleblanc"
+    }
+   },
+   {
+    "key": "never-too-small",
+    "name": "NEVER TOO SMALL",
+    "cat": "home",
+    "about": "Small-footprint design, apartment by apartment.",
+    "yt": {
+     "id": "UCD8gRrGsB1Ex2JpqYhe4Yzg",
+     "expect": "never too small",
+     "handle": "nevertoosmall"
+    },
+    "feed": null,
+    "links": {
+     "ig": "nevertoosmall"
+    }
+   },
+   {
+    "key": "architectural-digest-yt",
+    "name": "Architectural Digest",
+    "cat": "home",
+    "about": "Open Door and the house tours.",
+    "yt": {
+     "id": "UC0k238zFx-Z8xFH0sxCrPJg",
+     "expect": "architectural digest",
+     "handle": "Archdigest"
+    },
+    "feed": null,
+    "links": {}
+   },
+   {
+    "key": "home-renovision",
+    "name": "Home RenoVision DIY",
+    "cat": "home",
+    "about": "Jeff Thorman: renovation, properly.",
+    "yt": {
+     "id": "UCbGLB4HBOqg5ygLDQZTiXqw",
+     "expect": "renovision",
+     "handle": "HomeRenoVisionDIY"
+    },
+    "feed": null,
+    "links": {}
+   },
+   {
+    "key": "essential-craftsman",
+    "name": "Essential Craftsman",
+    "cat": "home",
+    "about": "Scott Wadsworth builds a house and teaches the trades.",
+    "yt": {
+     "id": "UCzr30osBdTmuFUS8IfXtXmg",
+     "expect": "essential craftsman",
+     "handle": "essentialcraftsman"
+    },
+    "feed": null,
+    "links": {}
+   },
+   {
+    "key": "matthias-wandel",
+    "name": "Matthias Wandel",
+    "cat": "home",
+    "about": "Woodworking machines, built from wood.",
+    "yt": {
+     "id": "UCckETVOT59aYw80B36aP9vw",
+     "expect": "wandel",
+     "handle": "matthiaswandel"
+    },
+    "feed": null,
+    "links": {}
+   },
+   {
+    "key": "stumpy-nubs",
+    "name": "Stumpy Nubs",
+    "cat": "home",
+    "about": "James Hamilton’s shop tips.",
+    "yt": {
+     "id": "UCstwpLSByklww1YojZN-KiQ",
+     "expect": "stumpy",
+     "handle": "StumpyNubs"
+    },
+    "feed": null,
+    "links": {}
+   },
+   {
+    "key": "bourbon-moth",
+    "name": "Bourbon Moth Woodworking",
+    "cat": "home",
+    "about": "Jason Hibbs builds furniture and jokes.",
+    "yt": {
+     "id": "UCQ_bmgSrYsQS0LboA_tZpEw",
+     "expect": "bourbon moth",
+     "handle": "BourbonMoth"
+    },
+    "feed": null,
+    "links": {}
+   },
+   {
+    "key": "blacktail-studio",
+    "name": "Blacktail Studio",
+    "cat": "home",
+    "about": "Cam Anderson’s epoxy river tables.",
+    "yt": {
+     "id": "UC6I0KzAD7uFTL1qzxyunkvA",
+     "expect": "blacktail",
+     "handle": "BlacktailStudio"
+    },
+    "feed": null,
+    "links": {}
+   },
+   {
+    "key": "wood-whisperer",
+    "name": "The Wood Whisperer",
+    "cat": "home",
+    "about": "Marc Spagnuolo’s guild and projects.",
+    "yt": {
+     "id": "UCKp44bWWZIiOPShPN_ytShw",
+     "expect": "wood whisperer",
+     "handle": "woodwhisperer"
+    },
+    "feed": null,
+    "links": {}
+   },
+   {
+    "key": "rex-krueger",
+    "name": "Rex Krueger",
+    "cat": "home",
+    "about": "Woodworking for humans, with hand tools.",
+    "yt": {
+     "id": "UCj4SLNED1DiNPHComZTCbzw",
+     "expect": "krueger",
+     "handle": "RexKrueger"
+    },
+    "feed": null,
+    "links": {}
+   },
+   {
+    "key": "laura-kampf",
+    "name": "Laura Kampf",
+    "cat": "home",
+    "about": "Making, from a workshop in Cologne.",
+    "yt": {
+     "id": "UCRix1GJvSBNDpEFY561eSzw",
+     "expect": "kampf",
+     "handle": "laurakampf"
+    },
+    "feed": null,
+    "links": {
+     "ig": "laurakampf"
+    }
+   },
+   {
+    "key": "the-b1m",
+    "name": "The B1M",
+    "cat": "home",
+    "about": "Megaprojects and the construction industry.",
+    "yt": {
+     "id": "UC6n8I1UDTKP1IWjQMg6_TwA",
+     "expect": "b1m",
+     "handle": "TheB1M"
+    },
+    "feed": null,
+    "links": {}
+   },
+   {
+    "key": "stewart-hicks",
+    "name": "Stewart Hicks",
+    "cat": "home",
+    "about": "An architecture professor explains buildings.",
+    "yt": {
+     "id": "UCUKSXTVBsSZyPLm1HsIg0aw",
+     "expect": "hicks",
+     "handle": "stewarthicks"
+    },
+    "feed": null,
+    "links": {}
+   },
+   {
+    "key": "alexandra-gater",
+    "name": "Alexandra Gater",
+    "cat": "home",
+    "about": "Rental-friendly makeovers.",
+    "yt": {
+     "id": "UCw9aTI1gl8lXfvC7sPI1sYg",
+     "expect": "gater",
+     "handle": "AlexandraGater"
+    },
+    "feed": null,
+    "links": {
+     "ig": "alexandragater"
+    }
+   },
+   {
+    "key": "mr-kate",
+    "name": "Mr. Kate",
+    "cat": "home",
+    "about": "OMG We’re Coming Over: room makeovers.",
+    "yt": {
+     "id": "UCZbz1DG0b7bZdhYh_KjXb_w",
+     "expect": "kate",
+     "handle": "MrKate"
+    },
+    "feed": null,
+    "links": {}
+   },
+   {
+    "key": "fix-this-build-that",
+    "name": "Fix This Build That",
+    "cat": "home",
+    "about": "Brad Rodriguez builds and fixes.",
+    "yt": {
+     "id": "UCHYSw4XKO_q1GaChw5pxa-w",
+     "expect": "fix this",
+     "handle": "FixThisBuildThat"
+    },
+    "feed": null,
+    "links": {}
+   },
+   {
+    "key": "emma-chamberlain",
+    "name": "Emma Chamberlain",
+    "cat": "style",
+    "about": "The vlog that changed the vlog; coffee and the Met steps.",
+    "yt": {
+     "id": "UC78cxCAcp7JfQPgKxYdyGrg",
+     "expect": "chamberlain",
+     "handle": "emmachamberlain"
+    },
+    "feed": null,
+    "links": {
+     "ig": "emmachamberlain",
+     "tt": "emmachamberlain"
+    }
+   },
+   {
+    "key": "wisdom-kaye",
+    "name": "Wisdom Kaye",
+    "cat": "style",
+    "about": "The best-dressed guy on TikTok, per Vogue.",
+    "yt": {
+     "id": "UCyV-nf5wjEAQ4Oqf0hShP-Q",
+     "expect": "wisdom",
+     "handle": "wisdomkaye"
+    },
+    "feed": null,
+    "links": {
+     "ig": "wisdm",
+     "tt": "wisdm8"
+    }
+   },
+   {
+    "key": "tim-dessaint",
+    "name": "Tim Dessaint",
+    "cat": "style",
+    "about": "Minimalist menswear and the capsule wardrobe.",
+    "yt": {
+     "id": "UCX5Qz7GGnKfGt3Bpo4u3Dbw",
+     "expect": "dessaint",
+     "handle": "TimDessaint"
+    },
+    "feed": null,
+    "links": {
+     "ig": "timdessaint"
+    }
+   },
+   {
+    "key": "teaching-mens-fashion",
+    "name": "Teaching Men’s Fashion",
+    "cat": "style",
+    "about": "Jose Zuniga’s style advice.",
+    "yt": {
+     "id": "UC1kvZH8LCX4Dc7Lu9MBndSg",
+     "expect": "fashion",
+     "handle": "TeachingMensFashion"
+    },
+    "feed": null,
+    "links": {
+     "ig": "teachingmensfashion"
+    }
+   },
+   {
+    "key": "hyram",
+    "name": "Hyram",
+    "cat": "style",
+    "about": "Skincare, dermatologist-adjacent.",
+    "yt": {
+     "id": "UC8ZX-JIVBnhKCK-SM3VD4Qw",
+     "expect": "hyram",
+     "handle": "hyram"
+    },
+    "feed": null,
+    "links": {
+     "ig": "hyram",
+     "tt": "hyram"
+    }
+   },
+   {
+    "key": "nikkie-tutorials",
+    "name": "NikkieTutorials",
+    "cat": "style",
+    "about": "Makeup’s biggest channel.",
+    "yt": {
+     "id": "UCzTKskwIc_-a0cGvCXA848Q",
+     "expect": "nikkie",
+     "handle": "NikkieTutorials"
+    },
+    "feed": null,
+    "links": {
+     "ig": "nikkietutorials"
+    }
+   },
+   {
+    "key": "jackie-aina",
+    "name": "Jackie Aina",
+    "cat": "style",
+    "about": "Beauty, luxury and FORVR Mood.",
+    "yt": {
+     "id": "UCRNK08LPgUFwCFi2drA33xQ",
+     "expect": "aina",
+     "handle": "jackieaina"
+    },
+    "feed": null,
+    "links": {
+     "ig": "jackieaina"
+    }
+   },
+   {
+    "key": "safiya-nygaard",
+    "name": "Safiya Nygaard",
+    "cat": "style",
+    "about": "Melting every lipstick and wearing every trend.",
+    "yt": {
+     "id": "UCZx8ZVJ1-ISvAD5pyBdPBfQ",
+     "expect": "safiya",
+     "handle": "safiyanygaard"
+    },
+    "feed": null,
+    "links": {
+     "ig": "safiyany"
+    }
+   },
+   {
+    "key": "mina-le",
+    "name": "Mina Le",
+    "cat": "style",
+    "about": "Fashion history video essays.",
+    "yt": {
+     "id": "UCL7I8vtEgPQ0ZIr3IjHm_NQ",
+     "expect": "mina",
+     "handle": "gremlita"
+    },
+    "feed": null,
+    "links": {
+     "ig": "gremlita"
+    }
+   },
+   {
+    "key": "cody-ko",
+    "name": "Cody Ko",
+    "cat": "culture",
+    "about": "That’s Cringe, and the Tiny Meat Gang.",
+    "yt": {
+     "id": "UCPq0vLHoIuUjaoCPMnGJfXQ",
+     "expect": "cody",
+     "handle": "codyko"
+    },
+    "feed": null,
+    "links": {
+     "ig": "codyko"
+    }
+   },
+   {
+    "key": "danny-gonzalez",
+    "name": "Danny Gonzalez",
+    "cat": "culture",
+    "about": "Greg’s leader; commentary on the weird internet.",
+    "yt": {
+     "id": "UCZ0ZOXRLu5t1U_1A8iPwD_g",
+     "expect": "danny",
+     "handle": "DannyGonzalez"
+    },
+    "feed": null,
+    "links": {
+     "x": "dannygonzalez"
+    }
+   },
+   {
+    "key": "drew-gooden",
+    "name": "Drew Gooden",
+    "cat": "culture",
+    "about": "Comedy commentary, tastefully.",
+    "yt": {
+     "id": "UC4lZEBEMnO-m4C9mubI4oFw",
+     "expect": "drew",
+     "handle": "drewisgooden"
+    },
+    "feed": null,
+    "links": {
+     "x": "drewisgooden"
+    }
+   },
+   {
+    "key": "kurtis-conner",
+    "name": "Kurtis Conner",
+    "cat": "culture",
+    "about": "Kurtistown.",
+    "yt": {
+     "id": "UCPd-UiCx-4Cl4s2-XkMuFRA",
+     "expect": "kurtis",
+     "handle": "kurtisconner"
+    },
+    "feed": null,
+    "links": {}
+   },
+   {
+    "key": "jenny-nicholson",
+    "name": "Jenny Nicholson",
+    "cat": "culture",
+    "about": "Four-hour video essays about theme parks and fandom.",
+    "yt": {
+     "id": "UCJ7s2fYbDfxpnc1CcYVgzqg",
+     "expect": "jenny",
+     "handle": "JennyNicholson"
+    },
+    "feed": null,
+    "links": {}
+   },
+   {
+    "key": "hbomberguy",
+    "name": "hbomberguy",
+    "cat": "culture",
+    "about": "Harris Brewis. Plagiarism and You(Tube).",
+    "yt": {
+     "id": "UClt01z1wHHT7c5lKcU8pxRQ",
+     "expect": "hbomberguy",
+     "handle": "hbomberguy"
+    },
+    "feed": null,
+    "links": {}
+   },
+   {
+    "key": "philip-defranco",
+    "name": "Philip DeFranco",
+    "cat": "culture",
+    "about": "The news, five days a week, since 2006.",
+    "yt": {
+     "id": "UClFSU9_bUb4Rc6OYfTt5SPw",
+     "expect": "defranco",
+     "handle": "PhilipDeFranco"
+    },
+    "feed": null,
+    "links": {
+     "x": "PhillyD"
+    }
+   },
+   {
+    "key": "try-guys",
+    "name": "The Try Guys",
+    "cat": "culture",
+    "about": "Trying things, still.",
+    "yt": {
+     "id": "UCpi8TJfiA4lKGkaXs__YdBA",
+     "expect": "try guys",
+     "handle": "tryguys"
+    },
+    "feed": null,
+    "links": {}
+   },
+   {
+    "key": "good-mythical-morning",
+    "name": "Good Mythical Morning",
+    "cat": "culture",
+    "about": "Rhett and Link, every weekday.",
+    "yt": {
+     "id": "UC4PooiX37Pld1T8J5SYT-SQ",
+     "expect": "mythical",
+     "handle": "GoodMythicalMorning"
+    },
+    "feed": null,
+    "links": {}
+   },
+   {
+    "key": "michelle-khare",
+    "name": "Michelle Khare",
+    "cat": "culture",
+    "about": "Challenge Accepted: training like an astronaut, a Marine, a stunt double.",
+    "yt": {
+     "id": "UCqSrmc_CX_Ikh9e2PK6U3oA",
+     "expect": "khare",
+     "handle": "MichelleKhare"
+    },
+    "feed": null,
+    "links": {
+     "ig": "michellekhare"
+    }
+   },
+   {
+    "key": "ryan-trahan",
+    "name": "Ryan Trahan",
+    "cat": "culture",
+    "about": "Penny challenges and 50 states.",
+    "yt": {
+     "id": "UCnmGIkw-KdI0W5siakKPKog",
+     "expect": "trahan",
+     "handle": "ryan"
+    },
+    "feed": null,
+    "links": {
+     "ig": "ryantrahan"
+    }
+   },
+   {
+    "key": "zach-king",
+    "name": "Zach King",
+    "cat": "culture",
+    "about": "Magic edits.",
+    "yt": {
+     "id": "UCq8DICunczvLuJJq414110A",
+     "expect": "zach king",
+     "handle": "ZachKing"
+    },
+    "feed": null,
+    "links": {
+     "ig": "zachking",
+     "tt": "zachking"
+    }
+   },
+   {
+    "key": "dude-perfect",
+    "name": "Dude Perfect",
+    "cat": "culture",
+    "about": "Trick shots and the new Texas HQ.",
+    "yt": {
+     "id": "UCRijo3ddMTht_IHyNSNXpNQ",
+     "expect": "dude perfect",
+     "handle": "DudePerfect"
+    },
+    "feed": null,
+    "links": {
+     "ig": "dudeperfect"
+    }
+   },
+   {
+    "key": "jubilee",
+    "name": "Jubilee",
+    "cat": "culture",
+    "about": "Middle Ground and Surrounded: people who disagree, in a room.",
+    "yt": {
+     "id": "UCJjSDX-jUChzOEyok9XYRJQ",
+     "expect": "jubilee",
+     "handle": "jubilee"
+    },
+    "feed": null,
+    "links": {}
+   },
+   {
+    "key": "cut",
+    "name": "Cut",
+    "cat": "culture",
+    "about": "Truth or Drink and the lineup.",
+    "yt": {
+     "id": "UCxDZs_ltFFvn0FDHT6kmoXA",
+     "expect": "cut",
+     "handle": "Cut"
+    },
+    "feed": null,
+    "links": {}
+   },
+   {
+    "key": "vox-yt",
+    "name": "Vox",
+    "cat": "culture",
+    "about": "Explainers from the Vox video team.",
+    "yt": {
+     "id": "UCLXo7UDZvByw2ixzpQCufnA",
+     "expect": "vox",
+     "handle": "Vox"
+    },
+    "feed": null,
+    "links": {}
+   },
+   {
+    "key": "colin-and-samir",
+    "name": "Colin and Samir",
+    "cat": "culture",
+    "about": "The creator economy’s own show.",
+    "yt": {
+     "id": "UCamLstJyCa-t5gfZegxsFMw",
+     "expect": "colin",
+     "handle": "ColinandSamir"
+    },
+    "feed": "https://www.colinandsamir.com/feed",
+    "links": {
+     "x": "ColinandSamir"
+    }
+   },
+   {
+    "key": "alix-earle",
+    "name": "Alix Earle",
+    "cat": "social",
+    "about": "Get-ready-with-me, Miami, and the Hot Mess podcast.",
+    "yt": {
+     "id": "UCXuzhJcLu6q6fzYUJx5vu1w",
+     "expect": "alix",
+     "handle": "alixearle"
+    },
+    "feed": null,
+    "links": {
+     "ig": "alix_earle",
+     "tt": "alixearle"
+    }
+   },
+   {
+    "key": "charli-damelio",
+    "name": "Charli D’Amelio",
+    "cat": "social",
+    "about": "TikTok’s first superstar; now on Broadway.",
+    "yt": {
+     "id": "UC9s8EMl8qefm8CoD2hjrEBA",
+     "expect": "charli",
+     "handle": "charlidamelio"
+    },
+    "feed": null,
+    "links": {
+     "ig": "charlidamelio",
+     "tt": "charlidamelio"
+    }
+   },
+   {
+    "key": "addison-rae",
+    "name": "Addison Rae",
+    "cat": "social",
+    "about": "From TikTok to pop stardom.",
+    "yt": {
+     "id": "UCBjWCqCTGwYnbCCeSuBP0tg",
+     "expect": "addison",
+     "handle": "AddisonRae"
+    },
+    "feed": null,
+    "links": {
+     "ig": "addisonraee",
+     "tt": "addisonre"
+    }
+   },
+   {
+    "key": "khaby-lame",
+    "name": "Khaby Lame",
+    "cat": "social",
+    "about": "The most-followed person on TikTok, wordlessly.",
+    "yt": {
+     "id": "UC-yJ2dfQyw85U1JSt_rFczQ",
+     "expect": "khaby",
+     "handle": "khabylame"
+    },
+    "feed": null,
+    "links": {
+     "ig": "khaby00",
+     "tt": "khaby.lame"
+    }
+   },
+   {
+    "key": "bella-poarch",
+    "name": "Bella Poarch",
+    "cat": "social",
+    "about": "The most-liked TikTok, then the music.",
+    "yt": null,
+    "feed": null,
+    "links": {
+     "ig": "bellapoarch",
+     "tt": "bellapoarch"
+    }
+   },
+   {
+    "key": "matilda-djerf",
+    "name": "Matilda Djerf",
+    "cat": "social",
+    "about": "The Scandi-girl aesthetic and Djerf Avenue.",
+    "yt": null,
+    "feed": null,
+    "links": {
+     "ig": "matildadjerf",
+     "tt": "matildadjerf"
+    }
+   },
+   {
+    "key": "tinx",
+    "name": "Tinx",
+    "cat": "social",
+    "about": "Rich-mom energy and the box theory.",
+    "yt": null,
+    "feed": null,
+    "links": {
+     "ig": "tinx",
+     "tt": "tinx"
+    }
+   },
+   {
+    "key": "chiara-ferragni",
+    "name": "Chiara Ferragni",
+    "cat": "social",
+    "about": "The Blonde Salad, two decades on.",
+    "yt": null,
+    "feed": null,
+    "links": {
+     "ig": "chiaraferragni"
+    }
+   },
+   {
+    "key": "aimee-song",
+    "name": "Aimee Song",
+    "cat": "social",
+    "about": "Song of Style.",
+    "yt": null,
+    "feed": null,
+    "links": {
+     "ig": "aimeesong"
+    }
+   },
+   {
+    "key": "leonie-hanne",
+    "name": "Leonie Hanne",
+    "cat": "social",
+    "about": "Front rows and the couture weeks.",
+    "yt": null,
+    "feed": null,
+    "links": {
+     "ig": "leoniehanne"
+    }
+   },
+   {
+    "key": "nara-smith",
+    "name": "Nara Smith",
+    "cat": "social",
+    "about": "Making everything from scratch, in silk.",
+    "yt": null,
+    "feed": null,
+    "links": {
+     "ig": "naraaziza",
+     "tt": "naraazizasmith"
+    }
+   },
+   {
+    "key": "tabitha-brown",
+    "name": "Tabitha Brown",
+    "cat": "social",
+    "about": "Vegan cooking and kindness.",
+    "yt": null,
+    "feed": null,
+    "links": {
+     "ig": "iamtabithabrown",
+     "tt": "iamtabithabrown"
+    }
+   },
+   {
+    "key": "keith-lee",
+    "name": "Keith Lee",
+    "cat": "social",
+    "about": "Food reviews that save restaurants.",
+    "yt": null,
+    "feed": null,
+    "links": {
+     "tt": "keith_lee125",
+     "ig": "keith_lee125"
+    }
+   },
+   {
+    "key": "jake-shane",
+    "name": "Jake Shane",
+    "cat": "social",
+    "about": "Octopus history and Therapuss.",
+    "yt": null,
+    "feed": null,
+    "links": {
+     "tt": "octopusslover8",
+     "ig": "jakeshane"
+    }
+   },
+   {
+    "key": "dylan-mulvaney",
+    "name": "Dylan Mulvaney",
+    "cat": "social",
+    "about": "Days of Girlhood.",
+    "yt": null,
+    "feed": null,
+    "links": {
+     "ig": "dylanmulvaney",
+     "tt": "dylanmulvaney"
+    }
+   },
+   {
+    "key": "haley-kalil",
+    "name": "Haley Kalil",
+    "cat": "social",
+    "about": "Haleyybaylee: red carpets, lately.",
+    "yt": null,
+    "feed": null,
+    "links": {
+     "tt": "haleyybaylee",
+     "ig": "haleyybaylee"
+    }
+   },
+   {
+    "key": "brad-owen",
+    "name": "Brad Owen",
+    "cat": "poker",
+    "about": "The poker vlog, from Vegas.",
+    "yt": {
+     "id": "UCxYljUelq6VBk4m8dM-7NVA",
+     "expect": "brad owen",
+     "handle": "BradOwenPoker"
+    },
+    "feed": null,
+    "links": {
+     "x": "TheBradOwen"
+    }
+   },
+   {
+    "key": "andrew-neeme",
+    "name": "Andrew Neeme",
+    "cat": "poker",
+    "about": "Cinematic poker vlogs and the Meet Up Games.",
+    "yt": {
+     "id": "UCLTP4Ns4v8EsVS0DVGugQrQ",
+     "expect": "neeme",
+     "handle": "AndrewNeeme"
+    },
+    "feed": null,
+    "links": {
+     "x": "andrewneeme"
+    }
+   },
+   {
+    "key": "rampage-poker",
+    "name": "Rampage Poker",
+    "cat": "poker",
+    "about": "Ethan Yau’s high-variance vlog.",
+    "yt": {
+     "id": "UCToA-j1kPYHmllFVQ5k2rYg",
+     "expect": "rampage",
+     "handle": "RampagePoker"
+    },
+    "feed": null,
+    "links": {
+     "x": "rampaagepoker"
+    }
+   },
+   {
+    "key": "doug-polk",
+    "name": "Doug Polk Poker",
+    "cat": "poker",
+    "about": "Doug Polk; the Lodge in Austin.",
+    "yt": {
+     "id": "UCyI7FNTudkyALBh9N7hwI9Q",
+     "expect": "polk",
+     "handle": "DougPolkPoker"
+    },
+    "feed": null,
+    "links": {
+     "x": "DougPolkVids"
+    }
+   },
+   {
+    "key": "jonathan-little",
+    "name": "Jonathan Little – Poker Coaching",
+    "cat": "poker",
+    "about": "Hand breakdowns and the quizzes.",
+    "yt": {
+     "id": "UCOWqXBOz_hoBtaqwWN_kaQQ",
+     "expect": "little",
+     "handle": "PokerCoaching"
+    },
+    "feed": null,
+    "links": {
+     "x": "JonathanLittle"
+    }
+   },
+   {
+    "key": "hustler-casino-live",
+    "name": "Hustler Casino Live",
+    "cat": "poker",
+    "about": "The biggest livestreamed cash games.",
+    "yt": {
+     "id": "UCQe7wB0o_cZgv1miyYB9TMA",
+     "expect": "hustler",
+     "handle": "HustlerCasinoLive"
+    },
+    "feed": null,
+    "links": {
+     "x": "HCLPokerShow"
+    }
+   },
+   {
+    "key": "gto-wizard",
+    "name": "GTO Wizard",
+    "cat": "poker",
+    "about": "Solver study, taught.",
+    "yt": {
+     "id": "UCXSg1srGpJ67HuPTMm4w72g",
+     "expect": "gto wizard",
+     "handle": "GTOWizard"
+    },
+    "feed": null,
+    "links": {
+     "x": "GTOWizard"
+    }
+   },
+   {
+    "key": "upswing-poker",
+    "name": "Upswing Poker",
+    "cat": "poker",
+    "about": "Strategy from Doug Polk’s training site.",
+    "yt": {
+     "id": "UCHyxrwq_j4vcReGKd42tWyw",
+     "expect": "upswing",
+     "handle": "UpswingPoker"
+    },
+    "feed": null,
+    "links": {}
+   },
+   {
+    "key": "wsop-yt",
+    "name": "World Series of Poker",
+    "cat": "poker",
+    "about": "The official WSOP channel.",
+    "yt": {
+     "id": "UC9m6fb3RXf-W90fH3KkZAJw",
+     "expect": "world series of poker",
+     "handle": "WSOP"
+    },
+    "feed": null,
+    "links": {
+     "x": "WSOP"
+    }
+   },
+   {
+    "key": "pokergo",
+    "name": "PokerGO",
+    "cat": "poker",
+    "about": "High-stakes broadcasts and the Studio.",
+    "yt": {
+     "id": "UCOPw3R-TUUNqgN2bQyidW2w",
+     "expect": "pokergo",
+     "handle": "PokerGO"
+    },
+    "feed": null,
+    "links": {
+     "x": "PokerGO"
+    }
+   },
+   {
+    "key": "this-esme",
+    "name": "This Esme",
+    "cat": "horses",
+    "about": "Britain’s biggest equestrian YouTuber.",
+    "yt": {
+     "id": "UCyvB6v89RVGuU1-9fvB73zQ",
+     "expect": "esme",
+     "handle": "ThisEsme"
+    },
+    "feed": null,
+    "links": {
+     "ig": "this_esme"
+    }
+   },
+   {
+    "key": "karen-rohlf",
+    "name": "Karen Rohlf",
+    "cat": "horses",
+    "about": "Dressage Naturally.",
+    "yt": {
+     "id": "UCItCx5cEnxdwLQ6E9x5NK4Q",
+     "expect": "rohlf",
+     "handle": "KarenRohlf"
+    },
+    "feed": null,
+    "links": {}
+   },
+   {
+    "key": "dressagehub",
+    "name": "DressageHub",
+    "cat": "horses",
+    "about": "Training clips and the big shows.",
+    "yt": {
+     "id": "UCu6Oj7L-dfVjv8jjGjXACbw",
+     "expect": "dressagehub",
+     "handle": "DressageHub"
+    },
+    "feed": null,
+    "links": {}
+   },
+   {
+    "key": "fei",
+    "name": "FEI",
+    "cat": "horses",
+    "about": "The international federation’s channel.",
+    "yt": {
+     "id": "UCb3uedNKWKG7gGDYQJ1VsWg",
+     "expect": "fei",
+     "handle": "feichannel"
+    },
+    "feed": null,
+    "links": {
+     "ig": "fei_global"
+    }
+   },
+   {
+    "key": "us-equestrian",
+    "name": "US Equestrian",
+    "cat": "horses",
+    "about": "USEF Network.",
+    "yt": {
+     "id": "UCE7FNFLbwr3zQjbt3bDs3EA",
+     "expect": "us equestrian",
+     "handle": "USEFNetwork"
+    },
+    "feed": null,
+    "links": {
+     "ig": "usequestrian"
+    }
+   },
+   {
+    "key": "horse-and-hound-yt",
+    "name": "Horse & Hound",
+    "cat": "horses",
+    "about": "The magazine’s video desk.",
+    "yt": {
+     "id": "UCSwiMXFqMyW21WA5S2sEX8A",
+     "expect": "horse",
+     "handle": "HorseandHound"
+    },
+    "feed": null,
+    "links": {}
+   },
+   {
+    "key": "wec",
+    "name": "World Equestrian Center",
+    "cat": "horses",
+    "about": "Ocala and Wilmington.",
+    "yt": {
+     "id": "UC9oyWrsGh_Ol1SISGDMRFlg",
+     "expect": "world equestrian",
+     "handle": "WorldEquestrianCenter"
+    },
+    "feed": null,
+    "links": {
+     "ig": "worldequestriancenter"
+    }
+   },
+   {
+    "key": "matt-harnacke",
+    "name": "Matt Harnacke",
+    "cat": "horses",
+    "about": "Dressage, Lusitanos and a very good camera.",
+    "yt": {
+     "id": "UCV1mXX4C6LtgQN_rdQIyE3A",
+     "expect": "harnacke",
+     "handle": "MattHarnacke"
+    },
+    "feed": null,
+    "links": {
+     "ig": "matt_harnacke"
+    }
+   },
+   {
+    "key": "raleigh-link",
+    "name": "Raleigh Link",
+    "cat": "horses",
+    "about": "Eventing, honestly.",
+    "yt": {
+     "id": "UCKTPvZmR6Y_PFlaDGe8xHRw",
+     "expect": "raleigh",
+     "handle": "RaleighLink"
+    },
+    "feed": null,
+    "links": {
+     "ig": "raleighlink"
+    }
+   },
+   {
+    "key": "amelia-newcomb",
+    "name": "Amelia Newcomb Dressage",
+    "cat": "horses",
+    "about": "Dressage training, explained from the saddle.",
+    "yt": {
+     "id": "UCyoxYQjkw8VuAKf8XyPFMHw",
+     "expect": "newcomb",
+     "handle": "AmeliaNewcombDressage"
+    },
+    "feed": null,
+    "links": {
+     "ig": "amelianewcombdressage"
+    }
+   },
+   {
+    "key": "lenny-rachitsky",
+    "name": "Lenny Rachitsky",
+    "cat": "writers",
+    "about": "Lenny’s Newsletter: product, growth and careers.",
+    "yt": null,
+    "feed": "https://www.lennysnewsletter.com/feed",
+    "links": {
+     "site": "https://www.lennysnewsletter.com",
+     "x": "lennysan"
+    }
+   },
+   {
+    "key": "ben-thompson",
+    "name": "Ben Thompson",
+    "cat": "writers",
+    "about": "Stratechery: the strategy of tech.",
+    "yt": null,
+    "feed": "https://stratechery.com/feed/",
+    "links": {
+     "site": "https://stratechery.com",
+     "x": "benthompson"
+    }
+   },
+   {
+    "key": "heather-cox-richardson",
+    "name": "Heather Cox Richardson",
+    "cat": "writers",
+    "about": "Letters from an American, every night.",
+    "yt": null,
+    "feed": "https://heathercoxrichardson.substack.com/feed",
+    "links": {
+     "site": "https://heathercoxrichardson.substack.com"
+    }
+   },
+   {
+    "key": "noah-smith",
+    "name": "Noah Smith",
+    "cat": "writers",
+    "about": "Noahpinion: economics, optimistically.",
+    "yt": null,
+    "feed": "https://www.noahpinion.blog/feed",
+    "links": {
+     "site": "https://www.noahpinion.blog",
+     "x": "Noahpinion"
+    }
+   },
+   {
+    "key": "matt-yglesias",
+    "name": "Matthew Yglesias",
+    "cat": "writers",
+    "about": "Slow Boring: policy, argued.",
+    "yt": null,
+    "feed": "https://www.slowboring.com/feed",
+    "links": {
+     "site": "https://www.slowboring.com",
+     "x": "mattyglesias"
+    }
+   },
+   {
+    "key": "casey-newton",
+    "name": "Casey Newton",
+    "cat": "writers",
+    "about": "Platformer: the platforms and democracy.",
+    "yt": null,
+    "feed": "https://www.platformer.news/feed",
+    "links": {
+     "site": "https://www.platformer.news",
+     "x": "CaseyNewton"
+    }
+   },
+   {
+    "key": "ryan-broderick",
+    "name": "Ryan Broderick",
+    "cat": "writers",
+    "about": "Garbage Day: the internet, as it happens.",
+    "yt": null,
+    "feed": "https://www.garbageday.email/feed",
+    "links": {
+     "site": "https://www.garbageday.email"
+    }
+   },
+   {
+    "key": "scott-alexander",
+    "name": "Scott Alexander",
+    "cat": "writers",
+    "about": "Astral Codex Ten.",
+    "yt": null,
+    "feed": "https://www.astralcodexten.com/feed",
+    "links": {
+     "site": "https://www.astralcodexten.com"
+    }
+   },
+   {
+    "key": "anne-helen-petersen",
+    "name": "Anne Helen Petersen",
+    "cat": "writers",
+    "about": "Culture Study.",
+    "yt": null,
+    "feed": "https://annehelen.substack.com/feed",
+    "links": {
+     "site": "https://annehelen.substack.com"
+    }
+   },
+   {
+    "key": "emily-oster",
+    "name": "Emily Oster",
+    "cat": "writers",
+    "about": "ParentData: parenting, with data.",
+    "yt": null,
+    "feed": "https://parentdata.org/feed/",
+    "links": {
+     "site": "https://parentdata.org"
+    }
+   },
+   {
+    "key": "packy-mccormick",
+    "name": "Packy McCormick",
+    "cat": "writers",
+    "about": "Not Boring: optimistic business essays.",
+    "yt": null,
+    "feed": "https://www.notboring.co/feed",
+    "links": {
+     "site": "https://www.notboring.co",
+     "x": "packyM"
+    }
+   },
+   {
+    "key": "emily-sundberg",
+    "name": "Emily Sundberg",
+    "cat": "writers",
+    "about": "Feed Me: New York media, money and taste.",
+    "yt": null,
+    "feed": "https://www.feedme.email/feed",
+    "links": {
+     "site": "https://www.feedme.email"
+    }
+   },
+   {
+    "key": "hunter-harris",
+    "name": "Hunter Harris",
+    "cat": "writers",
+    "about": "Hung Up: celebrity, with jokes.",
+    "yt": null,
+    "feed": "https://hungup.substack.com/feed",
+    "links": {
+     "site": "https://hungup.substack.com"
+    }
+   },
+   {
+    "key": "rachel-karten",
+    "name": "Rachel Karten",
+    "cat": "writers",
+    "about": "Link in Bio: how brands do social.",
+    "yt": null,
+    "feed": "https://www.milkkarten.net/feed",
+    "links": {
+     "site": "https://www.milkkarten.net"
+    }
+   },
+   {
+    "key": "casey-lewis",
+    "name": "Casey Lewis",
+    "cat": "writers",
+    "about": "After School: what the kids are into.",
+    "yt": null,
+    "feed": "https://afterschool.substack.com/feed",
+    "links": {
+     "site": "https://afterschool.substack.com"
+    }
+   },
+   {
+    "key": "max-read",
+    "name": "Max Read",
+    "cat": "writers",
+    "about": "Read Max: the internet, explained to adults.",
+    "yt": null,
+    "feed": "https://maxread.substack.com/feed",
+    "links": {
+     "site": "https://maxread.substack.com"
+    }
+   },
+   {
+    "key": "derek-thompson",
+    "name": "Derek Thompson",
+    "cat": "writers",
+    "about": "Plain English and the newsletter.",
+    "yt": null,
+    "feed": "https://www.derekthompson.org/feed",
+    "links": {
+     "site": "https://www.derekthompson.org",
+     "x": "DKThomp"
+    }
+   },
+   {
+    "key": "bari-weiss",
+    "name": "The Free Press",
+    "cat": "writers",
+    "about": "Bari Weiss’s publication.",
+    "yt": null,
+    "feed": "https://www.thefp.com/feed",
+    "links": {
+     "site": "https://www.thefp.com"
+    }
+   },
+   {
+    "key": "blackbird-spyplane",
+    "name": "Blackbird Spyplane",
+    "cat": "writers",
+    "about": "Unbeatable recon on clothes and things.",
+    "yt": null,
+    "feed": "https://www.blackbirdspyplane.com/feed",
+    "links": {
+     "site": "https://www.blackbirdspyplane.com"
+    }
+   },
+   {
+    "key": "derek-guy",
+    "name": "Derek Guy",
+    "cat": "writers",
+    "about": "Die, Workwear! and the menswear guy.",
+    "yt": null,
+    "feed": "https://dieworkwear.com/feed/",
+    "links": {
+     "site": "https://dieworkwear.com",
+     "x": "dieworkwear"
+    }
+   },
+   {
+    "key": "smitten-kitchen",
+    "name": "Deb Perelman",
+    "cat": "writers",
+    "about": "Smitten Kitchen.",
+    "yt": null,
+    "feed": "https://smittenkitchen.com/feed/",
+    "links": {
+     "site": "https://smittenkitchen.com",
+     "ig": "smittenkitchen"
+    }
+   },
+   {
+    "key": "alison-roman",
+    "name": "Alison Roman",
+    "cat": "writers",
+    "about": "A Newsletter, and the recipes.",
+    "yt": null,
+    "feed": "https://anewsletter.alisoneroman.com/feed",
+    "links": {
+     "site": "https://anewsletter.alisoneroman.com",
+     "ig": "alisoneroman"
+    }
+   },
+   {
+    "key": "caroline-chambers",
+    "name": "Caroline Chambers",
+    "cat": "writers",
+    "about": "What to Cook When You Don’t Feel Like Cooking.",
+    "yt": null,
+    "feed": "https://whattocook.substack.com/feed",
+    "links": {
+     "site": "https://whattocook.substack.com",
+     "ig": "carochambers"
+    }
+   },
+   {
+    "key": "austin-kleon",
+    "name": "Austin Kleon",
+    "cat": "writers",
+    "about": "Steal Like an Artist; a weekly newsletter of ten things.",
+    "yt": null,
+    "feed": "https://austinkleon.com/feed/",
+    "links": {
+     "site": "https://austinkleon.com"
+    }
+   },
+   {
+    "key": "seth-godin",
+    "name": "Seth Godin",
+    "cat": "writers",
+    "about": "A blog post a day, for twenty years.",
+    "yt": null,
+    "feed": "https://seths.blog/feed/",
+    "links": {
+     "site": "https://seths.blog"
+    }
+   },
+   {
+    "key": "kyla-scanlon",
+    "name": "Kyla Scanlon",
+    "cat": "writers",
+    "about": "The economy, explained for everyone.",
+    "yt": null,
+    "feed": "https://kyla.substack.com/feed",
+    "links": {
+     "site": "https://kyla.substack.com",
+     "tt": "kylascan"
+    }
+   },
+   {
+    "key": "the-ankler",
+    "name": "The Ankler",
+    "cat": "writers",
+    "about": "Hollywood’s business, from the inside.",
+    "yt": null,
+    "feed": "https://theankler.com/feed",
+    "links": {
+     "site": "https://theankler.com"
+    }
+   },
+   {
+    "key": "today-in-tabs",
+    "name": "Rusty Foster",
+    "cat": "writers",
+    "about": "Today in Tabs.",
+    "yt": null,
+    "feed": "https://www.todayintabs.com/feed",
+    "links": {
+     "site": "https://www.todayintabs.com"
+    }
+   },
+   {
+    "key": "benedict-evans",
+    "name": "Benedict Evans",
+    "cat": "writers",
+    "about": "Essays and the annual presentation on tech.",
+    "yt": null,
+    "feed": "https://www.ben-evans.com/benedictevans?format=rss",
+    "links": {
+     "site": "https://www.ben-evans.com",
+     "x": "benedictevans"
+    }
+   },
+   {
+    "key": "simon-willison",
+    "name": "Simon Willison",
+    "cat": "writers",
+    "about": "Weblog: LLMs, Datasette and the open web.",
+    "yt": null,
+    "feed": "https://simonwillison.net/atom/everything/",
+    "links": {
+     "site": "https://simonwillison.net",
+     "x": "simonw"
+    }
+   },
+   {
+    "key": "ethan-mollick",
+    "name": "Ethan Mollick",
+    "cat": "writers",
+    "about": "One Useful Thing: using AI, practically.",
+    "yt": null,
+    "feed": "https://www.oneusefulthing.org/feed",
+    "links": {
+     "site": "https://www.oneusefulthing.org",
+     "x": "emollick"
+    }
+   },
+   {
+    "key": "gergely-orosz",
+    "name": "Gergely Orosz",
+    "cat": "writers",
+    "about": "The Pragmatic Engineer.",
+    "yt": null,
+    "feed": "https://newsletter.pragmaticengineer.com/feed",
+    "links": {
+     "site": "https://newsletter.pragmaticengineer.com",
+     "x": "GergelyOrosz"
+    }
+   },
+   {
+    "key": "byrne-hobart",
+    "name": "Byrne Hobart",
+    "cat": "writers",
+    "about": "The Diff: inflections in finance and tech.",
+    "yt": null,
+    "feed": "https://www.thediff.co/feed",
+    "links": {
+     "site": "https://www.thediff.co"
+    }
+   },
+   {
+    "key": "eric-newcomer",
+    "name": "Eric Newcomer",
+    "cat": "writers",
+    "about": "Newcomer: venture capital and the startups.",
+    "yt": null,
+    "feed": "https://www.newcomer.co/feed",
+    "links": {
+     "site": "https://www.newcomer.co"
+    }
+   },
+   {
+    "key": "alex-kantrowitz",
+    "name": "Alex Kantrowitz",
+    "cat": "writers",
+    "about": "Big Technology.",
+    "yt": null,
+    "feed": "https://www.bigtechnology.com/feed",
+    "links": {
+     "site": "https://www.bigtechnology.com",
+     "x": "Kantrowitz"
+    }
+   },
+   {
+    "key": "om-malik",
+    "name": "Om Malik",
+    "cat": "writers",
+    "about": "On my Om: technology, photography and life.",
+    "yt": null,
+    "feed": "https://om.co/feed/",
+    "links": {
+     "site": "https://om.co"
+    }
+   },
+   {
+    "key": "john-gruber",
+    "name": "John Gruber",
+    "cat": "writers",
+    "about": "Daring Fireball.",
+    "yt": null,
+    "feed": "https://daringfireball.net/feeds/main",
+    "links": {
+     "site": "https://daringfireball.net",
+     "x": "gruber"
+    }
+   },
+   {
+    "key": "jason-kottke",
+    "name": "Jason Kottke",
+    "cat": "writers",
+    "about": "kottke.org, the fine hypertext products, since 1998.",
+    "yt": null,
+    "feed": "https://feeds.kottke.org/main",
+    "links": {
+     "site": "https://kottke.org"
+    }
+   },
+   {
+    "key": "craig-mod",
+    "name": "Craig Mod",
+    "cat": "writers",
+    "about": "Ridgeline and Roden: walking Japan, making books.",
+    "yt": null,
+    "feed": "https://craigmod.com/index.xml",
+    "links": {
+     "site": "https://craigmod.com"
+    }
+   },
+   {
+    "key": "the-autopian",
+    "name": "The Autopian",
+    "cat": "writers",
+    "about": "David Tracy, Jason Torchinsky and the car-obsessed.",
+    "yt": null,
+    "feed": "https://www.theautopian.com/feed/",
+    "links": {
+     "site": "https://www.theautopian.com"
+    }
+   },
+   {
+    "key": "ben-carlson",
+    "name": "Ben Carlson",
+    "cat": "writers",
+    "about": "A Wealth of Common Sense.",
+    "yt": null,
+    "feed": "https://awealthofcommonsense.com/feed/",
+    "links": {
+     "site": "https://awealthofcommonsense.com",
+     "x": "awealthofcs"
+    }
+   },
+   {
+    "key": "josh-brown",
+    "name": "Josh Brown",
+    "cat": "writers",
+    "about": "Downtown Josh Brown.",
+    "yt": null,
+    "feed": "https://www.downtownjoshbrown.com/feed",
+    "links": {
+     "site": "https://www.downtownjoshbrown.com",
+     "x": "downtown"
+    }
+   },
+   {
+    "key": "nick-maggiulli",
+    "name": "Nick Maggiulli",
+    "cat": "writers",
+    "about": "Of Dollars and Data.",
+    "yt": null,
+    "feed": "https://ofdollarsanddata.com/feed/",
+    "links": {
+     "site": "https://ofdollarsanddata.com",
+     "x": "dollarsanddata"
+    }
+   },
+   {
+    "key": "michael-batnick",
+    "name": "Michael Batnick",
+    "cat": "writers",
+    "about": "The Irrelevant Investor.",
+    "yt": null,
+    "feed": "https://theirrelevantinvestor.com/feed/",
+    "links": {
+     "site": "https://theirrelevantinvestor.com",
+     "x": "michaelbatnick"
+    }
+   },
+   {
+    "key": "lyn-alden",
+    "name": "Lyn Alden",
+    "cat": "writers",
+    "about": "Macro and investment research.",
+    "yt": null,
+    "feed": "https://www.lynalden.com/feed/",
+    "links": {
+     "site": "https://www.lynalden.com",
+     "x": "LynAldenContact"
+    }
+   },
+   {
+    "key": "robert-reich",
+    "name": "Robert Reich",
+    "cat": "writers",
+    "about": "The former Labor Secretary’s daily letter.",
+    "yt": null,
+    "feed": "https://robertreich.substack.com/feed",
+    "links": {
+     "site": "https://robertreich.substack.com"
+    }
+   },
+   {
+    "key": "the-bulwark",
+    "name": "The Bulwark",
+    "cat": "writers",
+    "about": "Jonathan V. Last, Tim Miller and company.",
+    "yt": null,
+    "feed": "https://www.thebulwark.com/feed",
+    "links": {
+     "site": "https://www.thebulwark.com"
+    }
+   },
+   {
+    "key": "morgan-housel",
+    "name": "Morgan Housel",
+    "cat": "writers",
+    "about": "The Psychology of Money’s author, at Collab Fund.",
+    "yt": null,
+    "feed": "https://collabfund.com/blog/feed/",
+    "links": {
+     "site": "https://collabfund.com/blog",
+     "x": "morganhousel"
+    }
+   }
+  ],
+  "wire": [
+   {
+    "name": "Tubefilter",
+    "url": "https://www.tubefilter.com/feed/",
+    "domain": "tubefilter.com"
+   },
+   {
+    "name": "Creator economy",
+    "url": "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US:en&q=%22creator%20economy%22%20OR%20influencer%20OR%20YouTuber%20OR%20TikToker%20OR%20%22content%20creator%22%20deal%20OR%20launch%20OR%20earned%20OR%20brand%20when%3A5d"
+   },
+   {
+    "name": "Passionfruit",
+    "url": "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US:en&q=site%3Apassionfru.it%20when%3A10d"
+   },
+   {
+    "name": "Digiday",
+    "url": "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US:en&q=site%3Adigiday.com%20creator%20OR%20influencer%20when%3A5d"
+   },
+   {
+    "name": "Hollywood Reporter",
+    "url": "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US:en&q=site%3Ahollywoodreporter.com%20creator%20OR%20YouTuber%20OR%20influencer%20when%3A5d"
+   },
+   {
+    "name": "Business Insider",
+    "url": "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US:en&q=site%3Abusinessinsider.com%20creator%20OR%20influencer%20OR%20YouTuber%20when%3A5d"
+   }
+  ]
+ },
+ "culture": {
+  "channels": [
+   {
+    "id": "UCi8e0iOVk1fEOogdfu4YgfA",
+    "expect": "rotten tomatoes",
+    "name": "Rotten Tomatoes Trailers",
+    "handle": "RottenTomatoesTRAILERS",
+    "about": "Every trailer, the day it drops",
+    "kind": "screen"
+   },
+   {
+    "id": "UCWOA1ZGywLbqmigxE4Qlvuw",
+    "expect": "netflix",
+    "name": "Netflix",
+    "handle": "Netflix",
+    "about": "Trailers and first looks",
+    "kind": "screen"
+   },
+   {
+    "id": "UCuPivVjnfNo4mb3Oog_frZg",
+    "expect": "a24",
+    "name": "A24",
+    "handle": "A24",
+    "about": "The A24 slate",
+    "kind": "screen"
+   },
+   {
+    "id": "UCx-KWLTKlB83hDI6UKECtJQ",
+    "expect": "max",
+    "name": "Max",
+    "handle": "StreamOnMax",
+    "about": "HBO and Max",
+    "kind": "screen"
+   },
+   {
+    "id": "UCQJWtTnAHhEG5w4uN0udnUQ",
+    "expect": "prime video",
+    "name": "Prime Video",
+    "handle": "PrimeVideo",
+    "about": "Amazon’s originals",
+    "kind": "screen"
+   },
+   {
+    "id": "UC1Myj674wRVXB9I4c6Hm5zA",
+    "expect": "apple tv",
+    "name": "Apple TV",
+    "handle": "AppleTV",
+    "about": "Apple’s originals",
+    "kind": "screen"
+   },
+   {
+    "id": "UCvC4D8onUfXzvjTOM-dBfEA",
+    "expect": "marvel",
+    "name": "Marvel Entertainment",
+    "handle": "marvel",
+    "about": "Marvel Studios",
+    "kind": "screen"
+   },
+   {
+    "id": "UCjmJDM5pRKbUlVIzDYYWb6g",
+    "expect": "warner",
+    "name": "Warner Bros. Pictures",
+    "handle": "warnerbrospictures",
+    "about": "Warner Bros.",
+    "kind": "screen"
+   },
+   {
+    "id": "UCq0OueAsdxH6b8nyAspwViw",
+    "expect": "universal",
+    "name": "Universal Pictures",
+    "handle": "UniversalPictures",
+    "about": "Universal",
+    "kind": "screen"
+   },
+   {
+    "id": "UCz97F7dMxBNOfGYu3rx8aCw",
+    "expect": "sony",
+    "name": "Sony Pictures Entertainment",
+    "handle": "SonyPictures",
+    "about": "Sony Pictures",
+    "kind": "screen"
+   },
+   {
+    "id": "UCF9imwPMSGz4Vq1NiTWCC7g",
+    "expect": "paramount",
+    "name": "Paramount Pictures",
+    "handle": "ParamountPictures",
+    "about": "Paramount",
+    "kind": "screen"
+   },
+   {
+    "id": "UCJ6nMHaJPZvsJ-HmUmj1SeA",
+    "expect": "lionsgate",
+    "name": "Lionsgate Movies",
+    "handle": "LionsgateMovies",
+    "about": "Lionsgate",
+    "kind": "screen"
+   },
+   {
+    "id": "UCNCxgv-8iJmK7x4SZd5PhvA",
+    "expect": "searchlight",
+    "name": "Searchlight Pictures",
+    "handle": "SearchlightPictures",
+    "about": "Searchlight",
+    "kind": "screen"
+   },
+   {
+    "id": "UCdfK2lrRnstB06ShEMcU0mw",
+    "expect": "neon",
+    "name": "NEON",
+    "handle": "NeonRated",
+    "about": "NEON",
+    "kind": "screen"
+   },
+   {
+    "id": "UC_IRYSp4auq7hKLvziWVH6w",
+    "expect": "pixar",
+    "name": "Pixar",
+    "handle": "Pixar",
+    "about": "Pixar",
+    "kind": "screen"
+   },
+   {
+    "id": "UCVTQuK2CaWaTgSsoNkn5AiQ",
+    "expect": "hbo",
+    "name": "HBO",
+    "handle": "HBO",
+    "about": "HBO’s series",
+    "kind": "screen"
+   },
+   {
+    "id": "UCDh5QYV_EvV6W06vvo2EyeA",
+    "expect": "criterion",
+    "name": "Criterion Collection",
+    "handle": "criterioncollection",
+    "about": "The Criterion Closet and the restorations",
+    "kind": "screen"
+   },
+   {
+    "id": "UC4eYXhJI4-7wSWc8UNRwD4A",
+    "expect": "npr music",
+    "name": "NPR Music",
+    "handle": "nprmusic",
+    "about": "Tiny Desk concerts",
+    "kind": "sound"
+   },
+   {
+    "id": "UC2Qw1dzXDBAZPwS7zm37g8g",
+    "expect": "colors",
+    "name": "COLORS",
+    "handle": "COLORSxSTUDIOS",
+    "about": "One artist, one color, one song",
+    "kind": "sound"
+   },
+   {
+    "id": "UC3I2GFN_F8WudD_2jUZbojA",
+    "expect": "kexp",
+    "name": "KEXP",
+    "handle": "kexp",
+    "about": "Live on KEXP",
+    "kind": "sound"
+   },
+   {
+    "id": "UCUDq1XzCY0NIOYVJvEMQjqw",
+    "expect": "national theatre",
+    "name": "National Theatre",
+    "handle": "ntdiscovertheatre",
+    "about": "Backstage at the National",
+    "kind": "stage"
+   },
+   {
+    "id": "UCJ3A3C8xLbt9NyV6dnMFcLA",
+    "expect": "metropolitan opera",
+    "name": "The Metropolitan Opera",
+    "handle": "MetOpera",
+    "about": "The Met Opera",
+    "kind": "stage"
+   },
+   {
+    "id": "UCX5yUPnWNO5jvEyyoKyJxQA",
+    "expect": "playbill",
+    "name": "Playbill",
+    "handle": "Playbill",
+    "about": "Broadway, on video",
+    "kind": "stage"
+   },
+   {
+    "id": "UCxVxRfRqnV2v0GAGG7m_nxg",
+    "expect": "met",
+    "name": "The Met",
+    "handle": "metmuseum",
+    "about": "The Metropolitan Museum of Art",
+    "kind": "art"
+   },
+   {
+    "id": "UCZk_tdkg6jvVrsvjl7H1woQ",
+    "expect": "moma",
+    "name": "The Museum of Modern Art",
+    "handle": "themuseumofmodernart",
+    "about": "MoMA",
+    "kind": "art"
+   },
+   {
+    "id": "UCaG9B4ywr8ltB2XLdNoGZcg",
+    "expect": "tate",
+    "name": "Tate",
+    "handle": "tate",
+    "about": "Tate",
+    "kind": "art"
+   },
+   {
+    "id": "UCqFzWxSCi39LnW1JKFR3efg",
+    "expect": "saturday night live",
+    "name": "Saturday Night Live",
+    "handle": "SaturdayNightLive",
+    "about": "The sketches",
+    "kind": "screen"
+   },
+   {
+    "id": "UCsEukrAd64fqA7FjwkmZ_Dw",
+    "expect": "gq",
+    "name": "GQ",
+    "handle": "GQ",
+    "about": "10 Essentials and the interviews",
+    "kind": "style"
+   },
+   {
+    "id": "UCRXiA3h1no_PFkb1JCP0yMA",
+    "expect": "vogue",
+    "name": "Vogue",
+    "handle": "Vogue",
+    "about": "73 Questions and the covers",
+    "kind": "style"
+   },
+   {
+    "id": "UC12QV6UCRtKO9MGqUdp2wxQ",
+    "expect": "vanity fair",
+    "name": "Vanity Fair",
+    "handle": "VanityFair",
+    "about": "Lie detector tests and the Hollywood issue",
+    "kind": "screen"
+   },
+   {
+    "id": "UCWcKn9zBmX4g6ZjDkd6tm-A",
+    "expect": "new yorker",
+    "name": "The New Yorker",
+    "handle": "NewYorker",
+    "about": "The magazine’s films",
+    "kind": "art"
+   }
+  ],
+  "lenses": [
+   {
+    "key": "screen",
+    "name": "Screen",
+    "test": "\\b(film|films|movie|movies|cinema|box office|trailer|teaser|sequel|prequel|reboot|remake|premiere|netflix|hbo|max|hulu|disney\\+|prime video|apple tv\\+?|paramount\\+|peacock|streaming|series|season \\d|episode|finale|showrunner|actor|actress|director|cast|casting|oscars?|academy awards?|emmys?|golden globes?|sag|cannes|sundance|tiff|venice film|documentary|docuseries|sitcom|late[- ]night|snl|saturday night live|anime|pixar|marvel|dc studios|a24|blumhouse)\\b"
+   },
+   {
+    "key": "sound",
+    "name": "Sound",
+    "test": "\\b(album|albums|song|songs|single|ep|track|tracklist|tour|tours|concert|concerts|setlist|residency|grammys?|billboard|hot 100|chart|charts|spotify|vinyl|band|rapper|singer|songwriter|producer|dj|k-pop|hip-hop|rap|pop star|country music|jazz|orchestra|symphony|coachella|glastonbury|lollapalooza|festival lineup|taylor swift|beyonc[eé]|drake|kendrick|bad bunny|sabrina carpenter|olivia rodrigo|billie eilish|the weeknd|chappell roan|charli xcx)\\b"
+   },
+   {
+    "key": "stage",
+    "name": "Stage",
+    "test": "\\b(broadway|west end|theatre|theater|play|plays|playwright|musical|musicals|tony awards?|tonys|olivier|opera|ballet|dance company|choreograph\\w*|stand-up|comedy special|comedian|cirque|revival|off-broadway)\\b"
+   },
+   {
+    "key": "art",
+    "name": "Art & Design",
+    "test": "\\b(museum|museums|gallery|galleries|exhibition|exhibit|retrospective|biennale|biennial|art basel|frieze|sotheby'?s|christie'?s|auction|painting|paintings|sculpture|sculptor|artist|artists|photograph\\w*|architect\\w*|design|designer|installation|mural|street art|banksy|moma|the met|tate|louvre|guggenheim|whitney|smithsonian)\\b"
+   },
+   {
+    "key": "books",
+    "name": "Books",
+    "test": "\\b(book|books|novel|novels|novelist|author|authors|memoir|bestseller|booker|pulitzer|nobel prize in literature|national book award|publisher|publishing|paperback|hardcover|audiobook|literary|poet|poetry|essay collection|short stories|book club|library|libraries|bookstore|bookshop)\\b"
+   },
+   {
+    "key": "games",
+    "name": "Games",
+    "test": "\\b(video game|video games|gaming|playstation|ps5|xbox|nintendo|switch 2|steam|esports|twitch|game awards|gta|grand theft auto|zelda|mario|pok[eé]mon|fortnite|minecraft|call of duty|elden ring|board game|tabletop|d&d|dungeons)\\b"
+   }
+  ],
+  "releases": [
+   {
+    "key": "theaters",
+    "name": "In theaters",
+    "q": "new movies this weekend OR \"in theaters this week\" OR \"opens in theaters\"",
+    "days": 5
+   },
+   {
+    "key": "streaming",
+    "name": "New to stream",
+    "q": "\"new on Netflix\" OR \"new on Max\" OR \"new on Hulu\" OR \"new on Prime Video\" OR \"new on Apple TV\" OR \"new on Disney\" OR \"what to stream this weekend\"",
+    "days": 5
+   },
+   {
+    "key": "albums",
+    "name": "New albums",
+    "q": "\"new albums\" OR \"album review\" OR \"albums out this week\" OR \"new music friday\"",
+    "days": 5
+   },
+   {
+    "key": "stage",
+    "name": "On stage",
+    "q": "Broadway opening OR \"West End\" opening OR \"theater review\" OR \"theatre review\" OR opera premiere",
+    "days": 5
+   },
+   {
+    "key": "exhibitions",
+    "name": "Exhibitions",
+    "q": "museum exhibition opens OR \"new exhibition\" OR retrospective opens OR gallery show review",
+    "days": 7
+   },
+   {
+    "key": "games",
+    "name": "New games",
+    "q": "\"game review\" OR \"new video games this week\" OR \"best new games\"",
+    "days": 5
+   }
+  ],
+  "calendar": [
+   {
+    "name": "Gotham Awards",
+    "start": "2026-11-30",
+    "end": "2026-11-30",
+    "place": "New York",
+    "url": "https://thegotham.org/awards/",
+    "what": "The first major stop of awards season, from The Gotham.",
+    "source": "awardswatch.com awards calendar",
+    "kind": "awards"
+   },
+   {
+    "name": "Grammy nominations",
+    "start": "2026-11-16",
+    "end": "2026-11-16",
+    "place": "Los Angeles",
+    "url": "https://www.grammy.com",
+    "what": "Nominations for the 69th Grammy Awards are announced.",
+    "source": "Recording Academy via notjustok.com",
+    "kind": "awards"
+   },
+   {
+    "name": "Golden Globe nominations",
+    "start": "2026-12-07",
+    "end": "2026-12-07",
+    "place": "Los Angeles",
+    "url": "https://goldenglobes.com",
+    "what": "Nominations announced; voting opens Dec 18.",
+    "source": "Rotten Tomatoes 2026–27 awards calendar",
+    "kind": "awards"
+   },
+   {
+    "name": "Oscar shortlists",
+    "start": "2026-12-15",
+    "end": "2026-12-15",
+    "place": "Los Angeles",
+    "url": "https://www.oscars.org",
+    "what": "The Academy’s shortlists in ten categories.",
+    "source": "Rotten Tomatoes 2026–27 awards calendar",
+    "kind": "awards"
+   },
+   {
+    "name": "Critics Choice Awards",
+    "start": "2027-01-03",
+    "end": "2027-01-03",
+    "place": "Los Angeles",
+    "url": "https://www.criticschoice.com",
+    "what": "The critics’ awards for film and television.",
+    "source": "awardswatch.com awards calendar",
+    "kind": "awards"
+   },
+   {
+    "name": "Golden Globe Awards",
+    "start": "2027-01-10",
+    "end": "2027-01-10",
+    "place": "Beverly Hills",
+    "url": "https://goldenglobes.com",
+    "what": "The 84th Golden Globes.",
+    "source": "awardswatch.com awards calendar",
+    "kind": "awards"
+   },
+   {
+    "name": "Oscar nominations",
+    "start": "2027-01-21",
+    "end": "2027-01-21",
+    "place": "Los Angeles",
+    "url": "https://www.oscars.org",
+    "what": "Nominations for the 99th Academy Awards.",
+    "source": "awardswatch.com awards calendar",
+    "kind": "awards"
+   },
+   {
+    "name": "Sundance Film Festival",
+    "start": "2027-01-21",
+    "end": "2027-01-31",
+    "place": "Boulder, Colorado",
+    "url": "https://festival.sundance.org",
+    "what": "The festival’s first edition in Boulder after four decades in Park City.",
+    "source": "Sundance Institute via Yahoo Entertainment",
+    "kind": "festival"
+   },
+   {
+    "name": "DGA Awards",
+    "start": "2027-01-30",
+    "end": "2027-01-30",
+    "place": "Los Angeles",
+    "url": "https://www.dga.org/Awards",
+    "what": "The Directors Guild of America Awards.",
+    "source": "awardswatch.com awards calendar",
+    "kind": "awards"
+   },
+   {
+    "name": "Grammy Awards",
+    "start": "2027-02-07",
+    "end": "2027-02-07",
+    "place": "Crypto.com Arena, Los Angeles",
+    "url": "https://www.grammy.com",
+    "what": "The 69th Grammys, on ABC for the first time since 1972; streaming on Disney+ and Hulu.",
+    "source": "Recording Academy via notjustok.com",
+    "kind": "awards"
+   },
+   {
+    "name": "BAFTA Film Awards",
+    "start": "2027-02-21",
+    "end": "2027-02-21",
+    "place": "London",
+    "url": "https://www.bafta.org",
+    "what": "The EE BAFTA Film Awards.",
+    "source": "awardswatch.com awards calendar",
+    "kind": "awards"
+   },
+   {
+    "name": "Producers Guild Awards",
+    "start": "2027-02-27",
+    "end": "2027-02-27",
+    "place": "Los Angeles",
+    "url": "https://www.producersguild.org",
+    "what": "The PGA Awards, a strong Best Picture bellwether.",
+    "source": "awardswatch.com awards calendar",
+    "kind": "awards"
+   },
+   {
+    "name": "SAG Actor Awards",
+    "start": "2027-02-28",
+    "end": "2027-02-28",
+    "place": "Los Angeles",
+    "url": "https://www.sagawards.org",
+    "what": "The 33rd Actor Awards.",
+    "source": "awardswatch.com awards calendar",
+    "kind": "awards"
+   },
+   {
+    "name": "Independent Spirit Awards",
+    "start": "2027-03-06",
+    "end": "2027-03-06",
+    "place": "Santa Monica",
+    "url": "https://www.filmindependent.org/spirit-awards/",
+    "what": "Film Independent’s Spirit Awards, on the beach.",
+    "source": "awardswatch.com awards calendar",
+    "kind": "awards"
+   },
+   {
+    "name": "Academy Awards",
+    "start": "2027-03-14",
+    "end": "2027-03-14",
+    "place": "Dolby Theatre, Los Angeles",
+    "url": "https://www.oscars.org",
+    "what": "The 99th Oscars.",
+    "source": "Variety; awardswatch.com awards calendar",
+    "kind": "awards"
+   },
+   {
+    "name": "Cannes Film Festival",
+    "start": "2027-05-11",
+    "end": "2027-05-22",
+    "place": "Cannes, France",
+    "url": "https://www.festival-cannes.com",
+    "what": "The 80th Festival de Cannes.",
+    "source": "Palais des Festivals (en.palaisdesfestivals.com)",
+    "kind": "festival"
+   }
+  ]
+ },
+ "books": {
+  "feeds": [
+   {
+    "name": "NYT Books",
+    "url": "https://rss.nytimes.com/services/xml/rss/nyt/Books.xml",
+    "kind": "reviews",
+    "domain": "nytimes.com"
+   },
+   {
+    "name": "NYT Book Review",
+    "url": "https://rss.nytimes.com/services/xml/rss/nyt/Books/Review.xml",
+    "kind": "reviews",
+    "domain": "nytimes.com"
+   },
+   {
+    "name": "Guardian Books",
+    "url": "https://www.theguardian.com/books/rss",
+    "kind": "reviews",
+    "domain": "theguardian.com"
+   },
+   {
+    "name": "NPR Books",
+    "url": "https://feeds.npr.org/1032/rss.xml",
+    "kind": "reviews",
+    "domain": "npr.org"
+   },
+   {
+    "name": "Literary Hub",
+    "url": "https://lithub.com/feed/",
+    "kind": "essays",
+    "domain": "lithub.com"
+   },
+   {
+    "name": "Kirkus Reviews",
+    "url": "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US:en&q=site%3Akirkusreviews.com%20when%3A7d",
+    "kind": "reviews",
+    "domain": "kirkusreviews.com"
+   },
+   {
+    "name": "Publishers Weekly",
+    "url": "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US:en&q=site%3Apublishersweekly.com%20when%3A7d",
+    "kind": "industry",
+    "domain": "publishersweekly.com"
+   },
+   {
+    "name": "The Millions",
+    "url": "https://themillions.com/feed",
+    "kind": "essays",
+    "domain": "themillions.com"
+   },
+   {
+    "name": "Electric Literature",
+    "url": "https://electricliterature.com/feed/",
+    "kind": "essays",
+    "domain": "electricliterature.com"
+   },
+   {
+    "name": "Book Riot",
+    "url": "https://bookriot.com/feed/",
+    "kind": "lists",
+    "domain": "bookriot.com"
+   },
+   {
+    "name": "Los Angeles Review of Books",
+    "url": "https://lareviewofbooks.org/feed/",
+    "kind": "reviews",
+    "domain": "lareviewofbooks.org"
+   },
+   {
+    "name": "The New Yorker: Books",
+    "url": "https://www.newyorker.com/feed/books",
+    "kind": "reviews",
+    "domain": "newyorker.com"
+   },
+   {
+    "name": "The Atlantic: Books",
+    "url": "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US:en&q=site%3Atheatlantic.com/books%20when%3A7d",
+    "kind": "reviews",
+    "domain": "theatlantic.com"
+   },
+   {
+    "name": "Vulture: Books",
+    "url": "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US:en&q=site%3Avulture.com/books%20when%3A7d",
+    "kind": "reviews",
+    "domain": "vulture.com"
+   },
+   {
+    "name": "Washington Post Books",
+    "url": "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US:en&q=site%3Awashingtonpost.com/books%20when%3A7d",
+    "kind": "reviews",
+    "domain": "washingtonpost.com"
+   },
+   {
+    "name": "The Paris Review Daily",
+    "url": "https://www.theparisreview.org/blog/feed/",
+    "kind": "essays",
+    "domain": "theparisreview.org"
+   },
+   {
+    "name": "Five Books",
+    "url": "https://fivebooks.com/feed/",
+    "kind": "lists",
+    "domain": "fivebooks.com"
+   },
+   {
+    "name": "Esquire Books",
+    "url": "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US:en&q=site%3Aesquire.com/entertainment/books%20when%3A10d",
+    "kind": "lists",
+    "domain": "esquire.com"
+   }
+  ],
+  "news": [
+   {
+    "key": "new",
+    "name": "New & notable",
+    "q": "\"new books\" OR \"books to read\" OR \"best new books\" OR \"new releases\" books when:7d"
+   },
+   {
+    "key": "prizes",
+    "name": "Prizes",
+    "q": "Booker Prize OR \"National Book Award\" OR Pulitzer fiction OR \"Nobel Prize in Literature\" OR \"Women's Prize\" OR \"Kirkus Prize\" when:14d"
+   },
+   {
+    "key": "adaptations",
+    "name": "Page to screen",
+    "q": "\"based on the novel\" OR \"book adaptation\" OR \"adapted from the book\" series OR film when:7d"
+   }
+  ],
+  "shops": [
+   {
+    "key": "bookshop",
+    "name": "Bookshop.org",
+    "url": "https://bookshop.org/search?keywords={q}",
+    "why": "Supports independent bookstores"
+   },
+   {
+    "key": "libby",
+    "name": "Your library (Libby)",
+    "url": "https://libbyapp.com/search/{q}",
+    "why": "Borrow the ebook or audiobook"
+   },
+   {
+    "key": "worldcat",
+    "name": "WorldCat",
+    "url": "https://search.worldcat.org/search?q={q}",
+    "why": "Find it in a library near you"
+   },
+   {
+    "key": "amazon",
+    "name": "Amazon",
+    "url": "https://www.amazon.com/s?k={q}&i=stripbooks",
+    "why": ""
+   },
+   {
+    "key": "audible",
+    "name": "Audible",
+    "url": "https://www.audible.com/search?keywords={q}",
+    "why": "The audiobook"
+   },
+   {
+    "key": "abebooks",
+    "name": "AbeBooks",
+    "url": "https://www.abebooks.com/servlet/SearchResults?kn={q}",
+    "why": "Used and rare"
+   },
+   {
+    "key": "thriftbooks",
+    "name": "ThriftBooks",
+    "url": "https://www.thriftbooks.com/browse/?b.search={q}",
+    "why": "Used, cheap"
+   },
+   {
+    "key": "goodreads",
+    "name": "Goodreads",
+    "url": "https://www.goodreads.com/search?q={q}",
+    "why": "Reviews"
+   },
+   {
+    "key": "storygraph",
+    "name": "The StoryGraph",
+    "url": "https://app.thestorygraph.com/browse?search_term={q}",
+    "why": "Reviews, without Amazon"
+   }
+  ]
+ },
+ "shopping": {
+  "feeds": [
+   {
+    "name": "The Strategist",
+    "url": "https://nymag.com/strategist/rss.xml",
+    "kind": "guides",
+    "domain": "nymag.com"
+   },
+   {
+    "name": "Wirecutter",
+    "url": "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US:en&q=site%3Anytimes.com/wirecutter%20when%3A4d",
+    "kind": "guides",
+    "domain": "nytimes.com"
+   },
+   {
+    "name": "Wirecutter Deals",
+    "url": "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US:en&q=site%3Anytimes.com/wirecutter%20deals%20OR%20deal%20OR%20sale%20when%3A3d",
+    "kind": "deals",
+    "domain": "nytimes.com"
+   },
+   {
+    "name": "Gear Patrol",
+    "url": "https://www.gearpatrol.com/feed/",
+    "kind": "gear",
+    "domain": "gearpatrol.com"
+   },
+   {
+    "name": "Uncrate",
+    "url": "https://uncrate.com/feed/",
+    "kind": "gear",
+    "domain": "uncrate.com"
+   },
+   {
+    "name": "Cool Material",
+    "url": "https://coolmaterial.com/feed/",
+    "kind": "gear",
+    "domain": "coolmaterial.com"
+   },
+   {
+    "name": "Hodinkee",
+    "url": "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US:en&q=site%3Ahodinkee.com%20when%3A5d",
+    "kind": "gear",
+    "domain": "hodinkee.com"
+   },
+   {
+    "name": "GQ Recommends",
+    "url": "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US:en&q=site%3Agq.com/story%20best%20OR%20review%20OR%20deal%20when%3A5d",
+    "kind": "guides",
+    "domain": "gq.com"
+   },
+   {
+    "name": "Esquire Style",
+    "url": "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US:en&q=site%3Aesquire.com/style%20when%3A5d",
+    "kind": "guides",
+    "domain": "esquire.com"
+   },
+   {
+    "name": "The Verge Deals",
+    "url": "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US:en&q=site%3Atheverge.com%20deal%20OR%20deals%20OR%20sale%20when%3A3d",
+    "kind": "deals",
+    "domain": "theverge.com"
+   },
+   {
+    "name": "Engadget Deals",
+    "url": "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US:en&q=site%3Aengadget.com%20deal%20OR%20deals%20OR%20sale%20when%3A3d",
+    "kind": "deals",
+    "domain": "engadget.com"
+   },
+   {
+    "name": "CNET Deals",
+    "url": "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US:en&q=site%3Acnet.com/deals%20when%3A3d",
+    "kind": "deals",
+    "domain": "cnet.com"
+   },
+   {
+    "name": "Tom’s Guide Deals",
+    "url": "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US:en&q=site%3Atomsguide.com%20deal%20OR%20deals%20OR%20sale%20when%3A3d",
+    "kind": "deals",
+    "domain": "tomsguide.com"
+   },
+   {
+    "name": "Consumer Reports",
+    "url": "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US:en&q=site%3Aconsumerreports.org%20when%3A7d",
+    "kind": "guides",
+    "domain": "consumerreports.org"
+   },
+   {
+    "name": "Good Housekeeping Tested",
+    "url": "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US:en&q=site%3Agoodhousekeeping.com%20tested%20OR%20best%20when%3A5d",
+    "kind": "guides",
+    "domain": "goodhousekeeping.com"
+   },
+   {
+    "name": "Vogue Shopping",
+    "url": "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US:en&q=site%3Avogue.com%20best%20OR%20shop%20OR%20edit%20when%3A5d",
+    "kind": "guides",
+    "domain": "vogue.com"
+   },
+   {
+    "name": "Business Insider Reviews",
+    "url": "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US:en&q=site%3Abusinessinsider.com%20best%20OR%20deal%20OR%20review%20when%3A4d",
+    "kind": "guides",
+    "domain": "businessinsider.com"
+   },
+   {
+    "name": "Retail trends",
+    "url": "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US:en&q=retail%20OR%20shopping%20trend%20OR%20%22viral%20product%22%20OR%20%22sold%20out%22%20OR%20%22going%20viral%22%20TikTok%20OR%20Instagram%20when%3A5d",
+    "kind": "trends",
+    "domain": null
+   },
+   {
+    "name": "Modern Retail",
+    "url": "https://www.modernretail.co/feed/",
+    "kind": "trends",
+    "domain": "modernretail.co"
+   },
+   {
+    "name": "Retail Dive",
+    "url": "https://www.retaildive.com/feeds/news/",
+    "kind": "trends",
+    "domain": "retaildive.com"
+   }
+  ],
+  "calendar": [
+   {
+    "name": "Singles’ Day",
+    "date": "2026-11-11",
+    "what": "The world’s biggest shopping day, from China; Alibaba’s numbers are the tell for the season."
+   },
+   {
+    "name": "Black Friday",
+    "date": "2026-11-27",
+    "what": "The day after Thanksgiving. Most “doorbusters” start the week before now."
+   },
+   {
+    "name": "Small Business Saturday",
+    "date": "2026-11-28",
+    "what": "Local shops; American Express started it in 2010."
+   },
+   {
+    "name": "Cyber Monday",
+    "date": "2026-11-30",
+    "what": "The biggest online shopping day in the U.S.; electronics and travel deals peak."
+   },
+   {
+    "name": "Giving Tuesday",
+    "date": "2026-12-01",
+    "what": "The donation day that follows the sales."
+   },
+   {
+    "name": "Green Monday",
+    "date": "2026-12-14",
+    "what": "eBay’s name for the second Monday of December, the last big online push before shipping deadlines."
+   },
+   {
+    "name": "Free Shipping Day",
+    "date": "2026-12-14",
+    "what": "Retailers promise delivery by Christmas Eve on orders placed today."
+   },
+   {
+    "name": "Super Saturday",
+    "date": "2026-12-19",
+    "what": "The last Saturday before Christmas; the biggest in-store day of the year."
+   },
+   {
+    "name": "Christmas",
+    "date": "2026-12-25",
+    "what": ""
+   },
+   {
+    "name": "Boxing Day",
+    "date": "2026-12-26",
+    "what": "The after-Christmas sales; gift-card spending starts."
+   },
+   {
+    "name": "New Year clearance",
+    "date": "2027-01-01",
+    "what": "Fitness gear, linens (the white sales) and last year’s TVs."
+   },
+   {
+    "name": "Presidents’ Day sales",
+    "date": "2027-02-15",
+    "what": "Mattresses, appliances and furniture."
+   },
+   {
+    "name": "Amazon Spring Sale",
+    "date": "2027-03-25",
+    "what": "Amazon’s spring event has run in late March since 2023; dates are announced a few weeks out."
+   },
+   {
+    "name": "Memorial Day sales",
+    "date": "2027-05-31",
+    "what": "Appliances, mattresses, grills and patio furniture."
+   },
+   {
+    "name": "Prime Day",
+    "date": "2027-07-13",
+    "what": "Amazon’s midsummer event; the date is confirmed each June. Rivals run sales the same week."
+   },
+   {
+    "name": "Back to school",
+    "date": "2027-08-01",
+    "what": "Laptops, dorm goods and the tax-free weekends in many states."
+   },
+   {
+    "name": "Labor Day sales",
+    "date": "2027-09-06",
+    "what": "The last big summer sale; the new iPhone follows within days."
+   },
+   {
+    "name": "Prime Big Deal Days",
+    "date": "2027-10-12",
+    "what": "Amazon’s October event, the unofficial start of the holiday season."
+   }
+  ]
+ }
+}
