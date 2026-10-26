@@ -127,10 +127,19 @@ def https(u):
     return s.scheme in ('https', 'http') and '.' in (s.hostname or '')
 
 
-def get(url, timeout=14, accept='*/*', limit=0):
-    req = urllib.request.Request(url, headers={'User-Agent': garage.UA, 'Accept': accept, 'Accept-Language': 'en-US,en;q=0.9'})
-    with urllib.request.urlopen(req, timeout=timeout) as r:
-        return r.read(limit) if limit else r.read()
+READER_UA = 'TheWatch/1.0 (+https://bboldt86.github.io/lanscape-navigator/news/; feed reader)'
+
+
+def get(url, timeout=14, accept='*/*', limit=0, ua=None):
+    req = urllib.request.Request(url, headers={'User-Agent': ua or garage.UA, 'Accept': accept, 'Accept-Language': 'en-US,en;q=0.9'})
+    try:
+        with urllib.request.urlopen(req, timeout=timeout) as r:
+            return r.read(limit) if limit else r.read()
+    except urllib.error.HTTPError as ex:
+        if ex.code in (403, 429) and ua is None:
+            time.sleep(1.5)
+            return get(url, timeout=timeout, accept=accept, limit=limit, ua=READER_UA)
+        raise
 
 
 def get_json(url, timeout=14):
@@ -201,7 +210,7 @@ def stories(feeds, days=10, n=40, per_feed=12):
                 o = run.OUTLETS.get(dom) or it['src_name'] or dom
                 if it['src_name'] and t.endswith(' - ' + it['src_name']):
                     t = t[: -len(it['src_name']) - 3].strip()
-            got.append({'t': t, 'u': link, 'o': o, 'p': iso(when), 'd': strip_html(it['desc'], 180) if not it['google'] else '',
+            got.append({'t': t, 'u': link, 'o': o, 'p': iso(when), 'd': strip_html(it['desc'], 150) if not it['google'] else '',
                         'm': it['img'] or '', 'k': f.get('kind') or '', 'f': f.get('name') or ''})
         return got[:per_feed]
 
@@ -229,7 +238,11 @@ def stories(feeds, days=10, n=40, per_feed=12):
 
 # ------------------------------------------------------------------ Apple's charts (public marketing feeds)
 def chart(path, n):
-    d = get_json(f'{CHARTS}{path}')
+    try:
+        d = get_json(f'{CHARTS}{path}', timeout=25)
+    except (TimeoutError, OSError, urllib.error.URLError):
+        time.sleep(2)
+        d = get_json(f'{CHARTS}{path}', timeout=25)
     out = []
     for r in (d.get('feed') or {}).get('results') or []:
         out.append({'id': str(r.get('id') or ''), 'n': r.get('name') or '', 'by': r.get('artistName') or '',
@@ -273,13 +286,18 @@ def lookup_many(ids):
     return out
 
 
-def search_show(name):
-    d = get_json(f'{APPLE}search?term={urllib.parse.quote(name)}&media=podcast&entity=podcast&limit=6&country=us')
-    best = None
+def search_show(name, host=''):
+    """The best match among Apple's results: the exact name first, then the one whose publisher is the host named in the guide."""
+    d = get_json(f'{APPLE}search?term={urllib.parse.quote(name)}&media=podcast&entity=podcast&limit=8&country=us')
+    hw = {w for w in norm_name(host).split() if len(w) > 2}
+    best, score = None, -1
     for r in d.get('results') or []:
-        if same_show(name, r.get('collectionName') or ''):
-            if best is None or norm_name(r.get('collectionName')) == norm_name(name):
-                best = r
+        cn = r.get('collectionName') or ''
+        if not same_show(name, cn):
+            continue
+        sc = (2 if norm_name(cn) == norm_name(name) else 0) + (1 if hw and hw & set(norm_name(r.get('artistName')).split()) else 0) + (1 if (r.get('trackCount') or 0) > 20 else 0)
+        if sc > score:
+            best, score = r, sc
     return best
 
 
@@ -310,7 +328,7 @@ def resolve(shows, old):
             continue
         n += 1
         try:
-            r = search_show(s['name'])
+            r = search_show(s['name'], s.get('host', ''))
         except Exception as ex:  # noqa: BLE001
             errors.append(f"podcast {s['key']}: search {type(ex).__name__} {str(ex)[:60]}")
             r = None
@@ -343,7 +361,7 @@ def duration(s):
     return int(sec)
 
 
-def read_episodes(feed, n=6):
+def read_episodes(feed, n=5):
     """The channel's title, art and author, and its newest n items, from the first 700 KB of the feed."""
     raw = get(feed, accept='application/rss+xml,application/xml,text/xml;q=0.9,*/*;q=0.8', limit=700_000)
     raw = raw.lstrip(b'\xef\xbb\xbf \t\r\n')
@@ -389,11 +407,27 @@ def read_episodes(feed, n=6):
         if ep_type == 'trailer':
             continue
         out.append({'t': title, 'p': iso(when), 'a': audio, 'l': duration(it.findtext(ITUNES + 'duration')),
-                    'd': strip_html(it.findtext(ITUNES + 'summary') or it.findtext('description') or it.findtext('{http://purl.org/rss/1.0/modules/content/}encoded') or '', 220),
-                    'u': (it.findtext('link') or '').strip(), 'g': (it.findtext('guid') or '').strip()[:120],
-                    'i': (it.find(ITUNES + 'image').get('href') if it.find(ITUNES + 'image') is not None else '') or ''})
+                    'd': strip_html(it.findtext(ITUNES + 'summary') or it.findtext('description') or it.findtext('{http://purl.org/rss/1.0/modules/content/}encoded') or '', 160),
+                    'u': (it.findtext('link') or '').strip()[:300], 'g': (it.findtext('guid') or '').strip()[:80]})
     out.sort(key=lambda e: e['p'], reverse=True)
     return chan, out
+
+
+def apple_episodes(apple_id, n=6):
+    """The newest episodes from Apple's own lookup, for a show whose feed isn't published or won't answer."""
+    d = get_json(f'{APPLE}lookup?id={urllib.parse.quote(str(apple_id))}&entity=podcastEpisode&limit={n + 2}&country=us')
+    out = []
+    for e in d.get('results') or []:
+        if e.get('kind') != 'podcast-episode' and e.get('wrapperType') != 'podcastEpisode':
+            continue
+        when = run.parse_date(e.get('releaseDate') or '')
+        if not when or not e.get('trackName'):
+            continue
+        out.append({'t': run.clean(e['trackName']), 'p': iso(when), 'a': e.get('episodeUrl') or '', 'l': int((e.get('trackTimeMillis') or 0) / 1000),
+                    'd': strip_html(e.get('shortDescription') or e.get('description') or '', 160), 'u': (e.get('trackViewUrl') or '').split('?')[0],
+                    'g': (e.get('episodeGuid') or '')[:80]})
+    out.sort(key=lambda x: x['p'], reverse=True)
+    return out[:n]
 
 
 def podcasts(guide, old):
@@ -401,10 +435,15 @@ def podcasts(guide, old):
     shows = guide['podcasts']['shows']
     meta = resolve(shows, old)
     out = {}
+    apple_fallbacks = []
 
     def one(s):
         m = meta[s['key']]
+        if not m.get('feed'):
+            raise ValueError('no feed on Apple')
         chan, eps = read_episodes(m['feed'])
+        if not eps:
+            raise ValueError('feed had no episodes')
         return s['key'], chan, eps
 
     with cf.ThreadPoolExecutor(10) as pool:
@@ -415,18 +454,30 @@ def podcasts(guide, old):
             try:
                 key, chan, eps = fu.result()
             except Exception as ex:  # noqa: BLE001
-                errors.append(f"podcast {s['key']}: feed {type(ex).__name__} {str(ex)[:80]}")
-                if prev.get('eps'):
-                    out[s['key']] = dict(prev, meta=meta[s['key']], stale=True)
-                else:
-                    out[s['key']] = {'meta': meta[s['key']], 'eps': [], 'stale': True}
+                apple_fallbacks.append((s, f'{type(ex).__name__} {str(ex)[:60]}'))
                 continue
             m = dict(meta[key])
             if not m.get('art') and chan.get('art'):
                 m['art'] = chan['art']
             if chan.get('author') and not m.get('by'):
                 m['by'] = chan['author']
-            out[key] = {'meta': m, 'chan': {'desc': chan.get('desc', '')}, 'eps': eps[:6], 'at': STAMP}
+            out[key] = {'meta': m, 'chan': {'desc': chan.get('desc', '')}, 'eps': eps[:5], 'at': STAMP}
+    for s, why in apple_fallbacks[:30]:  # Apple allows about 20 lookups a minute
+        m, prev = dict(meta[s['key']]), old.get(s['key']) or {}
+        try:
+            eps = apple_episodes(m['id'])
+            if not eps:
+                raise ValueError('no episodes')
+            out[s['key']] = {'meta': m, 'chan': {'desc': ''}, 'eps': eps, 'at': STAMP, 'via': 'apple'}
+            errors.append(f"podcast {s['key']}: feed {why}; episodes from Apple")
+        except Exception as ex:  # noqa: BLE001
+            errors.append(f"podcast {s['key']}: feed {why}; Apple {type(ex).__name__} {str(ex)[:50]}")
+            out[s['key']] = dict(prev, meta=m, stale=True) if prev.get('eps') else {'meta': m, 'eps': [], 'stale': True}
+        time.sleep(3.2)
+    for s, why in apple_fallbacks[30:]:
+        prev = old.get(s['key']) or {}
+        errors.append(f"podcast {s['key']}: feed {why}; left for the next run")
+        out[s['key']] = dict(prev, meta=meta[s['key']], stale=True) if prev.get('eps') else {'meta': meta[s['key']], 'eps': [], 'stale': True}
     for s in shows:
         if s['key'] not in out and old.get(s['key']):
             out[s['key']] = dict(old[s['key']], stale=True)
@@ -442,7 +493,7 @@ def magazines(guide, old):
     titles = guide['magazines']['titles']
 
     def one(t):
-        items, bad = stories([{'name': t['name'], 'url': t['feed'], 'domain': run.norm_domain(t['site'])}], days=45 if 'news.google.com' not in t['feed'] else 30, n=10, per_feed=10)
+        items, bad = stories([{'name': t['name'], 'url': t['feed'], 'domain': run.norm_domain(t['site'])}], days=45 if 'news.google.com' not in t['feed'] else 30, n=8, per_feed=8)
         if bad:
             raise RuntimeError('feed failed')
         return items
@@ -463,13 +514,58 @@ def magazines(guide, old):
 
 
 # ------------------------------------------------------------------ creators
+HANDLE_ID = re.compile(r'(?:"channelId"|"externalId"|itemprop="identifier" content=)\s*[:=]?\s*"?(UC[\w-]{22})')
+
+
+def resolve_handle(handle):
+    """The canonical channel id behind youtube.com/@handle (the page's own identifier; nothing else is read)."""
+    raw = get(f'https://www.youtube.com/@{urllib.parse.quote(handle)}', timeout=20, accept='text/html', limit=1_500_000).decode('utf-8', 'replace')
+    m = HANDLE_ID.search(raw)
+    if not m:
+        raise ValueError('no channel id on the page')
+    return m.group(1)
+
+
+def channels_checked(lst, per, days, old_ids):
+    """garage.channels, then a second try for the failures with the id behind the handle. lst: (id, expect, name, handle, about, key).
+    Returns (videos, failed names, {key: id that worked when it differs from the guide's})."""
+    fixed = {}
+    cur = [(old_ids.get(c[5]) or c[0],) + c[1:] for c in lst]
+    vids, failed = garage.channels([c[:5] for c in cur], per=per, days=days)
+    retry = []
+    for c in cur:
+        if c[2] in failed and c[3]:
+            try:
+                cid = resolve_handle(c[3])
+            except Exception as ex:  # noqa: BLE001
+                errors.append(f'{c[2]}: handle @{c[3]} {type(ex).__name__} {str(ex)[:60]}')
+                continue
+            if cid != c[0]:
+                retry.append((cid,) + c[1:])
+            time.sleep(0.6)
+    if retry:
+        more, failed2 = garage.channels([c[:5] for c in retry], per=per, days=days)
+        ok = {c[2] for c in retry} - set(failed2)
+        failed = [n for n in failed if n not in ok]
+        vids = vids + more
+        for c in retry:
+            if c[2] in ok:
+                fixed[c[5]] = c[0]
+                errors.append(f'{c[2]}: channel id corrected to {c[0]} from @{c[3]}')
+    for c in cur:  # an id from the last run that still works is worth keeping
+        if c[5] in old_ids and c[2] not in failed and c[5] not in fixed:
+            fixed[c[5]] = c[0]
+    return vids, failed, fixed
+
+
 def creators(guide, old):
     old = old or {}
     people = guide['creators']['people']
     lst = [(p['yt']['id'], p['yt']['expect'], p['name'], p['yt']['handle'], p.get('about', ''), p['key']) for p in people if p.get('yt')]
-    # garage.channel takes (id, expect, name, handle, about); carry the key alongside
-    vids, failed = garage.channels([c[:5] for c in lst], per=3, days=35)
+    vids, failed, fixed = channels_checked(lst, per=3, days=35, old_ids=old.get('ids') or {})
     by_cid = {c[0]: c[5] for c in lst}
+    for k, cid in fixed.items():
+        by_cid[cid] = k
     videos = {}
     for v in vids:
         key = by_cid.get(v.get('cid'))
@@ -503,15 +599,15 @@ def creators(guide, old):
         errors.append(f'creator wire: {ex}')
         wire = old.get('wire') or []
     print(f'  creators: {len(videos)} channels with videos ({len(failed)} failed), {len(posts)} newsletters, {len(wire)} wire stories')
-    return {'videos': videos, 'posts': posts, 'wire': wire, 'failed': failed, 'at': STAMP}
+    return {'videos': videos, 'posts': posts, 'wire': wire, 'failed': failed, 'ids': fixed, 'at': STAMP}
 
 
 # ------------------------------------------------------------------ culture
 def culture(guide, old):
     old = old or {}
     chans = guide['culture']['channels']
-    lst = [(c['id'], c['expect'], c['name'], c['handle'], c.get('about', '')) for c in chans]
-    vids, failed = garage.channels(lst, per=4, days=21)
+    lst = [(c['id'], c['expect'], c['name'], c['handle'], c.get('about', ''), c['id']) for c in chans]
+    vids, failed, fixed = channels_checked(lst, per=4, days=21, old_ids=old.get('ids') or {})
     kind_of = {c['name']: c['kind'] for c in chans}
     videos = {}
     for v in vids:
@@ -530,7 +626,7 @@ def culture(guide, old):
             errors.append(f"releases {r['key']}: {ex}")
             releases[r['key']] = (old.get('releases') or {}).get(r['key']) or []
     print(f'  culture: {sum(len(v) for v in videos.values())} videos ({len(failed)} channels failed), {sum(len(v) for v in releases.values())} release stories')
-    return {'videos': videos, 'releases': releases, 'failed': failed, 'at': STAMP}
+    return {'videos': videos, 'releases': releases, 'failed': failed, 'ids': fixed, 'at': STAMP}
 
 
 # ------------------------------------------------------------------ books
