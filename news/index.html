@@ -1596,7 +1596,7 @@ function renderDesk(k) {
   list.sort(deskSort === 'new' ? (a, b) => b.p - a.p : (a, b) => b.s - a.s);
   listPage(secName(k), T(list.length === 1 ? '{n} story' : '{n} stories', { n: list.length }), list.map(x => ({ it: x.it })),
     { controls: `<div class="seg" role="group" aria-label="Sort"><button type="button" data-sort="you" aria-pressed="${deskSort === 'you'}">Best for you</button><button type="button" data-sort="new" aria-pressed="${deskSort === 'new'}">Latest</button></div>`,
-      top: (k === 'politics' ? electionsHTML(true) : k === 'brazil' ? brMissPromo() + electionsHTML(true, 'br') : k === 'travel' ? lifeSlot(lifeTravel) : k === 'power' ? `<div id="pwrWrap" class="mk">${powerHTML()}</div>` : k === 'cars' ? `<div id="garWrap">${garageHTML()}</div>` : k === 'food' ? `<div id="fridgeWrap">${fridgeHTML()}</div>` : k === 'sports' ? finalsFeature() + filmFeature() : k === 'lifestyle' ? togetherFeature() + dateNightFeature() + visionFeature() : '') + deskBanner(k) + deskShop(k),
+      top: (k === 'politics' ? electionsHTML(true) : k === 'brazil' ? brMissPromo() + electionsHTML(true, 'br') : k === 'travel' ? lifeSlot(lifeTravel) : k === 'power' ? `<div id="pwrWrap" class="mk">${powerHTML()}</div>` : k === 'cars' ? `<div id="garWrap">${garageHTML()}</div>` : k === 'food' ? cookbookFeature() + `<div id="fridgeWrap">${fridgeHTML()}</div>` : k === 'sports' ? finalsFeature() + filmFeature() : k === 'lifestyle' ? togetherFeature() + dateNightFeature() + visionFeature() : '') + deskBanner(k) + deskShop(k),
       empty: k === 'lifestyle' ? T('Lifestyle stories start with the next edition.') : undefined });
   if (k === 'food') bindFridge();
   if (k === 'sports') sportsTop();
@@ -4278,6 +4278,12 @@ function budgetFeature() { // Household opens with the Household Budget tool tha
     <span class="t90t"><span class="k">${T('Household Budget · for one or two people')}</span><b>${T('Where the money went, and who owes whom')}</b>
     <span class="d">${T('Download the activity from your card or bank and drop it in: it sorts every charge by merchant, shows your spending month by month, and works out a fair settle-up if you share costs. A step-by-step guide is built in. It runs in your browser with no account, nothing is uploaded, and you can download it to use offline.')}</span>
     <span class="go">${T('Open the Household Budget')} ›</span></span></a>`;
+}
+function cookbookFeature() { // Food opens with Deliciousness, the plant-based cookbook with a cook mode that lives at food/deliciousness/
+  return `<a class="t90f" href="food/deliciousness/"><span class="t90v" aria-hidden="true"><svg viewBox="0 0 132 88"><path d="M66 22c-12-8-32-9-48-5v52c16-4 36-3 48 5z" fill="#b8732a" fill-opacity=".14" stroke="#b8732a" stroke-width="2" stroke-linejoin="round"/><path d="M66 22c12-8 32-9 48-5v52c-16-4-36-3-48 5z" fill="#b8732a" fill-opacity=".08" stroke="#b8732a" stroke-width="2" stroke-linejoin="round"/><path d="M66 22v52" stroke="#b8732a" stroke-width="2"/><path d="M28 34h26M28 42h22M28 50h26" stroke="#b8732a" stroke-opacity=".6" stroke-width="2" stroke-linecap="round"/><path d="M90 30c1.5 5 7 7.5 7 14a7 7 0 0 1-14 0c0-3 1.5-5 3-6.5.4 2.2 1.6 3.5 2.8 4C88 37 89.3 33 90 30z" fill="#b8732a"/></svg></span>
+    <span class="t90t"><span class="k">${T('Deliciousness · a plant-based cookbook')}</span><b>${T('Ninety-nine recipes, and a cook mode')}</b>
+    <span class="d">${T('Bradley James Boldt’s cookbook: Dutch-oven breads, pizza night, Brazilian street food, pies and cookies, with the notes from his kitchen notebook. Cook mode shows one step at a time in big type, with timers, scaling, read-aloud and a screen that stays awake. It runs in your browser with no account; your notes stay on your device.')}</span>
+    <span class="go">${T('Open Deliciousness')} ›</span></span></a>`;
 }
 function togetherFeature() { // Lifestyle opens with Together / 90, the couples workbook that lives at lifestyle/together-90/
   return `<a class="t90f" href="lifestyle/together-90/"><span class="t90v" aria-hidden="true"><svg viewBox="0 0 132 88"><circle cx="48" cy="44" r="36" fill="#c1652f" fill-opacity=".16" stroke="#c1652f" stroke-width="2"/><circle cx="84" cy="44" r="36" fill="#177f8c" fill-opacity=".16" stroke="#177f8c" stroke-width="2"/><text x="66" y="52" text-anchor="middle">90</text></svg></span>
