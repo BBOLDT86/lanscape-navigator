@@ -514,6 +514,7 @@ function rolesFor(spec, ctx, t) {
 }
 function scoreVenue(v, role, at, dur, prev, ctx, used) {
   if (ctx.skip.size && v.cuis.some(c => ctx.skip.has(c)) && role === 'dinner') return null;
+  if (v.once && (v.once.date !== ctx.date || Math.abs(at - v.once.at) > 45)) return null; // a one-night event: that night, near its time
   const st = ohState(v.oh, ctx.date, at, dur);
   if (st.s === 'closed') return null;
   if (st.s === 'closing' && st.until - at < Math.min(45, dur * .6)) return null;
@@ -880,7 +881,9 @@ async function cityGuide(id) {
     if (!roles.length) continue;
     venues.push({ id: 'g' + DN.hashStr(s.name + s.area).toString(36), name: s.name, lat: p.lat, lon: p.lon, roles, kind: s.area, cuis: [], street: s.addr || '', city: '',
       url: s.url || '', phone: '', menu: '', ohs: '', oh: null, book: '', bookUrl: s.book && s.book.url, bookLabel: s.book && s.book.label, outdoor: false, veg: '', vegan: '', gf: '', wheel: '',
-      chain: false, q: 1.5, guide: { text: s.text, day: day.title, date: day.date, time: s.time } });
+      chain: false, q: 1.5, guide: { text: s.text, day: day.title, date: day.date, time: s.time },
+      // a game, a concert or a night out in the guide happens on its own night, at its own time
+      once: s.kind === 'do' || s.kind === 'night' ? { date: day.date, at: +s.time.slice(0, 2) * 60 + +s.time.slice(3, 5) } : null });
   }
   const list = [...areas.values()].map(a => ({ name: a.name, lat: a.lat / a.n, lon: a.lon / a.n, n: a.n })).sort((a, b) => b.n - a.n);
   const kept = [];
@@ -892,7 +895,7 @@ function mergeGuide(osm, gv) { // a guide stop that is also on the map: keep the
   for (const g of gv) {
     const n = g.name.toLowerCase().replace(/[^a-z0-9]/g, '');
     const m = out.find(v => DN.dist(v, g) < 350 && (v.name.toLowerCase().replace(/[^a-z0-9]/g, '').includes(n) || n.includes(v.name.toLowerCase().replace(/[^a-z0-9]/g, ''))));
-    if (m) { m.guide = g.guide; m.bookUrl = g.bookUrl; m.bookLabel = g.bookLabel; if (!m.url) m.url = g.url; for (const r of g.roles) if (!m.roles.includes(r)) m.roles.push(r); }
+    if (m) { m.guide = g.guide; m.bookUrl = g.bookUrl; m.bookLabel = g.bookLabel; if (!m.url) m.url = g.url; if (!g.once) for (const r of g.roles) if (!m.roles.includes(r)) m.roles.push(r); }
     else out.push(g);
   }
   return out;
