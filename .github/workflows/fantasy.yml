@@ -1,0 +1,46 @@
+name: Film Room updater
+# Film Room (news/sports/fantasy/), The Watch's fantasy football section: rebuilds data/film.json every three hours from
+# nflverse (stats, play-by-play, snaps, injuries, rosters, depth charts, schedule and lines), ffverse expected points,
+# DynastyProcess (FantasyPros consensus and rostered shares), Sleeper's trending players and the fantasy headlines.
+# Runs on a schedule, when the updater changes, or by hand. See news/UPDATER.md ("Film Room").
+on:
+  schedule:
+    - cron: '41 */3 * * *'
+  push:
+    branches: [main]
+    paths: ['news/updater/fantasy.py']
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: film-room
+  cancel-in-progress: false
+jobs:
+  update:
+    if: github.repository == 'BBOLDT86/lanscape-navigator'
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Build Film Room's data
+        timeout-minutes: 8
+        run: python3 news/updater/fantasy.py
+      - name: Check it
+        run: python3 news/updater/fantasy.py check
+      - name: Commit and push
+        run: |
+          git config user.name "Film Room updater"
+          git config user.email "the-watch-news@users.noreply.github.com"
+          git add news/sports/fantasy/data
+          if git diff --cached --quiet; then echo "nothing new"; exit 0; fi
+          git commit -qm "Film Room: $(python3 -c "import json;d=json.load(open('news/sports/fantasy/data/latest.json'));print('week', d['study'], d['at'][:16])")"
+          for i in 1 2 3; do
+            git pull --rebase -X theirs origin main && git push -q origin HEAD:main && exit 0
+            sleep 10
+          done
+          echo "push failed" >&2; exit 1

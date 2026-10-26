@@ -1495,7 +1495,7 @@ function renderDesk(k) {
   list.sort(deskSort === 'new' ? (a, b) => b.p - a.p : (a, b) => b.s - a.s);
   listPage(secName(k), T(list.length === 1 ? '{n} story' : '{n} stories', { n: list.length }), list.map(x => ({ it: x.it })),
     { controls: `<div class="seg" role="group" aria-label="Sort"><button type="button" data-sort="you" aria-pressed="${deskSort === 'you'}">Best for you</button><button type="button" data-sort="new" aria-pressed="${deskSort === 'new'}">Latest</button></div>`,
-      top: (k === 'politics' ? electionsHTML(true) : k === 'brazil' ? brMissPromo() + electionsHTML(true, 'br') : k === 'travel' ? lifeSlot(lifeTravel) : k === 'power' ? `<div id="pwrWrap" class="mk">${powerHTML()}</div>` : k === 'cars' ? `<div id="garWrap">${garageHTML()}</div>` : k === 'food' ? `<div id="fridgeWrap">${fridgeHTML()}</div>` : k === 'sports' ? finalsFeature() : k === 'lifestyle' ? togetherFeature() + dateNightFeature() + visionFeature() : '') + deskBanner(k) + deskShop(k),
+      top: (k === 'politics' ? electionsHTML(true) : k === 'brazil' ? brMissPromo() + electionsHTML(true, 'br') : k === 'travel' ? lifeSlot(lifeTravel) : k === 'power' ? `<div id="pwrWrap" class="mk">${powerHTML()}</div>` : k === 'cars' ? `<div id="garWrap">${garageHTML()}</div>` : k === 'food' ? `<div id="fridgeWrap">${fridgeHTML()}</div>` : k === 'sports' ? finalsFeature() + filmFeature() : k === 'lifestyle' ? togetherFeature() + dateNightFeature() + visionFeature() : '') + deskBanner(k) + deskShop(k),
       empty: k === 'lifestyle' ? T('Lifestyle stories start with the next edition.') : undefined });
   if (k === 'food') bindFridge();
   if (k === 'sports') sportsTop();
@@ -4166,6 +4166,12 @@ function dateNightFeature() { // Lifestyle, after Together / 90: an evening for 
 }
 function dateNightPromo() { // Travel: the same planner, in Weekender's cities
   return `<a class="wkpromo" href="lifestyle/date-night/"><span class="wkp-b" aria-hidden="true">☾</span><span><b>${T('Date Night: an evening for two, in any of these cities')}</b><span>${T('Dinner, drinks and a show or a walk, from places that are open that night, with the walk between stops and a link to send to your date. It works near you too.')}</span></span><span class="wkp-go" aria-hidden="true">›</span></a>`;
+}
+function filmFeature() { // Sports opens with Film Room, the fantasy football section that lives at sports/fantasy/
+  return `<a class="t90f" href="sports/fantasy/"><span class="t90v" aria-hidden="true"><svg viewBox="0 0 132 88"><ellipse cx="66" cy="44" rx="50" ry="29" fill="#A9852F" fill-opacity=".14" stroke="#A9852F" stroke-width="2.5" transform="rotate(-18 66 44)"/><path d="M44 50 L88 36" stroke="#A9852F" stroke-width="2.5" stroke-linecap="round"/><path d="M54 52l-3-8M61 50l-3-8M68 48l-3-8M75 46l-3-8M82 44l-3-8" stroke="#A9852F" stroke-width="2.2" stroke-linecap="round"/></svg></span>
+    <span class="t90t"><span class="k">${T('Film Room · fantasy football')}</span><b>${T('Fantasy football, studied')}</b>
+    <span class="d">${T('This week’s rankings and projections in your league’s scoring, every player’s snaps, targets, red-zone work and expected points, matchups, waivers, a trade analyzer, your own team, and a study hall that teaches what actually predicts fantasy points. Updated through the day.')}</span>
+    <span class="go">${T('Open Film Room')} ›</span></span></a>`;
 }
 /* ================= plans: Weekender's weekends, Finds' shop and the Vision board, brought into The Watch =================
    Read from the sister sites' own data files (travel/, shop/). Pins go to Vision (vision/) through this browser's storage

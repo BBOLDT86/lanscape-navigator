@@ -138,6 +138,39 @@ A weekly scheduled Claude task writes the rest:
   changes. `garage.py fsdcheck` enforces it. The page builds searches on Tesla's used inventory, Cars.com,
   Autotrader and eBay Motors from the reader's ZIP, model and computer; nothing from those sites is copied.
 
+## Film Room: fantasy football (`fantasy.py` -> `news/sports/fantasy/data/film.json`)
+
+The Sports desk opens with Film Room (`news/sports/fantasy/index.html`), one static page that reads `film.json` and does
+all the scoring-dependent math in the browser (fantasy points, expected points, matchups, projections, tiers,
+replacement level, lineups and trades), so every reader's own scoring applies. `.github/workflows/fantasy.yml` runs
+`python3 news/updater/fantasy.py` every three hours (and by hand), then `fantasy.py check`, and commits the data folder.
+What it reads, all public and keyless:
+- nflverse (GitHub releases, CC-BY 4.0): weekly player and team stats, play-by-play (red-zone, inside-10, end-zone and
+  deep targets and carries per player-week; pace, neutral pass rate, pass rate over expected and red-zone trips per
+  team-week), Pro Football Reference snap counts, the official injury report (a player counts as listed only on his
+  team's newest report), current rosters and ids, and the newest depth-chart snapshot (the file holds every daily
+  snapshot, newest first, so only the first one is read); the schedule with Vegas spreads and totals from nfldata.
+- ffverse ffopportunity: expected receptions, yards and touchdowns for every player-week.
+- DynastyProcess: FantasyPros expert consensus ranks (weekly, rest of season), rostered share, dynasty values and the
+  player-id crosswalk. The page uses the weekly ranks only when they were scraped for the week being studied.
+- Sleeper: trending adds and drops and Sleeper's projections for the study week, when the runner can reach it.
+- Headlines: Google News searches for fantasy football, waivers, start/sit and injuries, Rotoballer's feed, and The
+  Watch's own NFL stories (`news/data/edition.json`), each tied to the players it names.
+The study week is the week whose last Sunday kickoff hasn't happened yet, so Monday is already next week's homework.
+If a core source (stats, schedule, rosters, play-by-play, snaps) fails, the last `film.json` is kept; the optional
+ones keep their last copy where they can, and failures are listed in `errors` and in the page's footer. The page
+checks `latest.json` every ten minutes. Live scores during a game come from ESPN's public scoreboard and kickoff
+forecasts from Open-Meteo, both fetched by the reader's browser.
+
+The projection: each player's recent games, weighted toward the latest (×0.9 per game back; early exits and games for
+another team count less), volume taken as is and efficiency blended with expected points (yards 60/40 own/expected,
+touchdowns 40/60), expected points recalibrated to the season's league-wide scoring, then the Vegas implied total
+against the team's average, game script from the spread (±12% pass or run volume), and the opponent's
+defense-versus-position ratio (adjusted for offenses faced, shrunk by sample size, capped at ±18%). Players with under
+about three games are blended with what their depth-chart role produces. The weights in `TUNE` were set by
+backtesting weeks 4–7 (each week projected from the weeks before it); the Study hall's projections lesson reruns that
+backtest in the browser.
+
 ## Lifestyle
 
 Style, relationships, home life and how-to, from the New York Times' Style desk, the Guardian's Life and style and
