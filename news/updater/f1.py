@@ -59,7 +59,7 @@ OBUDGET = 120         # OpenF1 requests per run
 errors = []
 spent = {'j': 0, 'o': 0}
 _last = {'j': 0.0, 'o': 0.0}
-GAP = {'j': 0.3, 'o': 0.36}  # seconds between requests: Jolpica allows 4 a second, OpenF1 3
+GAP = {'j': 0.3, 'o': 2.1}  # seconds between requests: Jolpica allows 4 a second; OpenF1 3 a second but only 30 a minute
 
 
 class OutOfBudget(Exception):
@@ -164,10 +164,13 @@ def save(path, obj, compare_without=('at',)):
     return True
 
 
+T0 = time.time()
+
+
 def block(name, fn, old):
     try:
         v = fn()
-        print(f'{name}: ok')
+        print(f'{name}: ok ({time.time() - T0:.0f}s, {spent["j"]} Jolpica, {spent["o"]} OpenF1 requests so far)')
         return v
     except OutOfBudget:
         print(f'{name}: out of request budget; kept the last copy')
@@ -324,7 +327,7 @@ def race_file(rnd, codes, osess, force=False):
                     msg, cat, flag = (m.get('message') or '').strip(), m.get('category'), m.get('flag')
                     k = None
                     if cat == 'SafetyCar':
-                        k = 'VSC' if 'VIRTUAL' in msg else 'SC'
+                        k = 'VSC' if 'VIRTUAL' in msg or msg.startswith('VSC') else 'SC'
                     elif flag == 'RED':
                         k = 'RED'
                     elif flag == 'CHEQUERED':
@@ -341,7 +344,7 @@ def race_file(rnd, codes, osess, force=False):
             if 'wx' in need:
                 wx = api('o', f'{O}weather?session_key={sk}')
                 if wx:
-                    f = lambda k: [x[k] for x in wx if x.get(k) is not None]
+                    f = lambda k: [x[k] for x in wx if x.get(k) is not None and (x[k] > 0 or k == 'wind_speed')]  # a zero is a dropped reading
                     a, t, h, w = f('air_temperature'), f('track_temperature'), f('humidity'), f('wind_speed')
                     out['wx'] = {'air': [min(a), max(a)] if a else None, 'track': [min(t), max(t)] if t else None,
                                  'hum': round(sum(h) / len(h)) if h else None, 'wind': max(w) if w else None,
@@ -707,7 +710,7 @@ def build(force=False):
 
     # the per-race files, newest race first, a few each run
     codes = {v.get('code'): k for k, v in drivers.items() if v.get('code')}
-    have = []
+    have, made = [], 0
     for r in sorted(done, key=lambda r: r['r'], reverse=True):
         path = os.path.join(RD, f'r{r["r"]}.json')
         f = load(path, None)
@@ -724,7 +727,8 @@ def build(force=False):
                 have.append(r['r'])
         except OutOfBudget:
             break
-        if spent['j'] > BUDGET - 40:
+        made += 1
+        if spent['j'] > BUDGET - 40 or made >= 6:  # a few a run, so the career totals get their turn too
             break
     have += [int(os.path.basename(p)[1:-5]) for p in glob.glob(os.path.join(RD, 'r*.json')) if int(os.path.basename(p)[1:-5]) not in have]
 
