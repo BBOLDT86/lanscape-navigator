@@ -65,3 +65,23 @@ at either end. The reader's airport, units and party size stay in their browser 
   then the scheduled tasks' prompts.
 - **The page:** `travel/index.html`, one file. It shares The Watch's look: Instrument Serif and Instrument Sans,
   navy and brass (the cards use The Watch's font files in `news/updater/fonts/`, SIL Open Font License). Maps: Leaflet with CARTO's OpenStreetMap tiles.
+
+## Points Hacker (`#/points`)
+
+The cards a points hobbyist carries (Amex Platinum and Gold, the Chase Sapphires, Freedoms and Ink, Capital One
+Venture X and Venture, Citi Strata Elite and Premier, the Bilt cards, and the Hilton, Marriott, Hyatt, Delta and
+United cards): fees, earning, every recurring credit with its period, current public welcome offers (dated), the hotel
+programs (Amex Fine Hotels + Resorts and The Hotel Collection, Chase's The Edit, Capital One's Premier and Lifestyle
+Collections), transfer partners and ratios, and The Points Guy's monthly valuations. All of it is in
+`travel/points/points.json`, researched from the issuers' own pages first, then The Points Guy, One Mile at a Time,
+Frequent Miler, Doctor of Credit and AwardWallet, with sources on each card. A scheduled task re-checks it monthly.
+
+- **My credits**: readers tick the cards they carry; every credit then shows for its current month, quarter, half or
+  year with the days left, and a checkbox to mark it used. Kept in the browser (`wk.wallet`, `wk.used`).
+- **The lululemon shopper**: items at or under the Platinum's $75 quarterly lululemon credit, and the pairs that use
+  the most of it.
+- **Hotels by city**: the program hotels in the eight Weekender cities, each with a source showing membership
+  (`hotels` in points.json; filled by research, never guessed).
+- **Points news**: `live.py` reads the feeds of The Points Guy, One Mile at a Time, Frequent Miler, Doctor of Credit,
+  View from the Wing, Upgraded Points, Thrifty Traveler and AwardWallet every three hours (last 7 days, into
+  `live.json` as `points`).

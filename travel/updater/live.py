@@ -368,12 +368,45 @@ def news():
             'source': 'The Watch (headlines are the outlets\' own)'}
 
 
+
+# ------------------------------------------------------------------ points news (Points Hacker)
+POINTS_FEEDS = [('The Points Guy', 'https://thepointsguy.com/feed/'), ('One Mile at a Time', 'https://onemileatatime.com/feed/'),
+                ('Frequent Miler', 'https://frequentmiler.com/feed/'), ('Doctor of Credit', 'https://www.doctorofcredit.com/feed/'),
+                ('View from the Wing', 'https://viewfromthewing.com/feed/'), ('Upgraded Points', 'https://upgradedpoints.com/feed/'),
+                ('Thrifty Traveler', 'https://thriftytraveler.com/feed/'), ('AwardWallet', 'https://awardwallet.com/blog/feed/')]
+POINTS_RX = re.compile(r'points?|miles|card|amex|american express|chase|sapphire|capital one|venture|citi|bilt|hyatt|marriott|bonvoy|hilton|ihg|'
+                       r'lounge|status|award|transfer|bonus|credit|fhr|fine hotels|the edit|united|delta|american airlines|aadvantage|southwest|alaska|atmos', re.I)
+
+
+def points():
+    sys.path.insert(0, os.path.join(TRAVEL, '..', 'news', 'updater'))
+    import run  # noqa: E402  The Watch's feed reader
+    now = dt.datetime.now(dt.timezone.utc)
+    out, seen, bad = [], set(), []
+    for name, url in POINTS_FEEDS:
+        _, items, err = run.read_feed({'name': name, 'url': url})
+        if err:
+            bad.append(f'{name}: {err}'); continue
+        for it in items[:40]:
+            t, link, when = it.get('title'), it.get('link'), it.get('when')
+            if not t or not link or not when or (now - when).days > 7 or not POINTS_RX.search(t):
+                continue
+            key = re.sub(r'\W+', ' ', t.lower())[:60]
+            if key in seen:
+                continue
+            seen.add(key)
+            out.append({'t': html.unescape(t), 'u': link, 'o': name, 'p': when.strftime('%Y-%m-%dT%H:%M:%SZ')})
+    if not out and bad:
+        raise RuntimeError('; '.join(bad)[:200])
+    out.sort(key=lambda x: x['p'], reverse=True)
+    return {'at': now_iso(), 'items': out[:60], 'sources': [n for n, _ in POINTS_FEEDS], 'errors': bad}
+
 # ------------------------------------------------------------------ run
 def main():
     os.makedirs(DATA, exist_ok=True)
     live = load('live.json', {'v': 1})
     stale = []
-    for name, fn in (('weather', weather), ('fx', fx), ('faa', faa), ('news', news)):
+    for name, fn in (('weather', weather), ('fx', fx), ('faa', faa), ('news', news), ('points', points)):
         try:
             live[name] = fn()
             print(f'{name}: ok')

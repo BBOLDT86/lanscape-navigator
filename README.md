@@ -64,6 +64,7 @@ election2026/            Election Desk 2026, a separate site (see below); www.el
 pinfall/                 Pinfall, a separate page with its home-screen icons (see below); not part of the app
 news/                    The Watch, a news site that updates six times a day (see below); www.thewatch.com inside the app
 travel/                  Weekender, a travel site with weekly guides and flight and hotel search (see below); www.weekender.travel inside the app
+shop/                    Finds, a Pinterest-style shopping board of real products, priced live (see below); not part of the app
 barnlife/index.html      Central Ohio Barn Hunt, a separate page (see below); not part of the app
 ```
 
@@ -77,13 +78,21 @@ Flight and hotel search work like KAYAK's: type a city or an airport, pick dates
 
 Live data: Open-Meteo (weather), the European Central Bank via Frankfurter (rates), the FAA (U.S. airport status), Wikimedia Commons (credited pictures), OpenStreetMap (maps and places) and OurAirports (airports). `.github/workflows/travel.yml` refreshes it every three hours; see [travel/UPDATER.md](travel/UPDATER.md).
 
+Points Hacker (`travel/#/points`) is Weekender's points-and-miles desk: the standard points-hacker cards with every credit and when it resets (tick the cards you carry and it becomes a credit tracker), the lululemon $75 shopper, the hotel programs (Amex Fine Hotels + Resorts, Chase's The Edit, Capital One's Premier Collection), transfer partners and The Points Guy's valuations, and the week's news from The Points Guy, One Mile at a Time, Frequent Miler and Doctor of Credit.
+
+## Also hosted here: Finds
+
+**Open it: <https://bboldt86.github.io/lanscape-navigator/shop/>**
+
+A shopping board that feels like Apple designed Pinterest: Trending on TikTok and Instagram, Fashion, Coffee & Barista, Kitchen, Home, Remodel, Gifts, Tech, Garage, Outdoors & Travel, Wellness and Equestrian, plus Deals, Saved boards and a For You feed that learns from what you save and open (in your browser only). Products come from the stores' own published catalogs (about 80 brand stores, best sellers first), with live prices, sale prices and stock every six hours; Claude's picks add a reason and the reviews behind each one; and with eBay API keys, new and used eBay listings. See [shop/UPDATER.md](shop/UPDATER.md).
+
 ## Also hosted here: The Watch
 
 **Open it: <https://bboldt86.github.io/lanscape-navigator/news/>**
 
 The news six times a day, one edition for each ship's watch, Eastern time: Middle (12 a.m.), Morning (4 a.m.), Forenoon (8 a.m.), Afternoon (12 p.m.), Dog (4 p.m.) and First (8 p.m.). Each edition reads about 195 public news feeds, in English, Portuguese and German, across 17 desks (U.S., World, Europe, Brazil, Politics, Business, Household, Home, Tech, Science, Health, Sports, Culture, Cars, Travel, Food and Long reads), groups the stories that several outlets are covering, and ranks them by how widely and how recently they're covered. Open any story to see how every outlet is covering it, side by side.
 
-Business is a markets desk: indices, futures, world markets, Treasury yields, currencies, commodities and crypto with charts; a sector heat map; the day's biggest movers and a sortable table of the largest companies; the latest official economic numbers; and the week's earnings and economic releases, all with a plain-English summary of the day. Politics brings in the Election Desk and the Brazil runoff desk live: control of Congress in the prediction markets and The Hinge, the closest races, early voting, and Brazil's polls, markets and count.
+Business is a markets desk: indices, futures, world markets, Treasury yields, currencies, commodities and crypto with charts; a sector heat map; the day's biggest movers and a sortable table of the largest companies; the latest official economic numbers; and the week's earnings and economic releases, all with a plain-English summary of the day. Politics brings in the Election Desk and the Brazil runoff desk live: control of Congress in the prediction markets and The Hinge, the closest races, early voting, and Brazil's polls, markets and count. Weather is the reader's own forecast (now, 24 hours, ten days, air quality), the Weather Service's warnings, radar and forecaster notes, the day's severe-storm outlook, the tropics, the warnings in force nationwide and the airports, live from Meridian's METAR, TAF and FAA feed; the masthead carries the temperature where the reader is, and the front gets a red band during a warning there.
 
 Household tracks what things cost: gas and diesel, mortgage rates, the Fed's rate, inflation, sentiment, the typical U.S. home and rent, and the personal-finance news. Home takes a search in plain English ("4BR homes in 43215 under 750k"), shows that ZIP's market from Zillow's public research data (the typical home overall and by bedroom count against your budget, rent, the year's change) and links to the matching search on Zillow, Realtor.com and Redfin. Saved searches go through a GitHub issue and are followed by the updater; listings appear once a RentCast API key is added as the `RENTCAST_API_KEY` secret. The Epstein files desk brings in Inbox Atlas: its stories, timeline, people and notable emails, with today's coverage. Reports are in-depth pieces written by Claude, one each morning, signed with the model and the time written, with every claim cited.
 
