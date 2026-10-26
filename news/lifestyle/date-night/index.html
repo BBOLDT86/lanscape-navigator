@@ -560,6 +560,7 @@ function pickStop(spec, dur, t, prev, ctx, used, inPlan, lockId, planRoles) {
       if (sc) cands.push({ v, role, s: sc.s - (planRoles && planRoles.has(role) ? 2.5 : 0), st: sc.st });
     }
     cands.sort((a, b) => b.s - a.s);
+    if (cands.some(c => !c.v.chain)) for (let k = cands.length - 1; k >= 0; k--) if (cands[k].v.chain && cands[k].role !== 'show' && cands[k].role !== 'play') cands.splice(k, 1); // chains only when there's nothing else
     tried.push(...cands);
     if (cands.length) break;
   }
@@ -765,22 +766,43 @@ nwr["man_made"="pier"]["name"]${A(r2)};
 );out center 4000;`;
 }
 const radii = (mode, city) => mode === 'walk' ? (city ? [950, 1600] : [1200, 1800]) : (city ? [2600, 5000] : [4500, 9000]);
-async function fetchVenues(c, mode, city) {
+const VC = 'dn.cache';
+function vcGet(key) { try { const all = JSON.parse(localStorage.getItem(VC) || '{}'); const j = all[key]; if (j && Date.now() - j.at < 12 * 36e5) return j.v.map(v => Object.assign(v, { oh: DN.ohParse(v.ohs) })); } catch (e) { /* no cache */ } return null; }
+function vcSet(key, v) { // the last four places, for twelve hours, so a second look opens at once
+  try { const all = JSON.parse(localStorage.getItem(VC) || '{}'); all[key] = { at: Date.now(), v: v.map(x => Object.assign({}, x, { oh: null })) };
+    const keep = Object.entries(all).sort((a, b) => b[1].at - a[1].at).slice(0, 4); localStorage.setItem(VC, JSON.stringify(Object.fromEntries(keep))); } catch (e) { /* too big to keep: fine */ }
+}
+async function fetchVenues(c, mode, city, note) {
   const [r1, r2] = radii(mode, city);
-  const key = `dn.v1:${c.lat.toFixed(3)},${c.lon.toFixed(3)}:${r1}`;
-  try { const s = sessionStorage.getItem(key); if (s) { const j = JSON.parse(s); if (Date.now() - j.at < 6 * 36e5) return j.v.map(v => Object.assign(v, { oh: DN.ohParse(v.ohs) })); } } catch (e) { /* no cache */ }
+  const key = `${c.lat.toFixed(3)},${c.lon.toFixed(3)}:${r1}`;
+  const hit = vcGet(key); if (hit) return hit;
   const body = 'data=' + encodeURIComponent(overpassQuery(c, r1, r2));
-  let last;
-  for (const ep of OVERPASS) {
-    try {
-      const j = await getJSON(ep, { method: 'POST', headers: { 'content-type': 'application/x-www-form-urlencoded;charset=UTF-8' }, body }, 45000);
-      if (j.remark && /runtime error|timed out/i.test(j.remark) && !(j.elements || []).length) throw new Error(j.remark);
-      const v = DN.fromOverpass(j);
-      try { sessionStorage.setItem(key, JSON.stringify({ at: Date.now(), v: v.map(x => Object.assign({}, x, { oh: null })) })); } catch (e) { /* too big to keep: fine */ }
-      return v;
-    } catch (e) { last = e; }
-  }
-  throw Object.assign(new Error('places'), { cause: last });
+  // OpenStreetMap's public servers are often busy: ask the next one if the last hasn't answered in a while, take the first good answer
+  const acs = [];
+  const one = (ep, i) => {
+    const ac = new AbortController(); acs.push(ac);
+    const tm = setTimeout(() => ac.abort(), 50000);
+    return fetch(ep, { method: 'POST', headers: { 'content-type': 'application/x-www-form-urlencoded;charset=UTF-8' }, body, signal: ac.signal })
+      .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+      .then(j => { if (j.remark && /runtime error|timed out|out of memory/i.test(j.remark) && !(j.elements || []).length) throw new Error(j.remark); return j; })
+      .finally(() => clearTimeout(tm));
+  };
+  const j = await new Promise((ok, no) => {
+    let started = 0, failed = 0, done = false, tmr = 0;
+    const next = () => {
+      clearTimeout(tmr);
+      if (done || started >= OVERPASS.length) return;
+      const i = started++;
+      if (i && note) note(i);
+      one(OVERPASS[i], i).then(x => { if (!done) { done = true; clearTimeout(tmr); acs.forEach(a => a.abort()); ok(x); } })
+        .catch(e => { if (done) return; if (++failed >= OVERPASS.length) { done = true; no(e); } else if (failed >= started) next(); });
+      tmr = setTimeout(next, 9000);
+    };
+    next();
+  });
+  const v = DN.fromOverpass(j);
+  vcSet(key, v);
+  return v;
 }
 async function fetchWeather(c) {
   const key = c.lat.toFixed(2) + ',' + c.lon.toFixed(2);
@@ -1017,7 +1039,8 @@ async function go(force) {
   if (force || D.key !== key) {
     status(`Finding what’s open ${esc(placePhrase())}…`, 'Reading restaurants, bars, theaters and parks from OpenStreetMap, and the weather for the evening. This takes a few seconds.', true);
     try {
-      const [v, wx, g] = await Promise.all([fetchVenues(c, S.mode, city), fetchWeather(c).catch(() => null),
+      const slow = i => { const el = $('#out .status p'); if (el && n === run) el.textContent = i === 1 ? 'OpenStreetMap’s main server is busy tonight, so this is asking another one too.' : 'Still asking: the public map servers are slow right now. Results are kept for the evening once they arrive.'; };
+      const [v, wx, g] = await Promise.all([fetchVenues(c, S.mode, city, slow), fetchWeather(c).catch(() => null),
         city ? (D.guide && D.guide.city === S.place.city ? D.guide : cityGuide(S.place.city).then(x => x && Object.assign(x, { city: S.place.city })).catch(() => null)) : null]);
       if (n !== run) return;
       D.wx = wx; D.guide = g; D.venues = v; D.widened = false; D.mode = S.mode;
@@ -1025,7 +1048,7 @@ async function go(force) {
       let all = g ? mergeGuide(v, g.venues) : v;
       if (S.mode === 'walk' && all.filter(x => x.roles.includes('dinner')).length < 4) {
         status(`Not much within a walk ${esc(placePhrase())}…`, 'Looking a little farther out, for a short drive.', true);
-        const w = await fetchVenues(c, 'drive', city);
+        const w = await fetchVenues(c, 'drive', city, slow);
         if (n !== run) return;
         D.venues = w; all = g ? mergeGuide(w, g.venues) : w; D.widened = true; D.mode = 'drive';
       }
