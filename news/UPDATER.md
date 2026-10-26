@@ -216,6 +216,34 @@ rules and their in-season changes, how to watch and tickets. Results in `data/f1
 must agree with them. `python3 news/updater/f1.py format` prints the format and `python3 news/updater/f1.py check`
 enforces it (ids that match the season's, cited text, word counts, no quotation over 25 words).
 
+## Plus One (`plusone.py` -> `data/plusone.json`; `news/plusone/`)
+
+`#/plusone`, in the bar after Late Night, is where the Sports, Lifestyle and Culture desks meet: athletes and the
+partners beside them who are public figures in their own right. Each of those three desks carries a card for it, and
+the F1 hub's Drivers page and driver pages show the paddock's couples ("Off track"). The section opens with the couples
+in the news this week, a calendar of the next two weeks (each athlete's next game or race, from the Sports desk's
+`data/sports/<league>.json` and the F1 hub's `data/f1.json`, and the partners' dated releases, premieres and events),
+every couple with filters by sport, by the partner's field and by status, the style file (Lifestyle), the culture desk
+(the partners' own work, coming up and just out) and the news about them. Each couple has a page (`#/plusone/<id>`):
+the athlete's side with the next game, the partner's side with their work, their story, the milestones they made
+public, style, culture, the news and the sources. `#/plusone/<league>` opens the list filtered.
+
+The standards, which the weekly task and `plusone.py check` hold to: only couples who are public about their
+relationship (they went public themselves, and at least two established outlets reported it), only partners who are
+public figures in their own right, both adults; nothing about children, homes, health, pregnancy, money, bodies or
+looks; no rumours; established outlets only, never tabloids; a couple that splits up is removed, not written about.
+
+- `news/plusone/couples.json` is written and re-checked by a weekly scheduled Claude task (Tuesdays): it confirms every
+  couple is still together (`checked` is that date; `check` fails a couple not checked for three weeks), looks first at
+  any couple in `data/plusone.json` "alerts", updates the statuses, milestones and the partners' projects, and adds
+  couples. `python3 news/updater/plusone.py format` prints the format.
+- `news/updater/plusone.py`, run every three hours by `.github/workflows/plusone.yml`: for each couple, a Google News
+  search for both names (and in Portuguese or German for couples with a Brazilian, Portuguese or German side) plus the
+  current edition, kept to established outlets (`OK`; tabloids in `NEVER` are never read) and without headlines about
+  pregnancies or bodies; headlines about a split go into "alerts" for the weekly task.
+- The code and look are in `news/plusone/app.js` (loaded by `loadPlus()` in `index.html`); its interface in Portuguese
+  and German is `news/plusone/i18n.json`; the written text stays in English, marked so.
+
 ## Lifestyle
 
 Style, relationships, home life and how-to, from the New York Times' Style desk, the Guardian's Life and style and

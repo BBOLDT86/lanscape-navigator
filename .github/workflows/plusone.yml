@@ -1,0 +1,40 @@
+name: The Watch Plus One
+# Plus One (news/#/plusone): the news about each couple in news/plusone/couples.json, from established outlets only,
+# through Google News and the current edition. Every three hours; the updater writes only when something changed.
+# The couples themselves are written and re-checked every week by a scheduled Claude task. See news/UPDATER.md.
+on:
+  schedule:
+    - cron: '47 */3 * * *'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: the-watch-plusone
+  cancel-in-progress: false
+jobs:
+  update:
+    if: github.repository == 'BBOLDT86/lanscape-navigator'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: The news about each couple
+        timeout-minutes: 8
+        run: python3 news/updater/plusone.py
+      - name: Commit and push
+        run: |
+          git config user.name "The Watch updater"
+          git config user.email "the-watch-news@users.noreply.github.com"
+          git add news/data/plusone.json
+          if git diff --cached --quiet; then echo "nothing changed"; exit 0; fi
+          git commit -qm "The Watch: Plus One news"
+          for i in 1 2 3; do
+            git pull --rebase -X theirs origin main && git push -q origin HEAD:main && exit 0
+            sleep 10
+          done
+          echo "push failed" >&2; exit 1

@@ -1413,6 +1413,7 @@ function parseHash() {
   const [a, ...rest] = h.split('/'); const b = rest.join('/');
   if (a === 'for-you') return { t: 'you' };
   if (a === 'f1') return { t: 'f1', p: b }; // the Formula 1 hub (f1/app.js)
+  if (a === 'plusone') return { t: 'plus', p: b }; // Plus One, where Sports, Lifestyle and Culture meet (plusone/app.js)
   if (a === 'create') return { t: 'create', p: b }; // the Create line (create/app.js)
   if (a === 's' && b) return { t: 'desk', k: b };
   if (a === 't' && b) return { t: 'topic', k: b };
@@ -1451,7 +1452,7 @@ function storyRow(it, o = {}) {
 }
 
 function renderBar() {
-  const items = [['home', '', 'Front'], ['you', 'for-you', 'For you'], ['reports', 'reports', 'Reports'], ['pictures', 'pictures', 'Pictures'], ['video', 'video', 'Video'], ['late', 'latenight', 'Late Night'], ['weather', 'weather', 'Weather'], ['shop', 'shop', 'Shopping'], ['vision', '../vision/', 'Vision'], ['create', 'create', 'Create'], ...deskList().map(s => ['desk:' + s.k, 's/' + s.k, secName(s.k)]), ['files', 'files', 'Epstein files']];
+  const items = [['home', '', 'Front'], ['you', 'for-you', 'For you'], ['reports', 'reports', 'Reports'], ['pictures', 'pictures', 'Pictures'], ['video', 'video', 'Video'], ['late', 'latenight', 'Late Night'], ['plus', 'plusone', 'Plus One'], ['weather', 'weather', 'Weather'], ['shop', 'shop', 'Shopping'], ['vision', '../vision/', 'Vision'], ['create', 'create', 'Create'], ...deskList().map(s => ['desk:' + s.k, 's/' + s.k, secName(s.k)]), ['files', 'files', 'Epstein files']];
   const cur = view.t === 'desk' ? 'desk:' + view.k : view.t === 'article' ? 'reports' : ['impact', 'col', 'columns'].includes(view.t) ? 'desk:business' : ['garage', 'build', 'fsd'].includes(view.t) ? 'desk:cars' : view.t === 'sports' ? 'desk:sports' : view.t === 'piece' ? 'late' : ['hobby', 'hf'].includes(view.t) ? 'desk:hobbies' : view.t === 'create' ? 'create' : view.t;
   $('#bar').innerHTML = items.map(([id, h, label]) =>
     `<button type="button" data-go="${h.startsWith('../') ? h : '#/' + h}"${id === cur ? ' aria-current="page"' : ''}${id === 'you' ? ' class="you"' : ''}>${esc(label)}</button>`).join('');
@@ -2108,8 +2109,10 @@ function render(keepScroll) {
   else if (view.t === 'hf') renderHobbyFeature(view.id);
   else if (view.t === 'col') renderCol(view.week, view.k);
   else if (view.t === 'f1') renderF1(view.p, keepScroll);
+  else if (view.t === 'plus') renderPlus(view.p);
   else if (view.t === 'create') renderCreate(view.p, keepScroll);
   if (view.t === 'desk' && view.k === 'sports') f1Desk();
+  if (view.t === 'desk' && PLUS_DESKS.has(view.k)) plusDesk(view.k);
   if (view.t === 'desk' && CREATE_DESKS.has(view.k)) createDesk(view.k);
   renderFoot();
   watchImpressions();
@@ -2122,6 +2125,7 @@ let F1JS = null;
 function loadF1() {
   if (!window.WATCH) window.WATCH = { T, esc, md, getJSON, ago, isoMin, ytThumb, outlet, secName, LOC, LANG, PUBLIC, // what the hub draws with
     get view() { return view; }, get E() { return E; }, get DICT() { return DICT; } };
+  window.WATCH.loadPlus = loadPlus; // the hub's driver pages link to Plus One
   if (!F1JS) F1JS = new Promise((ok, no) => {
     const v = Math.floor(Date.now() / 600000), add = (u, next) => { const s = document.createElement('script'); s.src = u + '?v=' + v; s.onload = ok; s.onerror = next; document.head.appendChild(s); };
     add('f1/app.js', () => add(PUBLIC + 'f1/app.js', () => { F1JS = null; no(new Error('f1/app.js did not load')); }));
@@ -2134,6 +2138,28 @@ function renderF1(p, keep) {
   loadF1().then(() => { if (view.t === 'f1') window.F1.render(view.p); }, () => { if (view.t === 'f1') $('#main').innerHTML = `<div class="wrap state"><h2>${T('The F1 hub didn’t load')}</h2><p><a href="#/s/sports">${secName('sports')}</a></p></div>`; });
 }
 function f1Desk() { loadF1().then(() => window.F1.desk(), () => {}); }
+
+/* ================= Plus One: the players and the people beside them, #/plusone, where the Sports, Lifestyle and Culture
+   desks meet (each carries a card). Its code and look are in plusone/app.js; its data is plusone/couples.json (written
+   and re-checked weekly) and data/plusone.json (news/updater/plusone.py). ================= */
+const PLUS_DESKS = new Set(['sports', 'lifestyle', 'culture']);
+let PLUSJS = null;
+function loadPlus() {
+  if (!window.WATCH) window.WATCH = { T, esc, md, getJSON, ago, isoMin, ytThumb, outlet, secName, LOC, LANG, PUBLIC,
+    get view() { return view; }, get E() { return E; }, get DICT() { return DICT; } };
+  window.WATCH.loadPlus = loadPlus;
+  if (!PLUSJS) PLUSJS = new Promise((ok, no) => {
+    const v = Math.floor(Date.now() / 600000), add = (u, next) => { const s = document.createElement('script'); s.src = u + '?v=' + v; s.onload = ok; s.onerror = next; document.head.appendChild(s); };
+    add('plusone/app.js', () => add(PUBLIC + 'plusone/app.js', () => { PLUSJS = null; no(new Error('plusone/app.js did not load')); }));
+  });
+  return PLUSJS;
+}
+function renderPlus(p) {
+  if (window.PLUS) return window.PLUS.render(p);
+  $('#main').innerHTML = `<div class="wrap state"><h2>${T('Opening Plus One…')}</h2></div>`;
+  loadPlus().then(() => { if (view.t === 'plus') window.PLUS.render(view.p); }, () => { if (view.t === 'plus') $('#main').innerHTML = `<div class="wrap state"><h2>${T('Plus One didn’t load')}</h2><p><a href="#/">${T('Front')}</a></p></div>`; });
+}
+function plusDesk(k) { loadPlus().then(() => window.PLUS.desk(k), () => {}); }
 
 /* ================= Create: the Scrolls product line inside the paper, #/create. Its code and look are in create/app.js,
    loaded the first time someone opens Create, a desk with a Create line, or a hobby page; its data is create/catalog.json,

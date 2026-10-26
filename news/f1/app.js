@@ -166,7 +166,7 @@ const written = () => { const w = F.w.season || F.w.teams; return w ? T('Written
 
 /* ================= the shell ================= */
 function nav(cur) {
-  return `<nav class="f1nav" aria-label="${T('Formula 1')}"><a class="f1brand" href="#/f1"><span>F1</span>${F.d.season}</a>${TABS.map(([k, l]) => `<a href="#/f1${k ? '/' + k : ''}"${k === cur ? ' aria-current="page"' : ''}>${T(l + '|f1')}</a>`).join('')}</nav>`;
+  return `<nav class="f1nav" aria-label="${T('Formula 1')}"><a class="f1brand" href="#/f1"><span>F1</span>${F.d.season}</a>${TABS.map(([k, l]) => `<a href="#/f1${k ? '/' + k : ''}"${k === cur ? ' aria-current="page"' : ''}>${T(l + '|f1')}</a>`).join('')}<a class="f1po-l" href="#/plusone/f1">${T('Off track')} <span>Plus One</span></a></nav>`;
 }
 function shell(cur, body, title) {
   $('#main').innerHTML = `<div class="wrap f1">${nav(cur)}${body}<p class="f1foot">${T('Results, standings and lap data: {j} and {o}. Pictures of drivers: Formula 1, through OpenF1. News: each outlet’s own headline, linked. Updated {t}.', { j: '<a href="https://jolpi.ca" target="_blank" rel="noopener">Jolpica F1</a>', o: '<a href="https://openf1.org" target="_blank" rel="noopener">OpenF1</a>', t: esc(ago(isoMin(F.d.at))) })}${F.d.live ? ' ' + T('The latest result came straight from Jolpica a moment ago.') : ''}</p></div>`;
@@ -657,7 +657,18 @@ function renderDrivers() {
     <div class="f1dg">${ids.map(id => { const s = seasonStats(id), w = F.Dw[id] || {}; return `<a class="f1dcard" href="#/f1/driver/${esc(id)}" style="--tc:${tc(dteam(id))}"><span class="no">${D(id).num || ''}</span>${face(id, 'xl')}<span class="nm"><small>${esc(D(id).g || '')}</small>${esc(D(id).f || id)}</span><span class="tm">${sw(dteam(id))}${esc(tn(dteam(id)))}</span>
       <span class="stat"><span><b>${s.pts.pos ? ord(s.pts.pos) : '–'}</b>${T('in the title race')}</span><span><b>${nf(s.pts.pts || 0)}</b>${T('pts|f1')}</span><span><b>${s.wins}</b>${T('wins')}</span><span><b>${s.pods}</b>${T('podiums')}</span></span>${w.titles ? `<span class="ti">${T(w.titles === 1 ? '{n} world title' : '{n} world titles', { n: w.titles })}</span>` : ''}</a>`; }).join('')}</div>
     ${F.w.drivers && F.w.drivers.market ? `<section class="blk"><h2 class="sec-h">${T('The driver market')}</h2><div class="f1rep"${enAttr()}>${mdx(F.w.drivers.market.text, F.w.drivers.market.sources)}</div>${srcs(F.w.drivers.market.sources)}</section>` : ''}
+    <section class="blk" id="f1po" hidden><div class="blk-h"><h2 class="sec-h">${T('Off track')}</h2><a class="more" href="#/plusone/f1">Plus One →</a></div><p class="sub2">${T('The drivers whose partners are public figures in their own right, from Plus One, where the Sports, Lifestyle and Culture desks meet.')}</p><div class="f1po"></div></section>
     ${reserves()}`, T('Drivers'));
+  offTrack(null);
+}
+async function offTrack(id) { // Plus One's F1 couples, on the drivers page and on a driver's own page
+  if (!W.loadPlus) return;
+  let m; try { await W.loadPlus(); m = await window.PLUS.f1(); } catch (e) { return; }
+  const box = document.getElementById('f1po'); if (!box || !m) return;
+  const ids = id ? (m[id] ? [id] : []) : F.racers.filter(d => m[d]);
+  if (!ids.length) return;
+  box.querySelector('.f1po').innerHTML = ids.map(d => { const c = m[d]; return `<a class="po-card" href="#/plusone/${esc(c.id)}">${c.mark}<span class="po-k">${esc(tn(dteam(d)))}</span><span class="po-n"${enAttr()}>${esc(dn(d))} <i>&amp;</i> ${esc(c.partner)}</span><span class="po-kf"${enAttr()}>${esc(c.known_for)}</span>${id ? `<span class="po-kf"${enAttr()}>${esc(c.first)}</span>` : ''}</a>`; }).join('');
+  box.hidden = false;
 }
 function reserves() {
   const w = F.w.drivers && F.w.drivers.reserves;
@@ -686,7 +697,9 @@ async function renderDriver(id) {
     <section class="blk f1g2"><div${enAttr()}>${w.season ? `<h2 class="sec-h">${T('The season so far')}</h2><div class="f1rep">${mdx(w.season, n)}</div>` : ''}${w.bio ? `<h2 class="sec-h">${T('The story')}</h2><div class="f1rep">${mdx(w.bio, n)}</div>` : ''}${w.next ? `<h3 class="glb">${T('Next year')}</h3><p>${mdx(w.next, n)}</p>` : ''}${srcs(n)}</div>
       <div>${car ? `<h2 class="sec-h">${T('Career')}</h2><dl class="gspec f1car2">${[[T('Starts'), car.starts], [T('Wins'), car.wins], [T('Podiums'), car.podiums], [T('Poles'), car.poles], [T('Fastest laps'), car.fl], [T('Seasons'), car.seasons], [T('World titles'), w.titles ?? '–'], [T('Debut'), w.debut ? esc(w.debut) : '–']].map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join('')}</dl><p class="note">${T('Every grand prix since their first, this season included.')}</p>` : ''}
       ${newsFor({ rx: new RegExp('\\b' + (x.f || '').replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\b', 'i') }).length ? `<h3 class="glb">${T('In the news')}</h3>${newsList(newsFor({ rx: new RegExp('\\b' + (x.f || '').replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\b', 'i') }), 6)}` : ''}</div></section>
+    <section class="blk" id="f1po" hidden><div class="blk-h"><h2 class="sec-h">${T('Off track')}</h2><a class="more" href="#/plusone/f1">Plus One →</a></div><div class="f1po"></div></section>
   </article>`, dn(id));
+  offTrack(id);
 }
 const tile = (v, l) => `<div class="f1tile"><b>${v}</b><span>${l}</span></div>`;
 function strip(id) {
@@ -811,6 +824,7 @@ const CSS = `
 .f1nav a{flex:none;text-decoration:none;font:600 14px var(--sans);color:var(--ink-2);padding:7px 13px;border-radius:999px}
 .f1nav a:hover{color:var(--ink)}.f1nav a[aria-current]{background:var(--ink);color:var(--paper)}
 .f1nav .f1brand{color:var(--ink);font:700 14px var(--sans);letter-spacing:.02em;padding-right:10px;margin-right:2px;border-right:1px solid var(--rule);border-radius:999px 0 0 999px}
+.f1nav .f1po-l{margin-left:auto;color:var(--brass-ink)}.f1nav .f1po-l span{font:700 10.5px var(--sans);letter-spacing:.06em;text-transform:uppercase;margin-left:4px;opacity:.75}
 .f1nav .f1brand span{display:inline-block;background:var(--signal);color:#fff;border-radius:4px;padding:0 5px;margin-right:6px;font-style:italic}
 .f1sw{display:inline-block;width:4px;height:15px;border-radius:2px;background:var(--tc);margin-right:8px;vertical-align:-2px}
 .f1face{position:relative;display:inline-grid;place-items:center;width:44px;height:44px;border-radius:50%;background:color-mix(in srgb,var(--tc) 22%,var(--raise));overflow:hidden;flex:none;box-shadow:inset 0 0 0 2px var(--tc)}
