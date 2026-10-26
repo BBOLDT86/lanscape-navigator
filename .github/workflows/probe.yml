@@ -10,7 +10,11 @@ jobs:
     timeout-minutes: 12
     steps:
       - uses: actions/checkout@v4
-      - run: python3 probe/probe.py
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python3 shop/updater/shop.py
       - run: |
+          mkdir -p probe-out && cp shop/data/feed.json probe-out/
           git config user.name probe; git config user.email probe@users.noreply.github.com
-          git add probe-out && git commit -qm "probe results" && git push -q origin HEAD:probe-wx-results2 --force
+          git add probe-out && git commit -qm "probe results" && git push -q origin HEAD:probe-wx-results3 --force
