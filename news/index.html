@@ -606,6 +606,12 @@ h3.glb{font:600 12.5px var(--sans);letter-spacing:.07em;text-transform:uppercase
 .ssban{display:flex;gap:12px;flex-wrap:wrap;margin:0 0 14px}
 .wkpromo{display:flex;gap:14px;align-items:center;text-decoration:none;color:inherit;border:1px solid var(--rule);background:var(--raise);border-radius:14px;padding:12px 16px;margin:0 0 16px}
 .wkpromo b{display:block;font:600 16px/1.3 var(--sans)}.wkpromo span span{display:block;font-size:14px;color:var(--ink2);margin-top:2px}
+.t90f{display:flex;gap:20px;align-items:center;text-decoration:none;color:inherit;border:1px solid var(--rule);background:var(--raise);border-radius:16px;padding:18px 22px;margin:0 0 18px}
+.t90f:hover{border-color:var(--brass)}.t90v{flex:none;width:132px}.t90v svg{display:block;width:100%;height:auto}.t90v text{font:italic 30px var(--serif);fill:var(--ink)}
+.t90t{min-width:0}.t90t .k{display:block;font:600 12px/1.3 var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--brass)}
+.t90t b{display:block;font:400 28px/1.15 var(--serif);margin:4px 0 6px}.t90t .d{display:block;font-size:15px;line-height:1.5;color:var(--ink2);max-width:62ch}
+.t90t .go{display:inline-block;margin-top:10px;font:600 14px var(--sans);color:var(--brass)}
+@media (max-width:620px){.t90f{flex-direction:column;align-items:flex-start;gap:10px}.t90v{width:96px}.t90t b{font-size:24px}}
 .wkp-b{flex:none;width:42px;height:42px;border-radius:10px;background:#1E2329;color:#F5BE41;display:grid;place-items:center;font-size:20px}.wkp-go{margin-left:auto;font-size:22px;color:var(--ink3)}
 .ssban button{display:inline-flex;align-items:center;gap:10px;border:1px solid var(--rule);background:var(--raise);border-radius:999px;padding:5px 14px 5px 5px;font:600 14px var(--sans)}
 .ssban img{width:30px;height:30px;border-radius:50%;object-fit:cover;background:var(--shoal)}
@@ -887,7 +893,7 @@ if(t==='auto'){t=(h>=20||h<4)?'night':(matchMedia('(prefers-color-scheme: dark)'
 (() => {
 'use strict';
 const PUBLIC = 'https://bboldt86.github.io/lanscape-navigator/news/';
-const SLOW = new Set(['cars', 'travel', 'food', 'longreads']);
+const SLOW = new Set(['cars', 'travel', 'food', 'lifestyle', 'longreads']);
 const WATCHES = [['middle', 'Middle Watch', 0], ['morning', 'Morning Watch', 4], ['forenoon', 'Forenoon Watch', 8], ['afternoon', 'Afternoon Watch', 12], ['dog', 'Dog Watch', 16], ['first', 'First Watch', 20]];
 const $ = (s, el = document) => el.querySelector(s);
 const $$ = (s, el = document) => [...el.querySelectorAll(s)];
@@ -1011,7 +1017,7 @@ function bump(map, k, v) { map[k] = clamp((map[k] || 0) + v, -14, 30); P.n++; sa
 /* ================= the edition ================= */
 let E = null, LATEST = null, byId = new Map(), DF = {}, viewingArchive = false;
 const outlet = o => (E && E.outlets[o]) || o;
-const DESK_NAMES = { household: 'Household', home: 'Home', files: 'Epstein files' };
+const DESK_NAMES = { household: 'Household', home: 'Home', lifestyle: 'Lifestyle', files: 'Epstein files' };
 const secName = k => T(((E && E.sections.find(s => s.k === k)) || { name: DESK_NAMES[k] || k }).name);
 const watchName = key => T((WATCHES.find(w => w[0] === key) || WATCHES[0])[1]);
 const hourName = h => LANG === 'en' || LANG === 'xx' ? `${h % 12 || 12} ${h < 12 ? 'a.m.' : 'p.m.'}` : new Intl.DateTimeFormat(LOC(), { hour: 'numeric', minute: '2-digit', timeZone: 'UTC' }).format(new Date(Date.UTC(2020, 0, 1, h)));
@@ -1259,7 +1265,7 @@ function storyRow(it, o = {}) {
 }
 
 function renderBar() {
-  const items = [['home', '', 'Front'], ['you', 'for-you', 'For you'], ['reports', 'reports', 'Reports'], ['pictures', 'pictures', 'Pictures'], ['video', 'video', 'Video'], ['late', 'latenight', 'Late Night'], ['weather', 'weather', 'Weather'], ...E.sections.map(s => ['desk:' + s.k, 's/' + s.k, secName(s.k)]), ['files', 'files', 'Epstein files']];
+  const items = [['home', '', 'Front'], ['you', 'for-you', 'For you'], ['reports', 'reports', 'Reports'], ['pictures', 'pictures', 'Pictures'], ['video', 'video', 'Video'], ['late', 'latenight', 'Late Night'], ['weather', 'weather', 'Weather'], ...deskList().map(s => ['desk:' + s.k, 's/' + s.k, secName(s.k)]), ['files', 'files', 'Epstein files']];
   const cur = view.t === 'desk' ? 'desk:' + view.k : view.t === 'article' ? 'reports' : ['impact', 'col', 'columns'].includes(view.t) ? 'desk:business' : ['garage', 'build', 'fsd'].includes(view.t) ? 'desk:cars' : view.t === 'piece' ? 'late' : view.t;
   $('#bar').innerHTML = items.map(([id, h, label]) =>
     `<button type="button" data-go="#/${h}"${id === cur ? ' aria-current="page"' : ''}${id === 'you' ? ' class="you"' : ''}>${esc(label)}</button>`).join('');
@@ -1386,10 +1392,15 @@ function renderYou() {
   const list = forYou(120);
   listPage('For you', warmProfile() ? 'Ranked by what you read, with the biggest stories mixed in.' : 'Ranked by coverage until you’ve read a few stories.', list);
 }
+function deskList() { // the edition's desks; Lifestyle is shown even on an edition from before it had one
+  if (E.sections.some(s => s.k === 'lifestyle')) return E.sections;
+  const i = E.sections.findIndex(s => s.k === 'longreads');
+  return i < 0 ? E.sections.concat([{ k: 'lifestyle', name: 'Lifestyle' }]) : [...E.sections.slice(0, i), { k: 'lifestyle', name: 'Lifestyle' }, ...E.sections.slice(i)];
+}
 function renderDesk(k) {
   if (k === 'household') return renderHousehold();
   if (k === 'home') return renderHomeDesk();
-  if (!E.sections.find(s => s.k === k)) return go('#/');
+  if (!E.sections.find(s => s.k === k) && k !== 'lifestyle') return go('#/');
   if (k === 'business') return renderBusiness();
   if (k === 'politics' || k === 'brazil') ensureElections(true);
   if (k === 'brazil') brTouch();
@@ -1397,7 +1408,8 @@ function renderDesk(k) {
   list.sort(deskSort === 'new' ? (a, b) => b.p - a.p : (a, b) => b.s - a.s);
   listPage(secName(k), T(list.length === 1 ? '{n} story' : '{n} stories', { n: list.length }), list.map(x => ({ it: x.it })),
     { controls: `<div class="seg" role="group" aria-label="Sort"><button type="button" data-sort="you" aria-pressed="${deskSort === 'you'}">Best for you</button><button type="button" data-sort="new" aria-pressed="${deskSort === 'new'}">Latest</button></div>`,
-      top: (k === 'politics' ? electionsHTML(true) : k === 'brazil' ? brMissPromo() + electionsHTML(true, 'br') : k === 'travel' ? weekenderPromo() + pointsPromo() : k === 'power' ? `<div id="pwrWrap" class="mk">${powerHTML()}</div>` : k === 'cars' ? `<div id="garWrap">${garageHTML()}</div>` : k === 'food' ? `<div id="fridgeWrap">${fridgeHTML()}</div>` : '') + deskBanner(k) });
+      top: (k === 'politics' ? electionsHTML(true) : k === 'brazil' ? brMissPromo() + electionsHTML(true, 'br') : k === 'travel' ? weekenderPromo() + pointsPromo() : k === 'power' ? `<div id="pwrWrap" class="mk">${powerHTML()}</div>` : k === 'cars' ? `<div id="garWrap">${garageHTML()}</div>` : k === 'food' ? `<div id="fridgeWrap">${fridgeHTML()}</div>` : k === 'lifestyle' ? togetherFeature() : '') + deskBanner(k),
+      empty: k === 'lifestyle' ? T('Lifestyle stories start with the next edition.') : undefined });
   if (k === 'food') bindFridge();
   if (k === 'cars' && !GAR) ensureGarage().then(() => { const w = $('#garWrap'); if (w && view.t === 'desk' && view.k === 'cars') w.innerHTML = garageHTML(); });
   if (k === 'power') { if (!PWR) ensurePower().then(() => { const w = $('#pwrWrap'); if (w && view.t === 'desk' && view.k === 'power') { w.innerHTML = powerHTML(); bindPower(); } }); else bindPower(); }
@@ -3940,6 +3952,12 @@ async function shareIt(o) { // the phone's own share sheet (Messages, Mail, X...
 const shareSite = () => shareIt({ title: 'The Watch', text: T(SHARE_TEXT), url: PUBLIC + (LANG === 'pt' || LANG === 'de' ? LANG + '.html' : '') }); // pt.html / de.html: the preview in that language
 function weekenderPromo() { // the travel site next door: a plan for the coming weekend in eight cities
   return `<a class="wkpromo" href="../travel/"><span class="wkp-b" aria-hidden="true">✈</span><span><b>${T('Weekender: three perfect days, this weekend')}</b><span>${T('San Francisco, Los Angeles, Miami, New York, Paris, London, Prague and Las Vegas, planned day by day for the coming weekend, with live weather and flights and hotels filled in.')}</span></span><span class="wkp-go" aria-hidden="true">›</span></a>`;
+}
+function togetherFeature() { // Lifestyle opens with Together / 90, the couples workbook that lives at lifestyle/together-90/
+  return `<a class="t90f" href="lifestyle/together-90/"><span class="t90v" aria-hidden="true"><svg viewBox="0 0 132 88"><circle cx="48" cy="44" r="36" fill="#c1652f" fill-opacity=".16" stroke="#c1652f" stroke-width="2"/><circle cx="84" cy="44" r="36" fill="#177f8c" fill-opacity=".16" stroke="#177f8c" stroke-width="2"/><text x="66" y="52" text-anchor="middle">90</text></svg></span>
+    <span class="t90t"><span class="k">${T('Together / 90 · for two people')}</span><b>${T('Ninety days, fifteen minutes at a time')}</b>
+    <span class="d">${T('A workbook for couples: what actually lands as love for each of you, the topics you both steer around, how you fight, and by week eleven the decisions you have been putting off, made out loud and with dates. It runs in your browser, with no account; nothing you write is sent anywhere.')}</span>
+    <span class="go">${T('Open Together / 90')} ›</span></span></a>`;
 }
 function pointsPromo() { // Weekender's Points Hacker
   return `<a class="wkpromo" href="../travel/#/points"><span class="wkp-b" aria-hidden="true">◆</span><span><b>${T('Points Hacker: get every dollar out of the cards')}</b><span>${T('Every credit on the Amex, Chase, Capital One and Citi cards and when it resets, the hotel programs, the transfer partners and the week’s points news.')}</span></span><span class="wkp-go" aria-hidden="true">›</span></a>`;

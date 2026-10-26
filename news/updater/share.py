@@ -265,7 +265,7 @@ main{{max-width:640px}}h1{{font-weight:400;font-size:44px;margin:0 0 10px}}a{{co
 def desk_name(k, lang='en'):
     n = {'us': 'U.S.', 'world': 'World', 'europe': 'Europe', 'brazil': 'Brazil', 'politics': 'Politics', 'business': 'Business',
             'household': 'Household', 'home': 'Home', 'tech': 'Tech', 'science': 'Science', 'health': 'Health', 'sports': 'Sports',
-            'culture': 'Culture', 'cars': 'Cars', 'travel': 'Travel', 'food': 'Food', 'longreads': 'Long reads', 'files': 'The Epstein files'}.get(k, k.title())
+            'culture': 'Culture', 'cars': 'Cars', 'travel': 'Travel', 'food': 'Food', 'lifestyle': 'Lifestyle', 'longreads': 'Long reads', 'files': 'The Epstein files'}.get(k, k.title())
     return DICT[lang].get(n, n) if lang != 'en' else n
 
 

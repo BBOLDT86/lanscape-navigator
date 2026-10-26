@@ -27,7 +27,7 @@ always builds, and replaces the current watch's edition.
 1. Reads every feed in `news/data/feeds.json` (about 195, 35 of them in Portuguese or German; 20 at a time, 18-second timeout, one retry).
    Google News items take the outlet from the feed's `<source>`. Opinion, video, podcast, shopping and puzzle pages are skipped.
 2. Merges with the last edition's stories, so a feed that is down for a watch does not empty its section.
-   News desks keep 36 hours; Cars, Travel, Food and Long reads keep 96.
+   News desks keep 36 hours; Cars, Travel, Food, Lifestyle and Long reads keep 96.
 3. Sorts each story into a desk: its feed's desk, or for a general feed, the outlet's URL path and then its words.
 4. Tags names (learned from sentence-case headlines in the same edition) and topics (a fixed list in `run.py`).
 5. Groups stories that several outlets are covering (shared headline words, names weighted double), ranks the groups
@@ -42,7 +42,7 @@ invented. Failed feeds are listed in the edition and shown in the page's footer.
 ## Desks
 
 U.S., World, Europe, Brazil, Politics, Business, Household, Home, Tech, Science, Health, Sports, Culture, Cars, Travel,
-Food and Long reads, plus four pages that are not feed desks: Reports, Pictures, Video and the Epstein files.
+Food, Lifestyle and Long reads, plus four pages that are not feed desks: Reports, Pictures, Video and the Epstein files.
 Europe and Brazil have sources of their own; stories about either region from the general and world feeds also file
 there (`region()` in `run.py`), unless a stronger topic (a match, a market) claims them. World is everywhere else.
 
@@ -103,6 +103,15 @@ A weekly scheduled Claude task writes the rest:
   year has (HW2.5, HW3, AI4), how to tell, transfers, where it's offered, robotaxis, buying tips and the week's
   changes. `garage.py fsdcheck` enforces it. The page builds searches on Tesla's used inventory, Cars.com,
   Autotrader and eBay Motors from the reader's ZIP, model and computer; nothing from those sites is copied.
+
+## Lifestyle
+
+Style, relationships, home life and how-to, from the New York Times' Style desk, the Guardian's Life and style and
+Relationships, Vogue and GQ directly, and The Cut, Esquire, Lifehacker, Real Simple and Well+Good through Google News site
+searches. A general feed's story files here when the outlet put it under /style/, /fashion/, /lifestyle/, /relationships/,
+/weddings/, /parenting/ or /family/. The desk opens with Together / 90 (`news/lifestyle/together-90/`), a 90-day workbook
+for couples that runs entirely in the reader's browser: no account, nothing sent here, answers kept in that browser's
+storage and moved between the two partners by a shared folder, a direct browser-to-browser link or a file.
 
 ## What's for dinner (the Food desk; all in the page)
 

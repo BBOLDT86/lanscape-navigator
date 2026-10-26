@@ -55,12 +55,12 @@ WATCHES = [(0, 'middle', 'Middle Watch'), (4, 'morning', 'Morning Watch'), (8, '
            (12, 'afternoon', 'Afternoon Watch'), (16, 'dog', 'Dog Watch'), (20, 'first', 'First Watch')]
 SECTIONS = [('us', 'U.S.'), ('world', 'World'), ('europe', 'Europe'), ('brazil', 'Brazil'), ('politics', 'Politics'), ('business', 'Business'), ('household', 'Household'), ('home', 'Home'), ('power', 'Power'), ('tech', 'Tech'),
             ('science', 'Science'), ('health', 'Health'), ('sports', 'Sports'), ('culture', 'Culture'), ('cars', 'Cars'),
-            ('travel', 'Travel'), ('food', 'Food'), ('longreads', 'Long reads')]
-SLOW = {'cars', 'travel', 'food', 'longreads', 'home'}
+            ('travel', 'Travel'), ('food', 'Food'), ('lifestyle', 'Lifestyle'), ('longreads', 'Long reads')]
+SLOW = {'cars', 'travel', 'food', 'lifestyle', 'longreads', 'home'}
 WINDOW_H = {'default': 36, 'slow': 96}
 WINDOW_BY_SEC = {'brazil': 72, 'household': 72, 'power': 72}  # fewer English-language stories a day, so they stay up longer
 CAP = {'us': 100, 'world': 100, 'europe': 90, 'brazil': 70, 'household': 60, 'home': 60, 'power': 60, 'politics': 80, 'business': 90, 'tech': 90, 'science': 55, 'health': 45, 'sports': 100,
-       'culture': 70, 'cars': 45, 'travel': 40, 'food': 35, 'longreads': 35}
+       'culture': 70, 'cars': 45, 'travel': 40, 'food': 35, 'lifestyle': 45, 'longreads': 35}
 SNIP = 210
 
 # ------------------------------------------------------------------ outlets
@@ -84,7 +84,8 @@ OUTLETS = {
     'thedrive.com': 'The Drive', 'electrek.co': 'Electrek', 'insideevs.com': 'InsideEVs', 'autoblog.com': 'Autoblog',
     'thepointsguy.com': 'The Points Guy', 'onemileatatime.com': 'One Mile at a Time', 'viewfromthewing.com': 'View from the Wing',
     'simpleflying.com': 'Simple Flying', 'cntraveler.com': 'Condé Nast Traveler', 'skift.com': 'Skift', 'eater.com': 'Eater',
-    'bonappetit.com': 'Bon Appétit', 'smittenkitchen.com': 'Smitten Kitchen', 'food52.com': 'Food52', 'theatlantic.com': 'The Atlantic',
+    'bonappetit.com': 'Bon Appétit', 'vogue.com': 'Vogue', 'gq.com': 'GQ', 'thecut.com': 'The Cut', 'esquire.com': 'Esquire',
+    'lifehacker.com': 'Lifehacker', 'realsimple.com': 'Real Simple', 'wellandgood.com': 'Well+Good', 'smittenkitchen.com': 'Smitten Kitchen', 'food52.com': 'Food52', 'theatlantic.com': 'The Atlantic',
     'newyorker.com': 'The New Yorker', 'propublica.org': 'ProPublica', 'aeon.co': 'Aeon', 'longreads.com': 'Longreads',
     'usatoday.com': 'USA Today', 'latimes.com': 'Los Angeles Times', 'nypost.com': 'New York Post', 'newsweek.com': 'Newsweek',
     'time.com': 'Time', 'economist.com': 'The Economist', 'forbes.com': 'Forbes', 'businessinsider.com': 'Business Insider',
@@ -339,7 +340,8 @@ PATH_SECTION = [  # desks before world before U.S.: NYT files politics under /us
     (r'/(science|space|climate|environment|newshour/science|weather)(/|$)', 'science'),
     (r'/(health|well|wellness|medicine|newshour/health|health-news)(/|$)', 'health'),
     (r'/(sports?|football|soccer|nfl|nba|mlb|nhl|ncaa|golf|tennis|college-football|basketball|baseball|hockey|olympics|motorsport|formula1|cricket|rugby-union)(/|$)', 'sports'),
-    (r'/(arts|culture|entertainment|movies|film|music|television|tv|books|theater|pop-culture|celebrity|style|newshour/arts|the-culture|tv-and-radio|stage|games)(/|$)', 'culture'),
+    (r'/(style|fashion|lifestyle|lifeandstyle|life-and-style|relationships|dating|weddings|parenting|family|modern-love)(/|$)', 'lifestyle'),
+    (r'/(arts|culture|entertainment|movies|film|music|television|tv|books|theater|pop-culture|celebrity|newshour/arts|the-culture|tv-and-radio|stage|games)(/|$)', 'culture'),
     (r'/(travel)(/|$)', 'travel'),
     (r'/(food|food-drink|dining|cooking|recipes|restaurants|wine)(/|$)', 'food'),
     (r'/(automobiles|cars|autos|wheels|car-reviews)(/|$)', 'cars'),

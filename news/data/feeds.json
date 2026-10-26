@@ -1,5 +1,5 @@
 {
-  "note": "Sextant's sources. section: auto | us | world | europe | brazil | politics | business | household | home | tech | science | health | sports | culture | cars | travel | food | longreads. 'auto' sorts each story by its URL path and words. Google News items take the outlet from the feed's <source>. A feed that fails is skipped and listed in the edition; nothing is invented. Add a line to add a source. Feeds with \"lang\" (pt, de) write in Portuguese or German; readers of that language see them first.",
+  "note": "Sextant's sources. section: auto | us | world | europe | brazil | politics | business | household | home | tech | science | health | sports | culture | cars | travel | food | lifestyle | longreads. 'auto' sorts each story by its URL path and words. Google News items take the outlet from the feed's <source>. A feed that fails is skipped and listed in the edition; nothing is invented. Add a line to add a source. Feeds with \"lang\" (pt, de) write in Portuguese or German; readers of that language see them first.",
   "feeds": [
   {"name": "Google News", "url": "https://news.google.com/rss?hl=en-US&gl=US&ceid=US:en", "section": "auto"},
   {"name": "Google News U.S.", "url": "https://news.google.com/rss/headlines/section/topic/NATION?hl=en-US&gl=US&ceid=US:en", "section": "us"},
@@ -159,6 +159,16 @@
   {"name": "Eater", "url": "https://www.eater.com/rss/index.xml", "section": "food", "domain": "eater.com"},
   {"name": "Bon Appétit", "url": "https://www.bonappetit.com/feed/rss", "section": "food", "domain": "bonappetit.com"},
   {"name": "Smitten Kitchen", "url": "https://smittenkitchen.com/feed/", "section": "food", "domain": "smittenkitchen.com"},
+  {"name": "NYT Style", "url": "https://rss.nytimes.com/services/xml/rss/nyt/FashionandStyle.xml", "section": "lifestyle", "domain": "nytimes.com"},
+  {"name": "Guardian Life and style", "url": "https://www.theguardian.com/lifeandstyle/rss", "section": "lifestyle", "domain": "theguardian.com"},
+  {"name": "Guardian Relationships", "url": "https://www.theguardian.com/lifeandstyle/relationships/rss", "section": "lifestyle", "domain": "theguardian.com"},
+  {"name": "Vogue", "url": "https://www.vogue.com/feed/rss", "section": "lifestyle", "domain": "vogue.com"},
+  {"name": "GQ", "url": "https://www.gq.com/feed/rss", "section": "lifestyle", "domain": "gq.com"},
+  {"name": "The Cut", "url": "https://news.google.com/rss/search?q=site:thecut.com+when:3d&hl=en-US&gl=US&ceid=US:en", "section": "lifestyle", "domain": "thecut.com"},
+  {"name": "Esquire", "url": "https://news.google.com/rss/search?q=site:esquire.com+when:3d&hl=en-US&gl=US&ceid=US:en", "section": "lifestyle", "domain": "esquire.com"},
+  {"name": "Lifehacker", "url": "https://news.google.com/rss/search?q=site:lifehacker.com+when:3d&hl=en-US&gl=US&ceid=US:en", "section": "lifestyle", "domain": "lifehacker.com"},
+  {"name": "Real Simple", "url": "https://news.google.com/rss/search?q=site:realsimple.com+when:7d&hl=en-US&gl=US&ceid=US:en", "section": "lifestyle", "domain": "realsimple.com"},
+  {"name": "Well+Good", "url": "https://news.google.com/rss/search?q=site:wellandgood.com+when:7d&hl=en-US&gl=US&ceid=US:en", "section": "lifestyle", "domain": "wellandgood.com"},
   {"name": "The Atlantic", "url": "https://www.theatlantic.com/feed/all/", "section": "longreads", "domain": "theatlantic.com"},
   {"name": "The New Yorker", "url": "https://www.newyorker.com/feed/everything", "section": "longreads", "domain": "newyorker.com"},
   {"name": "ProPublica", "url": "https://www.propublica.org/feeds/propublica/main", "section": "longreads", "domain": "propublica.org"},
