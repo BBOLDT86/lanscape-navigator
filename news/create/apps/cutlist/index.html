@@ -1,0 +1,1120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Create · Cutlist</title>
+<meta name="description" content="A cut list for each woodworking project: parts, board feet and cost with your waste factor, a layout that packs the parts onto the boards you have, the shop's lumber inventory and a shopping list. Syncs with a shop partner by code. No app, no account, no server.">
+<link rel="canonical" href="https://bboldt86.github.io/lanscape-navigator/news/create/apps/cutlist/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Create">
+<meta property="og:title" content="Create · Cutlist">
+<meta property="og:description" content="Measure twice. Buy once. A cut list, board feet, a layout on your boards, the shop inventory and a shopping list, synced phone to phone.">
+<meta property="og:url" content="https://bboldt86.github.io/lanscape-navigator/news/create/apps/cutlist/">
+<meta property="og:image" content="https://bboldt86.github.io/lanscape-navigator/news/share.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="application-name" content="Cutlist">
+<meta name="theme-color" content="#F8F7F4" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#191613" media="(prefers-color-scheme: dark)">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Cutlist">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='6' y='18' width='52' height='28' rx='4' fill='%235B7FA1'/%3E%3Cpath d='M22 18v28M38 18v28' stroke='%23F8F7F4' stroke-width='3'/%3E%3Cpath d='M44 24l10 16' stroke='%23F8F7F4' stroke-width='2' stroke-dasharray='3 3'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400..700;1,9..40,400..600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F8F7F4; --raise:#FFFFFF; --sunk:#EFEBE4; --ink:#2A251F; --ink2:#62594F; --ink3:#968B7E; --rule:rgba(42,37,31,.12); --rule2:rgba(42,37,31,.22);
+  --a:#C2785C; --a-soft:rgba(194,120,92,.15); --b:#5B7FA1; --b-soft:rgba(91,127,161,.15); --gold:#8B7355; --gold-soft:rgba(139,115,85,.16); --lens:#A88A5E;
+  --ok:#3D7A55; --warn:#B4532F; --scrim:rgba(30,25,20,.45); --on:#fff;
+  --shadow:0 1px 2px rgba(42,37,31,.05),0 8px 24px rgba(42,37,31,.07);
+  --serif:'Instrument Serif','Iowan Old Style',Georgia,serif;
+  --sans:'DM Sans',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --wood:#D9B98C; --wood2:#B48A5A;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#191613; --raise:#24201B; --sunk:#131110; --ink:#F2EDE6; --ink2:#C6BCAF; --ink3:#918679; --rule:rgba(242,237,230,.12); --rule2:rgba(242,237,230,.24);
+    --a:#E39B7F; --a-soft:rgba(227,155,127,.17); --b:#8FB1D2; --b-soft:rgba(143,177,210,.17); --gold:#CDB089; --gold-soft:rgba(205,176,137,.17); --lens:#BFA27A;
+    --ok:#7EC39B; --warn:#F08C66; --scrim:rgba(0,0,0,.62); --on:#191613; --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 28px rgba(0,0,0,.34); --wood:#6B5438; --wood2:#8C6E49; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#191613; --raise:#24201B; --sunk:#131110; --ink:#F2EDE6; --ink2:#C6BCAF; --ink3:#918679; --rule:rgba(242,237,230,.12); --rule2:rgba(242,237,230,.24);
+  --a:#E39B7F; --a-soft:rgba(227,155,127,.17); --b:#8FB1D2; --b-soft:rgba(143,177,210,.17); --gold:#CDB089; --gold-soft:rgba(205,176,137,.17); --lens:#BFA27A;
+  --ok:#7EC39B; --warn:#F08C66; --scrim:rgba(0,0,0,.62); --on:#191613; --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 28px rgba(0,0,0,.34); --wood:#6B5438; --wood2:#8C6E49; color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.5 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden;padding-left:env(safe-area-inset-left);padding-right:env(safe-area-inset-right)}
+a{color:inherit}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:6px}
+.in{max-width:1080px;margin:0 auto;padding:0 20px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+h1,h2,h3{font-family:var(--serif);font-weight:400;margin:0}
+.hint{font-size:13.5px;color:var(--ink3);margin:6px 0 0}
+.danger{color:var(--warn)}
+.lk{background:none;border:0;padding:0;color:var(--gold);font-weight:600;text-decoration:underline;text-underline-offset:3px}
+
+/* chrome */
+.top{position:sticky;top:0;z-index:30;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:saturate(1.4) blur(14px);-webkit-backdrop-filter:saturate(1.4) blur(14px);border-bottom:1px solid var(--rule)}
+.top .in{display:flex;align-items:center;gap:10px;height:58px}
+.logo{display:flex;align-items:baseline;gap:8px;text-decoration:none;flex:none;min-width:0}
+.logo b{font:400 27px/1 var(--serif);letter-spacing:-.01em;color:var(--b)}
+.logo small{font-size:11.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--ink3)}
+.sp{flex:1}
+.pill{display:inline-flex;align-items:center;gap:7px;height:36px;padding:0 12px;border-radius:999px;border:1px solid var(--rule2);background:var(--raise);font-size:13.5px;font-weight:600;white-space:nowrap;max-width:46vw;overflow:hidden}
+.pill span{overflow:hidden;text-overflow:ellipsis}
+.pill i{width:8px;height:8px;border-radius:50%;background:var(--ink3);flex:none;border:1.5px solid var(--ink3)}
+.pill.on i{background:var(--ok);border-color:var(--ok);box-shadow:0 0 0 4px color-mix(in srgb,var(--ok) 22%,transparent)}
+.pill.wait i{background:var(--gold);border-color:var(--gold);animation:pulse 1.4s infinite}
+.pill.off i{background:transparent}
+.pill.away i{background:var(--ink3)}
+@keyframes pulse{50%{opacity:.35}}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;height:40px;padding:0 16px;border-radius:999px;border:1px solid var(--rule2);background:var(--raise);font-size:15px;font-weight:600;text-decoration:none;white-space:nowrap}
+.btn:hover{border-color:var(--ink3)}
+.btn.p{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.btn.sm{height:34px;padding:0 13px;font-size:14px}
+.btn.b{background:var(--b);border-color:var(--b);color:var(--on)}
+.btn svg{width:16px;height:16px}
+.ic{width:40px;height:40px;border-radius:50%;border:1px solid var(--rule2);background:var(--raise);display:inline-flex;align-items:center;justify-content:center;padding:0;flex:none}
+.ic svg{width:18px;height:18px}
+.nav{display:flex;gap:6px;padding:12px 0 0}
+.nav a{display:inline-flex;align-items:center;height:36px;padding:0 15px;border-radius:999px;border:1px solid var(--rule2);background:var(--raise);font-weight:600;font-size:14.5px;text-decoration:none}
+.nav a[aria-current="page"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.seg{display:inline-flex;border:1px solid var(--rule2);border-radius:999px;padding:3px;gap:3px;background:var(--raise);max-width:100%}
+.seg button{border:0;background:transparent;height:34px;padding:0 13px;border-radius:999px;font-weight:600;font-size:14px;white-space:nowrap}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.ph{display:flex;align-items:flex-end;gap:12px;flex-wrap:wrap;padding:20px 0 12px}
+.ph h1{font-size:clamp(32px,5vw,44px);line-height:1.05;letter-spacing:-.015em;flex:1;min-width:0;overflow-wrap:anywhere}
+.ph .row{flex:none}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.stats{display:flex;gap:22px;flex-wrap:wrap;padding:8px 0 14px;border-bottom:1px solid var(--rule);margin-bottom:14px}
+.stats b{display:block;font:400 28px/1.05 var(--serif)}
+.stats span{font-size:12.5px;color:var(--ink3)}
+.stats .g b{color:var(--gold)}
+
+/* cards, lists */
+.card{background:var(--raise);border:1px solid var(--rule);border-radius:16px;box-shadow:var(--shadow);padding:14px 16px;position:relative}
+.card.lk2{display:block;text-decoration:none;cursor:pointer;text-align:left;width:100%}
+.card.lk2:hover{border-color:var(--rule2)}
+.card h3{font-size:24px;line-height:1.15}
+.card .m{margin:3px 0 0;font-size:14px;color:var(--ink2)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+.list{display:flex;flex-direction:column;gap:10px}
+.stk{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.stk .t{flex:1;min-width:160px}
+.stk .t b{font-weight:600}
+.stk .t small{display:block;color:var(--ink3);font-size:13px}
+.sw{display:inline-flex;align-items:center;gap:7px;height:34px;padding:0 11px;border-radius:999px;border:1px solid var(--rule2);background:transparent;font-size:13.5px;font-weight:600;white-space:nowrap}
+.sw[aria-pressed="true"]{background:var(--b-soft);border-color:transparent;color:var(--b)}
+.by{width:18px;height:18px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;flex:none}
+.by.a{background:var(--a)}.by.b{background:var(--b)}
+.x{width:34px;height:34px;border-radius:50%;border:0;background:transparent;color:var(--ink3);font-size:20px;line-height:1;display:inline-flex;align-items:center;justify-content:center;flex:none}
+.x:hover{background:var(--sunk);color:var(--warn)}
+.empty{border:1.5px dashed var(--rule2);border-radius:20px;padding:34px 22px;text-align:center;margin:8px 0 14px}
+.empty h2{font-size:32px;line-height:1.1;color:var(--b)}
+.empty p{margin:8px auto 16px;max-width:50ch;color:var(--ink2)}
+.empty .row{justify-content:center}
+
+/* the parts table */
+.tw{overflow-x:auto;margin:0 -20px;padding:0 20px}
+.parts{width:100%;border-collapse:collapse;font-size:14.5px}
+.parts th{font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink3);text-align:left;padding:0 6px 6px;white-space:nowrap}
+.parts td{padding:3px 3px;vertical-align:middle;border-top:1px solid var(--rule)}
+.parts input,.parts select{height:38px;border-radius:9px;border:1px solid transparent;background:transparent;padding:0 7px;width:100%;min-width:0;font-size:14.5px}
+.parts input:hover,.parts select:hover{border-color:var(--rule2)}
+.parts input:focus,.parts select:focus{outline:none;border-color:var(--gold);background:var(--raise);box-shadow:0 0 0 3px var(--gold-soft)}
+.parts input.n{text-align:right;font-variant-numeric:tabular-nums}
+.parts .c-i{color:var(--ink3);font-size:12.5px;width:26px;text-align:right;padding-right:6px}
+.parts .c-name{min-width:150px}
+.parts .c-q{width:58px}.parts .c-t{width:96px}.parts .c-w,.parts .c-l{width:88px}.parts .c-sp{width:130px}.parts .c-g{width:90px}
+.parts .c-bf{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums;color:var(--ink2);width:70px}
+.parts .c-x{width:38px}
+.parts tr.bad td{background:color-mix(in srgb,var(--warn) 7%,transparent)}
+.tot{width:100%;border-collapse:collapse;margin-top:10px;font-size:14.5px}
+.tot th{font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink3);text-align:left;padding:4px 8px;border-bottom:1px solid var(--rule2)}
+.tot td{padding:7px 8px;border-bottom:1px solid var(--rule);vertical-align:middle}
+.tot .r,.tot th.r{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.tot input{height:34px;width:84px;border-radius:8px;border:1px solid var(--rule2);background:var(--raise);padding:0 8px;text-align:right}
+.tot tfoot td{font-weight:650;border-bottom:0}
+.sec{margin:22px 0 10px;display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.sec h2{font-size:26px;line-height:1.1;flex:1}
+.sec p{margin:0;color:var(--ink3);font-size:14px}
+
+/* layout drawings */
+.brd{margin:0 0 16px}
+.brd .bl{display:flex;justify-content:space-between;gap:10px;font-size:13.5px;color:var(--ink2);margin-bottom:5px;flex-wrap:wrap}
+.brd .bl b{color:var(--ink);font-weight:600}
+.brd svg{width:100%;height:auto;display:block;border-radius:8px}
+.brd .bd{fill:var(--wood);stroke:var(--wood2);stroke-width:1}
+.brd .pt{fill:var(--raise);stroke:var(--b);stroke-width:1.2}
+.brd .pt.a{stroke:var(--a)}
+.brd .lb{font:600 11px var(--sans);fill:var(--ink)}
+.brd .lb2{font:400 10px var(--sans);fill:var(--ink2)}
+.key{display:flex;gap:6px 14px;flex-wrap:wrap;font-size:13px;color:var(--ink2);margin:6px 0 0}
+.key i{display:inline-block;width:12px;height:12px;border-radius:3px;vertical-align:-1px;margin-right:4px}
+
+/* forms, sheet */
+.fld{display:flex;flex-direction:column;gap:5px;min-width:0}
+.fld label,.fld .lb{font-size:13px;font-weight:650;color:var(--ink2)}
+.fld input,.fld select,.fld textarea{height:46px;border-radius:12px;border:1px solid var(--rule2);background:var(--raise);padding:0 14px;font-size:16px;width:100%;min-width:0}
+.fld textarea{height:auto;min-height:80px;padding:11px 14px;resize:vertical;line-height:1.45}
+.fld input:focus,.fld select:focus,.fld textarea:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px var(--gold-soft)}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.g2>*,.g3>*{min-width:0}
+.stack{display:flex;flex-direction:column;gap:12px}
+.land{padding-top:34px;max-width:620px}
+.land .eyebrow{margin:0 0 10px;font-size:13px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--b)}
+.land h1{font-size:clamp(42px,7vw,76px);line-height:.98;letter-spacing:-.02em}
+.land h1 em{color:var(--b);font-style:italic}
+.land .lede{margin:16px 0 22px;font-size:18px;color:var(--ink2);line-height:1.5}
+.scrim{position:fixed;inset:0;background:var(--scrim);opacity:0;pointer-events:none;transition:opacity .2s;z-index:40}
+.scrim.on{opacity:1;pointer-events:auto}
+.sheet{position:fixed;z-index:41;left:0;right:0;bottom:0;max-height:min(92vh,92dvh);background:var(--bg);border-radius:22px 22px 0 0;box-shadow:0 -10px 40px rgba(0,0,0,.2);transform:translateY(104%);transition:transform .26s cubic-bezier(.2,.8,.2,1);overflow-y:auto;overscroll-behavior:contain;padding:0 0 calc(24px + env(safe-area-inset-bottom))}
+.sheet.on{transform:none}
+.shh{position:sticky;top:0;z-index:2;display:flex;align-items:center;gap:10px;padding:14px 18px;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--rule)}
+.shh h2{flex:1;font-size:27px;line-height:1.1}
+.shb{padding:16px 18px}
+.box{border:1px solid var(--rule);background:var(--raise);border-radius:16px;padding:16px;margin-bottom:12px}
+.box h3{font:600 16px/1.3 var(--sans);margin:0 0 4px}
+.box p{margin:4px 0;color:var(--ink2);font-size:14.5px}
+.box p.code{font:400 50px/1 var(--serif);letter-spacing:.08em;text-align:center;margin:8px 0 4px;color:var(--ink)}
+.qr{width:180px;height:180px;margin:10px auto;background:#fff;border-radius:12px;padding:9px}
+.qr svg{width:100%;height:100%;display:block}
+.srch{display:flex;gap:8px}
+.srch input{flex:1;height:46px;border-radius:12px;border:1px solid var(--rule2);background:var(--raise);padding:0 14px;font-size:16px;min-width:0}
+.status{margin:10px 0 0;font-size:14px;font-weight:600;min-height:1.4em}
+.status.ok{color:var(--ok)}.status.bad{color:var(--warn)}
+.menu-l{display:flex;flex-direction:column}
+.menu-l button,.menu-l label{display:flex;flex-direction:column;align-items:flex-start;gap:1px;text-align:left;border:0;background:transparent;padding:12px 4px;border-bottom:1px solid var(--rule);font-weight:600;font-size:16px;cursor:pointer;width:100%}
+.menu-l small{font-weight:400;color:var(--ink3);font-size:13.5px}
+.pre{white-space:pre-wrap;font:14px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;background:var(--sunk);border-radius:12px;padding:12px 14px;margin:0;overflow-wrap:anywhere}
+.toast{position:fixed;left:50%;bottom:calc(22px + env(safe-area-inset-bottom));transform:translate(-50%,20px);opacity:0;visibility:hidden;pointer-events:none;z-index:60;background:var(--ink);color:var(--bg);padding:11px 14px 11px 18px;border-radius:999px;display:flex;gap:12px;align-items:center;font-size:15px;font-weight:550;box-shadow:0 10px 30px rgba(0,0,0,.25);transition:transform .25s,opacity .25s,visibility .25s;max-width:calc(100% - 32px)}
+.toast.on{transform:translate(-50%,0);opacity:1;visibility:visible;pointer-events:auto}
+.toast button{background:none;border:0;color:var(--bg);font-weight:700;text-decoration:underline;padding:0 4px}
+.foot{margin-top:50px;border-top:1px solid var(--rule);padding:22px 0 calc(36px + env(safe-area-inset-bottom));color:var(--ink3);font-size:13.5px}
+.foot p{margin:0 0 6px}
+.foot a{color:var(--ink2)}
+
+@media (min-width:761px){
+  .sheet{left:auto;top:0;width:min(540px,100%);max-height:none;border-radius:0;transform:translateX(102%);box-shadow:-10px 0 40px rgba(0,0,0,.18)}
+}
+@media (max-width:760px){
+  .in{padding:0 16px}
+  .tw{margin:0 -16px;padding:0 16px}
+  .top .in{height:54px;gap:8px}
+  .logo b{font-size:24px}
+  .pill{height:34px;padding:0 10px;font-size:13px}
+  .pill .lbl{display:none}
+  .ic{width:38px;height:38px}
+  .btn.hd{height:36px;padding:0 13px;font-size:14px}
+  .btn.hd .lbl{display:none}
+  .btn.hd{width:38px;padding:0;border-radius:50%}
+  .ph{flex-direction:column;align-items:stretch;gap:10px}
+  .ph .row{overflow-x:auto;scrollbar-width:none;margin:0 -16px;padding:0 16px}
+  .ph .row::-webkit-scrollbar{display:none}
+  .sec{flex-direction:column;align-items:flex-start;gap:4px}
+  .tot .hp{display:none}
+  .tot td,.tot th{padding:7px 5px}
+  .tot input{width:64px}
+  .parts thead{display:none}
+  .parts,.parts tbody{display:block}
+  .parts tr{display:grid;grid-template-columns:repeat(4,1fr);gap:4px 6px;padding:10px 0;border-top:1px solid var(--rule);align-items:end}
+  .parts td{display:block;border:0;padding:0;width:auto!important;min-width:0!important}
+  .parts td[data-l]::before{content:attr(data-l);display:block;font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink3);padding:0 7px}
+  .parts .c-i{display:none}
+  .parts .c-name{grid-column:1/4;grid-row:1}
+  .parts .c-q{grid-column:4;grid-row:1}
+  .parts .c-t{grid-column:1;grid-row:2}.parts .c-w{grid-column:2;grid-row:2}.parts .c-l{grid-column:3;grid-row:2}
+  .parts .c-x{grid-column:4;grid-row:2;justify-self:end;align-self:center}
+  .parts .c-sp{grid-column:1/3;grid-row:3}
+  .parts .c-g{grid-column:3/4;grid-row:3}
+  .parts .c-bf{grid-column:4;grid-row:3;text-align:right;padding:0 7px 9px;align-self:end}
+  .parts input,.parts select{border-color:var(--rule);background:var(--raise);height:40px}
+  .g3{grid-template-columns:1fr 1fr}
+  .stats{gap:16px}.stats b{font-size:24px}
+  .box p.code{font-size:42px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+@media print{.top,.nav,.foot,.sheet,.scrim,.toast{display:none!important}}
+</style>
+</head>
+<body>
+<header class="top"><div class="in">
+  <a class="logo" href="#/" aria-label="Cutlist, your projects"><b>Cutlist</b><small>Create</small></a>
+  <span class="sp"></span>
+  <button class="pill off" id="pairBtn" type="button" hidden><i></i><span>Solo</span></button>
+  <button class="btn hd" id="shareBtn" type="button" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="19" r="2.5"/><path d="M8.2 10.8l7.6-4.6M8.2 13.2l7.6 4.6"/></svg><span class="lbl">Share</span></button>
+  <button class="ic" id="menuBtn" type="button" aria-label="Menu"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg></button>
+</div></header>
+<main id="main"><div class="in" style="padding-top:80px;text-align:center;color:var(--ink3)">Opening Cutlist…</div></main>
+<footer class="foot"><div class="in"><p>Cutlist is part of Scrolls <a href="../../">Create</a>, from <a href="../../../">The Watch</a>. Your projects and the shop live in this browser and travel directly to your partner's device over an encrypted WebRTC link; <a href="https://peerjs.com" target="_blank" rel="noopener">PeerJS</a>'s free server only introduces the two devices. Nothing is stored on a server, so keep a backup from the menu.</p><p>Board feet use the nominal rough thickness (4/4 is one inch), the way the yard charges. Check the yard's actual sizes before you cut.</p></div></footer>
+<div class="scrim" id="scrim"></div>
+<aside class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="shT" tabindex="-1"></aside>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="https://cdn.jsdelivr.net/npm/peerjs@1.5.4/dist/peerjs.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js" defer></script>
+<script>
+'use strict';
+/* Create · Cutlist: a cut list per project plus the shop's lumber inventory, synced phone to phone (PeerJS, protocol v2 from Vision).
+   Everything lives in localStorage 'create.cutlist.v1'. Dimensions are kept in inches inside and shown in the units you chose. */
+(() => {
+const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const PUBLIC = 'https://bboldt86.github.io/lanscape-navigator/news/create/apps/cutlist/';
+const APP = /^https?:$/.test(location.protocol) ? location.href.split(/[?#]/)[0] : PUBLIC;
+const KEY = 'create.cutlist.v1', INBOX = 'create.cutlist.inbox', THEME = 'create.theme';
+const LS = { get(k, d) { try { const v = localStorage.getItem(k); return v == null ? d : JSON.parse(v); } catch (e) { return d; } },
+             set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); return true; } catch (e) { return false; } },
+             del(k) { try { localStorage.removeItem(k); } catch (e) {} } };
+const ALPH = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789';
+const code6 = () => { const a = new Uint32Array(6); crypto.getRandomValues(a); return [...a].map(x => ALPH[x % ALPH.length]).join(''); };
+const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+let lastStamp = 0; const SALT = Math.floor(Math.random() * 90) + 10;
+function stamp() { const t = Math.max(Date.now(), Math.floor(lastStamp / 100) + 1); lastStamp = t * 100 + SALT; return lastStamp; }
+const seeStamp = n => { if (n > lastStamp) lastStamp = n; };
+const fmtCode = c => c ? c.slice(0, 3) + '-' + c.slice(3) : '';
+const cleanCode = s => String(s || '').toUpperCase().replace(/[^A-Z0-9]/g, '');
+const okCode = c => c.length === 6 && [...c].every(ch => ALPH.includes(ch));
+const clone = o => JSON.parse(JSON.stringify(o));
+const qp = new URLSearchParams(location.search);
+const IC = {
+  x: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>',
+  plus: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>'
+};
+const SPECIES0 = ['Walnut', 'Cherry', 'Maple', 'White oak', 'Red oak', 'Ash', 'Poplar', 'Pine', 'Plywood'];
+const QUARTERS = [['4/4', 1], ['5/4', 1.25], ['6/4', 1.5], ['8/4', 2], ['10/4', 2.5], ['12/4', 3], ['16/4', 4]];
+const qName = t => { const q = QUARTERS.find(x => Math.abs(x[1] - t) < .01); return q ? q[0] : ''; };
+
+/* ================= units: inches inside, shown as fractions or millimeters ================= */
+const isMM = () => S && S.units === 'mm';
+function parseLen(s) { // "3 1/2", "3-1/2", "3.5", "1/2", "29" in the current units, to inches
+  s = String(s ?? '').trim().replace(/[”"']/g, '').replace(/,/g, '.');
+  if (!s) return null;
+  let m, v = null;
+  if ((m = s.match(/^(\d+(?:\.\d+)?)\s*[-\s]\s*(\d+)\s*\/\s*(\d+)$/))) v = +m[1] + (+m[2]) / (+m[3] || 1);
+  else if ((m = s.match(/^(\d+)\s*\/\s*(\d+)$/))) v = +m[1] / (+m[2] || 1);
+  else if ((m = s.match(/^(\d+(?:\.\d+)?)\s*(mm|in)?$/))) { v = +m[1]; if (m[2] === 'mm') return v / 25.4; if (m[2] === 'in') return v; }
+  else { const n = parseFloat(s); v = isNaN(n) ? null : n; }
+  if (v == null || !isFinite(v) || v < 0) return null;
+  return isMM() ? v / 25.4 : v;
+}
+function frac(x) { // inches to 1/16: 29, 3-1/2, 3/4
+  if (x == null || !isFinite(x)) return '';
+  const neg = x < 0; x = Math.abs(x);
+  let w = Math.floor(x), n = Math.round((x - w) * 16), d = 16;
+  if (n === 16) { w++; n = 0; }
+  while (n && n % 2 === 0) { n /= 2; d /= 2; }
+  const s = n ? (w ? w + '-' : '') + n + '/' + d : String(w);
+  return (neg ? '-' : '') + s;
+}
+const fmtLen = x => x == null || isNaN(x) ? '' : isMM() ? String(Math.round(x * 25.4 * 2) / 2) : frac(x);
+const unitWord = () => isMM() ? 'mm' : 'in';
+const n2 = (x, d = 2) => x == null || isNaN(x) ? '' : (+x).toLocaleString('en-US', { maximumFractionDigits: d, minimumFractionDigits: 0 });
+const money = p => p == null || isNaN(p) ? '' : new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: p % 1 && p < 100 ? 2 : 0 }).format(p);
+const bfOf = (t, w, l, q = 1) => (t || 0) * (w || 0) * (l || 0) / 144 * (q || 0);
+const m3Of = (t, w, l, q = 1) => (t || 0) * (w || 0) * (l || 0) * 1.6387064e-5 * (q || 0);
+const vol = (t, w, l, q = 1) => isMM() ? m3Of(t, w, l, q) : bfOf(t, w, l, q);
+const volWord = (n = 2) => isMM() ? 'm³' : n === 1 ? 'board foot' : 'board feet';
+const fmtVol = x => isMM() ? n2(x, 4) + ' m³' : n2(x, 2) + ' bf';
+const fmtT = t => isMM() ? Math.round(t * 25.4) + ' mm' : qName(t) || frac(t) + '"';
+const len = x => fmtLen(x) + (isMM() ? ' mm' : '"');
+const num = s => { const v = parseFloat(String(s ?? '').replace(/[^\d.]/g, '')); return isNaN(v) ? null : v; };
+
+/* ================= state ================= */
+let S = null;
+function blankState(me = 'a') {
+  return { v: 1, dev: code6(), me, joined: false, partner: null, pending: null, names: { a: '', b: '' }, units: 'in', kerf: 0.125, waste: 0.2, species: SPECIES0.slice(), cur: '', projects: {}, items: {}, _t: {}, started: false, created: Date.now() };
+}
+function load() {
+  let o = LS.get(KEY, null);
+  if (!o || typeof o !== 'object') return null;
+  if (o.v !== 1) o.v = 1; // an older state is carried forward with fallbacks below
+  const b = blankState(o.me === 'b' ? 'b' : 'a');
+  for (const k of Object.keys(b)) if (o[k] === undefined) o[k] = b[k];
+  if (!o.names || typeof o.names !== 'object') o.names = { a: '', b: '' };
+  if (!Array.isArray(o.species) || !o.species.length) o.species = SPECIES0.slice();
+  if (!o.items || typeof o.items !== 'object') o.items = {};
+  if (!o.projects || typeof o.projects !== 'object') o.projects = {};
+  if (!o._t) o._t = {};
+  for (const m of [o.items, o.projects]) for (const it of Object.values(m)) { if (!it._t) it._t = {}; for (const v of Object.values(it._t)) seeStamp(v); }
+  for (const v of Object.values(o._t)) seeStamp(v);
+  return o;
+}
+const other = () => S.me === 'a' ? 'b' : 'a';
+const nameOf = slot => (S.names[slot] || '').trim() || (slot === S.me ? 'You' : 'Your partner');
+const myName = () => nameOf(S.me), theirName = () => nameOf(other());
+const first = slot => { const n = nameOf(slot); return n === 'Your partner' ? 'Partner' : n.split(' ')[0]; };
+function setMeta(f) { const t = stamp(); for (const k of Object.keys(f)) { S[k] = f[k]; S._t[k] = t; } }
+function setName(slot, n) { S.names[slot] = String(n || '').trim().slice(0, 30); S._t['n' + slot] = stamp(); }
+let saveT = 0, saveWarned = false;
+function save(now) {
+  clearTimeout(saveT);
+  const go = () => { if (!S) return; if (!LS.set(KEY, S) && !saveWarned) { saveWarned = true; toast('This browser’s storage is full. Cutlist keeps working, but can’t save.'); } };
+  if (now) go(); else saveT = setTimeout(go, 120);
+}
+const live = (kind) => Object.values(S.items).filter(it => !it.del && (!kind || it.kind === kind));
+const liveProjects = () => Object.values(S.projects).filter(p => !p.del).sort((a, b) => (b.at || 0) - (a.at || 0));
+const partsOf = pid => live('part').filter(it => it.project === pid).sort((a, b) => (a.at || 0) - (b.at || 0));
+const stockAll = () => live('stock').sort((a, b) => (b.at || 0) - (a.at || 0));
+function setF(it, f) { const t = stamp(); for (const k of Object.keys(f)) { it[k] = f[k]; it._t[k] = t; } return it; }
+function create(f, map = S.items) { const it = { id: uid(), _t: {} }; setF(it, f); map[it.id] = it; return it; }
+function mergeInto(map, r) {
+  if (!r || !r.id || typeof r !== 'object') return false;
+  for (const v of Object.values(r._t || {})) seeStamp(v);
+  const L = map[r.id];
+  if (!L) { map[r.id] = clone(r); if (!map[r.id]._t) map[r.id]._t = {}; return true; }
+  let ch = false;
+  for (const k of Object.keys(r._t || {})) if ((r._t[k] || 0) > (L._t[k] || 0)) { L[k] = r[k]; L._t[k] = r._t[k]; ch = true; }
+  return ch;
+}
+const mergeItem = r => mergeInto(S.items, r);
+const mergeProject = r => mergeInto(S.projects, r);
+function mergeMeta(d) { // names, units, kerf, species: newest stamp wins
+  if (!d || !d._t) return false;
+  let ch = false;
+  for (const v of Object.values(d._t)) seeStamp(v);
+  for (const k of ['na', 'nb']) if ((d._t[k] || 0) > (S._t[k] || 0) && d.names) { S.names[k[1]] = String(d.names[k[1]] || '').slice(0, 30); S._t[k] = d._t[k]; ch = true; }
+  for (const k of ['units', 'kerf', 'waste', 'species']) if ((d._t[k] || 0) > (S._t[k] || 0) && d[k] !== undefined) { S[k] = d[k]; S._t[k] = d._t[k]; ch = true; }
+  return ch;
+}
+function metaMsg() { return { t: 'meta', names: S.names, units: S.units, kerf: S.kerf, waste: S.waste, species: S.species, _t: S._t }; }
+function swapSlots() { // two devices both thought they were partner A: the one that joined moves over
+  S.me = other();
+  const n = S.names, t = S._t;
+  [n.a, n.b] = [n.b, n.a]; [t.na, t.nb] = [t.nb, t.na];
+  for (const k of ['na', 'nb']) if (t[k] === undefined) delete t[k];
+  for (const m of [S.items, S.projects]) for (const it of Object.values(m)) if (it.by) it.by = it.by === 'a' ? 'b' : 'a';
+}
+
+/* ================= the inbox: other pages on the site can leave parts or boards ================= */
+function fromInbox(p) {
+  if (!p || typeof p !== 'object') return null;
+  if (p.kind === 'stock') return create({ kind: 'stock', species: String(p.species || 'Pine').slice(0, 30), t: +p.t || 1, w: +p.w || 0, l: +p.l || 0, qty: +p.qty || 1, price: p.price != null ? +p.price : null, note: String(p.note || '').slice(0, 120), use: true, by: S.me, at: p.at || Date.now(), del: false });
+  const pid = S.cur && S.projects[S.cur] && !S.projects[S.cur].del ? S.cur : (liveProjects()[0] || newProject('From The Watch')).id;
+  const t = typeof p.t === 'string' ? (QUARTERS.find(q => q[0] === p.t) || [0, 1])[1] : +p.t || 1;
+  return create({ kind: 'part', project: pid, name: String(p.name || 'Part').slice(0, 60), qty: +(p.qty ?? p.q) || 1, t, ta: null, w: +p.w || 0, l: p.lft != null ? +p.lft * 12 : +p.l || 0, species: String(p.species || 'Pine').slice(0, 30), grain: '', by: S.me, at: p.at || Date.now(), del: false });
+}
+function drainInbox(quiet) {
+  if (!S) return [];
+  const q = LS.get(INBOX, []);
+  if (!Array.isArray(q) || !q.length) return [];
+  LS.set(INBOX, []);
+  const ch = q.map(fromInbox).filter(Boolean);
+  if (ch.length) { save(true); broadcast(ch); if (!quiet) toast(ch.length === 1 ? `Added from The Watch: ${ch[0].name || ch[0].species}` : `${ch.length} new from The Watch`); }
+  return ch;
+}
+function hobtRows() { // The Watch's Hobbies desk keeps a small board-foot calculator; its rows can seed a project
+  try { const h = JSON.parse(localStorage.getItem('watch.hobt') || '{}'); const r = h && h.ww && h.ww.rows; return Array.isArray(r) ? r.filter(x => +x.w && +x.l) : []; } catch (e) { return []; }
+}
+function importHobt(pid) {
+  const rows = hobtRows(); if (!rows.length) return 0;
+  const ch = rows.map((r, i) => create({ kind: 'part', project: pid, name: 'Board ' + (i + 1), qty: +r.q || 1, t: (QUARTERS.find(q => q[0] === r.t) || [0, 1])[1], ta: null, w: +r.w || 0, l: (+r.l || 0) * 12, species: 'Pine', grain: '', by: S.me, at: Date.now() + i, del: false }));
+  save(true); broadcast(ch); return ch.length;
+}
+function newProject(name) {
+  const p = create({ name: String(name || 'New project').slice(0, 60), waste: S.waste, prices: {}, by: S.me, at: Date.now(), del: false }, S.projects);
+  return p;
+}
+
+/* ================= P2P (protocol v2): PeerJS's server only introduces the two devices ================= */
+const PID = c => 'create-cut-' + String(c).toLowerCase();
+let peer = null, net = 'idle', netMsg = '', dialT = 0, wantCode = '', pendingAsk = null;
+const conns = new Set();
+function peerOpts() {
+  const q = qp.get('peer'); // ?peer=127.0.0.1:9000 for a self-hosted server (tests)
+  if (q) { const [h, p] = q.split(':'); return { host: h, port: +p || 9000, path: '/', secure: location.protocol === 'https:', debug: 0 }; }
+  return { debug: 0 };
+}
+const openConns = () => [...conns].filter(c => c.open);
+const isOn = () => openConns().some(c => c._hello);
+function setNet(n, msg) { net = n; netMsg = msg || ''; paintPresence(); paintPairStatus(); }
+function startPeer() {
+  if (!S || !S.started || peer) return;
+  if (!window.Peer) {
+    if (document.readyState === 'loading') { setNet('starting'); document.addEventListener('DOMContentLoaded', startPeer, { once: true }); }
+    else setNet('nolib', 'The sync library didn’t load. Cutlist still works on this device; share a backup link instead.');
+    return;
+  }
+  setNet('starting');
+  try { peer = new window.Peer(PID(S.dev), peerOpts()); } catch (e) { peer = null; setNet('error', 'Sync couldn’t start in this browser.'); return; }
+  peer.on('open', () => { setNet(S.partner || S.pending ? 'dialing' : 'ready'); if (S.partner) dial(S.partner.code, true); if (S.pending) dial(S.pending, !wantCode); });
+  peer.on('connection', c => wire(c, false));
+  peer.on('disconnected', () => { if (!openConns().length) setNet('offline', 'Lost the matchmaking server. Trying again…'); setTimeout(() => { if (peer && !peer.destroyed && peer.disconnected) try { peer.reconnect(); } catch (e) {} }, 4000); });
+  peer.on('close', () => { peer = null; });
+  peer.on('error', e => {
+    const t = e && e.type;
+    if (t === 'unavailable-id') { setNet('elsewhere', 'Cutlist is open in another tab on this device; that one keeps the connection.'); try { peer.destroy(); } catch (er) {} peer = null; return; }
+    if (t === 'peer-unavailable') { if (openConns().length) return; setNet('away', S.pending ? `${theirName()}’s Cutlist isn’t open right now (code ${fmtCode(S.pending)}). Leave this page open; it keeps trying.` : ''); wantCode = ''; return; }
+    if (t === 'network' || t === 'server-error' || t === 'socket-error' || t === 'socket-closed') { if (!openConns().length) setNet('offline', 'Can’t reach the matchmaking server right now. Cutlist still works here.'); return; }
+    if (t === 'browser-incompatible') { setNet('nolib', 'This browser can’t make direct connections. Share a backup link instead.'); return; }
+    if (!openConns().length) setNet('error', 'Sync hit a snag (' + (t || 'unknown') + ').');
+  });
+}
+function dial(code, auto) {
+  if (!peer || peer.destroyed || peer.disconnected || code === S.dev) return;
+  if (openConns().some(c => c.peer === PID(code))) return;
+  if (!auto) setNet('dialing');
+  const c = peer.connect(PID(code), { reliable: true, metadata: { v: 1 } });
+  wire(c, true, code);
+}
+function wire(c, outgoing, code) {
+  conns.add(c); c._hello = false; c._sent = false;
+  c.on('open', () => { if (outgoing) { c._sent = true; send(c, hello()); } paintPresence(); });
+  c.on('data', d => { try { onMsg(c, d, outgoing, code); } catch (e) { console.warn('cutlist: bad message', e); } });
+  c.on('close', () => { conns.delete(c); if (!openConns().length) setNet(S.partner ? 'away' : 'ready'); paintPresence(); });
+  c.on('error', () => { conns.delete(c); paintPresence(); });
+}
+function send(c, m) { try { if (c.open) c.send(m); } catch (e) {} }
+function hello() { return { t: 'hello', v: 1, dev: S.dev, me: S.me, joined: !!S.joined, name: myName(), names: S.names, units: S.units, kerf: S.kerf, waste: S.waste, species: S.species, _t: S._t, projects: S.projects, items: S.items }; }
+function broadcast(items, projects) {
+  const m = { t: 'put', items: (items || []).map(it => S.items[it.id] || it), projects: (projects || []).map(p => S.projects[p.id] || p) };
+  if (!m.items.length && !m.projects.length) return;
+  for (const c of openConns()) if (c._hello) send(c, m);
+}
+function sendMeta() { for (const c of openConns()) if (c._hello) send(c, metaMsg()); }
+function onMsg(c, d, outgoing, code) {
+  if (!d || typeof d !== 'object') return;
+  if (d.t === 'hello') {
+    if (d.dev === S.dev) return;
+    const known = S.partner && S.partner.code === d.dev;
+    if (!known && S.partner && !outgoing && !c._ok) { pendingAsk = { c, d }; askAccept(d); return; }
+    acceptHello(c, d, outgoing); return;
+  }
+  if (!c._hello) return;
+  if (d.t === 'put') {
+    const chI = (Array.isArray(d.items) ? d.items : []).filter(mergeItem), chP = (Array.isArray(d.projects) ? d.projects : []).filter(mergeProject);
+    if (chI.length || chP.length) { save(true); render(true); }
+  } else if (d.t === 'meta') { if (mergeMeta(d)) { save(true); render(true); } }
+}
+function acceptHello(c, d, outgoing) {
+  c._ok = true;
+  let wait = false, swapped = false;
+  if (d.me === S.me) { const yieldMe = S.joined && !d.joined ? true : !S.joined && d.joined ? false : S.dev > d.dev; if (yieldMe) { swapSlots(); swapped = true; } else wait = true; }
+  const firstTime = !S.partner || S.partner.code !== d.dev;
+  S.partner = { code: d.dev, at: Date.now() };
+  if (S.pending) S.pending = null;
+  const before = live().length;
+  if (!wait) { mergeMeta(d); for (const p of Object.values(d.projects || {})) mergeProject(p); for (const it of Object.values(d.items || {})) mergeItem(it); S.joined = false; }
+  save(true); c._hello = true;
+  if (!c._sent || swapped) { c._sent = true; send(c, hello()); }
+  setNet('on'); wantCode = '';
+  render(true);
+  const got = live().length - before;
+  if (firstTime && !wait) toast(`Connected with ${theirName()}.${got > 0 ? ` ${got} of their parts and boards came over.` : ''}`);
+  else if (got > 0 && !wait) toast(`${got} new from ${theirName()}`);
+  if (sheetKind === 'pair') openPair();
+}
+function askAccept(d) {
+  openSheet('ask', head('Connect a new device?') + `<div class="shb"><div class="box"><h3>${esc(d.name || 'Someone')} wants to join your shop</h3><p>A device you haven’t connected before used your code (${esc(fmtCode(d.dev || ''))}). If it’s ${esc(theirName())}’s new phone or computer, let it in; it gets a copy of every project and the inventory.</p>
+    <div class="row" style="margin-top:12px"><button class="btn p" type="button" data-accept>Let it in</button><button class="btn" type="button" data-reject>Not now</button></div></div></div>`);
+}
+function startDialLoop() {
+  clearInterval(dialT);
+  dialT = setInterval(() => {
+    if (!S || !S.started || !(S.partner || S.pending) || document.hidden) return;
+    if (!peer) { startPeer(); return; }
+    if (peer.disconnected && !peer.destroyed) { try { peer.reconnect(); } catch (e) {} return; }
+    if (!openConns().length) { if (S.partner) dial(S.partner.code, true); if (S.pending && (!S.partner || S.pending !== S.partner.code)) dial(S.pending, true); }
+  }, 15000);
+}
+function dialCode(c) {
+  c = cleanCode(c);
+  if (!okCode(c)) { netMsg = 'That code doesn’t look right: six letters and numbers, like ABC-234.'; paintPairStatus(); return false; }
+  if (c === S.dev) { netMsg = 'That’s your own code. Enter the one on your partner’s screen.'; paintPairStatus(); return false; }
+  if (!S.partner || S.partner.code !== c) { S.joined = true; S.pending = c; }
+  wantCode = c; netMsg = ''; save(true);
+  if (!peer) startPeer(); else dial(c);
+  paintPairStatus(); return true;
+}
+
+/* ---------- backup as a file or a link */
+const b64u = buf => btoa(String.fromCharCode(...new Uint8Array(buf))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+const unb64u = s => Uint8Array.from(atob(s.replace(/-/g, '+').replace(/_/g, '/') + '==='.slice((s.length + 3) % 4)), c => c.charCodeAt(0));
+function backupObj() { return { v: 1, app: 'cutlist', from: myName(), me: S.me, names: S.names, units: S.units, kerf: S.kerf, waste: S.waste, species: S.species, _t: S._t, projects: S.projects, items: S.items, saved: new Date().toISOString() }; }
+async function packLink() {
+  const json = JSON.stringify(backupObj());
+  if (window.CompressionStream) { try { const s = new Blob([json]).stream().pipeThrough(new CompressionStream('deflate-raw')); return 'z' + b64u(await new Response(s).arrayBuffer()); } catch (e) {} }
+  return 'j' + b64u(new TextEncoder().encode(json));
+}
+async function unpackLink(s) {
+  const bytes = unb64u(s.slice(1));
+  if (s[0] === 'z') { const st = new Blob([bytes]).stream().pipeThrough(new DecompressionStream('deflate-raw')); return JSON.parse(await new Response(st).text()); }
+  return JSON.parse(new TextDecoder().decode(bytes));
+}
+function mergeBackup(p, replace) {
+  if (!p || !p.items || typeof p.items !== 'object') return -1;
+  if (replace) { S.items = {}; S.projects = {}; }
+  const chP = [], chI = [];
+  for (const x of Object.values(p.projects || {})) if (mergeProject(x)) chP.push(x);
+  for (const x of Object.values(p.items)) if (mergeItem(x)) chI.push(x);
+  const m = mergeMeta(p);
+  save(true); broadcast(chI, chP); if (m) sendMeta();
+  return chI.length + chP.length;
+}
+function download(name, data, type) { const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([data], { type })); a.download = name; document.body.append(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1000); }
+async function copyText(t, msg) { try { await navigator.clipboard.writeText(t); toast(msg || 'Copied'); } catch (e) { prompt('Copy this:', t); } }
+
+/* ================= board feet, totals ================= */
+const tNom = it => it.t || 1; // nominal rough thickness (inches): what the yard charges for
+function totals(p) { // by species: parts, volume, with waste, cost
+  const by = {}, parts = partsOf(p.id), waste = p.waste != null ? p.waste : S.waste;
+  for (const it of parts) {
+    const k = it.species || 'Other', b = by[k] || (by[k] = { species: k, n: 0, qty: 0, vol: 0 });
+    b.n++; b.qty += it.qty || 0; b.vol += vol(tNom(it), it.w, it.l, it.qty);
+  }
+  let vt = 0, bt = 0, cost = 0, priced = 0;
+  for (const b of Object.values(by)) { b.buy = b.vol * (1 + waste); const pr = +(p.prices || {})[b.species]; b.price = pr || null; b.cost = pr ? b.buy * pr : null; vt += b.vol; bt += b.buy; if (b.cost != null) { cost += b.cost; priced++; } }
+  const rows = Object.values(by).sort((a, b) => b.vol - a.vol);
+  return { rows, vol: vt, buy: bt, cost, priced, waste, parts: parts.length, pieces: parts.reduce((n, it) => n + (it.qty || 0), 0) };
+}
+
+/* ================= layout: first-fit decreasing by length, one lane per board, two lanes when the part is narrow ================= */
+function layout(p) {
+  const kerf = S.kerf || 0, same = (a, b) => Math.abs(a - b) < .01;
+  const parts = []; // every piece on its own
+  for (const it of partsOf(p.id)) { if (!(it.w > 0 && it.l > 0)) continue; for (let i = 0; i < Math.min(it.qty || 0, 500); i++) parts.push({ id: it.id, name: it.name, w: it.w, l: it.l, t: tNom(it), species: it.species, i }); }
+  parts.sort((a, b) => b.l - a.l || b.w - a.w);
+  const boards = []; // every stock board on its own, those marked for layout
+  for (const st of stockAll()) { if (st.use === false || !(st.w > 0 && st.l > 0)) continue; for (let i = 0; i < Math.min(st.qty || 0, 200); i++) boards.push({ id: st.id, species: st.species, t: tNom(st), w: st.w, l: st.l, i, lanes: [], note: st.note }); }
+  boards.sort((a, b) => a.l - b.l || a.w - b.w); // first fit: the smallest board a part fits in gets tried first
+  const laneFits = (ln, pt) => (ln.used ? ln.used + kerf : 0) + pt.l <= ln.l + 1e-9;
+  const unplaced = [];
+  for (const pt of parts) {
+    let done = false;
+    for (const bd of boards) {
+      if (bd.species !== pt.species || !same(bd.t, pt.t) || pt.w > bd.w + 1e-9) continue;
+      // a lane is a strip along the board; the first lane is as wide as the widest part in it, and a second fits beside it when there's room
+      let ln = bd.lanes.find(x => x.w >= pt.w - 1e-9 && laneFits(x, pt));
+      if (!ln) {
+        const usedW = bd.lanes.reduce((s, x) => s + x.w + kerf, 0);
+        if (!bd.lanes.length || (pt.w + usedW <= bd.w + 1e-9 && bd.lanes.length < 2 && pt.w <= bd.w / 2)) { ln = { w: pt.w, l: bd.l, used: 0, cuts: [] }; bd.lanes.push(ln); }
+        else { const wide = bd.lanes[0]; if (bd.lanes.length === 1 && pt.w <= bd.w + 1e-9 && laneFits(wide, pt)) { wide.w = Math.max(wide.w, pt.w); ln = wide; } }
+      }
+      if (!ln) continue;
+      const y0 = ln.used ? ln.used + kerf : 0; ln.cuts.push({ pt, y: y0 }); ln.used = y0 + pt.l; done = true; break;
+    }
+    if (!done) unplaced.push(pt);
+  }
+  const used = boards.filter(b => b.lanes.length);
+  for (const bd of used) { bd.area = bd.w * bd.l; bd.cut = bd.lanes.reduce((s, ln) => s + ln.cuts.reduce((t, c) => t + c.pt.w * c.pt.l, 0), 0); bd.left = bd.l - Math.max(...bd.lanes.map(l => l.used)); }
+  const area = used.reduce((s, b) => s + b.area, 0), cut = used.reduce((s, b) => s + b.cut, 0);
+  // what's still unplaced, grouped by species and thickness: the shopping list
+  const need = {};
+  for (const pt of unplaced) { const k = pt.species + '|' + pt.t; const n = need[k] || (need[k] = { species: pt.species, t: pt.t, n: 0, vol: 0, maxL: 0, maxW: 0 }); n.n++; n.vol += vol(pt.t, pt.w, pt.l); n.maxL = Math.max(n.maxL, pt.l); n.maxW = Math.max(n.maxW, pt.w); }
+  const waste = p.waste != null ? p.waste : S.waste;
+  for (const n of Object.values(need)) { n.buy = n.vol * (1 + waste); const pr = +(p.prices || {})[n.species]; n.cost = pr ? n.buy * pr : null; }
+  return { boards: used, unplaced, need: Object.values(need).sort((a, b) => b.vol - a.vol), parts: parts.length, placed: parts.length - unplaced.length, yieldPct: area ? cut / area * 100 : 0, kerf, stockBoards: boards.length };
+}
+function offcuts(L) { // the usable leftover from each board, as new stock: the end of the board, and a lane that ended early
+  const out = [], min = isMM() ? 150 / 25.4 : 6;
+  for (const bd of L.boards) {
+    if (bd.left >= min) out.push({ species: bd.species, t: bd.t, w: bd.w, l: bd.left });
+    const far = Math.max(...bd.lanes.map(l => l.used));
+    for (const ln of bd.lanes) if (far - ln.used >= min && bd.lanes.length > 1) out.push({ species: bd.species, t: bd.t, w: ln.w, l: far - ln.used });
+  }
+  return out;
+}
+const drawW = () => Math.max(260, innerWidth > 760 ? Math.min(1040, innerWidth - 40) : innerWidth - 32);
+function boardSVG(bd, k) {
+  const W = drawW(), sx = W / bd.l, kerf = S.kerf || 0;
+  const hh = Math.round(Math.max(64, Math.min(170, bd.w * sx))), sy = hh / bd.w; // to scale along the length; stretched across so it reads on a phone
+  const hz = (x, y, w, h) => w > 1 && h > 1 ? `<rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${w.toFixed(1)}" height="${h.toFixed(1)}" fill="url(#hz${k})"/>` : '';
+  let body = `<rect class="bd" x=".5" y=".5" width="${W - 1}" height="${hh - 1}" rx="3"/>`, y = 0;
+  bd.lanes.forEach((ln, li) => {
+    const lh = ln.w * sy;
+    for (const c of ln.cuts) {
+      const px = c.y * sx, pw = c.pt.l * sx, ph = c.pt.w * sy;
+      body += `<rect class="pt${partOwner(c.pt.id) === 'a' ? ' a' : ''}" x="${(px + .8).toFixed(1)}" y="${(y + .8).toFixed(1)}" width="${Math.max(1, pw - 1.6).toFixed(1)}" height="${Math.max(1, ph - 1.6).toFixed(1)}" rx="2"/>`;
+      if (pw > 40 && ph > 14) body += `<text class="lb" x="${(px + 5).toFixed(1)}" y="${(y + Math.min(ph / 2 + 4, 14)).toFixed(1)}">${esc(c.pt.name.slice(0, Math.max(3, Math.floor((pw - 8) / 6.6))))}</text>`;
+      if (pw > 64 && ph > 28) body += `<text class="lb2" x="${(px + 5).toFixed(1)}" y="${(y + Math.min(ph - 5, 27)).toFixed(1)}">${esc(fmtLen(c.pt.w))} × ${esc(fmtLen(c.pt.l))}</text>`;
+    }
+    body += hz((ln.used ? ln.used + kerf : 0) * sx, y + 1, (bd.l - ln.used - (ln.used ? kerf : 0)) * sx - 1, lh - 1);
+    y += lh;
+    if (li === 0 && bd.lanes.length > 1 && y < hh) body += `<line x1="0" y1="${y.toFixed(1)}" x2="${W}" y2="${y.toFixed(1)}" stroke="var(--ink3)" stroke-dasharray="4 4" stroke-width="1"/>`;
+    y += kerf * sy;
+  });
+  if (hh - y > 2) body += hz(1, y, W - 2, hh - y - 1);
+  return `<svg viewBox="0 0 ${W} ${hh}" role="img" aria-label="${esc(bd.species)} board, ${esc(len(bd.w))} by ${esc(len(bd.l))}"><defs><pattern id="hz${k}" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="8" stroke="var(--wood2)" stroke-width="1.2" stroke-opacity=".55"/></pattern></defs>${body}</svg>`;
+}
+const partOwner = id => (S.items[id] || {}).by || S.me;
+function shoppingText(p, L) {
+  const lines = [`Shopping list: ${p.name}`, ''];
+  if (!L.need.length) lines.push(L.parts ? 'Everything fits on the boards in the shop.' : 'No parts yet.');
+  for (const n of L.need) lines.push(`${n.species}, ${fmtT(n.t)}: ${n.n} piece${n.n > 1 ? 's' : ''}, ${fmtVol(n.vol)} (${fmtVol(n.buy)} with ${Math.round((p.waste != null ? p.waste : S.waste) * 100)}% waste), longest ${len(n.maxL)}, widest ${len(n.maxW)}${n.cost != null ? ', about ' + money(n.cost) : ''}`);
+  const cost = L.need.reduce((s, n) => s + (n.cost || 0), 0);
+  if (cost) lines.push('', `About ${money(cost)} at your prices.`);
+  return lines.join('\n');
+}
+function csvOf(p) {
+  const q = s => '"' + String(s ?? '').replace(/"/g, '""') + '"';
+  const u = unitWord();
+  const rows = [['Part', 'Qty', 'Thickness', `Thickness (${u})`, `Width (${u})`, `Length (${u})`, 'Species', 'Grain', isMM() ? 'm3' : 'Board feet']];
+  for (const it of partsOf(p.id)) rows.push([it.name, it.qty, qName(tNom(it)) || '', fmtLen(it.ta || tNom(it)), fmtLen(it.w), fmtLen(it.l), it.species, it.grain || '', n2(vol(tNom(it), it.w, it.l, it.qty), 3)]);
+  return rows.map(r => r.map(q).join(',')).join('\r\n');
+}
+function printPage(p) {
+  const T = totals(p), L = layout(p);
+  const html = `<!doctype html><html><head><meta charset="utf-8"><title>${esc(p.name)} · cut list</title><style>body{font:14px/1.45 -apple-system,'Segoe UI',Roboto,sans-serif;color:#222;margin:28px;max-width:860px}h1{font:400 34px Georgia,serif;margin:0}h2{font:400 22px Georgia,serif;margin:26px 0 8px}table{border-collapse:collapse;width:100%}th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #ccc;vertical-align:top}th{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:#666}td.r,th.r{text-align:right}.m{color:#666;margin:4px 0 0}input{vertical-align:middle}@media print{button{display:none}}</style></head><body>
+  <h1>${esc(p.name)}</h1><p class="m">${T.pieces} pieces, ${fmtVol(T.vol)} in the list, ${fmtVol(T.buy)} to buy with ${Math.round(T.waste * 100)}% waste${T.cost ? ', about ' + money(T.cost) : ''}. Kerf ${len(S.kerf)}. Printed ${new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}${myName() !== 'You' ? ' by ' + esc(myName()) : ''}.</p>
+  <h2>Parts</h2><table><tr><th></th><th>Part</th><th class="r">Qty</th><th>Thick</th><th class="r">Wide</th><th class="r">Long</th><th>Species</th><th>Grain</th><th class="r">${isMM() ? 'm³' : 'Bd ft'}</th></tr>
+  ${partsOf(p.id).map(it => `<tr><td><input type="checkbox"></td><td>${esc(it.name)}</td><td class="r">${it.qty}</td><td>${esc(fmtT(tNom(it)))}${it.ta ? ' (' + esc(fmtLen(it.ta)) + ')' : ''}</td><td class="r">${esc(fmtLen(it.w))}</td><td class="r">${esc(fmtLen(it.l))}</td><td>${esc(it.species)}</td><td>${esc(it.grain || '')}</td><td class="r">${n2(vol(tNom(it), it.w, it.l, it.qty), 2)}</td></tr>`).join('')}</table>
+  <h2>By species</h2><table><tr><th>Species</th><th class="r">Pieces</th><th class="r">${isMM() ? 'm³' : 'Bd ft'}</th><th class="r">With waste</th><th class="r">Cost</th></tr>${T.rows.map(r => `<tr><td>${esc(r.species)}</td><td class="r">${r.qty}</td><td class="r">${n2(r.vol, 2)}</td><td class="r">${n2(r.buy, 2)}</td><td class="r">${r.cost != null ? money(r.cost) : ''}</td></tr>`).join('')}</table>
+  ${L.boards.length ? `<h2>Layout</h2>${L.boards.map((bd, k) => `<p class="m"><b>${esc(bd.species)} ${esc(fmtT(bd.t))}</b>, ${esc(fmtLen(bd.w))} × ${esc(len(bd.l))}: ${bd.lanes.map(ln => ln.cuts.map(c => c.pt.name).join(', ')).join(' | ')}; ${esc(len(bd.left))} left</p>`).join('')}` : ''}
+  ${L.need.length ? `<h2>To buy</h2><pre style="white-space:pre-wrap;font:inherit">${esc(shoppingText(p, L).split('\n').slice(2).join('\n'))}</pre>` : ''}
+  <p><button onclick="print()">Print</button></p></body></html>`;
+  const w = window.open('', '_blank');
+  if (!w) { download(`cutlist-${p.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}.html`, html, 'text/html'); toast('Saved the printable page as a file (pop-ups are blocked here).'); return; }
+  w.document.open(); w.document.write(html); w.document.close();
+}
+
+/* ================= rendering ================= */
+let route = { v: 'projects', id: '', tab: 'parts' };
+function readRoute() {
+  const h = location.hash.replace(/^#\/?/, '').split('/');
+  if (h[0] === 'shop') route = { v: 'shop', id: '', tab: '' };
+  else if (h[0] === 'p' && h[1] && S && S.projects[h[1]] && !S.projects[h[1]].del) route = { v: 'project', id: h[1], tab: ['parts', 'layout', 'buy'].includes(h[2]) ? h[2] : 'parts' };
+  else route = { v: 'projects', id: '', tab: '' };
+  if (route.v === 'project' && S && S.cur !== route.id) { S.cur = route.id; save(); }
+}
+const go = h => { location.hash = h; };
+function render(keep) {
+  if (!S || !S.started) return renderLanding();
+  readRoute();
+  $('#pairBtn').hidden = false; $('#shareBtn').hidden = false;
+  const nav = `<nav class="nav in" aria-label="Sections"><a href="#/" ${route.v !== 'shop' ? 'aria-current="page"' : ''}>Projects</a><a href="#/shop" ${route.v === 'shop' ? 'aria-current="page"' : ''}>Shop inventory${live('stock').length ? ' · ' + live('stock').length : ''}</a></nav>`;
+  const y = keep ? scrollY : 0, ae = document.activeElement, aid = ae && ae.id;
+  $('#main').innerHTML = nav + (route.v === 'shop' ? shopHTML() : route.v === 'project' ? projectHTML(S.projects[route.id]) : projectsHTML());
+  paintPresence();
+  if (keep) { scrollTo(0, y); if (aid) { const el = $('#' + CSS.escape(aid)); if (el && el !== document.activeElement) el.focus({ preventScroll: true }); } } else scrollTo(0, 0);
+}
+function renderLanding() {
+  $('#pairBtn').hidden = true; $('#shareBtn').hidden = true;
+  const join = pairLink;
+  $('#main').innerHTML = `<section class="in land">
+    <p class="eyebrow">Create · Hobby · Free</p>
+    <h1>Measure twice. <em>Buy once.</em></h1>
+    <p class="lede">A cut list for each project, board feet and cost with your waste factor, a layout that packs the parts onto the boards you already have, and the shop's inventory of boards and offcuts. Share it with a shop partner by code; it syncs phone to phone. No app, no account, no server.</p>
+    <form id="startForm" class="stack">
+      <div class="fld"><label for="sn">Your name</label><input id="sn" name="me" required maxlength="30" autocomplete="given-name" placeholder="Brad"></div>
+      ${join ? `<div class="fld"><label for="sc">${join.from ? `Join ${esc(join.from)}’s shop. Their code` : 'Your partner’s code'}</label><input id="sc" name="code" value="${esc(fmtCode(join.code))}" maxlength="7" autocapitalize="characters" autocomplete="off" style="text-transform:uppercase;letter-spacing:.1em"></div>` : ''}
+      <div class="g3">
+        <div class="fld"><label for="su">Units</label><select id="su" name="units"><option value="in">Inches (3/4, 1-1/2)</option><option value="mm">Millimeters</option></select></div>
+        <div class="fld"><label for="sk">Saw kerf</label><input id="sk" name="kerf" value="1/8" inputmode="decimal"></div>
+        <div class="fld"><label for="sw">Waste factor</label><input id="sw" name="waste" value="20" inputmode="numeric"></div>
+      </div>
+      <p class="hint" style="margin:0">Kerf is what the blade eats between cuts: 1/8" for a table saw, 3 mm in metric. Waste covers defects, end checks and the piece you cut short.</p>
+      <div class="row"><button class="btn p" type="submit" style="height:46px">${join ? 'Join the shop' : 'Start the shop'}</button>${join ? '<button class="lk" type="button" data-unjoin>Start my own instead</button>' : ''}</div>
+      <p class="status bad" id="startMsg"></p>
+    </form></section>`;
+  const sk = $('#sk'), su = $('#su'); su.addEventListener('change', () => { sk.value = su.value === 'mm' ? '3' : '1/8'; });
+}
+const by = it => it.by ? `<span class="by ${it.by}" title="${esc(nameOf(it.by))}">${esc((nameOf(it.by)[0] || '?').toUpperCase())}</span>` : '';
+function projectsHTML() {
+  const ps = liveProjects(), hob = hobtRows().length;
+  return `<section class="in"><div class="ph"><h1>Projects</h1><div class="row"><button class="btn p" type="button" data-newproj>${IC.plus}New project</button></div></div>
+    ${ps.length ? `<div class="grid">${ps.map(p => { const T = totals(p); return `<button class="card lk2" type="button" data-openp="${esc(p.id)}"><h3>${esc(p.name)}</h3><p class="m">${T.parts ? `${T.pieces} piece${T.pieces === 1 ? '' : 's'} · ${fmtVol(T.vol)}${T.cost ? ' · about ' + money(T.cost) : ''}` : 'No parts yet'}</p>${p.by && p.by !== S.me ? `<p class="m">${by(p)} ${esc(nameOf(p.by))}’s</p>` : ''}</button>`; }).join('')}</div>`
+    : `<div class="empty"><h2>Start with a project</h2><p>A project is a cut list: every part with its thickness, width, length and species. Cutlist adds up the board feet and the cost, then lays the parts out on the boards in your shop so you know exactly what to buy.</p><div class="row"><button class="btn p" type="button" data-newproj>${IC.plus}New project</button><button class="btn" type="button" data-example>Load an example</button></div></div>`}
+    ${hob ? `<p class="hint" style="margin-top:14px">The board-foot calculator on The Watch’s Hobbies desk has ${hob} row${hob > 1 ? 's' : ''}. <button class="lk" type="button" data-hobt>Bring them in as a project</button></p>` : ''}
+  </section>`;
+}
+function projectHTML(p) {
+  const T = totals(p), parts = partsOf(p.id), tab = route.tab;
+  const tabs = `<div class="seg" role="tablist" aria-label="Project views">${[['parts', 'Parts'], ['layout', 'Layout'], ['buy', 'Shopping list']].map(([k, n]) => `<button type="button" role="tab" aria-pressed="${tab === k}" aria-selected="${tab === k}" data-tab="${k}">${n}</button>`).join('')}</div>`;
+  return `<section class="in"><div class="ph"><h1><input class="sr" id="pn-sr" value=""><span id="pname" contenteditable="plaintext-only" spellcheck="false" aria-label="Project name" data-pname>${esc(p.name)}</span></h1><div class="row">${tabs}</div></div>
+    <div class="stats"><div><b>${T.pieces}</b><span>piece${T.pieces === 1 ? '' : 's'}</span></div><div><b>${isMM() ? n2(T.vol, 3) : n2(T.vol, 1)}</b><span>${volWord()} in the list</span></div><div class="g"><b>${isMM() ? n2(T.buy, 3) : n2(T.buy, 1)}</b><span>to buy, with ${Math.round(T.waste * 100)}% waste</span></div>${T.cost ? `<div><b>${money(T.cost)}</b><span>at your prices${T.priced < T.rows.length ? ' (some species unpriced)' : ''}</span></div>` : ''}</div>
+    ${tab === 'parts' ? partsHTML(p, parts, T) : tab === 'layout' ? layoutHTML(p) : buyHTML(p)}
+  </section>`;
+}
+function partsHTML(p, parts, T) {
+  const sp = S.species, u = unitWord();
+  const opt = (v, list) => list.map(x => `<option${x === v ? ' selected' : ''}>${esc(x)}</option>`).join('') + (v && !list.includes(v) ? `<option selected>${esc(v)}</option>` : '');
+  const tOpt = it => QUARTERS.map(([n, v]) => `<option value="${v}"${Math.abs(tNom(it) - v) < .01 ? ' selected' : ''}>${isMM() ? n + ' · ' + Math.round(v * 25.4) + ' mm' : n}</option>`).join('') + (!qName(tNom(it)) ? `<option value="${tNom(it)}" selected>${esc(fmtLen(tNom(it)))} ${u}</option>` : '');
+  const rows = parts.map((it, i) => { const bad = !(it.w > 0 && it.l > 0); return `<tr data-id="${esc(it.id)}"${bad ? ' class="bad"' : ''}>
+    <td class="c-i">${i + 1}</td>
+    <td class="c-name" data-l="Part"><input value="${esc(it.name)}" data-f="name" data-id="${esc(it.id)}" maxlength="60" aria-label="Part name" placeholder="Part"></td>
+    <td class="c-q" data-l="Qty"><input class="n" value="${esc(it.qty)}" data-f="qty" data-id="${esc(it.id)}" inputmode="numeric" aria-label="Quantity"></td>
+    <td class="c-t" data-l="Thick"><select data-f="t" data-id="${esc(it.id)}" aria-label="Thickness">${tOpt(it)}</select></td>
+    <td class="c-w" data-l="Wide (${u})"><input class="n" value="${esc(fmtLen(it.w))}" data-f="w" data-id="${esc(it.id)}" inputmode="decimal" aria-label="Width"></td>
+    <td class="c-l" data-l="Long (${u})"><input class="n" value="${esc(fmtLen(it.l))}" data-f="l" data-id="${esc(it.id)}" inputmode="decimal" aria-label="Length"></td>
+    <td class="c-sp" data-l="Species"><select data-f="species" data-id="${esc(it.id)}" aria-label="Species">${opt(it.species, sp)}</select></td>
+    <td class="c-g" data-l="Grain"><input value="${esc(it.grain || '')}" data-f="grain" data-id="${esc(it.id)}" maxlength="40" aria-label="Grain direction" placeholder="along"></td>
+    <td class="c-bf">${bad ? '<span class="danger">size?</span>' : n2(vol(tNom(it), it.w, it.l, it.qty), 2)}</td>
+    <td class="c-x"><button class="x" type="button" data-delpart="${esc(it.id)}" aria-label="Remove ${esc(it.name)}">×</button></td></tr>`; }).join('');
+  return `${parts.length ? `<div class="tw"><table class="parts"><thead><tr><th></th><th>Part</th><th>Qty</th><th>Thick</th><th>Wide (${u})</th><th>Long (${u})</th><th>Species</th><th>Grain</th><th style="text-align:right">${isMM() ? 'm³' : 'Bd ft'}</th><th></th></tr></thead><tbody>${rows}</tbody></table></div>`
+    : `<div class="empty"><h2>No parts yet</h2><p>Add the first part: a name, how many, thickness in quarters (8/4 is two inches), width and length in ${isMM() ? 'millimeters' : 'inches, with fractions like 3-1/2'}. Board feet add up as you type.</p><div class="row"><button class="btn p" type="button" data-addpart>${IC.plus}Add a part</button><button class="btn" type="button" data-example="${esc(p.id)}">Fill in a hall table</button></div></div>`}
+    <div class="row" style="margin-top:12px"><button class="btn" type="button" data-addpart>${IC.plus}Add a part</button><span class="sp"></span><button class="btn sm" type="button" data-csv>CSV</button><button class="btn sm" type="button" data-print>Printable list</button><button class="btn sm danger" type="button" data-delproj="${esc(p.id)}">Delete project</button></div>
+    <div class="sec"><h2>By species</h2><p>Waste <input id="pw" value="${Math.round(T.waste * 100)}" inputmode="numeric" data-pwaste style="width:52px;height:30px;border-radius:7px;border:1px solid var(--rule2);background:var(--raise);padding:0 6px;text-align:right">% · price per ${isMM() ? 'm³' : 'board foot'}</p></div>
+    ${T.rows.length ? `<table class="tot"><thead><tr><th>Species</th><th class="r hp">Pieces</th><th class="r">${isMM() ? 'm³' : 'Bd ft'}</th><th class="r">To buy</th><th class="r">Price</th><th class="r">Cost</th></tr></thead><tbody>
+      ${T.rows.map(r => `<tr><td>${esc(r.species)}</td><td class="r hp">${r.qty}</td><td class="r">${n2(r.vol, isMM() ? 4 : 2)}</td><td class="r">${n2(r.buy, isMM() ? 4 : 2)}</td><td class="r"><input value="${r.price != null ? esc(r.price) : ''}" data-price="${esc(r.species)}" inputmode="decimal" placeholder="$" aria-label="Price for ${esc(r.species)}"></td><td class="r">${r.cost != null ? money(r.cost) : '<span style="color:var(--ink3)">—</span>'}</td></tr>`).join('')}</tbody>
+      <tfoot><tr><td>Total</td><td class="r hp">${T.pieces}</td><td class="r">${n2(T.vol, isMM() ? 4 : 2)}</td><td class="r">${n2(T.buy, isMM() ? 4 : 2)}</td><td></td><td class="r">${T.cost ? money(T.cost) : ''}</td></tr></tfoot></table>` : '<p class="hint">Totals by species appear here.</p>'}`;
+}
+let lastLayout = null;
+function layoutHTML(p) {
+  const L = lastLayout = layout(p), stock = live('stock');
+  if (!L.parts) return `<div class="empty"><h2>Nothing to lay out</h2><p>Add parts with a width and a length first. Then come back and Cutlist packs them onto the boards in your shop.</p><div class="row"><button class="btn p" type="button" data-tab="parts">Parts</button></div></div>`;
+  if (!L.stockBoards) return `<div class="empty"><h2>No boards to cut from</h2><p>Add the boards you have (or the ones you plan to buy) to the shop inventory, with "use in layout" on. Cutlist packs parts onto boards of the same species and thickness, kerf included.</p><div class="row"><button class="btn p" type="button" data-addstock>${IC.plus}Add a board</button>${stock.length ? '<a class="btn" href="#/shop">Shop inventory</a>' : ''}</div></div>`;
+  const oc = offcuts(L);
+  return `<div class="stats" style="border:0;margin:0;padding-top:0"><div><b>${L.boards.length}</b><span>board${L.boards.length === 1 ? '' : 's'} used of ${L.stockBoards}</span></div><div><b>${L.placed} / ${L.parts}</b><span>pieces placed</span></div><div class="g"><b>${Math.round(L.yieldPct)}%</b><span>yield</span></div><div><b>${L.need.length ? fmtVol(L.need.reduce((s, n) => s + n.buy, 0)) : '0'}</b><span>still to buy</span></div></div>
+    <div class="key"><span><i style="background:var(--wood)"></i>Board</span><span><i style="background:var(--raise);border:1.2px solid var(--b)"></i>Part</span><span><i style="background:repeating-linear-gradient(45deg,var(--wood) 0 3px,var(--wood2) 3px 4px)"></i>Offcut</span><span>Kerf ${esc(len(L.kerf))} between cuts</span></div>
+    <div style="margin-top:14px">${L.boards.map((bd, k) => `<div class="brd"><div class="bl"><span><b>${esc(bd.species)} ${esc(fmtT(bd.t))}</b> · ${esc(fmtLen(bd.w))} × ${esc(len(bd.l))}${bd.note ? ' · ' + esc(bd.note) : ''}</span><span>${bd.lanes.reduce((n, l) => n + l.cuts.length, 0)} piece${bd.lanes.reduce((n, l) => n + l.cuts.length, 0) === 1 ? '' : 's'} · ${esc(len(bd.left))} left at the end</span></div>${boardSVG(bd, k)}</div>`).join('')}</div>
+    ${L.unplaced.length ? `<div class="box"><h3>${L.unplaced.length} piece${L.unplaced.length === 1 ? '' : 's'} didn’t fit</h3><p>${esc([...new Set(L.unplaced.map(x => x.name))].slice(0, 8).join(', '))}${new Set(L.unplaced.map(x => x.name)).size > 8 ? '…' : ''}. The shopping list says what to buy.</p><div class="row" style="margin-top:8px"><button class="btn sm p" type="button" data-tab="buy">Shopping list</button></div></div>` : '<div class="box"><h3>Everything fits</h3><p>Every piece has a place on a board in the shop. Nothing to buy for this project.</p></div>'}
+    <div class="row"><button class="btn" type="button" data-addstock>${IC.plus}Add a board</button>${oc.length ? `<button class="btn" type="button" data-offcuts>Add ${oc.length} offcut${oc.length === 1 ? '' : 's'} to the shop</button>` : ''}<a class="btn" href="#/shop">Shop inventory</a></div>
+    <p class="hint">First fit, decreasing: longest parts first, each onto the smallest board of the same species and thickness that has room, with a kerf between cuts. A narrow part can share a board side by side with another. Boards marked "use in layout" in the shop are the stock. Boards are drawn to scale along their length; offcuts ${isMM() ? '150 mm' : 'six inches'} and longer can go back to the shop in one tap.</p>`;
+}
+function buyHTML(p) {
+  const L = lastLayout = layout(p), T = totals(p);
+  if (!L.parts) return `<div class="empty"><h2>Nothing to buy yet</h2><p>Add parts first. The shopping list is whatever the layout couldn’t place on the boards in the shop, grouped by species and thickness.</p><div class="row"><button class="btn p" type="button" data-tab="parts">Parts</button></div></div>`;
+  const cost = L.need.reduce((s, n) => s + (n.cost || 0), 0);
+  return `${L.need.length ? `<table class="tot"><thead><tr><th>Species</th><th>Thick</th><th class="r hp">Pieces</th><th class="r">${isMM() ? 'm³' : 'Bd ft'}</th><th class="r">With waste</th><th class="r hp">Longest</th><th class="r">Cost</th></tr></thead><tbody>
+    ${L.need.map(n => `<tr><td>${esc(n.species)}</td><td>${esc(fmtT(n.t))}</td><td class="r hp">${n.n}</td><td class="r">${n2(n.vol, isMM() ? 4 : 2)}</td><td class="r">${n2(n.buy, isMM() ? 4 : 2)}</td><td class="r hp">${esc(fmtLen(n.maxL))}</td><td class="r">${n.cost != null ? money(n.cost) : '<span style="color:var(--ink3)">—</span>'}</td></tr>`).join('')}</tbody>
+    <tfoot><tr><td colspan="2">Total, with ${Math.round(T.waste * 100)}% waste</td><td class="r hp"></td><td></td><td class="r">${n2(L.need.reduce((s, n) => s + n.buy, 0), isMM() ? 4 : 2)}</td><td class="hp"></td><td class="r">${cost ? money(cost) : ''}</td></tr></tfoot></table>
+    <p class="hint">${L.stockBoards ? `${L.placed} of ${L.parts} pieces come out of the shop’s boards; this is the rest.` : 'The shop has no boards marked for layout, so this is the whole list.'} Buy boards at least as long as the longest piece. ${cost ? '' : 'Add prices per species on the Parts tab for a cost.'}</p>`
+    : `<div class="box"><h3>Nothing to buy</h3><p>Every piece fits on the boards in the shop.</p></div>`}
+    <div class="row" style="margin-top:12px"><button class="btn p" type="button" data-copybuy>Copy as text</button><button class="btn" type="button" data-tab="layout">Layout</button></div>`;
+}
+function shopHTML() {
+  const st = stockAll();
+  const vt = st.reduce((s, it) => s + vol(tNom(it), it.w, it.l, it.qty), 0), paid = st.reduce((s, it) => s + (it.price || 0), 0);
+  return `<section class="in"><div class="ph"><h1>Shop inventory</h1><div class="row"><button class="btn p" type="button" data-addstock>${IC.plus}Add a board</button></div></div>
+    ${st.length ? `<div class="stats"><div><b>${st.reduce((n, it) => n + (it.qty || 0), 0)}</b><span>boards and offcuts</span></div><div><b>${isMM() ? n2(vt, 3) : n2(vt, 1)}</b><span>${volWord()}</span></div>${paid ? `<div><b>${money(paid)}</b><span>paid</span></div>` : ''}<div><b>${st.filter(it => it.use !== false).length}</b><span>in the layout</span></div></div>
+    <div class="list">${st.map(it => `<div class="card stk" data-id="${esc(it.id)}"><div class="t"><b>${esc(it.species)} ${esc(fmtT(tNom(it)))}</b>, ${esc(fmtLen(it.w))} × ${esc(len(it.l))}${it.qty > 1 ? ` × ${it.qty}` : ''}<small>${fmtVol(vol(tNom(it), it.w, it.l, it.qty))}${it.price ? ' · ' + money(it.price) : ''}${it.note ? ' · ' + esc(it.note) : ''}${it.by && it.by !== S.me ? ' · ' + esc(first(it.by)) : ''}</small></div>
+      <button class="sw" type="button" data-use="${esc(it.id)}" aria-pressed="${it.use !== false}">${it.use !== false ? 'In the layout' : 'Not in layout'}</button><button class="btn sm" type="button" data-editstock="${esc(it.id)}">Edit</button><button class="x" type="button" data-delstock="${esc(it.id)}" aria-label="Remove">×</button></div>`).join('')}</div>`
+    : `<div class="empty"><h2>The shop is empty</h2><p>Add the boards on your rack and the offcuts in the bin: species, thickness, width, length, how many, what you paid. Each project’s layout draws from whatever is marked "use in layout", and whatever doesn’t fit goes on the shopping list.</p><div class="row"><button class="btn p" type="button" data-addstock>${IC.plus}Add a board</button><button class="btn" type="button" data-exstock>Load a few example boards</button></div></div>`}
+  </section>`;
+}
+function paintPresence() {
+  const b = $('#pairBtn'); if (!b || !S) return;
+  let cls = 'off', txt = 'Solo';
+  if (isOn()) { cls = 'on'; txt = innerWidth < 761 ? first(other()) : `${first(other())} is here`; }
+  else if (S.partner || S.pending) { if (net === 'dialing' || net === 'starting') { cls = 'wait'; txt = 'Connecting…'; } else if (net === 'offline' || net === 'nolib' || net === 'error') { cls = 'off'; txt = 'Sync off'; } else if (net === 'elsewhere') { cls = 'wait'; txt = 'Other tab'; } else { cls = 'away'; txt = `${first(other())} is away`; } }
+  else if (net === 'nolib' || net === 'offline' || net === 'error') { txt = 'Sync off'; }
+  b.className = 'pill ' + cls; b.querySelector('span').textContent = txt;
+  b.setAttribute('aria-label', isOn() ? `${theirName()} is connected. Open share settings.` : 'Share with a shop partner');
+}
+
+/* ================= sheets ================= */
+let sheetKind = '', sheetId = '', lastFocus = null;
+function openSheet(kind, html) {
+  sheetKind = kind; lastFocus = document.activeElement;
+  const sh = $('#sheet'); sh.innerHTML = html; sh.scrollTop = 0;
+  $('#scrim').classList.add('on'); sh.classList.add('on'); document.body.style.overflow = 'hidden';
+  setTimeout(() => { const f = sh.querySelector('[autofocus]') || sh; f.focus({ preventScroll: true }); }, 60);
+}
+function closeSheet() {
+  if (!sheetKind) return;
+  if (sheetKind === 'ask' && pendingAsk) { try { pendingAsk.c.close(); } catch (e) {} pendingAsk = null; }
+  sheetKind = ''; sheetId = '';
+  $('#scrim').classList.remove('on'); $('#sheet').classList.remove('on'); document.body.style.overflow = '';
+  if (lastFocus && lastFocus.focus) lastFocus.focus({ preventScroll: true });
+}
+const head = t => `<div class="shh"><h2 id="shT">${t}</h2><button class="ic" type="button" data-close aria-label="Close">${IC.x}</button></div>`;
+function openPair() {
+  const link = APP + '?join=' + S.dev, on = isOn();
+  openSheet('pair', head(on ? `Connected with ${esc(theirName())}` : 'Share with a shop partner') + `<div class="shb">
+    ${on ? `<div class="box"><h3>Live</h3><p>Every part, board and price you change shows up on ${esc(theirName())}’s device as it happens, and theirs on yours.</p></div>` : ''}
+    <div class="box"><h3>Your code</h3><p>${S.partner ? `${esc(theirName())}’s device knows this code and reconnects by itself whenever you both have Cutlist open.` : 'On your partner’s phone: scan this, open the link, or type the code. Their projects and shop and yours become one.'}</p>
+      <p class="code">${esc(fmtCode(S.dev))}</p><div class="qr" id="qr" aria-label="QR code of your Cutlist link"></div>
+      <div class="row" style="justify-content:center"><button class="btn sm p" type="button" data-copycode>Copy code</button><button class="btn sm" type="button" data-copylink>Copy link</button>${navigator.share ? '<button class="btn sm" type="button" data-sharelink>Send…</button>' : ''}</div>
+      <p class="status" id="pairStatus" aria-live="polite" style="text-align:center"></p></div>
+    <div class="box"><h3>${S.partner ? 'Connect a different device' : 'Or enter your partner’s code'}</h3><p>If they started on their phone first.</p>
+      <div class="srch" style="margin-top:10px"><label class="sr" for="pcode">Partner’s code</label><input id="pcode" placeholder="ABC-234" autocapitalize="characters" autocomplete="off" maxlength="7" style="text-transform:uppercase;letter-spacing:.12em"><button class="btn p" type="button" data-dial>Connect</button></div></div>
+    ${net === 'nolib' || net === 'offline' ? `<p class="hint">${esc(netMsg)}</p>` : ''}
+    ${S.partner ? `<p class="hint">Paired with device ${esc(fmtCode(S.partner.code))}${S.names[other()] ? ` (${esc(S.names[other()])})` : ''}. <button class="lk" type="button" data-forget>Forget partner</button></p>` : ''}
+  </div>`);
+  paintPairStatus();
+  const draw = () => { const q = $('#qr'); if (!q) return; if (window.qrcode) { try { const qr = window.qrcode(0, 'M'); qr.addData(link); qr.make(); q.innerHTML = qr.createSvgTag({ cellSize: 4, margin: 0, scalable: true }); } catch (e) { q.hidden = true; } } else { q.className = ''; q.innerHTML = '<p class="hint" style="text-align:center">No QR here (the code library didn’t load). Copy the code or the link instead.</p>'; } };
+  if (window.qrcode) draw(); else setTimeout(draw, 900);
+  const pc = $('#pcode');
+  pc.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); dialCode(pc.value); } });
+  pc.addEventListener('input', () => { const c = cleanCode(pc.value).slice(0, 6); const v = c.length > 3 ? c.slice(0, 3) + '-' + c.slice(3) : c; if (pc.value !== v) pc.value = v; });
+}
+function paintPairStatus() {
+  const st = $('#pairStatus'); if (!st) return;
+  const on = isOn();
+  st.className = 'status' + (on ? ' ok' : netMsg && net !== 'dialing' ? ' bad' : '');
+  st.textContent = on ? `Connected with ${theirName()}.` : netMsg || (S.pending ? `Connecting to ${fmtCode(S.pending)}…` : net === 'dialing' || net === 'starting' ? 'Connecting…' : net === 'ready' ? 'Listening for your partner.' : '');
+}
+function openMenu() {
+  openSheet('menu', head('Cutlist') + `<div class="shb"><nav class="menu-l">
+    <button type="button" data-pair>Share with a shop partner<small>Your code and QR, or enter theirs</small></button>
+    <button type="button" data-settings>Settings<small>${esc(myName())} · ${isMM() ? 'millimeters' : 'inches'} · kerf ${esc(len(S.kerf))} · ${S.species.length} species</small></button>
+    <button type="button" data-backup>Backup<small>Download a file, restore one, or copy everything as a link</small></button>
+    <button type="button" data-theme>Appearance<small>${({ light: 'Light', dark: 'Dark' })[LS.get(THEME, '')] || 'Matches your device'}</small></button>
+    <button type="button" data-saveapp>Save Cutlist as a file<small>One HTML file that opens anywhere, even offline</small></button>
+    <button type="button" data-reset class="danger">Clear this device<small>Erases every project and the shop here. ${S.partner ? esc(theirName()) + '’s copy stays.' : 'Download a backup first.'}</small></button>
+  </nav></div>`);
+}
+function openSettings() {
+  openSheet('settings', head('Settings') + `<div class="shb"><form id="setForm" class="stack">
+    <div class="g2"><div class="fld"><label for="s-a">${S.me === 'a' ? 'You' : 'Partner'}</label><input id="s-a" name="na" value="${esc(S.names.a)}" maxlength="30"></div><div class="fld"><label for="s-b">${S.me === 'b' ? 'You' : 'Partner'}</label><input id="s-b" name="nb" value="${esc(S.names.b)}" maxlength="30"></div></div>
+    <div class="g2"><div class="fld"><label for="s-u">Units</label><select id="s-u" name="units"><option value="in"${!isMM() ? ' selected' : ''}>Inches (fractions)</option><option value="mm"${isMM() ? ' selected' : ''}>Millimeters</option></select></div>
+      <div class="fld"><label for="s-k">Saw kerf (${unitWord()})</label><input id="s-k" name="kerf" value="${esc(fmtLen(S.kerf))}" inputmode="decimal"></div></div>
+    <div class="fld"><label for="s-w">Default waste factor for new projects (%)</label><input id="s-w" name="waste" value="${Math.round(S.waste * 100)}" inputmode="numeric"></div>
+    <div class="fld"><label for="s-s">Species, one per line</label><textarea id="s-s" name="species" style="min-height:150px">${esc(S.species.join('\n'))}</textarea></div>
+    <p class="hint">Sizes are kept in inches inside, so switching units converts everything. Settings sync to your partner.</p>
+    <button class="btn p" type="submit" style="height:46px">Save</button></form></div>`);
+}
+async function openBackup() {
+  const json = JSON.stringify(S);
+  openSheet('backup', head('Backup') + `<div class="shb">
+    <div class="box"><h3>Download a backup</h3><p>Every project, part and board, with your settings, as one JSON file.</p><div class="row" style="margin-top:10px"><button class="btn p sm" type="button" data-export>Download create-cutlist-backup.json</button></div></div>
+    <div class="box"><h3>Restore</h3><p>Merges a backup into what’s here: newer edits win, nothing is lost. Choose Replace to start from the file instead.</p><div class="row" style="margin-top:10px"><label class="btn sm" style="cursor:pointer">Merge a backup<input type="file" accept="application/json,.json" data-import="merge" hidden></label><label class="btn sm danger" style="cursor:pointer">Replace with a backup<input type="file" accept="application/json,.json" data-import="replace" hidden></label></div></div>
+    <div class="box" id="linkBox"><h3>Copy as a link</h3><p>${json.length < 60000 ? 'The whole shop fits in a link. Whoever opens it gets a copy merged into theirs.' : 'The shop is too big to fit in a link; use the file.'}</p><div class="row" style="margin-top:10px" id="linkRow"></div></div>
+    ${route.v === 'project' ? `<div class="box"><h3>This project</h3><p>${esc(S.projects[route.id].name)} as a spreadsheet or a printable cut list.</p><div class="row" style="margin-top:10px"><button class="btn sm" type="button" data-csv>CSV</button><button class="btn sm" type="button" data-print>Printable page</button></div></div>` : ''}
+  </div>`);
+  if (json.length < 60000) { try { const p = await packLink(); const r = $('#linkRow'); if (r) r.innerHTML = p.length < 8200 ? `<button class="btn sm p" type="button" data-copyback="${esc(p)}">Copy the link</button><span class="hint" style="margin:0">${Math.round(p.length / 1024 * 10) / 10} KB</span>` : '<span class="hint" style="margin:0">Too big for a link once packed; use the file.</span>'; } catch (e) {} }
+}
+function openStock(id) {
+  const it = id ? S.items[id] : null, u = unitWord();
+  sheetId = id || '';
+  openSheet('stock', head(it ? 'Edit board' : 'Add a board') + `<div class="shb"><form id="stockForm" class="stack">
+    <div class="g2"><div class="fld"><label for="k-s">Species</label><select id="k-s" name="species">${S.species.map(s => `<option${(it ? it.species : S.species[0]) === s ? ' selected' : ''}>${esc(s)}</option>`).join('')}${it && !S.species.includes(it.species) ? `<option selected>${esc(it.species)}</option>` : ''}</select></div>
+      <div class="fld"><label for="k-t">Thickness</label><select id="k-t" name="t">${QUARTERS.map(([n, v]) => `<option value="${v}"${Math.abs((it ? tNom(it) : 1) - v) < .01 ? ' selected' : ''}>${n}${isMM() ? ' · ' + Math.round(v * 25.4) + ' mm' : ' · ' + frac(v) + '"'}</option>`).join('')}</select></div></div>
+    <div class="g3"><div class="fld"><label for="k-w">Wide (${u})</label><input id="k-w" name="w" value="${it ? esc(fmtLen(it.w)) : ''}" inputmode="decimal" required placeholder="${isMM() ? '150' : '6'}"></div>
+      <div class="fld"><label for="k-l">Long (${u})</label><input id="k-l" name="l" value="${it ? esc(fmtLen(it.l)) : ''}" inputmode="decimal" required placeholder="${isMM() ? '2400' : '96'}"></div>
+      <div class="fld"><label for="k-q">How many</label><input id="k-q" name="qty" value="${it ? esc(it.qty) : 1}" inputmode="numeric"></div></div>
+    <div class="g2"><div class="fld"><label for="k-p">Price paid (all of them)</label><input id="k-p" name="price" value="${it && it.price != null ? esc(it.price) : ''}" inputmode="decimal" placeholder="$"></div>
+      <div class="fld"><label for="k-n">Note</label><input id="k-n" name="note" value="${it ? esc(it.note || '') : ''}" maxlength="120" placeholder="Offcut, rough sawn, one live edge…"></div></div>
+    <label class="row" style="gap:10px;font-weight:600"><input type="checkbox" name="use" ${!it || it.use !== false ? 'checked' : ''} style="width:20px;height:20px"> Use in layout</label>
+    <p class="status bad" id="stockMsg"></p>
+    <div class="row"><button class="btn p" type="submit" style="height:46px">${it ? 'Save' : 'Add to the shop'}</button>${it ? `<button class="btn danger" type="button" data-delstock="${esc(it.id)}">Remove</button>` : ''}</div></form></div>`);
+}
+
+/* ================= actions ================= */
+let toastT = 0;
+function toast(msg, undo) {
+  const t = $('#toast');
+  t.innerHTML = `<span>${esc(msg)}</span>${undo ? '<button type="button" id="undo">Undo</button>' : ''}`;
+  if (undo) $('#undo').onclick = () => { undo(); t.classList.remove('on'); };
+  t.classList.add('on'); clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('on'), undo ? 6000 : 3000);
+}
+const SAMPLE = [
+  { name: 'Legs', qty: 4, t: 2, w: 2.25, l: 29, species: 'Walnut', grain: 'along' },
+  { name: 'Long aprons', qty: 2, t: 1, w: 3, l: 24, species: 'Walnut', grain: 'along' },
+  { name: 'Short aprons', qty: 2, t: 1, w: 3, l: 12, species: 'Walnut', grain: 'along' },
+  { name: 'Top', qty: 1, t: 1.25, w: 14, l: 48, species: 'Walnut', grain: 'along length' },
+  { name: 'Drawer front', qty: 1, t: 1, w: 3.5, l: 18, species: 'Cherry', grain: 'along' },
+  { name: 'Drawer sides', qty: 2, t: 1, w: 3.5, l: 12, species: 'Poplar', grain: 'along' },
+  { name: 'Drawer bottom', qty: 1, t: 1, w: 11, l: 17, species: 'Plywood', grain: '' },
+  { name: 'Stretchers', qty: 2, t: 1.5, w: 1.5, l: 22, species: 'White oak', grain: 'along' },
+  { name: 'Breadboard ends', qty: 2, t: 1.25, w: 2.5, l: 14, species: 'Walnut', grain: 'across' },
+  { name: 'Corner blocks', qty: 4, t: 1, w: 2, l: 4, species: 'Poplar', grain: '' }
+];
+let sampleI = 0;
+function addPart(pid, f) {
+  const p = S.projects[pid]; if (!p) return null;
+  const it = create(Object.assign({ kind: 'part', project: pid, name: '', qty: 1, t: 1, ta: null, w: 0, l: 0, species: S.species[0] || 'Pine', grain: '', by: S.me, at: Date.now(), del: false }, f || {}));
+  save(); broadcast([it]); return it;
+}
+function loadExample(pid) {
+  const p = pid && S.projects[pid] ? S.projects[pid] : newProject('Hall table');
+  if (!p.prices || !Object.keys(p.prices).length) setF(p, { prices: { Walnut: 14, Cherry: 9, Poplar: 4, 'White oak': 8, Plywood: 2.5 } });
+  const ch = SAMPLE.map((s, i) => create(Object.assign({ kind: 'part', project: p.id, ta: null, by: S.me, at: Date.now() + i, del: false }, s)));
+  save(true); broadcast(ch, [p]); go('#/p/' + p.id); render(true);
+  toast('A hall table, ten parts. Change anything.');
+}
+function loadExampleStock() {
+  const ch = [
+    { species: 'Walnut', t: 2, w: 7, l: 96, qty: 1, price: 180, note: 'Rough sawn' },
+    { species: 'Walnut', t: 1, w: 8, l: 120, qty: 2, price: 220, note: '' },
+    { species: 'Walnut', t: 1.25, w: 9, l: 96, qty: 2, price: 210, note: 'One live edge' },
+    { species: 'Poplar', t: 1, w: 6, l: 96, qty: 1, price: 22, note: '' },
+    { species: 'Cherry', t: 1, w: 5, l: 30, qty: 1, price: null, note: 'Offcut' }
+  ].map((s, i) => create(Object.assign({ kind: 'stock', use: true, by: S.me, at: Date.now() + i, del: false }, s)));
+  save(true); broadcast(ch); render(true); toast('Five boards on the rack. Edit or remove any.');
+}
+function delItem(id, what) {
+  const it = S.items[id]; if (!it) return;
+  setF(it, { del: true }); save(); broadcast([it]); closeSheet(); render(true);
+  toast(`${what} removed`, () => { setF(it, { del: false }); save(); broadcast([it]); render(true); });
+}
+function editPart(id, f, raw) {
+  const it = S.items[id]; if (!it) return;
+  let v = raw;
+  if (f === 'qty') v = Math.max(0, Math.min(999, Math.round(num(raw) || 0)));
+  else if (f === 'w' || f === 'l') { v = parseLen(raw); if (v == null) return; }
+  else if (f === 't') v = +raw || 1;
+  else v = String(raw).slice(0, f === 'name' ? 60 : 40);
+  if (it[f] === v) return;
+  setF(it, { [f]: v }); save(); broadcast([it]);
+  const tr = $(`tr[data-id="${CSS.escape(id)}"]`); if (tr) { const c = tr.querySelector('.c-bf'); const bad = !(it.w > 0 && it.l > 0); tr.classList.toggle('bad', bad); if (c) c.innerHTML = bad ? '<span class="danger">size?</span>' : n2(vol(tNom(it), it.w, it.l, it.qty), 2); }
+  softTotals();
+}
+function softTotals() { // the numbers above and below the table, without rebuilding the inputs being typed in
+  const p = S.projects[route.id]; if (!p) return;
+  const main = $('#main'), st = main && main.querySelector('.stats'), tb = main && main.querySelector('.tot');
+  if (!st) return;
+  const tmp = document.createElement('div'); tmp.innerHTML = projectHTML(p);
+  st.outerHTML = tmp.querySelector('.stats').outerHTML;
+  const nt = tmp.querySelector('.tot'); if (tb && nt) tb.outerHTML = nt.outerHTML; else if (!tb && nt) { const sec = main.querySelector('.sec'); if (sec && sec.nextElementSibling) sec.nextElementSibling.outerHTML = nt.outerHTML; }
+}
+
+/* ================= events ================= */
+document.addEventListener('click', async e => {
+  const a = e.target.closest('button,a,label'); if (!a) return;
+  const d = a.dataset;
+  if (d.close != null) { closeSheet(); return; }
+  if (a.id === 'menuBtn') { openMenu(); return; }
+  if (a.id === 'pairBtn' || a.id === 'shareBtn' || d.pair != null) { openPair(); return; }
+  if (!S || !S.started) { if (d.unjoin != null) { pairLink = null; history.replaceState(null, '', location.pathname + location.search); renderLanding(); } return; }
+  if (d.openp) { go('#/p/' + d.openp); return; }
+  if (d.tab) { go('#/p/' + route.id + '/' + d.tab); return; }
+  if (d.newproj != null) { const name = prompt('Name the project:', ''); if (name == null) return; const p = newProject(name.trim() || 'New project'); save(true); broadcast([], [p]); go('#/p/' + p.id); return; }
+  if (d.example != null) { loadExample(d.example || ''); return; }
+  if (d.exstock != null) { loadExampleStock(); return; }
+  if (d.hobt != null) { const p = newProject('From the Hobbies desk'); save(true); broadcast([], [p]); const n = importHobt(p.id); go('#/p/' + p.id); toast(n ? `${n} row${n > 1 ? 's' : ''} brought in as parts. Name them and pick the species.` : 'Nothing to bring in.'); return; }
+  if (d.addpart != null) { const it = addPart(route.id); render(true); const el = $(`tr[data-id="${CSS.escape(it.id)}"] input`); if (el) el.focus(); return; }
+  if (d.delpart) { delItem(d.delpart, 'Part'); return; }
+  if (d.delproj) { const p = S.projects[d.delproj]; if (!p || !confirm(`Delete “${p.name}” and its parts?`)) return; const parts = partsOf(p.id); setF(p, { del: true }); for (const it of parts) setF(it, { del: true }); save(); broadcast(parts, [p]); go('#/'); toast('Project deleted', () => { setF(p, { del: false }); for (const it of parts) setF(it, { del: false }); save(); broadcast(parts, [p]); render(true); }); return; }
+  if (d.csv != null) { const p = S.projects[route.id]; if (p) download(`cutlist-${p.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}.csv`, '﻿' + csvOf(p), 'text/csv'); return; }
+  if (d.print != null) { const p = S.projects[route.id]; if (p) printPage(p); return; }
+  if (d.copybuy != null) { const p = S.projects[route.id]; if (p) copyText(shoppingText(p, lastLayout || layout(p)), 'Shopping list copied'); return; }
+  if (d.addstock != null) { openStock(''); return; }
+  if (d.editstock) { openStock(d.editstock); return; }
+  if (d.delstock) { delItem(d.delstock, 'Board'); return; }
+  if (d.use) { const it = S.items[d.use]; if (it) { setF(it, { use: it.use === false }); save(); broadcast([it]); render(true); } return; }
+  if (d.offcuts != null) { const p = S.projects[route.id]; if (!p) return; const oc = offcuts(lastLayout || layout(p)); const ch = oc.map((o, i) => create(Object.assign({ kind: 'stock', qty: 1, price: null, use: true, by: S.me, at: Date.now() + i, del: false }, o, { note: `Offcut from ${p.name}` }))); save(); broadcast(ch); toast(`${ch.length} offcut${ch.length === 1 ? '' : 's'} added to the shop`, () => { for (const it of ch) setF(it, { del: true }); save(); broadcast(ch); render(true); }); return; }
+  if (d.dial != null) { dialCode($('#pcode').value); return; }
+  if (d.copycode != null) { copyText(fmtCode(S.dev), 'Code copied'); return; }
+  if (d.copylink != null) { copyText(APP + '?join=' + S.dev, 'Link copied'); return; }
+  if (d.sharelink != null) { try { await navigator.share({ title: 'Cutlist', text: `Join my shop in Cutlist. My code is ${fmtCode(S.dev)}.`, url: APP + '?join=' + S.dev }); } catch (er) {} return; }
+  if (d.forget != null) { S.partner = null; S.pending = null; save(true); for (const c of conns) try { c.close(); } catch (er) {} conns.clear(); setNet(peer ? 'ready' : 'idle'); openPair(); return; }
+  if (d.accept != null) { const p = pendingAsk; pendingAsk = null; if (p) { closeSheet(); acceptHello(p.c, p.d, false); } return; }
+  if (d.reject != null) { closeSheet(); return; }
+  if (d.settings != null) { openSettings(); return; }
+  if (d.backup != null) { openBackup(); return; }
+  if (d.export != null) { download('create-cutlist-backup.json', JSON.stringify(S, null, 2), 'application/json'); toast('Backup downloaded'); return; }
+  if (d.copyback) { copyText(APP + '#b=' + d.copyback, 'Link copied. Whoever opens it gets a copy.'); return; }
+  if (d.theme != null) { const cur = LS.get(THEME, ''); const nx = cur === '' ? 'light' : cur === 'light' ? 'dark' : ''; if (nx) LS.set(THEME, nx); else LS.del(THEME); applyTheme(); openMenu(); return; }
+  if (d.saveapp != null) { try { const r = await fetch(location.href.split(/[?#]/)[0], { cache: 'no-cache' }); download('create-cutlist.html', await r.text(), 'text/html'); } catch (er) { toast('Couldn’t fetch the file here. Use your browser’s Save Page instead.'); } return; }
+  if (d.reset != null) { if (!confirm('Erase every project and the shop on this device?')) return; LS.del(KEY); location.hash = ''; location.reload(); return; }
+});
+document.addEventListener('input', e => {
+  const el = e.target, d = el.dataset; if (!S || !S.started) return;
+  if (d.f && d.id && el.tagName === 'INPUT' && (d.f === 'name' || d.f === 'grain' || d.f === 'qty')) editPart(d.id, d.f, el.value);
+  if (d.price != null) { const p = S.projects[route.id]; if (!p) return; const v = num(el.value); const prices = Object.assign({}, p.prices || {}); if (v) prices[d.price] = v; else delete prices[d.price]; setF(p, { prices }); save(); broadcast([], [p]); const row = el.closest('tr'); if (row) { const T = totals(p), r = T.rows.find(x => x.species === d.price); row.lastElementChild.innerHTML = r && r.cost != null ? money(r.cost) : '<span style="color:var(--ink3)">—</span>'; const ft = $('.tot tfoot td:last-child'); if (ft) ft.textContent = T.cost ? money(T.cost) : ''; const st = $('#main .stats'); if (st) { const tmp = document.createElement('div'); tmp.innerHTML = projectHTML(p); st.outerHTML = tmp.querySelector('.stats').outerHTML; } } }
+  if (d.pwaste != null) { const p = S.projects[route.id]; if (!p) return; const v = Math.max(0, Math.min(200, num(el.value) || 0)) / 100; if (v !== p.waste) { setF(p, { waste: v }); save(); broadcast([], [p]); const tb = $('#main .tot'), st = $('#main .stats'); const tmp = document.createElement('div'); tmp.innerHTML = projectHTML(p); if (st) st.outerHTML = tmp.querySelector('.stats').outerHTML; const nt = tmp.querySelector('.tot'); if (tb && nt) tb.outerHTML = nt.outerHTML; } }
+});
+document.addEventListener('change', e => {
+  const el = e.target, d = el.dataset; if (!S || !S.started) return;
+  if (d.f && d.id) { editPart(d.id, d.f, el.value); if (d.f === 'w' || d.f === 'l') { const it = S.items[d.id]; if (it) el.value = fmtLen(it[d.f]); } }
+  if (el.matches('[data-import]') && el.files[0]) {
+    const mode = d.import, r = new FileReader();
+    r.onload = () => { try { const p = JSON.parse(r.result); if (!p || !p.items) throw 0; if (mode === 'replace' && !confirm('Replace everything on this device with the file?')) return; const n = mergeBackup(p, mode === 'replace'); closeSheet(); render(true); toast(n > 0 ? `${n} records restored` : 'Nothing new in that file'); } catch (er) { toast('That file isn’t a Cutlist backup.'); } };
+    r.readAsText(el.files[0]);
+  }
+});
+document.addEventListener('focusout', e => {
+  const el = e.target; if (!S || !S.started || !el.dataset) return;
+  if (el.dataset.pname != null) { const p = S.projects[route.id]; const v = el.textContent.trim().slice(0, 60); if (p && v && v !== p.name) { setF(p, { name: v }); save(); broadcast([], [p]); } else if (p) el.textContent = p.name; }
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && sheetKind) closeSheet();
+  if (e.key === 'Enter' && e.target.dataset && e.target.dataset.pname != null) { e.preventDefault(); e.target.blur(); }
+  if (e.key === 'Enter' && e.target.matches && e.target.matches('.parts input') && route.tab === 'parts') { // Enter on the last row adds another
+    const tr = e.target.closest('tr'); if (tr && !tr.nextElementSibling && e.target.dataset.f === 'grain') { e.preventDefault(); e.target.blur(); const it = addPart(route.id); render(true); const el = $(`tr[data-id="${CSS.escape(it.id)}"] input`); if (el) el.focus(); }
+  }
+});
+document.addEventListener('submit', e => {
+  e.preventDefault();
+  const f = e.target;
+  if (f.id === 'startForm') {
+    const me = f.me.value.trim(); if (!me) return;
+    const mm = f.units.value === 'mm';
+    S = blankState('a'); S.units = mm ? 'mm' : 'in';
+    const k = parseLen(f.kerf.value); S.kerf = k != null && k > 0 ? k : (mm ? 3 / 25.4 : 0.125);
+    S.waste = Math.max(0, Math.min(200, num(f.waste.value) ?? 20)) / 100;
+    setName('a', me); setMeta({ units: S.units, kerf: S.kerf, waste: S.waste });
+    if (pairLink || (f.code && f.code.value)) { const c = cleanCode(f.code ? f.code.value : pairLink.code); if (!okCode(c)) { $('#startMsg').textContent = 'That code doesn’t look right: six letters and numbers, like ABC-234.'; return; } S.me = 'b'; S.joined = true; S.pending = c; wantCode = c; S.names = { a: pairLink && pairLink.from || '', b: me }; S._t.na = S._t.nb = stamp(); if (pairLink) pairLink = null; history.replaceState(null, '', location.pathname + location.search); }
+    S.started = true; save(true); begin();
+    if (wantCode) { setNet('dialing'); openPair(); }
+  }
+  if (f.id === 'setForm') {
+    const na = f.na.value.trim(), nb = f.nb.value.trim();
+    if (na !== S.names.a) setName('a', na); if (nb !== S.names.b) setName('b', nb);
+    const m = {}; const units = f.units.value === 'mm' ? 'mm' : 'in';
+    const wasMM = isMM(), shown = fmtLen(S.kerf), typed = f.kerf.value.trim();
+    S.units = units; // an edited kerf is read in the units just chosen; an untouched one stays what it was
+    if (units !== (wasMM ? 'mm' : 'in')) m.units = units;
+    if (typed !== shown) { const k = parseLen(typed); if (k != null && k >= 0 && Math.abs(k - S.kerf) > 1e-6) m.kerf = k; }
+    const w = Math.max(0, Math.min(200, num(f.waste.value) ?? S.waste * 100)) / 100; if (w !== S.waste) m.waste = w;
+    const sp = [...new Set(f.species.value.split('\n').map(s => s.trim().slice(0, 30)).filter(Boolean))]; if (sp.length && sp.join('|') !== S.species.join('|')) m.species = sp;
+    setMeta(m); save(true); sendMeta(); closeSheet(); render(true); toast('Settings saved');
+  }
+  if (f.id === 'stockForm') {
+    const w = parseLen(f.w.value), l = parseLen(f.l.value);
+    if (!(w > 0 && l > 0)) { $('#stockMsg').textContent = 'Width and length need a size, like 6 and 96.'; return; }
+    const fields = { species: f.species.value.slice(0, 30), t: +f.t.value || 1, w, l, qty: Math.max(1, Math.round(num(f.qty.value) || 1)), price: num(f.price.value), note: f.note.value.trim().slice(0, 120), use: f.use.checked };
+    let it = sheetId ? S.items[sheetId] : null;
+    if (it) setF(it, fields); else it = create(Object.assign({ kind: 'stock', by: S.me, at: Date.now(), del: false }, fields));
+    save(); broadcast([it]); closeSheet(); render(true); toast(sheetId ? 'Board saved' : `${fields.species} added to the shop`);
+  }
+});
+$('#scrim').addEventListener('click', closeSheet);
+addEventListener('hashchange', () => { if (S && S.started) render(); });
+let rsT = 0; addEventListener('resize', () => { clearTimeout(rsT); rsT = setTimeout(() => { if (S && S.started && route.v === 'project' && route.tab === 'layout') render(true); }, 150); });
+addEventListener('storage', e => {
+  if (!S) { if (e.key === KEY && e.newValue) { S = load(); if (S && S.started) begin(); } return; }
+  if (e.key === INBOX) { if (drainInbox().length) render(true); return; }
+  if (e.key !== KEY || !e.newValue) return;
+  let o; try { o = JSON.parse(e.newValue); } catch (er) { return; }
+  if (!o || o.v !== 1) return;
+  if (o.me !== S.me) { S = load(); render(true); return; }
+  const chI = Object.values(o.items || {}).filter(mergeItem), chP = Object.values(o.projects || {}).filter(mergeProject), m = mergeMeta(o);
+  if (o.partner && (!S.partner || S.partner.code !== o.partner.code)) S.partner = o.partner;
+  if (chI.length || chP.length || m) { broadcast(chI, chP); if (m) sendMeta(); render(true); }
+});
+addEventListener('pagehide', () => { if (S) save(true); });
+document.addEventListener('visibilitychange', () => { if (!S || !S.started || document.hidden) return; if (drainInbox().length) render(true); if (S.partner && !openConns().length) { if (!peer) startPeer(); else dial(S.partner.code, true); } });
+function applyTheme() { const t = LS.get(THEME, ''); if (t) document.documentElement.dataset.theme = t; else delete document.documentElement.dataset.theme; }
+
+/* ================= start ================= */
+let pairLink = null;
+function begin() {
+  drainInbox(true);
+  render();
+  startPeer(); startDialLoop();
+  if (navigator.storage && navigator.storage.persist) navigator.storage.persist().catch(() => {});
+}
+(async () => {
+  applyTheme();
+  S = load();
+  const j = cleanCode(qp.get('join') || ''); if (okCode(j)) pairLink = { code: j, from: '' };
+  const hb = (location.hash.match(/[#&]b=([^&]+)/) || [])[1];
+  if (hb) { try { const p = await unpackLink(hb); if (S && S.started) { const n = mergeBackup(p); toast(n > 0 ? `${n} records merged from the link` : 'Nothing new in that link'); } else { S = blankState('a'); mergeMeta(p); for (const x of Object.values(p.projects || {})) mergeProject(x); for (const x of Object.values(p.items || {})) mergeItem(x); setName('a', ''); S.started = false; LS.set(KEY, S); S = load(); } } catch (e) { toast('That backup link is incomplete.'); } history.replaceState(null, '', location.pathname + location.search); }
+  if (S && S.started) {
+    if (pairLink && pairLink.code !== S.dev && (!S.partner || S.partner.code !== pairLink.code)) { S.joined = true; S.pending = wantCode = pairLink.code; save(true); }
+    if (pairLink) { pairLink = null; history.replaceState(null, '', location.pathname + (location.hash || '')); }
+    begin();
+    if (wantCode) { setNet('dialing'); openPair(); }
+  } else renderLanding();
+})();
+
+/* ================= test hooks ================= */
+window.__create = {
+  id: 'cutlist',
+  setup: name => {
+    if (!S || !S.started) { S = S && !S.started ? S : blankState('a'); S.units = 'in'; S.kerf = 0.125; S.waste = 0.2; S.started = true; }
+    setName(S.me, String(name || 'You')); setMeta({ units: 'in', kerf: 0.125, waste: 0.2 });
+    let p = liveProjects().find(x => x.name === 'Hall table'); if (!p) { p = newProject('Hall table'); setF(p, { prices: { Walnut: 14, Cherry: 9, Poplar: 4 } }); }
+    S.cur = p.id; save(true); location.hash = '#/p/' + p.id; begin(); return p.id;
+  },
+  code: () => S.dev,
+  pair: code => dialCode(code),
+  net: () => net,
+  add: () => { const p = S.projects[S.cur] && !S.projects[S.cur].del ? S.projects[S.cur] : liveProjects()[0] || newProject('Hall table'); const s = SAMPLE[sampleI++ % SAMPLE.length]; const it = addPart(p.id, s); render(true); return it.id; },
+  count: () => Object.values(S.items).filter(it => !it.del).length,
+  state: () => JSON.parse(JSON.stringify(S)),
+  export: () => JSON.stringify(S)
+};
+})();
+</script>
+</body>
+</html>

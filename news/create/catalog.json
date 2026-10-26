@@ -576,7 +576,7 @@
       "name": "Create · Cutlist",
       "icon": "⊟",
       "c": "b",
-      "status": "planned",
+      "status": "live",
       "file": "create-cutlist.html",
       "prefix": "cut",
       "key": "create.cutlist.v1",
@@ -613,7 +613,8 @@
         "  projects: { id: { id, name, waste:0.2, prices:{species:perBF}, _t } },",
         "  items: { id: { id, project, kind:'part', name, qty, t, w, l, species, grain, del, _t } |",
         "               { id, kind:'stock', species, t, w, l, qty, price, note, del, _t } } }"
-      ]
+      ],
+      "href": "create/apps/cutlist/"
     },
     {
       "id": "felt",
