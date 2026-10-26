@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Voyage Planner · Weekender</title>
+<meta name="description" content="See a fully worked sample trip planner, then get your own private, offline trip dashboard built by your AI assistant.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1f1a14; --ink-2:#4d4438; --ink-3:#857a6b; --line:#e7dccb; --line-2:#f1e9dc;
+  --bg:#fbf7f0; --card:#fffdf9; --cream:#f5ecdd; --amber:#c77d1a; --amber-2:#f3e1c2;
+  --sea:#0d6e8f; --sea-2:#e3f1f5; --good:#2f7d4f; --good-2:#e7f3eb; --warn:#a8641a; --warn-2:#fbf0df; --bad:#b23a2b; --bad-2:#fbe9e6;
+  --ui:'Manrope',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --display:'Fraunces',Georgia,serif; --mono:'IBM Plex Mono',ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --ink:#f3ece1;--ink-2:#cfc4b4;--ink-3:#9a8f80;--line:#3a332a;--line-2:#2e2821;
+  --bg:#181410;--card:#221d17;--cream:#2a231b;--amber:#e0a04a;--amber-2:#3a2c18;
+  --sea:#5fb6d1;--sea-2:#17303a;--good:#6cc08d;--good-2:#1a2e21;--warn:#e0a04a;--warn-2:#33261a;--bad:#e5806f;--bad-2:#3a1f1a}}
+:root[data-theme="dark"]{
+  --ink:#f3ece1;--ink-2:#cfc4b4;--ink-3:#9a8f80;--line:#3a332a;--line-2:#2e2821;
+  --bg:#181410;--card:#221d17;--cream:#2a231b;--amber:#e0a04a;--amber-2:#3a2c18;
+  --sea:#5fb6d1;--sea-2:#17303a;--good:#6cc08d;--good-2:#1a2e21;--warn:#e0a04a;--warn-2:#33261a;--bad:#e5806f;--bad-2:#3a1f1a}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--ui);font-size:15px;line-height:1.58;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1120px;margin:0 auto;padding:0 16px}
+h1,h2,h3{font-family:var(--display);font-weight:600;letter-spacing:-.01em;margin:0}
+h1{font-size:clamp(34px,6vw,60px);line-height:1.02}
+h2{font-size:clamp(24px,3.4vw,34px);line-height:1.1}
+h3{font-size:18px}
+p{margin:.6em 0}
+a{color:var(--sea)}
+.mono{font-family:var(--mono)}
+button{font:inherit;cursor:pointer}
+
+/* masthead */
+.mast{border-bottom:1px solid var(--line);background:var(--bg);position:sticky;top:0;z-index:30}
+.mast-in{display:flex;align-items:center;gap:12px;height:54px}
+.brand{font-family:var(--display);font-weight:600;font-size:19px}
+.brand small{font-family:var(--ui);font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);margin-left:8px}
+.mast nav{margin-left:auto;display:flex;gap:4px}
+.mast nav a{font-size:13px;font-weight:700;color:var(--ink-2);text-decoration:none;padding:6px 10px;border-radius:8px}
+.mast nav a:hover{background:var(--cream)}
+@media(max-width:620px){.mast nav a.hide-s{display:none}}
+
+/* hero */
+.hero{padding:52px 0 36px;border-bottom:1px solid var(--line)}
+.kicker{font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--amber);margin:0 0 12px}
+.hero h1 i{color:var(--sea);font-style:italic}
+.dek{font-size:18px;color:var(--ink-2);max-width:62ch;margin-top:16px}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin-top:28px}
+.step{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.step b{display:flex;align-items:center;gap:10px;font-size:15px}
+.step b span{width:26px;height:26px;border-radius:50%;background:var(--amber);color:#fff;display:grid;place-items:center;font-size:13px;flex:0 0 26px}
+.step p{font-size:13.5px;color:var(--ink-2);margin:.5em 0 0}
+.cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
+.btn{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--card);color:var(--ink);font-weight:700;font-size:14px;padding:10px 16px;border-radius:10px;text-decoration:none}
+.btn:hover{border-color:var(--amber)}
+.btn.pri{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.btn.amb{background:var(--amber);color:#fff;border-color:var(--amber)}
+
+/* section heads */
+.block{padding:44px 0;border-bottom:1px solid var(--line)}
+.block-h{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:18px}
+.block-h p{color:var(--ink-2);max-width:66ch;margin:.5em 0 0}
+.badge{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:5px 10px;border-radius:99px;background:var(--amber-2);color:var(--warn);white-space:nowrap}
+
+/* sample frame */
+.frame{border:1px solid var(--line);border-radius:18px;background:var(--card);overflow:hidden;box-shadow:0 18px 40px -28px rgba(60,40,10,.35)}
+.fbar{display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid var(--line);background:var(--cream);flex-wrap:wrap}
+.fbar .dots{display:flex;gap:6px}.fbar .dots i{width:10px;height:10px;border-radius:50%;background:var(--line);display:block}
+.fbar b{font-size:13px}
+.fbar .tot{margin-left:auto;display:flex;align-items:baseline;gap:8px}
+.fbar .tot em{font-style:normal;font-size:10.5px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3)}
+.fbar .tot strong{font-family:var(--display);font-size:22px;font-variant-numeric:tabular-nums}
+.tabs{display:flex;gap:3px;overflow-x:auto;padding:10px 14px;border-bottom:1px solid var(--line);scrollbar-width:thin}
+.tabs button{border:0;background:none;font-size:13px;font-weight:700;color:var(--ink-3);padding:7px 12px;border-radius:8px;white-space:nowrap}
+.tabs button:hover{background:var(--cream);color:var(--ink)}
+.tabs button[aria-selected="true"]{background:var(--sea);color:#fff}
+.pane{padding:22px 20px 26px}
+@media(max-width:620px){.pane{padding:18px 14px 22px}}
+.pane h3.t{font-size:23px;margin-bottom:4px}
+.pane .sub{color:var(--ink-2);max-width:72ch;margin:.3em 0 16px;font-size:14px}
+
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+.panel{border:1px solid var(--line);border-radius:12px;padding:14px 16px;background:var(--card)}
+.panel h4{margin:0 0 6px;font-size:14.5px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.panel p,.panel li{font-size:13.5px;color:var(--ink-2)}
+.panel ul{margin:.3em 0;padding-left:18px}
+.stat{border:1px solid var(--line);border-radius:12px;padding:12px 14px;background:var(--card)}
+.stat em{display:block;font-style:normal;font-size:10.5px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3)}
+.stat b{display:block;font-family:var(--display);font-size:25px;font-weight:600;font-variant-numeric:tabular-nums;margin:3px 0 1px}
+.stat s{display:block;text-decoration:none;font-size:12px;color:var(--ink-3)}
+
+.pill{display:inline-flex;align-items:center;font-size:10.5px;font-weight:800;letter-spacing:.04em;padding:3px 8px;border-radius:99px;border:1px solid var(--line);color:var(--ink-2);background:var(--cream);white-space:nowrap}
+.pill.q{background:var(--good-2);color:var(--good);border-color:transparent}
+.pill.e{background:var(--warn-2);color:var(--warn);border-color:transparent}
+.pill.d{background:var(--sea-2);color:var(--sea);border-color:transparent}
+.pill.x{background:var(--bad-2);color:var(--bad);border-color:transparent}
+
+/* timeline */
+.tl{display:grid;gap:5px}
+.tlrow{display:grid;grid-template-columns:100px 1fr auto;gap:12px;align-items:center;padding:10px 13px;border-radius:10px;background:var(--cream);font-size:13.5px}
+.tlrow.port{background:var(--sea-2)}
+.tlrow.hol{box-shadow:inset 0 0 0 1px var(--amber);background:var(--amber-2)}
+.tlrow em{font-style:normal;font-weight:800;font-size:12px;color:var(--ink-3);font-family:var(--mono)}
+.tlrow b{font-weight:700}
+.tlrow s{display:block;text-decoration:none;font-size:12px;color:var(--ink-3)}
+.tlrow .amt{font-family:var(--mono);font-weight:600;font-size:13px}
+@media(max-width:620px){.tlrow{grid-template-columns:1fr auto}.tlrow em{grid-column:1/-1}}
+
+/* bar + ledger */
+.bar{display:flex;height:34px;border-radius:9px;overflow:hidden;background:var(--cream);margin:12px 0 10px}
+.bar i{display:block;position:relative;transition:flex-basis .25s}
+.bar i span{position:absolute;inset:0;display:grid;place-items:center;color:#fff;font-size:11px;font-weight:800}
+.legend{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.lg{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;border:1px solid var(--line);border-radius:99px;padding:3px 10px}
+.lg i{width:9px;height:9px;border-radius:50%;display:block}
+.ld{display:grid;grid-template-columns:9px 1fr auto;gap:11px;align-items:start;padding:9px 0;border-bottom:1px dotted var(--line);font-size:13.5px}
+.ld i{width:9px;height:9px;border-radius:50%;margin-top:6px}
+.ld .n b{font-weight:700}
+.ld .n s{display:block;text-decoration:none;color:var(--ink-3);font-size:12px}
+.ld .v{font-family:var(--mono);font-weight:600;white-space:nowrap}
+.ld.cr .v{color:var(--good)}
+.ld.tot{border:0;border-top:2px solid var(--ink);margin-top:6px;padding-top:11px}
+.ld.tot .n b{font-family:var(--display);font-size:18px}
+.ld.tot .v{font-family:var(--display);font-size:21px}
+
+/* options */
+.opts{display:grid;gap:8px}
+.opt{display:flex;gap:11px;align-items:flex-start;border:1px solid var(--line);border-radius:11px;padding:11px 13px;cursor:pointer;background:var(--card)}
+.opt:hover{border-color:var(--amber)}
+.opt[data-on="1"]{border-color:var(--sea);box-shadow:inset 0 0 0 1px var(--sea);background:var(--sea-2)}
+.opt input{margin-top:3px;accent-color:var(--sea);width:16px;height:16px;flex:0 0 16px}
+.opt .body{flex:1;min-width:0}
+.opt .body b{display:block;font-size:14px}
+.opt .body s{display:block;text-decoration:none;color:var(--ink-3);font-size:12.5px;margin-top:1px}
+.opt .amt{font-family:var(--mono);font-weight:600;white-space:nowrap;font-size:13.5px;text-align:right}
+.opt .amt s{display:block;text-decoration:none;font-family:var(--ui);font-weight:500;font-size:11px;color:var(--ink-3)}
+
+.call{border:1px solid var(--line);border-left:3px solid var(--sea);border-radius:10px;padding:14px 16px;background:var(--cream);margin:14px 0}
+.call.warm{border-left-color:var(--amber);background:var(--warn-2)}
+.call.good{border-left-color:var(--good);background:var(--good-2)}
+.call h4{margin:0 0 4px;font-size:15px;font-family:var(--display)}
+.call p{margin:.4em 0;color:var(--ink-2);font-size:13.5px}
+
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:12px;margin-top:10px}
+table{border-collapse:collapse;width:100%;font-size:13px;min-width:480px}
+th{background:var(--cream);text-align:left;padding:9px 12px;font-size:10.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:9px 12px;border-bottom:1px solid var(--line-2);vertical-align:top}
+tr:last-child td{border-bottom:0}
+td.n{text-align:right;font-family:var(--mono);font-weight:600;white-space:nowrap}
+tr.hi td{background:var(--good-2)}
+
+select,input[type=text],input[type=number],input[type=date],textarea{font:inherit;font-size:14px;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:9px;padding:9px 11px;width:100%}
+textarea{min-height:84px;resize:vertical}
+select:focus,input:focus,textarea:focus{outline:2px solid var(--amber);outline-offset:1px}
+.stepper{display:inline-flex;align-items:center;gap:9px;border:1px solid var(--line);border-radius:9px;padding:4px 6px}
+.stepper button{width:28px;height:28px;border:0;background:var(--cream);border-radius:7px;font-weight:800;color:var(--ink-2)}
+.stepper b{min-width:20px;text-align:center;font-family:var(--mono)}
+
+.chk{display:flex;gap:11px;align-items:flex-start;padding:10px 0;border-bottom:1px dotted var(--line);font-size:13.5px;cursor:pointer}
+.chk:last-child{border:0}
+.chk .dot{width:20px;height:20px;flex:0 0 20px;border-radius:50%;border:2px solid var(--line);margin-top:1px;display:grid;place-items:center;color:#fff;font-size:12px}
+.chk.done .dot{background:var(--good);border-color:var(--good)}
+.chk.done b{text-decoration:line-through;color:var(--ink-3)}
+.chk .body{flex:1}
+.chk b{display:block;font-weight:700}
+.chk s{display:block;text-decoration:none;color:var(--ink-3);font-size:12.5px}
+.chk .when{font-family:var(--mono);font-size:12px;font-weight:600;white-space:nowrap;padding:2px 8px;border-radius:6px;background:var(--cream)}
+.chk .when.soon{background:var(--warn-2);color:var(--warn)}
+.chk .when.past{background:var(--bad-2);color:var(--bad)}
+
+/* features */
+.feat{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px}
+.feat .panel h4{font-family:var(--display);font-size:17px}
+
+/* builder */
+.form{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.fld label{display:block;font-size:12px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-3);margin-bottom:6px}
+.fld.wide{grid-column:1/-1}
+.fld .hint{font-size:12px;color:var(--ink-3);margin-top:4px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chips label{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:99px;padding:6px 11px;font-size:13px;font-weight:600;color:var(--ink-2);text-transform:none;letter-spacing:0;margin:0;cursor:pointer;background:var(--card)}
+.chips input{accent-color:var(--amber)}
+.chips label:has(input:checked){border-color:var(--amber);background:var(--amber-2);color:var(--ink)}
+.out{margin-top:20px;border:1px solid var(--line);border-radius:14px;background:var(--card);overflow:hidden}
+.out-h{display:flex;align-items:center;gap:10px;padding:12px 14px;border-bottom:1px solid var(--line);background:var(--cream);flex-wrap:wrap}
+.out-h b{font-size:13.5px}
+.out-h .acts{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap}
+.out-h .btn{padding:7px 12px;font-size:13px}
+.out pre{margin:0;padding:14px 16px;font-family:var(--mono);font-size:12.5px;line-height:1.6;white-space:pre-wrap;max-height:380px;overflow:auto;color:var(--ink-2)}
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:10px;font-size:13.5px;font-weight:700;opacity:0;transition:.25s;pointer-events:none;z-index:60}
+.toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+.priv{display:flex;gap:12px;align-items:flex-start;padding:14px 16px;border-radius:12px;background:var(--good-2);margin-top:16px;font-size:13.5px;color:var(--ink-2)}
+.priv b{color:var(--ink)}
+.foot{padding:28px 0 50px;color:var(--ink-3);font-size:12.5px}
+/* compare */
+.cmp{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px;margin-bottom:16px}
+.cc{border:1px solid var(--line);border-radius:14px;padding:14px 15px;background:var(--card);display:flex;flex-direction:column;gap:8px;position:relative}
+.cc.win{border-color:var(--good);box-shadow:inset 0 0 0 1px var(--good)}
+.cc.pick{background:var(--sea-2)}
+.cc .tag{position:absolute;top:-9px;right:12px}
+.cc h4{margin:0;font-family:var(--display);font-size:17px;line-height:1.2}
+.cc .where{font-size:12px;color:var(--ink-3)}
+.cc .big{font-family:var(--display);font-size:28px;font-weight:600;font-variant-numeric:tabular-nums;line-height:1}
+.cc .big small{font-family:var(--ui);font-size:12px;font-weight:600;color:var(--ink-3);margin-left:6px}
+.cc .mini{display:flex;height:9px;border-radius:5px;overflow:hidden;background:var(--cream)}
+.cc .mini i{display:block}
+.cc dl{display:grid;grid-template-columns:1fr auto;gap:3px 10px;margin:0;font-size:12.5px}
+.cc dt{color:var(--ink-3)} .cc dd{margin:0;font-family:var(--mono);font-weight:600;text-align:right}
+.cc select{padding:6px 9px;font-size:12.5px}
+.cc .vibe{font-size:12.5px;color:var(--ink-2);margin:0}
+.wts{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:8px 16px;margin:8px 0 4px}
+.wt{display:grid;grid-template-columns:1fr auto;gap:2px 8px;align-items:center;font-size:13px}
+.wt b{font-weight:700} .wt span{font-family:var(--mono);font-size:12px;color:var(--ink-3)}
+.wt input{grid-column:1/-1;width:100%;accent-color:var(--amber)}
+.sc{display:inline-block;width:22px;height:22px;border-radius:6px;line-height:22px;text-align:center;font-family:var(--mono);font-weight:600;font-size:12px}
+.sc5{background:var(--good);color:#fff}.sc4{background:var(--good-2);color:var(--good)}.sc3{background:var(--cream);color:var(--ink-2)}.sc2{background:var(--warn-2);color:var(--warn)}.sc1{background:var(--bad-2);color:var(--bad)}
+.toggle{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:600;color:var(--ink-2);cursor:pointer}
+.toggle input{accent-color:var(--sea);width:15px;height:15px}
+</style>
+</head>
+<body>
+
+<header class="mast">
+  <div class="wrap mast-in">
+    <a class="brand" href="../" style="text-decoration:none;color:inherit">Weekender<small>Voyage Planner</small></a>
+    <nav>
+      <a href="#sample">The sample</a>
+      <a href="#why" class="hide-s">What's in it</a>
+      <a href="#build">Build yours</a>
+      <a href="../#/points" class="hide-s">Points</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <p class="kicker">Tools · Voyage Planner</p>
+    <h1>Your trip, worked out <i>to the dollar.</i></h1>
+    <p class="dek">Most trip plans are a list of bookings. This is a working dashboard: every cost in one live total, every upgrade priced against the public fare, every deadline counting down, and the one or two decisions that actually matter laid out with the break-even. Explore a fully worked sample below, then have your own AI assistant build a private one for your trip.</p>
+    <div class="steps">
+      <div class="step"><b><span>1</span>Explore the sample</b><p>A six-night Caribbean cruise for two, planned end to end. Click through the tabs and change the choices. The total moves with you.</p></div>
+      <div class="step"><b><span>2</span>Describe your trip</b><p>Answer a few questions about where, when, who and what's booked. Nothing you type leaves this page.</p></div>
+      <div class="step"><b><span>3</span>Send it to your AI</b><p>Copy or download the prompt, attach this page as the template, and send both to Claude or ChatGPT. You get back a private HTML file that runs offline.</p></div>
+    </div>
+    <div class="cta">
+      <a class="btn pri" href="#sample">See the sample</a>
+      <a class="btn amb" href="#build">Build my planner</a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SAMPLE ================= -->
+<section class="block" id="sample">
+  <div class="wrap">
+    <div class="block-h">
+      <div>
+        <h2>The sample: one week, four ways to spend it</h2>
+        <p>A fictional couple, a real level of detail. They had Thanksgiving week and four contenders: a Caribbean cruise, an all-inclusive in the Dominican Republic, one on the Riviera Maya, and Venice and Rome. The shortlist tab weighs all four on cost, travel time and what they actually wanted, and the cruise won. The rest of the tabs plan the winner: a free interior cabin from a loyalty offer, an upgrade they paid for, a hotel night on points, three ports and two sea days. All prices are illustrative.</p>
+      </div>
+      <span class="badge">Sample · fictional travelers</span>
+    </div>
+
+    <div class="frame">
+      <div class="fbar">
+        <div class="dots"><i></i><i></i><i></i></div>
+        <b>Sample Voyage · 6-night Eastern Caribbean</b>
+        <div class="tot"><em>This build</em><strong id="sTot">$0</strong></div>
+      </div>
+      <nav class="tabs" id="sTabs" role="tablist"></nav>
+      <div class="pane" id="sPane"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= WHY ================= -->
+<section class="block" id="why">
+  <div class="wrap">
+    <div class="block-h"><div>
+      <h2>What makes a planner worth having</h2>
+      <p>These are the habits behind the sample. Your AI is told to build all of them into yours.</p>
+    </div></div>
+    <div class="feat">
+      <div class="panel"><h4>One live total</h4><p>Every line in the order you pay it: deposits, flights, transfers, upgrades, packages, extras, and credits coming back. Change a choice and the total, the per-person and the per-night figures all move.</p></div>
+      <div class="panel"><h4>Every number is labeled</h4><p>Quoted, estimate, or derived. You can see at a glance which figures came off a booking page and which are still guesses worth a phone call.</p></div>
+      <div class="panel"><h4>A control to measure against</h4><p>The same room, same date, at the public price. That tells you what a deal was actually worth and how to bid on the next upgrade.</p></div>
+      <div class="panel"><h4>Break-evens, not opinions</h4><p>Add-on packages, upgrades and passes are compared on your actual plans. The sample finds the exact spend at which the premium package starts to win.</p></div>
+      <div class="panel"><h4>Assumptions, fact-checked</h4><p>The things you believe going in ("the suite includes the quiet deck") are checked and marked Right or Not so, with what it costs either way.</p></div>
+      <div class="panel"><h4>Deadlines that count down</h4><p>Final payment, cancellation steps, check-in windows, status matches and the easy-to-miss ones, ordered by date with days remaining.</p></div>
+      <div class="panel"><h4>The travel days, by the hour</h4><p>The awkward hours: bag storage, lounge entry windows, the real distance to the pier, what gets confiscated at the scanner.</p></div>
+      <div class="panel"><h4>Compare before you commit</h4><p>The same week, priced every way you're considering, all in: flights, the room, food and drink, transfers, the things you'd actually do. Then weight what matters to you and see which one wins, and by how much.</p></div>
+      <div class="panel"><h4>Private by design</h4><p>A single HTML file with no server and no account. Your confirmation numbers stay on your device, saved only in your browser.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= BUILD ================= -->
+<section class="block" id="build">
+  <div class="wrap">
+    <div class="block-h">
+      <div>
+        <h2>Build yours</h2>
+        <p>Fill in what you know; leave the rest blank and your AI will ask or mark it as an estimate. You can come back and paste in confirmations later. The more you give it, the closer the first draft lands.</p>
+      </div>
+      <span class="badge" style="background:var(--good-2);color:var(--good)">Stays on this page</span>
+    </div>
+
+    <div class="form" id="bForm">
+      <div class="fld"><label for="f-type">Kind of trip</label>
+        <select id="f-type"><option>Cruise</option><option>Resort / all-inclusive</option><option>City trip</option><option>Road trip</option><option>Multi-city tour</option><option>Ski / outdoor</option><option>Event or wedding trip</option><option>Other</option></select></div>
+      <div class="fld"><label for="f-dest">Destination(s) or options you're weighing</label><input type="text" id="f-dest" placeholder="e.g. a Caribbean cruise vs. an all-inclusive vs. Italy"></div>
+      <div class="fld"><label for="f-dates">Dates</label><input type="text" id="f-dates" placeholder="e.g. Nov 21–28, or flexible in spring"></div>
+      <div class="fld"><label for="f-from">Leaving from</label><input type="text" id="f-from" placeholder="Home airport or city"></div>
+      <div class="fld"><label for="f-party">Who's going</label><input type="text" id="f-party" placeholder="e.g. 2 adults, or 2 adults + kids 8 and 11"></div>
+      <div class="fld"><label for="f-budget">Budget, roughly</label><input type="text" id="f-budget" placeholder="e.g. under $5,000 all in"></div>
+      <div class="fld"><label for="f-stage">Where you are</label>
+        <select id="f-stage"><option>Just dreaming, comparing options</option><option>Choosing between a few options</option><option>Some things booked</option><option>Mostly booked, need the details tight</option><option>Leaving soon, need a countdown</option></select></div>
+      <div class="fld"><label for="f-style">Travel style</label>
+        <select id="f-style"><option>Balanced: value where it counts</option><option>Squeeze every dollar</option><option>Comfort first</option><option>Splurge, but no waste</option></select></div>
+
+      <div class="fld wide"><label>What should it cover?</label>
+        <div class="chips" id="f-mods">
+          <label><input type="checkbox" value="day-by-day itinerary" checked>Day by day</label>
+          <label><input type="checkbox" value="live cost model with every line item" checked>Live costs</label>
+          <label><input type="checkbox" value="upgrade and add-on package break-even analysis" checked>Upgrades &amp; packages</label>
+          <label><input type="checkbox" value="activities and excursions by stop, with prices and ratings" checked>Activities</label>
+          <label><input type="checkbox" value="dining plan">Dining</label>
+          <label><input type="checkbox" value="hour-by-hour plan for the travel days" checked>Travel days</label>
+          <label><input type="checkbox" value="deadline countdown and to-do checklist" checked>Deadlines</label>
+          <label><input type="checkbox" value="points, miles, status and credit-card benefit optimization">Points &amp; status</label>
+          <label><input type="checkbox" value="packing list">Packing</label>
+          <label><input type="checkbox" value="assumption fact-check (Right / Not so)">Fact-check</label>
+          <label><input type="checkbox" value="side-by-side comparison of the destinations or trip styles I'm considering, priced all in for the same dates, with a weighted scorecard I can adjust" checked>Compare options</label>
+          <label><input type="checkbox" value="cancellation and insurance exposure">Cancellation risk</label>
+        </div></div>
+
+      <div class="fld wide"><label for="f-booked">Already booked (optional)</label>
+        <textarea id="f-booked" placeholder="Flights, hotels, cabin, reservations, with prices. Confirmation numbers are fine — they only end up in your private file."></textarea>
+        <div class="hint">Tip: you can also attach booking emails or screenshots when you send the prompt.</div></div>
+      <div class="fld wide"><label for="f-musts">Must-dos, wishes and constraints (optional)</label>
+        <textarea id="f-musts" placeholder="e.g. snorkeling, one great steak dinner, back home a day before work, no red-eyes, a quiet adults-only spot"></textarea></div>
+      <div class="fld wide"><label for="f-perks">Loyalty, cards and credits (optional)</label>
+        <input type="text" id="f-perks" placeholder="e.g. airline mid-tier status, hotel points, a travel credit expiring in December"></div>
+    </div>
+
+    <div class="out">
+      <div class="out-h">
+        <b>Your prompt</b>
+        <div class="acts">
+          <button class="btn" id="bCopy">Copy</button>
+          <button class="btn" id="bDl">Download prompt</button>
+          <button class="btn" id="bTpl">Download template</button>
+          <button class="btn amb" id="bClaude">Open in Claude</button>
+          <button class="btn" id="bGpt">Open in ChatGPT</button>
+        </div>
+      </div>
+      <pre id="bOut"></pre>
+    </div>
+
+    <div class="priv">
+      <div style="font-size:20px;line-height:1">🔒</div>
+      <div><b>How the privacy works.</b> This page has no server. Your answers are used only to write the prompt above, and are remembered in this browser so you can come back. The template you download is this page itself, with only the fictional sample in it. Your assistant builds your planner as a file you keep; it doesn't need to be posted anywhere. For best results, attach the template file to the chat along with the prompt — the "Open in" buttons copy the prompt and open a new chat, but can't attach files for you.</div>
+    </div>
+  </div>
+</section>
+
+<footer class="foot"><div class="wrap"><a href="../">Weekender</a> · <a href="../#/points">Points Hacker</a> · <a href="../../news/#/s/travel">The Watch’s Travel desk</a>. Voyage Planner’s sample uses fictional travelers and illustrative prices; check every figure against your own bookings. Not affiliated with any cruise line, airline or hotel.</div></footer>
+<div class="toast" id="toast"></div>
+
+<script>
+/* =====================================================================
+   SAMPLE DATA — fictional couple, illustrative prices
+   Provenance: q quoted · e estimate · d derived
+   ===================================================================== */
+var D = {
+  party:2, nights:6, seaDays:2, sail:"2026-11-22",
+  ship:"a Royal-class ship (sample)",
+  offer:{ name:"Complimentary interior cabin from a loyalty offer", depositPP:200, obc:400 },
+  retail:{ intPP:789, miniPP:1193, taxPP:240 },
+  taxPP:240,
+  flights:[
+    {k:"out", label:"Airline A · Sat · HOME → FLL", pp:270, src:"q", note:"Booked in cash. Lands mid-afternoon against a 4 PM hotel check-in. Mid-tier status covers one checked bag for both on the same reservation."},
+    {k:"home",label:"Airline B · Sat · FLL → HOME, 7:00 PM nonstop", pp:264, src:"q", note:"The ship is alongside by 6 AM, so the whole day is free before the flight. Home the same evening, with Sunday to recover."}
+  ],
+  hotel:{ label:"Waterfront hotel near the port · one night", pts:70000, src:"q", note:"On points, so the extra night costs nothing but transfers. Turns a six-night fare into a seven-night trip." },
+  transfers:[["Home to airport",35],["Airport to hotel",25],["Hotel to the pier",15],["Pier to airport",25],["Airport to home",35]],
+  travelCredit:250,
+  cabins:[
+    {id:"int", name:"Interior", up:0, src:"q", blurb:"What the offer covers. Bid nothing, pay nothing."},
+    {id:"bal", name:"Balcony", up:720, src:"q", blurb:"Quoted at $360 a head, about five times the $70-a-head gap on the public booking page."},
+    {id:"mini",name:"Mini-suite · top grade", up:1260, src:"q", booked:true, blurb:"BOOKED. About 320 sq ft against a balcony's 220, a sitting area, two TVs and a bathtub. $630 a head over the free interior."},
+    {id:"res", name:"Premium-dining mini-suite", up:2060, src:"e", blurb:"Estimated $800 over the mini-suite. Same room, same size. What changes is a private section of the main dining room, priority boarding and robes."},
+    {id:"suite",name:"Suite", up:4200, src:"e", blurb:"Reference only. Worth a low speculative bid through the upgrade portal, not a purchase."}
+  ],
+  packages:[
+    {id:"none",name:"No package", cost:0, blurb:"Everything à la carte. You still owe crew gratuities and Wi-Fi.",
+     inc:[], exc:["Gratuities, $19 a head a night","Wi-Fi, $30 a day","Every drink at full price","Specialty dining, $132 a night for two"]},
+    {id:"plus",name:"Basic package", cost:780, blurb:"$65 a head a day. Buys back gratuities and Wi-Fi you already owe.",
+     inc:["Gratuities in full","Wi-Fi, one device each","Drinks to a $15 cap"], exc:["Specialty dining","Anything over the drink cap","No excursion credit"]},
+    {id:"prem",name:"Premium package", cost:1200, blurb:"$600 a head flat. Everything in Basic plus specialty dining and $100 a head of excursion credit.",
+     inc:["Gratuities in full","Wi-Fi, two devices each","Drinks to a $20 cap","Unlimited specialty dining","$200 excursion credit for two"], exc:["Nothing you would normally buy"]}
+  ],
+  onb:{ grat:19, wifiDay:30, dinner2:132, deckHalfPP:20, deckFullPP:40, premCredit:200 },
+  timeline:[
+    {d:"Sat · Day 0",k:"", t:"Fly to Fort Lauderdale", s:"Hotel on points, evening on the waterfront.", c:"out"},
+    {d:"Sun · Day 1",k:"", t:"Board · sails 3:00 PM", s:"First jobs aboard: register onboard airline check-in, then book the adults-only deck.", c:"embark"},
+    {d:"Mon · Day 2",k:"port", t:"Private island, Bahamas", s:"8 AM – 5 PM. Beaches, lagoons and one meal included.", c:"p0"},
+    {d:"Tue · Day 3",k:"", t:"At sea", s:"Adults-only deck, afternoon tea, the spa.", c:"sea"},
+    {d:"Wed · Day 4",k:"port", t:"Grand Turk", s:"8 AM – 6 PM. Ten hours, the best snorkel on the route.", c:"p1"},
+    {d:"Thu · Day 5",k:"hol", t:"At sea · Thanksgiving", s:"Early dinner in the main dining room, ahead of the crowd.", c:"sea"},
+    {d:"Fri · Day 6",k:"port", t:"Nassau", s:"8 AM – 4 PM. Walk straight into town. Bags out by 10 PM.", c:"p2"},
+    {d:"Sat · Day 7",k:"", t:"Alongside 6 AM · fly home 7 PM", s:"A free day in town with bags already checked through.", c:"home"},
+    {d:"Sun",k:"", t:"Home, nothing scheduled", s:"The reason for the Saturday return.", c:null}
+  ],
+  ports:[
+    {name:"Private island", hours:"8 AM – 5 PM · day 2",
+     free:"Both beaches, freshwater lagoons, loungers, a free tram, and one included meal each. Take towels from the cabin.",
+     exc:[["Ashore for free",0,null,"Beaches, lagoons, included lunch"],["Snorkel gear, all day",19.95,null,"Mask and fins off the free beach"],["Double kayak, 1 hr",22.98,null,"Per person, two to a boat. Best value on the island"],["Paddle board, 1 hr",39.95,null,"Each"],["Beach club access",119.95,null,"About double what a sister brand charges for the same club"]]},
+    {name:"Grand Turk", hours:"8 AM – 6 PM · day 4",
+     free:"The beach at the pier is free, and so are the loungers. Walk past the vendors renting the same setup for $40.",
+     exc:[["Ashore for free",0,null,"Beach and pool complex, four hundred feet from the gangway"],["Reef snorkel by boat, 2 hr",84.95,"4.1 (82)","The best-reviewed snorkel on the route"],["Catamaran, snorkel & beach, 3 hr",129.95,"4.5 (152)","Most-reviewed premium trip"],["Electric off-road tour, 2 hr",229.95,"4.6 (39)",""],["Dune buggy tour, 2 hr",294.95,"4.7 (37)","Highest-rated tour in any port"]]},
+    {name:"Nassau", hours:"8 AM – 4 PM · day 6",
+     free:"The most walkable port. Bay Street, the Straw Market and the Queen's Staircase on foot; a free beach fifteen minutes west.",
+     exc:[["Ashore on foot",0,null,"On this thin catalogue, genuinely competitive"],["City highlights, 4 hr",44.95,"3.4 (21)","Most-reviewed, weak score"],["Adults-only island beach day",139.95,"4.2 (25)","The one worth buying here"],["Dolphin encounter & beach",179.95,"4.8 (4)","Thin reviews"]]}
+  ],
+  checks:[
+    {v:false,c:"The suite comes with the adults-only deck free",t:"Not on this ship class. That perk belongs to a cabin category on newer ships. A suite here pays the same $20 a head a half day."},
+    {v:false,c:"A suite lounge pours free afternoon drinks",t:"Half right. The suite lounge serves breakfast, snacks and espresso. Free drinks come with top loyalty tiers, not the cabin."},
+    {v:true, c:"Upgraded cabins still owe gratuities and Wi-Fi",t:"Correct. No cabin category includes them; only the packages do. That is the strongest argument for keeping a package."},
+    {v:false,c:"Premium dining makes the premium package redundant",t:"Backwards. Premium dining is a section of the MAIN dining room, so the package's specialty restaurants are fully additive."}
+  ],
+  deadlines:[
+    // [days before sailing, title, note]
+    [90,"Final payment due","After this the cancellation schedule bites on the full fare."],
+    [75,"Print luggage tags","Two sets; spares in the carry-on."],
+    [60,"Apply for the airline status match","Timed so the match covers the flight home. Too early and the window closes before you travel."],
+    [30,"Pick an arrival time for boarding","Midday gets you aboard for lunch without the morning scrum."],
+    [17,"Order wristbands shipped home","Shipping them is what gets you the fast lane."],
+    [14,"Buy the package pre-cruise","About $5 a day cheaper than on board."],
+    [11,"Confirm the fast-lane pass appears in the app","Screenshot it."],
+    [3,"Prepay checked bags","About $10 a bag cheaper than at the counter."],
+    [2,"Re-check the pier assignment","Ships can be moved at short notice."],
+    [0,"Register onboard airline check-in","Hard deadline is two days before you dock, which falls on the holiday at sea. Do it in the first hour aboard."]
+  ]
+};
+var CATS=[["dep","Deposit","#857a6b"],["air","Flights","#2a78d6"],["gnd","Transfers","#1baf7a"],["cab","Cabin upgrade","#d9708f"],["tax","Taxes & fees","#4f8a3a"],["pkg","Package","#5a46b0"],["brd","Onboard & ashore","#c77d1a"]];
+
+var S={tab:"compare",tier:{dr:0,rm:1,it:1},itPts:false,wts:{cost:3,ease:2,rest:3,food:2,culture:1,weather:2,holiday:1},cabin:"mini",pkg:"plus",exc:[1,1,0],deckDays:2,deckMode:"half",dinners:5,done:{}};
+var SKEY="watch-voyage-sample-v1";
+try{var sv=JSON.parse(localStorage.getItem(SKEY)||"null"); if(sv) for(var k in sv) S[k]=sv[k];}catch(e){}
+function save(){try{localStorage.setItem(SKEY,JSON.stringify(S));}catch(e){}}
+
+function $(i){return document.getElementById(i);}
+function el(t,c,x){var e=document.createElement(t); if(c)e.className=c; if(x!=null)e.textContent=x; return e;}
+function money(n){return (n<0?"−$":"$")+Math.abs(Math.round(n)).toLocaleString("en-US");}
+function m2(n){return "$"+n.toFixed(2);}
+function flag(k){return el("span","pill "+k,k==="q"?"Quoted":k==="e"?"Estimate":"Derived");}
+function find(a,id){return a.filter(function(x){return x.id===id;})[0];}
+
+/* ---------------- the model ---------------- */
+function model(o){
+  o=o||{}; var cab=find(D.cabins,o.cabin||S.cabin), pk=find(D.packages,o.pkg||S.pkg), O=D.onb, P=D.party;
+  var excTot=0, excLines=[];
+  D.ports.forEach(function(pt,i){ var e=pt.exc[S.exc[i]]||pt.exc[0]; var v=Math.round(e[1]*P); excTot+=v; excLines.push(v); });
+  var deck=(S.deckMode==="full"?O.deckFullPP:O.deckHalfPP)*P*S.deckDays;
+  var fees=pk.id==="none"? O.grat*P*D.nights + O.wifiDay*D.nights : 0;
+  var dining=pk.id==="prem"?0:O.dinner2*S.dinners;
+  var ashore=excTot+deck;
+  var credit=D.offer.obc+(pk.id==="prem"?O.premCredit:0);
+  var useA=Math.min(credit,ashore), useB=Math.min(credit-useA,fees+dining), lost=credit-useA-useB;
+  var c={ dep:D.offer.depositPP*P,
+          air:D.flights.reduce(function(a,f){return a+f.pp*P;},0),
+          gnd:D.transfers.reduce(function(a,t){return a+t[1];},0),
+          cab:cab.up, tax:D.taxPP*P, pkg:pk.cost,
+          brd:Math.max(0,ashore-useA)+Math.max(0,fees+dining-useB) };
+  var tot=0; for(var k in c) tot+=c[k];
+  return {cab:cab,pk:pk,c:c,total:tot,net:tot-D.travelCredit,excTot:excTot,excLines:excLines,deck:deck,fees:fees,dining:dining,credit:credit,used:useA+useB,lost:lost};
+}
+
+/* ---------------- views ---------------- */
+var TABS=[["compare","The shortlist"],["plan","The plan"],["money","The money"],["choose","Package & upgrade"],["ports","The ports"],["days","Travel days"],["check","Fact-check"],["do","Countdown"]];
+
+/* ---------------- the shortlist ---------------- */
+var CC=[["air","Getting there","#2a78d6"],["stay","Room or fare","#d9708f"],["eat","Food & drink","#c77d1a"],["do","Things to do","#1baf7a"],["gnd","Transfers & local","#857a6b"]];
+var ALT=[
+  {id:"cruise",name:"Caribbean cruise",where:"6 nights from Fort Lauderdale · 3 ports, 2 sea days",nights:7,hrs:"6 out · 4 home",
+   vibe:"The free cabin is the hook. Unpack once, three islands, a holiday at sea.",
+   sc:{cost:5,ease:4,rest:4,food:3,culture:2,weather:4,holiday:4},
+   pros:["Lowest cash cost by a distance","Two nonstop-ish flights, a short hop","A different island each morning"],
+   cons:["Ports are short; real culture is thin","Specialty dining and drinks add up without a package","Fixed schedule"]},
+  {id:"dr",name:"All-inclusive · Dominican Republic",where:"7 nights · boutique resort on a remote east-coast beach",nights:7,hrs:"8½ out · 7 home",
+   tiers:[["Ocean view",420],["Plunge pool",512],["Club level, plunge pool",675]],
+   air:1580*2, gnd:300, eat:150, doo:400, src:"Room rates quoted on a members-only rate, taxes and food included. Flights quoted, one stop each way.",
+   vibe:"Quiet, empty beach and nothing to plan. The price of quiet is the journey: a connection each way, then a long drive.",
+   sc:{cost:3,ease:1,rest:5,food:3,culture:1,weather:4,holiday:2},
+   pros:["The most restful week of the four","Food and drink settled up front","Members' rate with no taxes on top"],
+   cons:["Longest door-to-door of the Caribbean options","Two-hour transfer from the airport","Flights cost more than the cruise's whole fare"]},
+  {id:"rm",name:"All-inclusive · Riviera Maya",where:"7 nights · large beachfront resort south of Cancún",nights:7,hrs:"5 out · 5 home",
+   tiers:[["Ocean view, two queens",691],["Adults' enclave, ocean view",808],["Ocean-view suite",1031]],
+   air:1060*2, gnd:180, eat:120, doo:520, src:"Room rates quoted with taxes and gratuities, free cancellation. Flights quoted, nonstop both ways.",
+   vibe:"The easiest trip to take: nonstop both ways and a short transfer. Ruins and cenotes within a morning's drive.",
+   sc:{cost:2,ease:5,rest:4,food:4,culture:3,weather:5,holiday:2},
+   pros:["Nonstop flights, shortest travel day","Best weather odds of the four","Day trips with real substance"],
+   cons:["The room alone costs more than the whole cruise","Big resort; the adults-only section costs extra","Points rates were poor value for these dates"]},
+  {id:"it",name:"Italy · Venice and Rome",where:"8 nights · 4 + 4, high-speed train between",nights:8,hrs:"13 out · 13 home",
+   tiers:[["Upscale hotels",450],["Luxury-program hotels",700],["Landmark hotels",1100]],
+   airCash:1250*2, airPts:{pts:220000,fees:420}, gnd:390, eat:1900, doo:620, credits:400,
+   src:"Estimates. Hotel rates averaged across both cities; the luxury-program tier includes breakfast for two, a $100 property credit per stay and late checkout.",
+   vibe:"The most memorable of the four, and the most work: two cities, a train, a transatlantic jet lag either side of Thanksgiving.",
+   sc:{cost:1,ease:2,rest:2,food:5,culture:5,weather:2,holiday:3},
+   pros:["Food and culture nothing else here touches","Business class on points makes the flight a feature","Late November is low season: thin crowds"],
+   cons:["Most expensive by thousands","Cool and wet in late November","Needs the most planning and the most days off"]}
+];
+var WT=[["cost","Cost"],["ease","Easy to get to"],["rest","Rest"],["food","Food"],["culture","Culture & novelty"],["weather","Weather"],["holiday","Holiday feel"]];
+
+function altCost(a){
+  if(a.id==="cruise"){ var r=model();
+    return {air:r.c.air, stay:r.c.dep+r.c.cab+r.c.tax, eat:r.c.pkg+r.fees+r.dining, do:r.excTot+r.deck, gnd:r.c.gnd, credits:r.used+D.travelCredit, pts:(D.hotel.pts/1000)+"k hotel points", tierName:r.cab.name+" · "+r.pk.name}; }
+  var t=a.tiers[S.tier[a.id]]; var o={stay:t[1]*a.nights, eat:a.eat, do:a.doo, gnd:a.gnd, credits:a.credits||0, tierName:t[0]};
+  if(a.id==="it"){ o.air=S.itPts?a.airPts.fees:a.airCash; o.pts=S.itPts?(a.airPts.pts/1000)+"k points, business class":"none"; if(S.tier.it!==1) o.credits=0; }
+  else { o.air=a.air; o.pts="none"; }
+  return o;
+}
+function altTotal(o){ return o.air+o.stay+o.eat+o.do+o.gnd-o.credits; }
+
+function vCompare(){
+  var s=el("div");
+  s.appendChild(el("h3","t","Thanksgiving week, four ways"));
+  var p=el("p","sub"); p.textContent="Same seven or eight nights, same two people, priced all in: flights, the room, food and drink, transfers and what they'd actually do, less credits. Change a room tier or the weights and the ranking moves. The cruise reflects your choices on the other tabs."; s.appendChild(p);
+
+  var rows=ALT.map(function(a){ var o=altCost(a); return {a:a,o:o,tot:altTotal(o)}; });
+  var maxT=Math.max.apply(null,rows.map(function(r){return r.tot;})), minT=Math.min.apply(null,rows.map(function(r){return r.tot;}));
+  // scores: cost score derived from the live totals
+  rows.forEach(function(r){
+    var sc={}; for(var k in r.a.sc) sc[k]=r.a.sc[k];
+    sc.cost = maxT===minT?3:Math.round(5-4*(r.tot-minT)/(maxT-minT));
+    var wsum=0, tot=0; WT.forEach(function(w){ var wt=+S.wts[w[0]]; wsum+=wt; tot+=wt*sc[w[0]]; });
+    r.sc=sc; r.score=wsum?tot/wsum:0; });
+  var best=rows.slice().sort(function(x,y){return y.score-x.score;})[0];
+
+  var g=el("div","cmp");
+  rows.forEach(function(r){
+    var a=r.a, o=r.o, c=el("div","cc"+(r===best?" win":"")+(a.id==="cruise"?" pick":""));
+    if(r===best) c.appendChild(el("span","pill q tag","Top score"));
+    else if(a.id==="cruise") c.appendChild(el("span","pill d tag","Booked"));
+    c.appendChild(el("h4",null,a.name)); c.appendChild(el("div","where",a.where));
+    var big=el("div","big",money(r.tot)); big.appendChild(el("small",null,"for two")); c.appendChild(big);
+    var mini=el("div","mini"); CC.forEach(function(k){ var v=o[k[0]]; if(v>0){ var i=document.createElement("i"); i.style.background=k[2]; i.style.flex="0 0 "+(v/(r.tot+o.credits)*100)+"%"; i.title=k[1]+" "+money(v); mini.appendChild(i);} }); c.appendChild(mini);
+    var dl=document.createElement("dl");
+    [["Per night",money(r.tot/a.nights)],["Hours traveling",a.hrs],["Flights",money(o.air)],["Room or fare",money(o.stay)],["Food, drink & tips",money(o.eat)],["Credits back",o.credits?money(-o.credits):"—"],["Points used",o.pts]].forEach(function(x){ dl.appendChild(el("dt",null,x[0])); dl.appendChild(el("dd",null,x[1])); });
+    c.appendChild(dl);
+    if(a.tiers){ var sel=document.createElement("select"); a.tiers.forEach(function(t,i){ var op=document.createElement("option"); op.value=i; op.textContent=t[0]+" · $"+t[1]+"/night"; sel.appendChild(op); });
+      sel.value=S.tier[a.id]; sel.onchange=function(){S.tier[a.id]=+sel.value;save();render();}; c.appendChild(sel); }
+    else { var nb=el("div","where","Cabin and package: "+o.tierName); c.appendChild(nb); }
+    if(a.id==="it"){ var tg=document.createElement("label"); tg.className="toggle"; var ci=document.createElement("input"); ci.type="checkbox"; ci.checked=!!S.itPts; ci.onchange=function(){S.itPts=ci.checked;save();render();}; tg.appendChild(ci); tg.appendChild(document.createTextNode("Fly business on points")); c.appendChild(tg); }
+    c.appendChild(el("p","vibe",a.vibe));
+    var sc=el("div"); sc.style.cssText="display:flex;align-items:center;gap:8px;margin-top:auto;padding-top:6px;border-top:1px dotted var(--line)";
+    sc.appendChild(el("b",null,"Score")); var v=el("span",null,r.score.toFixed(1)+" / 5"); v.style.cssText="font-family:var(--mono);font-weight:600"; sc.appendChild(v);
+    if(a.src){ sc.appendChild(flag(a.id==="it"?"e":"q")); }
+    c.appendChild(sc);
+    g.appendChild(c); });
+  s.appendChild(g);
+
+  // legend
+  var lg=el("div","legend"); CC.forEach(function(k){ var b=el("div","lg"); var d=el("i"); d.style.background=k[2]; b.appendChild(d); b.appendChild(el("span",null,k[1])); lg.appendChild(b); }); s.appendChild(lg);
+
+  // weights
+  var wp=el("div","panel"); wp.appendChild(el("h4",null,"What matters to you"));
+  wp.appendChild(el("p",null,"Drag to weight each factor from 0 (ignore) to 3 (decisive). Cost is scored from the live totals above; the rest are judgment calls, shown in the table below."));
+  var ws=el("div","wts");
+  WT.forEach(function(w){ var d=el("label","wt"); d.appendChild(el("b",null,w[1])); var sp=el("span",null,["ignore","a little","matters","decisive"][S.wts[w[0]]]); d.appendChild(sp);
+    var r=document.createElement("input"); r.type="range"; r.min=0; r.max=3; r.step=1; r.value=S.wts[w[0]];
+    r.oninput=function(){ sp.textContent=["ignore","a little","matters","decisive"][+r.value]; }; r.onchange=function(){ S.wts[w[0]]=+r.value; save(); render(); }; d.appendChild(r); ws.appendChild(d); });
+  wp.appendChild(ws); s.appendChild(wp);
+
+  // score table
+  var tw=el("div","tw"), tb=document.createElement("table");
+  var hd="<thead><tr><th>Factor</th>"+rows.map(function(r){return "<th style='text-align:center'>"+r.a.name.split(" · ")[0]+(r.a.name.indexOf(" · ")>-1?"<br><span style='text-transform:none;letter-spacing:0;font-weight:600'>"+r.a.name.split(" · ")[1]+"</span>":"")+"</th>";}).join("")+"</tr></thead><tbody>";
+  WT.forEach(function(w){ hd+="<tr><td><b>"+w[1]+"</b> <span style='color:var(--ink-3);font-size:11.5px'>×"+S.wts[w[0]]+"</span></td>"+rows.map(function(r){var v=r.sc[w[0]];return "<td style='text-align:center'><span class='sc sc"+v+"'>"+v+"</span></td>";}).join("")+"</tr>"; });
+  hd+="<tr class='hi'><td><b>Weighted score</b></td>"+rows.map(function(r){return "<td class='n' style='text-align:center'>"+r.score.toFixed(2)+"</td>";}).join("")+"</tr></tbody>";
+  tb.innerHTML=hd; tw.appendChild(tb); s.appendChild(tw);
+
+  // verdict
+  var cr=rows[0], others=rows.slice(1);
+  var v=el("div","call good"); v.appendChild(el("h4",null,best.a.id==="cruise"?"Why the cruise won":"On these weights, "+best.a.name+" edges ahead"));
+  var vp=el("p");
+  if(best.a.id==="cruise"){
+    var nxt=rows.slice().sort(function(x,y){return y.score-x.score;})[1];
+    vp.innerHTML="It costs <b>"+money(nxt.tot-cr.tot)+"</b> less than "+nxt.a.name+", the runner-up, and the free cabin does most of that work. The all-inclusives buy more rest and better weather; Italy buys food and culture nothing else here matches, at roughly <b>"+money(rows[3].tot-cr.tot)+"</b> more. Turn <i>Cost</i> down to a little and the Riviera Maya overtakes it. Italy only wins when <i>Food</i> and <i>Culture</i> are decisive and rest and weather barely count. That is the honest version of the decision: which of those you are paying for.";
+  } else {
+    vp.innerHTML="The cruise is still <b>"+money(best.tot-cr.tot)+"</b> cheaper. On the weights you've set, that saving isn't enough to make up for what "+best.a.name+" does better. Put <i>Cost</i> back to decisive to see the original call.";
+  }
+  v.appendChild(vp); s.appendChild(v);
+
+  // pros/cons
+  var pc=el("div","grid2");
+  rows.forEach(function(r){ var b=el("div","panel"); b.appendChild(el("h4",null,r.a.name));
+    var u=el("ul"); r.a.pros.forEach(function(x){ var li=el("li",null,"+ "+x); li.style.listStyle="none"; u.appendChild(li); }); r.a.cons.forEach(function(x){ var li=el("li",null,"− "+x); li.style.cssText="list-style:none;color:var(--ink-3)"; u.appendChild(li); });
+    u.style.paddingLeft="0"; b.appendChild(u);
+    if(r.a.src) b.appendChild(el("p",null,r.a.src)), b.lastChild.style.cssText="font-size:12px;color:var(--ink-3);margin:.5em 0 0";
+    pc.appendChild(b); });
+  s.appendChild(pc);
+
+  var w=el("div","call warm"); w.appendChild(el("h4",null,"Things that nearly changed the answer"));
+  var ul=el("ul"); ul.style.cssText="margin:.3em 0;padding-left:18px;font-size:13.5px;color:var(--ink-2)";
+  ["Flights decide the Caribbean. The Dominican resort is cheaper per night than the Riviera Maya, but its connecting flights cost $1,000 more for two and add six hours of travel.",
+   "Points change Italy more than anything else. Business class on points cuts about $2,000 of cash from the trip and removes the worst of the jet lag. Cash economy is what makes it the most expensive option by far.",
+   "The Riviera Maya's adults-only enclave costs over $800 more for the week than the standard ocean-view room. On the cruise, the equivalent quiet costs $80.",
+   "Late November is the start of high season in the Caribbean and the depth of low season in Italy. Prices were checked the same week, but they move."].forEach(function(x){ ul.appendChild(el("li",null,x)); });
+  w.appendChild(ul); s.appendChild(w);
+  return s;
+}
+
+function vPlan(){
+  var r=model(), s=el("div");
+  s.appendChild(el("h3","t","Eight days, seven nights, six of them at sea"));
+  var p=el("p","sub"); p.textContent="Fly down the day before on cash fares, one night on points by the water, six nights aboard, and home Saturday evening with all of Sunday spare. Six-night fare, seven-night trip."; s.appendChild(p);
+  var st=el("div","grid3"); st.style.marginBottom="16px";
+  [["Out of pocket",money(r.net),"for two, after a $250 travel credit"],["Per night away",money(r.net/7),"seven nights door to door"],["Nights of lodging paid","0","six on the offer, one on points"],["Onboard credit",money(r.credit),r.lost>0?money(r.lost)+" unspent on this build":"fully used"]].forEach(function(x){
+    var d=el("div","stat"); d.appendChild(el("em",null,x[0])); d.appendChild(el("b",null,x[1])); d.appendChild(el("s",null,x[2])); st.appendChild(d); });
+  s.appendChild(st);
+  var tl=el("div","tl");
+  D.timeline.forEach(function(d){
+    var row=el("div","tlrow "+d.k); row.appendChild(el("em",null,d.d));
+    var m=el("div"); m.appendChild(el("b",null,d.t)); m.appendChild(el("s",null,d.s)); row.appendChild(m);
+    var a="";
+    if(d.c==="out") a=money(D.flights[0].pp*D.party);
+    else if(d.c==="home") a=money(D.flights[1].pp*D.party);
+    else if(d.c==="embark") a=money(r.c.tax+r.c.cab);
+    else if(d.c&&d.c[0]==="p") a=money(r.excLines[+d.c[1]]);
+    else if(d.c==="sea") a=money(r.deck/D.seaDays);
+    row.appendChild(el("div","amt",a)); tl.appendChild(row);
+  });
+  s.appendChild(tl);
+  var g=el("div","grid2"); g.style.marginTop="14px";
+  [[D.flights[0].label,D.flights[0].note,money(D.flights[0].pp*D.party)+" for two",D.flights[0].src],
+   [D.hotel.label,D.hotel.note,D.hotel.pts.toLocaleString("en-US")+" points",D.hotel.src],
+   [D.flights[1].label,D.flights[1].note,money(D.flights[1].pp*D.party)+" for two",D.flights[1].src]].forEach(function(x){
+    var p=el("div","panel"); var h=el("h4"); h.appendChild(document.createTextNode(x[0])); h.appendChild(flag(x[3])); p.appendChild(h);
+    p.appendChild(el("p",null,x[1])); var a=el("div",null,x[2]); a.style.cssText="font-family:var(--mono);font-weight:600;margin-top:6px"; p.appendChild(a); g.appendChild(p); });
+  s.appendChild(g);
+  return s;
+}
+
+function vMoney(){
+  var r=model(), s=el("div");
+  s.appendChild(el("h3","t","What the week actually costs"));
+  var p=el("p","sub"); p.textContent="Every line in the order it is paid, with credits coming back. The bar and the total follow the choices on the other tabs."; s.appendChild(p);
+  var bar=el("div","bar"), lg=el("div","legend");
+  CATS.forEach(function(k){ var v=r.c[k[0]]; if(v<=0) return;
+    var i=document.createElement("i"); i.style.background=k[2]; i.style.flex="0 0 "+(v/r.total*100)+"%"; i.title=k[1]+" "+money(v);
+    if(v/r.total>.09) i.appendChild(el("span",null,money(v))); bar.appendChild(i);
+    var b=el("div","lg"); var d=el("i"); d.style.background=k[2]; b.appendChild(d); b.appendChild(el("span",null,k[1]+" "+money(v))); lg.appendChild(b); });
+  s.appendChild(bar); s.appendChild(lg);
+  var L=el("div");
+  function row(col,n,sub,v,cls){ var d=el("div","ld"+(cls?" "+cls:"")); var i=el("i"); i.style.background=col||"transparent"; d.appendChild(i);
+    var nn=el("div","n"); nn.appendChild(el("b",null,n)); if(sub) nn.appendChild(el("s",null,sub)); d.appendChild(nn); d.appendChild(el("div","v",v)); L.appendChild(d); }
+  row("#857a6b","Interior cabin for two","Retail "+money(D.retail.intPP*2)+", covered by the offer","$0","cr");
+  row("#857a6b","Deposit","$200 a head, returned as onboard credit",money(r.c.dep));
+  row("#2a78d6","Flights, both directions","Two one-way cash fares beat the round trip",money(r.c.air));
+  row("#1baf7a","Transfers, five legs",D.transfers.map(function(t){return t[0]+" $"+t[1];}).join(" · "),money(r.c.gnd));
+  row("#c77d1a","Hotel, one night","70,000 points, no cash","$0","cr");
+  if(r.c.cab) row("#d9708f","Cabin upgrade · "+r.cab.name,"Over the free interior",money(r.c.cab));
+  row("#4f8a3a","Taxes and fees","$240 a head, the one thing the offer never covers",money(r.c.tax));
+  if(r.c.pkg) row("#5a46b0","Package · "+r.pk.name,r.pk.blurb,money(r.c.pkg));
+  row("#c77d1a","Onboard and ashore, before credit","Excursions "+money(r.excTot)+" · adults-only deck "+money(r.deck)+(r.fees?" · gratuities & Wi-Fi "+money(r.fees):"")+(r.dining?" · specialty dining "+money(r.dining):""),money(r.excTot+r.deck+r.fees+r.dining));
+  row("var(--good)","Onboard credit applied",money(r.credit)+" available at boarding",money(-r.used),"cr");
+  if(r.lost>0) row("var(--bad)","Credit you will not spend","Not refundable. Point it at something or change package",money(r.lost));
+  row("var(--good)","Airline travel credit","Expiring, with no other use",money(-D.travelCredit),"cr");
+  row(null,"Out of pocket","for two, plus 70,000 hotel points",money(r.net),"tot");
+  s.appendChild(L);
+
+  var retailNet=(D.retail.miniPP+D.retail.taxPP)*2, paid=1260+480+400-400;
+  var c=el("div","call good"); c.appendChild(el("h4",null,"The control: same room, public price, same day"));
+  var cp=el("p"); cp.innerHTML="The identical mini-suite was "+money(retailNet)+" for two on the public site at the moment of booking. Through the offer it came to "+money(paid)+" net of the deposit credit, <b>"+money(retailNet-paid)+" ahead</b>. But the public gap from interior to mini-suite was "+money((D.retail.miniPP-D.retail.intPP)*2)+", and the offer charged "+money(1260)+" for the same step. The value was in the free cabin; the upgrade was priced above retail. That is what sets the ceiling for any further bid.";
+  c.appendChild(cp); s.appendChild(c);
+
+  var t=el("div","call warm"); t.appendChild(el("h4",null,"The cancellation clock"));
+  var tw=el("div","tw"); var tb=document.createElement("table");
+  tb.innerHTML="<thead><tr><th>From</th><th>Fee</th><th style='text-align:right'>Exposure</th></tr></thead><tbody>"+
+   [["90 days out","25% of total",535],["75 days out","50% of total",1070],["60 days out","75% of total",1605],["30 days out","100% of total",2140]].map(function(x,i){return "<tr"+(i===0?" class='hi'":"")+"><td><b>"+x[0]+"</b></td><td>"+x[1]+"</td><td class='n'>"+money(x[2])+"</td></tr>";}).join("")+"</tbody>";
+  tw.appendChild(tb); t.appendChild(tw);
+  t.appendChild(el("p",null,"No trip protection was taken. With flights and the hotel also committed, a third-party policy is worth pricing before the 75-day step."));
+  s.appendChild(t);
+  return s;
+}
+
+function opt(on,title,sub,amt,amtSub,fn,type){
+  var l=document.createElement("label"); l.className="opt"; l.setAttribute("data-on",on?"1":"0");
+  var i=document.createElement("input"); i.type=type||"radio"; i.checked=!!on; i.addEventListener("change",fn); l.appendChild(i);
+  var b=el("div","body"); b.appendChild(el("b",null,title)); if(sub) b.appendChild(el("s",null,sub)); l.appendChild(b);
+  var a=el("div","amt",amt); if(amtSub) a.appendChild(el("s",null,amtSub)); l.appendChild(a); return l;
+}
+
+function vChoose(){
+  var r=model(), s=el("div");
+  s.appendChild(el("h3","t","Which package, and is an upgrade bid worth it?"));
+  var p=el("p","sub"); p.textContent="Pick a cabin and a package. Every option shows what the whole trip lands at, and the break-even table shows where the premium package overtakes the basic one."; s.appendChild(p);
+  var g=el("div","grid2");
+  var a=el("div"); a.appendChild(el("h4",null,"Cabin")); a.lastChild.style.margin="0 0 8px";
+  var oa=el("div","opts");
+  D.cabins.forEach(function(c){ var rr=model({cabin:c.id});
+    oa.appendChild(opt(S.cabin===c.id,c.name+(c.booked?" ✓":""),c.blurb,c.up?money(c.up):"included",(c.src==="e"?"estimate · ":"")+"trip "+money(rr.net),function(){S.cabin=c.id;save();render();})); });
+  a.appendChild(oa); g.appendChild(a);
+  var b=el("div"); b.appendChild(el("h4",null,"Package")); b.lastChild.style.margin="0 0 8px";
+  var ob=el("div","opts");
+  D.packages.forEach(function(k){ var rr=model({pkg:k.id});
+    ob.appendChild(opt(S.pkg===k.id,k.name,k.blurb,money(k.cost),"trip "+money(rr.net),function(){S.pkg=k.id;save();render();})); });
+  b.appendChild(ob);
+  var dn=el("div","panel"); dn.style.marginTop="10px";
+  dn.appendChild(el("h4",null,"Specialty dinners booked"));
+  var stp=el("div","stepper");
+  var mi=el("button",null,"−"); mi.onclick=function(){S.dinners=Math.max(0,S.dinners-1);save();render();};
+  var pl=el("button",null,"+"); pl.onclick=function(){S.dinners=Math.min(6,S.dinners+1);save();render();};
+  stp.appendChild(mi); stp.appendChild(el("b",null,String(S.dinners))); stp.appendChild(pl); dn.appendChild(stp);
+  dn.appendChild(el("p",null,"$132 a night for two at the specialty restaurants. Free under Premium."));
+  b.appendChild(dn); g.appendChild(b); s.appendChild(g);
+
+  /* break-even */
+  var dinTot=D.onb.dinner2*S.dinners, obc=D.offer.obc;
+  var c=el("div","call good"); c.appendChild(el("h4",null,"The break-even, on "+S.dinners+" booked dinners"));
+  var cp=el("p"); cp.innerHTML="The $400 deposit comes back as credit either way. Under Basic it pays the dinner bill; under Premium the dinners are free and the credit only has excursions to absorb. So Premium only wins once you book enough paid excursions.";
+  c.appendChild(cp);
+  var tw=el("div","tw"), tb=document.createElement("table");
+  var rows=[["Nothing booked, all free days",0],["Value build: snorkel + kayak",216],["Two-snorkel build",300],["One big tour",630]];
+  tb.innerHTML="<thead><tr><th>Excursions booked</th><th style='text-align:right'>Basic, all in</th><th style='text-align:right'>Premium, all in</th><th style='text-align:right'>Winner</th></tr></thead><tbody>"+
+    rows.map(function(x){ var X=x[1];
+      var b=780+Math.max(0,dinTot+X-obc), pr=1200+Math.max(0,X-obc-200), d=b-pr;
+      return "<tr"+(X===216?" class='hi'":"")+"><td><b>"+x[0]+"</b></td><td class='n'>"+money(b)+"</td><td class='n'>"+money(pr)+"</td><td class='n' style='color:"+(d>0?"var(--good)":"var(--warn)")+"'>"+(d>0?"Premium by "+money(d):d<0?"Basic by "+money(-d):"Even")+"</td></tr>"; }).join("")+"</tbody>";
+  tw.appendChild(tb); c.appendChild(tw); s.appendChild(c);
+
+  var w=el("div","call warm"); w.appendChild(el("h4",null,"On the upgrade bid"));
+  w.appendChild(el("p",null,"The premium-dining mini-suite is the same room as the one booked. On a six-night trip with five specialty dinners already reserved, its private dining room would get used about once. At an estimated $800 it is a poor trade; bid $200–300 or skip it. The suite is the more interesting speculative bid, priced against the public fare rather than against what was paid."));
+  s.appendChild(w);
+  return s;
+}
+
+function vPorts(){
+  var r=model(), s=el("div");
+  s.appendChild(el("h3","t","Three ports, two of them great for free"));
+  var p=el("p","sub"); p.textContent="Choose one thing per port. Prices are per person, shown for two, with the line's own guest ratings where there are enough of them to mean something."; s.appendChild(p);
+  D.ports.forEach(function(pt,i){
+    var b=el("div","panel"); b.style.marginBottom="12px";
+    var h=el("div"); h.style.cssText="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap";
+    var lt=el("div"); lt.appendChild(el("h4",null,pt.name)); var hh=el("div",null,pt.hours); hh.style.cssText="font-size:12px;color:var(--ink-3);font-family:var(--mono)"; lt.appendChild(hh);
+    h.appendChild(lt); var am=el("div",null,money(r.excLines[i])); am.style.cssText="font-family:var(--mono);font-weight:600;font-size:16px"; h.appendChild(am); b.appendChild(h);
+    var f=el("div","call good"); f.style.margin="10px 0"; f.appendChild(el("p",null,"If you buy nothing: "+pt.free)); b.appendChild(f);
+    var sel=document.createElement("select");
+    pt.exc.forEach(function(e,k){ var o=document.createElement("option"); o.value=k;
+      o.textContent=e[1]? e[0]+" — "+m2(e[1])+" each, "+money(e[1]*2)+" for two"+(e[2]?" · ★ "+e[2]:"") : e[0]+" — free"; sel.appendChild(o); });
+    sel.value=S.exc[i]; sel.onchange=function(){S.exc[i]=+sel.value;save();render();};
+    b.appendChild(sel);
+    var e=pt.exc[S.exc[i]]; if(e[3]){ var n=el("p",null,e[3]); n.style.cssText="font-size:12.5px;color:var(--ink-2);margin:.6em 0 0"; b.appendChild(n); }
+    s.appendChild(b);
+  });
+  var d=el("div","panel");
+  d.appendChild(el("h4",null,"Adults-only deck on sea days"));
+  var row=el("div"); row.style.cssText="display:flex;gap:12px;flex-wrap:wrap;align-items:center";
+  [["half","Half day · $20 each"],["full","Full day · $40 each"]].forEach(function(x){
+    var bt=el("button","btn",x[1]); bt.style.cssText="padding:6px 12px;font-size:12.5px;"+(S.deckMode===x[0]?"background:var(--sea);color:#fff;border-color:var(--sea)":"");
+    bt.onclick=function(){S.deckMode=x[0];save();render();}; row.appendChild(bt); });
+  var stp=el("div","stepper"); var mi=el("button",null,"−"); mi.onclick=function(){S.deckDays=Math.max(0,S.deckDays-1);save();render();};
+  var pl=el("button",null,"+"); pl.onclick=function(){S.deckDays=Math.min(D.seaDays,S.deckDays+1);save();render();};
+  stp.appendChild(mi); stp.appendChild(el("b",null,String(S.deckDays))); stp.appendChild(pl); row.appendChild(stp);
+  row.appendChild(el("span",null,"of 2 sea days · "+money(r.deck)+" for two")); row.lastChild.style.cssText="font-size:13px;color:var(--ink-3)";
+  d.appendChild(row);
+  d.appendChild(el("p",null,"Book it in the first hour aboard. Reserve now, pay on the day, so a rained-out sea day costs nothing."));
+  s.appendChild(d);
+  return s;
+}
+
+function vDays(){
+  var s=el("div");
+  s.appendChild(el("h3","t","The two travel days, hour by hour"));
+  var p=el("p","sub"); p.textContent="The awkward hours are where trips go wrong. One item, done on boarding day, changes the whole last day."; s.appendChild(p);
+  var c=el("div","call good"); c.appendChild(el("h4",null,"Onboard airline check-in"));
+  c.appendChild(el("p",null,"Some airlines check your bags straight from the ship and deliver boarding passes to the cabin. Your suitcases never touch the terminal and you walk off with a day bag. The deadline is two days before docking, which on this sailing is the holiday at sea, the exact day it gets forgotten. Register in your first hour aboard."));
+  s.appendChild(c);
+  function clock(title,rows){
+    var b=el("div","panel"); b.style.marginTop="12px"; b.appendChild(el("h4",null,title));
+    var tw=el("div","tw"), tb=document.createElement("table");
+    tb.innerHTML="<thead><tr><th>Time</th><th>What</th><th>Note</th></tr></thead><tbody>"+rows.map(function(x){return "<tr"+(x[3]?" class='hi'":"")+"><td class='mono' style='white-space:nowrap'><b>"+x[0]+"</b></td><td><b>"+x[1]+"</b></td><td style='color:var(--ink-2);font-size:12.5px'>"+x[2]+"</td></tr>";}).join("")+"</tbody>";
+    tw.appendChild(tb); b.appendChild(tw); return b; }
+  s.appendChild(clock("Boarding day",[
+    ["7:30 AM","Breakfast, unhurried","Boarding runs by arrival time; early birds just sit in a holding room."],
+    ["10:30 AM","Final bag sort","Passports, meds, wine and swimsuits into carry-ons. Checked bags may not reach the cabin until mid-afternoon."],
+    ["11:45 AM","Hotel shuttle to the pier","Not a walk: security gate, no sidewalk, a high causeway bridge, and bags."],
+    ["12:30 PM","Aboard. Guest services first","Register airline check-in, then book the adults-only deck.",true],
+    ["1:00 PM","Lunch in the main dining room","Calm while the buffet is bedlam."],
+    ["3:00 PM","Sail away",""]]));
+  s.appendChild(clock("Going-home day",[
+    ["Fri 10 PM","Bags out","Keep a day bag: change of clothes, swimsuit, toothbrush."],
+    ["6:00 AM","Alongside","Sleep in. Nothing to do yet."],
+    ["9:30 AM","Walk off with a day bag","Bags already checked through to home."],
+    ["10 AM – 4 PM","A free day in town","Beach or lunch on the main strip."],
+    ["4:00 PM","Airport, straight to security","The card lounge only admits you within three hours of departure.",true],
+    ["7:00 PM","Fly home","Home by 10. Sunday is yours."]]));
+  var g=el("div","grid2"); g.style.marginTop="12px";
+  var a=el("div","panel"); a.appendChild(el("h4",null,"Pulled at the scanner"));
+  var u=el("ul"); ["Surge-protected power strips","Irons and steamers","Spirits and beer (wine is allowed, with corkage after the first bottle)","Any drink in a checked bag"].forEach(function(x){u.appendChild(el("li",null,x));}); a.appendChild(u); g.appendChild(a);
+  var b=el("div","panel"); b.appendChild(el("h4",null,"If the evening flight cancels"));
+  b.appendChild(el("p",null,"The route runs once a day on that airline. On a holiday Saturday there is no later departure and no same-day recovery. Worth knowing before declining trip insurance.")); g.appendChild(b);
+  s.appendChild(g);
+  return s;
+}
+
+function vCheck(){
+  var s=el("div");
+  s.appendChild(el("h3","t","Four things we believed, checked"));
+  var p=el("p","sub"); p.textContent="Assumptions are where money leaks. Each is checked against the line's own documents and marked."; s.appendChild(p);
+  D.checks.forEach(function(c){
+    var b=el("div","panel"); b.style.marginBottom="10px";
+    var h=el("h4"); h.appendChild(el("span","pill "+(c.v?"q":"x"),c.v?"Right":"Not so")); h.appendChild(document.createTextNode(" "+c.c)); b.appendChild(h);
+    b.appendChild(el("p",null,c.t)); s.appendChild(b); });
+  return s;
+}
+
+function dparse(iso){var a=iso.split("-");return new Date(+a[0],+a[1]-1,+a[2]);}
+function vDo(){
+  var s=el("div");
+  s.appendChild(el("h3","t","Every deadline, counting down"));
+  var p=el("p","sub"); p.textContent="Change the sailing date and every deadline moves. Tick items off as you go; ticks are remembered in this browser."; s.appendChild(p);
+  var row=el("div"); row.style.cssText="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px";
+  row.appendChild(el("b",null,"Sailing date")); row.lastChild.style.fontSize="13px";
+  var di=document.createElement("input"); di.type="date"; di.value=D.sail; di.style.width="auto";
+  di.onchange=function(){ if(di.value){D.sail=di.value; render();} }; row.appendChild(di);
+  s.appendChild(row);
+  var sail=dparse(D.sail), today=new Date(); today.setHours(0,0,0,0);
+  var card=el("div","panel");
+  D.deadlines.forEach(function(x,i){
+    var due=new Date(sail.getTime()); due.setDate(due.getDate()-x[0]);
+    var left=Math.round((due-today)/86400000);
+    var d=el("div","chk"+(S.done[i]?" done":""));
+    var dot=el("div","dot",S.done[i]?"✓":""); d.appendChild(dot);
+    var bd=el("div","body"); bd.appendChild(el("b",null,x[1])); bd.appendChild(el("s",null,due.toLocaleDateString("en-US",{weekday:"short",month:"short",day:"numeric"})+" · "+x[2])); d.appendChild(bd);
+    var w=el("span","when"+(left<0?" past":left<=14?" soon":""), left<0?Math.abs(left)+"d ago":left===0?"today":left+"d"); d.appendChild(w);
+    d.onclick=function(){ S.done[i]=!S.done[i]; save(); render(); };
+    card.appendChild(d); });
+  s.appendChild(card);
+  return s;
+}
+
+function render(){
+  var t=$("sTabs"); t.textContent="";
+  TABS.forEach(function(x){ var b=el("button",null,x[1]); b.type="button"; b.setAttribute("role","tab"); b.setAttribute("aria-selected",S.tab===x[0]?"true":"false");
+    b.onclick=function(){S.tab=x[0];save();render();}; t.appendChild(b); });
+  var V={compare:vCompare,plan:vPlan,money:vMoney,choose:vChoose,ports:vPorts,days:vDays,check:vCheck,do:vDo};
+  var pane=$("sPane"); pane.textContent=""; pane.appendChild((V[S.tab]||vPlan)());
+  $("sTot").textContent=money(model().net);
+}
+render();
+
+/* =====================================================================
+   BUILDER — writes the prompt. Nothing leaves the browser.
+   ===================================================================== */
+var FKEY="watch-voyage-builder-v1";
+var ids=["f-type","f-dest","f-dates","f-from","f-party","f-budget","f-stage","f-style","f-booked","f-musts","f-perks"];
+try{ var fv=JSON.parse(localStorage.getItem(FKEY)||"null");
+  if(fv){ ids.forEach(function(i){ if(fv[i]!=null) $(i).value=fv[i]; });
+    if(fv.mods){ [].forEach.call($("f-mods").querySelectorAll("input"),function(c){ c.checked=fv.mods.indexOf(c.value)>-1; }); } } }catch(e){}
+
+function mods(){ return [].filter.call($("f-mods").querySelectorAll("input"),function(c){return c.checked;}).map(function(c){return c.value;}); }
+function v(i){ return $(i).value.trim(); }
+function buildPrompt(){
+  var L=[];
+  L.push("Build me a private, single-file HTML trip planner for my trip, modeled on the attached Voyage Planner template (the \"sample\" section shows the level of detail I want).");
+  L.push("");
+  L.push("MY TRIP");
+  L.push("- Kind of trip: "+v("f-type"));
+  L.push("- Destination(s): "+(v("f-dest")||"[not decided — help me compare]"));
+  L.push("- Dates: "+(v("f-dates")||"[flexible — ask me]"));
+  L.push("- Leaving from: "+(v("f-from")||"[ask me]"));
+  L.push("- Who's going: "+(v("f-party")||"[ask me]"));
+  L.push("- Budget: "+(v("f-budget")||"[none given]"));
+  L.push("- Where I am in planning: "+v("f-stage"));
+  L.push("- Travel style: "+v("f-style"));
+  if(v("f-booked")){ L.push(""); L.push("ALREADY BOOKED"); L.push(v("f-booked")); }
+  if(v("f-musts")){ L.push(""); L.push("MUST-DOS, WISHES AND CONSTRAINTS"); L.push(v("f-musts")); }
+  if(v("f-perks")){ L.push(""); L.push("LOYALTY, CARDS AND CREDITS"); L.push(v("f-perks")); }
+  L.push("");
+  L.push("WHAT TO INCLUDE");
+  mods().forEach(function(m){ L.push("- "+m); });
+  L.push("");
+  L.push("HOW TO BUILD IT");
+  L.push("- First, research current prices, schedules, rules and hours for my actual trip. Do not reuse the sample's numbers or details; they belong to a fictional trip.");
+  L.push("- Ask me up to five short questions first if something important is missing, then build.");
+  L.push("- Label every figure as Quoted (from a booking or official page), Estimate, or Derived, and cite where quoted figures came from.");
+  L.push("- One live total that updates when I change choices, with per-person and per-night figures, and credits shown coming back.");
+  L.push("- Where there is a real decision (upgrade, package, pass, route), show the break-even on my own plans, then give a clear recommendation.");
+  L.push("- If I'm weighing more than one option, price each one all in for the same dates (flights, room, food and drink, transfers, activities, minus credits), show hours in transit and cost per night, and add a weighted scorecard with sliders so I can see which wins and what would flip it.");
+  L.push("- Fact-check the assumptions I seem to be making and mark each Right or Not so.");
+  L.push("- A dated countdown of every deadline, with checkboxes.");
+  L.push("- Design: polished, readable on a phone, light and dark mode, similar in feel to the template.");
+  L.push("");
+  L.push("PRIVACY AND DELIVERY");
+  L.push("- Deliver ONE self-contained .html file that works offline by double-clicking it: no server, no login, no tracking, no external calls except optional web fonts.");
+  L.push("- Keep all my data inside the file; save my checkboxes and choices only in the browser's localStorage (wrapped so it still works if storage is blocked).");
+  L.push("- Do not publish or post it anywhere. Give me the file.");
+  L.push("- Make it easy to update: keep the trip data in one clearly marked object at the top of the script so I can paste in new confirmations later.");
+  return L.join("\n");
+}
+function refresh(){
+  $("bOut").textContent=buildPrompt();
+  var o={mods:mods()}; ids.forEach(function(i){o[i]=$(i).value;});
+  try{localStorage.setItem(FKEY,JSON.stringify(o));}catch(e){}
+}
+$("bForm").addEventListener("input",refresh); $("bForm").addEventListener("change",refresh);
+refresh();
+
+function toast(t){ var e=$("toast"); e.textContent=t; e.classList.add("on"); clearTimeout(toast._t); toast._t=setTimeout(function(){e.classList.remove("on");},2400); }
+function copy(t){
+  if(navigator.clipboard&&window.isSecureContext) return navigator.clipboard.writeText(t);
+  return new Promise(function(res,rej){ var ta=document.createElement("textarea"); ta.value=t; ta.style.position="fixed"; ta.style.opacity="0"; document.body.appendChild(ta); ta.select();
+    try{ document.execCommand("copy") ? res() : rej(); }catch(e){rej(e);} document.body.removeChild(ta); });
+}
+function download(name,text,type){
+  var b=new Blob([text],{type:type||"text/plain"}); var a=document.createElement("a");
+  a.href=URL.createObjectURL(b); a.download=name; document.body.appendChild(a); a.click();
+  setTimeout(function(){URL.revokeObjectURL(a.href); a.remove();},500);
+}
+$("bCopy").onclick=function(){ copy(buildPrompt()).then(function(){toast("Prompt copied");},function(){toast("Select the text and copy it");}); };
+$("bDl").onclick=function(){ download("my-trip-planner-prompt.txt",buildPrompt()); toast("Prompt downloaded"); };
+$("bTpl").onclick=function(){
+  /* the template is this page with the original sample state, never the reader's answers */
+  var clone=document.documentElement.cloneNode(true);
+  var po=clone.querySelector("#bOut"); if(po) po.textContent="";
+  [].forEach.call(clone.querySelectorAll("#sPane,#sTabs"),function(n){n.textContent="";});
+  var html="<!DOCTYPE html>\n"+clone.outerHTML;
+  download("voyage-planner-template.html",html,"text/html"); toast("Template downloaded — attach it to your chat");
+};
+function openAI(url){
+  var p=buildPrompt();
+  copy(p).then(function(){},function(){});
+  var full=url+encodeURIComponent(p);
+  window.open(full.length<7000?full:url.split("?")[0],"_blank","noopener");
+  toast(full.length<7000?"Opening a new chat — attach the template file too":"Prompt copied — paste it into the new chat");
+}
+$("bClaude").onclick=function(){ openAI("https://claude.ai/new?q="); };
+$("bGpt").onclick=function(){ openAI("https://chatgpt.com/?q="); };
+</script>
+</body>
+</html>

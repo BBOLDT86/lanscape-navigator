@@ -4507,12 +4507,13 @@ function plFly(cs, w) {
 }
 function lifeTravel() {
   const w = wkWeekendL(), cs = LIFE.cities;
-  if (!cs.length) return weekenderPromo() + dateNightPromo() + pointsPromo();
+  if (!cs.length) return weekenderPromo() + dateNightPromo() + voyagePromo() + pointsPromo();
   const pts = ((LIFE.live && LIFE.live.points && LIFE.live.points.items) || []).slice(0, 4);
   return `<section class="pl-tr"><div class="pl-h"><div><h2 class="sec-h">${w ? T('This weekend: three perfect days') : T('Three perfect days')}</h2><p class="note">${w ? T('Weekender’s eight cities, planned day by day for {dates}: what’s on, where to eat and stay, and the forecast.', { dates: esc(dRange(w.weekend, addD(w.weekend, 2))) }) : T('Weekender’s eight cities, planned day by day every weekend.')}</p></div><a class="pl-more" href="../travel/">Weekender ›</a></div>
     <div class="pl-row">${cs.map(c => plCity(c, w)).join('')}</div>
     ${plFly(cs, w)}
     ${dateNightPromo()}
+    ${voyagePromo()}
     ${pts.length ? `<div class="pl-pts"><a class="pl-ptl" href="../travel/#/points"><b>Points Hacker</b><span>${T('Every card credit and when it resets, the hotel programs and where your points transfer')} ›</span></a><ul>${pts.map(n => `<li lang="en" class="nolc"><a href="${esc(n.u)}" target="_blank" rel="noopener">${esc(n.t)}</a><small>${esc(n.o)}</small></li>`).join('')}</ul></div>` : pointsPromo()}
     ${lifeStrip(['outdoors'], T('Pack for it, from Finds'), '../shop/#/s/outdoors')}
     ${visionNudge()}</section>`;
@@ -4595,6 +4596,9 @@ document.addEventListener('submit', e => {
   const q = new URLSearchParams(Object.entries({ from: /^[A-Z]{3}$/.test(from) ? from : '', to: c ? c.air : '', dep: f.dep.value, ret: f.ret.value, n: f.n.value }).filter(([, v]) => v));
   location.href = '../travel/#/flights?' + q.toString();
 });
+function voyagePromo() { // Weekender's Voyage Planner
+  return `<a class="wkpromo" href="../travel/voyage-planner/"><span class="wkp-b" aria-hidden="true">⚓</span><span><b>${T('Voyage Planner: your whole trip, worked out to the dollar')}</b><span>${T('See a fully planned week (four destinations compared, every cost in one live total, every deadline counting down), then have Claude or ChatGPT build a private planner for your own trip.')}</span></span><span class="wkp-go" aria-hidden="true">›</span></a>`;
+}
 function pointsPromo() { // Weekender's Points Hacker
   return `<a class="wkpromo" href="../travel/#/points"><span class="wkp-b" aria-hidden="true">◆</span><span><b>${T('Points Hacker: get every dollar out of the cards')}</b><span>${T('Every credit on the Amex, Chase, Capital One and Citi cards and when it resets, the hotel programs, the transfer partners and the week’s points news.')}</span></span><span class="wkp-go" aria-hidden="true">›</span></a>`;
 }
