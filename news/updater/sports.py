@@ -508,6 +508,11 @@ def espn_news(path, lg, label):
     return out
 
 
+SPORTS_JUNK = re.compile(r'stats & head-to-head|head-to-head record|\blive (score|stream|updates)\b|\bhow to watch .* (free|online|stream)\b|promo code|betting offer|bonus bets', re.I)
+SPORTS_PRESS = {'espn.com', 'mlssoccer.com', 'nytimes.com', 'si.com', 'cbssports.com', 'foxsports.com', 'sports.yahoo.com', 'yahoo.com', 'usatoday.com',
+                'nbcsports.com', 'goal.com', 'apnews.com', 'reuters.com', 'theguardian.com', 'bbc.com', 'bbc.co.uk', 'washingtonpost.com', 'latimes.com',
+                'theathletic.com', 'sbnation.com', 'sportingnews.com', 'fourfourtwo.com', 'espnfc.com', 'miamiherald.com', 'seattletimes.com',
+                'chicagotribune.com', 'nbcnews.com', 'cbsnews.com', 'foxnews.com', 'insidesocal.com', 'theringer.com', 'bleacherreport.com', 'americansocceranalysis.com'}
 OUTLET_NAMES = {'cbssports.com': 'CBS Sports', 'nytimes.com': 'The Athletic', 'sports.yahoo.com': 'Yahoo Sports', 'yahoo.com': 'Yahoo Sports',
                 'nbcsports.com': 'NBC Sports', 'mlb.com': 'MLB.com', 'theguardian.com': 'The Guardian', 'bbc.com': 'BBC Sport', 'bbc.co.uk': 'BBC Sport'}
 
@@ -525,6 +530,8 @@ def feed_news(url, days, keep=None):
             continue
         if it['google']:
             dom = run.norm_domain(it['src_url'])
+            if dom not in SPORTS_PRESS and dom not in run.OUTLETS:
+                continue
             o = run.OUTLETS.get(dom) or it['src_name'] or dom
             if it['src_name'] and t.endswith(' - ' + it['src_name']):
                 t = t[: -len(it['src_name']) - 3].strip()
@@ -599,6 +606,15 @@ def league_news(lg, cfg, tms):
         seen.add(k); seen.add(u)
         out.append(x)
     tag_teams(out, tms)
+    ids = {str(t['id']) for t in tms}
+    for x in out:
+        if x.get('tm'):
+            x['tm'] = [i for i in x['tm'] if str(i) in ids] or None
+            if not x['tm']:
+                del x['tm']
+    if cfg.get('keep'):  # a league whose sources stray (ESPN's MLS news carries other soccer): its own teams or its name
+        out = [x for x in out if x.get('tm') or re.search(cfg['keep'], x['t'] + ' ' + (x.get('d') or ''), re.I)]
+    out = [x for x in out if not SPORTS_JUNK.search(x['t'])]
     # no one outlet takes more than half the list
     by, cap, keep = {}, max(12, NEWS_KEEP.get(lg, 50) // 2), []
     for x in out:
@@ -668,7 +684,12 @@ def build_league(lg, cfg):
                 tm = teams(path)
             except Exception as ex:  # noqa: BLE001
                 tm = []; errors.append(f'{key} teams: {type(ex).__name__} {str(ex)[:80]}')
-            return {'k': key, 'slug': slug, 'name': name, 'short': short, 'country': country, 'season': s, 'phase': phase_line(key, s, gs, {}),
+            ph = phase_line(key, s, gs, {})
+            if std and not key.startswith('u') and s.get('type') != 3:
+                gp = [int(_num(r['v'][0])) for t in std['tree'] for r in t.get('rows') or []]
+                if gp:
+                    ph = f'{max(gp)} rounds played'
+            return {'k': key, 'slug': slug, 'name': name, 'short': short, 'country': country, 'season': s, 'phase': ph,
                     'st': std, 'teams': tm}, gs
         with cf.ThreadPoolExecutor(3) as ex:
             for c, res in zip(cfg['comps'], ex.map(lambda c: _safe(one, c), cfg['comps'])):

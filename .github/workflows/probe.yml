@@ -15,8 +15,8 @@ jobs:
           python-version: '3.12'
       - run: |
           mkdir -p news/data
-          ( time python3 news/updater/sports.py --record rec ) 2>&1 | tee run.log
+          ( time python3 news/updater/sports.py ) 2>&1 | tee run.log
           python3 news/updater/sports.py check 2>&1 | tee -a run.log
       - run: |
           git config user.name probe; git config user.email probe@users.noreply.github.com
-          git add -f news/data/sports rec run.log && git commit -qm "probe results" && git push -q origin HEAD:probe-sports-results --force
+          git add -f news/data/sports run.log && git commit -qm "probe results" && git push -q origin HEAD:probe-sports-results --force
