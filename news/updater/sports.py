@@ -190,7 +190,8 @@ def tv_list(comp):
     for g in comp.get('geoBroadcasts') or []:
         n = ((g.get('media') or {}).get('shortName') or '').strip()
         m = (g.get('market') or {}).get('type') or 'National'
-        if not n or (g.get('region') or 'us') != 'us' or n in seen:
+        kind = ((g.get('type') or {}).get('shortName') or '').lower()
+        if not n or kind == 'radio' or (g.get('region') or 'us') != 'us' or n in seen:
             continue
         seen.add(n)
         if m == 'National':
@@ -210,6 +211,8 @@ def tv_list(comp):
 
 def odds_line(comp):
     for o in comp.get('odds') or []:
+        if not isinstance(o, dict):
+            continue
         bits = []
         if o.get('details'):
             bits.append(o['details'])
