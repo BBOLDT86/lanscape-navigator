@@ -365,6 +365,7 @@ h3.glb{font:600 12.5px var(--sans);letter-spacing:.07em;text-transform:uppercase
 .gbl{list-style:none;padding:0;margin:8px 0 0;columns:2 320px;column-gap:30px}.gbl li{break-inside:avoid;padding:6px 0;font-size:14.5px}.gbl span{color:var(--ink-2)}
 .fsdp{display:flex;flex-direction:column;gap:8px;text-decoration:none;color:#EEF1F4;background:#0E1A2B;border-radius:14px;padding:22px 22px 20px;position:relative;overflow:hidden}
 .fsdp::after{content:"";position:absolute;right:-60px;top:-60px;width:220px;height:220px;border-radius:50%;border:28px solid rgba(214,178,94,.16)}
+.brmiss{margin:22px 0 4px}@media (max-width:820px){.fsdp::after{right:-130px;top:-90px;opacity:.5}}
 .fsdp .k{font:700 12px var(--sans);letter-spacing:.08em;text-transform:uppercase;color:#D6B25E}.fsdp .t{font:400 34px/1.05 var(--serif)}.fsdp .d{font-size:15px;color:#B9C3CF;line-height:1.5;max-width:46ch}
 .fsdp .fx{display:flex;flex-wrap:wrap;gap:6px}.fsdp .fx span{font:600 13px var(--sans);border:1px solid rgba(255,255,255,.22);border-radius:999px;padding:4px 10px}
 .fsdp .fgo{font:600 15px var(--sans);color:#D6B25E;margin-top:4px}.fsdp:hover .fgo{text-decoration:underline;text-underline-offset:3px}
@@ -485,9 +486,9 @@ h3.glb{font:600 12.5px var(--sans);letter-spacing:.07em;text-transform:uppercase
 .eh{margin:10px 0 2px;font-size:15px;line-height:1.5}.eh span{color:var(--ink-2)}
 .vbar{display:flex;height:10px;border-radius:5px;overflow:hidden;gap:2px;margin:6px 0 8px}.vbar span{display:block;min-width:2px}
 .cands{list-style:none;padding:0;margin:6px 0}
-.cands li{display:grid;grid-template-columns:12px minmax(0,1fr) auto;gap:2px 10px;align-items:baseline;padding:6px 0;border-bottom:1px solid var(--rule)}
+.cands li{display:grid;grid-template-columns:12px auto minmax(0,1fr) auto;gap:2px 10px;align-items:baseline;padding:6px 0;border-bottom:1px solid var(--rule)}
 .cands i{width:10px;height:10px;border-radius:50%;align-self:center}.cands b{font-weight:600}.cands span{color:var(--ink-2);font-size:13px;margin-left:6px}
-.cands em{font-style:normal;font:600 20px var(--sans);font-variant-numeric:tabular-nums}.cands small{grid-column:2 / 4;color:var(--ink-2);font-size:13px}
+.cands em{font-style:normal;font:600 20px var(--sans);font-variant-numeric:tabular-nums}.cands small{grid-column:2 / 5;color:var(--ink-2);font-size:13px}
 .esrc{font-size:12.5px;color:var(--ink-2);margin:8px 0 0;line-height:1.5}
 .ecal{list-style:none;margin:12px 0 0;padding:0;font-size:14px;color:var(--ink-2)}.ecal li{padding:4px 0}.ecal b{color:var(--ink);font-weight:600;margin-right:6px}
 .elinks{margin:14px 0 0;display:flex;gap:8px;flex-wrap:wrap}
@@ -1335,7 +1336,7 @@ function renderDesk(k) {
   list.sort(deskSort === 'new' ? (a, b) => b.p - a.p : (a, b) => b.s - a.s);
   listPage(secName(k), T(list.length === 1 ? '{n} story' : '{n} stories', { n: list.length }), list.map(x => ({ it: x.it })),
     { controls: `<div class="seg" role="group" aria-label="Sort"><button type="button" data-sort="you" aria-pressed="${deskSort === 'you'}">Best for you</button><button type="button" data-sort="new" aria-pressed="${deskSort === 'new'}">Latest</button></div>`,
-      top: (k === 'politics' ? electionsHTML(true) : k === 'brazil' ? electionsHTML(true, 'br') : k === 'travel' ? weekenderPromo() : k === 'power' ? `<div id="pwrWrap" class="mk">${powerHTML()}</div>` : k === 'cars' ? `<div id="garWrap">${garageHTML()}</div>` : k === 'food' ? `<div id="fridgeWrap">${fridgeHTML()}</div>` : '') + deskBanner(k) });
+      top: (k === 'politics' ? electionsHTML(true) : k === 'brazil' ? brMissPromo() + electionsHTML(true, 'br') : k === 'travel' ? weekenderPromo() : k === 'power' ? `<div id="pwrWrap" class="mk">${powerHTML()}</div>` : k === 'cars' ? `<div id="garWrap">${garageHTML()}</div>` : k === 'food' ? `<div id="fridgeWrap">${fridgeHTML()}</div>` : '') + deskBanner(k) });
   if (k === 'food') bindFridge();
   if (k === 'cars' && !GAR) ensureGarage().then(() => { const w = $('#garWrap'); if (w && view.t === 'desk' && view.k === 'cars') w.innerHTML = garageHTML(); });
   if (k === 'power') { if (!PWR) ensurePower().then(() => { const w = $('#pwrWrap'); if (w && view.t === 'desk' && view.k === 'power') { w.innerHTML = powerHTML(); bindPower(); } }); else bindPower(); }
@@ -1733,6 +1734,12 @@ function gvid(v) {
 }
 const glist = (xs, n, cls) => xs && xs.length ? `<ul class="glist${cls ? ' ' + cls : ''}">${xs.slice(0, n).map(x => `<li><a href="${esc(x.u)}" target="_blank" rel="noopener">${esc(x.t)}</a> <span>${x.o ? esc(x.o) + ' · ' : ''}${ago(isoMin(x.p))}</span></li>`).join('')}</ul>` : `<p class="note">${T('Nothing came in with this edition.')}</p>`;
 function fsdVer(hw) { const v = FSDD && (FSDD.versions || []).find(x => x.hw === hw); return v ? v.version : null; }
+function brMissPromo() { // The Hinge's post-mortem of Brazil's runoff
+  return `<a class="fsdp brmiss" href="../the-hinge/#brazil"><span class="k">The Hinge · ${T('Brazil’s runoff')}</span><span class="t">${T('How the polls and the markets got it wrong')}</span>
+    <span class="d">${T('Every poll against the count, where Lula’s comeback came from, the vote flows between the rounds, the market through the night and a replay of the count.')}</span>
+    <span class="fx"><span>${T('Final polls: Flávio 51–49')}</span><span>${T('Markets: Flávio 79%')}</span><span>${T('Result: Lula 51.8%')}</span></span>
+    <span class="fgo">${T('Open the analysis')} →</span></a>`;
+}
 function fsdPromo() {
   const news = ((GAR && GAR.fsd) || {}).news || [];
   return `<a class="fsdp" href="#/fsd"><span class="k">Tesla · FSD (Supervised)</span><span class="t">${T('Every Tesla that runs FSD')}</span>
@@ -2437,10 +2444,10 @@ function brCard(full) {
       ${mk.venue ? `<p class="eh"><b>${T('Prediction markets:')}</b> ${T('{list} on {venue}', { list: rows.map(x => `${esc(x.c.short || x.c.name)} ${pc0(mk[x.c.key])}`).join(', '), venue: esc(mk.venue) })}${mk.kalshi ? `; ${T('{list} on {venue}', { list: rows.map(x => `${esc(x.c.short || x.c.name)} ${pc0(mk.kalshi[x.c.key])}`).join(', '), venue: 'Kalshi' })}` : ''}.</p>` : ''}
       ${r1.candidates ? `<p class="eh"><b>${T('First round, {date}:', { date: esc(shortDate(el.election.round1)) })}</b> ${rows.map(x => { const y = r1.candidates.find(z => z.key === x.c.key || z.n === x.c.n) || {}; return `${esc(x.c.short || x.c.name)} ${fnum(y.pctValid ?? y.pct, 1)}%`; }).join(', ')}.</p>` : ''}`;
   }
-  const head = declared || winner ? T('Brazil’s new president') : day >= 0 ? T('Brazil votes {when}', { when: whenWord(day) }) : count ? T('Brazil’s count') : T('Brazil’s runoff');
+  const head = declared || winner ? T('Brazil’s new president') : count && count.pct > 0 ? T('Brazil’s count') : day >= 0 ? T('Brazil votes {when}', { when: whenWord(day) }) : T('Brazil’s runoff');
   return `<section class="ecard">
     <h3>${esc(head)}</h3>
-    <p class="edate">${T('Presidential runoff, {date}: {cands}.', { date: esc(new Date(el.election.runoff + 'T12:00:00Z').toLocaleDateString(LOC(), { weekday: 'long', month: 'long', day: 'numeric', timeZone: 'UTC' })), cands: cands.map(c => `${esc(c.name)} (${esc(c.party)})`).join(' ' + T('and|list') + ' ') })}${el.election.countStartsET ? ' ' + T('Polls close and the count starts at {br} Brasília time, {et} Eastern.', { br: esc(h12(el.election.countStartsBrasilia)), et: esc(h12(el.election.countStartsET)) }) : ''}</p>
+    <p class="edate">${T('Presidential runoff, {date}: {cands}.', { date: esc(new Date(el.election.runoff + 'T12:00:00Z').toLocaleDateString(LOC(), { weekday: 'long', month: 'long', day: 'numeric', timeZone: 'UTC' })), cands: cands.map(c => `${esc(c.name)} (${esc(c.party)})`).join(' ' + T('and|list') + ' ') })}${el.election.countStartsET && !(count && count.pct > 0) ? ' ' + T('Polls close and the count starts at {br} Brasília time, {et} Eastern.', { br: esc(h12(el.election.countStartsBrasilia)), et: esc(h12(el.election.countStartsET)) }) : ''}</p>
     ${body}
     ${full && (el.calendar || []).length ? `<ul class="ecal">${el.calendar.slice(-4).map(c => `<li><b>${esc(shortDate(c.date))}</b> <span class="nolc">${esc(LANG === 'pt' && c.pt ? c.pt : LANG === 'de' && c.de ? c.de : T(c.en))}</span></li>`).join('')}</ul>` : ''}
     <p class="elinks"><a href="../brazil2026/">${T('Open the Brazil desk')}</a>${full ? '' : ` <a href="#/s/brazil">${T('Brazil news')}</a>`}</p>
