@@ -121,11 +121,15 @@ after Together / 90 on the Lifestyle desk, and the Travel desk and every Weekend
 - **Where:** a ZIP code, a city or a neighborhood (Open-Meteo's geocoder, and OpenStreetMap's Nominatim for neighborhoods),
   the reader's location, the place The Watch's weather already knows (`watch.wx`), or one of Weekender's eight cities,
   started from the city center or a neighborhood in that weekend's guide.
-- **The places:** OpenStreetMap through the Overpass API (three public servers, tried in turn): restaurants, bars, pubs,
+- **The places:** OpenStreetMap through the Overpass API (four public servers; the next is asked when the last hasn't
+  answered in 8 seconds, and the first good answer wins; the last four places are kept in the browser for 12 hours): restaurants, bars, pubs,
   taprooms, cafés, dessert, bookshops, cinemas, theaters, music venues, bowling, escape rooms, arcades, museums, parks,
   viewpoints and piers within a walk (about 1.2 km for food, 1.8 km for things to do) or a drive (4.5 and 9 km); smaller
   radii in Weekender's cities. Where there are fewer than four restaurants within a walk it widens to a drive and says so.
-  In a Weekender city the guide's evening stops join in, with their own words and booking links.
+  In a Weekender city the guide's evening stops join in, with their own words and booking links. For walking plans
+  in those cities the places are read ahead: `.github/workflows/date-night.yml` runs `prefetch.py` when a guide lands
+  (and on Tuesdays) and writes `news/lifestyle/date-night/data/<city>.json`, everything within a walk of the city center
+  and of each neighborhood the page offers from that guide; the page falls back to the live servers without it.
 - **Open when you get there:** each place's `opening_hours` is read for the night and time it's scheduled (the common
   subset of the syntax: days, months, times past midnight, `off`, `24/7`; anything else, such as sunset or holidays,
   counts as unknown, never as open). Places closed then are left out; places with no hours are allowed but say so.

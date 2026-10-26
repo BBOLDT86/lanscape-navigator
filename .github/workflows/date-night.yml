@@ -1,0 +1,42 @@
+name: Date Night city places
+# Reads OpenStreetMap's places around Weekender's eight cities (the center and each neighborhood in that weekend's guide)
+# through the Overpass API and writes news/lifestyle/date-night/data/<city>.json, so Date Night opens those cities without
+# waiting on the public map servers. When a guide lands, every Tuesday as a backstop, and on demand.
+on:
+  schedule:
+    - cron: '37 16 * * 2'
+  push:
+    branches: [main]
+    paths: ['travel/guides/**', 'news/lifestyle/date-night/prefetch.py', '.github/workflows/date-night.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: date-night
+  cancel-in-progress: false
+jobs:
+  places:
+    if: github.repository == 'BBOLDT86/lanscape-navigator'
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Read the places
+        run: python3 news/lifestyle/date-night/prefetch.py
+      - name: Commit and push
+        run: |
+          git config user.name "Date Night updater"
+          git config user.email "the-watch-news@users.noreply.github.com"
+          git add news/lifestyle/date-night/data
+          if git diff --cached --quiet; then echo "no changes"; exit 0; fi
+          git commit -qm "Date Night: city places $(date -u +%Y-%m-%d)"
+          for i in 1 2 3; do
+            git pull --rebase -X theirs origin main && git push -q origin HEAD:main && exit 0
+            sleep 10
+          done
+          echo "push failed" >&2; exit 1
