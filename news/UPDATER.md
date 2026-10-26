@@ -276,6 +276,17 @@ outlet's page, staying there more than about 35 seconds, time on a desk's page, 
 Follow and Hide. Each adds weight to the story's desk, outlet and tags; weights halve every two weeks. Nothing about
 reading leaves the browser. Your compass (top right) shows and edits it; Start over clears it.
 
+### Brazil's runoff, followed up on the front
+
+Readers who looked at Brazil's race get the post-mortem (the report, plus The Hinge's Brazil tab) pinned at the top of
+the front page until they open it or close it, for up to three visits (`brFrontCard()`, until Nov. 30, 2026). "Looked at
+the race" means any of: `watch.br` (written when the Brazil desk here opens, when a Brazil story or report is opened, by
+the Brazil desk at `../brazil2026/` on every visit and by The Hinge's Brazil tab); `br26.*` (the Brazil desk's saved
+language or map choice, which covers visits from before this existed); Brazil-desk weight or a Lula / Bolsonaro / TSE
+tag in `watch.v1`; or reading The Watch in Portuguese. Someone who has already opened the report or the Hinge tab
+(`watch.br.hinge`) sees it once. The count and the closed state live in `watch.brmiss`. While it is pinned, the
+Today's report slot skips the same report.
+
 ## Size
 
 Each edition is about 450 KB of JSON (about 110 KB over the wire); the markets file about 150 KB; the Epstein files

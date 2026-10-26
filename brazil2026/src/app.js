@@ -6,7 +6,8 @@
   var M = window.M, GEO = window.GEO;
   var $ = function (id) { return document.getElementById(id); };
   var LS = { get: function (k) { try { return localStorage.getItem(k); } catch (e) { return null; } }, set: function (k, v) { try { localStorage.setItem(k, v); } catch (e) {} } };
-  var lang = LS.get('br26.lang') || ((navigator.language || '').toLowerCase().indexOf('pt') === 0 ? 'pt' : 'en');
+  LS.set('watch.br', String(Date.now())); // The Watch (same site) pins the runoff post-mortem on the front for readers who came here
+  var lang = LS.get('br26.lang') ||((navigator.language || '').toLowerCase().indexOf('pt') === 0 ? 'pt' : 'en');
   var T = {
     en: { sub: 'Runoff · Lula × Flávio Bolsonaro', pre: 'Before the vote', night: 'LIVE · TSE count', post: 'Final', updated: 'Updated', countStarts: 'Polls close and the TSE count starts Sunday Oct. 25 at 5 p.m. Brasília time (4 p.m. ET, 20:00 UTC). This page then updates itself every minute.',
       declared: '{by} declared {name} elected president', waiting: 'Polls are open until 5 p.m. Brasília time. The TSE count begins right after; the first totals usually appear within minutes.',

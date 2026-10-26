@@ -366,6 +366,11 @@ h3.glb{font:600 12.5px var(--sans);letter-spacing:.07em;text-transform:uppercase
 .fsdp{display:flex;flex-direction:column;gap:8px;text-decoration:none;color:#EEF1F4;background:#0E1A2B;border-radius:14px;padding:22px 22px 20px;position:relative;overflow:hidden}
 .fsdp::after{content:"";position:absolute;right:-60px;top:-60px;width:220px;height:220px;border-radius:50%;border:28px solid rgba(214,178,94,.16)}
 .brmiss{margin:22px 0 4px}@media (max-width:820px){.fsdp::after{right:-130px;top:-90px;opacity:.5}}
+.brf{margin-top:18px}.fsdp.brfront{padding-right:60px}.fsdp.brfront .t{color:inherit;text-decoration:none;font-size:30px;max-width:30ch;position:relative;z-index:1}.fsdp.brfront .t:hover{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:4px}
+.fsdp.brfront .d{max-width:62ch;position:relative;z-index:1}.fsdp.brfront .acts{display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px;margin-top:6px;position:relative;z-index:1}
+.fsdp.brfront .acts a{font:600 15px var(--sans);color:#D6B25E;text-decoration:none}.fsdp.brfront .acts a:hover{text-decoration:underline;text-underline-offset:3px}.fsdp.brfront .acts a.pri{background:#D6B25E;color:#0E1A2B;border-radius:999px;padding:9px 18px}
+.brx{position:absolute;top:12px;right:12px;z-index:2;width:38px;height:38px;border-radius:50%;border:0;background:rgba(255,255,255,.1);color:#EEF1F4;display:grid;place-items:center;cursor:pointer}.brx:hover{background:rgba(255,255,255,.2)}
+@media (max-width:820px){.fsdp.brfront{padding:18px 18px 18px}.fsdp.brfront .k{padding-right:44px}.fsdp.brfront .t{font-size:25px}.fsdp.brfront .d{font-size:14px}}
 .fsdp .k{font:700 12px var(--sans);letter-spacing:.08em;text-transform:uppercase;color:#D6B25E}.fsdp .t{font:400 34px/1.05 var(--serif)}.fsdp .d{font-size:15px;color:#B9C3CF;line-height:1.5;max-width:46ch}
 .fsdp .fx{display:flex;flex-wrap:wrap;gap:6px}.fsdp .fx span{font:600 13px var(--sans);border:1px solid rgba(255,255,255,.22);border-radius:999px;padding:4px 10px}
 .fsdp .fgo{font:600 15px var(--sans);color:#D6B25E;margin-top:4px}.fsdp:hover .fgo{text-decoration:underline;text-underline-offset:3px}
@@ -950,6 +955,7 @@ function learn(it, kind) {
   P.src[it.o] = clamp((P.src[it.o] || 0) + w[1], -12, 30);
   for (const k of (it.k || []).slice(0, 5)) P.kw[k] = clamp((P.kw[k] || 0) + w[2], -14, 30);
   if (kind === 'peek' || kind === 'open') P.read[it.i] = Date.now();
+  if (it.c === 'brazil' && kind !== 'less') brTouch();
   P.n++; save();
 }
 function bump(map, k, v) { map[k] = clamp((map[k] || 0) + v, -14, 30); P.n++; save(); }
@@ -1286,13 +1292,15 @@ function renderHome() {
   }).join('');
   const coldChips = warm ? '' : `<div class="cold"><span>Or tap the desks you follow:</span>${E.sections.map(s => `<button type="button" class="chip" data-seed="${s.k}" aria-pressed="${(P.sec[s.k] || 0) > 0 ? 'true' : 'false'}">${esc(secName(s.k))}</button>`).join('')}</div>`;
   ensureElections(false);
+  const brf = viewingArchive ? '' : brFrontCard();
   $('#main').innerHTML = `${!viewingArchive && MK ? `<div class="wrap">${tapeHTML()}</div>` : ''}
+    ${brf}
     <div class="wrap front">${leadHTML}
       <div class="toplist"><h2>Top stories</h2><ol>${rest.map(it => `<li>${storyRow(it, { img: false })}</li>`).join('')}</ol></div>
     </div>
     ${nativeHTML}
     ${picturesStrip()}
-    ${viewingArchive ? '' : frontReport()}
+    ${viewingArchive ? '' : frontReport(brf ? BRM.id : null)}
     ${viewingArchive ? '' : frontElections()}
     <section class="bearing"><div class="wrap">
       <div class="hd"><h2>Your bearing</h2><p class="sub">${warm ? 'Picked from what you read. It shifts as you do.' : 'To start, the best story from each desk. Open what interests you and this follows your reading.'}</p>
@@ -1332,6 +1340,7 @@ function renderDesk(k) {
   if (!E.sections.find(s => s.k === k)) return go('#/');
   if (k === 'business') return renderBusiness();
   if (k === 'politics' || k === 'brazil') ensureElections(true);
+  if (k === 'brazil') brTouch();
   const list = deskUnits(k).map(it => ({ it, s: score(it), p: it.p })).filter(x => x.s > 0);
   list.sort(deskSort === 'new' ? (a, b) => b.p - a.p : (a, b) => b.s - a.s);
   listPage(secName(k), T(list.length === 1 ? '{n} story' : '{n} stories', { n: list.length }), list.map(x => ({ it: x.it })),
@@ -1739,6 +1748,54 @@ function brMissPromo() { // The Hinge's post-mortem of Brazil's runoff
     <span class="d">${T('Every poll against the count, where Lula’s comeback came from, the vote flows between the rounds, the market through the night and a replay of the count.')}</span>
     <span class="fx"><span>${T('Final polls: Flávio 51–49')}</span><span>${T('Markets: Flávio 79%')}</span><span>${T('Result: Lula 51.8%')}</span></span>
     <span class="fgo">${T('Open the analysis')} →</span></a>`;
+}
+/* Brazil's runoff, followed up on the front. Anyone who looked at the race (on this Brazil desk, on the Brazil desk next
+   door or in The Hinge) gets the post-mortem at the top of their front page until they open it or close it, for up to
+   three visits, or one if they have already read it. All of it lives in this browser's storage, like everything else. */
+const BRM = { id: '2026-10-25-brazil-polls-markets-missed-lula-comeback', until: Date.parse('2026-11-30T12:00:00-03:00'), cap: 3 };
+const BR_RX = /(^|[\s-])(lula|brazil|brasil|bras[ií]lia|bolsonaro|datafolha|quaest|atlasintel|tse|elei[cç][oõ]es|fl[aá]vio)([\s-]|$)/;
+let brmVisit = false, brmGone = false;
+function lsGet(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+function lsSet(k, v) { try { localStorage.setItem(k, v); } catch (e) { /* storage off */ } }
+function brTouch() { lsSet('watch.br', String(Date.now())); } // the Brazil desk next door and The Hinge's Brazil tab write it too
+function brmState() { try { return JSON.parse(lsGet('watch.brmiss') || '{}') || {}; } catch (e) { return {}; } }
+function brmMark(what) {
+  const s = brmState();
+  if (what === 'undo') { delete s.done; brmGone = false; } else { s[what] = Date.now(); if (what === 'done') brmGone = true; }
+  lsSet('watch.brmiss', JSON.stringify(s));
+}
+function brFollowed() { // visits from now on leave watch.br; earlier ones show up in what The Watch had already learned
+  if (lsGet('watch.br') || lsGet('br26.lang') || lsGet('br26.map')) return true; // the Brazil desk saves a language or map choice
+  if ((P.sec.brazil || 0) > 0) return true; // opened or lingered on stories from the Brazil desk
+  for (const m of [P.kw, P.follow]) for (const k in m) if (m[k] > 0 && BR_RX.test(k)) return true; // read, searched or followed Lula, Bolsonaro, the TSE…
+  for (const id in P.read) { const it = byId.get(id); if (it && it.c === 'brazil') return true; }
+  return LANG === 'pt'; // the Portuguese edition is there for the Brazil desk's readers
+}
+function brmShow() {
+  if (viewingArchive || brmGone || Date.now() > BRM.until) return false;
+  const s = brmState();
+  if (s.done) return false;
+  if (brmVisit) return true; // already counted on this visit: keep it up through redraws
+  let again = false;
+  try { again = sessionStorage.getItem('watch.brmiss') === '1'; } catch (e) { /* storage off */ }
+  if (!again) { // a new visit: count it, up to the cap
+    if ((s.n || 0) >= (s.read || lsGet('watch.br.hinge') ? 1 : BRM.cap) || !brFollowed()) return false;
+    s.n = (s.n || 0) + 1; lsSet('watch.brmiss', JSON.stringify(s));
+    try { sessionStorage.setItem('watch.brmiss', '1'); } catch (e) { /* storage off */ }
+  }
+  return (brmVisit = true);
+}
+function brFrontCard() {
+  if (!brmShow()) return '';
+  const a = ((ART && ART.articles) || []).find(x => x.id === BRM.id), L = a ? artL(a) : {};
+  const href = a ? '#/a/' + esc(a.id) : '../the-hinge/#brazil';
+  return `<section class="wrap brf" id="brf"><div class="fsdp brfront">
+    <button type="button" class="brx" data-brmx aria-label="${T('Close')}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <span class="k">${T('Brazil’s runoff')} · ${T('Because you followed the race')}</span>
+    <a class="t" href="${href}" data-brm>${esc(a ? L.title || a.title : T('How the polls and the markets got it wrong'))}</a>
+    <span class="d">${esc(a ? L.dek || a.dek : T('Every poll against the count, where Lula’s comeback came from, the vote flows between the rounds, the market through the night and a replay of the count.'))}</span>
+    <span class="acts">${a ? `<a class="pri" href="${href}" data-brm>${T('Read the report')}</a>` : ''}<a href="../the-hinge/#brazil" data-brm>${T('Charts, vote flows and a replay of the night in The Hinge')} →</a></span>
+  </div></section>`;
 }
 function fsdPromo() {
   const news = ((GAR && GAR.fsd) || {}).news || [];
@@ -2647,6 +2704,8 @@ document.addEventListener('click', e => {
   if (ds.tick) { e.preventDefault(); tickerDrawer(ds.tick); return; }
   if (ds.range) { chartRange = ds.range; const r = mkRow((drawerFor || '').replace('tick:', '')); if (r) { $('#bigChart').innerHTML = bigChart(r, chartRange); $$('[data-range]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.range === chartRange))); } return; }
   if (ds.ssort) { const k = ds.ssort; stockSort = stockSort.k === k ? (stockSort.dir < 0 ? { k, dir: 1 } : { k: null, dir: -1 }) : { k, dir: -1 }; $('#stkWrap').innerHTML = stockTable(); return; }
+  if (ds.brmx != null) { brmMark('done'); const c = $('#brf'); if (c) c.remove(); toast(T('Hidden. The report stays in Reports.'), () => { brmMark('undo'); if (view.t === 'home') render(true); }); return; }
+  if (ds.brm != null) brmMark('done'); // then the link does its work
   if (ds.go) { e.preventDefault(); go(ds.go); return; }
   if (ds.open) {
     const it = byId.get(ds.open);
@@ -2803,6 +2862,8 @@ async function renderArticle(id) {
   const body = L.body || a.body;
   const words = (body.match(/\S+/g) || []).length;
   bump(P.sec, a.desk, 0.6);
+  if (a.desk === 'brazil') brTouch();
+  if (a.id === BRM.id) brmMark('read');
   $('#main').innerHTML = `<article class="wrap art"${L.body ? ` lang="${LOC()}"` : LANG !== 'en' ? ' lang="en"' : ''}>
     <p class="ak"><a href="#/s/${esc(a.desk)}">${esc(secName(a.desk))}</a> · ${T('The Watch report')}</p>
     <h1 id="artTitle">${esc(L.title || a.title)}</h1>
@@ -3430,9 +3491,9 @@ function deskBanner(k) {
   if (!s && !vs.length) return '';
   return `<div class="ssban">${s ? `<button type="button" data-show="${esc(s.id)}"><img src="${esc(coverImg(s))}" alt="" referrerpolicy="no-referrer">${esc(s.title)} · ${s.slides.length}</button>` : ''}${vs.length ? `<button type="button" data-show="vids-${esc(k)}"><img src="${esc(ytThumb(vs[0].v, 'mqdefault'))}" alt="" referrerpolicy="no-referrer">▶ ${T(vs.length > 1 ? '{n} videos' : '{n} video', { n: vs.length })}</button>` : ''}</div>`;
 }
-function frontReport() {
+function frontReport(skip) { // skip: a report already pinned at the top of the front
   const a = ART && ART.articles && ART.articles[0];
-  if (!a || Date.now() - new Date(a.written) > 4 * 864e5) return '';
+  if (!a || a.id === skip || Date.now() - new Date(a.written) > 4 * 864e5) return '';
   return `<section class="wrap repfront"><h2 class="sec-h">${T('Today’s report')}</h2>${reportCard(a, true)}<p class="note"><a href="#/reports">${T('All reports')}</a></p></section>`;
 }
 

@@ -3324,6 +3324,7 @@ function videosCard() {
 
 /* ---------- the view */
 function viewBrazil() {
+  try { const now = String(Date.now()); localStorage.setItem('watch.br', now); localStorage.setItem('watch.br.hinge', now); } catch (e) { /* storage off */ } // The Watch's front shows its post-mortem card only once to readers who have seen this
   const root = el('div', { class: 'brz' });
   const r = BR.result, r1 = BR.round1, P = BR.polls, avgL = P.avgLula;
   const miss = r.lulaPct - avgL, missVotes = miss / 100 * r.valid;
