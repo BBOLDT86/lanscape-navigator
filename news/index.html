@@ -1493,7 +1493,7 @@ function renderDesk(k) {
   list.sort(deskSort === 'new' ? (a, b) => b.p - a.p : (a, b) => b.s - a.s);
   listPage(secName(k), T(list.length === 1 ? '{n} story' : '{n} stories', { n: list.length }), list.map(x => ({ it: x.it })),
     { controls: `<div class="seg" role="group" aria-label="Sort"><button type="button" data-sort="you" aria-pressed="${deskSort === 'you'}">Best for you</button><button type="button" data-sort="new" aria-pressed="${deskSort === 'new'}">Latest</button></div>`,
-      top: (k === 'politics' ? electionsHTML(true) : k === 'brazil' ? brMissPromo() + electionsHTML(true, 'br') : k === 'travel' ? lifeSlot(lifeTravel) : k === 'power' ? `<div id="pwrWrap" class="mk">${powerHTML()}</div>` : k === 'cars' ? `<div id="garWrap">${garageHTML()}</div>` : k === 'food' ? `<div id="fridgeWrap">${fridgeHTML()}</div>` : k === 'lifestyle' ? togetherFeature() + visionFeature() : '') + deskBanner(k) + deskShop(k),
+      top: (k === 'politics' ? electionsHTML(true) : k === 'brazil' ? brMissPromo() + electionsHTML(true, 'br') : k === 'travel' ? lifeSlot(lifeTravel) : k === 'power' ? `<div id="pwrWrap" class="mk">${powerHTML()}</div>` : k === 'cars' ? `<div id="garWrap">${garageHTML()}</div>` : k === 'food' ? `<div id="fridgeWrap">${fridgeHTML()}</div>` : k === 'lifestyle' ? togetherFeature() + dateNightFeature() + visionFeature() : '') + deskBanner(k) + deskShop(k),
       empty: k === 'lifestyle' ? T('Lifestyle stories start with the next edition.') : undefined });
   if (k === 'food') bindFridge();
   if (k === 'cars' && !GAR) ensureGarage().then(() => { const w = $('#garWrap'); if (w && view.t === 'desk' && view.k === 'cars') w.innerHTML = garageHTML(); });
@@ -4106,6 +4106,16 @@ function togetherFeature() { // Lifestyle opens with Together / 90, the couples 
     <span class="d">${T('A workbook for couples: what actually lands as love for each of you, the topics you both steer around, how you fight, and by week eleven the decisions you have been putting off, made out loud and with dates. It runs in your browser, with no account; nothing you write is sent anywhere.')}</span>
     <span class="go">${T('Open Together / 90')} ›</span></span></a>`;
 }
+function dateNightFeature() { // Lifestyle, after Together / 90: an evening for two, planned from places open that night (lifestyle/date-night/)
+  let pl = null; try { const d = JSON.parse(localStorage.getItem('watch.dn') || 'null'); pl = d && d.place && d.place.name ? d.place : null; } catch (e) { /* storage off */ }
+  return `<a class="t90f" href="lifestyle/date-night/"><span class="t90v" aria-hidden="true"><svg viewBox="0 0 132 88"><defs><linearGradient id="dnsky" x1="0" x2="1"><stop offset="0" stop-color="#E7A86E"/><stop offset=".38" stop-color="#8E6C8E"/><stop offset=".7" stop-color="#28345E"/><stop offset="1" stop-color="#16233F"/></linearGradient></defs><rect x="2" y="14" width="128" height="60" rx="12" fill="url(#dnsky)"/><path d="M104 24a10 10 0 1 0 8 16 8 8 0 0 1-8-16z" fill="#D6B25E"/><rect x="12" y="48" width="38" height="16" rx="5" fill="#0D1729" fill-opacity=".55" stroke="#fff" stroke-opacity=".45"/><rect x="56" y="48" width="28" height="16" rx="5" fill="#0D1729" fill-opacity=".55" stroke="#fff" stroke-opacity=".45"/><rect x="90" y="48" width="18" height="16" rx="5" fill="#0D1729" fill-opacity=".55" stroke="#fff" stroke-opacity=".45"/></svg></span>
+    <span class="t90t"><span class="k">${T('Date Night · for two people')}</span><b>${pl ? esc(T('Tonight near {place}: three ways to spend it', { place: pl.name })) : T('An evening out, planned from what’s open')}</b>
+    <span class="d">${T('Dinner, drinks, a show or a walk at sunset, near you or in any of Weekender’s eight cities: three plans built from places that are open when you get there, with the weather, the walk between stops and a link to send to your date.')}</span>
+    <span class="go">${T('Plan the evening')} ›</span></span></a>`;
+}
+function dateNightPromo() { // Travel: the same planner, in Weekender's cities
+  return `<a class="wkpromo" href="lifestyle/date-night/"><span class="wkp-b" aria-hidden="true">☾</span><span><b>${T('Date Night: an evening for two, in any of these cities')}</b><span>${T('Dinner, drinks and a show or a walk, from places that are open that night, with the walk between stops and a link to send to your date. It works near you too.')}</span></span><span class="wkp-go" aria-hidden="true">›</span></a>`;
+}
 /* ================= plans: Weekender's weekends, Finds' shop and the Vision board, brought into The Watch =================
    Read from the sister sites' own data files (travel/, shop/). Pins go to Vision (vision/) through this browser's storage
    ('vision.inbox'); the board itself is 'vision.v1', kept and synced by Vision. */
@@ -4217,11 +4227,12 @@ function plFly(cs, w) {
 }
 function lifeTravel() {
   const w = wkWeekendL(), cs = LIFE.cities;
-  if (!cs.length) return weekenderPromo() + pointsPromo();
+  if (!cs.length) return weekenderPromo() + dateNightPromo() + pointsPromo();
   const pts = ((LIFE.live && LIFE.live.points && LIFE.live.points.items) || []).slice(0, 4);
   return `<section class="pl-tr"><div class="pl-h"><div><h2 class="sec-h">${w ? T('This weekend: three perfect days') : T('Three perfect days')}</h2><p class="note">${w ? T('Weekender’s eight cities, planned day by day for {dates}: what’s on, where to eat and stay, and the forecast.', { dates: esc(dRange(w.weekend, addD(w.weekend, 2))) }) : T('Weekender’s eight cities, planned day by day every weekend.')}</p></div><a class="pl-more" href="../travel/">Weekender ›</a></div>
     <div class="pl-row">${cs.map(c => plCity(c, w)).join('')}</div>
     ${plFly(cs, w)}
+    ${dateNightPromo()}
     ${pts.length ? `<div class="pl-pts"><a class="pl-ptl" href="../travel/#/points"><b>Points Hacker</b><span>${T('Every card credit and when it resets, the hotel programs and where your points transfer')} ›</span></a><ul>${pts.map(n => `<li lang="en" class="nolc"><a href="${esc(n.u)}" target="_blank" rel="noopener">${esc(n.t)}</a><small>${esc(n.o)}</small></li>`).join('')}</ul></div>` : pointsPromo()}
     ${lifeStrip(['outdoors'], T('Pack for it, from Finds'), '../shop/#/s/outdoors')}
     ${visionNudge()}</section>`;

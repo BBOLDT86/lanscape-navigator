@@ -113,6 +113,37 @@ searches. A general feed's story files here when the outlet put it under /style/
 for couples that runs entirely in the reader's browser: no account, nothing sent here, answers kept in that browser's
 storage and moved between the two partners by a shared folder, a direct browser-to-browser link or a file.
 
+### Date Night (`news/lifestyle/date-night/`)
+
+An evening for two, planned in the reader's browser; nothing runs on the server and nothing is stored here. The card sits
+after Together / 90 on the Lifestyle desk, and the Travel desk and every Weekender guide link to it.
+
+- **Where:** a ZIP code, a city or a neighborhood (Open-Meteo's geocoder, and OpenStreetMap's Nominatim for neighborhoods),
+  the reader's location, the place The Watch's weather already knows (`watch.wx`), or one of Weekender's eight cities,
+  started from the city center or a neighborhood in that weekend's guide.
+- **The places:** OpenStreetMap through the Overpass API (three public servers, tried in turn): restaurants, bars, pubs,
+  taprooms, cafés, dessert, bookshops, cinemas, theaters, music venues, bowling, escape rooms, arcades, museums, parks,
+  viewpoints and piers within a walk (about 1.2 km for food, 1.8 km for things to do) or a drive (4.5 and 9 km); smaller
+  radii in Weekender's cities. Where there are fewer than four restaurants within a walk it widens to a drive and says so.
+  In a Weekender city the guide's evening stops join in, with their own words and booking links.
+- **Open when you get there:** each place's `opening_hours` is read for the night and time it's scheduled (the common
+  subset of the syntax: days, months, times past midnight, `off`, `24/7`; anything else, such as sunset or holidays,
+  counts as unknown, never as open). Places closed then are left out; places with no hours are allowed but say so.
+- **The plans:** three shapes per mood (classic, cozy, playful, cultured, outdoorsy, late, easy), two to four stops,
+  each stop scored on being open, being near the last stop, what the map knows about it, the reader's food likes, skips,
+  diet and budget, and not being a chain; the three plans don't share a dinner. Rain or cold swaps walks for indoor stops;
+  the outdoorsy plan is timed for sunset; after dark, walks go only to viewpoints, piers and lit places. Any stop can be
+  swapped or kept for the next shuffle.
+- **Around it:** the evening's weather and sunset (Open-Meteo), drawn as the evening's sky behind the stops; what's on
+  that night in a Weekender city (the guide's events) or event and film searches; walking and driving directions, rides,
+  OpenTable searches; three questions for the walk home.
+- **Sending it:** a link that carries the whole plan in its `#/p/...` fragment (no server), an `.ics` file and a Google
+  Calendar link with the place's time zone, and a pin to Vision (`vision.inbox`).
+- **Claude, optionally:** with the key the Food desk uses (`watch.akey`), the best places for the evening (about 90) go
+  from the browser to Anthropic's Messages API and come back as three plans in Claude's words, built only from those
+  places; ids that aren't on the list are dropped.
+- The reader's choices are kept in `localStorage` as `watch.dn`. The page reads The Watch's theme (`watch.v1`).
+
 ## What's for dinner (the Food desk; all in the page)
 
 The Food desk opens with a fridge camera. Nothing runs on the server and nothing is stored here:
