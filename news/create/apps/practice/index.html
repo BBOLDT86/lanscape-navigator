@@ -1,0 +1,987 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Create · Practice</title>
+<meta name="description" content="A practice log for any pursuit: rides, shop hours, study sessions, scales, laps. Streaks, goals and a year grid. Share a code with a coach and they see the log and leave notes. One file, no account, no server.">
+<link rel="canonical" href="https://bboldt86.github.io/lanscape-navigator/news/create/apps/practice/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Create">
+<meta property="og:title" content="Create · Practice">
+<meta property="og:description" content="Show up. Write it down. A practice log for any pursuit, with streaks, goals, a year grid and a coach view, synced phone to phone.">
+<meta property="og:url" content="https://bboldt86.github.io/lanscape-navigator/news/create/apps/practice/">
+<meta property="og:image" content="https://bboldt86.github.io/lanscape-navigator/news/share.png">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="application-name" content="Practice">
+<meta name="theme-color" content="#F8F7F4" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#191613" media="(prefers-color-scheme: dark)">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Practice">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='26' fill='none' stroke='%23C2785C' stroke-width='7' stroke-dasharray='122 41' stroke-linecap='round' transform='rotate(-90 32 32)'/%3E%3Ccircle cx='32' cy='32' r='9' fill='%23C2785C'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400..700;1,9..40,400..600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F8F7F4; --raise:#FFFFFF; --sunk:#EFEBE4; --ink:#2A251F; --ink2:#62594F; --ink3:#968B7E; --rule:rgba(42,37,31,.12); --rule2:rgba(42,37,31,.22);
+  --a:#C2785C; --a-soft:rgba(194,120,92,.15); --b:#5B7FA1; --b-soft:rgba(91,127,161,.15); --gold:#8B7355; --gold-soft:rgba(139,115,85,.16); --lens:#A88A5E;
+  --ok:#3D7A55; --warn:#B4532F; --scrim:rgba(30,25,20,.45); --on:#fff;
+  --shadow:0 1px 2px rgba(42,37,31,.05),0 8px 24px rgba(42,37,31,.07);
+  --serif:'Instrument Serif','Iowan Old Style',Georgia,serif;
+  --sans:'DM Sans',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --p:#C2785C;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){ :root:not([data-theme="light"]){
+  --bg:#191613; --raise:#24201B; --sunk:#131110; --ink:#F2EDE6; --ink2:#C6BCAF; --ink3:#918679; --rule:rgba(242,237,230,.12); --rule2:rgba(242,237,230,.24);
+  --a:#E39B7F; --a-soft:rgba(227,155,127,.17); --b:#8FB1D2; --b-soft:rgba(143,177,210,.17); --gold:#CDB089; --gold-soft:rgba(205,176,137,.17); --lens:#BFA27A;
+  --ok:#7EC39B; --warn:#F08C66; --scrim:rgba(0,0,0,.62); --on:#191613; --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 28px rgba(0,0,0,.34); color-scheme:dark; } }
+:root[data-theme="dark"]{
+  --bg:#191613; --raise:#24201B; --sunk:#131110; --ink:#F2EDE6; --ink2:#C6BCAF; --ink3:#918679; --rule:rgba(242,237,230,.12); --rule2:rgba(242,237,230,.24);
+  --a:#E39B7F; --a-soft:rgba(227,155,127,.17); --b:#8FB1D2; --b-soft:rgba(143,177,210,.17); --gold:#CDB089; --gold-soft:rgba(205,176,137,.17); --lens:#BFA27A;
+  --ok:#7EC39B; --warn:#F08C66; --scrim:rgba(0,0,0,.62); --on:#191613; --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 28px rgba(0,0,0,.34); color-scheme:dark; }
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.5 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden;padding-left:env(safe-area-inset-left);padding-right:env(safe-area-inset-right)}
+a{color:inherit}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:6px}
+h1,h2,h3{font-family:var(--serif);font-weight:400;margin:0;letter-spacing:-.01em}
+.in{max-width:760px;margin:0 auto;padding:0 16px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* header */
+.top{position:sticky;top:0;z-index:30;background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:saturate(1.4) blur(14px);-webkit-backdrop-filter:saturate(1.4) blur(14px);border-bottom:1px solid var(--rule);padding-top:env(safe-area-inset-top)}
+.top .in{display:flex;align-items:center;gap:8px;height:56px}
+.logo{display:flex;align-items:baseline;gap:8px;text-decoration:none;flex:1;min-width:0;white-space:nowrap;overflow:hidden}
+.logo span{font:400 27px/1 var(--serif)}
+.logo small{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--p)}
+.tools{display:flex;align-items:center;gap:8px;flex:none}
+.pill{display:inline-flex;align-items:center;gap:8px;height:38px;padding:0 13px;border-radius:999px;border:1px solid var(--rule2);background:var(--raise);font-size:14px;font-weight:600;white-space:nowrap}
+.pill i{width:8px;height:8px;border-radius:50%;background:transparent;border:1.5px solid var(--ink3);flex:none}
+.pill.on i{background:var(--ok);border-color:var(--ok);box-shadow:0 0 0 4px color-mix(in srgb,var(--ok) 22%,transparent)}
+.pill.wait i{background:var(--gold);border-color:var(--gold);animation:pulse 1.4s infinite}
+.pill.away i{background:var(--ink3);border-color:var(--ink3)}
+@keyframes pulse{50%{opacity:.35}}
+.ic{width:40px;height:40px;border-radius:50%;border:1px solid var(--rule2);background:var(--raise);display:inline-flex;align-items:center;justify-content:center;padding:0;flex:none}
+.ic svg{width:18px;height:18px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;height:44px;padding:0 18px;border-radius:999px;border:1px solid var(--rule2);background:var(--raise);font-size:15px;font-weight:600;text-decoration:none;white-space:nowrap}
+.btn:hover{border-color:var(--ink3)}
+.btn.p{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.btn.sm{height:36px;padding:0 14px;font-size:14px}
+.btn.warn{color:var(--warn)}
+.btn svg{width:16px;height:16px}
+.lk{background:none;border:0;padding:0;color:var(--gold);font-weight:600;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.tabs{display:flex;gap:4px;padding:10px 0 2px;overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tabs button{height:38px;padding:0 15px;border-radius:999px;border:1px solid transparent;background:transparent;font-weight:600;font-size:14.5px;white-space:nowrap;color:var(--ink2)}
+.tabs button[aria-selected="true"]{background:var(--raise);border-color:var(--rule2);color:var(--ink);box-shadow:var(--shadow)}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{display:inline-flex;align-items:center;gap:6px;min-height:36px;padding:4px 13px;border-radius:999px;border:1px solid var(--rule2);background:transparent;font-size:14px;font-weight:600;white-space:nowrap}
+.chip i{width:9px;height:9px;border-radius:50%;background:var(--c,var(--p));flex:none}
+.chip[aria-pressed="true"]{background:var(--sunk);border-color:var(--ink3)}
+.chip.add{border-style:dashed;color:var(--ink2)}
+
+/* content */
+main{padding-bottom:calc(40px + env(safe-area-inset-bottom))}
+.card{background:var(--raise);border:1px solid var(--rule);border-radius:18px;padding:16px;box-shadow:var(--shadow);min-width:0}
+.card h2{font-size:24px;line-height:1.1}
+.card h3{font-size:20px}
+.stack{display:flex;flex-direction:column;gap:12px;padding-top:12px}
+.hd{display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.hd p{margin:0;color:var(--ink3);font-size:13.5px}
+.today{padding:16px 0 4px}
+.today h1{font-size:38px;line-height:1.02}
+.today p{margin:4px 0 0;color:var(--ink2)}
+.big{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;height:64px;border-radius:20px;border:0;background:var(--p);color:#fff;font:600 19px var(--sans);box-shadow:var(--shadow)}
+.big svg{width:22px;height:22px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.g2>*{min-width:0}
+.stat b{display:block;font:400 40px/1 var(--serif);margin-top:2px}
+.stat b small{font:400 20px var(--serif);color:var(--ink3)}
+.stat span{font-size:13px;color:var(--ink3);display:block}
+.stat .lb{font-size:12px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--ink3)}
+.ringw{display:flex;align-items:center;gap:14px}
+.ring{width:84px;height:84px;flex:none}
+.ring circle{fill:none;stroke-width:9;stroke-linecap:round}
+.ring .tr{stroke:var(--sunk)}
+.ring .pr{stroke:var(--p);transform:rotate(-90deg);transform-origin:50% 50%;transition:stroke-dasharray .4s}
+.ring text{font:600 15px var(--sans);fill:var(--ink)}
+.yg{overflow-x:auto;scrollbar-width:thin;margin:0 -4px;padding:0 4px}
+.yg svg{display:block;width:100%;min-width:620px;height:auto}
+.yg rect{fill:var(--p);rx:2;cursor:pointer}
+.yg .l0{fill:var(--sunk)}
+.yg .l1{fill-opacity:.3}.yg .l2{fill-opacity:.55}.yg .l3{fill-opacity:.8}.yg .l4{fill-opacity:1}
+.yg rect.sel{stroke:var(--ink);stroke-width:1.5}
+.yg text{font:500 10px var(--sans);fill:var(--ink3)}
+.leg{display:flex;align-items:center;gap:4px;justify-content:flex-end;font-size:12px;color:var(--ink3);margin-top:6px}
+.leg i{width:11px;height:11px;border-radius:2px;background:var(--p)}
+.leg .l0{background:var(--sunk)}.leg .l1{opacity:.3}.leg .l2{opacity:.55}.leg .l3{opacity:.8}
+.dayp{border-top:1px solid var(--rule);margin-top:12px;padding-top:12px}
+.sess{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--rule)}
+.sess:last-child{border-bottom:0}
+.sess .dt{flex:none;width:44px;text-align:center;line-height:1.1}
+.sess .dt b{display:block;font:400 24px var(--serif)}
+.sess .dt small{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--ink3)}
+.sess .bd{flex:1;min-width:0}
+.sess .ln{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.sess .mn{font-weight:650}
+.sess .by{display:inline-flex;align-items:center;gap:5px;font-size:12.5px;color:var(--ink3)}
+.sess .by i{width:8px;height:8px;border-radius:50%;background:var(--c)}
+.tg{display:flex;gap:4px;flex-wrap:wrap;margin-top:3px}
+.tg span{font-size:12.5px;font-weight:600;background:var(--sunk);border-radius:999px;padding:2px 9px}
+.sess p{margin:5px 0 0;font-size:14.5px;color:var(--ink2);white-space:pre-wrap;overflow-wrap:anywhere}
+.sess .ed{flex:none;width:40px;height:40px;border-radius:50%;border:0;background:transparent;color:var(--ink3);display:inline-flex;align-items:center;justify-content:center}
+.sess .ed svg{width:18px;height:18px}
+.rt{display:inline-flex;gap:3px;align-items:center}
+.rt i{width:9px;height:9px;border-radius:50%;border:1.5px solid var(--p);display:inline-block}
+.rt i.f{background:var(--p)}
+.nts{margin-top:8px;display:flex;flex-direction:column;gap:6px}
+.nt{border-left:3px solid var(--c);padding:4px 10px;font-size:14px;color:var(--ink2);background:var(--sunk);border-radius:0 10px 10px 0}
+.nt b{color:var(--c);font-weight:650;font-size:13px;display:block}
+.nt .x{float:right;background:none;border:0;color:var(--ink3);font-size:13px;padding:0 2px}
+.nt-add{display:flex;gap:6px;margin-top:8px}
+.nt-add input{flex:1;min-width:0;height:40px;border-radius:10px;border:1px solid var(--rule2);background:var(--raise);padding:0 12px;font-size:15px}
+.mon{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin:18px 0 0;padding-bottom:4px;border-bottom:1px solid var(--rule2)}
+.mon h3{font-size:22px}
+.mon span{font-size:13.5px;color:var(--ink3)}
+.bars{width:100%;height:auto;display:block}
+.bars rect{fill:var(--p)}
+.bars .g{fill:none;stroke:var(--ink3);stroke-dasharray:3 3}
+.bars text{font:500 10.5px var(--sans);fill:var(--ink3)}
+.tot{display:flex;flex-direction:column;gap:6px}
+.tot div{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;font-size:14.5px}
+.tot .br{grid-column:1/-1;height:6px;border-radius:3px;background:var(--sunk);overflow:hidden}
+.tot .br i{display:block;height:100%;background:var(--p);border-radius:3px}
+.prog{height:10px;border-radius:5px;background:var(--sunk);overflow:hidden;margin:8px 0 4px}
+.prog i{display:block;height:100%;background:var(--p);border-radius:5px;transition:width .4s}
+.prog.done i{background:var(--ok)}
+.empty{border:1.5px dashed var(--rule2);border-radius:20px;padding:30px 20px;text-align:center}
+.empty h2{font-size:30px}
+.empty p{margin:8px auto 16px;max-width:46ch;color:var(--ink2)}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.row.c{justify-content:center}
+.hint{font-size:13.5px;color:var(--ink3);margin:6px 0 0}
+.note-c{display:flex;gap:10px;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--rule)}
+.note-c .av{width:34px;height:34px;border-radius:50%;background:var(--c);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;flex:none}
+.note-c .bd{flex:1;min-width:0}
+.note-c small{color:var(--ink3);font-size:13px;display:block}
+.note-c p{margin:2px 0 0;font-size:15px}
+
+/* forms */
+.fld{display:flex;flex-direction:column;gap:5px;min-width:0}
+.fld label,.lb{font-size:13px;font-weight:650;color:var(--ink2)}
+.fld input,.fld select,.fld textarea{height:46px;border-radius:12px;border:1px solid var(--rule2);background:var(--raise);padding:0 14px;font-size:16px;width:100%;min-width:0}
+.fld textarea{height:auto;min-height:80px;padding:11px 14px;resize:vertical;line-height:1.45}
+.fld input:focus,.fld select:focus,.fld textarea:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px var(--gold-soft)}
+.quick{display:flex;gap:6px;flex-wrap:wrap}
+.quick button{height:44px;min-width:52px;padding:0 12px;border-radius:12px;border:1px solid var(--rule2);background:var(--raise);font-weight:600}
+.quick button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.quick input{width:84px;height:44px;border-radius:12px;border:1px solid var(--rule2);background:var(--raise);padding:0 12px;font-size:16px}
+.dots{display:flex;gap:8px}
+.dots button{width:44px;height:44px;border-radius:50%;border:0;background:transparent;display:flex;align-items:center;justify-content:center;padding:0}
+.dots button i{width:24px;height:24px;border-radius:50%;border:2px solid var(--p);display:block}
+.dots button[aria-pressed="true"] i{background:var(--p)}
+.sw{display:flex;gap:8px;flex-wrap:wrap}
+.sw button{width:36px;height:36px;border-radius:50%;border:3px solid transparent;padding:0}
+.sw button[aria-pressed="true"]{border-color:var(--ink)}
+.presets{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px}
+.presets button{display:flex;align-items:center;gap:9px;height:48px;padding:0 14px;border-radius:14px;border:1px solid var(--rule2);background:var(--raise);font-weight:600;text-align:left}
+.presets button i{width:12px;height:12px;border-radius:50%;background:var(--c);flex:none}
+.presets button[aria-pressed="true"]{border-color:var(--ink);box-shadow:0 0 0 2px var(--ink)}
+.land{padding-top:28px;padding-bottom:10px}
+.eyebrow{margin:0 0 10px;font-size:13px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--p)}
+.land h1{font-size:clamp(40px,8vw,64px);line-height:.98;letter-spacing:-.02em}
+.land h1 em{color:var(--p);font-style:italic}
+.lede{margin:14px 0 0;font-size:17px;color:var(--ink2);max-width:56ch}
+.feat{list-style:none;padding:0;margin:30px 0 0;display:grid;grid-template-columns:1fr;gap:12px}
+.feat li{border-top:1px solid var(--rule2);padding:12px 2px 0}
+.feat b{display:block;font:400 22px/1.1 var(--serif);margin-bottom:3px}
+.feat span{color:var(--ink2);font-size:14.5px}
+
+/* sheet, toast */
+.scrim{position:fixed;inset:0;background:var(--scrim);opacity:0;pointer-events:none;transition:opacity .2s;z-index:40}
+.scrim.on{opacity:1;pointer-events:auto}
+.sheet{position:fixed;z-index:41;left:50%;bottom:0;width:min(600px,100%);max-height:calc(100% - 40px);background:var(--bg);border-radius:22px 22px 0 0;box-shadow:0 -10px 40px rgba(0,0,0,.2);transform:translate(-50%,105%);transition:transform .26s cubic-bezier(.2,.8,.2,1);overflow-y:auto;overscroll-behavior:contain;padding:0 0 calc(24px + env(safe-area-inset-bottom))}
+.sheet.on{transform:translate(-50%,0)}
+.shh{position:sticky;top:0;z-index:2;display:flex;align-items:center;gap:10px;padding:14px 18px 10px;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--rule)}
+.shh h2{flex:1;font-size:27px;line-height:1.1;min-width:0}
+.shb{padding:16px 18px 6px;display:flex;flex-direction:column;gap:14px}
+.box{border:1px solid var(--rule);background:var(--raise);border-radius:18px;padding:16px}
+.box h3{font-size:19px;margin-bottom:3px}
+.box p{margin:4px 0;color:var(--ink2);font-size:14.5px}
+.box p.code{font:400 50px/1 var(--serif);letter-spacing:.08em;text-align:center;margin:12px 0 6px;color:var(--ink)}
+.qr{width:180px;height:180px;margin:10px auto;background:#fff;border-radius:14px;padding:10px}
+.qr svg{width:100%;height:100%;display:block}
+.srch{display:flex;gap:8px}
+.srch input{flex:1;min-width:0;height:46px;border-radius:12px;border:1px solid var(--rule2);background:var(--raise);padding:0 14px;font-size:16px}
+.status{margin:10px 0 0;font-size:14px;font-weight:600;text-align:center}
+.status.ok{color:var(--ok)}.status.bad{color:var(--warn)}
+.menu-l{display:flex;flex-direction:column}
+.menu-l button,.menu-l label{display:flex;flex-direction:column;align-items:flex-start;gap:1px;text-align:left;border:0;background:transparent;padding:12px 4px;border-bottom:1px solid var(--rule);font-weight:600;font-size:16px;cursor:pointer;width:100%}
+.menu-l small{font-weight:400;color:var(--ink3);font-size:13.5px}
+.menu-l .warn{color:var(--warn)}
+.plist{display:flex;flex-direction:column;gap:8px}
+.plist div{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--rule)}
+.plist div i{width:12px;height:12px;border-radius:50%;background:var(--c);flex:none}
+.plist div b{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.toast{position:fixed;left:50%;bottom:calc(22px + env(safe-area-inset-bottom));transform:translate(-50%,20px);opacity:0;visibility:hidden;pointer-events:none;z-index:60;background:var(--ink);color:var(--bg);padding:11px 16px 11px 18px;border-radius:999px;display:flex;gap:12px;align-items:center;font-size:15px;font-weight:550;box-shadow:0 10px 30px rgba(0,0,0,.25);transition:transform .25s,opacity .25s,visibility .25s;max-width:calc(100% - 32px)}
+.toast.on{transform:translate(-50%,0);opacity:1;visibility:visible;pointer-events:auto}
+.toast button{background:none;border:0;color:var(--bg);font-weight:700;text-decoration:underline;padding:0 4px}
+@media (min-width:760px){
+  .in{padding:0 24px}
+  .home{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .home>.full{grid-column:1/-1}
+  .today h1{font-size:46px}
+  .feat{grid-template-columns:repeat(3,1fr)}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<header class="top"><div class="in">
+  <a class="logo" href="#" id="logo" aria-label="Practice, home"><span>Practice</span><small>Create</small></a>
+  <div class="tools">
+    <button class="pill" id="pairBtn" type="button" hidden><i></i><span>Share</span></button>
+    <button class="ic" id="menuBtn" type="button" aria-label="Menu"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg></button>
+  </div>
+</div></header>
+<main id="main"><div class="in" style="padding-top:60px;text-align:center;color:var(--ink3)">Opening Practice…</div></main>
+<div class="scrim" id="scrim"></div>
+<aside class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="shT" tabindex="-1"></aside>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="https://cdn.jsdelivr.net/npm/peerjs@1.5.4/dist/peerjs.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js" defer></script>
+<script>
+'use strict';
+/* Create · Practice: a practice log for any pursuit. Sessions live in this browser (localStorage create.practice.v1)
+   and travel phone to phone over WebRTC (PeerJS); a coach who connects sees the log and leaves notes on sessions. */
+(() => {
+const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const KEY = 'create.practice.v1', INBOX = 'create.practice.inbox', THEME = 'create.theme';
+const LS = { get(k, d) { try { const v = localStorage.getItem(k); return v == null ? d : JSON.parse(v); } catch (e) { return d; } },
+             set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); return true; } catch (e) { return false; } },
+             del(k) { try { localStorage.removeItem(k); } catch (e) {} } };
+const ALPH = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789';
+const code6 = () => { const a = new Uint32Array(6); crypto.getRandomValues(a); return [...a].map(x => ALPH[x % ALPH.length]).join(''); };
+const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+let lastStamp = 0; const SALT = Math.floor(Math.random() * 90) + 10;
+function stamp() { const t = Math.max(Date.now(), Math.floor(lastStamp / 100) + 1); lastStamp = t * 100 + SALT; return lastStamp; }
+const seeStamp = n => { if (n > lastStamp) lastStamp = n; };
+const fmtCode = c => c ? c.slice(0, 3) + '-' + c.slice(3) : '';
+const cleanCode = s => String(s || '').toUpperCase().replace(/[^A-Z0-9]/g, '');
+const okCode = c => c.length === 6 && [...c].every(ch => ALPH.includes(ch));
+const clone = o => JSON.parse(JSON.stringify(o));
+const pad = n => String(n).padStart(2, '0');
+const isoDay = (d = new Date()) => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+const DD = s => { const [y, m, d] = s.split('-').map(Number); return new Date(y, m - 1, d); };
+const addDays = (s, n) => { const d = DD(s); d.setDate(d.getDate() + n); return isoDay(d); };
+const md = s => DD(s).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+const longDay = s => DD(s).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+const monName = s => DD(s + '-01').toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+const weekStart = s => { const d = DD(s); d.setDate(d.getDate() - ((d.getDay() + 6) % 7)); return isoDay(d); }; // Monday
+const hm = m => m >= 60 ? `${Math.floor(m / 60)}h${m % 60 ? ' ' + (m % 60) + 'm' : ''}` : `${m}m`;
+const qp = new URLSearchParams(location.search);
+const PAGE = location.href.split(/[?#]/)[0];
+const IC = {
+  x: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>',
+  plus: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>',
+  pen: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4l10-10-4-4L4 16z"/><path d="M12 6l4 4"/></svg>',
+  back: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>'
+};
+const PRESETS = {
+  dressage: { name: 'Dressage', color: '#8B6A4E', tags: ['Walk work', 'Lateral', 'Transitions', 'Canter', 'Test ride'] },
+  woodworking: { name: 'Woodworking', color: '#A0723A', tags: ['Milling', 'Joinery', 'Finishing', 'Sharpening'] },
+  poker: { name: 'Poker', color: '#2F6F5E', tags: ['Preflop', 'Solver', 'Hand review', 'Live play', 'Mental game'] },
+  music: { name: 'Music', color: '#5B5EA6', tags: ['Scales', 'Technique', 'Repertoire', 'Sight reading', 'Ear'] },
+  running: { name: 'Running', color: '#3E7CB1', tags: ['Easy', 'Tempo', 'Intervals', 'Long run'] },
+  writing: { name: 'Writing', color: '#8A4F6D', tags: ['Drafting', 'Revision', 'Outlining', 'Reading'] },
+  language: { name: 'Language', color: '#C2785C', tags: ['Vocabulary', 'Grammar', 'Listening', 'Speaking', 'Reading'] }
+};
+const COLORS = ['#C2785C', '#8B6A4E', '#A0723A', '#2F6F5E', '#5B5EA6', '#3E7CB1', '#8A4F6D', '#5B7FA1'];
+
+/* ================= state ================= */
+let S = null;
+function blank() { return { v: 1, dev: code6(), me: 'a', joined: false, partner: null, pending: null, names: { a: '', b: '' }, cur: '', pursuits: {}, items: {}, _t: {} }; }
+function load() {
+  let s = LS.get(KEY, null);
+  if (!s || typeof s !== 'object') return null;
+  const b = blank();
+  for (const k of Object.keys(b)) if (s[k] === undefined) s[k] = b[k];
+  s.v = 1;
+  for (const p of Object.values(s.pursuits)) { p._t = p._t || {}; p.goal = p.goal || {}; p.tags = p.tags || []; }
+  for (const it of Object.values(s.items)) { it._t = it._t || {}; for (const v of Object.values(it._t)) seeStamp(v); }
+  for (const p of Object.values(s.pursuits)) for (const v of Object.values(p._t)) seeStamp(v);
+  for (const v of Object.values(s._t)) seeStamp(v);
+  return s;
+}
+let saveT = 0, saveWarned = false;
+function save(now) {
+  clearTimeout(saveT);
+  const go = () => { if (!S) return; if (!LS.set(KEY, S) && !saveWarned) { saveWarned = true; toast('This browser’s storage is full; the log can’t save right now.'); } };
+  if (now) go(); else saveT = setTimeout(go, 120);
+}
+const other = () => S.me === 'a' ? 'b' : 'a';
+const nameOf = slot => (S.names[slot] || '').trim() || (slot === S.me ? 'You' : 'Your coach');
+const myName = () => nameOf(S.me), theirName = () => nameOf(other());
+const colorOf = slot => slot === 'a' ? 'var(--a)' : 'var(--b)';
+function setName(slot, n) { S.names[slot] = String(n || '').trim().slice(0, 30); S._t['n' + slot] = stamp(); }
+function setF(it, f) { const t = stamp(); for (const k of Object.keys(f)) { it[k] = f[k]; it._t[k] = t; } return it; }
+function create(id, f) { const it = { id, _t: {} }; setF(it, f); S.items[id] = it; return it; }
+const live = () => Object.values(S.items).filter(it => !it.del);
+const sessions = p => live().filter(it => it.kind !== 'note' && (!p || it.pursuit === p));
+const notesFor = sid => live().filter(it => it.kind === 'note' && it.session === sid).sort((x, y) => (x.at || 0) - (y.at || 0));
+const pursuits = () => Object.values(S.pursuits).filter(p => !p.del).sort((x, y) => (x.at || 0) - (y.at || 0));
+function curP() { const ps = pursuits(); if (!ps.length) return null; return S.pursuits[S.cur] && !S.pursuits[S.cur].del ? S.pursuits[S.cur] : ps[0]; }
+function mergeInto(map, r) {
+  if (!r || !r.id) return false;
+  for (const v of Object.values(r._t || {})) seeStamp(v);
+  const L = map[r.id];
+  if (!L) { map[r.id] = clone(r); map[r.id]._t = map[r.id]._t || {}; return true; }
+  let ch = false;
+  for (const k of Object.keys(r._t || {})) if ((r._t[k] || 0) > (L._t[k] || 0)) { L[k] = r[k]; L._t[k] = r._t[k]; ch = true; }
+  return ch;
+}
+const mergeItem = r => mergeInto(S.items, r);
+const mergePursuit = r => mergeInto(S.pursuits, r);
+function mergeMeta(m) {
+  if (!m || !m._t) return false;
+  let ch = false;
+  for (const slot of ['a', 'b']) { const k = 'n' + slot; if ((m._t[k] || 0) > (S._t[k] || 0)) { S.names[slot] = m.names[slot]; S._t[k] = m._t[k]; ch = true; } }
+  return ch;
+}
+function swapSlots() {
+  S.me = other();
+  const n = S.names, t = S._t;
+  [n.a, n.b] = [n.b, n.a]; [t.na, t.nb] = [t.nb, t.na];
+  for (const it of Object.values(S.items)) if (it.by) it.by = it.by === 'a' ? 'b' : 'a';
+  for (const k of ['na', 'nb']) if (t[k] === undefined) delete t[k];
+}
+function addPursuit(kind, name, color, tags, goal) {
+  const id = 'p' + uid();
+  const p = { id, _t: {} };
+  setF(p, { name: name.slice(0, 40), kind: kind || 'custom', color, tags: tags.slice(0, 12), goal: goal || {}, at: Date.now(), del: false });
+  S.pursuits[id] = p; S.cur = id; S._t.cur = stamp();
+  return p;
+}
+function dedupePursuits() { // two devices each started the same preset: the empty copy yields to the one with sessions
+  const ps = pursuits();
+  for (const p of ps) for (const q of ps) {
+    if (p === q || p.del || q.del || p.kind === 'custom' || p.kind !== q.kind || p.name !== q.name) continue;
+    const np = sessions(p.id).length, nq = sessions(q.id).length;
+    if (np && nq) continue;
+    const loser = np ? q : nq ? p : p.id > q.id ? p : q;
+    setF(loser, { del: true }); if (S.cur === loser.id) S.cur = (loser === p ? q : p).id;
+  }
+}
+function drainInbox(quiet) {
+  if (!S) return [];
+  const q = LS.get(INBOX, []);
+  if (!Array.isArray(q) || !q.length) return [];
+  LS.set(INBOX, []);
+  const p = curP(); if (!p) return [];
+  const made = [];
+  for (const e of q) { if (!e || typeof e !== 'object') continue; const mins = Math.max(1, Math.min(600, +e.mins || 30)); made.push(create('s' + uid(), { pursuit: p.id, on: /^\d{4}-\d\d-\d\d$/.test(e.on || '') ? e.on : isoDay(), mins, focus: Array.isArray(e.focus) ? e.focus.map(String).slice(0, 6) : [], rating: Math.min(5, Math.max(0, +e.rating || 0)), note: String(e.note || '').slice(0, 1000), by: S.me, at: e.at || Date.now(), del: false })); }
+  if (made.length) { save(true); broadcast(made); if (!quiet) toast(made.length === 1 ? 'A session came in from the site' : `${made.length} sessions came in`); }
+  return made;
+}
+
+/* ================= sync (protocol v2) ================= */
+const PID = c => 'create-prc-' + String(c).toLowerCase();
+function peerOpts() { const q = qp.get('peer'); if (q) { const [h, p] = q.split(':'); return { host: h, port: +p || 9000, path: '/', secure: location.protocol === 'https:', debug: 0 }; } return { debug: 0 }; }
+let peer = null, net = 'idle', netMsg = '', dialT = 0, pendingAsk = null;
+const conns = new Set();
+const openConns = () => [...conns].filter(c => c.open);
+const isOn = () => openConns().some(c => c._hello);
+function setNet(n, msg) { net = n; netMsg = msg || ''; paintPresence(); paintPairStatus(); }
+function startPeer() {
+  if (!S || peer) return;
+  if (!window.Peer) {
+    if (document.readyState === 'loading') { setNet('starting'); document.addEventListener('DOMContentLoaded', startPeer, { once: true }); }
+    else setNet('nolib', 'The sync library didn’t load. Practice still works on this device; back up from the menu.');
+    return;
+  }
+  setNet('starting');
+  try { peer = new window.Peer(PID(S.dev), peerOpts()); } catch (e) { peer = null; setNet('error', 'Sync couldn’t start in this browser.'); return; }
+  peer.on('open', () => { setNet(S.partner || S.pending ? 'dialing' : 'ready'); if (S.partner) dial(S.partner.code); if (S.pending) dial(S.pending); });
+  peer.on('connection', c => wire(c, false));
+  peer.on('disconnected', () => { if (!openConns().length) setNet('offline', 'Lost the matchmaking server. Trying again…'); setTimeout(() => { if (peer && !peer.destroyed && peer.disconnected) try { peer.reconnect(); } catch (e) {} }, 4000); });
+  peer.on('close', () => { peer = null; });
+  peer.on('error', e => {
+    const t = e && e.type;
+    if (t === 'unavailable-id') { setNet('error', 'Practice is open in another tab on this device; that one keeps the connection.'); try { peer.destroy(); } catch (er) {} peer = null; return; }
+    if (t === 'peer-unavailable') { if (openConns().length) return; setNet('away', S.pending ? `${fmtCode(S.pending)} isn’t open right now. Practice keeps trying while this page is open.` : ''); return; }
+    if (t === 'network' || t === 'server-error' || t === 'socket-error' || t === 'socket-closed') { if (!openConns().length) setNet('offline', 'Can’t reach the matchmaking server. Your log still works here.'); return; }
+    if (t === 'browser-incompatible') { setNet('nolib', 'This browser can’t make direct connections. Use a backup file instead.'); return; }
+    if (!openConns().length) setNet('error', 'Sync hit a snag (' + (t || 'unknown') + ').');
+  });
+}
+function dial(code) {
+  if (!peer || peer.destroyed || peer.disconnected || !code || code === S.dev) return;
+  if (openConns().some(c => c.peer === PID(code))) return;
+  setNet('dialing');
+  const c = peer.connect(PID(code), { reliable: true, metadata: { v: 1 } });
+  wire(c, true, code);
+}
+function wire(c, outgoing) {
+  conns.add(c); c._hello = false; c._sent = false;
+  c.on('open', () => { if (outgoing) { c._sent = true; send(c, hello()); } paintPresence(); });
+  c.on('data', d => { try { onMsg(c, d, outgoing); } catch (e) { console.warn('practice: bad message', e); } });
+  c.on('close', () => { conns.delete(c); if (!openConns().length) setNet(S.partner ? 'away' : 'ready'); paintPresence(); });
+  c.on('error', () => { conns.delete(c); paintPresence(); });
+}
+function send(c, m) { try { if (c.open) c.send(m); } catch (e) {} }
+function hello() { return { t: 'hello', v: 1, dev: S.dev, me: S.me, joined: !!S.joined, names: S.names, _t: S._t, pursuits: S.pursuits, cur: S.cur, items: S.items, name: myName() }; }
+function broadcast(items) { if (!items || !items.length) return; const m = { t: 'put', items: items.map(it => S.items[it.id] || it) }; for (const c of openConns()) if (c._hello) send(c, m); }
+function sendMeta() { const m = { t: 'meta', names: S.names, _t: S._t, pursuits: S.pursuits }; for (const c of openConns()) if (c._hello) send(c, m); }
+function onMsg(c, d, outgoing) {
+  if (!d || typeof d !== 'object') return;
+  if (d.t === 'hello') {
+    if (d.dev === S.dev) return;
+    const known = S.partner && S.partner.code === d.dev;
+    if (!known && S.partner && !outgoing && !c._ok) { pendingAsk = { c, d }; askAccept(d); return; }
+    acceptHello(c, d, outgoing); return;
+  }
+  if (!c._hello) return;
+  if (d.t === 'put' && Array.isArray(d.items)) {
+    const before = new Set(live().map(it => it.id));
+    const ch = d.items.filter(mergeItem);
+    if (ch.length) {
+      save(true); render();
+      const fresh = ch.filter(it => !before.has(it.id) && !it.del && it.by === other());
+      if (fresh.length) { const n = fresh.filter(it => it.kind === 'note').length; toast(n === fresh.length ? `${theirName()} left ${n === 1 ? 'a note' : n + ' notes'}` : `${theirName()} logged ${fresh.length === 1 ? 'a session' : fresh.length + ' sessions'}`); }
+    }
+  } else if (d.t === 'meta') {
+    let ch = mergeMeta(d);
+    for (const p of Object.values(d.pursuits || {})) if (mergePursuit(p)) ch = true;
+    if (ch) { save(); render(); }
+  }
+}
+function acceptHello(c, d, outgoing) {
+  c._ok = true;
+  let wait = false, swapped = false;
+  if (d.me === S.me) { const yieldMe = S.joined && !d.joined ? true : !S.joined && d.joined ? false : S.dev > d.dev; if (yieldMe) { swapSlots(); swapped = true; } else wait = true; }
+  const first = !S.partner || S.partner.code !== d.dev;
+  S.partner = { code: d.dev, at: Date.now() }; S.pending = null;
+  const before = new Set(live().map(it => it.id));
+  if (!wait) {
+    mergeMeta(d);
+    if (d.name && !S.names[other()]) setName(other(), d.name);
+    for (const p of Object.values(d.pursuits || {})) mergePursuit(p);
+    for (const it of Object.values(d.items || {})) mergeItem(it);
+    dedupePursuits();
+    if (!curP() && d.cur && S.pursuits[d.cur]) S.cur = d.cur;
+    S.joined = false;
+  }
+  save(true); c._hello = true;
+  if (!c._sent || swapped) { c._sent = true; send(c, hello()); }
+  setNet('on'); render();
+  const got = live().filter(it => !before.has(it.id)).length;
+  if (first && !wait) toast(`Connected with ${theirName()}.${got ? ` ${got} ${got === 1 ? 'entry' : 'entries'} came over.` : ''}`);
+  else if (got && !wait) toast(`${got} new from ${theirName()}`);
+  if (sheetKind === 'pair') openPair();
+}
+function askAccept(d) {
+  openSheet('ask', head('Connect a new device?') + `<div class="shb"><div class="box"><h3>${esc(d.name || 'Someone')} wants to connect</h3><p>Code ${esc(fmtCode(d.dev))}. A device you haven’t connected before used your code. Let it in and it gets a copy of the log; it will reconnect by itself from then on.</p>
+    <div class="row" style="margin-top:12px"><button class="btn p" type="button" data-accept>Accept</button><button class="btn" type="button" data-reject>Not now</button></div></div></div>`);
+}
+function startDialLoop() {
+  clearInterval(dialT);
+  dialT = setInterval(() => {
+    if (!S || !(S.partner || S.pending) || document.hidden) return;
+    if (!peer) { startPeer(); return; }
+    if (peer.disconnected && !peer.destroyed) { try { peer.reconnect(); } catch (e) {} return; }
+    if (!openConns().length) { if (S.partner) dial(S.partner.code); if (S.pending && (!S.partner || S.pending !== S.partner.code)) dial(S.pending); }
+  }, 15000);
+}
+function pairWith(c) {
+  c = cleanCode(c);
+  if (!okCode(c)) { netMsg = 'That code doesn’t look right: six letters and numbers, like ABC-234.'; paintPairStatus(); return false; }
+  if (c === S.dev) { netMsg = 'That’s your own code. Enter the one on the other screen.'; paintPairStatus(); return false; }
+  if (!S.partner || S.partner.code !== c) { S.joined = true; S.pending = c; }
+  netMsg = ''; save(true);
+  if (!peer) startPeer(); else if (peer.disconnected) { try { peer.reconnect(); } catch (e) {} } else dial(c);
+  paintPairStatus(); return true;
+}
+
+/* ---------- backup: file, link */
+const b64u = buf => btoa(String.fromCharCode(...new Uint8Array(buf))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+const unb64u = s => Uint8Array.from(atob(s.replace(/-/g, '+').replace(/_/g, '/') + '==='.slice((s.length + 3) % 4)), c => c.charCodeAt(0));
+async function pack() {
+  const json = JSON.stringify(S);
+  if (window.CompressionStream) { try { const st = new Blob([json]).stream().pipeThrough(new CompressionStream('deflate-raw')); return 'z' + b64u(await new Response(st).arrayBuffer()); } catch (e) {} }
+  return 'j' + b64u(new TextEncoder().encode(json));
+}
+async function unpack(s) {
+  const bytes = unb64u(s.slice(1));
+  if (s[0] === 'z') { const st = new Blob([bytes]).stream().pipeThrough(new DecompressionStream('deflate-raw')); return JSON.parse(await new Response(st).text()); }
+  return JSON.parse(new TextDecoder().decode(bytes));
+}
+function restore(p, replace) {
+  if (!p || typeof p !== 'object' || !p.items) throw new Error('not a backup');
+  if (replace) { S = p; S = load() ? (LS.set(KEY, p), load()) : S; save(true); render(); return Object.keys(S.items).length; }
+  if (p.dev !== S.dev && p.me && p.me !== S.me) { for (const it of Object.values(p.items)) if (it.by) it.by = it.by === 'a' ? 'b' : 'a'; if (p.names) { [p.names.a, p.names.b] = [p.names.b, p.names.a]; if (p._t) [p._t.na, p._t.nb] = [p._t.nb, p._t.na]; } }
+  let n = 0; const ch = [];
+  for (const pr of Object.values(p.pursuits || {})) mergePursuit(pr);
+  for (const it of Object.values(p.items)) if (mergeItem(it)) { n++; ch.push(it); }
+  if (p.names && p._t) mergeMeta(p);
+  if (!curP() && p.cur && S.pursuits[p.cur]) S.cur = p.cur;
+  save(true); broadcast(ch); sendMeta(); render();
+  return n;
+}
+function download(name, data, type) {
+  const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([data], { type })); a.download = name; document.body.append(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1000);
+}
+function csv() {
+  const q = s => '"' + String(s ?? '').replace(/"/g, '""') + '"';
+  const rows = [['date', 'pursuit', 'minutes', 'focus', 'rating', 'note', 'by', 'coach notes']];
+  for (const s of sessions().sort((x, y) => x.on < y.on ? -1 : 1)) rows.push([s.on, (S.pursuits[s.pursuit] || {}).name || '', s.mins, (s.focus || []).join('; '), s.rating || '', s.note || '', nameOf(s.by || 'a'), notesFor(s.id).map(n => `${nameOf(n.by)}: ${n.text}`).join(' | ')]);
+  return rows.map(r => r.map(q).join(',')).join('\r\n');
+}
+/* ================= stats ================= */
+function byDay(p) { const m = {}; for (const s of sessions(p)) m[s.on] = (m[s.on] || 0) + (+s.mins || 0); return m; }
+function streaks(p) {
+  const days = byDay(p), today = isoDay();
+  let cur = 0, d = days[today] ? today : addDays(today, -1);
+  while (days[d]) { cur++; d = addDays(d, -1); }
+  let best = 0, run = 0, prev = '';
+  for (const k of Object.keys(days).sort()) { run = prev && addDays(prev, 1) === k ? run + 1 : 1; prev = k; if (run > best) best = run; }
+  return { cur, best: Math.max(best, cur) };
+}
+const weekMins = (p, ws = weekStart(isoDay())) => sessions(p).filter(s => s.on >= ws && s.on < addDays(ws, 7)).reduce((a, s) => a + (+s.mins || 0), 0);
+const monthSessions = (p, m = isoDay().slice(0, 7)) => sessions(p).filter(s => s.on.slice(0, 7) === m).length;
+function tagTotals(p) { const m = {}; for (const s of sessions(p)) for (const t of s.focus || []) m[t] = (m[t] || 0) + (+s.mins || 0); return Object.entries(m).sort((x, y) => y[1] - x[1]); }
+function ringSVG(v, goal, label) {
+  const r = 34, C = 2 * Math.PI * r, f = goal ? Math.min(1, v / goal) : 0;
+  return `<svg class="ring" viewBox="0 0 84 84" role="img" aria-label="${esc(label)}"><circle class="tr" cx="42" cy="42" r="${r}"/><circle class="pr" cx="42" cy="42" r="${r}" stroke-dasharray="${(f * C).toFixed(1)} ${C.toFixed(1)}"/><text x="42" y="47" text-anchor="middle">${goal ? Math.round(f * 100) + '%' : hm(v)}</text></svg>`;
+}
+function yearGrid(p, sel) {
+  const days = byDay(p), today = isoDay(), end = addDays(weekStart(today), 6), start = addDays(end, -(52 * 7 - 1));
+  const cell = 11, gap = 2, W = 52 * (cell + gap) + 24, H = 7 * (cell + gap) + 14;
+  let out = '', lastM = '';
+  for (let i = 0; i < 52 * 7; i++) {
+    const d = addDays(start, i), m = days[d] || 0, col = Math.floor(i / 7), row = i % 7;
+    const x = 24 + col * (cell + gap), y = 14 + row * (cell + gap);
+    const mon = d.slice(0, 7); if (row === 0 && mon !== lastM && col < 51) { lastM = mon; out += `<text x="${x}" y="9">${DD(d).toLocaleDateString('en-US', { month: 'short' })}</text>`; }
+    const lv = !m ? 0 : m < 20 ? 1 : m < 45 ? 2 : m < 90 ? 3 : 4;
+    out += `<rect class="l${lv}${d === sel ? ' sel' : ''}" x="${x}" y="${y}" width="${cell}" height="${cell}" data-day="${d}"${d > today ? ' opacity=".35"' : ''}><title>${longDay(d)}: ${m ? hm(m) : 'nothing logged'}</title></rect>`;
+  }
+  out += ['Mon', '', 'Wed', '', 'Fri', '', ''].map((n, i) => n ? `<text x="0" y="${14 + i * (cell + gap) + 9}">${n}</text>` : '').join('');
+  return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="The last 52 weeks of practice">${out}</svg>`;
+}
+function weekBars(p) {
+  const ws = weekStart(isoDay()), goal = (p.goal || {}).minsWeek || 0, vals = [];
+  for (let i = 11; i >= 0; i--) { const s = addDays(ws, -7 * i); vals.push([s, weekMins(p.id, s)]); }
+  const max = Math.max(goal, ...vals.map(v => v[1]), 30), W = 360, H = 120, bw = W / 12;
+  let out = '';
+  vals.forEach(([s, v], i) => { const h = v ? Math.max(2, Math.round(v / max * 88)) : 0; out += `<rect x="${(i * bw + 4).toFixed(1)}" y="${100 - h}" width="${(bw - 8).toFixed(1)}" height="${h}" rx="3" fill-opacity="${i === 11 ? 1 : .7}"><title>Week of ${md(s)}: ${hm(v)}</title></rect>`; if (i % 3 === 0 || i === 11) out += `<text x="${(i * bw + bw / 2).toFixed(1)}" y="114" text-anchor="${i === 0 ? 'start' : i === 11 ? 'end' : 'middle'}">${md(s)}</text>`; });
+  if (goal) { const gy = 100 - Math.round(goal / max * 88); out += `<line class="g" x1="0" x2="${W}" y1="${gy}" y2="${gy}"/><text x="2" y="${gy - 4}">goal ${hm(goal)}</text>`; }
+  return `<svg class="bars" viewBox="0 0 ${W} ${H}" role="img" aria-label="Minutes per week, last 12 weeks">${out}</svg>`;
+}
+
+/* ================= rendering ================= */
+let view = 'home', tagF = '', selDay = '', editId = '', draft = null;
+const ratingHTML = r => `<span class="rt" aria-label="${r || 0} of 5">${[1, 2, 3, 4, 5].map(i => `<i class="${i <= r ? 'f' : ''}"></i>`).join('')}</span>`;
+function sessHTML(s, full) {
+  const p = S.pursuits[s.pursuit] || {}, who = s.by || 'a', notes = notesFor(s.id), coach = S.partner || isOn();
+  return `<article class="sess" data-id="${esc(s.id)}" style="--p:${esc(p.color || '#C2785C')}">
+    <div class="dt"><b>${DD(s.on).getDate()}</b><small>${DD(s.on).toLocaleDateString('en-US', { month: 'short' })}</small></div>
+    <div class="bd"><div class="ln"><span class="mn">${hm(+s.mins || 0)}</span>${ratingHTML(s.rating)}${full ? `<span class="tg"><span style="background:${esc(p.color)}22">${esc(p.name || '')}</span></span>` : ''}${who !== S.me ? `<span class="by" style="--c:${colorOf(who)}"><i></i>${esc(nameOf(who))}</span>` : ''}</div>
+      ${(s.focus || []).length ? `<div class="tg">${s.focus.map(t => `<span>${esc(t)}</span>`).join('')}</div>` : ''}
+      ${s.note ? `<p>${esc(s.note)}</p>` : ''}
+      ${notes.length ? `<div class="nts">${notes.map(n => `<div class="nt" style="--c:${colorOf(n.by)}"><b>${esc(nameOf(n.by))}${n.by === S.me ? `<button class="x" type="button" data-delnote="${esc(n.id)}" aria-label="Remove note">${IC.x}</button>` : ''}</b>${esc(n.text)}</div>`).join('')}</div>` : ''}
+      ${coach ? `<form class="nt-add" data-note="${esc(s.id)}"><input name="t" placeholder="${S.me === 'b' || who !== S.me ? 'Leave a note…' : 'Add a note…'}" maxlength="500" autocomplete="off"><button class="btn sm" type="submit">Note</button></form>` : ''}
+    </div>
+    ${who === S.me || !s.by ? `<button class="ed" type="button" data-edit="${esc(s.id)}" aria-label="Edit session">${IC.pen}</button>` : ''}
+  </article>`;
+}
+function emptyHTML(p) {
+  return `<div class="empty"><h2>Nothing logged yet</h2><p>Your first ${esc(p.name)} session takes thirty seconds: how long, what you worked on, how it went. Streaks and the year grid fill in from there.</p>
+    <div class="row c"><button class="btn p" type="button" data-log>Log a session</button><button class="btn" type="button" data-example>Load an example week</button></div></div>`;
+}
+function pursuitChips(p) {
+  const ps = pursuits();
+  return `<div class="chips" style="margin-bottom:4px">${ps.length > 1 ? ps.map(x => `<button class="chip" type="button" data-pursuit="${esc(x.id)}" aria-pressed="${x.id === p.id}" style="--c:${esc(x.color)}"><i></i>${esc(x.name)}</button>`).join('') : ''}<button class="chip add" type="button" data-addpursuit>${ps.length > 1 ? '+' : '+ Add a pursuit'}</button></div>`;
+}
+function homeHTML(p) {
+  const st = streaks(p.id), wk = weekMins(p.id), goal = (p.goal || {}).minsWeek || 0, all = sessions(p.id), day = selDay && all.filter(s => s.on === selDay).sort((x, y) => (y.at || 0) - (x.at || 0));
+  const today = isoDay(), tm = byDay(p.id)[today] || 0;
+  if (!all.length) return `<div class="stack">${pursuitChips(p)}<div class="today"><h1>${longDay(today)}</h1><p>${esc(p.name)}. Nothing yet today.</p></div><button class="big" type="button" data-log>${IC.plus}Log a session</button>${emptyHTML(p)}</div>`;
+  return `<div class="stack">${pursuitChips(p)}
+    <div class="today"><h1>${longDay(today)}</h1><p>${tm ? `${hm(tm)} of ${esc(p.name)} today.` : `No ${esc(p.name)} yet today.`}${st.cur ? ` Day ${st.cur} of your streak.` : ''}</p></div>
+    <button class="big" type="button" data-log>${IC.plus}Log a session</button>
+    <div class="home">
+      <div class="card g2"><div class="stat"><span class="lb">Streak</span><b>${st.cur}<small> day${st.cur === 1 ? '' : 's'}</small></b><span>${st.cur ? 'Keep it going' : 'Log today to start one'}</span></div><div class="stat"><span class="lb">Best</span><b>${st.best}<small> day${st.best === 1 ? '' : 's'}</small></b><span>${all.length} session${all.length === 1 ? '' : 's'} all time</span></div></div>
+      <div class="card ringw">${ringSVG(wk, goal, 'This week')}<div class="stat"><span class="lb">This week</span><b style="font-size:30px">${hm(wk)}</b><span>${goal ? `of ${hm(goal)} a week · ${wk >= goal ? 'goal met' : hm(goal - wk) + ' to go'}` : '<button class="lk" type="button" data-view="goals">Set a weekly goal</button>'}</span></div></div>
+      <div class="card full"><div class="hd"><h2>The year</h2><p>${hm(all.reduce((a, s) => a + (+s.mins || 0), 0))} across ${Object.keys(byDay(p.id)).length} days</p></div>
+        <div class="yg" style="margin-top:10px">${yearGrid(p.id, selDay)}</div><div class="leg">Less <i class="l0"></i><i class="l1"></i><i class="l2"></i><i class="l3"></i><i></i> More</div>
+        ${selDay ? `<div class="dayp"><div class="hd"><h3>${longDay(selDay)}</h3><button class="lk" type="button" data-day="">Close</button></div>${day.length ? day.map(s => sessHTML(s)).join('') : `<p class="hint">Nothing logged. <button class="lk" type="button" data-log="${selDay}">Log one for this day</button></p>`}</div>` : ''}</div>
+      <div class="card full"><div class="hd"><h2>Recent</h2><button class="lk" type="button" data-view="history">All sessions</button></div>${all.sort((x, y) => x.on === y.on ? (y.at || 0) - (x.at || 0) : x.on < y.on ? 1 : -1).slice(0, 4).map(s => sessHTML(s)).join('')}</div>
+    </div></div>`;
+}
+function historyHTML(p) {
+  let all = sessions(p.id).sort((x, y) => x.on === y.on ? (y.at || 0) - (x.at || 0) : x.on < y.on ? 1 : -1);
+  const tags = tagTotals(p.id);
+  if (tagF) all = all.filter(s => (s.focus || []).includes(tagF));
+  const months = {}; for (const s of all) (months[s.on.slice(0, 7)] = months[s.on.slice(0, 7)] || []).push(s);
+  const max = tags.length ? tags[0][1] : 1;
+  return `<div class="stack">${pursuitChips(p)}
+    ${sessions(p.id).length ? `<div class="card"><div class="hd"><h2>Minutes a week</h2><p>Last 12 weeks</p></div><div style="margin-top:10px">${weekBars(p)}</div></div>
+    ${tags.length ? `<div class="card"><div class="hd"><h2>By focus</h2><p>All time</p></div><div class="tot" style="margin-top:10px">${tags.map(([t, m]) => `<div><button class="lk" type="button" data-tag="${esc(t)}" style="color:${tagF === t ? 'var(--p)' : 'inherit'};text-decoration:none;font-weight:600">${esc(t)}</button><span>${hm(m)}</span><span class="br"><i style="width:${Math.round(m / max * 100)}%"></i></span></div>`).join('')}</div></div>` : ''}
+    <div class="card"><div class="hd"><h2>Sessions</h2>${tagF ? `<button class="lk" type="button" data-tag="">Showing ${esc(tagF)} · clear</button>` : `<p>${all.length} total</p>`}</div>
+      ${Object.entries(months).map(([m, ss]) => `<div class="mon"><h3>${monName(m)}</h3><span>${ss.length} session${ss.length === 1 ? '' : 's'} · ${hm(ss.reduce((a, s) => a + (+s.mins || 0), 0))}</span></div>${ss.map(s => sessHTML(s)).join('')}`).join('') || `<p class="hint">No sessions with that focus.</p>`}</div>` : emptyHTML(p)}</div>`;
+}
+function goalsHTML(p) {
+  const g = p.goal || {}, wk = weekMins(p.id), ms = monthSessions(p.id), all = sessions(p.id);
+  const bar = (v, t, lbl) => `<div class="prog${v >= t ? ' done' : ''}"><i style="width:${Math.min(100, Math.round(v / t * 100))}%"></i></div><p class="hint">${lbl}</p>`;
+  const left = g.by ? Math.ceil((DD(g.by) - DD(isoDay())) / 864e5) : 0;
+  return `<div class="stack">${pursuitChips(p)}
+    <div class="card"><div class="hd"><h2>${esc(p.name)} goals</h2><button class="lk" type="button" data-editgoals>Edit</button></div>
+      ${!g.minsWeek && !g.sessionsMonth && !g.by ? `<p class="hint" style="margin-top:8px">No goals yet. Pick a weekly minute target, a sessions-a-month target, or a date you are working toward.</p><div class="row" style="margin-top:12px"><button class="btn p" type="button" data-editgoals>Set goals</button></div>` : ''}
+      ${g.minsWeek ? `<h3 style="margin-top:12px">${hm(g.minsWeek)} a week</h3>${bar(wk, g.minsWeek, `${hm(wk)} so far this week${wk >= g.minsWeek ? ' · done' : ' · ' + hm(g.minsWeek - wk) + ' to go'}`)}` : ''}
+      ${g.sessionsMonth ? `<h3 style="margin-top:12px">${g.sessionsMonth} sessions a month</h3>${bar(ms, g.sessionsMonth, `${ms} this month${ms >= g.sessionsMonth ? ' · done' : ' · ' + (g.sessionsMonth - ms) + ' to go'}`)}` : ''}
+      ${g.by ? `<h3 style="margin-top:12px">${esc(g.byLabel || 'Target')}: ${longDay(g.by)}</h3>${left >= 0 ? bar(all.filter(s => s.on >= (g.bySince || '0')).length, Math.max(1, g.byTarget || 1), `${left} day${left === 1 ? '' : 's'} to go${g.byTarget ? ` · ${all.filter(s => s.on >= (g.bySince || '0')).length} of ${g.byTarget} sessions since you set it` : ''}`) : `<p class="hint">That date has passed. ${all.filter(s => s.on >= (g.bySince || '0') && s.on <= g.by).length} sessions on the way there.</p>`}` : ''}</div>
+    <div class="card"><div class="hd"><h2>This week</h2><p>Mon to Sun</p></div><div class="ringw" style="margin-top:10px">${ringSVG(wk, g.minsWeek || 0, 'This week')}<div class="stat"><b style="font-size:30px">${hm(wk)}</b><span>${all.filter(s => s.on >= weekStart(isoDay())).length} session${all.filter(s => s.on >= weekStart(isoDay())).length === 1 ? '' : 's'}</span></div></div></div></div>`;
+}
+function coachHTML(p) {
+  const notes = live().filter(it => it.kind === 'note').sort((x, y) => (y.at || 0) - (x.at || 0)).slice(0, 20);
+  return `<div class="stack">
+    <div class="card"><h2>${S.partner ? `${esc(theirName())} ${isOn() ? 'is here' : 'is away'}` : 'No coach yet'}</h2>
+      <p style="margin:6px 0 0;color:var(--ink2)">${S.partner ? `${esc(theirName())} sees every session as you log it and can leave a note under any of them. Their notes carry their color${S.partner ? ` (${esc(theirName())} is <span style="color:${colorOf(other())};font-weight:650">${other() === 'a' ? 'terracotta' : 'slate'}</span>, you are <span style="color:${colorOf(S.me)};font-weight:650">${S.me === 'a' ? 'terracotta' : 'slate'}</span>)` : ''}.` : 'Share your code with a trainer, a coach or a study partner. They open Practice, enter the code, and from then on they see your log and can leave a note on any session. You see their notes here and under each session.'}</p>
+      <div class="row" style="margin-top:12px"><button class="btn p" type="button" data-pair>${S.partner ? 'Connection' : 'Share your code'}</button></div></div>
+    <div class="card"><div class="hd"><h2>Notes</h2><p>${notes.length ? 'Newest first' : ''}</p></div>
+      ${notes.length ? notes.map(n => { const s = S.items[n.session] || {}; return `<div class="note-c" style="--c:${colorOf(n.by)}"><div class="av">${esc((nameOf(n.by)[0] || '?').toUpperCase())}</div><div class="bd"><small>${esc(nameOf(n.by))} on ${s.on ? md(s.on) : 'a session'}${s.mins ? ` · ${hm(+s.mins)}` : ''}</small><p>${esc(n.text)}</p></div></div>`; }).join('') : `<p class="hint" style="margin-top:8px">No notes yet. ${S.partner ? `When ${esc(theirName())} leaves one, it shows here and under the session.` : 'Notes appear once someone is connected.'}</p>`}</div></div>`;
+}
+function render() {
+  if (!S) return renderLanding();
+  const p = curP();
+  if (!p) { S.cur = ''; if (S.partner || S.pending) return renderCoachWait(); return renderLanding(true); }
+  $('#pairBtn').hidden = false;
+  const tabs = [['home', 'Today'], ['history', 'History'], ['goals', 'Goals'], ['coach', 'Coach']];
+  $('#main').innerHTML = `<div class="in"><div class="tabs" role="tablist">${tabs.map(([k, n]) => `<button role="tab" type="button" data-view="${k}" aria-selected="${view === k}">${n}</button>`).join('')}</div>
+    <div style="--p:${esc(p.color)}">${view === 'history' ? historyHTML(p) : view === 'goals' ? goalsHTML(p) : view === 'coach' ? coachHTML(p) : homeHTML(p)}</div></div>`;
+  const yg = $('.yg'); if (yg) yg.scrollLeft = yg.scrollWidth;
+  paintPresence();
+}
+function renderCoachWait() {
+  $('#pairBtn').hidden = false;
+  const on = isOn();
+  $('#main').innerHTML = `<section class="in land"><p class="eyebrow">Coach view</p><h1 style="font-size:36px">${on ? `Connected with ${esc(theirName())}` : S.pending ? `Connecting to ${esc(fmtCode(S.pending))}…` : `Waiting for ${esc(theirName())}`}</h1>
+    <p class="lede">${on ? 'Their log is on its way. If nothing shows in a moment, they haven’t logged a session yet.' : 'Their log appears here as soon as both of you have Practice open. Leave this page open, or come back later.'}</p>
+    <div class="row" style="margin-top:18px"><button class="btn p" type="button" data-pair>Connection</button><button class="btn" type="button" data-addpursuit>Log my own practice too</button></div></section>`;
+  paintPresence();
+}
+function renderLanding(addOnly) {
+  $('#pairBtn').hidden = !addOnly;
+  const join = qp.get('join') ? cleanCode(qp.get('join')) : '';
+  $('#main').innerHTML = `<section class="in land">${addOnly ? '' : `<p class="eyebrow">Create · Free · Private</p><h1>Show up. <em>Write it down.</em></h1>
+    <p class="lede">A practice log for any pursuit: rides, shop hours, study sessions, scales, laps. Each session takes thirty seconds. Streaks, goals and a calendar of the year follow. Share a code with a coach and they see the log and leave notes. No account; it lives in this browser.</p>`}
+    <form id="startForm" class="stack" style="margin-top:${addOnly ? 8 : 24}px">
+      ${addOnly ? '<h1 style="font-size:34px">Add a pursuit</h1>' : `<div class="fld"><label for="sm">Your name</label><input id="sm" name="me" required maxlength="30" autocomplete="given-name" placeholder="Your first name" value="${esc(S ? myName() === 'You' ? '' : myName() : '')}"></div>`}
+      <div class="fld"><span class="lb">What are you practicing?</span><div class="presets" id="presets">${Object.entries(PRESETS).map(([k, p]) => `<button type="button" data-preset="${k}" aria-pressed="false" style="--c:${p.color}"><i></i>${p.name}</button>`).join('')}</div></div>
+      <div class="fld"><label for="pn">Or name it yourself</label><input id="pn" name="pn" maxlength="40" placeholder="Pottery, chess, Italian…"></div>
+      <div class="fld"><span class="lb">Color</span><div class="sw" id="sw">${COLORS.map((c, i) => `<button type="button" data-color="${c}" aria-pressed="${i === 0}" style="background:${c}" aria-label="Color ${i + 1}"></button>`).join('')}</div></div>
+      <div class="fld"><label for="gw">Weekly goal in minutes <span style="font-weight:400;color:var(--ink3)">(optional)</span></label><input id="gw" name="gw" type="number" inputmode="numeric" min="0" max="10000" placeholder="150"></div>
+      <div class="row"><button class="btn p" type="submit">${addOnly ? 'Add it' : 'Start the log'}</button>${addOnly && (pursuits().length || S.partner || S.pending) ? '<button class="btn" type="button" data-cancelp>Cancel</button>' : ''}${join && !addOnly ? `<button class="btn" type="button" data-coachonly>I’m the coach: skip this</button>` : ''}</div>${join && !addOnly ? `<p class="hint">You’ll connect to ${esc(fmtCode(join))} next.</p>` : ''}
+    </form>
+    ${addOnly ? '' : `<ul class="feat"><li><b>One file, no account</b><span>Type your name and pick a pursuit. The log lives in this browser and backs up as a file or a link.</span></li><li><b>Streaks and the year</b><span>Consecutive days, minutes against a weekly goal, and a grid of the last 52 weeks that fills in as you practice.</span></li><li><b>A coach who can see</b><span>Share a six-letter code once. They see the log live and leave notes on sessions; both of you see every note.</span></li></ul>`}
+  </section>`;
+}
+function paintPresence() {
+  const b = $('#pairBtn'); if (!b || !S) return;
+  const on = isOn();
+  let cls = '', txt = 'Share';
+  if (on) { cls = 'on'; txt = theirName().split(' ')[0]; }
+  else if (S.partner || S.pending) { if (net === 'dialing' || net === 'starting') { cls = 'wait'; txt = 'Connecting'; } else if (net === 'offline' || net === 'nolib' || net === 'error') { cls = ''; txt = 'Sync off'; } else { cls = 'away'; txt = theirName().split(' ')[0] + ' away'; } }
+  else if (net === 'nolib' || net === 'error' || net === 'offline') { txt = 'Solo'; }
+  b.className = 'pill ' + cls; b.querySelector('span').textContent = txt;
+  b.setAttribute('aria-label', on ? `Connected with ${theirName()}. Open sharing.` : 'Share your code');
+}
+
+/* ================= sheets ================= */
+let sheetKind = '', lastFocus = null;
+const head = (t, extra = '') => `<div class="shh"><h2 id="shT">${t}</h2>${extra}<button class="ic" type="button" data-close aria-label="Close">${IC.x}</button></div>`;
+function openSheet(kind, html) {
+  sheetKind = kind; lastFocus = document.activeElement;
+  const sh = $('#sheet'); sh.innerHTML = html; sh.scrollTop = 0;
+  $('#scrim').classList.add('on'); sh.classList.add('on'); document.body.style.overflow = 'hidden';
+  setTimeout(() => { const f = sh.querySelector('[autofocus]') || sh; f.focus({ preventScroll: true }); }, 60);
+}
+function closeSheet() {
+  if (!sheetKind) return;
+  if (sheetKind === 'ask' && pendingAsk) { try { pendingAsk.c.close(); } catch (e) {} pendingAsk = null; }
+  sheetKind = ''; editId = ''; draft = null;
+  $('#scrim').classList.remove('on'); $('#sheet').classList.remove('on'); document.body.style.overflow = '';
+  if (lastFocus && lastFocus.focus) lastFocus.focus({ preventScroll: true });
+}
+function openLog(id, on) {
+  const p = curP(); if (!p) return;
+  const s = id && S.items[id];
+  editId = s ? id : '';
+  draft = s ? { on: s.on, mins: +s.mins || 0, focus: [...(s.focus || [])], rating: s.rating || 0, note: s.note || '', pursuit: s.pursuit } : { on: on || isoDay(), mins: 30, focus: [], rating: 0, note: '', pursuit: p.id };
+  openSheet('log', head(s ? 'Edit session' : 'Log a session') + `<div class="shb">
+    <div class="g2"><div class="fld"><label for="ld">Date</label><input id="ld" type="date" value="${draft.on}" max="${addDays(isoDay(), 1)}"></div>
+    ${pursuits().length > 1 ? `<div class="fld"><label for="lp">Pursuit</label><select id="lp">${pursuits().map(x => `<option value="${esc(x.id)}"${x.id === draft.pursuit ? ' selected' : ''}>${esc(x.name)}</option>`).join('')}</select></div>` : ''}</div>
+    <div class="fld"><span class="lb">Minutes</span><div class="quick" id="quick">${[15, 30, 45, 60, 90].map(m => `<button type="button" data-mins="${m}" aria-pressed="${draft.mins === m}">${m}</button>`).join('')}<input id="lm" type="number" inputmode="numeric" min="1" max="1440" value="${draft.mins}" aria-label="Minutes"></div></div>
+    <div class="fld"><span class="lb">Focus</span><div class="chips" id="focus"></div><div class="srch" style="margin-top:8px"><input id="lt" placeholder="Add a focus…" maxlength="30" autocomplete="off"><button class="btn" type="button" data-addtag>Add</button></div></div>
+    <div class="fld"><span class="lb">How did it go?</span><div class="dots" id="dots" role="radiogroup" aria-label="Rating">${[1, 2, 3, 4, 5].map(i => `<button type="button" data-rate="${i}" aria-pressed="${i <= draft.rating}" aria-label="${i} of 5"><i></i></button>`).join('')}</div></div>
+    <div class="fld"><label for="ln">Note</label><textarea id="ln" maxlength="1000" placeholder="What worked, what to try next time.">${esc(draft.note)}</textarea></div>
+    <div class="row"><button class="btn p" type="button" data-savelog>${s ? 'Save' : 'Log it'}</button>${s ? `<button class="btn warn" type="button" data-del="${esc(id)}">Delete</button>` : ''}</div></div>`);
+  paintFocus();
+}
+function paintFocus() {
+  const p = S.pursuits[draft.pursuit] || curP(), all = [...new Set([...(p.tags || []), ...draft.focus])];
+  $('#focus').innerHTML = all.map(t => `<button class="chip" type="button" data-tag="${esc(t)}" aria-pressed="${draft.focus.includes(t)}">${esc(t)}</button>`).join('') || '<span class="hint">No focus tags yet; add one below.</span>';
+}
+function saveLog() {
+  const on = $('#ld').value, mins = Math.round(+$('#lm').value);
+  if (!/^\d{4}-\d\d-\d\d$/.test(on)) { $('#ld').focus(); return; }
+  if (!(mins > 0)) { $('#lm').focus(); return; }
+  const f = { pursuit: ($('#lp') || {}).value || draft.pursuit, on, mins: Math.min(1440, mins), focus: draft.focus.slice(0, 8), rating: draft.rating, note: $('#ln').value.trim().slice(0, 1000) };
+  const p = S.pursuits[f.pursuit];
+  const fresh = f.focus.filter(t => !(p.tags || []).includes(t));
+  if (fresh.length) { setF(p, { tags: [...(p.tags || []), ...fresh].slice(0, 20) }); sendMeta(); }
+  let it;
+  if (editId && S.items[editId]) { it = setF(S.items[editId], f); } else it = create('s' + uid(), Object.assign(f, { by: S.me, at: Date.now(), del: false }));
+  save(); broadcast([it]); closeSheet(); render();
+  toast(editId ? 'Saved' : `Logged ${hm(f.mins)} of ${p.name}`);
+}
+function delItem(id) {
+  const it = S.items[id]; if (!it) return;
+  setF(it, { del: true }); save(); broadcast([it]); closeSheet(); render();
+  toast(it.kind === 'note' ? 'Note removed' : 'Session deleted', () => { setF(it, { del: false }); save(); broadcast([it]); render(); });
+}
+function addNote(sid, text) {
+  text = text.trim().slice(0, 500); if (!text) return;
+  const it = create('n' + uid(), { kind: 'note', session: sid, text, by: S.me, at: Date.now(), del: false });
+  save(); broadcast([it]); render();
+}
+function loadExample() {
+  const p = curP(); if (!p) return;
+  const tags = p.tags || [], made = [];
+  const plan = [[0, 45, 4], [1, 30, 3], [2, 60, 5], [4, 20, 3], [5, 90, 4], [6, 40, 4], [8, 30, 2], [9, 45, 4]];
+  for (const [back, mins, rating] of plan) made.push(create('s' + uid(), { pursuit: p.id, on: addDays(isoDay(), -back), mins, focus: tags.length ? [tags[back % tags.length], ...(back % 3 === 0 && tags.length > 1 ? [tags[(back + 1) % tags.length]] : [])] : [], rating, note: back === 2 ? 'Best one in a while. Slow was fast.' : back === 8 ? 'Tired, kept it short.' : '', by: S.me, at: Date.now() - back * 864e5, del: false }));
+  save(); broadcast(made); render(); toast('An example week is in. Delete any of it from the edit pencil.');
+}
+function openGoals() {
+  const p = curP(); if (!p) return; const g = p.goal || {};
+  openSheet('goals', head(`${esc(p.name)} goals`) + `<div class="shb">
+    <div class="g2"><div class="fld"><label for="gm">Minutes a week</label><input id="gm" type="number" inputmode="numeric" min="0" max="10000" value="${g.minsWeek || ''}" placeholder="150"></div>
+    <div class="fld"><label for="gs">Sessions a month</label><input id="gs" type="number" inputmode="numeric" min="0" max="500" value="${g.sessionsMonth || ''}" placeholder="12"></div></div>
+    <div class="fld"><label for="gl">Working toward <span style="font-weight:400;color:var(--ink3)">(optional)</span></label><input id="gl" maxlength="60" value="${esc(g.byLabel || '')}" placeholder="The show, the recital, the tournament…"></div>
+    <div class="g2"><div class="fld"><label for="gb">By</label><input id="gb" type="date" value="${g.by || ''}"></div><div class="fld"><label for="gt">Sessions before then</label><input id="gt" type="number" inputmode="numeric" min="0" max="1000" value="${g.byTarget || ''}" placeholder="20"></div></div>
+    <div class="row"><button class="btn p" type="button" data-savegoals>Save</button>${g.by || g.minsWeek || g.sessionsMonth ? '<button class="btn" type="button" data-cleargoals>Clear goals</button>' : ''}</div></div>`);
+}
+function saveGoals(clear) {
+  const p = curP(); if (!p) return;
+  const g = clear ? {} : { minsWeek: Math.max(0, Math.round(+$('#gm').value || 0)), sessionsMonth: Math.max(0, Math.round(+$('#gs').value || 0)), by: /^\d{4}-\d\d-\d\d$/.test($('#gb').value) ? $('#gb').value : '', byLabel: $('#gl').value.trim().slice(0, 60), byTarget: Math.max(0, Math.round(+$('#gt').value || 0)), bySince: (p.goal || {}).by === $('#gb').value ? (p.goal || {}).bySince : isoDay() };
+  setF(p, { goal: g }); save(); sendMeta(); closeSheet(); view = 'goals'; render(); toast(clear ? 'Goals cleared' : 'Goals saved');
+}
+function openPair() {
+  const link = PAGE + '?join=' + S.dev, on = isOn();
+  openSheet('pair', head(on ? `Connected with ${esc(theirName())}` : 'Share') + `<div class="shb">
+    <div class="box"><h3>Your code</h3><p>${S.partner ? `${esc(theirName())}’s device knows this code and reconnects by itself whenever you both have Practice open.` : 'A coach or study partner enters this in their Practice, or scans the QR. They see your log and can leave notes.'}</p>
+      <p class="code">${esc(fmtCode(S.dev))}</p><div class="qr" id="qr" aria-label="QR code of your link"></div>
+      <div class="row c"><button class="btn sm" type="button" data-copycode>Copy code</button><button class="btn sm" type="button" data-copylink>Copy link</button></div>
+      <p class="status" id="pairStatus" aria-live="polite"></p></div>
+    <div class="box"><h3>${S.partner ? 'Connect a different device' : 'Or enter their code'}</h3><p>${S.partner ? 'This replaces the current connection.' : 'If they shared theirs with you: you’ll see their log and can leave notes.'}</p>
+      <div class="srch" style="margin-top:10px"><label class="sr" for="pcode">Their code</label><input id="pcode" placeholder="ABC-234" autocapitalize="characters" autocomplete="off" maxlength="7" style="text-transform:uppercase;letter-spacing:.12em"><button class="btn p" type="button" data-dial>Connect</button></div></div>
+    ${S.partner ? `<p class="hint" style="text-align:center">Paired with ${esc(theirName())} (${esc(fmtCode(S.partner.code))}). <button class="lk" type="button" data-forget>Forget partner</button></p>` : ''}
+    ${net === 'nolib' || net === 'offline' ? `<p class="hint" style="text-align:center">${esc(netMsg)}</p>` : ''}</div>`);
+  paintPairStatus();
+  const draw = () => { const q = $('#qr'); if (!q) return; if (window.qrcode) { try { const qr = window.qrcode(0, 'M'); qr.addData(link); qr.make(); q.innerHTML = qr.createSvgTag({ cellSize: 4, margin: 0, scalable: true }); q.hidden = false; } catch (e) { q.hidden = true; } } else q.hidden = true; };
+  draw(); if (!window.qrcode && document.readyState !== 'complete') addEventListener('load', draw, { once: true });
+  const pc = $('#pcode');
+  pc.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); pairWith(pc.value); } });
+  pc.addEventListener('input', () => { const c = cleanCode(pc.value).slice(0, 6); const v = c.length > 3 ? c.slice(0, 3) + '-' + c.slice(3) : c; if (pc.value !== v) pc.value = v; });
+}
+function paintPairStatus() {
+  const st = $('#pairStatus'); if (!st) return;
+  const on = isOn();
+  st.className = 'status' + (on ? ' ok' : netMsg && net !== 'dialing' ? ' bad' : '');
+  st.textContent = on ? `Connected with ${theirName()}.` : netMsg || (S.pending ? `Connecting to ${fmtCode(S.pending)}…` : net === 'dialing' ? 'Connecting…' : net === 'ready' ? 'Listening for a connection.' : net === 'starting' ? 'Starting…' : '');
+}
+function openMenu() {
+  openSheet('menu', head('Practice') + `<div class="shb"><nav class="menu-l">
+    <button type="button" data-pair>Share<small>Your code, a QR, connect a coach</small></button>
+    <button type="button" data-settings>Settings<small>Your name, pursuits, appearance</small></button>
+    <button type="button" data-backup>Backup<small>Download, restore, or copy as a link</small></button>
+    <button type="button" data-csv>Export sessions as CSV<small>Every session, with coach notes</small></button>
+    <button type="button" data-theme>Appearance<small>${({ light: 'Light', dark: 'Dark' })[LS.get(THEME, '')] || 'Matches your device'}</small></button>
+  </nav></div>`);
+}
+function openSettings() {
+  openSheet('settings', head('Settings') + `<div class="shb">
+    <div class="fld"><label for="sn">Your name</label><input id="sn" value="${esc(S.names[S.me] || '')}" maxlength="30"></div>
+    <div class="fld"><label for="so">${S.partner ? esc(theirName()) : 'Coach or partner'}</label><input id="so" value="${esc(S.names[other()] || '')}" maxlength="30" placeholder="Their name"></div>
+    <div class="row"><button class="btn p" type="button" data-savenames>Save names</button></div>
+    <div class="box"><h3>Pursuits</h3><div class="plist" style="margin-top:8px">${pursuits().map(p => `<div style="--c:${esc(p.color)}"><i></i><b>${esc(p.name)}</b><span class="hint" style="margin:0">${sessions(p.id).length} session${sessions(p.id).length === 1 ? '' : 's'}</span><button class="btn sm" type="button" data-renamep="${esc(p.id)}">Rename</button>${pursuits().length > 1 ? `<button class="btn sm warn" type="button" data-delp="${esc(p.id)}">Remove</button>` : ''}</div>`).join('')}</div>
+      <div class="row" style="margin-top:12px"><button class="btn" type="button" data-addpursuit>Add a pursuit</button></div></div>
+    <button class="btn warn" type="button" data-reset>Clear this device’s data</button>
+    <p class="hint">Clears the log on this device only. ${S.partner ? `${esc(theirName())}’s copy stays, and reconnecting brings it back.` : 'Download a backup first if you want it back.'}</p></div>`);
+}
+async function openBackup() {
+  const packed = await pack();
+  const small = packed.length < 8200;
+  openSheet('backup', head('Backup') + `<div class="shb">
+    <div class="box"><h3>Download a backup</h3><p>The whole log as one JSON file: ${sessions().length} session${sessions().length === 1 ? '' : 's'}, ${pursuits().length} pursuit${pursuits().length === 1 ? '' : 's'}, every note.</p><div class="row" style="margin-top:10px"><button class="btn p sm" type="button" data-download>Download</button><button class="btn sm" type="button" data-csv>CSV of sessions</button></div></div>
+    <div class="box"><h3>Restore</h3><p>Merges a backup file into this log; nothing here is lost. Choose Replace to start from the file instead.</p><div class="row" style="margin-top:10px"><label class="btn sm" style="cursor:pointer">Merge a file<input type="file" accept="application/json,.json" data-import="merge" hidden></label><label class="btn sm warn" style="cursor:pointer">Replace with a file<input type="file" accept="application/json,.json" data-import="replace" hidden></label></div></div>
+    <div class="box"><h3>Copy as a link</h3><p>${small ? 'Your log is small enough to fit in a link. Open it on another device and Practice merges it in.' : 'Your log has outgrown what fits in a link; use the file instead.'}</p>${small ? `<div class="row" style="margin-top:10px"><button class="btn sm" type="button" data-copyb="${packed}">Copy link</button></div>` : ''}</div></div>`);
+}
+/* ================= events ================= */
+let toastT = 0;
+function toast(msg, undo) {
+  const t = $('#toast');
+  t.innerHTML = `<span>${esc(msg)}</span>${undo ? '<button type="button" id="undo">Undo</button>' : ''}`;
+  if (undo) $('#undo').onclick = () => { undo(); t.classList.remove('on'); };
+  t.classList.add('on'); clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('on'), undo ? 6000 : 3000);
+}
+async function copy(text, msg) { try { await navigator.clipboard.writeText(text); toast(msg); } catch (e) { prompt('Copy this:', text); } }
+let pickColor = COLORS[0], pickPreset = '';
+document.addEventListener('click', async e => {
+  const a = e.target.closest('button,a,rect[data-day]'); if (!a) return;
+  const d = a.dataset;
+  if (a.id === 'logo') { e.preventDefault(); if (S && curP()) { view = 'home'; selDay = ''; render(); window.scrollTo(0, 0); } return; }
+  if (d.close != null) { closeSheet(); return; }
+  if (d.preset != null) { pickPreset = pickPreset === d.preset ? '' : d.preset; $$('[data-preset]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.preset === pickPreset))); if (pickPreset) { pickColor = PRESETS[pickPreset].color; $$('[data-color]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.color === pickColor))); } return; }
+  if (d.color != null) { pickColor = d.color; $$('[data-color]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.color === pickColor))); return; }
+  if (!S) return;
+  if (d.view) { view = d.view; selDay = ''; render(); return; }
+  if (d.pursuit) { S.cur = d.pursuit; S._t.cur = stamp(); selDay = ''; tagF = ''; save(); render(); return; }
+  if (d.addpursuit != null) { closeSheet(); pickPreset = ''; pickColor = COLORS[pursuits().length % COLORS.length]; renderLanding(true); window.scrollTo(0, 0); return; }
+  if (d.cancelp != null) { render(); return; }
+  if (d.coachonly != null) { const f = $('#startForm'); const me = f.me.value.trim(); if (!me) { f.me.focus(); return; } S = blank(); setName('a', me); save(true); begin(); const j = cleanCode(qp.get('join') || ''); if (okCode(j)) { pairWith(j); openPair(); } return; }
+  if (d.log != null) { openLog('', d.log || ''); return; }
+  if (d.edit) { openLog(d.edit); return; }
+  if (d.example != null) { loadExample(); return; }
+  if (d.day != null) { selDay = selDay === d.day ? '' : d.day; render(); const y = $('.dayp'); if (y) y.scrollIntoView({ block: 'nearest' }); return; }
+  if (d.mins != null) { draft.mins = +d.mins; $('#lm').value = d.mins; $$('[data-mins]').forEach(b => b.setAttribute('aria-pressed', String(+b.dataset.mins === draft.mins))); return; }
+  if (d.rate != null) { draft.rating = draft.rating === +d.rate ? 0 : +d.rate; $$('[data-rate]').forEach(b => b.setAttribute('aria-pressed', String(+b.dataset.rate <= draft.rating))); return; }
+  if (d.tag != null && draft) { const t = d.tag; draft.focus = draft.focus.includes(t) ? draft.focus.filter(x => x !== t) : [...draft.focus, t]; paintFocus(); return; }
+  if (d.tag != null) { tagF = d.tag; render(); return; }
+  if (d.addtag != null) { const t = $('#lt').value.trim().slice(0, 30); if (!t) return; if (!draft.focus.includes(t)) draft.focus.push(t); $('#lt').value = ''; paintFocus(); return; }
+  if (d.savelog != null) { saveLog(); return; }
+  if (d.del) { if (confirm('Delete this session?')) delItem(d.del); return; }
+  if (d.delnote) { delItem(d.delnote); return; }
+  if (d.editgoals != null) { openGoals(); return; }
+  if (d.savegoals != null) { saveGoals(); return; }
+  if (d.cleargoals != null) { saveGoals(true); return; }
+  if (d.pair != null || a.id === 'pairBtn') { openPair(); return; }
+  if (d.dial != null) { pairWith($('#pcode').value); return; }
+  if (d.copycode != null) { copy(fmtCode(S.dev), 'Code copied'); return; }
+  if (d.copylink != null) { copy(PAGE + '?join=' + S.dev, 'Link copied'); return; }
+  if (d.forget != null) { S.partner = null; S.pending = null; save(true); for (const c of conns) try { c.close(); } catch (er) {} conns.clear(); setNet(peer ? 'ready' : 'idle'); openPair(); render(); return; }
+  if (d.accept != null) { const p = pendingAsk; pendingAsk = null; if (p) { closeSheet(); acceptHello(p.c, p.d, false); } return; }
+  if (d.reject != null) { closeSheet(); return; }
+  if (a.id === 'menuBtn') { openMenu(); return; }
+  if (d.settings != null) { openSettings(); return; }
+  if (d.backup != null) { openBackup(); return; }
+  if (d.download != null) { download('create-practice-backup.json', JSON.stringify(S, null, 2), 'application/json'); toast('Backup downloaded'); return; }
+  if (d.csv != null) { download(`practice-sessions-${isoDay()}.csv`, csv(), 'text/csv'); toast('CSV downloaded'); return; }
+  if (d.copyb) { copy(PAGE + '#b=' + d.copyb, 'Link copied. It holds your whole log.'); return; }
+  if (d.savenames != null) { const me = $('#sn').value.trim(), them = $('#so').value.trim(); if (me !== (S.names[S.me] || '')) setName(S.me, me); if (them !== (S.names[other()] || '')) setName(other(), them); save(true); sendMeta(); closeSheet(); render(); toast('Saved'); return; }
+  if (d.renamep) { const p = S.pursuits[d.renamep]; if (!p) return; const n = prompt('Rename this pursuit:', p.name); if (n && n.trim()) { setF(p, { name: n.trim().slice(0, 40) }); save(); sendMeta(); openSettings(); render(); } return; }
+  if (d.delp) { const p = S.pursuits[d.delp]; if (!p || !confirm(`Remove ${p.name} and its ${sessions(p.id).length} sessions from the log?`)) return; setF(p, { del: true }); const ch = []; for (const s of sessions(p.id)) ch.push(setF(s, { del: true })); if (S.cur === p.id) S.cur = ''; save(); sendMeta(); broadcast(ch); openSettings(); render(); toast(`${p.name} removed`, () => { setF(p, { del: false }); for (const s of ch) setF(s, { del: false }); save(); sendMeta(); broadcast(ch); render(); }); return; }
+  if (d.theme != null) { const cur = LS.get(THEME, ''); const nx = cur === '' ? 'light' : cur === 'light' ? 'dark' : ''; if (nx) LS.set(THEME, nx); else LS.del(THEME); applyTheme(); openMenu(); return; }
+  if (d.reset != null) { if (!confirm('Clear this device’s copy of the log?')) return; LS.del(KEY); location.replace(location.pathname + location.search); return; }
+});
+document.addEventListener('submit', e => {
+  e.preventDefault();
+  const f = e.target;
+  if (f.id === 'startForm') {
+    const own = f.pn.value.trim(), pre = pickPreset && PRESETS[pickPreset];
+    if (!own && !pre) { f.pn.focus(); toast('Pick a pursuit or name one.'); return; }
+    const adding = !!S;
+    if (!adding) { const me = f.me.value.trim(); if (!me) { f.me.focus(); return; } S = blank(); setName('a', me); }
+    const gw = Math.max(0, Math.round(+f.gw.value || 0));
+    addPursuit(pre && !own ? pickPreset : 'custom', own || pre.name, pickColor, pre ? pre.tags : [], gw ? { minsWeek: gw } : {});
+    save(true);
+    if (adding) { sendMeta(); view = 'home'; render(); toast(`${curP().name} added`); }
+    else { begin(); const j = qp.get('join') ? cleanCode(qp.get('join')) : ''; if (j && okCode(j)) { pairWith(j); openPair(); } }
+    return;
+  }
+  if (f.dataset.note) { addNote(f.dataset.note, f.t.value); return; }
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && sheetKind) closeSheet(); });
+document.addEventListener('change', e => {
+  if (e.target.matches('[data-import]') && e.target.files[0]) {
+    const mode = e.target.dataset.import, r = new FileReader();
+    r.onload = () => { try { const p = JSON.parse(r.result); const n = restore(p, mode === 'replace'); closeSheet(); toast(mode === 'replace' ? 'Restored from the file' : n ? `${n} ${n === 1 ? 'entry' : 'entries'} merged in` : 'Nothing new in that file'); } catch (er) { toast('That file isn’t a Practice backup.'); } };
+    r.readAsText(e.target.files[0]);
+  }
+  if (e.target.id === 'lm' && draft) { draft.mins = Math.round(+e.target.value || 0); $$('[data-mins]').forEach(b => b.setAttribute('aria-pressed', String(+b.dataset.mins === draft.mins))); }
+  if (e.target.id === 'ld' && draft) draft.on = e.target.value;
+  if (e.target.id === 'lp' && draft) { draft.pursuit = e.target.value; paintFocus(); }
+});
+$('#scrim').addEventListener('click', closeSheet);
+addEventListener('storage', e => {
+  if (!S) { if (e.key === KEY && e.newValue) { S = load(); if (S) begin(); } return; }
+  if (e.key === INBOX) { if (drainInbox().length) render(); return; }
+  if (e.key !== KEY || !e.newValue) return;
+  let o; try { o = JSON.parse(e.newValue); } catch (er) { return; }
+  if (!o || o.v !== 1) return;
+  if (o.me !== S.me) { S = load(); render(); return; }
+  const ch = Object.values(o.items || {}).filter(mergeItem);
+  let m = mergeMeta(o); for (const p of Object.values(o.pursuits || {})) if (mergePursuit(p)) m = true;
+  if (o.partner && (!S.partner || S.partner.code !== o.partner.code)) S.partner = o.partner;
+  if (ch.length || m) { broadcast(ch); if (m) sendMeta(); render(); }
+});
+addEventListener('pagehide', () => { if (S) save(true); });
+document.addEventListener('visibilitychange', () => {
+  if (!S || document.hidden) return;
+  if (drainInbox().length) render();
+  if (S.partner && !openConns().length) { if (!peer) startPeer(); else dial(S.partner.code); }
+});
+function applyTheme() {
+  const t = LS.get(THEME, '');
+  if (t) document.documentElement.dataset.theme = t; else delete document.documentElement.dataset.theme;
+}
+
+/* ================= start ================= */
+function begin() {
+  drainInbox(true);
+  render();
+  startPeer(); startDialLoop();
+  if (navigator.storage && navigator.storage.persist) navigator.storage.persist().catch(() => {});
+}
+(async () => {
+  applyTheme();
+  S = load();
+  const h = new URLSearchParams(location.hash.replace(/^#\/?/, ''));
+  let offer = null;
+  if (h.get('b')) { try { offer = await unpack(h.get('b')); } catch (e) { toast('That backup link is incomplete.'); } history.replaceState(null, '', location.pathname + location.search); }
+  if (!S && offer && offer.items) { LS.set(KEY, offer); S = load(); offer = null; if (S) toast('Restored from the link'); }
+  if (S) {
+    begin();
+    if (offer && offer.items) { const n = restore(offer, false); toast(n ? `${n} ${n === 1 ? 'entry' : 'entries'} merged from the link` : 'Nothing new in that link'); }
+    const j = qp.get('join') ? cleanCode(qp.get('join')) : '';
+    if (j && okCode(j) && j !== S.dev && (!S.partner || S.partner.code !== j)) { pairWith(j); openPair(); }
+  } else renderLanding();
+})();
+
+/* ================= test hooks ================= */
+window.__create = {
+  id: 'practice',
+  setup: name => { if (!S) { S = blank(); setName('a', String(name || 'You')); addPursuit('dressage', PRESETS.dressage.name, PRESETS.dressage.color, PRESETS.dressage.tags, { minsWeek: 150 }); save(true); begin(); } else { setName(S.me, String(name || myName())); if (!curP()) addPursuit('dressage', PRESETS.dressage.name, PRESETS.dressage.color, PRESETS.dressage.tags, { minsWeek: 150 }); save(true); render(); } },
+  code: () => S.dev,
+  pair: code => { pairWith(code); },
+  net: () => net,
+  add: () => {
+    const p = curP(); const n = sessions().length;
+    const tags = p.tags || [], mins = [20, 30, 45, 60, 75, 90, 40, 25][n % 8], rating = [4, 3, 5, 4, 2, 5, 3, 4][n % 8];
+    const it = create('s' + uid(), { pursuit: p.id, on: addDays(isoDay(), -[0, 1, 2, 4, 5, 7, 9, 12, 3, 6][n % 10]), mins, focus: tags.length ? [tags[n % tags.length], ...(n % 2 ? [tags[(n + 2) % tags.length]] : [])] : [], rating, note: ['Slow was fast today.', '', 'Kept it short, stayed honest.', 'Drilled the hard part twice.', ''][n % 5], by: S.me, at: Date.now() - n * 1000, del: false });
+    save(true); broadcast([it]); render(); return it.id;
+  },
+  count: () => Object.values(S.items).filter(it => !it.del).length,
+  state: () => JSON.parse(JSON.stringify(S)),
+  export: () => JSON.stringify(S),
+};
+})();
+</script>
+</body>
+</html>

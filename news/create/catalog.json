@@ -483,7 +483,7 @@
       "name": "Create · Practice",
       "icon": "◷",
       "c": "a",
-      "status": "planned",
+      "status": "live",
       "file": "create-practice.html",
       "prefix": "prc",
       "key": "create.practice.v1",
@@ -522,7 +522,8 @@
         "  pursuits: { id: { id, name, kind, color, goal:{minsWeek,sessionsMonth,by}, _t } },",
         "  items: { id: { id, pursuit, on:'YYYY-MM-DD', mins, focus, rating:1..5, note, by, del, _t } |",
         "               { id, kind:'note', session, text, by, at, _t } } }"
-      ]
+      ],
+      "href": "create/apps/practice/"
     },
     {
       "id": "scoresheet",
