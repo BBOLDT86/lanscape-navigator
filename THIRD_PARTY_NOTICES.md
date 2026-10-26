@@ -17,6 +17,13 @@ pdf-lib's bundle also contains:
 - **pako**: Copyright (C) 2014-2017 by Vitaly Puzrin and Andrei Tuputcyn. MIT License (below).
 - **tslib**: Copyright (c) Microsoft Corporation. Licensed under the Apache License, Version 2.0 ([LICENSES/Apache-2.0.txt](LICENSES/Apache-2.0.txt)).
 
+## PeerJS 1.5.4 (client)
+
+Copyright (c) 2015 Michelle Bu and Eric Zhang, PeerJS contributors. MIT License (below).
+<https://github.com/peers/peerjs>
+
+A copy of the browser client, `news/create/test/peerjs.min.js`, is kept only for the Create test harness (`news/create/test/smoke.py`), which runs the apps against a local PeerJS server; the apps themselves load PeerJS from the jsDelivr CDN.
+
 ## MIT License
 
 Permission is hereby granted, free of charge, to any person obtaining a copy

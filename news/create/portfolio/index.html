@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scrolls — Create Product Line Portfolio 2.0</title>
+<meta name="description" content="Create: Free, serverless HTML apps that sync peer to peer. No accounts. No backends. No excuses. 35 products in 9 lines, inside The Watch.">
+<link rel="canonical" href="https://bboldt86.github.io/lanscape-navigator/news/create/portfolio/">
+<meta property="og:title" content="Scrolls — Create Product Line Portfolio 2.0">
+<meta property="og:description" content="Free, serverless HTML apps that sync peer to peer. No accounts. No backends. No excuses.">
+<meta property="og:image" content="https://bboldt86.github.io/lanscape-navigator/news/share.png">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=JetBrains+Mono:wght@400;500&display=swap');
+:root {
+  --bg:#F8F7F4; --surface:#fff; --ink:#1a1a1a; --text2:#777; --text3:#aaa;
+  --border:rgba(0,0,0,.07); --border2:rgba(0,0,0,.12);
+  --a:#C2785C; --a-bg:#FBF3EE; --a-glow:rgba(194,120,92,.1);
+  --b:#5B7FA1; --b-bg:#EEF3F8; --b-glow:rgba(91,127,161,.1);
+  --t:#8B7355; --t-bg:#F5F0E8; --t-glow:rgba(139,115,85,.1);
+  --green:#4a9; --green-bg:rgba(68,170,153,.08);
+  --plum:#7B6A8E; --plum-bg:rgba(123,106,142,.1);
+  --code-bg:#1a1815; --code-fg:#d4c8b0;
+  --r1:8px; --r2:14px; --r3:20px; --r4:28px;
+  --sh1:0 1px 3px rgba(0,0,0,.04); --sh2:0 4px 20px rgba(0,0,0,.07); --sh3:0 12px 40px rgba(0,0,0,.1);
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{font-size:16px;-webkit-font-smoothing:antialiased}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--ink);line-height:1.65}
+a{color:var(--t)}
+.cover{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:3rem 1.5rem;background:linear-gradient(160deg,#1a1815 0%,#252118 50%,#1e1c17 100%);position:relative;overflow:hidden}
+.cover::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 500px 350px at 25% 35%,var(--a-glow) 0%,transparent 70%),radial-gradient(ellipse 500px 350px at 75% 65%,var(--b-glow) 0%,transparent 70%),radial-gradient(ellipse 300px 300px at 50% 50%,var(--t-glow) 0%,transparent 70%);opacity:.6;pointer-events:none}
+.cover-logo{width:72px;height:72px;border-radius:20px;background:linear-gradient(135deg,var(--a),var(--t),var(--b));display:flex;align-items:center;justify-content:center;box-shadow:0 8px 30px rgba(139,115,85,.3);margin-bottom:2rem;position:relative}
+.cover-logo svg{width:40px;height:40px}
+.cover-company{font-size:.65rem;font-weight:700;letter-spacing:.35em;text-transform:uppercase;color:var(--t);margin-bottom:.5rem;position:relative}
+.cover h1{font-family:'Instrument Serif',Georgia,serif;font-size:clamp(2.6rem,6vw,4.5rem);font-weight:400;color:#F8F7F4;letter-spacing:-.03em;line-height:1.05;margin-bottom:.4rem;position:relative}
+.cover-sub{font-size:.88rem;color:#a39a8e;margin-bottom:2.5rem;position:relative;max-width:400px;line-height:1.5}
+.cover-meta{display:flex;gap:2rem;flex-wrap:wrap;justify-content:center;position:relative}
+.cover-meta dt{font-size:.58rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--text3);margin-bottom:.2rem}
+.cover-meta dd{font-family:'Instrument Serif',Georgia,serif;font-size:.95rem;color:#F8F7F4}
+.cover-nav{position:relative;margin-top:2.5rem;display:flex;gap:1.25rem;flex-wrap:wrap;justify-content:center;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase}
+.cover-nav a{color:#c9bca8;text-decoration:none;border-bottom:1px solid rgba(201,188,168,.3);padding-bottom:2px}
+.doc-header{background:var(--ink);padding:2.5rem 1.5rem;text-align:center}
+.doc-header .co{font-size:.6rem;font-weight:700;letter-spacing:.35em;text-transform:uppercase;color:var(--t);margin-bottom:.4rem}
+.doc-header h1{font-family:'Instrument Serif',Georgia,serif;font-size:2.2rem;font-weight:400;color:#F8F7F4;margin-bottom:.3rem;letter-spacing:-.02em}
+.doc-header .sub{font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--text3)}
+.doc-header .meta{display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap;margin-top:1.25rem;font-size:.74rem;color:var(--text3)}
+.doc-header .meta strong{color:var(--t)}
+.page{max-width:880px;margin:0 auto;padding:3rem 1.5rem}
+.divider{width:48px;height:2px;background:var(--t);margin:2.5rem 0}
+.sec-label{font-size:.58rem;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--t);margin-bottom:.5rem}
+h2{font-family:'Instrument Serif',Georgia,serif;font-size:2rem;font-weight:400;letter-spacing:-.02em;margin-bottom:1rem}
+h3{font-size:1rem;font-weight:700;color:var(--t);margin:1.5rem 0 .5rem}
+h4{font-size:.82rem;font-weight:700;color:var(--ink);margin:.85rem 0 .35rem}
+p,li{color:var(--text2);font-size:.9rem;margin-bottom:.6rem}
+ul,ol{padding-left:1.4rem;margin-bottom:.85rem}
+li{margin-bottom:.25rem}
+strong{color:var(--ink);font-weight:600}
+code{font-family:'JetBrains Mono',monospace;font-size:.82em;background:rgba(139,115,85,.08);padding:.1rem .35rem;border-radius:3px}
+pre{background:var(--code-bg);color:var(--code-fg);font-family:'JetBrains Mono',monospace;font-size:.75rem;padding:1.1rem 1.3rem;border-radius:var(--r1);overflow-x:auto;margin:.85rem 0 1.25rem;line-height:1.6;border:1px solid rgba(139,115,85,.12)}
+pre code{background:none;padding:0;font-size:inherit}
+.exec-box{background:var(--t-bg);border-left:3px solid var(--t);padding:1.75rem 2rem;border-radius:0 var(--r2) var(--r2) 0;margin:1.5rem 0 2.5rem}
+.exec-box p{font-family:'Instrument Serif',Georgia,serif;font-size:1.08rem;line-height:1.7;color:var(--ink);margin:0}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:.75rem;margin:1.25rem 0 2rem}
+.stat{background:var(--surface);border:1px solid var(--border);border-radius:var(--r2);padding:1rem 1.1rem}
+.stat b{display:block;font-family:'Instrument Serif',Georgia,serif;font-size:2rem;font-weight:400;line-height:1;color:var(--ink)}
+.stat span{font-size:.62rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--t)}
+.arch-callout{background:var(--ink);border-radius:var(--r3);padding:2.5rem 2rem;margin:2rem 0;position:relative;overflow:hidden}
+.arch-callout::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,rgba(139,115,85,.08),transparent 70%)}
+.arch-callout h3{font-family:'Instrument Serif',Georgia,serif;font-size:1.3rem;font-weight:400;color:#F8F7F4;margin:0 0 1.5rem;text-align:center;position:relative}
+.arch-flow{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:.6rem;position:relative}
+.arch-chip{padding:.5rem 1rem;border-radius:var(--r1);font-size:.7rem;font-weight:600;letter-spacing:.04em;background:rgba(248,247,244,.06);border:1px solid rgba(139,115,85,.25);color:rgba(248,247,244,.7)}
+.arch-chip.peer{background:rgba(139,115,85,.15);border-color:var(--t);color:#d6b25e;padding:.65rem 1.5rem;font-size:.8rem}
+.arch-chip.server{background:rgba(91,127,161,.12);border-color:var(--b);color:#9fb7d0}
+.arch-chip.live{border-color:var(--green);color:#8fd4c4}
+.arch-chip.future{border-style:dashed;opacity:.45}
+.arch-arrow{color:var(--t);font-size:1.1rem;opacity:.4}
+.line-head{display:flex;align-items:center;gap:1rem;margin:2.75rem 0 .5rem}
+.line-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.25rem;flex-shrink:0;color:#fff}
+.line-head h3{margin:0;font-family:'Instrument Serif',Georgia,serif;font-size:1.6rem;font-weight:400;color:var(--ink)}
+.line-head .n{font-size:.62rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--text3);margin-left:auto;white-space:nowrap}
+.line-dek{font-style:italic;color:var(--text2);margin-bottom:.5rem}
+.product-grid{display:grid;gap:1.25rem;margin:1.25rem 0 .5rem}
+.product-card{background:var(--surface);border-radius:var(--r3);padding:1.75rem;border:1px solid var(--border);position:relative;overflow:hidden;transition:all .3s var(--ease)}
+.product-card:hover{box-shadow:var(--sh2);transform:translateY(-2px)}
+.product-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--pc)}
+.p-head{display:flex;align-items:flex-start;gap:1rem;margin-bottom:1rem}
+.p-icon{width:46px;height:46px;border-radius:12px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.2rem;background:var(--pbg);color:var(--pc)}
+.p-line{font-size:.5rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--text3)}
+.p-name{font-family:'Instrument Serif',Georgia,serif;font-size:1.45rem;font-weight:400;letter-spacing:-.01em;line-height:1.2}
+.p-tag{font-size:.8rem;color:var(--text3);font-style:italic;margin-top:.1rem}
+.p-badges{display:flex;gap:.35rem;flex-wrap:wrap;margin-top:.4rem}
+.p-free,.p-st{display:inline-block;font-size:.55rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:.15rem .5rem;border-radius:4px}
+.p-free{background:var(--green-bg);color:var(--green)}
+.p-st.live{background:var(--green-bg);color:var(--green)}.p-st.building{background:var(--a-bg);color:var(--a)}.p-st.planned{background:rgba(0,0,0,.04);color:var(--text2)}
+.p-desc{font-size:.88rem;color:var(--text2);margin-bottom:1.1rem;line-height:1.65}
+.spec-cols{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
+@media (max-width:600px){.spec-cols{grid-template-columns:1fr}}
+.spec-col h4{font-size:.55rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--t);margin:0 0 .35rem;padding-bottom:.25rem;border-bottom:1px solid rgba(139,115,85,.15)}
+.spec-col ul{list-style:none;padding:0;margin:0}
+.spec-col li{font-size:.78rem;color:var(--text2);padding:.15rem 0 .15rem .85rem;position:relative;margin:0}
+.spec-col li::before{content:'›';position:absolute;left:0;color:var(--t);font-weight:700}
+.tech-row{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:1rem;padding-top:.75rem;border-top:1px solid var(--border);align-items:center}
+.tech-badge{font-family:'JetBrains Mono',monospace;font-size:.6rem;font-weight:500;padding:.2rem .55rem;border-radius:4px;background:rgba(0,0,0,.03);color:var(--text2);border:1px solid var(--border)}
+.tech-row .open{margin-left:auto;font-size:.72rem;font-weight:600;color:var(--t);text-decoration:none}
+.tech-row .open:hover{text-decoration:underline}
+.dtable,table{width:100%;border-collapse:collapse;margin:1.25rem 0;font-size:.82rem}
+thead th{font-size:.55rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--t);padding:.55rem .75rem;text-align:left;border-bottom:2px solid var(--t)}
+tbody td{padding:.5rem .75rem;border-bottom:1px solid var(--border);color:var(--text2);vertical-align:top}
+tbody tr:hover{background:rgba(139,115,85,.03)}
+.mono{font-family:'JetBrains Mono',monospace;font-size:.74rem}
+.tw{overflow-x:auto}
+.callout{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--t);border-radius:0 var(--r1) var(--r1) 0;padding:1.25rem 1.5rem;margin:.85rem 0 1.25rem}
+.callout.warn{border-left-color:#c25555;background:#fffaf8}
+.callout.info{border-left-color:var(--b);background:#f8fafc}
+.callout h4{margin-top:0;color:var(--ink)}
+.callout ul{margin-bottom:0}
+.toc{background:var(--t-bg);border-radius:var(--r2);padding:1.5rem;margin:1.25rem 0 2rem}
+.toc h3{margin-top:0;color:var(--ink);font-size:.95rem}
+.toc ol{padding-left:1.1rem;columns:2;column-gap:2rem}
+@media (max-width:600px){.toc ol{columns:1}}
+.toc li{font-size:.82rem;color:var(--text2);padding:.1rem 0}
+.toc a{color:var(--t);text-decoration:none}.toc a:hover{text-decoration:underline}
+.roadmap{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:1.25rem;margin:1.5rem 0}
+.phase{background:var(--surface);border-radius:var(--r2);padding:1.5rem;border:1px solid var(--border)}
+.phase-q{font-size:.55rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;margin-bottom:.2rem}
+.phase h4{font-family:'Instrument Serif',Georgia,serif;font-size:1.05rem;font-weight:400;margin:0 0 .6rem}
+.phase ul{list-style:none;padding:0}
+.phase li{font-size:.76rem;color:var(--text2);padding:.2rem 0 .2rem .75rem;position:relative}
+.phase li::before{content:'○';position:absolute;left:0;font-size:.42rem;top:.35rem;color:var(--t)}
+.principles{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:1rem;margin:1.25rem 0}
+.principle{background:var(--surface);border:1px solid var(--border);border-radius:var(--r2);padding:1.25rem}
+.principle b{display:block;font-family:'Instrument Serif',Georgia,serif;font-size:1.2rem;font-weight:400;margin-bottom:.3rem;color:var(--ink)}
+.principle p{font-size:.8rem;margin:0}
+.doc-foot{text-align:center;padding:2.5rem 1.5rem;border-top:1px solid var(--border);margin-top:2.5rem}
+.doc-foot p{font-size:.7rem;color:var(--text3);margin:.2rem 0}
+@media print{.cover{min-height:auto;padding:2rem}.product-card{break-inside:avoid}}
+</style>
+</head>
+<body>
+<section class="cover">
+  <div class="cover-logo"><svg viewBox='0 0 48 48' fill='none' stroke='#fff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><path d='M10 13a4 4 0 0 1 8 0v22a4 4 0 0 1-8 0z'/><path d='M18 13h18a4 4 0 0 1 4 4v14a4 4 0 0 1-4 4H18'/><path d='M25 21h9M25 27h9M25 33h5'/></svg></div>
+  <p class="cover-company">Scrolls</p>
+  <h1>Create</h1>
+  <p class="cover-sub">Free, serverless HTML apps that sync peer to peer. No accounts. No backends. No excuses.</p>
+  <dl class="cover-meta">
+    <div><dt>Document</dt><dd>SCR-CRT-2026-002</dd></div>
+    <div><dt>Classification</dt><dd>Internal — Leadership</dd></div>
+    <div><dt>Date</dt><dd>October 26, 2026</dd></div>
+    <div><dt>Version</dt><dd>2.0.0</dd></div>
+    <div><dt>Author</dt><dd>Product Management</dd></div>
+  </dl>
+  <nav class="cover-nav"><a href="../">Create · Home</a><a href="../spec/">Build spec</a><a href="../../#/create">On The Watch</a></nav>
+</section>
+<div class="page">
+
+  <div class="sec-label" id="s1">Section 01</div>
+  <h2>Executive Summary</h2>
+  <div class="exec-box">
+    <p><strong>Create</strong> is Scrolls' product line of free, single-file HTML applications that connect <strong>peer to peer</strong> over WebRTC. There are no servers, no accounts, no databases and no subscriptions. You open one file and work; to work with someone, you share a six-letter code and your two devices talk directly. This edition grows the line from seven work tools to <strong>35 products in 9 lines</strong> — Work, Hobby, Relationships, Home &amp; Food, Travel, Money, Garage, Sports &amp; Games and Body — and moves it inside <strong>The Watch</strong>, where each line sits on the desk its readers already use. <strong>4 are live</strong> today (Vision, Together / 90, Date Night and Create · Home), <strong>0 are in build</strong> this wave, and <strong>31 are specified</strong> to the data model. The reference architecture is no longer a design: it is the shipped Vision, Rev 2.</p>
+  </div>
+  <div class="stats">
+    <div class="stat"><b>9</b><span>Lines</span></div><div class="stat"><b>35</b><span>Products</span></div><div class="stat"><b>4</b><span>Live</span></div><div class="stat"><b>0</b><span>In build</span></div><div class="stat"><b>31</b><span>Specified</span></div><div class="stat"><b>$0</b><span>Forever</span></div>
+  </div>
+  <div class="principles"><div class="principle"><b>One file</b><p>Each product is one HTML file. Double-click it, or open it from The Watch. It works offline and from disk.</p></div><div class="principle"><b>Peer to peer</b><p>Two devices find each other through a six-letter code and talk over an encrypted WebRTC channel. PeerJS&#x27;s free server only introduces them.</p></div><div class="principle"><b>Yours</b><p>Everything lives in your browser&#x27;s storage, backed up as a file or a link. Nothing is uploaded, because there is nowhere to upload it.</p></div><div class="principle"><b>Free</b><p>No tiers, no paywalls, no feature gates. Thirty-five products, all free, forever.</p></div></div>
+
+  <div class="divider"></div>
+  <div class="sec-label" id="s2">Section 02</div>
+  <h2>What Changed Since 1.0</h2>
+  <ul>
+    <li><strong>The reference build shipped.</strong> Vision went live at <code>vision/</code> as Rev 2: a stable six-letter device code instead of a random peer id, per-field last-writer-wins stamps instead of whole-record replacement, a <code>hello</code> / <code>put</code> protocol instead of resending the whole state on every change, an accept step for a device the board hasn't seen, automatic reconnection, soft deletes, QR pairing, and a board that travels as a compressed link. Every product now inherits that, not the 1.0 sketch. The build spec (SCR-CRT-ENG-2026-002) documents it as <strong>protocol v2</strong>.</li>
+    <li><strong>Create lives inside The Watch.</strong> The static home is <code>news/create/</code> on the same GitHub Pages site as the paper; the Create section (<code>#/create</code>) is drawn from the same <code>catalog.json</code> as this document; and each line has a band on the desk it belongs to (Hobby on Hobbies, Relationships on Lifestyle, and so on). Readers find the tool next to the reading.</li>
+    <li><strong>Nine lines, not one.</strong> The Hobby and Relationships lines come first because The Watch already had the readers for them — the Hobbies desk's three pursuits and the Lifestyle desk's two-person tools. Home &amp; Food, Travel, Money, Garage, Sports &amp; Games and Body follow the other desks.</li>
+    <li><strong>Three live products folded in.</strong> Vision, Together / 90 and Date Night were built before the line existed; they are its first members, listed as live, and their storage keys are left as they were.</li>
+    <li><strong>Storage keys</strong> are now <code>create.&lt;id&gt;.v1</code> and <code>create.&lt;id&gt;.inbox</code>, matching the shipped <code>vision.v1</code> / <code>vision.inbox</code>. The 1.0 <code>crt_*_v1</code> names were never used by a shipped file.</li>
+    <li><strong>The Work line moved to Wave 3.</strong> It is unchanged in scope; it waits for the two lines readers asked for first.</li>
+  </ul>
+
+  <div class="divider"></div>
+  <div class="sec-label" id="s3">Section 03</div>
+  <h2>Architecture — How Create Works</h2>
+  <p>Every product is a self-contained HTML file with PeerJS loaded from a CDN. On first run it gives itself a <strong>six-letter device code</strong> (the same alphabet as Vision: no 0/O, 1/I/L) and that code is its PeerJS id for life — <code>create-&lt;prefix&gt;-&lt;code&gt;</code>. One person shows or sends the code; the other types it or scans the QR. PeerJS's free cloud server introduces the two browsers, and from then on everything travels over a WebRTC data channel between them. The server never sees the data and is not needed again until a device changes networks.</p>
+  <p><strong>The sync cycle.</strong> When two devices connect, the dialer says <code>hello</code> with its whole state; the other side, having let it in, answers with its own. After that every change is a <code>put</code> of the changed items. Each item carries a stamp per field, so when both people edited the same thing offline the newer write of each field wins — no conflict dialogs, no lost edits. Deletes are soft: an item is marked gone and the mark syncs like any other field.</p>
+  <p><strong>The inbox handoff.</strong> Products talk to each other the way The Watch talks to Vision: through a small array in the browser's own storage, <code>create.&lt;id&gt;.inbox</code>. Cookbook leaves ingredients for Pantry, Circle leaves gift ideas for Gift, Trip leaves spending for Split, Date Night and Weekender leave evenings and weekends for Week. The next time the receiving product is open it drains the inbox, saves, and syncs the new items to its partner. No product ever needs another one to be open.</p>
+  <p><strong>Pictures</strong> are base64 data URIs, resized on import and capped at 2 MB; products that carry them split large messages into 128 KB chunks. <strong>Multi-person products</strong> (Form, Pool, Gift, a Trip with three travelers) use the hub pattern: one device hosts, guests connect to its code, the host merges and re-sends. <strong>Vault and Net</strong> encrypt every entry with AES-256-GCM before it reaches storage or the wire.</p>
+  <p><strong>The static home</strong> — <code>https://bboldt86.github.io/lanscape-navigator/news/create/</code> — is a page, not a service: the catalog, the launcher, the downloads, this document and the build spec. The same <code>catalog.json</code> drives The Watch's Create section, so the paper and the launcher never disagree.</p>
+  <div class="arch-callout">
+    <h3>Create — topology</h3>
+    <div class="arch-flow">
+      <span class="arch-chip live">Vision</span><span class="arch-chip">Practice</span><span class="arch-chip">Scoresheet</span><span class="arch-chip">Cutlist</span><span class="arch-chip">Felt</span>
+      <span class="arch-arrow">⇄</span><span class="arch-chip peer">PeerJS · WebRTC data channel</span><span class="arch-arrow">⇄</span>
+      <span class="arch-chip">Circle</span><span class="arch-chip">Split</span><span class="arch-chip">Week</span><span class="arch-chip">Gift</span><span class="arch-chip">… 26 more</span>
+    </div>
+    <div class="arch-flow" style="margin-top:1rem">
+      <span class="arch-chip server">The Watch · #/create</span><span class="arch-chip server">Create · Home (static)</span><span class="arch-chip">create.&lt;id&gt;.inbox</span><span class="arch-chip future">API bridge (future)</span>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+  <div class="sec-label" id="s4">Section 04</div>
+  <h2>Inside The Watch</h2>
+  <p>The Watch is the front door. Its Create section (<code>#/create</code>) is the catalog by line, with a page per line and per product; each line also has a band on the desk its readers already visit, and the Hobbies desk's three pursuits show their own tool. The live products open in place; the ones in build open their working file; the rest open their page in the spec.</p>
+  <div class="tw"><table class="dtable"><thead><tr><th>Line</th><th>Desk</th><th>Products</th><th>Live today</th></tr></thead><tbody><tr><td><strong>Work</strong></td><td>The Create section only</td><td>Home, Pad, Board, Deck, Vault, Form, Calc, Snap</td><td>Create · Home</td></tr><tr><td><strong>Hobby</strong></td><td>Hobbies</td><td>Practice, Scoresheet, Cutlist, Felt, Collection</td><td>—</td></tr><tr><td><strong>Relationships</strong></td><td>Lifestyle</td><td>Vision, Together / 90, Date Night, Circle, Split, Week, Gift, Journal</td><td>Vision, Together / 90, Date Night</td></tr><tr><td><strong>Home &amp; Food</strong></td><td>Home (and Food, Household)</td><td>Pantry, Cookbook, Fix, Inventory</td><td>—</td></tr><tr><td><strong>Travel</strong></td><td>Travel</td><td>Trip, Points</td><td>—</td></tr><tr><td><strong>Money</strong></td><td>Household</td><td>Budget, Net</td><td>—</td></tr><tr><td><strong>Garage</strong></td><td>Cars</td><td>Garage, Rebuild</td><td>—</td></tr><tr><td><strong>Sports &amp; Games</strong></td><td>Sports</td><td>Pool, Scorebook</td><td>—</td></tr><tr><td><strong>Body</strong></td><td>Health</td><td>Train, Streak</td><td>—</td></tr></tbody></table></div>
+
+  <div class="divider"></div>
+  <div class="sec-label" id="s5">Section 05</div>
+  <h2>Product Line at a Glance</h2>
+  <div class="tw"><table class="dtable"><thead><tr><th>Product</th><th>File</th><th>Line</th><th>Sync</th><th>Status</th><th>Budget</th></tr></thead><tbody><tr><td><strong><a href="#p-home" style="text-decoration:none;color:inherit">Create · Home</a></strong></td><td class="mono">index.html</td><td>Work</td><td>—</td><td><span class="p-st live">Live</span></td><td class="mono">&lt; 60 KB</td></tr><tr><td><strong><a href="#p-pad" style="text-decoration:none;color:inherit">Create · Pad</a></strong></td><td class="mono">create-pad.html</td><td>Work</td><td>Items (LWW)</td><td><span class="p-st planned">Specified</span></td><td class="mono">&lt; 80 KB</td></tr><tr><td><strong><a href="#p-board" style="text-decoration:none;color:inherit">Create · Board</a></strong></td><td class="mono">create-board.html</td><td>Work</td><td>Items (LWW)</td><td><span class="p-st planned">Specified</span></td><td class="mono">&lt; 90 KB</td></tr><tr><td><strong><a href="#p-deck" style="text-decoration:none;color:inherit">Create · Deck</a></strong></td><td class="mono">create-deck.html</td><td>Work</td><td>Chunked items</td><td><span class="p-st planned">Specified</span></td><td class="mono">&lt; 110 KB</td></tr><tr><td><strong><a href="#p-vault" style="text-decoration:none;color:inherit">Create · Vault</a></strong></td><td class="mono">create-vault.html</td><td>Work</td><td>Encrypted items</td><td><span class="p-st planned">Specified</span></td><td class="mono">&lt; 65 KB</td></tr><tr><td><strong><a href="#p-form" style="text-decoration:none;color:inherit">Create · Form</a></strong></td><td class="mono">create-form.html</td><td>Work</td><td>Hub</td><td><span class="p-st planned">Specified</span></td><td class="mono">&lt; 95 KB</td></tr><tr><td><strong><a href="#p-calc" style="text-decoration:none;color:inherit">Create · Calc</a></strong></td><td class="mono">create-calc.html</td><td>Work</td><td>Cell delta</td><td><span class="p-st planned">Specified</span></td><td class="mono">&lt; 120 KB</td></tr><tr><td><strong><a href="#p-snap" style="text-decoration:none;color:inherit">Create · Snap</a></strong></td><td class="mono">create-snap.html</td><td>Work</td><td>Chunked items</td><td><span class="p-st planned">Specified</span></td><td class="mono">&lt; 100 KB</td></tr><tr><td><strong><a href="#p-practice" style="text-decoration:none;color:inherit">Create · Practice</a></strong></td><td class="mono">create-practice.html</td><td>Hobby</td><td>Items (LWW)</td><td><span class="p-st planned">Specified</span></td><td class="mono">&lt; 80 KB</td></tr><tr><td><strong><a href="#p-scoresheet" style="text-decoration:none;color:inherit">Create · Scoresheet</a></strong></td><td class="mono">create-scoresheet.html</td><td>Hobby</td><td>Items (LWW)</td><td><span class="p-st planned">Specified</span></td><td class="mono">&lt; 85 KB</td></tr><tr><td><strong><a href="#p-cutlist" style="text-decoration:none;color:inherit">Create · Cutlist</a></strong></td><td class="mono">create-cutlist.html</td><td>Hobby</td><td>Items (LWW)</td><td><span class="p-st planned">Specified</span></td><td class="mono">&lt; 90 KB</td></tr><tr><td><strong><a href="#p-felt" style="text-decoration:none;color:inherit">Create · Felt</a></strong></td><td class="mono">create-felt.html</td><td>Hobby</td><td>Items (LWW)</td><td><span class="p-st planned">Specified</span></td><td class="mono">&lt; 90 KB</td></tr><tr><td><strong><a href="#p-collection" style="text-decoration:none;color:inherit">Create · Collection</a></strong></td><td class="mono">create-collection.html</td><td>Hobby</td><td>Chunked items</td><td><span class="p-st planned">Specified</span></td><td class="mono">&lt; 95 KB</td></tr><tr><td><strong><a href="#p-vision" style="text-decoration:none;color:inherit">Vision</a></strong></td><td class="mono">vision/index.html</td><td>Relationships</td><td>Items (LWW)</td><td><span class="p-st live">Live</span></td><td class="mono">&lt; 130 KB</td></tr><tr><td><strong><a href="#p-together" style="text-decoration:none;color:inherit">Together / 90</a></strong></td><td class="mono">news/lifestyle/together-90/index.html</td><td>Relationships</td><td>—</td><td><span class="p-st live">Live</span></td><td class="mono">&lt; 300 KB</td></tr><tr><td><strong><a href="#p-date" style="text-decoration:none;color:inherit">Date Night</a></strong></td><td class="mono">news/lifestyle/date-night/index.html</td><td>Relationships</td><td>—</td><td><span class="p-st live">Live</span></td><td class="mono">&lt; 120 KB</td></tr><tr><td><strong><a href="#p-circle" style="text-decoration:none;color:inherit">Create · Circle</a></strong></td><td class="mono">create-circle.html</td><td>Relationships</td><td>Items (LWW)</td><td><span class="p-st planned">Specified</span></td><td class="mono">&lt; 85 KB</td></tr><tr><td><strong><a href="#p-split" style="text-decoration:none;color:inherit">Create · Split</a></strong></td><td class="mono">create-split.html</td><td>Relationships</td><td>Items (LWW)</td><td><span class="p-st planned">Specified</span></td><td class="mono">&lt; 80 KB</td></tr><tr><td><strong><a href="#p-week" style="text-decoration:none;color:inherit">Create · Week</a></strong></td><td class="mono">create-week.html</td><td>Relationships</td><td>Items (LWW)</td><td><span class="p-st planned">Specified</span></td><td class="mono">&lt; 85 KB</td></tr><tr><td><strong><a href="#p-gift" style="text-decoration:none;color:inherit">Create · Gift</a></strong></td><td class="mono">create-gift.html</td><td>Relationships</td><td>Hidden claims</td><td><span class="p-st planned">Specified</span></td><td class="mono">&lt; 80 KB</td></tr><tr><td><strong><a href="#p-journal" style="text-decoration:none;color:inherit">Create · Journal</a></strong></td><td class="mono">create-journal.html</td><td>Relationships</td><td>Chunked items</td><td><span class="p-st planned">Specified</span></td><td class="mono">&lt; 90 KB</td></tr><tr><td><strong><a href="#p-pantry" style="text-decoration:none;color:inherit">Create · Pantry</a></strong></td><td class="mono">create-pantry.html</td><td>Home &amp; Food</td><td>Items (LWW)</td><td><span class="p-st planned">Specified</span></td><td class="mono">&lt; 80 KB</td></tr><tr><td><strong><a href="#p-cookbook" style="text-decoration:none;color:inherit">Create · Cookbook</a></strong></td><td class="mono">create-cookbook.html</td><td>Home &amp; Food</td><td>Chunked items</td><td><span class="p-st planned">Specified</span></td><td class="mono">&lt; 95 KB</td></tr><tr><td><strong><a href="#p-fix" style="text-decoration:none;color:inherit">Create · Fix</a></strong></td><td class="mono">create-fix.html</td><td>Home &amp; Food</td><td>Chunked items</td><td><span class="p-st planned">Specified</span></td><td class="mono">&lt; 90 KB</td></tr><tr><td><strong><a href="#p-inventory" style="text-decoration:none;color:inherit">Create · Inventory</a></strong></td><td class="mono">create-inventory.html</td><td>Home &amp; Food</td><td>Chunked items</td><td><span class="p-st planned">Specified</span></td><td class="mono">&lt; 85 KB</td></tr><tr><td><strong><a href="#p-trip" style="text-decoration:none;color:inherit">Create · Trip</a></strong></td><td class="mono">create-trip.html</td><td>Travel</td><td>Chunked items</td><td><span class="p-st planned">Specified</span></td><td class="mono">&lt; 100 KB</td></tr><tr><td><strong><a href="#p-points" style="text-decoration:none;color:inherit">Create · Points</a></strong></td><td class="mono">create-points.html</td><td>Travel</td><td>Items (LWW)</td><td><span class="p-st planned">Specified</span></td><td class="mono">&lt; 80 KB</td></tr><tr><td><strong><a href="#p-budget" style="text-decoration:none;color:inherit">Create · Budget</a></strong></td><td class="mono">create-budget.html</td><td>Money</td><td>Items (LWW)</td><td><span class="p-st planned">Specified</span></td><td class="mono">&lt; 90 KB</td></tr><tr><td><strong><a href="#p-net" style="text-decoration:none;color:inherit">Create · Net</a></strong></td><td class="mono">create-net.html</td><td>Money</td><td>Encrypted items</td><td><span class="p-st planned">Specified</span></td><td class="mono">&lt; 75 KB</td></tr><tr><td><strong><a href="#p-garage" style="text-decoration:none;color:inherit">Create · Garage</a></strong></td><td class="mono">create-garage.html</td><td>Garage</td><td>Chunked items</td><td><span class="p-st planned">Specified</span></td><td class="mono">&lt; 95 KB</td></tr><tr><td><strong><a href="#p-rebuild" style="text-decoration:none;color:inherit">Create · Rebuild</a></strong></td><td class="mono">create-rebuild.html</td><td>Garage</td><td>Chunked items</td><td><span class="p-st planned">Specified</span></td><td class="mono">&lt; 100 KB</td></tr><tr><td><strong><a href="#p-pool" style="text-decoration:none;color:inherit">Create · Pool</a></strong></td><td class="mono">create-pool.html</td><td>Sports &amp; Games</td><td>Hub</td><td><span class="p-st planned">Specified</span></td><td class="mono">&lt; 95 KB</td></tr><tr><td><strong><a href="#p-scorebook" style="text-decoration:none;color:inherit">Create · Scorebook</a></strong></td><td class="mono">create-scorebook.html</td><td>Sports &amp; Games</td><td>Items (LWW)</td><td><span class="p-st planned">Specified</span></td><td class="mono">&lt; 85 KB</td></tr><tr><td><strong><a href="#p-train" style="text-decoration:none;color:inherit">Create · Train</a></strong></td><td class="mono">create-train.html</td><td>Body</td><td>Items (LWW)</td><td><span class="p-st planned">Specified</span></td><td class="mono">&lt; 90 KB</td></tr><tr><td><strong><a href="#p-streak" style="text-decoration:none;color:inherit">Create · Streak</a></strong></td><td class="mono">create-streak.html</td><td>Body</td><td>Items (LWW)</td><td><span class="p-st planned">Specified</span></td><td class="mono">&lt; 65 KB</td></tr></tbody></table></div>
+  <p>Every product is <strong>100% free</strong>. No tiers, no paywalls, no feature gates. Each ships as one downloadable HTML file; the gzipped budget is the size it must fit in without PeerJS, the one permitted external script.</p>
+
+  <div class="divider"></div>
+  <div class="sec-label" id="s6">Section 06</div>
+  <h2>Product Catalog</h2>
+  <p>By line. Each card is the product's contract: what it does, how it is built, and where it stands.</p>
+  
+    <div class="line-head" id="l-work"><div class="line-icon" style="background:var(--b)">◫</div><h3>Work</h3><span class="n">8 products · 1 live</span></div>
+    <p class="line-dek">The tools everyone pays twenty dollars a month for — except these just open.</p>
+    <p>Notes, a task board, a deck, an encrypted vault, a form, a spreadsheet and a screenshot tool. The original seven, plus Create · Home, the launcher that holds them all.</p>
+    <div class="product-grid">
+    <div class="product-card" id="p-home" style="--pc:var(--t);--pbg:var(--t-bg)">
+      <div class="p-head">
+        <div class="p-icon">🏠</div>
+        <div>
+          <span class="p-line">Scrolls · Create · Work</span>
+          <div class="p-name">Create · Home</div>
+          <div class="p-tag">“The scroll that holds the others.”</div>
+          <div class="p-badges"><span class="p-free">Free</span><span class="p-st live">Live</span></div>
+        </div>
+      </div>
+      <p class="p-desc">The only &quot;server&quot; in the Create line — a static page. It is the catalog, the launcher and the download hub: open any product, or save its file to keep. No backend, no database, no account. Inside The Watch it is the Create section.</p>
+      <div class="spec-cols">
+        <div class="spec-col"><h4>Functions</h4><ul><li>Catalog of every line and product, with status</li><li>Open any live product, or download its file to keep</li><li>Quickstart: pair two devices in a minute</li><li>The portfolio report and the build spec</li><li>Version check: your saved file against the hosted one</li><li>Works from disk as a launcher</li></ul></div>
+        <div class="spec-col"><h4>Specs</h4><ul><li>Single static HTML page, reads catalog.json</li><li>Hosted on GitHub Pages under The Watch (news/create/)</li><li>No backend, no server-side code</li><li>Same catalog drives The Watch&#x27;s Create hub</li><li>Target: &lt; 60 KB gzipped</li></ul></div>
+      </div>
+      <div class="tech-row"><span class="tech-badge">HTML/CSS/JS</span><span class="tech-badge">Static</span><span class="tech-badge">GitHub Pages</span><a class="open" href="../">Open ›</a></div>
+    </div>
+    <div class="product-card" id="p-pad" style="--pc:var(--a);--pbg:var(--a-bg)">
+      <div class="p-head">
+        <div class="p-icon">✎</div>
+        <div>
+          <span class="p-line">Scrolls · Create · Work</span>
+          <div class="p-name">Create · Pad</div>
+          <div class="p-tag">“Your thoughts, unhosted.”</div>
+          <div class="p-badges"><span class="p-free">Free</span><span class="p-st planned">Specified</span></div>
+        </div>
+      </div>
+      <p class="p-desc">A distraction-free writing and notes app. Multiple notebooks, Markdown shortcuts, tagging, full-text search. Share your code and write together — edits arrive as new or updated notes.</p>
+      <div class="spec-cols">
+        <div class="spec-col"><h4>Functions</h4><ul><li>Rich text editing via contentEditable</li><li>Markdown shortcuts (#, **, -, &gt;)</li><li>Notebooks with color coding</li><li>Tags and full-text search</li><li>Export as Markdown, HTML or JSON</li><li>Sync notes with one partner by code</li></ul></div>
+        <div class="spec-col"><h4>Specs</h4><ul><li>PeerJS WebRTC, items pattern</li><li>localStorage create.pad.v1</li><li>Per-field merge by note id</li><li>Keyboard-first (50+ shortcuts)</li><li>Print CSS</li><li>Target: &lt; 80 KB gzipped</li></ul></div>
+      </div>
+      <div class="tech-row"><span class="tech-badge">PeerJS 1.5</span><span class="tech-badge">contentEditable</span><span class="tech-badge">localStorage</span></div>
+    </div>
+    <div class="product-card" id="p-board" style="--pc:var(--b);--pbg:var(--b-bg)">
+      <div class="p-head">
+        <div class="p-icon">☷</div>
+        <div>
+          <span class="p-line">Scrolls · Create · Work</span>
+          <div class="p-name">Create · Board</div>
+          <div class="p-tag">“Ship it. No server required.”</div>
+          <div class="p-badges"><span class="p-free">Free</span><span class="p-st planned">Specified</span></div>
+        </div>
+      </div>
+      <p class="p-desc">A kanban board with drag-and-drop columns, priorities, due dates, labels and checklists. Vision&#x27;s Venn navigation: My tasks, Theirs, Shared. Connect by code and run a project together, live.</p>
+      <div class="spec-cols">
+        <div class="spec-col"><h4>Functions</h4><ul><li>Drag-and-drop kanban columns</li><li>Cards with checklists, labels and due dates</li><li>Priorities P0–P3</li><li>Venn navigation: mine, theirs, both</li><li>Filter pills by label</li><li>Live sync with one partner</li></ul></div>
+        <div class="spec-col"><h4>Specs</h4><ul><li>HTML5 Drag &amp; Drop, pointer events on touch</li><li>PeerJS WebRTC, items pattern</li><li>localStorage create.board.v1</li><li>Per-field merge by card id</li><li>Columns are an ordered list with stamps</li><li>Target: &lt; 90 KB gzipped</li></ul></div>
+      </div>
+      <div class="tech-row"><span class="tech-badge">PeerJS 1.5</span><span class="tech-badge">Drag &amp; Drop</span><span class="tech-badge">localStorage</span></div>
+    </div>
+    <div class="product-card" id="p-deck" style="--pc:var(--a);--pbg:var(--a-bg)">
+      <div class="p-head">
+        <div class="p-icon">▦</div>
+        <div>
+          <span class="p-line">Scrolls · Create · Work</span>
+          <div class="p-name">Create · Deck</div>
+          <div class="p-tag">“Present from a single file.”</div>
+          <div class="p-badges"><span class="p-free">Free</span><span class="p-st planned">Specified</span></div>
+        </div>
+      </div>
+      <p class="p-desc">A slide builder and player. Build with WYSIWYG, embed pictures, present full screen. Two peers can build together, or one presents and the other&#x27;s screen follows.</p>
+      <div class="spec-cols">
+        <div class="spec-col"><h4>Functions</h4><ul><li>WYSIWYG slide editor with grid snapping</li><li>Presenter mode: notes, timer, next slide</li><li>Transitions: fade, slide, zoom</li><li>Pictures as base64, code blocks</li><li>Export the deck as a standalone page</li><li>Co-edit, or remote-present to a peer</li></ul></div>
+        <div class="spec-col"><h4>Specs</h4><ul><li>CSS scroll-snap presentation engine</li><li>PeerJS, chunked items for pictures</li><li>localStorage create.deck.v1</li><li>Fullscreen API for present mode</li><li>Keyboard and clicker navigation</li><li>Target: &lt; 110 KB gzipped</li></ul></div>
+      </div>
+      <div class="tech-row"><span class="tech-badge">PeerJS 1.5</span><span class="tech-badge">scroll-snap</span><span class="tech-badge">Fullscreen API</span></div>
+    </div>
+    <div class="product-card" id="p-vault" style="--pc:var(--t);--pbg:var(--t-bg)">
+      <div class="p-head">
+        <div class="p-icon">🔒</div>
+        <div>
+          <span class="p-line">Scrolls · Create · Work</span>
+          <div class="p-name">Create · Vault</div>
+          <div class="p-tag">“Encrypted. Local. Yours.”</div>
+          <div class="p-badges"><span class="p-free">Free</span><span class="p-st planned">Specified</span></div>
+        </div>
+      </div>
+      <p class="p-desc">An encrypted password and secrets manager. Every entry is AES-256-GCM before it touches storage. Sync sends only ciphertext — both devices need the passphrase. Your own devices, no server to trust.</p>
+      <div class="spec-cols">
+        <div class="spec-col"><h4>Functions</h4><ul><li>AES-256-GCM vault, PBKDF2 (600K iterations)</li><li>Password generator</li><li>TOTP authenticator codes</li><li>Auto-lock on blur and after a timeout</li><li>Clipboard auto-clear (30 s)</li><li>Encrypted sync between your devices</li></ul></div>
+        <div class="spec-col"><h4>Specs</h4><ul><li>Web Crypto (SubtleCrypto)</li><li>Per-entry IV, random salt per vault</li><li>localStorage create.vault.v1 holds ciphertext only</li><li>PeerJS, encrypted items pattern</li><li>CryptoKey non-extractable, memory only</li><li>Target: &lt; 65 KB gzipped</li></ul></div>
+      </div>
+      <div class="tech-row"><span class="tech-badge">PeerJS 1.5</span><span class="tech-badge">Web Crypto</span><span class="tech-badge">AES-256-GCM</span></div>
+    </div>
+    <div class="product-card" id="p-form" style="--pc:var(--b);--pbg:var(--b-bg)">
+      <div class="p-head">
+        <div class="p-icon">☰</div>
+        <div>
+          <span class="p-line">Scrolls · Create · Work</span>
+          <div class="p-name">Create · Form</div>
+          <div class="p-tag">“Build forms. Collect peer to peer.”</div>
+          <div class="p-badges"><span class="p-free">Free</span><span class="p-st planned">Specified</span></div>
+        </div>
+      </div>
+      <p class="p-desc">A drag-and-drop form builder. Build a form, share your code, and responses arrive straight into your browser from anyone who connects. No server, no Google Forms. Export as CSV or JSON.</p>
+      <div class="spec-cols">
+        <div class="spec-col"><h4>Functions</h4><ul><li>Drag-and-drop field builder, 12 field types</li><li>Conditional show/hide logic</li><li>Multi-step wizard mode</li><li>Response viewer with filter and sort</li><li>CSV and JSON export</li><li>Hub sync: respondents connect to the builder&#x27;s code</li></ul></div>
+        <div class="spec-col"><h4>Specs</h4><ul><li>Schema-driven rendering</li><li>HTML Constraint Validation API</li><li>PeerJS, hub pattern (host + guests)</li><li>localStorage create.form.v1</li><li>A respondent needs only the link and the code</li><li>Target: &lt; 95 KB gzipped</li></ul></div>
+      </div>
+      <div class="tech-row"><span class="tech-badge">PeerJS 1.5</span><span class="tech-badge">Drag &amp; Drop</span><span class="tech-badge">Validation API</span></div>
+    </div>
+    <div class="product-card" id="p-calc" style="--pc:var(--a);--pbg:var(--a-bg)">
+      <div class="p-head">
+        <div class="p-icon">⊞</div>
+        <div>
+          <span class="p-line">Scrolls · Create · Work</span>
+          <div class="p-name">Create · Calc</div>
+          <div class="p-tag">“Spreadsheets that fit in your pocket.”</div>
+          <div class="p-badges"><span class="p-free">Free</span><span class="p-st planned">Specified</span></div>
+        </div>
+      </div>
+      <p class="p-desc">A lightweight spreadsheet with formulas, formatting and basic charts, up to about 5,000 rows within storage limits. Sync is per cell, so two people can work the same sheet without stepping on each other.</p>
+      <div class="spec-cols">
+        <div class="spec-col"><h4>Functions</h4><ul><li>Grid with a formula bar</li><li>60+ functions (SUM, IF, VLOOKUP…)</li><li>References and named ranges</li><li>Conditional formatting</li><li>Bar, line and pie charts</li><li>Cell-delta sync for co-editing</li></ul></div>
+        <div class="spec-col"><h4>Specs</h4><ul><li>Recursive-descent formula parser</li><li>Dependency graph for recalculation</li><li>PeerJS, cell-delta pattern</li><li>localStorage create.calc.v1</li><li>CSV/TSV import and export</li><li>Target: &lt; 120 KB gzipped</li></ul></div>
+      </div>
+      <div class="tech-row"><span class="tech-badge">PeerJS 1.5</span><span class="tech-badge">Canvas 2D</span><span class="tech-badge">DAG</span></div>
+    </div>
+    <div class="product-card" id="p-snap" style="--pc:var(--green);--pbg:var(--green-bg)">
+      <div class="p-head">
+        <div class="p-icon">◲</div>
+        <div>
+          <span class="p-line">Scrolls · Create · Work</span>
+          <div class="p-name">Create · Snap</div>
+          <div class="p-tag">“Capture. Annotate. Share.”</div>
+          <div class="p-badges"><span class="p-free">Free</span><span class="p-st planned">Specified</span></div>
+        </div>
+      </div>
+      <p class="p-desc">Screenshot and picture markup. Paste or drag a picture in, annotate with arrows, boxes, text, blur and highlights, and send the annotated snap straight to a peer.</p>
+      <div class="spec-cols">
+        <div class="spec-col"><h4>Functions</h4><ul><li>Paste from the clipboard</li><li>Arrow, box, text, blur, highlight</li><li>Layers, undo and redo</li><li>Crop, resize, rotate</li><li>Export PNG or a self-contained page</li><li>Chunked sync to a peer</li></ul></div>
+        <div class="spec-col"><h4>Specs</h4><ul><li>Canvas 2D rendering</li><li>Clipboard API paste events</li><li>PeerJS, chunked items</li><li>localStorage create.snap.v1</li><li>2 MB per picture</li><li>Target: &lt; 100 KB gzipped</li></ul></div>
+      </div>
+      <div class="tech-row"><span class="tech-badge">PeerJS 1.5</span><span class="tech-badge">Canvas 2D</span><span class="tech-badge">Clipboard API</span></div>
+    </div></div>
+    <div class="line-head" id="l-hobby"><div class="line-icon" style="background:var(--a)">✦</div><h3>Hobby</h3><span class="n">5 products · 0 live</span></div>
+    <p class="line-dek">A log, a scoresheet, a cut list and a bankroll — one file each, shared with the people you do it with.</p>
+    <p>Built around The Watch&#x27;s Hobbies desk: dressage, woodworking and poker to start, with room for more. Each tool connects to the one person who matters for that pursuit — a trainer, a shop partner, a study buddy — by a six-letter code.</p>
+    <div class="product-grid">
+    <div class="product-card" id="p-practice" style="--pc:var(--a);--pbg:var(--a-bg)">
+      <div class="p-head">
+        <div class="p-icon">◷</div>
+        <div>
+          <span class="p-line">Scrolls · Create · Hobby</span>
+          <div class="p-name">Create · Practice</div>
+          <div class="p-tag">“Show up. Write it down.”</div>
+          <div class="p-badges"><span class="p-free">Free</span><span class="p-st planned">Specified</span></div>
+        </div>
+      </div>
+      <p class="p-desc">A practice log for any pursuit — rides, sessions in the shop, hours at the table, scales, laps. Each session takes thirty seconds to log: how long, what you worked on, how it went. Streaks, goals and a calendar of the year follow. Share your code with a trainer or coach and they see the log and leave notes on sessions.</p>
+      <div class="spec-cols">
+        <div class="spec-col"><h4>Functions</h4><ul><li>Pursuits, each with its own goals and tags</li><li>Log a session: minutes, focus, rating, notes</li><li>Streaks and a year grid, like a contribution graph</li><li>Goals: hours a week, sessions a month, a date to hit</li><li>Coach view: a peer reads the log and leaves notes</li><li>Export CSV or JSON</li></ul></div>
+        <div class="spec-col"><h4>Specs</h4><ul><li>PeerJS WebRTC, items pattern</li><li>localStorage create.practice.v1</li><li>Notes from a peer are their own items</li><li>Pursuit presets for dressage, woodworking, poker, music, running</li><li>Works offline; syncs when both are open</li><li>Target: &lt; 80 KB gzipped</li></ul></div>
+      </div>
+      <div class="tech-row"><span class="tech-badge">PeerJS 1.5</span><span class="tech-badge">localStorage</span><span class="tech-badge">SVG charts</span></div>
+    </div>
+    <div class="product-card" id="p-scoresheet" style="--pc:var(--t);--pbg:var(--t-bg)">
+      <div class="p-head">
+        <div class="p-icon">≡</div>
+        <div>
+          <span class="p-line">Scrolls · Create · Hobby</span>
+          <div class="p-name">Create · Scoresheet</div>
+          <div class="p-tag">“Every test, every mark, one file.”</div>
+          <div class="p-badges"><span class="p-free">Free</span><span class="p-st planned">Specified</span></div>
+        </div>
+      </div>
+      <p class="p-desc">The Hobbies desk&#x27;s test scorer, grown up: horses and riders, a test library by level with each movement&#x27;s coefficient, the judge&#x27;s marks and comments, collective marks and errors, the percentage, and a history that shows which movements keep costing you. Share with your trainer; they see every sheet.</p>
+      <div class="spec-cols">
+        <div class="spec-col"><h4>Functions</h4><ul><li>Horses, riders and the shows they went to</li><li>Test library: Intro through Fourth, with coefficients, editable</li><li>Score a sheet: marks, comments, collectives, errors</li><li>The percentage, and the movements that cost most over time</li><li>Trainer view by code, with notes on any sheet</li><li>Export a sheet as a page, or everything as JSON</li></ul></div>
+        <div class="spec-col"><h4>Specs</h4><ul><li>PeerJS WebRTC, items pattern</li><li>localStorage create.scoresheet.v1</li><li>Tests are data, so new ones are a paste away</li><li>Charts drawn in SVG</li><li>Reads the Hobbies desk&#x27;s scorer entries if they exist (watch.hobt)</li><li>Target: &lt; 85 KB gzipped</li></ul></div>
+      </div>
+      <div class="tech-row"><span class="tech-badge">PeerJS 1.5</span><span class="tech-badge">localStorage</span><span class="tech-badge">SVG charts</span></div>
+    </div>
+    <div class="product-card" id="p-cutlist" style="--pc:var(--b);--pbg:var(--b-bg)">
+      <div class="p-head">
+        <div class="p-icon">⊟</div>
+        <div>
+          <span class="p-line">Scrolls · Create · Hobby</span>
+          <div class="p-name">Create · Cutlist</div>
+          <div class="p-tag">“Measure twice. Buy once.”</div>
+          <div class="p-badges"><span class="p-free">Free</span><span class="p-st planned">Specified</span></div>
+        </div>
+      </div>
+      <p class="p-desc">A cut list for each project: parts with thickness, width, length and species, board feet and cost with your waste factor, and an optimizer that lays the parts out on the boards you have so you know what to buy. The shop inventory keeps the offcuts. Share with a shop partner.</p>
+      <div class="spec-cols">
+        <div class="spec-col"><h4>Functions</h4><ul><li>Projects with parts: qty, thickness, width, length, species</li><li>Board feet and cost with a waste factor, per species</li><li>Layout: parts packed onto stock boards, with the leftover</li><li>Shop inventory of boards and offcuts</li><li>Shopping list: what the project needs that the shop lacks</li><li>Share a project with a partner by code</li></ul></div>
+        <div class="spec-col"><h4>Specs</h4><ul><li>PeerJS WebRTC, items pattern</li><li>localStorage create.cutlist.v1</li><li>First-fit decreasing layout, kerf included</li><li>Imperial and metric, quarter-sawn thickness (4/4, 8/4)</li><li>Reads the Hobbies desk&#x27;s calculator rows if present</li><li>Target: &lt; 90 KB gzipped</li></ul></div>
+      </div>
+      <div class="tech-row"><span class="tech-badge">PeerJS 1.5</span><span class="tech-badge">localStorage</span><span class="tech-badge">SVG layout</span></div>
+    </div>
+    <div class="product-card" id="p-felt" style="--pc:var(--green);--pbg:var(--green-bg)">
+      <div class="p-head">
+        <div class="p-icon">♠</div>
+        <div>
+          <span class="p-line">Scrolls · Create · Hobby</span>
+          <div class="p-name">Create · Felt</div>
+          <div class="p-tag">“Every session. Every stake. The real number.”</div>
+          <div class="p-badges"><span class="p-free">Free</span><span class="p-st planned">Specified</span></div>
+        </div>
+      </div>
+      <p class="p-desc">A bankroll and session log for live and online poker: cash sessions and tournaments, buy-ins and cash-outs, hours, stakes and rooms, with the graph, hourly rate, standard deviation and bankroll-in-buy-ins the serious players track. Hand notes attach to sessions. Share with a study partner or coach by code.</p>
+      <div class="spec-cols">
+        <div class="spec-col"><h4>Functions</h4><ul><li>Sessions: cash or tournament, stakes, room, buy-in, result, hours</li><li>The graph, hourly, win rate per 100 hands, standard deviation</li><li>Bankroll: balance, buy-ins in reserve, risk of ruin estimate</li><li>Hand notes with the board and the villain&#x27;s line</li><li>Study partner view by code, with comments</li><li>Export CSV or JSON</li></ul></div>
+        <div class="spec-col"><h4>Specs</h4><ul><li>PeerJS WebRTC, items pattern</li><li>localStorage create.felt.v1</li><li>Statistics computed on device</li><li>Charts drawn in SVG</li><li>Works at the table with the phone in your lap</li><li>Target: &lt; 90 KB gzipped</li></ul></div>
+      </div>
+      <div class="tech-row"><span class="tech-badge">PeerJS 1.5</span><span class="tech-badge">localStorage</span><span class="tech-badge">SVG charts</span></div>
+    </div>
+    <div class="product-card" id="p-collection" style="--pc:var(--t);--pbg:var(--t-bg)">
+      <div class="p-head">
+        <div class="p-icon">❖</div>
+        <div>
+          <span class="p-line">Scrolls · Create · Hobby</span>
+          <div class="p-name">Create · Collection</div>
+          <div class="p-tag">“Catalog what you keep.”</div>
+          <div class="p-badges"><span class="p-free">Free</span><span class="p-st planned">Specified</span></div>
+        </div>
+      </div>
+      <p class="p-desc">Any collection — records, cards, tools, tack, bottles, books — with a photo, condition, what you paid and what it&#x27;s worth, and a want list. Connect with a fellow collector to compare shelves and trade.</p>
+      <div class="spec-cols">
+        <div class="spec-col"><h4>Functions</h4><ul><li>Collections with custom fields</li><li>Items with a photo, condition and value</li><li>Want list and trade list</li><li>Compare with a peer: what they have that you want</li><li>Totals by collection and by year</li><li>Export CSV, JSON or a printable catalog</li></ul></div>
+        <div class="spec-col"><h4>Specs</h4><ul><li>PeerJS WebRTC, chunked items (photos)</li><li>localStorage create.collection.v1</li><li>2 MB per photo, resized on import</li><li>Fields are a schema per collection</li><li>Compare view is read-only on both sides</li><li>Target: &lt; 95 KB gzipped</li></ul></div>
+      </div>
+      <div class="tech-row"><span class="tech-badge">PeerJS 1.5</span><span class="tech-badge">FileReader</span><span class="tech-badge">localStorage</span></div>
+    </div></div>
+    <div class="line-head" id="l-together"><div class="line-icon" style="background:var(--t)">◎</div><h3>Relationships</h3><span class="n">8 products · 3 live</span></div>
+    <p class="line-dek">For two people, and the people around you.</p>
+    <p>Vision, Together / 90 and Date Night are live today on the Lifestyle desk. The rest of the line fills in the everyday: the people you keep up with, the money you split, the week you share, the gifts you give, and the journal you keep between you.</p>
+    <div class="product-grid">
+    <div class="product-card" id="p-vision" style="--pc:var(--a);--pbg:var(--a-bg)">
+      <div class="p-head">
+        <div class="p-icon">◐</div>
+        <div>
+          <span class="p-line">Scrolls · Create · Relationships</span>
+          <div class="p-name">Vision</div>
+          <div class="p-tag">“Build your dream life together.”</div>
+          <div class="p-badges"><span class="p-free">Free</span><span class="p-st live">Live</span><span class="p-st live">Reference build</span></div>
+        </div>
+      </div>
+      <p class="p-desc">The reference build. One board for two people — the trips you want to take, the things you want to buy, the home you want. Each of you hearts what you want; what you both want moves to the middle of the Venn. Pins come from Weekender, Finds and The Watch&#x27;s Home desk through the browser&#x27;s inbox, and the board syncs phone to phone.</p>
+      <div class="spec-cols">
+        <div class="spec-col"><h4>Functions</h4><ul><li>Three lanes: Travel, Shopping, Home</li><li>Heart what you want; the Venn counts what you share</li><li>Dreaming → Planning → Booked, Bought or Done</li><li>Pins from The Watch, Weekender and Finds (vision.inbox)</li><li>Search Finds, Weekender&#x27;s cities, any place, homes</li><li>Backup as a link (compressed into the URL) or a file</li></ul></div>
+        <div class="spec-col"><h4>Specs</h4><ul><li>Six-letter device code; pair by link or QR</li><li>PeerJS WebRTC, per-field last-writer-wins</li><li>Unknown device must be let in</li><li>localStorage vision.v1, inbox vision.inbox</li><li>Hello carries the board; put carries changes</li><li>Shipped at 130 KB (pictures load from their sources)</li></ul></div>
+      </div>
+      <div class="tech-row"><span class="tech-badge">PeerJS 1.5</span><span class="tech-badge">qrcode-generator</span><span class="tech-badge">CompressionStream</span><a class="open" href="../../vision/">Open ›</a></div>
+    </div>
+    <div class="product-card" id="p-together" style="--pc:var(--a);--pbg:var(--a-bg)">
+      <div class="p-head">
+        <div class="p-icon">90</div>
+        <div>
+          <span class="p-line">Scrolls · Create · Relationships</span>
+          <div class="p-name">Together / 90</div>
+          <div class="p-tag">“Ninety days, two people, one workbook.”</div>
+          <div class="p-badges"><span class="p-free">Free</span><span class="p-st live">Live</span></div>
+        </div>
+      </div>
+      <p class="p-desc">A ninety-day couples workbook and shared vision board on the Lifestyle desk: a prompt a day, weekly check-ins, and the board you fill in together. Your answers stay in your browser.</p>
+      <div class="spec-cols">
+        <div class="spec-col"><h4>Functions</h4><ul><li>A prompt for each of ninety days</li><li>Weekly check-ins</li><li>A shared vision board</li><li>Progress kept in the browser</li><li>Public edition, nothing personal in it</li></ul></div>
+        <div class="spec-col"><h4>Specs</h4><ul><li>Single page, no network needed</li><li>localStorage together90.v1</li><li>Print styles</li><li>Served from news/lifestyle/together-90/</li></ul></div>
+      </div>
+      <div class="tech-row"><span class="tech-badge">HTML/CSS/JS</span><span class="tech-badge">localStorage</span><a class="open" href="../../lifestyle/together-90/">Open ›</a></div>
+    </div>
+    <div class="product-card" id="p-date" style="--pc:var(--b);--pbg:var(--b-bg)">
+      <div class="p-head">
+        <div class="p-icon">☾</div>
+        <div>
+          <span class="p-line">Scrolls · Create · Relationships</span>
+          <div class="p-name">Date Night</div>
+          <div class="p-tag">“An evening for two, from places open tonight.”</div>
+          <div class="p-badges"><span class="p-free">Free</span><span class="p-st live">Live</span></div>
+        </div>
+      </div>
+      <p class="p-desc">Plans an evening near your ZIP code or in any of Weekender&#x27;s cities from places on OpenStreetMap that are open that night: dinner, drinks, a show or a walk, with the weather and sunset, the walk between stops, and a link, a calendar entry or a Vision pin to send it on.</p>
+      <div class="spec-cols">
+        <div class="spec-col"><h4>Functions</h4><ul><li>Dinner, drinks, a show or a walk, open tonight</li><li>Any ZIP, or Weekender&#x27;s eight cities</li><li>Weather and sunset for the evening</li><li>The walk between stops</li><li>Send as a link, a calendar entry or a Vision pin</li></ul></div>
+        <div class="spec-col"><h4>Specs</h4><ul><li>OpenStreetMap places, Open-Meteo weather</li><li>Prefetched data in lifestyle/date-night/data/</li><li>No account; preferences in the browser</li></ul></div>
+      </div>
+      <div class="tech-row"><span class="tech-badge">OpenStreetMap</span><span class="tech-badge">Open-Meteo</span><span class="tech-badge">localStorage</span><a class="open" href="../../lifestyle/date-night/">Open ›</a></div>
+    </div>
+    <div class="product-card" id="p-circle" style="--pc:var(--t);--pbg:var(--t-bg)">
+      <div class="p-head">
+        <div class="p-icon">◌</div>
+        <div>
+          <span class="p-line">Scrolls · Create · Relationships</span>
+          <div class="p-name">Create · Circle</div>
+          <div class="p-tag">“The people you mean to keep up with.”</div>
+          <div class="p-badges"><span class="p-free">Free</span><span class="p-st planned">Specified</span></div>
+        </div>
+      </div>
+      <p class="p-desc">Not a contact list — the thirty or forty people who matter: birthdays and anniversaries, their kids&#x27; names, what they&#x27;re going through, the last time you talked and how often you&#x27;d like to. It nudges you toward the ones going quiet. Share with your partner so both of you remember the same things.</p>
+      <div class="spec-cols">
+        <div class="spec-col"><h4>Functions</h4><ul><li>People with dates, kids, notes and a cadence (weekly, monthly, a few times a year)</li><li>Log a touch: a call, a dinner, a text</li><li>Going quiet: who you haven&#x27;t talked to in too long</li><li>The next thirty days of birthdays and anniversaries</li><li>Gift ideas that carry over to Create · Gift</li><li>Export CSV, JSON or a printable birthday calendar</li></ul></div>
+        <div class="spec-col"><h4>Specs</h4><ul><li>PeerJS WebRTC, items pattern</li><li>localStorage create.circle.v1</li><li>Cadence math on device</li><li>Photos optional (2 MB, resized)</li><li>Hands gift ideas to Gift through create.gift.inbox</li><li>Target: &lt; 85 KB gzipped</li></ul></div>
+      </div>
+      <div class="tech-row"><span class="tech-badge">PeerJS 1.5</span><span class="tech-badge">localStorage</span><span class="tech-badge">Intl dates</span></div>
+    </div>
+    <div class="product-card" id="p-split" style="--pc:var(--green);--pbg:var(--green-bg)">
+      <div class="p-head">
+        <div class="p-icon">½</div>
+        <div>
+          <span class="p-line">Scrolls · Create · Relationships</span>
+          <div class="p-name">Create · Split</div>
+          <div class="p-tag">“Who paid, who owes, settled.”</div>
+          <div class="p-badges"><span class="p-free">Free</span><span class="p-st planned">Specified</span></div>
+        </div>
+      </div>
+      <p class="p-desc">Shared expenses for two, or a household. Who paid, how it splits (even, by percent, by amount, one person&#x27;s), a running balance and a settle-up that clears it. Groceries, the trip, the utilities. Both phones hold the ledger; a receipt photo is optional.</p>
+      <div class="spec-cols">
+        <div class="spec-col"><h4>Functions</h4><ul><li>Expenses: who paid, split even / percent / exact / theirs</li><li>Running balance between the two of you</li><li>Settle up, with a record of the payment</li><li>Groups: the house, the trip, the dinner club</li><li>Monthly totals by category</li><li>Export CSV or JSON</li></ul></div>
+        <div class="spec-col"><h4>Specs</h4><ul><li>PeerJS WebRTC, items pattern</li><li>localStorage create.split.v1</li><li>Money as integer cents</li><li>Receipt photo optional (chunked)</li><li>Reads a Trip&#x27;s expenses from create.split.inbox</li><li>Target: &lt; 80 KB gzipped</li></ul></div>
+      </div>
+      <div class="tech-row"><span class="tech-badge">PeerJS 1.5</span><span class="tech-badge">localStorage</span><span class="tech-badge">Intl currency</span></div>
+    </div>
+    <div class="product-card" id="p-week" style="--pc:var(--b);--pbg:var(--b-bg)">
+      <div class="p-head">
+        <div class="p-icon">▤</div>
+        <div>
+          <span class="p-line">Scrolls · Create · Relationships</span>
+          <div class="p-name">Create · Week</div>
+          <div class="p-tag">“The week the two of you share.”</div>
+          <div class="p-badges"><span class="p-free">Free</span><span class="p-st planned">Specified</span></div>
+        </div>
+      </div>
+      <p class="p-desc">A calendar for two: who&#x27;s where, dinners, pickups, the trip, the show. Day and week views, each person&#x27;s color, and things that belong to both of you in the middle. Add from Date Night or Weekender; it syncs phone to phone.</p>
+      <div class="spec-cols">
+        <div class="spec-col"><h4>Functions</h4><ul><li>Week and day views, two colors and a shared one</li><li>Events, all-day and timed, repeating weekly</li><li>Whose: mine, theirs, both</li><li>Add from Date Night and Weekender (inbox)</li><li>Export .ics for the phone&#x27;s calendar</li><li>Print the week</li></ul></div>
+        <div class="spec-col"><h4>Specs</h4><ul><li>PeerJS WebRTC, items pattern</li><li>localStorage create.week.v1</li><li>Time zone aware (Intl)</li><li>Repeats expanded on draw, not stored</li><li>Reads create.week.inbox from other pages</li><li>Target: &lt; 85 KB gzipped</li></ul></div>
+      </div>
+      <div class="tech-row"><span class="tech-badge">PeerJS 1.5</span><span class="tech-badge">localStorage</span><span class="tech-badge">iCalendar</span></div>
+    </div>
+    <div class="product-card" id="p-gift" style="--pc:var(--a);--pbg:var(--a-bg)">
+      <div class="p-head">
+        <div class="p-icon">⌘</div>
+        <div>
+          <span class="p-line">Scrolls · Create · Relationships</span>
+          <div class="p-name">Create · Gift</div>
+          <div class="p-tag">“Wish lists both ways. No spoilers.”</div>
+          <div class="p-badges"><span class="p-free">Free</span><span class="p-st planned">Specified</span></div>
+        </div>
+      </div>
+      <p class="p-desc">Everyone keeps a list; everyone else sees it and can claim something. The claims sync to every device but are never shown on the list-owner&#x27;s own screen, so the surprise holds. Birthdays link to Circle; a secret-santa draw assigns names.</p>
+      <div class="spec-cols">
+        <div class="spec-col"><h4>Functions</h4><ul><li>A list per person, with links and prices</li><li>Claim an item; the owner never sees claims</li><li>Occasions: birthdays, holidays, the baby</li><li>Secret Santa draw with exclusions</li><li>Given log: what you gave whom, when</li><li>Ideas carried in from Circle</li></ul></div>
+        <div class="spec-col"><h4>Specs</h4><ul><li>PeerJS WebRTC, hidden-claims pattern</li><li>localStorage create.gift.v1</li><li>Claims are fields; the owner&#x27;s view masks them</li><li>Trust-based in v1 (a determined owner could read storage)</li><li>Reads create.gift.inbox</li><li>Target: &lt; 80 KB gzipped</li></ul></div>
+      </div>
+      <div class="tech-row"><span class="tech-badge">PeerJS 1.5</span><span class="tech-badge">localStorage</span><span class="tech-badge">Intl currency</span></div>
+    </div>
+    <div class="product-card" id="p-journal" style="--pc:var(--t);--pbg:var(--t-bg)">
+      <div class="p-head">
+        <div class="p-icon">✍</div>
+        <div>
+          <span class="p-line">Scrolls · Create · Relationships</span>
+          <div class="p-name">Create · Journal</div>
+          <div class="p-tag">“Written between two people.”</div>
+          <div class="p-badges"><span class="p-free">Free</span><span class="p-st planned">Specified</span></div>
+        </div>
+      </div>
+      <p class="p-desc">A journal both of you write in: dated entries, a photo when there is one, a prompt when there isn&#x27;t, and a year view that shows the days you both wrote. Nothing leaves your two phones.</p>
+      <div class="spec-cols">
+        <div class="spec-col"><h4>Functions</h4><ul><li>Entries by day, by either of you</li><li>A photo per entry (2 MB)</li><li>Prompts when the page is blank</li><li>Year view and search</li><li>Export a year as a printable page</li><li>Backup as a file</li></ul></div>
+        <div class="spec-col"><h4>Specs</h4><ul><li>PeerJS WebRTC, chunked items</li><li>localStorage create.journal.v1</li><li>Prompts are data, 365 of them</li><li>Print styles for the year</li><li>Target: &lt; 90 KB gzipped</li></ul></div>
+      </div>
+      <div class="tech-row"><span class="tech-badge">PeerJS 1.5</span><span class="tech-badge">FileReader</span><span class="tech-badge">localStorage</span></div>
+    </div></div>
+    <div class="line-head" id="l-home"><div class="line-icon" style="background:var(--green)">⌂</div><h3>Home &amp; Food</h3><span class="n">4 products · 0 live</span></div>
+    <p class="line-dek">The kitchen, the house and what it all costs.</p>
+    <p>What&#x27;s in the pantry and what to buy, your own recipe box and the week&#x27;s dinners, the house&#x27;s maintenance clock, and a home inventory for the day the insurance company asks. Each one syncs between the two phones in the house.</p>
+    <div class="product-grid">
+    <div class="product-card" id="p-pantry" style="--pc:var(--green);--pbg:var(--green-bg)">
+      <div class="p-head">
+        <div class="p-icon">▣</div>
+        <div>
+          <span class="p-line">Scrolls · Create · Home &amp; Food</span>
+          <div class="p-name">Create · Pantry</div>
+          <div class="p-tag">“What&#x27;s in the kitchen, and what&#x27;s not.”</div>
+          <div class="p-badges"><span class="p-free">Free</span><span class="p-st planned">Specified</span></div>
+        </div>
+      </div>
+      <p class="p-desc">The pantry, the fridge and the grocery list in one place, shared between the phones in the house. Staples have a par level; when one runs low it goes on the list. Tick things off in the aisle and the other phone sees it.</p>
+      <div class="spec-cols">
+        <div class="spec-col"><h4>Functions</h4><ul><li>Pantry and fridge by location, with par levels</li><li>Running low → on the list, automatically</li><li>The grocery list, by aisle, tickable in the store</li><li>Stores with their own lists</li><li>Receives ingredients from Create · Cookbook</li><li>Export the list as text</li></ul></div>
+        <div class="spec-col"><h4>Specs</h4><ul><li>PeerJS WebRTC, items pattern</li><li>localStorage create.pantry.v1</li><li>Reads create.pantry.inbox (Cookbook, Food desk)</li><li>Works offline in the store</li><li>Target: &lt; 80 KB gzipped</li></ul></div>
+      </div>
+      <div class="tech-row"><span class="tech-badge">PeerJS 1.5</span><span class="tech-badge">localStorage</span></div>
+    </div>
+    <div class="product-card" id="p-cookbook" style="--pc:var(--a);--pbg:var(--a-bg)">
+      <div class="p-head">
+        <div class="p-icon">♨</div>
+        <div>
+          <span class="p-line">Scrolls · Create · Home &amp; Food</span>
+          <div class="p-name">Create · Cookbook</div>
+          <div class="p-tag">“Your recipes, your week, your list.”</div>
+          <div class="p-badges"><span class="p-free">Free</span><span class="p-st planned">Specified</span></div>
+        </div>
+      </div>
+      <p class="p-desc">Your own recipe box — paste a recipe&#x27;s text and it becomes ingredients and steps — with scaling, timers and a cook mode in big type. Plan the week&#x27;s dinners on a grid and send the ingredients to Pantry. Deliciousness, the cookbook on the Food desk, is the published cousin.</p>
+      <div class="spec-cols">
+        <div class="spec-col"><h4>Functions</h4><ul><li>Paste text or type; ingredients and steps parsed</li><li>Scale servings; timers in the steps</li><li>Cook mode: one step at a time, screen stays awake</li><li>The week&#x27;s dinners on a grid</li><li>Send the week&#x27;s ingredients to Pantry</li><li>Photos (2 MB) and tags</li></ul></div>
+        <div class="spec-col"><h4>Specs</h4><ul><li>PeerJS WebRTC, chunked items</li><li>localStorage create.cookbook.v1</li><li>Writes create.pantry.inbox</li><li>Wake Lock API in cook mode</li><li>Target: &lt; 95 KB gzipped</li></ul></div>
+      </div>
+      <div class="tech-row"><span class="tech-badge">PeerJS 1.5</span><span class="tech-badge">Wake Lock</span><span class="tech-badge">localStorage</span></div>
+    </div>
+    <div class="product-card" id="p-fix" style="--pc:var(--b);--pbg:var(--b-bg)">
+      <div class="p-head">
+        <div class="p-icon">⚒</div>
+        <div>
+          <span class="p-line">Scrolls · Create · Home &amp; Food</span>
+          <div class="p-name">Create · Fix</div>
+          <div class="p-tag">“The house has a service schedule too.”</div>
+          <div class="p-badges"><span class="p-free">Free</span><span class="p-st planned">Specified</span></div>
+        </div>
+      </div>
+      <p class="p-desc">The home&#x27;s systems and their clocks — furnace filter, water heater, gutters, smoke detectors — with what was done when, what it cost, and the people who did it. Projects with budgets and before-and-after photos. Both of you see what&#x27;s due.</p>
+      <div class="spec-cols">
+        <div class="spec-col"><h4>Functions</h4><ul><li>Systems with intervals; what&#x27;s due this month</li><li>Service log with cost and who did it</li><li>Projects: scope, budget vs actual, photos</li><li>Vendors and warranties</li><li>Documents as photos (manuals, receipts)</li><li>Export a house binder as a page</li></ul></div>
+        <div class="spec-col"><h4>Specs</h4><ul><li>PeerJS WebRTC, chunked items</li><li>localStorage create.fix.v1</li><li>Intervals by months or by season</li><li>Presets for a typical house</li><li>Target: &lt; 90 KB gzipped</li></ul></div>
+      </div>
+      <div class="tech-row"><span class="tech-badge">PeerJS 1.5</span><span class="tech-badge">FileReader</span><span class="tech-badge">localStorage</span></div>
+    </div>
+    <div class="product-card" id="p-inventory" style="--pc:var(--t);--pbg:var(--t-bg)">
+      <div class="p-head">
+        <div class="p-icon">▦</div>
+        <div>
+          <span class="p-line">Scrolls · Create · Home &amp; Food</span>
+          <div class="p-name">Create · Inventory</div>
+          <div class="p-tag">“For the day the adjuster asks.”</div>
+          <div class="p-badges"><span class="p-free">Free</span><span class="p-st planned">Specified</span></div>
+        </div>
+      </div>
+      <p class="p-desc">A home inventory for insurance: room by room, each thing with a photo, a serial number, what it cost and what it would cost to replace, and the receipt. Totals by room and by category. A second phone holds a copy, which is the point.</p>
+      <div class="spec-cols">
+        <div class="spec-col"><h4>Functions</h4><ul><li>Rooms and categories</li><li>Items with photo, serial, cost and replacement value</li><li>Receipts and appraisals as photos</li><li>Totals by room, category and the whole house</li><li>Export CSV and a printable PDF-ready page</li><li>Sync a copy to a second device</li></ul></div>
+        <div class="spec-col"><h4>Specs</h4><ul><li>PeerJS WebRTC, chunked items</li><li>localStorage create.inventory.v1</li><li>Photos resized to fit storage</li><li>Print styles for the binder</li><li>Target: &lt; 85 KB gzipped</li></ul></div>
+      </div>
+      <div class="tech-row"><span class="tech-badge">PeerJS 1.5</span><span class="tech-badge">FileReader</span><span class="tech-badge">localStorage</span></div>
+    </div></div>
+    <div class="line-head" id="l-travel"><div class="line-icon" style="background:var(--b)">✈</div><h3>Travel</h3><span class="n">2 products · 0 live</span></div>
+    <p class="line-dek">The trip in your pocket, and the points that paid for it.</p>
+    <p>Weekender finds the weekend; Create carries it. Trip holds the itinerary, confirmations and packing list offline, shared with everyone going. Points keeps the balances, expirations and card credits you&#x27;d otherwise forget.</p>
+    <div class="product-grid">
+    <div class="product-card" id="p-trip" style="--pc:var(--b);--pbg:var(--b-bg)">
+      <div class="p-head">
+        <div class="p-icon">⌖</div>
+        <div>
+          <span class="p-line">Scrolls · Create · Travel</span>
+          <div class="p-name">Create · Trip</div>
+          <div class="p-tag">“The whole trip, offline, in everyone&#x27;s pocket.”</div>
+          <div class="p-badges"><span class="p-free">Free</span><span class="p-st planned">Specified</span></div>
+        </div>
+      </div>
+      <p class="p-desc">A trip&#x27;s itinerary by day — flights, hotels, trains, dinners — with confirmation numbers, the documents as photos, a packing list from a template, and a budget. Everyone going connects by code and carries the same copy, with or without a signal.</p>
+      <div class="spec-cols">
+        <div class="spec-col"><h4>Functions</h4><ul><li>Days with legs: flights, stays, trains, tables, tickets</li><li>Confirmations and documents as photos</li><li>Packing lists from templates (beach, city, ski)</li><li>Budget and spending, handed to Split</li><li>Add a Weekender guide&#x27;s days (inbox)</li><li>Export .ics and a printable itinerary</li></ul></div>
+        <div class="spec-col"><h4>Specs</h4><ul><li>PeerJS WebRTC, chunked items; hub for 3+ travelers</li><li>localStorage create.trip.v1</li><li>Reads create.trip.inbox (Weekender, The Watch)</li><li>Writes create.split.inbox</li><li>Time zones per leg</li><li>Target: &lt; 100 KB gzipped</li></ul></div>
+      </div>
+      <div class="tech-row"><span class="tech-badge">PeerJS 1.5</span><span class="tech-badge">iCalendar</span><span class="tech-badge">localStorage</span></div>
+    </div>
+    <div class="product-card" id="p-points" style="--pc:var(--t);--pbg:var(--t-bg)">
+      <div class="p-head">
+        <div class="p-icon">✈</div>
+        <div>
+          <span class="p-line">Scrolls · Create · Travel</span>
+          <div class="p-name">Create · Points</div>
+          <div class="p-tag">“Every balance, every expiration, every credit.”</div>
+          <div class="p-badges"><span class="p-free">Free</span><span class="p-st planned">Specified</span></div>
+        </div>
+      </div>
+      <p class="p-desc">A ledger for loyalty programs and cards: balances you enter, expiration clocks, elite status and the nights or segments to the next tier, and each card&#x27;s annual credits ticked off as you use them. Points Hacker on the Travel desk teaches the game; this keeps score.</p>
+      <div class="spec-cols">
+        <div class="spec-col"><h4>Functions</h4><ul><li>Programs with balances and expiration dates</li><li>Status tiers and progress</li><li>Cards with annual credits, used or not</li><li>Transfer partner notes and ratios</li><li>A year view of fees and credits</li><li>Export CSV or JSON</li></ul></div>
+        <div class="spec-col"><h4>Specs</h4><ul><li>PeerJS WebRTC, items pattern</li><li>localStorage create.points.v1</li><li>Balances are typed, never fetched</li><li>Program presets for the big programs</li><li>Target: &lt; 80 KB gzipped</li></ul></div>
+      </div>
+      <div class="tech-row"><span class="tech-badge">PeerJS 1.5</span><span class="tech-badge">localStorage</span><span class="tech-badge">Intl numbers</span></div>
+    </div></div>
+    <div class="line-head" id="l-money"><div class="line-icon" style="background:var(--t)">¢</div><h3>Money</h3><span class="n">2 products · 0 live</span></div>
+    <p class="line-dek">A budget two people can keep, and a net worth only you can read.</p>
+    <p>Budget is envelopes and transactions, shared across the household&#x27;s phones. Net is encrypted like Vault: accounts and balances by month, a chart, and a passphrase that never leaves your head.</p>
+    <div class="product-grid">
+    <div class="product-card" id="p-budget" style="--pc:var(--green);--pbg:var(--green-bg)">
+      <div class="p-head">
+        <div class="p-icon">▥</div>
+        <div>
+          <span class="p-line">Scrolls · Create · Money</span>
+          <div class="p-name">Create · Budget</div>
+          <div class="p-tag">“Envelopes two people can keep.”</div>
+          <div class="p-badges"><span class="p-free">Free</span><span class="p-st planned">Specified</span></div>
+        </div>
+      </div>
+      <p class="p-desc">A monthly budget in envelopes — groceries, gas, the dog — with transactions typed in or imported from a bank&#x27;s CSV, charts by month and category, and a shared copy on the other phone. The Household desk&#x27;s cost-of-living numbers sit alongside.</p>
+      <div class="spec-cols">
+        <div class="spec-col"><h4>Functions</h4><ul><li>Envelopes per month with rollover</li><li>Transactions by hand or CSV import</li><li>Charts: month by month, category by category</li><li>Recurring bills and their due dates</li><li>Both phones, one budget</li><li>Export CSV or JSON</li></ul></div>
+        <div class="spec-col"><h4>Specs</h4><ul><li>PeerJS WebRTC, items pattern</li><li>localStorage create.budget.v1</li><li>CSV import with column mapping</li><li>Money as integer cents</li><li>Target: &lt; 90 KB gzipped</li></ul></div>
+      </div>
+      <div class="tech-row"><span class="tech-badge">PeerJS 1.5</span><span class="tech-badge">localStorage</span><span class="tech-badge">SVG charts</span></div>
+    </div>
+    <div class="product-card" id="p-net" style="--pc:var(--t);--pbg:var(--t-bg)">
+      <div class="p-head">
+        <div class="p-icon">◍</div>
+        <div>
+          <span class="p-line">Scrolls · Create · Money</span>
+          <div class="p-name">Create · Net</div>
+          <div class="p-tag">“Your net worth, under your passphrase.”</div>
+          <div class="p-badges"><span class="p-free">Free</span><span class="p-st planned">Specified</span></div>
+        </div>
+      </div>
+      <p class="p-desc">Accounts and their balances by month — checking, brokerage, the house, the mortgage — a net worth line, and allocation. Encrypted like Vault, so the file and the sync carry only ciphertext.</p>
+      <div class="spec-cols">
+        <div class="spec-col"><h4>Functions</h4><ul><li>Accounts by type: cash, invested, property, debt</li><li>Monthly balances and the net worth line</li><li>Allocation and change over the year</li><li>Passphrase unlock, auto-lock</li><li>Encrypted sync between your own devices</li><li>Export encrypted JSON or decrypted CSV</li></ul></div>
+        <div class="spec-col"><h4>Specs</h4><ul><li>Web Crypto, AES-256-GCM, PBKDF2 600K</li><li>localStorage create.net.v1 holds ciphertext</li><li>PeerJS, encrypted items pattern</li><li>Charts drawn after decrypt, in memory</li><li>Target: &lt; 75 KB gzipped</li></ul></div>
+      </div>
+      <div class="tech-row"><span class="tech-badge">PeerJS 1.5</span><span class="tech-badge">Web Crypto</span><span class="tech-badge">SVG charts</span></div>
+    </div></div>
+    <div class="line-head" id="l-garage"><div class="line-icon" style="background:var(--a)">⚙</div><h3>Garage</h3><span class="n">2 products · 0 live</span></div>
+    <p class="line-dek">Every car&#x27;s history, and the one you&#x27;re building.</p>
+    <p>Garage is the service log, parts bin and reminder clock for the cars you keep. Rebuild is the project file for the one on jack stands — work packages, parts, hours and a budget against reality — exportable as a page like the Cars desk&#x27;s own build files.</p>
+    <div class="product-grid">
+    <div class="product-card" id="p-garage" style="--pc:var(--a);--pbg:var(--a-bg)">
+      <div class="p-head">
+        <div class="p-icon">⚙</div>
+        <div>
+          <span class="p-line">Scrolls · Create · Garage</span>
+          <div class="p-name">Create · Garage</div>
+          <div class="p-tag">“Every car&#x27;s history, in the glovebox.”</div>
+          <div class="p-badges"><span class="p-free">Free</span><span class="p-st planned">Specified</span></div>
+        </div>
+      </div>
+      <p class="p-desc">The service log for the cars you keep: mileage, what was done, parts with part numbers and where they came from, costs, receipts as photos, and reminders by miles or months. Share a car with its co-owner, or with the shop.</p>
+      <div class="spec-cols">
+        <div class="spec-col"><h4>Functions</h4><ul><li>Vehicles with VIN, year and mileage</li><li>Service records with parts, part numbers and sources</li><li>Reminders by miles or months</li><li>Costs by year and by system</li><li>Documents and receipts as photos</li><li>Export a car&#x27;s history as a page</li></ul></div>
+        <div class="spec-col"><h4>Specs</h4><ul><li>PeerJS WebRTC, chunked items</li><li>localStorage create.garage.v1</li><li>Reminders computed from the latest odometer</li><li>Parts catalog grows from your own records</li><li>Target: &lt; 95 KB gzipped</li></ul></div>
+      </div>
+      <div class="tech-row"><span class="tech-badge">PeerJS 1.5</span><span class="tech-badge">FileReader</span><span class="tech-badge">localStorage</span></div>
+    </div>
+    <div class="product-card" id="p-rebuild" style="--pc:var(--b);--pbg:var(--b-bg)">
+      <div class="p-head">
+        <div class="p-icon">⛭</div>
+        <div>
+          <span class="p-line">Scrolls · Create · Garage</span>
+          <div class="p-name">Create · Rebuild</div>
+          <div class="p-tag">“The build sheet for the car on jack stands.”</div>
+          <div class="p-badges"><span class="p-free">Free</span><span class="p-st planned">Specified</span></div>
+        </div>
+      </div>
+      <p class="p-desc">A project file like the Cars desk&#x27;s own: what you paid, the damage, work packages with parts, hours and a budget against reality, before-and-after photos, and the value against comparable sales. Publish it as a page when it&#x27;s done.</p>
+      <div class="spec-cols">
+        <div class="spec-col"><h4>Functions</h4><ul><li>The car and what it cost to buy</li><li>Work packages: scope, parts, hours, budget, actual</li><li>Parts list with sources and status</li><li>Photo log by package</li><li>Value: what it&#x27;s worth against your all-in</li><li>Export the build as a standalone page</li></ul></div>
+        <div class="spec-col"><h4>Specs</h4><ul><li>PeerJS WebRTC, chunked items</li><li>localStorage create.rebuild.v1</li><li>Same shape as news/garage/*.json build files</li><li>Burn-down of budget vs actual</li><li>Target: &lt; 100 KB gzipped</li></ul></div>
+      </div>
+      <div class="tech-row"><span class="tech-badge">PeerJS 1.5</span><span class="tech-badge">FileReader</span><span class="tech-badge">localStorage</span></div>
+    </div></div>
+    <div class="line-head" id="l-play"><div class="line-icon" style="background:var(--green)">♜</div><h3>Sports &amp; Games</h3><span class="n">2 products · 0 live</span></div>
+    <p class="line-dek">The pool, the bracket and the scorecard, with no app to install.</p>
+    <p>Pool runs a pick&#x27;em, survivor pool or bracket among friends: the commissioner hosts, everyone else joins with the code. Scorebook keeps score for golf, bowling, cards and board games, with every player&#x27;s history.</p>
+    <div class="product-grid">
+    <div class="product-card" id="p-pool" style="--pc:var(--green);--pbg:var(--green-bg)">
+      <div class="p-head">
+        <div class="p-icon">⬡</div>
+        <div>
+          <span class="p-line">Scrolls · Create · Sports &amp; Games</span>
+          <div class="p-name">Create · Pool</div>
+          <div class="p-tag">“Run the pool. Skip the spreadsheet.”</div>
+          <div class="p-badges"><span class="p-free">Free</span><span class="p-st planned">Specified</span></div>
+        </div>
+      </div>
+      <p class="p-desc">A pick&#x27;em, survivor pool or bracket among friends. The commissioner hosts and sets the games; everyone else opens the link, joins with the code and submits picks. Results typed in once; standings for everyone.</p>
+      <div class="spec-cols">
+        <div class="spec-col"><h4>Functions</h4><ul><li>Pick&#x27;em (straight or against the spread), survivor, bracket</li><li>Commissioner sets the slate; players submit by code</li><li>Picks lock at kickoff</li><li>Results and standings, tiebreakers</li><li>Season history</li><li>Export standings as a page</li></ul></div>
+        <div class="spec-col"><h4>Specs</h4><ul><li>PeerJS WebRTC, hub pattern</li><li>localStorage create.pool.v1</li><li>Lock times enforced on the host</li><li>The Sports desk&#x27;s schedule can seed a slate (inbox)</li><li>Target: &lt; 95 KB gzipped</li></ul></div>
+      </div>
+      <div class="tech-row"><span class="tech-badge">PeerJS 1.5</span><span class="tech-badge">localStorage</span></div>
+    </div>
+    <div class="product-card" id="p-scorebook" style="--pc:var(--a);--pbg:var(--a-bg)">
+      <div class="p-head">
+        <div class="p-icon">⊕</div>
+        <div>
+          <span class="p-line">Scrolls · Create · Sports &amp; Games</span>
+          <div class="p-name">Create · Scorebook</div>
+          <div class="p-tag">“Keep score. Keep the history.”</div>
+          <div class="p-badges"><span class="p-free">Free</span><span class="p-st planned">Specified</span></div>
+        </div>
+      </div>
+      <p class="p-desc">Scorekeeping for the games you actually play: golf with handicaps, bowling frames, euchre, hearts and spades, and any board game by rounds. Every player&#x27;s record over the years. Share a scorecard to the other phone at the table.</p>
+      <div class="spec-cols">
+        <div class="spec-col"><h4>Functions</h4><ul><li>Golf: holes, pars, handicaps, net and gross</li><li>Bowling: frames with strikes and spares scored</li><li>Cards: euchre, hearts, spades, cribbage by rounds</li><li>Any game: players, rounds, a target</li><li>Player histories and head-to-heads</li><li>Export a scorecard as a page</li></ul></div>
+        <div class="spec-col"><h4>Specs</h4><ul><li>PeerJS WebRTC, items pattern</li><li>localStorage create.scorebook.v1</li><li>Game rules are data (a scorer per game)</li><li>Works with one phone passed around</li><li>Target: &lt; 85 KB gzipped</li></ul></div>
+      </div>
+      <div class="tech-row"><span class="tech-badge">PeerJS 1.5</span><span class="tech-badge">localStorage</span></div>
+    </div></div>
+    <div class="line-head" id="l-body"><div class="line-icon" style="background:var(--plum)">♡</div><h3>Body</h3><span class="n">2 products · 0 live</span></div>
+    <p class="line-dek">Training and habits, kept honestly.</p>
+    <p>Train is a workout log with programs, PRs and a trainer who can see it. Streak is habits: a grid of days, a chain not to break, shared with the one person who&#x27;ll ask.</p>
+    <div class="product-grid">
+    <div class="product-card" id="p-train" style="--pc:var(--plum);--pbg:var(--plum-bg)">
+      <div class="p-head">
+        <div class="p-icon">⟁</div>
+        <div>
+          <span class="p-line">Scrolls · Create · Body</span>
+          <div class="p-name">Create · Train</div>
+          <div class="p-tag">“The log a trainer can read.”</div>
+          <div class="p-badges"><span class="p-free">Free</span><span class="p-st planned">Specified</span></div>
+        </div>
+      </div>
+      <p class="p-desc">A workout log with programs: exercises, sets, reps and weight, or time and distance; PRs noticed as they happen; a week&#x27;s plan to follow. Your trainer connects by code, sees the log and adjusts the program.</p>
+      <div class="spec-cols">
+        <div class="spec-col"><h4>Functions</h4><ul><li>Programs with days and exercises</li><li>Log sets, reps, weight, time, distance</li><li>PRs by exercise, volume by week</li><li>Trainer view by code, with program edits</li><li>Timers for rest and intervals</li><li>Export CSV or JSON</li></ul></div>
+        <div class="spec-col"><h4>Specs</h4><ul><li>PeerJS WebRTC, items pattern</li><li>localStorage create.train.v1</li><li>Exercise library is data, editable</li><li>Charts drawn in SVG</li><li>Target: &lt; 90 KB gzipped</li></ul></div>
+      </div>
+      <div class="tech-row"><span class="tech-badge">PeerJS 1.5</span><span class="tech-badge">localStorage</span><span class="tech-badge">SVG charts</span></div>
+    </div>
+    <div class="product-card" id="p-streak" style="--pc:var(--plum);--pbg:var(--plum-bg)">
+      <div class="p-head">
+        <div class="p-icon">▰</div>
+        <div>
+          <span class="p-line">Scrolls · Create · Body</span>
+          <div class="p-name">Create · Streak</div>
+          <div class="p-tag">“Don&#x27;t break the chain.”</div>
+          <div class="p-badges"><span class="p-free">Free</span><span class="p-st planned">Specified</span></div>
+        </div>
+      </div>
+      <p class="p-desc">Habits as a grid of days: tap today, watch the chain grow, see the year. Share with the one person who&#x27;ll ask how it&#x27;s going; they see your grid and you see theirs.</p>
+      <div class="spec-cols">
+        <div class="spec-col"><h4>Functions</h4><ul><li>Habits with a color and a target per week</li><li>Tap a day; long-press to note it</li><li>Chains, best chains, the year grid</li><li>A partner&#x27;s habits beside yours</li><li>Reminders as a daily page you open</li><li>Export CSV</li></ul></div>
+        <div class="spec-col"><h4>Specs</h4><ul><li>PeerJS WebRTC, items pattern</li><li>localStorage create.streak.v1</li><li>A day is a field, so partial syncs merge</li><li>Tiny: the whole app is the grid</li><li>Target: &lt; 65 KB gzipped</li></ul></div>
+      </div>
+      <div class="tech-row"><span class="tech-badge">PeerJS 1.5</span><span class="tech-badge">localStorage</span></div>
+    </div></div>
+
+  <div class="divider"></div>
+  <div class="sec-label" id="s7">Section 07</div>
+  <h2>Shared Technology Stack</h2>
+  <div class="tw"><table class="dtable"><thead><tr><th>Layer</th><th>Technology</th><th>Notes</th></tr></thead><tbody>
+    <tr><td><strong>P2P</strong></td><td class="mono">PeerJS 1.5.4 via jsDelivr</td><td>WebRTC data channels. The free signaling server introduces peers; a self-hosted one is a query parameter away (<code>?peer=host:port</code>).</td></tr>
+    <tr><td><strong>Identity</strong></td><td class="mono">six-letter device code</td><td>Generated once per browser; the PeerJS id; shared as text, link or QR.</td></tr>
+    <tr><td><strong>Persistence</strong></td><td class="mono">localStorage create.&lt;id&gt;.v1</td><td>One JSON object per product. Debounced writes; a full-storage toast rather than a crash.</td></tr>
+    <tr><td><strong>Merge</strong></td><td class="mono">per-field stamps (_t)</td><td>Last writer wins per field; soft deletes; stamps are time × 100 + a per-device salt, monotonic.</td></tr>
+    <tr><td><strong>Handoff</strong></td><td class="mono">localStorage create.&lt;id&gt;.inbox</td><td>Products and The Watch leave items for each other; drained on open and on the storage event.</td></tr>
+    <tr><td><strong>Pictures</strong></td><td class="mono">FileReader → canvas resize → data URI</td><td>2 MB cap, resized on import; chunked over the wire at 128 KB.</td></tr>
+    <tr><td><strong>Encryption</strong></td><td class="mono">Web Crypto (SubtleCrypto)</td><td>Vault and Net only. AES-256-GCM, PBKDF2 600,000 / SHA-256.</td></tr>
+    <tr><td><strong>Typography</strong></td><td class="mono">Instrument Serif + DM Sans</td><td>Google Fonts; falls back to Georgia and the system sans. Vision's tokens for light and dark.</td></tr>
+    <tr><td><strong>Backup</strong></td><td class="mono">Blob + createObjectURL; deflate-raw link</td><td>JSON for all; CSV, .ics, PNG and printable pages where the product calls for them.</td></tr>
+    <tr><td><strong>Hosting</strong></td><td class="mono">file:// or GitHub Pages</td><td>Double-click to open, or open from The Watch. The same file either way.</td></tr>
+  </tbody></table></div>
+
+  <div class="divider"></div>
+  <div class="sec-label" id="s8">Section 08</div>
+  <h2>P2P Sync Patterns</h2>
+  <div class="tw"><table class="dtable"><thead><tr><th>Pattern</th><th>Products</th><th>How it works</th><th>Conflicts</th></tr></thead><tbody><tr><td><strong>Items (LWW)</strong></td><td>Pad, Board, Practice, Scoresheet, Cutlist, Felt, Vision, Circle, Split, Week, Pantry, Points, Budget, Scorebook, Train, Streak</td><td>On connect, each device says hello with its whole state. After that, every change travels as a put of the changed items. Each item carries a per-field stamp, so the newer write of each field wins and both people can edit offline.</td><td>Per field, last writer wins</td></tr><tr><td><strong>Chunked items</strong></td><td>Deck, Snap, Collection, Journal, Cookbook, Fix, Inventory, Trip, Garage, Rebuild</td><td>The items pattern, with items that carry photos (base64 data URIs up to 2 MB) split into 128 KB chunks, sent in order and reassembled before merging.</td><td>Per field, last writer wins; a photo is one field</td></tr><tr><td><strong>Cell delta</strong></td><td>Calc</td><td>Only changed cells travel, each with a stamp; the whole sheet travels once at hello.</td><td>Per cell, last writer wins</td></tr><tr><td><strong>Encrypted items</strong></td><td>Vault, Net</td><td>Entries are AES-256-GCM blobs before they reach storage or the wire. Peers exchange blobs by id and stamp; only a device that knows the passphrase can read them.</td><td>Per entry, last writer wins on the blob</td></tr><tr><td><strong>Hub</strong></td><td>Form, Pool</td><td>One device hosts; any number of guests connect to its code. Guests put their own records; the host merges and puts the merged whole back, so every guest sees everyone.</td><td>Per field, last writer wins; the host is the relay, not the authority</td></tr><tr><td><strong>Hidden claims</strong></td><td>Gift</td><td>The items pattern, where some fields (who claimed a gift) sync to every device but are never drawn on the device of the person the list is for.</td><td>Per field, last writer wins</td></tr></tbody></table></div>
+
+  <div class="divider"></div>
+  <div class="sec-label" id="s9">Section 09</div>
+  <h2>Roadmap — Four Waves</h2>
+  <p>The 1.0 plan put the Work line first and ran by quarter. The 2.0 plan runs by wave and starts where the readers are: the lines whose desks already have an audience ship first, and each wave is a set of files that can go live one at a time.</p>
+  <div class="roadmap">
+    <div class="phase"><div class="phase-q" style="color:var(--a)">Now — Q4 2026</div><h4>Wave 1 · Inside The Watch</h4><ul><li>Create inside The Watch (#/create) and Create · Home</li><li>Protocol v2 from the shipped Vision</li><li>Hobby line: Practice, Scoresheet, Cutlist, Felt</li><li>Relationships line: Circle, Split, Week, Gift</li><li>Vision, Together / 90 and Date Night folded in as live</li></ul></div>
+    <div class="phase"><div class="phase-q" style="color:var(--t)">Q1 2027</div><h4>Wave 2 · The house</h4><ul><li>Home &amp; Food: Pantry, Cookbook, Fix, Inventory</li><li>Travel: Trip, Points</li><li>Money: Budget, Net (encrypted)</li><li>The inbox handoff between products</li></ul></div>
+    <div class="phase"><div class="phase-q" style="color:var(--b)">Q2 2027</div><h4>Wave 3 · Work</h4><ul><li>Pad, Board, Deck, Vault, Form, Calc, Snap</li><li>Hub sync (Form) and cell-delta sync (Calc)</li><li>Chunked media across the line</li></ul></div>
+    <div class="phase"><div class="phase-q" style="color:var(--green)">Q3 2027</div><h4>Wave 4 · Play and beyond</h4><ul><li>Garage, Rebuild</li><li>Pool, Scorebook</li><li>Train, Streak, Collection, Journal</li><li>Multi-peer rooms, self-hosted signaling</li><li>API bridge pre-design</li></ul></div></div>
+
+  <div class="doc-foot">
+    <p>Scrolls — Create Product Line — SCR-CRT-2026-002 — Portfolio 2.0.0 — Internal Document</p>
+    <p>Supersedes SCR-CRT-2026-001 (March 14, 2026). Built from <code>news/create/catalog.json</code>.</p>
+    <p>© 2026 Scrolls. All rights reserved. All products free forever.</p>
+  </div>
+</div>
+</body>
+</html>

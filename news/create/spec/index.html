@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scrolls — Create · Engineering Build Specification 2.0</title>
+<meta name="description" content="How every Create product is built: the single-file contract, protocol v2 from the shipped Vision, storage, the inbox handoff, the data models and the gate.">
+<link rel="canonical" href="https://bboldt86.github.io/lanscape-navigator/news/create/spec/">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=JetBrains+Mono:wght@400;500&display=swap');
+:root {
+  --bg:#F8F7F4; --surface:#fff; --ink:#1a1a1a; --text2:#777; --text3:#aaa;
+  --border:rgba(0,0,0,.07); --border2:rgba(0,0,0,.12);
+  --a:#C2785C; --a-bg:#FBF3EE; --a-glow:rgba(194,120,92,.1);
+  --b:#5B7FA1; --b-bg:#EEF3F8; --b-glow:rgba(91,127,161,.1);
+  --t:#8B7355; --t-bg:#F5F0E8; --t-glow:rgba(139,115,85,.1);
+  --green:#4a9; --green-bg:rgba(68,170,153,.08);
+  --plum:#7B6A8E; --plum-bg:rgba(123,106,142,.1);
+  --code-bg:#1a1815; --code-fg:#d4c8b0;
+  --r1:8px; --r2:14px; --r3:20px; --r4:28px;
+  --sh1:0 1px 3px rgba(0,0,0,.04); --sh2:0 4px 20px rgba(0,0,0,.07); --sh3:0 12px 40px rgba(0,0,0,.1);
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{font-size:16px;-webkit-font-smoothing:antialiased}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--ink);line-height:1.65}
+a{color:var(--t)}
+.cover{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:3rem 1.5rem;background:linear-gradient(160deg,#1a1815 0%,#252118 50%,#1e1c17 100%);position:relative;overflow:hidden}
+.cover::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 500px 350px at 25% 35%,var(--a-glow) 0%,transparent 70%),radial-gradient(ellipse 500px 350px at 75% 65%,var(--b-glow) 0%,transparent 70%),radial-gradient(ellipse 300px 300px at 50% 50%,var(--t-glow) 0%,transparent 70%);opacity:.6;pointer-events:none}
+.cover-logo{width:72px;height:72px;border-radius:20px;background:linear-gradient(135deg,var(--a),var(--t),var(--b));display:flex;align-items:center;justify-content:center;box-shadow:0 8px 30px rgba(139,115,85,.3);margin-bottom:2rem;position:relative}
+.cover-logo svg{width:40px;height:40px}
+.cover-company{font-size:.65rem;font-weight:700;letter-spacing:.35em;text-transform:uppercase;color:var(--t);margin-bottom:.5rem;position:relative}
+.cover h1{font-family:'Instrument Serif',Georgia,serif;font-size:clamp(2.6rem,6vw,4.5rem);font-weight:400;color:#F8F7F4;letter-spacing:-.03em;line-height:1.05;margin-bottom:.4rem;position:relative}
+.cover-sub{font-size:.88rem;color:#a39a8e;margin-bottom:2.5rem;position:relative;max-width:400px;line-height:1.5}
+.cover-meta{display:flex;gap:2rem;flex-wrap:wrap;justify-content:center;position:relative}
+.cover-meta dt{font-size:.58rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--text3);margin-bottom:.2rem}
+.cover-meta dd{font-family:'Instrument Serif',Georgia,serif;font-size:.95rem;color:#F8F7F4}
+.cover-nav{position:relative;margin-top:2.5rem;display:flex;gap:1.25rem;flex-wrap:wrap;justify-content:center;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase}
+.cover-nav a{color:#c9bca8;text-decoration:none;border-bottom:1px solid rgba(201,188,168,.3);padding-bottom:2px}
+.doc-header{background:var(--ink);padding:2.5rem 1.5rem;text-align:center}
+.doc-header .co{font-size:.6rem;font-weight:700;letter-spacing:.35em;text-transform:uppercase;color:var(--t);margin-bottom:.4rem}
+.doc-header h1{font-family:'Instrument Serif',Georgia,serif;font-size:2.2rem;font-weight:400;color:#F8F7F4;margin-bottom:.3rem;letter-spacing:-.02em}
+.doc-header .sub{font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--text3)}
+.doc-header .meta{display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap;margin-top:1.25rem;font-size:.74rem;color:var(--text3)}
+.doc-header .meta strong{color:var(--t)}
+.page{max-width:880px;margin:0 auto;padding:3rem 1.5rem}
+.divider{width:48px;height:2px;background:var(--t);margin:2.5rem 0}
+.sec-label{font-size:.58rem;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--t);margin-bottom:.5rem}
+h2{font-family:'Instrument Serif',Georgia,serif;font-size:2rem;font-weight:400;letter-spacing:-.02em;margin-bottom:1rem}
+h3{font-size:1rem;font-weight:700;color:var(--t);margin:1.5rem 0 .5rem}
+h4{font-size:.82rem;font-weight:700;color:var(--ink);margin:.85rem 0 .35rem}
+p,li{color:var(--text2);font-size:.9rem;margin-bottom:.6rem}
+ul,ol{padding-left:1.4rem;margin-bottom:.85rem}
+li{margin-bottom:.25rem}
+strong{color:var(--ink);font-weight:600}
+code{font-family:'JetBrains Mono',monospace;font-size:.82em;background:rgba(139,115,85,.08);padding:.1rem .35rem;border-radius:3px}
+pre{background:var(--code-bg);color:var(--code-fg);font-family:'JetBrains Mono',monospace;font-size:.75rem;padding:1.1rem 1.3rem;border-radius:var(--r1);overflow-x:auto;margin:.85rem 0 1.25rem;line-height:1.6;border:1px solid rgba(139,115,85,.12)}
+pre code{background:none;padding:0;font-size:inherit}
+.exec-box{background:var(--t-bg);border-left:3px solid var(--t);padding:1.75rem 2rem;border-radius:0 var(--r2) var(--r2) 0;margin:1.5rem 0 2.5rem}
+.exec-box p{font-family:'Instrument Serif',Georgia,serif;font-size:1.08rem;line-height:1.7;color:var(--ink);margin:0}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:.75rem;margin:1.25rem 0 2rem}
+.stat{background:var(--surface);border:1px solid var(--border);border-radius:var(--r2);padding:1rem 1.1rem}
+.stat b{display:block;font-family:'Instrument Serif',Georgia,serif;font-size:2rem;font-weight:400;line-height:1;color:var(--ink)}
+.stat span{font-size:.62rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--t)}
+.arch-callout{background:var(--ink);border-radius:var(--r3);padding:2.5rem 2rem;margin:2rem 0;position:relative;overflow:hidden}
+.arch-callout::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,rgba(139,115,85,.08),transparent 70%)}
+.arch-callout h3{font-family:'Instrument Serif',Georgia,serif;font-size:1.3rem;font-weight:400;color:#F8F7F4;margin:0 0 1.5rem;text-align:center;position:relative}
+.arch-flow{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:.6rem;position:relative}
+.arch-chip{padding:.5rem 1rem;border-radius:var(--r1);font-size:.7rem;font-weight:600;letter-spacing:.04em;background:rgba(248,247,244,.06);border:1px solid rgba(139,115,85,.25);color:rgba(248,247,244,.7)}
+.arch-chip.peer{background:rgba(139,115,85,.15);border-color:var(--t);color:#d6b25e;padding:.65rem 1.5rem;font-size:.8rem}
+.arch-chip.server{background:rgba(91,127,161,.12);border-color:var(--b);color:#9fb7d0}
+.arch-chip.live{border-color:var(--green);color:#8fd4c4}
+.arch-chip.future{border-style:dashed;opacity:.45}
+.arch-arrow{color:var(--t);font-size:1.1rem;opacity:.4}
+.line-head{display:flex;align-items:center;gap:1rem;margin:2.75rem 0 .5rem}
+.line-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.25rem;flex-shrink:0;color:#fff}
+.line-head h3{margin:0;font-family:'Instrument Serif',Georgia,serif;font-size:1.6rem;font-weight:400;color:var(--ink)}
+.line-head .n{font-size:.62rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--text3);margin-left:auto;white-space:nowrap}
+.line-dek{font-style:italic;color:var(--text2);margin-bottom:.5rem}
+.product-grid{display:grid;gap:1.25rem;margin:1.25rem 0 .5rem}
+.product-card{background:var(--surface);border-radius:var(--r3);padding:1.75rem;border:1px solid var(--border);position:relative;overflow:hidden;transition:all .3s var(--ease)}
+.product-card:hover{box-shadow:var(--sh2);transform:translateY(-2px)}
+.product-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--pc)}
+.p-head{display:flex;align-items:flex-start;gap:1rem;margin-bottom:1rem}
+.p-icon{width:46px;height:46px;border-radius:12px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.2rem;background:var(--pbg);color:var(--pc)}
+.p-line{font-size:.5rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--text3)}
+.p-name{font-family:'Instrument Serif',Georgia,serif;font-size:1.45rem;font-weight:400;letter-spacing:-.01em;line-height:1.2}
+.p-tag{font-size:.8rem;color:var(--text3);font-style:italic;margin-top:.1rem}
+.p-badges{display:flex;gap:.35rem;flex-wrap:wrap;margin-top:.4rem}
+.p-free,.p-st{display:inline-block;font-size:.55rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:.15rem .5rem;border-radius:4px}
+.p-free{background:var(--green-bg);color:var(--green)}
+.p-st.live{background:var(--green-bg);color:var(--green)}.p-st.building{background:var(--a-bg);color:var(--a)}.p-st.planned{background:rgba(0,0,0,.04);color:var(--text2)}
+.p-desc{font-size:.88rem;color:var(--text2);margin-bottom:1.1rem;line-height:1.65}
+.spec-cols{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
+@media (max-width:600px){.spec-cols{grid-template-columns:1fr}}
+.spec-col h4{font-size:.55rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--t);margin:0 0 .35rem;padding-bottom:.25rem;border-bottom:1px solid rgba(139,115,85,.15)}
+.spec-col ul{list-style:none;padding:0;margin:0}
+.spec-col li{font-size:.78rem;color:var(--text2);padding:.15rem 0 .15rem .85rem;position:relative;margin:0}
+.spec-col li::before{content:'›';position:absolute;left:0;color:var(--t);font-weight:700}
+.tech-row{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:1rem;padding-top:.75rem;border-top:1px solid var(--border);align-items:center}
+.tech-badge{font-family:'JetBrains Mono',monospace;font-size:.6rem;font-weight:500;padding:.2rem .55rem;border-radius:4px;background:rgba(0,0,0,.03);color:var(--text2);border:1px solid var(--border)}
+.tech-row .open{margin-left:auto;font-size:.72rem;font-weight:600;color:var(--t);text-decoration:none}
+.tech-row .open:hover{text-decoration:underline}
+.dtable,table{width:100%;border-collapse:collapse;margin:1.25rem 0;font-size:.82rem}
+thead th{font-size:.55rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--t);padding:.55rem .75rem;text-align:left;border-bottom:2px solid var(--t)}
+tbody td{padding:.5rem .75rem;border-bottom:1px solid var(--border);color:var(--text2);vertical-align:top}
+tbody tr:hover{background:rgba(139,115,85,.03)}
+.mono{font-family:'JetBrains Mono',monospace;font-size:.74rem}
+.tw{overflow-x:auto}
+.callout{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--t);border-radius:0 var(--r1) var(--r1) 0;padding:1.25rem 1.5rem;margin:.85rem 0 1.25rem}
+.callout.warn{border-left-color:#c25555;background:#fffaf8}
+.callout.info{border-left-color:var(--b);background:#f8fafc}
+.callout h4{margin-top:0;color:var(--ink)}
+.callout ul{margin-bottom:0}
+.toc{background:var(--t-bg);border-radius:var(--r2);padding:1.5rem;margin:1.25rem 0 2rem}
+.toc h3{margin-top:0;color:var(--ink);font-size:.95rem}
+.toc ol{padding-left:1.1rem;columns:2;column-gap:2rem}
+@media (max-width:600px){.toc ol{columns:1}}
+.toc li{font-size:.82rem;color:var(--text2);padding:.1rem 0}
+.toc a{color:var(--t);text-decoration:none}.toc a:hover{text-decoration:underline}
+.roadmap{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:1.25rem;margin:1.5rem 0}
+.phase{background:var(--surface);border-radius:var(--r2);padding:1.5rem;border:1px solid var(--border)}
+.phase-q{font-size:.55rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;margin-bottom:.2rem}
+.phase h4{font-family:'Instrument Serif',Georgia,serif;font-size:1.05rem;font-weight:400;margin:0 0 .6rem}
+.phase ul{list-style:none;padding:0}
+.phase li{font-size:.76rem;color:var(--text2);padding:.2rem 0 .2rem .75rem;position:relative}
+.phase li::before{content:'○';position:absolute;left:0;font-size:.42rem;top:.35rem;color:var(--t)}
+.principles{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:1rem;margin:1.25rem 0}
+.principle{background:var(--surface);border:1px solid var(--border);border-radius:var(--r2);padding:1.25rem}
+.principle b{display:block;font-family:'Instrument Serif',Georgia,serif;font-size:1.2rem;font-weight:400;margin-bottom:.3rem;color:var(--ink)}
+.principle p{font-size:.8rem;margin:0}
+.doc-foot{text-align:center;padding:2.5rem 1.5rem;border-top:1px solid var(--border);margin-top:2.5rem}
+.doc-foot p{font-size:.7rem;color:var(--text3);margin:.2rem 0}
+@media print{.cover{min-height:auto;padding:2rem}.product-card{break-inside:avoid}}
+</style>
+</head>
+<body>
+<header class="doc-header">
+  <p class="co">Scrolls</p>
+  <h1>Create — Engineering Build Spec</h1>
+  <p class="sub">Full Technical Reference · Protocol v2 · Based on Vision Rev 2 (shipped)</p>
+  <div class="meta">
+    <span><strong>Doc ID:</strong> SCR-CRT-ENG-2026-002</span>
+    <span><strong>Version:</strong> 2.0.0</span>
+    <span><strong>Date:</strong> October 26, 2026</span>
+    <span><strong>Ref build:</strong> vision/index.html</span>
+    <span><strong>Status:</strong> Approved for build · Wave 1 in build</span>
+  </div>
+  <div class="meta" style="margin-top:.75rem"><a href="../portfolio/" style="color:#d6b25e">Portfolio</a><a href="../" style="color:#d6b25e">Create · Home</a><a href="../../#/create" style="color:#d6b25e">On The Watch</a></div>
+</header>
+<div class="page">
+
+<nav class="toc"><h3>Table of Contents</h3><ol><li><a href="#s1">Reference Architecture (Vision Rev 2)</a></li><li><a href="#s2">Single File Contract</a></li><li><a href="#s3">P2P Layer — Protocol v2</a></li><li><a href="#s4">Persistence — State, Stamps, Storage</a></li><li><a href="#s5">The Inbox Handoff</a></li><li><a href="#s6">Pictures — Resize and Chunking</a></li><li><a href="#s7">Sync Patterns &amp; Merge</a></li><li><a href="#s8">Hub Pattern (Form, Pool, Gift, Trip)</a></li><li><a href="#s9">Encryption Standard (Vault, Net)</a></li><li><a href="#s10">Hidden Claims (Gift)</a></li><li><a href="#s11">Per-Product Data Models</a></li><li><a href="#s12">Create · Home and The Watch Hub</a></li><li><a href="#s13">Testing &amp; QA</a></li><li><a href="#s14">Performance Budgets &amp; Browser Matrix</a></li><li><a href="#s15">API Bridge — Future Layer</a></li><li><a href="#s16">Changes from 1.0</a></li></ol></nav>
+
+<div class="divider"></div>
+<div class="sec-label" id="s1">Section 01</div>
+<h2>Reference Architecture (Vision Rev 2)</h2>
+<p>Every Create product is built on the pattern that shipped in <code>vision/index.html</code>. The 1.0 spec described Vision as designed; this one describes Vision as built, which is stricter and better. Engineers replicate exactly this.</p>
+<h3>1.1 — The pattern</h3>
+<ol>
+  <li><strong>One HTML file.</strong> Markup, CSS and JS in one file. External: PeerJS (jsDelivr), optionally qrcode-generator, Google Fonts. No build step, no bundler, no framework.</li>
+  <li><strong>A stable device code.</strong> On first run the browser gives itself a six-letter code from the alphabet <code>ABCDEFGHJKMNPQRSTUVWXYZ23456789</code>; it is the PeerJS id (<code>create-&lt;prefix&gt;-&lt;code&gt;</code>) and never changes, so two devices that have met reconnect by themselves.</li>
+  <li><strong>Two people, A and B.</strong> <code>S.me</code> is <code>'a'</code> or <code>'b'</code>; names live in <code>S.names</code>. If both devices think they are A, the one that joined moves to B. Multi-person products add a <code>people</code> map and the hub pattern.</li>
+  <li><strong>Per-field last-writer-wins.</strong> Every synced record carries <code>_t</code>, a stamp per field. Merge takes the newer stamp field by field; a record never replaces another whole.</li>
+  <li><strong>hello, then put.</strong> The first message on a connection carries the whole state; after that only changed items travel. Product-level fields (names, settings) travel as <code>meta</code>.</li>
+  <li><strong>Let a new device in.</strong> A <code>hello</code> from a device the product has not paired with is held until the user accepts it. After that the device is remembered as the partner.</li>
+  <li><strong>Soft deletes.</strong> <code>del: true</code> is a field like any other; nothing is ever removed from <code>items</code>.</li>
+  <li><strong>localStorage, one key.</strong> <code>create.&lt;id&gt;.v1</code>, written debounced, with a full-storage toast rather than a crash. Other pages leave work in <code>create.&lt;id&gt;.inbox</code>.</li>
+  <li><strong>Backup without a server.</strong> A JSON file; a deflate-raw link when the state is small; product exports (CSV, .ics, printable pages).</li>
+  <li><strong>Offline first.</strong> With no PeerJS and no network the product does everything but sync, and says so in one line.</li>
+</ol>
+<h3>1.2 — What this means for engineering</h3>
+<p>Do not over-architect. The code structure, naming and sync logic should be recognizable to anyone who has read Vision. The build brief that engineers (and the agents that build Wave 1) follow is <code>news/create/apps/BUILDING.md</code>; it is the normative short form of sections 2–5 below, with the test hooks the harness drives.</p>
+
+<div class="divider"></div>
+<div class="sec-label" id="s2">Section 02</div>
+<h2>Single File Contract</h2>
+<h3>2.1 — Canonical template</h3>
+<pre><code>&lt;!doctype html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+&lt;meta charset="utf-8"&gt;
+&lt;meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"&gt;
+&lt;title&gt;Create · [Name]&lt;/title&gt;
+&lt;meta name="description" content="…"&gt;
+&lt;link rel="canonical" href="https://bboldt86.github.io/lanscape-navigator/news/create/apps/[id]/"&gt;
+&lt;meta name="theme-color" content="#F8F7F4" media="(prefers-color-scheme: light)"&gt;
+&lt;meta name="theme-color" content="#191613" media="(prefers-color-scheme: dark)"&gt;
+&lt;link href="https://fonts.googleapis.com/css2?family=DM+Sans:…&amp;family=Instrument+Serif:ital@0;1&amp;display=swap" rel="stylesheet"&gt;
+&lt;style&gt; /* Vision's tokens, light and dark; then the product */ &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;header&gt; name · Create wordmark · presence dot · Share · menu &lt;/header&gt;
+  &lt;main id="app"&gt;&lt;/main&gt;
+  &lt;aside class="sheet" role="dialog"&gt;&lt;/aside&gt;   &lt;!-- share / pair, settings, backup --&gt;
+  &lt;div id="toast"&gt;&lt;/div&gt;
+&lt;script src="https://cdn.jsdelivr.net/npm/peerjs@1.5.4/dist/peerjs.min.js" defer&gt;&lt;/script&gt;
+&lt;script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js" defer&gt;&lt;/script&gt;
+&lt;script&gt;
+(() =&gt; {
+'use strict';
+const KEY = 'create.[id].v1', INBOX = 'create.[id].inbox', THEME = 'create.theme';
+// ── helpers: LS, code6, uid, stamp, seeStamp, esc, fmt
+// ── state: S, blankState(), load(), save(), setF(), create(), live(), mergeItem(), mergeMeta()
+// ── sync: PID, peerOpts, startPeer, dial, wire, hello, broadcast, onMsg, acceptHello, askAccept, swapSlots
+// ── inbox: drainInbox() on load and on 'storage'
+// ── ui: render(), sheets (pair, settings, backup), toast, keyboard
+// ── backup: exportJSON, importJSON, packLink, unpackLink, product exports
+// ── boot
+window.__create = { id, setup, code, pair, net, add, count, state, export };  // test hooks
+})();
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<h3>2.2 — Product ids, files, keys and prefixes</h3>
+<div class="tw"><table><thead><tr><th>Product</th><th>File</th><th>localStorage key</th><th>Peer id prefix</th><th>Sync</th><th>Status</th></tr></thead><tbody><tr><td>Create · Home</td><td class="mono">index.html</td><td class="mono">—</td><td class="mono">—</td><td class="mono">—</td><td>Live</td></tr><tr><td>Create · Pad</td><td class="mono">create-pad.html</td><td class="mono">create.pad.v1</td><td class="mono">create-pad-</td><td class="mono">Items (LWW)</td><td>Specified</td></tr><tr><td>Create · Board</td><td class="mono">create-board.html</td><td class="mono">create.board.v1</td><td class="mono">create-brd-</td><td class="mono">Items (LWW)</td><td>Specified</td></tr><tr><td>Create · Deck</td><td class="mono">create-deck.html</td><td class="mono">create.deck.v1</td><td class="mono">create-dck-</td><td class="mono">Chunked items</td><td>Specified</td></tr><tr><td>Create · Vault</td><td class="mono">create-vault.html</td><td class="mono">create.vault.v1</td><td class="mono">create-vlt-</td><td class="mono">Encrypted items</td><td>Specified</td></tr><tr><td>Create · Form</td><td class="mono">create-form.html</td><td class="mono">create.form.v1</td><td class="mono">create-frm-</td><td class="mono">Hub</td><td>Specified</td></tr><tr><td>Create · Calc</td><td class="mono">create-calc.html</td><td class="mono">create.calc.v1</td><td class="mono">create-clc-</td><td class="mono">Cell delta</td><td>Specified</td></tr><tr><td>Create · Snap</td><td class="mono">create-snap.html</td><td class="mono">create.snap.v1</td><td class="mono">create-snp-</td><td class="mono">Chunked items</td><td>Specified</td></tr><tr><td>Create · Practice</td><td class="mono">create-practice.html</td><td class="mono">create.practice.v1</td><td class="mono">create-prc-</td><td class="mono">Items (LWW)</td><td>Specified</td></tr><tr><td>Create · Scoresheet</td><td class="mono">create-scoresheet.html</td><td class="mono">create.scoresheet.v1</td><td class="mono">create-tst-</td><td class="mono">Items (LWW)</td><td>Specified</td></tr><tr><td>Create · Cutlist</td><td class="mono">create-cutlist.html</td><td class="mono">create.cutlist.v1</td><td class="mono">create-cut-</td><td class="mono">Items (LWW)</td><td>Specified</td></tr><tr><td>Create · Felt</td><td class="mono">create-felt.html</td><td class="mono">create.felt.v1</td><td class="mono">create-flt-</td><td class="mono">Items (LWW)</td><td>Specified</td></tr><tr><td>Create · Collection</td><td class="mono">create-collection.html</td><td class="mono">create.collection.v1</td><td class="mono">create-col-</td><td class="mono">Chunked items</td><td>Specified</td></tr><tr><td>Vision</td><td class="mono">vision/index.html</td><td class="mono">vision.v1</td><td class="mono">lanscape-vision-</td><td class="mono">Items (LWW)</td><td>Live</td></tr><tr><td>Together / 90</td><td class="mono">news/lifestyle/together-90/index.html</td><td class="mono">together90.v1</td><td class="mono">—</td><td class="mono">—</td><td>Live</td></tr><tr><td>Date Night</td><td class="mono">news/lifestyle/date-night/index.html</td><td class="mono">datenight.v1</td><td class="mono">—</td><td class="mono">—</td><td>Live</td></tr><tr><td>Create · Circle</td><td class="mono">create-circle.html</td><td class="mono">create.circle.v1</td><td class="mono">create-cir-</td><td class="mono">Items (LWW)</td><td>Specified</td></tr><tr><td>Create · Split</td><td class="mono">create-split.html</td><td class="mono">create.split.v1</td><td class="mono">create-spl-</td><td class="mono">Items (LWW)</td><td>Specified</td></tr><tr><td>Create · Week</td><td class="mono">create-week.html</td><td class="mono">create.week.v1</td><td class="mono">create-wk-</td><td class="mono">Items (LWW)</td><td>Specified</td></tr><tr><td>Create · Gift</td><td class="mono">create-gift.html</td><td class="mono">create.gift.v1</td><td class="mono">create-gft-</td><td class="mono">Hidden claims</td><td>Specified</td></tr><tr><td>Create · Journal</td><td class="mono">create-journal.html</td><td class="mono">create.journal.v1</td><td class="mono">create-jnl-</td><td class="mono">Chunked items</td><td>Specified</td></tr><tr><td>Create · Pantry</td><td class="mono">create-pantry.html</td><td class="mono">create.pantry.v1</td><td class="mono">create-pan-</td><td class="mono">Items (LWW)</td><td>Specified</td></tr><tr><td>Create · Cookbook</td><td class="mono">create-cookbook.html</td><td class="mono">create.cookbook.v1</td><td class="mono">create-ckb-</td><td class="mono">Chunked items</td><td>Specified</td></tr><tr><td>Create · Fix</td><td class="mono">create-fix.html</td><td class="mono">create.fix.v1</td><td class="mono">create-fix-</td><td class="mono">Chunked items</td><td>Specified</td></tr><tr><td>Create · Inventory</td><td class="mono">create-inventory.html</td><td class="mono">create.inventory.v1</td><td class="mono">create-inv-</td><td class="mono">Chunked items</td><td>Specified</td></tr><tr><td>Create · Trip</td><td class="mono">create-trip.html</td><td class="mono">create.trip.v1</td><td class="mono">create-trp-</td><td class="mono">Chunked items</td><td>Specified</td></tr><tr><td>Create · Points</td><td class="mono">create-points.html</td><td class="mono">create.points.v1</td><td class="mono">create-pts-</td><td class="mono">Items (LWW)</td><td>Specified</td></tr><tr><td>Create · Budget</td><td class="mono">create-budget.html</td><td class="mono">create.budget.v1</td><td class="mono">create-bdg-</td><td class="mono">Items (LWW)</td><td>Specified</td></tr><tr><td>Create · Net</td><td class="mono">create-net.html</td><td class="mono">create.net.v1</td><td class="mono">create-net-</td><td class="mono">Encrypted items</td><td>Specified</td></tr><tr><td>Create · Garage</td><td class="mono">create-garage.html</td><td class="mono">create.garage.v1</td><td class="mono">create-gar-</td><td class="mono">Chunked items</td><td>Specified</td></tr><tr><td>Create · Rebuild</td><td class="mono">create-rebuild.html</td><td class="mono">create.rebuild.v1</td><td class="mono">create-bld-</td><td class="mono">Chunked items</td><td>Specified</td></tr><tr><td>Create · Pool</td><td class="mono">create-pool.html</td><td class="mono">create.pool.v1</td><td class="mono">create-pol-</td><td class="mono">Hub</td><td>Specified</td></tr><tr><td>Create · Scorebook</td><td class="mono">create-scorebook.html</td><td class="mono">create.scorebook.v1</td><td class="mono">create-scb-</td><td class="mono">Items (LWW)</td><td>Specified</td></tr><tr><td>Create · Train</td><td class="mono">create-train.html</td><td class="mono">create.train.v1</td><td class="mono">create-trn-</td><td class="mono">Items (LWW)</td><td>Specified</td></tr><tr><td>Create · Streak</td><td class="mono">create-streak.html</td><td class="mono">create.streak.v1</td><td class="mono">create-stk-</td><td class="mono">Items (LWW)</td><td>Specified</td></tr></tbody></table></div>
+<p>Hosted path: <code>news/create/apps/&lt;id&gt;/index.html</code>, served at <code>https://bboldt86.github.io/lanscape-navigator/news/create/apps/&lt;id&gt;/</code>. The download link on Create · Home names the file <code>create-&lt;id&gt;.html</code>. Vision, Together / 90 and Date Night keep the paths and keys they shipped with.</p>
+<div class="callout"><h4>Pre-ship gate — every Create product must pass</h4><ul><li>☐ Single .html file — the only external scripts are PeerJS (and qrcode-generator) from a CDN, and Google Fonts</li><li>☐ Opens from file:// (double-click) and from the hosted page</li><li>☐ Works fully offline; PeerJS failing to load degrades to solo mode with a visible note</li><li>☐ All data under one localStorage key (create.&lt;id&gt;.v1); inbox under create.&lt;id&gt;.inbox</li><li>☐ Backup and restore: JSON file export and import; a link when the state is small enough</li><li>☐ Pair by six-letter code: dial, hello, merge, put; a device not seen before must be let in</li><li>☐ Share code copy-to-clipboard and QR</li><li>☐ No console errors in Chrome, Firefox, Safari, Edge</li><li>☐ Touch-usable on a phone; 44 px targets; safe-area insets</li><li>☐ Under its gzipped size budget</li></ul></div>
+
+<div class="divider"></div>
+<div class="sec-label" id="s3">Section 03</div>
+<h2>P2P Layer — Protocol v2</h2>
+<p>This is Vision's wire protocol, generalized. Products change only the prefix, the shape of <code>hello</code>'s product fields, and (for hub products) how many connections they keep.</p>
+<h3>3.1 — Identity and the signaling server</h3>
+<pre><code>const ALPH = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789';
+const code6 = () =&gt; { const a = new Uint32Array(6); crypto.getRandomValues(a); return [...a].map(x =&gt; ALPH[x % ALPH.length]).join(''); };
+const PID = c =&gt; 'create-prc-' + String(c).toLowerCase();          // Practice; each product has its own prefix
+
+function peerOpts() {                                               // ?peer=127.0.0.1:9000 → a self-hosted PeerJS server (tests, intranets)
+  const q = new URLSearchParams(location.search).get('peer');
+  if (q) { const [h, p] = q.split(':'); return { host: h, port: +p || 9000, path: '/', secure: location.protocol === 'https:', debug: 0 }; }
+  return { debug: 0 };
+}</code></pre>
+<h3>3.2 — Start, dial, wire</h3>
+<pre><code>let peer = null, net = 'idle', netMsg = '';
+const conns = new Set(), openConns = () =&gt; [...conns].filter(c =&gt; c.open);
+
+function startPeer() {
+  if (!S || peer) return;
+  if (!window.Peer) { setNet('nolib', 'The sync library didn’t load. Everything else works; you can still back up as a file.'); return; }
+  setNet('starting');
+  try { peer = new Peer(PID(S.dev), peerOpts()); } catch (e) { peer = null; setNet('error', 'Sync couldn’t start in this browser.'); return; }
+  peer.on('open', () =&gt; { setNet(S.partner || S.pending ? 'dialing' : 'ready'); if (S.partner) dial(S.partner.code, true); if (S.pending) dial(S.pending); });
+  peer.on('connection', c =&gt; wire(c, false));
+  peer.on('disconnected', () =&gt; { if (!openConns().length) setNet('offline', 'Lost the matchmaking server. Trying again…');
+    setTimeout(() =&gt; { if (peer &amp;&amp; !peer.destroyed &amp;&amp; peer.disconnected) try { peer.reconnect(); } catch (e) {} }, 4000); });
+  peer.on('close', () =&gt; { peer = null; });
+  peer.on('error', e =&gt; { if (e.type === 'peer-unavailable') { netMsg = 'Your partner’s device isn’t open right now.'; setNet(S.partner ? 'away' : 'ready'); }
+                           else if (e.type === 'unavailable-id') { /* this code is open in another tab */ } else setNet('error', 'Sync hit a problem: ' + e.type); });
+}
+function dial(code, auto) {
+  if (!peer || peer.destroyed || peer.disconnected || code === S.dev) return;
+  if (openConns().some(c =&gt; c.peer === PID(code))) return;
+  if (!auto) setNet('dialing');
+  wire(peer.connect(PID(code), { reliable: true, metadata: { v: 1 } }), true, code);
+}
+function wire(c, outgoing, code) {
+  conns.add(c); c._hello = false; c._sent = false;
+  c.on('open', () =&gt; { if (outgoing) { c._sent = true; send(c, hello()); } paint(); });   // the dialer speaks first
+  c.on('data', d =&gt; { try { onMsg(c, d, outgoing, code); } catch (e) { console.warn('bad message', e); } });
+  c.on('close', () =&gt; { conns.delete(c); if (!openConns().length) setNet(S.partner ? 'away' : 'ready'); paint(); });
+  c.on('error', () =&gt; { conns.delete(c); paint(); });
+}
+const send = (c, m) =&gt; { try { if (c.open) c.send(m); } catch (e) {} };</code></pre>
+<h3>3.3 — Messages</h3>
+<pre><code>// hello: the whole state, once per connection, from the dialer first
+{ t:'hello', v:1, dev:S.dev, me:S.me, joined:!!S.joined, name: myName(), names:S.names, meta: productMeta(), items:S.items }
+// put: the items that changed (the whole item, with its _t)
+{ t:'put', items:[ { id, …, del, _t:{…} } ] }
+// meta: product-level fields with their own stamps (names, settings, a board title)
+{ t:'meta', names:S.names, _t:S._t }
+// chunk: a large message in pieces (products on the chunked pattern)
+{ t:'chunk', id, i, n, data }</code></pre>
+<pre><code>function onMsg(c, d, outgoing, code) {
+  if (!d || typeof d !== 'object') return;
+  if (d.t === 'hello') {
+    if (d.dev === S.dev) return;                                         // my own other tab
+    const known = S.partner &amp;&amp; S.partner.code === d.dev;
+    if (!known &amp;&amp; S.partner &amp;&amp; !outgoing &amp;&amp; !c._ok) { pendingAsk = { c, d }; askAccept(d); return; }   // a device we haven't seen
+    acceptHello(c, d, outgoing); return;
+  }
+  if (!c._hello) return;                                                 // nothing counts before hello
+  if (d.t === 'put' &amp;&amp; Array.isArray(d.items)) { const ch = d.items.filter(mergeItem); if (ch.length) { save(); render(true); relay(c, ch); } }
+  else if (d.t === 'meta') { if (mergeMeta(d)) { save(); render(true); } }
+  else if (d.t === 'chunk') { const whole = chunkIn(d); if (whole) onMsg(c, whole, outgoing, code); }
+}
+function acceptHello(c, d, outgoing) {
+  c._ok = true;
+  let wait = false, swapped = false;
+  if (d.me === S.me) { const yieldMe = S.joined &amp;&amp; !d.joined ? true : !S.joined &amp;&amp; d.joined ? false : S.dev &gt; d.dev; if (yieldMe) { swapSlots(); swapped = true; } else wait = true; }
+  S.partner = { code: d.dev, at: Date.now() }; S.pending = null;
+  if (!wait) { mergeMeta(d); for (const it of Object.values(d.items || {})) mergeItem(it); S.joined = false; }
+  save(true); c._hello = true;
+  if (!c._sent || swapped) { c._sent = true; send(c, hello()); }
+  setNet('on'); render(true);
+}
+function broadcast(items) { if (!items.length) return; const m = { t:'put', items: items.map(it =&gt; S.items[it.id] || it) }; for (const c of openConns()) if (c._hello) send(c, m); }</code></pre>
+<h3>3.4 — Presence states</h3>
+<table><thead><tr><th>State</th><th>Meaning</th><th>Dot</th></tr></thead><tbody>
+<tr><td class="mono">idle</td><td>No PeerJS yet (first run)</td><td>grey</td></tr><tr><td class="mono">starting</td><td>Registering with the signaling server</td><td>grey, pulsing</td></tr>
+<tr><td class="mono">ready</td><td>Listening; no partner yet</td><td>hollow</td></tr><tr><td class="mono">dialing</td><td>Connecting to a code</td><td>amber, pulsing</td></tr>
+<tr><td class="mono">on</td><td>hello exchanged; syncing</td><td>green</td></tr><tr><td class="mono">away</td><td>Partner known, not open now</td><td>hollow amber</td></tr>
+<tr><td class="mono">offline</td><td>Lost the signaling server; retrying</td><td>red hollow</td></tr><tr><td class="mono">nolib / error</td><td>PeerJS missing or failed; solo</td><td>red</td></tr>
+</tbody></table>
+<div class="callout info"><h4>PeerJS signaling</h4><p>PeerJS Cloud brokers the WebRTC handshake and nothing more. Once connected, data flows browser to browser; if the server goes away, open connections continue and the product retries registration every four seconds. <code>?peer=host:port</code> points a product at a self-hosted server (the test harness runs one on 127.0.0.1:9000).</p></div>
+
+<div class="divider"></div>
+<div class="sec-label" id="s4">Section 04</div>
+<h2>Persistence — State, Stamps, Storage</h2>
+<h3>4.1 — The state object</h3>
+<pre><code>const KEY = 'create.practice.v1';
+let S = null;
+function blankState(me) {
+  return { v:1, dev: code6(), me, joined:false, partner:null, pending:null, names:{ a:'', b:'' }, _t:{},
+           /* product fields, e.g. */ pursuits:{}, items:{}, created: Date.now() };
+}
+const LS = { get(k, d) { try { const v = localStorage.getItem(k); return v == null ? d : JSON.parse(v); } catch (e) { return d; } },
+             set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); return true; } catch (e) { return false; } } };
+let saveT = 0, saveWarned = false;
+function save(now) {
+  clearTimeout(saveT);
+  const go = () =&gt; { if (S &amp;&amp; !LS.set(KEY, S) &amp;&amp; !saveWarned) { saveWarned = true; toast('This browser’s storage is full. Remove a photo or two so it can save.'); } };
+  if (now) go(); else saveT = setTimeout(go, 120);
+}
+function load() { const s = LS.get(KEY, null); if (!s || s.v !== 1) return migrate(s); S = Object.assign(blankState('a'), s); return true; }</code></pre>
+<h3>4.2 — Stamps and merge</h3>
+<pre><code>let lastStamp = 0; const SALT = Math.floor(Math.random() * 90) + 10;
+function stamp() { const t = Math.max(Date.now(), Math.floor(lastStamp / 100) + 1); lastStamp = t * 100 + SALT; return lastStamp; }
+const seeStamp = n =&gt; { if (n &gt; lastStamp) lastStamp = n; };             // never issue a stamp below one we've seen
+
+function setF(it, f) { const t = stamp(); for (const k of Object.keys(f)) { it[k] = f[k]; it._t[k] = t; } return it; }
+function create(id, f) { const it = { id, _t:{} }; setF(it, f); S.items[id] = it; return it; }
+const live = () =&gt; Object.values(S.items).filter(it =&gt; !it.del);
+
+function mergeItem(r) {
+  if (!r || !r.id) return false;
+  for (const v of Object.values(r._t || {})) seeStamp(v);
+  const L = S.items[r.id];
+  if (!L) { S.items[r.id] = JSON.parse(JSON.stringify(r)); return true; }
+  let ch = false;
+  for (const k of Object.keys(r._t || {})) if ((r._t[k] || 0) &gt; (L._t[k] || 0)) { L[k] = r[k]; L._t[k] = r._t[k]; ch = true; }
+  return ch;
+}</code></pre>
+<h3>4.3 — localStorage limits</h3>
+<table><thead><tr><th>Constraint</th><th>Value</th><th>Impact</th></tr></thead><tbody>
+<tr><td>Total quota</td><td class="mono">5–10 MB per origin</td><td>Chrome ~5 MB, Firefox ~10 MB. On GitHub Pages every Create product shares one origin with The Watch, Weekender, Finds and Vision.</td></tr>
+<tr><td>Per key</td><td class="mono">~5 MB</td><td>One key per product fits; photos are what fill it.</td></tr>
+<tr><td>Synchronous</td><td>—</td><td>Writes are debounced 120 ms; large states should keep photos small (resize to 1024 px, 2 MB cap).</td></tr>
+<tr><td>file://</td><td>per file or shared</td><td>Browser-dependent; a product opened from disk has its own storage from the hosted one — the backup file moves between them.</td></tr>
+</tbody></table>
+<div class="callout warn"><h4>Picture-heavy products</h4><p>Deck, Snap, Collection, Journal, Inventory, Trip, Garage, Rebuild, Cookbook and Fix carry data URIs. Resize on import (longest side 1024 px, JPEG 0.82 for photos), cap at 2 MB, and warn at 60% of a 5 MB budget. IndexedDB overflow for blobs is a Wave 3 option; localStorage stays primary.</p></div>
+<h3>4.4 — Ids</h3>
+<pre><code>const uid = () =&gt; Date.now().toString(36) + Math.random().toString(36).slice(2, 7);   // 'mh2k1x5q9ab'
+// ids are opaque; the kind of a record is a field (kind:'session'), not a prefix</code></pre>
+<h3>4.5 — Backup</h3>
+<pre><code>function exportJSON() {
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([JSON.stringify(S, null, 2)], { type: 'application/json' }));
+  a.download = 'create-practice-backup.json'; document.body.append(a); a.click();
+  setTimeout(() =&gt; { URL.revokeObjectURL(a.href); a.remove(); }, 500);
+}
+function importJSON(text, replace) {                       // merge by default; Replace only on request
+  const r = JSON.parse(text); if (!r || r.v !== 1) throw new Error('not a backup');
+  if (replace) { S = Object.assign(blankState(S.me), r, { dev: S.dev }); }
+  else { mergeMeta(r); for (const it of Object.values(r.items || {})) mergeItem(it); }
+  save(true); render(); broadcast(live());
+}
+async function packLink() {                                 // #b=z… when deflated JSON is under ~6 KB
+  const json = JSON.stringify(S);
+  const s = new Blob([json]).stream().pipeThrough(new CompressionStream('deflate-raw'));
+  return location.href.split('#')[0] + '#b=z' + b64u(await new Response(s).arrayBuffer());
+}</code></pre>
+
+<div class="divider"></div>
+<div class="sec-label" id="s5">Section 05</div>
+<h2>The Inbox Handoff</h2>
+<p>Products never call each other. A page that has something for a product appends an entry to that product's inbox array in localStorage; the product drains it the next time it is open (and immediately, if it is open in another tab, through the <code>storage</code> event). This is how The Watch, Weekender and Finds pin to Vision today.</p>
+<table><thead><tr><th>From</th><th>To</th><th>Key</th><th>Entry</th></tr></thead><tbody>
+<tr><td>The Watch, Weekender, Finds</td><td>Vision</td><td class="mono">vision.inbox</td><td class="mono">{ key, title, url, img, lane, at } or { key, unpin:true }</td></tr>
+<tr><td>Circle</td><td>Gift</td><td class="mono">create.gift.inbox</td><td class="mono">{ kind:'idea', person, text, from:'circle', at }</td></tr>
+<tr><td>Cookbook, the Food desk</td><td>Pantry</td><td class="mono">create.pantry.inbox</td><td class="mono">{ name, qty, unit, aisle, from, at }</td></tr>
+<tr><td>Trip</td><td>Split</td><td class="mono">create.split.inbox</td><td class="mono">{ kind:'expense', title, cents, paidBy, category, on, from:'trip', at }</td></tr>
+<tr><td>Date Night, Weekender, The Watch</td><td>Week</td><td class="mono">create.week.inbox</td><td class="mono">{ title, start, end, allDay, who, place, note, src, url, at }</td></tr>
+<tr><td>Weekender, The Watch</td><td>Trip</td><td class="mono">create.trip.inbox</td><td class="mono">{ kind:'leg', on, type, title, start, end, place, url, at }</td></tr>
+<tr><td>The Sports desk</td><td>Pool</td><td class="mono">create.pool.inbox</td><td class="mono">{ kind:'game', week, away, home, kickoff, at }</td></tr>
+</tbody></table>
+<pre><code>function drainInbox(quiet) {
+  const q = LS.get(INBOX, []); if (!Array.isArray(q) || !q.length) return [];
+  LS.set(INBOX, []);
+  const made = q.map(fromInbox).filter(Boolean);       // fromInbox turns an entry into an item (or null)
+  if (made.length) { save(true); broadcast(made); if (!quiet) toast(made.length === 1 ? `Added: ${made[0].title}` : `${made.length} new from your browsing`); }
+  return made;
+}
+window.addEventListener('storage', e =&gt; { if (e.key === INBOX &amp;&amp; drainInbox().length) render(true); });</code></pre>
+
+<div class="divider"></div>
+<div class="sec-label" id="s6">Section 06</div>
+<h2>Pictures — Resize and Chunking</h2>
+<pre><code>function readPicture(file, maxSide = 1024) {
+  return new Promise((ok, no) =&gt; {
+    if (file.size &gt; 2 * 1024 * 1024 * 4) return no(new Error('That picture is very large; try a smaller one.'));
+    const img = new Image(); img.onload = () =&gt; {
+      const s = Math.min(1, maxSide / Math.max(img.width, img.height));
+      const c = document.createElement('canvas'); c.width = Math.round(img.width * s); c.height = Math.round(img.height * s);
+      c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+      const out = c.toDataURL(file.type === 'image/png' ? 'image/png' : 'image/jpeg', 0.82);
+      URL.revokeObjectURL(img.src);
+      out.length &gt; 2 * 1024 * 1024 ? no(new Error('Still over 2 MB after resizing.')) : ok(out);
+    }; img.onerror = () =&gt; no(new Error('That file isn’t a picture.')); img.src = URL.createObjectURL(file);
+  });
+}
+
+const CHUNK = 128 * 1024, chunkBuf = {};
+function sendBig(c, m) {                                   // any message whose JSON is over 200 KB
+  const s = JSON.stringify(m); if (s.length &lt; 200 * 1024) return send(c, m);
+  const id = uid(), n = Math.ceil(s.length / CHUNK);
+  for (let i = 0; i &lt; n; i++) send(c, { t:'chunk', id, i, n, data: s.slice(i * CHUNK, (i + 1) * CHUNK) });
+}
+function chunkIn(d) {
+  const b = chunkBuf[d.id] = chunkBuf[d.id] || { n: d.n, parts: [], got: 0 };
+  if (!b.parts[d.i]) { b.parts[d.i] = d.data; b.got++; }
+  if (b.got &lt; b.n) return null;
+  delete chunkBuf[d.id]; return JSON.parse(b.parts.join(''));
+}</code></pre>
+
+<div class="divider"></div>
+<div class="sec-label" id="s7">Section 07</div>
+<h2>Sync Patterns &amp; Merge</h2>
+<table><thead><tr><th>Pattern</th><th>Products</th><th>Trigger</th><th>Payload</th><th>Merge</th></tr></thead><tbody>
+<tr><td><strong>Items (LWW)</strong></td><td>Pad, Board, Practice, Scoresheet, Cutlist, Felt, Vision, Circle, Split, Week, Pantry, Points, Budget, Scorebook, Train, Streak</td><td>hello, then every change</td><td class="mono">{ t:'put', items:[…] }</td><td>Per field by stamp</td></tr>
+<tr><td><strong>Chunked</strong></td><td>Deck, Snap, Collection, Journal, Cookbook, Fix, Inventory, Trip, Garage, Rebuild</td><td>Every change</td><td class="mono">{ t:'chunk', id, i, n, data }</td><td>Reassemble, then per field</td></tr>
+<tr><td><strong>Cell delta</strong></td><td>Calc</td><td>Cell change</td><td class="mono">{ t:'put', items:[{ id:sheet, cells:{A1:{v,f,t}} }] }</td><td>Per cell by stamp</td></tr>
+<tr><td><strong>Encrypted</strong></td><td>Vault, Net</td><td>Every change</td><td class="mono">{ t:'put', items:[{ id, iv, blob, del, _t }] }</td><td>Per entry by stamp</td></tr>
+<tr><td><strong>Hub</strong></td><td>Form, Pool, Gift, Trip (3+)</td><td>Every change</td><td class="mono">put from guest → host re-puts to all</td><td>Per field by stamp</td></tr>
+<tr><td><strong>Hidden claims</strong></td><td>Gift</td><td>Every change</td><td class="mono">{ t:'put', items:[…] }</td><td>Per field; masked on render</td></tr>
+</tbody></table>
+
+<div class="divider"></div>
+<div class="sec-label" id="s8">Section 08</div>
+<h2>Hub Pattern (Form, Pool, Gift, Trip)</h2>
+<p>The two-person code path already keeps <code>conns</code> as a set. A hub product sets <code>S.role</code> to <code>'host'</code> on the device that created the group and <code>'guest'</code> on devices that joined by its code. Guests dial only the host; the host accepts each guest once (the same accept step as a partner) and keeps every connection.</p>
+<pre><code>function relay(from, items) {                              // host only: what one guest put goes to every other guest
+  if (S.role !== 'host') return;
+  const m = { t:'put', items };
+  for (const c of openConns()) if (c !== from &amp;&amp; c._hello) send(c, m);
+}
+// a guest that comes back later gets the whole state in the host's hello, including what other guests added meanwhile
+// if the host is away, guests keep working on their own copies and reconcile when it returns (per-field stamps make this safe)</code></pre>
+<p><strong>Trust.</strong> The host is a relay, not an authority: it merges by stamps like everyone else. Products that need an authority (Pool's lock times) enforce the rule on the host and mark late picks as late rather than dropping them.</p>
+
+<div class="divider"></div>
+<div class="sec-label" id="s9">Section 09</div>
+<h2>Encryption Standard (Vault, Net)</h2>
+<table><thead><tr><th>Parameter</th><th>Value</th></tr></thead><tbody>
+<tr><td>Algorithm</td><td class="mono">AES-256-GCM</td></tr><tr><td>Key derivation</td><td class="mono">PBKDF2, 600,000 iterations, SHA-256</td></tr>
+<tr><td>Salt</td><td class="mono">16 bytes, random per vault, stored in the clear</td></tr><tr><td>IV</td><td class="mono">12 bytes, random per encryption</td></tr>
+<tr><td>Verifier</td><td class="mono">AES-GCM of a known string under the key; decrypt to check the passphrase</td></tr>
+<tr><td>Key storage</td><td>CryptoKey, non-extractable, memory only; dropped on lock, blur and timeout</td></tr>
+</tbody></table>
+<pre><code>async function deriveKey(passphrase, salt) {
+  const material = await crypto.subtle.importKey('raw', new TextEncoder().encode(passphrase), 'PBKDF2', false, ['deriveKey']);
+  return crypto.subtle.deriveKey({ name:'PBKDF2', salt, iterations:600000, hash:'SHA-256' }, material, { name:'AES-GCM', length:256 }, false, ['encrypt', 'decrypt']);
+}
+async function seal(key, obj) { const iv = crypto.getRandomValues(new Uint8Array(12));
+  const ct = await crypto.subtle.encrypt({ name:'AES-GCM', iv }, key, new TextEncoder().encode(JSON.stringify(obj))); return { iv: b64(iv), blob: b64(ct) }; }
+async function open(key, e) { return JSON.parse(new TextDecoder().decode(await crypto.subtle.decrypt({ name:'AES-GCM', iv: unb64(e.iv) }, key, unb64(e.blob)))); }</code></pre>
+<p><strong>Sync.</strong> Only <code>{ id, iv, blob, del, _t }</code> travels; both devices must know the passphrase. A blob that arrives before the local vault is unlocked is stored as-is and decrypted on demand; if the passphrase differs the entry shows as “from your other device (locked)”.</p>
+
+<div class="divider"></div>
+<div class="sec-label" id="s10">Section 10</div>
+<h2>Hidden Claims (Gift)</h2>
+<p>Every device holds every field — that is what makes sync simple — but the device of the person a list is for never <em>renders</em> <code>claimedBy</code>, <code>claimedAt</code>, <code>chipIns</code>, ideas about them, or Secret Santa pairs other than their own. The mask is a render rule, not a storage rule:</p>
+<pre><code>const mine = it =&gt; it.owner === S.meId;
+function claimView(it) { return mine(it) ? null : { by: it.claimedBy, at: it.claimedAt, chipIns: it.chipIns || [] }; }   // null → draw nothing</code></pre>
+<div class="callout warn"><h4>Trust boundary</h4><p>v1 is trust-based: a determined list owner could read the storage of their own browser. The product says so under Settings → About. A v2 could encrypt claim fields to the non-owners' keys; it is not planned until someone asks.</p></div>
+
+<div class="divider"></div>
+<div class="sec-label" id="s11">Section 11</div>
+<h2>Per-Product Data Models</h2>
+<p>Common fields are left out of each model: <code>v, dev, me, joined, partner, pending, names, _t</code> at the top; <code>del, _t</code> on every item. Where a product has several kinds of record they share <code>items</code> and are told apart by <code>kind</code>.</p>
+<h3>Work</h3><h4 id="m-pad">Create · Pad <span class="mono" style="color:var(--text3);font-weight:400">· create.pad.v1 · Items (LWW)</span></h4><pre><code>S = { v:1, dev, me, partner, names,
+  notebooks: { id: { id, title, color, order, _t } },
+  items: { id: { id, notebook, title, body, tags:[], pinned, archived, del, _t } },
+  ui: { current:&#x27;all&#x27;, filter:&#x27;all&#x27; } }</code></pre><h4 id="m-board">Create · Board <span class="mono" style="color:var(--text3);font-weight:400">· create.board.v1 · Items (LWW)</span></h4><pre><code>S = { v:1, dev, me, partner, names,
+  columns: [ &#x27;Backlog&#x27;, &#x27;In progress&#x27;, &#x27;Review&#x27;, &#x27;Done&#x27; ], _t:{},
+  items: { id: { id, title, desc, column, order, priority, labels:[], checklist:[{t,done}],
+               due, owner:&#x27;a&#x27;|&#x27;b&#x27;|&#x27;both&#x27;, del, _t } } }</code></pre><h4 id="m-deck">Create · Deck <span class="mono" style="color:var(--text3);font-weight:400">· create.deck.v1 · Chunked items</span></h4><pre><code>S = { v:1, dev, partner, deck: { title, theme, _t },
+  items: { id: { id, order, elements:[{type,x,y,w,h,text|img}], notes, transition, bg, del, _t } },
+  present: { slide:0, following: deviceCode|null } }</code></pre><h4 id="m-vault">Create · Vault <span class="mono" style="color:var(--text3);font-weight:400">· create.vault.v1 · Encrypted items</span></h4><pre><code>S = { v:1, dev, partner, salt: base64(16), verify: base64,
+  items: { id: { id, iv, blob, category, del, _t } } }
+// blob decrypts to { title, username, password, url, totp, notes }</code></pre><h4 id="m-form">Create · Form <span class="mono" style="color:var(--text3);font-weight:400">· create.form.v1 · Hub</span></h4><pre><code>S = { v:1, dev, role:&#x27;host&#x27;|&#x27;guest&#x27;, host,
+  items: { id: { id, kind:&#x27;form&#x27;, title, fields:[], settings:{}, del, _t } |
+               { id, kind:&#x27;response&#x27;, form, data:{}, by, at, _t } } }</code></pre><h4 id="m-calc">Create · Calc <span class="mono" style="color:var(--text3);font-weight:400">· create.calc.v1 · Cell delta</span></h4><pre><code>S = { v:1, dev, partner,
+  sheets: { id: { id, title, order, names:{}, formats:[], _t,
+              cells: { &#x27;A1&#x27;: { v, f, fmt, t } } } },
+  ui: { sheet: id } }</code></pre><h4 id="m-snap">Create · Snap <span class="mono" style="color:var(--text3);font-weight:400">· create.snap.v1 · Chunked items</span></h4><pre><code>S = { v:1, dev, partner,
+  items: { id: { id, title, img: dataURI, annotations:[{type,x,y,w,h,color,width,text,points}],
+               tags:[], del, _t } } }</code></pre><h3>Hobby</h3><h4 id="m-practice">Create · Practice <span class="mono" style="color:var(--text3);font-weight:400">· create.practice.v1 · Items (LWW)</span></h4><pre><code>S = { v:1, dev, me, partner, names:{a,b},
+  pursuits: { id: { id, name, kind, color, goal:{minsWeek,sessionsMonth,by}, _t } },
+  items: { id: { id, pursuit, on:&#x27;YYYY-MM-DD&#x27;, mins, focus, rating:1..5, note, by, del, _t } |
+               { id, kind:&#x27;note&#x27;, session, text, by, at, _t } } }</code></pre><h4 id="m-scoresheet">Create · Scoresheet <span class="mono" style="color:var(--text3);font-weight:400">· create.scoresheet.v1 · Items (LWW)</span></h4><pre><code>S = { v:1, dev, me, partner, names,
+  horses: { id:{ id, name, _t } }, riders: { id:{ id, name, _t } },
+  tests: { id: { id, level, name, movements:[{n, name, coef}], collectives:[{name,coef}], _t } },
+  items: { id: { id, test, horse, rider, show, on, judge, marks:[{m,comment}], coll:[m], errors, pct, del, _t } } }</code></pre><h4 id="m-cutlist">Create · Cutlist <span class="mono" style="color:var(--text3);font-weight:400">· create.cutlist.v1 · Items (LWW)</span></h4><pre><code>S = { v:1, dev, me, partner, names, units:&#x27;in&#x27;|&#x27;mm&#x27;, kerf:0.125,
+  projects: { id: { id, name, waste:0.2, prices:{species:perBF}, _t } },
+  items: { id: { id, project, kind:&#x27;part&#x27;, name, qty, t, w, l, species, grain, del, _t } |
+               { id, kind:&#x27;stock&#x27;, species, t, w, l, qty, price, note, del, _t } } }</code></pre><h4 id="m-felt">Create · Felt <span class="mono" style="color:var(--text3);font-weight:400">· create.felt.v1 · Items (LWW)</span></h4><pre><code>S = { v:1, dev, me, partner, names, bankroll: { start, _t },
+  items: { id: { id, kind:&#x27;session&#x27;, type:&#x27;cash&#x27;|&#x27;mtt&#x27;, stakes, room, game, buyin, out, hours, hands, on, note, del, _t } |
+               { id, kind:&#x27;hand&#x27;, session, text, board, result, tags:[], by, del, _t } } }</code></pre><h4 id="m-collection">Create · Collection <span class="mono" style="color:var(--text3);font-weight:400">· create.collection.v1 · Chunked items</span></h4><pre><code>S = { v:1, dev, partner,
+  collections: { id: { id, name, fields:[{k,label,type}], _t } },
+  items: { id: { id, collection, name, img, condition, paid, worth, want, trade, fields:{}, del, _t } } }</code></pre><h3>Relationships</h3><h4 id="m-vision">Vision <span class="mono" style="color:var(--text3);font-weight:400">· vision.v1 · Items (LWW)</span></h4><pre><code>S = { v:1, dev: code6, me:&#x27;a&#x27;|&#x27;b&#x27;, joined, partner:{code,at}, pending,
+  board: { id, names:{a,b}, title, _t },
+  items: { id: { id, lane, title, url, img, note, hearts:{a,b}, stage, key, by, del, _t } } }</code></pre><h4 id="m-circle">Create · Circle <span class="mono" style="color:var(--text3);font-weight:400">· create.circle.v1 · Items (LWW)</span></h4><pre><code>S = { v:1, dev, me, partner, names,
+  items: { id: { id, kind:&#x27;person&#x27;, name, group, cadence:days, dates:[{what,on,yearly}], people:[names], notes, img, del, _t } |
+               { id, kind:&#x27;touch&#x27;, person, on, how, note, by, _t } |
+               { id, kind:&#x27;idea&#x27;, person, text, by, _t } } }</code></pre><h4 id="m-split">Create · Split <span class="mono" style="color:var(--text3);font-weight:400">· create.split.v1 · Items (LWW)</span></h4><pre><code>S = { v:1, dev, me, partner, names, currency:&#x27;USD&#x27;,
+  groups: { id: { id, name, members:[a,b], _t } },
+  items: { id: { id, group, kind:&#x27;expense&#x27;, title, cents, paidBy, split:{mode, a, b}, category, on, img, del, _t } |
+               { id, kind:&#x27;settle&#x27;, from, to, cents, on, _t } } }</code></pre><h4 id="m-week">Create · Week <span class="mono" style="color:var(--text3);font-weight:400">· create.week.v1 · Items (LWW)</span></h4><pre><code>S = { v:1, dev, me, partner, names, tz,
+  items: { id: { id, title, start:ISO, end:ISO, allDay, who:&#x27;a&#x27;|&#x27;b&#x27;|&#x27;both&#x27;, repeat:&#x27;weekly&#x27;|null, place, note, src, del, _t } } }</code></pre><h4 id="m-gift">Create · Gift <span class="mono" style="color:var(--text3);font-weight:400">· create.gift.v1 · Hidden claims</span></h4><pre><code>S = { v:1, dev, me, people: { id: { id, name, isMe, _t } },
+  items: { id: { id, owner, title, url, cents, note, occasion, claimedBy, claimedAt, given, del, _t } |
+               { id, kind:&#x27;draw&#x27;, occasion, year, pairs:{giver:recipient}, _t } } }</code></pre><h4 id="m-journal">Create · Journal <span class="mono" style="color:var(--text3);font-weight:400">· create.journal.v1 · Chunked items</span></h4><pre><code>S = { v:1, dev, me, partner, names,
+  items: { id: { id, on, by, text, img, prompt, mood, del, _t } } }</code></pre><h3>Home &amp; Food</h3><h4 id="m-pantry">Create · Pantry <span class="mono" style="color:var(--text3);font-weight:400">· create.pantry.v1 · Items (LWW)</span></h4><pre><code>S = { v:1, dev, me, partner, names, stores:[],
+  items: { id: { id, kind:&#x27;stock&#x27;, name, where, qty, unit, par, del, _t } |
+               { id, kind:&#x27;need&#x27;, name, qty, aisle, store, done, by, del, _t } } }</code></pre><h4 id="m-cookbook">Create · Cookbook <span class="mono" style="color:var(--text3);font-weight:400">· create.cookbook.v1 · Chunked items</span></h4><pre><code>S = { v:1, dev, me, partner,
+  items: { id: { id, kind:&#x27;recipe&#x27;, title, serves, ingredients:[{qty,unit,name}], steps:[{text,mins}], img, tags:[], src, del, _t } |
+               { id, kind:&#x27;plan&#x27;, on, meal, recipe, _t } } }</code></pre><h4 id="m-fix">Create · Fix <span class="mono" style="color:var(--text3);font-weight:400">· create.fix.v1 · Chunked items</span></h4><pre><code>S = { v:1, dev, me, partner, names, house:{ name, built, _t },
+  items: { id: { id, kind:&#x27;system&#x27;, name, every:months, last, vendor, note, del, _t } |
+               { id, kind:&#x27;service&#x27;, system, on, cents, who, note, img, _t } |
+               { id, kind:&#x27;project&#x27;, name, budget, spent, status, imgs:[], del, _t } } }</code></pre><h4 id="m-inventory">Create · Inventory <span class="mono" style="color:var(--text3);font-weight:400">· create.inventory.v1 · Chunked items</span></h4><pre><code>S = { v:1, dev, partner, rooms:[],
+  items: { id: { id, room, category, name, brand, serial, paid, replace, bought, img, receipt, del, _t } } }</code></pre><h3>Travel</h3><h4 id="m-trip">Create · Trip <span class="mono" style="color:var(--text3);font-weight:400">· create.trip.v1 · Chunked items</span></h4><pre><code>S = { v:1, dev, role, host, people:{}, trip:{ name, from, to, _t },
+  items: { id: { id, kind:&#x27;leg&#x27;, on, type, title, start, end, tz, conf, place, note, img, del, _t } |
+               { id, kind:&#x27;pack&#x27;, text, done, who, _t } |
+               { id, kind:&#x27;spend&#x27;, title, cents, paidBy, on, _t } } }</code></pre><h4 id="m-points">Create · Points <span class="mono" style="color:var(--text3);font-weight:400">· create.points.v1 · Items (LWW)</span></h4><pre><code>S = { v:1, dev, partner,
+  items: { id: { id, kind:&#x27;program&#x27;, name, balance, expires, tier, progress:{have,need,unit}, del, _t } |
+               { id, kind:&#x27;card&#x27;, name, fee, renews, credits:[{name,amount,period,used:[]}], del, _t } } }</code></pre><h3>Money</h3><h4 id="m-budget">Create · Budget <span class="mono" style="color:var(--text3);font-weight:400">· create.budget.v1 · Items (LWW)</span></h4><pre><code>S = { v:1, dev, me, partner, names, currency,
+  envelopes: { id: { id, name, cents, rollover, order, _t } },
+  items: { id: { id, on, cents, envelope, payee, note, by, recurring, del, _t } } }</code></pre><h4 id="m-net">Create · Net <span class="mono" style="color:var(--text3);font-weight:400">· create.net.v1 · Encrypted items</span></h4><pre><code>S = { v:1, dev, partner, salt, verify,
+  items: { id: { id, iv, blob, del, _t } } }
+// blob → { kind:&#x27;account&#x27;, name, type, order } | { kind:&#x27;balance&#x27;, account, month:&#x27;YYYY-MM&#x27;, cents }</code></pre><h3>Garage</h3><h4 id="m-garage">Create · Garage <span class="mono" style="color:var(--text3);font-weight:400">· create.garage.v1 · Chunked items</span></h4><pre><code>S = { v:1, dev, partner,
+  cars: { id: { id, name, year, make, model, vin, miles, _t } },
+  items: { id: { id, car, kind:&#x27;service&#x27;, on, miles, what, parts:[{name,pn,src,cents}], labor, shop, note, img, del, _t } |
+               { id, kind:&#x27;remind&#x27;, car, what, everyMiles, everyMonths, _t } } }</code></pre><h4 id="m-rebuild">Create · Rebuild <span class="mono" style="color:var(--text3);font-weight:400">· create.rebuild.v1 · Chunked items</span></h4><pre><code>S = { v:1, dev, partner, car:{ name, paid, damage, comps:[], _t },
+  items: { id: { id, kind:&#x27;package&#x27;, name, scope, budget, spent, hours, status, order, del, _t } |
+               { id, kind:&#x27;part&#x27;, pkg, name, src, cents, status, _t } |
+               { id, kind:&#x27;photo&#x27;, pkg, img, caption, on, _t } } }</code></pre><h3>Sports &amp; Games</h3><h4 id="m-pool">Create · Pool <span class="mono" style="color:var(--text3);font-weight:400">· create.pool.v1 · Hub</span></h4><pre><code>S = { v:1, dev, role, host, pool:{ name, kind, _t }, players:{ id:{ id, name, dev, _t } },
+  items: { id: { id, kind:&#x27;game&#x27;, week, away, home, spread, kickoff, winner, _t } |
+               { id, kind:&#x27;pick&#x27;, player, game, pick, at, _t } } }</code></pre><h4 id="m-scorebook">Create · Scorebook <span class="mono" style="color:var(--text3);font-weight:400">· create.scorebook.v1 · Items (LWW)</span></h4><pre><code>S = { v:1, dev, partner, players:{ id:{ id, name, hcp, _t } },
+  items: { id: { id, game, on, place, players:[ids], rounds:[[score]], meta:{}, winner, del, _t } } }</code></pre><h3>Body</h3><h4 id="m-train">Create · Train <span class="mono" style="color:var(--text3);font-weight:400">· create.train.v1 · Items (LWW)</span></h4><pre><code>S = { v:1, dev, me, partner, names,
+  programs: { id: { id, name, days:[{name, exercises:[{name, sets, reps, note}]}], _t } },
+  items: { id: { id, on, program, day, sets:[{ex, reps, kg, secs, m}], note, by, del, _t } } }</code></pre><h4 id="m-streak">Create · Streak <span class="mono" style="color:var(--text3);font-weight:400">· create.streak.v1 · Items (LWW)</span></h4><pre><code>S = { v:1, dev, me, partner, names,
+  items: { id: { id, name, color, perWeek, by, days:{ &#x27;YYYY-MM-DD&#x27;: 1 }, notes:{}, del, _t } } }</code></pre>
+
+<div class="divider"></div>
+<div class="sec-label" id="s12">Section 12</div>
+<h2>Create · Home and The Watch Hub</h2>
+<table><thead><tr><th>Surface</th><th>Path</th><th>What it is</th></tr></thead><tbody>
+<tr><td><strong>Create · Home</strong></td><td class="mono">news/create/index.html</td><td>The static launcher: catalog by line, open and download, quickstart, the two documents. Reads <code>catalog.json</code>; works from disk as a launcher.</td></tr>
+<tr><td><strong>The Watch hub</strong></td><td class="mono">news/create/app.js · #/create</td><td>Loaded by The Watch the first time a reader opens Create or a desk with a line, like the F1 hub. Routes: <code>#/create</code>, <code>#/create/&lt;line&gt;</code>, <code>#/create/p/&lt;id&gt;</code>. Draws with the paper's own helpers and look.</td></tr>
+<tr><td><strong>Desk bands</strong></td><td class="mono">createBand(desk)</td><td>A row of the line's tools at the top of Hobbies, Lifestyle, Home, Household, Food, Travel, Cars, Sports and Health; a hobby page shows its own tool.</td></tr>
+<tr><td><strong>The catalog</strong></td><td class="mono">news/create/catalog.json</td><td>Lines, products (id, line, name, icon, tag, desc, functions, specs, tech, sync, key, prefix, budget, status, href, model), sync patterns, the gate, the roadmap. The portfolio and this spec are built from it by <code>news/create/build.py</code>.</td></tr>
+<tr><td><strong>Products</strong></td><td class="mono">news/create/apps/&lt;id&gt;/index.html</td><td>One file each. Status flips to <code>live</code> in the catalog when a product passes the gate.</td></tr>
+</tbody></table>
+<p><strong>Status vocabulary.</strong> <code>live</code> — passes the gate and is linked; <code>building</code> — the file exists and is being brought through the gate; <code>planned</code> — specified here, no file yet.</p>
+
+<div class="divider"></div>
+<div class="sec-label" id="s13">Section 13</div>
+<h2>Testing &amp; QA</h2>
+<p>The harness is <code>news/create/test/smoke.py</code>. It serves the repo, runs a local PeerJS server on 127.0.0.1:9000, routes the CDN script to a local copy, and drives two browser contexts (a desktop and a phone) through the product's <code>window.__create</code> hooks — a real WebRTC pairing, not a mock. It also opens the file from disk, offline.</p>
+<table><thead><tr><th>Test</th><th>Method</th><th>Pass criteria</th></tr></thead><tbody>
+<tr><td>Pair</td><td>B dials A's code</td><td>Both report <code>net() === 'on'</code> within 20 s</td></tr>
+<tr><td>Hello</td><td>A has two items before B connects</td><td>B has them after hello</td></tr>
+<tr><td>Put</td><td>B adds an item while connected</td><td>A has it within 10 s</td></tr>
+<tr><td>Persistence</td><td>Reload A</td><td>Same count; A reconnects to B by itself</td></tr>
+<tr><td>Backup</td><td><code>export()</code></td><td>JSON with <code>v:1</code>, <code>dev</code> and <code>items</code></td></tr>
+<tr><td>Offline from disk</td><td>file:// with the network off</td><td>Setup and add work; <code>net()</code> is not <code>'on'</code>; no errors</td></tr>
+<tr><td>Console</td><td>All contexts</td><td>No page errors or <code>console.error</code> (CDN and font failures excepted)</td></tr>
+<tr><td>Look</td><td>Screenshots at 1280 and 390 px</td><td>Reviewed: no overflow, header on one line, empty states explain themselves</td></tr>
+<tr><td>Size</td><td><code>gzip -9</code></td><td>Under the budget</td></tr>
+<tr><td>Cross-browser</td><td>Chrome, Firefox, Safari, Edge by hand</td><td>No console errors, same layout</td></tr>
+</tbody></table>
+
+<div class="divider"></div>
+<div class="sec-label" id="s14">Section 14</div>
+<h2>Performance Budgets &amp; Browser Matrix</h2>
+<h3>14.1 — Size budgets</h3>
+<div class="tw"><table><thead><tr><th>Product</th><th>Max gzipped</th><th>First paint</th><th>Interactive</th></tr></thead><tbody><tr><td>Create · Home</td><td class="mono">60 KB</td><td class="mono">&lt; 280ms</td><td class="mono">&lt; 600ms</td></tr><tr><td>Create · Pad</td><td class="mono">80 KB</td><td class="mono">&lt; 290ms</td><td class="mono">&lt; 650ms</td></tr><tr><td>Create · Board</td><td class="mono">90 KB</td><td class="mono">&lt; 290ms</td><td class="mono">&lt; 675ms</td></tr><tr><td>Create · Deck</td><td class="mono">110 KB</td><td class="mono">&lt; 300ms</td><td class="mono">&lt; 725ms</td></tr><tr><td>Create · Vault</td><td class="mono">65 KB</td><td class="mono">&lt; 280ms</td><td class="mono">&lt; 600ms</td></tr><tr><td>Create · Form</td><td class="mono">95 KB</td><td class="mono">&lt; 290ms</td><td class="mono">&lt; 675ms</td></tr><tr><td>Create · Calc</td><td class="mono">120 KB</td><td class="mono">&lt; 310ms</td><td class="mono">&lt; 750ms</td></tr><tr><td>Create · Snap</td><td class="mono">100 KB</td><td class="mono">&lt; 300ms</td><td class="mono">&lt; 700ms</td></tr><tr><td>Create · Practice</td><td class="mono">80 KB</td><td class="mono">&lt; 290ms</td><td class="mono">&lt; 650ms</td></tr><tr><td>Create · Scoresheet</td><td class="mono">85 KB</td><td class="mono">&lt; 290ms</td><td class="mono">&lt; 650ms</td></tr><tr><td>Create · Cutlist</td><td class="mono">90 KB</td><td class="mono">&lt; 290ms</td><td class="mono">&lt; 675ms</td></tr><tr><td>Create · Felt</td><td class="mono">90 KB</td><td class="mono">&lt; 290ms</td><td class="mono">&lt; 675ms</td></tr><tr><td>Create · Collection</td><td class="mono">95 KB</td><td class="mono">&lt; 290ms</td><td class="mono">&lt; 675ms</td></tr><tr><td>Vision</td><td class="mono">130 KB</td><td class="mono">&lt; 310ms</td><td class="mono">&lt; 775ms</td></tr><tr><td>Together / 90</td><td class="mono">300 KB</td><td class="mono">&lt; 400ms</td><td class="mono">&lt; 1200ms</td></tr><tr><td>Date Night</td><td class="mono">120 KB</td><td class="mono">&lt; 310ms</td><td class="mono">&lt; 750ms</td></tr><tr><td>Create · Circle</td><td class="mono">85 KB</td><td class="mono">&lt; 290ms</td><td class="mono">&lt; 650ms</td></tr><tr><td>Create · Split</td><td class="mono">80 KB</td><td class="mono">&lt; 290ms</td><td class="mono">&lt; 650ms</td></tr><tr><td>Create · Week</td><td class="mono">85 KB</td><td class="mono">&lt; 290ms</td><td class="mono">&lt; 650ms</td></tr><tr><td>Create · Gift</td><td class="mono">80 KB</td><td class="mono">&lt; 290ms</td><td class="mono">&lt; 650ms</td></tr><tr><td>Create · Journal</td><td class="mono">90 KB</td><td class="mono">&lt; 290ms</td><td class="mono">&lt; 675ms</td></tr><tr><td>Create · Pantry</td><td class="mono">80 KB</td><td class="mono">&lt; 290ms</td><td class="mono">&lt; 650ms</td></tr><tr><td>Create · Cookbook</td><td class="mono">95 KB</td><td class="mono">&lt; 290ms</td><td class="mono">&lt; 675ms</td></tr><tr><td>Create · Fix</td><td class="mono">90 KB</td><td class="mono">&lt; 290ms</td><td class="mono">&lt; 675ms</td></tr><tr><td>Create · Inventory</td><td class="mono">85 KB</td><td class="mono">&lt; 290ms</td><td class="mono">&lt; 650ms</td></tr><tr><td>Create · Trip</td><td class="mono">100 KB</td><td class="mono">&lt; 300ms</td><td class="mono">&lt; 700ms</td></tr><tr><td>Create · Points</td><td class="mono">80 KB</td><td class="mono">&lt; 290ms</td><td class="mono">&lt; 650ms</td></tr><tr><td>Create · Budget</td><td class="mono">90 KB</td><td class="mono">&lt; 290ms</td><td class="mono">&lt; 675ms</td></tr><tr><td>Create · Net</td><td class="mono">75 KB</td><td class="mono">&lt; 280ms</td><td class="mono">&lt; 625ms</td></tr><tr><td>Create · Garage</td><td class="mono">95 KB</td><td class="mono">&lt; 290ms</td><td class="mono">&lt; 675ms</td></tr><tr><td>Create · Rebuild</td><td class="mono">100 KB</td><td class="mono">&lt; 300ms</td><td class="mono">&lt; 700ms</td></tr><tr><td>Create · Pool</td><td class="mono">95 KB</td><td class="mono">&lt; 290ms</td><td class="mono">&lt; 675ms</td></tr><tr><td>Create · Scorebook</td><td class="mono">85 KB</td><td class="mono">&lt; 290ms</td><td class="mono">&lt; 650ms</td></tr><tr><td>Create · Train</td><td class="mono">90 KB</td><td class="mono">&lt; 290ms</td><td class="mono">&lt; 675ms</td></tr><tr><td>Create · Streak</td><td class="mono">65 KB</td><td class="mono">&lt; 280ms</td><td class="mono">&lt; 600ms</td></tr></tbody></table></div>
+<div class="callout warn"><h4>Size is a feature</h4><p>A product over its gzipped budget does not ship. PeerJS (~45 KB) and qrcode-generator (~5 KB) are excluded; they are the permitted external scripts. Everything else fits. Vision, Together / 90 and Date Night report the sizes they shipped at.</p></div>
+<h3>14.2 — Browser compatibility</h3>
+<table><thead><tr><th>API</th><th>Chrome 90+</th><th>Firefox 90+</th><th>Safari 15+</th><th>Edge 90+</th><th>Fallback</th></tr></thead><tbody>
+<tr><td>WebRTC (PeerJS)</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>Solo mode, backup by file</td></tr>
+<tr><td>localStorage</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>None (required); a toast when it is off</td></tr>
+<tr><td>Web Crypto</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>None (Vault, Net require it)</td></tr>
+<tr><td>CompressionStream</td><td>✓</td><td>113+</td><td>16.4+</td><td>✓</td><td>Plain base64 link, or a file</td></tr>
+<tr><td>Clipboard API</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>Select-to-copy field</td></tr>
+<tr><td>FileReader / canvas</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>None (required for pictures)</td></tr>
+<tr><td>Fullscreen API</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>CSS-only (Deck)</td></tr>
+<tr><td>Wake Lock</td><td>✓</td><td>—</td><td>16.4+</td><td>✓</td><td>A note to keep the screen on (Cookbook)</td></tr>
+</tbody></table>
+
+<div class="divider"></div>
+<div class="sec-label" id="s15">Section 15</div>
+<h2>API Bridge — Future Layer</h2>
+<div class="callout info"><h4>Pre-design (Wave 4 or later)</h4><p>A separate, optional component — never embedded in a product. A REST-like JSON endpoint a product can be pointed at as a secondary sync target beside P2P, for the case where two devices are never open at once. Planned as a Cloudflare Worker or Deno Deploy function that stores only what a product chooses to send (for Vault and Net, ciphertext). P2P stays primary and default; no product will ever require the bridge.</p></div>
+
+<div class="divider"></div>
+<div class="sec-label" id="s16">Section 16</div>
+<h2>Changes from 1.0</h2>
+<table><thead><tr><th>Area</th><th>1.0 (SCR-CRT-ENG-2026-001)</th><th>2.0</th></tr></thead><tbody>
+<tr><td>Peer id</td><td>Random per session (<code>"pad-" + rnd(10)</code>)</td><td>Stable six-letter device code; devices reconnect by themselves</td></tr>
+<tr><td>Sync</td><td>Whole state on every change; merge by id, skip duplicates</td><td>hello once, then put of changed items; per-field last-writer-wins stamps</td></tr>
+<tr><td>New devices</td><td>Any connection accepted</td><td>Accept step; the partner is remembered</td></tr>
+<tr><td>Deletes</td><td>Removed from the array</td><td>Soft, as a synced field</td></tr>
+<tr><td>Storage keys</td><td class="mono">crt_&lt;id&gt;_v1</td><td class="mono">create.&lt;id&gt;.v1 + create.&lt;id&gt;.inbox</td></tr>
+<tr><td>Handoff</td><td>—</td><td>The inbox pattern between products and from The Watch</td></tr>
+<tr><td>Multi-person</td><td>Roadmap (Q4)</td><td>Hub pattern specified; Form, Pool, Gift, Trip use it</td></tr>
+<tr><td>Products</td><td>7 + Home</td><td>35 in 9 lines; 3 shipped before the line folded in</td></tr>
+<tr><td>Hosting</td><td>create.scrolls.studio (planned)</td><td>Inside The Watch on GitHub Pages, now</td></tr>
+<tr><td>Testing</td><td>Checklist</td><td>A harness that pairs two real browsers over WebRTC</td></tr>
+</tbody></table>
+
+  <div class="doc-foot">
+    <p>Scrolls — Create Product Line — SCR-CRT-ENG-2026-002 — Engineering Build Spec 2.0.0</p>
+    <p>Reference build: vision/index.html (Rev 2, live) · Supersedes SCR-CRT-ENG-2026-001 · Built from <code>news/create/catalog.json</code></p>
+    <p>© 2026 Scrolls. All rights reserved.</p>
+  </div>
+</div>
+</body>
+</html>

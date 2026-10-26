@@ -1413,6 +1413,7 @@ function parseHash() {
   const [a, ...rest] = h.split('/'); const b = rest.join('/');
   if (a === 'for-you') return { t: 'you' };
   if (a === 'f1') return { t: 'f1', p: b }; // the Formula 1 hub (f1/app.js)
+  if (a === 'create') return { t: 'create', p: b }; // the Create line (create/app.js)
   if (a === 's' && b) return { t: 'desk', k: b };
   if (a === 't' && b) return { t: 'topic', k: b };
   if (a === 'q') return { t: 'search', q: b };
@@ -1450,8 +1451,8 @@ function storyRow(it, o = {}) {
 }
 
 function renderBar() {
-  const items = [['home', '', 'Front'], ['you', 'for-you', 'For you'], ['reports', 'reports', 'Reports'], ['pictures', 'pictures', 'Pictures'], ['video', 'video', 'Video'], ['late', 'latenight', 'Late Night'], ['weather', 'weather', 'Weather'], ['shop', 'shop', 'Shopping'], ['vision', '../vision/', 'Vision'], ...deskList().map(s => ['desk:' + s.k, 's/' + s.k, secName(s.k)]), ['files', 'files', 'Epstein files']];
-  const cur = view.t === 'desk' ? 'desk:' + view.k : view.t === 'article' ? 'reports' : ['impact', 'col', 'columns'].includes(view.t) ? 'desk:business' : ['garage', 'build', 'fsd'].includes(view.t) ? 'desk:cars' : view.t === 'sports' ? 'desk:sports' : view.t === 'piece' ? 'late' : ['hobby', 'hf'].includes(view.t) ? 'desk:hobbies' : view.t;
+  const items = [['home', '', 'Front'], ['you', 'for-you', 'For you'], ['reports', 'reports', 'Reports'], ['pictures', 'pictures', 'Pictures'], ['video', 'video', 'Video'], ['late', 'latenight', 'Late Night'], ['weather', 'weather', 'Weather'], ['shop', 'shop', 'Shopping'], ['vision', '../vision/', 'Vision'], ['create', 'create', 'Create'], ...deskList().map(s => ['desk:' + s.k, 's/' + s.k, secName(s.k)]), ['files', 'files', 'Epstein files']];
+  const cur = view.t === 'desk' ? 'desk:' + view.k : view.t === 'article' ? 'reports' : ['impact', 'col', 'columns'].includes(view.t) ? 'desk:business' : ['garage', 'build', 'fsd'].includes(view.t) ? 'desk:cars' : view.t === 'sports' ? 'desk:sports' : view.t === 'piece' ? 'late' : ['hobby', 'hf'].includes(view.t) ? 'desk:hobbies' : view.t === 'create' ? 'create' : view.t;
   $('#bar').innerHTML = items.map(([id, h, label]) =>
     `<button type="button" data-go="${h.startsWith('../') ? h : '#/' + h}"${id === cur ? ' aria-current="page"' : ''}${id === 'you' ? ' class="you"' : ''}>${esc(label)}</button>`).join('');
   const on = $('#bar [aria-current]');
@@ -1478,7 +1479,7 @@ function renderFoot() {
   const failed = (f.failed || []);
   $('#foot').innerHTML = `<div class="wrap"><div>
     <h4>${T('How The Watch works')}</h4>
-    <p>${T('More from The Watch:')} <a href="../travel/">Weekender</a> · <a href="../travel/#/points">Points Hacker</a> · <a href="../shop/">Finds</a> · <a href="../vision/">Vision</a> · <a href="../the-hinge/">The Hinge</a></p>
+    <p>${T('More from The Watch:')} <a href="../travel/">Weekender</a> · <a href="../travel/#/points">Points Hacker</a> · <a href="../shop/">Finds</a> · <a href="../vision/">Vision</a> · <a href="#/create">Create</a> · <a href="../the-hinge/">The Hinge</a></p>
     <p>${T('The Watch comes out six times a day, once for each of a ship’s watches, Eastern time: the Middle Watch at midnight, Morning at 4 a.m., Forenoon at 8 a.m., Afternoon at noon, the Dog Watch at 4 p.m. and the First Watch at 8 p.m. Each edition reads {n} public news feeds, groups stories that several outlets are covering, and ranks them by how widely and how recently they’re covered.', { n: f.total || 160 })}</p>
     <p>${T('The “For you” picks learn from what you open, how long you stay with it, what you search for, and what you tell it with More or Less like this. That record stays in this browser; nothing about your reading leaves it. Open Your compass to see or change it.')}</p>
     ${LANG !== 'en' ? `<p>${T('Headlines and stories stay in the language each outlet publishes in. Outlets that write in your language come first; the reports are translated by Claude.')}</p>` : ''}
@@ -2107,7 +2108,9 @@ function render(keepScroll) {
   else if (view.t === 'hf') renderHobbyFeature(view.id);
   else if (view.t === 'col') renderCol(view.week, view.k);
   else if (view.t === 'f1') renderF1(view.p, keepScroll);
+  else if (view.t === 'create') renderCreate(view.p, keepScroll);
   if (view.t === 'desk' && view.k === 'sports') f1Desk();
+  if (view.t === 'desk' && CREATE_DESKS.has(view.k)) createDesk(view.k);
   renderFoot();
   watchImpressions();
   if (!keepScroll) window.scrollTo(0, 0);
@@ -2131,6 +2134,28 @@ function renderF1(p, keep) {
   loadF1().then(() => { if (view.t === 'f1') window.F1.render(view.p); }, () => { if (view.t === 'f1') $('#main').innerHTML = `<div class="wrap state"><h2>${T('The F1 hub didn’t load')}</h2><p><a href="#/s/sports">${secName('sports')}</a></p></div>`; });
 }
 function f1Desk() { loadF1().then(() => window.F1.desk(), () => {}); }
+
+/* ================= Create: the Scrolls product line inside the paper, #/create. Its code and look are in create/app.js,
+   loaded the first time someone opens Create, a desk with a Create line, or a hobby page; its data is create/catalog.json,
+   the same file that builds Create · Home (create/) and the portfolio and build spec. ================= */
+const CREATE_DESKS = new Set(['hobbies', 'lifestyle', 'home', 'household', 'food', 'travel', 'cars', 'sports', 'health']);
+let CREATEJS = null;
+function loadCreate() {
+  if (!window.WATCH) window.WATCH = { T, esc, md, getJSON, ago, isoMin, ytThumb, outlet, secName, LOC, LANG, PUBLIC,
+    get view() { return view; }, get E() { return E; }, get DICT() { return DICT; } };
+  if (!CREATEJS) CREATEJS = new Promise((ok, no) => {
+    const v = Math.floor(Date.now() / 600000), add = (u, next) => { const s = document.createElement('script'); s.src = u + '?v=' + v; s.onload = ok; s.onerror = next; document.head.appendChild(s); };
+    add('create/app.js', () => add(PUBLIC + 'create/app.js', () => { CREATEJS = null; no(new Error('create/app.js did not load')); }));
+  });
+  return CREATEJS;
+}
+function renderCreate(p, keep) {
+  if (window.CREATE) return window.CREATE.render(p, keep);
+  $('#main').innerHTML = `<div class="wrap state"><h2>${T('Opening Create…')}</h2></div>`;
+  loadCreate().then(() => { if (view.t === 'create') window.CREATE.render(view.p); }, () => { if (view.t === 'create') $('#main').innerHTML = `<div class="wrap state"><h2>${T('Create didn’t load')}</h2><p><a href="#/">${T('Front')}</a></p></div>`; });
+}
+function createDesk(k) { loadCreate().then(() => window.CREATE.desk(k), () => {}); }
+function createHobby(k) { loadCreate().then(() => window.CREATE.hobby(k), () => {}); }
 
 /* ================= markets: a snapshot at each edition (news/data/markets.json) ================= */
 let MK = null;
@@ -4675,6 +4700,7 @@ async function renderHobby(k) {
   </div>`;
   document.title = name + ' · ' + T('Hobbies') + ' · The Watch';
   bindHobTool(k);
+  createHobby(k);
 }
 let hobVisit = null;
 
