@@ -1,76 +1,52 @@
 import json, urllib.request, urllib.error, time, os, gzip
-UA = 'TheWatchProbe/1.0 (https://bboldt86.github.io/lanscape-navigator/news/; the-watch-news@users.noreply.github.com)'
-URLS = {
- # weather
- 'om_fc': 'https://api.open-meteo.com/v1/forecast?latitude=39.96&longitude=-82.99&current=temperature_2m,apparent_temperature,relative_humidity_2m,weather_code,wind_speed_10m,wind_direction_10m,wind_gusts_10m,precipitation,is_day&hourly=temperature_2m,precipitation_probability,weather_code,is_day&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,precipitation_sum,sunrise,sunset,uv_index_max,wind_speed_10m_max&timezone=auto&forecast_days=10&temperature_unit=fahrenheit&wind_speed_unit=mph&precipitation_unit=inch',
- 'om_geo': 'https://geocoding-api.open-meteo.com/v1/search?name=Columbus&count=6&language=en&format=json',
- 'om_geo_zip': 'https://geocoding-api.open-meteo.com/v1/search?name=43017&count=6&language=en&format=json&countryCode=US',
- 'om_geo_pt': 'https://geocoding-api.open-meteo.com/v1/search?name=S%C3%A3o%20Paulo&count=4&language=pt&format=json',
- 'om_aq': 'https://air-quality-api.open-meteo.com/v1/air-quality?latitude=39.96&longitude=-82.99&current=us_aqi,european_aqi,pm2_5,uv_index&timezone=auto',
- 'nws_points': 'https://api.weather.gov/points/39.96,-82.99',
- 'nws_alerts_pt': 'https://api.weather.gov/alerts/active?point=39.96,-82.99',
- 'nws_alerts_sev': 'https://api.weather.gov/alerts/active?status=actual&message_type=alert&severity=Extreme,Severe',
- 'nws_alerts_count': 'https://api.weather.gov/alerts/active/count',
- 'bdc_rev': 'https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=48.85&longitude=2.35&localityLanguage=en',
- 'nhc_storms': 'https://www.nhc.noaa.gov/CurrentStorms.json',
- 'spc_d1': 'https://www.spc.noaa.gov/products/outlook/day1otlk_cat.nolyr.geojson',
- 'rainviewer': 'https://api.rainviewer.com/public/weather-maps.json',
- 'meridian_wx': 'https://raw.githubusercontent.com/BBOLDT86/lanscape-navigator/meridian-feed/wx.json',
+UA = 'FindsBot/1.0 (https://bboldt86.github.io/lanscape-navigator/shop/; the-watch-news@users.noreply.github.com)'
+STORES = {
+ 'fashion': ['toddsnyder.com','buckmason.com','taylorstitch.com','fahertybrand.com','rhone.com','vuoriclothing.com','outerknown.com','allbirds.com','marinelayer.com','mackweldon.com','kotn.com','rothys.com','thursdayboots.com','oliver-cabell.com','ministryofsupply.com','djerfavenue.com','gymshark.com','aloyoga.com','travismathew.com','huckberry.com','unboundmerino.com','proper-cloth.com','jcrew.com','madewell.com','quince.com'],
+ 'trending': ['stanley1913.com','owalalife.com','rhodeskin.com','glossier.com','summerfridays.com','comfrt.com','shopbala.com','fromourplace.com','carawayhome.com','dae.com','solawave.co','touchland.com','kyliecosmetics.com','drinkolipop.com','mielleorganics.com','tower28beauty.com','merit.com'],
+ 'gifts': ['brightland.co','graza.co','ember.com','courant.com','nomadgoods.com','ridge.com','solostove.com','parachutehome.com','bellroy.com','snowehome.com','fishwife.com','mostlymade.com','loops.com'],
+ 'coffee': ['fellowproducts.com','normcorewares.com','primacoffee.com','clivecoffee.com','weberworkshops.com','onyxcoffeelab.com','counterculturecoffee.com','timemore.com','baratza.com','espressoparts.com','subminimal.com','loveramics.com','acaia.co','varia-brewing.com','kinto-usa.com'],
+ 'kitchen': ['hexclad.com','greatjonesgoods.com','materialkitchen.com','misen.com','madeincookware.com','fromourplace.com','carawayhome.com','graza.co','brightland.co','tojiro.com','japanesechefsknife.com','dalstrong.com','zwilling.com','ooni.com'],
+ 'home': ['brooklinen.com','parachutehome.com','schoolhouse.com','bollandbranch.com','cozyearth.com','floydhome.com','burrow.com','luluandgeorgia.com','ruggable.com','snowehome.com','hay.com','jenniferfurniture.com','article.com','tuftandneedle.com'],
+ 'remodel': ['schoolhouse.com','totalboat.com','coastaltool.com','bostongeneralstore.com','kregtool.com','rejuvenation.com','emtek.com','rubiomonocoatusa.com','woodpeck.com','harborfreight.com'],
+ 'tech': ['anker.com','eufy.com','us.soundcore.com','ugreen.com','nanoleaf.me','satechi.net','twelvesouth.com','peakdesign.com','auraframes.com','nativeunion.com','nomadgoods.com','courant.com','ember.com','keychron.com','orbitkey.com'],
+ 'garage': ['adamspolishes.com','chemicalguys.com','griotsgarage.com','obsessedgarage.com','carpro-us.com','theragcompany.com','autogeek.net','detailedimage.com','koch-chemie.com','gyeon.us'],
+ 'outdoors': ['cotopaxi.com','snowpeak.com','bioliteenergy.com','monos.com','rumpl.com','stanley1913.com','solostove.com','peakdesign.com','tropicfeel.com','mysteryranch.com','hydroflask.com','yeti.com','topodesigns.com','kelty.com'],
+ 'wellness': ['hyperice.com','icebarrel.com','tenthousand.cc','mudwtr.com','livemomentous.com','mantasleep.com','hatch.co','lmnt.com','manduka.com','theragun.com','vuoriclothing.com','rhone.com','ouraring.com','eightsleep.com'],
+ 'equestrian': ['kerrits.com','dreamersandschemers.com','ogilvyequestrian.com','bitofbritain.com','ecogold.com','equiline.it','samshield.com','horsepilot.com','fairplayequestrian.com','smartpak.com','doversaddlery.com','ridingwarehouse.com','theequestrianshop.com','horzeusa.com','tredstep.com','ariat.com'],
 }
-HEADS = {
- 'ridge_iln': 'https://radar.weather.gov/ridge/standard/KILN_loop.gif',
- 'ridge_conus': 'https://radar.weather.gov/ridge/standard/CONUS_loop.gif',
- 'ridge_conus_large': 'https://radar.weather.gov/ridge/standard/CONUS-LARGE_loop.gif',
- 'ridge_iln_still': 'https://radar.weather.gov/ridge/standard/KILN_0.gif',
- 'spc_d1_img': 'https://www.spc.noaa.gov/products/outlook/day1otlk.gif',
- 'spc_d1_png': 'https://www.spc.noaa.gov/products/outlook/day1otlk.png',
- 'wpc_d1': 'https://www.wpc.ncep.noaa.gov/noaa/noaad1.gif',
- 'nhc_two_atl': 'https://www.nhc.noaa.gov/xgtwo/two_atl_7d0.png',
- 'nhc_two_pac': 'https://www.nhc.noaa.gov/xgtwo/two_pac_7d0.png',
- 'goes_conus': 'https://cdn.star.nesdis.noaa.gov/GOES19/ABI/CONUS/GEOCOLOR/625x375.jpg',
- 'goes_conus_gif': 'https://cdn.star.nesdis.noaa.gov/GOES19/ABI/CONUS/GEOCOLOR/GOES19-CONUS-GEOCOLOR-625x375.gif',
-}
-SHOP = {
- 'fellow_p': 'https://fellowproducts.com/products/opus-conical-burr-grinder.json',
- 'fellow_c': 'https://fellowproducts.com/collections/all/products.json?limit=2',
- 'ourplace': 'https://fromourplace.com/products.json?limit=2',
- 'madein': 'https://madeincookware.com/products.json?limit=2',
- 'brooklinen': 'https://www.brooklinen.com/products.json?limit=2',
- 'normcore': 'https://www.normcorewares.com/products.json?limit=2',
- 'adams': 'https://adamspolishes.com/products.json?limit=2',
- 'skims': 'https://skims.com/products.json?limit=2',
- 'alo': 'https://www.aloyoga.com/products.json?limit=2',
- 'stanley': 'https://www.stanley1913.com/products.json?limit=2',
- 'lulu_page': 'https://shop.lululemon.com/c/women-bestsellers/n16o10zq0cf',
- 'lulu_api': 'https://shop.lululemon.com/api/c/women-bestsellers',
- 'williams': 'https://www.williams-sonoma.com/products/breville-the-bambino-espresso-maker/',
- 'homedepot': 'https://www.homedepot.com/',
- 'target': 'https://www.target.com/',
- 'ebay_search': 'https://www.ebay.com/sch/i.html?_nkw=breville+bambino',
- 'bestbuy': 'https://www.bestbuy.com/',
-}
-FEEDS = {
- 'tpg': 'https://thepointsguy.com/feed/', 'omaat': 'https://onemileatatime.com/feed/', 'fm': 'https://frequentmiler.com/feed/',
- 'doc': 'https://www.doctorofcredit.com/feed/', 'vftw': 'https://viewfromthewing.com/feed/', 'up': 'https://upgradedpoints.com/feed/',
- 'thrifty': 'https://thriftytraveler.com/feed/', 'awardwallet': 'https://awardwallet.com/blog/feed/', 'nerdwallet': 'https://www.nerdwallet.com/blog/feed/',
-}
-out = {}
-def hit(name, url, method='GET', keep=4000):
-    t = time.time()
-    req = urllib.request.Request(url, method=method, headers={'User-Agent': UA, 'Origin': 'https://bboldt86.github.io', 'Accept': '*/*', 'Accept-Encoding': 'gzip'})
+def get(url, keep=None):
+    t=time.time()
+    req = urllib.request.Request(url, headers={'User-Agent': UA, 'Accept': 'application/json', 'Accept-Encoding': 'gzip'})
     try:
-        with urllib.request.urlopen(req, timeout=25) as r:
-            body = r.read() if method == 'GET' else b''
-            if r.headers.get('Content-Encoding') == 'gzip' and body: body = gzip.decompress(body)
-            out[name] = {'status': r.status, 'acao': r.headers.get('Access-Control-Allow-Origin'), 'type': r.headers.get('Content-Type'), 'len': len(body) or r.headers.get('Content-Length'), 'ms': int((time.time()-t)*1000), 'body': body[:keep].decode('utf-8', 'replace')}
+        with urllib.request.urlopen(req, timeout=20) as r:
+            b=r.read()
+            if r.headers.get('Content-Encoding')=='gzip': b=gzip.decompress(b)
+            return r.status, r.geturl(), b
     except urllib.error.HTTPError as e:
-        out[name] = {'status': e.code, 'acao': e.headers.get('Access-Control-Allow-Origin'), 'err': str(e)}
+        return e.code, url, b''
     except Exception as e:
-        out[name] = {'status': None, 'err': repr(e)}
-for k, u in URLS.items(): hit(k, u, keep=6000)
-for k, u in HEADS.items(): hit(k, u, method='HEAD')
-for k, u in SHOP.items(): hit(k, u, keep=1500)
-for k, u in FEEDS.items(): hit(k, u, keep=1200)
+        return None, url, repr(e).encode()
+out={}
+seen=set()
+for sec, doms in STORES.items():
+    for d in doms:
+        if d in seen: out.setdefault('_dupes',[]).append([sec,d]); continue
+        seen.add(d)
+        rec={'sec':sec}
+        st, final, b = get(f'https://{d}/collections.json?limit=250')
+        rec['cstatus']=st; rec['final']=final
+        try:
+            cj=json.loads(b); rec['collections']=[[c['handle'], c.get('title'), c.get('products_count')] for c in cj.get('collections',[])]
+        except Exception: rec['collections']=None; rec['cbody']=b[:120].decode('utf-8','replace')
+        st2, final2, b2 = get(f'https://{d}/products.json?limit=3')
+        rec['pstatus']=st2
+        try:
+            pj=json.loads(b2); ps=pj.get('products',[])
+            rec['sample']=[{'title':p['title'],'vendor':p.get('vendor'),'type':p.get('product_type'),'price':(p.get('variants') or [{}])[0].get('price'),'img':bool(p.get('images'))} for p in ps]
+        except Exception: rec['sample']=None
+        out[d]=rec
+        print(sec, d, st, st2, len(rec['collections'] or []), (rec['sample'] or [{}])[0].get('title') if rec['sample'] else '')
+st, f, b = get('https://api.ebay.com/buy/browse/v1/item_summary/search?q=tamper')
+out['_ebay']={'status':st}
 os.makedirs('probe-out', exist_ok=True)
-json.dump(out, open('probe-out/result.json', 'w'), indent=1)
-for k, v in out.items(): print(k, v.get('status'), v.get('acao'), v.get('len'), v.get('err', ''))
+json.dump(out, open('probe-out/stores.json','w'), indent=0)
