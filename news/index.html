@@ -3713,6 +3713,7 @@ function renderHousehold() {
   $('#main').innerHTML = `<div class="wrap mk">
     <div class="page-h"><h1>Household</h1><p>What things cost and what changed for your money: the latest prices and rates, then the news on bills, prices, taxes, insurance and saving.</p></div>
     ${budgetFeature()}
+    ${craftmasFeature()}
     ${tiles.length || us.value ? `<section class="blk" style="margin-top:6px"><h2 class="sec-h">What things cost</h2><p class="sub2">The newest official and survey figures, each with its date. Tap one for its source.</p>
       <div class="econ">${tiles.map(econTile).join('')}${natTile(us.value, 'Typical U.S. home', '', 'The middle of the market for U.S. homes (Zillow Home Value Index).')}${natTile(us.rent, 'Typical U.S. rent', '/mo', 'The typical asking rent for a U.S. home or apartment (Zillow Observed Rent Index).')}</div>
       ${wallet.length ? `<h3 class="eh4">Commodities that reach your bills</h3><div class="mvs" style="max-width:640px">${wallet.map(r => `<button type="button" class="mv ${dirc(r.cp)}" data-tick="${esc(r.s)}"><b>${esc(r.n)}</b><span>${fprice(r)}</span><i>${fchg(r)}</i></button>`).join('')}</div>` : ''}</section>` : ''}
@@ -4297,6 +4298,13 @@ function finalsFeature() { // Sports opens with the day planner for the US Dress
     <span class="t90t"><span class="k">${T('Dressage · US Dressage Finals · Sat Oct 31')}</span><b>${T('Finals Saturday: plan your day at WEC')}</b>
     <span class="d">${T('Every ride time in all five rings at the World Equestrian Center in Wilmington, Ohio, and a card on every rider. Star the rides you want and it works out when to leave, where to sit, when to eat and when you will be home. Free admission, free parking.')}</span>
     <span class="go">${T('Plan your Saturday')} ›</span></span></a>`;
+}
+function craftmasFeature() { // Household, Oct to Dec: Craftmas, the holiday craft-night planner that lives at household/craftmas/
+  const m = new Date().getMonth(); if (m < 9) return '';
+  return `<a class="t90f" href="household/craftmas/"><span class="t90v" aria-hidden="true"><svg viewBox="0 0 132 88"><path d="M20 20c30 26 62 26 92 0" stroke="#A9852F" stroke-width="1.5" fill="none"/><circle cx="44" cy="52" r="15" fill="#c1652f" fill-opacity=".16" stroke="#c1652f" stroke-width="2"/><rect x="40" y="33" width="8" height="5" fill="#c1652f"/><circle cx="88" cy="52" r="15" fill="#177f8c" fill-opacity=".16" stroke="#177f8c" stroke-width="2"/><rect x="84" y="33" width="8" height="5" fill="#177f8c"/><circle cx="66" cy="38" r="3" fill="#A9852F"/><circle cx="30" cy="28" r="2.5" fill="#A9852F"/><circle cx="102" cy="28" r="2.5" fill="#A9852F"/></svg></span>
+    <span class="t90t"><span class="k">${T('Holidays · Craftmas · Etsy searches for DIY activities +8,500%')}</span><b>${T('The craft night is the new holiday party')}</b>
+    <span class="d">${T('Friends painting ornaments, stringing beads and making gifts together instead of a cocktail party. Pick a project or three and a head count, and it builds the shopping list with Etsy links, the cost per person, the run of the night, a prep countdown and the invitation.')}</span>
+    <span class="go">${T('Plan a craft night')} ›</span></span></a>`;
 }
 function budgetFeature() { // Household opens with the Household Budget tool that lives at household/budget/
   return `<a class="t90f" href="household/budget/"><span class="t90v" aria-hidden="true"><svg viewBox="0 0 132 88"><circle cx="66" cy="44" r="30" fill="none" stroke="#177f8c" stroke-opacity=".85" stroke-width="13" stroke-dasharray="85 104" transform="rotate(-90 66 44)"/><circle cx="66" cy="44" r="30" fill="none" stroke="#c1652f" stroke-opacity=".85" stroke-width="13" stroke-dasharray="58 131" stroke-dashoffset="-85" transform="rotate(-90 66 44)"/><circle cx="66" cy="44" r="30" fill="none" stroke="#8B7355" stroke-opacity=".55" stroke-width="13" stroke-dasharray="46 143" stroke-dashoffset="-143" transform="rotate(-90 66 44)"/><text x="66" y="53" text-anchor="middle">$</text></svg></span>
