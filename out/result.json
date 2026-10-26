@@ -1,0 +1,331 @@
+{
+ "j.cal": {
+  "status": 200,
+  "acao": "*",
+  "ct": "application/json",
+  "len": 14292,
+  "ms": 517,
+  "final": "https://api.jolpi.ca/ergast/f1/2026.json"
+ },
+ "j.drivers": {
+  "status": 200,
+  "acao": "*",
+  "ct": "application/json",
+  "len": 5317,
+  "ms": 496,
+  "final": "https://api.jolpi.ca/ergast/f1/2026/drivers.json"
+ },
+ "j.cons": {
+  "status": 200,
+  "acao": "*",
+  "ct": "application/json",
+  "len": 1594,
+  "ms": 493,
+  "final": "https://api.jolpi.ca/ergast/f1/2026/constructors.json"
+ },
+ "j.res0": {
+  "status": 200,
+  "acao": "*",
+  "ct": "application/json",
+  "len": 58455,
+  "ms": 512,
+  "final": "https://api.jolpi.ca/ergast/f1/2026/results.json?limit=100&offset=0"
+ },
+ "j.res1": {
+  "status": 200,
+  "acao": "*",
+  "ct": "application/json",
+  "len": 58855,
+  "ms": 815,
+  "final": "https://api.jolpi.ca/ergast/f1/2026/results.json?limit=100&offset=100"
+ },
+ "j.dst": {
+  "status": 200,
+  "acao": "*",
+  "ct": "application/json",
+  "len": 10116,
+  "ms": 486,
+  "final": "https://api.jolpi.ca/ergast/f1/2026/driverstandings.json"
+ },
+ "j.cst": {
+  "status": 200,
+  "acao": "*",
+  "ct": "application/json",
+  "len": 2504,
+  "ms": 494,
+  "final": "https://api.jolpi.ca/ergast/f1/2026/constructorstandings.json"
+ },
+ "j.q": {
+  "status": 200,
+  "acao": "*",
+  "ct": "application/json",
+  "len": 44863,
+  "ms": 490,
+  "final": "https://api.jolpi.ca/ergast/f1/2026/qualifying.json?limit=100"
+ },
+ "j.sprint": {
+  "status": 200,
+  "acao": "*",
+  "ct": "application/json",
+  "len": 59221,
+  "ms": 766,
+  "final": "https://api.jolpi.ca/ergast/f1/2026/sprint.json?limit=100"
+ },
+ "j.last": {
+  "status": 200,
+  "acao": "*",
+  "ct": "application/json",
+  "len": 13131,
+  "ms": 518,
+  "final": "https://api.jolpi.ca/ergast/f1/current/last/results.json"
+ },
+ "j.laps": {
+  "status": 200,
+  "acao": "*",
+  "ct": "application/json",
+  "len": 6419,
+  "ms": 763,
+  "final": "https://api.jolpi.ca/ergast/f1/current/last/laps.json?limit=100"
+ },
+ "j.pits": {
+  "status": 200,
+  "acao": "*",
+  "ct": "application/json",
+  "len": 3279,
+  "ms": 651,
+  "final": "https://api.jolpi.ca/ergast/f1/current/last/pitstops.json?limit=100"
+ },
+ "j.circuits": {
+  "status": 200,
+  "acao": "*",
+  "ct": "application/json",
+  "len": 5303,
+  "ms": 592,
+  "final": "https://api.jolpi.ca/ergast/f1/2026/circuits.json"
+ },
+ "j.career": {
+  "status": 200,
+  "acao": "*",
+  "ct": "application/json",
+  "len": 1082,
+  "ms": 627,
+  "final": "https://api.jolpi.ca/ergast/f1/drivers/alonso/results/1.json?limit=1"
+ },
+ "j.titles": {
+  "status": 400,
+  "acao": "*",
+  "err": "HTTP Error 400: Bad Request"
+ },
+ "o.sessions": {
+  "status": 200,
+  "acao": "*",
+  "ct": "application/json",
+  "len": 48130,
+  "ms": 816,
+  "final": "https://api.openf1.org/v1/sessions?year=2026"
+ },
+ "o.drivers": {
+  "status": 200,
+  "acao": "*",
+  "ct": "application/json",
+  "len": 9166,
+  "ms": 490,
+  "final": "https://api.openf1.org/v1/drivers?session_key=latest"
+ },
+ "o.meet": {
+  "status": 200,
+  "acao": "*",
+  "ct": "application/json",
+  "len": 20557,
+  "ms": 709,
+  "final": "https://api.openf1.org/v1/meetings?year=2026"
+ },
+ "o.stints": {
+  "status": 200,
+  "acao": "*",
+  "ct": "application/json",
+  "len": 7819,
+  "ms": 540,
+  "final": "https://api.openf1.org/v1/stints?session_key=latest"
+ },
+ "o.rc": {
+  "status": 200,
+  "acao": "*",
+  "ct": "application/json",
+  "len": 44602,
+  "ms": 514,
+  "final": "https://api.openf1.org/v1/race_control?session_key=latest"
+ },
+ "o.weather": {
+  "status": 200,
+  "acao": "*",
+  "ct": "application/json",
+  "len": 34340,
+  "ms": 487,
+  "final": "https://api.openf1.org/v1/weather?session_key=latest"
+ },
+ "o.result": {
+  "status": 200,
+  "acao": "*",
+  "ct": "application/json",
+  "len": 4048,
+  "ms": 494,
+  "final": "https://api.openf1.org/v1/session_result?session_key=latest"
+ },
+ "o.grid": {
+  "status": 404,
+  "acao": "*",
+  "err": "HTTP Error 404: Not Found"
+ },
+ "o.overtakes": {
+  "status": 200,
+  "acao": "*",
+  "ct": "application/json",
+  "len": 34169,
+  "ms": 721,
+  "final": "https://api.openf1.org/v1/overtakes?session_key=latest"
+ },
+ "f.f1": {
+  "status": 200,
+  "acao": null,
+  "ct": "text/xml",
+  "len": 7828,
+  "ms": 120,
+  "final": "https://www.formula1.com/en/latest/all.xml"
+ },
+ "f.bbc": {
+  "status": 200,
+  "acao": null,
+  "ct": "text/xml; charset=utf-8",
+  "len": 50318,
+  "ms": 237,
+  "final": "https://feeds.bbci.co.uk/sport/formula1/rss.xml"
+ },
+ "f.autosport": {
+  "status": 200,
+  "acao": null,
+  "ct": "application/xml; charset=utf-8",
+  "len": 68705,
+  "ms": 64,
+  "final": "https://www.autosport.com/rss/f1/news/"
+ },
+ "f.msport": {
+  "status": 200,
+  "acao": null,
+  "ct": "application/xml; charset=utf-8",
+  "len": 70077,
+  "ms": 72,
+  "final": "https://www.motorsport.com/rss/f1/news/"
+ },
+ "f.race": {
+  "status": 200,
+  "acao": null,
+  "ct": "application/rss+xml; charset=utf-8",
+  "len": 141265,
+  "ms": 232,
+  "final": "https://www.the-race.com/rss/"
+ },
+ "f.racefans": {
+  "status": 200,
+  "acao": null,
+  "ct": "application/rss+xml; charset=UTF-8",
+  "len": 25047,
+  "ms": 1032,
+  "final": "https://www.racefans.net/feed/"
+ },
+ "f.planet": {
+  "status": 404,
+  "acao": null,
+  "err": "HTTP Error 404: Not Found"
+ },
+ "f.guardian": {
+  "status": 200,
+  "acao": null,
+  "ct": "text/xml; charset=UTF-8",
+  "len": 67279,
+  "ms": 307,
+  "final": "https://www.theguardian.com/sport/formulaone/rss"
+ },
+ "f.gn": {
+  "status": 200,
+  "acao": null,
+  "ct": "application/xml; charset=utf-8",
+  "len": 144448,
+  "ms": 435,
+  "final": "https://news.google.com/rss/search?q=%22Formula+1%22+when:2d&hl=en-US&gl=US&ceid=US:en"
+ },
+ "f.ge": {
+  "status": 200,
+  "acao": null,
+  "ct": "text/html; charset=utf-8",
+  "len": 721,
+  "ms": 1825,
+  "final": "https://ge.globo.com/dynamo/motor/formula-1/rss2.xml"
+ },
+ "f.mst": {
+  "status": 404,
+  "acao": null,
+  "err": "HTTP Error 404: Not Found"
+ },
+ "f.amus": {
+  "status": 200,
+  "acao": null,
+  "ct": "text/html; charset=utf-8",
+  "len": 1073918,
+  "ms": 802,
+  "final": "https://www.auto-motor-und-sport.de/"
+ },
+ "f.gp": {
+  "status": 200,
+  "acao": null,
+  "ct": "text/html; charset=UTF-8",
+  "len": 394206,
+  "ms": 2172,
+  "final": "https://grandepremio.com/br/"
+ },
+ "f.espn": {
+  "status": 202,
+  "acao": "*",
+  "ct": "text/html; charset=UTF-8",
+  "len": 0,
+  "ms": 18,
+  "final": "https://www.espn.com/espn/rss/f1/news"
+ },
+ "f.crash": {
+  "status": 200,
+  "acao": null,
+  "ct": "application/rss+xml; charset=utf-8",
+  "len": 40622,
+  "ms": 535,
+  "final": "https://www.crash.net/rss/f1"
+ },
+ "f.skyf1": {
+  "status": 200,
+  "acao": null,
+  "ct": "application/xml",
+  "len": 16020,
+  "ms": 66,
+  "final": "https://www.skysports.com/rss/12433"
+ },
+ "y.f1": {
+  "status": 200,
+  "acao": null,
+  "ct": "text/xml; charset=UTF-8",
+  "len": 23899,
+  "ms": 31,
+  "final": "https://www.youtube.com/feeds/videos.xml?channel_id=UCB_qr75-ydFVKSF9Dmo6izg"
+ },
+ "w.espnf1": {
+  "status": 200,
+  "acao": "*",
+  "ct": "application/json;charset=UTF-8",
+  "len": 44379,
+  "ms": 109,
+  "final": "https://site.api.espn.com/apis/site/v2/sports/racing/f1/scoreboard"
+ },
+ "l.f1timing": {
+  "status": 403,
+  "acao": null,
+  "err": "HTTP Error 403: Forbidden"
+ }
+}
