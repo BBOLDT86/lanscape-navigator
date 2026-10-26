@@ -1493,7 +1493,7 @@ function renderDesk(k) {
   list.sort(deskSort === 'new' ? (a, b) => b.p - a.p : (a, b) => b.s - a.s);
   listPage(secName(k), T(list.length === 1 ? '{n} story' : '{n} stories', { n: list.length }), list.map(x => ({ it: x.it })),
     { controls: `<div class="seg" role="group" aria-label="Sort"><button type="button" data-sort="you" aria-pressed="${deskSort === 'you'}">Best for you</button><button type="button" data-sort="new" aria-pressed="${deskSort === 'new'}">Latest</button></div>`,
-      top: (k === 'politics' ? electionsHTML(true) : k === 'brazil' ? brMissPromo() + electionsHTML(true, 'br') : k === 'travel' ? lifeSlot(lifeTravel) : k === 'power' ? `<div id="pwrWrap" class="mk">${powerHTML()}</div>` : k === 'cars' ? `<div id="garWrap">${garageHTML()}</div>` : k === 'food' ? `<div id="fridgeWrap">${fridgeHTML()}</div>` : k === 'lifestyle' ? togetherFeature() + dateNightFeature() + visionFeature() : '') + deskBanner(k) + deskShop(k),
+      top: (k === 'politics' ? electionsHTML(true) : k === 'brazil' ? brMissPromo() + electionsHTML(true, 'br') : k === 'travel' ? lifeSlot(lifeTravel) : k === 'power' ? `<div id="pwrWrap" class="mk">${powerHTML()}</div>` : k === 'cars' ? `<div id="garWrap">${garageHTML()}</div>` : k === 'food' ? `<div id="fridgeWrap">${fridgeHTML()}</div>` : k === 'sports' ? finalsFeature() : k === 'lifestyle' ? togetherFeature() + dateNightFeature() + visionFeature() : '') + deskBanner(k) + deskShop(k),
       empty: k === 'lifestyle' ? T('Lifestyle stories start with the next edition.') : undefined });
   if (k === 'food') bindFridge();
   if (k === 'cars' && !GAR) ensureGarage().then(() => { const w = $('#garWrap'); if (w && view.t === 'desk' && view.k === 'cars') w.innerHTML = garageHTML(); });
@@ -4099,6 +4099,14 @@ async function shareIt(o) { // the phone's own share sheet (Messages, Mail, X...
 const shareSite = () => shareIt({ title: 'The Watch', text: T(SHARE_TEXT), url: PUBLIC + (LANG === 'pt' || LANG === 'de' ? LANG + '.html' : '') }); // pt.html / de.html: the preview in that language
 function weekenderPromo() { // the travel site next door: a plan for the coming weekend in eight cities
   return `<a class="wkpromo" href="../travel/"><span class="wkp-b" aria-hidden="true">✈</span><span><b>${T('Weekender: three perfect days, this weekend')}</b><span>${T('San Francisco, Los Angeles, Miami, New York, Paris, London, Prague and Las Vegas, planned day by day for the coming weekend, with live weather and flights and hotels filled in.')}</span></span><span class="wkp-go" aria-hidden="true">›</span></a>`;
+}
+function finalsFeature() { // Sports opens with the day planner for the US Dressage Finals at WEC (sports/dressage-finals/), through Sunday Nov 1
+  const d = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/New_York' }).format(new Date());
+  if (d > '2026-11-01') return '';
+  return `<a class="t90f" href="sports/dressage-finals/"><span class="t90v" aria-hidden="true"><svg viewBox="0 0 132 88"><rect x="10" y="22" width="104" height="44" rx="2" fill="#A9852F" fill-opacity=".12" stroke="#A9852F" stroke-width="2"/><line x1="10" y1="44" x2="114" y2="44" stroke="#A9852F" stroke-width="1.2" stroke-dasharray="4 4"/><rect x="118" y="38" width="6" height="12" rx="1.5" fill="#A9852F"/><text x="62" y="51" text-anchor="middle">31</text></svg></span>
+    <span class="t90t"><span class="k">${T('Dressage · US Dressage Finals · Sat Oct 31')}</span><b>${T('Finals Saturday: plan your day at WEC')}</b>
+    <span class="d">${T('Every ride time in all five rings at the World Equestrian Center in Wilmington, Ohio, and a card on every rider. Star the rides you want and it works out when to leave, where to sit, when to eat and when you will be home. Free admission, free parking.')}</span>
+    <span class="go">${T('Plan your Saturday')} ›</span></span></a>`;
 }
 function togetherFeature() { // Lifestyle opens with Together / 90, the couples workbook that lives at lifestyle/together-90/
   return `<a class="t90f" href="lifestyle/together-90/"><span class="t90v" aria-hidden="true"><svg viewBox="0 0 132 88"><circle cx="48" cy="44" r="36" fill="#c1652f" fill-opacity=".16" stroke="#c1652f" stroke-width="2"/><circle cx="84" cy="44" r="36" fill="#177f8c" fill-opacity=".16" stroke="#177f8c" stroke-width="2"/><text x="66" y="52" text-anchor="middle">90</text></svg></span>
