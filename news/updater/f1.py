@@ -247,23 +247,44 @@ def standings():
     return {'after': num(ds[0]['round']), 'drivers': d, 'teams': c}
 
 
-def career(ids, old):
-    """Career totals to date (every season in the database): starts, wins, podiums, poles, fastest laps."""
-    out = dict(old or {})
-    stale = sorted(ids, key=lambda i: (out.get(i) or {}).get('at', ''))
-    for i in stale[:14]:
-        if (out.get(i) or {}).get('at', '') > (NOW - dt.timedelta(days=3)).strftime('%Y-%m-%d'):
-            continue
-        try:
-            t = lambda p: int(jol(f'drivers/{i}/{p}.json?limit=1')['total'])
-            c = {'starts': t('results'), 'wins': t('results/1'), 'p2': t('results/2'), 'p3': t('results/3'), 'poles': t('qualifying/1'),
-                 'fl': t('fastest/1/results'), 'seasons': int(jol(f'drivers/{i}/seasons.json?limit=1')['total']), 'at': NOW.strftime('%Y-%m-%d')}
-            c['podiums'] = c['wins'] + c.pop('p2') + c.pop('p3')
-            out[i] = c
-        except OutOfBudget:
-            break
-        except Exception as ex:  # noqa: BLE001
-            errors.append(f'career {i}: {type(ex).__name__} {str(ex)[:80]}')
+CAREER_KEYS = ('starts', 'wins', 'podiums', 'poles', 'fl')
+
+
+def season_counts(i, results, quali):
+    """What this season's classifications already add to a driver's career totals."""
+    rs = [x for rows in results.values() for x in rows if x['d'] == i]
+    return {'starts': len(rs), 'wins': sum(x['pos'] == 1 for x in rs), 'podiums': sum((x['pos'] or 99) <= 3 for x in rs),
+            'poles': sum(x['pos'] == 1 for rows in quali.values() for x in rows if x['d'] == i),
+            'fl': sum(1 for x in rs if (x.get('fl') or {}).get('rank') == 1)}
+
+
+def career(ids, old, results, quali):
+    """Career totals to date: starts, wins, podiums, poles, fastest laps, seasons. Jolpica's totals are fetched once a
+    month per driver and stored as what came before this season ('pre'); this season's part is added from the
+    classifications on every run, so the totals move with each race without asking again."""
+    out = {}
+    fresh = (NOW - dt.timedelta(days=30)).strftime('%Y-%m-%d')
+    for i in ids:
+        o = (old or {}).get(i) or {}
+        if not o.get('pre') or o.get('at', '') < fresh:
+            if spent['j'] < BUDGET - 30:
+                try:
+                    t = lambda p: int(jol(f'drivers/{i}/{p}.json?limit=1')['total'])
+                    tot = {'starts': t('results'), 'wins': t('results/1'), 'p2': t('results/2'), 'p3': t('results/3'), 'poles': t('qualifying/1'),
+                           'fl': t('fastest/1/results'), 'seasons': int(jol(f'drivers/{i}/seasons.json?limit=1')['total'])}
+                    tot['podiums'] = tot['wins'] + tot.pop('p2') + tot.pop('p3')
+                    now = season_counts(i, results, quali)
+                    o = {'pre': {k: tot[k] - now[k] for k in CAREER_KEYS}, 'seasons': tot['seasons'], 'at': NOW.strftime('%Y-%m-%d')}
+                except OutOfBudget:
+                    pass
+                except Exception as ex:  # noqa: BLE001
+                    errors.append(f'career {i}: {type(ex).__name__} {str(ex)[:80]}')
+            elif o.get('wins') is not None and not o.get('pre'):  # an older copy without the split: keep showing it
+                out[i] = o
+                continue
+        if o.get('pre'):
+            now = season_counts(i, results, quali)
+            out[i] = dict({k: o['pre'][k] + now[k] for k in CAREER_KEYS}, pre=o['pre'], seasons=o.get('seasons'), at=o.get('at'))
     return out
 
 
@@ -398,7 +419,15 @@ def tracks(cal, meets, old):
             continue
         n += 1
         try:
-            c = json.loads(get(m['circuit_info_url'], timeout=20))
+            c = None
+            for yr in (SEASON, SEASON - 1, SEASON - 2, 2019, 2017):  # a circuit back on the calendar may have only an older file
+                try:
+                    c = json.loads(get(re.sub(r'/\d{4}$', f'/{yr}', m['circuit_info_url']), timeout=20)); break
+                except urllib.error.HTTPError as ex:
+                    if ex.code != 404:
+                        raise
+            if not c:
+                continue
             xs, ys = c.get('x') or [], c.get('y') or []
             if len(xs) < 20:
                 continue
@@ -426,8 +455,10 @@ FEEDS = [  # (outlet, url, language, keep only F1?)
     ('The Race', 'https://www.the-race.com/feed/', 'en', True),
     ('RaceFans', 'https://www.racefans.net/feed/', 'en', True),
     ('Google News', GN + urllib.request.quote('"Formula 1" OR F1 grand prix when:3d'), 'en', True),
-    ('Grande Prêmio', 'https://www.grandepremio.com.br/feed/', 'pt', True),
-    ('auto motor und sport', 'https://www.auto-motor-und-sport.de/formel-1/rss.xml', 'de', False),
+    ('Motorsport.com Brasil', 'https://motorsport.uol.com.br/rss/f1/news/', 'pt', False),
+    ('Google Notícias', 'https://news.google.com/rss/search?hl=pt-BR&gl=BR&ceid=BR:pt-419&q=' + urllib.request.quote('"Fórmula 1" OR F1 when:3d'), 'pt', True),
+    ('Motorsport.com Deutschland', 'https://de.motorsport.com/rss/f1/news/', 'de', False),
+    ('Google News Deutschland', 'https://news.google.com/rss/search?hl=de&gl=DE&ceid=DE:de&q=' + urllib.request.quote('"Formel 1" when:3d'), 'de', True),
 ]
 F1_RX = re.compile(r'\b(F1|Formula (1|One)|Formel ?1|F[óo]rmula ?1|grand prix|grande pr[êe]mio|GP)\b', re.I)
 OTHER_RX = re.compile(r'\b(MotoGP|Moto2|Moto3|IndyCar|Indy 500|NASCAR|Formula E|WEC|Le Mans|WRC|IMSA|Supercars|F2|F3|Formula [23]|F[óo]rmula [23]|Stock Car|'
@@ -436,7 +467,13 @@ GN_OK = {'formula1.com', 'bbc.com', 'bbc.co.uk', 'autosport.com', 'motorsport.co
          'skysports.com', 'crash.net', 'planetf1.com', 'gpfans.com', 'reuters.com', 'apnews.com', 'nytimes.com', 'cnn.com', 'si.com', 'cbssports.com',
          'foxsports.com', 'nbcsports.com', 'yahoo.com', 'sports.yahoo.com', 'motor1.com', 'roadandtrack.com', 'caranddriver.com', 'racecar-engineering.com',
          'thedrive.com', 'forbes.com', 'wsj.com', 'ft.com', 'bloomberg.com', 'telegraph.co.uk', 'independent.co.uk', 'thetimes.com', 'theathletic.com',
-         'usatoday.com', 'latimes.com', 'washingtonpost.com', 'bleacherreport.com', 'essentiallysports.com', 'formulapassion.it', 'racingnews365.com'}
+         'usatoday.com', 'latimes.com', 'washingtonpost.com', 'bleacherreport.com', 'essentiallysports.com', 'formulapassion.it', 'racingnews365.com',
+         # Portuguese and German outlets, for those Google News searches
+         'ge.globo.com', 'globo.com', 'uol.com.br', 'grandepremio.com.br', 'motorsport.uol.com.br', 'f1mania.net', 'estadao.com.br', 'folha.uol.com.br',
+         'cnnbrasil.com.br', 'terra.com.br', 'band.uol.com.br', 'lance.com.br', 'metropoles.com', 'gazetaesportiva.com', 'motorsport-total.com', 'formel1.de',
+         'auto-motor-und-sport.de', 'kicker.de', 'sport1.de', 'spiegel.de', 'faz.net', 'sueddeutsche.de', 'zeit.de', 'n-tv.de', 'sportschau.de', 'rtl.de',
+         'sky.de', 'focus.de', 'welt.de', 'bild.de', 't-online.de', 'autobild.de', 'speedweek.com', 'motorsport-magazin.com', 'sport.de', 'tagesschau.de',
+         'derstandard.at', 'krone.at', 'laola1.at', 'nzz.ch', 'blick.ch', 'srf.ch'}
 
 
 def race_keys(cal):
@@ -732,7 +769,7 @@ def build(force=False):
             break
     have += [int(os.path.basename(p)[1:-5]) for p in glob.glob(os.path.join(RD, 'r*.json')) if int(os.path.basename(p)[1:-5]) not in have]
 
-    car = block('career', lambda: career([d for d in drivers if not drivers[d].get('reserve')], old.get('career')), old.get('career'))
+    car = block('career', lambda: career([d for d in drivers if not drivers[d].get('reserve')], old.get('career'), results, quali), old.get('career'))
     tr = block('tracks', lambda: tracks(cal, meets, load(TRACKS, {})), None) if meets is not None else None
     if tr:
         save(TRACKS, tr)
