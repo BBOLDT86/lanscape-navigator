@@ -3559,6 +3559,7 @@ function renderHousehold() {
   const shown = list.slice(0, pageLimit);
   $('#main').innerHTML = `<div class="wrap mk">
     <div class="page-h"><h1>Household</h1><p>What things cost and what changed for your money: the latest prices and rates, then the news on bills, prices, taxes, insurance and saving.</p></div>
+    ${budgetFeature()}
     ${tiles.length || us.value ? `<section class="blk" style="margin-top:6px"><h2 class="sec-h">What things cost</h2><p class="sub2">The newest official and survey figures, each with its date. Tap one for its source.</p>
       <div class="econ">${tiles.map(econTile).join('')}${natTile(us.value, 'Typical U.S. home', '', 'The middle of the market for U.S. homes (Zillow Home Value Index).')}${natTile(us.rent, 'Typical U.S. rent', '/mo', 'The typical asking rent for a U.S. home or apartment (Zillow Observed Rent Index).')}</div>
       ${wallet.length ? `<h3 class="eh4">Commodities that reach your bills</h3><div class="mvs" style="max-width:640px">${wallet.map(r => `<button type="button" class="mv ${dirc(r.cp)}" data-tick="${esc(r.s)}"><b>${esc(r.n)}</b><span>${fprice(r)}</span><i>${fchg(r)}</i></button>`).join('')}</div>` : ''}</section>` : ''}
@@ -4143,6 +4144,12 @@ function finalsFeature() { // Sports opens with the day planner for the US Dress
     <span class="t90t"><span class="k">${T('Dressage · US Dressage Finals · Sat Oct 31')}</span><b>${T('Finals Saturday: plan your day at WEC')}</b>
     <span class="d">${T('Every ride time in all five rings at the World Equestrian Center in Wilmington, Ohio, and a card on every rider. Star the rides you want and it works out when to leave, where to sit, when to eat and when you will be home. Free admission, free parking.')}</span>
     <span class="go">${T('Plan your Saturday')} ›</span></span></a>`;
+}
+function budgetFeature() { // Household opens with the Household Budget tool that lives at household/budget/
+  return `<a class="t90f" href="household/budget/"><span class="t90v" aria-hidden="true"><svg viewBox="0 0 132 88"><circle cx="66" cy="44" r="30" fill="none" stroke="#177f8c" stroke-opacity=".85" stroke-width="13" stroke-dasharray="85 104" transform="rotate(-90 66 44)"/><circle cx="66" cy="44" r="30" fill="none" stroke="#c1652f" stroke-opacity=".85" stroke-width="13" stroke-dasharray="58 131" stroke-dashoffset="-85" transform="rotate(-90 66 44)"/><circle cx="66" cy="44" r="30" fill="none" stroke="#8B7355" stroke-opacity=".55" stroke-width="13" stroke-dasharray="46 143" stroke-dashoffset="-143" transform="rotate(-90 66 44)"/><text x="66" y="53" text-anchor="middle">$</text></svg></span>
+    <span class="t90t"><span class="k">${T('Household Budget · for one or two people')}</span><b>${T('Where the money went, and who owes whom')}</b>
+    <span class="d">${T('Download the activity from your card or bank and drop it in: it sorts every charge by merchant, shows your spending month by month, and works out a fair settle-up if you share costs. A step-by-step guide is built in. It runs in your browser with no account, nothing is uploaded, and you can download it to use offline.')}</span>
+    <span class="go">${T('Open the Household Budget')} ›</span></span></a>`;
 }
 function togetherFeature() { // Lifestyle opens with Together / 90, the couples workbook that lives at lifestyle/together-90/
   return `<a class="t90f" href="lifestyle/together-90/"><span class="t90v" aria-hidden="true"><svg viewBox="0 0 132 88"><circle cx="48" cy="44" r="36" fill="#c1652f" fill-opacity=".16" stroke="#c1652f" stroke-width="2"/><circle cx="84" cy="44" r="36" fill="#177f8c" fill-opacity=".16" stroke="#177f8c" stroke-width="2"/><text x="66" y="52" text-anchor="middle">90</text></svg></span>
