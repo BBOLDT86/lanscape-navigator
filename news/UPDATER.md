@@ -107,7 +107,7 @@ A weekly scheduled Claude task writes the rest:
 ## Lifestyle
 
 Style, relationships, home life and how-to, from the New York Times' Style desk, the Guardian's Life and style and
-Relationships, Vogue and GQ directly, and The Cut, Esquire, Lifehacker, Real Simple and Well+Good through Google News site
+Relationships, Vogue and GQ directly, and The Cut, Esquire, Real Simple and Well+Good through Google News site
 searches. A general feed's story files here when the outlet put it under /style/, /fashion/, /lifestyle/, /relationships/,
 /weddings/, /parenting/ or /family/. The desk opens with Together / 90 (`news/lifestyle/together-90/`), a 90-day workbook
 for couples that runs entirely in the reader's browser: no account, nothing sent here, answers kept in that browser's
