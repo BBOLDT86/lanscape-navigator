@@ -23,6 +23,11 @@
    "id": "carry",
    "title": "Everyday carry",
    "dek": "A tracker for your keys and a slim magnetic battery."
+  },
+  {
+   "id": "ai-box",
+   "title": "The 256GB box",
+   "dek": "Used servers with 256GB of memory that run a 400B-class open AI model at home, from The Watch's build study; ask the seller how many DIMMs."
   }
  ],
  "items": [
@@ -262,6 +267,106 @@
    ],
    "sources": [
     "https://www.packhacker.com/travel-gear/anker/nano-power-bank-5k-maggo-slim/"
+   ]
+  },
+  {
+   "id": "dell-r630-2680v4-256gb",
+   "name": "PowerEdge R630, 2× Xeon E5-2680 v4, 256GB (8 × 32GB)",
+   "brand": "Dell",
+   "why": "The cheapest 256GB server in the build study: all four memory channels per socket lit, about 15 tok/s on Qwen3.6-35B-A3B with a 12GB card. A 1U box, so the graphics card has to sit outside on a riser; stock isn't shown on the page.",
+   "url": "https://techmikeny.com/products/dell-poweredge-r630-server-2x-e5-2680v4-2-40ghz-28-core-256gb-h730-rails",
+   "store": "TechMikeNY",
+   "price": 507.85,
+   "ebay": "dell r630 e5-2680 v4 256gb",
+   "tags": [
+    "ai",
+    "server",
+    "splurge"
+   ],
+   "cond": "Refurbished",
+   "board": "ai-box",
+   "shopify": false,
+   "currency": "USD",
+   "priceSeen": "2026-10-26",
+   "image": null,
+   "sources": [
+    "https://bboldt86.github.io/lanscape-navigator/news/tech/moe-box/",
+    "https://techmikeny.com/products/dell-poweredge-r630-server-2x-e5-2680v4-2-40ghz-28-core-256gb-h730-rails"
+   ]
+  },
+  {
+   "id": "dell-r640-6148-256gb",
+   "name": "PowerEdge R640, 2× Xeon Gold 6148, 256GB (16 × 16GB)",
+   "brand": "Dell",
+   "why": "The study's reference platform: 16 sticks light all six channels on each socket, for 64 GB/s of usable bandwidth and about 4.6 tok/s on Qwen3.5-397B with 16k of context. Watch for the same title with 4 × 64GB, which runs at a third of the speed.",
+   "url": "https://pcserverandparts.com/dell-poweredge-r640-server-2x-intel-gold-6148-2-40ghz-20c-256gb-ram-no-hdd-i350-s140-onboard-raid-refurbished",
+   "store": "PC Server & Parts",
+   "price": 2423.28,
+   "ebay": "dell r640 gold 6148 256gb 16x16gb",
+   "tags": [
+    "ai",
+    "server",
+    "splurge"
+   ],
+   "cond": "Refurbished",
+   "board": "ai-box",
+   "shopify": false,
+   "currency": "USD",
+   "priceSeen": "2026-10-26",
+   "image": null,
+   "sources": [
+    "https://bboldt86.github.io/lanscape-navigator/news/tech/moe-box/",
+    "https://pcserverandparts.com/dell-poweredge-r640-server-2x-intel-gold-6148-2-40ghz-20c-256gb-ram-no-hdd-i350-s140-onboard-raid-refurbished"
+   ]
+  },
+  {
+   "id": "h12ssl-epyc7532-256gb",
+   "name": "H12SSL-i + EPYC 7532 + 256GB DDR4-2666 (8 × 32GB)",
+   "brand": "Supermicro / AMD",
+   "why": "A single-socket EPYC with all eight memory channels filled: 72 GB/s usable, 12% faster than the R640 for the same models. A bare board, so a case, power supply and SP3 cooler are extra; ask that the CPU is not vendor-locked.",
+   "url": "https://www.ebay.com/itm/335913100598",
+   "store": "eBay (halbry)",
+   "price": 3299,
+   "ebay": "h12ssl-i epyc 7532 256gb",
+   "tags": [
+    "ai",
+    "server",
+    "splurge"
+   ],
+   "cond": "Open box",
+   "board": "ai-box",
+   "shopify": false,
+   "currency": "USD",
+   "priceSeen": "2026-10-26",
+   "image": null,
+   "sources": [
+    "https://bboldt86.github.io/lanscape-navigator/news/tech/moe-box/",
+    "https://www.ebay.com/itm/335913100598"
+   ]
+  },
+  {
+   "id": "h12ssl-epyc7532-combo",
+   "name": "H12SSL-i + EPYC 7532 combo (no memory)",
+   "brand": "Supermicro / AMD",
+   "why": "Half of the study's fastest build under $5,000: add eight 32GB DDR4-3200 sticks for 87 GB/s, the most memory bandwidth you can buy used without moving to DDR5. Tested and working per the seller.",
+   "url": "https://www.ebay.com/itm/397752456542",
+   "store": "eBay",
+   "price": 1424,
+   "ebay": "h12ssl-i epyc 7532 combo",
+   "tags": [
+    "ai",
+    "server",
+    "splurge"
+   ],
+   "cond": "Pre-owned",
+   "board": "ai-box",
+   "shopify": false,
+   "currency": "USD",
+   "priceSeen": "2026-10-26",
+   "image": null,
+   "sources": [
+    "https://bboldt86.github.io/lanscape-navigator/news/tech/moe-box/",
+    "https://www.ebay.com/itm/397752456542"
    ]
   }
  ]

@@ -1,0 +1,776 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The 256GB Box · The Watch</title>
+<meta name="description" content="A build study for running a 400-billion-parameter AI model at home on a used server: nine eBay-sourced 256GB builds from about $1,300 to $5,000, what each one decodes, what fits, and a buying board with the questions to ask the seller.">
+<link rel="canonical" href="https://bboldt86.github.io/lanscape-navigator/news/tech/moe-box/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="The Watch">
+<meta property="og:title" content="The 256GB Box · The Watch">
+<meta property="og:description" content="Run a 400B mixture-of-experts model on a used server. Nine builds, every part priced, every speed modelled and calibrated, and a buying board.">
+<meta property="og:url" content="https://bboldt86.github.io/lanscape-navigator/news/tech/moe-box/">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#F5F7F6" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0E1A2B" media="(prefers-color-scheme: dark)">
+<meta name="apple-mobile-web-app-title" content="256GB Box">
+<link rel="apple-touch-icon" href="../../icon-180.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='4' y='14' width='56' height='36' rx='6' fill='%2315243B'/%3E%3Crect x='10' y='22' width='6' height='20' rx='1.5' fill='%23D6B25E'/%3E%3Crect x='19' y='22' width='6' height='20' rx='1.5' fill='%23D6B25E'/%3E%3Crect x='28' y='22' width='6' height='20' rx='1.5' fill='%23D6B25E'/%3E%3Crect x='37' y='22' width='6' height='20' rx='1.5' fill='%23D6B25E'/%3E%3Crect x='47' y='24' width='8' height='16' rx='2' fill='%2378B4C4'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F5F7F6; --raise:#FFFFFF; --ink:#15243B; --ink-2:#465770; --ink-3:#7A889A; --rule:rgba(21,36,59,.12); --rule-2:rgba(21,36,59,.22);
+  --shoal:#D7E7EC; --shoal-2:#C3DAE2; --brass:#A9852F; --brass-ink:#7A5E1C; --signal:#C2412D; --ok:#2F7A55; --sea:#177F8C; --sea-soft:rgba(23,127,140,.14);
+  --bar:#2E6FB8; --bar-2:#9DB9D9;
+  --serif:'Instrument Serif','Iowan Old Style',Georgia,serif;
+  --sans:'Instrument Sans',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="day"]){
+    --paper:#0E1A2B; --raise:#142539; --ink:#E7EDF4; --ink-2:#AEBBCB; --ink-3:#8492A6; --rule:rgba(231,237,244,.12); --rule-2:rgba(231,237,244,.24);
+    --shoal:#12293F; --shoal-2:#1A3A55; --brass:#D6B25E; --brass-ink:#E3C47E; --signal:#E8705A; --ok:#5BC48C; --sea:#4FB8C4; --sea-soft:rgba(79,184,196,.16);
+    --bar:#6FA6E6; --bar-2:#3A5A80; color-scheme:dark;
+  }
+}
+:root[data-theme="night"]{
+  --paper:#0E1A2B; --raise:#142539; --ink:#E7EDF4; --ink-2:#AEBBCB; --ink-3:#8492A6; --rule:rgba(231,237,244,.12); --rule-2:rgba(231,237,244,.24);
+  --shoal:#12293F; --shoal-2:#1A3A55; --brass:#D6B25E; --brass-ink:#E3C47E; --signal:#E8705A; --ok:#5BC48C; --sea:#4FB8C4; --sea-soft:rgba(79,184,196,.16);
+  --bar:#6FA6E6; --bar-2:#3A5A80; color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 16px/1.55 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer;background:none;border:0;padding:0}
+:focus-visible{outline:2px solid var(--brass);outline-offset:2px;border-radius:4px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+@media (max-width:640px){.wrap{padding:0 16px}}
+.n,.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+
+.mast{border-bottom:1px solid var(--rule);background:var(--paper);position:sticky;top:0;z-index:30}
+.mast .wrap{display:flex;align-items:center;justify-content:space-between;height:52px;gap:12px}
+.back{display:inline-flex;align-items:center;gap:10px;text-decoration:none;font-weight:600;font-size:15px;white-space:nowrap}
+.back svg{width:26px;height:26px;flex:none}
+.back span{color:var(--ink-3);font-weight:500}
+.mnav{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;flex:1;justify-content:flex-end}
+.mnav::-webkit-scrollbar{display:none}
+.mnav a{font-size:14px;color:var(--ink-2);text-decoration:none;padding:6px 10px;border-radius:999px;white-space:nowrap}
+.mnav a:hover{background:var(--shoal)}
+.tbtn{font-size:14px;color:var(--ink-2);border:1px solid var(--rule);border-radius:999px;padding:5px 12px;background:var(--raise);flex:none}
+.tbtn:hover{border-color:var(--brass)}
+@media (max-width:820px){.mnav{display:none}}
+
+.hero{display:grid;grid-template-columns:1.3fr 1fr;gap:40px;padding-top:44px;padding-bottom:30px;align-items:end}
+.kick{font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--brass-ink);margin:0 0 10px}
+.hero h1{font:400 64px/1.02 var(--serif);letter-spacing:-.01em;margin:0 0 14px;text-wrap:balance}
+.hero h1 i{color:var(--brass-ink)}
+.lede{margin:0;color:var(--ink-2);font-size:18px;max-width:58ch;text-wrap:pretty}
+.big{border:1px solid var(--rule);background:var(--raise);border-radius:16px;padding:22px 24px}
+.big b{display:block;font:400 84px/.95 var(--serif);color:var(--brass-ink);letter-spacing:-.02em}
+.big b small{font-size:30px;letter-spacing:0}
+.big p{margin:8px 0 0;font-size:15px;color:var(--ink-2)}
+.big .fine{display:block;margin-top:10px;font-size:12px;color:var(--ink-3)}
+@media (max-width:820px){.hero{grid-template-columns:1fr;gap:22px;padding-top:28px}.hero h1{font-size:44px}.lede{font-size:16px}.big b{font-size:64px}}
+.strip{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.strip div{padding:16px 18px;border-left:1px solid var(--rule)}
+.strip div:first-child{border-left:0;padding-left:0}
+.strip b{font:400 34px/1 var(--serif)}
+.strip span{display:block;font-size:13px;color:var(--ink-3);margin-top:4px}
+@media (max-width:820px){.strip{grid-template-columns:1fr 1fr}.strip div:nth-child(3){border-left:0;padding-left:0}.strip div:nth-child(n+3){border-top:1px solid var(--rule)}}
+
+.sec{padding-top:56px}
+.sl{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--brass-ink);margin:0 0 8px}
+.sec-h{font:400 40px/1.08 var(--serif);margin:0 0 8px;text-wrap:balance}
+.sub{margin:0 0 22px;color:var(--ink-2);max-width:66ch;text-wrap:pretty}
+@media (max-width:640px){.sec-h{font-size:32px}}
+.card{border:1px solid var(--rule);background:var(--raise);border-radius:16px;padding:20px 22px}
+.note{font-size:13px;color:var(--ink-3);margin:10px 0 0}
+.tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:2px 8px;border-radius:999px;background:var(--shoal);color:var(--ink-2);vertical-align:middle}
+.tag.warn{background:rgba(194,65,45,.14);color:var(--signal)}
+.tag.ok{background:rgba(47,122,85,.14);color:var(--ok)}
+.tag.ref{background:var(--brass);color:var(--paper)}
+
+/* what changed */
+.chg{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.chg .card h3{font:400 22px/1.2 var(--serif);margin:0 0 6px}
+.chg .card p{margin:0;font-size:15px;color:var(--ink-2)}
+.chg ul{margin:6px 0 0;padding-left:18px;font-size:14px;color:var(--ink-2)}
+.chg li{margin:3px 0}
+@media (max-width:900px){.chg{grid-template-columns:1fr}}
+
+/* findings */
+.finds{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+.find{border-top:2px solid var(--ink);padding-top:12px}
+.find .no{font:400 15px var(--mono);color:var(--brass-ink)}
+.find h3{font:400 24px/1.15 var(--serif);margin:4px 0 6px}
+.find p{margin:0;font-size:15px;color:var(--ink-2)}
+
+/* configurator */
+.cfg{display:grid;grid-template-columns:360px 1fr;gap:18px;align-items:start}
+@media (max-width:900px){.cfg{grid-template-columns:1fr}}
+.knobs{display:grid;gap:14px}
+.knob label{display:block;font-size:13px;font-weight:600;color:var(--ink-2);margin-bottom:6px}
+.knob select{width:100%;background:var(--paper);border:1px solid var(--rule-2);border-radius:10px;padding:8px 10px;min-height:42px}
+.seg{display:inline-flex;border:1px solid var(--rule-2);border-radius:999px;padding:3px;background:var(--paper);flex-wrap:wrap}
+.seg button{padding:6px 12px;border-radius:999px;font-size:14px;color:var(--ink-2)}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.presets{display:flex;flex-wrap:wrap;gap:6px}
+.presets button{font:500 13px var(--mono);border:1px solid var(--rule-2);border-radius:8px;padding:4px 8px;background:var(--paper)}
+.presets button[aria-pressed="true"]{border-color:var(--brass);background:var(--brass);color:var(--paper)}
+.out .head{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;align-items:baseline}
+.out .head h3{font:400 28px/1.1 var(--serif);margin:0}
+.out .head .cost{font:500 22px var(--mono)}
+.kp{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin:16px 0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.kp div{padding:12px 14px;border-left:1px solid var(--rule)}
+.kp div:first-child{border-left:0;padding-left:0}
+.kp b{display:block;font:400 32px/1 var(--serif)}
+.kp span{font-size:12px;color:var(--ink-3)}
+@media (max-width:640px){.kp{grid-template-columns:1fr 1fr}.kp div:nth-child(3){border-left:0;padding-left:0}.kp div:nth-child(n+3){border-top:1px solid var(--rule)}}
+.mrows{display:grid;gap:6px;margin-top:8px}
+.mrow{display:grid;grid-template-columns:200px 1fr 66px;gap:10px;align-items:center;font-size:14px}
+.mrow .nm{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mrow .nm small{color:var(--ink-3)}
+.mrow .tr{height:16px;background:var(--shoal);border-radius:4px;position:relative;overflow:hidden}
+.mrow .tr i{position:absolute;left:0;top:0;bottom:0;background:var(--bar);border-radius:4px}
+.mrow .tr i.vr{background:var(--sea)}
+.mrow .tr i.no{background:transparent;border:1px dashed var(--rule-2)}
+.mrow .v{font:500 14px var(--mono);text-align:right}
+.mrow.sel .nm{font-weight:700}
+.mrow.sel .tr{outline:2px solid var(--brass);outline-offset:1px}
+@media (max-width:640px){.mrow{grid-template-columns:120px 1fr 54px;font-size:13px}}
+.warns{margin:14px 0 0;padding:0;list-style:none;display:grid;gap:6px}
+.warns li{font-size:14px;padding:8px 12px;border-radius:10px;background:var(--shoal);color:var(--ink-2)}
+.warns li.w{background:rgba(194,65,45,.1);color:var(--ink)}
+.warns li b{color:var(--ink)}
+
+/* builds */
+.builds{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px}
+.bld{border:1px solid var(--rule);background:var(--raise);border-radius:16px;padding:18px 20px;display:flex;flex-direction:column}
+.bld.ref{border-color:var(--brass);box-shadow:0 0 0 1px var(--brass) inset}
+.bld .top{display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.bld .id{font:500 14px var(--mono);color:var(--brass-ink)}
+.bld h3{font:400 24px/1.1 var(--serif);margin:2px 0 4px}
+.bld .tot{font:500 20px var(--mono)}
+.bld .dl{font-size:12px;font-family:var(--mono)}
+.up{color:var(--signal)} .dn{color:var(--ok)}
+.bld .bw{font-size:13px;color:var(--ink-3);margin:0 0 10px}
+.bld .parts{border-top:1px solid var(--rule);margin:0;padding:8px 0 0;list-style:none;font-size:14px}
+.bld .parts li{display:flex;justify-content:space-between;gap:10px;padding:3px 0}
+.bld .parts li span:first-child{color:var(--ink-2)}
+.bld .sp{margin-top:10px;display:grid;gap:4px;font-size:13px}
+.bld .sp div{display:flex;justify-content:space-between}
+.bld .sp b{font-family:var(--mono);font-weight:500}
+.bld .foot{margin-top:auto;padding-top:12px;display:flex;gap:8px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:600;border:1px solid var(--rule-2);border-radius:999px;padding:6px 14px;text-decoration:none;background:var(--paper)}
+.btn:hover{border-color:var(--brass)}
+.btn.pri{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+
+/* tables */
+.tw{overflow-x:auto;border:1px solid var(--rule);border-radius:14px;background:var(--raise)}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{padding:9px 12px;text-align:left;border-bottom:1px solid var(--rule);vertical-align:top}
+th{font-size:12px;font-weight:600;color:var(--ink-3);text-transform:uppercase;letter-spacing:.05em;white-space:nowrap;background:var(--raise);position:sticky;top:0}
+tr:last-child td{border-bottom:0}
+td.n,th.n{text-align:right;white-space:nowrap}
+td small{color:var(--ink-3)}
+td.hot{background:var(--sea-soft)}
+td.dash{color:var(--ink-3);text-align:center}
+.grid td.n{min-width:52px}
+.grid td.cur{font-weight:700}
+.grid th.cur{color:var(--brass-ink)}
+.ctl{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:0 0 12px}
+
+/* charts */
+.chart svg{display:block;width:100%;height:auto}
+.chart text{font-family:var(--sans);fill:var(--ink-2);font-size:12px}
+.chart .ax{stroke:var(--rule-2)}
+.chart .gl{stroke:var(--rule)}
+.chart .pt{fill:var(--bar)}
+.chart .pt.ref{fill:var(--brass)}
+.chart .pt.bad{fill:var(--signal)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:900px){.two{grid-template-columns:1fr}}
+.two h3,.card h3.ch{font:400 22px/1.2 var(--serif);margin:0 0 4px}
+.two .card p.cap,.card p.cap{margin:0 0 10px;font-size:13px;color:var(--ink-3)}
+
+/* buying board */
+.shop{display:grid;grid-template-columns:1fr 340px;gap:18px;align-items:start}
+@media (max-width:900px){.shop{grid-template-columns:1fr}}
+.sl-row{display:grid;grid-template-columns:28px 1fr auto;gap:12px;align-items:start;padding:14px 0;border-bottom:1px solid var(--rule)}
+.sl-row:last-child{border-bottom:0}
+.sl-row input[type=checkbox]{width:20px;height:20px;margin-top:3px;accent-color:var(--brass)}
+.sl-row h4{margin:0;font-size:16px}
+.sl-row p{margin:2px 0 0;font-size:14px;color:var(--ink-2)}
+.sl-row .px{text-align:right;font-family:var(--mono);white-space:nowrap}
+.sl-row .px b{display:block;font-size:17px;font-weight:500}
+.sl-row .px small{font-size:12px;color:var(--ink-3)}
+.sl-row .links{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+.sl-row .links a{font-size:13px;color:var(--sea);font-weight:600;text-decoration:none}
+.sl-row .links a:hover{text-decoration:underline}
+.sl-row.got h4,.sl-row.got p{text-decoration:line-through;color:var(--ink-3)}
+.tgt{display:flex;align-items:center;gap:6px;margin-top:6px;font-size:13px;color:var(--ink-3)}
+.tgt input{width:90px;font:500 13px var(--mono);background:var(--paper);border:1px solid var(--rule-2);border-radius:8px;padding:4px 6px}
+.ask{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.ask li{display:grid;grid-template-columns:24px 1fr;gap:8px;font-size:14px;color:var(--ink-2)}
+.ask input{width:18px;height:18px;margin-top:2px;accent-color:var(--brass)}
+.ask b{color:var(--ink)}
+.sumbox{display:flex;justify-content:space-between;align-items:baseline;border-top:2px solid var(--ink);margin-top:10px;padding-top:10px}
+.sumbox b{font:500 24px var(--mono)}
+
+.flags{border:1px dashed var(--brass);background:rgba(169,133,47,.07);border-radius:14px;padding:16px 18px;font-size:15px;color:var(--ink-2)}
+.flags code,code{font:500 13px var(--mono);background:var(--shoal);padding:1px 5px;border-radius:5px;color:var(--ink)}
+.formula{font:500 15px var(--mono);padding:14px 16px;background:var(--shoal);border-radius:12px;overflow-x:auto;white-space:nowrap}
+details.more{margin-top:14px}
+details.more summary{cursor:pointer;font-weight:600;color:var(--sea)}
+
+.foot{padding:60px 0 50px;color:var(--ink-3);font-size:14px}
+.foot p{margin:4px 0}
+.foot a{color:var(--ink-2)}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:var(--paper);padding:10px 16px;border-radius:999px;font-size:14px;opacity:0;transition:opacity .2s;pointer-events:none;z-index:50}
+.toast.on{opacity:1}
+@media print{.mast,.toast,.presets,.ctl{display:none}.sec{padding-top:24px}}
+</style>
+</head>
+<body>
+<script>
+(function(){try{var p=JSON.parse(localStorage.getItem('watch.v1')||'{}');var t=p.theme||'auto';var h=+new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',hour:'numeric',hourCycle:'h23'}).format(new Date());
+if(t==='auto'){t=(h>=20||h<4)?'night':(matchMedia('(prefers-color-scheme: dark)').matches?'night':'day')}document.documentElement.dataset.theme=t;}catch(e){}})();
+</script>
+<header class="mast"><div class="wrap">
+  <a class="back" href="../../#/s/tech"><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" fill="#15243B"/><circle cx="32" cy="32" r="21" fill="none" stroke="#D6B25E" stroke-width="6" stroke-dasharray="19 3"/><path d="M32 32 L46 14" stroke="#F5F7F6" stroke-width="4" stroke-linecap="round"/></svg>The Watch <span>Tech</span></a>
+  <nav class="mnav" aria-label="On this page"><a href="#changed">What changed</a><a href="#why">Why</a><a href="#build">Build one</a><a href="#builds">Nine builds</a><a href="#fit">What fits</a><a href="#buy">Buying board</a><a href="#method">Method</a></nav>
+  <button class="tbtn" id="theme" type="button" aria-label="Switch between day and night paper">Night</button>
+</div></header>
+
+<main id="app"></main>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+/* ================================================================
+   The 256GB Box · build study, Rev 9
+   Everything below the DATA line is the study's numbers; everything
+   after ENGINE is arithmetic on them. No figure on the page is typed
+   by hand: every tok/s is computed from the formula in Method.
+   ================================================================ */
+/* ================= DATA · Rev 9, prices seen 22–26 Oct 2026 ================= */
+const REV = {
+  no: 9, date: '26 October 2026', short: '26 Oct', prevDate: '4 August 2026', prevShort: '4 Aug',
+  headline: 'Memory nearly doubled the reference build. The cheap bandwidth moved to old stock.',
+  dek: 'Twelve weeks after Rev 8, the formula hasn’t changed and neither has the physics. The market has. DDR4 server memory is up 50–90%, the RTX 5090 nearly doubled, three models worth running arrived, and an open llama.cpp pull request could give the graphics card a job in decode for the first time.',
+  cards: [
+    { t: 'Memory is the price now', d: 'Server DDR4 has been rationed to datacenter buyers since the makers’ end-of-life notices, and AI servers are eating what is left. The reference build went from <b>$1,439 to $2,772</b>.', li: ['16GB DDR4-2666 RDIMM: $70 → ~$119 median (+70%)', '32GB DDR4-2666 RDIMM: $150 → ~$228 (+52%)', '32GB DDR4-3200 RDIMM: $186 → ~$350 (+88%)', 'TrendForce expects contract prices up another 10–15% this quarter; easing is forecast for the second half of 2027'] },
+    { t: 'The value pick moved to Broadwell dealer stock', d: 'Refurbishers that haven’t repriced still list whole 256GB Broadwell servers for less than their memory would cost on eBay: an R630 at <b>$508</b> and an R730xd at <b>$812</b>, each with 8 × 32GB. B2 now costs 43% of B3 for 60% of its bandwidth — and, because its 24GB card keeps more of the cache, 76% of its speed at 16k. Neither page shows stock; call before counting on it.' },
+    { t: 'Three new models worth sizing', d: 'All open-weight, all released since August, all fit:', li: ['<b>Qwen3.8-Flash-Next</b> — 125B, 6B active, 111GB at 4-bit; GPQA-Diamond 91.7 on Qwen’s own table', '<b>GLM-5.3-Flash</b> — 320B, 18B active, 200GB at 4-bit; mainline llama.cpp since 30 Sep', '<b>Nemotron 3.5 Super VL</b> — 120B, 12B active, 87GB at 4-bit', 'GLM-5.3 replaces GLM-5.2 at the same 239GB footprint', 'DeepSeek-V4-Flash now runs on mainline llama.cpp; its software-risk flag is off'] },
+    { t: 'Cards: the 5090 nearly doubled', d: 'Median asks: RTX 5090 $3,800 → $6,999. RTX A4000 +36%, Tesla P40 +27% (cheap listings are drying up), RTX 3060 +17%, 3090 and 4090 +7%. Only the 4060 Ti fell. B9, the GPU-first mistake, now costs <b>$9,422</b> to decode exactly as fast as B3.' },
+    { t: 'Watch: the card may start to matter for decode', d: 'llama.cpp pull request #29887 (open, unmerged) keeps the hottest experts cached on the GPU. On an EPYC 7742 running Qwen3.8-Flash-Next it lifted decode from 25.0 to 40.7 tok/s with an RTX 4090 and from 30.8 to 67.8 with a 5090. If it lands, VRAM buys decode speed and finding 02 needs rewriting. Not modelled here.' },
+    { t: 'Still no DDR5 under $5,000', d: 'Genoa board-and-CPU combos are cheap now ($1,290–1,999 for engineering-sample 9334/9654 parts on Supermicro and Gigabyte boards), but 256GB of DDR5 RDIMM at ~$40/GB is about $10,000 by itself. Three listings from Rev 8 (the HP DL380 Gen10, R730 v3 and DL380 G9) could not be re-seen and are dropped.' },
+  ],
+};
+
+/* formula constants (Method) */
+const K = { streamIntel: 0.77, streamEpyc: 0.65, eta: 0.65, fRam: 0.85, ret2small: 0.55, ret2big: 0.70, ret1small: 0.75, ret1big: 0.85, gpuEff: 0.746, vramRet: 0.90, vramSpare: 2, ceiling: 235, tight: 5 };
+
+/* platforms: complete with 256GB installed. price = Rev 9 ask; aug = Rev 8 ask for the same role */
+const PLATS = [
+  { id: 'r630', short: 'Dell R630', cpuShort: '2× E5-2680 v4', cpu: '2× Xeon E5-2680 v4 (14c each)', mem: '256GB as 8 × 32GB, runs at 2400', sockets: 2, ch: 4, mts: 2400, kind: 'intel', price: 507.85, aug: 975,
+    url: 'https://techmikeny.com/products/dell-poweredge-r630-server-2x-e5-2680v4-2-40ghz-28-core-256gb-h730-rails', seller: 'TechMikeNY', note: '1U, 10 bays, 2 × 750W. Dealer price that has not caught up with memory; stock not shown',
+    q: 'dell r630 e5-2680 v4 256gb', dimm: '8 × 32GB is four per socket, which lights all four Broadwell channels. Good.', buy: 'TechMikeNY lists it with 8 × 32GB PC4-2666 (Broadwell runs it at 2400), two 750W supplies and rails. It is a 1U box: low-profile slots only, so the card lives outside on a riser.' },
+  { id: 'r730xd', short: 'Dell R730xd', cpuShort: '2× E5-2680 v4', cpu: '2× Xeon E5-2680 v4 (14c each)', mem: '256GB as 8 × 32GB DDR4-2400', sockets: 2, ch: 4, mts: 2400, kind: 'intel', price: 811.50, aug: 1000,
+    url: 'https://techmikeny.com/products/dell-poweredge-r730xd-server-2x-e5-2680v4-2-40ghz-28-core-256gb-h730p-rails', seller: 'TechMikeNY', note: '2U, 24 bays, 2 × 1100W — power to spare for a 250W card. Stock not shown',
+    q: 'dell r730xd e5-2680 v4 256gb', dimm: '8 × 32GB is four per socket: all four channels lit.', buy: 'TechMikeNY lists it with 8 × 32GB PC4-2400, two 1100W supplies and rails. 2U, so a full-height card can go inside with the right riser and power cable — confirm the riser before buying.' },
+  { id: 'r640-6148', short: 'Dell R640', cpuShort: '2× Gold 6148', cpu: '2× Xeon Gold 6148 (20c each)', mem: '256GB as 16 × 16GB DDR4-2666', sockets: 2, ch: 6, mts: 2666, kind: 'intel', price: 2423.28, aug: 1420,
+    url: 'https://pcserverandparts.com/dell-poweredge-r640-server-2x-intel-gold-6148-2-40ghz-20c-256gb-ram-no-hdd-i350-s140-onboard-raid-refurbished', seller: 'PC Server & Parts', note: 'The cheapest in-stock R640 with 16 × 16GB found (18 in stock). Rev 8’s $1,140 Gold 5118 listing is gone',
+    q: 'dell r640 gold 6148 256gb 16x16gb', dimm: '16 × 16GB is eight per socket: all six channels lit, two of them carrying a second stick. Twelve or 24 sticks is the perfectly balanced layout, so expect a little under the grid; 8 × 32GB is far worse.', buy: 'PC Server & Parts, refurbished, 16 × 16GB, no drives, onboard S140 RAID. 1U: the card goes outside on a riser with its own power.' },
+  { id: 'r640-5118', short: 'Dell R640, configured', cpuShort: '2× Gold 5118', cpu: '2× Xeon Gold 5118 (12c each)', mem: '256GB as 16 × 16GB DDR4-2666', sockets: 2, ch: 6, mts: 2666, kind: 'intel', price: 2615.26, aug: 1140,
+    url: 'https://savemyserver.com/products/dell-poweredge-r640-8-bay-chassis', seller: 'SaveMyServer', note: 'Configurator: $346.39 chassis + $14.25 for two 5118s + $2,254.62 for 16 × 16GB. The memory is 86% of the price',
+    q: 'dell r640 gold 5118 256gb', dimm: '16 × 16GB, eight per socket — the right layout.', buy: 'Built to order on SaveMyServer’s configurator. Or buy the $361 chassis-and-CPUs and fill it yourself (see the memory table).' },
+  { id: 'r640-trap', short: 'Dell R640 (the trap)', cpuShort: '2× Gold 6148', cpu: '2× Xeon Gold 6148 (20c each)', mem: '256GB as 4 × 64GB', sockets: 2, ch: 2, mts: 2666, kind: 'intel', price: 1480, aug: null, trap: true,
+    url: 'https://techmikeny.com/collections/servers/products/dell-poweredge-r640-server-2x-gold-6148-2-40ghz-40-core-256gb-h730p-rails', seller: 'TechMikeNY', note: 'Looks $943 cheaper than the PCSP R640 with the same CPUs. Its 256GB is four 64GB sticks: two channels per socket. A third of the bandwidth',
+    q: 'dell r640 gold 6148 256gb', dimm: '4 × 64GB is two DIMMs per socket: four of six channels dark on each side.', dimmWarn: true, buy: 'The same title as a good one. Only the DIMM count gives it away.' },
+  { id: 'h12-7532-2666', short: 'Supermicro H12SSL-i + EPYC 7532', cpuShort: '1× EPYC 7532', cpu: '1× EPYC 7532 (32c, 8 CCD)', mem: '256GB as 8 × 32GB DDR4-2666', sockets: 1, ch: 8, mts: 2666, kind: 'epyc', price: 3299, aug: 2799,
+    url: 'https://www.ebay.com/itm/335913100598', seller: 'eBay (halbry, Shenzhen)', note: 'Board, CPU and eight Samsung 32GB 2666 sticks; open box, more than 10 available. Rev 8’s 7502 kit is gone',
+    q: 'h12ssl-i epyc 7532 256gb', dimm: '8 × 32GB is one per channel: all eight lit. At 2666 rather than 3200, it gives up 17% of what the board can do.', buy: 'A bare board, CPU and memory. You supply the case, power supply, SP3 cooler and boot drive (estimated below).' },
+  { id: 'h12-7532-3200', short: 'H12SSL-i + EPYC 7532, DDR4-3200', cpuShort: '1× EPYC 7532', cpu: '1× EPYC 7532 (32c, 8 CCD)', mem: '256GB as 8 × 32GB DDR4-3200', sockets: 1, ch: 8, mts: 3200, kind: 'epyc', price: 4224, aug: 3119, assembled: true,
+    url: 'https://www.ebay.com/itm/397752456542', seller: 'eBay combo + eBay memory', note: 'Assembled: $1,424 board-and-CPU combo plus 8 × 32GB DDR4-3200 at the ~$350 median. Rev 8’s Gigabyte MZ32-AR0 kit could not be re-seen',
+    q: 'h12ssl-i epyc 7532 combo', dimm: '8 × 32GB DDR4-3200, one per channel: the ideal 256GB.', buy: 'Two purchases: the $1,424 H12SSL-i + EPYC 7532 combo (used, tested, 3 available) and eight 32GB DDR4-3200 RDIMMs. Plus case, power, cooler and boot drive.' },
+];
+
+/* cards: median ask Rev 9 vs Rev 8 */
+const GPUS = [
+  { id: '3060', name: 'RTX 3060 12GB', vram: 12, bw: 360, price: 349, aug: 299, note: 'Cheapest card that holds a useful KV cache. +17%; the 90-day low is $283', q: 'rtx 3060 12gb', buy: 'Any 12GB 3060 (not the 8GB). Median $349 on resale trackers, cheapest credible around $275.' },
+  { id: 'p40', name: 'Tesla P40 24GB', vram: 24, bw: 347, price: 385, aug: 304, note: '24GB for little more than a 3060, but Pascal: no fast FP16, passive cooling, and newer CUDA has dropped it. Cheap listings are drying up', q: 'tesla p40 24gb', buy: 'Datacenter card with no fan: budget a printed shroud and blower, and the EPS-8 power adapter.', warn: 'passive, so it needs a fan shroud; and NVIDIA’s newest CUDA has dropped Pascal, so pin a driver and llama.cpp build that still supports it.' },
+  { id: 'mi50', name: 'AMD MI50 32GB', vram: 32, bw: 1024, price: 629, aug: 598, note: '32GB of HBM2 at 1TB/s; ROCm support is the gamble. One listing seen — a weak figure', q: 'amd mi50 32gb', buy: 'Few listings; one seen at $629. ROCm support for this card is unofficial.', warn: 'llama.cpp runs it through ROCm or Vulkan, neither officially supported for this card. Budget time.' },
+  { id: '4060ti', name: 'RTX 4060 Ti 16GB', vram: 16, bw: 288, price: 652, aug: 702, note: '16GB with modern CUDA but the narrowest bus here. The only card that got cheaper', q: 'rtx 4060 ti 16gb', buy: 'Make sure it is the 16GB model.' },
+  { id: 'a4000', name: 'RTX A4000 16GB', vram: 16, bw: 448, price: 1183, aug: 869, note: 'Single-slot, 140W. +36% since August', q: 'rtx a4000 16gb', buy: 'Single-slot, 140W from one 6-pin: the easiest card to power from a server riser.' },
+  { id: '3090', name: 'RTX 3090 24GB', vram: 24, bw: 936, price: 1550, aug: 1450, note: '24GB at 936GB/s; the default choice and priced like it', q: 'rtx 3090 24gb', buy: 'Ask for temperatures under load and whether the memory pads have been replaced.' },
+  { id: '4090', name: 'RTX 4090 24GB', vram: 24, bw: 1008, price: 3000, aug: 2800, note: 'Faster prefill than the 3090, same VRAM, nearly twice the price', q: 'rtx 4090 24gb', buy: 'Check the 12VHPWR connector for scorching.' },
+  { id: '5090', name: 'RTX 5090 32GB', vram: 32, bw: 1792, price: 6999, aug: 3800, note: '32GB. Up 84% since August, 64% in 90 days — the outlier of the market', q: 'rtx 5090', buy: 'At this price it is a different project.' },
+];
+
+/* the nine builds; aug = Rev 8 total */
+const BUILDS = [
+  { id: 'B1', name: 'Broadwell floor', plat: 'r630', gpu: '3060', aug: 1274, note: 'The cheapest way in, now cheaper than August if the dealer still has it. 1U: the card sits outside.' },
+  { id: 'B2', name: 'Broadwell + 24GB VRAM', plat: 'r730xd', gpu: 'p40', aug: 1304, note: 'Rev 9’s value pick: 24GB of card and 1100W supplies for less than a 3060 build cost in August.' },
+  { id: 'B3', name: 'Skylake 6-channel entry', plat: 'r640-6148', gpu: '3060', aug: 1439, note: 'The reference build. Same speed as Rev 8, nearly twice the price: the cheap 5118 listing is gone and memory is the bill.' },
+  { id: 'B4', name: 'Skylake + single-slot 16GB', plat: 'r640-6148', gpu: 'a4000', aug: 2051, note: 'Decodes exactly like B3. The A4000 buys easy power and 4GB more KV cache for $834.' },
+  { id: 'B5', name: 'Skylake + 3090', plat: 'r640-6148', gpu: '3090', aug: 2632, note: '24GB of card keeps more of the KV cache on the GPU: 70% retention at 16k instead of 55%.' },
+  { id: 'B6', name: 'EPYC Rome 8-channel', plat: 'h12-7532-2666', gpu: '3060', aug: 2949, note: 'Single socket, eight channels, but memory at 2666. The 7532 replaces Rev 8’s 7502 at the same speed.' },
+  { id: 'B7', name: 'EPYC Rome @ DDR4-3200', plat: 'h12-7532-3200', gpu: '3060', aug: 3418, note: 'The fastest memory system you can buy under $5,000, assembled from a combo and eight sticks.' },
+  { id: 'B8', name: 'EPYC 3200 + 3090', plat: 'h12-7532-3200', gpu: '3090', aug: 4569, note: 'Was the top of the budget. Now $774 over it — DDR4-3200 is the scarcest memory here.' },
+  { id: 'B9', name: 'GPU-first (the mistake)', plat: 'r640-6148', gpu: '5090', aug: 4940, note: 'Decodes every mixture-of-experts model at B5’s speed, for $5,449 more. Prefill is the only thing it buys.' },
+];
+
+/* models: bpp = bytes per parameter for the quant (Method); gb = file size */
+const MODELS = [
+  { n: 'Qwen3.6-35B-A3B', short: 'Qwen3.6-35B', total: 35, active: 3, quant: 'UD-Q4_K_XL', gb: 21, bpp: 0.56, ctx: '262K', mmlu: 85.2, gpqa: 86, swe: 73.4, note: 'The daily driver. Rev 9 uses the 3.6 repo’s own ~21GB Q4 size (Rev 8 borrowed 19.2 from 3.5).', url: 'https://huggingface.co/unsloth/Qwen3.6-35B-A3B-GGUF' },
+  { n: 'Qwen3.5-35B-A3B', short: 'Qwen3.5-35B', total: 35, active: 3, quant: 'Q4_K_XL', gb: 19.17, bpp: 0.56, ctx: '262K', mmlu: 85.3, gpqa: 84.2, swe: 69.2, noCap: true, hideBar: false, note: '256 experts, 8+1 active. IQ2_XXS is 9.09GB but KLD rises 13×.' },
+  { n: 'Qwen3.8-Flash-Next', short: 'Qwen3.8-Flash-Next', total: 125, active: 6, quant: 'UD-Q4_K_XL', gb: 111.3, bpp: 0.56, ctx: '262K', mmlu: null, gpqa: 91.7, swe: null, isNew: true, note: 'Plus 51B of n-gram embeddings that are looked up, not multiplied, so they add little per token. GPQA is from Qwen’s release table; its MMLU-Pro 73.2 is the base model and SWE-bench is Pro (62.5), not Verified. Q8_0 at 188GB also fits. Mainline llama.cpp from build b10660.', url: 'https://unsloth.ai/docs/models/qwen3.8-next' },
+  { n: 'gpt-oss-120b', short: 'gpt-oss-120b', total: 116.8, active: 5.13, quant: 'Q8_0 (native MXFP4)', gb: 63.4, bpp: 0.55, ctx: '131K', mmlu: null, gpqa: 80.1, swe: 62.4, note: 'Q2_K is 62.6GB and Q8 is 63.4GB — a 4% spread. Always run Q8; quantising buys nothing.' },
+  { n: 'Mistral Small 4 119B', short: 'Mistral Small 4', total: 119, active: 6.5, quant: 'Q8_0', gb: 126, bpp: 1.06, ctx: '256K', note: 'Fits at full Q8 with 110GB of headroom.' },
+  { n: 'MiniMax-M2', short: 'MiniMax-M2', total: 229, active: 10, quant: 'Q4_K_M', gb: 138, bpp: 0.56, ctx: '128K', mmlu: 88, gpqa: 83, swe: 74, note: 'Benchmark row is the M2.1 card; M2 and M2.1 share the 229B/10B shape.' },
+  { n: 'Nemotron 3.5 Super VL 120B-A12B', short: 'Nemotron 3.5 Super', total: 120, active: 12, quant: 'UD-Q4_K_XL', gb: 86.9, bpp: 0.56, ctx: '1M', mmlu: null, gpqa: 89.5, swe: 71.1, isNew: true, note: 'NVIDIA hybrid MoE that reads images and video, with a built-in multi-token-prediction head. Benchmarks are NVIDIA’s, via a secondary report. Q8_0 is 132GB.', url: 'https://unsloth.ai/docs/models/nemotron-3.5-super-vl' },
+  { n: 'DeepSeek-V4-Flash', short: 'DeepSeek-V4-Flash', total: 284, active: 13, quant: 'UD-Q8_K_XL', gb: 162, bpp: 1.06, ctx: '1M', mmlu: 86.2, gpqa: 88.1, swe: 79, note: 'Now on mainline llama.cpp, with a 0731 checkpoint. FP4 experts natively, so Q8 is only 7GB bigger than Q4 — Q8 is free. DSpark speculative decoding claims up to ~1.9× (not modelled).', url: 'https://unsloth.ai/docs/models/deepseek-v4' },
+  { n: 'Qwen3.5-397B-A17B', short: 'Qwen3.5-397B', total: 397, active: 17, quant: 'UD-IQ4_XS', gb: 190, bpp: 0.53, ctx: '262K', mmlu: 87.8, gpqa: 88.4, swe: 76.4, note: 'The capability pick. Q4_K_M is 244GB and does not fit; UD-IQ4_XS at 190GB is a genuine 4-bit quant.' },
+  { n: 'GLM-5.3-Flash', short: 'GLM-5.3-Flash', total: 320, active: 18, quant: 'UD-Q4_K_XL', gb: 199.7, bpp: 0.56, ctx: '1M', mmlu: null, gpqa: 90.2, swe: null, isNew: true, note: 'MIT-licensed, multimodal, released 26 Aug. Mainline llama.cpp support merged 30 Sep (PR #27773); multi-token prediction still pending. GPQA is Epoch AI’s independent run at max effort. UD-IQ4_XS is 157GB.', url: 'https://unsloth.ai/docs/models/glm-5.3-flash' },
+  { n: 'Hy3 295B-A21B', short: 'Hy3', total: 295, active: 21, quant: 'Q4_K_M', gb: 182, bpp: 0.56, ctx: '256K', mmlu: 65.76, noCap: true, note: 'The MMLU-Pro figure is the base model’s, not the instruct model’s. Not comparable with the rest of the column.' },
+  { n: 'Qwen3-235B-A22B-2507', short: 'Qwen3-235B', total: 235, active: 22, quant: 'Q4_K_M', gb: 142, bpp: 0.56, ctx: '262K', mmlu: 83, gpqa: 77.5, note: '22B active makes it 7× slower per token than the 35B-A3B at similar quality.' },
+  { n: 'MiniMax-M3', short: 'MiniMax-M3', total: 428, active: 23, quant: 'UD-IQ4_XS', gb: 208, bpp: 0.53, ctx: '1M', swe: 80.5, note: 'Q4_K_M is 264GB and does not fit. IQ4_XS at 208GB leaves very little room for context.' },
+  { n: 'Qwen3.6-27B (dense)', short: 'Qwen3.6-27B', total: 27, active: 27, quant: 'Q4_K_M', gb: 16.8, bpp: 0.56, ctx: '262K', dense: true, note: 'Dense control — small enough to sit entirely in 24GB of VRAM, which changes the arithmetic completely.' },
+  { n: 'GLM-4.7', short: 'GLM-4.7', total: 355, active: 32, quant: 'Q4_K_M', gb: 216, bpp: 0.56, ctx: '200K', mmlu: 84.3, gpqa: 85.7, swe: 73.8, note: '216GB of weights leaves under 20GB for everything else. IQ4_XS at 192GB is the safer choice.' },
+  { n: 'Qwen3-32B (dense)', short: 'Qwen3-32B', total: 32.8, active: 32.8, quant: 'Q4_K_M', gb: 19.8, bpp: 0.56, ctx: '32K', dense: true, note: 'Dense control — the same file size as Qwen3.5-35B-A3B with 11× the active parameters.' },
+  { n: 'DeepSeek-V3.2', short: 'DeepSeek-V3.2', total: 685, active: 37, quant: 'UD-IQ2_M', gb: 228, bpp: 0.34, ctx: '—', gpqa: 82.4, swe: 70, note: 'Active count is not on the card; 37B is inherited from the V3 architecture.' },
+  { n: 'GLM-5.3', short: 'GLM-5.3', total: 744, active: 40, quant: 'UD-IQ2_M', gb: 238.6, bpp: 0.34, ctx: '1M', mmlu: 86.8, gpqa: 88.1, swe: null, isNew: true, note: 'Replaces GLM-5.2: the same base with more post-training, open weights 29 Aug, the same footprint. Tight memory and slow decode. Scores are Vals AI’s, not the card’s.', url: 'https://unsloth.ai/docs/models/glm-5.3.md' },
+  { n: 'Mistral Large 3 675B', short: 'Mistral Large 3', total: 675, active: 41, quant: 'IQ2_M', gb: 216, bpp: 0.34, ctx: '256K', note: 'Q2_K at 240GB is technically possible but leaves no room to run.' },
+  { n: 'ERNIE-4.5-300B-A47B', short: 'ERNIE-4.5-300B', total: 300, active: 47, quant: 'Q4_K_M', gb: 180, bpp: 0.56, ctx: '131K', note: '47B active is the highest here — comfortable on disk, slowest per token by a wide margin.' },
+  { n: 'Llama 3.3 70B (dense)', short: 'Llama 3.3 70B', total: 71, active: 71, quant: 'Q4_K_M', gb: 42.5, bpp: 0.56, ctx: '128K', dense: true, note: 'Dense control — every parameter is read for every token.' },
+];
+
+const REF = { id: 'B3', plat: 'r640-6148', gpu: '3060', model: 'Qwen3.5-397B-A17B', trio: ['Qwen3.6-35B-A3B', 'gpt-oss-120b', 'Qwen3.8-Flash-Next', 'Qwen3.5-397B-A17B'] };
+
+/* measured prefill anchors (from Rev 8's sources) */
+const PREFILL = [
+  { hw: 'i5-12600K DDR5-6000 + RTX 4070 12GB', m: 'gpt-oss-120b MXFP4', pp: 429.9, tg: 23.85 },
+  { hw: 'i5-12600K DDR5 @2000 MT/s + RTX 4070 12GB', m: 'gpt-oss-120b MXFP4', pp: 82.1, tg: 9.72 },
+  { hw: 'Dual Xeon Skylake DDR4-2666 + 4× RTX 3090', m: 'GLM-4.5 Q3_K_XL', pp: 114.9, tg: 13.26 },
+  { hw: 'EPYC 7R32 DDR4-3200 + RTX 4090 24GB', m: 'DeepSeek-R1-0528 DQ4_K_R4', pp: 80.7, tg: 4.63 },
+  { hw: 'EPYC 7702 1S DDR4-2400, CPU only', m: 'DeepSeek-V3 Q4_K_XL', pp: 21.2, tg: 3.39 },
+  { hw: 'Ryzen 7 5800X + GTX 1660 Super 6GB', m: 'Qwen3.6-35B-A3B IQ4_XS', pp: 239.8, tg: 15.69 },
+  { hw: 'EPYC 9374F + RTX PRO 6000 Max-Q', m: 'DeepSeek-V4-Flash', pp: 747.6, tg: 20.37 },
+  { hw: 'Threadripper PRO 7965WX 8ch DDR5 + A6000 48GB', m: 'DeepSeek-R1 UD-Q2_K_XL', pp: 91.4, tg: 14.50 },
+  { hw: 'Xeon 8488C VM, 8 cores, CPU only', m: 'DeepSeek-V4-Flash UD-IQ3_XXS', pp: 12.33, tg: 5.61, isNew: true, u: 'https://computingforgeeks.com/run-deepseek-v4-flash-locally/' },
+];
+
+const RAM = {
+  dek: 'In August the assembled server was the bargain: a whole R640 cost about what its sixteen DIMMs did alone. The market has split since. Refurbishers who haven’t repriced still sell Broadwell servers for less than their memory. Everywhere else the memory is the price: SaveMyServer’s R640 with two 5118s is $361 before memory and $2,615 after it, and filling that $361 chassis yourself with sixteen 16GB sticks at the eBay median comes to about $2,265 — within $160 of PCSP’s assembled $2,423. Completed sales still run well under the asks, so offer low.',
+  rows: [
+    { t: '16GB DDR4-2666 RDIMM', px: 119, aug: 70, n: 16, q: '16gb ddr4 2666 rdimm' },
+    { t: '32GB DDR4-2666 RDIMM', px: 228, aug: 150, n: 8, q: '32gb ddr4 2666 rdimm' },
+    { t: '32GB DDR4-3200 RDIMM', px: 350, aug: 186, n: 8, q: '32gb ddr4 3200 rdimm' },
+  ],
+};
+
+/* small parts for the buying board: typical asks, not a listing (marked est.) */
+const EXTRAS = [
+  { k: 'riser', t: 'PCIe 4.0 x16 riser cable', d: (p, g) => p.short.includes('R6') ? 'On a 1U server the card can’t go inside: run it out the back on a shielded riser and stand it on a bracket.' : 'Lets the card sit where the airflow is; buy a shielded PCIe 4.0 one.', px: () => 40, q: () => 'pcie 4.0 x16 riser cable shielded', only: p => p.kind === 'intel' },
+  { k: 'gpupsu', t: 'Power for the card', d: (p, g) => p.id === 'r730xd' ? 'The 1100W supplies can feed it through Dell’s GPU power cable (part number varies by riser; ask the seller which riser is fitted).' : 'A small 650–750W ATX supply with a jumper to switch it on, feeding the card’s own connectors. Server PSUs here have no GPU cable.', px: (p, g) => p.id === 'r730xd' ? 25 : 70, q: (p) => p.id === 'r730xd' ? 'dell r730 gpu power cable' : '750w atx power supply', only: p => p.kind === 'intel' },
+  { k: 'shroud', t: 'Fan shroud + EPS-8 power adapter', d: () => 'The P40 has no fan. A printed shroud with a blower, and the CPU-style EPS-8 adapter it needs for power.', px: () => 35, q: () => 'tesla p40 fan shroud', only: (p, g) => g.id === 'p40' },
+  { k: 'cooler', t: 'SP3 tower cooler', d: () => 'EPYC Rome runs 180–200W. A 4U-height tower cooler for socket SP3.', px: () => 60, q: () => 'sp3 cpu cooler 4u', only: p => p.kind === 'epyc' },
+  { k: 'psu', t: '1000W ATX power supply', d: () => 'Board, CPU and card together. 80 Plus Gold or better.', px: () => 130, q: () => '1000w atx power supply gold', only: p => p.kind === 'epyc' },
+  { k: 'case', t: 'Case that takes an ATX board and a full-size card', d: () => 'The H12SSL-i is standard ATX, so any roomy ATX tower works.', px: () => 100, q: () => 'atx full tower case', only: p => p.kind === 'epyc' },
+  { k: 'ssd', t: '1–2TB NVMe boot and model drive', d: (p) => p.kind === 'epyc' ? 'The board has two M.2 slots.' : 'Dell’s BOSS card or a PCIe M.2 adapter; the models load from it.', px: () => 90, q: () => '2tb nvme ssd' },
+];
+
+/* the questions to ask the seller */
+const ASK = [
+  { t: 'How many DIMMs, of what size, in which slots?', d: p => p.kind === 'epyc' ? 'You want <b>8 × 32GB</b>, one per channel. 4 × 64GB halves the machine.' : p.ch >= 6 || p.id.startsWith('r640') ? 'You want <b>16 × 16GB</b>, eight per socket. 8 × 32GB leaves two channels dark per socket (−33%); 4 × 64GB leaves four dark (−67%).' : 'You want <b>8 × 32GB or 16 × 16GB</b>, so all four channels on each socket are lit. Avoid 4 × 64GB.' },
+  { t: 'What speed are they, and what does the BIOS run them at?', d: p => p.kind === 'epyc' ? 'Rome runs DDR4 at up to 3200; 2666 sticks cost about 17% of the speed.' : p.ch === 4 ? 'Broadwell runs everything at 2400 at most, so faster sticks cost nothing extra here.' : 'Skylake Gold runs DDR4 at 2666; 2400 sticks drop you about 10%.' },
+  { t: 'Can you send a screenshot of the memory page?', d: p => p.kind === 'epyc' ? 'The board’s IPMI page or a BIOS photo shows every slot populated.' : 'iDRAC’s Memory page lists every DIMM and its slot — the fastest way to check the layout.' },
+  { t: 'Is the CPU vendor-locked?', d: () => 'EPYC chips pulled from Dell, Lenovo or HPE servers may be locked to that maker’s boards by AMD Platform Secure Boot and won’t POST in a Supermicro. Ask for “unlocked” in writing.', only: p => p.kind === 'epyc' },
+  { t: 'Which risers and power supplies are fitted?', d: p => p.id === 'r730xd' ? 'A full-height card needs the right riser and Dell’s GPU power cable; 1100W supplies have the headroom.' : 'Wattage, and whether there is any spare slot for the riser cable.', only: p => p.kind === 'intel' },
+  { t: 'For the card: load temperatures, and has it been mined on?', d: (p, g) => g.id === 'p40' ? 'Does it come with the shroud and EPS-8 adapter?' : 'A 20-minute stress test with temperatures is a fair ask on a used card.' },
+  { t: 'What happens if a DIMM or channel fails at POST?', d: () => 'Get the return window in writing before you pay. A dead channel is invisible in the listing and costs a sixth or an eighth of the speed.' },
+];
+
+const EXCLUDED = [
+  ['Kimi K2.6 / K3, DeepSeek-V4-Pro, LongCat-2.0', 'too large for 256GB at any usable quant'],
+  ['DeepSeek-V4.1-Flash-1017', '552B plus 196B of Engram memory; 2-bit is 300GB, only a 1-bit quant squeezes in'],
+  ['Muse Spark Open (Meta, 816B/42B)', '2-bit needs 250–316GB'],
+  ['Hy4-preview (Tencent, 770B/49B)', '1-bit is 235GB, and stock llama.cpp doesn’t run it'],
+  ['Nemotron 3 Ultra 550B-A55B', 'a GGUF exists now, but 3-bit wants ~256GB and 55B active is slow'],
+  ['Reflection Beam 1.0 (501B/23B)', 'no GGUF yet. 23B active would fit at ~3-bit: one to watch'],
+  ['Mistral Large 4 (1T/52B)', 'weights promised for the end of October; too large regardless'],
+  ['EPYC 9004 / DDR5', 'board and CPU are under $2,000 now; 256GB of DDR5 is about $10,000'],
+  ['Multi-GPU builds', 'extra cards buy sub-linear gains while experts stay in RAM'],
+  ['Mac unified memory', 'out of scope for an eBay parts build, though a 256GB Mac is a real competitor'],
+];
+
+const SOURCES = [
+  ['TrendForce DRAM outlook, 30 Sep 2026', 'https://www.trendforce.com/presscenter/news/20260930-13258.html'],
+  ['dimmsum: 16GB DDR4-2666', 'https://dimmsum.com/ddr4/16gb-2666-rdimm'], ['dimmsum: 32GB DDR4-2666', 'https://dimmsum.com/ddr4/32gb-2666-rdimm'], ['dimmsum: 32GB DDR4-3200', 'https://dimmsum.com/ddr4/32gb-3200-rdimm'], ['ramdojo', 'https://ramdojo.com/'],
+  ['resaleprices: RTX 3060', 'https://resaleprices.com/gpu/nvidia-rtx-3060'], ['RTX 3090', 'https://resaleprices.com/gpu/nvidia-rtx-3090'], ['RTX 4090', 'https://resaleprices.com/gpu/nvidia-rtx-4090'], ['RTX 5090', 'https://resaleprices.com/gpu/nvidia-rtx-5090'], ['RTX 4060 Ti 16GB', 'https://resaleprices.com/gpu/nvidia-rtx-4060-ti-16gb'],
+  ['gpudojo: Tesla P40', 'https://gpudojo.com/tesla-p40'], ['gpudojo: RTX A4000', 'https://gpudojo.com/a4000'], ['MI50 listing', 'https://www.ebay.com/itm/205802298789'],
+  ['TechMikeNY R630', 'https://techmikeny.com/products/dell-poweredge-r630-server-2x-e5-2680v4-2-40ghz-28-core-256gb-h730-rails'], ['TechMikeNY R730xd', 'https://techmikeny.com/products/dell-poweredge-r730xd-server-2x-e5-2680v4-2-40ghz-28-core-256gb-h730p-rails'],
+  ['PCSP R640 6148', 'https://pcserverandparts.com/dell-poweredge-r640-server-2x-intel-gold-6148-2-40ghz-20c-256gb-ram-no-hdd-i350-s140-onboard-raid-refurbished'], ['SaveMyServer R640 configurator', 'https://savemyserver.com/products/dell-poweredge-r640-8-bay-chassis'],
+  ['eBay H12SSL-i + 7532 + 256GB', 'https://www.ebay.com/itm/335913100598'], ['eBay H12SSL-i + 7532 combo', 'https://www.ebay.com/itm/397752456542'], ['eBay Genoa boards', 'https://www.ebay.com/shop/epyc-genoa-motherboard?_nkw=epyc+genoa+motherboard'],
+  ['Unsloth: Qwen3.8-Flash-Next', 'https://unsloth.ai/docs/models/qwen3.8-next'], ['DataCamp on Qwen3.8-Flash-Next', 'https://www.datacamp.com/blog/qwen3-8-flash-next'], ['Unsloth: GLM-5.3-Flash', 'https://unsloth.ai/docs/models/glm-5.3-flash'], ['LLM Reference: GLM-5.3-Flash', 'https://www.llmreference.com/model/glm-5.3-flash'], ['GLM-5.3-Flash llama.cpp merge', 'https://aiweekly.co/alerts/llamacpp-merges-320b-glm-53-flash-hybrid-text-vision-support'], ['Unsloth: Nemotron 3.5 Super VL', 'https://unsloth.ai/docs/models/nemotron-3.5-super-vl'], ['Unsloth: GLM-5.3', 'https://unsloth.ai/docs/models/glm-5.3.md'], ['Unsloth: DeepSeek-V4', 'https://unsloth.ai/docs/models/deepseek-v4'], ['Unsloth: Nemotron 3 Ultra', 'https://unsloth.ai/docs/models/nemotron-3-ultra'],
+  ['llama.cpp PR #29887 (MoE expert cache)', 'https://github.com/ggml-org/llama.cpp/pull/29887'], ['DeepSeek-V4-Flash on a Xeon VM', 'https://computingforgeeks.com/run-deepseek-v4-flash-locally/'],
+];
+
+/* ================= ENGINE ================= */
+const $ = s => document.querySelector(s);
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
+const usd = v => v == null ? '–' : '$' + Math.round(v).toLocaleString('en-US');
+const f1 = v => v == null ? '–' : (v >= 100 ? Math.round(v).toString() : v.toFixed(1));
+const pc = v => (v > 0 ? '+' : '') + Math.round(v) + '%';
+const P = id => PLATS.find(p => p.id === id), G = id => GPUS.find(g => g.id === id), M = n => MODELS.find(m => m.n === n);
+
+/* --- the formula (Method) --- */
+const peakPerSocket = p => p.ch * p.mts * 8 / 1000;                        // GB/s, one socket: decode does not scale across sockets
+const stream = p => p.kind === 'epyc' ? K.streamEpyc : K.streamIntel;
+const effBW = p => peakPerSocket(p) * stream(p) * K.eta;                  // what decode actually sees
+const retention = (p, g) => p.sockets === 2 ? (g.vram >= 24 ? K.ret2big : K.ret2small) : (g.vram >= 24 ? K.ret1big : K.ret1small);
+const inVram = (m, g) => m.dense && m.gb + K.vramSpare <= g.vram;
+function tps(m, p, g, ctx) {                                                // modelled decode tok/s; ctx: 0 = empty, 16 = 16k loaded
+  if (m.gb > K.ceiling + K.tight) return null;                              // does not fit
+  if (inVram(m, g)) return g.bw * K.gpuEff / (m.active * m.bpp) * (ctx ? K.vramRet : 1);
+  const frac = m.dense ? 1 : K.fRam;                                         // a dense model reads every weight from RAM
+  return effBW(p) / (m.active * m.bpp * frac) * (ctx ? retention(p, g) : 1);
+}
+const fits = m => m.gb <= K.ceiling ? 'fits' : m.gb <= K.ceiling + K.tight ? 'tight' : 'no';
+const buildCost = b => P(b.plat).price + G(b.gpu).price;
+const buildCostAug = b => b.aug;
+
+/* --- state --- */
+const KEY = 'watch.moebox';
+let S = { plat: REF.plat, gpu: REF.gpu, model: REF.model, ctx: 16, grid: 16, got: {}, ask: {}, tgt: {}, buy: REF.id };
+function load() { try { Object.assign(S, JSON.parse(localStorage.getItem(KEY) || '{}')); } catch (e) { /* storage off */ } if (!P(S.plat)) S.plat = REF.plat; if (!G(S.gpu)) S.gpu = REF.gpu; if (!M(S.model)) S.model = REF.model; if (!BUILDS.find(b => b.id === S.buy)) S.buy = REF.id; }
+function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) { /* storage off */ } }
+function toast(t) { const el = $('#toast'); el.textContent = t; el.classList.add('on'); clearTimeout(toast.t); toast.t = setTimeout(() => el.classList.remove('on'), 2200); }
+
+/* --- eBay searches (Buy It Now, used, US, price-sorted) --- */
+const ebay = q => 'https://www.ebay.com/sch/i.html?_nkw=' + encodeURIComponent(q) + '&LH_BIN=1&LH_ItemCondition=3000&LH_PrefLoc=1&_sop=15';
+const ebaySold = q => 'https://www.ebay.com/sch/i.html?_nkw=' + encodeURIComponent(q) + '&LH_Sold=1&LH_Complete=1';
+
+/* ================= render pieces ================= */
+function hero() {
+  const r = BUILDS.find(b => b.id === REF.id), p = P(r.plat), g = G(r.gpu), big = M(REF.model);
+  const lo = Math.min(...BUILDS.map(buildCost)), hi = Math.max(...BUILDS.map(buildCost));
+  const bws = PLATS.filter(x => BUILDS.some(b => b.plat === x.id)).map(effBW);
+  return `<section class="wrap hero">
+    <div>
+      <p class="kick">Tech · Build study · Rev ${REV.no} · ${esc(REV.date)}</p>
+      <h1>The 256GB box: a ${big.total}-billion-parameter model on a <i>used server</i></h1>
+      <p class="lede">A sparse “mixture-of-experts” model reads only a sliver of its weights for each word it writes. Put those weights in a used server's system memory, give a modest graphics card the attention math and the context, and a frontier-class open model runs at home for the price of a laptop. Nine builds from eBay, every part priced, every speed worked out from one calibrated formula — and a buying board for the one you pick.</p>
+    </div>
+    <div class="big">
+      <b>${f1(tps(big, p, g, 16))} <small>tok/s</small></b>
+      <p><strong>${esc(big.n)}</strong> (${big.active}B active) on the reference build: ${esc(p.short)} + ${esc(g.name)}, <strong>${usd(buildCost(r))}</strong> all in, with 16k words of context loaded.</p>
+      <span class="fine">Modelled, not measured. Roughly reading speed for a careful reader; the small models on the same box run five times faster.</span>
+    </div>
+  </section>
+  <section class="wrap"><div class="strip">
+    <div><b>${BUILDS.length}</b><span>builds, ${usd(lo)} – ${usd(hi)}</span></div>
+    <div><b>${(Math.max(...bws) / Math.min(...bws)).toFixed(2)}×</b><span>memory-bandwidth spread, and the same spread in speed</span></div>
+    <div><b>0%</b><span>decode gain from a ${usd(G('5090').price)} graphics card</span></div>
+    <div><b>${MODELS.length}</b><span>models sized against 256GB</span></div>
+  </div></section>`;
+}
+
+function changed() {
+  return `<section class="wrap sec" id="changed">
+    <p class="sl">Rev ${REV.no} · what changed since ${esc(REV.prevDate)}</p>
+    <h2 class="sec-h">${esc(REV.headline)}</h2>
+    <p class="sub">${REV.dek}</p>
+    <div class="chg">${REV.cards.map(c => `<div class="card"><h3>${esc(c.t)}</h3><p>${c.d}</p>${c.li ? `<ul>${c.li.map(x => `<li>${x}</li>`).join('')}</ul>` : ''}</div>`).join('')}</div>
+  </section>`;
+}
+
+function why() {
+  const b3 = BUILDS.find(b => b.id === REF.id), b9 = BUILDS.find(b => b.id === 'B9'), b7 = BUILDS.find(b => b.id === 'B7');
+  const gain7 = (effBW(P(b7.plat)) / effBW(P(b3.plat)) - 1) * 100;
+  const lm = M('Llama 3.3 70B (dense)'), q35 = M('Qwen3.5-35B-A3B'), b8 = BUILDS.find(b => b.id === 'B8');
+  const ratio = tps(q35, P(b8.plat), G(b8.gpu), 0) / tps(lm, P(b8.plat), G(b8.gpu), 0);
+  const items = [
+    ['Memory bandwidth is the whole machine', `With the experts in system RAM, every word written streams the active experts out of memory. Decode speed is RAM bandwidth divided by the bytes read per word. Across these builds effective bandwidth runs ${f1(Math.min(...PLATS.map(effBW)))}–${f1(Math.max(...PLATS.map(effBW)))} GB/s, and speed follows it almost exactly.`],
+    ['The expensive card buys nothing for decode', `${b9.id} puts a ${usd(G(b9.gpu).price)} ${esc(G(b9.gpu).name)} in the same server as ${b3.id}. On mainline llama.cpp both decode every mixture-of-experts model at the same speed (an open pull request may change that — see Rev ${REV.no}'s watch item). Spending ${usd(buildCost(b7) - buildCost(b3))} on memory channels instead (${b3.id} → ${b7.id}) adds ${Math.round(gain7)}%. The card does speed up prefill — the wait before the first word.`],
+    ['Count the DIMMs, not the gigabytes', `256GB as 16 × 16GB fills all six channels on each socket of a dual Xeon Gold; the same 256GB as 8 × 32GB leaves two dark per socket and drops a third of the bandwidth. Listing titles don't say. Ask.`],
+    ['Active parameters set speed; file size sets fit', `On ${REF.id}, ${esc(q35.n)} (a ${q35.gb}GB file, 3B active) decodes at ${f1(tps(q35, P(b3.plat), G(b3.gpu), 0))} tok/s; Qwen3-235B (${M('Qwen3-235B-A22B-2507').gb}GB, 22B active) at ${f1(tps(M('Qwen3-235B-A22B-2507'), P(b3.plat), G(b3.gpu), 0))}. ERNIE-4.5 is a smaller file than several faster models and the slowest of them all. Between two models that both fit, fewer active parameters wins by the ratio of their active counts.`],
+    ['Dense models are the control, and they lose', `Llama 3.3 70B is a 42.5GB file but reads all 71B weights per word: ${f1(tps(lm, P(b8.plat), G(b8.gpu), 0))} tok/s on the best build. ${esc(q35.n)} runs ${Math.round(ratio)}× faster. A dense model small enough to live in a 24GB card is a different story — it runs off the card's own bandwidth.`],
+    ['Prefill is the wait you will feel', `Decode is how fast text streams; prefill is how long you stare first. On CPU-offloaded experts a 16,000-word prompt takes two to three minutes on these platforms. Prompt caching matters more than any hardware choice.`],
+  ];
+  return `<section class="wrap sec" id="why"><p class="sl">01 · The thesis</p><h2 class="sec-h">Six things that decide the machine</h2>
+    <p class="sub">Almost every instinct from shopping for a gaming PC is wrong here. These hold across every build and model in the study.</p>
+    <div class="finds">${items.map((x, i) => `<div class="find"><span class="no">0${i + 1}</span><h3>${x[0]}</h3><p>${x[1]}</p></div>`).join('')}</div>
+    <div class="tw" style="margin-top:22px"><table><thead><tr><th>256GB delivered as</th><th class="n">DIMMs</th><th>Channels lit</th><th class="n">Peak per socket</th><th>Verdict</th></tr></thead><tbody>
+      <tr><td>Dual Xeon Gold, 16 × 16GB</td><td class="n">8 per socket</td><td>6 of 6</td><td class="n">128.0 GB/s</td><td><span class="tag ok">What you want</span></td></tr>
+      <tr><td>Dual Xeon Gold, 8 × 32GB</td><td class="n">4 per socket</td><td>4 of 6</td><td class="n">85.3 GB/s</td><td><span class="tag warn">−33% for free</span></td></tr>
+      <tr><td>Single EPYC, 8 × 32GB</td><td class="n">8</td><td>8 of 8</td><td class="n">204.8 GB/s</td><td><span class="tag ok">The ideal 256GB</span></td></tr>
+      <tr><td>Single EPYC, 4 × 64GB</td><td class="n">4</td><td>4 of 8</td><td class="n">102.4 GB/s</td><td><span class="tag warn">Halves the machine</span></td></tr>
+    </tbody></table></div>
+  </section>`;
+}
+
+/* --- configurator --- */
+function cfg() {
+  const opt = (arr, cur, lab) => arr.map(x => `<option value="${esc(x.id || x.n)}"${(x.id || x.n) === cur ? ' selected' : ''}>${esc(lab(x))}</option>`).join('');
+  return `<section class="wrap sec" id="build"><p class="sl">02 · Build one</p><h2 class="sec-h">Pick a server, a card and a model</h2>
+    <p class="sub">The speeds come from the same formula as the tables below, so a change here is a change you could have read off the grid. Start from one of the nine builds, or mix any platform with any card.</p>
+    <div class="cfg">
+      <div class="card knobs">
+        <div class="knob"><label>Start from a build</label><div class="presets" id="presets">${BUILDS.map(b => `<button type="button" data-preset="${b.id}" aria-pressed="${b.plat === S.plat && b.gpu === S.gpu}">${b.id}</button>`).join('')}</div></div>
+        <div class="knob"><label for="kPlat">Server (with 256GB installed)</label><select id="kPlat">${opt(PLATS, S.plat, x => `${x.short} · ${x.cpuShort} · ${usd(x.price)}`)}</select></div>
+        <div class="knob"><label for="kGpu">Graphics card</label><select id="kGpu">${opt(GPUS, S.gpu, x => `${x.name} · ${usd(x.price)}`)}</select></div>
+        <div class="knob"><label for="kModel">Model to run</label><select id="kModel">${opt(MODELS, S.model, x => `${x.n} · ${x.active}B active · ${x.gb}GB`)}</select></div>
+        <div class="knob"><label>Context loaded</label><div class="seg" id="kCtx"><button type="button" data-ctx="0" aria-pressed="${!S.ctx}">Empty</button><button type="button" data-ctx="16" aria-pressed="${!!S.ctx}">16k words</button></div></div>
+      </div>
+      <div class="card out" id="out"></div>
+    </div>
+  </section>`;
+}
+function outHTML() {
+  const p = P(S.plat), g = G(S.gpu), m = M(S.model), ctx = S.ctx;
+  const cost = p.price + g.price, bw = effBW(p), t = tps(m, p, g, ctx), fit = fits(m);
+  const b = BUILDS.find(x => x.plat === p.id && x.gpu === g.id);
+  const free = Math.max(0, 256 - 21 - m.gb);
+  const list = MODELS.filter(x => !x.hideBar).map(x => ({ x, v: tps(x, p, g, ctx) })).sort((a, c) => (c.v || 0) - (a.v || 0));
+  const mx = Math.max(...list.map(r => r.v || 0), 1);
+  const warns = [];
+  if (p.sockets === 2) warns.push(['', `<b>Dual socket:</b> bind llama.cpp to the socket nearest the card with <code>numactl</code> and turn off NUMA balancing. One documented BIOS snoop-mode change moved a dual-socket box from 12.3 to 34.8 tok/s.`]);
+  if (p.dimm) warns.push([p.dimmWarn ? 'w' : '', `<b>DIMMs:</b> ${p.dimm}`]);
+  if (m.risk) warns.push(['w', `<b>Software risk:</b> ${m.risk}`]);
+  if (fit === 'tight') warns.push(['w', `<b>Tight fit:</b> ${m.gb}GB of weights leaves almost nothing for the OS, compute buffers and context.`]);
+  if (fit === 'no') warns.push(['w', `<b>Does not fit:</b> ${m.gb}GB at ${esc(m.quant)} is over the ~${K.ceiling}GB usable ceiling.`]);
+  if (inVram(m, g)) warns.push(['', `<b>Runs on the card:</b> this dense model fits in the ${g.vram}GB of VRAM, so it runs off the card's ${g.bw} GB/s instead of system RAM.`]);
+  if (g.warn) warns.push(['', `<b>${esc(g.name)}:</b> ${g.warn}`]);
+  if (g.id === '5090' || g.id === '4090') warns.push(['w', `<b>Card choice:</b> on mixture-of-experts models this card decodes no faster than the ${esc(G('3060').name)} in the same server. It buys prefill speed and VRAM for context.`]);
+  return `<div class="head"><h3>${b ? `<span class="tag${b.id === REF.id ? ' ref' : ''}">${b.id}</span> ` : ''}${esc(p.short)} + ${esc(g.name)}</h3><span class="cost">${usd(cost)}</span></div>
+    <p class="note" style="margin-top:4px">${esc(p.cpu)} · ${esc(p.mem)} · ${p.sockets}S × ${p.ch} channels · ${g.vram}GB VRAM. Add $80–150 for a riser, GPU power cable and boot SSD.</p>
+    <div class="kp">
+      <div><b>${t == null ? '—' : f1(t)}</b><span>tok/s, ${esc(m.n)}${ctx ? ' at 16k' : ' empty'}</span></div>
+      <div><b>${f1(bw)}</b><span>GB/s effective RAM bandwidth</span></div>
+      <div><b>${fit === 'no' ? '—' : free + 'GB'}</b><span>${fit === 'no' ? 'does not fit' : 'left for context after weights'}</span></div>
+      <div><b>${usd(cost / bw)}</b><span>per GB/s</span></div>
+    </div>
+    <p class="cap" style="margin:0 0 4px;font-size:13px;color:var(--ink-3)">Every model on this machine, ${ctx ? 'with 16k of context loaded' : 'at empty context'}. Blue reads experts from RAM; teal runs entirely on the card.</p>
+    <div class="mrows">${list.map(r => `<div class="mrow${r.x.n === m.n ? ' sel' : ''}"><span class="nm" title="${esc(r.x.n)}">${esc(r.x.n)} <small>${r.x.active}B</small></span><span class="tr"><i class="${r.v == null ? 'no' : inVram(r.x, g) ? 'vr' : ''}" style="width:${r.v == null ? 100 : Math.max(1.5, r.v / mx * 100)}%"></i></span><span class="v">${r.v == null ? 'n/f' : f1(r.v)}</span></div>`).join('')}</div>
+    <ul class="warns">${warns.map(w => `<li class="${w[0]}">${w[1]}</li>`).join('')}</ul>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:14px">${b ? `<a class="btn pri" href="#buy" data-buy="${b.id}">Shop ${b.id} on the buying board ↓</a>` : `<a class="btn pri" href="#buy" data-buy="custom">Shop this combination ↓</a>`}<button class="btn" type="button" id="share">Copy a link to this build</button></div>`;
+}
+
+/* --- the nine builds --- */
+function builds() {
+  return `<section class="wrap sec" id="builds"><p class="sl">03 · Nine buildable configurations</p><h2 class="sec-h">Every part from a live listing</h2>
+    <p class="sub">Platform prices are current asks on specific listings (B7 and B8 are assembled from two: a board-and-CPU combo and eight sticks); card prices are the median ask on resale trackers. Arrows compare with ${esc(REV.prevDate)}. ${esc(REF.id)} is the reference build the headline numbers use.</p>
+    <div class="builds">${BUILDS.map(b => { const p = P(b.plat), g = G(b.gpu), c = buildCost(b), ca = buildCostAug(b), d = (c / ca - 1) * 100;
+      return `<article class="bld${b.id === REF.id ? ' ref' : ''}"><div class="top"><span class="id">${b.id}${b.id === REF.id ? ' · reference' : ''}${b.id === 'B9' ? ' · the mistake' : ''}</span><span><span class="tot">${usd(c)}</span> <span class="dl ${d > 0.5 ? 'up' : d < -0.5 ? 'dn' : ''}">${Math.abs(d) < 0.5 ? '±0' : (d > 0 ? '▲' : '▼') + Math.abs(Math.round(d)) + '%'}</span></span></div>
+        <h3>${esc(b.name)}</h3><p class="bw">${f1(effBW(p))} GB/s effective · ${p.sockets}S × ${p.ch} ch · 16k retention ${Math.round(retention(p, g) * 100)}%</p>
+        <ul class="parts"><li><span>${esc(p.short)} · ${esc(p.cpuShort)} · ${esc(p.mem)}</span><span class="n">${usd(p.price)}</span></li><li><span>${esc(g.name)} · ${g.vram}GB · ${g.bw} GB/s</span><span class="n">${usd(g.price)}</span></li></ul>
+        <div class="sp">${REF.trio.map(n => { const m = M(n); return `<div><span>${esc(m.short || m.n)} <small style="color:var(--ink-3)">${m.active}B act</small></span><b>${f1(tps(m, p, g, 16))}</b></div>`; }).join('')}</div>
+        <p class="note">${esc(b.note)}</p>
+        <div class="foot"><button class="btn" type="button" data-preset="${b.id}">Load in Build one</button><a class="btn" href="#buy" data-buy="${b.id}">Shop it</a></div></article>`; }).join('')}</div>
+    <div class="two" style="margin-top:18px">
+      <div class="card chart"><h3 class="ch">What the money buys</h3><p class="cap">Height is what sets decode speed. B9 spends the most and sits level with B3, B4 and B5; B1 and B2 are the cheapest bandwidth there is.</p>${costChart()}</div>
+      <div class="card chart"><h3 class="ch">Capability against speed, on ${REF.id}</h3><p class="cap">MMLU-Pro where published, GPQA-Diamond otherwise (vendor-reported, not strictly comparable). Up and to the right is better.</p>${capChart()}</div>
+    </div>
+  </section>`;
+}
+function svgFrame(W, H, pad, xs, ys, xl, yl, body) {
+  const [x0, x1] = xs, [y0, y1] = ys, X = v => pad.l + (v - x0) / (x1 - x0) * (W - pad.l - pad.r), Y = v => H - pad.b - (v - y0) / (y1 - y0) * (H - pad.t - pad.b);
+  let g = '';
+  for (const t of yl.ticks) g += `<line class="gl" x1="${pad.l}" x2="${W - pad.r}" y1="${Y(t)}" y2="${Y(t)}"/><text x="${pad.l - 6}" y="${Y(t) + 4}" text-anchor="end">${t}</text>`;
+  for (const t of xl.ticks) g += `<text x="${X(t)}" y="${H - pad.b + 16}" text-anchor="middle">${xl.fmt(t)}</text>`;
+  g += `<text x="${(pad.l + W - pad.r) / 2}" y="${H - 4}" text-anchor="middle">${xl.label}</text><text x="12" y="${pad.t + (H - pad.t - pad.b) / 2}" transform="rotate(-90 12 ${pad.t + (H - pad.t - pad.b) / 2})" text-anchor="middle">${yl.label}</text>`;
+  return `<svg viewBox="0 0 ${W} ${H}" role="img">${g}${body(X, Y)}</svg>`;
+}
+function costChart() {
+  const pts = BUILDS.map(b => ({ b, x: buildCost(b), y: effBW(P(b.plat)) }));
+  const xmax = Math.ceil(Math.max(...pts.map(p => p.x)) / 1000) * 1000;
+  return svgFrame(520, 300, { l: 48, r: 22, t: 14, b: 44 }, [0, xmax], [30, 95], { ticks: [0, 2000, 4000, 6000, 8000, 10000, 12000].filter(t => t <= xmax), fmt: t => '$' + t / 1000 + 'k', label: 'total build cost (dashed line: the $5,000 ceiling)' }, { ticks: [30, 45, 60, 75, 90], label: 'GB/s' },
+    (X, Y) => `<line x1="${X(5000)}" x2="${X(5000)}" y1="14" y2="256" stroke="var(--signal)" stroke-dasharray="4 4" stroke-opacity=".6"/>` + pts.map(p => `<circle class="pt${p.b.id === REF.id ? ' ref' : p.b.id === 'B9' ? ' bad' : ''}" cx="${X(p.x)}" cy="${Y(p.y)}" r="7"><title>${p.b.id} ${p.b.name}: ${usd(p.x)}, ${f1(p.y)} GB/s</title></circle><text x="${X(p.x) + (p.b.id === 'B9' ? -10 : 9)}" y="${Y(p.y) + ({ B3: 18, B4: -10, B5: 18, B1: 18, B9: -10 }[p.b.id] || 4)}" text-anchor="${p.b.id === 'B9' ? 'end' : 'start'}" style="font-weight:600">${p.b.id}</text>`).join(''));
+}
+const LEFT = new Set(['Qwen3.5-397B-A17B', 'GLM-5.3']);
+const LBL = { 'MiniMax-M2': -9, 'Qwen3.5-397B-A17B': -6, 'GLM-5.3': 7, 'DeepSeek-V4-Flash': 6, 'Qwen3-235B-A22B-2507': -5, 'DeepSeek-V3.2': 6 };
+function capChart() {
+  const r = BUILDS.find(b => b.id === REF.id), p = P(r.plat), g = G(r.gpu);
+  const pts = MODELS.filter(m => !m.dense && !m.noCap && (m.mmlu || m.gpqa) && fits(m) !== 'no').map(m => ({ m, x: tps(m, p, g, 0), y: m.mmlu || m.gpqa }));
+  const xmax = Math.ceil(Math.max(...pts.map(q => q.x)) / 5) * 5 + 3;
+  return svgFrame(520, 300, { l: 40, r: 16, t: 14, b: 44 }, [0, xmax], [78, 93], { ticks: [0, 10, 20, 30, 40, 50].filter(t => t <= xmax), fmt: t => t, label: 'modelled decode tok/s, empty context, ' + REF.id }, { ticks: [80, 84, 88, 92], label: 'score' },
+    (X, Y) => pts.map(q => `<circle class="pt${q.m.n === REF.model ? ' ref' : ''}" cx="${X(q.x)}" cy="${Y(q.y)}" r="6"><title>${esc(q.m.n)}: ${f1(q.x)} tok/s, ${q.y}</title></circle><text x="${X(q.x) + (q.x > xmax * 0.7 || LEFT.has(q.m.n) ? -9 : 8)}" y="${Y(q.y) + 4 + (LBL[q.m.n] || 0)}" text-anchor="${q.x > xmax * 0.7 || LEFT.has(q.m.n) ? 'end' : 'start'}">${esc(q.m.short || q.m.n)}</text>`).join(''));
+}
+
+/* --- what fits + throughput grid --- */
+function fitTable() {
+  const rows = MODELS.map(m => { const f = fits(m);
+    return `<tr><td><b>${m.url ? `<a href="${esc(m.url)}" target="_blank" rel="noopener">${esc(m.n)}</a>` : esc(m.n)}</b>${m.isNew ? ' <span class="tag ok">new</span>' : ''}${m.risk ? ' <span class="tag warn">software risk</span>' : ''}${f === 'tight' ? ' <span class="tag warn">tight</span>' : ''}${m.dense ? ' <span class="tag">dense</span>' : ''}</td><td class="n">${m.total}B</td><td class="n">${m.active}B</td><td>${esc(m.quant)}</td><td class="n">${m.gb}</td><td class="n">${esc(m.ctx || '—')}</td><td class="n">${m.mmlu ?? '—'}</td><td class="n">${m.gpqa ?? '—'}</td><td class="n">${m.swe ?? '—'}</td><td><small>${m.note || ''}</small></td></tr>`; }).join('');
+  return `<section class="wrap sec" id="fit"><p class="sl">04 · What fits in 256GB</p><h2 class="sec-h">${MODELS.length} models, sized and timed</h2>
+    <p class="sub">Sizes are from published GGUF quant tables. The usable ceiling is about ${K.ceiling}GB of weights once the OS, KV cache and compute buffers are counted. Benchmarks are vendor self-reported on different harnesses and are not strictly comparable across rows.</p>
+    <div class="tw"><table><thead><tr><th>Model</th><th class="n">Total</th><th class="n">Active</th><th>Quant</th><th class="n">GB</th><th class="n">Ctx</th><th class="n">MMLU-Pro</th><th class="n">GPQA-D</th><th class="n">SWE-bV</th><th>Notes</th></tr></thead><tbody>${rows}</tbody></table></div>
+    <div style="margin-top:28px" id="gridWrap">${gridHTML()}</div>
+    <h3 class="ch" style="font:400 26px var(--serif);margin:34px 0 6px">What the aggressive quants cost you</h3>
+    <p class="sub">Two published measurement sets bound it. Three-bit is nearly free, two-bit is a real but survivable hit, one-bit is a different model wearing the same name. Sparse models degrade harder than dense ones because each surviving weight carries more of the work.</p>
+    <div class="two">
+      <div class="tw"><table><thead><tr><th colspan="4">Aider Polyglot pass-2, 671B-class MoE</th></tr><tr><th>Quant</th><th class="n">Size</th><th class="n">Accuracy</th><th class="n">vs 4-bit</th></tr></thead><tbody>
+        ${[['Q5_K_XL', 484, 70.7, '—'], ['Q4_K_XL', 387, 69.7, 'baseline'], ['Q3_K_XL', 300, 68.4, '−1.3 pts'], ['Q2_K_XL', 255, 65.8, '−3.9 pts'], ['IQ1_M', 206, 55.7, '−14.0 pts']].map(r => `<tr><td>${r[0]}</td><td class="n">${r[1]} GB</td><td class="n">${r[2]}%</td><td class="n">${r[3]}</td></tr>`).join('')}</tbody></table></div>
+      <div class="tw"><table><thead><tr><th colspan="4">Qwen3.5-35B-A3B vs full precision</th></tr><tr><th>Quant</th><th class="n">GB</th><th class="n">Perplexity</th><th class="n">Mean KLD</th></tr></thead><tbody>
+        ${[['Q6_K_XL', 28.22, 6.5392, 0.0041], ['Q5_K_XL', 23.22, 6.5489, 0.0069], ['Q4_K_XL', 19.17, 6.5918, 0.0137], ['Q3_K_XL', 16.06, 6.7245, 0.0308], ['IQ3_XXS', 13.12, 6.7829, 0.0501], ['Q2_K_XL', 12.04, 7.0438, 0.0970], ['IQ2_XXS', 9.09, 7.7160, 0.1846]].map(r => `<tr><td>${r[0]}</td><td class="n">${r[1]}</td><td class="n">${r[2]}</td><td class="n">${r[3]}</td></tr>`).join('')}</tbody></table></div>
+    </div>
+  </section>`;
+}
+function gridHTML() {
+  const ctx = S.grid;
+  const head = BUILDS.map(b => `<th class="n${b.plat === S.plat && b.gpu === S.gpu ? ' cur' : ''}">${b.id}</th>`).join('');
+  const bw = BUILDS.map(b => `<td class="n"><small>${Math.round(effBW(P(b.plat)))}</small></td>`).join('');
+  const rows = MODELS.map(m => `<tr><td><b>${esc(m.n)}</b></td><td class="n">${m.active}B</td><td class="n">${m.gb}</td>${BUILDS.map(b => { const v = tps(m, P(b.plat), G(b.gpu), ctx), vr = inVram(m, G(b.gpu)); return v == null ? '<td class="dash">—</td>' : `<td class="n${vr ? ' hot' : ''}${b.plat === S.plat && b.gpu === S.gpu ? ' cur' : ''}">${f1(v)}${vr ? '*' : ''}</td>`; }).join('')}</tr>`).join('');
+  return `<div class="ctl"><h3 class="ch" style="font:400 26px var(--serif);margin:0;flex:1">Modelled decode, tok/s</h3><div class="seg" id="gCtx"><button type="button" data-g="0" aria-pressed="${!ctx}">Empty context</button><button type="button" data-g="16" aria-pressed="${!!ctx}">16k loaded</button></div></div>
+    <div class="tw grid"><table><thead><tr><th>Model</th><th class="n">Active</th><th class="n">GB</th>${head}</tr><tr><td colspan="3"><small>effective RAM bandwidth, GB/s →</small></td>${bw}</tr></thead><tbody>${rows}</tbody></table></div>
+    <p class="note">Calculations from the formula in Method, not measurements of these machines. * runs entirely in the card's VRAM — a different regime. Dashes do not fit at the listed quant. The column you have loaded in Build one is bold.</p>`;
+}
+
+/* --- prefill --- */
+function prefill() {
+  return `<section class="wrap sec" id="prefill"><p class="sl">05 · The wait before the first word</p><h2 class="sec-h">Prefill is the constraint you will actually feel</h2>
+    <p class="sub">Prefill is compute-bound and does scale with the card — the one place the expensive GPU earns its keep. There is no published closed-form estimator for it, so these are measured anchors, not models. One published measurement records a 32k prefill taking 44 minutes cold and 62 milliseconds from cache.</p>
+    <div class="tw"><table><thead><tr><th>Measured hardware</th><th>Model</th><th class="n">Prefill tok/s</th><th class="n">Decode tok/s</th><th class="n">16k prompt wait</th></tr></thead><tbody>
+      ${PREFILL.map(r => `<tr><td>${r.u ? `<a href="${esc(r.u)}" target="_blank" rel="noopener">${esc(r.hw)}</a>` : esc(r.hw)}${r.isNew ? ' <span class="tag ok">new</span>' : ''}</td><td>${esc(r.m)}</td><td class="n"><b>${r.pp}</b></td><td class="n">${r.tg}</td><td class="n">${wait(r.pp)}</td></tr>`).join('')}
+    </tbody></table></div>
+    <div class="flags" style="margin-top:16px"><b>Flags that matter more than hardware.</b> Published guidance for this workload converges on <code>-b 4096 -ub 4096</code> (the defaults are tuned for pure-GPU inference and are far too small here), <code>--n-cpu-moe N</code> or <code>-ot "exps=CPU"</code> to place the experts, <code>-ngl 999</code> to put everything else including the KV cache on the card, and on dual-socket machines <code>numactl</code> binding to the socket nearest the card with NUMA balancing off. Turn on prompt caching; it is the cheapest speed-up there is.</div>
+  </section>`;
+}
+const wait = pp => { const s = Math.round(16000 / pp); return Math.floor(s / 60) + 'm ' + String(s % 60).padStart(2, '0') + 's'; };
+
+/* --- the buying board --- */
+function buyParts(id) {
+  const b = id === 'custom' ? { id: 'custom', name: 'Your combination', plat: S.plat, gpu: S.gpu } : BUILDS.find(x => x.id === id);
+  const p = P(b.plat), g = G(b.gpu);
+  const parts = [
+    { k: 'plat', t: `${p.short}, ${p.cpuShort}, ${p.mem}`, d: p.buy, px: p.price, aug: p.aug, q: p.q, u: p.url },
+    { k: 'gpu', t: g.name, d: g.buy, px: g.price, aug: g.aug, q: g.q, u: g.url },
+    ...EXTRAS.filter(x => !x.only || x.only(p, g)).map(x => ({ k: x.k, t: x.t, d: x.d(p, g), px: x.px(p, g), aug: x.px(p, g), q: x.q(p, g), est: true })),
+  ];
+  return { b, p, g, parts };
+}
+function buy() {
+  return `<section class="wrap sec" id="buy"><p class="sl">06 · Shopping</p><h2 class="sec-h">The buying board</h2>
+    <p class="sub">Pick a build and this becomes its shopping list: each part with the price it was seen at, a live eBay search (Buy It Now, used, U.S. sellers, cheapest first), the sold prices to haggle from, and the questions that separate a fast machine from a slow one with the same title. Set a target price per part; ticks and targets stay in this browser.</p>
+    <div class="ctl"><div class="presets" id="buyPick">${BUILDS.map(b => `<button type="button" data-buy="${b.id}" aria-pressed="${S.buy === b.id}">${b.id}</button>`).join('')}<button type="button" data-buy="custom" aria-pressed="${S.buy === 'custom'}">Build one</button></div></div>
+    <div class="shop" id="shopWrap">${shopHTML()}</div>
+    <h3 class="ch" style="font:400 26px var(--serif);margin:34px 0 6px">The parts market</h3>
+    <p class="sub">Every 256GB platform the study found, sorted by what you are actually buying — effective bandwidth — rather than price. Note how little price tracks it.</p>
+    <div class="tw"><table><thead><tr><th>Listing</th><th>CPU</th><th>Memory</th><th class="n">Ch/socket</th><th class="n">Peak</th><th class="n">Effective</th><th class="n">Price</th><th class="n">vs ${esc(REV.prevShort)}</th><th></th></tr></thead><tbody>
+      ${PLATS.slice().sort((a, c) => effBW(c) - effBW(a) || a.price - c.price).map(p => `<tr><td><b>${p.url ? `<a href="${esc(p.url)}" target="_blank" rel="noopener">${esc(p.short)}</a>` : esc(p.short)}</b><br><small>${esc(p.note)}</small></td><td>${esc(p.cpu)}</td><td>${esc(p.mem)}</td><td class="n">${p.ch}</td><td class="n">${Math.round(peakPerSocket(p))}</td><td class="n"><b>${Math.round(effBW(p))}</b></td><td class="n">${usd(p.price)}</td><td class="n">${dlt(p.price, p.aug)}</td><td><a href="${ebay(p.q)}" target="_blank" rel="noopener" style="color:var(--sea);font-weight:600;font-size:13px;white-space:nowrap">eBay ›</a></td></tr>`).join('')}
+    </tbody></table></div>
+    <div class="tw" style="margin-top:14px"><table><thead><tr><th>Card</th><th class="n">VRAM</th><th class="n">Bandwidth</th><th class="n">Median ask</th><th class="n">vs ${esc(REV.prevShort)}</th><th>Note</th><th></th></tr></thead><tbody>
+      ${GPUS.map(g => `<tr><td><b>${esc(g.name)}</b></td><td class="n">${g.vram}GB</td><td class="n">${g.bw} GB/s</td><td class="n">${usd(g.price)}</td><td class="n">${dlt(g.price, g.aug)}</td><td><small>${esc(g.note)}</small></td><td><a href="${ebay(g.q)}" target="_blank" rel="noopener" style="color:var(--sea);font-weight:600;font-size:13px;white-space:nowrap">eBay ›</a></td></tr>`).join('')}
+    </tbody></table></div>
+    <div class="card" style="margin-top:14px"><h3 class="ch">Buying the RAM separately almost works now</h3><p style="margin:6px 0 0;color:var(--ink-2)">${RAM.dek}</p>
+      <div class="tw" style="margin-top:12px"><table><thead><tr><th>Module</th><th class="n">Median each</th><th class="n">vs ${esc(REV.prevShort)}</th><th class="n">For 256GB</th><th></th></tr></thead><tbody>
+        ${RAM.rows.map(r => `<tr><td>${esc(r.t)}</td><td class="n">${usd(r.px)}</td><td class="n">${dlt(r.px, r.aug)}</td><td class="n">${r.n} × = ${usd(r.n * r.px)}</td><td><a href="${ebay(r.q)}" target="_blank" rel="noopener" style="color:var(--sea);font-weight:600;font-size:13px">eBay ›</a></td></tr>`).join('')}
+      </tbody></table></div></div>
+  </section>`;
+}
+const dlt = (now, was) => { if (!was) return '—'; const d = (now / was - 1) * 100; return Math.abs(d) < 0.5 ? '<small>±0</small>' : `<span class="${d > 0 ? 'up' : 'dn'}">${d > 0 ? '▲' : '▼'} ${Math.abs(Math.round(d))}%</span>`; };
+function shopHTML() {
+  const { b, p, g, parts } = buyParts(S.buy);
+  const total = parts.reduce((s, x) => s + x.px, 0);
+  const tgt = parts.reduce((s, x) => s + (+S.tgt[S.buy + ':' + x.k] || x.px), 0);
+  const got = parts.filter(x => S.got[S.buy + ':' + x.k]).length;
+  const asks = ASK.filter(a => !a.only || a.only(p, g));
+  return `<div class="card"><div class="out"><div class="head"><h3>${b.id !== 'custom' ? `<span class="tag${b.id === REF.id ? ' ref' : ''}">${b.id}</span> ` : ''}${esc(b.name)}</h3><span class="cost">${usd(total)}</span></div></div>
+      <p class="note" style="margin-top:4px">${got} of ${parts.length} parts bought. Prices marked “est.” are typical asks for small parts, not a specific listing.</p>
+      ${parts.map(x => { const key = S.buy + ':' + x.k, t = S.tgt[key];
+        return `<div class="sl-row${S.got[key] ? ' got' : ''}"><input type="checkbox" data-got="${esc(key)}" ${S.got[key] ? 'checked' : ''} aria-label="Bought ${esc(x.t)}">
+        <div><h4>${esc(x.t)}</h4><p>${x.d}</p><div class="links"><a href="${ebay(x.q)}" target="_blank" rel="noopener">eBay, cheapest first ›</a><a href="${ebaySold(x.q)}" target="_blank" rel="noopener">Sold prices ›</a>${x.u ? `<a href="${esc(x.u)}" target="_blank" rel="noopener">The listing the study priced ›</a>` : ''}</div>
+          <label class="tgt">My target $<input type="number" inputmode="numeric" min="0" step="1" data-tgt="${esc(key)}" value="${t ? esc(t) : ''}" placeholder="${Math.round(x.px)}"></label></div>
+        <div class="px"><b>${usd(x.px)}</b><small>${x.est ? 'est.' : 'seen ' + esc(REV.short)}</small>${!x.est && x.aug ? `<br><small>${dlt(x.px, x.aug)} since ${esc(REV.prevShort)}</small>` : ''}</div></div>`; }).join('')}
+      <div class="sumbox"><span>At your targets</span><b>${usd(tgt)}</b></div>
+    </div>
+    <div class="card"><h3 class="ch">Ask the seller before you pay</h3><p class="cap">Tick each one off when the seller answers. The first is the one that matters most.</p>
+      <ul class="ask">${asks.map((a, i) => { const key = S.buy + ':ask' + i; return `<li><input type="checkbox" data-ask="${esc(key)}" ${S.ask[key] ? 'checked' : ''} aria-label="Asked"><span><b>${esc(a.t)}</b> ${a.d(p, g)}</span></li>`; }).join('')}</ul>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:14px"><button class="btn" type="button" id="copyList">Copy the list</button><button class="btn" type="button" id="print">Print</button></div>
+    </div>`;
+}
+
+/* --- method --- */
+function method() {
+  return `<section class="wrap sec" id="method"><p class="sl">07 · Read before trusting a number</p><h2 class="sec-h">Method, calibration and what this cannot tell you</h2>
+    <p class="sub">Every tokens-per-second figure here is a calculation, not a measurement of that machine. It is the standard bandwidth-bound decode estimate, with peak bandwidth taken per socket because published scaling studies show token generation gains only 0–10% from a second socket while prompt processing gains 46–82%.</p>
+    <div class="formula">tok/s = (peak_bandwidth_per_socket × stream_efficiency × η) ÷ (active_params × bytes_per_param × f_ram) × context_retention</div>
+    <div class="tw" style="margin-top:14px"><table><thead><tr><th>Parameter</th><th>Value</th><th>Basis</th></tr></thead><tbody>
+      <tr><td>Peak bandwidth</td><td class="mono">channels × MT/s × 8 bytes, per socket</td><td>Decode does not scale across sockets</td></tr>
+      <tr><td>STREAM efficiency, Intel DDR4</td><td class="mono">${K.streamIntel}</td><td>Measured 217 GB/s on a dual 6-channel DDR4-2933 Xeon vs 281.6 theoretical</td></tr>
+      <tr><td>STREAM efficiency, EPYC Rome</td><td class="mono">${K.streamEpyc}</td><td>Measured 113.7 GB/s NPS1 and ~148 NPS4 on 8-channel Rome parts</td></tr>
+      <tr><td>Realisation factor η</td><td class="mono">${K.eta}</td><td>Fitted between the calibration anchors below; right for the 24–40 core parts here</td></tr>
+      <tr><td>Fraction of active weight in RAM</td><td class="mono">${K.fRam}</td><td>The rest (attention, shared expert) sits on the card. Dense models in RAM use 1.0</td></tr>
+      <tr><td>Bytes per parameter</td><td class="mono">Q4 ≈ 0.56 · IQ4_XS ≈ 0.53 · MXFP4 ≈ 0.55 · Q8 ≈ 1.06 · IQ2_M ≈ 0.34</td><td>Includes quant metadata overhead</td></tr>
+      <tr><td>16k retention</td><td class="mono">2S: ${K.ret2small} (12–16GB card), ${K.ret2big} (24GB+) · 1S: ${K.ret1small}, ${K.ret1big}</td><td>Interpolated from the published context sweeps below</td></tr>
+      <tr><td>Dense model in VRAM</td><td class="mono">card GB/s × ${K.gpuEff}, × ${K.vramRet} at 16k</td><td>Applies when weights + ${K.vramSpare}GB fit on the card</td></tr>
+    </tbody></table></div>
+    <div class="two" style="margin-top:14px">
+      <div class="tw"><table><thead><tr><th colspan="5">Calibration anchors for η</th></tr><tr><th>Machine</th><th>Model</th><th class="n">STREAM</th><th class="n">tok/s</th><th class="n">η</th></tr></thead><tbody>
+        ${[['i5-12600K, 2ch DDR5-6000, RTX 4070', 'gpt-oss-120b', 81.6, 28.0, 0.82], ['EPYC 7702 1S, 8ch DDR4-2400', 'DeepSeek-V3 Q4_K_XL', 99.8, 3.39, 0.60], ['EPYC 9654 1S, 12ch DDR5-4800', 'DeepSeek-R1 Q4_K_S', 359.9, 8.48, 0.42], ['Xeon 6980P 1S, 12ch DDR5-6400', 'DeepSeek-R1 Q2_K_XL', 479.2, 9.94, 0.20]].map(r => `<tr><td>${r[0]}</td><td>${r[1]}</td><td class="n">${r[2]}</td><td class="n">${r[3]}</td><td class="n">${r[4]}</td></tr>`).join('')}
+      </tbody></table></div>
+      <div class="tw"><table><thead><tr><th colspan="3">Context retention, measured</th></tr><tr><th>Machine</th><th>Model</th><th>Kept vs empty</th></tr></thead><tbody>
+        ${[['Xeon 8480 1S DDR5-4800 + RTX PRO 6000 96GB', 'DeepSeek-R1 Q4_K_XL', '8k 96% · 16k 93% · 32k 89%'], ['Xeon 8480 1S + RTX 5090', 'Qwen3-Coder-480B IQ5_K', '8k 86% · 16k 74%'], ['Dual Xeon Skylake DDR4-2666 + 4× 3090, q8_0 KV', 'GLM-4.5 Q3_K_XL', '8k 62% · 16k 45%'], ['2× Xeon 8480 + RTX 5090', 'Qwen3-Coder-480B IQ5_K', '8k 94% · 16k 90%'], ['Ryzen 9 7950X + RTX PRO 6000', 'GLM-4.5 UD-Q3_K_XL', '8k 96% · 12k 96%']].map(r => `<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td></tr>`).join('')}
+      </tbody></table></div>
+    </div>
+    <div class="chg" style="margin-top:14px">
+      <div class="card"><h3>η is the loose number</h3><p>It spans 0.20 to 0.82 across the anchors because thread-synchronisation overhead grows once cores far outnumber memory channels. A machine at the bottom of that range would be about three times slower than the grid says. Trust the ordering between builds far more than any absolute figure.</p></div>
+      <div class="card"><h3>One split for every model</h3><p>The 85% of active weight in RAM is one assumption, calibrated from one measured case. Models with a large shared expert or unusual attention will deviate; nobody publishes the split per model. It is the biggest unquantified error in the grid.</p></div>
+      <div class="card"><h3>What was left out</h3><ul>${EXCLUDED.map(x => `<li><b>${esc(x[0])}</b> — ${x[1]}</li>`).join('')}</ul></div>
+    </div>
+  </section>`;
+}
+function foot() {
+  return `<footer class="wrap foot">
+    <p><b>Rev ${REV.no}</b>, ${esc(REV.date)}. Prices are asking prices in U.S. dollars excluding shipping. Throughput figures are modelled estimates, not measurements of these configurations. Benchmark scores are vendor self-reported. Nothing here has been validated by building one of these machines.</p>
+    <p>Sources: ${SOURCES.map(s => `<a href="${esc(s[1])}" target="_blank" rel="noopener">${esc(s[0])}</a>`).join(' · ')}</p>
+    <p><a href="../../#/s/tech">The Watch · Tech</a> · <a href="../scrollos/#build">ScrollOS: the smaller machines</a> · <a href="../../#/shop">Shopping</a> · <a href="../../../shop/#/s/tech">Finds · Tech</a></p>
+  </footer>`;
+}
+
+/* ================= wiring ================= */
+function render() {
+  $('#app').innerHTML = hero() + changed() + why() + cfg() + builds() + fitTable() + prefill() + buy() + method() + foot();
+  $('#out').innerHTML = outHTML();
+}
+function refreshCfg() { $('#out').innerHTML = outHTML(); document.querySelectorAll('#presets [data-preset]').forEach(b => { const x = BUILDS.find(y => y.id === b.dataset.preset); b.setAttribute('aria-pressed', x.plat === S.plat && x.gpu === S.gpu); }); $('#kPlat').value = S.plat; $('#kGpu').value = S.gpu; $('#kModel').value = S.model; $('#gridWrap').innerHTML = gridHTML(); save(); }
+function refreshShop() { $('#shopWrap').innerHTML = shopHTML(); document.querySelectorAll('#buyPick [data-buy]').forEach(b => b.setAttribute('aria-pressed', b.dataset.buy === S.buy)); save(); }
+document.addEventListener('change', e => {
+  const t = e.target;
+  if (t.id === 'kPlat') { S.plat = t.value; refreshCfg(); }
+  else if (t.id === 'kGpu') { S.gpu = t.value; refreshCfg(); }
+  else if (t.id === 'kModel') { S.model = t.value; refreshCfg(); }
+  else if (t.dataset.got) { if (t.checked) S.got[t.dataset.got] = 1; else delete S.got[t.dataset.got]; refreshShop(); }
+  else if (t.dataset.ask) { if (t.checked) S.ask[t.dataset.ask] = 1; else delete S.ask[t.dataset.ask]; save(); }
+  else if (t.dataset.tgt) { const v = Math.round(+t.value); if (v > 0) S.tgt[t.dataset.tgt] = v; else delete S.tgt[t.dataset.tgt]; refreshShop(); }
+});
+document.addEventListener('click', e => {
+  const t = e.target.closest('button,a'); if (!t) return;
+  if (t.dataset.preset) { const b = BUILDS.find(x => x.id === t.dataset.preset); S.plat = b.plat; S.gpu = b.gpu; refreshCfg(); if (!t.closest('#presets')) $('#build').scrollIntoView({ behavior: 'smooth' }); return; }
+  if (t.dataset.ctx != null) { S.ctx = +t.dataset.ctx; document.querySelectorAll('#kCtx button').forEach(b => b.setAttribute('aria-pressed', b === t)); refreshCfg(); return; }
+  if (t.dataset.g != null) { S.grid = +t.dataset.g; $('#gridWrap').innerHTML = gridHTML(); save(); return; }
+  if (t.dataset.buy) { S.buy = t.dataset.buy; refreshShop(); return; }
+  if (t.id === 'share') { const url = location.href.split('#')[0] + '#b=' + [S.plat, S.gpu, S.model, S.ctx].map(encodeURIComponent).join(','); (navigator.clipboard ? navigator.clipboard.writeText(url) : Promise.reject()).then(() => toast('Link copied. It opens this build.'), () => prompt('Copy this link', url)); return; }
+  if (t.id === 'print') { window.print(); return; }
+  if (t.id === 'copyList') { const { b, p, g, parts } = buyParts(S.buy); const txt = [`${b.id === 'custom' ? '' : b.id + ' '}${b.name} — The 256GB Box, Rev ${REV.no}`, ...parts.map(x => `[${S.got[S.buy + ':' + x.k] ? 'x' : ' '}] ${x.t} — ${usd(x.px)}${x.est ? ' (est.)' : ''}${S.tgt[S.buy + ':' + x.k] ? ' · target ' + usd(S.tgt[S.buy + ':' + x.k]) : ''}\n    ${ebay(x.q)}`), '', 'Ask the seller:', ...ASK.filter(a => !a.only || a.only(p, g)).map(a => '- ' + a.t + ' ' + a.d(p, g).replace(/<[^>]+>/g, ''))].join('\n');
+    (navigator.clipboard ? navigator.clipboard.writeText(txt) : Promise.reject()).then(() => toast('Shopping list copied.'), () => prompt('Copy the list', txt)); return; }
+});
+(function () { const b = $('#theme'); const set = () => { b.textContent = document.documentElement.dataset.theme === 'night' ? 'Day' : 'Night'; }; set();
+  b.addEventListener('click', () => { const t = document.documentElement.dataset.theme === 'night' ? 'day' : 'night'; document.documentElement.dataset.theme = t;
+    try { const p = JSON.parse(localStorage.getItem('watch.v1') || '{}'); p.theme = t; localStorage.setItem('watch.v1', JSON.stringify(p)); } catch (e) { /* storage off */ } set(); }); })();
+
+load();
+if (location.hash.startsWith('#b=')) { const [pl, gp, md, cx] = location.hash.slice(3).split(',').map(decodeURIComponent); if (P(pl)) S.plat = pl; if (G(gp)) S.gpu = gp; if (M(md)) S.model = md; S.ctx = +cx ? 16 : 0; history.replaceState(null, '', location.pathname + '#build'); }
+render();
+if (location.hash === '#build') setTimeout(() => $('#build').scrollIntoView(), 0);
+
+</script>
+</body>
+</html>
