@@ -1,0 +1,16 @@
+name: Probe F1 sources (temporary)
+on:
+  push:
+    branches: [probe-f1]
+permissions:
+  contents: write
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 probe_f1.py
+      - run: |
+          git config user.name probe; git config user.email probe@users.noreply.github.com
+          git add out && git commit -qm "probe results" && git push -q origin HEAD:probe-f1-results --force
