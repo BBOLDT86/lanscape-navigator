@@ -47,7 +47,10 @@ OK = {
     'tagesschau.de', 'n-tv.de', 'rtl.de', 'welt.de', 'derstandard.at', 'nzz.ch', 'marca.com', 'as.com', 'elpais.com', 'lequipe.fr', 'gazzetta.it', 'corriere.it',
 }
 NEVER = re.compile(r'dailymail|thesun\.|mirror\.co|dailystar|tmz\.|radaronline|okmagazine|intouchweekly|pagesix|nypost|starmagazine|thesun\b|bild\.de|bunte\.de', re.I)
-SKIP = re.compile(r'pregnan|baby bump|bump |grávida|gravidez|schwanger|bikini|body[- ]?shaming|weight loss|nude|naked|topless|cheat(ed|ing)? rumou?r|affair rumou?r', re.I)
+SKIP = re.compile(r'pregnan|baby bump|bump |grávida|gravidez|schwanger|bikini|body[- ]?shaming|weight loss|nude|naked|topless|cheat(ed|ing)? rumou?r|affair rumou?r'
+                  r'|\bbab(y|ies)\b|\bnewborn|\bkids?\b|\bchild(ren)?\b|\bsons?\b|\bdaughters?\b|\bfilh[oa]s?\b|\bbeb[êe]s?\b|\bKinder\b|\bTochter|\bSohn\b'
+                  r'|\bmansion|\bnet worth|\bhouse (hunting|tour)|\bhome (tour|for sale)', re.I)  # nothing about children, homes or money
+TEXT_SKIP = re.compile(r'pregnan|baby bump|grávida|gravidez|schwanger|bikini|nude|naked|topless|body[- ]?shaming', re.I)  # for the written text
 SPLIT = re.compile(r'\b(split|splits|split up|break ?up|broke up|breakup|divorc\w*|separat\w*|call(s|ed)? off (their|the) engagement|termin\w+|separa\w*|trennung|getrennt|scheidung)\b', re.I)
 PT = re.compile(r'brazil|brasil|portug', re.I)
 DE = re.compile(r'german|deutsch|austria|österreich|swiss|schweiz', re.I)
@@ -61,7 +64,7 @@ def get(url, timeout=15):
 
 
 def searches(c):
-    a, p = c['athlete']['name'], c['partner']['name']
+    a, p = c['athlete']['name'], re.sub(r'\s*\(.*\)$', '', c['partner']['name'])
     q = urllib.request.quote(f'"{a}" "{p}" when:30d')
     out = [f'https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US:en&q={q}']
     nat = ' '.join([c['athlete'].get('nationality') or '', c['partner'].get('nationality') or ''])
@@ -110,12 +113,13 @@ def from_edition(cs):
         return {}
     out = {}
     for c in cs:
-        a, p = c['athlete']['name'], c['partner']['name']
-        rx_a = re.compile(r'\b' + re.escape(a.split()[-1]) + r'\b', re.I)
-        rx_p = re.compile(r'\b' + re.escape(p) + r'\b|\b' + re.escape(p.split()[-1]) + r'\b', re.I)
+        a, p = c['athlete']['name'], re.sub(r'\s*\(.*\)$', '', c['partner']['name'])
+        same = a.split()[-1].lower() == p.split()[-1].lower()  # the Currys: then only the athlete's full name counts
+        rx_a = re.compile(r'\b' + re.escape(a) + r'\b' + ('' if same or len(a.split()) < 2 else r'|\b' + re.escape(a.split()[-1]) + r'\b'), re.I)
+        rx_p = re.compile(r'\b' + re.escape(p) + r'\b', re.I)  # the partner by full name: a shared surname alone is not enough
         for it in e.get('items', []):
             text = it.get('t', '') + ' ' + (it.get('d') or '')
-            if rx_a.search(text) and rx_p.search(text) and not SKIP.search(it.get('t', '')):
+            if rx_p.search(text) and rx_a.search(rx_p.sub(' ', text)) and not SKIP.search(it.get('t', '')):
                 out.setdefault(c['id'], []).append({'t': it['t'], 'u': it['u'], 'o': (e.get('outlets') or {}).get(it['o'], it['o']),
                                                     'p': dt.datetime.fromtimestamp(it['p'] * 60, dt.timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ'), 'm': it.get('m'), 'l': it.get('l')})
     return out
@@ -251,8 +255,8 @@ def check():
             for q in re.findall(r'[“"]([^”"]{2,})[”"]', t):
                 if len(WORD.findall(q)) > 25:
                     errs.append(f'{w}: {k} quotes {len(WORD.findall(q))} words (25 at most)')
-            if SKIP.search(t):
-                errs.append(f'{w}: {k} mentions something Plus One leaves out (pregnancy, bodies, rumours)')
+            if TEXT_SKIP.search(t):
+                errs.append(f'{w}: {k} mentions something Plus One leaves out (pregnancy, bodies)')
         for m in (c.get('milestones') or []) + (p.get('projects') or []):
             for x in m.get('src') or []:
                 if not isinstance(x, int) or x < 1 or x > len(src):

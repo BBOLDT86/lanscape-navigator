@@ -57,7 +57,8 @@ function team(c) { // the athlete's team in the Sports desk's (or the F1 hub's) 
   }
   return null;
 }
-const tcol = c => { const t = team(c); return (t && t.c) || c.athlete.color || '#15243B'; };
+function lum(h) { const m = /^#?([0-9a-f]{6})$/i.exec(h || ''); if (!m) return 0; const n = parseInt(m[1], 16); return (0.2126 * (n >> 16 & 255) + 0.7152 * (n >> 8 & 255) + 0.0722 * (n & 255)) / 255; }
+const tcol = c => { const t = team(c), h = (t && t.c) || c.athlete.color || '#15243B'; return lum(h) > 0.82 ? '#8492A3' : h; }; // a white kit would vanish on the paper
 function nextUp(c) { // the athlete's next game or race: {when, what, href}
   const t = team(c); if (!t) return null;
   const now = Date.now() - 3 * 3600e3;
@@ -94,8 +95,9 @@ const firstSentence = t => { const s = String(t || '').replace(/\s*\[\d{1,2}\]/g
 /* ================= the mark: two circles, the athlete's team colour and the partner's field ================= */
 function mark(c, size) {
   const a = tcol(c), b = fcol(c), s = size || 'md';
-  return `<svg class="po-mk ${s}" viewBox="0 0 132 88" aria-hidden="true"><circle cx="48" cy="44" r="36" fill="${a}" fill-opacity=".16" stroke="${a}" stroke-width="2.4"/><circle cx="84" cy="44" r="36" fill="${b}" fill-opacity=".16" stroke="${b}" stroke-width="2.4"/>
-    <text x="34" y="52" text-anchor="middle">${esc(initials(c.athlete.name))}</text><text x="98" y="52" text-anchor="middle">${esc(initials(c.partner.name))}</text></svg>`;
+  const lift = x => `color-mix(in srgb,${x} var(--mx),#fff)`; // dark kits are lifted on the night paper
+  return `<svg class="po-mk ${s}" viewBox="0 0 132 88" aria-hidden="true"><circle cx="48" cy="44" r="36" fill-opacity=".16" stroke-width="2.4" style="fill:${lift(a)};stroke:${lift(a)}"/><circle cx="84" cy="44" r="36" fill-opacity=".16" stroke-width="2.4" style="fill:${lift(b)};stroke:${lift(b)}"/>
+    ${s === 'xs' ? '' : `<text x="31" y="51" text-anchor="middle">${esc(initials(c.athlete.name))}</text><text x="101" y="51" text-anchor="middle">${esc(initials(c.partner.name))}</text>`}</svg>`;
 }
 const fieldChips = c => (c.partner.fields || []).map(f => `<span class="po-fc" style="--fc:${FIELD[f] || '#8492A3'}">${esc(T(f))}</span>`).join('');
 const statusLine = c => [T(STATUS[c.status] || c.status), c.since ? T('public since {y}', { y: dayOf(c.since) ? dayOf(c.since).l : c.since }) : ''].filter(Boolean).join(' · ');
@@ -227,7 +229,7 @@ async function renderCouple(id) {
 
 /* ================= the desk cards ================= */
 function deskCard(k) {
-  const cs = order(P.c.couples || []), top = cs.slice(0, 3), pj = projects().up.slice(0, 2);
+  const cs = order(P.c.couples || []), top = cs.slice(0, 3), pj = projects().up.filter(x => (x.c.partner.fields || []).some(f => ['Music', 'Film & TV', 'Fashion'].includes(f))).slice(0, 2);
   const icon = `<span class="t90v" aria-hidden="true"><svg viewBox="0 0 132 88"><circle cx="48" cy="44" r="36" fill="#15243B" fill-opacity=".1" stroke="#A9852F" stroke-width="2"/><circle cx="84" cy="44" r="36" fill="#d55181" fill-opacity=".12" stroke="#d55181" stroke-width="2"/><text x="66" y="54" text-anchor="middle">+1</text></svg></span>`;
   const sub = k === 'culture' && pj.length ? T('Coming up: {list}.', { list: pj.map(x => `${x.c.partner.name}, ${x.p.what} (${x.d.l})`).join('; ') })
     : top.length ? T('This week: {list}.', { list: top.map(c => `${c.athlete.name} & ${c.partner.name}`).join(' · ') }) : '';
@@ -255,7 +257,8 @@ const CSS = `
 .po-head h1{font:400 76px/.95 var(--serif);margin:0 0 10px;letter-spacing:-.015em}
 .po-dek{font:400 22px/1.4 var(--serif);color:var(--ink-2);margin:0 0 14px;max-width:62ch}
 .po-ct{display:flex;flex-wrap:wrap;gap:6px 22px;margin:0 0 16px;font-size:14px;color:var(--ink-2)}.po-ct b{font:400 26px/1 var(--serif);color:var(--ink);margin-right:5px}
-.po-mk{display:block;flex:none}.po-mk text{font:600 22px var(--sans);fill:var(--ink);letter-spacing:.02em}
+.po-mk{display:block;flex:none;--mx:100%}
+@media (prefers-color-scheme:dark){:root:not([data-theme="day"]) .po-mk{--mx:60%}}:root[data-theme="night"] .po-mk{--mx:60%}.po-lead .po-mk{--mx:60%}.po-mk text{font:600 19px var(--sans);fill:var(--ink);letter-spacing:.01em}
 .po-mk.xs{width:42px;height:28px}.po-mk.md{width:96px;height:64px}.po-mk.lg{width:150px;height:100px}.po-mk.xl{width:180px;height:120px}
 .po-k{display:block;font:700 11.5px/1.3 var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
 .po-n{display:block;font:400 25px/1.1 var(--serif);color:var(--ink)}.po-n i{font-style:italic;color:var(--brass-ink)}
@@ -343,7 +346,7 @@ window.PLUS = {
     else { const sp = top.querySelector('#spTop'); if (sp) sp.after(cardEl); else top.prepend(cardEl); }
   },
   f1: async () => { // the F1 hub's drivers: who has a Plus One page. -> {driverId: couple}
-    await ensure(); const out = {};
+    await ensure(); await ensureSchedules(); const out = {};
     for (const c of P.c.couples || []) if (c.league === 'f1' && c.athlete.f1) out[c.athlete.f1] = { id: c.id, partner: c.partner.name, known_for: c.partner.known_for, status: STATUS[c.status] || c.status, mark: mark(c, 'md'), first: firstSentence(c.story) };
     css(); return out;
   },
