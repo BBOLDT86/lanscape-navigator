@@ -1,4 +1,4 @@
-name: Probe sports sources (temporary)
+name: Probe sports updater (temporary)
 on:
   push:
     branches: [probe-sports]
@@ -7,10 +7,16 @@ permissions:
 jobs:
   probe:
     runs-on: ubuntu-latest
-    timeout-minutes: 6
+    timeout-minutes: 8
     steps:
       - uses: actions/checkout@v4
-      - run: python3 probe.py
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: |
+          mkdir -p news/data
+          ( time python3 news/updater/sports.py --record rec ) 2>&1 | tee run.log
+          python3 news/updater/sports.py check 2>&1 | tee -a run.log
       - run: |
           git config user.name probe; git config user.email probe@users.noreply.github.com
-          git add probe-out && git commit -qm "probe results" && git push -q origin HEAD:probe-sports-results --force
+          git add -f news/data/sports rec run.log && git commit -qm "probe results" && git push -q origin HEAD:probe-sports-results --force
