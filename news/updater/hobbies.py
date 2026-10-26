@@ -17,6 +17,7 @@ Where things live:
                 uploads, each feed checked against the channel's own name, Shorts left out
 Standard library only.
 """
+import concurrent.futures as cf
 import datetime as dt
 import json
 import os
@@ -43,7 +44,9 @@ FORMAT = """news/hobbies/guide.json
  "hobbies": [
   {"key": "dressage", "name": "Dressage", "dek": "one sentence, at most 240 characters",
    "channels": [{"id": "UC + 22 characters", "expect": "a word the channel's feed name contains, lowercase",
-                 "name": "the name to show", "handle": "the @handle without the @", "about": "one line"}],
+                 "name": "the name to show", "handle": "the @handle without the @", "about": "one line",
+                 "match": "optional: a regex a video's title or description must hit, for a channel that covers
+                           more than this hobby (the FEI's channel also shows jumping)"}],
    "calendar": [{"name": "...", "start": "YYYY-MM-DD", "end": "YYYY-MM-DD", "place": "City, State or Country", "venue": "...",
                  "url": "the official page", "what": "one line", "source": "where the dates were confirmed", "tier": "major|regional"}],
    "start": [{"title": "...", "url": "https://...", "kind": "official|learn|book|watch|tools|community|data", "why": "one line"}],
@@ -122,6 +125,11 @@ def check_guide(g=None, today=None):
             for k in ('name', 'handle', 'about'):
                 if not c.get(k):
                     p.append(f'{w} channel {c.get("name")!r}: missing {k}')
+            if c.get('match'):
+                try:
+                    re.compile(c['match'])
+                except re.error as ex:
+                    p.append(f'{w} channel {c.get("name")!r}: match is not a valid regex ({ex})')
         if len({c.get('id') for c in ch}) != len(ch):
             p.append(f'{w} a channel is listed twice')
         for e in cal:
@@ -213,13 +221,31 @@ def index():
     return 0
 
 
+def channels(lst, per, days):
+    """the channels' recent uploads, newest first, at most `per` from each; a channel with "match" keeps only the videos about the hobby"""
+    got, failed = [], []
+    with cf.ThreadPoolExecutor(6) as pool:
+        futs = {pool.submit(garage.channel, c['id'], c['expect'], c['name'], c['handle'], c.get('about', ''), days=days): c for c in lst}
+        for f in cf.as_completed(futs):
+            c = futs[f]
+            try:
+                vs = f.result()
+            except Exception as ex:  # noqa: BLE001 - one channel must never stop the rest
+                failed.append(c['name']); garage.errors.append(f"{c['name']}: {type(ex).__name__} {str(ex)[:80]}")
+                continue
+            if c.get('match'):
+                vs = [v for v in vs if re.search(c['match'], v['t'] + ' ' + v.get('d', ''), re.I)]
+            got += sorted(vs, key=lambda v: v['p'], reverse=True)[:per]
+    return sorted(got, key=lambda v: v['p'], reverse=True), failed
+
+
 def build():
     g = load(GUIDE) or {}
     old = load(OUT, {}) or {}
     out = {'v': 1, 'at': garage.NOW.strftime('%Y-%m-%dT%H:%M:%SZ'), 'videos': {}, 'failed': []}
     for h in g.get('hobbies', []):
-        lst = [(c['id'], c['expect'], c['name'], c['handle'], c.get('about', '')) for c in h.get('channels', []) if c.get('id')]
-        vids, failed = garage.channels(lst, per=4, days=45)
+        lst = [c for c in h.get('channels', []) if c.get('id')]
+        vids, failed = channels(lst, per=4, days=45)
         if lst and len(failed) > len(lst) // 2 and (old.get('videos') or {}).get(h['key']):
             vids = old['videos'][h['key']]  # YouTube's feeds were down for most of them: keep the last good list
         out['videos'][h['key']] = vids[:36]

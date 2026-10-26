@@ -271,7 +271,8 @@ after Together / 90 on the Lifestyle desk, and the Travel desk and every Weekend
   them with its topic (`TOPICS` in `run.py`), so a poker story on the Sports desk shows on the poker page too. The desk
   keeps a week of stories, because the hobby press publishes a few times a week.
 - **Videos:** on every news run `hobbies.py` reads the guide's YouTube channels for each hobby (the last 45 days, four
-  a channel, each feed checked against the channel's own name, Shorts left out). They play in YouTube's
+  a channel, each feed checked against the channel's own name, Shorts left out). A channel that covers more than the
+  hobby (the FEI's also shows jumping) carries a `"match"` its videos must hit. They play in YouTube's
   privacy-enhanced player.
 - **The guide**, curated by Claude: the channels, the calendar (every date with the page that confirms it; past events
   drop off), where to start, the words to know, and Portuguese and German for all of it. `hobbies.py check` enforces the
