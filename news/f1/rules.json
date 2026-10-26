@@ -1,0 +1,610 @@
+{
+ "updated": "2026-10-26T10:13:41-04:00",
+ "model": "Claude Opus 5.5",
+ "intro": "The 2026 rules are the biggest reset in Formula 1 since hybrid engines arrived in 2014, and they change the car and the engine at once. The engines keep their 1.6-litre turbo V6 but lose the complicated heat-recovery motor, and the electric side triples in power, so drivers now spend the lap managing energy as much as tyres. The cars are shorter, narrower and lighter, with flatter floors, and both wings now open on the straights to cut drag. DRS is gone; a driver close behind gets extra electrical energy instead. Everything runs on fully sustainable fuel. Below are the main changes with their numbers, and the fixes the FIA has made since the season began.",
+ "areas": [
+  {
+   "id": "power-unit",
+   "title": "The power unit",
+   "body": "The 1.6-litre turbo V6 stays, but the MGU-H (the heat-energy generator on the turbo) is gone. The rear-axle electric motor (MGU-K) jumps from 120kW to 350kW while combustion power drops to about 400kW, so the output is roughly half electric and half petrol. Cars can recover about 8.5MJ per lap, roughly double before, from braking, lifting off and superclipping (harvesting at full throttle near the end of straights). Fuel is now limited by energy rather than mass: a 3000MJ/h energy-flow cap replaces the old 100kg/h limit and is measured by a single standard Allengra ultrasonic meter. All fuel must be 100% sustainable drop-in fuel, and the compression ratio limit falls from 18:1 to 16:1. [1][2][3][4]",
+   "numbers": [
+    {
+     "k": "Engine",
+     "v": "1.6-litre V6, single turbo, no MGU-H"
+    },
+    {
+     "k": "ICE power",
+     "v": "approx. 400kW (was 550-560kW)"
+    },
+    {
+     "k": "MGU-K power",
+     "v": "350kW (was 120kW)"
+    },
+    {
+     "k": "Power split",
+     "v": "roughly 50:50 combustion/electric"
+    },
+    {
+     "k": "Energy recovery",
+     "v": "approx. 8.5MJ per lap (about double)"
+    },
+    {
+     "k": "Fuel limit",
+     "v": "3000MJ/h fuel energy flow (replaces 100kg/h mass flow)"
+    },
+    {
+     "k": "Fuel",
+     "v": "100% sustainable 'drop-in' fuel"
+    },
+    {
+     "k": "Compression ratio",
+     "v": "16:1 maximum (was 18:1)"
+    },
+    {
+     "k": "Original MGU-K taper (2024 spec)",
+     "v": "deployment tapers from 290km/h to zero at 355km/h"
+    }
+   ],
+   "sources": [
+    {
+     "t": "A New Era of Competition: FIA showcases future-focused Formula 1 regulations for 2026 and beyond",
+     "o": "FIA",
+     "u": "https://fia.com/node/51855"
+    },
+    {
+     "t": "Explained: 2026 power unit regulations",
+     "o": "Formula1.com",
+     "u": "https://www.formula1.com/en/latest/article/explained-2026-power-unit-regulations-fia.68izKQ2tn1voQPWvgLVMXN"
+    },
+    {
+     "t": "2026 Formula 1 Regulations Overview",
+     "o": "Honda",
+     "u": "https://global.honda/en/F1/features/2026_Commentary/regulations/"
+    },
+    {
+     "t": "Another F1 2026 engine loophole shut down by FIA",
+     "o": "The Race",
+     "u": "https://www.the-race.com/formula-1/another-f1-2026-engine-rules-loophole-closed-fia/"
+    }
+   ]
+  },
+  {
+   "id": "makers",
+   "title": "Who builds engines, what they cost, and the catch-up rule",
+   "body": "Five manufacturers build 2026 power units: Mercedes, Ferrari, Red Bull Ford Powertrains, Honda and Audi; Renault left after 2025 and GM arrives in 2029. The PU cost cap was planned at $130m plus inflation but was set at $190m for 2026 after the separate capital-expenditure cap was removed; newcomers have $148.5m for each of the three years before entry. ADUO (Additional Development and Upgrade Opportunities) is a catch-up mechanism: after each block of races the FIA ranks combustion-engine performance using a confidential index. Makers 2-4% behind the best get one extra homologated upgrade this year and one next; those more than 4% behind get two and two, plus extra dyno hours and cost-cap allowance on a sliding scale. A 2026-only clause also lets a severely underperforming maker pull forward up to $8m from future budgets. [1][2][3][4]",
+   "numbers": [
+    {
+     "k": "PU makers 2026",
+     "v": "5 (Mercedes, Ferrari, Red Bull Ford, Honda, Audi)"
+    },
+    {
+     "k": "PU cost cap 2026",
+     "v": "$190m (originally $130m + inflation)"
+    },
+    {
+     "k": "New-entrant PU cap",
+     "v": "$148.5m per year for 3 years before entry"
+    },
+    {
+     "k": "ADUO 2-4% deficit",
+     "v": "1 upgrade in 2026 + 1 in 2027; up to about $3m extra allowance"
+    },
+    {
+     "k": "ADUO 4-6% deficit",
+     "v": "2 upgrades in 2026 + 2 in 2027; about $4.65m"
+    },
+    {
+     "k": "ADUO larger deficits",
+     "v": "about $6.35m (6-8%), $8m (8-10%), up to $11m (over 10%)"
+    },
+    {
+     "k": "Severe-case lever",
+     "v": "borrow up to $8m from future budget periods (2026)"
+    },
+    {
+     "k": "Assessment periods",
+     "v": "P1 rounds 1-5; P2 Monaco-Hungary; P3 Netherlands-Mexico City"
+    },
+    {
+     "k": "P1 and P2 results",
+     "v": "Red Bull Ford DM01 benchmark; Mercedes 2-4%; Ferrari, Honda, Audi over 4%"
+    }
+   ],
+   "sources": [
+    {
+     "t": "EXPLAINED: What is the F1 cost cap and why has it gone up?",
+     "o": "Formula1.com",
+     "u": "https://www.formula1.com/en/latest/article/explained-what-is-the-f1-cost-cap-and-why-has-it-gone-up.2tYtDIe5SbE5utjThctBT3"
+    },
+    {
+     "t": "What is ADUO, F1's engine catch-up system?",
+     "o": "Motorsport.com",
+     "u": "https://au.motorsport.com/f1/news/what-is-aduo-f1-engine-system/10828302/"
+    },
+    {
+     "t": "FIA announce controversial ADUO ruling as F1 title rivals learn their fate",
+     "o": "GPFans",
+     "u": "https://www.gpfans.com/en/f1-news/1089573/fia-announce-controversial-aduo-ruling-f1-2026-mercedes-red-bull-ferrari-honda-audi/"
+    },
+    {
+     "t": "FIA makes new announcement ahead of Canadian Grand Prix",
+     "o": "PlanetF1",
+     "u": "https://www.planetf1.com/news/fia-aduo-canadian-grand-prix-2026"
+    }
+   ]
+  },
+  {
+   "id": "controversies",
+   "title": "The engine rows",
+   "body": "The 16:1 compression limit was originally checked only with the engine cold. Ferrari, Audi and Honda suspected Mercedes of using thermal expansion to run a higher effective ratio when hot, which was never confirmed. The FIA's fix, approved unanimously by World Motor Sport Council e-vote and agreed by the five makers, checks the ratio both hot and cold from 1 June 2026, then only at operating conditions (130 degrees C) from 2027. Before the season the FIA also closed a fuel-flow meter loophole, banning any device or procedure that changes the meter's temperature. [1][2]",
+   "numbers": [
+    {
+     "k": "Limit",
+     "v": "16:1 compression ratio"
+    },
+    {
+     "k": "From 1 June 2026",
+     "v": "checked hot and cold"
+    },
+    {
+     "k": "From 2027",
+     "v": "checked at operating conditions only (130 degrees C)"
+    },
+    {
+     "k": "Fuel-flow meter",
+     "v": "single Allengra ultrasonic meter; any temperature manipulation banned (Dec 2025)"
+    }
+   ],
+   "sources": [
+    {
+     "t": "FIA makes final ruling on Mercedes F1 engine controversy",
+     "o": "Crash.net",
+     "u": "https://www.crash.net/f1/news/1090578/1/fia-makes-final-ruling-mercedes-f1-engine-controversy"
+    },
+    {
+     "t": "Another F1 2026 engine loophole shut down by FIA",
+     "o": "The Race",
+     "u": "https://www.the-race.com/formula-1/another-f1-2026-engine-rules-loophole-closed-fia/"
+    }
+   ]
+  },
+  {
+   "id": "chassis",
+   "title": "Smaller, lighter cars",
+   "body": "The cars are smaller and lighter. The maximum wheelbase drops 200mm to 3.4m, width drops 100mm to 1.9m and the floor is 150mm narrower. The FIA's June 2024 target was 768kg, 30kg lighter than before (722kg car and driver plus about 46kg of tyres); the published rules then raised the non-tyre figure to 724kg, and teams list about 768-770kg. The ground-effect venturi tunnels give way to a flatter floor with an extended, stepped diffuser and a higher ride height, aimed at curing porpoising. Wings are simpler, and inwash bargeboards behind the front wheels tidy the wake. Pirelli keeps 18-inch wheels but the tyres are narrower and smaller, and the softest compound (C6) is dropped. [1][2][3][4]",
+   "numbers": [
+    {
+     "k": "Wheelbase",
+     "v": "3400mm max (-200mm)"
+    },
+    {
+     "k": "Width",
+     "v": "1900mm max (-100mm)"
+    },
+    {
+     "k": "Floor width",
+     "v": "-150mm"
+    },
+    {
+     "k": "Minimum mass",
+     "v": "768kg target (June 2024); 724kg excl. tyres in published regs; teams quote 768-770kg incl. driver, excl. fuel"
+    },
+    {
+     "k": "Driver minimum",
+     "v": "82kg (from 80kg)"
+    },
+    {
+     "k": "Downforce / drag (June 2024 targets)",
+     "v": "-30% downforce, -55% drag; later aero revisions made cars about 2s/lap faster than first drafted (a roughly 15% downforce cut)"
+    },
+    {
+     "k": "Tyres",
+     "v": "18-inch; front 25mm narrower, rear 30mm narrower; diameter 720mm to 705-710mm"
+    },
+    {
+     "k": "Compounds",
+     "v": "5 dry compounds, C6 removed"
+    }
+   ],
+   "sources": [
+    {
+     "t": "A New Era of Competition: FIA showcases future-focused Formula 1 regulations for 2026 and beyond",
+     "o": "FIA",
+     "u": "https://fia.com/node/51855"
+    },
+    {
+     "t": "The beginner's guide to the 2026 regulations",
+     "o": "Formula1.com",
+     "u": "https://www.formula1.com/en/latest/article/the-beginners-guide-to-the-2026-regulations.6j0tS0hrHG2T01tpmK6XYz"
+    },
+    {
+     "t": "F1 technical rules reveal increase to 2026 minimum weight",
+     "o": "Speedcafe",
+     "u": "https://speedcafe.com/f1-technical-rules-reveal-increase-to-2026-minimum-weight/"
+    },
+    {
+     "t": "F1 EXPLAINED: Things to know about the new 2026 F1 tyres",
+     "o": "F1Technical",
+     "u": "https://www.f1technical.net/news/28128"
+    },
+    {
+     "t": "FIA announces a series of tweaks to the 2026 F1 regulations",
+     "o": "F1Technical",
+     "u": "https://f1technical.net/news/25652"
+    },
+    {
+     "t": "2026 Formula One World Championship",
+     "o": "Wikipedia",
+     "u": "https://en.wikipedia.org/wiki/2026_Formula_One_World_Championship"
+    }
+   ]
+  },
+  {
+   "id": "active-aero",
+   "title": "Wings that move",
+   "body": "Both wings now move. The front wing has a two-element active flap and the rear wing has three elements. Corner Mode is the default, with flaps closed for downforce. In Straight Mode the flaps open and flatten in designated activation zones, cutting drag for top speed. Unlike DRS, Straight Mode is available to every driver on every lap with no one-second requirement. The 2024 announcement called these Z-mode and X-mode; the official 2026 names are Corner and Straight Mode. Lifting off to regenerate closes the wings, superclipping keeps them open, and in the wet race control can allow a partial mode (front wing straight, rear wing corner). Straight Mode was not used at Monaco on safety grounds. [1][2][3][4]",
+   "numbers": [
+    {
+     "k": "Front wing",
+     "v": "100mm narrower, two-element active flap"
+    },
+    {
+     "k": "Rear wing",
+     "v": "three-element active wing"
+    },
+    {
+     "k": "Modes",
+     "v": "Corner Mode (default, high downforce) / Straight Mode (low drag); originally called Z-mode / X-mode"
+    },
+    {
+     "k": "Who can use it",
+     "v": "all drivers, every lap, in designated zones; no gap requirement"
+    },
+    {
+     "k": "Exceptions",
+     "v": "partial aero mode in wet; Straight Mode not used at Monaco 2026"
+    }
+   ],
+   "sources": [
+    {
+     "t": "A New Era of Competition: FIA showcases future-focused Formula 1 regulations for 2026 and beyond",
+     "o": "FIA",
+     "u": "https://fia.com/node/51855"
+    },
+    {
+     "t": "Boost, overtake mode, active aero - Key 2026 F1 terms explained",
+     "o": "The Race",
+     "u": "https://www.the-race.com/formula-1/boost-overtake-mode-active-aero-recharge-key-2026-terms-explained"
+    },
+    {
+     "t": "Everything you need to know about the new F1 rules for 2026",
+     "o": "Formula1.com",
+     "u": "https://formula1.com/en/latest/article/everything-you-need-to-know-about-the-new-f1-rules-for-2026.48bv0VTxhIlhrQXmxercXk"
+    },
+    {
+     "t": "2026 Monaco Grand Prix",
+     "o": "Wikipedia",
+     "u": "https://en.wikipedia.org/wiki/2026_Monaco_Grand_Prix"
+    }
+   ]
+  },
+  {
+   "id": "overtake",
+   "title": "Overtake mode and boost, in place of DRS",
+   "body": "DRS is gone after 15 seasons. Its replacement is Overtake Mode, called Manual Override in the 2024 drafts. If a driver is within one second of the car ahead at the detection point, nominally the final corner, they get extra electrical energy for the following lap. In the original spec the chaser could hold full 350kW to 337km/h while the leader's deployment tapered above 290km/h. Boost is the everyday button that deploys stored battery energy anywhere on the lap to attack or defend, either in one burst or spread out. Recharge covers harvesting, which is mostly automated by the ECU except lift-and-coast. Since Miami, race Boost is capped at +150kW and MGU-K deployment is 350kW only in acceleration zones (250kW elsewhere). [1][2][3][4]",
+   "numbers": [
+    {
+     "k": "Trigger",
+     "v": "within 1.0s of the car ahead at the detection point"
+    },
+    {
+     "k": "Extra energy",
+     "v": "+0.5MJ for the following lap"
+    },
+    {
+     "k": "Chaser deployment (2024 spec)",
+     "v": "350kW up to 337km/h"
+    },
+    {
+     "k": "Leader deployment (2024 spec)",
+     "v": "tapers above 290km/h, zero at 355km/h"
+    },
+    {
+     "k": "Race Boost cap (from Miami 2026)",
+     "v": "+150kW above power at activation"
+    },
+    {
+     "k": "MGU-K in races (from Miami 2026)",
+     "v": "350kW in acceleration zones, 250kW elsewhere"
+    }
+   ],
+   "sources": [
+    {
+     "t": "Boost, overtake mode, active aero - Key 2026 F1 terms explained",
+     "o": "The Race",
+     "u": "https://www.the-race.com/formula-1/boost-overtake-mode-active-aero-recharge-key-2026-terms-explained"
+    },
+    {
+     "t": "The beginner's guide to the 2026 regulations",
+     "o": "Formula1.com",
+     "u": "https://www.formula1.com/en/latest/article/the-beginners-guide-to-the-2026-regulations.6j0tS0hrHG2T01tpmK6XYz"
+    },
+    {
+     "t": "A New Era of Competition: FIA showcases future-focused Formula 1 regulations for 2026 and beyond",
+     "o": "FIA",
+     "u": "https://fia.com/node/51855"
+    },
+    {
+     "t": "Refinements to 2026 F1 regulations agreed by all stakeholders",
+     "o": "Formula1.com",
+     "u": "https://formula1.com/en/latest/article/refinements-to-2026-f1-regulations-agreed-by-all-stakeholders.1xA0TRau0DvyId6R7oZjFv"
+    }
+   ]
+  },
+  {
+   "id": "safety",
+   "title": "Safety",
+   "body": "The nose now has a two-stage front impact structure: the first part shears off in a big hit and the second stays to protect against a secondary impact. Side-intrusion protection around the cockpit is stronger, and fuel-cell side protection more than doubles with no added weight. The roll hoop must take 20g instead of 16g, with test loads rising from 141kN to 167kN. Rear lights are brighter, and new lateral lights show whether a stopped car's ERS is live. Since Miami, a low-power start detection system automatically adds MGU-K deployment for a car that bogs down at the start and flashes its lights. [1][2][3]",
+   "numbers": [
+    {
+     "k": "Roll hoop",
+     "v": "20g (was 16g); 167kN test (was 141kN)"
+    },
+    {
+     "k": "Front impact structure",
+     "v": "two-stage"
+    },
+    {
+     "k": "Fuel cell side protection",
+     "v": "more than doubled"
+    },
+    {
+     "k": "Lights",
+     "v": "lateral ERS-status lights; brighter rear lights"
+    },
+    {
+     "k": "Heat",
+     "v": "cooling vests mandatory when a heat hazard is declared"
+    }
+   ],
+   "sources": [
+    {
+     "t": "A New Era of Competition: FIA showcases future-focused Formula 1 regulations for 2026 and beyond",
+     "o": "FIA",
+     "u": "https://fia.com/node/51855"
+    },
+    {
+     "t": "Things to know about the refinements to the 2026 F1 regulations",
+     "o": "F1Technical",
+     "u": "https://www.f1technical.net/news/28443"
+    },
+    {
+     "t": "2026 Formula One World Championship",
+     "o": "Wikipedia",
+     "u": "https://en.wikipedia.org/wiki/2026_Formula_One_World_Championship"
+    }
+   ]
+  },
+  {
+   "id": "sporting",
+   "title": "Points, sprints and the cost cap",
+   "body": "The grid grows to 11 teams and 22 cars with Cadillac, so six cars instead of five are knocked out in Q1/SQ1 and Q2/SQ2, while Q3 remains a 10-car shootout. The Grand Prix points system is unchanged. There are six sprints in 2026 (Shanghai, Miami, Montreal, Silverstone, Zandvoort, Singapore), with ten planned for 2027; the top eight score 8-7-6-5-4-3-2-1. Sprint weekends have one practice session, sprint qualifying on Friday (12/10/8-minute stages) and a second parc ferme period, so set-ups can change before Grand Prix qualifying. Other changes: Monaco's two-stop rule is dropped, liveries must cover at least 55% of the car, and rookie FP outings are required. The team cost cap rises to $215m, which is roughly neutral because items such as depreciation now fall inside it. [1][2][3][4]",
+   "numbers": [
+    {
+     "k": "Grid",
+     "v": "11 teams / 22 cars"
+    },
+    {
+     "k": "Qualifying",
+     "v": "6 eliminated in Q1 and in Q2; top 10 in Q3"
+    },
+    {
+     "k": "GP points",
+     "v": "unchanged: 25-18-15-12-10-8-6-4-2-1 (no fastest-lap point since 2025)"
+    },
+    {
+     "k": "Sprints",
+     "v": "6 in 2026, 10 in 2027; points 8-7-6-5-4-3-2-1"
+    },
+    {
+     "k": "Sprint tyre allocation",
+     "v": "12 sets (vs 13)"
+    },
+    {
+     "k": "Team cost cap",
+     "v": "$215m (from $135m base; +$80m, roughly neutral after perimeter changes)"
+    },
+    {
+     "k": "Pre-season testing",
+     "v": "3 tests x 3 days (9 days)"
+    },
+    {
+     "k": "Calendar",
+     "v": "23 rounds after Saudi Arabia was cancelled; Bahrain GP held at Sepang"
+    }
+   ],
+   "sources": [
+    {
+     "t": "How 2026 F1 sprint races work: qualifying, points and schedule",
+     "o": "Motor Sport",
+     "u": "https://www.motorsportmagazine.com/articles/single-seaters/f1/how-2026-f1-sprint-races-work-qualifying-points-and-schedule/"
+    },
+    {
+     "t": "The beginner's guide to the 2026 regulations",
+     "o": "Formula1.com",
+     "u": "https://www.formula1.com/en/latest/article/the-beginners-guide-to-the-2026-regulations.6j0tS0hrHG2T01tpmK6XYz"
+    },
+    {
+     "t": "No changes to points system, more test days - FIA confirms changes to the regulations",
+     "o": "F1Technical",
+     "u": "https://f1technical.net/news/25066"
+    },
+    {
+     "t": "Fastest lap point to be scrapped in 2025 after latest FIA World Motor Sport Council meeting",
+     "o": "Formula1.com",
+     "u": "https://www.formula1.com/en/latest/article/fastest-lap-point-to-be-scrapped-in-2025-after-latest-fia-world-motor-sport.4pUjDzWnGRN7KVWENLc1BY"
+    },
+    {
+     "t": "EXPLAINED: What is the F1 cost cap and why has it gone up?",
+     "o": "Formula1.com",
+     "u": "https://www.formula1.com/en/latest/article/explained-what-is-the-f1-cost-cap-and-why-has-it-gone-up.2tYtDIe5SbE5utjThctBT3"
+    },
+    {
+     "t": "2026 Formula One World Championship",
+     "o": "Wikipedia",
+     "u": "https://en.wikipedia.org/wiki/2026_Formula_One_World_Championship"
+    }
+   ]
+  }
+ ],
+ "changes": [
+  {
+   "when": "22 Dec 2025 (pre-season)",
+   "what": "WMSC broadened the fuel-flow meter rule to ban any device, system or procedure that changes the meter's temperature, not just intentional heating or cooling.",
+   "src": [
+    1
+   ]
+  },
+  {
+   "when": "27-28 Feb 2026",
+   "what": "Compression-ratio row settled: the 16:1 limit will be checked hot and cold from 1 June 2026 and only at operating temperature (130 degrees C) from 2027, approved unanimously by WMSC e-vote and the five PU makers.",
+   "src": [
+    2
+   ]
+  },
+  {
+   "when": "Mar-Apr 2026",
+   "what": "Saudi Arabian GP cancelled and the Bahrain GP postponed (later run at Sepang on 4 Oct under the Bahrain name), making a 23-round calendar. As a result the first ADUO assessment moved to after round 5 (Canada), with further reviews after Hungary and Mexico City.",
+   "src": [
+    3,
+    4
+   ]
+  },
+  {
+   "when": "9-21 Apr 2026 (in force from Miami GP, round 4)",
+   "what": "After Bearman's Suzuka crash, caused by a large closing speed from differing energy deployment, the FIA, teams, PU makers and FOM agreed refinements on 20 Apr: qualifying recharge cut from 8 to 7MJ; superclip peak raised from 250kW to 350kW with a window of about 2-4s per lap; events allowed lower energy limits raised from 8 to 12; race Boost capped at +150kW; MGU-K 350kW only in acceleration zones (250kW elsewhere); low-power start detection with automatic MGU-K assist and flashing lights; energy counter reset at the formation lap; wet-weather tweaks (warmer intermediate blankets, lower ERS deployment).",
+   "src": [
+    5,
+    6,
+    7
+   ]
+  },
+  {
+   "when": "Monaco GP weekend (round 6, 7 Jun 2026)",
+   "what": "Straight Mode active aero was not used at Monaco on safety grounds, though Overtake Mode stayed available. The FIA's first ADUO letter named Red Bull Ford the benchmark, put Mercedes 2-4% behind (one upgrade) and Ferrari, Honda and Audi more than 4% behind (two upgrades).",
+   "src": [
+    8,
+    9
+   ]
+  },
+  {
+   "when": "26 Aug 2026",
+   "what": "ADUO Period 2 (Monaco to Hungary) results: no additional homologations granted and the order unchanged (Red Bull Ford benchmark; Mercedes 2-4%; Ferrari, Honda, Audi over 4%). Period 3 covers the Netherlands to Mexico City.",
+   "src": [
+    10
+   ]
+  },
+  {
+   "when": "3 Sep 2026",
+   "what": "The FIA International Court of Appeal reinstated Gasly's two Monaco pit-lane speeding penalties after the stewards had rescinded them using a shortest-distance speed calculation, settling how pit-lane speed is measured.",
+   "src": [
+    8
+   ]
+  }
+ ],
+ "changes_sources": [
+  {
+   "t": "Another F1 2026 engine loophole shut down by FIA",
+   "o": "The Race",
+   "u": "https://www.the-race.com/formula-1/another-f1-2026-engine-rules-loophole-closed-fia/"
+  },
+  {
+   "t": "FIA makes final ruling on Mercedes F1 engine controversy",
+   "o": "Crash.net",
+   "u": "https://www.crash.net/f1/news/1090578/1/fia-makes-final-ruling-mercedes-f1-engine-controversy"
+  },
+  {
+   "t": "2026 Formula One World Championship",
+   "o": "Wikipedia",
+   "u": "https://en.wikipedia.org/wiki/2026_Formula_One_World_Championship"
+  },
+  {
+   "t": "FIA makes new announcement ahead of Canadian Grand Prix",
+   "o": "PlanetF1",
+   "u": "https://www.planetf1.com/news/fia-aduo-canadian-grand-prix-2026"
+  },
+  {
+   "t": "Refinements to 2026 F1 regulations agreed by all stakeholders",
+   "o": "Formula1.com",
+   "u": "https://formula1.com/en/latest/article/refinements-to-2026-f1-regulations-agreed-by-all-stakeholders.1xA0TRau0DvyId6R7oZjFv"
+  },
+  {
+   "t": "Things to know about the refinements to the 2026 F1 regulations",
+   "o": "F1Technical",
+   "u": "https://www.f1technical.net/news/28443"
+  },
+  {
+   "t": "2026 Japanese Grand Prix",
+   "o": "Wikipedia",
+   "u": "https://en.wikipedia.org/wiki/2026_Japanese_Grand_Prix"
+  },
+  {
+   "t": "2026 Monaco Grand Prix",
+   "o": "Wikipedia",
+   "u": "https://en.wikipedia.org/wiki/2026_Monaco_Grand_Prix"
+  },
+  {
+   "t": "What is ADUO, F1's engine catch-up system?",
+   "o": "Motorsport.com",
+   "u": "https://au.motorsport.com/f1/news/what-is-aduo-f1-engine-system/10828302/"
+  },
+  {
+   "t": "FIA announce controversial ADUO ruling as F1 title rivals learn their fate",
+   "o": "GPFans",
+   "u": "https://www.gpfans.com/en/f1-news/1089573/fia-announce-controversial-aduo-ruling-f1-2026-mercedes-red-bull-ferrari-honda-audi/"
+  }
+ ],
+ "suppliers": [
+  {
+   "maker": "Mercedes",
+   "product": "Mercedes-AMG HPP (Mercedes-AMG F1 M17)",
+   "teams": [
+    "mercedes",
+    "mclaren",
+    "williams",
+    "alpine"
+   ]
+  },
+  {
+   "maker": "Ferrari",
+   "product": "Ferrari (067/6)",
+   "teams": [
+    "ferrari",
+    "haas",
+    "cadillac"
+   ]
+  },
+  {
+   "maker": "Red Bull Ford",
+   "product": "Red Bull Ford Powertrains (DM01)",
+   "teams": [
+    "red_bull",
+    "rb"
+   ]
+  },
+  {
+   "maker": "Honda",
+   "product": "Honda / HRC (RA626H)",
+   "teams": [
+    "aston_martin"
+   ]
+  },
+  {
+   "maker": "Audi",
+   "product": "Audi (AFR 26 Hybrid)",
+   "teams": [
+    "audi"
+   ]
+  }
+ ]
+}

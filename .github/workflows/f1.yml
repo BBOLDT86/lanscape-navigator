@@ -1,0 +1,48 @@
+name: The Watch F1 hub
+# The Sports desk's Formula 1 hub (news/#/f1): calendar, results, standings, lap charts, strategy, race control, news
+# and video, from Jolpica F1, OpenF1, the F1 press's feeds and the official YouTube channel. Every three hours, and
+# every half hour over race weekends (Friday to Monday UTC), when results, stints and highlights land. The updater
+# writes only when something changed, so a quiet run makes no commit. See news/UPDATER.md.
+on:
+  schedule:
+    - cron: '37 */3 * * 1-4'
+    - cron: '7,37 * * * 0,5,6'
+    - cron: '7,37 0-12 * * 1'
+  workflow_dispatch:
+    inputs:
+      force:
+        description: 'Refetch the last two races'' lap, pit and strategy files'
+        type: boolean
+        default: false
+permissions:
+  contents: write
+concurrency:
+  group: the-watch-f1
+  cancel-in-progress: false
+jobs:
+  update:
+    if: github.repository == 'BBOLDT86/lanscape-navigator'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Refresh the F1 data
+        timeout-minutes: 8
+        run: python3 news/updater/f1.py ${{ inputs.force && '--force' || '' }}
+      - name: Commit and push
+        run: |
+          git config user.name "The Watch updater"
+          git config user.email "the-watch-news@users.noreply.github.com"
+          git add news/data/f1.json news/data/f1
+          if git diff --cached --quiet; then echo "nothing changed"; exit 0; fi
+          git commit -qm "The Watch: F1 data"
+          for i in 1 2 3; do
+            git pull --rebase -X theirs origin main && git push -q origin HEAD:main && exit 0
+            sleep 10
+          done
+          echo "push failed" >&2; exit 1

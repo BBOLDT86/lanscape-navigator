@@ -171,6 +171,51 @@ about three games are blended with what their depth-chart role produces. The wei
 backtesting weeks 4–7 (each week projected from the weeks before it); the Study hall's projections lesson reruns that
 backtest in the browser.
 
+## Formula 1 (`f1.py` -> `data/f1.json`, `data/f1/`; `news/f1/`)
+
+The Sports desk opens with a card for the next grand prix, and `#/f1` is a Formula 1 hub with its own tabs:
+Overview (the next weekend with a countdown and every session in the reader's time and the track's, the title fight
+drawn round by round, the standings, the last race, the calendar, the eleven cars, the season's storylines, news and
+video, how to watch), Calendar (`#/f1/calendar`: the season's route on a world map and every round), a page for each
+race weekend (`#/f1/race/<round>`: the circuit and its map with corner numbers, the sessions, the podium and a report,
+highlights, a lap-by-lap position chart with safety cars and pit stops, tyre strategy, race pace, the full result, pit
+stops, race control's messages, weather, qualifying and the sprint), Standings (charts and a points-by-round table),
+Drivers (`#/f1/driver/<id>`: season numbers, race-by-race strip, the head-to-head with the teammate, career totals, the
+story), Cars (`#/f1/car/<team>`: the car's spec sheet, its ideas, what to look for, the upgrade log round by round, the
+season, the people, who powers whom), Rules (the 2026 regulations with their numbers) and News.
+
+The hub's code and look are in `news/f1/app.js`, which `index.html` loads the first time someone opens the hub or
+the Sports desk (`loadF1()`, with the page's helpers handed over as `window.WATCH`). Its interface is translated in
+`news/f1/i18n.json` (`pt` and `de`, merged into the page's dictionary when it loads); the written text stays in
+English, marked so.
+
+`.github/workflows/f1.yml` runs `news/updater/f1.py` every three hours, and every half hour from Friday to Monday
+(UTC), committing only when something changed:
+- Jolpica F1 (`api.jolpi.ca`, the Ergast-compatible database): the calendar with session times, every race, sprint and
+  qualifying classification, the standings, and for each finished race its positions and times lap by lap and its pit
+  stops (`data/f1/r<round>.json`, a few races a run, newest first; Jolpica allows 500 requests an hour, so a run spends
+  at most 330). Career totals are fetched once a month per driver (six a run) and this season's part is added from
+  the classifications on every run.
+- OpenF1 (`api.openf1.org`): team colours and driver headshots (the pictures stay on Formula 1's servers), cancelled
+  meetings, and for each race its tyre stints, race control's messages (safety cars, red flags, penalties,
+  investigations), weather and overtake counts. OpenF1 allows 30 requests a minute, so requests are spaced two seconds.
+- MultiViewer's circuit files (linked from OpenF1's meetings): each track's outline and corners, fetched once per
+  circuit into `data/f1/tracks.json` (older years are tried for circuits that have no file for this one).
+- News from the F1 feeds of Formula1.com, BBC Sport, Autosport, Motorsport.com, The Guardian, Crash.net, Sky Sports, The
+  Race and RaceFans (the last two kept to F1), Google News searches in English, Portuguese and German (kept to outlets
+  in `GN_OK`), and Motorsport.com's Brazilian and German editions; each story is tied to its race when its headline
+  names it. Video from the official Formula 1 YouTube channel; highlights stay all season.
+
+Both Jolpica and OpenF1 allow browsers, so when a session ends before the next run the page asks Jolpica for the
+result itself (`topUp()`).
+
+The written half, `news/f1/` (`teams.json`, `drivers.json`, `circuits.json`, `season.json`, `rules.json`), is kept by
+a weekly scheduled Claude task on Mondays: a cited report and headline for each finished round, the storylines and
+the title arithmetic, each car's concept and upgrade log, each driver's season, circuit guides and tyre choices, the
+rules and their in-season changes, how to watch and tickets. Results in `data/f1.json` are the record; written text
+must agree with them. `python3 news/updater/f1.py format` prints the format and `python3 news/updater/f1.py check`
+enforces it (ids that match the season's, cited text, word counts, no quotation over 25 words).
+
 ## Lifestyle
 
 Style, relationships, home life and how-to, from the New York Times' Style desk, the Guardian's Life and style and

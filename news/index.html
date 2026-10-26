@@ -1315,6 +1315,7 @@ function parseHash() {
   if (!h) return { t: 'home' };
   const [a, ...rest] = h.split('/'); const b = rest.join('/');
   if (a === 'for-you') return { t: 'you' };
+  if (a === 'f1') return { t: 'f1', p: b }; // the Formula 1 hub (f1/app.js)
   if (a === 's' && b) return { t: 'desk', k: b };
   if (a === 't' && b) return { t: 'topic', k: b };
   if (a === 'q') return { t: 'search', q: b };
@@ -2003,10 +2004,31 @@ function render(keepScroll) {
   else if (view.t === 'shop') renderShop();
   else if (view.t === 'piece') renderPiece(view.id);
   else if (view.t === 'col') renderCol(view.week, view.k);
+  else if (view.t === 'f1') renderF1(view.p, keepScroll);
+  if (view.t === 'desk' && view.k === 'sports') f1Desk();
   renderFoot();
   watchImpressions();
   if (!keepScroll) window.scrollTo(0, 0);
 }
+
+/* ================= Formula 1: the Sports desk's hub, #/f1. Its code and look are in f1/app.js, loaded the first
+   time someone opens the hub or the Sports desk; its data is data/f1.json (news/updater/f1.py) and f1/*.json. ================= */
+let F1JS = null;
+function loadF1() {
+  if (!window.WATCH) window.WATCH = { T, esc, md, getJSON, ago, isoMin, ytThumb, outlet, secName, LOC, LANG, PUBLIC, // what the hub draws with
+    get view() { return view; }, get E() { return E; }, get DICT() { return DICT; } };
+  if (!F1JS) F1JS = new Promise((ok, no) => {
+    const v = Math.floor(Date.now() / 600000), add = (u, next) => { const s = document.createElement('script'); s.src = u + '?v=' + v; s.onload = ok; s.onerror = next; document.head.appendChild(s); };
+    add('f1/app.js', () => add(PUBLIC + 'f1/app.js', () => { F1JS = null; no(new Error('f1/app.js did not load')); }));
+  });
+  return F1JS;
+}
+function renderF1(p, keep) {
+  if (window.F1) return window.F1.render(p, keep);
+  $('#main').innerHTML = `<div class="wrap state"><h2>${T('Opening the F1 hub…')}</h2></div>`;
+  loadF1().then(() => { if (view.t === 'f1') window.F1.render(view.p); }, () => { if (view.t === 'f1') $('#main').innerHTML = `<div class="wrap state"><h2>${T('The F1 hub didn’t load')}</h2><p><a href="#/s/sports">${secName('sports')}</a></p></div>`; });
+}
+function f1Desk() { loadF1().then(() => window.F1.desk(), () => {}); }
 
 /* ================= markets: a snapshot at each edition (news/data/markets.json) ================= */
 let MK = null;
