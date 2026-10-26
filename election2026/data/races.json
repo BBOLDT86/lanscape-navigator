@@ -1,5 +1,5 @@
 {
- "asOf": "2026-10-25",
+ "asOf": "2026-10-26",
  "balance": {
   "senate": {
    "current": {
@@ -1363,6 +1363,22 @@
    },
    "polls": [
     {
+     "pollster": "Trafalgar Group",
+     "sponsor": null,
+     "partisan": false,
+     "start": "2026-10-21",
+     "end": "2026-10-23",
+     "dateBasis": "field dates from the pollster's report",
+     "n": 1077,
+     "pop": "LV",
+     "d": 46.5,
+     "r": 47.0,
+     "other": null,
+     "url": "https://www.thetrafalgargroup.org/wp-content/uploads/2026/10/ME-Midterms-Report-1025.pdf",
+     "partisanNote": "Trafalgar Group; no sponsor stated in the report. RCP lists it (Oct 25) as Jackson 47 / Collins 47; the report's toplines are Collins 47.0 / Jackson 46.5 / undecided 6.5, MoE 2.9",
+     "released": "2026-10-25"
+    },
+    {
      "pollster": "Fox News (Beacon/Shaw)",
      "sponsor": null,
      "partisan": false,
@@ -1436,11 +1452,11 @@
     "https://en.wikipedia.org/wiki/2026_United_States_Senate_elections"
    ],
    "average": {
-    "d": 49,
-    "r": 47.7,
-    "n_polls": 3,
-    "source": "mean of RCP-listed polls released Oct 12-23 (realclearpolling.com/latest-polls/senate)",
-    "asOf": "2026-10-23",
+    "d": 48.4,
+    "r": 47.5,
+    "n_polls": 4,
+    "source": "mean of RCP-listed polls released Oct 12-25 (realclearpolling.com/latest-polls/senate)",
+    "asOf": "2026-10-25",
     "method": "simple unweighted mean of the toplines listed; computed by this research pass, NOT an aggregator average"
    },
    "lastAggregatorAverage": {
@@ -9113,7 +9129,8 @@
   "pres2024 margins outside the 12 competitive Senate races and all lastRace results are recalled from certified results (flagged 'recalled'); 2024 D/R vote shares are null.",
   "Poll closing times for non-Senate states and second closes in split states are recalled statutory times, not fetched.",
   "PredictIt and Betfair not refreshed (Oct 11 values noted in markets.senateControl.note).",
-  "Oct 24 pass: Cook's Oct 23 House district-level changes (19 races) and Sabato's Oct 22 governor ratings table (image) could not be read; only the changes stated in the prose (OH, MI, AL, OK) were recorded. The House competitive list is still Cook's Oct 16 list. RCP latest-polls pages showed nothing newer than Oct 23 at 8 a.m. ET Oct 24."
+  "Oct 24 pass: Cook's Oct 23 House district-level changes (19 races) and Sabato's Oct 22 governor ratings table (image) could not be read; only the changes stated in the prose (OH, MI, AL, OK) were recorded. The House competitive list is still Cook's Oct 16 list. RCP latest-polls pages showed nothing newer than Oct 23 at 8 a.m. ET Oct 24.",
+  "Oct 26 pass: RCP latest-polls (Senate, governor, 2026) listed nothing after the Oct 25 Trafalgar ME-S poll; Sabato's rating-changes page refused; 270toWin change logs (Senate, governor, Cook/IE pages) show nothing after Oct 23; UF Election Lab page itself renders totals client-side (read via the Action's CSV pull instead)."
  ],
  "sourcesMachineReadable": [
   "https://gamma-api.polymarket.com/events?slug=<slug> (JSON; blocked from this sandbox, worked via WebFetch on Oct 11)",

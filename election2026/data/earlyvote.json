@@ -1,5 +1,5 @@
 {
- "asOf": "2026-10-25",
+ "asOf": "2026-10-26",
  "primarySource": {
   "name": "UF Election Lab 2026 Early Voting tracker (Michael McDonald)",
   "url": "https://election.lab.ufl.edu/early-vote/2026-early-voting/",
@@ -10,18 +10,20 @@
   "scriptHint": "GET https://election.lab.ufl.edu/data-downloads/earlyvote/2026/US.csv once or twice daily (cache-bust with a query string); parse CSV; sum voted_all/accept_all/inperson_all/request_all for national; per state use voted_all, accept_all, inperson_all, request_all, voted_dem/voted_rep/voted_none, last_update, updates_today."
  },
  "national": {
-  "totalBallots": 26681083,
-  "mailReturned": 14059279,
-  "inPerson": 12621804,
-  "mailRequested": 59404593,
+  "totalBallots": 28000336,
+  "mailReturned": 14340664,
+  "inPerson": 13663672,
+  "mailRequested": 59419760,
   "statesReporting": 48,
   "byParty": {
-   "D": 5959961,
-   "R": 4060199,
-   "other": 3189324,
+   "D": 6204286,
+   "R": 4224474,
+   "other": 3315908,
    "statesWithPartyData": 27,
-   "note": "registration, not vote choice (UF Election Lab US.csv, pulled by the Action 2026-10-25T11:43:19Z)"
+   "note": "registration, not vote choice (UF Election Lab US.csv, pulled by the Action 2026-10-26T04:56:47Z)"
   },
+  "asOf": "2026-10-26T04:56:47Z",
+  "source": "https://election.lab.ufl.edu/early-vote/2026-early-voting/",
   "comparison": {
    "text": "The UF 2026 page publishes no same-point 2022 or 2024 comparison text; it offers a map option '2026 Early Vote to 2022 Total Turnout Ratio' (early votes divided by each state's total 2022 turnout, the turn_2022 column). Final 2024 early+mail total across the 49 UF-tracked jurisdictions = sum of voted_all in the archived 2024 US.csv. AP (via Fox 10 Phoenix, 2026-10-17) reported about 6 million early/mail ballots cast across 39 states as of Thursday Oct 15, 2026; no 2022 comparison given. Michigan SOS press release of 2026-10-06 is titled 'Four weeks before Election Day, mail ballot returns are up 30% over same point in 2022' (title only; body not fetched).",
    "final2022": null,
@@ -29,8 +31,6 @@
    "final2024Source": "https://election.lab.ufl.edu/data-downloads/earlyvote/2024/US.csv",
    "turnout2022TotalTrackedStates": 109979856
   },
-  "asOf": "2026-10-25T11:43:19Z",
-  "source": "https://election.lab.ufl.edu/early-vote/2026-early-voting/",
   "altSources": [
    {
     "name": "AP early-vote count (as reported by Fox 10 Phoenix)",
@@ -1961,6 +1961,16 @@
   "CO"
  ],
  "headlines": [
+  {
+   "date": "2026-10-26",
+   "text": "UF Election Lab tracker: 28,000,336 early votes nationally (13,663,672 in person, 14,340,664 mail ballots returned, 59,419,760 requested) across 48 reporting states/DC, per the CSV pulled at 04:56 UTC Oct 26; Texas 4,132,879, Florida 2,783,995, Georgia 1,775,359, North Carolina 1,544,674 (state rows dated Oct 25).",
+   "source": "https://election.lab.ufl.edu/early-vote/2026-early-voting/"
+  },
+  {
+   "date": "2026-10-24",
+   "text": "Harris County, Texas: 384,304 in-person early votes through four days (Oct 19-22), a midterm record, with 86,328 on day four, the most on a fourth day of any midterm since at least 1998; with 31,421 mail ballots, 415,725 had voted early, 15.1% of registered voters vs. 10.3% at the same point in 2022; the Texas SOS file showed 2,819,155 early voters statewide after four days (ABC13 Houston, unofficial county figures).",
+   "source": "https://abc13.com/live-updates/2026-midterm-election-early-voting-starts-monday-runs-oct-30-texas/19850056/"
+  },
   {
    "date": "2026-10-24",
    "text": "UF Election Lab tracker: 24,274,661 early votes nationally (10,917,370 in person, 13,357,291 mail ballots returned, 59,332,375 requested) across 48 reporting states/DC, per the CSV pulled at 08:15 UTC Oct 24; up 684,496 from the Oct 23 5:44 p.m. ET reading.",
