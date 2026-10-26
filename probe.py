@@ -24,6 +24,9 @@ def feed(f):
     try:
         st, final, raw = get(f['url'], 'application/rss+xml, application/atom+xml, application/xml;q=0.9, */*;q=0.8')
         out['status'], out['final'] = st, final
+        if f.get('save'):
+            import os; os.makedirs('raw', exist_ok=True)
+            open(os.path.join('raw', re.sub(r'[^A-Za-z0-9]+', '_', f['name']) + '.xml'), 'wb').write(raw)
         try: root = ET.fromstring(raw)
         except ET.ParseError: root = ET.fromstring(re.sub(rb'&(?!(?:[a-zA-Z]+|#\d+|#x[0-9a-fA-F]+);)', b'&amp;', raw))
         items = []
