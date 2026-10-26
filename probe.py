@@ -6,31 +6,38 @@ S = 'https://site.api.espn.com/apis/v2/sports/'
 LG = {'nfl': 'football/nfl', 'nba': 'basketball/nba', 'nhl': 'hockey/nhl', 'mlb': 'baseball/mlb', 'wnba': 'basketball/wnba',
       'mls': 'soccer/usa.1', 'epl': 'soccer/eng.1', 'liga': 'soccer/esp.1', 'ucl': 'soccer/uefa.champions', 'seriea': 'soccer/ita.1',
       'bund': 'soccer/ger.1', 'ligue1': 'soccer/fra.1', 'f1': 'racing/f1'}
-URLS = {}
-for k, p in LG.items():
-    URLS[k + '.score'] = E + p + '/scoreboard'
-    URLS[k + '.news'] = E + p + '/news?limit=30'
-    URLS[k + '.stand'] = S + p + '/standings'
-    URLS[k + '.teams'] = E + p + '/teams'
-URLS['nfl.week'] = E + 'football/nfl/scoreboard?dates=20261029-20261102'
-URLS['nba.range'] = E + 'basketball/nba/scoreboard?dates=20261026-20261101&limit=200'
-URLS['mlb.post'] = E + 'baseball/mlb/scoreboard?dates=20261020-20261105&limit=200'
-URLS['mls.range'] = E + 'soccer/usa.1/scoreboard?dates=20261020-20261210&limit=200'
-URLS['epl.range'] = E + 'soccer/eng.1/scoreboard?dates=20261020-20261110&limit=200'
-URLS['wnba.range'] = E + 'basketball/wnba/scoreboard?dates=20260901-20261031&limit=200'
-URLS['nfl.summary'] = E + 'football/nfl/summary?event=401773030'
-URLS['nfl.stand.group'] = S + 'football/nfl/standings?group=conference'
-URLS['web.stand'] = 'https://site.web.api.espn.com/apis/v2/sports/basketball/nba/standings?region=us&lang=en&contentorigin=espn&type=0&level=3'
-URLS['core.nfl'] = 'https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/seasons/2026/types/2/weeks/8/events'
-URLS['nhle.score'] = 'https://api-web.nhle.com/v1/score/now'
-URLS['nhle.stand'] = 'https://api-web.nhle.com/v1/standings/now'
-URLS['nhle.sched'] = 'https://api-web.nhle.com/v1/schedule/now'
-URLS['mlbapi.sched'] = 'https://statsapi.mlb.com/api/v1/schedule?sportId=1&startDate=2026-10-20&endDate=2026-11-05&hydrate=team,linescore,broadcasts(all),seriesStatus'
-URLS['mlbapi.stand'] = 'https://statsapi.mlb.com/api/v1/standings?leagueId=103,104&season=2026'
-URLS['nbacdn.today'] = 'https://cdn.nba.com/static/json/liveData/scoreboard/todaysScoreboard_00.json'
-URLS['nbacdn.sched'] = 'https://cdn.nba.com/static/json/staticData/scheduleLeagueV2_1.json'
-URLS['tsdb'] = 'https://www.thesportsdb.com/api/v1/json/3/eventsnextleague.php?id=4328'
-FEEDS = {
+URLS = {
+ 'nfl.wk8': E+'football/nfl/scoreboard?week=8&seasontype=2',
+ 'nfl.wk8y': E+'football/nfl/scoreboard?week=8&seasontype=2&dates=2026',
+ 'nfl.year': E+'football/nfl/scoreboard?dates=2026&seasontype=2&week=9',
+ 'nba.d1': E+'basketball/nba/scoreboard?dates=20261027',
+ 'nba.d1l': E+'basketball/nba/scoreboard?dates=20261027&limit=100',
+ 'nba.r2': E+'basketball/nba/scoreboard?dates=20261026-20261027',
+ 'nba.r2l': E+'basketball/nba/scoreboard?limit=1000&dates=20261026-20261028',
+ 'mlb.d1': E+'baseball/mlb/scoreboard?dates=20261027',
+ 'epl.d1': E+'soccer/eng.1/scoreboard?dates=20261101',
+ 'epl.r': E+'soccer/eng.1/scoreboard?dates=20261031-20261102',
+ 'mls.d1': E+'soccer/usa.1/scoreboard?dates=20261101',
+ 'nfl.sum': E+'football/nfl/summary?event=401873009',
+ 'nba.sum': E+'basketball/nba/summary?event=401909861',
+ 'mlb.sum': E+'baseball/mlb/summary?event=401908043',
+ 'epl.sum': E+'soccer/eng.1/summary?event=401879254',
+ 'nfl.tsched': E+'football/nfl/teams/21/schedule',
+ 'nba.tsched': E+'basketball/nba/teams/26/schedule',
+ 'nfl.tnews': E+'football/nfl/news?team=21&limit=10',
+ 'nfl.l3': 'https://site.web.api.espn.com/apis/v2/sports/football/nfl/standings?level=3',
+ 'nhl.l3': 'https://site.web.api.espn.com/apis/v2/sports/hockey/nhl/standings?level=3',
+ 'mlb.l3': 'https://site.web.api.espn.com/apis/v2/sports/baseball/mlb/standings?level=3',
+ 'mlb.l3s': 'https://site.web.api.espn.com/apis/v2/sports/baseball/mlb/standings?level=3&season=2026&seasontype=2',
+ 'nfl.v2l3': S+'football/nfl/standings?level=3',
+ 'wnba.post': E+'basketball/wnba/scoreboard?dates=20261021',
+ 'wnba.sum': E+'basketball/wnba/summary?event=W401909861',
+ 'mlb.d24': E+'baseball/mlb/scoreboard?dates=20261024',
+ 'nfl.rank': E+'football/nfl/scoreboard?dates=20261101',
+ 'cfb': E+'football/college-football/scoreboard',
+ 'f1.cal': 'https://sports.core.api.espn.com/v2/sports/racing/leagues/f1/calendar/ondays',
+}
+FEEDS0 = {
     'cbs.nfl': 'https://www.cbssports.com/rss/headlines/nfl/', 'cbs.nba': 'https://www.cbssports.com/rss/headlines/nba/',
     'cbs.nhl': 'https://www.cbssports.com/rss/headlines/nhl/', 'cbs.mlb': 'https://www.cbssports.com/rss/headlines/mlb/',
     'cbs.wnba': 'https://www.cbssports.com/rss/headlines/wnba/', 'cbs.soccer': 'https://www.cbssports.com/rss/headlines/soccer/',
@@ -63,6 +70,7 @@ def hit(name, url, keep_full):
         return name, {'status': e.code, 'acao': e.headers.get('Access-Control-Allow-Origin'), 'err': str(e), 'ms': int((time.time() - t) * 1000)}
     except Exception as e:
         return name, {'status': None, 'err': repr(e)[:300]}
+FEEDS = {'gn.nfl2': 'https://news.google.com/rss/search?q=NFL&hl=en-US&gl=US&ceid=US:en', 'gn.top.sports': 'https://news.google.com/rss/headlines/section/topic/SPORTS?hl=en-US&gl=US&ceid=US:en', 'athletic.nba': 'https://www.nytimes.com/athletic/rss/nba/', 'athletic.nhl': 'https://www.nytimes.com/athletic/rss/nhl/', 'athletic.mlb': 'https://www.nytimes.com/athletic/rss/mlb/', 'athletic.soccer': 'https://www.nytimes.com/athletic/rss/football/', 'athletic.wnba': 'https://www.nytimes.com/athletic/rss/wnba/', 'athletic.mls': 'https://www.nytimes.com/athletic/rss/football/mls/'}
 jobs = [(k, u, True) for k, u in URLS.items()] + [(k, u, True) for k, u in FEEDS.items()]
 with cf.ThreadPoolExecutor(12) as ex:
     for name, o in ex.map(lambda j: hit(*j), jobs): out[name] = o
