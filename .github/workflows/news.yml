@@ -2,11 +2,15 @@ name: The Watch news updater
 # Six editions a day, one for each ship's watch, Eastern time: Middle (12 a.m.), Morning (4 a.m.), Forenoon (8 a.m.),
 # Afternoon (12 p.m.), Dog (4 p.m.) and First (8 p.m.). GitHub's cron is UTC, so this fires at both the EDT and the
 # EST hour of every watch (and covers a late run); news/updater/run.py builds an edition only when the current
-# watch has none yet. A manual run (Run workflow) always builds. See news/UPDATER.md.
+# watch has none yet. A manual run (Run workflow) always builds, and so does a push that changes the feeds or the
+# updater, so a new desk or source is in the paper minutes later instead of at the next watch. See news/UPDATER.md.
 on:
   schedule:
     - cron: '11 0,1,4,5,8,9,12,13,16,17,20,21 * * *'
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['news/data/feeds.json', 'news/updater/run.py', 'news/updater/hobbies.py', 'news/hobbies/guide.json']
 permissions:
   contents: write
 concurrency:
@@ -25,7 +29,7 @@ jobs:
         with:
           python-version: '3.12'
       - name: Build the edition
-        run: python3 news/updater/run.py ${{ github.event_name == 'workflow_dispatch' && '--force' || '' }}
+        run: python3 news/updater/run.py ${{ github.event_name != 'schedule' && '--force' || '' }}
       - name: Markets and the economy
         timeout-minutes: 4
         continue-on-error: true
@@ -54,6 +58,11 @@ jobs:
         continue-on-error: true
         run: |
           python3 news/updater/garage.py || echo "garage feeds failed; kept the last copy"
+      - name: The hobbies' videos
+        timeout-minutes: 3
+        continue-on-error: true
+        run: |
+          python3 news/updater/hobbies.py || echo "hobby channels failed; kept the last copy"
       - name: Home market and saved searches
         timeout-minutes: 6
         continue-on-error: true

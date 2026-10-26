@@ -27,7 +27,7 @@ from zoneinfo import ZoneInfo
 HERE = os.path.dirname(os.path.abspath(__file__))
 A = os.path.normpath(os.path.join(HERE, '..', 'articles'))
 DESKS = {'us', 'world', 'europe', 'brazil', 'politics', 'business', 'household', 'home', 'tech', 'science', 'health', 'sports',
-         'culture', 'cars', 'travel', 'food', 'lifestyle', 'longreads', 'files'}
+         'culture', 'cars', 'travel', 'food', 'lifestyle', 'hobbies', 'longreads', 'files'}
 WORDS = re.compile(r"[^\W_][\w’'.,%$-]*")
 LANGS = {'pt', 'de'}
 

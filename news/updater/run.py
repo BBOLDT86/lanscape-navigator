@@ -55,12 +55,13 @@ WATCHES = [(0, 'middle', 'Middle Watch'), (4, 'morning', 'Morning Watch'), (8, '
            (12, 'afternoon', 'Afternoon Watch'), (16, 'dog', 'Dog Watch'), (20, 'first', 'First Watch')]
 SECTIONS = [('us', 'U.S.'), ('world', 'World'), ('europe', 'Europe'), ('brazil', 'Brazil'), ('politics', 'Politics'), ('business', 'Business'), ('household', 'Household'), ('home', 'Home'), ('power', 'Power'), ('tech', 'Tech'),
             ('science', 'Science'), ('health', 'Health'), ('sports', 'Sports'), ('culture', 'Culture'), ('cars', 'Cars'),
-            ('travel', 'Travel'), ('food', 'Food'), ('lifestyle', 'Lifestyle'), ('longreads', 'Long reads')]
-SLOW = {'cars', 'travel', 'food', 'lifestyle', 'longreads', 'home'}
+            ('travel', 'Travel'), ('food', 'Food'), ('lifestyle', 'Lifestyle'), ('hobbies', 'Hobbies'), ('longreads', 'Long reads')]
+SLOW = {'cars', 'travel', 'food', 'lifestyle', 'hobbies', 'longreads', 'home'}
 WINDOW_H = {'default': 36, 'slow': 96}
-WINDOW_BY_SEC = {'brazil': 72, 'household': 72, 'power': 72}  # fewer English-language stories a day, so they stay up longer
+WINDOW_BY_SEC = {'brazil': 72, 'household': 72, 'power': 72,  # fewer English-language stories a day, so they stay up longer
+                 'hobbies': 168}  # the hobby press publishes a few times a week, so a week of it stays up
 CAP = {'us': 100, 'world': 100, 'europe': 90, 'brazil': 70, 'household': 60, 'home': 60, 'power': 60, 'politics': 80, 'business': 90, 'tech': 90, 'science': 55, 'health': 45, 'sports': 100,
-       'culture': 70, 'cars': 45, 'travel': 40, 'food': 35, 'lifestyle': 45, 'longreads': 35}
+       'culture': 70, 'cars': 45, 'travel': 40, 'food': 35, 'lifestyle': 45, 'hobbies': 150, 'longreads': 35}
 SNIP = 210
 
 # ------------------------------------------------------------------ outlets
@@ -94,7 +95,14 @@ OUTLETS = {
     'inman.com': 'Inman', 'curbed.com': 'Curbed', 'apartmenttherapy.com': 'Apartment Therapy', 'architecturaldigest.com': 'Architectural Digest',
     'thisoldhouse.com': 'This Old House', 'politico.eu': 'Politico Europe', 'euronews.com': 'Euronews',
     'kyivindependent.com': 'The Kyiv Independent', 'euractiv.com': 'Euractiv', 'brazilian.report': 'The Brazilian Report',
-    'agenciabrasil.ebc.com.br': 'Agência Brasil', 'riotimesonline.com': 'The Rio Times', 'en.mercopress.com': 'MercoPress', 'si.com': 'Sports Illustrated', 'nfl.com': 'NFL.com', 'mlb.com': 'MLB.com', 'nba.com': 'NBA.com',
+    'agenciabrasil.ebc.com.br': 'Agência Brasil',
+    # the Hobbies desk
+    'dressage-news.com': 'Dressage-News', 'horseandhound.co.uk': 'Horse & Hound', 'horsenetwork.com': 'Horse Network', 'dressagetoday.com': 'Dressage Today',
+    'yourdressage.org': 'YourDressage (USDF)', 'nancyjaffer.com': 'Nancy Jaffer', 'chronofhorse.com': 'The Chronicle of the Horse', 'coth.com': 'The Chronicle of the Horse',
+    'eurodressage.com': 'Eurodressage', 'usef.org': 'US Equestrian', 'finewoodworking.com': 'Fine Woodworking', 'popularwoodworking.com': 'Popular Woodworking',
+    'lostartpress.com': 'Lost Art Press', 'paulsellers.com': 'Paul Sellers', 'toolguyd.com': 'ToolGuyd', 'protoolreviews.com': 'Pro Tool Reviews',
+    'woodworkingnetwork.com': 'Woodworking Network', 'reddit.com': 'Reddit', 'pokernews.com': 'PokerNews', 'cardplayer.com': 'Card Player', 'pokertube.com': 'PokerTube',
+    'somuchpoker.com': 'SoMuchPoker', 'upswingpoker.com': 'Upswing Poker', 'gtowizard.com': 'GTO Wizard', 'pokerfuse.com': 'Pokerfuse', 'poker.org': 'Poker.org', 'riotimesonline.com': 'The Rio Times', 'en.mercopress.com': 'MercoPress', 'si.com': 'Sports Illustrated', 'nfl.com': 'NFL.com', 'mlb.com': 'MLB.com', 'nba.com': 'NBA.com',
 }
 TIER1 = {'apnews.com', 'reuters.com', 'nytimes.com', 'washingtonpost.com', 'wsj.com', 'bbc.com', 'npr.org', 'bloomberg.com',
          'theguardian.com', 'axios.com', 'cbsnews.com', 'nbcnews.com', 'abcnews.go.com', 'pbs.org', 'ft.com', 'politico.com', 'cnn.com'}
@@ -573,6 +581,10 @@ TOPICS = [
     ('soccer', 'Soccer', r'\b(soccer|Premier League|Champions League|World Cup|MLS)\b'),
     ('golf', 'Golf', r'\b(golf|PGA|LPGA|Ryder Cup)\b'),
     ('f1', 'Formula 1', r'\b(Formula 1|F1|Grand Prix)\b'),
+    # the Hobbies desk's hobbies; a story from a hobby feed (feeds.json: "hobby") always carries its hobby
+    ('dressage', 'Dressage', r'\b(dressage|dressur\w*|para[- ]dressage|USDF|piaffe|half-pass|flying changes?|freestyle to music|Global Dressage Festival|Grand Prix (Special|Freestyle|de Dressage)|CDI[1-5W]?\*{0,5})\b'),
+    ('woodworking', 'Woodworking', r'\b(woodwork\w*|wood ?shop|joinery|dovetails?|mortises?|tenons?|table ?saws?|band ?saws?|hand planes?|cabinetmak\w*|furniture mak\w*|woodturn\w*|wood turning|SawStop|Festool|lumberyards?)\b'),
+    ('poker', 'Poker', r"\b(poker|WSOP|World Series of Poker|World Poker Tour|(?-i:WPT)|(?-i:EPT)|PokerStars|PokerGO|Triton (Poker|Super High Roller)|hold'?em|Texas Hold'?em|final table)\b"),
     ('movies', 'Movies', r'\b(box office|movies?|films?|filmmaker)\b'),
     ('music', 'Music', r'\b(albums?|songs?|tour|concerts?|singer|rapper)\b'),
     ('tv', 'TV', r'\b(TV series|streaming|Netflix|HBO|Hulu|season \d+|showrunner)\b'),
@@ -710,7 +722,11 @@ def item_keywords(it, ents):
                     found.append(k)
                 elif ' ' in ph and k not in GENERIC_ENT and k not in STOP and not (it.get('l') and set(k.split()) & FOREIGN_STOP):
                     found.append(k); ents.setdefault(k, ALIAS_LABEL.get(k, ph))
-    topics = [] if it.get('l') else [k for k, _l, rx in TOPICS if rx.search(it['t']) or (rx.search(it.get('d', '')) and k not in ('crime', 'hotels', 'points-miles', 'music', 'movies'))]
+    topics = [] if it.get('l') else [k for k, _l, rx in TOPICS if rx.search(it['t']) or (rx.search(it.get('d', '')) and k not in ('crime', 'hotels', 'points-miles', 'music', 'movies', 'poker', 'woodworking'))]
+    if it.get('h') and it['h'] not in topics:  # a hobby feed's story is about its hobby, whatever words it uses
+        topics.insert(0, it['h'])
+    if 'dressage' in topics and 'f1' in topics:  # a dressage Grand Prix is not a race
+        topics.remove('f1')
     out = []
     for k in found + [TOPIC_AS_NAME.get(t, '#' + t) for t in topics]:  # "Ukraine" the topic is "Ukraine" the name
         if k not in out:
@@ -857,7 +873,7 @@ def main():
                         title = title[: -len(sname) - 3].strip()
                     else:
                         title = re.sub(r'\s+-\s+[^-]{2,60}$', '', title).strip()
-                    if not dom:
+                    if not dom or dom in f.get('skipout', ()):  # skipout: outlets a search feed should leave out
                         continue
                     outlet_name = OUTLETS.get(dom) or sname or dom
                 else:
@@ -878,8 +894,14 @@ def main():
                     dom = 'news.ycombinator.com'; outlet_name = 'Hacker News'
                 else:
                     d = '' if r['google'] else snippet(desc, title)
+                if f.get('match') and not re.search(f['match'], title + ' ' + d + ' ' + link, re.I):
+                    continue  # a broad feed read for one subject (a horse magazine's dressage stories)
+                if f.get('skip') and re.search(f['skip'], title + ' ' + link, re.I):
+                    continue
                 sec = classify(f.get('section', 'auto'), f.get('lean'), link, title, d, f.get('lang'))
                 it = {'i': ident(link), 't': title[:240], 'u': link, 'o': dom, 'c': sec, 'p': p, 'f': NOW_MIN}
+                if f.get('hobby'):
+                    it['h'] = f['hobby']
                 if f.get('lang') in ('pt', 'de'):
                     it['l'] = f['lang']
                 if d:

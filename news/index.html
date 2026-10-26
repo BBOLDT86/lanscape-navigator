@@ -933,6 +933,97 @@ body.ssopen{overflow:hidden}
 .wxsrc{margin-top:36px}
 @media (max-width:900px){.wxgrid,.wx2{grid-template-columns:minmax(0,1fr)}.wxnow{grid-row:auto}.wxbig .tmp{font-size:66px}.wxdl{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:820px){.wxhw{overflow-x:auto;margin:0 -16px;padding:0 16px;scrollbar-width:thin}.wxhrs{min-width:660px}.wxchip .hl{display:none}.wxdays li{grid-template-columns:50px 26px 34px 40px minmax(0,1fr) 40px;gap:6px}.wxcard{padding:16px}}
+/* Hobbies: the hub, each hobby's page and its small tool */
+.hob .lnk{border:0;background:none;padding:0;font:600 13.5px var(--sans);color:var(--brass-ink);text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.hobcards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:4px}
+.hobcard{display:flex;flex-direction:column;text-decoration:none;color:inherit;border:1px solid var(--rule);background:var(--raise);border-radius:16px;overflow:hidden;min-width:0;transition:border-color .15s}
+.hobcard:hover{border-color:var(--brass)}
+.hobcard .hobart{display:flex;align-items:center;justify-content:center;aspect-ratio:16/8;background:var(--shoal);color:var(--ink)}
+.hobart svg{width:58%;max-width:230px;height:auto;display:block}
+.hobart text{font:italic 400 15px var(--serif);fill:var(--ink)}
+.hobart text.hl{font-size:17px}.hobart text.hs{font:400 26px var(--serif)}.hobart text.red{fill:var(--signal)}
+.hobart .hl text{font:600 9px var(--sans);fill:var(--ink-2);font-style:normal}
+.hobtx{display:flex;flex-direction:column;gap:6px;padding:14px 18px 18px;flex:1}
+.hobtx .k{font:600 12px/1.3 var(--sans);letter-spacing:.06em;text-transform:uppercase;color:var(--brass-ink)}
+.hobtx b{font:400 34px/1.02 var(--serif);letter-spacing:-.005em}
+.hobtx .d{font-size:14.5px;color:var(--ink-2);line-height:1.45}
+.hobnx{font:500 14px/1.4 var(--sans);color:var(--ink);margin-top:2px}
+.hobtx .fgo{margin-top:auto;padding-top:6px;font:600 14.5px var(--sans);color:var(--brass-ink)}
+.hobcard:hover .fgo{text-decoration:underline;text-underline-offset:3px}
+.hobwhen{display:inline-block;font:700 11.5px/1 var(--sans);letter-spacing:.04em;text-transform:uppercase;border-radius:999px;padding:4px 8px;background:var(--shoal);color:var(--ink-2);vertical-align:1px}
+.hobwhen.soon{background:var(--brass);color:#fff}
+.hobwhen.now{background:var(--signal);color:#fff}
+:root[data-theme="night"] .hobwhen.soon{color:#0E1A2B}
+.hobtag{font:600 11.5px var(--sans);color:var(--ink-3);letter-spacing:.04em;text-transform:uppercase}
+.hobfeats{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:0 28px}
+.hobfeats .rep .rt{font-size:26px}
+.hobfeat1 .rep.big{margin-bottom:6px}
+.hobfin .t90f{margin:26px 0 0}
+.hobtwo{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(0,1fr);gap:40px;align-items:start}
+.hobtwo .blk-h .seg{margin-left:auto}
+.hobtwo aside{border-left:1px solid var(--rule);padding-left:28px}
+.hobwire{margin-top:6px}
+.hobcal{list-style:none;margin:10px 0 0;padding:0}
+.hobev{display:grid;grid-template-columns:54px minmax(0,1fr);gap:12px;padding:13px 0;border-bottom:1px solid var(--rule)}
+.hobev:first-child{padding-top:4px}
+.hobdt{display:flex;flex-direction:column;align-items:center;justify-content:center;border:1px solid var(--rule);border-radius:10px;background:var(--raise);height:58px}
+.hobdt b{font:700 11px var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--brass-ink)}
+.hobdt i{font:400 28px/1 var(--serif);font-style:normal}
+.hobev.major .hobdt{border-color:var(--brass)}
+.hobet{display:flex;flex-direction:column;gap:3px;min-width:0}
+.hobet .hobwhen{align-self:flex-start}
+.hobn{font:600 16px/1.3 var(--sans);text-decoration:none;color:var(--ink)}
+.hobn:hover{text-decoration:underline;text-underline-offset:3px}
+.hobp{font-size:13.5px;color:var(--ink-3)}
+.hobw{font-size:14px;color:var(--ink-2);line-height:1.45}
+.hobacts{display:flex;flex-wrap:wrap;gap:4px 14px;margin-top:2px}
+.hobacts a{font:500 13px var(--sans);color:var(--ink-3)}
+.hobhero{display:flex;gap:26px;align-items:center;margin:4px 0 8px}
+.hobhero .hobart{flex:none;width:210px;aspect-ratio:16/10;border-radius:16px;background:var(--shoal);display:flex;align-items:center;justify-content:center;color:var(--ink)}
+.hobhero .hobart svg{width:76%}
+.hobhero h1{font:400 58px/1 var(--serif);margin:0 0 8px;letter-spacing:-.01em}
+.hobhero p{margin:0;color:var(--ink-2);font-size:17px;max-width:62ch}
+.hobsw{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:14px}
+.hobsep{width:1px;height:22px;background:var(--rule);margin:0 4px}
+.hobstart{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:8px 30px}
+.hobsk h3{font:600 12.5px var(--sans);letter-spacing:.06em;text-transform:uppercase;color:var(--brass-ink);margin:14px 0 4px}
+.hobsk ul{list-style:none;margin:0;padding:0}
+.hobsk li{padding:8px 0;border-bottom:1px solid var(--rule)}
+.hobsk li a{font:600 15.5px/1.35 var(--sans);color:var(--ink);text-decoration:none}
+.hobsk li a:hover{text-decoration:underline;text-underline-offset:3px}
+.hobsk li span{display:block;font-size:14px;color:var(--ink-2);line-height:1.45;margin-top:2px}
+.hobq{margin-left:auto;border:1px solid var(--rule);background:var(--raise);color:var(--ink);border-radius:999px;padding:7px 14px;font:500 14.5px var(--sans);min-width:200px}
+.hobgl{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:0 30px;margin:12px 0 0}
+.hobgl>div{padding:11px 0;border-bottom:1px solid var(--rule);break-inside:avoid}
+.hobgl dt{font:400 21px/1.2 var(--serif)}
+.hobgl dt .nolc{font:500 13px var(--sans);color:var(--ink-3)}
+.hobgl dd{margin:4px 0 0;font-size:14.5px;color:var(--ink-2);line-height:1.5}
+.hobtool{margin-top:30px;border:1px solid var(--rule);background:var(--raise);border-radius:14px;padding:18px 18px 16px}
+.hobtool .sec-h{margin-top:0}
+.hobtool .sub2{font-size:14px;color:var(--ink-2);margin:4px 0 12px}
+.hobtab{width:100%;border-collapse:collapse;font-size:14px}
+.hobtab th{font:600 11.5px var(--sans);letter-spacing:.05em;text-transform:uppercase;color:var(--ink-3);text-align:left;padding:4px 4px 6px}
+.hobtab td{padding:3px 4px;border-top:1px solid var(--rule)}
+.hobtab .r{text-align:right;font-variant-numeric:tabular-nums}
+.hobtab td:first-child{color:var(--ink-3);width:28px}
+.hobtab td:nth-child(2) input{max-width:96px}
+.hobtab input,.hobtab select,.hobrow input{width:100%;min-width:0;border:1px solid var(--rule);background:var(--paper);color:var(--ink);border-radius:6px;padding:5px 7px;font:500 14px var(--sans);font-variant-numeric:tabular-nums}
+.hobrow{display:flex;flex-wrap:wrap;align-items:flex-end;gap:8px 12px;margin:10px 0 4px}
+.hobrow label{display:flex;flex-direction:column;gap:3px;font:600 12px var(--sans);color:var(--ink-2);flex:1 1 110px}
+.hobrow label.ck{flex-direction:row;align-items:center;gap:7px;flex:0 0 auto;font-size:13.5px}
+.hobrow label.ck input{width:auto}
+.hobrow .chip{font-size:13px;padding:5px 11px}
+.hobout{margin-top:10px;border-top:1px solid var(--rule);padding-top:10px}
+.hobout p{margin:0 0 4px;font-size:14px;line-height:1.45}
+.hobout .hobbig{font:400 42px/1.05 var(--serif);margin-bottom:6px}
+.hobtool .glb{font:600 12.5px var(--sans);letter-spacing:.06em;text-transform:uppercase;color:var(--brass-ink);margin:16px 0 0}
+.hobfoot{max-width:860px;margin-top:40px}
+@media (max-width:980px){.hobtwo{grid-template-columns:1fr;gap:10px}.hobtwo aside{border-left:0;padding-left:0;border-top:1px solid var(--rule);padding-top:8px;margin-top:20px}}
+@media (max-width:820px){
+  .hobcards{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:8px;scrollbar-width:thin}.hobcard{flex:0 0 82%;scroll-snap-align:start}
+  .hobhero{flex-direction:column;align-items:flex-start;gap:14px}.hobhero .hobart{width:150px}.hobhero h1{font-size:44px}
+  .hobq{margin-left:0;width:100%}.hobtx b{font-size:30px}.hobfeats .rep .rt{font-size:23px}
+}
 </style>
 </head>
 <body>
@@ -976,7 +1067,7 @@ if(t==='auto'){t=(h>=20||h<4)?'night':(matchMedia('(prefers-color-scheme: dark)'
 (() => {
 'use strict';
 const PUBLIC = 'https://bboldt86.github.io/lanscape-navigator/news/';
-const SLOW = new Set(['cars', 'travel', 'food', 'lifestyle', 'longreads']);
+const SLOW = new Set(['cars', 'travel', 'food', 'lifestyle', 'hobbies', 'longreads']);
 const WATCHES = [['middle', 'Middle Watch', 0], ['morning', 'Morning Watch', 4], ['forenoon', 'Forenoon Watch', 8], ['afternoon', 'Afternoon Watch', 12], ['dog', 'Dog Watch', 16], ['first', 'First Watch', 20]];
 const $ = (s, el = document) => el.querySelector(s);
 const $$ = (s, el = document) => [...el.querySelectorAll(s)];
@@ -1100,7 +1191,7 @@ function bump(map, k, v) { map[k] = clamp((map[k] || 0) + v, -14, 30); P.n++; sa
 /* ================= the edition ================= */
 let E = null, LATEST = null, byId = new Map(), DF = {}, viewingArchive = false;
 const outlet = o => (E && E.outlets[o]) || o;
-const DESK_NAMES = { household: 'Household', home: 'Home', lifestyle: 'Lifestyle', files: 'Epstein files' };
+const DESK_NAMES = { household: 'Household', home: 'Home', lifestyle: 'Lifestyle', hobbies: 'Hobbies', files: 'Epstein files' };
 const secName = k => T(((E && E.sections.find(s => s.k === k)) || { name: DESK_NAMES[k] || k }).name);
 const watchName = key => T((WATCHES.find(w => w[0] === key) || WATCHES[0])[1]);
 const hourName = h => LANG === 'en' || LANG === 'xx' ? `${h % 12 || 12} ${h < 12 ? 'a.m.' : 'p.m.'}` : new Intl.DateTimeFormat(LOC(), { hour: 'numeric', minute: '2-digit', timeZone: 'UTC' }).format(new Date(Date.UTC(2020, 0, 1, h)));
@@ -1122,6 +1213,11 @@ async function getJSON(path) {
 }
 function useEdition(ed, archived) {
   E = ed; viewingArchive = !!archived;
+  if (!E.sections.some(s => s.k === 'hobbies')) { // an edition from before the Hobbies desk: it is there anyway
+    const i = E.sections.findIndex(s => s.k === 'longreads');
+    E.sections = i < 0 ? E.sections.concat([{ k: 'hobbies', name: 'Hobbies' }]) : [...E.sections.slice(0, i), { k: 'hobbies', name: 'Hobbies' }, ...E.sections.slice(i)];
+  }
+  E.topics = Object.assign({}, HOB_NAMES, E.topics || {});
   byId = new Map(E.items.map(it => [it.i, it]));
   DF = {};
   for (const it of E.items) for (const k of it.k || []) DF[k] = (DF[k] || 0) + 1;
@@ -1198,6 +1294,7 @@ function units(filter) { // one entry per story: a shared story counts once
   return out;
 }
 function deskUnits(k) {
+  if (k === 'hobbies') return hobUnits(null); // a hobby's stories also come from the other desks
   const out = [], done = new Set();
   for (const it of E.items) {
     const c = clusterOf(it);
@@ -1334,6 +1431,8 @@ function parseHash() {
   if (a === 'weather') return { t: 'weather' };
   if (a === 'shop') return { t: 'shop' };
   if (a === 'ln' && b) return { t: 'piece', id: b };
+  if (a === 'hobby' && b) return { t: 'hobby', k: b };
+  if (a === 'hf' && b) return { t: 'hf', id: b };
   if (a === 'col' && b) { const [wk, k] = b.split('/'); return { t: 'col', week: wk, k: k || 'bull' }; }
   return { t: 'home' };
 }
@@ -1352,7 +1451,7 @@ function storyRow(it, o = {}) {
 
 function renderBar() {
   const items = [['home', '', 'Front'], ['you', 'for-you', 'For you'], ['reports', 'reports', 'Reports'], ['pictures', 'pictures', 'Pictures'], ['video', 'video', 'Video'], ['late', 'latenight', 'Late Night'], ['weather', 'weather', 'Weather'], ['shop', 'shop', 'Shopping'], ['vision', '../vision/', 'Vision'], ...deskList().map(s => ['desk:' + s.k, 's/' + s.k, secName(s.k)]), ['files', 'files', 'Epstein files']];
-  const cur = view.t === 'desk' ? 'desk:' + view.k : view.t === 'article' ? 'reports' : ['impact', 'col', 'columns'].includes(view.t) ? 'desk:business' : ['garage', 'build', 'fsd'].includes(view.t) ? 'desk:cars' : view.t === 'sports' ? 'desk:sports' : view.t === 'piece' ? 'late' : view.t;
+  const cur = view.t === 'desk' ? 'desk:' + view.k : view.t === 'article' ? 'reports' : ['impact', 'col', 'columns'].includes(view.t) ? 'desk:business' : ['garage', 'build', 'fsd'].includes(view.t) ? 'desk:cars' : view.t === 'sports' ? 'desk:sports' : view.t === 'piece' ? 'late' : ['hobby', 'hf'].includes(view.t) ? 'desk:hobbies' : view.t;
   $('#bar').innerHTML = items.map(([id, h, label]) =>
     `<button type="button" data-go="${h.startsWith('../') ? h : '#/' + h}"${id === cur ? ' aria-current="page"' : ''}${id === 'you' ? ' class="you"' : ''}>${esc(label)}</button>`).join('');
   const on = $('#bar [aria-current]');
@@ -1486,6 +1585,7 @@ function deskList() { // the edition's desks; Lifestyle is shown even on an edit
   return i < 0 ? E.sections.concat([{ k: 'lifestyle', name: 'Lifestyle' }]) : [...E.sections.slice(0, i), { k: 'lifestyle', name: 'Lifestyle' }, ...E.sections.slice(i)];
 }
 function renderDesk(k) {
+  if (k === 'hobbies') return renderHobbies();
   if (k === 'household') return renderHousehold();
   if (k === 'home') return renderHomeDesk();
   if (!E.sections.find(s => s.k === k) && k !== 'lifestyle') return go('#/');
@@ -2003,6 +2103,8 @@ function render(keepScroll) {
   else if (view.t === 'weather') renderWeather();
   else if (view.t === 'shop') renderShop();
   else if (view.t === 'piece') renderPiece(view.id);
+  else if (view.t === 'hobby') renderHobby(view.k);
+  else if (view.t === 'hf') renderHobbyFeature(view.id);
   else if (view.t === 'col') renderCol(view.week, view.k);
   else if (view.t === 'f1') renderF1(view.p, keepScroll);
   if (view.t === 'desk' && view.k === 'sports') f1Desk();
@@ -3401,7 +3503,7 @@ document.addEventListener('click', e => {
     const k = ds.follow;
     if (P.follow[k]) { delete P.follow[k]; toast(`Stopped following ${kwLabel(k)}.`); }
     else { P.follow[k] = 1; delete P.mute.kw[k]; bump(P.kw, k, 2); toast(`Following ${kwLabel(k)}.`); }
-    save(); refreshDrawer(); if (view.t === 'topic') render(true); return;
+    save(); refreshDrawer(); if (view.t === 'topic' || view.t === 'hobby') render(true); return;
   }
   if (ds.mute) {
     const k = ds.mute;
@@ -3418,6 +3520,9 @@ document.addEventListener('click', e => {
   if (ds.ssgo != null) { ssShow(+ds.ssgo, +ds.ssgo > SS.i ? 1 : -1); return; }
   if (ds.vf) { vidFilter = ds.vf; pageLimit = 40; render(true); return; }
   if (ds.gf) { garFilter = ds.gf; render(true); return; }
+  if (ds.hobw) { hobWire = ds.hobw; pageLimit = 40; render(true); return; }
+  if (ds.hobv) { hobVid = ds.hobv; render(true); return; }
+  if (ds.hobics) { const [hk, hi] = ds.hobics.split('|'); hobICS(hk, hi); return; }
   if (ds.lnf) { lnFilter = ds.lnf; render(true); return; }
   if (ds.frp) { const x = ds.frp; if (FR.picks.has(x)) FR.picks.delete(x); else FR.picks.add(x); a.setAttribute('aria-pressed', String(FR.picks.has(x))); return; }
   if (ds.frdel != null) { if (FR.res && FR.res.seen) { FR.res.seen.splice(+ds.frdel, 1); frRedraw(); } return; }
@@ -3442,6 +3547,7 @@ document.addEventListener('click', e => {
   if (a.id === 'backLatest') { loadLatest(true); return; }
   if (a.id === 'compassBtn') { compassDrawer(); return; }
   if (a.id === 'shareBtn' || ds.share === 'site') { shareSite(); return; }
+  if (ds.share === 'hf') { const r = HFC[ds.sid]; if (r) { const L = artL(r); shareIt({ title: L.title || r.title, text: L.dek || r.dek, url: `${PUBLIC}#/hf/${encodeURIComponent(r.id)}` }); } return; }
   if (ds.share === 'report') { const r = (ART && ART.articles || []).find(x => x.id === ds.sid) || ARTC[ds.sid]; if (r) { const L = artL(r), loc = L.title && (LANG === 'pt' || LANG === 'de'); shareIt({ title: L.title || r.title, text: L.dek || r.dek, url: `${PUBLIC}r/${encodeURIComponent(r.id)}${loc ? '.' + LANG : ''}.html` }); } return; }
   if (a.id === 'themeBtn') { P.theme = { auto: 'day', day: 'night', night: 'auto' }[P.theme] || 'auto'; save(); applyTheme(); return; }
 });
@@ -4404,6 +4510,291 @@ function frontReport(skip) { // skip: a report already pinned at the top of the 
   const a = ART && ART.articles && ART.articles[0];
   if (!a || a.id === skip || Date.now() - new Date(a.written) > 4 * 864e5) return '';
   return `<section class="wrap repfront"><h2 class="sec-h">${T('Today’s report')}</h2>${reportCard(a, true)}<p class="note"><a href="#/reports">${T('All reports')}</a></p></section>`;
+}
+
+/* ================= hobbies: dressage, woodworking and poker to start (news/hobbies/guide.json, news/hobbies/features/, news/data/hobbies.json) ================= */
+// A hobby's stories are the edition's: a hobby feed's stories carry it (it.h), the updater tags the rest #<hobby>, and
+// an edition from before the desk existed is matched here by the same words.
+const HOB_NAMES = { dressage: 'Dressage', woodworking: 'Woodworking', poker: 'Poker' };
+const HOB_TEST = [
+  ['dressage', t => /\b(dressage|dressur\w*|para[- ]dressage|USDF|piaffe|half-pass|flying changes?|freestyle to music|Global Dressage Festival|Grand Prix (Special|Freestyle|de Dressage))\b/i.test(t)],
+  ['woodworking', t => /\b(woodwork\w*|wood ?shop|joinery|dovetails?|mortises?|tenons?|table ?saws?|band ?saws?|hand planes?|cabinetmak\w*|furniture mak\w*|woodturn\w*|wood turning|SawStop|Festool|lumberyards?)\b/i.test(t)],
+  ['poker', t => /\b(poker|WSOP|World Series of Poker|World Poker Tour|PokerStars|PokerGO|Triton (Poker|Super High Roller)|hold'?em|final table)\b/i.test(t) || /\b(WPT|EPT)\b/.test(t)]];
+let HOB = null, hobBusy = null, hobVid = 'all', hobWire = 'all'; const HFC = {};
+const hobKeys = () => HOB && HOB.list.length ? HOB.list.map(h => h.key) : Object.keys(HOB_NAMES);
+function hobOf(it) {
+  if (!it) return null;
+  if (it.h) return it.h;
+  for (const k of it.k || []) if (k[0] === '#' && (HOB_NAMES[k.slice(1)] || (HOB && HOB.list.some(h => h.key === k.slice(1))))) return k.slice(1);
+  if (it.l) return null;
+  for (const [h, t] of HOB_TEST) if (t(it.t)) return h;
+  return null;
+}
+const hobUnits = h => units(it => h ? hobOf(it) === h : !!hobOf(it));
+function ensureHob() {
+  if (HOB) return Promise.resolve(HOB);
+  if (!hobBusy) hobBusy = Promise.all([getJSON('hobbies/guide.json').catch(() => null), getJSON('hobbies/features/index.json').catch(() => null), getJSON('data/hobbies.json').catch(() => null)])
+    .then(([g, f, v]) => { HOB = { list: (g && g.hobbies) || [], g: g || {}, feats: (f && f.features) || [], vids: (v && v.videos) || {}, vat: v && v.at }; hobBusy = null; return HOB; });
+  return hobBusy;
+}
+const hobBy = k => HOB && HOB.list.find(h => h.key === k);
+const hobL = h => (h && h.i18n && h.i18n[LANG]) || {};
+const hobName = k => { const h = hobBy(k); return h ? (hobL(h).name || h.name) : T(HOB_NAMES[k] || k); };
+const hobToday = () => et(new Date()).date;
+const hobUpcoming = h => (h.calendar || []).filter(e => e.end >= hobToday()).sort((a, b) => a.start < b.start ? -1 : a.start > b.start ? 1 : 0);
+const hobSoon = h => hobUpcoming(h).filter(e => e.start >= addD(hobToday(), -14)); // a months-long exhibition that opened weeks ago isn't news
+const hobWhat = (h, e) => ((hobL(h).calendar || {})[e.name + '|' + e.start]) || e.what;
+function hobWhen(e) {
+  const t = hobToday();
+  if (e.start <= t && e.end >= t) return { cls: 'now', s: T('On now') };
+  const n = Math.round((dayOf(e.start) - dayOf(t)) / 864e5);
+  return { cls: n <= 14 ? 'soon' : '', s: n === 1 ? T('Tomorrow') : n <= 60 ? T('In {n} days', { n }) : T('In {n} weeks', { n: Math.round(n / 7) }) };
+}
+const hobDate = e => e.start === e.end ? dayOf(e.start).toLocaleDateString(LOC(), { month: 'short', day: 'numeric' }) : dRange(e.start, e.end);
+const HOB_ART = {
+  dressage: `<svg viewBox="0 0 132 88" aria-hidden="true"><rect x="18" y="16" width="96" height="56" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M18 44h96" stroke="currentColor" stroke-width=".7" stroke-dasharray="2 3" opacity=".5"/>
+    <path d="M28 44c10-24 28-24 38 0s28 24 38 0" fill="none" stroke="var(--brass)" stroke-width="2.6" stroke-linecap="round"/><circle cx="66" cy="44" r="2.2" fill="var(--brass)"/>
+    <g class="hl"><text x="10" y="47">A</text><text x="117" y="47">C</text><text x="33" y="11">K</text><text x="63" y="11">E</text><text x="93" y="11">H</text><text x="33" y="84">F</text><text x="63" y="84">B</text><text x="93" y="84">M</text></g></svg>`,
+  woodworking: `<svg viewBox="0 0 132 88" aria-hidden="true"><rect x="22" y="12" width="88" height="30" fill="none" stroke="currentColor" stroke-width="1.6"/><rect x="18" y="42" width="96" height="30" fill="none" stroke="currentColor" stroke-width="1.6"/>
+    <path d="M33 42h12l5 22H28zM61 42h12l5 22H56zM89 42h12l5 22H84z" fill="var(--brass)" fill-opacity=".85" stroke="var(--brass)" stroke-width="1.2" stroke-linejoin="round"/>
+    <path d="M30 20h70M30 27h52M30 34h62M24 80h84" stroke="currentColor" stroke-width=".8" opacity=".4" stroke-linecap="round"/></svg>`,
+  poker: `<svg viewBox="0 0 132 88" aria-hidden="true"><g transform="rotate(-10 50 46)"><rect x="28" y="14" width="40" height="58" rx="5" fill="var(--raise)" stroke="currentColor" stroke-width="1.6"/><text class="hl" x="34" y="32">A</text><text class="hs" x="44" y="58">♠</text></g>
+    <g transform="rotate(9 80 46)"><rect x="60" y="14" width="40" height="58" rx="5" fill="var(--raise)" stroke="currentColor" stroke-width="1.6"/><text class="hl red" x="66" y="32">K</text><text class="hs red" x="76" y="58">♥</text></g>
+    <circle cx="108" cy="66" r="12" fill="var(--brass)" fill-opacity=".9"/><circle cx="108" cy="66" r="8.5" fill="none" stroke="var(--raise)" stroke-width="2" stroke-dasharray="3.5 3"/></svg>`
+};
+const hobArt = k => HOB_ART[k] || `<svg viewBox="0 0 132 88" aria-hidden="true"><circle cx="66" cy="44" r="26" fill="none" stroke="var(--brass)" stroke-width="2.4"/></svg>`;
+function hobFeatCard(f, big) {
+  const L = artL(f);
+  return `<a class="rep${big ? ' big' : ''} hobfc" href="#/hf/${esc(f.id)}"><span class="rk">${esc(hobName(f.hobby))} · ${T('The Watch feature')}</span>
+    <span class="rt">${esc(L.title || f.title)}</span><span class="rd">${esc(L.dek || f.dek)}</span>
+    <span class="rb">${T('By Claude ({model}), {date}. {min} min read, {n} sources.', { model: esc(f.model), date: esc(new Date(f.written).toLocaleDateString(LOC(), { timeZone: 'America/New_York', month: 'long', day: 'numeric' })), min: f.min, n: f.sources })}${LANG !== 'en' && !L.title ? ' ' + T('In English.') : ''}</span></a>`;
+}
+function hobEvRow(h, e, withHobby) {
+  const w = hobWhen(e), i = (h.calendar || []).indexOf(e), d0 = dayOf(e.start);
+  return `<li class="hobev${e.tier === 'major' ? ' major' : ''}"><span class="hobdt" aria-hidden="true"><b>${esc(d0.toLocaleDateString(LOC(), { month: 'short' }).replace('.', ''))}</b><i>${d0.getDate()}</i></span>
+    <div class="hobet"><span class="hobwhen ${w.cls}">${esc(w.s)}</span>${withHobby ? ` <span class="hobtag">${esc(hobName(h.key))}</span>` : ''}
+      <a class="hobn" href="${esc(e.url)}" target="_blank" rel="noopener">${esc(e.name)}</a>
+      <span class="hobp">${esc(hobDate(e))} · ${esc([e.venue, e.place].filter(Boolean).join(', '))}</span>
+      <span class="hobw">${esc(hobWhat(h, e))}</span>
+      <span class="hobacts"><button type="button" class="lnk" data-hobics="${esc(h.key)}|${i}">${T('Add to calendar')}</button><a href="${esc(e.source)}" target="_blank" rel="noopener">${T('Where the dates come from')}</a></span></div></li>`;
+}
+function hobICS(key, i) {
+  const h = hobBy(key), e = h && (h.calendar || [])[+i];
+  if (!e) return;
+  const d = s => s.replace(/-/g, ''), x = s => String(s || '').replace(/\\/g, '\\\\').replace(/([,;])/g, '\\$1').replace(/\n/g, '\\n');
+  const slug = (e.name || 'event').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 48);
+  const stamp = new Date().toISOString().replace(/[-:]/g, '').replace(/\.\d+Z$/, 'Z');
+  const ics = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//The Watch//Hobbies//EN', 'CALSCALE:GREGORIAN', 'BEGIN:VEVENT', `UID:${key}-${d(e.start)}-${slug}@thewatch`, `DTSTAMP:${stamp}`,
+    `DTSTART;VALUE=DATE:${d(e.start)}`, `DTEND;VALUE=DATE:${d(addD(e.end, 1))}`, `SUMMARY:${x(e.name)}`, `LOCATION:${x([e.venue, e.place].filter(Boolean).join(', '))}`,
+    `DESCRIPTION:${x(hobWhat(h, e) + ' ' + e.url)}`, `URL:${e.url}`, 'END:VEVENT', 'END:VCALENDAR'].join('\r\n');
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([ics], { type: 'text/calendar' })); a.download = slug + '.ics';
+  document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1500);
+  toast(T('Saved {name} to add to your calendar.', { name: e.name }));
+}
+const hobVids = k => k ? (HOB.vids[k] || []) : hobKeys().flatMap(x => (HOB.vids[x] || []).map(v => Object.assign({ hob: x }, v))).sort((a, b) => a.p < b.p ? 1 : -1);
+const hobFollow = k => { const t = '#' + k, f = !!P.follow[t]; return `<button type="button" class="chip hobfol" data-follow="${esc(t)}" aria-pressed="${f}">${f ? T('Following') : T('Follow {hobby}', { hobby: hobName(k) })}</button>`; };
+function hobWireHTML(list, n) {
+  const shown = list.slice(0, n);
+  return shown.length ? shown.map(it => storyRow(it, { snip: true })).join('') + (list.length > shown.length ? `<button type="button" class="loadmore" id="more">${T('Show {n} more', { n: Math.min(40, list.length - shown.length) })}</button>` : '')
+    : `<p class="endnote">${T('The first stories arrive with the next edition.')}</p>`;
+}
+const hobSorted = list => list.map(it => ({ it, s: score(it) })).filter(x => x.s > 0).sort(deskSort === 'new' ? (a, b) => b.it.p - a.it.p : (a, b) => b.s - a.s).map(x => x.it);
+const hobSortSeg = () => `<div class="seg" role="group" aria-label="${T('Sort')}"><button type="button" data-sort="you" aria-pressed="${deskSort === 'you'}">${T('Best for you')}</button><button type="button" data-sort="new" aria-pressed="${deskSort === 'new'}">${T('Latest')}</button></div>`;
+
+async function renderHobbies() {
+  if (!HOB) { $('#main').innerHTML = `<div class="wrap state"><h2>${T('Opening Hobbies…')}</h2></div>`; await ensureHob(); if (!(view.t === 'desk' && view.k === 'hobbies')) return; }
+  const keys = hobKeys();
+  if (hobWire !== 'all' && !keys.includes(hobWire)) hobWire = 'all';
+  const all = hobSorted(hobUnits(hobWire === 'all' ? null : hobWire));
+  const evs = HOB.list.flatMap(h => hobSoon(h).map(e => [h, e])).sort((a, b) => a[1].start < b[1].start ? -1 : 1).slice(0, 9);
+  const weekAgo = refMin() - 7 * 1440;
+  const cards = HOB.list.map(h => {
+    const L = hobL(h), nx = hobSoon(h)[0], n = hobUnits(h.key).filter(it => it.p >= weekAgo).length, nv = (HOB.vids[h.key] || []).filter(v => Date.now() - Date.parse(v.p) < 7 * 864e5).length;
+    return `<a class="hobcard hob-${esc(h.key)}" href="#/hobby/${esc(h.key)}"><span class="hobart">${hobArt(h.key)}</span>
+      <span class="hobtx"><span class="k">${T(n === 1 ? '{n} story this week' : '{n} stories this week', { n })}${nv ? ' · ' + T(nv === 1 ? '{n} new video' : '{n} new videos', { n: nv }) : ''}</span>
+      <b>${esc(L.name || h.name)}</b><span class="d">${esc(L.dek || h.dek)}</span>
+      ${nx ? `<span class="hobnx"><span class="hobwhen ${hobWhen(nx).cls}">${esc(hobWhen(nx).s)}</span> ${esc(nx.name)} · ${esc(hobDate(nx))}</span>` : ''}
+      <span class="fgo">${T('Open {hobby}', { hobby: L.name || h.name })} →</span></span></a>`;
+  }).join('');
+  const vs = hobVids(null).slice(0, 8);
+  $('#main').innerHTML = `<div class="wrap mk hob">
+    <div class="page-h"><h1>${T('Hobbies')}</h1></div>
+    <p class="lede">${T('Dressage, woodworking and poker, to start. Each has its own page: the stories from the outlets that cover it, new videos from the channels worth your time, the calendar, a guide for newcomers and improvers, and a feature by Claude on where it stands now.')}</p>
+    <div class="hobcards" data-nolc>${cards || `<p class="note">${T('The hobbies didn’t load. Try again in a moment.')}</p>`}</div>
+    ${HOB.feats.length ? `<section class="blk"><div class="blk-h"><h2 class="sec-h">${T('Features')}</h2></div><div class="hobfeats">${keys.map(k => HOB.feats.find(f => f.hobby === k)).filter(Boolean).map(f => hobFeatCard(f)).join('')}</div></section>` : ''}
+    <section class="blk hobtwo"><div><div class="blk-h"><h2 class="sec-h">${T('The wire')}</h2>${hobSortSeg()}</div>
+        <div class="tags" role="group" aria-label="${T('Filter by hobby')}"><button type="button" class="chip" data-hobw="all" aria-pressed="${hobWire === 'all'}">${T('All')} <span class="x">${hobUnits(null).length}</span></button>${keys.map(k => `<button type="button" class="chip" data-hobw="${esc(k)}" aria-pressed="${hobWire === k}">${esc(hobName(k))} <span class="x">${hobUnits(k).length}</span></button>`).join('')}</div>
+        <div class="hobwire">${hobWireHTML(all, pageLimit > 40 ? pageLimit - 24 : 16)}</div></div>
+      <aside><h2 class="sec-h">${T('Coming up')}</h2>${evs.length ? `<ol class="hobcal" data-nolc>${evs.map(([h, e]) => hobEvRow(h, e, true)).join('')}</ol>` : `<p class="note">${T('Nothing on the calendar yet.')}</p>`}</aside></section>
+    ${vs.length ? `<section class="blk"><h2 class="sec-h">${T('New videos')}</h2><div class="gvg">${vs.map(v => gvid(v)).join('')}</div></section>` : ''}
+    <p class="adis hobfoot">${T('Stories are the outlets’ own headlines and summaries, from their feeds. Videos play in YouTube’s privacy-enhanced player. The calendar, the guides and the features are curated by Claude ({model}), with a link to where every date was confirmed. Updated {date}.', { model: esc(HOB.g.model || 'Claude'), date: esc(HOB.g.updated ? new Date(HOB.g.updated).toLocaleDateString(LOC(), { month: 'long', day: 'numeric', year: 'numeric' }) : '') })}</p>
+  </div>`;
+  document.title = T('Hobbies') + ' · The Watch';
+}
+
+const HOB_KIND = { official: 'The rule-makers', learn: 'Learn|hobby guide', book: 'Read|hobby guide', watch: 'Watch|hobby guide', tools: 'Tools and gear', community: 'Find your people', data: 'Results and data' };
+async function renderHobby(k) {
+  if (!HOB) { $('#main').innerHTML = `<div class="wrap state"><h2>${T('Opening Hobbies…')}</h2></div>`; await ensureHob(); if (view.t !== 'hobby' || view.k !== k) return; }
+  const h = hobBy(k);
+  if (!h) { $('#main').innerHTML = `<div class="wrap state"><h2>${T('That hobby isn’t here yet')}</h2><p><a href="#/s/hobbies">${T('All hobbies')}</a></p></div>`; return; }
+  if (hobVisit !== k) { hobVisit = k; bump(P.kw, '#' + k, 0.4); bump(P.sec, 'hobbies', 0.3); }
+  const L = hobL(h), name = L.name || h.name, list = hobSorted(hobUnits(k)), up = hobUpcoming(h), feats = HOB.feats.filter(f => f.hobby === k);
+  const V = HOB.vids[k] || [], chans = [...new Set(V.map(v => v.cid))];
+  if (hobVid !== 'all' && !chans.includes(hobVid)) hobVid = 'all';
+  const vs = hobVid === 'all' ? V : V.filter(v => v.cid === hobVid);
+  const cname = c => ((h.channels || []).find(x => x.id === c) || {}).name || (V.find(v => v.cid === c) || {}).ch || c;
+  const kinds = Object.keys(HOB_KIND).filter(kd => (h.start || []).some(r => r.kind === kd));
+  const Ls = L.start || {}, Lg = L.glossary || {}, Lc = L.channels || {};
+  $('#main').innerHTML = `<div class="wrap mk hob hob-${esc(k)}">
+    <p class="crumb"><a href="#/s/hobbies">${T('Hobbies')}</a></p>
+    <div class="hobhero"><span class="hobart">${hobArt(k)}</span><div><h1>${esc(name)}</h1><p>${esc(L.dek || h.dek)}</p>
+      <div class="hobsw">${hobFollow(k)}<span class="hobsep" aria-hidden="true"></span>${HOB.list.filter(x => x.key !== k).map(x => `<a class="chip" href="#/hobby/${esc(x.key)}">${esc(hobName(x.key))}</a>`).join('')}</div></div></div>
+    ${k === 'dressage' ? `<div class="hobfin">${finalsFeature()}</div>` : ''}
+    ${feats.length ? `<section class="blk hobfeat1">${hobFeatCard(feats[0], true)}${feats.length > 1 ? `<div class="hobfeats">${feats.slice(1, 4).map(f => hobFeatCard(f)).join('')}</div>` : ''}</section>` : ''}
+    <section class="blk hobtwo"><div><div class="blk-h"><h2 class="sec-h">${T('The wire')}</h2>${hobSortSeg()}</div>
+        <p class="sub2">${T(list.length === 1 ? '{n} story from the last week' : '{n} stories from the last week', { n: list.length })}</p>
+        <div class="hobwire">${hobWireHTML(list, pageLimit > 40 ? pageLimit - 24 : 16)}</div></div>
+      <aside><h2 class="sec-h">${T('Coming up')}</h2>${up.length ? `<ol class="hobcal" data-nolc>${up.slice(0, 12).map(e => hobEvRow(h, e)).join('')}</ol>` : `<p class="note">${T('Nothing on the calendar yet.')}</p>`}
+        <div class="hobtool" id="hobTool">${hobToolHTML(k)}</div></aside></section>
+    <section class="blk"><div class="blk-h"><h2 class="sec-h">${T('New videos')}</h2></div><p class="sub2">${T('The last six weeks from {n} channels. They play here in YouTube’s privacy-enhanced player.', { n: (h.channels || []).length })}</p>
+      ${chans.length > 1 ? `<div class="tags" role="group" aria-label="${T('Filter by channel')}"><button type="button" class="chip" data-hobv="all" aria-pressed="${hobVid === 'all'}">${T('All')} <span class="x">${V.length}</span></button>${chans.map(c => `<button type="button" class="chip" data-hobv="${esc(c)}" aria-pressed="${hobVid === c}">${esc(cname(c))} <span class="x">${V.filter(v => v.cid === c).length}</span></button>`).join('')}</div>` : ''}
+      <div class="gvg">${vs.slice(0, 24).map(gvid).join('') || `<p class="note">${T('The first videos arrive with the next edition.')}</p>`}</div></section>
+    ${kinds.length ? `<section class="blk"><h2 class="sec-h">${T('Start here')}</h2><p class="sub2">${T('Where newcomers begin and improvers go next: the people who set the rules, the best free teaching, the books, and where to find others who do it.')}</p>
+      <div class="hobstart" data-nolc>${kinds.map(kd => `<div class="hobsk"><h3>${T(HOB_KIND[kd])}</h3><ul>${h.start.filter(r => r.kind === kd).map(r => `<li><a href="${esc(r.url)}" target="_blank" rel="noopener">${esc(r.title)}</a><span>${esc(Ls[r.url] || r.why)}</span></li>`).join('')}</ul></div>`).join('')}</div></section>` : ''}
+    ${(h.glossary || []).length ? `<section class="blk"><div class="blk-h"><h2 class="sec-h">${T('Words to know')}</h2><input class="hobq" id="hobQ" type="search" placeholder="${T('Find a word')}" aria-label="${T('Find a word')}" autocomplete="off"></div>
+      <dl class="hobgl" id="hobGl" data-nolc>${h.glossary.map(x => { const t = Lg[x.term]; return `<div data-q="${esc((x.term + ' ' + x.def + ' ' + (t ? t.join(' ') : '')).toLowerCase())}"><dt>${esc(t ? t[0] : x.term)}${t && t[0] !== x.term ? ` <span class="nolc">(${esc(x.term)})</span>` : ''}</dt><dd>${esc(t ? t[1] : x.def)}</dd></div>`; }).join('')}</dl></section>` : ''}
+    ${(h.channels || []).length ? `<section class="blk"><h2 class="sec-h">${T('Who to watch')}</h2><ul class="gbl" data-nolc>${h.channels.map(c => `<li><a href="https://www.youtube.com/@${esc(c.handle)}" target="_blank" rel="noopener"><b>${esc(c.name)}</b></a> <span>${esc(Lc[c.id] || c.about)}</span></li>`).join('')}</ul></section>` : ''}
+    <p class="adis hobfoot">${T('Stories are the outlets’ own headlines and summaries, from their feeds. Videos play in YouTube’s privacy-enhanced player. The calendar, the guides and the features are curated by Claude ({model}), with a link to where every date was confirmed. Updated {date}.', { model: esc(HOB.g.model || 'Claude'), date: esc(HOB.g.updated ? new Date(HOB.g.updated).toLocaleDateString(LOC(), { month: 'long', day: 'numeric', year: 'numeric' }) : '') })}</p>
+  </div>`;
+  document.title = name + ' · ' + T('Hobbies') + ' · The Watch';
+  bindHobTool(k);
+}
+let hobVisit = null;
+
+/* the small tools: a dressage test's percentage, board feet for a cut list, and pot odds and stack depth */
+const HOBT = (() => { try { return JSON.parse(localStorage.getItem('watch.hobt') || '{}') || {}; } catch (e) { return {}; } })();
+const hobtSave = () => { try { localStorage.setItem('watch.hobt', JSON.stringify(HOBT)); } catch (e) { /* storage off: this visit only */ } };
+const hn = v => { const x = parseFloat(String(v == null ? '' : v).replace(',', '.')); return isFinite(x) ? x : null; };
+const pct = (v, d = 1) => v == null || !isFinite(v) ? '–' : fnum(v * 100, d) + '%';
+const DR_SCALE = ['Not executed', 'Very bad', 'Bad', 'Fairly bad', 'Insufficient', 'Sufficient', 'Satisfactory', 'Fairly good', 'Good', 'Very good', 'Excellent'].map(w => w + '|dressage mark');
+function hobToolHTML(k) {
+  if (k === 'dressage') {
+    const s = HOBT.dr = HOBT.dr || { rows: Array.from({ length: 10 }, () => ({ m: '', c: 1 })), ded: '' };
+    return `<h2 class="sec-h">${T('Score a test')}</h2><p class="sub2">${T('Type the marks from a test sheet, with each box’s coefficient. The percentage is the points earned over the points possible, after any points taken off for errors.')}</p>
+      <table class="hobtab"><thead><tr><th>#</th><th>${T('Mark')}</th><th>${T('Coefficient')}</th><th class="r">${T('Points')}</th><th></th></tr></thead><tbody>
+      ${s.rows.map((r, i) => `<tr><td>${i + 1}</td><td><input inputmode="decimal" data-dr="m" data-i="${i}" value="${esc(r.m)}" aria-label="${T('Mark for box {n}', { n: i + 1 })}"></td>
+        <td><select data-dr="c" data-i="${i}" aria-label="${T('Coefficient for box {n}', { n: i + 1 })}">${[1, 2, 3, 4].map(c => `<option value="${c}"${+r.c === c ? ' selected' : ''}>×${c}</option>`).join('')}</select></td>
+        <td class="r" data-drp="${i}"></td><td><button type="button" class="lnk" data-drx="${i}" aria-label="${T('Remove box {n}', { n: i + 1 })}">×</button></td></tr>`).join('')}</tbody></table>
+      <div class="hobrow"><button type="button" class="chip" data-dradd="1">${T('Add a box')}</button><button type="button" class="chip" data-drclr="1">${T('Clear')}</button>
+        <label>${T('Points off for errors')} <input inputmode="decimal" data-dr="ded" value="${esc(s.ded)}"></label></div>
+      <div class="hobout" id="drOut" aria-live="polite"></div>`;
+  }
+  if (k === 'woodworking') {
+    const s = HOBT.ww = HOBT.ww || { rows: [{ q: 2, t: '8/4', w: 8, l: 8 }, { q: 4, t: '4/4', w: 6, l: 6 }], price: '', waste: 20 };
+    const TH = ['4/4', '5/4', '6/4', '8/4', '10/4', '12/4', '16/4'];
+    return `<h2 class="sec-h">${T('Board feet')}</h2><p class="sub2">${T('Rough lumber is sold by the board foot: 1 inch thick, 12 inches wide and 12 inches long. Thickness is in quarters, so 8/4 is 2 inches.')}</p>
+      <table class="hobtab"><thead><tr><th>${T('Pieces')}</th><th>${T('Thick')}</th><th>${T('Wide (in)')}</th><th>${T('Long (ft)')}</th><th class="r">${T('Board ft')}</th><th></th></tr></thead><tbody>
+      ${s.rows.map((r, i) => `<tr><td><input inputmode="numeric" data-ww="q" data-i="${i}" value="${esc(r.q)}" aria-label="${T('Pieces')}"></td>
+        <td><select data-ww="t" data-i="${i}" aria-label="${T('Thick')}">${TH.map(t => `<option${r.t === t ? ' selected' : ''}>${t}</option>`).join('')}</select></td>
+        <td><input inputmode="decimal" data-ww="w" data-i="${i}" value="${esc(r.w)}" aria-label="${T('Wide (in)')}"></td><td><input inputmode="decimal" data-ww="l" data-i="${i}" value="${esc(r.l)}" aria-label="${T('Long (ft)')}"></td>
+        <td class="r" data-wwp="${i}"></td><td><button type="button" class="lnk" data-wwx="${i}" aria-label="${T('Remove')}">×</button></td></tr>`).join('')}</tbody></table>
+      <div class="hobrow"><button type="button" class="chip" data-wwadd="1">${T('Add boards')}</button>
+        <label>${T('Price per board foot')} <input inputmode="decimal" data-ww="price" value="${esc(s.price)}" placeholder="$"></label>
+        <label>${T('Waste')} <input inputmode="numeric" data-ww="waste" value="${esc(s.waste)}">%</label></div>
+      <div class="hobout" id="wwOut" aria-live="polite"></div>`;
+  }
+  if (k === 'poker') {
+    const s = HOBT.pk = HOBT.pk || { pot: 1000, bet: 500, st: 30000, sb: 500, bb: 1000, an: 1000, bba: true, pl: 9 };
+    const f = (key, label) => `<label>${T(label)} <input inputmode="decimal" data-pk="${key}" value="${esc(s[key])}"></label>`;
+    return `<h2 class="sec-h">${T('Pot odds and stacks')}</h2>
+      <h3 class="glb">${T('Facing a bet')}</h3><div class="hobrow">${f('pot', 'Pot before the bet')}${f('bet', 'The bet')}</div><div class="hobout" id="pkOdds" aria-live="polite"></div>
+      <h3 class="glb">${T('Your stack')}</h3><div class="hobrow">${f('st', 'Chips')}${f('sb', 'Small blind')}${f('bb', 'Big blind')}${f('an', 'Ante')}${f('pl', 'Players')}
+        <label class="ck"><input type="checkbox" data-pk="bba"${s.bba ? ' checked' : ''}> ${T('Big blind ante')}</label></div>
+      <div class="hobout" id="pkStack" aria-live="polite"></div>`;
+  }
+  return '';
+}
+function hobToolCalc(k) {
+  if (k === 'dressage') {
+    const s = HOBT.dr; let pts = 0, max = 0, n = 0;
+    s.rows.forEach((r, i) => { const m = hn(r.m), c = +r.c || 1, cell = $(`[data-drp="${i}"]`);
+      const ok = m != null && m >= 0 && m <= 10;
+      if (ok) { pts += m * c; max += 10 * c; n++; }
+      if (cell) cell.textContent = ok ? fnum(m * c, m * c % 1 ? 1 : 0) : (m != null ? T('0 to 10') : ''); });
+    const ded = Math.max(0, hn(s.ded) || 0), o = $('#drOut'); if (!o) return;
+    if (!n) { o.innerHTML = `<p class="note">${T('Marks run from 0 to 10, in halves.')}</p>`; return; }
+    const p = (pts - ded) / max, avg = pts / max * 10; // the average mark, each box weighted by its coefficient
+    o.innerHTML = `<p class="hobbig">${pct(p, 2)}</p><p>${T('{pts} of {max} points from {n} boxes', { pts: fnum(pts - ded, (pts - ded) % 1 ? 1 : 0), max: fnum(max, 0), n })}${ded ? ' ' + T('({d} off for errors)', { d: fnum(ded, ded % 1 ? 1 : 0) }) : ''}.</p>
+      <p class="note">${T('An average mark of {m}: “{word}” on the judges’ scale.', { m: fnum(avg, 1), word: T(DR_SCALE[Math.max(0, Math.min(10, Math.round(avg)))]) })}</p>`;
+  } else if (k === 'woodworking') {
+    const s = HOBT.ww; let bf = 0;
+    s.rows.forEach((r, i) => { const q = hn(r.q) || 0, t = { '4/4': 1, '5/4': 1.25, '6/4': 1.5, '8/4': 2, '10/4': 2.5, '12/4': 3, '16/4': 4 }[r.t] || 1, w = hn(r.w) || 0, l = hn(r.l) || 0;
+      const b = q * t * w * l * 12 / 144; bf += b; const c = $(`[data-wwp="${i}"]`); if (c) c.textContent = b ? fnum(b, 2) : ''; });
+    const waste = Math.max(0, hn(s.waste) || 0) / 100, price = hn(s.price), buy = bf * (1 + waste), o = $('#wwOut'); if (!o) return;
+    o.innerHTML = `<p class="hobbig">${fnum(buy, 1)} ${T('board feet to buy')}</p><p>${T('{bf} in the cut list, plus {w}% for defects, end checks and mistakes.', { bf: fnum(bf, 2), w: fnum(waste * 100, 0) })}</p>
+      ${price ? `<p class="note">${T('About {cost} at {p} a board foot.', { cost: usd(buy * price), p: '$' + fnum(price, price % 1 ? 2 : 0) })}</p>` : `<p class="note">${T('Add the yard’s price per board foot for a total.')}</p>`}`;
+  } else if (k === 'poker') {
+    const s = HOBT.pk, P0 = hn(s.pot), B = hn(s.bet), a = $('#pkOdds'), b = $('#pkStack');
+    if (a) a.innerHTML = P0 > 0 && B > 0 ? `<p class="hobbig">${pct(B / (P0 + 2 * B), 1)}</p><p>${T('The equity a call needs: you put in {b} to win a pot of {w}. Pot odds of {r} to 1.', { b: fnum(B, 0), w: fnum(P0 + 2 * B, 0), r: fnum((P0 + B) / B, 2) })}</p>
+      <p class="note">${T('Minimum defense: continue with {m} of your range so a bluff doesn’t profit automatically. The bettor’s bluff needs to work {x} of the time.', { m: pct(P0 / (P0 + B), 0), x: pct(B / (P0 + B), 0) })}</p>` : `<p class="note">${T('Type the pot and the bet.')}</p>`;
+    const st = hn(s.st), sb = hn(s.sb) || 0, bb = hn(s.bb), an = hn(s.an) || 0, pl = Math.max(2, Math.round(hn(s.pl) || 9));
+    const orbit = sb + (bb || 0) + (s.bba ? an : an * pl);
+    if (b) b.innerHTML = st > 0 && bb > 0 ? `<p class="hobbig">${fnum(st / bb, 1)} ${T('big blinds')}</p><p>${T('M of {m}: the orbits you can sit through before the blinds and antes take your stack ({o} a round).', { m: fnum(st / orbit, 1), o: fnum(orbit, 0) })}</p>
+      <p class="note">${(m => m < 1 ? T('Dead zone (M under 1): all in at the first chance; waiting only shrinks the stack.') : m < 6 ? T('Red zone (M under 6, in Dan Harrington’s system): move all in or fold.') : m < 10 ? T('Orange zone (M 6 to 10): a standard raise commits you; all in becomes the main weapon.') : m < 20 ? T('Yellow zone (M 10 to 20): speculative hands lose value; steal and re-steal.') : T('Green zone (M 20 or more): deep enough for every play.'))(st / orbit)}</p>` : `<p class="note">${T('Type your chips and the blinds.')}</p>`;
+  }
+}
+function bindHobTool(k) {
+  const box = $('#hobTool'); if (!box) return;
+  hobToolCalc(k);
+  const onIn = e => {
+    const t = e.target, ds = t.dataset, v = t.type === 'checkbox' ? t.checked : t.value;
+    if (ds.dr) { if (ds.dr === 'ded') HOBT.dr.ded = v; else HOBT.dr.rows[+ds.i][ds.dr] = v; }
+    else if (ds.ww) { if (ds.ww === 'price' || ds.ww === 'waste') HOBT.ww[ds.ww] = v; else HOBT.ww.rows[+ds.i][ds.ww] = v; }
+    else if (ds.pk) HOBT.pk[ds.pk] = v;
+    else return;
+    hobtSave(); hobToolCalc(k);
+  };
+  box.addEventListener('input', onIn); box.addEventListener('change', onIn); // a select or a checkbox may only say change
+  box.addEventListener('click', e => {
+    const b = e.target.closest('button'); if (!b) return; const ds = b.dataset;
+    if (ds.dradd) HOBT.dr.rows.push({ m: '', c: 1 });
+    else if (ds.drclr) HOBT.dr = { rows: Array.from({ length: 10 }, () => ({ m: '', c: 1 })), ded: '' };
+    else if (ds.drx != null) { HOBT.dr.rows.splice(+ds.drx, 1); if (!HOBT.dr.rows.length) HOBT.dr.rows.push({ m: '', c: 1 }); }
+    else if (ds.wwadd) HOBT.ww.rows.push({ q: 1, t: '4/4', w: 6, l: 8 });
+    else if (ds.wwx != null) { HOBT.ww.rows.splice(+ds.wwx, 1); if (!HOBT.ww.rows.length) HOBT.ww.rows.push({ q: 1, t: '4/4', w: 6, l: 8 }); }
+    else return;
+    hobtSave(); box.innerHTML = hobToolHTML(k); hobToolCalc(k);
+  });
+}
+document.addEventListener('input', e => {
+  if (!e.target || e.target.id !== 'hobQ') return;
+  const q = e.target.value.trim().toLowerCase();
+  $$('#hobGl > div').forEach(d => { d.hidden = !!q && !d.dataset.q.includes(q); });
+});
+
+async function renderHobbyFeature(id) {
+  $('#main').innerHTML = `<div class="wrap state"><h2>${T('Opening the feature…')}</h2></div>`;
+  ensureHob();
+  let a = HFC[id];
+  if (!a) { try { a = HFC[id] = await getJSON('hobbies/features/' + encodeURIComponent(id) + '.json'); } catch (e) { a = null; } }
+  if (view.t !== 'hf' || view.id !== id) return;
+  if (!a || !a.body) { $('#main').innerHTML = `<div class="wrap state"><h2>${T('That feature isn’t here')}</h2><p><a href="#/s/hobbies">${T('All hobbies')}</a></p></div>`; return; }
+  await ensureHob(); if (view.t !== 'hf' || view.id !== id) return;
+  const n = (a.sources || []).length, L0 = artL(a), L = artOrig ? {} : L0, body = L.body || a.body, words = (body.match(/\S+/g) || []).length;
+  bump(P.sec, 'hobbies', 0.6); if (a.hobby) bump(P.kw, '#' + a.hobby, 0.8);
+  $('#main').innerHTML = `<article class="wrap art"${L.body ? ` lang="${LOC()}"` : LANG !== 'en' ? ' lang="en"' : ''}>
+    <p class="ak"><a href="#/s/hobbies">${T('Hobbies')}</a> · <a href="#/hobby/${esc(a.hobby)}">${esc(hobName(a.hobby))}</a> · ${T('The Watch feature')}</p>
+    <h1 id="artTitle">${esc(L.title || a.title)}</h1>
+    <p class="adek">${esc(L.dek || a.dek)}</p>
+    <p class="aby">${byline(a)}. ${T('{n} min read.', { n: Math.max(1, Math.round(words / 230)) })} <button type="button" class="chip ashare" data-share="hf" data-sid="${esc(a.id)}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7.5 7.5L12 3l4.5 4.5"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg>${T('Share')}</button></p>
+    <p class="adis">${T('This feature was written by an AI model, Claude, from the published reporting and records listed at the end. Read the originals for anything you rely on.')}${L0.body ? ` ${T(artOrig ? 'You are reading the English original.' : 'Translated from English by Claude ({model}).', { model: esc(L0.model || a.model) })} <button type="button" class="lnk" data-artorig="1">${T(artOrig ? 'Read it in your language' : 'Read the English original')}</button>` : ''}</p>
+    <div class="abody">${md(body, n)}</div>
+    <section class="asrc"><h2>${T('Sources')}</h2><ol>${(a.sources || []).map((s, i) => `<li id="src-${i + 1}"><a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.title)}</a> <span>${esc(s.outlet)}${s.date ? ', ' + esc(s.date) : ''}</span></li>`).join('')}</ol></section>
+    <p class="aby" style="margin-top:28px"><a href="#/hobby/${esc(a.hobby)}">${T('More on {hobby}', { hobby: hobName(a.hobby) })} →</a></p>
+  </article>`;
+  document.title = (L.title || a.title) + ' · The Watch';
+  $$('.art .adis [data-artorig]').forEach(b => b.addEventListener('click', () => { artOrig = !artOrig; renderHobbyFeature(id); }));
 }
 
 /* ================= loading ================= */

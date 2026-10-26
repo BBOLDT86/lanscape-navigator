@@ -27,7 +27,7 @@ always builds, and replaces the current watch's edition.
 1. Reads every feed in `news/data/feeds.json` (about 195, 35 of them in Portuguese or German; 20 at a time, 18-second timeout, one retry).
    Google News items take the outlet from the feed's `<source>`. Opinion, video, podcast, shopping and puzzle pages are skipped.
 2. Merges with the last edition's stories, so a feed that is down for a watch does not empty its section.
-   News desks keep 36 hours; Cars, Travel, Food, Lifestyle and Long reads keep 96.
+   News desks keep 36 hours; Cars, Travel, Food, Lifestyle and Long reads keep 96; Hobbies keeps a week.
 3. Sorts each story into a desk: its feed's desk, or for a general feed, the outlet's URL path and then its words.
 4. Tags names (learned from sentence-case headlines in the same edition) and topics (a fixed list in `run.py`).
 5. Groups stories that several outlets are covering (shared headline words, names weighted double), ranks the groups
@@ -42,7 +42,7 @@ invented. Failed feeds are listed in the edition and shown in the page's footer.
 ## Desks
 
 U.S., World, Europe, Brazil, Politics, Business, Household, Home, Tech, Science, Health, Sports, Culture, Cars, Travel,
-Food, Lifestyle and Long reads, plus pages that are not feed desks: Reports, Pictures, Video, Shopping (Finds' feed, `shop/data/feed.json`) and the Epstein files. Travel and Shopping also read Weekender's `travel/` data; pins go to Vision (`vision/`) through the browser.
+Food, Lifestyle, Hobbies and Long reads, plus pages that are not feed desks: Reports, Pictures, Video, Shopping (Finds' feed, `shop/data/feed.json`) and the Epstein files. Travel and Shopping also read Weekender's `travel/` data; pins go to Vision (`vision/`) through the browser.
 Europe and Brazil have sources of their own; stories about either region from the general and world feeds also file
 there (`region()` in `run.py`), unless a stronger topic (a match, a market) claims them. World is everywhere else.
 
@@ -259,6 +259,33 @@ after Together / 90 on the Lifestyle desk, and the Travel desk and every Weekend
   from the browser to Anthropic's Messages API and come back as three plans in Claude's words, built only from those
   places; ids that aren't on the list are dropped.
 - The reader's choices are kept in `localStorage` as `watch.dn`. The page reads The Watch's theme (`watch.v1`).
+
+## Hobbies (`hobbies.py` -> `data/hobbies.json`; `news/hobbies/`)
+
+`#/s/hobbies`, between Lifestyle and Long reads: dressage, woodworking and poker to start, each with its own page at
+`#/hobby/<key>`. A hobby is one entry in `news/hobbies/guide.json`, so adding one is a guide entry plus its feeds.
+
+- **The wire:** feeds in `feeds.json` with `"section": "hobbies"` and `"hobby": "<key>"`. A hobby feed's stories always
+  carry the hobby (`it.h`) and its topic (`#dressage`); a broad feed can be narrowed with `"match"` (a regex the title,
+  summary or link must hit) and cleaned with `"skip"`. Stories from every other desk join a hobby when the edition tags
+  them with its topic (`TOPICS` in `run.py`), so a poker story on the Sports desk shows on the poker page too. The desk
+  keeps a week of stories, because the hobby press publishes a few times a week.
+- **Videos:** on every news run `hobbies.py` reads the guide's YouTube channels for each hobby (the last 45 days, four
+  a channel, each feed checked against the channel's own name, Shorts left out). They play in YouTube's
+  privacy-enhanced player.
+- **The guide**, curated by Claude: the channels, the calendar (every date with the page that confirms it; past events
+  drop off), where to start, the words to know, and Portuguese and German for all of it. `hobbies.py check` enforces the
+  format (`hobbies.py format` prints it).
+- **Features**, `news/hobbies/features/<id>.json`: in-depth pieces in the Reports format with `"desk": "hobbies"` and a
+  `"hobby"`, checked by the same rules as a report (`hobbies.py check <file>`), indexed by `hobbies.py index`, opened at
+  `#/hf/<id>`.
+- **In the page:** each hobby page has a small tool that runs in the browser and remembers its numbers there
+  (`localStorage` `watch.hobt`): a dressage test's percentage from its marks and coefficients, board feet and cost for a
+  cut list, and pot odds, minimum defense and stack depth (big blinds and M) for poker. Calendar dates download as
+  `.ics` files.
+
+A push that changes `feeds.json`, `run.py`, `hobbies.py` or the guide runs the news workflow, which rebuilds the
+current watch's edition, so a new hobby or source is in the paper within minutes.
 
 ## What's for dinner (the Food desk; all in the page)
 
