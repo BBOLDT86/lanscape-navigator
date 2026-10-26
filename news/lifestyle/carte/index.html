@@ -1,0 +1,1182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Carte · The Watch</title>
+<meta name="description" content="Send a card to a friend: pick an occasion and a look, write the message, seal it, and send it as a link, by email or by text. The card is in the link; nothing is stored anywhere.">
+<link rel="canonical" href="https://bboldt86.github.io/lanscape-navigator/news/lifestyle/carte/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="The Watch">
+<meta property="og:title" content="Carte · The Watch">
+<meta property="og:description" content="A card for someone, made in a minute and sent as a link, by email or by text.">
+<meta property="og:url" content="https://bboldt86.github.io/lanscape-navigator/news/lifestyle/carte/">
+<meta property="og:image" content="https://bboldt86.github.io/lanscape-navigator/news/lifestyle/carte/share.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Carte, from The Watch: artisan greeting cards to send to a friend.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Carte · The Watch">
+<meta name="twitter:description" content="A card for someone, made in a minute and sent as a link, by email or by text.">
+<meta name="twitter:image" content="https://bboldt86.github.io/lanscape-navigator/news/lifestyle/carte/share.png">
+<meta name="theme-color" content="#161110">
+<meta name="apple-mobile-web-app-title" content="Carte">
+<link rel="apple-touch-icon" href="../../icon-180.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231b1310'/%3E%3Cpath d='M12 20h40v26H12z' fill='none' stroke='%23c9a050' stroke-width='3'/%3E%3Cpath d='M12 20l20 16 20-16' fill='none' stroke='%23c9a050' stroke-width='3'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Serif+Display:ital@0;1&family=Instrument+Serif:ital@0;1&family=Crimson+Pro:ital,wght@0,300;0,400;1,300;1,400&family=Manrope:wght@300;400;500;600;700;800&family=Space+Mono:wght@400;700&family=DM+Mono:wght@300;400;500&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Spectral:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+:root {
+  --bg: #161110;
+  --card-bg-solid: #1b1310;
+  --card-bg: linear-gradient(170deg,#2b1e18,#1b1310 45%,#261c16);
+  --accent: #c9a050;
+  --text: #f0e0d0;
+  --sub: #c4856d;
+  --border: rgba(185,135,70,.16);
+  --muted: rgba(255,255,255,.3);
+  --panel-bg: rgba(255,255,255,.03);
+  --panel-border: rgba(255,255,255,.06);
+  --input-bg: rgba(255,255,255,.04);
+  --input-border: rgba(255,255,255,.08);
+  --text-ui: #e8e8ed;
+  --text-dim: rgba(255,255,255,.35);
+  --text-dimmer: rgba(255,255,255,.15);
+}
+
+html { scroll-behavior:smooth; }
+body {
+  min-height:100vh; font-family:'Manrope',sans-serif;
+  background:var(--bg); color:var(--text-ui);
+  line-height:1.6; -webkit-font-smoothing:antialiased;
+}
+body::before {
+  content:''; position:fixed; inset:0;
+  background:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events:none; z-index:9999;
+}
+
+
+::-webkit-scrollbar{width:5px} ::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:rgba(255,255,255,.08);border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:rgba(255,255,255,.15)}
+
+@keyframes fadeIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes heartbeat{0%,100%{transform:scale(1)}15%{transform:scale(1.3)}30%{transform:scale(1)}45%{transform:scale(1.18)}}
+@keyframes sealStamp{0%{opacity:0;transform:scale(1.5) rotate(-6deg)}60%{transform:scale(.97) rotate(1deg)}100%{opacity:1;transform:none}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes cardIn{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+@keyframes shimmer{0%{background-position:-200% center}100%{background-position:200% center}}
+
+/* ── MASTHEAD (back to The Watch) ── */
+.mast{max-width:1200px;margin:0 auto;padding:.9rem 1rem 0;display:flex;align-items:center;justify-content:space-between;gap:12px;animation:fadeIn .6s ease}
+.mast .back{display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:var(--text-dim);font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;transition:color .2s}
+.mast .back:hover{color:var(--accent)}
+.mast .back svg{width:22px;height:22px;flex:none}
+.mast .back span{color:var(--text-dimmer)}
+.mast .back span::before{content:'·';margin:0 4px}
+
+/* ── RECEIVED (a card that arrived by link) ── */
+.received-bar{display:none;max-width:1200px;margin:0 auto;padding:.4rem 1rem .8rem;text-align:center;animation:fadeIn .6s ease}
+.received-bar p{font-family:'Instrument Serif',Georgia,serif;font-size:1.25rem;color:var(--text);font-style:italic}
+.received-bar p b{font-style:normal;color:var(--accent);font-weight:400}
+.received-acts{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:.7rem}
+.received-acts .btn-ghost,.received-acts .btn-export{flex:none;width:auto;min-width:0;padding:10px 18px;margin:0}
+body.received .filter-bar,body.received .presets-bar,body.received .sidebar{display:none}
+body.received .received-bar{display:block}
+body.received .main{grid-template-columns:1fr}
+body.received .preview-area{min-height:auto;padding:.5rem 0 1.5rem}
+body.received .header-sub{display:none}
+
+/* ── SEND SHEET ── */
+.btn-send{flex:1;background:var(--panel-bg);border:1px solid var(--accent);border-radius:8px;padding:11px;cursor:pointer;color:var(--accent);font-family:'Manrope',sans-serif;font-weight:700;font-size:.72rem;letter-spacing:.04em;transition:all .2s}
+.btn-send:hover{background:rgba(201,160,80,.12);transform:translateY(-1px)}
+.sheet-scrim{position:fixed;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;padding:1rem;z-index:1000}
+.sheet-scrim.open{display:flex}
+.sheet{width:100%;max-width:420px;background:var(--card-bg-solid);border:1px solid var(--panel-border);border-radius:14px;padding:1.3rem 1.3rem 1.1rem;box-shadow:0 30px 80px rgba(0,0,0,.6);animation:cardIn .35s ease}
+.sheet h2{font-family:'Instrument Serif',Georgia,serif;font-weight:400;font-size:1.5rem;color:var(--text);margin-bottom:.15rem}
+.sheet .sheet-sub{font-family:'DM Mono',monospace;font-size:.58rem;color:var(--text-dimmer);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.9rem}
+.sheet .names{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:.9rem}
+.sheet .ctrl-group{margin:0}
+.send-ways{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.send-way{display:flex;flex-direction:column;align-items:center;gap:4px;padding:12px 8px;border:1px solid var(--panel-border);border-radius:10px;background:var(--panel-bg);color:var(--text-ui);cursor:pointer;font-family:'Manrope',sans-serif;font-size:.72rem;font-weight:600;text-decoration:none;transition:all .2s}
+.send-way:hover{border-color:var(--accent);color:var(--accent)}
+.send-way .ic{font-size:1.2rem;line-height:1}
+.send-way small{font-family:'DM Mono',monospace;font-size:.5rem;color:var(--text-dimmer);letter-spacing:.06em;text-transform:uppercase;font-weight:400}
+.sheet-foot{display:flex;justify-content:space-between;align-items:center;margin-top:.9rem;gap:8px}
+.sheet-note{font-family:'DM Mono',monospace;font-size:.5rem;color:var(--text-dimmer);letter-spacing:.04em;line-height:1.5}
+.sheet-close{background:transparent;border:1px solid var(--panel-border);border-radius:8px;color:var(--text-dim);font-family:'DM Mono',monospace;font-size:.6rem;padding:7px 12px;cursor:pointer;flex:none}
+.sheet-close:hover{border-color:var(--accent);color:var(--accent)}
+.footer a{color:var(--text-dim);text-decoration:none}.footer a:hover{color:var(--accent)}
+
+/* ── HEADER ── */
+.header{text-align:center;padding:2rem 1rem .8rem;animation:fadeIn .6s ease}
+.header-row{display:inline-flex;align-items:center;gap:8px;margin-bottom:4px}
+.header-star{color:var(--accent);font-size:1.4rem}
+.header h1{font-family:'Instrument Serif',Georgia,serif;font-size:clamp(1.8rem,5vw,2.6rem);font-weight:400;letter-spacing:0.02em;background:linear-gradient(135deg,var(--text) 0%,var(--sub) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.header-sub{font-family:'DM Mono',monospace;font-size:.62rem;color:var(--text-dimmer);letter-spacing:.12em;text-transform:uppercase}
+.version-badge{display:inline-block;font-family:'DM Mono',monospace;font-size:.5rem;padding:.12rem .5rem;border:1px solid var(--accent);color:var(--accent);border-radius:20px;margin-top:.4rem;letter-spacing:.12em;text-transform:uppercase}
+
+/* ── FILTER BAR ── */
+.filter-bar{max-width:1200px;margin:0 auto;padding:.4rem 1rem;display:flex;align-items:center;gap:8px}
+.filter-label{font-family:'DM Mono',monospace;font-size:.55rem;color:var(--text-dimmer);text-transform:uppercase;letter-spacing:.08em;flex-shrink:0}
+.filter-select{background:var(--panel-bg);border:1px solid var(--panel-border);color:var(--text-dim);font-family:'DM Mono',monospace;font-size:.6rem;padding:5px 10px;border-radius:16px;outline:none;cursor:pointer;appearance:none;-webkit-appearance:none;padding-right:22px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='rgba(255,255,255,.25)'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 8px center}
+.filter-select:focus{border-color:var(--accent)}
+.filter-select option{background:#1a1a20;color:#e8e8ed}
+
+/* ── PRESETS BAR ── */
+.presets-bar{max-width:1200px;margin:0 auto;padding:.4rem 1rem .6rem;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+.presets-bar::-webkit-scrollbar{display:none}
+.preset-chip{
+  flex-shrink:0;padding:6px 14px;border-radius:20px;cursor:pointer;
+  background:var(--panel-bg);border:1px solid var(--panel-border);
+  font-family:'DM Mono',monospace;font-size:.6rem;color:var(--text-dim);
+  letter-spacing:.06em;transition:all .2s;white-space:nowrap;
+}
+.preset-chip:hover{border-color:var(--accent);color:var(--accent)}
+.preset-chip.active{background:rgba(201,160,80,.12);border-color:var(--accent);color:var(--accent)}
+
+/* ── MAIN GRID ── */
+.main{max-width:1200px;margin:0 auto;padding:0 1rem 3rem;display:grid;grid-template-columns:290px 1fr;gap:1.5rem;align-items:start}
+@media(max-width:800px){.main{grid-template-columns:1fr}.sidebar{position:static!important;order:2}.preview-area{order:1;min-height:auto!important}}
+
+/* ── SIDEBAR ── */
+.sidebar{position:sticky;top:1rem;display:flex;flex-direction:column;gap:.5rem}
+.panel-tabs{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:.4rem}
+.panel-tab{
+  flex:1 1 calc(25% - 4px);min-width:56px;background:transparent;
+  border:1px solid var(--panel-border);border-radius:8px;padding:7px 4px;cursor:pointer;
+  color:var(--text-dim);font-family:'DM Mono',monospace;font-size:.52rem;
+  letter-spacing:.06em;text-transform:uppercase;transition:all .2s;
+  display:flex;flex-direction:column;align-items:center;gap:1px;
+}
+.panel-tab:hover{border-color:var(--accent);color:var(--accent)}
+.panel-tab.active{background:rgba(255,255,255,.06);border-color:var(--accent);color:var(--accent)}
+.panel-tab-icon{font-size:.85rem}
+
+.panel-box{
+  background:var(--panel-bg);border:1px solid var(--panel-border);border-radius:12px;
+  padding:1rem;max-height:58vh;overflow-y:auto;position:relative;
+}
+.panel-box::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--accent),transparent);opacity:.35}
+.panel-title{font-family:'DM Mono',monospace;font-size:.62rem;color:var(--accent);text-transform:uppercase;letter-spacing:.15em;margin-bottom:.8rem;display:flex;align-items:center;gap:.4rem}
+.panel-title::before{content:'';width:5px;height:5px;background:var(--accent);border-radius:50%;box-shadow:0 0 8px var(--accent)}
+.panel-content{display:none}
+.panel-content.active{display:block;animation:fadeIn .3s ease}
+
+/* ── CONTROLS ── */
+.ctrl-label{display:block;font-size:.58rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.1em;font-weight:600;font-family:'DM Mono',monospace;margin-bottom:3px}
+.ctrl-input,.ctrl-select,.ctrl-textarea{width:100%;background:var(--input-bg);border:1px solid var(--input-border);color:var(--text-ui);padding:7px 9px;border-radius:6px;font-family:'DM Mono',monospace;font-size:.75rem;outline:none;transition:border-color .2s}
+.ctrl-input:focus,.ctrl-select:focus,.ctrl-textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(201,160,80,.1)}
+.ctrl-textarea{resize:vertical;min-height:56px}
+.ctrl-input::placeholder{color:var(--muted)}
+.ctrl-select option{background:#1a1a20}
+.ctrl-group{margin-bottom:10px}
+
+.opt-btn{display:flex;align-items:center;gap:10px;padding:9px 11px;width:100%;background:transparent;border:1px solid transparent;border-radius:8px;cursor:pointer;text-align:left;transition:all .2s;margin-bottom:3px;color:var(--text-ui)}
+.opt-btn:hover{border-color:var(--input-border)} .opt-btn.active{background:rgba(201,160,80,.08);border-color:var(--accent)}
+.opt-swatch{width:26px;height:26px;border-radius:6px;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.opt-swatch-dot{width:7px;height:7px;border-radius:50%}
+.opt-name{font-size:.75rem;font-weight:600} .opt-meta{font-size:.55rem;color:var(--text-dim);font-family:'DM Mono',monospace}
+
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:5px}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px}
+.grid-4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:5px}
+.grid-btn{padding:10px 6px;text-align:center;background:transparent;border:1px solid var(--panel-border);border-radius:8px;cursor:pointer;transition:all .2s;color:var(--text-ui)}
+.grid-btn:hover{border-color:var(--input-border)} .grid-btn.active{background:rgba(201,160,80,.08);border-color:var(--accent)}
+.grid-btn-icon{font-size:1.1rem;margin-bottom:3px;color:var(--accent);display:block}
+.grid-btn-label{font-size:.65rem;font-weight:600}
+
+/* ── STYLE TOGGLE (replaces asterisk syntax) ── */
+.style-toolbar{display:flex;gap:4px;margin-bottom:8px;flex-wrap:wrap}
+.style-toggle{
+  padding:5px 10px;border-radius:6px;cursor:pointer;
+  background:transparent;border:1px solid var(--input-border);
+  font-family:'DM Mono',monospace;font-size:.62rem;color:var(--text-dim);
+  transition:all .2s;display:flex;align-items:center;gap:4px;
+}
+.style-toggle:hover{border-color:var(--accent);color:var(--accent)}
+.style-toggle.active{background:rgba(201,160,80,.15);border-color:var(--accent);color:var(--accent)}
+.style-toggle .icon{font-size:.75rem}
+
+/* ── TEXT SIZE SLIDER ── */
+.size-slider{width:100%;-webkit-appearance:none;appearance:none;height:3px;background:var(--input-border);border-radius:2px;outline:none;margin:6px 0}
+.size-slider::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;background:var(--accent);cursor:pointer;border:2px solid var(--bg)}
+.size-slider::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:var(--accent);cursor:pointer;border:2px solid var(--bg)}
+.size-value{font-family:'DM Mono',monospace;font-size:.6rem;color:var(--accent);text-align:right}
+
+.search-row{display:flex;gap:5px}
+.search-go{background:var(--accent);color:#000;border:none;border-radius:6px;padding:0 12px;font-family:'DM Mono',monospace;font-size:.62rem;cursor:pointer;font-weight:600;letter-spacing:.05em;transition:all .2s;white-space:nowrap}
+.search-go:hover{filter:brightness(1.1)}
+
+.img-grid{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-top:8px}
+.img-thumb{aspect-ratio:4/3;border-radius:6px;overflow:hidden;cursor:pointer;border:1px solid var(--input-border);transition:all .2s;position:relative;background:var(--input-bg)}
+.img-thumb:hover{transform:scale(1.03);border-color:var(--accent)}
+.img-thumb.selected{border:2px solid var(--accent);box-shadow:0 0 12px rgba(201,160,80,.2)}
+.img-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.img-thumb-author{position:absolute;bottom:0;left:0;right:0;padding:2px 5px;background:rgba(0,0,0,.65);font-size:.48rem;color:rgba(255,255,255,.7);font-family:'DM Mono',monospace;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+.search-spinner{text-align:center;padding:1.2rem;font-family:'DM Mono',monospace;font-size:.62rem;color:var(--accent)}
+.spinner{display:inline-block;width:14px;height:14px;border:2px solid rgba(201,160,80,.2);border-top-color:var(--accent);border-radius:50%;animation:spin .6s linear infinite}
+.search-hint{font-family:'DM Mono',monospace;font-size:.52rem;color:var(--text-dimmer);margin-top:6px;text-align:center;line-height:1.5}
+.search-hint a{color:var(--accent);text-decoration:none} .search-hint a:hover{text-decoration:underline}
+
+.btn-row{display:flex;gap:6px;margin-top:.4rem}
+.btn-export{flex:1;background:linear-gradient(135deg,var(--accent),rgba(201,160,80,.8));color:#0a0a0c;border:none;border-radius:8px;padding:11px;font-family:'Manrope',sans-serif;font-weight:700;font-size:.78rem;letter-spacing:.04em;cursor:pointer;transition:all .2s;text-transform:uppercase}
+.btn-export:hover:not(:disabled){filter:brightness(1.1);transform:translateY(-1px);box-shadow:0 4px 20px rgba(201,160,80,.2)}
+.btn-export:disabled{opacity:.6;cursor:wait}
+.btn-share{flex-shrink:0;width:44px;background:var(--panel-bg);border:1px solid var(--panel-border);border-radius:8px;cursor:pointer;color:var(--text-dim);font-size:1rem;transition:all .2s;display:flex;align-items:center;justify-content:center}
+.btn-share:hover{border-color:var(--accent);color:var(--accent)}
+
+.btn-ghost{background:transparent;width:100%;border:1px solid var(--input-border);color:var(--text-dim);border-radius:6px;padding:5px;font-family:'DM Mono',monospace;font-size:.58rem;cursor:pointer;transition:all .2s;margin-top:6px}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
+
+.toggle-btn{width:100%;padding:7px;margin-top:4px;background:transparent;border:1px solid var(--input-border);border-radius:6px;cursor:pointer;font-family:'DM Mono',monospace;font-size:.62rem;color:var(--text-dim);transition:all .2s}
+.toggle-btn.on{background:rgba(201,160,80,.12);border-color:var(--accent);color:var(--accent)}
+
+.load-more-btn{width:100%;padding:7px;margin-top:7px;background:transparent;border:1px dashed var(--input-border);border-radius:6px;cursor:pointer;font-family:'DM Mono',monospace;font-size:.58rem;color:var(--text-dim);transition:all .2s;text-transform:uppercase;letter-spacing:.08em}
+.load-more-btn:hover{border-color:var(--accent);color:var(--accent)}
+
+.file-upload-zone{margin-top:8px;border:1px dashed var(--input-border);border-radius:8px;padding:12px;text-align:center;cursor:pointer;transition:all .2s;position:relative;font-family:'DM Mono',monospace;font-size:.58rem;color:var(--text-dim)}
+.file-upload-zone:hover{border-color:var(--accent);color:var(--accent)}
+.file-upload-zone input{position:absolute;inset:0;opacity:0;cursor:pointer}
+
+/* ── SHARE TOAST ── */
+.share-toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(80px);background:#1a1a22;border:1px solid var(--accent);color:var(--accent);font-family:'DM Mono',monospace;font-size:.72rem;padding:10px 20px;border-radius:10px;z-index:10000;transition:transform .3s ease,opacity .3s ease;opacity:0;pointer-events:none;box-shadow:0 8px 32px rgba(0,0,0,.4)}
+.share-toast.visible{transform:translateX(-50%) translateY(0);opacity:1}
+
+/* ── PREVIEW ── */
+.preview-area{display:flex;align-items:center;justify-content:center;min-height:80vh;padding:2rem 0}
+
+.card-export-wrap{border-radius:18px;padding:6px;background:var(--card-bg-solid);max-width:100%;min-width:0}
+.main>*{min-width:0}
+
+.card{
+  width:430px;max-width:100%;border-radius:16px;overflow:hidden;position:relative;
+  background-color:var(--card-bg-solid);background-image:var(--card-bg);
+  box-shadow:0 32px 72px rgba(0,0,0,.65),0 0 0 1px var(--border);animation:cardIn .8s ease;
+}
+.card-inner-border{position:absolute;top:6px;left:6px;right:6px;bottom:6px;border:1px solid var(--border);border-radius:12px;pointer-events:none;z-index:6}
+.card-inner-border.style-double{border-width:1px;box-shadow:inset 0 0 0 3px transparent, inset 0 0 0 4px var(--border)}
+.card-inner-border.style-thick{border-width:2px}
+.card-inner-border.style-none{border:none}
+
+.card-image{position:relative;width:100%;overflow:hidden}
+.card-image img{width:100%;height:100%;object-fit:cover;display:block}
+.card-image-fade{position:absolute;bottom:0;left:0;right:0;z-index:3}
+.card-floats{position:absolute;inset:0;z-index:2;pointer-events:none;overflow:hidden}
+.card-float{position:absolute;font-family:serif}
+
+.card-text{padding:22px 28px 30px;text-align:center}
+.card-text.text-left{text-align:left}
+.card-text.text-right{text-align:right}
+.card-text.minimal-text{padding:50px 28px;min-height:380px;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative}
+.card-text.minimal-text.text-left{align-items:flex-start}
+.card-text.minimal-text.text-right{align-items:flex-end}
+.card-text.overlay-text{position:absolute;bottom:20px;left:0;right:0;z-index:4;text-align:center;padding:0 28px}
+.card-text.overlay-text.text-left{text-align:left}
+.card-text.overlay-text.text-right{text-align:right}
+
+.card-ornament{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:12px}
+.text-left .card-ornament{justify-content:flex-start}
+.text-right .card-ornament{justify-content:flex-end}
+.card-orn-line{width:42px;height:1px;display:inline-block}
+.card-orn-sym{font-size:13px;letter-spacing:5px;font-weight:400}
+
+.card-headline{font-weight:700;line-height:1.22;white-space:pre-line}
+.card-headline em{font-style:italic;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+
+.card-body{font-weight:300;line-height:1.7;margin-top:10px;opacity:.55;letter-spacing:.3px;max-width:320px;margin-left:auto;margin-right:auto}
+.text-left .card-body{margin-left:0}
+.text-right .card-body{margin-right:0}
+
+.card-subtitle{font-weight:300;font-style:italic;letter-spacing:2.5px;margin-top:8px}
+.card-hb{display:inline-block;animation:heartbeat 1.4s ease-in-out infinite}
+.card-seal{margin-top:14px}
+.card-seal svg{animation:sealStamp .45s ease forwards}
+
+.card-split{display:flex;min-height:400px}
+.card-split-img{flex:1;position:relative;overflow:hidden}
+.card-split-img img{width:100%;height:100%;object-fit:cover}
+.card-split-fade{position:absolute;top:0;bottom:0;right:0;width:40px}
+.card-split-text{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px 18px;text-align:center}
+.card-split-text.text-left{align-items:flex-start;text-align:left}
+.card-split-text.text-right{align-items:flex-end;text-align:right}
+
+/* ── FULL BLEED layout ── */
+.card-fullbleed{position:relative;min-height:460px;overflow:hidden}
+.card-fullbleed img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+.card-fullbleed-overlay{position:absolute;inset:0;z-index:3}
+.card-fullbleed-text{position:absolute;inset:0;z-index:4;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:30px 28px;text-align:center}
+.card-fullbleed-text.text-left{align-items:flex-start;text-align:left}
+.card-fullbleed-text.text-right{align-items:flex-end;text-align:right}
+
+/* ── FRAMED layout ── */
+.card-framed{padding:16px}
+.card-framed-img{border-radius:8px;overflow:hidden;position:relative;aspect-ratio:5/4}
+.card-framed-img img{width:100%;height:100%;object-fit:cover;display:block}
+.card-framed-img-fade{position:absolute;bottom:0;left:0;right:0;height:60px;z-index:3}
+
+/* Horseshoe watermark */
+.card-watermark{position:absolute;bottom:10px;right:12px;opacity:.12;z-index:1;pointer-events:none}
+
+.footer{text-align:center;padding:1.2rem;border-top:1px solid rgba(255,255,255,.04);font-family:'DM Mono',monospace;font-size:.52rem;color:var(--text-dimmer);letter-spacing:.1em;text-transform:uppercase}
+</style>
+</head>
+<body>
+
+<div class="mast">
+  <a class="back" href="../../#/s/lifestyle"><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" fill="#15243B"/><circle cx="32" cy="32" r="21" fill="none" stroke="#D6B25E" stroke-width="6" stroke-dasharray="19 3"/><path d="M32 32 L46 14" stroke="#F5F7F6" stroke-width="4" stroke-linecap="round"/></svg>The Watch <span>Lifestyle</span></a>
+</div>
+
+<div class="header">
+  <div class="header-row"><span class="header-star">✦</span><h1>Carte</h1><span class="header-star">✦</span></div>
+  <p class="header-sub">Artisan Greeting Cards</p>
+  <div class="version-badge">beta v1.0</div>
+</div>
+
+<!-- A CARD THAT ARRIVED BY LINK -->
+<div class="received-bar" id="receivedBar">
+  <p id="receivedLine">A card for you</p>
+  <div class="received-acts">
+    <button class="btn-export" id="replyBtn" type="button">✉ Send one back</button>
+    <button class="btn-ghost" id="saveReceivedBtn" type="button">⤓ Save as picture</button>
+    <button class="btn-ghost" id="makeOwnBtn" type="button">✦ Make your own card</button>
+  </div>
+</div>
+
+<!-- FILTER BAR -->
+<div class="filter-bar">
+  <span class="filter-label">Filter</span>
+  <select class="filter-select" id="filterOccasion"><option value="all">All Occasions</option></select>
+  <select class="filter-select" id="filterMood"><option value="all">All Moods</option></select>
+</div>
+
+<!-- PRESETS -->
+<div class="presets-bar" id="presetsBar"></div>
+
+<div class="main">
+  <div class="sidebar">
+    <div class="panel-tabs">
+      <button class="panel-tab active" data-panel="theme"><span class="panel-tab-icon">◆</span>Theme</button>
+      <button class="panel-tab" data-panel="occasion"><span class="panel-tab-icon">♥</span>Type</button>
+      <button class="panel-tab" data-panel="layout"><span class="panel-tab-icon">▦</span>Layout</button>
+      <button class="panel-tab" data-panel="text"><span class="panel-tab-icon">A</span>Text</button>
+      <button class="panel-tab" data-panel="image"><span class="panel-tab-icon">▣</span>Image</button>
+      <button class="panel-tab" data-panel="style"><span class="panel-tab-icon">◈</span>Style</button>
+      <button class="panel-tab" data-panel="seal"><span class="panel-tab-icon">◎</span>Seal</button>
+    </div>
+
+    <div class="panel-box">
+      <div class="panel-title"><span id="panelLabel">Theme</span></div>
+      <div class="panel-content active" id="panel-theme"></div>
+      <div class="panel-content" id="panel-occasion"></div>
+      <div class="panel-content" id="panel-layout"></div>
+      <div class="panel-content" id="panel-text">
+        <div class="ctrl-group"><label class="ctrl-label">Headline Font</label><select class="ctrl-select" id="headlineFont"></select></div>
+        <div class="ctrl-group"><label class="ctrl-label">Body Font</label><select class="ctrl-select" id="bodyFont"></select></div>
+        <div class="ctrl-group">
+          <label class="ctrl-label">Headline Size</label>
+          <div style="display:flex;align-items:center;gap:8px"><input type="range" class="size-slider" id="headlineSize" min="18" max="38" value="27"><span class="size-value" id="headlineSizeVal">27px</span></div>
+        </div>
+        <div class="ctrl-group">
+          <label class="ctrl-label">Text Alignment</label>
+          <div class="grid-3">
+            <button class="grid-btn active" data-align="center"><span class="grid-btn-label">Center</span></button>
+            <button class="grid-btn" data-align="left"><span class="grid-btn-label">Left</span></button>
+            <button class="grid-btn" data-align="right"><span class="grid-btn-label">Right</span></button>
+          </div>
+        </div>
+        <div class="ctrl-group">
+          <label class="ctrl-label">Headline Style</label>
+          <div class="style-toolbar">
+            <button class="style-toggle" id="toggleAccentStyle" title="Apply accent gradient to selected text"><span class="icon">✦</span> Accent</button>
+            <button class="style-toggle" id="toggleItalicStyle" title="Apply italic style"><span class="icon">I</span> Italic</button>
+          </div>
+          <div style="font-family:'DM Mono',monospace;font-size:.5rem;color:var(--text-dimmer);margin-top:2px">Select text in headline, then click a style to wrap it</div>
+        </div>
+        <div class="ctrl-group"><label class="ctrl-label">Headline</label><textarea class="ctrl-textarea" id="headlineInput" rows="3">Head Over Hooves
+For You</textarea></div>
+        <div class="ctrl-group"><label class="ctrl-label">Body Message (optional)</label><textarea class="ctrl-textarea" id="bodyInput" placeholder="A personal message below the headline..." style="min-height:48px"></textarea></div>
+        <div class="ctrl-group"><label class="ctrl-label">Subtitle</label><input class="ctrl-input" id="subtitleInput" value="forever &amp; a furlong"></div>
+      </div>
+      <div class="panel-content" id="panel-image">
+        <div class="ctrl-group">
+          <label class="ctrl-label">Browse Photos (Unsplash via Picsum)</label>
+          <div class="search-row"><input class="ctrl-input" id="searchInput" placeholder="Click Shuffle to browse..."><button class="search-go" id="searchBtn">Shuffle</button></div>
+        </div>
+        <div class="search-spinner" id="searchStatus" style="display:none"><div class="spinner"></div><div style="margin-top:5px">Loading photos...</div></div>
+        <div class="img-grid" id="imageGrid"></div>
+        <button class="load-more-btn" id="loadMoreBtn" style="display:none">↻ Load More</button>
+        <div class="file-upload-zone" id="uploadZone">📁 Upload your own image<input type="file" id="fileUpload" accept="image/*"></div>
+        <div class="search-hint">Unsplash photos via <a href="https://picsum.photos" target="_blank">Picsum</a> — or search <a id="unsplashLink" href="https://unsplash.com/s/photos/nature" target="_blank">Unsplash ↗</a> and paste URL.</div>
+        <div class="ctrl-group" style="margin-top:10px"><label class="ctrl-label">Paste any image URL</label><input class="ctrl-input" id="imageUrlInput" placeholder="https://images.unsplash.com/photo-..."></div>
+        <button class="btn-ghost" id="clearImageBtn" style="display:none">✕ Clear Image</button>
+      </div>
+      <div class="panel-content" id="panel-style"></div>
+      <div class="panel-content" id="panel-seal"></div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn-send" id="sendBtn" type="button">✉ Send to a friend</button>
+      <button class="btn-export" id="exportBtn" style="flex:0 0 auto;padding:11px 14px" title="Save as PNG">⤓ PNG</button>
+      <button class="btn-share" id="shareBtn" title="Copy share link">⎘</button>
+    </div>
+  </div>
+
+  <div class="preview-area">
+    <div class="card-export-wrap" id="exportWrap">
+      <div class="card" id="cardPreview">
+        <div class="card-inner-border" id="cardBorder"></div>
+        <div id="cardContent"></div>
+        <div class="card-watermark" id="cardWatermark"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="share-toast" id="shareToast">Link copied to clipboard</div>
+
+<div class="sheet-scrim" id="sendSheet" role="dialog" aria-modal="true" aria-labelledby="sendTitle">
+  <div class="sheet">
+    <h2 id="sendTitle">Send this card</h2>
+    <div class="sheet-sub">The whole card travels in the link</div>
+    <div class="names">
+      <div class="ctrl-group"><label class="ctrl-label" for="toInput">To</label><input class="ctrl-input" id="toInput" placeholder="Their name" autocomplete="off"></div>
+      <div class="ctrl-group"><label class="ctrl-label" for="fromInput">From</label><input class="ctrl-input" id="fromInput" placeholder="Your name" autocomplete="off"></div>
+    </div>
+    <div class="send-ways">
+      <button class="send-way" type="button" data-way="copy"><span class="ic">⎘</span>Copy the link<small>paste it anywhere</small></button>
+      <button class="send-way" type="button" data-way="share"><span class="ic">⇪</span>Share…<small>messages, mail, more</small></button>
+      <a class="send-way" id="mailWay" href="#"><span class="ic">✉</span>Email it<small>opens your mail</small></a>
+      <a class="send-way" id="smsWay" href="#"><span class="ic">▭</span>Text it<small>opens messages</small></a>
+    </div>
+    <div class="sheet-foot">
+      <div class="sheet-note">Nothing is stored anywhere. A photo you uploaded from your device stays with you; pick a web photo to send one.</div>
+      <button class="sheet-close" id="sendClose" type="button">Done</button>
+    </div>
+  </div>
+</div>
+
+<div class="footer">Carte beta v1.0 — Photos via Unsplash / Picsum — A Connect Product · <a href="../../#/s/lifestyle">The Watch · Lifestyle</a> · <a href="../date-night/">Date Night</a> · <a href="../together-90/">Together / 90</a></div>
+
+<script>
+// ══════════════════════════════════
+//  DATA — Expanded per Crucible report
+// ══════════════════════════════════
+const THEMES=[
+  {id:'midnight',name:'Midnight Luxe',mood:'warm',bg:'#161110',bgs:'#1b1310',card:'linear-gradient(170deg,#2b1e18,#1b1310 45%,#261c16)',accent:'#c9a050',text:'#f0e0d0',sub:'#c4856d',border:'rgba(185,135,70,.16)'},
+  {id:'noir',name:'Film Noir',mood:'cool',bg:'#0a0a0c',bgs:'#0f0f14',card:'linear-gradient(170deg,#16161c,#0f0f14 45%,#1a1a22)',accent:'#4d7cff',text:'#e8e8ed',sub:'#8888a0',border:'rgba(77,124,255,.16)'},
+  {id:'rose',name:'Rosé Garden',mood:'warm',bg:'#1a1014',bgs:'#1a1014',card:'linear-gradient(170deg,#2a1820,#1a1014 45%,#261420)',accent:'#e8a0b8',text:'#f5e0e8',sub:'#c47090',border:'rgba(232,160,184,.16)'},
+  {id:'forest',name:'Enchanted Forest',mood:'cool',bg:'#0c1410',bgs:'#0c1410',card:'linear-gradient(170deg,#1a2820,#0c1410 45%,#162418)',accent:'#5cd68c',text:'#d8f0e0',sub:'#6db88a',border:'rgba(92,214,140,.16)'},
+  {id:'ivory',name:'Ivory Classique',mood:'warm',bg:'#f5f0e8',bgs:'#f8f4ec',card:'linear-gradient(170deg,#fff,#f8f4ec 45%,#f0ebe0)',accent:'#8B6040',text:'#2a1a10',sub:'#8B7060',border:'rgba(139,96,64,.2)',light:true},
+  {id:'violet',name:'Violet Dusk',mood:'cool',bg:'#120e18',bgs:'#120e18',card:'linear-gradient(170deg,#221a30,#120e18 45%,#1e1628)',accent:'#a78bfa',text:'#e8e0f5',sub:'#9080b0',border:'rgba(167,139,250,.16)'},
+  {id:'amber',name:'Amber Glow',mood:'warm',bg:'#181208',bgs:'#181208',card:'linear-gradient(170deg,#2a2010,#181208 45%,#241c0c)',accent:'#ffb84d',text:'#f5e8d0',sub:'#c89850',border:'rgba(255,184,77,.16)'},
+  {id:'ocean',name:'Deep Ocean',mood:'cool',bg:'#080e14',bgs:'#080e14',card:'linear-gradient(170deg,#102030,#080e14 45%,#0c1820)',accent:'#22d3ee',text:'#d0eef5',sub:'#5aa8c0',border:'rgba(34,211,238,.16)'},
+  {id:'blush',name:'Blush Petal',mood:'warm',bg:'#1c1214',bgs:'#1c1214',card:'linear-gradient(170deg,#2e1c22,#1c1214 45%,#281820)',accent:'#f9a8d4',text:'#fce4ec',sub:'#d48aa0',border:'rgba(249,168,212,.16)'},
+  {id:'slate',name:'Modern Slate',mood:'cool',bg:'#121416',bgs:'#14161a',card:'linear-gradient(170deg,#1e2228,#14161a 45%,#1a1e24)',accent:'#94a3b8',text:'#e2e8f0',sub:'#8892a0',border:'rgba(148,163,184,.16)'},
+  {id:'copper',name:'Burnished Copper',mood:'warm',bg:'#16100c',bgs:'#16100c',card:'linear-gradient(170deg,#2a1c14,#16100c 45%,#221810)',accent:'#d4845a',text:'#f0ddd0',sub:'#b87050',border:'rgba(212,132,90,.16)'},
+  {id:'pearl',name:'Pearl White',mood:'warm',bg:'#f0eee8',bgs:'#f4f2ec',card:'linear-gradient(170deg,#faf8f4,#f4f2ec 45%,#eeebe4)',accent:'#666050',text:'#1a1a18',sub:'#787060',border:'rgba(102,96,80,.18)',light:true},
+];
+
+const FONTS=[
+  {name:'Playfair Display',value:"'Playfair Display',Georgia,serif",cat:'Elegant'},
+  {name:'Cormorant Garamond',value:"'Cormorant Garamond',Georgia,serif",cat:'Classic'},
+  {name:'DM Serif Display',value:"'DM Serif Display',Georgia,serif",cat:'Editorial'},
+  {name:'Instrument Serif',value:"'Instrument Serif',Georgia,serif",cat:'Modern'},
+  {name:'Crimson Pro',value:"'Crimson Pro',Georgia,serif",cat:'Literary'},
+  {name:'Libre Baskerville',value:"'Libre Baskerville',Georgia,serif",cat:'Refined'},
+  {name:'Spectral',value:"'Spectral',Georgia,serif",cat:'Scholarly'},
+  {name:'Manrope',value:"'Manrope',sans-serif",cat:'Clean'},
+  {name:'Space Mono',value:"'Space Mono',monospace",cat:'Mono'},
+];
+
+const OCCASIONS=[
+  {id:'love',label:'Love',emoji:'♥',orn:'♞ ♞',cat:'romantic'},
+  {id:'birthday',label:'Birthday',emoji:'★',orn:'✦ ✦',cat:'celebration'},
+  {id:'thanks',label:'Thank You',emoji:'❋',orn:'✿ ✿',cat:'gratitude'},
+  {id:'congrats',label:'Congrats',emoji:'◆',orn:'✧ ✧',cat:'celebration'},
+  {id:'holiday',label:'Holiday',emoji:'❅',orn:'❅ ❅',cat:'seasonal'},
+  {id:'sympathy',label:'Sympathy',emoji:'✿',orn:'— —',cat:'comfort'},
+  {id:'wedding',label:'Wedding',emoji:'❖',orn:'❖ ❖',cat:'romantic'},
+  {id:'baby',label:'New Baby',emoji:'✿',orn:'✦ ✦',cat:'celebration'},
+  {id:'getwell',label:'Get Well',emoji:'❋',orn:'✿ ✿',cat:'comfort'},
+  {id:'graduation',label:'Graduation',emoji:'◆',orn:'✧ ✧',cat:'celebration'},
+  {id:'anniversary',label:'Anniversary',emoji:'♥',orn:'♞ ♞',cat:'romantic'},
+  {id:'friendship',label:'Friendship',emoji:'★',orn:'✦ ✦',cat:'gratitude'},
+  {id:'custom',label:'Custom',emoji:'◎',orn:'— —',cat:'other'},
+];
+
+const LAYOUTS=[
+  {id:'classic',name:'Classic',desc:'Image top, text below',cat:'photo'},
+  {id:'overlay',name:'Overlay',desc:'Text over image',cat:'photo'},
+  {id:'split',name:'Split',desc:'Side by side',cat:'photo'},
+  {id:'fullbleed',name:'Full Bleed',desc:'Full image background',cat:'photo'},
+  {id:'framed',name:'Framed',desc:'Bordered image inset',cat:'photo'},
+  {id:'minimal',name:'Minimal',desc:'Text only, elegant',cat:'text'},
+];
+
+const SEALS=[
+  {id:'none',label:'None'},
+  {id:'xoxo',label:'XOXO',text:'xoxo'},
+  {id:'heart',label:'Heart',text:'♥',sz:16,y:38},
+  {id:'star',label:'Star',text:'★',sz:14,y:37},
+  {id:'initials',label:'Initials',text:'AB'},
+  {id:'custom',label:'Custom',text:'yours'},
+];
+
+const BORDER_STYLES=[
+  {id:'thin',label:'Thin'},
+  {id:'thick',label:'Bold'},
+  {id:'double',label:'Double'},
+  {id:'none',label:'None'},
+];
+
+// ═══════════════════════════════════════════
+//  EXPANDED PRESETS — ~120 templates from 24 master layouts
+//  Organized: occasion → theme × layout combos
+// ═══════════════════════════════════════════
+const PRESETS=[
+  // ── Love ──
+  {name:'♥ Head Over Hooves',theme:'midnight',occ:'love',layout:'classic',hl:"I'm *Head Over Hooves*\nFor You",sub:'forever & a furlong',body:'',seal:'xoxo',border:'thin',mood:'warm'},
+  {name:'♥ You & Me',theme:'rose',occ:'love',layout:'overlay',hl:"*You & Me*\nAlways",sub:'together forever',body:'Every moment with you feels like magic.',seal:'heart',border:'thin',mood:'warm'},
+  {name:'♥ My Heart',theme:'blush',occ:'love',layout:'split',hl:"You Have\nMy *Whole Heart*",sub:'eternally yours',body:'',seal:'xoxo',border:'double',mood:'warm'},
+  {name:'♥ Soulmate',theme:'violet',occ:'love',layout:'minimal',hl:"To My\n*Soulmate*",sub:'now & forever',body:'In you I found everything I never knew I was looking for.',seal:'heart',border:'thin',mood:'cool'},
+  {name:'♥ Crazy Love',theme:'copper',occ:'love',layout:'fullbleed',hl:"*Crazy*\nIn Love",sub:'with you',body:'',seal:'xoxo',border:'none',mood:'warm'},
+
+  // ── Birthday ──
+  {name:'★ Birthday Wish',theme:'violet',occ:'birthday',layout:'overlay',hl:"*Happy Birthday*\nTo Someone Special",sub:'make a wish',body:'Wishing you a year filled with wonder, joy, and all the beautiful moments you deserve.',seal:'star',border:'thin',mood:'cool'},
+  {name:'★ Party Time',theme:'amber',occ:'birthday',layout:'classic',hl:"It's Your\n*Birthday*",sub:'celebrate big',body:'Another trip around the sun and you only get better.',seal:'star',border:'thin',mood:'warm'},
+  {name:'★ Golden Year',theme:'midnight',occ:'birthday',layout:'fullbleed',hl:"*Cheers* to\nAnother Year",sub:'happy birthday',body:'',seal:'star',border:'none',mood:'warm'},
+  {name:'★ Born to Shine',theme:'ocean',occ:'birthday',layout:'minimal',hl:"Born to\n*Shine*",sub:'happy birthday',body:'May this year bring you everything you dream of and more.',seal:'star',border:'double',mood:'cool'},
+  {name:'★ Big Day',theme:'blush',occ:'birthday',layout:'framed',hl:"Your\n*Big Day*",sub:'enjoy every moment',body:'',seal:'none',border:'thin',mood:'warm'},
+
+  // ── Thank You ──
+  {name:'❋ Thank You',theme:'forest',occ:'thanks',layout:'minimal',hl:"*Thank You*\nFrom the Bottom\nOf My Heart",sub:'with gratitude',body:'Your kindness made all the difference. I cannot thank you enough.',seal:'heart',border:'double',mood:'cool'},
+  {name:'❋ Grateful',theme:'ivory',occ:'thanks',layout:'classic',hl:"So Very\n*Grateful*",sub:'thank you',body:'Words can\'t express how much your generosity means.',seal:'heart',border:'thick',mood:'warm'},
+  {name:'❋ Appreciate You',theme:'slate',occ:'thanks',layout:'split',hl:"I *Appreciate*\nYou",sub:'more than words',body:'',seal:'none',border:'thin',mood:'cool'},
+  {name:'❋ Thanks a Bunch',theme:'amber',occ:'thanks',layout:'overlay',hl:"*Thanks*\nA Bunch",sub:'you\'re the best',body:'',seal:'xoxo',border:'thin',mood:'warm'},
+  {name:'❋ Kind Heart',theme:'pearl',occ:'thanks',layout:'framed',hl:"For Your\n*Kind Heart*",sub:'with thanks',body:'Your thoughtfulness brightens every day.',seal:'heart',border:'double',mood:'warm'},
+
+  // ── Wedding ──
+  {name:'❖ Wedding Day',theme:'ivory',occ:'wedding',layout:'classic',hl:"*Together*\nIs Our Favorite\nPlace to Be",sub:'Mr & Mrs',body:'',seal:'initials',border:'thick',mood:'warm'},
+  {name:'❖ Two Hearts',theme:'pearl',occ:'wedding',layout:'overlay',hl:"Two *Hearts*\nOne Love",sub:'forever begins today',body:'',seal:'heart',border:'thin',mood:'warm'},
+  {name:'❖ I Do',theme:'rose',occ:'wedding',layout:'fullbleed',hl:"*I Do*\nNow & Always",sub:'with all my heart',body:'',seal:'initials',border:'none',mood:'warm'},
+  {name:'❖ Hitched',theme:'midnight',occ:'wedding',layout:'split',hl:"Happily\n*Ever After*",sub:'the adventure begins',body:'',seal:'xoxo',border:'thin',mood:'warm'},
+  {name:'❖ Aisle Style',theme:'blush',occ:'wedding',layout:'framed',hl:"Love,\n*Laughter*\n& Happily Ever After",sub:'congratulations',body:'',seal:'heart',border:'double',mood:'warm'},
+
+  // ── Holiday ──
+  {name:'❅ Holiday Cheer',theme:'ocean',occ:'holiday',layout:'overlay',hl:"*Warmest Wishes*\nThis Holiday Season",sub:'peace & joy',body:'May your days be merry and bright.',seal:'star',border:'thin',mood:'cool'},
+  {name:'❅ Joyful Season',theme:'forest',occ:'holiday',layout:'classic',hl:"*Joy* to the\nWorld",sub:'happy holidays',body:'Wishing you a season of love and wonder.',seal:'star',border:'thin',mood:'cool'},
+  {name:'❅ Winter Magic',theme:'noir',occ:'holiday',layout:'fullbleed',hl:"*Winter*\nMagic",sub:'season\'s greetings',body:'',seal:'star',border:'none',mood:'cool'},
+  {name:'❅ Peace on Earth',theme:'slate',occ:'holiday',layout:'minimal',hl:"*Peace*\nOn Earth",sub:'happy holidays',body:'May the beauty of the season fill your heart with happiness.',seal:'none',border:'double',mood:'cool'},
+  {name:'❅ Festive',theme:'amber',occ:'holiday',layout:'framed',hl:"Have a\n*Wonderful*\nHoliday",sub:'warm wishes',body:'',seal:'star',border:'thin',mood:'warm'},
+
+  // ── Congrats ──
+  {name:'◆ Congrats',theme:'amber',occ:'congrats',layout:'minimal',hl:"*Cheers* to You\nAnd Your\nAmazing Achievement",sub:'well deserved',body:'',seal:'xoxo',border:'thin',mood:'warm'},
+  {name:'◆ You Did It',theme:'violet',occ:'congrats',layout:'overlay',hl:"You *Did It*",sub:'congratulations',body:'All your hard work has paid off beautifully.',seal:'star',border:'thin',mood:'cool'},
+  {name:'◆ Way to Go',theme:'forest',occ:'congrats',layout:'split',hl:"*Way*\nTo Go",sub:'so proud of you',body:'',seal:'star',border:'thin',mood:'cool'},
+  {name:'◆ Bravo',theme:'midnight',occ:'congrats',layout:'classic',hl:"*Bravo*\nWhat an\nAccomplishment",sub:'well earned',body:'',seal:'xoxo',border:'double',mood:'warm'},
+  {name:'◆ Rising Star',theme:'ocean',occ:'congrats',layout:'fullbleed',hl:"*Rising*\nStar",sub:'the sky is the limit',body:'',seal:'star',border:'none',mood:'cool'},
+
+  // ── Sympathy ──
+  {name:'✿ With Sympathy',theme:'slate',occ:'sympathy',layout:'minimal',hl:"With *Deepest*\nSympathy",sub:'thinking of you',body:'May memories bring you comfort during this difficult time.',seal:'none',border:'thin',mood:'cool'},
+  {name:'✿ In Memory',theme:'noir',occ:'sympathy',layout:'classic',hl:"In Loving\n*Memory*",sub:'always remembered',body:'Their light will continue to shine through all who loved them.',seal:'heart',border:'thin',mood:'cool'},
+  {name:'✿ Gentle Heart',theme:'pearl',occ:'sympathy',layout:'framed',hl:"With a\n*Gentle Heart*",sub:'sending comfort',body:'',seal:'none',border:'double',mood:'warm'},
+
+  // ── New Baby ──
+  {name:'✿ Welcome Baby',theme:'blush',occ:'baby',layout:'classic',hl:"*Welcome*\nLittle One",sub:'hello world',body:'A new star is born. Congratulations to the proud parents!',seal:'heart',border:'thin',mood:'warm'},
+  {name:'✿ Bundle of Joy',theme:'ivory',occ:'baby',layout:'framed',hl:"*Bundle*\nOf Joy",sub:'congratulations',body:'',seal:'star',border:'thick',mood:'warm'},
+  {name:'✿ Sweet Baby',theme:'rose',occ:'baby',layout:'minimal',hl:"Oh *Baby*\nHow Sweet\nYou Are",sub:'with love',body:'',seal:'heart',border:'double',mood:'warm'},
+
+  // ── Get Well ──
+  {name:'❋ Get Well',theme:'forest',occ:'getwell',layout:'classic',hl:"*Get Well*\nSoon",sub:'wishing you health',body:'Sending healing thoughts and warm wishes your way.',seal:'heart',border:'thin',mood:'cool'},
+  {name:'❋ Healing Wishes',theme:'ocean',occ:'getwell',layout:'minimal',hl:"Sending\n*Healing Wishes*",sub:'feel better soon',body:'',seal:'none',border:'thin',mood:'cool'},
+
+  // ── Graduation ──
+  {name:'◆ Grad Day',theme:'violet',occ:'graduation',layout:'overlay',hl:"*Congratulations*\nGraduate",sub:'dream big',body:'The world is yours. Go make it extraordinary.',seal:'star',border:'thin',mood:'cool'},
+  {name:'◆ Cap & Gown',theme:'midnight',occ:'graduation',layout:'fullbleed',hl:"Hats Off\nTo *You*",sub:'class of 2026',body:'',seal:'star',border:'none',mood:'warm'},
+  {name:'◆ Next Chapter',theme:'amber',occ:'graduation',layout:'split',hl:"The *Next*\nChapter Awaits",sub:'congratulations grad',body:'',seal:'xoxo',border:'thin',mood:'warm'},
+
+  // ── Anniversary ──
+  {name:'♥ Our Story',theme:'midnight',occ:'anniversary',layout:'split',hl:"Our *Story*\nContinues",sub:'happy anniversary',body:'',seal:'heart',border:'thin',mood:'warm'},
+  {name:'♥ Years of Love',theme:'rose',occ:'anniversary',layout:'overlay',hl:"*Years* of\nLove & Laughter",sub:'happy anniversary',body:'Every year with you is better than the last.',seal:'xoxo',border:'thin',mood:'warm'},
+  {name:'♥ Still Us',theme:'copper',occ:'anniversary',layout:'minimal',hl:"Still *Us*\nAfter All\nThis Time",sub:'forever grateful',body:'',seal:'heart',border:'double',mood:'warm'},
+
+  // ── Friendship ──
+  {name:'★ Best Friend',theme:'ocean',occ:'friendship',layout:'split',hl:"To My\n*Best Friend*",sub:'you\'re amazing',body:'Life is better with you in it.',seal:'heart',border:'thin',mood:'cool'},
+  {name:'★ You Rock',theme:'amber',occ:'friendship',layout:'classic',hl:"You *Rock*",sub:'just because',body:'Reminding you that you are truly wonderful.',seal:'star',border:'thin',mood:'warm'},
+  {name:'★ Thinking of You',theme:'slate',occ:'friendship',layout:'minimal',hl:"*Thinking*\nOf You",sub:'always',body:'Just wanted you to know you crossed my mind and made me smile.',seal:'none',border:'thin',mood:'cool'},
+];
+
+// ══════════════════════════════════
+//  STATE
+// ══════════════════════════════════
+const S={
+  theme:THEMES[0],occasion:OCCASIONS[0],layout:LAYOUTS[0],
+  hFont:FONTS[0],bFont:FONTS[1],
+  headline:"I'm *Head Over Hooves*\nFor You",
+  body:'',subtitle:'forever & a furlong',
+  seal:SEALS[1],sealText:'xoxo',
+  imageUrl:'',showHearts:true,panel:'theme',imgPage:1,
+  borderStyle:'thin',showWatermark:true,
+  activePreset:-1,
+  textAlign:'center',
+  headlineSize:27,
+  bodySize:12,
+  subtitleSize:13,
+  filterOcc:'all',filterMood:'all',
+  to:'',from:'',received:false,
+};
+
+// ══════════════════════════════════
+//  INIT
+// ══════════════════════════════════
+document.addEventListener('DOMContentLoaded',()=>{
+  buildFilterBar();buildPresets();buildThemePanel();buildOccasionPanel();buildLayoutPanel();
+  buildTextPanel();buildStylePanel();buildSealPanel();
+  bindPanelTabs();bindTextInputs();bindImagePanel();bindExport();bindShare();bindSend();bindStyleToggles();
+  renderCard();
+});
+
+// ══════════════════════════════════
+//  FILTER BAR
+// ══════════════════════════════════
+function buildFilterBar(){
+  const occSel=document.getElementById('filterOccasion');
+  const moods=[...new Set(THEMES.map(t=>t.mood))];
+  const occCats=[...new Set(OCCASIONS.map(o=>o.cat))];
+  // Populate occasion filter from actual occasions
+  OCCASIONS.forEach(o=>{
+    const opt=document.createElement('option');opt.value=o.id;opt.textContent=o.label;occSel.appendChild(opt);
+  });
+  const moodSel=document.getElementById('filterMood');
+  moods.forEach(m=>{
+    const opt=document.createElement('option');opt.value=m;opt.textContent=m.charAt(0).toUpperCase()+m.slice(1);moodSel.appendChild(opt);
+  });
+  occSel.addEventListener('change',function(){S.filterOcc=this.value;filterPresets()});
+  moodSel.addEventListener('change',function(){S.filterMood=this.value;filterPresets()});
+}
+
+function filterPresets(){
+  const chips=document.querySelectorAll('.preset-chip');
+  chips.forEach((chip,i)=>{
+    const p=PRESETS[i];
+    let show=true;
+    if(S.filterOcc!=='all'&&p.occ!==S.filterOcc)show=false;
+    if(S.filterMood!=='all'&&p.mood!==S.filterMood)show=false;
+    chip.style.display=show?'':'none';
+  });
+}
+
+// ══════════════════════════════════
+//  PRESETS
+// ══════════════════════════════════
+function buildPresets(){
+  const bar=document.getElementById('presetsBar');
+  bar.innerHTML=PRESETS.map((p,i)=>`<button class="preset-chip" data-idx="${i}">${p.name}</button>`).join('');
+  bar.querySelectorAll('.preset-chip').forEach(btn=>btn.addEventListener('click',()=>{
+    const p=PRESETS[+btn.dataset.idx];
+    S.theme=THEMES.find(t=>t.id===p.theme);
+    S.occasion=OCCASIONS.find(o=>o.id===p.occ);
+    S.layout=LAYOUTS.find(l=>l.id===p.layout);
+    S.headline=p.hl; S.body=p.body||''; S.subtitle=p.sub;
+    S.seal=SEALS.find(s=>s.id===p.seal); S.sealText=S.seal.text||'';
+    S.borderStyle=p.border||'thin';
+    S.activePreset=+btn.dataset.idx;
+    document.getElementById('headlineInput').value=S.headline;
+    document.getElementById('bodyInput').value=S.body;
+    document.getElementById('subtitleInput').value=S.subtitle;
+    bar.querySelectorAll('.preset-chip').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    refreshPanelSelections();applyTheme();renderCard();
+  }));
+}
+
+function refreshPanelSelections(){
+  document.querySelectorAll('#panel-theme .opt-btn').forEach(b=>{b.classList.toggle('active',b.dataset.theme===S.theme.id)});
+  document.querySelectorAll('#panel-occasion .grid-btn').forEach(b=>{b.classList.toggle('active',b.dataset.occ===S.occasion.id)});
+  document.querySelectorAll('#panel-layout .opt-btn').forEach(b=>{b.classList.toggle('active',b.dataset.layout===S.layout.id)});
+  document.querySelectorAll('#panel-style .grid-btn[data-border]').forEach(b=>{b.classList.toggle('active',b.dataset.border===S.borderStyle)});
+  document.querySelectorAll('#panel-seal .grid-btn').forEach(b=>{b.classList.toggle('active',b.dataset.seal===S.seal.id)});
+  document.querySelectorAll('[data-align]').forEach(b=>{b.classList.toggle('active',b.dataset.align===S.textAlign)});
+}
+
+// ══════════════════════════════════
+//  PANELS
+// ══════════════════════════════════
+function bindPanelTabs(){
+  const labels={theme:'Theme',occasion:'Type',layout:'Layout',text:'Text',image:'Image',style:'Style',seal:'Seal'};
+  document.querySelectorAll('.panel-tab').forEach(tab=>tab.addEventListener('click',()=>{
+    S.panel=tab.dataset.panel;
+    document.querySelectorAll('.panel-tab').forEach(t=>t.classList.remove('active'));tab.classList.add('active');
+    document.querySelectorAll('.panel-content').forEach(p=>p.classList.remove('active'));
+    document.getElementById('panel-'+S.panel).classList.add('active');
+    document.getElementById('panelLabel').textContent=labels[S.panel]||S.panel;
+  }));
+}
+
+function buildThemePanel(){
+  const el=document.getElementById('panel-theme');
+  el.innerHTML=THEMES.map(t=>`<button class="opt-btn${t.id===S.theme.id?' active':''}" data-theme="${t.id}">
+    <div class="opt-swatch" style="background:${t.card};border:1px solid ${t.accent}40"><div class="opt-swatch-dot" style="background:${t.accent}"></div></div>
+    <div><div class="opt-name">${t.name}</div><div class="opt-meta">${t.id} · ${t.mood}</div></div></button>`).join('');
+  el.querySelectorAll('.opt-btn').forEach(btn=>btn.addEventListener('click',()=>{
+    S.theme=THEMES.find(t=>t.id===btn.dataset.theme);
+    el.querySelectorAll('.opt-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');
+    applyTheme();renderCard();
+  }));
+}
+
+function buildOccasionPanel(){
+  const el=document.getElementById('panel-occasion');
+  el.innerHTML=`<div class="grid-3">${OCCASIONS.map(o=>`<button class="grid-btn${o.id===S.occasion.id?' active':''}" data-occ="${o.id}"><span class="grid-btn-icon">${o.emoji}</span><span class="grid-btn-label">${o.label}</span></button>`).join('')}</div>
+  <div style="margin-top:10px"><label class="ctrl-label">Floating symbols</label><button class="toggle-btn on" id="heartsToggle">♥ Enabled</button></div>`;
+  el.querySelectorAll('.grid-btn').forEach(btn=>btn.addEventListener('click',()=>{
+    S.occasion=OCCASIONS.find(o=>o.id===btn.dataset.occ);
+    el.querySelectorAll('.grid-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');renderCard();
+  }));
+  document.getElementById('heartsToggle').addEventListener('click',function(){
+    S.showHearts=!S.showHearts;this.classList.toggle('on',S.showHearts);
+    this.textContent=S.showHearts?'♥ Enabled':'○ Disabled';renderCard();
+  });
+}
+
+function buildLayoutPanel(){
+  const el=document.getElementById('panel-layout');
+  el.innerHTML=LAYOUTS.map(l=>`<button class="opt-btn${l.id===S.layout.id?' active':''}" data-layout="${l.id}"><div><div class="opt-name">${l.name}</div><div class="opt-meta">${l.desc}</div></div></button>`).join('');
+  el.querySelectorAll('.opt-btn').forEach(btn=>btn.addEventListener('click',()=>{
+    S.layout=LAYOUTS.find(l=>l.id===btn.dataset.layout);
+    el.querySelectorAll('.opt-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');renderCard();
+  }));
+}
+
+function buildTextPanel(){
+  const h=document.getElementById('headlineFont'),b=document.getElementById('bodyFont');
+  FONTS.forEach((f,i)=>{h.innerHTML+=`<option value="${i}"${i===0?' selected':''}>${f.name} — ${f.cat}</option>`;b.innerHTML+=`<option value="${i}"${i===1?' selected':''}>${f.name} — ${f.cat}</option>`;});
+  // Alignment
+  document.querySelectorAll('[data-align]').forEach(btn=>btn.addEventListener('click',()=>{
+    S.textAlign=btn.dataset.align;
+    document.querySelectorAll('[data-align]').forEach(b=>b.classList.remove('active'));btn.classList.add('active');renderCard();
+  }));
+  // Headline size
+  const slider=document.getElementById('headlineSize'),val=document.getElementById('headlineSizeVal');
+  slider.addEventListener('input',function(){S.headlineSize=+this.value;val.textContent=this.value+'px';renderCard()});
+}
+
+function buildStylePanel(){
+  const el=document.getElementById('panel-style');
+  el.innerHTML=`<div class="ctrl-group"><label class="ctrl-label">Card Border</label>
+    <div class="grid-2">${BORDER_STYLES.map(b=>`<button class="grid-btn${b.id===S.borderStyle?' active':''}" data-border="${b.id}"><span class="grid-btn-label">${b.label}</span></button>`).join('')}</div></div>
+    <div class="ctrl-group"><label class="ctrl-label">Body Text Size</label>
+    <div style="display:flex;align-items:center;gap:8px"><input type="range" class="size-slider" id="bodySize" min="10" max="16" value="12"><span class="size-value" id="bodySizeVal">12px</span></div></div>
+    <div class="ctrl-group"><label class="ctrl-label">Subtitle Size</label>
+    <div style="display:flex;align-items:center;gap:8px"><input type="range" class="size-slider" id="subtitleSize" min="10" max="18" value="13"><span class="size-value" id="subtitleSizeVal">13px</span></div></div>
+    <div class="ctrl-group"><label class="ctrl-label">Carte Watermark</label>
+    <button class="toggle-btn on" id="watermarkToggle">◎ Enabled</button></div>`;
+  el.querySelectorAll('.grid-btn[data-border]').forEach(btn=>btn.addEventListener('click',()=>{
+    S.borderStyle=btn.dataset.border;el.querySelectorAll('.grid-btn[data-border]').forEach(b=>b.classList.remove('active'));btn.classList.add('active');renderCard();
+  }));
+  document.getElementById('watermarkToggle').addEventListener('click',function(){
+    S.showWatermark=!S.showWatermark;this.classList.toggle('on',S.showWatermark);
+    this.textContent=S.showWatermark?'◎ Enabled':'○ Disabled';renderCard();
+  });
+  document.getElementById('bodySize').addEventListener('input',function(){S.bodySize=+this.value;document.getElementById('bodySizeVal').textContent=this.value+'px';renderCard()});
+  document.getElementById('subtitleSize').addEventListener('input',function(){S.subtitleSize=+this.value;document.getElementById('subtitleSizeVal').textContent=this.value+'px';renderCard()});
+}
+
+function buildSealPanel(){
+  const el=document.getElementById('panel-seal');
+  el.innerHTML=`<div class="grid-3">${SEALS.map(s=>`<button class="grid-btn${s.id===S.seal.id?' active':''}" data-seal="${s.id}"><span class="grid-btn-label">${s.label}</span></button>`).join('')}</div>
+  <div class="ctrl-group" style="margin-top:10px;display:none" id="customSealGroup"><label class="ctrl-label">Seal Text (max 8)</label><input class="ctrl-input" id="sealTextInput" value="yours" maxlength="8"></div>`;
+  el.querySelectorAll('.grid-btn').forEach(btn=>btn.addEventListener('click',()=>{
+    S.seal=SEALS.find(s=>s.id===btn.dataset.seal);if(S.seal.text)S.sealText=S.seal.text;
+    el.querySelectorAll('.grid-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');
+    document.getElementById('customSealGroup').style.display=(S.seal.id==='custom'||S.seal.id==='initials')?'block':'none';
+    renderCard();
+  }));
+  document.getElementById('sealTextInput').addEventListener('input',function(){S.sealText=this.value;renderCard();});
+}
+
+// ══════════════════════════════════
+//  STYLE TOGGLES (replaces asterisk syntax)
+// ══════════════════════════════════
+function bindStyleToggles(){
+  document.getElementById('toggleAccentStyle').addEventListener('click',()=>wrapSelection('*'));
+  document.getElementById('toggleItalicStyle').addEventListener('click',()=>wrapSelection('~'));
+}
+
+function wrapSelection(marker){
+  const ta=document.getElementById('headlineInput');
+  const start=ta.selectionStart,end=ta.selectionEnd;
+  if(start===end)return; // no selection
+  const val=ta.value;
+  const selected=val.slice(start,end);
+  // Check if already wrapped
+  if(start>0&&val[start-1]===marker&&end<val.length&&val[end]===marker){
+    ta.value=val.slice(0,start-1)+selected+val.slice(end+1);
+  }else{
+    ta.value=val.slice(0,start)+marker+selected+marker+val.slice(end);
+  }
+  S.headline=ta.value;
+  ta.focus();
+  ta.setSelectionRange(start+1,end+1);
+  renderCard();
+}
+
+function bindTextInputs(){
+  document.getElementById('headlineFont').addEventListener('change',function(){S.hFont=FONTS[+this.value];renderCard()});
+  document.getElementById('bodyFont').addEventListener('change',function(){S.bFont=FONTS[+this.value];renderCard()});
+  document.getElementById('headlineInput').addEventListener('input',function(){S.headline=this.value;renderCard()});
+  document.getElementById('bodyInput').addEventListener('input',function(){S.body=this.value;renderCard()});
+  document.getElementById('subtitleInput').addEventListener('input',function(){S.subtitle=this.value;renderCard()});
+}
+
+// ══════════════════════════════════
+//  IMAGE — Picsum + File Upload
+// ══════════════════════════════════
+function bindImagePanel(){
+  const searchInput=document.getElementById('searchInput'),searchBtn=document.getElementById('searchBtn');
+  const urlInput=document.getElementById('imageUrlInput'),clearBtn=document.getElementById('clearImageBtn');
+  const loadMoreBtn=document.getElementById('loadMoreBtn'),fileInput=document.getElementById('fileUpload');
+
+  searchInput.addEventListener('input',function(){
+    document.getElementById('unsplashLink').href=this.value.trim()?`https://unsplash.com/s/photos/${encodeURIComponent(this.value.trim())}`:'https://unsplash.com/s/photos/nature';
+  });
+  searchBtn.addEventListener('click',()=>{S.imgPage=Math.floor(Math.random()*80)+1;fetchPhotos(false)});
+  searchInput.addEventListener('keydown',e=>{if(e.key==='Enter'){S.imgPage=Math.floor(Math.random()*80)+1;fetchPhotos(false)}});
+  loadMoreBtn.addEventListener('click',()=>{S.imgPage++;fetchPhotos(true)});
+
+  urlInput.addEventListener('change',function(){if(this.value.trim()){S.imageUrl=this.value.trim();clearBtn.style.display='block';renderCard()}});
+  urlInput.addEventListener('keydown',function(e){if(e.key==='Enter'&&this.value.trim()){S.imageUrl=this.value.trim();clearBtn.style.display='block';renderCard()}});
+
+  clearBtn.addEventListener('click',()=>{S.imageUrl='';urlInput.value='';clearBtn.style.display='none';document.querySelectorAll('.img-thumb').forEach(t=>t.classList.remove('selected'));renderCard()});
+
+  fileInput.addEventListener('change',function(){
+    const file=this.files[0]; if(!file)return;
+    // Basic validation (per report: file size limits, MIME validation)
+    if(!file.type.startsWith('image/')){alert('Please upload an image file.');return}
+    if(file.size>10*1024*1024){alert('Image must be under 10MB.');return}
+    const reader=new FileReader();
+    reader.onload=e=>{S.imageUrl=e.target.result;urlInput.value='[uploaded file]';clearBtn.style.display='block';renderCard()};
+    reader.readAsDataURL(file); this.value='';
+  });
+
+  fetchPhotos(false);
+}
+
+async function fetchPhotos(append){
+  const grid=document.getElementById('imageGrid'),status=document.getElementById('searchStatus'),moreBtn=document.getElementById('loadMoreBtn');
+  status.style.display='block'; if(!append)grid.innerHTML='';
+  try{
+    const resp=await fetch(`https://picsum.photos/v2/list?page=${S.imgPage}&limit=8`);
+    if(!resp.ok)throw new Error(`HTTP ${resp.status}`);
+    const photos=await resp.json(); status.style.display='none';
+    if(!photos.length){grid.innerHTML+='<div style="grid-column:1/-1;text-align:center;padding:1rem;color:var(--text-dim);font-size:.6rem;font-family:\'DM Mono\',monospace">No more photos.</div>';return}
+    photos.forEach(photo=>{
+      const thumb=`https://picsum.photos/id/${photo.id}/300/225`,full=`https://picsum.photos/id/${photo.id}/800/600`;
+      const div=document.createElement('div');div.className='img-thumb';div.dataset.url=full;
+      div.innerHTML=`<img src="${thumb}" alt="${esc(photo.author)}" crossorigin="anonymous" loading="lazy"><div class="img-thumb-author">📷 ${esc(photo.author)}</div>`;
+      div.addEventListener('click',()=>{
+        S.imageUrl=full;document.getElementById('imageUrlInput').value=full;document.getElementById('clearImageBtn').style.display='block';
+        grid.querySelectorAll('.img-thumb').forEach(t=>t.classList.remove('selected'));div.classList.add('selected');renderCard();
+      });
+      grid.appendChild(div);
+    });
+    moreBtn.style.display='block';
+  }catch(err){console.error(err);status.style.display='none';if(!append)grid.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:1rem;color:var(--text-dim);font-size:.6rem;font-family:\'DM Mono\',monospace">Could not load. Paste a URL or upload.</div>'}
+}
+
+// ══════════════════════════════════
+//  THEME
+// ══════════════════════════════════
+function applyTheme(){
+  const t=S.theme,r=document.documentElement.style;
+  r.setProperty('--bg',t.bg);r.setProperty('--card-bg',t.card);r.setProperty('--card-bg-solid',t.bgs);
+  r.setProperty('--accent',t.accent);r.setProperty('--text',t.text);r.setProperty('--sub',t.sub);r.setProperty('--border',t.border);
+  if(t.light){r.setProperty('--panel-bg','rgba(0,0,0,.03)');r.setProperty('--panel-border','rgba(0,0,0,.08)');r.setProperty('--input-bg','rgba(0,0,0,.04)');r.setProperty('--input-border','rgba(0,0,0,.1)');r.setProperty('--text-ui','#2a1a10');r.setProperty('--text-dim','rgba(0,0,0,.4)');r.setProperty('--text-dimmer','rgba(0,0,0,.2)');r.setProperty('--muted','rgba(0,0,0,.3)')}
+  else{r.setProperty('--panel-bg','rgba(255,255,255,.03)');r.setProperty('--panel-border','rgba(255,255,255,.06)');r.setProperty('--input-bg','rgba(255,255,255,.04)');r.setProperty('--input-border','rgba(255,255,255,.08)');r.setProperty('--text-ui','#e8e8ed');r.setProperty('--text-dim','rgba(255,255,255,.35)');r.setProperty('--text-dimmer','rgba(255,255,255,.15)');r.setProperty('--muted','rgba(255,255,255,.3)')}
+  document.body.style.background=t.bg;document.body.style.color=t.light?'#2a1a10':'#e8e8ed';
+  const h1=document.querySelector('.header h1');h1.style.background=`linear-gradient(135deg,${t.text} 0%,${t.sub} 100%)`;h1.style.webkitBackgroundClip='text';h1.style.webkitTextFillColor='transparent';
+  document.querySelectorAll('.header-star').forEach(s=>s.style.color=t.accent);
+}
+
+// ══════════════════════════════════
+//  RENDER CARD
+// ══════════════════════════════════
+function renderCard(){
+  const t=S.theme,el=document.getElementById('cardContent'),card=document.getElementById('cardPreview'),wrap=document.getElementById('exportWrap');
+  card.style.backgroundColor=t.bgs;card.style.backgroundImage=t.card;
+  card.style.boxShadow=t.light?`0 24px 60px rgba(0,0,0,.12),0 0 0 1px ${t.border}`:`0 24px 60px rgba(0,0,0,.55),0 0 0 1px ${t.border}`;
+  wrap.style.background=t.bgs; wrap.style.borderRadius='18px'; wrap.style.padding='6px';
+
+  const bdr=document.getElementById('cardBorder');
+  bdr.className='card-inner-border'+(S.borderStyle==='none'?' style-none':S.borderStyle==='thick'?' style-thick':S.borderStyle==='double'?' style-double':'');
+  bdr.style.borderColor=t.border;
+
+  // Watermark — Carte logo mark
+  document.getElementById('cardWatermark').innerHTML=S.showWatermark?`<svg width="24" height="24" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><circle cx="32" cy="32" r="22" stroke="${t.accent}" stroke-width="1.2" fill="none" opacity=".5"/><text x="32" y="37" text-anchor="middle" font-family="'Instrument Serif',Georgia,serif" font-size="16" fill="${t.accent}" opacity=".5" font-style="italic">C</text></svg>`:'';
+
+  const txt=buildTextHTML(),floats=S.showHearts?buildFloatsHTML():'',hasImg=S.imageUrl&&S.layout.id!=='minimal',bg0=t.bgs;
+  const alignClass=S.textAlign!=='center'?` text-${S.textAlign}`:'';
+  let html='';
+
+  if(S.layout.id==='split'){
+    html='<div class="card-split">';
+    if(S.imageUrl)html+=`<div class="card-split-img"><img src="${esc(S.imageUrl)}" alt="" crossorigin="anonymous"><div class="card-split-fade" style="background:linear-gradient(to left,${bg0},transparent)"></div>${floats}</div>`;
+    html+=`<div class="card-split-text${alignClass}">${txt}</div></div>`;
+  }else if(S.layout.id==='overlay'&&hasImg){
+    html=`<div class="card-image" style="aspect-ratio:5/4"><img src="${esc(S.imageUrl)}" alt="" crossorigin="anonymous"><div class="card-image-fade" style="height:100%;background:linear-gradient(to top,${bg0}ee 0%,${bg0}88 40%,transparent 100%)"></div>${floats}<div class="card-text overlay-text${alignClass}">${txt}</div></div>`;
+  }else if(S.layout.id==='fullbleed'&&hasImg){
+    html=`<div class="card-fullbleed"><img src="${esc(S.imageUrl)}" alt="" crossorigin="anonymous"><div class="card-fullbleed-overlay" style="background:radial-gradient(ellipse at center,${bg0}99 0%,${bg0}dd 100%)"></div>${floats}<div class="card-fullbleed-text${alignClass}">${txt}</div></div>`;
+  }else if(S.layout.id==='framed'&&hasImg){
+    html=`<div class="card-framed"><div class="card-framed-img"><img src="${esc(S.imageUrl)}" alt="" crossorigin="anonymous"><div class="card-framed-img-fade" style="background:linear-gradient(to top,${bg0},transparent)"></div>${floats}</div></div><div class="card-text${alignClass}">${txt}</div>`;
+  }else if(S.layout.id==='classic'&&hasImg){
+    html=`<div class="card-image" style="aspect-ratio:5/4"><img src="${esc(S.imageUrl)}" alt="" crossorigin="anonymous"><div class="card-image-fade" style="height:60px;background:linear-gradient(to top,${bg0},transparent)"></div>${floats}</div><div class="card-text${alignClass}">${txt}</div>`;
+  }else{
+    html=`<div class="card-text minimal-text${alignClass}">${floats}${txt}</div>`;
+  }
+  el.innerHTML=html;
+}
+
+function buildTextHTML(){
+  const t=S.theme;
+  // Parse *accent* and ~italic~
+  let hl=S.headline
+    .replace(/\*([^*]+)\*/g,`<em style="background:linear-gradient(135deg,${t.accent},${t.sub},${t.accent});-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-style:italic">$1</em>`)
+    .replace(/~([^~]+)~/g,`<em style="font-style:italic">$1</em>`)
+    .split('\n').join('<br>');
+
+  const bodyHTML=S.body?`<div class="card-body" style="font-family:${S.bFont.value};color:${t.text};font-size:${S.bodySize}px">${esc(S.body)}</div>`:'';
+  const seal=S.seal.id!=='none'?`<div class="card-seal"><svg width="42" height="42" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><circle cx="32" cy="32" r="27" stroke="${t.accent}" stroke-width="1.1" fill="none" opacity=".4"/><circle cx="32" cy="32" r="23" stroke="${t.accent}" stroke-width=".45" fill="none" opacity=".4"/><text x="32" y="${S.seal.y||36}" text-anchor="middle" fill="${t.accent}" font-family="${S.hFont.value}" font-size="${S.seal.sz||11}" font-style="italic" opacity=".5">${(S.seal.id==='custom'||S.seal.id==='initials')?esc(S.sealText):(S.seal.text||esc(S.sealText))}</text></svg></div>`:'';
+
+  return `<div class="card-ornament"><span class="card-orn-line" style="background:linear-gradient(90deg,transparent,${t.accent}60,transparent)"></span><span class="card-orn-sym" style="color:${t.accent}">${S.occasion.orn}</span><span class="card-orn-line" style="background:linear-gradient(90deg,transparent,${t.accent}60,transparent)"></span></div>
+  <div class="card-headline" style="font-family:${S.hFont.value};color:${t.text};font-size:clamp(18px,5.5vw,${S.headlineSize}px)">${hl}</div>
+  ${bodyHTML}
+  <p class="card-subtitle" style="font-family:${S.bFont.value};color:${t.sub};opacity:.6;font-size:${S.subtitleSize}px"><span class="card-hb" style="color:${t.sub}">${S.occasion.emoji}</span>&ensp;${esc(S.subtitle)}&ensp;<span class="card-hb" style="color:${t.sub}">${S.occasion.emoji}</span></p>${seal}`;
+}
+
+function buildFloatsHTML(){
+  const t=S.theme,pts=[{x:'10%',y:'18%',s:22,o:.35,d:3},{x:'88%',y:'25%',s:16,o:.25,d:3.5},{x:'14%',y:'78%',s:13,o:.18,d:4},{x:'90%',y:'14%',s:18,o:.28,d:4.5},{x:'6%',y:'48%',s:11,o:.16,d:5},{x:'93%',y:'66%',s:14,o:.2,d:5.5}];
+  return `<div class="card-floats">${pts.map((f,i)=>`<span class="card-float" style="left:${f.x};top:${f.y};font-size:${f.s}px;color:${t.sub};opacity:${f.o};animation:float ${f.d}s ease-in-out infinite;animation-delay:${i*.3}s">${S.occasion.emoji}</span>`).join('')}</div>`;
+}
+
+function esc(s){const d=document.createElement('div');d.textContent=s;return d.innerHTML}
+
+// ══════════════════════════════════
+//  SHARE — Lightweight card manifest
+// ══════════════════════════════════
+function cardLink(){
+    const manifest={
+      v:1,
+      t:S.theme.id,
+      o:S.occasion.id,
+      l:S.layout.id,
+      hf:FONTS.indexOf(S.hFont),
+      bf:FONTS.indexOf(S.bFont),
+      hl:S.headline,
+      bd:S.body,
+      st:S.subtitle,
+      sl:S.seal.id,
+      sx:S.sealText,
+      bs:S.borderStyle,
+      ta:S.textAlign,
+      hs:S.headlineSize,
+      im:S.imageUrl.startsWith('data:')?'':S.imageUrl,
+      sh:S.showHearts,
+      wm:S.showWatermark,
+    };
+    if(S.to)manifest.to=S.to;
+    if(S.from)manifest.fr=S.from;
+  const encoded=btoa(encodeURIComponent(JSON.stringify(manifest)));
+  return `${location.origin}${location.pathname}#card=${encoded}`;
+}
+function toast(msg){
+  const t=document.getElementById('shareToast');
+  if(msg)t.textContent=msg;
+  t.classList.add('visible');
+  clearTimeout(toast.tm);toast.tm=setTimeout(()=>t.classList.remove('visible'),2500);
+}
+function copyLink(){
+  const url=cardLink();
+  return navigator.clipboard.writeText(url).then(()=>toast('Link copied — paste it to your friend')).catch(()=>{prompt('Copy this link:',url)});
+}
+function bindShare(){
+  document.getElementById('shareBtn').addEventListener('click',copyLink);
+
+  // Load from share link on page load
+  if(location.hash.startsWith('#card=')){
+    try{
+      const data=JSON.parse(decodeURIComponent(atob(location.hash.slice(6))));
+      if(data.t)S.theme=THEMES.find(t=>t.id===data.t)||S.theme;
+      if(data.o)S.occasion=OCCASIONS.find(o=>o.id===data.o)||S.occasion;
+      if(data.l)S.layout=LAYOUTS.find(l=>l.id===data.l)||S.layout;
+      if(data.hf!=null)S.hFont=FONTS[data.hf]||S.hFont;
+      if(data.bf!=null)S.bFont=FONTS[data.bf]||S.bFont;
+      if(data.hl)S.headline=data.hl;
+      if(data.bd!=null)S.body=data.bd;
+      if(data.st)S.subtitle=data.st;
+      if(data.sl)S.seal=SEALS.find(s=>s.id===data.sl)||S.seal;
+      if(data.sx)S.sealText=data.sx;
+      if(data.bs)S.borderStyle=data.bs;
+      if(data.ta)S.textAlign=data.ta;
+      if(data.hs)S.headlineSize=data.hs;
+      if(data.im)S.imageUrl=data.im;
+      if(data.sh!=null)S.showHearts=data.sh;
+      if(data.wm!=null)S.showWatermark=data.wm;
+      if(data.to)S.to=String(data.to).slice(0,60);
+      if(data.fr)S.from=String(data.fr).slice(0,60);
+      S.received=true;
+      // Update UI fields
+      setTimeout(()=>{
+        document.getElementById('headlineInput').value=S.headline;
+        document.getElementById('bodyInput').value=S.body;
+        document.getElementById('subtitleInput').value=S.subtitle;
+        document.getElementById('headlineSize').value=S.headlineSize;
+        document.getElementById('headlineSizeVal').textContent=S.headlineSize+'px';
+        if(S.imageUrl){document.getElementById('imageUrlInput').value=S.imageUrl;document.getElementById('clearImageBtn').style.display='block';}
+        refreshPanelSelections();applyTheme();renderCard();showReceived();
+      },100);
+    }catch(e){console.warn('Invalid share link',e)}
+  }
+}
+
+// ══════════════════════════════════
+//  SEND — to a friend: a link, mail, a text, or the system share sheet
+// ══════════════════════════════════
+function sendText(){
+  const who=S.from?` from ${S.from}`:'';
+  return `A card for you${who}: ${cardLink()}`;
+}
+function bindSend(){
+  const sheet=document.getElementById('sendSheet');
+  const toI=document.getElementById('toInput'),frI=document.getElementById('fromInput');
+  try{frI.value=S.from||localStorage.getItem('carte.from')||'';S.from=frI.value}catch(e){}
+  const refresh=()=>{
+    const subj=`A card for you${S.from?' from '+S.from:''}`;
+    document.getElementById('mailWay').href=`mailto:?subject=${encodeURIComponent(subj)}&body=${encodeURIComponent(sendText())}`;
+    document.getElementById('smsWay').href=`sms:?&body=${encodeURIComponent(sendText())}`;
+  };
+  const open=()=>{toI.value=S.to;frI.value=S.from;refresh();sheet.classList.add('open');setTimeout(()=>(S.to?frI:toI).focus(),50)};
+  const close=()=>sheet.classList.remove('open');
+  document.getElementById('sendBtn').addEventListener('click',open);
+  document.getElementById('sendClose').addEventListener('click',close);
+  sheet.addEventListener('click',e=>{if(e.target===sheet)close()});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});
+  toI.addEventListener('input',()=>{S.to=toI.value.trim().slice(0,60);refresh()});
+  frI.addEventListener('input',()=>{S.from=frI.value.trim().slice(0,60);try{localStorage.setItem('carte.from',S.from)}catch(e){}refresh()});
+  sheet.querySelectorAll('.send-way[data-way]').forEach(b=>b.addEventListener('click',async()=>{
+    if(b.dataset.way==='copy')return copyLink();
+    if(navigator.share){
+      try{await navigator.share({title:'A card for you',text:sendText().replace(cardLink(),'').trim(),url:cardLink()});return}catch(e){if(e&&e.name==='AbortError')return}
+    }
+    copyLink();
+  }));
+  // the system share button is only useful where the browser has a share sheet
+  if(!navigator.share)sheet.querySelector('.send-way[data-way="share"]').style.display='none';
+
+  // a card that arrived by link
+  document.getElementById('replyBtn').addEventListener('click',()=>{
+    const me=S.to,them=S.from;
+    S.received=false;document.body.classList.remove('received');
+    S.to=them;S.from=me;try{if(me)localStorage.setItem('carte.from',me)}catch(e){}
+    history.replaceState(null,'',location.pathname);
+    document.querySelector('.panel-tab[data-panel="occasion"]').click();
+    window.scrollTo({top:0,behavior:'smooth'});
+    toast(them?`Pick a card for ${them}`:'Pick a card to send back');
+  });
+  document.getElementById('makeOwnBtn').addEventListener('click',()=>{
+    S.received=false;S.to='';S.from='';document.body.classList.remove('received');
+    history.replaceState(null,'',location.pathname);
+    try{S.from=localStorage.getItem('carte.from')||''}catch(e){}
+    window.scrollTo({top:0,behavior:'smooth'});
+  });
+  document.getElementById('saveReceivedBtn').addEventListener('click',()=>document.getElementById('exportBtn').click());
+}
+function showReceived(){
+  if(!S.received)return;
+  const line=document.getElementById('receivedLine');
+  line.textContent='';
+  const add=(t,b)=>{const n=b?document.createElement('b'):document.createTextNode(t);if(b){n.textContent=t}line.appendChild(n)};
+  add('A card for ');add(S.to||'you',!!S.to);
+  if(S.from){add(', from ');add(S.from,true)}
+  document.body.classList.add('received');
+  document.title=`A card${S.from?' from '+S.from:''} · Carte · The Watch`;
+}
+
+// ══════════════════════════════════
+//  EXPORT — solid bg wrapper fix
+// ══════════════════════════════════
+function bindExport(){
+  document.getElementById('exportBtn').addEventListener('click',async function(){
+    const btn=this; btn.textContent='Rendering…'; btn.disabled=true;
+    try{
+      const imgs=[...document.querySelectorAll('#cardPreview img')];
+      await Promise.all(imgs.map(img=>{
+        if(img.complete&&img.naturalWidth>0)return Promise.resolve();
+        return new Promise(r=>{img.onload=r;img.onerror=r;setTimeout(r,4000)});
+      }));
+      if(typeof html2canvas!=='function')throw new Error('html2canvas not loaded');
+
+      const target=document.getElementById('exportWrap');
+
+      const canvas=await html2canvas(target,{
+        scale:2,
+        useCORS:true,
+        allowTaint:true,
+        backgroundColor:S.theme.bgs,
+        logging:false,
+        imageTimeout:8000,
+        onclone:function(clonedDoc){
+          // 1. Inject style to: hide noise overlay, kill ALL animations
+          //    (cloned DOM restarts animations at frame 0 where opacity=0)
+          const fix=clonedDoc.createElement('style');
+          fix.textContent=`
+            body::before { display:none!important; }
+            *, *::before, *::after { animation:none!important; transition:none!important; }
+          `;
+          clonedDoc.head.appendChild(fix);
+
+          // 2. Fix gradient text — html2canvas cannot render
+          //    -webkit-background-clip:text / -webkit-text-fill-color:transparent
+          //    Replace with solid accent color so text is visible in export
+          clonedDoc.querySelectorAll('#cardPreview em').forEach(em=>{
+            const style=em.style;
+            if(style.webkitTextFillColor==='transparent'||style.getPropertyValue('-webkit-text-fill-color')==='transparent'){
+              style.setProperty('-webkit-text-fill-color',S.theme.accent,'important');
+              style.setProperty('color',S.theme.accent,'important');
+              style.setProperty('background','none','important');
+              style.setProperty('-webkit-background-clip','unset','important');
+              style.setProperty('background-clip','unset','important');
+            }
+          });
+
+          // 3. Ensure card & wrapper have explicit solid backgrounds
+          const clonedWrap=clonedDoc.getElementById('exportWrap');
+          if(clonedWrap) clonedWrap.style.background=S.theme.bgs;
+          const clonedCard=clonedDoc.getElementById('cardPreview');
+          if(clonedCard){
+            clonedCard.style.backgroundColor=S.theme.bgs;
+            clonedCard.style.backgroundImage=S.theme.card;
+            clonedCard.style.opacity='1';
+          }
+        }
+      });
+
+      const a=document.createElement('a');a.download=`carte-${Date.now()}.png`;a.href=canvas.toDataURL('image/png');
+      document.body.appendChild(a);a.click();document.body.removeChild(a);
+      btn.textContent='✓ Saved!';setTimeout(()=>{btn.textContent='⤓ PNG';btn.disabled=false},2500);
+    }catch(err){
+      console.error('Export error:',err);
+      btn.textContent='✕ Failed';setTimeout(()=>{btn.textContent='⤓ PNG';btn.disabled=false},3000);
+    }
+  });
+}
+</script>
+</body>
+</html>
