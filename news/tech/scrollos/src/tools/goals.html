@@ -1,0 +1,126 @@
+<!-- @meta {"id":"goals","name":"Goals","scroll":"dream","tagline":"An ambition in, a plan out: milestones, weekly actions and daily habits, re-planned from your real progress.","description":"Goals is ScrollOS's goal planner. Write down an ambition and your own local model breaks it into milestones, weekly actions and daily habits; tick things off and it re-plans from where you really are. Runs in your browser against a model on your machine. Nothing leaves your computer."} -->
+<style>
+.glist{display:flex;flex-direction:column;gap:8px;margin-top:14px}
+.gitem{display:flex;gap:12px;align-items:center;padding:12px 14px;border-radius:12px;border:1px solid var(--rule);background:var(--s2);cursor:pointer;text-align:left;width:100%}
+.gitem[aria-pressed="true"]{border-color:var(--acc)}
+.gitem .t{font:600 14px/1.3 var(--font);flex:1;min-width:0}
+.gitem .t small{display:block;font:500 11px var(--mono);color:var(--ink3);margin-top:2px}
+.ring{width:38px;height:38px;flex:none}
+.ring circle{fill:none;stroke-width:4}
+.ring .bg{stroke:var(--s4)}.ring .fg{stroke:var(--acc);stroke-linecap:round;transform:rotate(-90deg);transform-origin:50% 50%;transition:stroke-dashoffset .4s}
+.ring text{font:600 10px var(--mono);fill:var(--ink2)}
+.ms{border:1px solid var(--rule);border-radius:12px;background:var(--s2);margin-bottom:10px;overflow:hidden}
+.ms header{display:flex;gap:10px;align-items:center;padding:10px 14px;border-bottom:1px solid var(--rule)}
+.ms header b{font:600 14px/1.3 var(--font);flex:1}
+.ms header .w{font:500 11px var(--mono);color:var(--acc);letter-spacing:.06em;text-transform:uppercase}
+.ms ul{list-style:none;padding:6px 8px}
+.ms li{display:flex;gap:10px;align-items:flex-start;padding:6px 6px;border-radius:8px}
+.ms li:hover{background:var(--s3)}
+.ms li input{margin-top:4px;accent-color:var(--acc)}
+.ms li span{flex:1;font-size:14px;line-height:1.45}
+.ms li.done span{color:var(--ink3);text-decoration:line-through}
+.ms li .del{opacity:0;color:var(--ink3);background:none;border:0;font-size:14px}
+.ms li:hover .del{opacity:1}
+.habit{display:flex;gap:10px;align-items:center;padding:8px 10px;border-radius:10px;border:1px solid var(--rule);background:var(--s2);margin-bottom:6px}
+.habit b{display:block;font:600 13px/1.3 var(--font)}
+.habit small{display:block;font:500 10px var(--mono);color:var(--ink3);letter-spacing:.08em;text-transform:uppercase;margin-top:2px}
+.habit .wk{display:flex;gap:3px}
+.habit .wk i{width:12px;height:12px;border-radius:3px;background:var(--s4);display:block}
+.habit .wk i.on{background:var(--acc)}
+.habit .tick{width:30px;height:30px;border-radius:9px;border:1px solid var(--rule2);background:var(--s3);font-size:14px}
+.habit .tick.on{background:var(--acc);color:#0a0a0e;border-color:transparent}
+.summ{font-family:var(--serif);font-size:18px;line-height:1.45;color:var(--ink2);margin:0 0 14px;font-style:italic}
+.summ:empty{display:none}
+.addrow{display:flex;gap:8px;margin-top:10px}
+.addrow input{flex:1}
+</style>
+<main class="wrap">
+  <div class="tiny">Dream · aspiration &amp; planning</div>
+  <h1 class="h1">What do you want to be true a year from now?</h1>
+  <p class="lede">Write it plainly. The model turns it into <b>milestones</b> with dates, the <b>actions</b> that get you there, and the <b>habits</b> that make it stick. Tick things off here; when life drifts, ask it to re-plan from where you really are.</p>
+  <div id="offline"></div>
+  <div class="cols">
+    <section class="card">
+      <h2>New ambition</h2>
+      <div class="field"><label class="f">The ambition</label><input class="inp" id="gTitle" placeholder="Run a half marathon · Launch the newsletter · Get the barn built" maxlength="140"></div>
+      <div class="row" style="margin-bottom:12px">
+        <div style="flex:1;min-width:140px"><label class="f">By when</label><input class="inp" id="gBy" type="month"></div>
+        <div style="flex:2;min-width:180px"><label class="f">Why it matters</label><input class="inp" id="gWhy" placeholder="Optional, but it makes a better plan"></div>
+      </div>
+      <div class="field"><label class="f">What's true today</label><textarea class="ta" id="gNow" style="min-height:70px" placeholder="Where you're starting from, constraints, hours a week you can give it…"></textarea></div>
+      <div class="row"><button type="button" class="btn pri" id="gPlan">Plan it with the model</button><button type="button" class="btn" id="gBlank">Add without a plan</button></div>
+      <div id="gBusy" class="meta" hidden></div>
+      <h2 style="margin-top:22px">Your ambitions</h2>
+      <div class="glist" id="gList"></div>
+      <div class="row" style="margin-top:14px"><button type="button" class="btn ghost sm" id="gExport">Export JSON</button><label class="btn ghost sm">Import<input type="file" id="gImport" accept="application/json" hidden></label></div>
+    </section>
+    <section class="card" id="gDetail"><div class="empty">Pick an ambition on the left, or write a new one.</div></section>
+  </div>
+</main>
+<script>
+const KEY = 'scrollos.goals';
+let S = store.get(KEY, { goals: [], sel: null });
+const save = () => store.set(KEY, S);
+const today = () => new Date().toISOString().slice(0, 10);
+const sel = () => S.goals.find(g => g.id === S.sel);
+const prog = g => { const all = g.milestones.flatMap(m => m.actions), d = all.filter(a => a.done).length; return all.length ? d / all.length : 0; };
+function ring(p) { const r = 15, c = 2 * Math.PI * r; return `<svg class="ring" viewBox="0 0 38 38"><circle class="bg" cx="19" cy="19" r="${r}"/><circle class="fg" cx="19" cy="19" r="${r}" stroke-dasharray="${c}" stroke-dashoffset="${c * (1 - p)}"/><text x="19" y="23" text-anchor="middle">${Math.round(p * 100)}</text></svg>`; }
+function renderList() {
+  const el = $('#gList');
+  el.innerHTML = S.goals.length ? S.goals.map(g => `<button type="button" class="gitem" data-id="${g.id}" aria-pressed="${g.id === S.sel}">${ring(prog(g))}<span class="t">${esc(g.title)}<small>${g.by ? 'by ' + esc(g.by) + ' · ' : ''}${g.milestones.length} milestones · ${g.habits.length} habits</small></span></button>`).join('') : `<div class="empty">Nothing yet. Your first ambition goes above.</div>`;
+  $$('.gitem', el).forEach(b => b.onclick = () => { S.sel = b.dataset.id; save(); render(); });
+}
+function renderDetail() {
+  const g = sel(), el = $('#gDetail');
+  if (!g) { el.innerHTML = `<div class="empty">Pick an ambition on the left, or write a new one.</div>`; return; }
+  const wk = (h) => { const out = []; for (let i = 6; i >= 0; i--) { const d = new Date(); d.setDate(d.getDate() - i); const k = d.toISOString().slice(0, 10); out.push(`<i class="${h.log && h.log[k] ? 'on' : ''}" title="${k}"></i>`); } return out.join(''); };
+  el.innerHTML = `<div class="row" style="align-items:flex-start"><div style="flex:1;min-width:0"><div class="tiny">${g.by ? 'by ' + esc(g.by) : 'open-ended'} · ${Math.round(prog(g) * 100)}% done</div><h2 class="h1" style="font-size:1.6rem;text-transform:none;letter-spacing:-.02em;color:var(--ink);margin-bottom:8px">${esc(g.title)}</h2></div>${ring(prog(g))}</div>
+    <p class="summ">${esc(g.summary || '')}</p>
+    ${g.why ? `<p class="note" style="margin-bottom:12px"><b style="color:var(--ink2)">Why:</b> ${esc(g.why)}</p>` : ''}
+    <div class="row" style="margin-bottom:14px"><button type="button" class="btn pri sm" id="dReplan">Re-plan from where I am</button><button type="button" class="btn sm" id="dAddMs">+ Milestone</button><button type="button" class="btn sm" id="dAddHabit">+ Habit</button><span class="sp"></span><button type="button" class="btn ghost sm" id="dCopy">Copy as text</button><button type="button" class="btn ghost sm danger" id="dDel">Delete</button></div>
+    <div id="dBusy" class="meta" hidden></div>
+    <h3 style="margin-top:6px">Milestones</h3>
+    ${g.milestones.map(m => `<div class="ms" data-m="${m.id}"><header><b>${esc(m.title)}</b><span class="w">${esc(m.when || '')}</span><button type="button" class="btn ghost sm" data-delms="${m.id}" title="Remove milestone">✕</button></header>
+      <ul>${m.actions.map(a => `<li class="${a.done ? 'done' : ''}"><input type="checkbox" ${a.done ? 'checked' : ''} data-a="${a.id}"><span>${esc(a.text)}</span><button type="button" class="del" data-dela="${a.id}" title="Remove">✕</button></li>`).join('')}</ul>
+      <div class="addrow" style="padding:0 8px 8px"><input class="inp" placeholder="Add an action…" data-newa="${m.id}"></div></div>`).join('') || `<p class="note">No milestones yet. Add one, or re-plan.</p>`}
+    <h3 style="margin-top:16px">Habits</h3>
+    ${g.habits.map(h => `<div class="habit"><div style="flex:1;min-width:0"><b>${esc(h.title)}</b><small>${esc(h.cadence || 'daily')}</small></div><div class="wk">${wk(h)}</div><button type="button" class="tick ${h.log && h.log[today()] ? 'on' : ''}" data-h="${h.id}" title="Done today">✓</button><button type="button" class="btn ghost sm" data-delh="${h.id}" title="Remove">✕</button></div>`).join('') || `<p class="note">No habits yet.</p>`}`;
+  $$('[data-a]', el).forEach(c => c.onchange = () => { for (const m of g.milestones) for (const a of m.actions) if (a.id === c.dataset.a) a.done = c.checked; save(); render(); });
+  $$('[data-dela]', el).forEach(b => b.onclick = () => { for (const m of g.milestones) m.actions = m.actions.filter(a => a.id !== b.dataset.dela); save(); render(); });
+  $$('[data-delms]', el).forEach(b => b.onclick = () => { if (confirm('Remove this milestone?')) { g.milestones = g.milestones.filter(m => m.id !== b.dataset.delms); save(); render(); } });
+  $$('[data-newa]', el).forEach(i => i.onkeydown = e => { if (e.key === 'Enter' && i.value.trim()) { g.milestones.find(m => m.id === i.dataset.newa).actions.push({ id: uid(), text: i.value.trim(), done: false }); save(); render(); } });
+  $$('[data-h]', el).forEach(b => b.onclick = () => { const h = g.habits.find(x => x.id === b.dataset.h); h.log = h.log || {}; if (h.log[today()]) delete h.log[today()]; else h.log[today()] = true; save(); render(); });
+  $$('[data-delh]', el).forEach(b => b.onclick = () => { g.habits = g.habits.filter(h => h.id !== b.dataset.delh); save(); render(); });
+  $('#dAddMs').onclick = () => { const t = prompt('Milestone'); if (!t) return; const w = prompt('When? (e.g. 2027-03, or "week 4")') || ''; g.milestones.push({ id: uid(), title: t, when: w, actions: [] }); save(); render(); };
+  $('#dAddHabit').onclick = () => { const t = prompt('Habit'); if (!t) return; g.habits.push({ id: uid(), title: t, cadence: prompt('How often? (daily, 3× a week…)') || 'daily', log: {} }); save(); render(); };
+  $('#dDel').onclick = () => { if (confirm('Delete this ambition and its plan?')) { S.goals = S.goals.filter(x => x.id !== g.id); S.sel = S.goals[0] ? S.goals[0].id : null; save(); render(); } };
+  $('#dCopy').onclick = () => copyText(asText(g));
+  $('#dReplan').onclick = () => plan(g, true);
+}
+function asText(g) { return `# ${g.title}${g.by ? ' (by ' + g.by + ')' : ''}\n${g.summary ? g.summary + '\n' : ''}${g.why ? 'Why: ' + g.why + '\n' : ''}\n` + g.milestones.map(m => `## ${m.title}${m.when ? ' — ' + m.when : ''}\n` + m.actions.map(a => `- [${a.done ? 'x' : ' '}] ${a.text}`).join('\n')).join('\n\n') + '\n\n## Habits\n' + g.habits.map(h => `- ${h.title} (${h.cadence})`).join('\n'); }
+function render() { renderList(); renderDetail(); }
+function newGoal() { const title = $('#gTitle').value.trim(); if (!title) { toast('Give the ambition a name'); $('#gTitle').focus(); return null; } const g = { id: uid(), title, by: $('#gBy').value, why: $('#gWhy').value.trim(), now: $('#gNow').value.trim(), summary: '', milestones: [], habits: [], created: today() }; S.goals.unshift(g); S.sel = g.id; save(); $('#gTitle').value = ''; $('#gWhy').value = ''; $('#gNow').value = ''; return g; }
+async function plan(g, replan) {
+  if (!SOS.require()) return;
+  const busy = replan ? $('#dBusy') : $('#gBusy'); busy.hidden = false; busy.innerHTML = 'Drafting the plan…';
+  const state = replan ? `\n\nThe plan so far and what is done (keep what works, drop what didn't, add what's missing; today is ${today()}):\n${asText(g)}` : '';
+  const user = `Ambition: ${g.title}\nDeadline: ${g.by || 'none given — suggest one'}\nWhy it matters: ${g.why || '—'}\nWhere I am today: ${g.now || '—'}\nToday's date: ${today()}${state}\n\nReturn ONLY JSON of this shape: {"summary": "two sentences: the plan in plain words", "by": "YYYY-MM", "milestones": [{"title": "…", "when": "YYYY-MM or a short label", "actions": ["concrete action", "…"]}], "habits": [{"title": "…", "cadence": "daily | 3× a week | weekly"}]}. 3–6 milestones in time order, 2–5 specific actions each, 2–4 habits. Concrete, measurable, no filler.`;
+  try {
+    const r = await SOS.chat({ messages: [{ role: 'user', content: user }], json: true, temperature: 0.5, onToken: t => { busy.innerHTML = `Drafting the plan… <b>${t.length}</b> characters`; } });
+    const j = parseJSONLoose(r.text);
+    if (!j || !Array.isArray(j.milestones)) { busy.innerHTML = 'The model answered, but not in a shape I could read. Try once more, or lower the temperature in Settings.'; return; }
+    g.summary = j.summary || g.summary; if (!g.by && j.by) g.by = String(j.by).slice(0, 7);
+    g.milestones = j.milestones.map(m => ({ id: uid(), title: String(m.title || 'Milestone'), when: String(m.when || ''), actions: (m.actions || []).map(a => { const t = typeof a === 'string' ? a : (a.text || a.title || ''); const old = g.milestones.flatMap(x => x.actions).find(x => x.text === t); return { id: uid(), text: t, done: !!(old && old.done) }; }) }));
+    g.habits = (j.habits || []).map(h => { const t = typeof h === 'string' ? h : (h.title || ''); const old = g.habits.find(x => x.title === t); return { id: uid(), title: t, cadence: (h && h.cadence) || 'daily', log: old ? old.log : {} }; });
+    save(); render(); busy.hidden = true; toast(replan ? 'Re-planned' : 'Planned'); const b = $('#dBusy'); if (b) { b.hidden = false; b.innerHTML = statsLine(r.stats); }
+  } catch (e) { busy.innerHTML = esc(SOS.lastError || e.message); }
+}
+mountChrome();
+$('#offline').innerHTML = offlineBanner('You can still add ambitions, milestones and habits by hand and tick them off; the model writes and re-plans them.');
+$('#gPlan').onclick = () => { const g = newGoal(); if (g) { render(); plan(g, false); } };
+$('#gBlank').onclick = () => { if (newGoal()) render(); };
+$('#gExport').onclick = () => download('scrollos-goals.json', JSON.stringify(S, null, 2), 'application/json');
+$('#gImport').onchange = e => { const f = e.target.files[0]; if (!f) return; f.text().then(t => { const j = JSON.parse(t); if (j && Array.isArray(j.goals)) { S = j; save(); render(); toast('Imported'); } else toast('Not a Goals file'); }).catch(() => toast('Could not read that file')); };
+const q = hashParam('q'); if (q) { $('#gTitle').value = q; if (hashParam('go')) SOS.whenReady(() => { const g = newGoal(); if (g) { render(); plan(g, false); } }); }
+render();
+</script>

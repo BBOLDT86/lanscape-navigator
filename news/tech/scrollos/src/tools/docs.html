@@ -1,0 +1,125 @@
+<!-- @meta {"id":"docs","name":"Docs","scroll":"produce","tagline":"A writing surface with a co-writer that has read the whole document: continue, rewrite, tighten, expand, summarize.","description":"Docs is ScrollOS's writing tool. A plain, fast editor with a co-writer beside it: continue the draft, rewrite a passage in another tone, tighten, expand, summarize or fix grammar — with the whole document in the model's context. Your own local model; your documents stay in this browser and export as Markdown or text."} -->
+<style>
+.docs-layout{display:grid;grid-template-columns:220px minmax(0,1fr) 340px;gap:14px;align-items:start}
+@media (max-width:1100px){.docs-layout{grid-template-columns:minmax(0,1fr) 340px}.dlist{grid-column:1/-1;display:flex;gap:6px;overflow:auto;padding-bottom:4px}.dlist .di{flex:none;min-width:150px}}
+@media (max-width:760px){.docs-layout{grid-template-columns:1fr}}
+.dlist{display:flex;flex-direction:column;gap:6px}
+.di{display:flex;gap:8px;align-items:center;text-align:left;padding:10px 12px;border-radius:10px;border:1px solid var(--rule);background:var(--s2);cursor:pointer}
+.di[aria-pressed="true"]{border-color:var(--acc)}
+.di b{display:block;font:600 13px/1.3 var(--font);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.di small{display:block;font:500 10px var(--mono);color:var(--ink3);margin-top:2px}
+.ed{background:var(--s1);border:1px solid var(--rule);border-radius:16px;overflow:hidden}
+.ed .bar{display:flex;gap:6px;align-items:center;padding:8px 10px;border-bottom:1px solid var(--rule);flex-wrap:wrap}
+.ed .bar input{background:none;border:0;outline:none;font:600 15px var(--font);color:var(--ink);flex:1;min-width:120px}
+.ed textarea{width:100%;min-height:62vh;border:0;outline:none;background:transparent;resize:vertical;padding:22px 26px;font:16px/1.7 var(--font);color:var(--ink);letter-spacing:.005em}
+.ed textarea.mono{font:14px/1.65 var(--mono)}
+.ed textarea.serif{font:18px/1.7 var(--serif)}
+.ed .foot{border:0;border-top:1px solid var(--rule);text-align:left;padding:8px 14px;display:flex;gap:14px;text-transform:none;letter-spacing:0;font:500 11px var(--mono);color:var(--ink3)}
+.prev{padding:22px 26px;min-height:62vh;font-size:16px;line-height:1.7}
+.prev h1,.prev h2,.prev h3{font-family:var(--serif);font-weight:400;margin:18px 0 8px;line-height:1.2}
+.prev h1{font-size:2rem}.prev h2{font-size:1.5rem}.prev h3{font-size:1.2rem}
+.prev p{margin:0 0 12px}.prev ul,.prev ol{margin:0 0 12px 22px}.prev blockquote{border-left:2px solid var(--acc);padding:2px 14px;color:var(--ink2)}
+.prev code{background:var(--s3);padding:1px 5px;border-radius:4px;font-size:.9em}.prev pre{background:var(--s2);padding:12px;border-radius:10px;overflow:auto}
+.acts{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.acts button{padding:9px 10px;border-radius:10px;border:1px solid var(--rule2);background:var(--s2);font:600 12px var(--font);text-align:left}
+.acts button:hover{border-color:var(--acc)}
+.acts button small{display:block;font:400 10px/1.3 var(--font);color:var(--ink3);margin-top:2px}
+.asst{position:sticky;top:64px}
+.asst .out{font-size:14px;max-height:50vh;overflow:auto}
+.scope{font:500 11px var(--mono);color:var(--ink3);margin:8px 0}
+.scope b{color:var(--acc);font-weight:500}
+</style>
+<main class="wrap" style="max-width:1400px">
+  <div class="tiny">Produce · work &amp; execution</div>
+  <h1 class="h1">Write. Then ask for a hand.</h1>
+  <p class="lede">A plain editor and a co-writer that reads the <b>whole document</b>, not the last paragraph. Select a passage and say what you want: tighter, warmer, longer, in order. Nothing is sent anywhere; the drafts live in this browser until you export them.</p>
+  <div id="offline"></div>
+  <div class="docs-layout">
+    <aside class="dlist" id="dlist"></aside>
+    <section class="ed">
+      <div class="bar"><input id="dTitle" placeholder="Untitled"><div class="seg"><button type="button" data-font="sans" aria-pressed="true">Aa</button><button type="button" data-font="serif">𝐴𝑎</button><button type="button" data-font="mono">Aa</button></div><button type="button" class="btn ghost sm" id="dPrev">Preview</button><button type="button" class="btn ghost sm" id="dNew">+ New</button><button type="button" class="btn ghost sm" id="dExport">Export</button><button type="button" class="btn ghost sm danger" id="dDel">Delete</button></div>
+      <textarea id="ta" spellcheck="true" placeholder="Start writing. Markdown works: # headings, **bold**, - lists."></textarea>
+      <div class="prev" id="prev" hidden></div>
+      <div class="foot"><span id="wc">0 words</span><span id="rt"></span><span class="sp"></span><span id="saved">saved</span></div>
+    </section>
+    <aside class="card asst">
+      <h2>Co-writer</h2>
+      <div class="scope" id="scope">Working on: <b>the whole document</b></div>
+      <div class="acts">
+        <button type="button" data-act="continue">Continue<small>Pick up where the text ends</small></button>
+        <button type="button" data-act="tighten">Tighten<small>Same meaning, fewer words</small></button>
+        <button type="button" data-act="expand">Expand<small>Develop it, add specifics</small></button>
+        <button type="button" data-act="clearer">Make it clearer<small>Plain words, short sentences</small></button>
+        <button type="button" data-act="warmer">Warmer<small>Human, less stiff</small></button>
+        <button type="button" data-act="formal">More formal<small>For the record</small></button>
+        <button type="button" data-act="grammar">Fix grammar<small>Only what's wrong</small></button>
+        <button type="button" data-act="summary">Summarize<small>The gist, five lines</small></button>
+        <button type="button" data-act="outline">Outline<small>Headings for what's here</small></button>
+        <button type="button" data-act="title">Title ideas<small>Five headlines</small></button>
+      </div>
+      <div class="row" style="margin-top:10px"><input class="inp" id="ask" placeholder="Or ask anything about the text…"><button type="button" class="btn sm" id="askGo">Ask</button></div>
+      <div class="out" id="out" style="margin-top:12px" data-empty="The result lands here. Replace the selection, insert it, or copy it."></div>
+      <div class="row" style="margin-top:10px"><button type="button" class="btn pri sm" id="rReplace" disabled>Replace selection</button><button type="button" class="btn sm" id="rInsert" disabled>Insert at cursor</button><button type="button" class="btn ghost sm" id="rCopy" disabled>Copy</button><button type="button" class="btn ghost sm" id="rStop" hidden>Stop</button></div>
+      <div class="meta" id="stats"></div>
+    </aside>
+  </div>
+</main>
+<script>
+const KEY = 'scrollos.docs';
+let S = store.get(KEY, { docs: [], sel: null, font: 'sans' });
+if (!S.docs.length) { S.docs.push({ id: uid(), title: 'Welcome', text: '# Welcome to Docs\n\nThis is a plain editor with a co-writer beside it. Select any sentence and press **Tighten**, or put the cursor at the end and press **Continue**.\n\nEverything you write stays in this browser. Export to Markdown when you want it elsewhere.', at: Date.now() }); S.sel = S.docs[0].id; }
+if (!S.sel) S.sel = S.docs[0].id;
+const save = () => { store.set(KEY, S); $('#saved').textContent = 'saved ' + new Date().toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }); };
+const doc = () => S.docs.find(d => d.id === S.sel) || S.docs[0];
+let result = '', selRange = null;
+const ta = $('#ta');
+function renderList() { $('#dlist').innerHTML = S.docs.sort((a, b) => b.at - a.at).map(d => `<button type="button" class="di" data-id="${d.id}" aria-pressed="${d.id === S.sel}"><span style="min-width:0;flex:1"><b>${esc(d.title || 'Untitled')}</b><small>${d.text.split(/\s+/).filter(Boolean).length} words · ${new Date(d.at).toLocaleDateString()}</small></span></button>`).join(''); $$('.di').forEach(b => b.onclick = () => { S.sel = b.dataset.id; save(); open(); }); }
+function open() { const d = doc(); $('#dTitle').value = d.title; ta.value = d.text; count(); renderList(); ta.className = S.font === 'sans' ? '' : S.font; $$('[data-font]').forEach(b => b.setAttribute('aria-pressed', b.dataset.font === S.font)); if (!$('#prev').hidden) preview(); }
+function count() { const w = ta.value.trim().split(/\s+/).filter(Boolean).length; $('#wc').textContent = `${w.toLocaleString()} words · ${ta.value.length.toLocaleString()} chars`; $('#rt').textContent = w ? `~${Math.max(1, Math.round(w / 230))} min read` : ''; }
+let tm; ta.oninput = () => { count(); clearTimeout(tm); tm = setTimeout(() => { const d = doc(); d.text = ta.value; d.at = Date.now(); if (!d.title && ta.value.trim()) d.title = (ta.value.match(/^#\s*(.+)/m) || [0, ta.value.trim().split('\n')[0]])[1].slice(0, 60); $('#dTitle').value = d.title; save(); renderList(); }, 400); };
+$('#dTitle').oninput = () => { doc().title = $('#dTitle').value; save(); renderList(); };
+function preview() { $('#prev').innerHTML = md(ta.value); }
+$('#dPrev').onclick = () => { const p = $('#prev'); p.hidden = !p.hidden; ta.hidden = !p.hidden; $('#dPrev').textContent = p.hidden ? 'Preview' : 'Edit'; if (!p.hidden) preview(); };
+$('#dNew').onclick = () => { const d = { id: uid(), title: '', text: '', at: Date.now() }; S.docs.unshift(d); S.sel = d.id; save(); open(); ta.focus(); };
+$('#dDel').onclick = () => { if (S.docs.length === 1) { toast('Keep one document'); return; } if (confirm('Delete this document?')) { S.docs = S.docs.filter(d => d.id !== S.sel); S.sel = S.docs[0].id; save(); open(); } };
+$('#dExport').onclick = () => { const d = doc(); download((d.title || 'document').replace(/[^\w-]+/g, '_') + '.md', d.text, 'text/markdown'); };
+$$('[data-font]').forEach(b => b.onclick = () => { S.font = b.dataset.font; save(); open(); });
+function scope() { const s = ta.selectionStart, e = ta.selectionEnd; if (e > s) { selRange = [s, e]; $('#scope').innerHTML = `Working on: <b>${ta.value.slice(s, e).trim().split(/\s+/).length} selected words</b>`; } else { selRange = null; $('#scope').innerHTML = 'Working on: <b>the whole document</b>'; } }
+ta.addEventListener('select', scope); ta.addEventListener('keyup', scope); ta.addEventListener('mouseup', scope);
+const ACTS = {
+  continue: s => s ? `Continue writing from the end of the selected passage, in the same voice and register. Write 1–3 paragraphs that follow naturally. Return only the new text.` : `Continue the document from where it ends, in the same voice and register. Write 1–3 paragraphs. Return only the new text.`,
+  tighten: () => 'Rewrite the passage with the same meaning in fewer words. Cut hedges, repetition and throat-clearing. Keep the author\'s voice and any facts, names and numbers. Return only the rewritten passage.',
+  expand: () => 'Develop the passage: add specifics, examples or a step the reader needs, in the same voice. Do not pad. Return only the expanded passage.',
+  clearer: () => 'Rewrite the passage so a smart reader gets it on the first pass: plain words, short sentences, one idea per sentence, concrete nouns. Keep every fact. Return only the rewrite.',
+  warmer: () => 'Rewrite the passage so it sounds like a person talking to a person: warmer, less stiff, still professional. Keep every fact. Return only the rewrite.',
+  formal: () => 'Rewrite the passage in a formal register suitable for a record or a client: complete sentences, no slang, no contractions, precise. Keep every fact. Return only the rewrite.',
+  grammar: () => 'Correct only grammar, spelling and punctuation in the passage. Change nothing else — not the wording, not the tone, not the structure. Return only the corrected passage.',
+  summary: () => 'Summarize the passage in five short lines a busy reader could act on. Return only the summary.',
+  outline: () => 'Write an outline of the passage as Markdown headings and one-line bullets: what is argued, in what order, with gaps noted in brackets. Return only the outline.',
+  title: () => 'Suggest five titles for this text: two plain and descriptive, two with some spark, one very short. One per line, no numbering, no commentary.'
+};
+const REPLACEABLE = new Set(['tighten', 'expand', 'clearer', 'warmer', 'formal', 'grammar']);
+async function run(instr, replaceable) {
+  if (!SOS.require()) return;
+  const full = ta.value, sel = selRange ? full.slice(selRange[0], selRange[1]) : '';
+  const passage = sel || full; if (!passage.trim()) { toast('Nothing to work on yet'); return; }
+  const ctxChars = Math.floor(SOS.cfg.ctx * 3.2), docPart = full.length > ctxChars ? full.slice(0, ctxChars) + '\n…[document truncated to fit the context window; raise it in Settings]' : full;
+  const user = sel ? `<document>\n${docPart}\n</document>\n\nThe passage I'm working on is this part of the document:\n<passage>\n${sel}\n</passage>\n\n${instr}` : `<document>\n${docPart}\n</document>\n\nThe passage is the whole document.\n\n${instr}`;
+  const o = $('#out'); o.innerHTML = ''; o.classList.add('live'); $('#rStop').hidden = false; $('#stats').textContent = ''; ['#rReplace', '#rInsert', '#rCopy'].forEach(s => $(s).disabled = true);
+  try { const r = await SOS.chat({ messages: [{ role: 'user', content: user }], temperature: 0.5, onToken: t => { o.innerHTML = md(t); } }); result = r.text.trim().replace(/^```[a-z]*\n|\n```$/g, ''); o.classList.remove('live'); o.innerHTML = md(result); $('#stats').innerHTML = statsLine(r.stats); $('#rCopy').disabled = false; $('#rInsert').disabled = false; $('#rReplace').disabled = !(replaceable && sel); }
+  catch (e) { o.classList.remove('live'); o.innerHTML = `<p class="note">${esc(SOS.lastError || e.message)}</p>`; }
+  $('#rStop').hidden = true;
+}
+$$('[data-act]').forEach(b => b.onclick = () => run(ACTS[b.dataset.act](!!selRange), REPLACEABLE.has(b.dataset.act)));
+$('#askGo').onclick = () => { const q = $('#ask').value.trim(); if (q) run(q + '\n\nAnswer about the passage above; if you are asked to rewrite, return only the rewrite.', true); };
+$('#ask').onkeydown = e => { if (e.key === 'Enter') $('#askGo').click(); };
+$('#rReplace').onclick = () => { if (!selRange) return; const [s, e] = selRange; ta.setRangeText(result, s, e, 'select'); ta.dispatchEvent(new Event('input')); scope(); toast('Replaced'); };
+$('#rInsert').onclick = () => { const p = ta.selectionEnd || ta.value.length; const sep = ta.value.slice(0, p).endsWith('\n') || !p ? '' : '\n\n'; ta.setRangeText(sep + result, p, p, 'end'); ta.dispatchEvent(new Event('input')); ta.focus(); toast('Inserted'); };
+$('#rCopy').onclick = () => copyText(result);
+$('#rStop').onclick = () => SOS.stop();
+document.addEventListener('keydown', e => { if ((e.metaKey || e.ctrlKey) && e.key === 's') { e.preventDefault(); save(); toast('Saved (it autosaves anyway)'); } });
+mountChrome();
+$('#offline').innerHTML = offlineBanner('The editor works on its own; the co-writer needs the model.');
+const q = hashParam('q'); if (q) { const d = { id: uid(), title: '', text: q, at: Date.now() }; S.docs.unshift(d); S.sel = d.id; save(); }
+open(); scope();
+</script>

@@ -1,0 +1,91 @@
+<!-- @meta {"id":"meals","name":"Meals","scroll":"unwind","tagline":"What's in the fridge, how long you've got, who's eating — and dinner writes itself, with a pairing.","description":"Meals is ScrollOS's dinner tool. Tell it what's in the fridge, how long you have, who's eating and what you're in the mood for; your own local model writes a recipe with timings, what to buy and a pairing. Save the keepers to a cookbook in your browser. Nothing leaves your machine."} -->
+<style>
+.ing{display:flex;flex-wrap:wrap;gap:6px;min-height:40px;padding:8px;border:1px solid var(--rule2);border-radius:10px;background:var(--s2)}
+.ing input{flex:1;min-width:140px;background:none;border:0;outline:none;font-size:14px;padding:4px}
+.quick{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.quick button{font-size:12px;padding:4px 9px;border-radius:100px;border:1px dashed var(--rule2);background:none;color:var(--ink3)}
+.quick button:hover{color:var(--ink);border-color:var(--acc)}
+.recipe{position:relative}
+.recipe .out{font-size:15px}
+.recipe .out h1{font-size:1.9rem;margin-top:0}
+.recipe .out h2{font-size:1.2rem;color:var(--acc)}
+.cook{display:flex;flex-direction:column;gap:6px;margin-top:10px}
+.cook button{display:flex;gap:10px;align-items:center;text-align:left;padding:10px 12px;border-radius:10px;border:1px solid var(--rule);background:var(--s2);font-size:13px}
+.cook button b{flex:1;font:600 14px/1.3 var(--font)}
+.cook button small{font:500 10px var(--mono);color:var(--ink3);white-space:nowrap}
+.cook button .x{color:var(--ink3);padding:2px 6px}
+.cook button .x:hover{color:var(--red)}
+.sl{display:flex;flex-direction:column;gap:4px;margin-top:8px}
+.sl label{display:flex;gap:10px;align-items:center;font-size:14px;padding:6px 8px;border-radius:8px;background:var(--s2)}
+.sl label input{accent-color:var(--acc)}
+.sl label.on span{text-decoration:line-through;color:var(--ink3)}
+</style>
+<main class="wrap">
+  <div class="tiny">Unwind · leisure &amp; play</div>
+  <h1 class="h1">What's for dinner?</h1>
+  <p class="lede">Name what you've got and how long you've got. The model writes <b>one dinner</b>, not twenty links: ingredients split into what you have and what to buy, steps with the clock on them, how to plate it, what to pour.</p>
+  <div id="offline"></div>
+  <div class="cols">
+    <section class="card">
+      <h2>Tonight</h2>
+      <div class="field"><label class="f">In the fridge &amp; pantry</label><div class="ing" id="ing"><input id="ingIn" placeholder="Type an ingredient, press Enter"></div>
+        <div class="quick" id="quick"></div></div>
+      <div class="row" style="margin-bottom:12px">
+        <div><label class="f">Time</label><div class="seg" id="mTime"><button type="button" data-v="20">20 min</button><button type="button" data-v="35" aria-pressed="true">35 min</button><button type="button" data-v="60">1 hour</button><button type="button" data-v="120">Slow</button></div></div>
+        <div><label class="f">Serves</label><div class="seg" id="mServes"><button type="button" data-v="1">1</button><button type="button" data-v="2" aria-pressed="true">2</button><button type="button" data-v="4">4</button><button type="button" data-v="6">6+</button></div></div>
+      </div>
+      <div class="field"><label class="f">Mood</label><div class="row" id="mMood"><button type="button" class="chip" data-v="comfort">Comfort</button><button type="button" class="chip" data-v="light">Light</button><button type="button" class="chip" data-v="fancy">Date night</button><button type="button" class="chip" data-v="quick">Get it done</button><button type="button" class="chip" data-v="kids">Kids will eat it</button><button type="button" class="chip" data-v="leftovers">Good leftovers</button></div></div>
+      <div class="field"><label class="f">Diet</label><div class="row" id="mDiet"><button type="button" class="chip" data-v="vegetarian">Vegetarian</button><button type="button" class="chip" data-v="vegan">Vegan</button><button type="button" class="chip" data-v="gluten-free">Gluten-free</button><button type="button" class="chip" data-v="dairy-free">Dairy-free</button><button type="button" class="chip" data-v="low-carb">Low-carb</button><button type="button" class="chip" data-v="high-protein">High-protein</button></div></div>
+      <div class="field"><label class="f">Gear</label><div class="row" id="mGear"><button type="button" class="chip" data-v="oven" aria-pressed="true">Oven</button><button type="button" class="chip" data-v="stovetop" aria-pressed="true">Stovetop</button><button type="button" class="chip" data-v="grill">Grill</button><button type="button" class="chip" data-v="air fryer">Air fryer</button><button type="button" class="chip" data-v="slow cooker">Slow cooker</button><button type="button" class="chip" data-v="cast iron">Cast iron</button><button type="button" class="chip" data-v="sous vide">Sous vide</button></div></div>
+      <div class="field"><label class="f">Anything else</label><input class="inp" id="mNote" placeholder="No cilantro · something Italian · use up the kale · I have 20 minutes of hands-on time max"></div>
+      <div class="row"><button type="button" class="btn pri" id="mCook">Cook something</button><button type="button" class="btn" id="mAgain" disabled>Another idea</button><button type="button" class="btn ghost" id="mStop" hidden>Stop</button></div>
+      <h2 style="margin-top:22px">Cookbook</h2>
+      <div class="cook" id="cook"></div>
+      <div class="row" style="margin-top:12px"><button type="button" class="btn ghost sm" id="xJson">Export</button><label class="btn ghost sm">Import<input type="file" id="xImp" accept="application/json" hidden></label></div>
+    </section>
+    <section class="card recipe">
+      <div class="row" style="margin-bottom:10px"><h2 style="margin:0">The recipe</h2><span class="sp"></span><button type="button" class="btn sm" id="rSave" disabled>Save to cookbook</button><button type="button" class="btn ghost sm" id="rCopy" disabled>Copy</button><button type="button" class="btn ghost sm" id="rList" disabled>Shopping list</button></div>
+      <div class="out" id="out" data-empty="Tell me what's in the fridge and I'll write tonight's dinner."></div>
+      <div class="meta" id="stats"></div>
+      <div id="shop" hidden><h3 style="margin-top:16px">To buy</h3><div class="sl" id="sl"></div></div>
+    </section>
+  </div>
+</main>
+<script>
+const KEY = 'scrollos.meals';
+let S = store.get(KEY, { ing: ['chicken thighs', 'lemon', 'garlic', 'rice'], book: [] });
+const save = () => store.set(KEY, S);
+let last = null, seen = [];
+const QUICK = ['chicken thighs', 'ground beef', 'salmon', 'eggs', 'tofu', 'shrimp', 'pasta', 'rice', 'potatoes', 'onion', 'garlic', 'lemon', 'spinach', 'kale', 'tomatoes', 'bell pepper', 'mushrooms', 'cheddar', 'parmesan', 'yogurt', 'black beans', 'chickpeas', 'tortillas', 'bread'];
+function renderIng() { const box = $('#ing'), inp = $('#ingIn'); $$('.chip', box).forEach(c => c.remove()); S.ing.forEach((x, i) => { const c = document.createElement('span'); c.className = 'chip on'; c.innerHTML = `${esc(x)}<button type="button" class="x" aria-label="Remove">✕</button>`; $('.x', c).onclick = () => { S.ing.splice(i, 1); save(); renderIng(); }; box.insertBefore(c, inp); }); $('#quick').innerHTML = QUICK.filter(q => !S.ing.includes(q)).slice(0, 14).map(q => `<button type="button" data-q="${esc(q)}">+ ${esc(q)}</button>`).join(''); $$('#quick button').forEach(b => b.onclick = () => { S.ing.push(b.dataset.q); save(); renderIng(); }); }
+$('#ingIn').onkeydown = e => { if (e.key === 'Enter' || e.key === ',') { e.preventDefault(); const v = e.target.value.trim().replace(/,$/, ''); if (v) { v.split(',').map(s => s.trim()).filter(Boolean).forEach(x => { if (!S.ing.includes(x)) S.ing.push(x); }); save(); renderIng(); } e.target.value = ''; } else if (e.key === 'Backspace' && !e.target.value && S.ing.length) { S.ing.pop(); save(); renderIng(); } };
+$$('.seg').forEach(s => s.onclick = e => { const b = e.target.closest('button'); if (!b) return; $$('button', s).forEach(x => x.setAttribute('aria-pressed', x === b)); });
+$$('#mMood .chip,#mDiet .chip,#mGear .chip').forEach(c => c.onclick = () => c.setAttribute('aria-pressed', c.getAttribute('aria-pressed') !== 'true'));
+const segVal = id => $(`#${id} [aria-pressed="true"]`).dataset.v, chips = id => $$(`#${id} .chip[aria-pressed="true"]`).map(c => c.dataset.v);
+function renderBook() { $('#cook').innerHTML = S.book.length ? S.book.map(r => `<button type="button" data-id="${r.id}"><b>${esc(r.title)}</b><small>${esc(r.when)}</small><span class="x" data-x="${r.id}">✕</span></button>`).join('') : `<p class="note">Saved dinners live here. They're in this browser only, so export now and then.</p>`; $$('#cook button').forEach(b => b.onclick = e => { if (e.target.dataset.x) { S.book = S.book.filter(r => r.id !== e.target.dataset.x); save(); renderBook(); return; } const r = S.book.find(x => x.id === b.dataset.id); show(r.text, null); last = r.text; }); }
+function titleOf(t) { const m = t.match(/^#\s+(.+)/m); return m ? m[1].trim() : (t.split('\n').find(Boolean) || 'Dinner').slice(0, 80); }
+function show(text, stats) { const o = $('#out'); o.innerHTML = md(text); $('#stats').innerHTML = statsLine(stats); ['#rSave', '#rCopy', '#rList'].forEach(s => $(s).disabled = !text); $('#shop').hidden = true; }
+function buyList(t) { const m = t.match(/(?:to buy|shopping list|you(?:'|’)ll need to buy)[^\n]*\n([\s\S]*?)(?:\n#{1,3}\s|\n\n#{1,3}|$)/i); if (!m) return []; return m[1].split('\n').map(l => l.replace(/^\s*[-*•\d.)]+\s*/, '').trim()).filter(l => l && l.length < 80); }
+async function cook(again) {
+  if (!SOS.require()) return;
+  const t = +segVal('mTime'), serves = segVal('mServes'), mood = chips('mMood'), diet = chips('mDiet'), gear = chips('mGear'), note = $('#mNote').value.trim();
+  const ing = S.ing.length ? S.ing.join(', ') : 'a normal pantry (oil, salt, pepper, onion, garlic, flour, rice, pasta, canned tomatoes, eggs, butter)';
+  const o = $('#out'); o.classList.add('live'); o.innerHTML = ''; $('#stats').textContent = ''; $('#shop').hidden = true; $('#mStop').hidden = false; $('#mCook').disabled = true; $('#mAgain').disabled = true;
+  const user = `Write one dinner for tonight.\nOn hand: ${ing}.\nTime available: ${t >= 120 ? 'two hours or more, slow is fine' : t + ' minutes door to table'}.\nServes: ${serves}.\n${mood.length ? 'Mood: ' + mood.join(', ') + '.\n' : ''}${diet.length ? 'Diet: ' + diet.join(', ') + '.\n' : ''}Equipment: ${gear.join(', ') || 'a basic kitchen'}.\n${note ? 'Also: ' + note + '.\n' : ''}${again && seen.length ? 'Not these again: ' + seen.join('; ') + '.\n' : ''}Assume salt, pepper, oil, butter and basic spices are around. Prefer what's on hand; keep anything to buy to a few items.\n\nFormat in Markdown exactly like this:\n# <dish name>\n<one tempting sentence>\n\n**Time** <total> (<hands-on>) · **Serves** ${serves} · **Gear** <what's used>\n\n## You have\n- <ingredient, amount>\n\n## To buy\n- <ingredient, amount> (or "Nothing — it's all here")\n\n## Make it\n1. <step, with minutes where it matters>\n\n## Plate it\n<two sentences>\n\n## Pour\n<one wine, beer or non-alcoholic pairing, one line>\n\n## If you have ten more minutes\n<one upgrade>`;
+  try {
+    const r = await SOS.chat({ messages: [{ role: 'user', content: user }], temperature: again ? 0.95 : 0.75, onToken: txt => { o.innerHTML = md(txt); } });
+    o.classList.remove('live'); last = r.text; seen.push(titleOf(r.text)); show(r.text, r.stats);
+  } catch (e) { o.classList.remove('live'); o.innerHTML = `<p class="note">${esc(SOS.lastError || e.message)}</p>`; }
+  $('#mStop').hidden = true; $('#mCook').disabled = false; $('#mAgain').disabled = false;
+}
+mountChrome();
+$('#offline').innerHTML = offlineBanner('Keep your pantry list and cookbook here; the model writes the dinners.');
+$('#mCook').onclick = () => cook(false); $('#mAgain').onclick = () => cook(true); $('#mStop').onclick = () => SOS.stop();
+$('#rSave').onclick = () => { if (!last) return; S.book.unshift({ id: uid(), title: titleOf(last), when: new Date().toLocaleDateString(), text: last }); save(); renderBook(); toast('Saved'); };
+$('#rCopy').onclick = () => last && copyText(last);
+$('#rList').onclick = () => { const l = buyList(last || ''); $('#shop').hidden = false; $('#sl').innerHTML = l.length ? l.map(x => `<label><input type="checkbox"><span>${esc(x)}</span></label>`).join('') : '<p class="note">Nothing to buy — it\'s all here.</p>'; $$('#sl input').forEach(i => i.onchange = () => i.closest('label').classList.toggle('on', i.checked)); };
+$('#xJson').onclick = () => download('scrollos-meals.json', JSON.stringify(S, null, 2), 'application/json');
+$('#xImp').onchange = e => { const f = e.target.files[0]; if (!f) return; f.text().then(t => { const j = JSON.parse(t); if (j && Array.isArray(j.book)) { S = j; save(); renderIng(); renderBook(); toast('Imported'); } else toast('Not a Meals file'); }).catch(() => toast('Could not read that file')); };
+const q = hashParam('q'); if (q) { $('#mNote').value = q; if (hashParam('go')) SOS.whenReady(() => cook(false)); }
+renderIng(); renderBook();
+</script>

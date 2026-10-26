@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#07070b">
+<title>Docs · ScrollOS</title>
+<meta name="description" content="Docs is ScrollOS's writing tool. A plain, fast editor with a co-writer beside it: continue the draft, rewrite a passage in another tone, tighten, expand, summarize or fix grammar — with the whole document in the model's context. Your own local model; your documents stay in this browser and export as Markdown or text.">
+<link rel="canonical" href="https://bboldt86.github.io/lanscape-navigator/news/tech/scrollos/tools/docs.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="The Watch">
+<meta property="og:title" content="Docs · ScrollOS">
+<meta property="og:description" content="Docs is ScrollOS's writing tool. A plain, fast editor with a co-writer beside it: continue the draft, rewrite a passage in another tone, tighten, expand, summarize or fix grammar — with the whole document in the model's context. Your own local model; your documents stay in this browser and export as Markdown or text.">
+<meta property="og:url" content="https://bboldt86.github.io/lanscape-navigator/news/tech/scrollos/tools/docs.html">
+<meta property="og:image" content="https://bboldt86.github.io/lanscape-navigator/news/tech/scrollos/share.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%235898e8'/%3E%3Ctext x='32' y='43' font-size='34' text-anchor='middle' fill='%230a0a0e' font-family='system-ui'%3E▣%3C/text%3E%3C/svg%3E">
+<!-- ScrollOS · Produce · Docs. One file; built by news/tech/scrollos/build.py from src/. Talks only to your own model at localhost:11434. -->
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&family=DM+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap');
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#07070b;--s1:#0d0d13;--s2:#13131b;--s3:#1a1a24;--s4:#232330;--s5:#2c2c3a;
+  --rule:rgba(255,255,255,.07);--rule2:rgba(255,255,255,.12);
+  --ink:#eeeef4;--ink2:#a9a9bb;--ink3:#73738a;--ink4:#4e4e62;
+  --core:#c8a8ff;--indigo:#5e5ce6;--green:#30d158;--red:#ff453a;--amber:#fbbf24;--blue:#5898e8;
+  --font:'DM Sans',system-ui,-apple-system,sans-serif;--mono:'DM Mono',ui-monospace,SFMono-Regular,Menlo,monospace;--serif:'Instrument Serif',Georgia,serif;
+  --acc-dim:color-mix(in srgb,var(--acc) 12%,transparent);--acc-mid:color-mix(in srgb,var(--acc) 28%,transparent);
+}
+html{color-scheme:dark;-webkit-text-size-adjust:100%}
+[hidden]{display:none!important}
+body{font-family:var(--font);background:var(--bg);color:var(--ink);line-height:1.5;min-height:100vh;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(900px 500px at 50% -10%,var(--acc-dim),transparent 60%)}
+a{color:inherit}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+code,kbd,.mono{font-family:var(--mono)}
+::selection{background:var(--acc-mid)}
+
+/* ---- top bar ---- */
+.top{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:12px;padding:10px 16px;background:rgba(7,7,11,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--rule)}
+.top .brand{display:flex;align-items:center;gap:10px;text-decoration:none;min-width:0}
+.top .glyph{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;font-size:.95rem;background:linear-gradient(145deg,var(--acc),var(--acc2));color:#0a0a0e;flex:none;box-shadow:0 0 18px var(--acc-mid)}
+.top .name{font:600 15px/1.1 var(--font);letter-spacing:-.01em;white-space:nowrap}
+.top .name small{display:block;font:500 10px/1.3 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin-top:2px}
+.top .sp{flex:1}
+.top .hub{font:500 12px var(--font);color:var(--ink3);text-decoration:none;white-space:nowrap;padding:6px 8px;border-radius:8px}
+.top .hub:hover{color:var(--ink);background:var(--s3)}
+.pill{display:inline-flex;align-items:center;gap:8px;padding:6px 10px 6px 8px;border:1px solid var(--rule2);border-radius:100px;background:var(--s2);font:500 12px var(--font);color:var(--ink2);cursor:pointer;max-width:46vw}
+.pill:hover{border-color:var(--acc)}
+.pill .dot{width:8px;height:8px;border-radius:50%;background:var(--ink4);flex:none;box-shadow:0 0 0 3px rgba(255,255,255,.04)}
+.pill[data-st="ok"] .dot{background:var(--green);box-shadow:0 0 10px rgba(48,209,88,.6)}
+.pill[data-st="busy"] .dot{background:var(--amber);animation:sosPulse 1s ease-in-out infinite}
+.pill[data-st="no"] .dot{background:var(--red)}
+.pill .m{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+@keyframes sosPulse{0%,100%{opacity:.4}50%{opacity:1}}
+.gear{width:34px;height:34px;border-radius:9px;border:1px solid var(--rule2);background:var(--s2);display:grid;place-items:center;color:var(--ink2);flex:none}
+.gear:hover{border-color:var(--acc);color:var(--ink)}
+
+/* ---- layout ---- */
+.wrap{position:relative;z-index:1;max-width:1180px;margin:0 auto;padding:22px 16px 80px}
+.cols{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:18px;align-items:start}
+@media (max-width:860px){.cols{grid-template-columns:1fr}}
+.card{background:var(--s1);border:1px solid var(--rule);border-radius:16px;padding:18px}
+.card h2,.card h3{font:600 14px/1.3 var(--font);letter-spacing:.02em;color:var(--ink2);text-transform:uppercase;letter-spacing:.1em;font-size:11px;margin-bottom:12px}
+.h1{font:400 clamp(1.7rem,4vw,2.4rem)/1.1 var(--serif);letter-spacing:-.02em;margin:6px 0 4px}
+.lede{color:var(--ink2);font-size:14px;max-width:62ch;margin-bottom:18px}
+.lede b{color:var(--ink)}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.sp{flex:1}
+.muted{color:var(--ink3)}
+.small{font-size:12px}
+.tiny{font:500 10px/1.3 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ink3)}
+hr.rule{border:0;border-top:1px solid var(--rule);margin:14px 0}
+
+/* ---- controls ---- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:9px 14px;border-radius:10px;border:1px solid var(--rule2);background:var(--s2);font:600 13px var(--font);color:var(--ink);transition:transform .15s,border-color .15s,background .15s;white-space:nowrap}
+.btn:hover{border-color:var(--acc);background:var(--s3)}
+.btn:active{transform:translateY(1px)}
+.btn.pri{background:linear-gradient(135deg,var(--acc),var(--acc2));color:#0a0a0e;border-color:transparent;box-shadow:0 4px 18px var(--acc-mid)}
+.btn.pri:hover{filter:brightness(1.08)}
+.btn.ghost{background:transparent;border-color:transparent;color:var(--ink2)}
+.btn.ghost:hover{color:var(--ink);background:var(--s2)}
+.btn.sm{padding:6px 10px;font-size:12px;border-radius:8px}
+.btn.danger{color:var(--red)}
+.btn:disabled{opacity:.45;cursor:not-allowed;transform:none}
+.inp,.sel,.ta{width:100%;background:var(--s2);border:1px solid var(--rule2);border-radius:10px;padding:10px 12px;font-size:14px;color:var(--ink);outline:none;transition:border-color .15s}
+.inp:focus,.sel:focus,.ta:focus{border-color:var(--acc);box-shadow:0 0 0 3px var(--acc-dim)}
+.ta{min-height:120px;resize:vertical;line-height:1.55;font-family:var(--font)}
+.ta.mono{font-family:var(--mono);font-size:13px}
+.sel{appearance:none;-webkit-appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--ink3) 50%),linear-gradient(135deg,var(--ink3) 50%,transparent 50%);background-position:calc(100% - 16px) 50%,calc(100% - 11px) 50%;background-size:5px 5px;background-repeat:no-repeat;padding-right:32px}
+label.f{display:block;font:500 11px/1.3 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin:0 0 6px}
+.field{margin-bottom:12px}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border-radius:100px;border:1px solid var(--rule2);background:var(--s2);font:500 12px var(--font);color:var(--ink2);cursor:pointer;user-select:none}
+.chip[aria-pressed="true"],.chip.on{background:var(--acc-dim);border-color:var(--acc);color:var(--ink)}
+.chip .x{background:none;border:0;padding:0 0 0 2px;font:inherit;color:var(--ink3);cursor:pointer;line-height:1}
+.chip .x:hover{color:var(--red)}
+.seg{display:inline-flex;border:1px solid var(--rule2);border-radius:10px;overflow:hidden;background:var(--s2)}
+.seg button{padding:7px 12px;border:0;background:transparent;font:600 12px var(--font);color:var(--ink3)}
+.seg button[aria-pressed="true"]{background:var(--s4);color:var(--ink)}
+input[type=range]{accent-color:var(--acc);width:100%}
+
+/* ---- AI output ---- */
+.out{background:var(--s2);border:1px solid var(--rule);border-radius:14px;padding:16px 18px;min-height:80px;position:relative;font-size:15px;line-height:1.65}
+.out:empty::before{content:attr(data-empty);color:var(--ink3);font-style:italic;font-family:var(--serif);font-size:16px}
+.out h1,.out h2,.out h3,.card .out h1,.card .out h2,.card .out h3{font-family:var(--serif);font-weight:400;letter-spacing:-.01em;margin:14px 0 6px;line-height:1.2;text-transform:none;color:var(--ink)}
+.out h1,.card .out h1{font-size:1.6rem}.out h2,.card .out h2{font-size:1.35rem}.out h3,.card .out h3{font-size:1.15rem}
+.out p{margin:0 0 10px}.out ul,.out ol{margin:0 0 10px 20px}.out li{margin:3px 0}
+.out code{background:var(--s4);padding:1px 6px;border-radius:5px;font-size:.85em;color:var(--amber)}
+.out pre{background:var(--s1);border:1px solid var(--rule);border-radius:10px;padding:12px;overflow:auto;margin:0 0 12px}
+.out pre code{background:none;padding:0;color:var(--ink)}
+.out blockquote{border-left:2px solid var(--acc);padding:2px 12px;color:var(--ink2);margin:0 0 10px}
+.out table{border-collapse:collapse;width:100%;margin:0 0 12px;font-size:14px}.out th,.out td{border-bottom:1px solid var(--rule);padding:6px 8px;text-align:left}
+.out strong{color:var(--ink)}
+.out.live::after{content:'';display:inline-block;width:8px;height:16px;background:var(--acc);border-radius:2px;vertical-align:-3px;margin-left:2px;animation:sosBlink 1s steps(2) infinite}
+@keyframes sosBlink{50%{opacity:0}}
+.meta{display:flex;gap:14px;flex-wrap:wrap;font:500 11px/1.3 var(--mono);color:var(--ink3);margin-top:8px;letter-spacing:.04em}
+.meta b{color:var(--ink2);font-weight:500}
+
+/* ---- notes & banners ---- */
+.note{font-size:13px;color:var(--ink3);line-height:1.5}
+.note a{color:var(--acc)}
+.banner{display:flex;gap:12px;align-items:flex-start;padding:12px 14px;border-radius:12px;border:1px solid var(--rule2);background:var(--s2);font-size:13px;color:var(--ink2);margin-bottom:16px}
+.banner .i{font-size:1.1rem;line-height:1.2}
+.banner b{color:var(--ink)}
+.banner a{color:var(--acc)}
+.banner.warn{border-color:rgba(251,191,36,.35);background:rgba(251,191,36,.06)}
+.banner.ok{border-color:rgba(48,209,88,.35);background:rgba(48,209,88,.06)}
+.empty{text-align:center;padding:30px 16px;color:var(--ink3);font-family:var(--serif);font-size:17px;font-style:italic}
+
+/* ---- settings sheet ---- */
+.sheet-bg{position:fixed;inset:0;background:rgba(0,0,0,.55);backdrop-filter:blur(4px);z-index:40;display:none}
+.sheet-bg.open{display:block}
+.sheet{position:fixed;top:0;right:0;bottom:0;width:min(420px,100vw);background:var(--s1);border-left:1px solid var(--rule2);z-index:41;transform:translateX(102%);transition:transform .28s cubic-bezier(.2,.8,.2,1);overflow:auto;padding:20px 20px 40px}
+.sheet.open{transform:none}
+.sheet h2{font:400 1.5rem/1.1 var(--serif);margin-bottom:4px}
+.sheet .sub{color:var(--ink3);font-size:13px;margin-bottom:16px}
+.sheet .close{position:absolute;top:14px;right:14px}
+.models{display:flex;flex-direction:column;gap:6px;margin:8px 0 14px;max-height:260px;overflow:auto}
+.models button{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:9px 12px;border-radius:10px;border:1px solid var(--rule);background:var(--s2);text-align:left;font-size:13px}
+.models button[aria-pressed="true"]{border-color:var(--acc);background:var(--acc-dim)}
+.models button span{font-family:var(--mono);font-size:11px;color:var(--ink3)}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;font-size:12px;color:var(--ink3);font-family:var(--mono)}
+.kv b{color:var(--ink2);font-weight:500}
+
+/* ---- toast ---- */
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(20px);background:var(--s4);border:1px solid var(--rule2);color:var(--ink);padding:10px 16px;border-radius:12px;font-size:13px;opacity:0;transition:all .25s;z-index:60;pointer-events:none;box-shadow:0 10px 40px rgba(0,0,0,.5);max-width:90vw}
+.toast.show{opacity:1;transform:translateX(-50%)}
+
+/* ---- footer ---- */
+.foot{position:relative;z-index:1;text-align:center;padding:20px;border-top:1px solid var(--rule);font:500 10px/1.6 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--ink4)}
+.foot a{color:var(--ink3);text-decoration:none}
+.foot a:hover{color:var(--ink)}
+
+.framed .top .hub,.framed .foot{display:none}
+@media (max-width:600px){.wrap{padding:16px 12px 70px}.top{padding:8px 10px;gap:8px}.top .hub{display:none}.pill{max-width:40vw}.card{padding:14px;border-radius:14px}}
+
+:root{--acc:#5898e8;--acc2:#4078c8}
+
+.docs-layout{display:grid;grid-template-columns:220px minmax(0,1fr) 340px;gap:14px;align-items:start}
+@media (max-width:1100px){.docs-layout{grid-template-columns:minmax(0,1fr) 340px}.dlist{grid-column:1/-1;display:flex;gap:6px;overflow:auto;padding-bottom:4px}.dlist .di{flex:none;min-width:150px}}
+@media (max-width:760px){.docs-layout{grid-template-columns:1fr}}
+.dlist{display:flex;flex-direction:column;gap:6px}
+.di{display:flex;gap:8px;align-items:center;text-align:left;padding:10px 12px;border-radius:10px;border:1px solid var(--rule);background:var(--s2);cursor:pointer}
+.di[aria-pressed="true"]{border-color:var(--acc)}
+.di b{display:block;font:600 13px/1.3 var(--font);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.di small{display:block;font:500 10px var(--mono);color:var(--ink3);margin-top:2px}
+.ed{background:var(--s1);border:1px solid var(--rule);border-radius:16px;overflow:hidden}
+.ed .bar{display:flex;gap:6px;align-items:center;padding:8px 10px;border-bottom:1px solid var(--rule);flex-wrap:wrap}
+.ed .bar input{background:none;border:0;outline:none;font:600 15px var(--font);color:var(--ink);flex:1;min-width:120px}
+.ed textarea{width:100%;min-height:62vh;border:0;outline:none;background:transparent;resize:vertical;padding:22px 26px;font:16px/1.7 var(--font);color:var(--ink);letter-spacing:.005em}
+.ed textarea.mono{font:14px/1.65 var(--mono)}
+.ed textarea.serif{font:18px/1.7 var(--serif)}
+.ed .foot{border:0;border-top:1px solid var(--rule);text-align:left;padding:8px 14px;display:flex;gap:14px;text-transform:none;letter-spacing:0;font:500 11px var(--mono);color:var(--ink3)}
+.prev{padding:22px 26px;min-height:62vh;font-size:16px;line-height:1.7}
+.prev h1,.prev h2,.prev h3{font-family:var(--serif);font-weight:400;margin:18px 0 8px;line-height:1.2}
+.prev h1{font-size:2rem}.prev h2{font-size:1.5rem}.prev h3{font-size:1.2rem}
+.prev p{margin:0 0 12px}.prev ul,.prev ol{margin:0 0 12px 22px}.prev blockquote{border-left:2px solid var(--acc);padding:2px 14px;color:var(--ink2)}
+.prev code{background:var(--s3);padding:1px 5px;border-radius:4px;font-size:.9em}.prev pre{background:var(--s2);padding:12px;border-radius:10px;overflow:auto}
+.acts{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.acts button{padding:9px 10px;border-radius:10px;border:1px solid var(--rule2);background:var(--s2);font:600 12px var(--font);text-align:left}
+.acts button:hover{border-color:var(--acc)}
+.acts button small{display:block;font:400 10px/1.3 var(--font);color:var(--ink3);margin-top:2px}
+.asst{position:sticky;top:64px}
+.asst .out{font-size:14px;max-height:50vh;overflow:auto}
+.scope{font:500 11px var(--mono);color:var(--ink3);margin:8px 0}
+.scope b{color:var(--acc);font-weight:500}
+
+</style>
+</head>
+<body>
+<main class="wrap" style="max-width:1400px">
+  <div class="tiny">Produce · work &amp; execution</div>
+  <h1 class="h1">Write. Then ask for a hand.</h1>
+  <p class="lede">A plain editor and a co-writer that reads the <b>whole document</b>, not the last paragraph. Select a passage and say what you want: tighter, warmer, longer, in order. Nothing is sent anywhere; the drafts live in this browser until you export them.</p>
+  <div id="offline"></div>
+  <div class="docs-layout">
+    <aside class="dlist" id="dlist"></aside>
+    <section class="ed">
+      <div class="bar"><input id="dTitle" placeholder="Untitled"><div class="seg"><button type="button" data-font="sans" aria-pressed="true">Aa</button><button type="button" data-font="serif">𝐴𝑎</button><button type="button" data-font="mono">Aa</button></div><button type="button" class="btn ghost sm" id="dPrev">Preview</button><button type="button" class="btn ghost sm" id="dNew">+ New</button><button type="button" class="btn ghost sm" id="dExport">Export</button><button type="button" class="btn ghost sm danger" id="dDel">Delete</button></div>
+      <textarea id="ta" spellcheck="true" placeholder="Start writing. Markdown works: # headings, **bold**, - lists."></textarea>
+      <div class="prev" id="prev" hidden></div>
+      <div class="foot"><span id="wc">0 words</span><span id="rt"></span><span class="sp"></span><span id="saved">saved</span></div>
+    </section>
+    <aside class="card asst">
+      <h2>Co-writer</h2>
+      <div class="scope" id="scope">Working on: <b>the whole document</b></div>
+      <div class="acts">
+        <button type="button" data-act="continue">Continue<small>Pick up where the text ends</small></button>
+        <button type="button" data-act="tighten">Tighten<small>Same meaning, fewer words</small></button>
+        <button type="button" data-act="expand">Expand<small>Develop it, add specifics</small></button>
+        <button type="button" data-act="clearer">Make it clearer<small>Plain words, short sentences</small></button>
+        <button type="button" data-act="warmer">Warmer<small>Human, less stiff</small></button>
+        <button type="button" data-act="formal">More formal<small>For the record</small></button>
+        <button type="button" data-act="grammar">Fix grammar<small>Only what's wrong</small></button>
+        <button type="button" data-act="summary">Summarize<small>The gist, five lines</small></button>
+        <button type="button" data-act="outline">Outline<small>Headings for what's here</small></button>
+        <button type="button" data-act="title">Title ideas<small>Five headlines</small></button>
+      </div>
+      <div class="row" style="margin-top:10px"><input class="inp" id="ask" placeholder="Or ask anything about the text…"><button type="button" class="btn sm" id="askGo">Ask</button></div>
+      <div class="out" id="out" style="margin-top:12px" data-empty="The result lands here. Replace the selection, insert it, or copy it."></div>
+      <div class="row" style="margin-top:10px"><button type="button" class="btn pri sm" id="rReplace" disabled>Replace selection</button><button type="button" class="btn sm" id="rInsert" disabled>Insert at cursor</button><button type="button" class="btn ghost sm" id="rCopy" disabled>Copy</button><button type="button" class="btn ghost sm" id="rStop" hidden>Stop</button></div>
+      <div class="meta" id="stats"></div>
+    </aside>
+  </div>
+</main>
+<script>
+const TOOL = {"id": "docs", "name": "Docs", "scroll": "produce", "scrollName": "Produce", "glyph": "\u25a3", "system": "You are an executive assistant. Be precise and efficient. Help with documents, data, and project management.", "tagline": "A writing surface with a co-writer that has read the whole document: continue, rewrite, tighten, expand, summarize."};
+/* ScrollOS runtime — shared by every tool. One local model at localhost:11434 (Ollama's REST API), streamed into the page.
+   Nothing here talks to any other host. Settings live in this browser under localStorage "scrollos.llm". */
+const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const HUB = 'https://bboldt86.github.io/lanscape-navigator/news/tech/scrollos/';
+const store = {
+  get(k, d) { try { const v = localStorage.getItem(k); return v == null ? d : JSON.parse(v); } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); return true; } catch (e) { return false; } }
+};
+const uid = () => Math.random().toString(36).slice(2, 10);
+const fmtN = n => n == null ? '—' : Math.round(n).toLocaleString();
+function toast(msg, ms = 2400) { let t = $('.toast'); if (!t) { t = document.createElement('div'); t.className = 'toast'; document.body.appendChild(t); } t.textContent = msg; t.classList.add('show'); clearTimeout(t._t); t._t = setTimeout(() => t.classList.remove('show'), ms); }
+function download(name, text, type = 'text/plain') { const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([text], { type })); a.download = name; document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500); }
+async function copyText(t) { try { await navigator.clipboard.writeText(t); toast('Copied'); } catch (e) { const ta = document.createElement('textarea'); ta.value = t; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove(); toast('Copied'); } }
+function hashParam(k) { const m = location.hash.match(new RegExp('[#&]' + k + '=([^&]*)')); return m ? decodeURIComponent(m[1].replace(/\+/g, ' ')) : ''; }
+function parseJSONLoose(s) { // the model's JSON, with fences or chatter around it
+  if (!s) return null;
+  let t = String(s).trim().replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/, '');
+  try { return JSON.parse(t); } catch (e) { /* fall through */ }
+  const a = t.indexOf('{'), b = t.lastIndexOf('}'), c = t.indexOf('['), d = t.lastIndexOf(']');
+  const cands = [];
+  if (a >= 0 && b > a) cands.push(t.slice(a, b + 1));
+  if (c >= 0 && d > c) cands.push(t.slice(c, d + 1));
+  cands.sort((x, y) => y.length - x.length);
+  for (const x of cands) { try { return JSON.parse(x); } catch (e) { /* next */ } }
+  return null;
+}
+/* a small Markdown renderer: headings, lists, code, quotes, tables, emphasis, links */
+function md(src) {
+  const lines = String(src || '').replace(/\r/g, '').split('\n');
+  let html = '', i = 0, para = [];
+  const inline = s => esc(s).replace(/`([^`]+)`/g, '<code>$1</code>').replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>').replace(/(^|[^*])\*([^*\n]+)\*/g, '$1<em>$2</em>').replace(/\[([^\]]+)\]\((https?:[^)\s]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+  const flush = () => { if (para.length) { html += `<p>${inline(para.join(' '))}</p>`; para = []; } };
+  while (i < lines.length) {
+    const l = lines[i];
+    if (/^```/.test(l)) { flush(); let j = i + 1, code = []; while (j < lines.length && !/^```/.test(lines[j])) code.push(lines[j++]); html += `<pre><code>${esc(code.join('\n'))}</code></pre>`; i = j + 1; continue; }
+    const h = l.match(/^(#{1,6})\s+(.*)/); if (h) { flush(); html += `<h${h[1].length}>${inline(h[2])}</h${h[1].length}>`; i++; continue; }
+    if (/^\s*(-{3,}|\*{3,})\s*$/.test(l)) { flush(); html += '<hr>'; i++; continue; }
+    if (/^\s*>/.test(l)) { flush(); let q = []; while (i < lines.length && /^\s*>/.test(lines[i])) q.push(lines[i++].replace(/^\s*>\s?/, '')); html += `<blockquote>${md(q.join('\n'))}</blockquote>`; continue; }
+    if (/^\s*\|/.test(l) && i + 1 < lines.length && /^\s*\|?\s*:?-{2,}/.test(lines[i + 1])) { flush(); const rows = []; while (i < lines.length && /^\s*\|/.test(lines[i])) rows.push(lines[i++]); const cells = r => r.trim().replace(/^\||\|$/g, '').split('|').map(c => inline(c.trim())); const head = cells(rows[0]); html += `<table><thead><tr>${head.map(c => `<th>${c}</th>`).join('')}</tr></thead><tbody>${rows.slice(2).map(r => `<tr>${cells(r).map(c => `<td>${c}</td>`).join('')}</tr>`).join('')}</tbody></table>`; continue; }
+    const li = l.match(/^\s*([-*+]|\d+[.)])\s+(.*)/);
+    if (li) { flush(); const ord = /\d/.test(li[1]); let items = []; while (i < lines.length) { const m = lines[i].match(/^\s*([-*+]|\d+[.)])\s+(.*)/); if (!m) { if (/^\s{2,}\S/.test(lines[i]) && items.length) { items[items.length - 1] += ' ' + lines[i].trim(); i++; continue; } break; } items.push(m[2]); i++; } html += `<${ord ? 'ol' : 'ul'}>${items.map(x => `<li>${inline(x)}</li>`).join('')}</${ord ? 'ol' : 'ul'}>`; continue; }
+    if (!l.trim()) { flush(); i++; continue; }
+    para.push(l.trim()); i++;
+  }
+  flush(); return html;
+}
+
+/* ================= the model ================= */
+const SOS = {
+  KEY: 'scrollos.llm',
+  cfg: null, models: [], state: 'idle', lastError: '', version: '', current: null,
+  defaults() { return { host: 'http://localhost:11434', model: '', temp: 0.7, ctx: 16384 }; },
+  load() { this.cfg = Object.assign(this.defaults(), store.get(this.KEY, {})); return this.cfg; },
+  save() { store.set(this.KEY, this.cfg); },
+  host() { return (this.cfg.host || 'http://localhost:11434').replace(/\/+$/, ''); },
+  prompts() { return store.get('scrollos.prompts', {}); },
+  system(fallback) { const p = this.prompts()[TOOL.scroll]; return (p && p.trim()) || fallback || TOOL.system; },
+  async tags() {
+    const r = await fetch(this.host() + '/api/tags', { signal: AbortSignal.timeout(5000) });
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    return ((await r.json()).models || []).map(m => ({ name: m.name, size: m.size, family: m.details && m.details.family, params: m.details && m.details.parameter_size, quant: m.details && m.details.quantization_level }));
+  },
+  async probe() {
+    this.setState('busy');
+    try {
+      this.models = await this.tags();
+      try { const v = await fetch(this.host() + '/api/version', { signal: AbortSignal.timeout(3000) }); if (v.ok) this.version = (await v.json()).version || ''; } catch (e) { /* older servers */ }
+      if (!this.models.length) { this.lastError = 'Ollama is running but has no models yet. Pull one: ollama pull gpt-oss:20b'; this.setState('no'); return false; }
+      if (!this.models.find(m => m.name === this.cfg.model)) { this.cfg.model = this.pickDefault(); this.save(); }
+      this.lastError = ''; this.setState('ok'); return true;
+    } catch (e) {
+      this.lastError = this.explain(e); this.setState('no'); return false;
+    }
+  },
+  pickDefault() { const pref = ['gpt-oss', 'gemma4', 'qwen3.6', 'qwen3', 'llama3', 'mistral', 'gemma']; for (const p of pref) { const m = this.models.find(x => x.name.startsWith(p)); if (m) return m.name; } return this.models[0] ? this.models[0].name : ''; },
+  explain(e) {
+    const o = location.origin === 'null' || location.protocol === 'file:' ? 'this file' : location.origin;
+    if (e && e.name === 'TimeoutError') return `No answer from ${this.host()} in 5 seconds. Is Ollama running?`;
+    if (e && (e.name === 'TypeError' || /fetch/i.test(e.message))) return `Couldn't reach ${this.host()} from ${o}. Either Ollama isn't running, or it hasn't been told to accept pages from here: set OLLAMA_ORIGINS="*" (or "${location.origin === 'null' ? 'file://*' : location.origin}") and restart it. The hub's Connect section has the exact commands.`;
+    return (e && e.message) || String(e);
+  },
+  setState(s) { this.state = s; document.dispatchEvent(new CustomEvent('sos:state', { detail: s })); },
+  ready() { return this.state === 'ok' && !!this.cfg.model; },
+  whenReady(fn) { // run once the first probe has settled, if a model is there
+    if (this.ready()) { fn(); return; }
+    const run = () => { if (SOS.state === 'busy' || SOS.state === 'idle') return; document.removeEventListener('sos:state', run); if (SOS.ready()) fn(); };
+    document.addEventListener('sos:state', run);
+  },
+  require() { if (this.ready()) return true; toast(this.state === 'busy' ? 'Still looking for the model…' : 'No local model connected yet'); openSheet(); return false; },
+  stop() { if (this.current) { try { this.current.abort(); } catch (e) { /* done */ } this.current = null; } },
+  async chat(o) {
+    const sys = o.system === undefined ? this.system() : o.system;
+    const body = { model: o.model || this.cfg.model, stream: true, messages: [...(sys ? [{ role: 'system', content: sys }] : []), ...o.messages], options: Object.assign({ temperature: o.temperature == null ? this.cfg.temp : o.temperature, num_ctx: o.ctx || this.cfg.ctx }, o.options || {}) };
+    if (o.json) body.format = 'json';
+    if (o.keepAlive) body.keep_alive = o.keepAlive;
+    const ctrl = new AbortController(); this.current = ctrl;
+    const t0 = performance.now(); let first = 0, text = '', think = '', last = null;
+    this.setState('busy');
+    try {
+      const r = await fetch(this.host() + '/api/chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body), signal: ctrl.signal });
+      if (!r.ok) { const t = await r.text().catch(() => ''); throw new Error('Ollama answered ' + r.status + (t ? ': ' + t.slice(0, 240) : '')); }
+      const rd = r.body.getReader(), dec = new TextDecoder(); let buf = '';
+      for (;;) {
+        const { value, done } = await rd.read(); if (done) break;
+        buf += dec.decode(value, { stream: true }); let i;
+        while ((i = buf.indexOf('\n')) >= 0) {
+          const line = buf.slice(0, i).trim(); buf = buf.slice(i + 1); if (!line) continue;
+          let j; try { j = JSON.parse(line); } catch (e) { continue; }
+          if (j.error) throw new Error(j.error);
+          const m = j.message || {};
+          if (m.thinking) { think += m.thinking; if (o.onThink) o.onThink(think); }
+          if (m.content) { if (!first) first = performance.now(); text += m.content; if (o.onToken) o.onToken(text, m.content); }
+          if (j.done) last = j;
+        }
+      }
+      const total = (performance.now() - t0) / 1000;
+      const stats = { total, tokens: last ? last.eval_count || 0 : 0, prompt: last ? last.prompt_eval_count || 0 : 0, tps: last && last.eval_duration ? (last.eval_count || 0) / (last.eval_duration / 1e9) : null, pps: last && last.prompt_eval_duration ? (last.prompt_eval_count || 0) / (last.prompt_eval_duration / 1e9) : null, load: last && last.load_duration ? last.load_duration / 1e9 : 0, ttft: first ? (first - t0) / 1000 : null, model: body.model };
+      this.setState('ok');
+      return { text, think, stats, aborted: false };
+    } catch (e) {
+      if (e.name === 'AbortError') { this.setState('ok'); return { text, think, stats: { total: (performance.now() - t0) / 1000, model: body.model }, aborted: true }; }
+      this.lastError = this.explain(e); this.setState(this.models.length ? 'ok' : 'no'); throw e;
+    } finally { if (this.current === ctrl) this.current = null; }
+  }
+};
+function statsLine(s) { if (!s) return ''; const p = []; if (s.model) p.push(`<b>${esc(s.model)}</b>`); if (s.tps) p.push(`<b>${s.tps.toFixed(1)}</b> tok/s`); if (s.tokens) p.push(`<b>${fmtN(s.tokens)}</b> tokens`); if (s.prompt) p.push(`<b>${fmtN(s.prompt)}</b> in`); if (s.ttft != null) p.push(`first token <b>${s.ttft.toFixed(1)}s</b>`); if (s.total) p.push(`<b>${s.total.toFixed(1)}s</b>`); return p.join(' · '); }
+
+/* ================= chrome: top bar, status pill, settings sheet ================= */
+function mountChrome() {
+  SOS.load();
+  if (window.self !== window.top) document.documentElement.classList.add('framed');
+  const top = document.createElement('header'); top.className = 'top';
+  top.innerHTML = `<a class="brand" href="${HUB}" title="ScrollOS hub"><span class="glyph" aria-hidden="true">${TOOL.glyph}</span><span class="name">${esc(TOOL.name)}<small>${esc(TOOL.scrollName)} · ScrollOS</small></span></a><span class="sp"></span>
+    <button type="button" class="pill" id="sosPill" data-st="idle" title="Local model"><span class="dot"></span><span class="m">Looking for a model…</span></button>
+    <button type="button" class="gear" id="sosGear" aria-label="Settings" title="Settings">⚙</button>
+    <a class="hub" href="${HUB}">ScrollOS ⟐</a>`;
+  document.body.prepend(top);
+  const bg = document.createElement('div'); bg.className = 'sheet-bg'; bg.id = 'sosBg';
+  const sh = document.createElement('aside'); sh.className = 'sheet'; sh.id = 'sosSheet'; sh.setAttribute('aria-label', 'Model settings');
+  document.body.append(bg, sh);
+  bg.onclick = closeSheet;
+  $('#sosGear').onclick = openSheet; $('#sosPill').onclick = openSheet;
+  const foot = document.createElement('footer'); foot.className = 'foot';
+  foot.innerHTML = `ScrollOS · ${esc(TOOL.scrollName)} · ${esc(TOOL.name)} · runs in your browser against your own model · <a href="${HUB}">the hub on The Watch</a>`;
+  document.body.append(foot);
+  document.addEventListener('sos:state', paintPill);
+  paintPill(); SOS.probe();
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSheet(); if ((e.metaKey || e.ctrlKey) && e.key === ',') { e.preventDefault(); openSheet(); } });
+}
+function paintPill() {
+  const p = $('#sosPill'); if (!p) return; p.dataset.st = SOS.state;
+  const m = $('.m', p);
+  m.textContent = SOS.state === 'ok' ? (SOS.cfg.model || 'Pick a model') : SOS.state === 'busy' ? (SOS.cfg.model ? SOS.cfg.model : 'Connecting…') : SOS.state === 'no' ? 'No local model' : 'Looking for a model…';
+  if ($('#sosSheet').classList.contains('open')) renderSheet();
+}
+function openSheet() { renderSheet(); $('#sosBg').classList.add('open'); $('#sosSheet').classList.add('open'); }
+function closeSheet() { $('#sosBg').classList.remove('open'); $('#sosSheet').classList.remove('open'); }
+function renderSheet() {
+  const s = $('#sosSheet'), c = SOS.cfg, cur = SOS.prompts()[TOOL.scroll] || '';
+  const ctxs = [4096, 8192, 16384, 32768, 65536, 131072];
+  s.innerHTML = `<button type="button" class="btn ghost sm close" id="sosClose">✕</button>
+    <h2>Your model</h2><p class="sub">Every tool on this page talks to the model running on your own machine. Nothing is sent anywhere else.</p>
+    <label class="f">Ollama address</label>
+    <div class="row" style="margin-bottom:10px"><input class="inp" id="sosHost" value="${esc(c.host)}" placeholder="http://localhost:11434" style="flex:1;min-width:0"><button type="button" class="btn" id="sosTest">Test</button></div>
+    ${SOS.state === 'ok' ? `<div class="banner ok"><span class="i">●</span><span><b>Connected</b>${SOS.version ? ` · Ollama ${esc(SOS.version)}` : ''} · ${SOS.models.length} model${SOS.models.length === 1 ? '' : 's'}</span></div>` : SOS.state === 'no' ? `<div class="banner warn"><span class="i">!</span><span><b>Not connected.</b> ${esc(SOS.lastError)} <a href="${HUB}#connect">Set-up steps ›</a></span></div>` : `<div class="banner"><span class="i">…</span><span>Looking for a model at ${esc(c.host)}</span></div>`}
+    <label class="f">Model</label>
+    <div class="models" id="sosModels">${SOS.models.length ? SOS.models.map(m => `<button type="button" data-m="${esc(m.name)}" aria-pressed="${m.name === c.model}"><span style="font-family:var(--font);font-size:13px;color:var(--ink)">${esc(m.name)}</span><span>${esc(m.params || '')}${m.quant ? ' · ' + esc(m.quant) : ''}${m.size ? ' · ' + (m.size / 1e9).toFixed(1) + ' GB' : ''}</span></button>`).join('') : `<div class="note">No models listed yet. On the machine running Ollama: <code>ollama pull gpt-oss:20b</code></div>`}</div>
+    <label class="f">Temperature · <span id="sosTempV">${c.temp}</span></label>
+    <input type="range" id="sosTemp" min="0" max="1.5" step="0.05" value="${c.temp}">
+    <p class="note" style="margin:4px 0 12px">Low is careful and repeatable; high is loose and surprising. 0.7 suits most writing.</p>
+    <label class="f">Context window</label>
+    <select class="sel" id="sosCtx" style="margin-bottom:4px">${ctxs.map(n => `<option value="${n}" ${n === c.ctx ? 'selected' : ''}>${n >= 1024 ? (n / 1024) + 'K tokens' : n}</option>`).join('')}</select>
+    <p class="note" style="margin:0 0 12px">How much the model can hold at once. Bigger is slower to start and uses more memory; 16K covers most tasks, 128K holds a whole book.</p>
+    <label class="f">${esc(TOOL.scrollName)}'s system prompt</label>
+    <textarea class="ta" id="sosSys" placeholder="${esc(TOOL.system)}">${esc(cur)}</textarea>
+    <p class="note" style="margin:4px 0 14px">Blank uses the default above. Shared by every ${esc(TOOL.scrollName)} tool in this browser; the AI Lab edits all seven at once.</p>
+    <div class="row"><button type="button" class="btn pri" id="sosSave">Save</button><button type="button" class="btn ghost" id="sosReset">Reset</button><span class="sp"></span><a class="btn ghost sm" href="${HUB}#connect">Help ›</a></div>
+    <hr class="rule"><div class="kv"><span>origin</span><b>${esc(location.origin === 'null' ? 'file (opened from disk)' : location.origin)}</b><span>storage</span><b>this browser only</b><span>endpoint</span><b>${esc(SOS.host())}/api/chat</b></div>`;
+  $('#sosClose').onclick = closeSheet;
+  $('#sosTest').onclick = async () => { SOS.cfg.host = $('#sosHost').value.trim() || 'http://localhost:11434'; SOS.save(); await SOS.probe(); renderSheet(); };
+  $$('#sosModels button').forEach(b => b.onclick = () => { SOS.cfg.model = b.dataset.m; SOS.save(); paintPill(); renderSheet(); });
+  $('#sosTemp').oninput = e => { $('#sosTempV').textContent = e.target.value; };
+  $('#sosSave').onclick = () => { SOS.cfg.host = $('#sosHost').value.trim() || 'http://localhost:11434'; SOS.cfg.temp = +$('#sosTemp').value; SOS.cfg.ctx = +$('#sosCtx').value; SOS.save(); const P = SOS.prompts(); const v = $('#sosSys').value.trim(); if (v) P[TOOL.scroll] = v; else delete P[TOOL.scroll]; store.set('scrollos.prompts', P); toast('Saved'); closeSheet(); if (SOS.state !== 'ok') SOS.probe(); };
+  $('#sosReset').onclick = () => { SOS.cfg = SOS.defaults(); SOS.save(); const P = SOS.prompts(); delete P[TOOL.scroll]; store.set('scrollos.prompts', P); renderSheet(); SOS.probe(); };
+}
+/* a banner for pages that can do something without the model */
+function offlineBanner(what) {
+  return `<div class="banner warn" id="sosOff" hidden><span class="i">⟐</span><span><b>No local model yet.</b> ${esc(what)} <a href="#" data-open-sheet>Connect one</a> or read <a href="${HUB}#build">how to build the machine</a>.</span></div>`;
+}
+document.addEventListener('click', e => { const a = e.target.closest('[data-open-sheet]'); if (a) { e.preventDefault(); openSheet(); } });
+document.addEventListener('sos:state', () => { const b = $('#sosOff'); if (b) b.hidden = SOS.state !== 'no'; });
+
+</script>
+<script>
+const KEY = 'scrollos.docs';
+let S = store.get(KEY, { docs: [], sel: null, font: 'sans' });
+if (!S.docs.length) { S.docs.push({ id: uid(), title: 'Welcome', text: '# Welcome to Docs\n\nThis is a plain editor with a co-writer beside it. Select any sentence and press **Tighten**, or put the cursor at the end and press **Continue**.\n\nEverything you write stays in this browser. Export to Markdown when you want it elsewhere.', at: Date.now() }); S.sel = S.docs[0].id; }
+if (!S.sel) S.sel = S.docs[0].id;
+const save = () => { store.set(KEY, S); $('#saved').textContent = 'saved ' + new Date().toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }); };
+const doc = () => S.docs.find(d => d.id === S.sel) || S.docs[0];
+let result = '', selRange = null;
+const ta = $('#ta');
+function renderList() { $('#dlist').innerHTML = S.docs.sort((a, b) => b.at - a.at).map(d => `<button type="button" class="di" data-id="${d.id}" aria-pressed="${d.id === S.sel}"><span style="min-width:0;flex:1"><b>${esc(d.title || 'Untitled')}</b><small>${d.text.split(/\s+/).filter(Boolean).length} words · ${new Date(d.at).toLocaleDateString()}</small></span></button>`).join(''); $$('.di').forEach(b => b.onclick = () => { S.sel = b.dataset.id; save(); open(); }); }
+function open() { const d = doc(); $('#dTitle').value = d.title; ta.value = d.text; count(); renderList(); ta.className = S.font === 'sans' ? '' : S.font; $$('[data-font]').forEach(b => b.setAttribute('aria-pressed', b.dataset.font === S.font)); if (!$('#prev').hidden) preview(); }
+function count() { const w = ta.value.trim().split(/\s+/).filter(Boolean).length; $('#wc').textContent = `${w.toLocaleString()} words · ${ta.value.length.toLocaleString()} chars`; $('#rt').textContent = w ? `~${Math.max(1, Math.round(w / 230))} min read` : ''; }
+let tm; ta.oninput = () => { count(); clearTimeout(tm); tm = setTimeout(() => { const d = doc(); d.text = ta.value; d.at = Date.now(); if (!d.title && ta.value.trim()) d.title = (ta.value.match(/^#\s*(.+)/m) || [0, ta.value.trim().split('\n')[0]])[1].slice(0, 60); $('#dTitle').value = d.title; save(); renderList(); }, 400); };
+$('#dTitle').oninput = () => { doc().title = $('#dTitle').value; save(); renderList(); };
+function preview() { $('#prev').innerHTML = md(ta.value); }
+$('#dPrev').onclick = () => { const p = $('#prev'); p.hidden = !p.hidden; ta.hidden = !p.hidden; $('#dPrev').textContent = p.hidden ? 'Preview' : 'Edit'; if (!p.hidden) preview(); };
+$('#dNew').onclick = () => { const d = { id: uid(), title: '', text: '', at: Date.now() }; S.docs.unshift(d); S.sel = d.id; save(); open(); ta.focus(); };
+$('#dDel').onclick = () => { if (S.docs.length === 1) { toast('Keep one document'); return; } if (confirm('Delete this document?')) { S.docs = S.docs.filter(d => d.id !== S.sel); S.sel = S.docs[0].id; save(); open(); } };
+$('#dExport').onclick = () => { const d = doc(); download((d.title || 'document').replace(/[^\w-]+/g, '_') + '.md', d.text, 'text/markdown'); };
+$$('[data-font]').forEach(b => b.onclick = () => { S.font = b.dataset.font; save(); open(); });
+function scope() { const s = ta.selectionStart, e = ta.selectionEnd; if (e > s) { selRange = [s, e]; $('#scope').innerHTML = `Working on: <b>${ta.value.slice(s, e).trim().split(/\s+/).length} selected words</b>`; } else { selRange = null; $('#scope').innerHTML = 'Working on: <b>the whole document</b>'; } }
+ta.addEventListener('select', scope); ta.addEventListener('keyup', scope); ta.addEventListener('mouseup', scope);
+const ACTS = {
+  continue: s => s ? `Continue writing from the end of the selected passage, in the same voice and register. Write 1–3 paragraphs that follow naturally. Return only the new text.` : `Continue the document from where it ends, in the same voice and register. Write 1–3 paragraphs. Return only the new text.`,
+  tighten: () => 'Rewrite the passage with the same meaning in fewer words. Cut hedges, repetition and throat-clearing. Keep the author\'s voice and any facts, names and numbers. Return only the rewritten passage.',
+  expand: () => 'Develop the passage: add specifics, examples or a step the reader needs, in the same voice. Do not pad. Return only the expanded passage.',
+  clearer: () => 'Rewrite the passage so a smart reader gets it on the first pass: plain words, short sentences, one idea per sentence, concrete nouns. Keep every fact. Return only the rewrite.',
+  warmer: () => 'Rewrite the passage so it sounds like a person talking to a person: warmer, less stiff, still professional. Keep every fact. Return only the rewrite.',
+  formal: () => 'Rewrite the passage in a formal register suitable for a record or a client: complete sentences, no slang, no contractions, precise. Keep every fact. Return only the rewrite.',
+  grammar: () => 'Correct only grammar, spelling and punctuation in the passage. Change nothing else — not the wording, not the tone, not the structure. Return only the corrected passage.',
+  summary: () => 'Summarize the passage in five short lines a busy reader could act on. Return only the summary.',
+  outline: () => 'Write an outline of the passage as Markdown headings and one-line bullets: what is argued, in what order, with gaps noted in brackets. Return only the outline.',
+  title: () => 'Suggest five titles for this text: two plain and descriptive, two with some spark, one very short. One per line, no numbering, no commentary.'
+};
+const REPLACEABLE = new Set(['tighten', 'expand', 'clearer', 'warmer', 'formal', 'grammar']);
+async function run(instr, replaceable) {
+  if (!SOS.require()) return;
+  const full = ta.value, sel = selRange ? full.slice(selRange[0], selRange[1]) : '';
+  const passage = sel || full; if (!passage.trim()) { toast('Nothing to work on yet'); return; }
+  const ctxChars = Math.floor(SOS.cfg.ctx * 3.2), docPart = full.length > ctxChars ? full.slice(0, ctxChars) + '\n…[document truncated to fit the context window; raise it in Settings]' : full;
+  const user = sel ? `<document>\n${docPart}\n</document>\n\nThe passage I'm working on is this part of the document:\n<passage>\n${sel}\n</passage>\n\n${instr}` : `<document>\n${docPart}\n</document>\n\nThe passage is the whole document.\n\n${instr}`;
+  const o = $('#out'); o.innerHTML = ''; o.classList.add('live'); $('#rStop').hidden = false; $('#stats').textContent = ''; ['#rReplace', '#rInsert', '#rCopy'].forEach(s => $(s).disabled = true);
+  try { const r = await SOS.chat({ messages: [{ role: 'user', content: user }], temperature: 0.5, onToken: t => { o.innerHTML = md(t); } }); result = r.text.trim().replace(/^```[a-z]*\n|\n```$/g, ''); o.classList.remove('live'); o.innerHTML = md(result); $('#stats').innerHTML = statsLine(r.stats); $('#rCopy').disabled = false; $('#rInsert').disabled = false; $('#rReplace').disabled = !(replaceable && sel); }
+  catch (e) { o.classList.remove('live'); o.innerHTML = `<p class="note">${esc(SOS.lastError || e.message)}</p>`; }
+  $('#rStop').hidden = true;
+}
+$$('[data-act]').forEach(b => b.onclick = () => run(ACTS[b.dataset.act](!!selRange), REPLACEABLE.has(b.dataset.act)));
+$('#askGo').onclick = () => { const q = $('#ask').value.trim(); if (q) run(q + '\n\nAnswer about the passage above; if you are asked to rewrite, return only the rewrite.', true); };
+$('#ask').onkeydown = e => { if (e.key === 'Enter') $('#askGo').click(); };
+$('#rReplace').onclick = () => { if (!selRange) return; const [s, e] = selRange; ta.setRangeText(result, s, e, 'select'); ta.dispatchEvent(new Event('input')); scope(); toast('Replaced'); };
+$('#rInsert').onclick = () => { const p = ta.selectionEnd || ta.value.length; const sep = ta.value.slice(0, p).endsWith('\n') || !p ? '' : '\n\n'; ta.setRangeText(sep + result, p, p, 'end'); ta.dispatchEvent(new Event('input')); ta.focus(); toast('Inserted'); };
+$('#rCopy').onclick = () => copyText(result);
+$('#rStop').onclick = () => SOS.stop();
+document.addEventListener('keydown', e => { if ((e.metaKey || e.ctrlKey) && e.key === 's') { e.preventDefault(); save(); toast('Saved (it autosaves anyway)'); } });
+mountChrome();
+$('#offline').innerHTML = offlineBanner('The editor works on its own; the co-writer needs the model.');
+const q = hashParam('q'); if (q) { const d = { id: uid(), title: '', text: q, at: Date.now() }; S.docs.unshift(d); S.sel = d.id; save(); }
+open(); scope();
+</script>
+</body>
+</html>

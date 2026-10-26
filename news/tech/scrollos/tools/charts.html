@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#07070b">
+<title>Charts · ScrollOS</title>
+<meta name="description" content="Charts is ScrollOS's chart maker. Paste CSV or a table from a spreadsheet and it draws a clean bar, line, area or scatter chart; your own local model picks the right kind, writes the headline and caption, and lists what's worth noticing. Export SVG or PNG. Runs in your browser; nothing leaves your machine.">
+<link rel="canonical" href="https://bboldt86.github.io/lanscape-navigator/news/tech/scrollos/tools/charts.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="The Watch">
+<meta property="og:title" content="Charts · ScrollOS">
+<meta property="og:description" content="Charts is ScrollOS's chart maker. Paste CSV or a table from a spreadsheet and it draws a clean bar, line, area or scatter chart; your own local model picks the right kind, writes the headline and caption, and lists what's worth noticing. Export SVG or PNG. Runs in your browser; nothing leaves your machine.">
+<meta property="og:url" content="https://bboldt86.github.io/lanscape-navigator/news/tech/scrollos/tools/charts.html">
+<meta property="og:image" content="https://bboldt86.github.io/lanscape-navigator/news/tech/scrollos/share.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%239b59b6'/%3E%3Ctext x='32' y='43' font-size='34' text-anchor='middle' fill='%230a0a0e' font-family='system-ui'%3E◆%3C/text%3E%3C/svg%3E">
+<!-- ScrollOS · Create · Charts. One file; built by news/tech/scrollos/build.py from src/. Talks only to your own model at localhost:11434. -->
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&family=DM+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap');
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#07070b;--s1:#0d0d13;--s2:#13131b;--s3:#1a1a24;--s4:#232330;--s5:#2c2c3a;
+  --rule:rgba(255,255,255,.07);--rule2:rgba(255,255,255,.12);
+  --ink:#eeeef4;--ink2:#a9a9bb;--ink3:#73738a;--ink4:#4e4e62;
+  --core:#c8a8ff;--indigo:#5e5ce6;--green:#30d158;--red:#ff453a;--amber:#fbbf24;--blue:#5898e8;
+  --font:'DM Sans',system-ui,-apple-system,sans-serif;--mono:'DM Mono',ui-monospace,SFMono-Regular,Menlo,monospace;--serif:'Instrument Serif',Georgia,serif;
+  --acc-dim:color-mix(in srgb,var(--acc) 12%,transparent);--acc-mid:color-mix(in srgb,var(--acc) 28%,transparent);
+}
+html{color-scheme:dark;-webkit-text-size-adjust:100%}
+[hidden]{display:none!important}
+body{font-family:var(--font);background:var(--bg);color:var(--ink);line-height:1.5;min-height:100vh;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(900px 500px at 50% -10%,var(--acc-dim),transparent 60%)}
+a{color:inherit}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+code,kbd,.mono{font-family:var(--mono)}
+::selection{background:var(--acc-mid)}
+
+/* ---- top bar ---- */
+.top{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:12px;padding:10px 16px;background:rgba(7,7,11,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--rule)}
+.top .brand{display:flex;align-items:center;gap:10px;text-decoration:none;min-width:0}
+.top .glyph{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;font-size:.95rem;background:linear-gradient(145deg,var(--acc),var(--acc2));color:#0a0a0e;flex:none;box-shadow:0 0 18px var(--acc-mid)}
+.top .name{font:600 15px/1.1 var(--font);letter-spacing:-.01em;white-space:nowrap}
+.top .name small{display:block;font:500 10px/1.3 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin-top:2px}
+.top .sp{flex:1}
+.top .hub{font:500 12px var(--font);color:var(--ink3);text-decoration:none;white-space:nowrap;padding:6px 8px;border-radius:8px}
+.top .hub:hover{color:var(--ink);background:var(--s3)}
+.pill{display:inline-flex;align-items:center;gap:8px;padding:6px 10px 6px 8px;border:1px solid var(--rule2);border-radius:100px;background:var(--s2);font:500 12px var(--font);color:var(--ink2);cursor:pointer;max-width:46vw}
+.pill:hover{border-color:var(--acc)}
+.pill .dot{width:8px;height:8px;border-radius:50%;background:var(--ink4);flex:none;box-shadow:0 0 0 3px rgba(255,255,255,.04)}
+.pill[data-st="ok"] .dot{background:var(--green);box-shadow:0 0 10px rgba(48,209,88,.6)}
+.pill[data-st="busy"] .dot{background:var(--amber);animation:sosPulse 1s ease-in-out infinite}
+.pill[data-st="no"] .dot{background:var(--red)}
+.pill .m{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+@keyframes sosPulse{0%,100%{opacity:.4}50%{opacity:1}}
+.gear{width:34px;height:34px;border-radius:9px;border:1px solid var(--rule2);background:var(--s2);display:grid;place-items:center;color:var(--ink2);flex:none}
+.gear:hover{border-color:var(--acc);color:var(--ink)}
+
+/* ---- layout ---- */
+.wrap{position:relative;z-index:1;max-width:1180px;margin:0 auto;padding:22px 16px 80px}
+.cols{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:18px;align-items:start}
+@media (max-width:860px){.cols{grid-template-columns:1fr}}
+.card{background:var(--s1);border:1px solid var(--rule);border-radius:16px;padding:18px}
+.card h2,.card h3{font:600 14px/1.3 var(--font);letter-spacing:.02em;color:var(--ink2);text-transform:uppercase;letter-spacing:.1em;font-size:11px;margin-bottom:12px}
+.h1{font:400 clamp(1.7rem,4vw,2.4rem)/1.1 var(--serif);letter-spacing:-.02em;margin:6px 0 4px}
+.lede{color:var(--ink2);font-size:14px;max-width:62ch;margin-bottom:18px}
+.lede b{color:var(--ink)}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.sp{flex:1}
+.muted{color:var(--ink3)}
+.small{font-size:12px}
+.tiny{font:500 10px/1.3 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ink3)}
+hr.rule{border:0;border-top:1px solid var(--rule);margin:14px 0}
+
+/* ---- controls ---- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:9px 14px;border-radius:10px;border:1px solid var(--rule2);background:var(--s2);font:600 13px var(--font);color:var(--ink);transition:transform .15s,border-color .15s,background .15s;white-space:nowrap}
+.btn:hover{border-color:var(--acc);background:var(--s3)}
+.btn:active{transform:translateY(1px)}
+.btn.pri{background:linear-gradient(135deg,var(--acc),var(--acc2));color:#0a0a0e;border-color:transparent;box-shadow:0 4px 18px var(--acc-mid)}
+.btn.pri:hover{filter:brightness(1.08)}
+.btn.ghost{background:transparent;border-color:transparent;color:var(--ink2)}
+.btn.ghost:hover{color:var(--ink);background:var(--s2)}
+.btn.sm{padding:6px 10px;font-size:12px;border-radius:8px}
+.btn.danger{color:var(--red)}
+.btn:disabled{opacity:.45;cursor:not-allowed;transform:none}
+.inp,.sel,.ta{width:100%;background:var(--s2);border:1px solid var(--rule2);border-radius:10px;padding:10px 12px;font-size:14px;color:var(--ink);outline:none;transition:border-color .15s}
+.inp:focus,.sel:focus,.ta:focus{border-color:var(--acc);box-shadow:0 0 0 3px var(--acc-dim)}
+.ta{min-height:120px;resize:vertical;line-height:1.55;font-family:var(--font)}
+.ta.mono{font-family:var(--mono);font-size:13px}
+.sel{appearance:none;-webkit-appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--ink3) 50%),linear-gradient(135deg,var(--ink3) 50%,transparent 50%);background-position:calc(100% - 16px) 50%,calc(100% - 11px) 50%;background-size:5px 5px;background-repeat:no-repeat;padding-right:32px}
+label.f{display:block;font:500 11px/1.3 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin:0 0 6px}
+.field{margin-bottom:12px}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border-radius:100px;border:1px solid var(--rule2);background:var(--s2);font:500 12px var(--font);color:var(--ink2);cursor:pointer;user-select:none}
+.chip[aria-pressed="true"],.chip.on{background:var(--acc-dim);border-color:var(--acc);color:var(--ink)}
+.chip .x{background:none;border:0;padding:0 0 0 2px;font:inherit;color:var(--ink3);cursor:pointer;line-height:1}
+.chip .x:hover{color:var(--red)}
+.seg{display:inline-flex;border:1px solid var(--rule2);border-radius:10px;overflow:hidden;background:var(--s2)}
+.seg button{padding:7px 12px;border:0;background:transparent;font:600 12px var(--font);color:var(--ink3)}
+.seg button[aria-pressed="true"]{background:var(--s4);color:var(--ink)}
+input[type=range]{accent-color:var(--acc);width:100%}
+
+/* ---- AI output ---- */
+.out{background:var(--s2);border:1px solid var(--rule);border-radius:14px;padding:16px 18px;min-height:80px;position:relative;font-size:15px;line-height:1.65}
+.out:empty::before{content:attr(data-empty);color:var(--ink3);font-style:italic;font-family:var(--serif);font-size:16px}
+.out h1,.out h2,.out h3,.card .out h1,.card .out h2,.card .out h3{font-family:var(--serif);font-weight:400;letter-spacing:-.01em;margin:14px 0 6px;line-height:1.2;text-transform:none;color:var(--ink)}
+.out h1,.card .out h1{font-size:1.6rem}.out h2,.card .out h2{font-size:1.35rem}.out h3,.card .out h3{font-size:1.15rem}
+.out p{margin:0 0 10px}.out ul,.out ol{margin:0 0 10px 20px}.out li{margin:3px 0}
+.out code{background:var(--s4);padding:1px 6px;border-radius:5px;font-size:.85em;color:var(--amber)}
+.out pre{background:var(--s1);border:1px solid var(--rule);border-radius:10px;padding:12px;overflow:auto;margin:0 0 12px}
+.out pre code{background:none;padding:0;color:var(--ink)}
+.out blockquote{border-left:2px solid var(--acc);padding:2px 12px;color:var(--ink2);margin:0 0 10px}
+.out table{border-collapse:collapse;width:100%;margin:0 0 12px;font-size:14px}.out th,.out td{border-bottom:1px solid var(--rule);padding:6px 8px;text-align:left}
+.out strong{color:var(--ink)}
+.out.live::after{content:'';display:inline-block;width:8px;height:16px;background:var(--acc);border-radius:2px;vertical-align:-3px;margin-left:2px;animation:sosBlink 1s steps(2) infinite}
+@keyframes sosBlink{50%{opacity:0}}
+.meta{display:flex;gap:14px;flex-wrap:wrap;font:500 11px/1.3 var(--mono);color:var(--ink3);margin-top:8px;letter-spacing:.04em}
+.meta b{color:var(--ink2);font-weight:500}
+
+/* ---- notes & banners ---- */
+.note{font-size:13px;color:var(--ink3);line-height:1.5}
+.note a{color:var(--acc)}
+.banner{display:flex;gap:12px;align-items:flex-start;padding:12px 14px;border-radius:12px;border:1px solid var(--rule2);background:var(--s2);font-size:13px;color:var(--ink2);margin-bottom:16px}
+.banner .i{font-size:1.1rem;line-height:1.2}
+.banner b{color:var(--ink)}
+.banner a{color:var(--acc)}
+.banner.warn{border-color:rgba(251,191,36,.35);background:rgba(251,191,36,.06)}
+.banner.ok{border-color:rgba(48,209,88,.35);background:rgba(48,209,88,.06)}
+.empty{text-align:center;padding:30px 16px;color:var(--ink3);font-family:var(--serif);font-size:17px;font-style:italic}
+
+/* ---- settings sheet ---- */
+.sheet-bg{position:fixed;inset:0;background:rgba(0,0,0,.55);backdrop-filter:blur(4px);z-index:40;display:none}
+.sheet-bg.open{display:block}
+.sheet{position:fixed;top:0;right:0;bottom:0;width:min(420px,100vw);background:var(--s1);border-left:1px solid var(--rule2);z-index:41;transform:translateX(102%);transition:transform .28s cubic-bezier(.2,.8,.2,1);overflow:auto;padding:20px 20px 40px}
+.sheet.open{transform:none}
+.sheet h2{font:400 1.5rem/1.1 var(--serif);margin-bottom:4px}
+.sheet .sub{color:var(--ink3);font-size:13px;margin-bottom:16px}
+.sheet .close{position:absolute;top:14px;right:14px}
+.models{display:flex;flex-direction:column;gap:6px;margin:8px 0 14px;max-height:260px;overflow:auto}
+.models button{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:9px 12px;border-radius:10px;border:1px solid var(--rule);background:var(--s2);text-align:left;font-size:13px}
+.models button[aria-pressed="true"]{border-color:var(--acc);background:var(--acc-dim)}
+.models button span{font-family:var(--mono);font-size:11px;color:var(--ink3)}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;font-size:12px;color:var(--ink3);font-family:var(--mono)}
+.kv b{color:var(--ink2);font-weight:500}
+
+/* ---- toast ---- */
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(20px);background:var(--s4);border:1px solid var(--rule2);color:var(--ink);padding:10px 16px;border-radius:12px;font-size:13px;opacity:0;transition:all .25s;z-index:60;pointer-events:none;box-shadow:0 10px 40px rgba(0,0,0,.5);max-width:90vw}
+.toast.show{opacity:1;transform:translateX(-50%)}
+
+/* ---- footer ---- */
+.foot{position:relative;z-index:1;text-align:center;padding:20px;border-top:1px solid var(--rule);font:500 10px/1.6 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--ink4)}
+.foot a{color:var(--ink3);text-decoration:none}
+.foot a:hover{color:var(--ink)}
+
+.framed .top .hub,.framed .foot{display:none}
+@media (max-width:600px){.wrap{padding:16px 12px 70px}.top{padding:8px 10px;gap:8px}.top .hub{display:none}.pill{max-width:40vw}.card{padding:14px;border-radius:14px}}
+
+:root{--acc:#9b59b6;--acc2:#7e3f9a}
+
+.chartbox{background:var(--s2);border:1px solid var(--rule);border-radius:14px;padding:14px;overflow:hidden}
+.chartbox svg{display:block;width:100%;height:auto}
+.ttl{font:400 1.45rem/1.2 var(--serif);letter-spacing:-.01em;margin:0 0 2px}
+.sub{color:var(--ink2);font-size:13px;margin-bottom:10px}
+.cap{color:var(--ink3);font-size:12px;margin-top:10px;line-height:1.5}
+.ins{list-style:none;margin-top:12px;display:flex;flex-direction:column;gap:6px}
+.ins li{padding:9px 12px;border-radius:10px;background:var(--s2);border-left:2px solid var(--acc);font-size:14px;line-height:1.45}
+.ycols{display:flex;flex-wrap:wrap;gap:6px}
+.pal{display:flex;gap:6px}
+.pal button{width:30px;height:22px;border-radius:6px;border:1px solid var(--rule2);padding:0;overflow:hidden;display:flex}
+.pal button i{flex:1;display:block}
+.pal button[aria-pressed="true"]{outline:2px solid var(--acc);outline-offset:1px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media (max-width:520px){.grid2{grid-template-columns:1fr}}
+
+</style>
+</head>
+<body>
+<main class="wrap">
+  <div class="tiny">Create · making &amp; designing</div>
+  <h1 class="h1">Paste the numbers. Get the picture.</h1>
+  <p class="lede">A table in, a chart out — drawn here, in plain SVG, no library. The model's job is the part that's hard: <b>which chart</b>, <b>what the headline is</b>, and the two or three things a reader should notice.</p>
+  <div id="offline"></div>
+  <div class="cols">
+    <section class="card">
+      <h2>Data</h2>
+      <div class="field"><textarea class="ta mono" id="data" style="min-height:150px" placeholder="Paste CSV, TSV or cells copied from a spreadsheet. First row can be headers."></textarea><div class="row" style="margin-top:6px"><span class="note" id="dinfo">Nothing parsed yet.</span><span class="sp"></span><button type="button" class="btn ghost sm" id="sample">Sample data</button><label class="btn ghost sm">Open file<input type="file" id="file" accept=".csv,.tsv,.txt" hidden></label></div></div>
+      <div class="grid2">
+        <div><label class="f">Chart</label><select class="sel" id="type"><option value="bar">Bar</option><option value="line">Line</option><option value="area">Area</option><option value="scatter">Scatter</option><option value="hbar">Horizontal bar</option></select></div>
+        <div><label class="f">X axis</label><select class="sel" id="xcol"></select></div>
+      </div>
+      <div class="field" style="margin-top:10px"><label class="f">Series (Y)</label><div class="ycols" id="ycols"></div></div>
+      <div class="grid2">
+        <div><label class="f">Palette</label><div class="pal" id="pal"></div></div>
+        <div><label class="f">Options</label><div class="row"><button type="button" class="chip" id="optZero" aria-pressed="true">Start at zero</button><button type="button" class="chip" id="optGrid" aria-pressed="true">Gridlines</button><button type="button" class="chip" id="optLabels">Value labels</button></div></div>
+      </div>
+      <hr class="rule">
+      <div class="field"><label class="f">Title</label><input class="inp" id="title" placeholder="A headline, not a label: say what the chart shows"></div>
+      <div class="grid2"><div><label class="f">Subtitle</label><input class="inp" id="subtitle" placeholder="Units, period, source"></div><div><label class="f">Caption</label><input class="inp" id="caption" placeholder="Source: …"></div></div>
+      <div class="row" style="margin-top:14px"><button type="button" class="btn pri" id="ai">Pick the chart &amp; write the headline</button><button type="button" class="btn ghost" id="stop" hidden>Stop</button></div>
+      <div class="meta" id="stats"></div>
+    </section>
+    <section class="card">
+      <div class="row" style="margin-bottom:10px"><h2 style="margin:0">The chart</h2><span class="sp"></span><button type="button" class="btn sm" id="xSvg">SVG</button><button type="button" class="btn sm" id="xPng">PNG</button><button type="button" class="btn ghost sm" id="xCopy">Copy caption</button></div>
+      <div class="chartbox"><div class="ttl" id="tTitle"></div><div class="sub" id="tSub"></div><div id="svgWrap"><div class="empty">Paste some data to start.</div></div><div class="cap" id="tCap"></div></div>
+      <ul class="ins" id="ins"></ul>
+    </section>
+  </div>
+</main>
+<script>
+const TOOL = {"id": "charts", "name": "Charts", "scroll": "create", "scrollName": "Create", "glyph": "\u25c6", "system": "You are a creative director. Be bold and tasteful. Help the user make things that are beautiful, clear, and distinctive.", "tagline": "Paste a table, get the right chart, a headline that says what it shows, and the three things worth noticing."};
+/* ScrollOS runtime — shared by every tool. One local model at localhost:11434 (Ollama's REST API), streamed into the page.
+   Nothing here talks to any other host. Settings live in this browser under localStorage "scrollos.llm". */
+const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const HUB = 'https://bboldt86.github.io/lanscape-navigator/news/tech/scrollos/';
+const store = {
+  get(k, d) { try { const v = localStorage.getItem(k); return v == null ? d : JSON.parse(v); } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); return true; } catch (e) { return false; } }
+};
+const uid = () => Math.random().toString(36).slice(2, 10);
+const fmtN = n => n == null ? '—' : Math.round(n).toLocaleString();
+function toast(msg, ms = 2400) { let t = $('.toast'); if (!t) { t = document.createElement('div'); t.className = 'toast'; document.body.appendChild(t); } t.textContent = msg; t.classList.add('show'); clearTimeout(t._t); t._t = setTimeout(() => t.classList.remove('show'), ms); }
+function download(name, text, type = 'text/plain') { const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([text], { type })); a.download = name; document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500); }
+async function copyText(t) { try { await navigator.clipboard.writeText(t); toast('Copied'); } catch (e) { const ta = document.createElement('textarea'); ta.value = t; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove(); toast('Copied'); } }
+function hashParam(k) { const m = location.hash.match(new RegExp('[#&]' + k + '=([^&]*)')); return m ? decodeURIComponent(m[1].replace(/\+/g, ' ')) : ''; }
+function parseJSONLoose(s) { // the model's JSON, with fences or chatter around it
+  if (!s) return null;
+  let t = String(s).trim().replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/, '');
+  try { return JSON.parse(t); } catch (e) { /* fall through */ }
+  const a = t.indexOf('{'), b = t.lastIndexOf('}'), c = t.indexOf('['), d = t.lastIndexOf(']');
+  const cands = [];
+  if (a >= 0 && b > a) cands.push(t.slice(a, b + 1));
+  if (c >= 0 && d > c) cands.push(t.slice(c, d + 1));
+  cands.sort((x, y) => y.length - x.length);
+  for (const x of cands) { try { return JSON.parse(x); } catch (e) { /* next */ } }
+  return null;
+}
+/* a small Markdown renderer: headings, lists, code, quotes, tables, emphasis, links */
+function md(src) {
+  const lines = String(src || '').replace(/\r/g, '').split('\n');
+  let html = '', i = 0, para = [];
+  const inline = s => esc(s).replace(/`([^`]+)`/g, '<code>$1</code>').replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>').replace(/(^|[^*])\*([^*\n]+)\*/g, '$1<em>$2</em>').replace(/\[([^\]]+)\]\((https?:[^)\s]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+  const flush = () => { if (para.length) { html += `<p>${inline(para.join(' '))}</p>`; para = []; } };
+  while (i < lines.length) {
+    const l = lines[i];
+    if (/^```/.test(l)) { flush(); let j = i + 1, code = []; while (j < lines.length && !/^```/.test(lines[j])) code.push(lines[j++]); html += `<pre><code>${esc(code.join('\n'))}</code></pre>`; i = j + 1; continue; }
+    const h = l.match(/^(#{1,6})\s+(.*)/); if (h) { flush(); html += `<h${h[1].length}>${inline(h[2])}</h${h[1].length}>`; i++; continue; }
+    if (/^\s*(-{3,}|\*{3,})\s*$/.test(l)) { flush(); html += '<hr>'; i++; continue; }
+    if (/^\s*>/.test(l)) { flush(); let q = []; while (i < lines.length && /^\s*>/.test(lines[i])) q.push(lines[i++].replace(/^\s*>\s?/, '')); html += `<blockquote>${md(q.join('\n'))}</blockquote>`; continue; }
+    if (/^\s*\|/.test(l) && i + 1 < lines.length && /^\s*\|?\s*:?-{2,}/.test(lines[i + 1])) { flush(); const rows = []; while (i < lines.length && /^\s*\|/.test(lines[i])) rows.push(lines[i++]); const cells = r => r.trim().replace(/^\||\|$/g, '').split('|').map(c => inline(c.trim())); const head = cells(rows[0]); html += `<table><thead><tr>${head.map(c => `<th>${c}</th>`).join('')}</tr></thead><tbody>${rows.slice(2).map(r => `<tr>${cells(r).map(c => `<td>${c}</td>`).join('')}</tr>`).join('')}</tbody></table>`; continue; }
+    const li = l.match(/^\s*([-*+]|\d+[.)])\s+(.*)/);
+    if (li) { flush(); const ord = /\d/.test(li[1]); let items = []; while (i < lines.length) { const m = lines[i].match(/^\s*([-*+]|\d+[.)])\s+(.*)/); if (!m) { if (/^\s{2,}\S/.test(lines[i]) && items.length) { items[items.length - 1] += ' ' + lines[i].trim(); i++; continue; } break; } items.push(m[2]); i++; } html += `<${ord ? 'ol' : 'ul'}>${items.map(x => `<li>${inline(x)}</li>`).join('')}</${ord ? 'ol' : 'ul'}>`; continue; }
+    if (!l.trim()) { flush(); i++; continue; }
+    para.push(l.trim()); i++;
+  }
+  flush(); return html;
+}
+
+/* ================= the model ================= */
+const SOS = {
+  KEY: 'scrollos.llm',
+  cfg: null, models: [], state: 'idle', lastError: '', version: '', current: null,
+  defaults() { return { host: 'http://localhost:11434', model: '', temp: 0.7, ctx: 16384 }; },
+  load() { this.cfg = Object.assign(this.defaults(), store.get(this.KEY, {})); return this.cfg; },
+  save() { store.set(this.KEY, this.cfg); },
+  host() { return (this.cfg.host || 'http://localhost:11434').replace(/\/+$/, ''); },
+  prompts() { return store.get('scrollos.prompts', {}); },
+  system(fallback) { const p = this.prompts()[TOOL.scroll]; return (p && p.trim()) || fallback || TOOL.system; },
+  async tags() {
+    const r = await fetch(this.host() + '/api/tags', { signal: AbortSignal.timeout(5000) });
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    return ((await r.json()).models || []).map(m => ({ name: m.name, size: m.size, family: m.details && m.details.family, params: m.details && m.details.parameter_size, quant: m.details && m.details.quantization_level }));
+  },
+  async probe() {
+    this.setState('busy');
+    try {
+      this.models = await this.tags();
+      try { const v = await fetch(this.host() + '/api/version', { signal: AbortSignal.timeout(3000) }); if (v.ok) this.version = (await v.json()).version || ''; } catch (e) { /* older servers */ }
+      if (!this.models.length) { this.lastError = 'Ollama is running but has no models yet. Pull one: ollama pull gpt-oss:20b'; this.setState('no'); return false; }
+      if (!this.models.find(m => m.name === this.cfg.model)) { this.cfg.model = this.pickDefault(); this.save(); }
+      this.lastError = ''; this.setState('ok'); return true;
+    } catch (e) {
+      this.lastError = this.explain(e); this.setState('no'); return false;
+    }
+  },
+  pickDefault() { const pref = ['gpt-oss', 'gemma4', 'qwen3.6', 'qwen3', 'llama3', 'mistral', 'gemma']; for (const p of pref) { const m = this.models.find(x => x.name.startsWith(p)); if (m) return m.name; } return this.models[0] ? this.models[0].name : ''; },
+  explain(e) {
+    const o = location.origin === 'null' || location.protocol === 'file:' ? 'this file' : location.origin;
+    if (e && e.name === 'TimeoutError') return `No answer from ${this.host()} in 5 seconds. Is Ollama running?`;
+    if (e && (e.name === 'TypeError' || /fetch/i.test(e.message))) return `Couldn't reach ${this.host()} from ${o}. Either Ollama isn't running, or it hasn't been told to accept pages from here: set OLLAMA_ORIGINS="*" (or "${location.origin === 'null' ? 'file://*' : location.origin}") and restart it. The hub's Connect section has the exact commands.`;
+    return (e && e.message) || String(e);
+  },
+  setState(s) { this.state = s; document.dispatchEvent(new CustomEvent('sos:state', { detail: s })); },
+  ready() { return this.state === 'ok' && !!this.cfg.model; },
+  whenReady(fn) { // run once the first probe has settled, if a model is there
+    if (this.ready()) { fn(); return; }
+    const run = () => { if (SOS.state === 'busy' || SOS.state === 'idle') return; document.removeEventListener('sos:state', run); if (SOS.ready()) fn(); };
+    document.addEventListener('sos:state', run);
+  },
+  require() { if (this.ready()) return true; toast(this.state === 'busy' ? 'Still looking for the model…' : 'No local model connected yet'); openSheet(); return false; },
+  stop() { if (this.current) { try { this.current.abort(); } catch (e) { /* done */ } this.current = null; } },
+  async chat(o) {
+    const sys = o.system === undefined ? this.system() : o.system;
+    const body = { model: o.model || this.cfg.model, stream: true, messages: [...(sys ? [{ role: 'system', content: sys }] : []), ...o.messages], options: Object.assign({ temperature: o.temperature == null ? this.cfg.temp : o.temperature, num_ctx: o.ctx || this.cfg.ctx }, o.options || {}) };
+    if (o.json) body.format = 'json';
+    if (o.keepAlive) body.keep_alive = o.keepAlive;
+    const ctrl = new AbortController(); this.current = ctrl;
+    const t0 = performance.now(); let first = 0, text = '', think = '', last = null;
+    this.setState('busy');
+    try {
+      const r = await fetch(this.host() + '/api/chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body), signal: ctrl.signal });
+      if (!r.ok) { const t = await r.text().catch(() => ''); throw new Error('Ollama answered ' + r.status + (t ? ': ' + t.slice(0, 240) : '')); }
+      const rd = r.body.getReader(), dec = new TextDecoder(); let buf = '';
+      for (;;) {
+        const { value, done } = await rd.read(); if (done) break;
+        buf += dec.decode(value, { stream: true }); let i;
+        while ((i = buf.indexOf('\n')) >= 0) {
+          const line = buf.slice(0, i).trim(); buf = buf.slice(i + 1); if (!line) continue;
+          let j; try { j = JSON.parse(line); } catch (e) { continue; }
+          if (j.error) throw new Error(j.error);
+          const m = j.message || {};
+          if (m.thinking) { think += m.thinking; if (o.onThink) o.onThink(think); }
+          if (m.content) { if (!first) first = performance.now(); text += m.content; if (o.onToken) o.onToken(text, m.content); }
+          if (j.done) last = j;
+        }
+      }
+      const total = (performance.now() - t0) / 1000;
+      const stats = { total, tokens: last ? last.eval_count || 0 : 0, prompt: last ? last.prompt_eval_count || 0 : 0, tps: last && last.eval_duration ? (last.eval_count || 0) / (last.eval_duration / 1e9) : null, pps: last && last.prompt_eval_duration ? (last.prompt_eval_count || 0) / (last.prompt_eval_duration / 1e9) : null, load: last && last.load_duration ? last.load_duration / 1e9 : 0, ttft: first ? (first - t0) / 1000 : null, model: body.model };
+      this.setState('ok');
+      return { text, think, stats, aborted: false };
+    } catch (e) {
+      if (e.name === 'AbortError') { this.setState('ok'); return { text, think, stats: { total: (performance.now() - t0) / 1000, model: body.model }, aborted: true }; }
+      this.lastError = this.explain(e); this.setState(this.models.length ? 'ok' : 'no'); throw e;
+    } finally { if (this.current === ctrl) this.current = null; }
+  }
+};
+function statsLine(s) { if (!s) return ''; const p = []; if (s.model) p.push(`<b>${esc(s.model)}</b>`); if (s.tps) p.push(`<b>${s.tps.toFixed(1)}</b> tok/s`); if (s.tokens) p.push(`<b>${fmtN(s.tokens)}</b> tokens`); if (s.prompt) p.push(`<b>${fmtN(s.prompt)}</b> in`); if (s.ttft != null) p.push(`first token <b>${s.ttft.toFixed(1)}s</b>`); if (s.total) p.push(`<b>${s.total.toFixed(1)}s</b>`); return p.join(' · '); }
+
+/* ================= chrome: top bar, status pill, settings sheet ================= */
+function mountChrome() {
+  SOS.load();
+  if (window.self !== window.top) document.documentElement.classList.add('framed');
+  const top = document.createElement('header'); top.className = 'top';
+  top.innerHTML = `<a class="brand" href="${HUB}" title="ScrollOS hub"><span class="glyph" aria-hidden="true">${TOOL.glyph}</span><span class="name">${esc(TOOL.name)}<small>${esc(TOOL.scrollName)} · ScrollOS</small></span></a><span class="sp"></span>
+    <button type="button" class="pill" id="sosPill" data-st="idle" title="Local model"><span class="dot"></span><span class="m">Looking for a model…</span></button>
+    <button type="button" class="gear" id="sosGear" aria-label="Settings" title="Settings">⚙</button>
+    <a class="hub" href="${HUB}">ScrollOS ⟐</a>`;
+  document.body.prepend(top);
+  const bg = document.createElement('div'); bg.className = 'sheet-bg'; bg.id = 'sosBg';
+  const sh = document.createElement('aside'); sh.className = 'sheet'; sh.id = 'sosSheet'; sh.setAttribute('aria-label', 'Model settings');
+  document.body.append(bg, sh);
+  bg.onclick = closeSheet;
+  $('#sosGear').onclick = openSheet; $('#sosPill').onclick = openSheet;
+  const foot = document.createElement('footer'); foot.className = 'foot';
+  foot.innerHTML = `ScrollOS · ${esc(TOOL.scrollName)} · ${esc(TOOL.name)} · runs in your browser against your own model · <a href="${HUB}">the hub on The Watch</a>`;
+  document.body.append(foot);
+  document.addEventListener('sos:state', paintPill);
+  paintPill(); SOS.probe();
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSheet(); if ((e.metaKey || e.ctrlKey) && e.key === ',') { e.preventDefault(); openSheet(); } });
+}
+function paintPill() {
+  const p = $('#sosPill'); if (!p) return; p.dataset.st = SOS.state;
+  const m = $('.m', p);
+  m.textContent = SOS.state === 'ok' ? (SOS.cfg.model || 'Pick a model') : SOS.state === 'busy' ? (SOS.cfg.model ? SOS.cfg.model : 'Connecting…') : SOS.state === 'no' ? 'No local model' : 'Looking for a model…';
+  if ($('#sosSheet').classList.contains('open')) renderSheet();
+}
+function openSheet() { renderSheet(); $('#sosBg').classList.add('open'); $('#sosSheet').classList.add('open'); }
+function closeSheet() { $('#sosBg').classList.remove('open'); $('#sosSheet').classList.remove('open'); }
+function renderSheet() {
+  const s = $('#sosSheet'), c = SOS.cfg, cur = SOS.prompts()[TOOL.scroll] || '';
+  const ctxs = [4096, 8192, 16384, 32768, 65536, 131072];
+  s.innerHTML = `<button type="button" class="btn ghost sm close" id="sosClose">✕</button>
+    <h2>Your model</h2><p class="sub">Every tool on this page talks to the model running on your own machine. Nothing is sent anywhere else.</p>
+    <label class="f">Ollama address</label>
+    <div class="row" style="margin-bottom:10px"><input class="inp" id="sosHost" value="${esc(c.host)}" placeholder="http://localhost:11434" style="flex:1;min-width:0"><button type="button" class="btn" id="sosTest">Test</button></div>
+    ${SOS.state === 'ok' ? `<div class="banner ok"><span class="i">●</span><span><b>Connected</b>${SOS.version ? ` · Ollama ${esc(SOS.version)}` : ''} · ${SOS.models.length} model${SOS.models.length === 1 ? '' : 's'}</span></div>` : SOS.state === 'no' ? `<div class="banner warn"><span class="i">!</span><span><b>Not connected.</b> ${esc(SOS.lastError)} <a href="${HUB}#connect">Set-up steps ›</a></span></div>` : `<div class="banner"><span class="i">…</span><span>Looking for a model at ${esc(c.host)}</span></div>`}
+    <label class="f">Model</label>
+    <div class="models" id="sosModels">${SOS.models.length ? SOS.models.map(m => `<button type="button" data-m="${esc(m.name)}" aria-pressed="${m.name === c.model}"><span style="font-family:var(--font);font-size:13px;color:var(--ink)">${esc(m.name)}</span><span>${esc(m.params || '')}${m.quant ? ' · ' + esc(m.quant) : ''}${m.size ? ' · ' + (m.size / 1e9).toFixed(1) + ' GB' : ''}</span></button>`).join('') : `<div class="note">No models listed yet. On the machine running Ollama: <code>ollama pull gpt-oss:20b</code></div>`}</div>
+    <label class="f">Temperature · <span id="sosTempV">${c.temp}</span></label>
+    <input type="range" id="sosTemp" min="0" max="1.5" step="0.05" value="${c.temp}">
+    <p class="note" style="margin:4px 0 12px">Low is careful and repeatable; high is loose and surprising. 0.7 suits most writing.</p>
+    <label class="f">Context window</label>
+    <select class="sel" id="sosCtx" style="margin-bottom:4px">${ctxs.map(n => `<option value="${n}" ${n === c.ctx ? 'selected' : ''}>${n >= 1024 ? (n / 1024) + 'K tokens' : n}</option>`).join('')}</select>
+    <p class="note" style="margin:0 0 12px">How much the model can hold at once. Bigger is slower to start and uses more memory; 16K covers most tasks, 128K holds a whole book.</p>
+    <label class="f">${esc(TOOL.scrollName)}'s system prompt</label>
+    <textarea class="ta" id="sosSys" placeholder="${esc(TOOL.system)}">${esc(cur)}</textarea>
+    <p class="note" style="margin:4px 0 14px">Blank uses the default above. Shared by every ${esc(TOOL.scrollName)} tool in this browser; the AI Lab edits all seven at once.</p>
+    <div class="row"><button type="button" class="btn pri" id="sosSave">Save</button><button type="button" class="btn ghost" id="sosReset">Reset</button><span class="sp"></span><a class="btn ghost sm" href="${HUB}#connect">Help ›</a></div>
+    <hr class="rule"><div class="kv"><span>origin</span><b>${esc(location.origin === 'null' ? 'file (opened from disk)' : location.origin)}</b><span>storage</span><b>this browser only</b><span>endpoint</span><b>${esc(SOS.host())}/api/chat</b></div>`;
+  $('#sosClose').onclick = closeSheet;
+  $('#sosTest').onclick = async () => { SOS.cfg.host = $('#sosHost').value.trim() || 'http://localhost:11434'; SOS.save(); await SOS.probe(); renderSheet(); };
+  $$('#sosModels button').forEach(b => b.onclick = () => { SOS.cfg.model = b.dataset.m; SOS.save(); paintPill(); renderSheet(); });
+  $('#sosTemp').oninput = e => { $('#sosTempV').textContent = e.target.value; };
+  $('#sosSave').onclick = () => { SOS.cfg.host = $('#sosHost').value.trim() || 'http://localhost:11434'; SOS.cfg.temp = +$('#sosTemp').value; SOS.cfg.ctx = +$('#sosCtx').value; SOS.save(); const P = SOS.prompts(); const v = $('#sosSys').value.trim(); if (v) P[TOOL.scroll] = v; else delete P[TOOL.scroll]; store.set('scrollos.prompts', P); toast('Saved'); closeSheet(); if (SOS.state !== 'ok') SOS.probe(); };
+  $('#sosReset').onclick = () => { SOS.cfg = SOS.defaults(); SOS.save(); const P = SOS.prompts(); delete P[TOOL.scroll]; store.set('scrollos.prompts', P); renderSheet(); SOS.probe(); };
+}
+/* a banner for pages that can do something without the model */
+function offlineBanner(what) {
+  return `<div class="banner warn" id="sosOff" hidden><span class="i">⟐</span><span><b>No local model yet.</b> ${esc(what)} <a href="#" data-open-sheet>Connect one</a> or read <a href="${HUB}#build">how to build the machine</a>.</span></div>`;
+}
+document.addEventListener('click', e => { const a = e.target.closest('[data-open-sheet]'); if (a) { e.preventDefault(); openSheet(); } });
+document.addEventListener('sos:state', () => { const b = $('#sosOff'); if (b) b.hidden = SOS.state !== 'no'; });
+
+</script>
+<script>
+const PALS = { scroll: ['#c8a8ff', '#5898e8', '#38c8d8', '#48c870', '#f59e0b', '#e05a48', '#d8608c', '#9b59b6'], warm: ['#f59e0b', '#e05a48', '#d8608c', '#fbbf24', '#c44030', '#b84870', '#d97706', '#9b59b6'], cool: ['#38c8d8', '#5898e8', '#5e5ce6', '#48c870', '#c8a8ff', '#28a8b8', '#4078c8', '#38a858'], mono: ['#eeeef4', '#bbbbc8', '#9a9aae', '#7a7a8e', '#5a5a6e', '#444', '#333', '#2a2a36'] };
+let T = { rows: [], cols: [], types: [] }, pal = 'scroll', ys = [], insights = [];
+const num = v => { if (v == null) return NaN; const s = String(v).trim().replace(/^[$€£]/, '').replace(/%$/, '').replace(/,/g, ''); if (!s || !/^[-+]?(\d+\.?\d*|\.\d+)(e[-+]?\d+)?$/i.test(s)) return NaN; return parseFloat(s); };
+function parse(text) {
+  text = text.replace(/\r/g, '').trim(); if (!text) return { rows: [], cols: [], types: [] };
+  const first = text.split('\n')[0]; const delim = [['\t', (first.match(/\t/g) || []).length], [',', (first.match(/,/g) || []).length], [';', (first.match(/;/g) || []).length], ['|', (first.match(/\|/g) || []).length]].sort((a, b) => b[1] - a[1])[0][0];
+  const rows = []; let row = [], cell = '', q = false;
+  for (let i = 0; i < text.length; i++) { const c = text[i]; if (q) { if (c === '"') { if (text[i + 1] === '"') { cell += '"'; i++; } else q = false; } else cell += c; } else if (c === '"') q = true; else if (c === delim) { row.push(cell); cell = ''; } else if (c === '\n') { row.push(cell); rows.push(row); row = []; cell = ''; } else cell += c; }
+  row.push(cell); if (row.some(x => x.trim())) rows.push(row);
+  const w = Math.max(...rows.map(r => r.length)); rows.forEach(r => { while (r.length < w) r.push(''); r.forEach((x, i) => r[i] = x.trim()); });
+  const colType = (vals) => { const v = vals.filter(x => x !== ''); if (!v.length) return 'text'; const n = v.filter(x => !isNaN(num(x))).length; if (n / v.length >= 0.8) return 'number'; const d = v.filter(x => !isNaN(Date.parse(x)) && /\d/.test(x)).length; if (d / v.length >= 0.8) return 'date'; return 'text'; };
+  const body = rows.slice(1); const headerish = rows.length > 1 && rows[0].some((h, i) => isNaN(num(h)) && colType(body.map(r => r[i])) === 'number');
+  const cols = headerish ? rows[0].map((h, i) => h || 'Column ' + (i + 1)) : rows[0].map((_, i) => 'Column ' + (i + 1));
+  const data = headerish ? body : rows; const types = cols.map((_, i) => colType(data.map(r => r[i])));
+  return { rows: data, cols, types };
+}
+function nice(min, max, n = 5) { if (min === max) { max = min + 1; } const span = max - min, step0 = span / n, mag = Math.pow(10, Math.floor(Math.log10(step0))), r = step0 / mag, step = (r >= 5 ? 10 : r >= 2 ? 5 : r >= 1 ? 2 : 1) * mag; const lo = Math.floor(min / step) * step, hi = Math.ceil(max / step) * step; const ticks = []; for (let v = lo; v <= hi + step / 2; v += step) ticks.push(+v.toFixed(10)); return { lo, hi, ticks }; }
+const fmt = v => Math.abs(v) >= 1e9 ? (v / 1e9).toFixed(1) + 'B' : Math.abs(v) >= 1e6 ? (v / 1e6).toFixed(1) + 'M' : Math.abs(v) >= 1e4 ? (v / 1e3).toFixed(0) + 'K' : Math.abs(v) >= 100 ? v.toFixed(0) : Math.abs(v) >= 1 ? +v.toFixed(2) + '' : +v.toFixed(3) + '';
+function draw() {
+  const type = $('#type').value, xi = +$('#xcol').value, W = 720, H = 420, P = { t: 18, r: 18, b: 56, l: 58 }, colors = PALS[pal], zero = $('#optZero').getAttribute('aria-pressed') === 'true', grid = $('#optGrid').getAttribute('aria-pressed') === 'true', labels = $('#optLabels').getAttribute('aria-pressed') === 'true';
+  const wrap = $('#svgWrap'); if (!T.rows.length || !ys.length) { wrap.innerHTML = `<div class="empty">${T.rows.length ? 'Pick at least one numeric series.' : 'Paste some data to start.'}</div>`; return; }
+  const rows = T.rows.filter(r => r[xi] !== ''), xs = rows.map(r => r[xi]);
+  const series = ys.map((yi, k) => ({ name: T.cols[yi], color: colors[k % colors.length], v: rows.map(r => num(r[yi])) }));
+  const allY = series.flatMap(s => s.v).filter(v => !isNaN(v)); let ymin = Math.min(...allY), ymax = Math.max(...allY); if (zero && type !== 'scatter') { ymin = Math.min(0, ymin); ymax = Math.max(0, ymax); }
+  const ny = nice(ymin, ymax, 5), iw = W - P.l - P.r, ih = H - P.t - P.b, sy = v => P.t + ih - (v - ny.lo) / (ny.hi - ny.lo) * ih;
+  const font = 'font-family="DM Sans, system-ui, sans-serif"';
+  let g = '';
+  const axisText = (x, y, t, a = 'middle', dy = 0, rot = 0) => `<text x="${x}" y="${y}" dy="${dy}" text-anchor="${a}" fill="#8a8a9e" font-size="11" ${font}${rot ? ` transform="rotate(${rot} ${x} ${y})"` : ''}>${esc(t)}</text>`;
+  if (type === 'hbar') { // categories down the side
+    const n = xs.length, bh = ih / n, cnt = series.length, bw = Math.max(2, (bh * 0.72) / cnt); const Pl = Math.min(220, Math.max(70, Math.max(...xs.map(x => String(x).length)) * 6.5 + 14)); const iw2 = W - Pl - P.r, sx = v => Pl + (v - ny.lo) / (ny.hi - ny.lo) * iw2;
+    ny.ticks.forEach(t => { const x = sx(t); g += `${grid ? `<line x1="${x}" x2="${x}" y1="${P.t}" y2="${P.t + ih}" stroke="rgba(255,255,255,.07)"/>` : ''}${axisText(x, P.t + ih + 16, fmt(t))}`; });
+    xs.forEach((x, i) => { const y0 = P.t + i * bh + bh * 0.14; g += axisText(Pl - 8, y0 + (bh * 0.72) / 2, String(x).slice(0, 34), 'end', 4); series.forEach((s, k) => { const v = s.v[i]; if (isNaN(v)) return; const x0 = sx(Math.min(0, v)), x1 = sx(Math.max(0, v)); g += `<rect x="${x0}" y="${y0 + k * bw}" width="${Math.max(0.5, x1 - x0)}" height="${bw - 1}" rx="2" fill="${s.color}"><title>${esc(x)} · ${esc(s.name)}: ${v}</title></rect>${labels ? `<text x="${x1 + 4}" y="${y0 + k * bw + bw / 2 + 4}" fill="#cfcfdc" font-size="10" ${font}>${fmt(v)}</text>` : ''}`; }); });
+    g += `<line x1="${sx(Math.max(ny.lo, Math.min(0, ny.hi)))}" x2="${sx(Math.max(ny.lo, Math.min(0, ny.hi)))}" y1="${P.t}" y2="${P.t + ih}" stroke="rgba(255,255,255,.25)"/>`;
+  } else {
+    ny.ticks.forEach(t => { const y = sy(t); g += `${grid ? `<line x1="${P.l}" x2="${W - P.r}" y1="${y}" y2="${y}" stroke="rgba(255,255,255,.07)"/>` : ''}${axisText(P.l - 8, y, fmt(t), 'end', 4)}`; });
+    if (type === 'scatter') {
+      const xv = rows.map(r => num(r[xi])), nx = nice(Math.min(...xv.filter(v => !isNaN(v))), Math.max(...xv.filter(v => !isNaN(v))), 6), sx = v => P.l + (v - nx.lo) / (nx.hi - nx.lo) * iw;
+      nx.ticks.forEach(t => { const x = sx(t); g += `${grid ? `<line x1="${x}" x2="${x}" y1="${P.t}" y2="${P.t + ih}" stroke="rgba(255,255,255,.05)"/>` : ''}${axisText(x, P.t + ih + 18, fmt(t))}`; });
+      series.forEach(s => s.v.forEach((v, i) => { if (isNaN(v) || isNaN(xv[i])) return; g += `<circle cx="${sx(xv[i])}" cy="${sy(v)}" r="5" fill="${s.color}" fill-opacity=".8" stroke="#0d0d13" stroke-width="1"><title>${esc(s.name)}: x ${xv[i]}, y ${v}</title></circle>`; }));
+      g += axisText(P.l + iw / 2, H - 8, T.cols[xi]);
+    } else {
+      const n = xs.length, step = iw / Math.max(1, n), every = Math.ceil(n / Math.max(4, Math.floor(iw / 70)));
+      xs.forEach((x, i) => { if (i % every) return; const cx = P.l + step * (i + 0.5); g += axisText(cx, P.t + ih + 18, String(x).slice(0, 18), n > 12 ? 'end' : 'middle', 0, n > 12 ? -35 : 0); });
+      if (type === 'bar') { const cnt = series.length, bw = Math.max(1.5, (step * 0.7) / cnt); series.forEach((s, k) => s.v.forEach((v, i) => { if (isNaN(v)) return; const x = P.l + step * i + step * 0.15 + k * bw, y0 = sy(Math.max(0, v)), y1 = sy(Math.min(0, v)); g += `<rect x="${x}" y="${y0}" width="${bw - (cnt > 1 ? 1 : 0)}" height="${Math.max(0.5, y1 - y0)}" rx="2" fill="${s.color}"><title>${esc(xs[i])} · ${esc(s.name)}: ${v}</title></rect>${labels ? `<text x="${x + bw / 2}" y="${y0 - 4}" text-anchor="middle" fill="#cfcfdc" font-size="10" ${font}>${fmt(v)}</text>` : ''}`; })); }
+      else { series.forEach(s => { const pts = s.v.map((v, i) => isNaN(v) ? null : [P.l + step * (i + 0.5), sy(v)]); let d = '', open = false; pts.forEach(p => { if (!p) { open = false; return; } d += (open ? 'L' : 'M') + p[0].toFixed(1) + ' ' + p[1].toFixed(1); open = true; }); if (type === 'area') { const first = pts.find(Boolean), lastP = [...pts].reverse().find(Boolean); if (first && lastP) g += `<path d="${d} L${lastP[0]} ${sy(Math.max(ny.lo, 0))} L${first[0]} ${sy(Math.max(ny.lo, 0))} Z" fill="${s.color}" fill-opacity=".14"/>`; } g += `<path d="${d}" fill="none" stroke="${s.color}" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>`; pts.forEach((p, i) => { if (!p) return; g += `<circle cx="${p[0]}" cy="${p[1]}" r="${n > 40 ? 0 : 3}" fill="${s.color}"><title>${esc(xs[i])} · ${esc(s.name)}: ${s.v[i]}</title></circle>${labels && n <= 24 ? `<text x="${p[0]}" y="${p[1] - 8}" text-anchor="middle" fill="#cfcfdc" font-size="10" ${font}>${fmt(s.v[i])}</text>` : ''}`; }); }); }
+      if (ny.lo < 0 && ny.hi > 0) g += `<line x1="${P.l}" x2="${W - P.r}" y1="${sy(0)}" y2="${sy(0)}" stroke="rgba(255,255,255,.25)"/>`;
+    }
+  }
+  const legend = series.length > 1 ? `<g ${font} font-size="11">${series.map((s, k) => `<g transform="translate(${P.l + k * 130},${H - 4})"><rect x="0" y="-9" width="10" height="10" rx="2" fill="${s.color}"/><text x="15" y="0" fill="#cfcfdc">${esc(s.name.slice(0, 18))}</text></g>`).join('')}</g>` : '';
+  wrap.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img">${g}${legend}</svg>`;
+}
+function summary() { const n = T.rows.length, numCols = T.cols.map((c, i) => ({ c, i, t: T.types[i] })); const stats = numCols.filter(x => x.t === 'number').map(x => { const v = T.rows.map(r => num(r[x.i])).filter(v => !isNaN(v)); return `${x.c}: min ${fmt(Math.min(...v))}, max ${fmt(Math.max(...v))}, first ${v[0]}, last ${v[v.length - 1]}`; }); return `Columns: ${T.cols.map((c, i) => `${c} (${T.types[i]})`).join(', ')}\nRows: ${n}\n${stats.join('\n')}\nFirst rows:\n${[T.cols.join(' | '), ...T.rows.slice(0, 10).map(r => r.join(' | '))].join('\n')}${n > 10 ? `\n… and ${n - 10} more` : ''}`; }
+async function ask() {
+  if (!T.rows.length) { toast('Paste some data first'); return; }
+  if (!SOS.require()) return;
+  $('#stop').hidden = false; $('#ai').disabled = true; $('#stats').textContent = 'Looking at the data…'; insights = []; renderText();
+  try {
+    const r = await SOS.chat({ messages: [{ role: 'user', content: `Here is a table. Choose the best chart and write the words around it.\n\n${summary()}\n\nRules: "type" is one of bar, hbar, line, area, scatter (line/area for time or ordered x; bar for categories; hbar when category names are long or there are many; scatter only for two numeric measures). "x" is one column name; "y" is 1–4 numeric column names. "title" is a headline that states the finding (not "Revenue by year" but "Revenue doubled since 2021"), under 70 characters. "subtitle": units and period. "caption": what to cite as a source or one caveat. "insights": 2–3 short observations a reader should notice, each under 140 characters, with numbers. Return ONLY JSON: {"type":"…","x":"…","y":["…"],"title":"…","subtitle":"…","caption":"…","insights":["…","…"]}` }], json: true, temperature: 0.3, onToken: t => { $('#stats').innerHTML = `Thinking… <b>${t.length}</b> chars`; } });
+    const j = parseJSONLoose(r.text); if (!j) { $('#stats').textContent = 'The model answered, but not as JSON. Try again.'; return; }
+    if (j.type && $(`#type option[value="${j.type}"]`)) $('#type').value = j.type;
+    const xi = T.cols.indexOf(j.x); if (xi >= 0) $('#xcol').value = xi;
+    if (Array.isArray(j.y)) { const pick = j.y.map(n => T.cols.indexOf(n)).filter(i => i >= 0 && T.types[i] === 'number'); if (pick.length) ys = pick; }
+    if (j.title) $('#title').value = j.title; if (j.subtitle) $('#subtitle').value = j.subtitle; if (j.caption) $('#caption').value = j.caption;
+    insights = Array.isArray(j.insights) ? j.insights.map(String) : [];
+    renderY(); draw(); renderText(); $('#stats').innerHTML = statsLine(r.stats);
+  } catch (e) { $('#stats').textContent = SOS.lastError || e.message; }
+  $('#stop').hidden = true; $('#ai').disabled = false;
+}
+function renderText() { $('#tTitle').textContent = $('#title').value; $('#tSub').textContent = $('#subtitle').value; $('#tCap').textContent = $('#caption').value; $('#ins').innerHTML = insights.map(i => `<li>${esc(i)}</li>`).join(''); }
+function renderY() { $('#ycols').innerHTML = T.cols.map((c, i) => T.types[i] === 'number' ? `<button type="button" class="chip" data-i="${i}" aria-pressed="${ys.includes(i)}">${esc(c)}</button>` : '').join('') || '<span class="note">No numeric columns found.</span>'; $$('#ycols .chip').forEach(b => b.onclick = () => { const i = +b.dataset.i; ys = ys.includes(i) ? ys.filter(x => x !== i) : [...ys, i]; renderY(); draw(); }); }
+function load(text) {
+  T = parse(text); const n = T.rows.length; $('#dinfo').textContent = n ? `${n} rows · ${T.cols.length} columns (${T.types.filter(t => t === 'number').length} numeric)` : 'Nothing parsed yet.';
+  $('#xcol').innerHTML = T.cols.map((c, i) => `<option value="${i}">${esc(c)}</option>`).join('');
+  const xi = T.types.findIndex(t => t !== 'number'); $('#xcol').value = xi >= 0 ? xi : 0;
+  ys = T.types.map((t, i) => t === 'number' && i !== +$('#xcol').value ? i : -1).filter(i => i >= 0).slice(0, 3);
+  const dateish = T.types[+$('#xcol').value] === 'date' || /year|month|date|week|day|q[1-4]/i.test(T.cols[+$('#xcol').value] || ''); $('#type').value = dateish ? 'line' : (n > 12 ? 'hbar' : 'bar');
+  renderY(); draw();
+}
+function svgText() { const s = $('#svgWrap svg'); if (!s) return ''; const title = $('#title').value, sub = $('#subtitle').value, cap = $('#caption').value; const W = 720, H = 420, top = (title ? 30 : 0) + (sub ? 20 : 0), bot = cap ? 22 : 0; return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H + top + bot + 16}" viewBox="0 0 ${W} ${H + top + bot + 16}" font-family="DM Sans, system-ui, sans-serif"><rect width="100%" height="100%" fill="#0d0d13"/>${title ? `<text x="18" y="26" fill="#eeeef4" font-size="20" font-family="Instrument Serif, Georgia, serif">${esc(title)}</text>` : ''}${sub ? `<text x="18" y="${(title ? 30 : 0) + 16}" fill="#a9a9bb" font-size="12">${esc(sub)}</text>` : ''}<g transform="translate(0,${top + 8})">${s.innerHTML}</g>${cap ? `<text x="18" y="${H + top + bot + 4}" fill="#73738a" font-size="11">${esc(cap)}</text>` : ''}</svg>`; }
+mountChrome();
+$('#offline').innerHTML = offlineBanner('The chart itself draws without it; the model picks the chart type and writes the headline and insights.');
+$('#pal').innerHTML = Object.keys(PALS).map(k => `<button type="button" data-p="${k}" aria-pressed="${k === pal}" title="${k}">${PALS[k].slice(0, 4).map(c => `<i style="background:${c}"></i>`).join('')}</button>`).join('');
+$$('#pal button').forEach(b => b.onclick = () => { pal = b.dataset.p; $$('#pal button').forEach(x => x.setAttribute('aria-pressed', x === b)); draw(); });
+['#optZero', '#optGrid', '#optLabels'].forEach(s => $(s).onclick = () => { $(s).setAttribute('aria-pressed', $(s).getAttribute('aria-pressed') !== 'true'); draw(); });
+let tm; $('#data').oninput = () => { clearTimeout(tm); tm = setTimeout(() => load($('#data').value), 250); };
+$('#type').onchange = draw; $('#xcol').onchange = draw;
+['#title', '#subtitle', '#caption'].forEach(s => $(s).oninput = renderText);
+$('#ai').onclick = ask; $('#stop').onclick = () => SOS.stop();
+$('#sample').onclick = () => { $('#data').value = 'Year,Streaming,Physical,Downloads\n2018,7.4,1.2,1.0\n2019,8.8,1.1,0.9\n2020,10.1,1.1,0.7\n2021,12.4,1.7,0.6\n2022,13.3,1.7,0.5\n2023,14.4,1.9,0.4\n2024,15.2,2.0,0.3\n2025,16.1,2.1,0.3'; load($('#data').value); };
+$('#file').onchange = e => { const f = e.target.files[0]; if (f) f.text().then(t => { $('#data').value = t; load(t); }); };
+$('#xSvg').onclick = () => { const s = svgText(); if (s) download('chart.svg', s, 'image/svg+xml'); };
+$('#xPng').onclick = () => { const s = svgText(); if (!s) return; const img = new Image(); const url = URL.createObjectURL(new Blob([s], { type: 'image/svg+xml' })); img.onload = () => { const c = document.createElement('canvas'); c.width = img.width * 2; c.height = img.height * 2; const x = c.getContext('2d'); x.scale(2, 2); x.drawImage(img, 0, 0); URL.revokeObjectURL(url); c.toBlob(b => { const a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = 'chart.png'; a.click(); }); }; img.src = url; };
+$('#xCopy').onclick = () => copyText([$('#title').value, $('#subtitle').value, '', ...insights.map(i => '• ' + i), '', $('#caption').value].filter(Boolean).join('\n'));
+const q = hashParam('q'); if (q) { $('#data').value = q; load(q); if (hashParam('go')) SOS.whenReady(ask); }
+</script>
+</body>
+</html>

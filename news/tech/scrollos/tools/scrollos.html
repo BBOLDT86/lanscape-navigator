@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#07070b">
+<title>ScrollOS Desktop · ScrollOS</title>
+<meta name="description" content="The ScrollOS desktop: a dock of the seven Scrolls and one prompt bar on top. Type a thought — plan a trip, make cards from this, what's for dinner, chart these numbers — and it opens the right tool with your words already in it. Everything runs in your browser against your own local model.">
+<link rel="canonical" href="https://bboldt86.github.io/lanscape-navigator/news/tech/scrollos/tools/scrollos.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="The Watch">
+<meta property="og:title" content="ScrollOS Desktop · ScrollOS">
+<meta property="og:description" content="The ScrollOS desktop: a dock of the seven Scrolls and one prompt bar on top. Type a thought — plan a trip, make cards from this, what's for dinner, chart these numbers — and it opens the right tool with your words already in it. Everything runs in your browser against your own local model.">
+<meta property="og:url" content="https://bboldt86.github.io/lanscape-navigator/news/tech/scrollos/tools/scrollos.html">
+<meta property="og:image" content="https://bboldt86.github.io/lanscape-navigator/news/tech/scrollos/share.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23c8a8ff'/%3E%3Ctext x='32' y='43' font-size='34' text-anchor='middle' fill='%230a0a0e' font-family='system-ui'%3E⟐%3C/text%3E%3C/svg%3E">
+<!-- ScrollOS · ScrollOS · ScrollOS Desktop. One file; built by news/tech/scrollos/build.py from src/. Talks only to your own model at localhost:11434. -->
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&family=DM+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap');
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#07070b;--s1:#0d0d13;--s2:#13131b;--s3:#1a1a24;--s4:#232330;--s5:#2c2c3a;
+  --rule:rgba(255,255,255,.07);--rule2:rgba(255,255,255,.12);
+  --ink:#eeeef4;--ink2:#a9a9bb;--ink3:#73738a;--ink4:#4e4e62;
+  --core:#c8a8ff;--indigo:#5e5ce6;--green:#30d158;--red:#ff453a;--amber:#fbbf24;--blue:#5898e8;
+  --font:'DM Sans',system-ui,-apple-system,sans-serif;--mono:'DM Mono',ui-monospace,SFMono-Regular,Menlo,monospace;--serif:'Instrument Serif',Georgia,serif;
+  --acc-dim:color-mix(in srgb,var(--acc) 12%,transparent);--acc-mid:color-mix(in srgb,var(--acc) 28%,transparent);
+}
+html{color-scheme:dark;-webkit-text-size-adjust:100%}
+[hidden]{display:none!important}
+body{font-family:var(--font);background:var(--bg);color:var(--ink);line-height:1.5;min-height:100vh;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(900px 500px at 50% -10%,var(--acc-dim),transparent 60%)}
+a{color:inherit}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+code,kbd,.mono{font-family:var(--mono)}
+::selection{background:var(--acc-mid)}
+
+/* ---- top bar ---- */
+.top{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:12px;padding:10px 16px;background:rgba(7,7,11,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--rule)}
+.top .brand{display:flex;align-items:center;gap:10px;text-decoration:none;min-width:0}
+.top .glyph{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;font-size:.95rem;background:linear-gradient(145deg,var(--acc),var(--acc2));color:#0a0a0e;flex:none;box-shadow:0 0 18px var(--acc-mid)}
+.top .name{font:600 15px/1.1 var(--font);letter-spacing:-.01em;white-space:nowrap}
+.top .name small{display:block;font:500 10px/1.3 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin-top:2px}
+.top .sp{flex:1}
+.top .hub{font:500 12px var(--font);color:var(--ink3);text-decoration:none;white-space:nowrap;padding:6px 8px;border-radius:8px}
+.top .hub:hover{color:var(--ink);background:var(--s3)}
+.pill{display:inline-flex;align-items:center;gap:8px;padding:6px 10px 6px 8px;border:1px solid var(--rule2);border-radius:100px;background:var(--s2);font:500 12px var(--font);color:var(--ink2);cursor:pointer;max-width:46vw}
+.pill:hover{border-color:var(--acc)}
+.pill .dot{width:8px;height:8px;border-radius:50%;background:var(--ink4);flex:none;box-shadow:0 0 0 3px rgba(255,255,255,.04)}
+.pill[data-st="ok"] .dot{background:var(--green);box-shadow:0 0 10px rgba(48,209,88,.6)}
+.pill[data-st="busy"] .dot{background:var(--amber);animation:sosPulse 1s ease-in-out infinite}
+.pill[data-st="no"] .dot{background:var(--red)}
+.pill .m{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+@keyframes sosPulse{0%,100%{opacity:.4}50%{opacity:1}}
+.gear{width:34px;height:34px;border-radius:9px;border:1px solid var(--rule2);background:var(--s2);display:grid;place-items:center;color:var(--ink2);flex:none}
+.gear:hover{border-color:var(--acc);color:var(--ink)}
+
+/* ---- layout ---- */
+.wrap{position:relative;z-index:1;max-width:1180px;margin:0 auto;padding:22px 16px 80px}
+.cols{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:18px;align-items:start}
+@media (max-width:860px){.cols{grid-template-columns:1fr}}
+.card{background:var(--s1);border:1px solid var(--rule);border-radius:16px;padding:18px}
+.card h2,.card h3{font:600 14px/1.3 var(--font);letter-spacing:.02em;color:var(--ink2);text-transform:uppercase;letter-spacing:.1em;font-size:11px;margin-bottom:12px}
+.h1{font:400 clamp(1.7rem,4vw,2.4rem)/1.1 var(--serif);letter-spacing:-.02em;margin:6px 0 4px}
+.lede{color:var(--ink2);font-size:14px;max-width:62ch;margin-bottom:18px}
+.lede b{color:var(--ink)}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.sp{flex:1}
+.muted{color:var(--ink3)}
+.small{font-size:12px}
+.tiny{font:500 10px/1.3 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ink3)}
+hr.rule{border:0;border-top:1px solid var(--rule);margin:14px 0}
+
+/* ---- controls ---- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:9px 14px;border-radius:10px;border:1px solid var(--rule2);background:var(--s2);font:600 13px var(--font);color:var(--ink);transition:transform .15s,border-color .15s,background .15s;white-space:nowrap}
+.btn:hover{border-color:var(--acc);background:var(--s3)}
+.btn:active{transform:translateY(1px)}
+.btn.pri{background:linear-gradient(135deg,var(--acc),var(--acc2));color:#0a0a0e;border-color:transparent;box-shadow:0 4px 18px var(--acc-mid)}
+.btn.pri:hover{filter:brightness(1.08)}
+.btn.ghost{background:transparent;border-color:transparent;color:var(--ink2)}
+.btn.ghost:hover{color:var(--ink);background:var(--s2)}
+.btn.sm{padding:6px 10px;font-size:12px;border-radius:8px}
+.btn.danger{color:var(--red)}
+.btn:disabled{opacity:.45;cursor:not-allowed;transform:none}
+.inp,.sel,.ta{width:100%;background:var(--s2);border:1px solid var(--rule2);border-radius:10px;padding:10px 12px;font-size:14px;color:var(--ink);outline:none;transition:border-color .15s}
+.inp:focus,.sel:focus,.ta:focus{border-color:var(--acc);box-shadow:0 0 0 3px var(--acc-dim)}
+.ta{min-height:120px;resize:vertical;line-height:1.55;font-family:var(--font)}
+.ta.mono{font-family:var(--mono);font-size:13px}
+.sel{appearance:none;-webkit-appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--ink3) 50%),linear-gradient(135deg,var(--ink3) 50%,transparent 50%);background-position:calc(100% - 16px) 50%,calc(100% - 11px) 50%;background-size:5px 5px;background-repeat:no-repeat;padding-right:32px}
+label.f{display:block;font:500 11px/1.3 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin:0 0 6px}
+.field{margin-bottom:12px}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border-radius:100px;border:1px solid var(--rule2);background:var(--s2);font:500 12px var(--font);color:var(--ink2);cursor:pointer;user-select:none}
+.chip[aria-pressed="true"],.chip.on{background:var(--acc-dim);border-color:var(--acc);color:var(--ink)}
+.chip .x{background:none;border:0;padding:0 0 0 2px;font:inherit;color:var(--ink3);cursor:pointer;line-height:1}
+.chip .x:hover{color:var(--red)}
+.seg{display:inline-flex;border:1px solid var(--rule2);border-radius:10px;overflow:hidden;background:var(--s2)}
+.seg button{padding:7px 12px;border:0;background:transparent;font:600 12px var(--font);color:var(--ink3)}
+.seg button[aria-pressed="true"]{background:var(--s4);color:var(--ink)}
+input[type=range]{accent-color:var(--acc);width:100%}
+
+/* ---- AI output ---- */
+.out{background:var(--s2);border:1px solid var(--rule);border-radius:14px;padding:16px 18px;min-height:80px;position:relative;font-size:15px;line-height:1.65}
+.out:empty::before{content:attr(data-empty);color:var(--ink3);font-style:italic;font-family:var(--serif);font-size:16px}
+.out h1,.out h2,.out h3,.card .out h1,.card .out h2,.card .out h3{font-family:var(--serif);font-weight:400;letter-spacing:-.01em;margin:14px 0 6px;line-height:1.2;text-transform:none;color:var(--ink)}
+.out h1,.card .out h1{font-size:1.6rem}.out h2,.card .out h2{font-size:1.35rem}.out h3,.card .out h3{font-size:1.15rem}
+.out p{margin:0 0 10px}.out ul,.out ol{margin:0 0 10px 20px}.out li{margin:3px 0}
+.out code{background:var(--s4);padding:1px 6px;border-radius:5px;font-size:.85em;color:var(--amber)}
+.out pre{background:var(--s1);border:1px solid var(--rule);border-radius:10px;padding:12px;overflow:auto;margin:0 0 12px}
+.out pre code{background:none;padding:0;color:var(--ink)}
+.out blockquote{border-left:2px solid var(--acc);padding:2px 12px;color:var(--ink2);margin:0 0 10px}
+.out table{border-collapse:collapse;width:100%;margin:0 0 12px;font-size:14px}.out th,.out td{border-bottom:1px solid var(--rule);padding:6px 8px;text-align:left}
+.out strong{color:var(--ink)}
+.out.live::after{content:'';display:inline-block;width:8px;height:16px;background:var(--acc);border-radius:2px;vertical-align:-3px;margin-left:2px;animation:sosBlink 1s steps(2) infinite}
+@keyframes sosBlink{50%{opacity:0}}
+.meta{display:flex;gap:14px;flex-wrap:wrap;font:500 11px/1.3 var(--mono);color:var(--ink3);margin-top:8px;letter-spacing:.04em}
+.meta b{color:var(--ink2);font-weight:500}
+
+/* ---- notes & banners ---- */
+.note{font-size:13px;color:var(--ink3);line-height:1.5}
+.note a{color:var(--acc)}
+.banner{display:flex;gap:12px;align-items:flex-start;padding:12px 14px;border-radius:12px;border:1px solid var(--rule2);background:var(--s2);font-size:13px;color:var(--ink2);margin-bottom:16px}
+.banner .i{font-size:1.1rem;line-height:1.2}
+.banner b{color:var(--ink)}
+.banner a{color:var(--acc)}
+.banner.warn{border-color:rgba(251,191,36,.35);background:rgba(251,191,36,.06)}
+.banner.ok{border-color:rgba(48,209,88,.35);background:rgba(48,209,88,.06)}
+.empty{text-align:center;padding:30px 16px;color:var(--ink3);font-family:var(--serif);font-size:17px;font-style:italic}
+
+/* ---- settings sheet ---- */
+.sheet-bg{position:fixed;inset:0;background:rgba(0,0,0,.55);backdrop-filter:blur(4px);z-index:40;display:none}
+.sheet-bg.open{display:block}
+.sheet{position:fixed;top:0;right:0;bottom:0;width:min(420px,100vw);background:var(--s1);border-left:1px solid var(--rule2);z-index:41;transform:translateX(102%);transition:transform .28s cubic-bezier(.2,.8,.2,1);overflow:auto;padding:20px 20px 40px}
+.sheet.open{transform:none}
+.sheet h2{font:400 1.5rem/1.1 var(--serif);margin-bottom:4px}
+.sheet .sub{color:var(--ink3);font-size:13px;margin-bottom:16px}
+.sheet .close{position:absolute;top:14px;right:14px}
+.models{display:flex;flex-direction:column;gap:6px;margin:8px 0 14px;max-height:260px;overflow:auto}
+.models button{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:9px 12px;border-radius:10px;border:1px solid var(--rule);background:var(--s2);text-align:left;font-size:13px}
+.models button[aria-pressed="true"]{border-color:var(--acc);background:var(--acc-dim)}
+.models button span{font-family:var(--mono);font-size:11px;color:var(--ink3)}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;font-size:12px;color:var(--ink3);font-family:var(--mono)}
+.kv b{color:var(--ink2);font-weight:500}
+
+/* ---- toast ---- */
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(20px);background:var(--s4);border:1px solid var(--rule2);color:var(--ink);padding:10px 16px;border-radius:12px;font-size:13px;opacity:0;transition:all .25s;z-index:60;pointer-events:none;box-shadow:0 10px 40px rgba(0,0,0,.5);max-width:90vw}
+.toast.show{opacity:1;transform:translateX(-50%)}
+
+/* ---- footer ---- */
+.foot{position:relative;z-index:1;text-align:center;padding:20px;border-top:1px solid var(--rule);font:500 10px/1.6 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--ink4)}
+.foot a{color:var(--ink3);text-decoration:none}
+.foot a:hover{color:var(--ink)}
+
+.framed .top .hub,.framed .foot{display:none}
+@media (max-width:600px){.wrap{padding:16px 12px 70px}.top{padding:8px 10px;gap:8px}.top .hub{display:none}.pill{max-width:40vw}.card{padding:14px;border-radius:14px}}
+
+:root{--acc:#c8a8ff;--acc2:#5e5ce6}
+
+body{overflow:hidden;height:100vh;display:flex;flex-direction:column}
+.top{display:none}.foot{display:none}
+.os{flex:1;display:grid;grid-template-columns:64px minmax(0,1fr);height:100vh;min-height:0;width:100%;max-width:100vw;min-width:0}
+.main,.dock,.bar,.view{min-width:0}
+.bar form{min-width:0}.bar input{min-width:0;width:0}
+.dock{background:var(--s1);border-right:1px solid var(--rule);display:flex;flex-direction:column;align-items:center;padding:12px 0 10px;gap:8px}
+.dock button{width:42px;height:42px;border-radius:13px;border:0;display:grid;place-items:center;font-size:1.05rem;color:#0a0a0e;position:relative;transition:transform .15s;background:var(--c)}
+.dock button:hover{transform:scale(1.1)}
+.dock button[aria-pressed="true"]::after{content:'';position:absolute;left:-11px;top:14px;width:3px;height:14px;border-radius:2px;background:var(--ink)}
+.dock button.home{background:var(--s3);color:var(--ink)}
+.dock button.cfg{background:var(--s3);color:var(--ink2);margin-top:auto;width:36px;height:36px;font-size:.9rem}
+.dock .tip{position:absolute;left:52px;top:50%;transform:translateY(-50%);background:var(--s4);color:var(--ink);font:600 12px var(--font);padding:5px 9px;border-radius:7px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .12s;z-index:5}
+.dock button:hover .tip{opacity:1}
+.main{display:flex;flex-direction:column;min-height:0}
+.bar{display:flex;gap:10px;align-items:center;padding:10px 14px;border-bottom:1px solid var(--rule);background:rgba(13,13,19,.7);backdrop-filter:blur(12px)}
+.bar form{flex:1;display:flex;gap:8px;align-items:center;background:var(--s2);border:1px solid var(--rule2);border-radius:12px;padding:4px 6px 4px 14px}
+.bar form:focus-within{border-color:var(--core);box-shadow:0 0 0 3px rgba(200,168,255,.12)}
+.bar form span.g{color:var(--core);font-weight:600}
+.bar input{flex:1;background:none;border:0;outline:none;font-size:15px;padding:8px 0}
+.bar .btn.sm{border-radius:9px}
+.view{flex:1;min-height:0;position:relative}
+.view iframe{width:100%;height:100%;border:0;background:var(--bg)}
+.home{height:100%;overflow:auto;padding:28px 28px 40px}
+.home h1{font:400 clamp(1.8rem,3.5vw,2.6rem)/1.1 var(--serif);letter-spacing:-.02em}
+.home .sub{color:var(--ink3);font-size:14px;margin:6px 0 24px}
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px}
+.tile{text-align:left;padding:16px;border-radius:16px;border:1px solid var(--rule);background:var(--s1);cursor:pointer;transition:transform .2s,border-color .2s;position:relative;overflow:hidden}
+.tile:hover{transform:translateY(-2px);border-color:var(--c)}
+.tile::before{content:'';position:absolute;inset:0;background:radial-gradient(240px 120px at 0% 0%,color-mix(in srgb,var(--c) 14%,transparent),transparent 70%)}
+.tile i{width:38px;height:38px;border-radius:12px;background:var(--c);display:grid;place-items:center;color:#0a0a0e;font-style:normal;font-size:1rem;margin-bottom:10px;position:relative}
+.tile b{display:block;font:600 15px var(--font);position:relative}
+.tile small{display:block;font:500 10px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--c);margin-top:1px;position:relative}
+.tile p{font-size:12.5px;color:var(--ink2);margin-top:8px;line-height:1.5;position:relative}
+.tile .ex{font:500 11px var(--mono);color:var(--ink3);margin-top:8px;position:relative}
+.status{display:flex;gap:16px;flex-wrap:wrap;align-items:center;margin-top:26px;padding:14px 16px;border-radius:14px;border:1px solid var(--rule);background:var(--s1);font:500 12px var(--mono);color:var(--ink3)}
+.status b{color:var(--ink2);font-weight:500}
+.status .dot{width:8px;height:8px;border-radius:50%;background:var(--ink4);display:inline-block;margin-right:6px}
+.status[data-st="ok"] .dot{background:var(--green);box-shadow:0 0 8px rgba(48,209,88,.6)}
+.status[data-st="no"] .dot{background:var(--red)}
+.clock{font:400 2rem/1 var(--serif);color:var(--ink);letter-spacing:-.02em}
+@media (max-width:700px){.os{grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr) 58px}.bar #openHub{display:none}.status{gap:10px}.dock{flex-direction:row;border-right:0;border-top:1px solid var(--rule);padding:8px 10px;justify-content:space-around;order:2}.dock button{width:38px;height:38px}.dock button.cfg{margin:0}.dock .tip{display:none}.dock button[aria-pressed="true"]::after{left:50%;top:-7px;transform:translateX(-50%);width:14px;height:3px}.home{padding:18px 14px 30px}}
+
+</style>
+</head>
+<body>
+<div class="os">
+  <nav class="dock" id="dock" aria-label="Scrolls"></nav>
+  <div class="main">
+    <div class="bar"><form id="f"><span class="g">⟐</span><input id="q" placeholder="Ask anything about your life, your work, your world…" autocomplete="off"><button type="submit" class="btn pri sm">Go</button></form><button type="button" class="btn ghost sm" id="openHub" title="The ScrollOS hub on The Watch">Hub ›</button></div>
+    <div class="view" id="view"><div class="home" id="home"></div></div>
+  </div>
+</div>
+<script>
+const TOOL = {"id": "scrollos", "name": "ScrollOS Desktop", "scroll": "core", "scrollName": "ScrollOS", "glyph": "\u27d0", "system": "You are ScrollOS, a personal operating system that runs on the user's own machine. Be brief, warm and useful.", "tagline": "The desktop: seven Scrolls in a dock, one prompt bar on top. Type a thought and it opens the right tool with your words already in it."};
+/* ScrollOS runtime — shared by every tool. One local model at localhost:11434 (Ollama's REST API), streamed into the page.
+   Nothing here talks to any other host. Settings live in this browser under localStorage "scrollos.llm". */
+const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const HUB = 'https://bboldt86.github.io/lanscape-navigator/news/tech/scrollos/';
+const store = {
+  get(k, d) { try { const v = localStorage.getItem(k); return v == null ? d : JSON.parse(v); } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); return true; } catch (e) { return false; } }
+};
+const uid = () => Math.random().toString(36).slice(2, 10);
+const fmtN = n => n == null ? '—' : Math.round(n).toLocaleString();
+function toast(msg, ms = 2400) { let t = $('.toast'); if (!t) { t = document.createElement('div'); t.className = 'toast'; document.body.appendChild(t); } t.textContent = msg; t.classList.add('show'); clearTimeout(t._t); t._t = setTimeout(() => t.classList.remove('show'), ms); }
+function download(name, text, type = 'text/plain') { const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([text], { type })); a.download = name; document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500); }
+async function copyText(t) { try { await navigator.clipboard.writeText(t); toast('Copied'); } catch (e) { const ta = document.createElement('textarea'); ta.value = t; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove(); toast('Copied'); } }
+function hashParam(k) { const m = location.hash.match(new RegExp('[#&]' + k + '=([^&]*)')); return m ? decodeURIComponent(m[1].replace(/\+/g, ' ')) : ''; }
+function parseJSONLoose(s) { // the model's JSON, with fences or chatter around it
+  if (!s) return null;
+  let t = String(s).trim().replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/, '');
+  try { return JSON.parse(t); } catch (e) { /* fall through */ }
+  const a = t.indexOf('{'), b = t.lastIndexOf('}'), c = t.indexOf('['), d = t.lastIndexOf(']');
+  const cands = [];
+  if (a >= 0 && b > a) cands.push(t.slice(a, b + 1));
+  if (c >= 0 && d > c) cands.push(t.slice(c, d + 1));
+  cands.sort((x, y) => y.length - x.length);
+  for (const x of cands) { try { return JSON.parse(x); } catch (e) { /* next */ } }
+  return null;
+}
+/* a small Markdown renderer: headings, lists, code, quotes, tables, emphasis, links */
+function md(src) {
+  const lines = String(src || '').replace(/\r/g, '').split('\n');
+  let html = '', i = 0, para = [];
+  const inline = s => esc(s).replace(/`([^`]+)`/g, '<code>$1</code>').replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>').replace(/(^|[^*])\*([^*\n]+)\*/g, '$1<em>$2</em>').replace(/\[([^\]]+)\]\((https?:[^)\s]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+  const flush = () => { if (para.length) { html += `<p>${inline(para.join(' '))}</p>`; para = []; } };
+  while (i < lines.length) {
+    const l = lines[i];
+    if (/^```/.test(l)) { flush(); let j = i + 1, code = []; while (j < lines.length && !/^```/.test(lines[j])) code.push(lines[j++]); html += `<pre><code>${esc(code.join('\n'))}</code></pre>`; i = j + 1; continue; }
+    const h = l.match(/^(#{1,6})\s+(.*)/); if (h) { flush(); html += `<h${h[1].length}>${inline(h[2])}</h${h[1].length}>`; i++; continue; }
+    if (/^\s*(-{3,}|\*{3,})\s*$/.test(l)) { flush(); html += '<hr>'; i++; continue; }
+    if (/^\s*>/.test(l)) { flush(); let q = []; while (i < lines.length && /^\s*>/.test(lines[i])) q.push(lines[i++].replace(/^\s*>\s?/, '')); html += `<blockquote>${md(q.join('\n'))}</blockquote>`; continue; }
+    if (/^\s*\|/.test(l) && i + 1 < lines.length && /^\s*\|?\s*:?-{2,}/.test(lines[i + 1])) { flush(); const rows = []; while (i < lines.length && /^\s*\|/.test(lines[i])) rows.push(lines[i++]); const cells = r => r.trim().replace(/^\||\|$/g, '').split('|').map(c => inline(c.trim())); const head = cells(rows[0]); html += `<table><thead><tr>${head.map(c => `<th>${c}</th>`).join('')}</tr></thead><tbody>${rows.slice(2).map(r => `<tr>${cells(r).map(c => `<td>${c}</td>`).join('')}</tr>`).join('')}</tbody></table>`; continue; }
+    const li = l.match(/^\s*([-*+]|\d+[.)])\s+(.*)/);
+    if (li) { flush(); const ord = /\d/.test(li[1]); let items = []; while (i < lines.length) { const m = lines[i].match(/^\s*([-*+]|\d+[.)])\s+(.*)/); if (!m) { if (/^\s{2,}\S/.test(lines[i]) && items.length) { items[items.length - 1] += ' ' + lines[i].trim(); i++; continue; } break; } items.push(m[2]); i++; } html += `<${ord ? 'ol' : 'ul'}>${items.map(x => `<li>${inline(x)}</li>`).join('')}</${ord ? 'ol' : 'ul'}>`; continue; }
+    if (!l.trim()) { flush(); i++; continue; }
+    para.push(l.trim()); i++;
+  }
+  flush(); return html;
+}
+
+/* ================= the model ================= */
+const SOS = {
+  KEY: 'scrollos.llm',
+  cfg: null, models: [], state: 'idle', lastError: '', version: '', current: null,
+  defaults() { return { host: 'http://localhost:11434', model: '', temp: 0.7, ctx: 16384 }; },
+  load() { this.cfg = Object.assign(this.defaults(), store.get(this.KEY, {})); return this.cfg; },
+  save() { store.set(this.KEY, this.cfg); },
+  host() { return (this.cfg.host || 'http://localhost:11434').replace(/\/+$/, ''); },
+  prompts() { return store.get('scrollos.prompts', {}); },
+  system(fallback) { const p = this.prompts()[TOOL.scroll]; return (p && p.trim()) || fallback || TOOL.system; },
+  async tags() {
+    const r = await fetch(this.host() + '/api/tags', { signal: AbortSignal.timeout(5000) });
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    return ((await r.json()).models || []).map(m => ({ name: m.name, size: m.size, family: m.details && m.details.family, params: m.details && m.details.parameter_size, quant: m.details && m.details.quantization_level }));
+  },
+  async probe() {
+    this.setState('busy');
+    try {
+      this.models = await this.tags();
+      try { const v = await fetch(this.host() + '/api/version', { signal: AbortSignal.timeout(3000) }); if (v.ok) this.version = (await v.json()).version || ''; } catch (e) { /* older servers */ }
+      if (!this.models.length) { this.lastError = 'Ollama is running but has no models yet. Pull one: ollama pull gpt-oss:20b'; this.setState('no'); return false; }
+      if (!this.models.find(m => m.name === this.cfg.model)) { this.cfg.model = this.pickDefault(); this.save(); }
+      this.lastError = ''; this.setState('ok'); return true;
+    } catch (e) {
+      this.lastError = this.explain(e); this.setState('no'); return false;
+    }
+  },
+  pickDefault() { const pref = ['gpt-oss', 'gemma4', 'qwen3.6', 'qwen3', 'llama3', 'mistral', 'gemma']; for (const p of pref) { const m = this.models.find(x => x.name.startsWith(p)); if (m) return m.name; } return this.models[0] ? this.models[0].name : ''; },
+  explain(e) {
+    const o = location.origin === 'null' || location.protocol === 'file:' ? 'this file' : location.origin;
+    if (e && e.name === 'TimeoutError') return `No answer from ${this.host()} in 5 seconds. Is Ollama running?`;
+    if (e && (e.name === 'TypeError' || /fetch/i.test(e.message))) return `Couldn't reach ${this.host()} from ${o}. Either Ollama isn't running, or it hasn't been told to accept pages from here: set OLLAMA_ORIGINS="*" (or "${location.origin === 'null' ? 'file://*' : location.origin}") and restart it. The hub's Connect section has the exact commands.`;
+    return (e && e.message) || String(e);
+  },
+  setState(s) { this.state = s; document.dispatchEvent(new CustomEvent('sos:state', { detail: s })); },
+  ready() { return this.state === 'ok' && !!this.cfg.model; },
+  whenReady(fn) { // run once the first probe has settled, if a model is there
+    if (this.ready()) { fn(); return; }
+    const run = () => { if (SOS.state === 'busy' || SOS.state === 'idle') return; document.removeEventListener('sos:state', run); if (SOS.ready()) fn(); };
+    document.addEventListener('sos:state', run);
+  },
+  require() { if (this.ready()) return true; toast(this.state === 'busy' ? 'Still looking for the model…' : 'No local model connected yet'); openSheet(); return false; },
+  stop() { if (this.current) { try { this.current.abort(); } catch (e) { /* done */ } this.current = null; } },
+  async chat(o) {
+    const sys = o.system === undefined ? this.system() : o.system;
+    const body = { model: o.model || this.cfg.model, stream: true, messages: [...(sys ? [{ role: 'system', content: sys }] : []), ...o.messages], options: Object.assign({ temperature: o.temperature == null ? this.cfg.temp : o.temperature, num_ctx: o.ctx || this.cfg.ctx }, o.options || {}) };
+    if (o.json) body.format = 'json';
+    if (o.keepAlive) body.keep_alive = o.keepAlive;
+    const ctrl = new AbortController(); this.current = ctrl;
+    const t0 = performance.now(); let first = 0, text = '', think = '', last = null;
+    this.setState('busy');
+    try {
+      const r = await fetch(this.host() + '/api/chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body), signal: ctrl.signal });
+      if (!r.ok) { const t = await r.text().catch(() => ''); throw new Error('Ollama answered ' + r.status + (t ? ': ' + t.slice(0, 240) : '')); }
+      const rd = r.body.getReader(), dec = new TextDecoder(); let buf = '';
+      for (;;) {
+        const { value, done } = await rd.read(); if (done) break;
+        buf += dec.decode(value, { stream: true }); let i;
+        while ((i = buf.indexOf('\n')) >= 0) {
+          const line = buf.slice(0, i).trim(); buf = buf.slice(i + 1); if (!line) continue;
+          let j; try { j = JSON.parse(line); } catch (e) { continue; }
+          if (j.error) throw new Error(j.error);
+          const m = j.message || {};
+          if (m.thinking) { think += m.thinking; if (o.onThink) o.onThink(think); }
+          if (m.content) { if (!first) first = performance.now(); text += m.content; if (o.onToken) o.onToken(text, m.content); }
+          if (j.done) last = j;
+        }
+      }
+      const total = (performance.now() - t0) / 1000;
+      const stats = { total, tokens: last ? last.eval_count || 0 : 0, prompt: last ? last.prompt_eval_count || 0 : 0, tps: last && last.eval_duration ? (last.eval_count || 0) / (last.eval_duration / 1e9) : null, pps: last && last.prompt_eval_duration ? (last.prompt_eval_count || 0) / (last.prompt_eval_duration / 1e9) : null, load: last && last.load_duration ? last.load_duration / 1e9 : 0, ttft: first ? (first - t0) / 1000 : null, model: body.model };
+      this.setState('ok');
+      return { text, think, stats, aborted: false };
+    } catch (e) {
+      if (e.name === 'AbortError') { this.setState('ok'); return { text, think, stats: { total: (performance.now() - t0) / 1000, model: body.model }, aborted: true }; }
+      this.lastError = this.explain(e); this.setState(this.models.length ? 'ok' : 'no'); throw e;
+    } finally { if (this.current === ctrl) this.current = null; }
+  }
+};
+function statsLine(s) { if (!s) return ''; const p = []; if (s.model) p.push(`<b>${esc(s.model)}</b>`); if (s.tps) p.push(`<b>${s.tps.toFixed(1)}</b> tok/s`); if (s.tokens) p.push(`<b>${fmtN(s.tokens)}</b> tokens`); if (s.prompt) p.push(`<b>${fmtN(s.prompt)}</b> in`); if (s.ttft != null) p.push(`first token <b>${s.ttft.toFixed(1)}s</b>`); if (s.total) p.push(`<b>${s.total.toFixed(1)}s</b>`); return p.join(' · '); }
+
+/* ================= chrome: top bar, status pill, settings sheet ================= */
+function mountChrome() {
+  SOS.load();
+  if (window.self !== window.top) document.documentElement.classList.add('framed');
+  const top = document.createElement('header'); top.className = 'top';
+  top.innerHTML = `<a class="brand" href="${HUB}" title="ScrollOS hub"><span class="glyph" aria-hidden="true">${TOOL.glyph}</span><span class="name">${esc(TOOL.name)}<small>${esc(TOOL.scrollName)} · ScrollOS</small></span></a><span class="sp"></span>
+    <button type="button" class="pill" id="sosPill" data-st="idle" title="Local model"><span class="dot"></span><span class="m">Looking for a model…</span></button>
+    <button type="button" class="gear" id="sosGear" aria-label="Settings" title="Settings">⚙</button>
+    <a class="hub" href="${HUB}">ScrollOS ⟐</a>`;
+  document.body.prepend(top);
+  const bg = document.createElement('div'); bg.className = 'sheet-bg'; bg.id = 'sosBg';
+  const sh = document.createElement('aside'); sh.className = 'sheet'; sh.id = 'sosSheet'; sh.setAttribute('aria-label', 'Model settings');
+  document.body.append(bg, sh);
+  bg.onclick = closeSheet;
+  $('#sosGear').onclick = openSheet; $('#sosPill').onclick = openSheet;
+  const foot = document.createElement('footer'); foot.className = 'foot';
+  foot.innerHTML = `ScrollOS · ${esc(TOOL.scrollName)} · ${esc(TOOL.name)} · runs in your browser against your own model · <a href="${HUB}">the hub on The Watch</a>`;
+  document.body.append(foot);
+  document.addEventListener('sos:state', paintPill);
+  paintPill(); SOS.probe();
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSheet(); if ((e.metaKey || e.ctrlKey) && e.key === ',') { e.preventDefault(); openSheet(); } });
+}
+function paintPill() {
+  const p = $('#sosPill'); if (!p) return; p.dataset.st = SOS.state;
+  const m = $('.m', p);
+  m.textContent = SOS.state === 'ok' ? (SOS.cfg.model || 'Pick a model') : SOS.state === 'busy' ? (SOS.cfg.model ? SOS.cfg.model : 'Connecting…') : SOS.state === 'no' ? 'No local model' : 'Looking for a model…';
+  if ($('#sosSheet').classList.contains('open')) renderSheet();
+}
+function openSheet() { renderSheet(); $('#sosBg').classList.add('open'); $('#sosSheet').classList.add('open'); }
+function closeSheet() { $('#sosBg').classList.remove('open'); $('#sosSheet').classList.remove('open'); }
+function renderSheet() {
+  const s = $('#sosSheet'), c = SOS.cfg, cur = SOS.prompts()[TOOL.scroll] || '';
+  const ctxs = [4096, 8192, 16384, 32768, 65536, 131072];
+  s.innerHTML = `<button type="button" class="btn ghost sm close" id="sosClose">✕</button>
+    <h2>Your model</h2><p class="sub">Every tool on this page talks to the model running on your own machine. Nothing is sent anywhere else.</p>
+    <label class="f">Ollama address</label>
+    <div class="row" style="margin-bottom:10px"><input class="inp" id="sosHost" value="${esc(c.host)}" placeholder="http://localhost:11434" style="flex:1;min-width:0"><button type="button" class="btn" id="sosTest">Test</button></div>
+    ${SOS.state === 'ok' ? `<div class="banner ok"><span class="i">●</span><span><b>Connected</b>${SOS.version ? ` · Ollama ${esc(SOS.version)}` : ''} · ${SOS.models.length} model${SOS.models.length === 1 ? '' : 's'}</span></div>` : SOS.state === 'no' ? `<div class="banner warn"><span class="i">!</span><span><b>Not connected.</b> ${esc(SOS.lastError)} <a href="${HUB}#connect">Set-up steps ›</a></span></div>` : `<div class="banner"><span class="i">…</span><span>Looking for a model at ${esc(c.host)}</span></div>`}
+    <label class="f">Model</label>
+    <div class="models" id="sosModels">${SOS.models.length ? SOS.models.map(m => `<button type="button" data-m="${esc(m.name)}" aria-pressed="${m.name === c.model}"><span style="font-family:var(--font);font-size:13px;color:var(--ink)">${esc(m.name)}</span><span>${esc(m.params || '')}${m.quant ? ' · ' + esc(m.quant) : ''}${m.size ? ' · ' + (m.size / 1e9).toFixed(1) + ' GB' : ''}</span></button>`).join('') : `<div class="note">No models listed yet. On the machine running Ollama: <code>ollama pull gpt-oss:20b</code></div>`}</div>
+    <label class="f">Temperature · <span id="sosTempV">${c.temp}</span></label>
+    <input type="range" id="sosTemp" min="0" max="1.5" step="0.05" value="${c.temp}">
+    <p class="note" style="margin:4px 0 12px">Low is careful and repeatable; high is loose and surprising. 0.7 suits most writing.</p>
+    <label class="f">Context window</label>
+    <select class="sel" id="sosCtx" style="margin-bottom:4px">${ctxs.map(n => `<option value="${n}" ${n === c.ctx ? 'selected' : ''}>${n >= 1024 ? (n / 1024) + 'K tokens' : n}</option>`).join('')}</select>
+    <p class="note" style="margin:0 0 12px">How much the model can hold at once. Bigger is slower to start and uses more memory; 16K covers most tasks, 128K holds a whole book.</p>
+    <label class="f">${esc(TOOL.scrollName)}'s system prompt</label>
+    <textarea class="ta" id="sosSys" placeholder="${esc(TOOL.system)}">${esc(cur)}</textarea>
+    <p class="note" style="margin:4px 0 14px">Blank uses the default above. Shared by every ${esc(TOOL.scrollName)} tool in this browser; the AI Lab edits all seven at once.</p>
+    <div class="row"><button type="button" class="btn pri" id="sosSave">Save</button><button type="button" class="btn ghost" id="sosReset">Reset</button><span class="sp"></span><a class="btn ghost sm" href="${HUB}#connect">Help ›</a></div>
+    <hr class="rule"><div class="kv"><span>origin</span><b>${esc(location.origin === 'null' ? 'file (opened from disk)' : location.origin)}</b><span>storage</span><b>this browser only</b><span>endpoint</span><b>${esc(SOS.host())}/api/chat</b></div>`;
+  $('#sosClose').onclick = closeSheet;
+  $('#sosTest').onclick = async () => { SOS.cfg.host = $('#sosHost').value.trim() || 'http://localhost:11434'; SOS.save(); await SOS.probe(); renderSheet(); };
+  $$('#sosModels button').forEach(b => b.onclick = () => { SOS.cfg.model = b.dataset.m; SOS.save(); paintPill(); renderSheet(); });
+  $('#sosTemp').oninput = e => { $('#sosTempV').textContent = e.target.value; };
+  $('#sosSave').onclick = () => { SOS.cfg.host = $('#sosHost').value.trim() || 'http://localhost:11434'; SOS.cfg.temp = +$('#sosTemp').value; SOS.cfg.ctx = +$('#sosCtx').value; SOS.save(); const P = SOS.prompts(); const v = $('#sosSys').value.trim(); if (v) P[TOOL.scroll] = v; else delete P[TOOL.scroll]; store.set('scrollos.prompts', P); toast('Saved'); closeSheet(); if (SOS.state !== 'ok') SOS.probe(); };
+  $('#sosReset').onclick = () => { SOS.cfg = SOS.defaults(); SOS.save(); const P = SOS.prompts(); delete P[TOOL.scroll]; store.set('scrollos.prompts', P); renderSheet(); SOS.probe(); };
+}
+/* a banner for pages that can do something without the model */
+function offlineBanner(what) {
+  return `<div class="banner warn" id="sosOff" hidden><span class="i">⟐</span><span><b>No local model yet.</b> ${esc(what)} <a href="#" data-open-sheet>Connect one</a> or read <a href="${HUB}#build">how to build the machine</a>.</span></div>`;
+}
+document.addEventListener('click', e => { const a = e.target.closest('[data-open-sheet]'); if (a) { e.preventDefault(); openSheet(); } });
+document.addEventListener('sos:state', () => { const b = $('#sosOff'); if (b) b.hidden = SOS.state !== 'no'; });
+
+</script>
+<script>
+const APPS = [
+  { id: 'goals', scroll: 'Dream', name: 'Goals', g: '✦', c: '#f59e0b', p: 'An ambition in, a plan out: milestones, actions, habits.', ex: '"run a half marathon by May"', kw: ['goal', 'plan', 'ambition', 'habit', 'milestone', 'resolution', 'want to', 'by next', 'this year', 'dream', 'learn to', 'save for', 'train for'] },
+  { id: 'flashcards', scroll: 'Discover', name: 'Flashcards', g: '◉', c: '#e05a48', p: 'Paste anything, study it as spaced-repetition cards.', ex: '"make cards from this chapter"', kw: ['card', 'flashcard', 'study', 'memor', 'quiz', 'learn this', 'revise', 'exam', 'test me', 'vocab', 'remember this', 'anki'] },
+  { id: 'meals', scroll: 'Unwind', name: 'Meals', g: '♫', c: '#d8608c', p: 'Fridge in, dinner out, with a pairing.', ex: '"what can I cook with salmon in 30 minutes"', kw: ['cook', 'dinner', 'lunch', 'breakfast', 'recipe', 'meal', 'fridge', 'pantry', 'eat', 'hungry', 'ingredient', 'bake', 'what can i make'] },
+  { id: 'charts', scroll: 'Create', name: 'Charts', g: '◆', c: '#9b59b6', p: 'Paste a table, get the right chart and its headline.', ex: '"chart these quarterly numbers"', kw: ['chart', 'graph', 'plot', 'csv', 'table', 'data', 'visuali', 'bar chart', 'line chart', 'numbers', 'spreadsheet', 'trend'] },
+  { id: 'replies', scroll: 'Connect', name: 'Replies', g: '⬡', c: '#48c870', p: 'Three replies in your voice to whatever they sent.', ex: '"reply to this email, say yes but not until Thursday"', kw: ['reply', 'respond', 'email', 'message', 'text back', 'write back', 'answer them', 'slack', 'linkedin', 'decline', 'follow up', 'follow-up', 'thank'] },
+  { id: 'docs', scroll: 'Produce', name: 'Docs', g: '▣', c: '#5898e8', p: 'A writing surface with a co-writer that read the whole thing.', ex: '"draft a one-page proposal for the barn"', kw: ['write', 'draft', 'document', 'doc', 'essay', 'report', 'memo', 'proposal', 'rewrite', 'edit', 'summar', 'article', 'blog', 'letter', 'outline', 'notes'] },
+  { id: 'lab', scroll: 'Grow', name: 'AI Lab', g: '△', c: '#38c8d8', p: 'Test the machine, compare models, tune the Scrolls.', ex: '"how fast is this model"', kw: ['model', 'prompt', 'benchmark', 'speed', 'tok', 'compare', 'temperature', 'system prompt', 'ollama', 'gpu', 'lab', 'test the'] }
+];
+let cur = 'home';
+const dock = $('#dock');
+dock.innerHTML = `<button type="button" class="home" data-app="home" aria-pressed="true" title="Home">⟐<span class="tip">Home</span></button>` + APPS.map(a => `<button type="button" data-app="${a.id}" style="--c:${a.c}" title="${a.name}">${a.g}<span class="tip">${a.scroll} · ${a.name}</span></button>`).join('') + `<button type="button" class="cfg" data-app="cfg" title="Model settings">⚙<span class="tip">Model</span></button>`;
+$$('#dock button').forEach(b => b.onclick = () => { if (b.dataset.app === 'cfg') { openSheet(); return; } show(b.dataset.app); });
+function show(id, q, go) {
+  cur = id; $$('#dock button').forEach(b => b.setAttribute('aria-pressed', b.dataset.app === id));
+  const v = $('#view');
+  if (id === 'home') { v.innerHTML = '<div class="home" id="home"></div>'; renderHome(); return; }
+  const src = id + '.html' + (q ? '#q=' + encodeURIComponent(q) + (go ? '&go=1' : '') : '');
+  v.innerHTML = `<iframe src="${src}" title="${id}" allow="clipboard-write"></iframe>`;
+}
+function renderHome() {
+  const h = $('#home'); if (!h) return;
+  const hr = new Date().getHours(), greet = hr < 5 ? 'Still up' : hr < 12 ? 'Good morning' : hr < 17 ? 'Good afternoon' : 'Good evening';
+  h.innerHTML = `<div class="row" style="align-items:flex-end;gap:20px;margin-bottom:4px"><div class="clock" id="clock"></div><div style="flex:1"><h1>${greet}.</h1></div></div><p class="sub">Seven Scrolls, one model, nothing leaving this machine. Type above or pick a tool.</p>
+    <div class="tiles">${APPS.map(a => `<button type="button" class="tile" style="--c:${a.c}" data-open="${a.id}"><i>${a.g}</i><b>${a.name}</b><small>${a.scroll}</small><p>${a.p}</p><div class="ex">${esc(a.ex)}</div></button>`).join('')}</div>
+    <div class="status" id="st" data-st="${SOS.state}"><span><span class="dot"></span><b id="stm">${SOS.state === 'ok' ? esc(SOS.cfg.model) : SOS.state === 'no' ? 'no local model' : 'looking for a model…'}</b></span><span>${SOS.models.length} model${SOS.models.length === 1 ? '' : 's'} on this machine</span>${SOS.version ? `<span>Ollama ${esc(SOS.version)}</span>` : ''}<span class="sp"></span><button type="button" class="btn ghost sm" data-open-sheet>Settings</button><a class="btn ghost sm" href="${HUB}" target="_top">The hub ›</a></div>`;
+  $$('[data-open]', h).forEach(b => b.onclick = () => show(b.dataset.open));
+  tick();
+}
+function tick() { const c = $('#clock'); if (c) c.textContent = new Date().toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }); }
+setInterval(tick, 15000);
+function routeLocal(q) { const s = q.toLowerCase(); let best = null, score = 0; for (const a of APPS) { let n = 0; for (const k of a.kw) if (s.includes(k)) n += k.length; if (n > score) { score = n; best = a; } } return best; }
+async function route(q) {
+  let a = routeLocal(q);
+  if (!a && SOS.ready()) { try { const r = await SOS.chat({ system: 'You route requests to tools. Answer with one word.', messages: [{ role: 'user', content: `Which tool fits this request? Reply with exactly one of: goals, flashcards, meals, charts, replies, docs, lab.\n\nRequest: ${q}` }], temperature: 0, options: { num_predict: 8 } }); const w = (r.text.toLowerCase().match(/goals|flashcards|meals|charts|replies|docs|lab/) || [])[0]; a = APPS.find(x => x.id === w); } catch (e) { /* fall through */ } }
+  if (!a) a = APPS.find(x => x.id === 'docs');
+  toast(`${a.scroll} · ${a.name}`); show(a.id, q, true);
+}
+$('#f').onsubmit = e => { e.preventDefault(); const q = $('#q').value.trim(); if (!q) return; route(q); $('#q').value = ''; };
+$('#openHub').onclick = () => { window.top.location.href = HUB; };
+document.addEventListener('keydown', e => { if ((e.metaKey || e.ctrlKey) && e.key === 'k') { e.preventDefault(); $('#q').focus(); } });
+document.addEventListener('sos:state', () => { const st = $('#st'); if (st) { st.dataset.st = SOS.state; $('#stm').textContent = SOS.state === 'ok' ? SOS.cfg.model : SOS.state === 'no' ? 'no local model' : 'looking for a model…'; } });
+mountChrome();
+renderHome();
+const q0 = hashParam('q'); if (q0) route(q0);
+</script>
+</body>
+</html>

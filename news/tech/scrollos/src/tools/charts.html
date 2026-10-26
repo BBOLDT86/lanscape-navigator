@@ -1,0 +1,144 @@
+<!-- @meta {"id":"charts","name":"Charts","scroll":"create","tagline":"Paste a table, get the right chart, a headline that says what it shows, and the three things worth noticing.","description":"Charts is ScrollOS's chart maker. Paste CSV or a table from a spreadsheet and it draws a clean bar, line, area or scatter chart; your own local model picks the right kind, writes the headline and caption, and lists what's worth noticing. Export SVG or PNG. Runs in your browser; nothing leaves your machine."} -->
+<style>
+.chartbox{background:var(--s2);border:1px solid var(--rule);border-radius:14px;padding:14px;overflow:hidden}
+.chartbox svg{display:block;width:100%;height:auto}
+.ttl{font:400 1.45rem/1.2 var(--serif);letter-spacing:-.01em;margin:0 0 2px}
+.sub{color:var(--ink2);font-size:13px;margin-bottom:10px}
+.cap{color:var(--ink3);font-size:12px;margin-top:10px;line-height:1.5}
+.ins{list-style:none;margin-top:12px;display:flex;flex-direction:column;gap:6px}
+.ins li{padding:9px 12px;border-radius:10px;background:var(--s2);border-left:2px solid var(--acc);font-size:14px;line-height:1.45}
+.ycols{display:flex;flex-wrap:wrap;gap:6px}
+.pal{display:flex;gap:6px}
+.pal button{width:30px;height:22px;border-radius:6px;border:1px solid var(--rule2);padding:0;overflow:hidden;display:flex}
+.pal button i{flex:1;display:block}
+.pal button[aria-pressed="true"]{outline:2px solid var(--acc);outline-offset:1px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media (max-width:520px){.grid2{grid-template-columns:1fr}}
+</style>
+<main class="wrap">
+  <div class="tiny">Create · making &amp; designing</div>
+  <h1 class="h1">Paste the numbers. Get the picture.</h1>
+  <p class="lede">A table in, a chart out — drawn here, in plain SVG, no library. The model's job is the part that's hard: <b>which chart</b>, <b>what the headline is</b>, and the two or three things a reader should notice.</p>
+  <div id="offline"></div>
+  <div class="cols">
+    <section class="card">
+      <h2>Data</h2>
+      <div class="field"><textarea class="ta mono" id="data" style="min-height:150px" placeholder="Paste CSV, TSV or cells copied from a spreadsheet. First row can be headers."></textarea><div class="row" style="margin-top:6px"><span class="note" id="dinfo">Nothing parsed yet.</span><span class="sp"></span><button type="button" class="btn ghost sm" id="sample">Sample data</button><label class="btn ghost sm">Open file<input type="file" id="file" accept=".csv,.tsv,.txt" hidden></label></div></div>
+      <div class="grid2">
+        <div><label class="f">Chart</label><select class="sel" id="type"><option value="bar">Bar</option><option value="line">Line</option><option value="area">Area</option><option value="scatter">Scatter</option><option value="hbar">Horizontal bar</option></select></div>
+        <div><label class="f">X axis</label><select class="sel" id="xcol"></select></div>
+      </div>
+      <div class="field" style="margin-top:10px"><label class="f">Series (Y)</label><div class="ycols" id="ycols"></div></div>
+      <div class="grid2">
+        <div><label class="f">Palette</label><div class="pal" id="pal"></div></div>
+        <div><label class="f">Options</label><div class="row"><button type="button" class="chip" id="optZero" aria-pressed="true">Start at zero</button><button type="button" class="chip" id="optGrid" aria-pressed="true">Gridlines</button><button type="button" class="chip" id="optLabels">Value labels</button></div></div>
+      </div>
+      <hr class="rule">
+      <div class="field"><label class="f">Title</label><input class="inp" id="title" placeholder="A headline, not a label: say what the chart shows"></div>
+      <div class="grid2"><div><label class="f">Subtitle</label><input class="inp" id="subtitle" placeholder="Units, period, source"></div><div><label class="f">Caption</label><input class="inp" id="caption" placeholder="Source: …"></div></div>
+      <div class="row" style="margin-top:14px"><button type="button" class="btn pri" id="ai">Pick the chart &amp; write the headline</button><button type="button" class="btn ghost" id="stop" hidden>Stop</button></div>
+      <div class="meta" id="stats"></div>
+    </section>
+    <section class="card">
+      <div class="row" style="margin-bottom:10px"><h2 style="margin:0">The chart</h2><span class="sp"></span><button type="button" class="btn sm" id="xSvg">SVG</button><button type="button" class="btn sm" id="xPng">PNG</button><button type="button" class="btn ghost sm" id="xCopy">Copy caption</button></div>
+      <div class="chartbox"><div class="ttl" id="tTitle"></div><div class="sub" id="tSub"></div><div id="svgWrap"><div class="empty">Paste some data to start.</div></div><div class="cap" id="tCap"></div></div>
+      <ul class="ins" id="ins"></ul>
+    </section>
+  </div>
+</main>
+<script>
+const PALS = { scroll: ['#c8a8ff', '#5898e8', '#38c8d8', '#48c870', '#f59e0b', '#e05a48', '#d8608c', '#9b59b6'], warm: ['#f59e0b', '#e05a48', '#d8608c', '#fbbf24', '#c44030', '#b84870', '#d97706', '#9b59b6'], cool: ['#38c8d8', '#5898e8', '#5e5ce6', '#48c870', '#c8a8ff', '#28a8b8', '#4078c8', '#38a858'], mono: ['#eeeef4', '#bbbbc8', '#9a9aae', '#7a7a8e', '#5a5a6e', '#444', '#333', '#2a2a36'] };
+let T = { rows: [], cols: [], types: [] }, pal = 'scroll', ys = [], insights = [];
+const num = v => { if (v == null) return NaN; const s = String(v).trim().replace(/^[$€£]/, '').replace(/%$/, '').replace(/,/g, ''); if (!s || !/^[-+]?(\d+\.?\d*|\.\d+)(e[-+]?\d+)?$/i.test(s)) return NaN; return parseFloat(s); };
+function parse(text) {
+  text = text.replace(/\r/g, '').trim(); if (!text) return { rows: [], cols: [], types: [] };
+  const first = text.split('\n')[0]; const delim = [['\t', (first.match(/\t/g) || []).length], [',', (first.match(/,/g) || []).length], [';', (first.match(/;/g) || []).length], ['|', (first.match(/\|/g) || []).length]].sort((a, b) => b[1] - a[1])[0][0];
+  const rows = []; let row = [], cell = '', q = false;
+  for (let i = 0; i < text.length; i++) { const c = text[i]; if (q) { if (c === '"') { if (text[i + 1] === '"') { cell += '"'; i++; } else q = false; } else cell += c; } else if (c === '"') q = true; else if (c === delim) { row.push(cell); cell = ''; } else if (c === '\n') { row.push(cell); rows.push(row); row = []; cell = ''; } else cell += c; }
+  row.push(cell); if (row.some(x => x.trim())) rows.push(row);
+  const w = Math.max(...rows.map(r => r.length)); rows.forEach(r => { while (r.length < w) r.push(''); r.forEach((x, i) => r[i] = x.trim()); });
+  const colType = (vals) => { const v = vals.filter(x => x !== ''); if (!v.length) return 'text'; const n = v.filter(x => !isNaN(num(x))).length; if (n / v.length >= 0.8) return 'number'; const d = v.filter(x => !isNaN(Date.parse(x)) && /\d/.test(x)).length; if (d / v.length >= 0.8) return 'date'; return 'text'; };
+  const body = rows.slice(1); const headerish = rows.length > 1 && rows[0].some((h, i) => isNaN(num(h)) && colType(body.map(r => r[i])) === 'number');
+  const cols = headerish ? rows[0].map((h, i) => h || 'Column ' + (i + 1)) : rows[0].map((_, i) => 'Column ' + (i + 1));
+  const data = headerish ? body : rows; const types = cols.map((_, i) => colType(data.map(r => r[i])));
+  return { rows: data, cols, types };
+}
+function nice(min, max, n = 5) { if (min === max) { max = min + 1; } const span = max - min, step0 = span / n, mag = Math.pow(10, Math.floor(Math.log10(step0))), r = step0 / mag, step = (r >= 5 ? 10 : r >= 2 ? 5 : r >= 1 ? 2 : 1) * mag; const lo = Math.floor(min / step) * step, hi = Math.ceil(max / step) * step; const ticks = []; for (let v = lo; v <= hi + step / 2; v += step) ticks.push(+v.toFixed(10)); return { lo, hi, ticks }; }
+const fmt = v => Math.abs(v) >= 1e9 ? (v / 1e9).toFixed(1) + 'B' : Math.abs(v) >= 1e6 ? (v / 1e6).toFixed(1) + 'M' : Math.abs(v) >= 1e4 ? (v / 1e3).toFixed(0) + 'K' : Math.abs(v) >= 100 ? v.toFixed(0) : Math.abs(v) >= 1 ? +v.toFixed(2) + '' : +v.toFixed(3) + '';
+function draw() {
+  const type = $('#type').value, xi = +$('#xcol').value, W = 720, H = 420, P = { t: 18, r: 18, b: 56, l: 58 }, colors = PALS[pal], zero = $('#optZero').getAttribute('aria-pressed') === 'true', grid = $('#optGrid').getAttribute('aria-pressed') === 'true', labels = $('#optLabels').getAttribute('aria-pressed') === 'true';
+  const wrap = $('#svgWrap'); if (!T.rows.length || !ys.length) { wrap.innerHTML = `<div class="empty">${T.rows.length ? 'Pick at least one numeric series.' : 'Paste some data to start.'}</div>`; return; }
+  const rows = T.rows.filter(r => r[xi] !== ''), xs = rows.map(r => r[xi]);
+  const series = ys.map((yi, k) => ({ name: T.cols[yi], color: colors[k % colors.length], v: rows.map(r => num(r[yi])) }));
+  const allY = series.flatMap(s => s.v).filter(v => !isNaN(v)); let ymin = Math.min(...allY), ymax = Math.max(...allY); if (zero && type !== 'scatter') { ymin = Math.min(0, ymin); ymax = Math.max(0, ymax); }
+  const ny = nice(ymin, ymax, 5), iw = W - P.l - P.r, ih = H - P.t - P.b, sy = v => P.t + ih - (v - ny.lo) / (ny.hi - ny.lo) * ih;
+  const font = 'font-family="DM Sans, system-ui, sans-serif"';
+  let g = '';
+  const axisText = (x, y, t, a = 'middle', dy = 0, rot = 0) => `<text x="${x}" y="${y}" dy="${dy}" text-anchor="${a}" fill="#8a8a9e" font-size="11" ${font}${rot ? ` transform="rotate(${rot} ${x} ${y})"` : ''}>${esc(t)}</text>`;
+  if (type === 'hbar') { // categories down the side
+    const n = xs.length, bh = ih / n, cnt = series.length, bw = Math.max(2, (bh * 0.72) / cnt); const Pl = Math.min(220, Math.max(70, Math.max(...xs.map(x => String(x).length)) * 6.5 + 14)); const iw2 = W - Pl - P.r, sx = v => Pl + (v - ny.lo) / (ny.hi - ny.lo) * iw2;
+    ny.ticks.forEach(t => { const x = sx(t); g += `${grid ? `<line x1="${x}" x2="${x}" y1="${P.t}" y2="${P.t + ih}" stroke="rgba(255,255,255,.07)"/>` : ''}${axisText(x, P.t + ih + 16, fmt(t))}`; });
+    xs.forEach((x, i) => { const y0 = P.t + i * bh + bh * 0.14; g += axisText(Pl - 8, y0 + (bh * 0.72) / 2, String(x).slice(0, 34), 'end', 4); series.forEach((s, k) => { const v = s.v[i]; if (isNaN(v)) return; const x0 = sx(Math.min(0, v)), x1 = sx(Math.max(0, v)); g += `<rect x="${x0}" y="${y0 + k * bw}" width="${Math.max(0.5, x1 - x0)}" height="${bw - 1}" rx="2" fill="${s.color}"><title>${esc(x)} · ${esc(s.name)}: ${v}</title></rect>${labels ? `<text x="${x1 + 4}" y="${y0 + k * bw + bw / 2 + 4}" fill="#cfcfdc" font-size="10" ${font}>${fmt(v)}</text>` : ''}`; }); });
+    g += `<line x1="${sx(Math.max(ny.lo, Math.min(0, ny.hi)))}" x2="${sx(Math.max(ny.lo, Math.min(0, ny.hi)))}" y1="${P.t}" y2="${P.t + ih}" stroke="rgba(255,255,255,.25)"/>`;
+  } else {
+    ny.ticks.forEach(t => { const y = sy(t); g += `${grid ? `<line x1="${P.l}" x2="${W - P.r}" y1="${y}" y2="${y}" stroke="rgba(255,255,255,.07)"/>` : ''}${axisText(P.l - 8, y, fmt(t), 'end', 4)}`; });
+    if (type === 'scatter') {
+      const xv = rows.map(r => num(r[xi])), nx = nice(Math.min(...xv.filter(v => !isNaN(v))), Math.max(...xv.filter(v => !isNaN(v))), 6), sx = v => P.l + (v - nx.lo) / (nx.hi - nx.lo) * iw;
+      nx.ticks.forEach(t => { const x = sx(t); g += `${grid ? `<line x1="${x}" x2="${x}" y1="${P.t}" y2="${P.t + ih}" stroke="rgba(255,255,255,.05)"/>` : ''}${axisText(x, P.t + ih + 18, fmt(t))}`; });
+      series.forEach(s => s.v.forEach((v, i) => { if (isNaN(v) || isNaN(xv[i])) return; g += `<circle cx="${sx(xv[i])}" cy="${sy(v)}" r="5" fill="${s.color}" fill-opacity=".8" stroke="#0d0d13" stroke-width="1"><title>${esc(s.name)}: x ${xv[i]}, y ${v}</title></circle>`; }));
+      g += axisText(P.l + iw / 2, H - 8, T.cols[xi]);
+    } else {
+      const n = xs.length, step = iw / Math.max(1, n), every = Math.ceil(n / Math.max(4, Math.floor(iw / 70)));
+      xs.forEach((x, i) => { if (i % every) return; const cx = P.l + step * (i + 0.5); g += axisText(cx, P.t + ih + 18, String(x).slice(0, 18), n > 12 ? 'end' : 'middle', 0, n > 12 ? -35 : 0); });
+      if (type === 'bar') { const cnt = series.length, bw = Math.max(1.5, (step * 0.7) / cnt); series.forEach((s, k) => s.v.forEach((v, i) => { if (isNaN(v)) return; const x = P.l + step * i + step * 0.15 + k * bw, y0 = sy(Math.max(0, v)), y1 = sy(Math.min(0, v)); g += `<rect x="${x}" y="${y0}" width="${bw - (cnt > 1 ? 1 : 0)}" height="${Math.max(0.5, y1 - y0)}" rx="2" fill="${s.color}"><title>${esc(xs[i])} · ${esc(s.name)}: ${v}</title></rect>${labels ? `<text x="${x + bw / 2}" y="${y0 - 4}" text-anchor="middle" fill="#cfcfdc" font-size="10" ${font}>${fmt(v)}</text>` : ''}`; })); }
+      else { series.forEach(s => { const pts = s.v.map((v, i) => isNaN(v) ? null : [P.l + step * (i + 0.5), sy(v)]); let d = '', open = false; pts.forEach(p => { if (!p) { open = false; return; } d += (open ? 'L' : 'M') + p[0].toFixed(1) + ' ' + p[1].toFixed(1); open = true; }); if (type === 'area') { const first = pts.find(Boolean), lastP = [...pts].reverse().find(Boolean); if (first && lastP) g += `<path d="${d} L${lastP[0]} ${sy(Math.max(ny.lo, 0))} L${first[0]} ${sy(Math.max(ny.lo, 0))} Z" fill="${s.color}" fill-opacity=".14"/>`; } g += `<path d="${d}" fill="none" stroke="${s.color}" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>`; pts.forEach((p, i) => { if (!p) return; g += `<circle cx="${p[0]}" cy="${p[1]}" r="${n > 40 ? 0 : 3}" fill="${s.color}"><title>${esc(xs[i])} · ${esc(s.name)}: ${s.v[i]}</title></circle>${labels && n <= 24 ? `<text x="${p[0]}" y="${p[1] - 8}" text-anchor="middle" fill="#cfcfdc" font-size="10" ${font}>${fmt(s.v[i])}</text>` : ''}`; }); }); }
+      if (ny.lo < 0 && ny.hi > 0) g += `<line x1="${P.l}" x2="${W - P.r}" y1="${sy(0)}" y2="${sy(0)}" stroke="rgba(255,255,255,.25)"/>`;
+    }
+  }
+  const legend = series.length > 1 ? `<g ${font} font-size="11">${series.map((s, k) => `<g transform="translate(${P.l + k * 130},${H - 4})"><rect x="0" y="-9" width="10" height="10" rx="2" fill="${s.color}"/><text x="15" y="0" fill="#cfcfdc">${esc(s.name.slice(0, 18))}</text></g>`).join('')}</g>` : '';
+  wrap.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img">${g}${legend}</svg>`;
+}
+function summary() { const n = T.rows.length, numCols = T.cols.map((c, i) => ({ c, i, t: T.types[i] })); const stats = numCols.filter(x => x.t === 'number').map(x => { const v = T.rows.map(r => num(r[x.i])).filter(v => !isNaN(v)); return `${x.c}: min ${fmt(Math.min(...v))}, max ${fmt(Math.max(...v))}, first ${v[0]}, last ${v[v.length - 1]}`; }); return `Columns: ${T.cols.map((c, i) => `${c} (${T.types[i]})`).join(', ')}\nRows: ${n}\n${stats.join('\n')}\nFirst rows:\n${[T.cols.join(' | '), ...T.rows.slice(0, 10).map(r => r.join(' | '))].join('\n')}${n > 10 ? `\n… and ${n - 10} more` : ''}`; }
+async function ask() {
+  if (!T.rows.length) { toast('Paste some data first'); return; }
+  if (!SOS.require()) return;
+  $('#stop').hidden = false; $('#ai').disabled = true; $('#stats').textContent = 'Looking at the data…'; insights = []; renderText();
+  try {
+    const r = await SOS.chat({ messages: [{ role: 'user', content: `Here is a table. Choose the best chart and write the words around it.\n\n${summary()}\n\nRules: "type" is one of bar, hbar, line, area, scatter (line/area for time or ordered x; bar for categories; hbar when category names are long or there are many; scatter only for two numeric measures). "x" is one column name; "y" is 1–4 numeric column names. "title" is a headline that states the finding (not "Revenue by year" but "Revenue doubled since 2021"), under 70 characters. "subtitle": units and period. "caption": what to cite as a source or one caveat. "insights": 2–3 short observations a reader should notice, each under 140 characters, with numbers. Return ONLY JSON: {"type":"…","x":"…","y":["…"],"title":"…","subtitle":"…","caption":"…","insights":["…","…"]}` }], json: true, temperature: 0.3, onToken: t => { $('#stats').innerHTML = `Thinking… <b>${t.length}</b> chars`; } });
+    const j = parseJSONLoose(r.text); if (!j) { $('#stats').textContent = 'The model answered, but not as JSON. Try again.'; return; }
+    if (j.type && $(`#type option[value="${j.type}"]`)) $('#type').value = j.type;
+    const xi = T.cols.indexOf(j.x); if (xi >= 0) $('#xcol').value = xi;
+    if (Array.isArray(j.y)) { const pick = j.y.map(n => T.cols.indexOf(n)).filter(i => i >= 0 && T.types[i] === 'number'); if (pick.length) ys = pick; }
+    if (j.title) $('#title').value = j.title; if (j.subtitle) $('#subtitle').value = j.subtitle; if (j.caption) $('#caption').value = j.caption;
+    insights = Array.isArray(j.insights) ? j.insights.map(String) : [];
+    renderY(); draw(); renderText(); $('#stats').innerHTML = statsLine(r.stats);
+  } catch (e) { $('#stats').textContent = SOS.lastError || e.message; }
+  $('#stop').hidden = true; $('#ai').disabled = false;
+}
+function renderText() { $('#tTitle').textContent = $('#title').value; $('#tSub').textContent = $('#subtitle').value; $('#tCap').textContent = $('#caption').value; $('#ins').innerHTML = insights.map(i => `<li>${esc(i)}</li>`).join(''); }
+function renderY() { $('#ycols').innerHTML = T.cols.map((c, i) => T.types[i] === 'number' ? `<button type="button" class="chip" data-i="${i}" aria-pressed="${ys.includes(i)}">${esc(c)}</button>` : '').join('') || '<span class="note">No numeric columns found.</span>'; $$('#ycols .chip').forEach(b => b.onclick = () => { const i = +b.dataset.i; ys = ys.includes(i) ? ys.filter(x => x !== i) : [...ys, i]; renderY(); draw(); }); }
+function load(text) {
+  T = parse(text); const n = T.rows.length; $('#dinfo').textContent = n ? `${n} rows · ${T.cols.length} columns (${T.types.filter(t => t === 'number').length} numeric)` : 'Nothing parsed yet.';
+  $('#xcol').innerHTML = T.cols.map((c, i) => `<option value="${i}">${esc(c)}</option>`).join('');
+  const xi = T.types.findIndex(t => t !== 'number'); $('#xcol').value = xi >= 0 ? xi : 0;
+  ys = T.types.map((t, i) => t === 'number' && i !== +$('#xcol').value ? i : -1).filter(i => i >= 0).slice(0, 3);
+  const dateish = T.types[+$('#xcol').value] === 'date' || /year|month|date|week|day|q[1-4]/i.test(T.cols[+$('#xcol').value] || ''); $('#type').value = dateish ? 'line' : (n > 12 ? 'hbar' : 'bar');
+  renderY(); draw();
+}
+function svgText() { const s = $('#svgWrap svg'); if (!s) return ''; const title = $('#title').value, sub = $('#subtitle').value, cap = $('#caption').value; const W = 720, H = 420, top = (title ? 30 : 0) + (sub ? 20 : 0), bot = cap ? 22 : 0; return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H + top + bot + 16}" viewBox="0 0 ${W} ${H + top + bot + 16}" font-family="DM Sans, system-ui, sans-serif"><rect width="100%" height="100%" fill="#0d0d13"/>${title ? `<text x="18" y="26" fill="#eeeef4" font-size="20" font-family="Instrument Serif, Georgia, serif">${esc(title)}</text>` : ''}${sub ? `<text x="18" y="${(title ? 30 : 0) + 16}" fill="#a9a9bb" font-size="12">${esc(sub)}</text>` : ''}<g transform="translate(0,${top + 8})">${s.innerHTML}</g>${cap ? `<text x="18" y="${H + top + bot + 4}" fill="#73738a" font-size="11">${esc(cap)}</text>` : ''}</svg>`; }
+mountChrome();
+$('#offline').innerHTML = offlineBanner('The chart itself draws without it; the model picks the chart type and writes the headline and insights.');
+$('#pal').innerHTML = Object.keys(PALS).map(k => `<button type="button" data-p="${k}" aria-pressed="${k === pal}" title="${k}">${PALS[k].slice(0, 4).map(c => `<i style="background:${c}"></i>`).join('')}</button>`).join('');
+$$('#pal button').forEach(b => b.onclick = () => { pal = b.dataset.p; $$('#pal button').forEach(x => x.setAttribute('aria-pressed', x === b)); draw(); });
+['#optZero', '#optGrid', '#optLabels'].forEach(s => $(s).onclick = () => { $(s).setAttribute('aria-pressed', $(s).getAttribute('aria-pressed') !== 'true'); draw(); });
+let tm; $('#data').oninput = () => { clearTimeout(tm); tm = setTimeout(() => load($('#data').value), 250); };
+$('#type').onchange = draw; $('#xcol').onchange = draw;
+['#title', '#subtitle', '#caption'].forEach(s => $(s).oninput = renderText);
+$('#ai').onclick = ask; $('#stop').onclick = () => SOS.stop();
+$('#sample').onclick = () => { $('#data').value = 'Year,Streaming,Physical,Downloads\n2018,7.4,1.2,1.0\n2019,8.8,1.1,0.9\n2020,10.1,1.1,0.7\n2021,12.4,1.7,0.6\n2022,13.3,1.7,0.5\n2023,14.4,1.9,0.4\n2024,15.2,2.0,0.3\n2025,16.1,2.1,0.3'; load($('#data').value); };
+$('#file').onchange = e => { const f = e.target.files[0]; if (f) f.text().then(t => { $('#data').value = t; load(t); }); };
+$('#xSvg').onclick = () => { const s = svgText(); if (s) download('chart.svg', s, 'image/svg+xml'); };
+$('#xPng').onclick = () => { const s = svgText(); if (!s) return; const img = new Image(); const url = URL.createObjectURL(new Blob([s], { type: 'image/svg+xml' })); img.onload = () => { const c = document.createElement('canvas'); c.width = img.width * 2; c.height = img.height * 2; const x = c.getContext('2d'); x.scale(2, 2); x.drawImage(img, 0, 0); URL.revokeObjectURL(url); c.toBlob(b => { const a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = 'chart.png'; a.click(); }); }; img.src = url; };
+$('#xCopy').onclick = () => copyText([$('#title').value, $('#subtitle').value, '', ...insights.map(i => '• ' + i), '', $('#caption').value].filter(Boolean).join('\n'));
+const q = hashParam('q'); if (q) { $('#data').value = q; load(q); if (hashParam('go')) SOS.whenReady(ask); }
+</script>

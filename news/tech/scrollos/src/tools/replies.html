@@ -1,0 +1,94 @@
+<!-- @meta {"id":"replies","name":"Replies","scroll":"connect","tagline":"Paste what they sent and what you want to say back. Three drafts in your voice, learned from messages you actually wrote.","description":"Replies is ScrollOS's message drafter. Paste what someone sent you and the gist of what you want to say back; your own local model writes three replies — short, standard and warm — in your voice, learned from a few messages you wrote yourself. Email, text, Slack or LinkedIn. Nothing leaves your machine."} -->
+<style>
+.drafts{display:flex;flex-direction:column;gap:12px}
+.draft{border:1px solid var(--rule);border-radius:14px;background:var(--s2);overflow:hidden}
+.draft header{display:flex;gap:10px;align-items:center;padding:10px 14px;border-bottom:1px solid var(--rule);background:var(--s1)}
+.draft header b{font:600 13px/1.3 var(--font);flex:1}
+.draft header .n{font:500 10px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--acc)}
+.draft .b{padding:14px 16px;font-size:15px;line-height:1.6;white-space:pre-wrap}
+.draft .subj{padding:8px 16px;border-bottom:1px dashed var(--rule);font:500 12px var(--mono);color:var(--ink2)}
+.voice{border:1px solid var(--rule);border-radius:12px;background:var(--s2);padding:12px 14px;margin-top:12px}
+.voice summary{cursor:pointer;font:600 13px var(--font);list-style:none;display:flex;gap:8px;align-items:center}
+.voice summary::before{content:'▸';color:var(--acc);transition:transform .15s}
+.voice[open] summary::before{transform:rotate(90deg)}
+.voice .sm{margin-top:10px}
+.vs{display:flex;flex-direction:column;gap:6px;margin:10px 0}
+.vs div{display:flex;gap:8px;align-items:flex-start;padding:8px 10px;border-radius:8px;background:var(--s1);font-size:13px;color:var(--ink2);line-height:1.45}
+.vs div span{flex:1;white-space:pre-wrap}
+.vs button{background:none;border:0;color:var(--ink3)}
+.tone{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;font:500 11px var(--mono);color:var(--ink3);letter-spacing:.06em;text-transform:uppercase}
+</style>
+<main class="wrap">
+  <div class="tiny">Connect · communication &amp; community</div>
+  <h1 class="h1">Say what you mean, the way you'd say it.</h1>
+  <p class="lede">Paste what they sent. Tell it the gist of your answer in three words or three bullets. It writes <b>three replies</b> — short, standard, warm — in your voice, because you gave it a few messages you actually wrote. Everything stays on this machine, including the messages.</p>
+  <div id="offline"></div>
+  <div class="cols">
+    <section class="card">
+      <h2>The exchange</h2>
+      <div class="field"><label class="f">What they sent</label><textarea class="ta" id="theirs" style="min-height:120px" placeholder="Paste the email, text or message you're replying to…"></textarea></div>
+      <div class="field"><label class="f">What you want to say</label><textarea class="ta" id="mine" style="min-height:80px" placeholder="yes but not until Thursday · ask for the invoice · decline politely, keep the door open"></textarea></div>
+      <div class="row" style="margin-bottom:12px">
+        <div><label class="f">Channel</label><div class="seg" id="chan"><button type="button" data-v="email" aria-pressed="true">Email</button><button type="button" data-v="text">Text</button><button type="button" data-v="slack">Slack</button><button type="button" data-v="linkedin">LinkedIn</button></div></div>
+        <div><label class="f">To</label><select class="sel" id="rel" style="min-width:150px"><option>a colleague</option><option>my boss</option><option>a client</option><option>a vendor</option><option>a friend</option><option>family</option><option>someone I don't know</option><option>a recruiter</option></select></div>
+      </div>
+      <div class="field"><label class="f">Tone</label><div class="tone"><span>Brisk</span><input type="range" id="tone" min="0" max="100" value="50"><span>Warm</span></div></div>
+      <div class="row"><button type="button" class="btn pri" id="go">Draft three replies</button><button type="button" class="btn ghost" id="stop" hidden>Stop</button></div>
+      <div class="meta" id="stats"></div>
+      <details class="voice" id="voiceBox"><summary>Your voice <span class="muted small" id="vCount"></span></summary>
+        <p class="note" style="margin-top:8px">Paste three to five messages you wrote and were happy with — any topic. The model studies how you open, how long your sentences run, how you sign off. They're kept in this browser only.</p>
+        <div class="vs" id="vs"></div>
+        <textarea class="ta sm" id="vNew" style="min-height:70px" placeholder="Paste a message you wrote…"></textarea>
+        <div class="row" style="margin-top:8px"><button type="button" class="btn sm" id="vAdd">Add sample</button><span class="sp"></span><span class="note">Also:</span></div>
+        <input class="inp" id="vNotes" style="margin-top:8px" placeholder="Notes about your style — 'I never use exclamation points', 'sign off with — B'">
+      </details>
+    </section>
+    <section class="card">
+      <div class="row" style="margin-bottom:10px"><h2 style="margin:0">Drafts</h2><span class="sp"></span><input class="inp" id="refine" placeholder="Refine: shorter · mention Friday · less formal…" style="max-width:260px"><button type="button" class="btn sm" id="refineGo" disabled>Go</button></div>
+      <div class="drafts" id="drafts"><div class="empty">Three drafts will appear here.</div></div>
+    </section>
+  </div>
+</main>
+<script>
+const KEY = 'scrollos.voice';
+let V = store.get(KEY, { samples: [], notes: '' }), lastText = '', lastUser = '';
+const save = () => store.set(KEY, V);
+$$('.seg').forEach(s => s.onclick = e => { const b = e.target.closest('button'); if (!b) return; $$('button', s).forEach(x => x.setAttribute('aria-pressed', x === b)); });
+function renderVoice() { $('#vs').innerHTML = V.samples.map((s, i) => `<div><span>${esc(s)}</span><button type="button" data-i="${i}" title="Remove">✕</button></div>`).join(''); $$('#vs button').forEach(b => b.onclick = () => { V.samples.splice(+b.dataset.i, 1); save(); renderVoice(); }); $('#vCount').textContent = V.samples.length ? `· ${V.samples.length} sample${V.samples.length === 1 ? '' : 's'}` : '· none yet'; $('#vNotes').value = V.notes || ''; }
+function split(text) { // "### Option 1 — Short" blocks → cards
+  const parts = text.split(/\n(?=###\s)/).map(p => p.trim()).filter(Boolean);
+  const out = parts.map(p => { const m = p.match(/^###\s*(.+?)\n([\s\S]*)$/); if (!m) return null; let body = m[2].trim(), subj = ''; const sm = body.match(/^\*{0,2}Subject:?\*{0,2}\s*(.+)\n+/i); if (sm) { subj = sm[1].trim(); body = body.slice(sm[0].length).trim(); } return { label: m[1].replace(/\*+/g, '').trim(), subj, body: body.replace(/^```[\s\S]*?\n|```$/g, '').trim() }; }).filter(Boolean);
+  return out.length ? out : [{ label: 'Draft', subj: '', body: text.trim() }];
+}
+function renderDrafts(text, live) {
+  const ds = split(text), el = $('#drafts');
+  el.innerHTML = ds.map((d, i) => `<article class="draft"><header><span class="n">${['Short', 'Standard', 'Warm'][i] || 'Draft'}</span><b>${esc(d.label)}</b><button type="button" class="btn ghost sm" data-copy="${i}">Copy</button>${$('#chan [aria-pressed="true"]').dataset.v === 'email' ? `<a class="btn ghost sm" href="mailto:?subject=${encodeURIComponent(d.subj)}&body=${encodeURIComponent(d.body)}">Open in Mail</a>` : ''}</header>${d.subj ? `<div class="subj">Subject: ${esc(d.subj)}</div>` : ''}<div class="b">${esc(d.body)}${live && i === ds.length - 1 ? '<span class="live"></span>' : ''}</div></article>`).join('');
+  $$('[data-copy]', el).forEach(b => b.onclick = () => copyText((ds[+b.dataset.copy].subj ? 'Subject: ' + ds[+b.dataset.copy].subj + '\n\n' : '') + ds[+b.dataset.copy].body));
+}
+async function draft(refine) {
+  const theirs = $('#theirs').value.trim(), mine = $('#mine').value.trim();
+  if (!theirs && !mine) { toast('Paste their message, or say what you want to say'); return; }
+  if (!SOS.require()) return;
+  const chan = $('#chan [aria-pressed="true"]').dataset.v, rel = $('#rel').value, tone = +$('#tone').value;
+  const toneWord = tone < 25 ? 'brisk and businesslike' : tone < 50 ? 'direct but friendly' : tone < 75 ? 'friendly and easy' : 'warm and generous';
+  const chanRules = { email: 'An email: include a one-line Subject. Greeting and sign-off in the user\'s style.', text: 'A text message: one to three short lines, no greeting or sign-off, no subject.', slack: 'A Slack message: casual, short, no subject, a line break at most.', linkedin: 'A LinkedIn message: professional but human, short paragraphs, no subject.' }[chan];
+  const voice = V.samples.length ? `\n\nHow the user writes — copy the rhythm, openers, sign-offs and punctuation habits of these real messages they wrote (do not reuse their content):\n${V.samples.map((s, i) => `<sample ${i + 1}>\n${s}\n</sample>`).join('\n')}` : '';
+  const notes = V.notes ? `\nStyle notes from the user: ${V.notes}` : '';
+  const base = `Write three replies for me.\n\nThey wrote (${rel}):\n<message>\n${theirs || '(no message pasted — I am writing first)'}\n</message>\n\nWhat I want to say: ${mine || 'a sensible reply'}\nChannel: ${chanRules}\nTone: ${toneWord}.${voice}${notes}\n\nRules: sound like a person, never like a template. No "I hope this finds you well", no "I wanted to reach out", no bullet points in the reply itself, no emojis unless the samples use them. Keep facts to what I gave you; don't invent dates or commitments. Return exactly three drafts in Markdown:\n### Option 1 — Short\n${chan === 'email' ? 'Subject: …\n\n' : ''}<the reply>\n\n### Option 2 — Standard\n${chan === 'email' ? 'Subject: …\n\n' : ''}<the reply>\n\n### Option 3 — Warm\n${chan === 'email' ? 'Subject: …\n\n' : ''}<the reply>`;
+  const messages = refine ? [{ role: 'user', content: lastUser }, { role: 'assistant', content: lastText }, { role: 'user', content: `Revise all three with this change: ${refine}. Same format, same three headings.` }] : [{ role: 'user', content: base }];
+  if (!refine) lastUser = base;
+  $('#stop').hidden = false; $('#go').disabled = true; $('#stats').textContent = 'Writing…';
+  try { const r = await SOS.chat({ messages, temperature: 0.8, onToken: t => renderDrafts(t, true) }); lastText = r.text; renderDrafts(r.text, false); $('#stats').innerHTML = statsLine(r.stats); $('#refineGo').disabled = false; }
+  catch (e) { $('#stats').textContent = SOS.lastError || e.message; }
+  $('#stop').hidden = true; $('#go').disabled = false;
+}
+mountChrome();
+$('#offline').innerHTML = offlineBanner('Save your voice samples now; the drafting needs the model.');
+$('#go').onclick = () => draft(''); $('#stop').onclick = () => SOS.stop();
+$('#refineGo').onclick = () => { const r = $('#refine').value.trim(); if (r) draft(r); };
+$('#refine').onkeydown = e => { if (e.key === 'Enter' && !$('#refineGo').disabled) $('#refineGo').click(); };
+$('#vAdd').onclick = () => { const t = $('#vNew').value.trim(); if (!t) return; V.samples.push(t.slice(0, 2000)); if (V.samples.length > 6) V.samples.shift(); $('#vNew').value = ''; save(); renderVoice(); };
+$('#vNotes').onchange = () => { V.notes = $('#vNotes').value.trim(); save(); };
+const q = hashParam('q'); if (q) { $('#theirs').value = q; if (hashParam('go')) SOS.whenReady(() => draft('')); }
+renderVoice();
+</script>

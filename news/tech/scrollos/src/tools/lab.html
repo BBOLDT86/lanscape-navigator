@@ -1,0 +1,125 @@
+<!-- @meta {"id":"lab","name":"AI Lab","scroll":"grow","glyph":"⚗","tagline":"The workbench: test your machine's real speed, run two prompts or two models side by side, and tune how every Scroll talks.","description":"AI Lab is ScrollOS's workbench for the local model: measure the machine's real tokens per second and time to first token, run two prompts or two models side by side, see what's loaded in memory, and edit the system prompt behind every Scroll. Your own model, in your browser; nothing leaves your machine."} -->
+<style>
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--rule);margin-bottom:18px}
+.tabs button{padding:10px 14px;border:0;background:none;font:600 13px var(--font);color:var(--ink3);border-bottom:2px solid transparent;margin-bottom:-1px}
+.tabs button[aria-pressed="true"]{color:var(--ink);border-color:var(--acc)}
+.ab{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:860px){.ab{grid-template-columns:1fr}}
+.lane{background:var(--s1);border:1px solid var(--rule);border-radius:14px;padding:14px}
+.lane h3{display:flex;align-items:center;gap:8px;font:600 11px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--acc);margin-bottom:10px}
+.lane h3 i{width:22px;height:22px;border-radius:7px;background:var(--acc);color:#0a0a0e;display:grid;place-items:center;font:700 12px var(--font);font-style:normal}
+.lane .out{min-height:140px}
+.big{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin:12px 0}
+.big div{background:var(--s2);border:1px solid var(--rule);border-radius:12px;padding:12px;text-align:center}
+.big b{display:block;font:700 1.6rem/1.1 var(--mono);letter-spacing:-.02em;color:var(--ink)}
+.big span{font:500 10px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ink3)}
+table.t{width:100%;border-collapse:collapse;font-size:13px}
+table.t th{font:500 10px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);text-align:left;padding:8px 10px;border-bottom:1px solid var(--rule)}
+table.t td{padding:9px 10px;border-bottom:1px solid var(--rule);vertical-align:top}
+table.t td.n{font-family:var(--mono);text-align:right;white-space:nowrap}
+table.t tr:hover td{background:var(--s2)}
+.hist{display:flex;flex-direction:column;gap:6px}
+.sp-bar{display:flex;align-items:center;gap:10px;font:500 12px var(--mono)}
+.sp-bar i{display:block;height:14px;border-radius:4px;background:var(--acc);min-width:2px}
+.sp-bar span{color:var(--ink3);min-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-style:normal}
+.prompts{display:flex;flex-direction:column;gap:12px}
+.pr{display:grid;grid-template-columns:150px 1fr;gap:12px;align-items:start}
+@media (max-width:700px){.pr{grid-template-columns:1fr}}
+.pr .k{display:flex;align-items:center;gap:10px;font:600 14px var(--font)}
+.pr .k i{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;color:#0a0a0e;font-style:normal;flex:none}
+.pr .k small{display:block;font:500 10px var(--mono);color:var(--ink3);letter-spacing:.1em;text-transform:uppercase}
+</style>
+<main class="wrap">
+  <div class="tiny">Grow · business &amp; scale</div>
+  <h1 class="h1">The bench.</h1>
+  <p class="lede">What the machine can actually do, measured here rather than promised. Run two prompts or two models <b>side by side</b>. See what's loaded in memory. And tune the sentence behind each Scroll — the system prompt — for every tool at once.</p>
+  <div id="offline"></div>
+  <div class="tabs" id="tabs"><button type="button" data-t="bench" aria-pressed="true">Bench</button><button type="button" data-t="machine">Machine</button><button type="button" data-t="prompts">Prompts</button></div>
+  <section id="bench">
+    <div class="card">
+      <h2>Prompt</h2>
+      <textarea class="ta" id="prompt" style="min-height:90px" placeholder="Explain mixture-of-experts models to a smart twelve-year-old in 150 words.">Explain, in 150 words, why a mixture-of-experts model can run fast on a modest GPU. Plain English, one analogy.</textarea>
+      <div class="ab" style="margin-top:12px">
+        <div class="lane"><h3><i>A</i> Lane A</h3><div class="row" style="margin-bottom:8px"><select class="sel" id="mA" style="flex:1;min-width:140px"></select><input class="inp" id="tA" type="number" min="0" max="2" step="0.1" value="0.7" style="width:80px" title="Temperature"></div><textarea class="ta" id="sA" style="min-height:60px" placeholder="System prompt A (optional)"></textarea></div>
+        <div class="lane"><h3><i>B</i> Lane B</h3><div class="row" style="margin-bottom:8px"><select class="sel" id="mB" style="flex:1;min-width:140px"></select><input class="inp" id="tB" type="number" min="0" max="2" step="0.1" value="0.7" style="width:80px" title="Temperature"></div><textarea class="ta" id="sB" style="min-height:60px" placeholder="System prompt B (optional) — leave both blank to compare models, or set them differently to compare prompts"></textarea></div>
+      </div>
+      <div class="row" style="margin-top:12px"><button type="button" class="btn pri" id="runAB">Run A then B</button><button type="button" class="btn" id="runA">Only A</button><button type="button" class="btn ghost" id="stop" hidden>Stop</button><span class="sp"></span><label class="chip"><input type="checkbox" id="showThink" style="accent-color:var(--acc)"> show reasoning (if the model has it)</label></div>
+    </div>
+    <div class="ab" style="margin-top:14px">
+      <div class="lane"><h3><i>A</i> <span id="hA">Output A</span></h3><div class="out" id="oA" data-empty="A's answer streams here."></div><div class="meta" id="mtA"></div><details id="thA" hidden><summary class="note" style="cursor:pointer;margin-top:8px">Reasoning</summary><pre class="note" style="white-space:pre-wrap;margin-top:6px" id="thAt"></pre></details></div>
+      <div class="lane"><h3><i>B</i> <span id="hB">Output B</span></h3><div class="out" id="oB" data-empty="B's answer streams here."></div><div class="meta" id="mtB"></div><details id="thB" hidden><summary class="note" style="cursor:pointer;margin-top:8px">Reasoning</summary><pre class="note" style="white-space:pre-wrap;margin-top:6px" id="thBt"></pre></details></div>
+    </div>
+    <div class="card" style="margin-top:14px"><div class="row" style="margin-bottom:10px"><h2 style="margin:0">Runs</h2><span class="sp"></span><button type="button" class="btn ghost sm" id="histCopy">Copy as table</button><button type="button" class="btn ghost sm" id="histClear">Clear</button></div><div id="hist"></div></div>
+  </section>
+  <section id="machine" hidden>
+    <div class="card"><div class="row" style="margin-bottom:6px"><h2 style="margin:0">Speed test</h2><span class="sp"></span><button type="button" class="btn pri sm" id="speed">Run the test</button></div>
+      <p class="note">A fixed 200-token answer to a fixed prompt, so results compare across models and machines. Tokens per second is the number that decides how the tools feel; time to first token is the pause before anything appears.</p>
+      <div class="big" id="speedBig"></div><div class="hist" id="speedHist"></div></div>
+    <div class="card" style="margin-top:14px"><div class="row" style="margin-bottom:10px"><h2 style="margin:0">Loaded now</h2><span class="sp"></span><button type="button" class="btn ghost sm" id="psRefresh">Refresh</button></div><div id="ps"></div></div>
+    <div class="card" style="margin-top:14px"><h2>Models on this machine</h2><div id="models"></div></div>
+  </section>
+  <section id="prompts" hidden>
+    <div class="card">
+      <h2>One model, seven voices</h2>
+      <p class="note" style="margin-bottom:14px">Each Scroll sends one of these sentences before every request. Edit them here and every tool in this browser picks up the change. Blank means the default.</p>
+      <div class="prompts" id="plist"></div>
+      <div class="row" style="margin-top:16px"><button type="button" class="btn pri" id="pSave">Save all</button><button type="button" class="btn ghost" id="pReset">Reset to defaults</button><span class="sp"></span><button type="button" class="btn ghost sm" id="pExport">Export</button><label class="btn ghost sm">Import<input type="file" id="pImport" accept="application/json" hidden></label></div>
+    </div>
+  </section>
+</main>
+<script>
+const SCROLLS = [['dream', 'Dream', '✦', '#f59e0b', 'You are a life planning coach. Be aspirational but practical. Help the user break dreams into plans and plans into actions.'], ['discover', 'Discover', '◉', '#e05a48', 'You are a research librarian. Be thorough, cite sources, make connections. Help the user learn deeply and retain knowledge.'], ['unwind', 'Unwind', '♫', '#d8608c', 'You are a companion for leisure. Be warm, fun, and creative. Help with recipes, games, and entertainment without being productivity-obsessed.'], ['create', 'Create', '◆', '#9b59b6', 'You are a creative director. Be bold and tasteful. Help the user make things that are beautiful, clear, and distinctive.'], ['connect', 'Connect', '⬡', '#48c870', 'You are a communication coach. Match the user\'s voice. Help draft messages that sound human, not generated.'], ['produce', 'Produce', '▣', '#5898e8', 'You are an executive assistant. Be precise and efficient. Help with documents, data, and project management.'], ['grow', 'Grow', '△', '#38c8d8', 'You are a business strategist. Be analytical and action-oriented. Help with sales, marketing, finance, and growth.']];
+const HKEY = 'scrollos.lab.runs', SKEY = 'scrollos.lab.speed';
+let runs = store.get(HKEY, []), speeds = store.get(SKEY, []);
+$$('#tabs button').forEach(b => b.onclick = () => { $$('#tabs button').forEach(x => x.setAttribute('aria-pressed', x === b)); ['bench', 'machine', 'prompts'].forEach(t => $('#' + t).hidden = t !== b.dataset.t); if (b.dataset.t === 'machine') machine(); });
+function fillModels() { const opts = SOS.models.map(m => `<option value="${esc(m.name)}">${esc(m.name)}</option>`).join('') || '<option value="">(no models)</option>'; const a = $('#mA').value, b = $('#mB').value; $('#mA').innerHTML = opts; $('#mB').innerHTML = opts; $('#mA').value = a || SOS.cfg.model; $('#mB').value = b || SOS.cfg.model; if (!$('#mA').value) $('#mA').selectedIndex = 0; if (!$('#mB').value) $('#mB').selectedIndex = 0; }
+document.addEventListener('sos:state', () => { if (SOS.state === 'ok') fillModels(); });
+async function lane(L) {
+  const model = $('#m' + L).value, temp = +$('#t' + L).value, sys = $('#s' + L).value.trim(), prompt = $('#prompt').value.trim();
+  const o = $('#o' + L), mt = $('#mt' + L), th = $('#th' + L); o.innerHTML = ''; o.classList.add('live'); mt.textContent = ''; th.hidden = true; $('#th' + L + 't').textContent = ''; $('#h' + L).textContent = model;
+  const r = await SOS.chat({ model, system: sys, messages: [{ role: 'user', content: prompt }], temperature: temp, onToken: t => { o.innerHTML = md(t); }, onThink: t => { if ($('#showThink').checked) { th.hidden = false; $('#th' + L + 't').textContent = t; } } });
+  o.classList.remove('live'); o.innerHTML = md(r.text) || '<span class="note">(empty)</span>'; mt.innerHTML = statsLine(r.stats);
+  runs.unshift({ at: Date.now(), lane: L, model, temp, sys: sys.slice(0, 60), tps: r.stats.tps, ttft: r.stats.ttft, tokens: r.stats.tokens, prompt: prompt.slice(0, 80), aborted: r.aborted }); runs = runs.slice(0, 40); store.set(HKEY, runs); renderHist();
+}
+async function runBoth(onlyA) {
+  if (!$('#prompt').value.trim()) { toast('Write a prompt'); return; }
+  if (!SOS.require()) return;
+  $('#stop').hidden = false; $('#runAB').disabled = true; $('#runA').disabled = true;
+  try { await lane('A'); if (!onlyA) await lane('B'); } catch (e) { toast(SOS.lastError || e.message); }
+  $('#stop').hidden = true; $('#runAB').disabled = false; $('#runA').disabled = false;
+}
+function renderHist() { $('#hist').innerHTML = runs.length ? `<table class="t"><thead><tr><th>When</th><th>Lane</th><th>Model</th><th class="n">Temp</th><th class="n">tok/s</th><th class="n">First token</th><th class="n">Tokens</th><th>Prompt</th></tr></thead><tbody>${runs.map(r => `<tr><td>${new Date(r.at).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}</td><td>${r.lane}</td><td>${esc(r.model)}</td><td class="n">${r.temp}</td><td class="n">${r.tps ? r.tps.toFixed(1) : '—'}</td><td class="n">${r.ttft != null ? r.ttft.toFixed(2) + 's' : '—'}</td><td class="n">${r.tokens || '—'}${r.aborted ? ' ✕' : ''}</td><td class="muted">${esc(r.prompt)}</td></tr>`).join('')}</tbody></table>` : '<p class="note">Runs are logged here with their speed, so you can see how a model or a prompt behaves over time.</p>'; }
+$('#runAB').onclick = () => runBoth(false); $('#runA').onclick = () => runBoth(true); $('#stop').onclick = () => SOS.stop();
+$('#histClear').onclick = () => { runs = []; store.set(HKEY, runs); renderHist(); };
+$('#histCopy').onclick = () => copyText(['when\tlane\tmodel\ttemp\ttok/s\tttft\ttokens\tprompt', ...runs.map(r => [new Date(r.at).toISOString(), r.lane, r.model, r.temp, r.tps ? r.tps.toFixed(1) : '', r.ttft != null ? r.ttft.toFixed(2) : '', r.tokens || '', r.prompt].join('\t'))].join('\n'));
+/* machine */
+async function machine() {
+  const host = SOS.host();
+  try { const r = await fetch(host + '/api/ps', { signal: AbortSignal.timeout(4000) }); const j = await r.json(); const m = j.models || []; $('#ps').innerHTML = m.length ? `<table class="t"><thead><tr><th>Model</th><th class="n">In memory</th><th class="n">On GPU</th><th>Context</th><th>Unloads</th></tr></thead><tbody>${m.map(x => `<tr><td>${esc(x.name)}</td><td class="n">${(x.size / 1e9).toFixed(1)} GB</td><td class="n">${x.size_vram ? (100 * x.size_vram / x.size).toFixed(0) + '%' : '—'}</td><td>${x.context_length ? (x.context_length / 1024) + 'K' : '—'}</td><td class="muted">${x.expires_at ? new Date(x.expires_at).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }) : '—'}</td></tr>`).join('')}</tbody></table><p class="note" style="margin-top:8px">"On GPU" below 100% means part of the model is in system RAM, which is why it feels slow. A smaller quant or a smaller context window fixes it.</p>` : '<p class="note">Nothing loaded right now. The first request loads the model; Ollama keeps it warm for a few minutes.</p>'; }
+  catch (e) { $('#ps').innerHTML = `<p class="note">${esc(SOS.state === 'ok' ? 'This Ollama doesn\'t answer /api/ps.' : SOS.lastError || 'Not connected.')}</p>`; }
+  $('#models').innerHTML = SOS.models.length ? `<p class="note" style="margin-bottom:8px">Ollama ${esc(SOS.version || '')} at ${esc(host)}</p><table class="t"><thead><tr><th>Model</th><th>Family</th><th class="n">Params</th><th>Quant</th><th class="n">On disk</th></tr></thead><tbody>${SOS.models.map(m => `<tr><td>${esc(m.name)}</td><td class="muted">${esc(m.family || '')}</td><td class="n">${esc(m.params || '')}</td><td class="muted">${esc(m.quant || '')}</td><td class="n">${m.size ? (m.size / 1e9).toFixed(1) + ' GB' : ''}</td></tr>`).join('')}</tbody></table>` : `<p class="note">${esc(SOS.lastError || 'No models listed.')}</p>`;
+  renderSpeed();
+}
+function renderSpeed() { const last = speeds[0]; $('#speedBig').innerHTML = last ? `<div><b>${last.tps.toFixed(1)}</b><span>tokens / second</span></div><div><b>${last.ttft.toFixed(2)}s</b><span>first token</span></div><div><b>${last.pps ? last.pps.toFixed(0) : '—'}</b><span>prompt tok / s</span></div><div><b>${esc(last.model.split(':')[0])}</b><span>${esc(last.model.split(':')[1] || 'latest')}</span></div>` : ''; const max = Math.max(1, ...speeds.map(s => s.tps)); $('#speedHist').innerHTML = speeds.slice(0, 12).map(s => `<div class="sp-bar"><span title="${esc(s.model)}">${esc(s.model)}</span><i style="width:${(100 * s.tps / max).toFixed(0)}%"></i>${s.tps.toFixed(1)} tok/s · ${new Date(s.at).toLocaleDateString()}</div>`).join(''); }
+$('#speed').onclick = async () => {
+  if (!SOS.require()) return; $('#speed').disabled = true; $('#speed').textContent = 'Running…';
+  try {
+    const r = await SOS.chat({ system: 'You are a helpful writer.', messages: [{ role: 'user', content: 'Write exactly two paragraphs about how tides work. Do not stop early.' }], temperature: 0.7, options: { num_predict: 200 } });
+    const t0 = r.stats; // Ollama's own counters from the final chunk
+    const res = { at: Date.now(), model: r.stats.model, tps: t0.tps || 0, ttft: t0.ttft || 0, pps: t0.pps, load: t0.load, tokens: t0.tokens };
+    speeds.unshift(res); speeds = speeds.slice(0, 30); store.set(SKEY, speeds); renderSpeed(); toast(`${res.tps.toFixed(1)} tok/s`);
+  } catch (e) { toast(SOS.lastError || e.message); }
+  $('#speed').disabled = false; $('#speed').textContent = 'Run the test';
+};
+$('#psRefresh').onclick = machine;
+/* prompts */
+function renderPrompts() { const P = SOS.prompts(); $('#plist').innerHTML = SCROLLS.map(([k, n, g, c, d]) => `<div class="pr"><div class="k"><i style="background:${c}">${g}</i><span>${n}<small>${k}</small></span></div><textarea class="ta" data-k="${k}" style="min-height:64px" placeholder="${esc(d)}">${esc(P[k] || '')}</textarea></div>`).join(''); }
+$('#pSave').onclick = () => { const P = {}; $$('#plist textarea').forEach(t => { if (t.value.trim()) P[t.dataset.k] = t.value.trim(); }); store.set('scrollos.prompts', P); toast('Saved for every Scroll in this browser'); };
+$('#pReset').onclick = () => { store.set('scrollos.prompts', {}); renderPrompts(); toast('Defaults restored'); };
+$('#pExport').onclick = () => download('scrollos-prompts.json', JSON.stringify(Object.fromEntries(SCROLLS.map(([k, , , , d]) => [k, SOS.prompts()[k] || d])), null, 2), 'application/json');
+$('#pImport').onchange = e => { const f = e.target.files[0]; if (!f) return; f.text().then(t => { const j = JSON.parse(t); const P = {}; SCROLLS.forEach(([k]) => { if (j[k]) P[k] = String(j[k]); }); store.set('scrollos.prompts', P); renderPrompts(); toast('Imported'); }).catch(() => toast('Could not read that file')); };
+mountChrome();
+$('#offline').innerHTML = offlineBanner('The prompts can be edited now; the bench and the speed test need a model to talk to.');
+fillModels(); renderHist(); renderPrompts();
+const q = hashParam('q'); if (q) { $('#prompt').value = q; if (hashParam('go')) SOS.whenReady(() => runBoth(true)); }
+</script>

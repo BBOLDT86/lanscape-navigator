@@ -1,0 +1,131 @@
+<!-- @meta {"id":"flashcards","name":"Flashcards","scroll":"discover","tagline":"Paste anything — a chapter, your notes, a manual — and study it as spaced-repetition cards.","description":"Flashcards is ScrollOS's study tool. Paste a chapter, your notes or a manual and your own local model writes question-and-answer cards; study them with spaced repetition (SM-2), graded Again / Hard / Good / Easy. Decks stay in your browser and export to Anki-style TSV. Nothing leaves your machine."} -->
+<style>
+.decks{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-top:12px}
+.deck{text-align:left;padding:14px;border-radius:14px;border:1px solid var(--rule);background:var(--s2);cursor:pointer}
+.deck[aria-pressed="true"]{border-color:var(--acc)}
+.deck b{display:block;font:600 15px/1.25 var(--font)}
+.deck small{display:block;font:500 11px var(--mono);color:var(--ink3);margin-top:6px}
+.deck .due{color:var(--acc)}
+.study{min-height:340px;display:flex;flex-direction:column}
+.fc{flex:1;border-radius:18px;border:1px solid var(--rule2);background:linear-gradient(160deg,var(--s3),var(--s2));padding:28px;display:flex;flex-direction:column;justify-content:center;cursor:pointer;position:relative;min-height:240px;transition:transform .2s}
+.fc:active{transform:scale(.995)}
+.fc .side{font:500 10px/1.3 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--acc);position:absolute;top:16px;left:20px}
+.fc .n{position:absolute;top:14px;right:18px;font:500 11px var(--mono);color:var(--ink3)}
+.fc .q{font:400 clamp(1.3rem,3vw,1.8rem)/1.3 var(--serif);letter-spacing:-.01em}
+.fc .a{font-size:16px;line-height:1.55;color:var(--ink);margin-top:14px;padding-top:14px;border-top:1px solid var(--rule)}
+.grades{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px}
+.grades button{padding:12px 8px;border-radius:12px;border:1px solid var(--rule2);background:var(--s2);font:600 13px var(--font)}
+.grades button small{display:block;font:500 10px var(--mono);color:var(--ink3);margin-top:3px;letter-spacing:.06em}
+.grades .g1{color:var(--red)}.grades .g2{color:var(--amber)}.grades .g3{color:var(--green)}.grades .g4{color:var(--blue)}
+.clist{display:flex;flex-direction:column;gap:6px;margin-top:10px;max-height:380px;overflow:auto}
+.crow{display:grid;grid-template-columns:1fr 1fr auto;gap:10px;align-items:start;padding:10px 12px;border:1px solid var(--rule);border-radius:10px;background:var(--s2);font-size:13px}
+.crow .d{font:500 10px var(--mono);color:var(--ink3);white-space:nowrap}
+.crow button{background:none;border:0;color:var(--ink3);font-size:13px}
+.crow button:hover{color:var(--red)}
+.crow em{color:var(--ink2);font-style:normal}
+.bar{height:5px;background:var(--s4);border-radius:3px;overflow:hidden;margin:8px 0 2px}.bar i{display:block;height:100%;background:var(--acc);transition:width .3s}
+@media (max-width:700px){.crow{grid-template-columns:1fr auto}.crow .ans{grid-column:1/-1}}
+</style>
+<main class="wrap">
+  <div class="tiny">Discover · curiosity &amp; learning</div>
+  <h1 class="h1">Read it once. Remember it for good.</h1>
+  <p class="lede">Paste a chapter, a lecture, a manual, your own notes. The model writes the cards; <b>spaced repetition</b> decides when you see each one again. A 128K-context model takes a whole textbook chapter at a time.</p>
+  <div id="offline"></div>
+  <div class="cols">
+    <section>
+      <div class="card">
+        <h2>Make cards</h2>
+        <div class="field"><label class="f">Deck</label><div class="row"><select class="sel" id="mDeck" style="flex:1"></select><button type="button" class="btn sm" id="mNewDeck">+ New</button></div></div>
+        <div class="field"><label class="f">Source text</label><textarea class="ta" id="mText" style="min-height:160px" placeholder="Paste the thing to learn. Notes, an article, a chapter, a spec sheet…"></textarea><div class="meta"><span id="mCount">0 words</span></div></div>
+        <div class="row" style="margin-bottom:12px">
+          <div><label class="f">How many</label><div class="seg" id="mN"><button type="button" data-v="8">8</button><button type="button" data-v="15" aria-pressed="true">15</button><button type="button" data-v="30">30</button></div></div>
+          <div><label class="f">Kind</label><div class="seg" id="mKind"><button type="button" data-v="facts" aria-pressed="true">Facts</button><button type="button" data-v="concepts">Concepts</button><button type="button" data-v="vocab">Vocabulary</button><button type="button" data-v="mixed">Mixed</button></div></div>
+        </div>
+        <div class="row"><button type="button" class="btn pri" id="mGo">Write the cards</button><button type="button" class="btn" id="mManual">Add one by hand</button></div>
+        <div id="mBusy" class="meta" hidden></div>
+      </div>
+      <div class="card" style="margin-top:14px">
+        <h2>Decks</h2>
+        <div class="decks" id="decks"></div>
+        <div class="row" style="margin-top:14px"><button type="button" class="btn ghost sm" id="xJson">Export JSON</button><button type="button" class="btn ghost sm" id="xTsv">Export TSV (Anki)</button><label class="btn ghost sm">Import JSON<input type="file" id="xImp" accept="application/json" hidden></label></div>
+      </div>
+    </section>
+    <section class="card" id="right"></section>
+  </div>
+</main>
+<script>
+const KEY = 'scrollos.cards';
+let S = store.get(KEY, { decks: [{ id: uid(), name: 'First deck', cards: [] }], sel: null, mode: 'study' });
+if (!S.sel) S.sel = S.decks[0].id;
+const save = () => store.set(KEY, S);
+const deck = () => S.decks.find(d => d.id === S.sel) || S.decks[0];
+const now = () => Date.now();
+const DAY = 864e5;
+const due = d => d.cards.filter(c => (c.due || 0) <= now());
+let queue = [], cur = null, flipped = false, sessionDone = 0;
+function segVal(id) { return $(`#${id} [aria-pressed="true"]`).dataset.v; }
+$$('.seg').forEach(s => s.onclick = e => { const b = e.target.closest('button'); if (!b) return; $$('button', s).forEach(x => x.setAttribute('aria-pressed', x === b)); });
+function renderDecks() {
+  $('#decks').innerHTML = S.decks.map(d => `<button type="button" class="deck" data-id="${d.id}" aria-pressed="${d.id === S.sel}"><b>${esc(d.name)}</b><small>${d.cards.length} cards · <span class="due">${due(d).length} due</span></small></button>`).join('');
+  $$('.deck').forEach(b => b.onclick = () => { S.sel = b.dataset.id; queue = []; cur = null; save(); render(); });
+  $('#mDeck').innerHTML = S.decks.map(d => `<option value="${d.id}" ${d.id === S.sel ? 'selected' : ''}>${esc(d.name)}</option>`).join('');
+}
+function grade(c, g) { // SM-2, lightly: g 1 again · 2 hard · 3 good · 4 easy
+  c.reps = (c.reps || 0) + 1; c.ef = c.ef || 2.5; c.iv = c.iv || 0;
+  if (g === 1) { c.iv = 0; c.ef = Math.max(1.3, c.ef - 0.2); c.due = now() + 10 * 60e3; c.lapses = (c.lapses || 0) + 1; }
+  else { if (g === 2) { c.iv = c.iv ? Math.max(1, c.iv * 1.2) : 1; c.ef = Math.max(1.3, c.ef - 0.15); } else if (g === 3) { c.iv = c.iv ? c.iv * c.ef : 1; } else { c.iv = c.iv ? c.iv * c.ef * 1.3 : 3; c.ef += 0.1; } c.due = now() + Math.round(c.iv) * DAY; }
+  c.seen = now();
+}
+function nextCard() { const d = deck(); if (!queue.length) queue = due(d).sort((a, b) => (a.due || 0) - (b.due || 0)).map(c => c.id); cur = queue.length ? d.cards.find(c => c.id === queue[0]) : null; flipped = false; }
+function renderRight() {
+  const d = deck(), el = $('#right');
+  const tabs = `<div class="row" style="margin-bottom:12px"><div class="seg"><button type="button" data-mode="study" aria-pressed="${S.mode === 'study'}">Study</button><button type="button" data-mode="cards" aria-pressed="${S.mode === 'cards'}">Cards · ${d.cards.length}</button></div><span class="sp"></span><button type="button" class="btn ghost sm" id="rRename">Rename</button><button type="button" class="btn ghost sm danger" id="rDel">Delete deck</button></div>`;
+  if (S.mode === 'cards') {
+    el.innerHTML = tabs + `<div class="clist">${d.cards.length ? d.cards.map(c => `<div class="crow"><div><em>Q</em> ${esc(c.q)}</div><div class="ans"><em>A</em> ${esc(c.a)}</div><div><div class="d">${c.due ? (c.due <= now() ? 'due' : 'in ' + Math.max(1, Math.round((c.due - now()) / DAY)) + 'd') : 'new'}</div><button type="button" data-del="${c.id}" title="Delete">✕</button></div></div>`).join('') : '<div class="empty">No cards in this deck yet.</div>'}</div>`;
+  } else {
+    if (!cur) nextCard();
+    const n = due(d).length;
+    el.innerHTML = tabs + (cur ? `<div class="study"><div class="meta"><span><b>${n}</b> due · <b>${sessionDone}</b> done this session</span></div><div class="bar"><i style="width:${d.cards.length ? Math.round(100 * (d.cards.length - n) / d.cards.length) : 0}%"></i></div>
+      <div class="fc" id="fc" tabindex="0" role="button" aria-label="Flip"><span class="side">${flipped ? 'Answer' : 'Question'}</span><span class="n">${cur.reps ? cur.reps + ' reviews' : 'new'}</span><div class="q">${esc(cur.q)}</div>${flipped ? `<div class="a">${md(cur.a)}</div>` : '<p class="note" style="margin-top:18px">Tap or press space to flip</p>'}</div>
+      ${flipped ? `<div class="grades"><button type="button" class="g1" data-g="1">Again<small>10 min</small></button><button type="button" class="g2" data-g="2">Hard<small>${ivl(cur, 2)}</small></button><button type="button" class="g3" data-g="3">Good<small>${ivl(cur, 3)}</small></button><button type="button" class="g4" data-g="4">Easy<small>${ivl(cur, 4)}</small></button></div><p class="note" style="margin-top:8px;text-align:center">Keys: 1 · 2 · 3 · 4</p>` : ''}</div>`
+      : `<div class="empty">${d.cards.length ? 'Nothing due. Come back tomorrow, or add more cards.' : 'This deck is empty. Make cards on the left.'}</div>${d.cards.length && !n ? `<p style="text-align:center"><button type="button" class="btn sm" id="rCram">Review all anyway</button></p>` : ''}`);
+    const fc = $('#fc'); if (fc) fc.onclick = () => { flipped = !flipped; renderRight(); };
+    $$('[data-g]', el).forEach(b => b.onclick = () => doGrade(+b.dataset.g));
+    const cram = $('#rCram'); if (cram) cram.onclick = () => { queue = d.cards.map(c => c.id); cur = d.cards[0]; flipped = false; renderRight(); };
+  }
+  $$('[data-mode]', el).forEach(b => b.onclick = () => { S.mode = b.dataset.mode; save(); renderRight(); });
+  $$('[data-del]', el).forEach(b => b.onclick = () => { d.cards = d.cards.filter(c => c.id !== b.dataset.del); save(); render(); });
+  $('#rRename').onclick = () => { const n = prompt('Deck name', d.name); if (n) { d.name = n; save(); render(); } };
+  $('#rDel').onclick = () => { if (S.decks.length > 1 && confirm(`Delete "${d.name}" and its ${d.cards.length} cards?`)) { S.decks = S.decks.filter(x => x.id !== d.id); S.sel = S.decks[0].id; queue = []; cur = null; save(); render(); } else if (S.decks.length === 1) toast('Keep at least one deck'); };
+}
+function ivl(c, g) { const x = Object.assign({}, c); grade(x, g); const days = Math.round((x.due - now()) / DAY); return days < 1 ? '<1 d' : days + ' d'; }
+function doGrade(g) { if (!cur) return; grade(cur, g); sessionDone++; queue.shift(); if (g === 1) queue.push(cur.id); save(); cur = null; render(); }
+function render() { renderDecks(); renderRight(); }
+document.addEventListener('keydown', e => { if (e.target.matches('input,textarea,select') || S.mode !== 'study' || !cur) return; if (e.key === ' ') { e.preventDefault(); flipped = !flipped; renderRight(); } else if (flipped && '1234'.includes(e.key)) doGrade(+e.key); });
+async function makeCards() {
+  const text = $('#mText').value.trim(); if (!text) { toast('Paste something to learn first'); return; }
+  if (!SOS.require()) return;
+  S.sel = $('#mDeck').value; const d = deck(); const n = +segVal('mN'), kind = segVal('mKind');
+  const busy = $('#mBusy'); busy.hidden = false; busy.textContent = 'Reading…';
+  const kinds = { facts: 'concrete facts, numbers, names and definitions', concepts: 'the ideas and how they relate; ask "why" and "how", not just "what"', vocab: 'terms on the front, definitions in context on the back', mixed: 'a mix of facts, concepts and terms' };
+  try {
+    const r = await SOS.chat({ messages: [{ role: 'user', content: `Write ${n} flashcards from the text below. Focus on ${kinds[kind]}. Each question must stand alone (no "according to the text"), each answer short but complete, in the text's own language. Cover the whole text, most important points first. Return ONLY JSON: {"cards":[{"q":"…","a":"…"}]}\n\n<text>\n${text.slice(0, 400000)}\n</text>` }], json: true, temperature: 0.3, onToken: t => { busy.innerHTML = `Writing… <b>${(t.match(/"q"/g) || []).length}</b> cards so far`; } });
+    const j = parseJSONLoose(r.text); const cards = j && (j.cards || (Array.isArray(j) ? j : null));
+    if (!cards || !cards.length) { busy.textContent = 'The model answered, but not as cards. Try again or lower the temperature.'; return; }
+    for (const c of cards) if (c && c.q && c.a) d.cards.push({ id: uid(), q: String(c.q).trim(), a: String(c.a).trim(), due: 0, iv: 0, ef: 2.5, reps: 0 });
+    save(); queue = []; cur = null; S.mode = 'study'; render(); busy.innerHTML = `Added <b>${cards.length}</b> cards · ` + statsLine(r.stats); toast(`${cards.length} cards added to ${d.name}`);
+  } catch (e) { busy.textContent = SOS.lastError || e.message; }
+}
+mountChrome();
+$('#offline').innerHTML = offlineBanner('You can still add cards by hand and study them; the model writes them from your text.');
+$('#mText').oninput = () => { $('#mCount').textContent = ($('#mText').value.trim().split(/\s+/).filter(Boolean).length) + ' words'; };
+$('#mGo').onclick = makeCards;
+$('#mNewDeck').onclick = () => { const n = prompt('New deck name'); if (n) { const d = { id: uid(), name: n, cards: [] }; S.decks.push(d); S.sel = d.id; save(); render(); } };
+$('#mManual').onclick = () => { const q = prompt('Front (question)'); if (!q) return; const a = prompt('Back (answer)'); if (!a) return; S.sel = $('#mDeck').value; deck().cards.push({ id: uid(), q, a, due: 0, iv: 0, ef: 2.5, reps: 0 }); save(); render(); };
+$('#mDeck').onchange = e => { S.sel = e.target.value; queue = []; cur = null; save(); render(); };
+$('#xJson').onclick = () => download('scrollos-flashcards.json', JSON.stringify(S, null, 2), 'application/json');
+$('#xTsv').onclick = () => { const d = deck(); download(`${d.name.replace(/[^\w-]+/g, '_')}.tsv`, d.cards.map(c => c.q.replace(/\t|\n/g, ' ') + '\t' + c.a.replace(/\t|\n/g, ' ')).join('\n'), 'text/tab-separated-values'); };
+$('#xImp').onchange = e => { const f = e.target.files[0]; if (!f) return; f.text().then(t => { const j = JSON.parse(t); if (j && Array.isArray(j.decks)) { S = j; S.sel = S.decks[0].id; save(); render(); toast('Imported'); } else toast('Not a Flashcards file'); }).catch(() => toast('Could not read that file')); };
+const q = hashParam('q'); if (q) { $('#mText').value = q; $('#mText').dispatchEvent(new Event('input')); if (hashParam('go')) SOS.whenReady(makeCards); }
+render();
+</script>

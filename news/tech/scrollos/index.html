@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#050507">
+<title>ScrollOS · The Watch</title>
+<meta name="description" content="ScrollOS: a personal operating system that runs entirely on your own hardware. Seven Scrolls, 63 tools, one open model with a 128K context — no cloud, no subscription. The first eight tools are here to open or download today, with a build guide for the machine. From The Watch's Tech desk.">
+<link rel="canonical" href="https://bboldt86.github.io/lanscape-navigator/news/tech/scrollos/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="The Watch">
+<meta property="og:title" content="ScrollOS · The operating system for your mind">
+<meta property="og:description" content="Seven Scrolls, one local model, zero cloud. Open the first tools in your browser, download them, or build the machine — a guide with real prices and real speeds.">
+<meta property="og:url" content="https://bboldt86.github.io/lanscape-navigator/news/tech/scrollos/">
+<meta property="og:image" content="https://bboldt86.github.io/lanscape-navigator/news/tech/scrollos/share.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ScrollOS · The operating system for your mind">
+<meta name="twitter:description" content="Seven Scrolls, one local model, zero cloud. Open the first tools, download them, or build the machine.">
+<meta name="twitter:image" content="https://bboldt86.github.io/lanscape-navigator/news/tech/scrollos/share.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23c8a8ff'/%3E%3Ctext x='32' y='44' font-size='36' text-anchor='middle' fill='%23070709' font-family='system-ui'%3E%E2%9F%90%3C/text%3E%3C/svg%3E">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,200;9..40,300;9..40,400;9..40,500;9..40,600;9..40,700;9..40,800;9..40,900&family=DM+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap');
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#050507;--s1:#0a0a0e;--s2:#101016;--s3:#17171f;--s4:#1e1e28;--s5:#262632;
+  --g0:#333;--g1:#444;--g2:#5a5a6e;--g3:#7a7a8e;--g4:#9a9aae;--g5:#bbbbc8;--white:#eeeef4;
+  --dream:#f59e0b;--discover:#e05a48;--unwind:#d8608c;--create:#9b59b6;--connect:#48c870;--produce:#5898e8;--grow:#38c8d8;
+  --core:#c8a8ff;--core-dim:rgba(200,168,255,.08);--core-mid:rgba(200,168,255,.18);
+  --green:#30d158;--red:#ff453a;--amber:#fbbf24;--blue:#0a84ff;--indigo:#5e5ce6;
+  --rule:rgba(255,255,255,.06);--rule2:rgba(255,255,255,.11);
+  --font:'DM Sans',system-ui,sans-serif;--mono:'DM Mono',ui-monospace,monospace;--serif:'Instrument Serif',Georgia,serif;
+  --glow:0 0 80px rgba(200,168,255,.06),0 0 160px rgba(200,168,255,.03);
+}
+html{scroll-behavior:smooth;color-scheme:dark;-webkit-text-size-adjust:100%}
+body{font-family:var(--font);background:var(--bg);color:var(--white);-webkit-font-smoothing:antialiased;line-height:1.6;overflow-x:hidden}
+[hidden]{display:none!important}
+a{color:inherit}
+button,input,select{font:inherit;color:inherit}
+button{cursor:pointer}
+code,kbd{font-family:var(--mono)}
+::selection{background:var(--core-mid)}
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:.012;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.cosmic{position:fixed;inset:0;pointer-events:none;z-index:0}
+.cosmic .orb1{position:absolute;width:900px;height:900px;border-radius:50%;top:-300px;left:50%;transform:translateX(-50%);background:radial-gradient(circle,rgba(200,168,255,.03) 0%,rgba(94,92,230,.015) 40%,transparent 70%);animation:drift 20s ease-in-out infinite}
+.cosmic .orb2{position:absolute;width:600px;height:600px;border-radius:50%;bottom:-200px;right:-200px;background:radial-gradient(circle,rgba(56,200,216,.02) 0%,transparent 60%)}
+.cosmic .orb3{position:absolute;width:500px;height:500px;border-radius:50%;top:40%;left:-150px;background:radial-gradient(circle,rgba(245,158,11,.015) 0%,transparent 60%)}
+@keyframes drift{0%,100%{transform:translateX(-50%) scale(1)}50%{transform:translateX(-50%) scale(1.12)}}
+
+/* ---- masthead ---- */
+.bar{position:sticky;top:0;z-index:30;display:flex;align-items:center;gap:14px;padding:10px 20px;background:rgba(5,5,7,.78);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--rule)}
+.bar .back{font:500 12px var(--font);color:var(--g3);text-decoration:none;white-space:nowrap}
+.bar .back:hover{color:var(--white)}
+.bar .brand{font:400 20px/1 var(--serif);letter-spacing:-.02em;text-decoration:none}
+.bar .brand b{font-weight:400;background:linear-gradient(135deg,var(--core),#8b5cf6,var(--blue),var(--grow));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.bar nav{display:flex;gap:2px;margin-left:auto}
+.bar nav a{font:500 12px var(--font);color:var(--g3);text-decoration:none;padding:7px 10px;border-radius:8px}
+.bar nav a:hover{color:var(--white);background:var(--s3)}
+.bar .go{font:600 12px var(--font);color:#000;background:linear-gradient(135deg,var(--core),var(--indigo));padding:8px 14px;border-radius:9px;text-decoration:none;white-space:nowrap}
+@media (max-width:880px){.bar nav{display:none}}
+@media (max-width:520px){.bar{padding:8px 12px;gap:10px}.bar .back{font-size:11px}}
+
+/* ---- hero ---- */
+.hero{min-height:92vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:60px 24px 40px;position:relative;z-index:1}
+.chip{font-family:var(--mono);font-size:.55rem;letter-spacing:.3em;text-transform:uppercase;color:var(--core);padding:6px 18px;border:1px solid var(--core-mid);border-radius:100px;margin-bottom:28px;background:var(--core-dim)}
+.hero h1{font-family:var(--serif);font-weight:400;font-size:clamp(3rem,8vw,6.5rem);line-height:.95;letter-spacing:-.04em;margin-bottom:18px}
+.hero h1 .thin{font-weight:200;color:var(--g4)}
+.glow{background:linear-gradient(135deg,var(--core),#8b5cf6,var(--blue),var(--grow));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{font-size:clamp(.95rem,2vw,1.2rem);color:var(--g3);max-width:640px;line-height:1.7;font-weight:300;margin-bottom:24px}
+.hero-sub em{font-style:normal;color:var(--white);font-weight:500}
+.livebar{display:inline-flex;align-items:center;gap:10px;padding:8px 14px;border-radius:100px;border:1px solid var(--rule2);background:var(--s1);font:500 12px var(--font);color:var(--g4);margin-bottom:34px;max-width:92vw}
+.livebar i{width:8px;height:8px;border-radius:50%;background:var(--g1);flex:none;font-style:normal}
+.livebar[data-st="ok"] i{background:var(--green);box-shadow:0 0 10px rgba(48,209,88,.7)}
+.livebar[data-st="no"] i{background:var(--g2)}
+.livebar[data-st="busy"] i{background:var(--amber);animation:pulse 1s ease-in-out infinite}
+.livebar b{color:var(--white);font-weight:600}
+.livebar a{color:var(--core)}
+@keyframes pulse{0%,100%{opacity:.4}50%{opacity:1}}
+.hero-machine{width:min(640px,92vw);aspect-ratio:16/10;background:var(--s2);border:1px solid var(--rule);border-radius:20px;position:relative;overflow:hidden;box-shadow:var(--glow),0 40px 80px rgba(0,0,0,.5);margin-bottom:40px;text-align:left}
+.hero-machine::before{content:'';position:absolute;top:0;left:0;right:0;height:32px;background:var(--s1);border-bottom:1px solid var(--rule)}
+.dots{display:flex;gap:5px;position:absolute;top:11px;left:14px;z-index:2}.dot{width:8px;height:8px;border-radius:50%}
+.screen{position:absolute;top:32px;left:0;right:0;bottom:0;display:grid;grid-template-columns:52px 1fr;overflow:hidden}
+.mdock{background:var(--s1);border-right:1px solid var(--rule);display:flex;flex-direction:column;align-items:center;padding:12px 0 8px;gap:6px}
+.dicon{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.7rem;color:#0a0a0e;transition:transform .2s;text-decoration:none}
+.dicon:hover{transform:scale(1.15)}
+.mmain{background:var(--bg);padding:16px;display:flex;flex-direction:column;gap:8px;overflow:hidden}
+.mprompt{background:var(--s2);border:1px solid var(--rule);border-radius:10px;padding:10px 14px;font-size:.6rem;color:var(--g3);display:flex;align-items:center;gap:8px}
+.mprompt .cur{width:2px;height:14px;background:var(--core);border-radius:1px;animation:blink 1.2s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+.mcards{display:grid;grid-template-columns:1fr 1fr;gap:6px;flex:1}
+.mc{background:var(--s1);border:1px solid var(--rule);border-radius:8px;padding:8px 10px;overflow:hidden}
+.mc .mct{font-size:.5rem;font-weight:600;margin-bottom:3px}.mc .mcb{display:flex;gap:3px}.mc .b{height:3px;border-radius:2px;flex:1}.mc .mcd{font-size:.42rem;color:var(--g2);margin-top:3px;line-height:1.3}
+.hero-specs{display:flex;gap:36px;flex-wrap:wrap;justify-content:center;margin-bottom:34px}
+.spec{text-align:center}.spec .v{font-family:var(--mono);font-size:1.4rem;font-weight:700;letter-spacing:-.02em}.spec .u{font-family:var(--mono);font-size:.5rem;color:var(--g2);letter-spacing:.15em;text-transform:uppercase;margin-top:2px}
+.btns{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 22px;border-radius:12px;font:600 .86rem var(--font);text-decoration:none;transition:all .25s;border:1px solid var(--rule2);background:var(--s2);color:var(--white);cursor:pointer;white-space:nowrap}
+.btn:hover{border-color:var(--core);transform:translateY(-1px)}
+.btn.pri{background:linear-gradient(135deg,var(--core),var(--indigo));color:#000;border-color:transparent;box-shadow:0 4px 20px rgba(200,168,255,.2)}
+.btn.sm{padding:8px 14px;font-size:.78rem;border-radius:9px}
+.btn.ghost{background:transparent;border-color:transparent;color:var(--g4)}
+.btn.ghost:hover{color:var(--white);background:var(--s2);transform:none}
+.btn:disabled{opacity:.5;cursor:default;transform:none}
+
+/* ---- sections ---- */
+.divider{height:1px;background:linear-gradient(90deg,transparent,var(--rule2),transparent);max-width:1200px;margin:0 auto}
+.section{max-width:1200px;margin:0 auto;padding:80px 32px;position:relative;z-index:1}
+.sl{font-family:var(--mono);font-size:.52rem;letter-spacing:.3em;text-transform:uppercase;color:var(--core);margin-bottom:12px}
+.st{font-family:var(--serif);font-weight:400;font-size:clamp(1.6rem,3.5vw,2.5rem);line-height:1.12;margin-bottom:8px;letter-spacing:-.02em}
+.sd{color:var(--g3);font-size:.9rem;max-width:640px;margin-bottom:36px;font-weight:300;line-height:1.7}
+.sd b,.sd strong{color:var(--white);font-weight:500}
+.manifesto{max-width:740px;margin:0 auto;padding:80px 32px;position:relative;z-index:1}
+.manifesto h2{font-family:var(--serif);font-weight:400;font-size:clamp(1.6rem,4vw,2.6rem);line-height:1.15;margin-bottom:24px;text-align:center}
+.manifesto p{font-size:1rem;color:var(--g4);line-height:1.85;margin-bottom:20px;text-align:center;font-weight:300}
+.manifesto p strong{color:var(--white);font-weight:600}
+.pullquote{font-family:var(--serif);font-style:italic;font-size:clamp(1.2rem,3vw,1.8rem);color:var(--g5);text-align:center;padding:32px 0;line-height:1.5;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);margin:40px 0}
+
+/* ---- today: the tools ---- */
+.tools{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:14px}
+.tool{background:var(--s1);border:1px solid var(--rule);border-radius:16px;padding:18px;display:flex;flex-direction:column;gap:10px;position:relative;overflow:hidden;transition:transform .3s,border-color .3s}
+.tool:hover{transform:translateY(-3px);border-color:var(--c)}
+.tool::before{content:'';position:absolute;inset:0;background:radial-gradient(260px 120px at 0% 0%,color-mix(in srgb,var(--c) 12%,transparent),transparent 70%);pointer-events:none}
+.tool .gl{width:40px;height:40px;border-radius:12px;background:var(--c);display:grid;place-items:center;color:#0a0a0e;font-size:1.05rem;position:relative}
+.tool h3{font-size:1.02rem;font-weight:700;letter-spacing:-.01em;position:relative}
+.tool h3 small{display:block;font:500 .55rem var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--c);margin-top:2px}
+.tool p{font-size:.8rem;color:var(--g4);line-height:1.55;flex:1;position:relative}
+.tool .acts{display:flex;gap:8px;position:relative}
+.tool .acts a,.tool .acts button{flex:1;text-align:center;justify-content:center}
+.tool.desk{grid-column:1/-1;flex-direction:row;align-items:center;gap:20px;background:linear-gradient(135deg,rgba(200,168,255,.08),var(--s1) 60%)}
+.tool.desk p{flex:1}
+.tool.desk .acts{flex:none}
+@media (max-width:640px){.tool.desk{flex-direction:column;align-items:flex-start}.tool.desk .acts{width:100%}}
+.dl-all{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-top:18px;padding:16px 18px;border:1px dashed var(--rule2);border-radius:14px;color:var(--g4);font-size:.84rem}
+.dl-all b{color:var(--white)}
+.howto{margin-top:22px;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.how{background:var(--s1);border:1px solid var(--rule);border-radius:14px;padding:16px 18px;font-size:.82rem;color:var(--g4);line-height:1.6}
+.how b{display:block;color:var(--white);font-weight:600;margin-bottom:4px}
+.how code{background:var(--s3);padding:1px 6px;border-radius:4px;color:var(--amber);font-size:.74rem}
+
+/* ---- scrolls ---- */
+.os-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:16px}
+.os-card{background:var(--s1);border:1px solid var(--rule);border-radius:16px;overflow:hidden;transition:all .4s cubic-bezier(.16,1,.3,1)}
+.os-card:hover{border-color:rgba(255,255,255,.1);transform:translateY(-4px);box-shadow:0 20px 60px rgba(0,0,0,.3)}
+.os-top{padding:22px 22px 12px;display:flex;align-items:center;gap:16px}
+.os-glyph{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;position:relative;color:#0a0a0e}
+.os-glyph::after{content:'';position:absolute;inset:-2px;border-radius:16px;background:inherit;opacity:.15;filter:blur(12px);z-index:-1}
+.os-top h3{font-size:1.08rem;font-weight:700;letter-spacing:-.02em}
+.os-top .tag{font-size:.7rem;color:var(--g2);margin-top:2px}
+.os-body{padding:0 22px 20px}
+.os-body p{font-size:.78rem;color:var(--g4);line-height:1.55;margin-bottom:12px}
+.tlist{display:flex;flex-wrap:wrap;gap:6px}
+.tl{display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border-radius:100px;font:500 .72rem var(--font);border:1px solid var(--rule2);color:var(--g4);text-decoration:none;background:var(--s2)}
+.tl i{width:7px;height:7px;border-radius:50%;background:var(--g1);font-style:normal;flex:none}
+.tl.ready{border-color:var(--c);color:var(--white);background:color-mix(in srgb,var(--c) 10%,transparent)}
+.tl.ready i{background:var(--c);box-shadow:0 0 8px var(--c)}
+.tl.live{color:var(--g5)}
+.tl.live i{background:transparent;border:1.5px solid var(--c)}
+.tl.live:hover,.tl.ready:hover{filter:brightness(1.15)}
+.tl.plan{border-style:dashed;color:var(--g3);cursor:default}
+.legend{display:flex;gap:18px;flex-wrap:wrap;font:500 .72rem var(--font);color:var(--g3);margin:0 0 20px}
+.legend span{display:inline-flex;align-items:center;gap:7px}
+.legend i{width:8px;height:8px;border-radius:50%;background:var(--core);font-style:normal;box-shadow:0 0 8px var(--core)}
+.legend i.l{background:transparent;border:1.5px solid var(--core);box-shadow:none}
+.legend i.p{background:var(--g1);box-shadow:none}
+.os-count{font-family:var(--mono);font-size:.56rem;color:var(--g2);margin-top:12px;padding-top:10px;border-top:1px solid var(--rule);display:flex;justify-content:space-between;letter-spacing:.06em}
+
+/* ---- build ---- */
+.tiers{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px;margin-bottom:28px}
+.tier{background:var(--s1);border:1px solid var(--rule);border-radius:18px;padding:22px;position:relative;overflow:hidden}
+.tier::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--c),transparent)}
+.tier .k{font:500 .55rem var(--mono);letter-spacing:.22em;text-transform:uppercase;color:var(--c)}
+.tier h3{font:400 1.6rem/1.1 var(--serif);letter-spacing:-.02em;margin:6px 0 2px}
+.tier .price{font:700 1.3rem var(--mono);letter-spacing:-.02em;margin:10px 0 2px}
+.tier .price small{font:500 .6rem var(--mono);color:var(--g3);letter-spacing:.1em;text-transform:uppercase;margin-left:6px}
+.tier .for{font-size:.82rem;color:var(--g4);line-height:1.55;margin-bottom:14px}
+.parts{list-style:none;display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+.parts li{display:flex;justify-content:space-between;gap:12px;font-size:.78rem;padding:7px 10px;background:var(--s2);border-radius:8px;color:var(--g5)}
+.parts li span:last-child{font-family:var(--mono);color:var(--g3);white-space:nowrap;font-size:.72rem}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:12px}
+.kpi{background:var(--s2);border-radius:10px;padding:10px 8px;text-align:center}
+.kpi b{display:block;font:700 1rem var(--mono);letter-spacing:-.02em}
+.kpi span{font:500 .5rem var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--g2)}
+.tier .note{font-size:.74rem;color:var(--g3);line-height:1.55}
+.tier .note a{color:var(--core)}
+.card{background:var(--s1);border:1px solid var(--rule);border-radius:18px;padding:22px}
+.card h3{font:400 1.4rem/1.1 var(--serif);letter-spacing:-.02em;margin-bottom:6px}
+.card .sub{font-size:.84rem;color:var(--g3);margin-bottom:16px;line-height:1.6}
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start}
+@media (max-width:860px){.two{grid-template-columns:minmax(0,1fr)}}
+.card{min-width:0}.tbl{overflow-x:auto;margin:0 -4px}
+input[type=range]{width:100%;accent-color:var(--core)}
+.memrow{display:flex;align-items:baseline;gap:12px;margin-bottom:6px}
+.memrow b{font:700 2rem var(--mono);letter-spacing:-.03em}
+.memrow span{font:500 .6rem var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--g3)}
+.fits{display:flex;flex-direction:column;gap:6px;margin-top:14px}
+.fit{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;padding:10px 12px;border-radius:10px;background:var(--s2);border:1px solid var(--rule);font-size:.8rem}
+.fit b{display:block;font-weight:600}
+.fit small{display:block;font:500 .66rem var(--mono);color:var(--g3);margin-top:2px}
+.fit .st{font:600 .68rem var(--mono);letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
+.fit.ok .st{color:var(--green)}.fit.tight .st{color:var(--amber)}.fit.no .st{color:var(--g2)}
+.fit.no{opacity:.55}
+.models{width:100%;border-collapse:collapse;font-size:.8rem;margin-top:6px}
+.models th{font:500 .52rem var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--g2);text-align:left;padding:8px 10px;border-bottom:1px solid var(--rule)}
+.models td{padding:9px 10px;border-bottom:1px solid var(--rule);vertical-align:top;color:var(--g5)}
+.models td code{background:var(--s3);padding:1px 6px;border-radius:4px;color:var(--amber);font-size:.72rem;white-space:nowrap}
+@media (max-width:640px){.models td code{white-space:normal}.models{font-size:.74rem}.fit{grid-template-columns:1fr}.fit .st{white-space:normal}}
+.models td.n{font-family:var(--mono);white-space:nowrap;color:var(--g4)}
+.steps{counter-reset:s;display:flex;flex-direction:column;gap:10px}
+.step{display:grid;grid-template-columns:44px 1fr;gap:14px;align-items:start;background:var(--s1);border:1px solid var(--rule);border-radius:14px;padding:16px 18px}
+.step::before{counter-increment:s;content:counter(s,decimal-leading-zero);font:800 1.5rem var(--mono);color:var(--s5);line-height:1}
+.step h4{font-size:.92rem;font-weight:700;margin-bottom:4px}
+.step p{font-size:.8rem;color:var(--g4);line-height:1.65}
+.step code{background:var(--s3);padding:1px 6px;border-radius:4px;color:var(--amber);font-size:.74rem}
+pre.code{background:#08080c;border:1px solid var(--rule2);border-radius:12px;padding:14px 16px;font:.76rem/1.6 var(--mono);color:var(--g5);overflow:auto;position:relative;margin:10px 0}
+pre.code .c{color:var(--g2)}pre.code .k{color:var(--core)}pre.code .s{color:var(--amber)}
+.copy{position:absolute;top:8px;right:8px;font:600 .66rem var(--font);padding:5px 9px;border-radius:7px;border:1px solid var(--rule2);background:var(--s2);color:var(--g4)}
+.copy:hover{color:var(--white);border-color:var(--core)}
+.ostabs{display:inline-flex;border:1px solid var(--rule2);border-radius:10px;overflow:hidden;background:var(--s2);margin-bottom:12px}
+.ostabs button{padding:8px 14px;border:0;background:transparent;font:600 .76rem var(--font);color:var(--g3)}
+.ostabs button[aria-pressed="true"]{background:var(--s4);color:var(--white)}
+.arch{display:flex;flex-direction:column;gap:2px;max-width:860px;margin:0 auto}
+.layer{display:flex;align-items:stretch;border-radius:12px;overflow:hidden}
+.ll{width:150px;padding:14px 16px;display:flex;flex-direction:column;justify-content:center;font-size:.74rem;font-weight:600;flex-shrink:0}
+.ll small{font-family:var(--mono);font-size:.48rem;color:rgba(255,255,255,.5);letter-spacing:.1em;text-transform:uppercase;margin-top:2px}
+.lc{flex:1;padding:14px 20px;background:var(--s1);font-size:.78rem;color:var(--g4);line-height:1.6;border-left:1px solid rgba(255,255,255,.04)}
+.lc code{font-family:var(--mono);font-size:.7rem;background:var(--s3);padding:1px 5px;border-radius:3px;color:var(--amber)}
+@media (max-width:640px){.layer{flex-direction:column}.ll{width:100%}}
+
+/* ---- connect ---- */
+.probe{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:14px}
+.probe input{flex:1;min-width:220px;background:var(--s2);border:1px solid var(--rule2);border-radius:10px;padding:11px 14px;font-size:.9rem;outline:none}
+.probe input:focus{border-color:var(--core)}
+.result{padding:14px 16px;border-radius:12px;border:1px solid var(--rule2);background:var(--s2);font-size:.84rem;color:var(--g4);line-height:1.6}
+.result.ok{border-color:rgba(48,209,88,.4)}.result.no{border-color:rgba(251,191,36,.35)}
+.result b{color:var(--white)}
+.result ul{margin:8px 0 0 18px}
+.faq{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px}
+.q{background:var(--s1);border:1px solid var(--rule);border-radius:14px;padding:18px 20px}
+.q h4{font:400 1.15rem/1.2 var(--serif);margin-bottom:8px;letter-spacing:-.01em}
+.q p{font-size:.8rem;color:var(--g4);line-height:1.65}
+.q a{color:var(--core)}
+.cta{text-align:center;padding:100px 32px;position:relative;z-index:1}
+.cta h2{font-family:var(--serif);font-weight:400;font-size:clamp(2rem,5vw,3.5rem);line-height:1.05;margin-bottom:16px;letter-spacing:-.02em}
+.cta p{color:var(--g3);font-size:1rem;margin-bottom:32px;font-weight:300}
+footer{text-align:center;padding:40px 32px;border-top:1px solid var(--rule);position:relative;z-index:1}
+footer p{font-family:var(--mono);font-size:.55rem;color:var(--g1);letter-spacing:.12em;line-height:2}
+footer a{color:var(--g3);text-decoration:none}
+footer a:hover{color:var(--white)}
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(20px);background:var(--s4);border:1px solid var(--rule2);color:var(--white);padding:10px 16px;border-radius:12px;font-size:13px;opacity:0;transition:all .25s;z-index:60;pointer-events:none}
+.toast.show{opacity:1;transform:translateX(-50%)}
+@media (max-width:768px){.os-grid{grid-template-columns:1fr}.section{padding:60px 18px}.manifesto{padding:60px 18px}.hero{padding:40px 16px 30px;min-height:auto}.hero-specs{gap:18px}.kpis{grid-template-columns:repeat(3,1fr)}}
+</style>
+</head>
+<body>
+<div class="cosmic"><div class="orb1"></div><div class="orb2"></div><div class="orb3"></div></div>
+
+<header class="bar">
+  <a class="back" href="../../#/s/tech">← The Watch · Tech</a>
+  <a class="brand" href="#top">Scroll<b>OS</b></a>
+  <nav><a href="#vision">Vision</a><a href="#today">Tools</a><a href="#scrolls">Scrolls</a><a href="#build">Build</a><a href="#connect">Connect</a><a href="#notes">Notes</a></nav>
+  <a class="go" href="tools/scrollos.html">Open the desktop ⟐</a>
+</header>
+
+<!-- ═══════ HERO ═══════ -->
+<section class="hero" id="top">
+  <div class="chip">Local AI · Open source · Your machine · Your data</div>
+  <h1><span class="thin">Scroll</span><span class="glow">OS</span></h1>
+  <p class="hero-sub">A personal operating system that runs <em>entirely on your hardware</em>. One open model with a 128K context behind seven Scrolls and 63 tools. No cloud. No subscription. No surveillance. <em>Open it. It thinks.</em></p>
+  <div class="livebar" id="live" data-st="busy"><i></i><span>Looking for a model on this computer…</span></div>
+
+  <div class="hero-machine" aria-hidden="true">
+    <div class="dots"><div class="dot" style="background:#ff5f57"></div><div class="dot" style="background:#febc2e"></div><div class="dot" style="background:#28c840"></div></div>
+    <div class="screen">
+      <div class="mdock">
+        <a class="dicon" style="background:linear-gradient(145deg,#f59e0b,#d97706)" href="tools/goals.html">✦</a>
+        <a class="dicon" style="background:linear-gradient(145deg,#e05a48,#c44030)" href="tools/flashcards.html">◉</a>
+        <a class="dicon" style="background:linear-gradient(145deg,#d8608c,#b84870)" href="tools/meals.html">♫</a>
+        <a class="dicon" style="background:linear-gradient(145deg,#9b59b6,#7e3f9a)" href="tools/charts.html">◆</a>
+        <a class="dicon" style="background:linear-gradient(145deg,#48c870,#38a858)" href="tools/replies.html">⬡</a>
+        <a class="dicon" style="background:linear-gradient(145deg,#5898e8,#4078c8)" href="tools/docs.html">▣</a>
+        <a class="dicon" style="background:linear-gradient(145deg,#38c8d8,#28a8b8)" href="tools/lab.html">△</a>
+        <div style="flex:1"></div>
+        <a class="dicon" style="background:linear-gradient(145deg,var(--core),var(--indigo));font-size:.55rem" href="tools/lab.html">⚙</a>
+      </div>
+      <div class="mmain">
+        <div class="mprompt"><span style="color:var(--core);font-weight:600">⟐</span><span>Ask me anything about your life, your work, your world…</span><span class="cur"></span></div>
+        <div class="mcards">
+          <div class="mc"><div class="mct" style="color:var(--dream)">✦ Dream · Goals</div><div class="mcb"><div class="b" style="background:var(--dream);width:70%"></div><div class="b" style="background:var(--s3)"></div></div><div class="mcd">Half marathon · 3 milestones · 14% done</div></div>
+          <div class="mc"><div class="mct" style="color:var(--produce)">▣ Produce · Docs</div><div class="mcb"><div class="b" style="background:var(--produce);width:90%"></div><div class="b" style="background:var(--s3)"></div></div><div class="mcd">Quarterly report · tightening §4</div></div>
+          <div class="mc"><div class="mct" style="color:var(--unwind)">♫ Unwind · Meals</div><div class="mcb"><div class="b" style="background:var(--unwind);width:45%"></div><div class="b" style="background:var(--s3)"></div></div><div class="mcd">Lemon-garlic thighs · 35 min · Riesling</div></div>
+          <div class="mc"><div class="mct" style="color:var(--core)">⟐ Model</div><div class="mcb"><div class="b" style="background:var(--green);width:100%"></div></div><div class="mcd" id="mockStatus">gpt-oss:20b · 128K · local</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-specs">
+    <div class="spec"><div class="v" style="color:var(--core)">7</div><div class="u">Scrolls</div></div>
+    <div class="spec"><div class="v" style="color:var(--green)">8</div><div class="u">Tools today</div></div>
+    <div class="spec"><div class="v" style="color:var(--dream)">63</div><div class="u">Tools planned</div></div>
+    <div class="spec"><div class="v" style="color:var(--blue)">128K</div><div class="u">Context</div></div>
+    <div class="spec"><div class="v" style="color:var(--grow)">0</div><div class="u">Cloud dependencies</div></div>
+  </div>
+  <div class="btns"><a class="btn pri" href="#today">Try the tools ↓</a><a class="btn" href="#build">Build the machine ↓</a><a class="btn ghost" href="#scrolls">The seven Scrolls</a></div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════ MANIFESTO ═══════ -->
+<div class="manifesto" id="vision">
+  <h2>The cloud was a detour.</h2>
+  <p>For twenty years the industry convinced you that your data, your tools and your intelligence belonged on someone else's computer. <strong>They were wrong.</strong></p>
+  <p>A used workstation with a $400 graphics card can now run a capable language model with a 128,000-token context — a whole book in one breath — at reading speed, for the cost of the electricity. You don't need their cloud. You need an operating system worthy of your machine.</p>
+  <div class="pullquote">"The computer for the rest of us didn't need to be simpler.<br>It needed to be <em>yours</em>."</div>
+  <p>ScrollOS is seven applications — <strong>Dream, Discover, Unwind, Create, Connect, Produce, Grow</strong> — organized around how you live, not how software companies sell. Each tool is a single HTML file. Each one runs offline. Each one talks to a model running on your own hardware, and to nothing else.</p>
+  <p><strong>No API keys. No rate limits. No monthly bill. No data leaving your house.</strong> It's being built in the open, here on The Watch's Tech desk: the first eight tools are below, and the rest land as they're made.</p>
+  <p style="color:var(--white);font-weight:500;font-size:1.1rem;margin-top:32px">This is the iMac moment for artificial intelligence.</p>
+</div>
+
+<div class="divider"></div>
+
+<!-- ═══════ TODAY ═══════ -->
+<section class="section" id="today">
+  <div class="sl">01 · What's here today</div>
+  <div class="st">Eight tools you can open right now.</div>
+  <div class="sd">Each one is <b>one HTML file</b>. Open it here, or download it and keep it. Every tool looks for a model at <code>localhost:11434</code> on <em>your</em> computer; if there isn't one yet, the parts that don't need it still work, and the <a href="#build" style="color:var(--core)">Build</a> section shows how to get one.</div>
+
+  <div class="tools" id="tools"></div>
+
+  <div class="dl-all"><span><b>Take everything.</b> One zip with the desktop, the seven tools, the installer and a README — built right here in your browser from these files.</span><span style="flex:1"></span><button class="btn pri sm" id="zipAll">Download all · zip</button></div>
+
+  <div class="howto">
+    <div class="how"><b>Open from this page</b>Click Open. The tool runs on The Watch and still talks only to your own machine. For that to work, Ollama has to accept pages from this site — one line, in <a href="#connect" style="color:var(--core)">Connect</a>.</div>
+    <div class="how"><b>Open from your disk</b>Download, double-click. Chrome, Edge and Firefox allow a local file to reach <code>localhost</code>; recent Ollama accepts <code>file://</code> pages by default. Your data stays in that browser's storage, under that file.</div>
+    <div class="how"><b>Serve them at home</b>The installer puts them at <code>http://localhost:8080</code>, which Ollama trusts out of the box, and can boot straight into the desktop in kiosk mode. That's the appliance.</div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════ THE SEVEN SCROLLS ═══════ -->
+<section class="section" id="scrolls">
+  <div class="sl">02 · The Seven Scrolls</div>
+  <div class="st">Every tool thinks.</div>
+  <div class="sd">The local model isn't a chatbot bolted onto an app; it's woven into every tool. Sixty-three are planned. Some are built. Some already exist as parts of The Watch, Weekender, Finds and Vision — ScrollOS is the home they move into.</div>
+  <div class="legend"><span><i></i> Built — open or download</span><span><i class="l"></i> Already live on The Watch</span><span><i class="p"></i> Planned</span></div>
+  <div class="os-grid" id="scrollGrid"></div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════ BUILD ═══════ -->
+<section class="section" id="build">
+  <div class="sl">03 · Build the machine</div>
+  <div class="st">Three ways to own your own model.</div>
+  <div class="sd">Prices are what the used market and the makers were asking in <b>October 2026</b> — memory prices rose through the year, so check before you buy. Speeds are published benchmarks for the class of machine; the <a href="tools/lab.html" style="color:var(--core)">AI Lab</a> measures your real number in ten seconds.</div>
+
+  <div class="tiers">
+    <div class="tier" style="--c:var(--dream)">
+      <div class="k">The reference machine</div><h3>Workstation + Tesla P40</h3>
+      <div class="price">$900–1,300<small>all in, used</small></div>
+      <p class="for">The ScrollOS spec: a used dual-Xeon tower (Dell Precision T7910 / HP Z840 class), 128 GB of ECC RAM, a 24 GB datacenter card from 2016 that nobody wants for gaming. Loud-ish, heavy, hugely capable for the money.</p>
+      <ul class="parts">
+        <li><span>Used dual-Xeon workstation, 20–40 threads</span><span>$250–450</span></li>
+        <li><span>128 GB DDR4 ECC (often included)</span><span>$0–180</span></li>
+        <li><span>NVIDIA Tesla P40 24 GB, used</span><span>$350–420</span></li>
+        <li><span>Fan shroud + EPS-8 power adapter</span><span>$30–40</span></li>
+        <li><span>2 TB NVMe</span><span>$120–180</span></li>
+      </ul>
+      <div class="kpis"><div class="kpi"><b>24 GB</b><span>VRAM</span></div><div class="kpi"><b>~25–70</b><span>tok/s · MoE 20B</span></div><div class="kpi"><b>~250 W</b><span>under load</span></div></div>
+      <p class="note">Runs <code>gpt-oss:20b</code> at full 128K context, or a 27B dense model at ~10–13 tok/s. No tensor cores, so stick to GGUF quants; it needs its own fan. NVIDIA's newest CUDA has dropped this generation — Ollama still ships builds that run on it, but that won't last forever. <a href="https://llmrun.dev/gpu/tesla-p40" target="_blank" rel="noopener">benchmarks</a> · <a href="https://gpudojo.com/tesla-p40" target="_blank" rel="noopener">price history</a></p>
+    </div>
+    <div class="tier" style="--c:var(--produce)">
+      <div class="k">The quiet desk</div><h3>Any PC + RTX 3090</h3>
+      <div class="price">$1,600–2,200<small>new PC, used card</small></div>
+      <p class="for">The same 24 GB, with tensor cores, three to four times the speed, and a fan curve you can live next to. The card is the whole budget; the PC around it barely matters.</p>
+      <ul class="parts">
+        <li><span>Mid-tower PC, 32–64 GB RAM, 850 W PSU</span><span>$500–800</span></li>
+        <li><span>RTX 3090 24 GB, used</span><span>$1,000–1,400</span></li>
+        <li><span>1–2 TB NVMe</span><span>$80–180</span></li>
+      </ul>
+      <div class="kpis"><div class="kpi"><b>24 GB</b><span>VRAM</span></div><div class="kpi"><b>100+</b><span>tok/s · MoE 20B</span></div><div class="kpi"><b>~350 W</b><span>under load</span></div></div>
+      <p class="note">Fast enough that the model answers quicker than you read. Any 16 GB card runs <code>gpt-oss:20b</code> too, with less room for context. <a href="https://gpudojo.com/tesla-p40" target="_blank" rel="noopener">used prices</a></p>
+    </div>
+    <div class="tier" style="--c:var(--grow)">
+      <div class="k">The appliance</div><h3>Unified memory</h3>
+      <div class="price">$2,500–3,500<small>new</small></div>
+      <p class="for">A small silent box where the CPU and GPU share one big pool of memory: AMD's Ryzen AI Max+ 395 with 128 GB (Framework Desktop, GMKtec and others), or Apple Silicon with 64 GB or more. Bigger models fit; nothing else in the house is as quiet.</p>
+      <ul class="parts">
+        <li><span>Framework Desktop, Ryzen AI Max+ 395, 128 GB</span><span>~$3,449</span></li>
+        <li><span>…or a Mac mini / Studio, 64–128 GB</span><span>varies</span></li>
+        <li><span>That's it. It's a box.</span><span>—</span></li>
+      </ul>
+      <div class="kpis"><div class="kpi"><b>96 GB</b><span>to the GPU</span></div><div class="kpi"><b>~54</b><span>tok/s · MoE 20B</span></div><div class="kpi"><b>~34</b><span>tok/s · 120B</span></div></div>
+      <p class="note">Runs <code>gpt-oss:120b</code>, which the 24 GB machines can't. Slower per token than a discrete card on small models, but the ceiling is much higher. <a href="https://aiindigo.com/hardware/framework-desktop-ryzen-ai-max-395-128gb" target="_blank" rel="noopener">price and figures</a></p>
+    </div>
+  </div>
+
+  <div class="two">
+    <div class="card">
+      <h3>What fits in your memory</h3>
+      <p class="sub">Drag to your card's VRAM, or the memory a unified-memory machine gives the GPU. The model's weights have to fit, plus a cache that grows with the context window — that's the "128K context" trap. Rough numbers; the installer's 8-bit cache halves the context cost.</p>
+      <div class="memrow"><b id="memV">24</b><span>GB for the model</span></div>
+      <input type="range" id="mem" min="6" max="128" step="1" value="24" aria-label="Memory">
+      <div class="fits" id="fits"></div>
+    </div>
+    <div class="card">
+      <h3>Models worth a pull, October 2026</h3>
+      <p class="sub">Open weights, long context, all in Ollama's library. Mixture-of-experts models (the "A3B/A4B" ones) run a fraction of their parameters per token, which is why they fly on modest cards.</p>
+      <div class="tbl"><table class="models"><thead><tr><th>Pull</th><th>What it is</th><th>Context</th><th class="n">Size</th></tr></thead><tbody>
+        <tr><td><code>ollama pull gpt-oss:20b</code></td><td>OpenAI's open model, 21B total / 3.6B active, reasoning built in. The ScrollOS default.</td><td>128K</td><td class="n">~14 GB</td></tr>
+        <tr><td><code>ollama pull gemma4:26b</code></td><td>Google's Gemma 4, 26B with ~4B active. Strong general writer; reads images.</td><td>256K</td><td class="n">~18 GB</td></tr>
+        <tr><td><code>ollama pull qwen3.6:27b</code></td><td>Alibaba's dense 27B. Sharper on code and hard reasoning, slower on old cards.</td><td>256K</td><td class="n">~17 GB</td></tr>
+        <tr><td><code>ollama pull llama3.1:8b</code></td><td>The small one for 8 GB cards and laptops. Still 128K.</td><td>128K</td><td class="n">~5 GB</td></tr>
+        <tr><td><code>ollama pull gpt-oss:120b</code></td><td>The big sibling, for unified-memory boxes with 64 GB and up.</td><td>128K</td><td class="n">~65 GB</td></tr>
+      </tbody></table></div>
+      <p class="sub" style="margin:12px 0 0;font-size:.74rem">Sizes are the downloads; running them needs a few GB more. Sources: <a href="https://www.morphllm.com/best-ollama-models" target="_blank" rel="noopener" style="color:var(--core)">morphllm's Ollama guide</a>, <a href="https://benchlm.ai/best/local-llm" target="_blank" rel="noopener" style="color:var(--core)">benchlm</a>.</p>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:16px" id="install">
+    <h3>Install it in one script</h3>
+    <p class="sub">Ubuntu 24.04 on the machine you built. Read the script first — it's short and commented — then run it. It installs the NVIDIA driver and Ollama, tells Ollama to accept web pages, pulls the model, downloads the Scrolls to <code>~/scrollos</code>, serves them at <code>localhost:8080</code>, and sets up a nightly backup. Add <code>--kiosk</code> and the machine boots straight into the ScrollOS desktop.</p>
+    <pre class="code"><button class="copy" data-copy="curl -fsSL https://bboldt86.github.io/lanscape-navigator/news/tech/scrollos/install.sh -o install.sh &amp;&amp; less install.sh">Copy</button><span class="c"># on the new machine</span>
+curl -fsSL https://bboldt86.github.io/lanscape-navigator/news/tech/scrollos/install.sh -o install.sh
+less install.sh                      <span class="c"># read it</span>
+bash install.sh --kiosk              <span class="c"># or without --kiosk for a plain install</span>
+<span class="c"># a different model: </span>SCROLLOS_MODEL=gemma4:26b bash install.sh</pre>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin:6px 0 20px"><a class="btn sm" href="install.sh" download>Download install.sh</a><a class="btn ghost sm" href="install.sh" target="_blank" rel="noopener">Read it</a></div>
+
+    <div class="steps">
+      <div class="step"><div><h4>Assemble, then Ubuntu</h4><p>Card in the top x16 slot, both power leads on (the P40 takes an <em>EPS-8</em>, not a PCIe-8 — the adapter in the parts list), the fan shroud facing a case fan. Install Ubuntu 24.04 Desktop from a USB stick, with the third-party drivers box ticked.</p></div></div>
+      <div class="step"><div><h4>Driver and Ollama</h4><p>The script runs <code>ubuntu-drivers install</code> and Ollama's own installer. After the first reboot, <code>nvidia-smi</code> should show the card and <code>ollama ps</code> should answer. If the card shows in <code>lspci</code> but not in <code>nvidia-smi</code>, pick the driver in Software &amp; Updates › Additional Drivers.</p></div></div>
+      <div class="step"><div><h4>Open the door for web pages</h4><p>The one line that makes ScrollOS possible: <code>OLLAMA_ORIGINS=*</code> in Ollama's systemd override. Without it, a page in a browser can't call the model. The script also turns on flash attention and an 8-bit KV cache so more context fits.</p></div></div>
+      <div class="step"><div><h4>Pull a model, test it honestly</h4><p><code>ollama pull gpt-oss:20b</code> is 14 GB; go make coffee. Then open <a href="tools/lab.html" style="color:var(--core)">AI Lab › Machine › Run the test</a>. That's your real tokens per second, and whether the whole model is on the GPU (100%) or spilling into RAM.</p></div></div>
+      <div class="step"><div><h4>Live with it</h4><p>The desktop is <code>http://localhost:8080/scrollos.html</code>. ⌘K focuses the prompt bar. Each tool has Export; the nightly backup in <code>~/scrollos/backups</code> catches the rest. To update the Scrolls, re-run the script — your data isn't in the files.</p></div></div>
+    </div>
+
+    <div style="margin-top:22px">
+      <div class="ostabs" id="osTabs"><button type="button" data-os="mac" aria-pressed="true">macOS</button><button type="button" data-os="win">Windows</button><button type="button" data-os="any">Any machine, five minutes</button></div>
+      <div data-pane="mac"><p class="sub" style="margin-bottom:8px">A Mac with Apple Silicon is already a unified-memory machine. Install Ollama from <a href="https://ollama.com" target="_blank" rel="noopener" style="color:var(--core)">ollama.com</a> or Homebrew, then:</p><pre class="code"><button class="copy" data-copy="brew install ollama
+launchctl setenv OLLAMA_ORIGINS &quot;*&quot;
+brew services restart ollama
+ollama pull gpt-oss:20b">Copy</button>brew install ollama
+launchctl setenv OLLAMA_ORIGINS <span class="s">"*"</span>     <span class="c"># survives until you log out; put it in a LaunchAgent to keep it</span>
+brew services restart ollama
+ollama pull gpt-oss:20b             <span class="c"># 16 GB Macs: fine. 8 GB: use llama3.1:8b</span></pre></div>
+      <div data-pane="win" hidden><p class="sub" style="margin-bottom:8px">Install Ollama from <a href="https://ollama.com" target="_blank" rel="noopener" style="color:var(--core)">ollama.com</a>, then in PowerShell:</p><pre class="code"><button class="copy" data-copy="setx OLLAMA_ORIGINS &quot;*&quot;
+ollama pull gpt-oss:20b">Copy</button>setx OLLAMA_ORIGINS <span class="s">"*"</span>              <span class="c"># then quit Ollama from the tray and start it again</span>
+ollama pull gpt-oss:20b</pre></div>
+      <div data-pane="any" hidden><p class="sub" style="margin-bottom:8px">No new hardware: whatever computer you're on, if it has 16 GB of memory it can run the small model and every tool here. Install Ollama, allow web pages, pull <code>llama3.1:8b</code> (or <code>gpt-oss:20b</code> on 16 GB+), and reload this page — the status line at the top goes green.</p></div>
+    </div>
+  </div>
+
+  <div style="margin-top:40px">
+    <div class="sl">The architecture</div>
+    <div class="st" style="font-size:1.6rem">Five layers, zero cloud.</div>
+    <div class="sd">The browser is the operating system. The model is the intelligence. The HTML files are the applications.</div>
+    <div class="arch">
+      <div class="layer" style="background:linear-gradient(90deg,rgba(200,168,255,.1),rgba(200,168,255,.03))"><div class="ll" style="color:var(--core)">Application<small>Layer 5 · you see this</small></div><div class="lc">The Scrolls: single-file HTML tools in a browser (kiosk mode on the appliance). Each one has a prompt interface and calls the model with <code>fetch('http://localhost:11434/api/chat')</code>. No other network calls.</div></div>
+      <div class="layer" style="background:linear-gradient(90deg,rgba(94,92,230,.1),rgba(94,92,230,.03))"><div class="ll" style="color:var(--indigo)">AI runtime<small>Layer 4 · inference</small></div><div class="lc">Ollama (llama.cpp underneath) as a systemd service on <code>localhost:11434</code>. Streams tokens, takes a system prompt per Scroll, keeps the model warm. Swappable for any server that speaks the same API.</div></div>
+      <div class="layer" style="background:linear-gradient(90deg,rgba(48,209,88,.1),rgba(48,209,88,.03))"><div class="ll" style="color:var(--green)">Model<small>Layer 3 · weights</small></div><div class="lc">An open mixture-of-experts model in 4-bit GGUF with a 128K context — <code>gpt-oss:20b</code> by default. A few of its experts fire per token, which is why a 2016 card keeps up. Swap it with one command.</div></div>
+      <div class="layer" style="background:linear-gradient(90deg,rgba(88,152,232,.1),rgba(88,152,232,.03))"><div class="ll" style="color:var(--produce)">Data<small>Layer 2 · storage</small></div><div class="lc">Each tool keeps its data in the browser's own storage, exports JSON, and never phones home. The installer backs that storage up nightly to <code>~/scrollos/backups</code>. Disk encryption is one checkbox in the Ubuntu installer.</div></div>
+      <div class="layer" style="background:linear-gradient(90deg,rgba(245,158,11,.1),rgba(245,158,11,.03))"><div class="ll" style="color:var(--dream)">Hardware<small>Layer 1 · metal</small></div><div class="lc">Ubuntu 24.04. A GPU with 16–24 GB, or a unified-memory box. The CPU runs the OS, the browser and the tools while the GPU is left alone with the model.</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════ CONNECT ═══════ -->
+<section class="section" id="connect">
+  <div class="sl">04 · Connect</div>
+  <div class="st">Is there a model on this computer?</div>
+  <div class="sd">This page asks <code>localhost</code> — your own machine — nothing else. If Ollama is running and allows this site, the tools above light up. The address and model you pick here are remembered by every tool on this site, in this browser.</div>
+  <div class="two">
+    <div class="card">
+      <h3>Test the connection</h3>
+      <div class="probe"><input id="host" value="http://localhost:11434" aria-label="Ollama address"><button class="btn sm pri" id="test">Test</button></div>
+      <div class="result" id="res">Press Test.</div>
+    </div>
+    <div class="card">
+      <h3>When it says no</h3>
+      <p class="sub">Three causes, in order of likelihood:</p>
+      <div class="steps" style="gap:8px">
+        <div class="step" style="padding:12px 14px"><div><h4>Ollama isn't running</h4><p><code>ollama ps</code> in a terminal. On Linux: <code>systemctl status ollama</code>. On a Mac or PC, the app's icon should be in the menu bar or tray.</p></div></div>
+        <div class="step" style="padding:12px 14px"><div><h4>It's running but won't talk to web pages</h4><p>Out of the box Ollama only answers pages served from <code>localhost</code> and files opened from disk. For a page on The Watch (<code>https://bboldt86.github.io</code>), set <code>OLLAMA_ORIGINS</code> — see the install tabs above — and restart Ollama. <code>*</code> allows any page in any browser on your machine; the specific origin is tighter.</p></div></div>
+        <div class="step" style="padding:12px 14px"><div><h4>The browser is Safari</h4><p>Safari blocks a secure page from reaching an insecure local address. Download the tool and open the file, or use Chrome, Edge or Firefox for the hosted version.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════ NOTES ═══════ -->
+<section class="section" id="notes">
+  <div class="sl">05 · Honest notes</div>
+  <div class="st">What's real, what's next.</div>
+  <div class="faq">
+    <div class="q"><h4>Is "10 tokens a second" the number?</h4><p>It was the conservative promise in the original vision, for a dense model on the P40. Mixture-of-experts models changed that: public benchmarks put <code>gpt-oss:20b</code> at tens of tokens a second on the same card, and over a hundred on an RTX 3090. Treat every number on this page as a class estimate and the AI Lab's speed test as the truth for your box.</p></div>
+    <div class="q"><h4>What does The Watch see?</h4><p>Nothing you type. These pages are static files on GitHub Pages; the tools call your own address and no other. There's no analytics in the tools. The only thing that leaves your machine is the request to download the files.</p></div>
+    <div class="q"><h4>Where's the rest of the 63?</h4><p>Built in the open, one at a time, and published here as each one is ready. The Scrolls map above shows what already exists elsewhere on The Watch — the news desks, Weekender, Finds, Vision, Film Room, the hobby tools — and what's still to come. The source for everything here is in the <a href="https://github.com/bboldt86/lanscape-navigator/tree/main/news/tech/scrollos" target="_blank" rel="noopener">lanscape-navigator repo</a>.</p></div>
+    <div class="q"><h4>Can I use a different model server?</h4><p>Anything that speaks Ollama's <code>/api/chat</code> and <code>/api/tags</code> works — point the address at it in any tool's settings. LM Studio, llama.cpp's server and others expose compatible endpoints or an OpenAI-style one; an adapter for the latter is on the list.</p></div>
+    <div class="q"><h4>Does the P40 have a future?</h4><p>Short-to-medium. NVIDIA's newest CUDA releases no longer target its generation, and Ollama will eventually follow. It's the cheapest 24 GB you can buy today and will keep running the builds that exist; just don't expect it to run what ships in 2028. The 3090 and the unified-memory boxes are the longer bets.</p></div>
+    <div class="q"><h4>Why single HTML files?</h4><p>Because a file you can copy, open, read and keep is the most durable software there is. No build step, no server, no account, no dependency that goes away. It's how everything on The Watch is made, and it's how ScrollOS stays yours.</p></div>
+  </div>
+</section>
+
+<section class="cta">
+  <h2><span class="thin" style="font-weight:200;color:var(--g4)">Your mind deserves</span><br><span class="glow">its own machine.</span></h2>
+  <p>Seven Scrolls. One local model. Zero cloud. Zero subscriptions. Zero surveillance.</p>
+  <div class="btns"><a class="btn pri" href="tools/scrollos.html">Open the desktop ⟐</a><a class="btn" href="#build">Build the machine</a></div>
+</section>
+
+<footer>
+  <p style="color:var(--g2);font-size:.65rem;letter-spacing:.05em">SCROLLOS · 7 SCROLLS · 63 TOOLS · 128K CONTEXT · 0 CLOUD</p>
+  <p><a href="../../">The Watch</a> · <a href="../../#/s/tech">Tech desk</a> · <a href="../../../">LANscape Navigator</a> · scrolls.studio · 2026</p>
+</footer>
+
+<script>
+const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+function toast(m) { let t = $('.toast'); if (!t) { t = document.createElement('div'); t.className = 'toast'; document.body.appendChild(t); } t.textContent = m; t.classList.add('show'); clearTimeout(t._t); t._t = setTimeout(() => t.classList.remove('show'), 2200); }
+
+/* ---- the tools built so far ---- */
+const TOOLS = [
+  { id: 'scrollos', name: 'ScrollOS Desktop', scroll: 'The shell', g: '⟐', c: 'var(--core)', p: 'A dock of the seven Scrolls and one prompt bar. Type "what can I cook with salmon" or "make cards from this" and it opens the right tool with your words already in it. ⌘K from anywhere.', desk: true },
+  { id: 'goals', name: 'Goals', scroll: 'Dream', g: '✦', c: 'var(--dream)', p: 'An ambition in, a plan out: milestones with dates, the actions for each, the habits that make it stick. Tick things off; re-plan from where you really are.' },
+  { id: 'flashcards', name: 'Flashcards', scroll: 'Discover', g: '◉', c: 'var(--discover)', p: 'Paste a chapter, your notes, a manual. The model writes the cards; spaced repetition decides when you see each again. Exports to Anki.' },
+  { id: 'meals', name: 'Meals', scroll: 'Unwind', g: '♫', c: 'var(--unwind)', p: 'What\'s in the fridge, how long you\'ve got, who\'s eating. One dinner, with what to buy, the clock on every step, and what to pour.' },
+  { id: 'charts', name: 'Charts', scroll: 'Create', g: '◆', c: 'var(--create)', p: 'Paste a table. It draws the chart in plain SVG; the model picks which kind, writes the headline, and names the three things worth noticing. SVG and PNG out.' },
+  { id: 'replies', name: 'Replies', scroll: 'Connect', g: '⬡', c: 'var(--connect)', p: 'Paste what they sent and the gist of your answer. Three drafts — short, standard, warm — in your voice, learned from messages you actually wrote.' },
+  { id: 'docs', name: 'Docs', scroll: 'Produce', g: '▣', c: 'var(--produce)', p: 'A plain, fast editor with a co-writer that has read the whole document: continue, tighten, expand, make it clearer, fix grammar, outline. Markdown out.' },
+  { id: 'lab', name: 'AI Lab', scroll: 'Grow', g: '⚗', c: 'var(--grow)', p: 'The bench. Your machine\'s real tokens per second, two prompts or two models side by side, what\'s loaded in memory, and the system prompt behind every Scroll.' }
+];
+$('#tools').innerHTML = TOOLS.map(t => `<article class="tool${t.desk ? ' desk' : ''}" style="--c:${t.c}"><div class="gl">${t.g}</div><div style="flex:1;min-width:0"><h3>${esc(t.name)}<small>${esc(t.scroll)}</small></h3><p>${esc(t.p)}</p></div><div class="acts"><a class="btn sm pri" href="tools/${t.id}.html">Open</a><a class="btn sm" href="tools/${t.id}.html" download="${t.id}.html">Download</a></div></article>`).join('');
+
+/* ---- the seven Scrolls: built / live on The Watch / planned ---- */
+const W = '../../', ROOT = '../../../';
+const SCROLLS = [
+  { k: 'dream', n: 'Dream', g: '✦', c: 'var(--dream)', tag: 'Aspiration & planning', p: 'The Scroll for what you want: trips, goals, the morning briefing, the vault.', tools: [
+    ['Travel', 'live', ROOT + 'travel/', 'Weekender'], ['Trips', 'live', ROOT + 'travel/', 'Weekender guides'], ['Concierge', 'plan'], ['Vision', 'live', ROOT + 'vision/', 'Vision board'], ['Benefits', 'live', ROOT + 'travel/#/points', 'Points Hacker'], ['Life Slate', 'plan'], ['Goals', 'ready', 'tools/goals.html'], ['Vault', 'plan'], ['Tempo', 'plan']] },
+  { k: 'discover', n: 'Discover', g: '◉', c: 'var(--discover)', tag: 'Curiosity & learning', p: 'News, reading, notes and the study tools that make any of it stick.', tools: [
+    ['News', 'live', W, 'The Watch'], ['Library', 'plan'], ['Wiki', 'plan'], ['Intel', 'live', W + '#/s/business', 'Markets desk'], ['Hollywood', 'live', W + '#/s/culture', 'Culture desk'], ['Pitch', 'plan'], ['Navigator', 'live', ROOT, 'LANscape Navigator'], ['Flashcards', 'ready', 'tools/flashcards.html'], ['Academy', 'live', W + '#/s/hobbies', 'Hobbies · Start here']] },
+  { k: 'unwind', n: 'Unwind', g: '♫', c: 'var(--unwind)', tag: 'Leisure & play', p: 'Dinner, music, the game, the game night, and where the money went.', tools: [
+    ['Music', 'plan'], ['Video', 'live', W + '#/video', 'The Watch · Video'], ['Projector', 'plan'], ['Poker', 'live', W + '#/hobby/poker', 'Hobbies · Poker'], ['Brackets', 'plan'], ['Sports', 'live', W + '#/s/sports', 'Sports desk'], ['Reels', 'live', W + '#/latenight', 'Late Night'], ['Meals', 'ready', 'tools/meals.html'], ['Ledger', 'plan'], ['Dice', 'plan']] },
+  { k: 'create', n: 'Create', g: '◆', c: 'var(--create)', tag: 'Making & designing', p: 'Boards, pictures, charts, slides — made, not generated.', tools: [
+    ['Pinboard', 'live', ROOT + 'shop/', 'Finds'], ['Photo Editor', 'plan'], ['Vision AI', 'plan'], ['Charts', 'ready', 'tools/charts.html'], ['Cards', 'plan'], ['Video Kit', 'plan'], ['Whiteboard', 'plan'], ['Slides', 'plan'], ['Docs', 'ready', 'tools/docs.html']] },
+  { k: 'connect', n: 'Connect', g: '⬡', c: 'var(--connect)', tag: 'Communication & community', p: 'The messages you send and the people you send them to.', tools: [
+    ['PhoneLink', 'plan'], ['Video Calls', 'plan'], ['Messenger', 'ready', 'tools/replies.html', 'Replies'], ['Social Feed', 'plan'], ['Photo Gallery', 'plan'], ['Forum', 'plan']] },
+  { k: 'produce', n: 'Produce', g: '▣', c: 'var(--produce)', tag: 'Work & execution', p: 'Documents, numbers, calendars, projects, code.', tools: [
+    ['Docs', 'ready', 'tools/docs.html'], ['Spreadsheet', 'plan'], ['Calendar', 'plan'], ['Files', 'live', ROOT, 'LANscape Navigator'], ['Workspace', 'plan'], ['PM Board', 'plan'], ['Forge', 'plan'], ['Wiki', 'plan'], ['Planner', 'plan'], ['Debate', 'plan'], ['Resume', 'plan']] },
+  { k: 'grow', n: 'Grow', g: '△', c: 'var(--grow)', tag: 'Business & scale', p: 'Selling, marketing, the runway, and the bench where the model itself is tuned.', tools: [
+    ['Storefront', 'plan'], ['ThriftHub', 'live', ROOT + 'shop/', 'Finds · pre-owned'], ['Marketplace', 'plan'], ['CRM', 'plan'], ['Analytics', 'plan'], ['AI Lab', 'ready', 'tools/lab.html'], ['Scheduling', 'plan'], ['Marketing', 'plan'], ['Runway', 'plan']] }
+];
+$('#scrollGrid').innerHTML = SCROLLS.map(s => { const n = { ready: 0, live: 0, plan: 0 }; s.tools.forEach(t => n[t[1]]++); return `<div class="os-card" style="--c:${s.c}"><div class="os-top"><div class="os-glyph" style="background:${s.c}">${s.g}</div><div><h3>${s.n}</h3><div class="tag">${s.tag} · ${s.tools.length} tools</div></div></div><div class="os-body"><p>${s.p}</p><div class="tlist">${s.tools.map(([name, st, href, where]) => st === 'plan' ? `<span class="tl plan"><i></i>${name}</span>` : `<a class="tl ${st}" href="${href}" title="${st === 'ready' ? 'Built — open it' : 'Live on The Watch: ' + (where || '')}"><i></i>${name}${where && st === 'live' ? ` <span style="color:var(--g2)">· ${where}</span>` : ''}</a>`).join('')}</div><div class="os-count"><span>${n.ready} built · ${n.live} live on The Watch · ${n.plan} planned</span><span style="color:${s.c};font-weight:700">${s.tools.length}</span></div></div></div>`; }).join('');
+
+/* ---- what fits ---- */
+const MODELS = [
+  { n: 'llama3.1:8b', w: 4.9, kv32: 2.1, max: 128, what: '8B dense' },
+  { n: 'gpt-oss:20b', w: 13.8, kv32: 0.8, max: 128, what: '21B MoE, 3.6B active' },
+  { n: 'qwen3.6:27b', w: 17, kv32: 4.2, max: 256, what: '27B dense' },
+  { n: 'gemma4:26b', w: 18, kv32: 1.6, max: 256, what: '26B MoE, ~4B active' },
+  { n: 'gpt-oss:120b', w: 65, kv32: 1.2, max: 128, what: '117B MoE, 5.1B active' }
+];
+function fits() {
+  const gb = +$('#mem').value; $('#memV').textContent = gb;
+  $('#fits').innerHTML = MODELS.map(m => { const room = gb - m.w - 1.2; const ctxK = room <= 0 ? 0 : Math.min(m.max, Math.floor(room / m.kv32 * 32 / 8) * 8); const st = room <= 0 ? 'no' : ctxK >= 32 ? 'ok' : 'tight'; return `<div class="fit ${st}"><div><b>${m.n}</b><small>${m.what} · ${m.w} GB weights</small></div><div class="st">${st === 'no' ? 'doesn\'t fit' : ctxK >= m.max ? `full ${m.max}K context` : `up to ~${ctxK}K context`}</div></div>`; }).join('');
+}
+$('#mem').oninput = fits; fits();
+
+/* ---- OS tabs, copy ---- */
+$$('#osTabs button').forEach(b => b.onclick = () => { $$('#osTabs button').forEach(x => x.setAttribute('aria-pressed', x === b)); $$('[data-pane]').forEach(p => p.hidden = p.dataset.pane !== b.dataset.os); });
+$$('.copy').forEach(b => b.onclick = async () => { const t = b.dataset.copy.replace(/&quot;/g, '"').replace(/&amp;/g, '&'); try { await navigator.clipboard.writeText(t); toast('Copied'); } catch (e) { toast('Select and copy by hand'); } });
+
+/* ---- live probe of the reader's own machine ---- */
+const KEY = 'scrollos.llm';
+let cfg = Object.assign({ host: 'http://localhost:11434', model: '', temp: 0.7, ctx: 16384 }, (() => { try { return JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) { return {}; } })());
+$('#host').value = cfg.host;
+async function probe(host, write) {
+  host = host.replace(/\/+$/, '');
+  const live = $('#live'), res = $('#res');
+  live.dataset.st = 'busy'; live.lastElementChild.textContent = 'Looking for a model on this computer…';
+  try {
+    const r = await fetch(host + '/api/tags', { signal: AbortSignal.timeout(4000) }); if (!r.ok) throw new Error('HTTP ' + r.status);
+    const models = (await r.json()).models || []; let version = '';
+    try { const v = await fetch(host + '/api/version', { signal: AbortSignal.timeout(3000) }); if (v.ok) version = (await v.json()).version || ''; } catch (e) { /* older */ }
+    cfg.host = host; if (!models.find(m => m.name === cfg.model)) cfg.model = (models.find(m => /^gpt-oss|^gemma4|^qwen3/.test(m.name)) || models[0] || {}).name || '';
+    try { localStorage.setItem(KEY, JSON.stringify(cfg)); } catch (e) { /* storage off */ }
+    if (!models.length) { live.dataset.st = 'no'; live.lastElementChild.innerHTML = `Ollama is running here but has <b>no models yet</b> — <code>ollama pull gpt-oss:20b</code>`; res.className = 'result no'; res.innerHTML = `<b>Connected to Ollama${version ? ' ' + esc(version) : ''}</b>, but no models are installed. In a terminal: <code>ollama pull gpt-oss:20b</code>`; return; }
+    live.dataset.st = 'ok'; live.lastElementChild.innerHTML = `<b>${esc(cfg.model)}</b> is running on this computer — the tools below will use it.`;
+    $('#mockStatus').textContent = `${cfg.model} · ${models.length} model${models.length === 1 ? '' : 's'} · local`;
+    res.className = 'result ok'; res.innerHTML = `<b>Connected</b>${version ? ' · Ollama ' + esc(version) : ''} · ${models.length} model${models.length === 1 ? '' : 's'}:<ul>${models.map(m => `<li>${esc(m.name)}${m.details && m.details.parameter_size ? ` <span style="color:var(--g2)">· ${esc(m.details.parameter_size)}${m.details.quantization_level ? ' · ' + esc(m.details.quantization_level) : ''}</span>` : ''}</li>`).join('')}</ul><p style="margin-top:8px">Default for the tools: <b>${esc(cfg.model)}</b>. Change it in any tool's ⚙ settings.</p>`;
+  } catch (e) {
+    live.dataset.st = 'no'; live.lastElementChild.innerHTML = `No model found on this computer yet — the tools still open; <a href="#build">here's how to get one</a>.`;
+    if (write || res.textContent !== 'Press Test.') { res.className = 'result no'; res.innerHTML = e.name === 'TimeoutError' ? `<b>No answer from ${esc(host)}.</b> Is Ollama running? <code>ollama ps</code>` : `<b>Couldn't reach ${esc(host)} from ${esc(location.origin)}.</b> Either Ollama isn't running, or it hasn't been told to accept pages from this site: set <code>OLLAMA_ORIGINS="*"</code> (or <code>${esc(location.origin)}</code>) and restart it — the commands are in the install tabs above. If this is Safari, download a tool and open the file instead.`; }
+  }
+}
+$('#test').onclick = () => probe($('#host').value.trim() || 'http://localhost:11434', true);
+$('#host').onkeydown = e => { if (e.key === 'Enter') $('#test').click(); };
+probe(cfg.host, false);
+
+/* ---- a zip of everything, built here ---- */
+const CRC = (() => { const t = new Uint32Array(256); for (let i = 0; i < 256; i++) { let c = i; for (let k = 0; k < 8; k++) c = c & 1 ? 0xEDB88320 ^ (c >>> 1) : c >>> 1; t[i] = c >>> 0; } return t; })();
+const crc32 = u => { let c = ~0; for (let i = 0; i < u.length; i++) c = CRC[(c ^ u[i]) & 255] ^ (c >>> 8); return ~c >>> 0; };
+function zip(files) { // store-only zip, UTF-8 names
+  const enc = new TextEncoder(), parts = [], cd = []; let off = 0; const d = new Date();
+  const tm = ((d.getHours() << 11) | (d.getMinutes() << 5) | (d.getSeconds() >> 1)) & 0xffff, dt = (((d.getFullYear() - 1980) << 9) | ((d.getMonth() + 1) << 5) | d.getDate()) & 0xffff;
+  for (const f of files) {
+    const name = enc.encode(f.name), data = f.data, crc = crc32(data);
+    const lh = new DataView(new ArrayBuffer(30)); lh.setUint32(0, 0x04034b50, true); lh.setUint16(4, 20, true); lh.setUint16(6, 0x0800, true); lh.setUint16(8, 0, true); lh.setUint16(10, tm, true); lh.setUint16(12, dt, true); lh.setUint32(14, crc, true); lh.setUint32(18, data.length, true); lh.setUint32(22, data.length, true); lh.setUint16(26, name.length, true); lh.setUint16(28, 0, true);
+    parts.push(new Uint8Array(lh.buffer), name, data);
+    const ch = new DataView(new ArrayBuffer(46)); ch.setUint32(0, 0x02014b50, true); ch.setUint16(4, 20, true); ch.setUint16(6, 20, true); ch.setUint16(8, 0x0800, true); ch.setUint16(10, 0, true); ch.setUint16(12, tm, true); ch.setUint16(14, dt, true); ch.setUint32(16, crc, true); ch.setUint32(20, data.length, true); ch.setUint32(24, data.length, true); ch.setUint16(28, name.length, true); ch.setUint16(30, 0, true); ch.setUint16(32, 0, true); ch.setUint16(34, 0, true); ch.setUint16(36, 0, true); ch.setUint32(38, 0, true); ch.setUint32(42, off, true);
+    cd.push(new Uint8Array(ch.buffer), name); off += 30 + name.length + data.length;
+  }
+  const cdSize = cd.reduce((n, p) => n + p.length, 0), e = new DataView(new ArrayBuffer(22));
+  e.setUint32(0, 0x06054b50, true); e.setUint16(4, 0, true); e.setUint16(6, 0, true); e.setUint16(8, files.length, true); e.setUint16(10, files.length, true); e.setUint32(12, cdSize, true); e.setUint32(16, off, true); e.setUint16(20, 0, true);
+  return new Blob([...parts, ...cd, new Uint8Array(e.buffer)], { type: 'application/zip' });
+}
+$('#zipAll').onclick = async () => {
+  const b = $('#zipAll'); b.disabled = true; b.textContent = 'Packing…';
+  try {
+    const names = TOOLS.map(t => `tools/${t.id}.html`).concat(['install.sh']);
+    const files = [];
+    for (const n of names) { const r = await fetch(n); if (!r.ok) throw new Error(n); files.push({ name: 'scrollos/' + n.replace('tools/', ''), data: new Uint8Array(await r.arrayBuffer()) }); }
+    files.push({ name: 'scrollos/README.txt', data: new TextEncoder().encode(`ScrollOS — the Scrolls, downloaded ${new Date().toISOString().slice(0, 10)}\n\nOpen scrollos.html for the desktop, or any tool directly. Each is one HTML file.\nThey look for a model at http://localhost:11434 (Ollama). Nothing you type leaves your computer.\n\nIf a tool says it can't reach the model, tell Ollama to accept pages: OLLAMA_ORIGINS="*" — see\nhttps://bboldt86.github.io/lanscape-navigator/news/tech/scrollos/#connect\n\ninstall.sh sets up a fresh Ubuntu 24.04 machine end to end. Read it first.\nNew versions and the rest of the Scrolls: https://bboldt86.github.io/lanscape-navigator/news/tech/scrollos/\n`) });
+    const blob = zip(files), a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'scrollos.zip'; document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 800);
+    toast(`${files.length} files · ${(blob.size / 1024).toFixed(0)} KB`);
+  } catch (e) { toast('Could not pack the files — try the single downloads'); }
+  b.disabled = false; b.textContent = 'Download all · zip';
+};
+</script>
+</body>
+</html>
