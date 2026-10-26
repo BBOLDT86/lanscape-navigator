@@ -3883,6 +3883,7 @@ function renderHomeDesk() {
       <input id="hq" type="search" autocomplete="off" placeholder="${esc(LANG === 'pt' ? 'casas com 4 quartos em 43215 até 750 mil' : LANG === 'de' ? 'Häuser mit 4 Schlafzimmern in 43215 bis 750.000' : '4BR homes in 43215 under 750k')}" value="${esc(homeQ)}" class="nolc">
       <div class="tags ex">${(LANG === 'pt' ? ['casas com 4 quartos em 43215 até 750 mil', 'apartamentos de 3 quartos em Columbus, OH entre 250 mil e 400 mil', 'sobrados em 02116 até 1,2 milhão', 'casas com piscina em 33139'] : LANG === 'de' ? ['Häuser mit 4 Schlafzimmern in 43215 bis 750.000', 'Wohnungen mit 3 Zimmern in Columbus, OH zwischen 250k und 400k', 'Reihenhäuser in 02116 bis 1,2 Mio', 'Häuser mit Pool in 33139'] : ['4BR homes in 43215 under 750k', '3 bed condos in Columbus, OH between 250k and 400k', 'townhouses in 02116 under 1.2m', 'houses with a pool in 33139 over 2,000 sq ft']).map(x => `<button type="button" class="chip" data-hq="${esc(x)}">${esc(x)}</button>`).join('')}</div>
       <div id="hres">${homeQ ? searchCard(homeQ, f, { isSaved: isSavedF(f) }) : ''}</div></div>
+    <div class="blk">${homeSaverFeature()}</div>
     <div class="blk">${deskShop('home')}</div>
     ${saved.length || pend.length ? `<section class="blk"><h2 class="sec-h">Saved searches</h2>${saved.map(s => searchCard(s.q, s.f, { saved: true, id: s.id, savedAt: s.saved })).join('')}${pend.map(p => searchCard(p.q, p.f, { saved: true, pending: true })).join('')}</section>` : ''}
     ${us.value ? `<section class="blk"><h2 class="sec-h">The national market</h2><div class="econ">${natTile(us.value, 'Typical U.S. home', '', 'The middle of the market for U.S. homes (Zillow Home Value Index).')}${natTile(us.rent, 'Typical U.S. rent', '/mo', 'The typical asking rent (Zillow Observed Rent Index).')}${MK ? ['MORT', 'MORT15'].map(id => (MK.econ || []).find(e => e.id === id)).filter(Boolean).map(econTile).join('') : ''}</div></section>` : ''}
@@ -4331,6 +4332,16 @@ function dateNightFeature() { // Lifestyle, after Together / 90: an evening for 
     <span class="d">${T('Dinner, drinks, a show or a walk at sunset, near you or in any of Weekender’s eight cities: three plans built from places that are open when you get there, with the weather, the walk between stops and a link to send to your date.')}</span>
     <span class="go">${T('Plan the evening')} ›</span></span></a>`;
 }
+function homeSaverFeature() { // Home: the reader's own list of listings (home/saver/)
+  let n = 0, fav = 0; try { const d = JSON.parse(localStorage.getItem('watch.homes') || 'null'); const it = d && Array.isArray(d.items) ? d.items.filter(e => !e.archived) : []; n = it.length; fav = it.filter(e => e.favorite).length; } catch (e) { /* storage off */ }
+  return `<a class="t90f" href="home/saver/"><span class="t90v" aria-hidden="true"><svg viewBox="0 0 132 88"><rect x="4" y="10" width="56" height="68" rx="8" fill="var(--paper)" stroke="var(--rule)"/><rect x="72" y="10" width="56" height="68" rx="8" fill="var(--paper)" stroke="var(--rule)"/><path d="M18 36l14-12 14 12v18H18z" fill="none" stroke="#A9852F" stroke-width="2.4" stroke-linejoin="round"/><path d="M86 36l14-12 14 12v18H86z" fill="none" stroke="#A9852F" stroke-width="2.4" stroke-linejoin="round"/><rect x="14" y="60" width="26" height="3" rx="1.5" fill="var(--ink-3)"/><rect x="14" y="67" width="36" height="3" rx="1.5" fill="var(--rule)"/><rect x="82" y="60" width="26" height="3" rx="1.5" fill="var(--ink-3)"/><rect x="82" y="67" width="36" height="3" rx="1.5" fill="var(--rule)"/><path d="m116 16 2.4 4.9 5.4.8-3.9 3.8.9 5.4-4.8-2.5-4.8 2.5.9-5.4-3.9-3.8 5.4-.8z" fill="#D6B25E"/></svg></span>
+    <span class="t90t"><span class="k">${T('Home Saver · your list')}</span><b>${n ? esc(T(n === 1 ? 'One home you’re looking at' : '{n} homes you’re looking at', { n })) + (fav ? ' · ' + esc(T(fav === 1 ? 'one starred' : '{n} starred', { n: fav })) : '') : T('Every home you’re looking at, in one place')}</b>
+    <span class="d">${T('Paste the listing from Zillow, Redfin, Realtor.com or anywhere, with the price, beds, baths and what you thought. Star the ones worth a visit, archive the ones that sold, sort by price, and pin any of them to Vision. It stays in this browser; nothing is uploaded.')}</span>
+    <span class="go">${T(n ? 'Open your homes' : 'Start the list')} ›</span></span></a>`;
+}
+function homeSaverPromo() { // Shopping: the same list, one line
+  return `<a class="wkpromo" href="home/saver/"><span class="wkp-b" aria-hidden="true">⌂</span><span><b>${T('Home Saver: the homes you’re looking at, in one place')}</b><span>${T('Paste the listings with the price and your notes, star the ones worth a visit, and pin any of them to Vision.')}</span></span><span class="wkp-go" aria-hidden="true">›</span></a>`;
+}
 function dateNightPromo() { // Travel: the same planner, in Weekender's cities
   return `<a class="wkpromo" href="lifestyle/date-night/"><span class="wkp-b" aria-hidden="true">☾</span><span><b>${T('Date Night: an evening for two, in any of these cities')}</b><span>${T('Dinner, drinks and a show or a walk, from places that are open that night, with the walk between stops and a link to send to your date. It works near you too.')}</span></span><span class="wkp-go" aria-hidden="true">›</span></a>`;
 }
@@ -4519,6 +4530,7 @@ function renderShop() {
   $('#main').innerHTML = `<div class="wrap mk">
     <div class="page-h"><h1>${T('Shopping')}</h1><p>${T('From Finds: real products from about 80 stores’ own catalogs and pre-owned finds from the resale sites, priced every six hours (last checked {ago}).', { ago: esc(ago(Math.floor(Date.parse(F.at) / 60000))) })}</p></div>
     ${visionNudge()}
+    <div style="margin-top:14px">${homeSaverPromo()}</div>
     <div style="margin-top:14px">${moeFeature(true)}</div>
     <section class="blk" style="margin-top:14px"><div class="pl-h"><h2 class="sec-h">${T('Biggest markdowns')}</h2><a class="pl-more" href="../shop/#/deals">${T('All deals')} ›</a></div><div class="pl-grid">${deals.map(x => fTile(x)).join('')}</div></section>
     ${stories.length || trend.length ? `<section class="blk"><div class="pl-h"><h2 class="sec-h">${T('What’s trending')}</h2><a class="pl-more" href="../shop/#/s/trending">${T('Trending in Finds')} ›</a></div>
