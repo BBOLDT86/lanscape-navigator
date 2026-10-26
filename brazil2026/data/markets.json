@@ -1,18 +1,12 @@
 {
- "asOf": "2026-10-26T00:36:17Z",
+ "asOf": "2026-10-26T00:43:29Z",
  "pres": {
   "flavio": 0.002,
   "lula": 0.999,
   "venue": "Polymarket",
   "url": "https://polymarket.com/event/brazil-presidential-election",
-  "asOf": "2026-10-26T00:36:17Z",
-  "volume": 241977794,
-  "kalshi": {
-   "flavio": 0.002,
-   "lula": 0.998,
-   "url": "https://kalshi.com/markets/kxbrpres",
-   "asOf": "2026-10-26T00:36:17Z"
-  },
+  "asOf": "2026-10-26T00:43:29Z",
+  "volume": 243144033,
   "source": "direct API reads by brazil2026/updater/fetch_markets.py"
  },
  "history": [
@@ -134,7 +128,16 @@
    "lula": 0.999,
    "venue": "Polymarket",
    "kalshiFlavio": 0.002
+  },
+  {
+   "t": "2026-10-26T00:43:29Z",
+   "flavio": 0.002,
+   "lula": 0.999,
+   "venue": "Polymarket",
+   "kalshiFlavio": null
   }
  ],
- "errors": []
+ "errors": [
+  "kalshi: no candidate markets in KXBRPRES-26"
+ ]
 }
