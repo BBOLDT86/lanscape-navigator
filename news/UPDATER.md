@@ -308,7 +308,10 @@ them, so the page fetches them live. Two things don't, so `news/updater/weather.
 `news/data/weather.json` with every run of the news workflow: Meridian's station list (from `meridian/index.html`) and
 the hurricane center's active storms. The place a reader picks (search, ZIP code, or their device's location) is kept
 in their browser (`watch.wx`); until then the page guesses from the time zone and says so. The masthead shows the
-temperature there, and the front page carries a red band while a severe or extreme warning is in force for it.
+temperature there, and the front page carries a red band while a severe or extreme warning is in force for it. Readers can
+star up to ten of Meridian's airports (`watch.wxapt`, also in the browser); those sit at the top of the airports section
+with the decoded METAR, the TAF and the D-ATIS, and the front page gets a dark band when one of them has an FAA program,
+IFR or LIFR conditions, or thunderstorms.
 
 ## Size
 

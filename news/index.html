@@ -843,8 +843,22 @@ body.ssopen{overflow:hidden}
 .wxstorm img{width:100%;border-radius:8px;margin-bottom:6px}.wxstorm .k{font:700 11.5px var(--sans);letter-spacing:.06em;text-transform:uppercase;color:var(--signal)}.wxstorm b{font:400 30px/1 var(--serif)}
 .wxprog{list-style:none;padding:0;margin:0 0 10px}.wxprog li{padding:7px 0;border-top:1px solid var(--rule)}.wxcats{font-size:14px;margin:12px 0}
 .wxapts{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:8px}
-.apt{display:grid;grid-template-columns:auto auto minmax(0,1fr) auto;align-items:baseline;gap:2px 6px;text-decoration:none;padding:10px 12px;border:1px solid var(--rule);border-radius:10px;background:var(--raise)}.apt:hover{border-color:var(--brass)}
+.apt{display:grid;grid-template-columns:auto auto minmax(0,1fr) auto auto;align-items:baseline;gap:2px 6px;text-decoration:none;padding:10px 12px;border:1px solid var(--rule);border-radius:10px;background:var(--raise)}.apt:hover{border-color:var(--brass)}
 .apt b{font:700 15px var(--sans)}.apt .nm{color:var(--ink-3);font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.apt .t{font-weight:700}
+.star{border:0;background:none;color:var(--ink-3);padding:6px;margin:-6px -6px -6px 0;border-radius:8px;display:grid;place-items:center;align-self:center}.star:hover{color:var(--brass)}.star.on{color:var(--brass)}
+.mya{margin:6px 0 20px;padding:14px 16px;border:1px solid var(--rule);border-radius:14px;background:var(--raise)}
+.myh{display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:space-between}.myh h3.lbl{margin:0}
+.aptadd{flex:0 1 300px;min-width:0}.aptadd input{font:inherit;font-size:15px;padding:8px 14px;border:1px solid var(--rule);border-radius:999px;background:var(--paper);color:var(--ink);width:100%;box-sizing:border-box}
+#aptRes{margin-top:8px}
+.myapts{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(300px,100%),1fr));gap:10px;margin-top:12px}
+.myapt{border:1px solid var(--rule);border-radius:12px;padding:12px 14px;background:var(--paper);min-width:0}.myapt.prog{border-color:var(--signal)}
+.myapt .mh{display:flex;align-items:center;gap:8px}.myapt .mh b{font:700 20px var(--sans)}.myapt .mh .nm{color:var(--ink-3);font-size:14px;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.myapt .mh .t{font-weight:700;font-size:18px}
+.myapt .pg{margin:8px 0 0;color:var(--signal);font-weight:600;font-size:14px}.myapt .pg .note{font-weight:400}
+.myapt dl{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:10px 0 0}.myapt dt{font:700 10.5px var(--sans);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3)}.myapt dd{margin:2px 0 0;font-size:14px;font-weight:600}.myapt dd small{display:block;font-weight:400;color:var(--ink-2)}
+.myapt .tsw{margin:8px 0 0;font-size:13.5px;font-weight:600;color:var(--signal)}
+.myapt details{margin-top:8px;font-size:13px}.myapt summary{cursor:pointer;color:var(--ink-2)}.myapt .wxtxt{margin-top:6px;font-size:12px}
+.wxband.wxab{background:var(--ink);color:var(--paper)}
+@media (max-width:600px){.myapt dl{grid-template-columns:repeat(2,minmax(0,1fr))}.aptadd{flex:1 1 100%}}
 .apt .d{grid-column:1/-1;font-size:13px;color:var(--ink-2)}.apt em{font-style:normal;font-weight:600;color:var(--signal)}.apt.prog{border-color:var(--signal)}
 .wxtxt{white-space:pre-wrap;font:13.5px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;background:var(--paper);padding:14px;border-radius:8px;border:1px solid var(--rule);overflow-x:auto}
 .wxsrc{margin-top:36px}
@@ -1350,7 +1364,7 @@ function renderHome() {
   ensureElections(false);
   const brf = viewingArchive ? '' : brFrontCard();
   $('#main').innerHTML = `${!viewingArchive && MK ? `<div class="wrap">${tapeHTML()}</div>` : ''}
-    <div class="wrap" id="wxband">${wxBandHTML()}</div>
+    <div class="wrap" id="wxband">${wxBandHTML()}${WX.aptBand || ''}</div>
     ${brf}
     <div class="wrap front">${leadHTML}
       <div class="toplist"><h2>Top stories</h2><ol>${rest.map(it => `<li>${storyRow(it, { img: false })}</li>`).join('')}</ol></div>
@@ -1735,26 +1749,75 @@ function wxNatHTML() {
     <div class="wxnat"><h3 class="lbl">${T('Warnings in force now')}</h3>${WX.nat ? nat.length ? `<ul>${nat.slice(0, 12).map(g => `<li><b>${esc(g.ev)}</b><span class="n">${g.n}</span><span class="st">${esc([...g.st].sort().join(', '))}</span></li>`).join('')}</ul>` : `<p class="note">${T('No severe or extreme warnings anywhere in the country right now.')}</p>` : `<p class="note">${T('Checking the Weather Service…')}</p>`}
     <p class="note">${T('Severe and extreme warnings from the National Weather Service, refreshed when you open this page.')}</p></div></div></section>`;
 }
+const WXAPT = 'watch.wxapt', PT = { GS: 'Ground stop', GDP: 'Ground delay program', AFP: 'Airspace flow program', CLSD: 'Closed', DLY: 'Delays' };
+const wxTracked = () => { try { const a = JSON.parse(lsGet(WXAPT) || '[]'); return Array.isArray(a) ? a.filter(x => x && x.icao) : []; } catch (e) { return []; } };
+function wxTrack(icao) { // star or unstar one of Meridian's airports; kept in this browser, at most 10
+  const t = wxTracked(), i = t.findIndex(x => x.icao === icao);
+  if (i >= 0) t.splice(i, 1);
+  else { const st = ((WX.data && WX.data.stations) || []).find(x => x[0] === icao); if (!st) return; if (t.length >= 10) { toast(T('You can track up to 10 airports.')); return; } t.push({ icao, iata: st[1], name: st[2] }); }
+  lsSet(WXAPT, JSON.stringify(t));
+}
+function wxRow(s, mer, progs) { // one airport's live picture: METAR decoded, TAF storms, FAA programs
+  const r = (mer.metar || {})[s[0]]; if (!r || !r.raw) return null;
+  const m = metar(r.raw), taf = ((mer.taf || {})[s[0]] || {}).raw || '';
+  return { s, m, age: (Date.now() - r.t) / 60000, taf, ts: /(^|\s)[-+]?(VC)?TS/.test(taf.split('\n').slice(0, 6).join(' ')), p: progs.filter(p => p.arpt === s[1]), atis: (mer.datis || {})[s[0]] };
+}
+const wxProgLine = p => `${esc(T(PT[p.type] || p.kind || ''))}${p.reason ? ` <span class="note">(${esc(p.reason.toLowerCase())})</span>` : ''}${p.avg ? ` · ${T('average {t}', { t: esc(p.avg) })}` : ''}${p.max ? ` · ${T('up to {t}', { t: esc(p.max) })}` : ''}${p.end ? ` · ${T('until {t}', { t: esc(p.end) })}` : ''}`;
+const wxStar = (icao, on) => `<button type="button" class="star${on ? ' on' : ''}" data-wxtrack="${esc(icao)}" aria-pressed="${on}" aria-label="${on ? T('Stop tracking') : T('Track this airport')}" title="${on ? T('Stop tracking') : T('Track this airport')}"><svg width="16" height="16" viewBox="0 0 24 24" fill="${on ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.2l2.7 5.6 6.1.8-4.5 4.2 1.1 6.1L12 17l-5.4 2.9 1.1-6.1-4.5-4.2 6.1-.8z"/></svg></button>`;
+const wxSky = m => { const top = (m.cl || []).reduce((a, c) => Math.max(a, { FEW: 1, SCT: 2, BKN: 3, OVC: 4, VV: 4 }[c.c] || 0), 0); return T(['Clear', 'Mostly clear', 'Partly cloudy', 'Mostly cloudy', 'Overcast'][top]); };
+function wxMyCard(r) {
+  const m = r.m, vis = m.vis != null ? (wxF() ? (m.vis >= 10 ? '10+ mi' : m.vis + ' mi') : (m.vis >= 10 ? '16+ km' : Math.round(m.vis * 1.609) + ' km')) : '';
+  const ceil = m.ceil != null ? (wxF() ? m.ceil.toLocaleString(LOC()) + ' ft' : Math.round(m.ceil * 0.3048 / 10) * 10 + ' m') : T('none');
+  const tafLines = r.taf ? r.taf.split('\n').map(l => l.trim()).filter(Boolean).slice(0, 5) : [];
+  return `<article class="myapt${r.p.length ? ' prog' : ''}"><div class="mh"><span class="cat ${m.cat}">${m.cat}</span><b>${esc(r.s[1])}</b><span class="nm">${esc(r.s[2])}</span><span class="t">${m.tp != null ? wxT(m.tp) : ''}</span>${wxStar(r.s[0], true)}</div>
+    ${r.p.map(p => `<p class="pg">${wxProgLine(p)}</p>`).join('')}
+    <dl><div><dt>${T('Wind')}</dt><dd>${m.ws != null ? (m.ws ? `${wxCompass(m.wd)} ${wxWind(m.ws * 1.852)}${m.wg ? ` <small>${T('gusts')} ${wxWind(m.wg * 1.852)}</small>` : ''}` : T('calm')) : '–'}</dd></div>
+      <div><dt>${T('visibility')}</dt><dd>${vis || '–'}</dd></div><div><dt>${T('ceiling')}</dt><dd>${ceil}</dd></div>
+      <div><dt>${T('Weather')}</dt><dd>${esc(wxWhat(m) || wxSky(m))}</dd></div></dl>
+    ${r.ts ? `<p class="tsw">${T('storms in the TAF')}</p>` : ''}
+    <details><summary>METAR · ${T('{n} min ago', { n: Math.round(r.age) })}${tafLines.length ? ' · TAF' : ''}${r.atis ? ' · D-ATIS ' + esc(r.atis.code || '') : ''}</summary><pre class="wxtxt">${esc(m.raw)}${tafLines.length ? '\n\n' + esc(tafLines.join('\n')) : ''}${r.atis ? '\n\n' + esc(r.atis.text || '') : ''}</pre></details></article>`;
+}
 function wxAirHTML() {
   const mer = WX.mer, st = (WX.data && WX.data.stations) || [];
   if (!mer || !st.length) return `<section class="blk" id="wxAir"><h2 class="sec-h">${T('At the airports')}</h2><p class="note">${T('Loading Meridian’s weather feed…')}</p></section>`;
   const progs = ((WX.merLive && WX.merLive.atc) || {}).programs || [];
-  const PT = { GS: 'Ground stop', GDP: 'Ground delay program', AFP: 'Airspace flow program', CLSD: 'Closed', DLY: 'Delays' };
-  const rows = st.map(s => { const r = (mer.metar || {})[s[0]]; if (!r || !r.raw) return null; const m = metar(r.raw); const taf = ((mer.taf || {})[s[0]] || {}).raw || '';
-    return { s, m, age: (Date.now() - r.t) / 60000, ts: /(^|\s)[-+]?(VC)?TS/.test(taf.split('\n').slice(0, 6).join(' ')), p: progs.filter(p => p.arpt === s[1]) }; }).filter(Boolean);
+  const tracked = wxTracked(), tset = new Set(tracked.map(x => x.icao));
+  const rows = st.map(s => wxRow(s, mer, progs)).filter(Boolean);
+  const mine = tracked.map(t => rows.find(r => r.s[0] === t.icao)).filter(Boolean);
+  const rest = rows.filter(r => !tset.has(r.s[0]));
   const rk = { LIFR: 0, IFR: 1, MVFR: 2, VFR: 3 };
-  rows.sort((a, b) => (b.p.length ? 1 : 0) - (a.p.length ? 1 : 0) || rk[a.m.cat] - rk[b.m.cat] || (b.ts ? 1 : 0) - (a.ts ? 1 : 0) || a.s[2].localeCompare(b.s[2]));
-  const shown = WX.allApt ? rows : rows.slice(0, 18);
+  rest.sort((a, b) => (b.p.length ? 1 : 0) - (a.p.length ? 1 : 0) || rk[a.m.cat] - rk[b.m.cat] || (b.ts ? 1 : 0) - (a.ts ? 1 : 0) || a.s[2].localeCompare(b.s[2]));
+  const shown = WX.allApt ? rest : rest.slice(0, 16);
   const nCat = c => rows.filter(r => r.m.cat === c).length;
   const fresh = mer.generated ? Math.round((Date.now() - new Date(mer.generated)) / 60000) : null;
   return `<section class="blk" id="wxAir"><h2 class="sec-h">${T('At the airports')}</h2>
     <p class="sub2">${T('Live conditions at {n} airports from Meridian’s weather feed, which reads the FAA and the Aviation Weather Center every 5 minutes.', { n: rows.length })}${fresh != null ? ' ' + T('Updated {n} min ago.', { n: fresh }) : ''}</p>
-    ${progs.length ? `<ul class="wxprog">${progs.slice(0, 12).map(p => `<li><b>${esc(p.arpt)}</b> ${esc(T(PT[p.type] || p.kind || ''))}${p.reason ? ` <span class="note">(${esc(p.reason.toLowerCase())})</span>` : ''}${p.avg ? ` · ${T('average {t}', { t: esc(p.avg) })}` : ''}${p.max ? ` · ${T('up to {t}', { t: esc(p.max) })}` : ''}${p.end ? ` · ${T('until {t}', { t: esc(p.end) })}` : ''}</li>`).join('')}</ul>` : `<p class="note">${T('No FAA ground stops, delay programs or closures right now.')}</p>`}
+    <div class="mya"><div class="myh"><h3 class="lbl">${T('Your airports')}</h3><label class="aptadd"><span class="sr">${T('Add an airport')}</span><input id="aptQ" type="search" placeholder="${T('Add an airport: code or city')}" autocomplete="off"></label></div><ul id="aptRes" class="wxres"></ul>
+      ${mine.length ? `<div class="myapts">${mine.map(wxMyCard).join('')}</div>` : `<p class="note">${T('Star the airports you fly through and they stay here, with the full METAR, TAF and D-ATIS. The front page flags delays or bad weather at them.')}</p>`}</div>
+    ${progs.length ? `<h3 class="lbl">${T('FAA programs now')}</h3><ul class="wxprog">${progs.slice(0, 12).map(p => `<li><b>${esc(p.arpt)}</b> ${wxProgLine(p)}</li>`).join('')}</ul>` : `<p class="note">${T('No FAA ground stops, delay programs or closures right now.')}</p>`}
     <p class="wxcats">${['VFR', 'MVFR', 'IFR', 'LIFR'].map(c => `<span class="cat ${c}">${c}</span> ${nCat(c)}`).join(' &nbsp; ')} <span class="note">${T('VFR is clear flying; MVFR, IFR and LIFR mean lower clouds or visibility.')}</span></p>
-    <div class="wxapts">${shown.map(r => `<a class="apt${r.p.length ? ' prog' : ''}" href="../meridian/" title="${esc(r.m.raw)}"><span class="cat ${r.m.cat}">${r.m.cat}</span><b>${esc(r.s[1])}</b><span class="nm">${esc(r.s[2])}</span>
-      <span class="t">${r.m.tp != null ? wxT(r.m.tp) : ''}</span><span class="d">${esc([r.m.ws != null ? (r.m.ws ? `${wxCompass(r.m.wd)} ${wxWind(r.m.ws * 1.852)}${r.m.wg ? ' G' + wxWind(r.m.wg * 1.852).split(' ')[0] : ''}` : T('calm')) : '', wxWhat(r.m)].filter(Boolean).join(' · '))}${r.ts ? ` <em>${T('storms in the TAF')}</em>` : ''}${r.p.length ? ` <em>${esc(T(PT[r.p[0].type] || 'Delays'))}</em>` : ''}</span></a>`).join('')}</div>
-    ${rows.length > 18 ? `<button type="button" class="loadmore" data-wxall>${WX.allApt ? T('Show fewer') : T('All {n} airports', { n: rows.length })}</button>` : ''}
+    <div class="wxapts">${shown.map(r => `<div class="apt${r.p.length ? ' prog' : ''}" title="${esc(r.m.raw)}"><span class="cat ${r.m.cat}">${r.m.cat}</span><b>${esc(r.s[1])}</b><span class="nm">${esc(r.s[2])}</span>
+      <span class="t">${r.m.tp != null ? wxT(r.m.tp) : ''}</span>${wxStar(r.s[0], false)}<span class="d">${esc([r.m.ws != null ? (r.m.ws ? `${wxCompass(r.m.wd)} ${wxWind(r.m.ws * 1.852)}${r.m.wg ? ' G' + wxWind(r.m.wg * 1.852).split(' ')[0] : ''}` : T('calm')) : '', wxWhat(r.m)].filter(Boolean).join(' · '))}${r.ts ? ` <em>${T('storms in the TAF')}</em>` : ''}${r.p.length ? ` <em>${esc(T(PT[r.p[0].type] || 'Delays'))}</em>` : ''}</span></div>`).join('')}</div>
+    ${rest.length > 16 ? `<button type="button" class="loadmore" data-wxall>${WX.allApt ? T('Show fewer') : T('All {n} airports', { n: rest.length })}</button>` : ''}
     <p class="note">${T('Open {a} for TAFs, D-ATIS and NOTAMs, or {b} for any airport.', { a: '<a href="../meridian/">Meridian</a>', b: '<a href="../wx-center/">WX Center</a>' })}</p></section>`;
+}
+function wxAptSearch(q) {
+  const res = $('#aptRes'); if (!res) return;
+  q = q.trim().toLowerCase(); if (!q) { res.innerHTML = ''; return; }
+  const t = new Set(wxTracked().map(x => x.icao));
+  const hits = ((WX.data && WX.data.stations) || []).filter(s => !t.has(s[0]) && (s[0].toLowerCase() === q || s[1].toLowerCase().startsWith(q) || s[2].toLowerCase().includes(q) || (s[3] || '').toLowerCase() === q)).slice(0, 8);
+  res.innerHTML = hits.length ? hits.map(s => `<li><button type="button" data-wxtrack="${esc(s[0])}"><b>${esc(s[1])}</b> <span>${esc(s[2])}</span></button></li>`).join('') : `<li class="note">${T('Not one of Meridian’s airports. WX Center covers any airport.')}</li>`;
+}
+async function wxAptBand() { // the front: delays or bad weather at the reader's airports
+  const t = wxTracked(); if (!t.length) return '';
+  try { await wxMeridian(); } catch (e) { return ''; }
+  const progs = ((WX.merLive && WX.merLive.atc) || {}).programs || [], bits = [];
+  for (const a of t) {
+    const p = progs.filter(x => x.arpt === a.iata), r = (WX.mer.metar || {})[a.icao], m = r && r.raw ? metar(r.raw) : null;
+    if (p.length) bits.push(`<b>${esc(a.iata)}</b> ${esc(T(PT[p[0].type] || 'Delays'))}${p[0].avg ? ', ' + T('average {t}', { t: esc(p[0].avg) }) : ''}`);
+    else if (m && (m.cat === 'IFR' || m.cat === 'LIFR' || m.wx.some(x => x.includes('TS')))) bits.push(`<b>${esc(a.iata)}</b> ${m.wx.some(x => x.includes('TS')) ? T('thunderstorms') : (m.cat === 'LIFR' ? T('very low clouds or fog') : T('low clouds or poor visibility')) + ' (' + m.cat + ')'}`);
+  }
+  return bits.length ? `<a class="wxband wxab" href="#/weather"><span>✈ ${bits.join(' · ')}</span><span class="wgo">${T('Your airports')} →</span></a>` : '';
 }
 const WXTOP = new Set(['#weather', '#storms', '#wildfires', '#earthquakes']);
 function wxNewsHTML() {
@@ -1809,13 +1872,14 @@ function wxBandHTML() {
   if (!a.length) return '';
   return `<a class="wxband" href="#/weather"><b>${esc(a[0].event)}</b> <span>${esc(T('for {place}', { place: wxLoc().name }))} ${esc(wxUntil(a[0]))}${a.length > 1 ? ' · ' + T('and {n} more', { n: a.length - 1 }) : ''}</span><span class="wgo">${T('Details')} →</span></a>`;
 }
-function wxBand() { const b = $('#wxband'); if (b && view.t === 'home') b.innerHTML = wxBandHTML(); }
+function wxBand() { const b = $('#wxband'); if (b && view.t === 'home') b.innerHTML = wxBandHTML() + (WX.aptBand || ''); }
 function wxFront() { // after the front is drawn: the masthead chip, and a band if a warning is in force where the reader is
   wxChip();
   if (wxUS()) wxAlerts().then(wxBand).catch(() => {});
+  if (wxTracked().length) wxAptBand().then(h => { WX.aptBand = h; wxBand(); });
 }
 let wxSearchT = 0, wxChipT = 0;
-document.addEventListener('input', e => { if (e.target && e.target.id === 'wxQ') { clearTimeout(wxSearchT); const v = e.target.value; wxSearchT = setTimeout(() => wxSearch(v), 280); } });
+document.addEventListener('input', e => { if (e.target && e.target.id === 'aptQ') { wxAptSearch(e.target.value); return; } if (e.target && e.target.id === 'wxQ') { clearTimeout(wxSearchT); const v = e.target.value; wxSearchT = setTimeout(() => wxSearch(v), 280); } });
 async function wxSearch(q) {
   const res = $('#wxRes'); if (!res) return;
   q = q.trim(); if (q.length < 2) { res.innerHTML = ''; return; }
@@ -3170,6 +3234,12 @@ document.addEventListener('click', e => {
   if (ds.wxal != null) { const x = (WX.alerts || [])[+ds.wxal]; if (x) wxAlertDrawer(x); return; }
   if (ds.wxv) { WX.view = ds.wxv; const r = $('#wxRadar'); if (r) r.innerHTML = wxRadarHTML(); return; }
   if (ds.wxall != null) { WX.allApt = !WX.allApt; wxPaint('wxAirW', wxAirHTML()); return; }
+  if (ds.wxtrack) { // star, unstar, or add from the airport search
+    e.preventDefault(); const code = ds.wxtrack, was = wxTracked(), had = was.find(x => x.icao === code), fromQ = !!a.closest('#aptRes');
+    wxTrack(code); WX.aptBand = ''; wxPaint('wxAirW', wxAirHTML());
+    if (had) toast(T('{a} removed from your airports.', { a: had.iata }), () => { lsSet(WXAPT, JSON.stringify(was)); WX.aptBand = ''; wxPaint('wxAirW', wxAirHTML()); });
+    if (fromQ) { const q = $('#aptQ'); if (q) q.focus(); }
+    return; }
   if (ds.wxretry != null) { wxFill(true); return; }
   if (ds.brmx != null) { brmMark('done'); const c = $('#brf'); if (c) c.remove(); toast(T('Hidden. The report stays in Reports.'), () => { brmMark('undo'); if (view.t === 'home') render(true); }); return; }
   if (ds.brm != null) brmMark('done'); // then the link does its work
