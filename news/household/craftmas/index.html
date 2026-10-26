@@ -4,26 +4,29 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Craftmas · The Watch</title>
-<meta name="description" content="Etsy says searches for DIY activities are up 8,500% and the holiday craft night is becoming the new holiday party. Plan yours: pick the projects, set the head count, and get the shopping list, the cost, the run of the night and the invitation.">
+<meta name="description" content="Everything a holiday craft night needs in one place: the ideas, a planner that turns a head count into a shopping list with Amazon and Etsy links, the run of the night, the invitation, and a step-by-step guide with videos that opens on every guest's phone.">
 <link rel="canonical" href="https://bboldt86.github.io/lanscape-navigator/news/household/craftmas/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="The Watch">
-<meta property="og:title" content="Craftmas · The Watch">
-<meta property="og:description" content="The craft night is the new holiday party. Plan one: projects, shopping list, cost, the run of the night.">
+<meta property="og:title" content="Craftmas: a craft night, solved">
+<meta property="og:description" content="Pick the projects. Get the shopping list, the schedule and the invitation. Send every guest a phone guide with videos.">
 <meta property="og:url" content="https://bboldt86.github.io/lanscape-navigator/news/household/craftmas/">
-<meta name="twitter:card" content="summary">
+<meta property="og:image" content="https://bboldt86.github.io/lanscape-navigator/news/share.png">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#F5F7F6" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0E1A2B" media="(prefers-color-scheme: dark)">
 <meta name="apple-mobile-web-app-title" content="Craftmas">
+<meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="apple-touch-icon" href="../../icon-180.png">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%2315243B'/%3E%3Ccircle cx='32' cy='36' r='14' fill='none' stroke='%23D6B25E' stroke-width='5'/%3E%3Cpath d='M28 22h8v-4h-8z' fill='%23D6B25E'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js" defer></script>
 <style>
 :root{
   --paper:#F5F7F6; --raise:#FFFFFF; --ink:#15243B; --ink-2:#465770; --ink-3:#7A889A; --rule:rgba(21,36,59,.12); --rule-2:rgba(21,36,59,.22);
-  --shoal:#D7E7EC; --shoal-2:#C3DAE2; --brass:#A9852F; --brass-ink:#7A5E1C; --signal:#C2412D; --ok:#2F7A55; --pine:#2F6B4F;
+  --shoal:#D7E7EC; --shoal-2:#C3DAE2; --brass:#A9852F; --brass-ink:#7A5E1C; --brass-soft:rgba(169,133,47,.12); --signal:#C2412D; --ok:#2F7A55; --pine:#2F6B4F; --pine-soft:rgba(47,107,79,.12);
   --serif:'Instrument Serif','Iowan Old Style',Georgia,serif;
   --sans:'Instrument Sans',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
   color-scheme:light;
@@ -31,15 +34,15 @@
 @media (prefers-color-scheme:dark){
   :root:not([data-theme="day"]){
     --paper:#0E1A2B; --raise:#142539; --ink:#E7EDF4; --ink-2:#AEBBCB; --ink-3:#8492A6; --rule:rgba(231,237,244,.12); --rule-2:rgba(231,237,244,.24);
-    --shoal:#12293F; --shoal-2:#1A3A55; --brass:#D6B25E; --brass-ink:#E3C47E; --signal:#E8705A; --ok:#5BC48C; --pine:#6CC497; color-scheme:dark;
+    --shoal:#12293F; --shoal-2:#1A3A55; --brass:#D6B25E; --brass-ink:#E3C47E; --brass-soft:rgba(214,178,94,.14); --signal:#E8705A; --ok:#5BC48C; --pine:#6CC497; --pine-soft:rgba(108,196,151,.14); color-scheme:dark;
   }
 }
 :root[data-theme="night"]{
   --paper:#0E1A2B; --raise:#142539; --ink:#E7EDF4; --ink-2:#AEBBCB; --ink-3:#8492A6; --rule:rgba(231,237,244,.12); --rule-2:rgba(231,237,244,.24);
-  --shoal:#12293F; --shoal-2:#1A3A55; --brass:#D6B25E; --brass-ink:#E3C47E; --signal:#E8705A; --ok:#5BC48C; --pine:#6CC497; color-scheme:dark;
+  --shoal:#12293F; --shoal-2:#1A3A55; --brass:#D6B25E; --brass-ink:#E3C47E; --brass-soft:rgba(214,178,94,.14); --signal:#E8705A; --ok:#5BC48C; --pine:#6CC497; --pine-soft:rgba(108,196,151,.14); color-scheme:dark;
 }
 *{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
 body{margin:0;background:var(--paper);color:var(--ink);font:400 16px/1.5 var(--sans);-webkit-font-smoothing:antialiased}
 a{color:inherit}
 button,input,select,textarea{font:inherit;color:inherit}
@@ -47,6 +50,7 @@ button{cursor:pointer;background:none;border:0;padding:0}
 :focus-visible{outline:2px solid var(--brass);outline-offset:2px;border-radius:4px}
 .wrap{max-width:1120px;margin:0 auto;padding:0 20px}
 @media (max-width:640px){.wrap{padding:0 16px}}
+[hidden]{display:none !important}
 
 .mast{border-bottom:1px solid var(--rule);background:var(--paper);position:sticky;top:0;z-index:30}
 .mast .wrap{display:flex;align-items:center;justify-content:space-between;height:52px;gap:12px}
@@ -55,83 +59,120 @@ button{cursor:pointer;background:none;border:0;padding:0}
 .back span{color:var(--ink-3);font-weight:500}
 .tbtn{font-size:14px;color:var(--ink-2);border:1px solid var(--rule);border-radius:999px;padding:5px 12px;background:var(--raise)}
 .tbtn:hover{border-color:var(--brass)}
+.jump{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none}
+.jump::-webkit-scrollbar{display:none}
+.jump a{font-size:13px;color:var(--ink-2);text-decoration:none;padding:5px 10px;border-radius:999px;white-space:nowrap}
+.jump a:hover{background:var(--brass-soft);color:var(--ink)}
+@media (max-width:760px){.jump{display:none}}
 
-/* the story */
-.hero{display:grid;grid-template-columns:1.25fr 1fr;gap:40px;padding-top:44px;padding-bottom:34px;align-items:end}
+/* hero */
+.hero{display:grid;grid-template-columns:1.2fr 1fr;gap:40px;padding-top:44px;padding-bottom:30px;align-items:center}
 .kick{font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--brass-ink);margin:0 0 10px}
-.hero h1{font:400 68px/1 var(--serif);letter-spacing:-.01em;margin:0 0 14px}
+.hero h1{font:400 64px/1 var(--serif);letter-spacing:-.01em;margin:0 0 14px;text-wrap:balance}
 .hero h1 i{color:var(--brass-ink)}
 .lede{margin:0;color:var(--ink-2);font-size:18px;max-width:56ch;text-wrap:pretty}
-.big{border:1px solid var(--rule);background:var(--raise);border-radius:16px;padding:22px 24px}
-.big b{display:block;font:400 92px/.95 var(--serif);color:var(--brass-ink);letter-spacing:-.02em}
-.big p{margin:8px 0 0;font-size:15px;color:var(--ink-2)}
-.big small{display:block;margin-top:10px;font-size:12px;color:var(--ink-3)}
-@media (max-width:820px){.hero{grid-template-columns:1fr;gap:22px;padding-top:28px}.hero h1{font-size:48px}.lede{font-size:16px}.big b{font-size:70px}}
+.cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:600;font-size:14px;border-radius:999px;padding:9px 16px;border:1px solid var(--rule-2);background:var(--raise);text-decoration:none;min-height:40px;cursor:pointer}
+.btn:hover{border-color:var(--brass)}
+.btn.solid{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.btn.solid:hover{opacity:.92}
+.btn.sm{padding:5px 11px;min-height:32px;font-size:13px}
+.btn svg{width:16px;height:16px}
+.how{border:1px solid var(--rule);background:var(--raise);border-radius:18px;padding:8px 6px}
+.how ol{list-style:none;margin:0;padding:0}
+.how li{display:grid;grid-template-columns:40px 1fr;gap:14px;padding:14px 14px;align-items:start}
+.how li+li{border-top:1px solid var(--rule)}
+.how .num{width:40px;height:40px;border-radius:50%;background:var(--brass-soft);color:var(--brass-ink);display:grid;place-items:center;font:400 22px/1 var(--serif)}
+.how b{display:block;font:400 21px/1.15 var(--serif);margin-bottom:2px}
+.how p{margin:0;font-size:14px;color:var(--ink-2)}
+.how a{color:var(--ink-2)}
+@media (max-width:820px){.hero{grid-template-columns:1fr;gap:24px;padding-top:28px}.hero h1{font-size:44px}.lede{font-size:16px}}
+
 .strip{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
 .strip div{padding:16px 18px;border-left:1px solid var(--rule)}
 .strip div:first-child{border-left:0;padding-left:0}
 .strip b{font:400 34px/1 var(--serif)}
 .strip span{display:block;font-size:13px;color:var(--ink-3);margin-top:4px}
 @media (max-width:820px){.strip{grid-template-columns:1fr 1fr}.strip div:nth-child(3){border-left:0;padding-left:0}.strip div:nth-child(n+3){border-top:1px solid var(--rule)}}
-.why{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;padding:30px 0 10px}
-.why h3{font:400 24px/1.2 var(--serif);margin:0 0 6px}
+.why{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;padding:26px 0 6px}
+.why h3{font:400 23px/1.2 var(--serif);margin:0 0 6px}
 .why p{margin:0;color:var(--ink-2);font-size:15px}
-@media (max-width:820px){.why{grid-template-columns:1fr;gap:18px}}
+@media (max-width:820px){.why{grid-template-columns:1fr;gap:16px}}
+
+/* sections */
+.sec{padding-top:52px;scroll-margin-top:60px}
+.sec-h{font:400 40px/1.1 var(--serif);margin:0 0 6px;text-wrap:balance}
+.sec-h small{display:block;font:600 13px/1 var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--brass-ink);margin-bottom:10px}
+.sub{margin:0 0 20px;color:var(--ink-2);max-width:66ch;text-wrap:pretty}
+@media (max-width:640px){.sec{padding-top:40px}.sec-h{font-size:32px}}
+
+/* ideas */
+.presets{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.chip{font-size:14px;border:1px solid var(--rule-2);border-radius:999px;padding:7px 13px;background:var(--raise);display:inline-flex;align-items:center;gap:6px;min-height:36px}
+.chip:hover{border-color:var(--brass)}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.chip .em{font-size:15px}
+.filters{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin:0 0 14px;font-size:13px;color:var(--ink-3)}
+.filters .chip{font-size:13px;padding:4px 11px;min-height:30px}
+.picks{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+.proj{position:relative;text-align:left;border:1px solid var(--rule);border-radius:16px;background:var(--raise);display:flex;flex-direction:column;overflow:hidden;transition:border-color .15s,box-shadow .15s,opacity .2s}
+.proj:hover{border-color:var(--brass)}
+.proj[aria-pressed="true"]{border-color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--ink)}
+.proj.dim{opacity:.38}
+.proj .pic{aspect-ratio:16/9;background:var(--shoal) center/cover no-repeat;position:relative}
+.proj .pic .ic{position:absolute;left:12px;bottom:10px;width:40px;height:40px;background:var(--raise);border-radius:12px;padding:6px;color:var(--brass)}
+.proj .pic .dur{position:absolute;right:10px;bottom:10px;background:rgba(14,26,43,.78);color:#fff;font-size:12px;font-weight:600;padding:3px 8px;border-radius:999px}
+.proj .txt{padding:14px 16px 14px;display:flex;flex-direction:column;gap:6px;flex:1}
+.proj h3{font:400 23px/1.15 var(--serif);margin:0}
+.proj p{margin:0;font-size:14px;color:var(--ink-2)}
+.meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto;padding-top:6px}
+.tag{font-size:12px;border:1px solid var(--rule-2);border-radius:999px;padding:2px 9px;color:var(--ink-2)}
+.tag.hot{border-color:var(--brass);color:var(--brass-ink)}
+.tick{position:absolute;top:12px;right:12px;width:28px;height:28px;border-radius:50%;border:1.5px solid rgba(255,255,255,.9);background:rgba(14,26,43,.35);display:grid;place-items:center}
+.proj[aria-pressed="true"] .tick{background:var(--ink);border-color:var(--ink)}
+.proj[aria-pressed="true"] .tick::after{content:'';width:10px;height:6px;border-left:2px solid var(--paper);border-bottom:2px solid var(--paper);transform:rotate(-45deg) translate(1px,-1px)}
+.hint{font-size:13px;color:var(--ink-3);margin:10px 0 0}
 
 /* planner */
-.sec{padding-top:46px}
-.sec-h{font:400 40px/1.1 var(--serif);margin:0 0 6px}
-.sub{margin:0 0 20px;color:var(--ink-2);max-width:62ch}
-.knobs{display:flex;flex-wrap:wrap;gap:14px 26px;align-items:flex-end;padding:18px 20px;border:1px solid var(--rule);border-radius:14px;background:var(--raise)}
+.knobs{display:flex;flex-wrap:wrap;gap:14px 26px;align-items:flex-end;padding:18px 20px;border:1px solid var(--rule);border-radius:16px;background:var(--raise)}
 .knob label{display:block;font-size:13px;font-weight:600;color:var(--ink-2);margin-bottom:6px}
 .knob input,.knob select{background:var(--paper);border:1px solid var(--rule-2);border-radius:10px;padding:8px 10px;min-height:40px}
+.knob input[type=text]{min-width:160px}
 .step{display:inline-flex;align-items:center;border:1px solid var(--rule-2);border-radius:999px;background:var(--paper)}
 .step button{width:40px;height:40px;font-size:20px;color:var(--ink-2)}
 .step output{min-width:44px;text-align:center;font-weight:700;font-size:18px}
 .seg{display:inline-flex;border:1px solid var(--rule-2);border-radius:999px;padding:3px;background:var(--paper)}
-.seg button{padding:6px 12px;border-radius:999px;font-size:14px}
+.seg button{padding:6px 12px;border-radius:999px;font-size:14px;min-height:32px}
 .seg button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
-.picks{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px;margin-top:18px}
-.proj{position:relative;text-align:left;border:1px solid var(--rule);border-radius:14px;background:var(--raise);padding:16px 16px 14px;display:flex;flex-direction:column;gap:6px;transition:border-color .15s,box-shadow .15s}
-.proj:hover{border-color:var(--brass)}
-.proj[aria-pressed="true"]{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
-.proj .ic{width:44px;height:44px}
-.proj h3{font:400 23px/1.15 var(--serif);margin:2px 0 0}
-.proj p{margin:0;font-size:14px;color:var(--ink-2)}
-.meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
-.tag{font-size:12px;border:1px solid var(--rule-2);border-radius:999px;padding:2px 9px;color:var(--ink-2)}
-.tag.hot{border-color:var(--brass);color:var(--brass-ink)}
-.tick{position:absolute;top:14px;right:14px;width:24px;height:24px;border-radius:50%;border:1.5px solid var(--rule-2);display:grid;place-items:center}
-.proj[aria-pressed="true"] .tick{background:var(--ink);border-color:var(--ink)}
-.proj[aria-pressed="true"] .tick::after{content:'';width:9px;height:5px;border-left:2px solid var(--paper);border-bottom:2px solid var(--paper);transform:rotate(-45deg) translate(1px,-1px)}
-.hint{font-size:13px;color:var(--ink-3);margin:10px 0 0}
 
-/* the plan */
-.plan{margin-top:28px;border-top:1px solid var(--rule);padding-top:24px}
+.plan{margin-top:24px}
 .plan-h{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:18px}
 .plan-h h2{font:400 32px/1.15 var(--serif);margin:0}
 .plan-h p{margin:4px 0 0;color:var(--ink-3);font-size:14px}
 .acts{display:flex;gap:8px;flex-wrap:wrap}
-.btn{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:14px;border-radius:999px;padding:8px 15px;border:1px solid var(--rule-2);background:var(--raise);text-decoration:none}
-.btn:hover{border-color:var(--brass)}
-.btn.solid{background:var(--ink);color:var(--paper);border-color:var(--ink)}
-.cols{display:grid;grid-template-columns:1.3fr 1fr;gap:28px}
+.cols{display:grid;grid-template-columns:1.3fr 1fr;gap:22px}
 @media (max-width:900px){.cols{grid-template-columns:1fr}}
-.card{border:1px solid var(--rule);border-radius:14px;background:var(--raise);padding:18px 20px}
+.card{border:1px solid var(--rule);border-radius:16px;background:var(--raise);padding:18px 20px}
 .card+.card{margin-top:18px}
-.card h3{font:600 15px/1.3 var(--sans);margin:0 0 12px;color:var(--ink-2);text-transform:uppercase;letter-spacing:.06em;font-size:12px}
-.tot{display:flex;gap:24px;flex-wrap:wrap;margin-bottom:14px}
+.card h3{font:600 12px/1.3 var(--sans);margin:0 0 12px;color:var(--ink-2);text-transform:uppercase;letter-spacing:.06em}
+.card h3 .r{float:right;text-transform:none;letter-spacing:0;font-weight:500;color:var(--ink-3)}
+.tot{display:flex;gap:24px;flex-wrap:wrap;margin-bottom:14px;align-items:flex-end}
 .tot div b{display:block;font:400 38px/1 var(--serif)}
 .tot div span{font-size:13px;color:var(--ink-3)}
+.tot .acts{margin-left:auto}
 table{width:100%;border-collapse:collapse;font-size:14px}
 th{text-align:left;font-size:12px;color:var(--ink-3);font-weight:600;padding:6px 0;border-bottom:1px solid var(--rule)}
 td{padding:9px 0;border-bottom:1px solid var(--rule);vertical-align:top}
 td.n{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums;padding-left:10px}
-td .for{display:block;font-size:12px;color:var(--ink-3)}
+td .for{display:block;font-size:12px;color:var(--ink-3);margin-top:2px}
 tr.grp td{font-weight:700;padding-top:16px;border-bottom:0;font-size:13px;color:var(--brass-ink)}
-td a{color:var(--ink-2);font-size:12px;white-space:nowrap}
+.shop{display:inline-flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+.shop a{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;text-decoration:none;border:1px solid var(--rule-2);border-radius:999px;padding:3px 9px;color:var(--ink-2);min-height:26px}
+.shop a:hover{border-color:var(--brass);color:var(--ink)}
+.shop a.amz{border-color:rgba(255,153,0,.55)}
+.shop a svg{width:12px;height:12px}
 .chk{display:flex;gap:10px;align-items:flex-start}
-.chk input{margin-top:3px;accent-color:var(--brass);width:16px;height:16px;flex:none}
+.chk input{margin-top:3px;accent-color:var(--brass);width:18px;height:18px;flex:none}
 tr.got td:not(.n) label{text-decoration:line-through;color:var(--ink-3)}
 .run{list-style:none;margin:0;padding:0}
 .run li{display:grid;grid-template-columns:74px 1fr;gap:12px;padding:9px 0;border-bottom:1px solid var(--rule)}
@@ -141,38 +182,113 @@ tr.got td:not(.n) label{text-decoration:line-through;color:var(--ink-3)}
 .run span{font-size:13px;color:var(--ink-3)}
 .prep li{grid-template-columns:110px 1fr}
 textarea{width:100%;min-height:150px;background:var(--paper);border:1px solid var(--rule-2);border-radius:10px;padding:10px 12px;font-size:14px;line-height:1.5;resize:vertical}
-.empty{padding:26px;border:1px dashed var(--rule-2);border-radius:14px;color:var(--ink-3);text-align:center}
+.empty{padding:26px;border:1px dashed var(--rule-2);border-radius:16px;color:var(--ink-3);text-align:center}
+.note{font-size:13px;color:var(--ink-3);margin:12px 0 0}
+.note a{color:var(--ink-2)}
 
-/* guides */
+/* guest guide, host's view */
+.gg{display:grid;grid-template-columns:1fr 1.1fr;gap:28px;align-items:start}
+@media (max-width:900px){.gg{grid-template-columns:1fr}}
+.gg .card{display:flex;flex-direction:column;gap:14px}
+.qr{display:grid;grid-template-columns:148px 1fr;gap:18px;align-items:center}
+.qr .box{width:148px;height:148px;background:#fff;border-radius:12px;padding:8px;border:1px solid var(--rule)}
+.qr .box svg{width:100%;height:100%;display:block}
+.qr .box .nolib{font-size:12px;color:#444;text-align:center;padding-top:50px}
+.qr p{margin:0 0 6px;font-size:14px;color:var(--ink-2)}
+.qr code{font-size:12px;word-break:break-all;color:var(--ink-3)}
+@media (max-width:480px){.qr{grid-template-columns:1fr}.qr .box{margin:0 auto}}
+.feat{display:grid;gap:12px;margin:0;padding:0;list-style:none}
+.feat li{display:grid;grid-template-columns:34px 1fr;gap:12px;align-items:start}
+.feat svg{width:34px;height:34px;color:var(--brass);background:var(--brass-soft);border-radius:10px;padding:7px}
+.feat b{display:block;font-weight:600}
+.feat span{font-size:14px;color:var(--ink-2)}
+.phone{width:min(330px,100%);margin:0 auto;border:10px solid var(--ink);border-radius:38px;background:var(--paper);overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.25);aspect-ratio:9/17.5}
+.phone iframe{width:100%;height:100%;border:0;display:block;background:var(--paper)}
+
+/* how-to guides, with video */
 .guide{border-top:1px solid var(--rule)}
 .guide details{border-bottom:1px solid var(--rule)}
 .guide summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:12px;align-items:baseline;padding:16px 0}
 .guide summary::-webkit-details-marker{display:none}
 .guide summary h3{font:400 26px/1.15 var(--serif);margin:0}
 .guide summary span{font-size:13px;color:var(--ink-3);white-space:nowrap}
-.guide .body{display:grid;grid-template-columns:1.2fr 1fr;gap:28px;padding:0 0 22px}
+.guide .body{display:grid;grid-template-columns:1fr 1.1fr;gap:28px;padding:0 0 24px}
 .guide ol{margin:0;padding-left:20px}
-.guide ol li{margin-bottom:6px}
-.guide .tip{font-size:14px;color:var(--ink-2);background:var(--shoal);border-radius:12px;padding:14px 16px}
+.guide ol li{margin-bottom:7px}
+.guide .tip{font-size:14px;color:var(--ink-2);background:var(--shoal);border-radius:12px;padding:14px 16px;margin-top:14px}
 .guide .tip p{margin:0 0 8px}
 .guide .tip p:last-child{margin:0}
 @media (max-width:760px){.guide .body{grid-template-columns:1fr;gap:14px}}
+.vid{position:relative;aspect-ratio:16/9;border-radius:14px;overflow:hidden;background:#0a1626 center/cover no-repeat;border:1px solid var(--rule)}
+.vid button.play{position:absolute;inset:0;width:100%;height:100%;display:grid;place-items:center;color:#fff;background:linear-gradient(to top,rgba(8,16,30,.75),rgba(8,16,30,.05) 55%)}
+.vid button.play .pb{width:64px;height:64px;border-radius:50%;background:rgba(255,255,255,.95);display:grid;place-items:center;box-shadow:0 8px 24px rgba(0,0,0,.35)}
+.vid button.play .pb::after{content:'';border-style:solid;border-width:11px 0 11px 19px;border-color:transparent transparent transparent #15243B;margin-left:4px}
+.vid .cap{position:absolute;left:14px;right:14px;bottom:12px;color:#fff;text-align:left;font-size:13px;line-height:1.35;text-shadow:0 1px 2px rgba(0,0,0,.5)}
+.vid .cap b{display:block;font-size:15px}
+.vid iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.vmore{font-size:13px;color:var(--ink-3);margin:8px 0 0}
+.vmore a{color:var(--ink-2)}
+
 .host{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:22px 30px}
 .host h3{font:400 22px/1.2 var(--serif);margin:0 0 4px}
 .host p{margin:0;font-size:15px;color:var(--ink-2)}
 
 footer{border-top:1px solid var(--rule);margin-top:56px;padding:26px 0 50px;color:var(--ink-3);font-size:13px}
-footer p{max-width:80ch;margin:0 0 8px}
+footer p{max-width:84ch;margin:0 0 8px}
 footer a{color:var(--ink-2)}
 .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:80;background:var(--ink);color:var(--paper);padding:10px 16px;border-radius:12px;font-size:14px;box-shadow:0 10px 30px rgba(0,0,0,.25);max-width:calc(100vw - 32px)}
-.toast[hidden]{display:none}
+
+/* ======== the guest's phone view ======== */
+body.guest{padding-bottom:env(safe-area-inset-bottom)}
+.g-top{padding:18px 16px 12px;border-bottom:1px solid var(--rule);background:var(--raise)}
+.g-top .kick{margin-bottom:6px}
+.g-top h1{font:400 34px/1.05 var(--serif);margin:0 0 6px;text-wrap:balance}
+.g-top p{margin:0;color:var(--ink-2);font-size:15px}
+.g-wrap{max-width:720px;margin:0 auto}
+.g-tabs{display:flex;gap:6px;overflow-x:auto;padding:12px 16px 0;scrollbar-width:none;position:sticky;top:0;background:var(--paper);z-index:5;border-bottom:1px solid var(--rule)}
+.g-tabs::-webkit-scrollbar{display:none}
+.g-tabs button{flex:none;padding:10px 14px;font-weight:600;font-size:15px;color:var(--ink-3);border-bottom:3px solid transparent;min-height:44px}
+.g-tabs button[aria-selected="true"]{color:var(--ink);border-color:var(--brass)}
+.g-pane{padding:16px}
+.g-pane h2{font:400 30px/1.1 var(--serif);margin:0 0 4px}
+.g-pane .dek{margin:0 0 14px;color:var(--ink-2);font-size:15px}
+.g-card{border:1px solid var(--rule);border-radius:16px;background:var(--raise);padding:16px;margin-top:14px}
+.g-card h3{font:600 12px/1.3 var(--sans);margin:0 0 10px;color:var(--ink-2);text-transform:uppercase;letter-spacing:.06em}
+.g-card h3 .r{float:right;text-transform:none;letter-spacing:0;font-weight:500;color:var(--ink-3)}
+.steps{list-style:none;margin:0;padding:0;counter-reset:s}
+.steps li{display:grid;grid-template-columns:30px 1fr 30px;gap:12px;padding:12px 0;border-bottom:1px solid var(--rule);align-items:start;counter-increment:s}
+.steps li:last-child{border-bottom:0}
+.steps li::before{content:counter(s);width:30px;height:30px;border-radius:50%;background:var(--brass-soft);color:var(--brass-ink);display:grid;place-items:center;font:400 17px/1 var(--serif)}
+.steps label{font-size:16px;line-height:1.45;cursor:pointer}
+.steps input{width:26px;height:26px;accent-color:var(--pine);margin:2px 0 0;cursor:pointer}
+.steps li.done label{color:var(--ink-3);text-decoration:line-through}
+.steps li.done::before{background:var(--pine-soft);color:var(--pine)}
+.g-bar{height:6px;border-radius:3px;background:var(--rule);overflow:hidden;margin:4px 0 12px}
+.g-bar i{display:block;height:100%;background:var(--pine);width:0;transition:width .3s}
+.kit{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:6px 14px;font-size:15px}
+.kit li{display:flex;gap:8px;align-items:baseline}
+.kit li::before{content:'';width:8px;height:8px;border-radius:50%;background:var(--brass);flex:none;transform:translateY(-1px)}
+@media (max-width:420px){.kit{grid-template-columns:1fr}}
+.tips p{margin:0 0 8px;font-size:15px;color:var(--ink-2)}
+.tips p:last-child{margin:0}
+.g-done{text-align:center;padding:26px 16px 10px;color:var(--ink-2);font-size:15px}
+.g-done b{display:block;font:400 28px/1.1 var(--serif);color:var(--ink);margin-bottom:6px}
+.g-sched{display:flex;gap:8px;overflow-x:auto;padding:12px 16px;scrollbar-width:none}
+.g-sched::-webkit-scrollbar{display:none}
+.g-sched div{flex:none;border:1px solid var(--rule);border-radius:12px;padding:8px 12px;background:var(--raise);min-width:120px}
+.g-sched time{display:block;font-weight:700;font-size:13px;font-variant-numeric:tabular-nums}
+.g-sched span{font-size:13px;color:var(--ink-2)}
+.g-foot{padding:24px 16px 40px;font-size:13px;color:var(--ink-3);text-align:center}
+.g-foot a{color:var(--ink-2)}
 
 @media print{
-  .mast,.hero,.strip,.why,.knobs,.picks,.hint,.acts,#guides,#hosting,footer,.sec>.sec-h,.sec>.sub{display:none !important}
+  .mast,.hero,.strip,.why,#ideas,.knobs,.acts,#guides,#hosting,footer,.sec>.sec-h,.sec>.sub,.toast,.phone,.feat,.note{display:none !important}
   body{background:#fff;color:#000}
-  .card{border:1px solid #ccc;break-inside:avoid}
-  .cols{grid-template-columns:1fr}
-  .sec{padding-top:0}.plan{border:0;margin:0;padding:0}
+  .card{border:1px solid #ccc;break-inside:avoid;margin-top:12px}
+  .cols,.gg{grid-template-columns:1fr}
+  .sec{padding-top:0}.plan{margin:0;padding:0}
+  .shop{display:none}
+  .qr .box{border:1px solid #ccc}
 }
 </style>
 </head>
@@ -181,85 +297,125 @@ footer a{color:var(--ink-2)}
 (function(){try{var p=JSON.parse(localStorage.getItem('watch.v1')||'{}');var t=p.theme||'auto';var h=+new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',hour:'numeric',hourCycle:'h23'}).format(new Date());
 if(t==='auto'){t=(h>=20||h<4)?'night':(matchMedia('(prefers-color-scheme: dark)').matches?'night':'day')}document.documentElement.dataset.theme=t;}catch(e){}})();
 </script>
-<header class="mast"><div class="wrap">
+<header class="mast" id="mast"><div class="wrap">
   <a class="back" href="../../#/s/household"><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" fill="#15243B"/><circle cx="32" cy="32" r="21" fill="none" stroke="#D6B25E" stroke-width="6" stroke-dasharray="19 3"/><path d="M32 32 L46 14" stroke="#F5F7F6" stroke-width="4" stroke-linecap="round"/></svg>The Watch <span>Household</span></a>
+  <nav class="jump" aria-label="On this page"><a href="#ideas">Ideas</a><a href="#planner">Plan &amp; shop</a><a href="#guests">Guest guide</a><a href="#guides">How-to videos</a><a href="#hosting">Hosting</a></nav>
   <button class="tbtn" id="theme" type="button" aria-label="Switch between day and night paper">Night</button>
 </div></header>
 
-<main>
+<main id="main">
 <section class="wrap hero">
   <div>
-    <p class="kick">Holidays · The trend</p>
-    <h1>Craftmas: the craft night is the new <i>holiday party</i></h1>
-    <p class="lede">Instead of a cocktail party, people are asking friends over to paint ornaments, string beads and make gifts together. Etsy saw it in its search data first and named it in its Fall/Winter 2026 trend report. Below: why it works, then a planner that turns a head count and a few projects into the shopping list, the cost, the run of the night and the invitation.</p>
+    <p class="kick">Holidays · Craft night, solved</p>
+    <h1>Craftmas: everything a craft night needs, <i>in one place</i></h1>
+    <p class="lede">The craft night is the new holiday party. Here is the whole kit: the ideas to pick from, a planner that turns your head count into a shopping list you can buy in a few taps, the schedule and the invitation, and a step-by-step guide with videos that opens on every guest's phone. No app to install, nothing to sign up for.</p>
+    <div class="cta"><a class="btn solid" href="#ideas">Pick your projects</a><a class="btn" href="#guests">See the guest guide</a></div>
   </div>
-  <div class="big">
-    <b>+8,500%</b>
-    <p>U.S. searches on Etsy for <strong>DIY activities</strong>, the three months to September 14, 2026, against the same months a year earlier.</p>
-    <small>That is about 86 times last year's level. Etsy did not publish the raw number of searches.</small>
+  <div class="how" aria-label="How it works">
+    <ol>
+      <li><span class="num">1</span><div><b>Pick the night</b><p>Choose a themed night or one to three projects. Set how many are coming.</p></div></li>
+      <li><span class="num">2</span><div><b>Buy it in a few taps</b><p>The list sizes itself to your crowd, with an Amazon button on every item and Etsy kits if you'd rather not sort.</p></div></li>
+      <li><span class="num">3</span><div><b>Send everyone their guide</b><p>A link or QR code opens each project's steps, with a video, on any phone. You demo once; the phones do the rest.</p></div></li>
+    </ol>
   </div>
 </section>
 
 <div class="wrap">
   <div class="strip">
+    <div><b>+8,500%</b><span>Etsy searches for DIY activities, fall 2026</span></div>
     <div><b>+470%</b><span>Needlepoint bags, among Gen Z shoppers</span></div>
-    <div><b>+125%</b><span>Sewing patterns for beginners</span></div>
     <div><b>+218%</b><span>Bedazzled kits (Etsy's "Merrymaxxing" trend)</span></div>
     <div><b>+1,400%</b><span>Personalized gifts for friends</span></div>
   </div>
   <div class="why">
     <div><h3>Something to do with your hands</h3><p>A craft gives a room of half-strangers a reason to sit together and talk without the pressure of a party where all there is to do is drink and mingle.</p></div>
     <div><h3>Everyone leaves with a gift</h3><p>An ornament you made goes on a tree every year. Plenty of guests finish one for themselves and start a second for someone else.</p></div>
-    <div><h3>Cheaper than catering</h3><p>Most of the projects below run $5 to $20 a person in supplies, and snacks you can eat with one hand are all the food it needs.</p></div>
+    <div><h3>Cheaper than catering</h3><p>Most projects run $5 to $20 a person in supplies, and snacks you can eat with one hand are all the food it needs.</p></div>
   </div>
 </div>
 
+<section class="wrap sec" id="ideas">
+  <h2 class="sec-h"><small>Step 1</small>Pick the night</h2>
+  <p class="sub">Start from a themed night, or build your own: tap one to three projects. One keeps it simple; two lets people move between a quick make and a slow one. Each card has a how-to video further down and a phone guide for your guests.</p>
+  <div class="presets" id="presets" role="group" aria-label="Themed nights"></div>
+  <div class="filters" id="filters" role="group" aria-label="Narrow the ideas"><span>Show:</span></div>
+  <div class="picks" id="picks"></div>
+  <p class="hint" id="hint"></p>
+</section>
+
 <section class="wrap sec" id="planner">
-  <h2 class="sec-h">Plan your craft night</h2>
-  <p class="sub">Set how many people are coming and pick one to three projects. One project keeps it simple; two lets people move between a quick make and a slow one. The plan saves in this browser, and the link carries it if you want to send it to a co-host.</p>
+  <h2 class="sec-h"><small>Step 2</small>Plan it and buy it</h2>
+  <p class="sub">Set the head count and the date. The shopping list sizes itself, every item has a buy button, and the schedule, prep countdown and invitation write themselves. The plan saves in this browser, and the link carries it to a co-host.</p>
   <div class="knobs">
     <div class="knob"><label for="ppl">People, counting you</label>
       <div class="step"><button type="button" data-d="-1" aria-label="One fewer">−</button><output id="ppl">8</output><button type="button" data-d="1" aria-label="One more">+</button></div></div>
     <div class="knob"><label for="date">Date</label><input type="date" id="date"></div>
     <div class="knob"><label for="start">Starts at</label><input type="time" id="start" value="19:00" step="900"></div>
+    <div class="knob"><label for="host">Your first name <span style="font-weight:400;color:var(--ink-3)">(for the guide and invite)</span></label><input type="text" id="host" maxlength="24" placeholder="e.g. Sam" autocomplete="given-name"></div>
     <div class="knob"><label>Who's coming</label><div class="seg" id="crowd" role="group" aria-label="Who's coming"><button type="button" data-v="adults" aria-pressed="true">Adults</button><button type="button" data-v="family" aria-pressed="false">Families with kids</button></div></div>
-    <div class="knob"><label>Supplies</label><div class="seg" id="mode" role="group" aria-label="How to buy supplies"><button type="button" data-v="kits" aria-pressed="false">A kit each</button><button type="button" data-v="bulk" aria-pressed="true">Buy in bulk</button></div></div>
+    <div class="knob"><label>Supplies</label><div class="seg" id="mode" role="group" aria-label="How to buy supplies"><button type="button" data-v="bulk" aria-pressed="true">Buy in bulk</button><button type="button" data-v="kits" aria-pressed="false">A kit each</button></div></div>
   </div>
-  <div class="picks" id="picks"></div>
-  <p class="hint" id="hint"></p>
   <div class="plan" id="plan"></div>
 </section>
 
+<section class="wrap sec" id="guests">
+  <h2 class="sec-h"><small>Step 3</small>Put the directions on every phone</h2>
+  <p class="sub">You shouldn't have to re-explain the blanket stitch six times. Each guest opens one link and gets their project's steps as a tap-to-check list, a short video, what's at their station, and the schedule for the night. It works on any phone, saves their progress, and needs no account.</p>
+  <div class="gg">
+    <div>
+      <div class="card">
+        <h3>Your guest link</h3>
+        <div class="qr"><div class="box" id="qrbox" aria-label="QR code for the guest guide"></div>
+          <div><p id="qrtext">Print this and stand it on each table, or text the link. It opens the guide for tonight's projects.</p><code id="glink"></code></div></div>
+        <div class="acts"><button class="btn solid" id="gshare" type="button">Share the link</button><button class="btn" id="gcopy" type="button">Copy link</button><a class="btn" id="gopen" href="#" target="_blank" rel="noopener">Open it on this phone</a><button class="btn" id="gprint" type="button">Print the QR card</button></div>
+        <p class="note" id="gnote"></p>
+      </div>
+      <div class="card">
+        <h3>What guests see</h3>
+        <ul class="feat">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="6 3 20 12 6 21 6 3"/></svg><div><b>A short video for each project</b><span>Picked from YouTube for being short and beginner-level. Plays in the page, no autoplay.</span></div></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg><div><b>Steps they tick off</b><span>Big checkboxes, one step per line, progress saved on their phone so a bathroom break doesn't lose their place.</span></div></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg><div><b>Tonight's schedule</b><span>Demo, make, food break, swap and photo, with the times you set. Everyone knows when the oven goes on.</span></div></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg><div><b>The snags, before they hit them</b><span>Each project's two or three common slips, so you aren't rescuing glitter all night.</span></div></li>
+        </ul>
+      </div>
+    </div>
+    <div><div class="phone" aria-label="Preview of the guest guide on a phone"><iframe id="preview" title="Preview of the guest guide" loading="lazy"></iframe></div></div>
+  </div>
+</section>
+
 <section class="wrap sec" id="guides">
-  <h2 class="sec-h">How to run each project</h2>
-  <p class="sub">The steps you'll demonstrate at the start of the night, and what tends to go wrong.</p>
+  <h2 class="sec-h"><small>For the host</small>How to run each project</h2>
+  <p class="sub">Watch the video the night before, make one sample, and you're the expert in the room. These are the same steps your guests get on their phones.</p>
   <div class="guide" id="guide"></div>
 </section>
 
 <section class="wrap sec" id="hosting">
-  <h2 class="sec-h">Hosting it</h2>
+  <h2 class="sec-h"><small>For the host</small>Hosting it</h2>
   <p class="sub">The craft is the easy part. These make the night.</p>
   <div class="host">
-    <div><h3>Set up stations, not seats</h3><p>One table per project, with its supplies laid out by step. People drift between them, and nobody waits on the glitter.</p></div>
+    <div><h3>Set up stations, not seats</h3><p>One table per project, with its supplies laid out by step and the QR card standing in the middle. People drift between them, and nobody waits on the glitter.</p></div>
     <div><h3>Cover everything first</h3><p>A roll of kraft paper taped over the table doubles as a sketch pad. Keep paper towels and baby wipes on every table.</p></div>
     <div><h3>Food away from the paint</h3><p>A separate snack table keeps brushes out of the dip. Things you can eat with one hand and no fork: crostini, cookies, a cheese board, a big pot of cider or cocoa.</p></div>
-    <div><h3>Do a five-minute demo</h3><p>Show one finished example and make the first steps in front of everyone. Then leave the sample on the table to copy.</p></div>
+    <div><h3>Do a five-minute demo</h3><p>Show one finished example and make the first steps in front of everyone. Then leave the sample on the table to copy and let the phones take the questions.</p></div>
     <div><h3>Names and drying space</h3><p>Painted and glued pieces need an hour or more to dry. Set out a labeled tray or a sheet pan per guest, and a stack of take-home boxes or bags.</p></div>
     <div><h3>End with a swap</h3><p>Ask everyone to make two of something and trade one before they leave. It gives the last half hour a shape and a group photo.</p></div>
   </div>
 </section>
 </main>
 
-<footer><div class="wrap">
+<footer id="foot"><div class="wrap">
   <p><b>Where this comes from.</b> The search figures are Etsy's, from its <a href="https://www.etsy.com/seller-handbook/article/1521255894814">Seller Trend Report: Fall and Winter 2026</a> (published October 14, 2026): normalized search data from signed-in U.S. shoppers, the three months to September 14, 2026 against the same period a year earlier. Etsy calls the trend "Craftmas". The time window and data notes are as reported by <a href="https://onlinemarktplatz.de/294318/etsy-craftmas-diy-suchen-8500-prozent/">Onlinemarktplatz.de</a>. Etsy did not publish absolute search volumes or sales.</p>
-  <p>Supply prices are rough U.S. estimates for planning, not quotes; the links open a search on Etsy for that item or kit. Your plan stays in this browser.</p>
+  <p><b>Buying.</b> Supply prices are rough U.S. estimates for planning, not quotes. The Amazon and Etsy buttons open a search for that item on those stores with the quantity you need shown beside it; this page has no store accounts, takes no commission and does not see what you buy. Check sizes and counts before you add to cart.</p>
+  <p><b>Videos</b> are the creators' own on YouTube, chosen for being short and beginner-friendly, and play through youtube-nocookie.com only after you tap them. Your plan, and each guest's progress, stay in that browser.</p>
   <p><a href="../../#/s/household">The Watch · Household</a> · <a href="../budget/">Household Budget</a> · <a href="../../#/shop">Shopping</a></p>
 </div></footer>
 <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
 
 <script>
 'use strict';
-/* Projects. Supplies: q = how many one unit serves (people per unit) or per = units per person; p = rough U.S. price per unit. */
+/* Projects. Supplies: q = people one unit serves, or per = units per person; p = rough U.S. price per unit; a = Amazon search; s = Etsy search ('' = not an Etsy thing).
+   asin (optional) = an Amazon product id. If every needed item has one, the plan offers a single "add everything to your Amazon cart" link. */
 const IC = {
   paint:'<circle cx="22" cy="25" r="13" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="M18 9h8v4h-8z" fill="currentColor"/><path d="M12 24c4 3 16 3 20 0" stroke="currentColor" stroke-width="2" fill="none"/>',
   beads:'<path d="M6 14c10 14 22 14 32 0" stroke="currentColor" stroke-width="1.5" fill="none"/><circle cx="10" cy="19" r="3.4" fill="currentColor"/><circle cx="17" cy="23.5" r="3.4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="25" cy="24" r="3.4" fill="currentColor"/><circle cx="32" cy="20" r="3.4" fill="none" stroke="currentColor" stroke-width="2"/>',
@@ -271,94 +427,133 @@ const IC = {
   mug:'<path d="M10 12h20v18a6 6 0 0 1-6 6h-8a6 6 0 0 1-6-6z" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="M30 17h3a4 4 0 0 1 0 8h-3" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="M15 21l3 4 6-7" fill="none" stroke="currentColor" stroke-width="2"/>'
 };
 const P = [
-  { id:'paint', ic:'paint', name:'Paint-your-own ornaments', dek:'Blank ceramic or glass baubles, acrylic paint and paint pens. The easiest yes for any crowd.',
-    mins:75, cost:'$6–10', skill:'Easy', mess:'Some mess', kids:true, hot:'DIY activities +8,500%',
-    kit:{ name:'Ornament painting kit', p:14, s:'diy ornament painting kit' },
-    sup:[ { n:'Blank ceramic ornaments (pack of 12)', q:4, p:16, s:'blank ceramic ornaments bulk' },
-          { n:'Acrylic paint set', q:5, p:15, s:'acrylic paint set' },
-          { n:'Paint pens (set of 12)', q:5, p:14, s:'paint pens set' },
-          { n:'Brush set', q:3, p:7, s:'paint brush set' },
-          { n:'Ribbon spool', q:12, p:7, s:'velvet ribbon spool' } ],
-    steps:['Wipe each ornament with rubbing alcohol so the paint grips.','Base coat first, then let it dry 10 minutes while you plan the design.','Details go on with paint pens: names, dates, little scenes.','Hang to dry on a skewer stuck in a block of floral foam or an egg carton.','Thread ribbon through the cap once it is dry to the touch.'],
-    tips:['Paint pens do more for a beginner than brushes. Buy more pens than you think.','Glass baubles chip; ceramic and wooden ones survive a party better.'] },
+  { id:'paint', ic:'paint', name:'Paint-your-own ornaments', dek:'Blank ceramic baubles, acrylic paint and paint pens. The easiest yes for any crowd.',
+    mins:75, cost:'$6–10', lo:6, skill:'Easy', mess:'Some mess', kids:true, tidy:false, hot:'DIY activities +8,500%',
+    vid:{ id:'dbIhUff8Y04', t:'How to decorate baubles using paint pens', by:'Jenny Evans Artist', len:'4:34' }, vid2:{ id:'NEJfyc1aorc', t:'Learn to paint: make a Christmas ornament', by:'Donna Dewberry', len:'8:17' }, more:'paint ceramic christmas ornaments beginner',
+    kit:{ name:'Ornament painting kit', p:14, s:'diy ornament painting kit', a:'ornament painting kit' },
+    sup:[ { n:'Blank ceramic ornaments (pack of 12)', q:4, p:16, s:'blank ceramic ornaments bulk', a:'blank ceramic ornaments to paint 12 pack' },
+          { n:'Acrylic paint set', q:5, p:15, s:'acrylic paint set', a:'acrylic paint set 24 colors' },
+          { n:'Paint pens (set of 12)', q:5, p:14, s:'paint pens set', a:'acrylic paint pens 12 pack fine tip' },
+          { n:'Brush set', q:3, p:7, s:'paint brush set', a:'acrylic paint brush set' },
+          { n:'Ribbon spool', q:12, p:7, s:'velvet ribbon spool', a:'velvet ribbon 3/8 inch spool' } ],
+    station:['A blank ornament or two','Paint pens and a brush','Paper plate palette','A cup of water and a paper towel','A skewer or egg carton for drying'],
+    steps:['Wipe your ornament with the rubbing alcohol pad so the paint grips.','Base coat first, if you want one, and let it dry 10 minutes while you plan the design.','Details go on with paint pens: names, dates, little scenes. Shake the pen, then press the tip down on scrap paper to start the flow.','Hang it to dry on a skewer stuck in the foam block, or stand it in the egg carton.','Once it is dry to the touch, thread ribbon through the cap and knot a loop.'],
+    tips:['Paint pens do more for a beginner than brushes. Buy more pens than you think.','Glass baubles chip; ceramic and wooden ones survive a party better.'],
+    snags:['Paint beading up means the ornament was not wiped. Wipe, wait a minute, repaint.','Pen tips flood when you hold them still. Keep the hand moving.'] },
   { id:'beads', ic:'beads', name:'Beaded ornaments and garland', dek:'Wire stars, candy canes and wreaths strung with glass or wood beads, or a strand of garland the group builds together.',
-    mins:45, cost:'$4–8', skill:'Easy', mess:'Tidy', kids:true, hot:'Beading kits named in Etsy’s report',
-    kit:{ name:'Beaded ornament kit', p:12, s:'beaded ornament kit' },
-    sup:[ { n:'Bead assortment (glass or wood, 1 lb)', q:6, p:14, s:'glass bead assortment bulk' },
-          { n:'Wire ornament forms (pack of 10)', q:5, p:9, s:'wire ornament forms beading' },
-          { n:'Jewelry wire, 20 gauge', q:10, p:8, s:'20 gauge jewelry wire' },
-          { n:'Round-nose pliers', q:3, p:8, s:'round nose pliers jewelry' },
-          { n:'Bead trays or muffin tins', q:3, p:6, s:'bead sorting tray' } ],
-    steps:['Pour beads into trays by color so nobody digs through one bowl.','Bend a small loop in one end of the form so beads cannot slide off.','Bead in a pattern: two colors and a metallic usually reads best.','Close the other end with pliers and add a hanging loop.','For garland, give everyone an arm’s length of wire and tie them together at the end.'],
-    tips:['Muffin tins make good bead trays and stack away afterwards.','Wood beads are cheaper, lighter and safer for kids than glass.'] },
+    mins:45, cost:'$4–8', lo:4, skill:'Easy', mess:'Tidy', kids:true, tidy:true, hot:'Beading kits named in Etsy’s report',
+    vid:{ id:'QK76nNr1jB4', t:'Beaded Christmas ornament, an easy bauble for beginners', by:'KHelga', len:'14:40' }, vid2:{ id:'97EvLnnDQMk', t:'Make a beaded snowflake ornament', by:"Auntie's Beads", len:'8:00' }, more:'beaded christmas ornament wire form tutorial',
+    kit:{ name:'Beaded ornament kit', p:12, s:'beaded ornament kit', a:'beaded ornament kit' },
+    sup:[ { n:'Bead assortment (glass or wood, 1 lb)', q:6, p:14, s:'glass bead assortment bulk', a:'glass beads assortment 1 lb christmas' },
+          { n:'Wire ornament forms (pack of 10)', q:5, p:9, s:'wire ornament forms beading', a:'wire snowflake ornament forms beading' },
+          { n:'Jewelry wire, 20 gauge', q:10, p:8, s:'20 gauge jewelry wire', a:'20 gauge jewelry wire silver' },
+          { n:'Round-nose pliers', q:3, p:8, s:'round nose pliers jewelry', a:'round nose pliers jewelry making' },
+          { n:'Bead trays or muffin tins', q:3, p:6, s:'bead sorting tray', a:'bead sorting tray' } ],
+    station:['A wire form or an arm’s length of wire','Beads in trays, by color','Round-nose pliers to share','A ribbon or hook for hanging'],
+    steps:['Bend a small loop in one end of the form with the pliers so beads cannot slide off.','Pick two colors and a metallic. Lay out the first ten beads on the table in the order you want.','Bead the pattern on; keep it snug, with no gaps.','Close the open end with a second loop. Twist it twice so it holds.','For garland, bead an arm’s length of wire; the host ties everyone’s lengths together at the end.'],
+    tips:['Muffin tins make good bead trays and stack away afterwards.','Wood beads are cheaper, lighter and safer for kids than glass.'],
+    snags:['Beads sliding off the end means the first loop is too small. Make it a full circle.','Wire that kinks has been bent back and forth. Bend once, in one direction.'] },
   { id:'needle', ic:'needle', name:'Needlepoint ornaments', dek:'A small printed canvas and wool. The slow, calming option; most people finish at home over the following week.',
-    mins:120, cost:'$15–30', skill:'Takes patience', mess:'Tidy', kids:false, hot:'Needlepoint bags +470% with Gen Z',
-    kit:{ name:'Beginner needlepoint ornament kit', p:28, s:'needlepoint ornament kit beginner' },
-    sup:[ { n:'Printed needlepoint canvas, ornament size', per:1, p:16, s:'needlepoint ornament canvas printed' },
-          { n:'Tapestry wool assortment', q:4, p:18, s:'tapestry wool assortment' },
-          { n:'Tapestry needles (pack)', q:8, p:5, s:'tapestry needles' },
-          { n:'Small embroidery scissors', q:3, p:6, s:'embroidery scissors' } ],
-    steps:['Show one stitch: the continental (tent) stitch, needle up and down at a slant.','Start in the middle of the design and work out; fill backgrounds last.','Keep strands short, about an arm’s length, so the wool does not fray.','Finish at home: trim, back with felt, stitch the edge and add a cord.'],
-    tips:['Printed canvases are far easier than counted charts for a first project.','Pair it with a quick project so people go home with something finished too.'] },
+    mins:120, cost:'$15–30', lo:15, skill:'Takes patience', mess:'Tidy', kids:false, tidy:true, hot:'Needlepoint bags +470% with Gen Z',
+    vid:{ id:'sYFwQn7AdSo', t:'Learn how to needlepoint in five minutes', by:'Needlepoint.Com', len:'5:10' }, vid2:{ id:'o7HX0CyrDr0', t:'The continental needlepoint stitch', by:'KC Needlepoint', len:'4:33' }, more:'needlepoint ornament for beginners',
+    kit:{ name:'Beginner needlepoint ornament kit', p:28, s:'needlepoint ornament kit beginner', a:'needlepoint ornament kit beginner' },
+    sup:[ { n:'Printed needlepoint canvas, ornament size', per:1, p:16, s:'needlepoint ornament canvas printed', a:'needlepoint ornament canvas printed' },
+          { n:'Tapestry wool assortment', q:4, p:18, s:'tapestry wool assortment', a:'tapestry wool yarn assortment needlepoint' },
+          { n:'Tapestry needles (pack)', q:8, p:5, s:'tapestry needles', a:'tapestry needles size 22' },
+          { n:'Small embroidery scissors', q:3, p:6, s:'embroidery scissors', a:'embroidery scissors small' } ],
+    station:['A printed canvas','Wool in the canvas’s colors','A tapestry needle (blunt, big eye)','Small scissors to share'],
+    steps:['Cut an arm’s length of wool, no longer, and thread the needle. Leave a tail; no knot.','Find the middle of the design. Bring the needle up in a hole and down one hole diagonally up and to the right. That slanted stitch is the continental stitch.','Work the row across, then turn the canvas upside down for the next row so the stitches all slant the same way.','Match the printed colors; fill the background last.','Finish at home: trim the edge, back it with felt, stitch around and add a cord.'],
+    tips:['Printed canvases are far easier than counted charts for a first project.','Pair it with a quick project so people go home with something finished too.'],
+    snags:['Stitches slanting both ways means the canvas was not turned between rows.','Wool wearing thin means the strand is too long. Cut shorter.'] },
   { id:'felt', ic:'felt', name:'Hand-sewn felt ornaments', dek:'Stars, mittens and little animals cut from felt, blanket-stitched and stuffed. A first sewing project that works.',
-    mins:75, cost:'$3–6', skill:'Easy to learn', mess:'Tidy', kids:true, hot:'Beginner sewing patterns +125%',
-    kit:{ name:'Felt ornament sewing kit', p:16, s:'felt ornament sewing kit' },
-    sup:[ { n:'Wool-blend felt sheets (pack of 20)', q:5, p:15, s:'wool blend felt sheets' },
-          { n:'Embroidery floss (pack of 50)', q:12, p:9, s:'embroidery floss pack' },
-          { n:'Embroidery needles (pack)', q:8, p:5, s:'embroidery needles' },
-          { n:'Polyester stuffing (bag)', q:12, p:8, s:'polyester fiberfill' },
-          { n:'Printable felt ornament pattern', q:99, p:6, s:'felt ornament sewing pattern pdf' },
-          { n:'Fabric scissors', q:3, p:9, s:'fabric scissors' } ],
-    steps:['Print the patterns on card stock so they can be traced around.','Cut two matching shapes, plus any small felt details.','Stitch details onto the front piece before joining the two halves.','Blanket-stitch around the edge, stuff lightly with a pencil, then close it up.','Knot a loop of floss at the top to hang it.'],
-    tips:['Wool-blend felt cuts cleanly; craft-store acrylic felt pills and stretches.','Thread needles ahead of time for kids or anyone new to it.'] },
+    mins:75, cost:'$3–6', lo:3, skill:'Easy to learn', mess:'Tidy', kids:true, tidy:true, hot:'Beginner sewing patterns +125%',
+    vid:{ id:'b1jWrEAYrE8', t:'How to make a stuffed felt ornament with blanket stitch', by:'Practical Embroidery', len:'4:46' }, vid2:{ id:'S9zegUYdPmg', t:'Blanket stitch, how to', by:'Red Ted Art', len:'3:15' }, more:'felt christmas ornament blanket stitch tutorial',
+    kit:{ name:'Felt ornament sewing kit', p:16, s:'felt ornament sewing kit', a:'felt ornament sewing kit' },
+    sup:[ { n:'Wool-blend felt sheets (pack of 20)', q:5, p:15, s:'wool blend felt sheets', a:'wool blend felt sheets assorted' },
+          { n:'Embroidery floss (pack of 50)', q:12, p:9, s:'embroidery floss pack', a:'embroidery floss 50 skeins' },
+          { n:'Embroidery needles (pack)', q:8, p:5, s:'embroidery needles', a:'embroidery needles assorted' },
+          { n:'Polyester stuffing (bag)', q:12, p:8, s:'polyester fiberfill', a:'polyester fiberfill stuffing' },
+          { n:'Printable felt ornament pattern', q:99, p:6, s:'felt ornament sewing pattern pdf', a:'' },
+          { n:'Fabric scissors', q:3, p:9, s:'fabric scissors', a:'fabric scissors sharp' } ],
+    station:['Two felt sheets','A paper pattern to trace','A threaded needle and floss','Stuffing in a bowl','Scissors to share'],
+    steps:['Trace the pattern onto felt and cut two matching shapes, plus any small details (a nose, a buckle).','Stitch the details onto the front piece before the halves are joined.','Hold the two halves together and blanket-stitch around the edge: through both layers, then through the loop of the last stitch. Stop about an inch short.','Push stuffing in through the gap with a pencil. Lightly; it should feel like a pillow, not a rock.','Stitch the gap closed and knot a loop of floss at the top to hang it.'],
+    tips:['Wool-blend felt cuts cleanly; craft-store acrylic felt pills and stretches.','Thread needles ahead of time for kids or anyone new to it.'],
+    snags:['Puckered edges mean the stitches are pulled too tight. Snug, not tight.','Stuffing showing through means too much. Take some out.'] },
   { id:'dough', ic:'dough', name:'Salt-dough ornaments', dek:'Flour, salt and water, rolled and cut like cookies. The project for a room with kids.',
-    mins:60, cost:'$1–3', skill:'Easy', mess:'Floury', kids:true, hot:'',
-    kit:{ name:'Salt dough ornament kit', p:12, s:'salt dough ornament kit' },
-    sup:[ { n:'Flour, 5 lb bag (about 20 ornaments)', q:8, p:4, s:'' },
-          { n:'Table salt, 26 oz', q:8, p:2, s:'' },
-          { n:'Christmas cookie cutter set', q:6, p:10, s:'christmas cookie cutters set' },
-          { n:'Acrylic paint set', q:6, p:15, s:'acrylic paint set' },
-          { n:'Twine or ribbon', q:12, p:6, s:'bakers twine' } ],
-    steps:['Make the dough before guests arrive: 2 cups flour, 1 cup salt, about ¾ cup water, kneaded smooth.','Roll it ¼ inch thick, cut shapes and poke a hanging hole with a straw.','Press in a thumbprint, a handprint or a stamped name and date.','Bake at 250°F for 2 to 3 hours, until hard. That is longer than a party, so either bake a batch the day before for painting, or send people home with raw ornaments and the oven instructions.','Paint once completely cool; a coat of sealer keeps them for years.'],
-    tips:['The baking time is the catch. A tray of pre-baked blanks makes painting the party.','Handprint ornaments are what grandparents keep.'] },
+    mins:60, cost:'$1–3', lo:1, skill:'Easy', mess:'Floury', kids:true, tidy:false, hot:'',
+    vid:{ id:'_bQVk2IJaSI', t:'Easiest ever salt dough recipe, three ingredients', by:'First Day of Home', len:'12:38' }, vid2:{ id:'QzmOI0PHNko', t:'Molded cinnamon salt dough ornaments', by:'Miss Mustard Seed', len:'2:49' }, more:'salt dough ornaments how to make',
+    kit:{ name:'Salt dough ornament kit', p:12, s:'salt dough ornament kit', a:'salt dough ornament kit' },
+    sup:[ { n:'Flour, 5 lb bag (about 20 ornaments)', q:8, p:4, s:'', a:'all purpose flour 5 lb' },
+          { n:'Table salt, 26 oz', q:8, p:2, s:'', a:'table salt 26 oz' },
+          { n:'Christmas cookie cutter set', q:6, p:10, s:'christmas cookie cutters set', a:'christmas cookie cutters set' },
+          { n:'Acrylic paint set', q:6, p:15, s:'acrylic paint set', a:'acrylic paint set 24 colors' },
+          { n:'Twine or ribbon', q:12, p:6, s:'bakers twine', a:'bakers twine red white' } ],
+    station:['A ball of dough','A rolling pin and cutters to share','A straw for the hanging hole','A piece of parchment with your name on it','Pre-baked blanks and paint, if the host made some'],
+    steps:['Flour the table lightly and roll the dough about a quarter inch thick. Thinner cracks; thicker never dries.','Cut shapes, or press in a hand or a thumbprint. Stamp a name and the year with a skewer.','Poke a hanging hole near the top with a straw.','Lay your pieces on your parchment. They bake at 250°F for two to three hours, so they go home raw or bake overnight at the host’s.','Paint the pre-baked blanks tonight; seal them at home with a clear coat.'],
+    tips:['The baking time is the catch. A tray of pre-baked blanks makes painting the party.','Handprint ornaments are what grandparents keep.'],
+    snags:['Sticky dough wants a dusting of flour; crumbly dough wants a teaspoon of water.','Puffy, bubbly ornaments were baked too hot. Low and slow.'] },
   { id:'wreath', ic:'wreath', name:'Fresh greenery wreaths', dek:'Bundles of fir, cedar and eucalyptus wired onto a ring. Big, fragrant, and everyone leaves with a door.',
-    mins:90, cost:'$20–40', skill:'Moderate', mess:'Needles everywhere', kids:false, hot:'',
-    kit:{ name:'Wreath making kit', p:45, s:'fresh wreath making kit' },
-    sup:[ { n:'Wire wreath frame, 12 to 14 inch', per:1, p:4, s:'wire wreath frame 14 inch' },
-          { n:'Paddle wire (spool)', q:3, p:5, s:'paddle wire florist' },
-          { n:'Mixed fresh greens (about 2 lb a wreath)', per:1, p:15, s:'fresh christmas greenery bundle' },
-          { n:'Pruners or floral snips', q:2, p:12, s:'floral snips' },
-          { n:'Velvet ribbon for bows', q:4, p:9, s:'velvet ribbon wide' },
-          { n:'Pinecones, dried oranges and berries', q:4, p:12, s:'dried orange slices pinecones' } ],
-    steps:['Cut the greens into 6-inch pieces and make bundles of three or four.','Tie the paddle wire to the frame; lay a bundle on and wrap it twice, tightly.','Overlap each bundle over the stems of the last one, always going the same way round.','Tuck the last bundle’s stems under the first one and tie off.','Add a bow, pinecones and dried orange; wire them through to the frame.'],
-    tips:['Ask a local tree lot for trimmings; many give them away or sell a bag cheaply.','Put this one on a covered porch or a garage table.'] },
+    mins:90, cost:'$20–40', lo:20, skill:'Moderate', mess:'Needles everywhere', kids:false, tidy:false, hot:'',
+    vid:{ id:'s6bv64cfAHw', t:'Wreath-making basics', by:'Garden Answer', len:'12:41' }, vid2:{ id:'s1kUKXIEouE', t:'An easy fresh Christmas wreath', by:'Proven Winners', len:'5:06' }, more:'fresh evergreen wreath wire frame how to',
+    kit:{ name:'Wreath making kit', p:45, s:'fresh wreath making kit', a:'wreath making kit fresh greenery' },
+    sup:[ { n:'Wire wreath frame, 12 to 14 inch', per:1, p:4, s:'wire wreath frame 14 inch', a:'wire wreath frame 14 inch' },
+          { n:'Paddle wire (spool)', q:3, p:5, s:'paddle wire florist', a:'floral paddle wire 22 gauge green' },
+          { n:'Mixed fresh greens (about 2 lb a wreath)', per:1, p:15, s:'fresh christmas greenery bundle', a:'fresh christmas greenery bundle' },
+          { n:'Pruners or floral snips', q:2, p:12, s:'floral snips', a:'floral snips pruners' },
+          { n:'Velvet ribbon for bows', q:4, p:9, s:'velvet ribbon wide', a:'velvet ribbon 2 inch wired' },
+          { n:'Pinecones, dried oranges and berries', q:4, p:12, s:'dried orange slices pinecones', a:'dried orange slices pinecones wreath' } ],
+    station:['A wire frame','A pile of greens, cut to 6 inches','A spool of paddle wire','Snips to share','Ribbon and trimmings on a side tray'],
+    steps:['Make bundles of three or four 6-inch pieces, mixing the greens. Make ten before you start wiring.','Tie the paddle wire to the frame. Lay the first bundle on, stems pointing along the ring, and wrap the wire around twice, tight.','Lay the next bundle so its tips cover the last one’s stems. Wrap twice. Keep going the same way round.','At the end, tuck the last stems under the first bundle’s tips and tie the wire off on the back.','Wire on a bow, pinecones and dried orange through to the frame. Hang it by the wire loop on the back.'],
+    tips:['Ask a local tree lot for trimmings; many give them away or sell a bag cheaply.','Put this one on a covered porch or a garage table.'],
+    snags:['A loose wreath means the wire was not pulled tight. Two wraps, pulled hard, every bundle.','A gap at the end means the bundles were too far apart. Overlap by half.'] },
   { id:'gem', ic:'gem', name:'Bedazzled ornaments', dek:'Rhinestones, sequins and glitter on plain baubles. Etsy calls the more-is-more mood "Merrymaxxing".',
-    mins:45, cost:'$4–8', skill:'Easy', mess:'Glitter', kids:true, hot:'Bedazzled kits +218%',
-    kit:{ name:'Rhinestone ornament kit', p:15, s:'rhinestone ornament kit diy' },
-    sup:[ { n:'Plain shatterproof ornaments (pack of 24)', q:8, p:15, s:'shatterproof plain ornaments' },
-          { n:'Flat-back rhinestones, mixed', q:6, p:12, s:'flat back rhinestones mixed' },
-          { n:'Wax pickup pencils', q:2, p:3, s:'rhinestone wax pencil' },
-          { n:'Jewel glue (gem-tac)', q:4, p:6, s:'' },
-          { n:'Sequins and chunky glitter', q:6, p:8, s:'chunky glitter sequins' } ],
-    steps:['Pour stones into shallow dishes, one per table.','Dot glue in a small area at a time, then pick up stones with the wax pencil.','Work from the cap down in rows or spirals; fill gaps with sequins.','Let it set an hour before anyone packs it.'],
-    tips:['Wax pickup pencils are the difference between fun and frustration.','A tray under every ornament saves the floor from the glitter.'] },
+    mins:45, cost:'$4–8', lo:4, skill:'Easy', mess:'Glitter', kids:true, tidy:false, hot:'Bedazzled kits +218%',
+    vid:{ id:'pD9_oSaGvAE', t:'Rhinestone bling ball ornaments', by:'Elizabeth Sparkles', len:'5:10' }, vid2:{ id:'edF8ANza8Lg', t:'Crystal bling ornaments', by:'Elegance On A Budget', len:'6:04' }, more:'rhinestone christmas ornament diy tutorial',
+    kit:{ name:'Rhinestone ornament kit', p:15, s:'rhinestone ornament kit diy', a:'rhinestone ornament kit diy' },
+    sup:[ { n:'Plain shatterproof ornaments (pack of 24)', q:8, p:15, s:'shatterproof plain ornaments', a:'shatterproof plain ornaments 24 pack' },
+          { n:'Flat-back rhinestones, mixed', q:6, p:12, s:'flat back rhinestones mixed', a:'flat back rhinestones mixed sizes' },
+          { n:'Wax pickup pencils', q:2, p:3, s:'rhinestone wax pencil', a:'rhinestone wax pickup pencil' },
+          { n:'Jewel glue (gem-tac)', q:4, p:6, s:'', a:'gem tac glue' },
+          { n:'Sequins and chunky glitter', q:6, p:8, s:'chunky glitter sequins', a:'chunky glitter sequins mix' } ],
+    station:['A plain ornament','A dish of rhinestones and one of sequins','Glue and a wax pickup pencil','A tray under everything'],
+    steps:['Decide the pattern: rows from the cap down, a spiral, or a monogram. Pencil a line if it helps.','Dot glue over a thumbnail-sized area at a time. Too much glue oozes between stones.','Pick stones up with the wax pencil and set them in. Big stones first, small ones in the gaps.','Fill any gaps with sequins; glitter goes last, over a thin glue coat.','Let it set an hour on the tray before anyone packs it.'],
+    tips:['Wax pickup pencils are the difference between fun and frustration.','A tray under every ornament saves the floor from the glitter.'],
+    snags:['Stones sliding means the glue is too wet. Wait 30 seconds after dotting.','The wax pencil stops picking up when its tip is glossy. Shave a sliver off with a knife.'] },
   { id:'mug', ic:'mug', name:'Hand-lettered gift mugs', dek:'Porcelain pens on plain white mugs, baked in your oven at the end of the night. The project for making gifts for friends.',
-    mins:60, cost:'$5–9', skill:'Easy', mess:'Tidy', kids:true, hot:'Personalized friend gifts +1,400%',
-    kit:{ name:'DIY mug painting kit', p:18, s:'diy mug painting kit' },
-    sup:[ { n:'Plain white ceramic mugs', per:2, p:3, s:'' },
-          { n:'Porcelain paint pens (set)', q:4, p:16, s:'porcelain paint pens' },
-          { n:'Rubbing alcohol and cotton pads', q:12, p:5, s:'' },
-          { n:'Cotton swabs for corrections', q:12, p:3, s:'' } ],
-    steps:['Clean each mug with rubbing alcohol; any fingerprint stops the paint sticking.','Sketch with a pencil first if you like; it bakes off.','Write and draw; fix slips with a damp cotton swab before it dries.','Bake at the end of the night: mugs into a cold oven, heat to 350°F, 30 minutes, then let them cool inside.','Hand-wash only, and keep the design away from the rim people drink from.'],
-    tips:['Check the pen maker’s baking instructions; they vary.','Two mugs each: one to keep, one to give.'] }
+    mins:60, cost:'$5–9', lo:5, skill:'Easy', mess:'Tidy', kids:true, tidy:true, hot:'Personalized friend gifts +1,400%',
+    vid:{ id:'ZGq16NOF-xc', t:'Personalise mugs with porcelain pens', by:'DIYA', len:'10:50' }, vid2:{ id:'lD-YDNDaJxs', t:'How to bake a painted mug', by:'Dinah Wulf', len:'1:06' }, more:'porcelain paint pen mug diy bake',
+    kit:{ name:'DIY mug painting kit', p:18, s:'diy mug painting kit', a:'mug painting kit porcelain pens' },
+    sup:[ { n:'Plain white ceramic mugs', per:2, p:3, s:'', a:'plain white ceramic mugs set' },
+          { n:'Porcelain paint pens (set)', q:4, p:16, s:'porcelain paint pens', a:'porcelain paint pens dishwasher safe' },
+          { n:'Rubbing alcohol and cotton pads', q:12, p:5, s:'', a:'isopropyl alcohol 70 cotton pads' },
+          { n:'Cotton swabs for corrections', q:12, p:3, s:'', a:'cotton swabs' } ],
+    station:['Two mugs: one to keep, one to give','Porcelain pens to share','An alcohol pad','A pencil and cotton swabs for fixes'],
+    steps:['Wipe the mug all over with the alcohol pad. Any fingerprint stops the paint sticking. Hold it by the handle from here on.','Sketch your design in pencil first if you like; it bakes off.','Write and draw with the pens. Keep the design below the rim where lips go, and off the inside.','Slips wipe off with a damp cotton swab, if you catch them before they dry.','Leave it on your tray. At the end of the night mugs go into a cold oven, up to 350°F for 30 minutes, then cool inside. Hand-wash after.'],
+    tips:['Check the pen maker’s baking instructions; they vary.','Two mugs each: one to keep, one to give.'],
+    snags:['Paint that scratches off after baking was not cured long enough, or the mug was not wiped.','Blobs at the start of a line mean the pen was pressed too long. Start on scrap paper.'] }
 ];
+const PRESETS = [
+  { id:'classic', em:'🎄', name:'Classic ornament night', pick:['paint','beads','gem'], crowd:'adults', start:'19:00' },
+  { id:'gifts', em:'🎁', name:'Gifts for friends', pick:['mug','felt'], crowd:'adults', start:'19:00' },
+  { id:'kids', em:'🧒', name:'Kids’ afternoon', pick:['dough','beads','paint'], crowd:'family', start:'15:00' },
+  { id:'cozy', em:'🧶', name:'Slow and cozy', pick:['needle','felt'], crowd:'adults', start:'19:30' },
+  { id:'door', em:'🌲', name:'Front-door night', pick:['wreath','gem'], crowd:'adults', start:'18:30' },
+  { id:'max', em:'✨', name:'Merrymaxxing', pick:['gem','beads','paint'], crowd:'adults', start:'20:00' }
+];
+const FILTERS = [ { id:'kids', name:'Kid-friendly', f:p => p.kids }, { id:'cheap', name:'Under $10 a person', f:p => p.lo < 10 }, { id:'quick', name:'Under an hour', f:p => p.mins <= 60 }, { id:'tidy', name:'No mess', f:p => p.tidy } ];
+const SHARED = [ { n:'Kraft paper roll to cover the tables', q:99, p:12, s:'', a:'kraft paper roll 30 inch' }, { n:'Paper towels and baby wipes', q:10, p:8, s:'', a:'baby wipes unscented' }, { n:'Take-home boxes or gift bags', per:1, p:1.5, s:'kraft gift boxes small', a:'small kraft gift boxes with lids' }, { n:'Name labels for drying trays', q:99, p:4, s:'', a:'name tag labels stickers' } ];
 
 const $ = s => document.querySelector(s);
 const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c]));
 const etsy = s => 'https://www.etsy.com/search?q=' + encodeURIComponent(s);
+const amazon = s => 'https://www.amazon.com/s?k=' + encodeURIComponent(s);
+const ytSearch = s => 'https://www.youtube.com/results?search_query=' + encodeURIComponent(s);
+const thumb = id => `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
 const money = n => '$' + Math.round(n).toLocaleString('en-US');
 const KEY = 'watch.craftmas';
-let S = { n: 8, date: '', start: '19:00', crowd: 'adults', mode: 'bulk', pick: ['paint', 'beads'], got: {} };
+let S = { n: 8, date: '', start: '19:00', host: '', crowd: 'adults', mode: 'bulk', pick: ['paint', 'beads'], got: {}, filter: '' };
+
+const ICON_CART = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg>';
 
 function nextSat() { // the next Saturday, or the first Saturday of December if that is still ahead
   const now = new Date(); let d = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
@@ -370,51 +565,18 @@ function load() {
   try { const j = JSON.parse(localStorage.getItem(KEY) || 'null'); if (j) Object.assign(S, j); } catch (e) { /* storage off */ }
 }
 function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) { /* storage off */ } }
-
-function toast(t) { const el = $('#toast'); el.textContent = t; el.hidden = false; clearTimeout(toast.t); toast.t = setTimeout(() => { el.hidden = true; }, 2400); }
-
+function toast(t) { const el = $('#toast'); el.textContent = t; el.hidden = false; clearTimeout(toast.t); toast.t = setTimeout(() => { el.hidden = true; }, 2600); }
+function copy(text, ok, fallback) { (navigator.clipboard ? navigator.clipboard.writeText(text) : Promise.reject()).then(() => toast(ok), () => fallback ? fallback() : prompt('Copy this', text)); }
 function units(s, n) { return s.per ? s.per * n : Math.max(1, Math.ceil(n / (s.q || 1))); }
-
-function renderPicks() {
-  $('#picks').innerHTML = P.map(p => `<button type="button" class="proj" data-id="${p.id}" aria-pressed="${S.pick.includes(p.id)}">
-    <span class="tick" aria-hidden="true"></span>
-    <svg class="ic" viewBox="0 0 44 44" aria-hidden="true" style="color:var(--brass)">${IC[p.ic]}</svg>
-    <h3>${esc(p.name)}</h3><p>${esc(p.dek)}</p>
-    <span class="meta"><span class="tag">${p.mins} min</span><span class="tag">${p.cost} a person</span><span class="tag">${esc(p.skill)}</span>${p.kids ? '<span class="tag">Kid-friendly</span>' : ''}${p.hot ? `<span class="tag hot">${esc(p.hot)}</span>` : ''}</span>
-  </button>`).join('');
-  const kidsOff = S.crowd === 'family' ? S.pick.map(id => P.find(p => p.id === id)).filter(p => p && !p.kids) : [];
-  $('#hint').textContent = S.pick.length >= 3 ? 'Three projects picked: that is the most one evening holds.' :
-    kidsOff.length ? `${kidsOff.map(p => p.name).join(' and ')} works best for adults and older kids; pair it with something kid-friendly.` :
-    S.pick.length ? '' : 'Pick at least one project to build the plan.';
-}
-
 function t2m(t) { const [h, m] = (t || '19:00').split(':').map(Number); return h * 60 + m; }
 function m2t(m) { m = ((m % 1440) + 1440) % 1440; let h = Math.floor(m / 60), mm = m % 60; const ap = h >= 12 ? 'pm' : 'am'; h = h % 12 || 12; return `${h}:${String(mm).padStart(2, '0')} ${ap}`; }
 function fmtDate(d) { if (!d) return ''; const x = new Date(d + 'T12:00:00'); return x.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' }); }
 function before(d, days) { if (!d) return ''; const x = new Date(d + 'T12:00:00'); x.setDate(x.getDate() - days); return x.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' }); }
+const picked = () => S.pick.map(id => P.find(p => p.id === id)).filter(Boolean);
 
-function renderPlan() {
-  const ps = S.pick.map(id => P.find(p => p.id === id)).filter(Boolean);
-  if (!ps.length) { $('#plan').innerHTML = '<div class="empty">Pick a project above and the plan appears here.</div>'; return; }
-  const n = S.n;
-  // shopping list
-  const rows = []; let total = 0;
-  ps.forEach(p => {
-    rows.push({ grp: p.name });
-    if (S.mode === 'kits') {
-      const c = n * p.kit.p; total += c;
-      rows.push({ k: p.id + ':kit', n: p.kit.name, u: n, why: 'one for each person', c, s: p.kit.s });
-    } else {
-      p.sup.forEach((s, i) => { const u = units(s, n); const c = u * s.p; total += c;
-        rows.push({ k: p.id + ':' + i, n: s.n, u, why: s.per ? `${s.per} a person` : s.q >= 99 ? 'one for the night' : `one for every ${s.q}`, c, s: s.s }); });
-    }
-  });
-  const shared = [ { n:'Kraft paper roll to cover the tables', q:99, p:12, s:'' }, { n:'Paper towels and baby wipes', q:10, p:8, s:'' }, { n:'Take-home boxes or gift bags', per:1, p:1.5, s:'kraft gift boxes small' }, { n:'Name labels for drying trays', q:99, p:4, s:'' } ];
-  rows.push({ grp: 'For the whole table' });
-  shared.forEach((s, i) => { const u = units(s, n); const c = u * s.p; total += c; rows.push({ k: 'sh:' + i, n: s.n, u, why: s.per ? 'one a person' : s.q >= 99 ? 'one for the night' : `one for every ${s.q}`, c, s: s.s }); });
-
-  // run of the night
-  const t0 = t2m(S.start); let t = t0; const run = [];
+/* the run of the night, shared by the host's plan and the guests' guide */
+function buildRun(ps, startT) {
+  const t0 = t2m(startT); let t = t0; const run = [];
   run.push([t, 'Doors and drinks', 'Coats off, something warm to drink, a look at the samples on each table.']); t += 30;
   ps.forEach((p, i) => {
     run.push([t, `Demo: ${p.name.toLowerCase()}`, 'Five minutes of the first steps, in front of everyone.']); t += 5;
@@ -422,69 +584,200 @@ function renderPlan() {
     run.push([t, `Make: ${p.name.toLowerCase()}`, p.id === 'needle' ? 'Get the first rows in; finishing happens at home.' : 'Stations open. Put on the playlist.']); t += block;
     if (i === 0 && ps.length > 1) { run.push([t, 'Food break', 'Hands washed, plates filled, first pieces off to dry.']); t += 20; }
   });
-  if (ps.some(p => p.id === 'mug')) { run.push([t, 'Mugs into the oven', 'Cold oven, up to 350°F, 30 minutes, then cool inside.']); }
+  if (ps.some(p => p.id === 'mug')) run.push([t, 'Mugs into the oven', 'Cold oven, up to 350°F, 30 minutes, then cool inside.']);
   run.push([t, 'Swap and photo', 'Everyone trades one piece. Group photo with the finished table.']); t += 25;
   run.push([t, 'Pack up', 'Dry pieces into boxes; wet ones stay on labeled trays for pickup.']); t += 15;
+  return { run, t0, t };
+}
 
-  // prep
-  const prep = [ [21, 'Send the invite and ask for RSVPs and any allergies.'], [14, S.mode === 'kits' ? 'Order the kits: handmade Etsy kits can take one to two weeks to ship in December.' : 'Order the supplies online; Etsy and bulk sellers can take one to two weeks in December.'],
-    [3, 'Make a sample of each project so you know the snags.'], [1, ps.some(p => p.id === 'dough') ? 'Make the salt dough and bake a tray of blanks. Set up the tables.' : ps.some(p => p.id === 'wreath') ? 'Pick up the greens and keep them cool. Set up the tables.' : 'Set up the tables, cover them and lay out each station.'], [0, 'Thread needles, pour beads, set out drying trays and the snack table.'] ];
+/* the guest link: short, readable, and it opens this same page in guest mode */
+function guestLink() {
+  const q = new URLSearchParams(); q.set('g', S.pick.join('.')); if (S.date) q.set('d', S.date); q.set('t', S.start); if (S.host) q.set('h', S.host); q.set('n', S.n);
+  return location.href.split('#')[0].split('?')[0] + '#' + q.toString();
+}
+
+/* ---------- video embeds: a thumbnail until tapped, then the player ---------- */
+function videoHTML(v, more) {
+  return `<div class="vid" style="background-image:url('${thumb(v.id)}')" data-vid="${esc(v.id)}"><button type="button" class="play" aria-label="Play: ${esc(v.t)}, by ${esc(v.by)}, ${esc(v.len)}"><span class="pb" aria-hidden="true"></span><span class="cap"><b>${esc(v.t)}</b>${esc(v.by)} · ${esc(v.len)} · YouTube</span></button></div>` +
+    (more ? `<p class="vmore">${more}</p>` : '');
+}
+function playVideo(box) { const id = box.dataset.vid; box.style.backgroundImage = 'none'; box.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${encodeURIComponent(id)}?autoplay=1&playsinline=1&rel=0&modestbranding=1" title="Video" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>`; }
+
+/* ---------- Step 1: ideas ---------- */
+function renderPicks() {
+  const preset = PRESETS.find(pr => pr.pick.length === S.pick.length && pr.pick.every(id => S.pick.includes(id)) && pr.crowd === S.crowd);
+  $('#presets').innerHTML = PRESETS.map(pr => `<button type="button" class="chip" data-preset="${pr.id}" aria-pressed="${preset && preset.id === pr.id}"><span class="em" aria-hidden="true">${pr.em}</span>${esc(pr.name)}</button>`).join('');
+  $('#filters').innerHTML = '<span>Show:</span>' + FILTERS.map(f => `<button type="button" class="chip" data-filter="${f.id}" aria-pressed="${S.filter === f.id}">${esc(f.name)}</button>`).join('');
+  const flt = FILTERS.find(f => f.id === S.filter);
+  $('#picks').innerHTML = P.map(p => `<button type="button" class="proj ${flt && !flt.f(p) ? 'dim' : ''}" data-id="${p.id}" aria-pressed="${S.pick.includes(p.id)}">
+    <span class="pic" style="background-image:url('${thumb(p.vid.id)}')"><span class="tick" aria-hidden="true"></span><svg class="ic" viewBox="0 0 44 44" aria-hidden="true">${IC[p.ic]}</svg><span class="dur">${p.mins} min</span></span>
+    <span class="txt"><h3>${esc(p.name)}</h3><p>${esc(p.dek)}</p>
+    <span class="meta"><span class="tag">${p.cost} a person</span><span class="tag">${esc(p.skill)}</span><span class="tag">${esc(p.mess)}</span>${p.kids ? '<span class="tag">Kid-friendly</span>' : ''}${p.hot ? `<span class="tag hot">${esc(p.hot)}</span>` : ''}</span></span>
+  </button>`).join('');
+  const kidsOff = S.crowd === 'family' ? picked().filter(p => !p.kids) : [];
+  $('#hint').textContent = S.pick.length >= 3 ? 'Three projects picked: that is the most one evening holds. Tap one to swap it out.' :
+    kidsOff.length ? `${kidsOff.map(p => p.name).join(' and ')} works best for adults and older kids; pair it with something kid-friendly.` :
+    S.pick.length ? `${S.pick.length === 1 ? 'One project picked. Add a second if you want a quick make beside a slow one.' : 'Two picked. Room for one more, or carry on to the plan.'}` : 'Pick at least one project to build the plan.';
+}
+
+/* ---------- Step 2: the plan ---------- */
+function renderPlan() {
+  const ps = picked();
+  if (!ps.length) { $('#plan').innerHTML = '<div class="empty">Pick a project above and the plan appears here.</div>'; return; }
+  const n = S.n;
+  const rows = []; let total = 0;
+  ps.forEach(p => {
+    rows.push({ grp: p.name });
+    if (S.mode === 'kits') { const c = n * p.kit.p; total += c; rows.push({ k: p.id + ':kit', n: p.kit.name, u: n, why: 'one for each person', c, s: p.kit.s, a: p.kit.a, asin: p.kit.asin }); }
+    else p.sup.forEach((s, i) => { const u = units(s, n); const c = u * s.p; total += c; rows.push({ k: p.id + ':' + i, n: s.n, u, why: s.per ? `${s.per} a person` : s.q >= 99 ? 'one for the night' : `one for every ${s.q}`, c, s: s.s, a: s.a, asin: s.asin }); });
+  });
+  rows.push({ grp: 'For the whole table' });
+  SHARED.forEach((s, i) => { const u = units(s, n); const c = u * s.p; total += c; rows.push({ k: 'sh:' + i, n: s.n, u, why: s.per ? 'one a person' : s.q >= 99 ? 'one for the night' : `one for every ${s.q}`, c, s: s.s, a: s.a, asin: s.asin }); });
+  const items = rows.filter(r => !r.grp);
+  // one-tap Amazon cart, only when every item has a known product id (see the note on P)
+  const cart = items.every(r => r.asin) ? 'https://www.amazon.com/gp/aws/cart/add.html?' + items.map((r, i) => `ASIN.${i + 1}=${encodeURIComponent(r.asin)}&Quantity.${i + 1}=${r.u}`).join('&') : '';
+  const listText = `Craftmas shopping list for ${n}${S.date ? ', ' + fmtDate(S.date) : ''}\n` + rows.map(r => r.grp ? `\n${r.grp}` : `${S.got[r.k] ? '[x]' : '[ ]'} ${r.u} × ${r.n} (${r.why}) ~${money(r.c)}`).join('\n') + `\n\nRough total ${money(total)}, about ${money(total / n)} a person.`;
+
+  const { run, t0, t } = buildRun(ps, S.start);
+  const prep = [ [21, 'Send the invite and the guest link. Ask for RSVPs and any allergies.'], [14, S.mode === 'kits' ? 'Order the kits: handmade Etsy kits can take one to two weeks to ship in December.' : 'Order the supplies: tap through the list below. Allow a week for anything handmade.'],
+    [3, 'Watch each project’s video and make one sample so you know the snags.'], [1, ps.some(p => p.id === 'dough') ? 'Make the salt dough and bake a tray of blanks. Set up the tables.' : ps.some(p => p.id === 'wreath') ? 'Pick up the greens and keep them cool. Set up the tables.' : 'Set up the tables, cover them and lay out each station.'], [0, 'Print the QR card for each table. Thread needles, pour beads, set out drying trays and the snack table.'] ];
 
   const when = S.date ? fmtDate(S.date) : 'the night of your choice';
-  const invite = `You're invited to a Craftmas craft night!\n\n${when} at ${m2t(t0)}\n\nWe'll be making ${ps.map(p => p.name.toLowerCase()).join(' and ')}. No experience needed, every supply is here, and you'll go home with something you made${ps.some(p => p.id === 'mug') ? ' (and a mug for a friend)' : ''}.\n\nWear something you don't mind getting paint on. Snacks and drinks provided.\n\nRSVP by ${S.date ? before(S.date, 10) : 'ten days before'} so I can buy enough for everyone.`;
+  const invite = `You're invited to a Craftmas craft night${S.host ? ' at ' + S.host + "'s" : ''}!\n\n${when} at ${m2t(t0)}\n\nWe'll be making ${ps.map(p => p.name.toLowerCase()).join(' and ')}. No experience needed, every supply is here, and you'll go home with something you made${ps.some(p => p.id === 'mug') ? ' (and a mug for a friend)' : ''}.\n\nThe how-to for each project, with a video, is here so you can peek ahead: ${guestLink()}\n\nWear something you don't mind getting paint on. Snacks and drinks provided.\n\nRSVP by ${S.date ? before(S.date, 10) : 'ten days before'} so I can buy enough for everyone.`;
 
   $('#plan').innerHTML = `<div class="plan-h"><div><h2>Craftmas for ${n}${S.date ? `, ${esc(fmtDate(S.date))}` : ''}</h2><p>${ps.map(p => esc(p.name)).join(' · ')} · about ${Math.round((t - t0) / 30) / 2} hours</p></div>
     <div class="acts"><button class="btn" id="share" type="button">Copy link to this plan</button><button class="btn" id="print" type="button">Print the list</button></div></div>
     <div class="cols"><div>
-      <div class="card"><h3>Shopping list</h3>
-        <div class="tot"><div><b>${money(total)}</b><span>rough total</span></div><div><b>${money(total / n)}</b><span>a person</span></div></div>
+      <div class="card"><h3>Shopping list <span class="r">${items.length} items</span></h3>
+        <div class="tot"><div><b>${money(total)}</b><span>rough total</span></div><div><b>${money(total / n)}</b><span>a person</span></div>
+          <div class="acts">${cart ? `<a class="btn solid" href="${cart}" target="_blank" rel="noopener">${ICON_CART} Add everything to Amazon cart</a>` : ''}<button class="btn" id="copylist" type="button">Copy the list</button></div></div>
         <table><thead><tr><th>Item</th><th class="n" style="text-align:right">Qty</th><th class="n" style="text-align:right">Est.</th></tr></thead><tbody>
         ${rows.map(r => r.grp ? `<tr class="grp"><td colspan="3">${esc(r.grp)}</td></tr>` :
-          `<tr class="${S.got[r.k] ? 'got' : ''}"><td><span class="chk"><input type="checkbox" id="g-${esc(r.k)}" data-k="${esc(r.k)}" ${S.got[r.k] ? 'checked' : ''}><label for="g-${esc(r.k)}">${esc(r.n)}<span class="for">${esc(r.why)}${r.s ? ` · <a href="${etsy(r.s)}" target="_blank" rel="noopener">Find on Etsy ›</a>` : ''}</span></label></span></td><td class="n">${r.u}</td><td class="n">${money(r.c)}</td></tr>`).join('')}
+          `<tr class="${S.got[r.k] ? 'got' : ''}"><td><span class="chk"><input type="checkbox" id="g-${esc(r.k)}" data-k="${esc(r.k)}" ${S.got[r.k] ? 'checked' : ''}><label for="g-${esc(r.k)}">${esc(r.n)}<span class="for">${esc(r.why)}</span></label></span>
+            <span class="shop">${r.a ? `<a class="amz" href="${amazon(r.a)}" target="_blank" rel="noopener">${ICON_CART} Amazon</a>` : ''}${r.s ? `<a href="${etsy(r.s)}" target="_blank" rel="noopener">Etsy</a>` : ''}</span></td><td class="n">${r.u}</td><td class="n">${money(r.c)}</td></tr>`).join('')}
         </tbody></table>
-        <p class="hint">${S.mode === 'bulk' ? 'Bulk buying shares paint, pens and tools across the table. Switch to "A kit each" for a boxed kit per guest: dearer, but no sorting.' : 'A boxed kit per guest: easy to hand out and to take home. Switch to "Buy in bulk" to share supplies and spend less.'} Food and drinks are not included.</p>
+        <p class="note">${S.mode === 'bulk' ? 'Bulk buying shares paint, pens and tools across the table. Switch to "A kit each" for a boxed kit per guest: dearer, but no sorting.' : 'A boxed kit per guest: easy to hand out and to take home. Switch to "Buy in bulk" to share supplies and spend less.'} Each button opens a search for that item with the quantity you need shown here; add to cart as you go and tick it off. Food and drinks are not included.</p>
       </div>
     </div><div>
       <div class="card"><h3>The run of the night</h3><ol class="run">${run.map(r => `<li><time>${m2t(r[0])}</time><div><b>${esc(r[1])}</b><span>${esc(r[2])}</span></div></li>`).join('')}</ol></div>
       <div class="card"><h3>Getting ready</h3><ol class="run prep">${prep.map(r => `<li><time>${S.date ? (r[0] ? before(S.date, r[0]) : 'Day of') : (r[0] ? (r[0] >= 7 ? r[0] / 7 + ' week' + (r[0] > 7 ? 's' : '') : r[0] + ' day' + (r[0] > 1 ? 's' : '')) + ' out' : 'Day of')}</time><div><span style="color:var(--ink-2);font-size:14px">${esc(r[1])}</span></div></li>`).join('')}</ol></div>
-      <div class="card"><h3>The invitation</h3><textarea id="inv" aria-label="Invitation text">${esc(invite)}</textarea><div class="acts" style="margin-top:10px"><button class="btn solid" id="copyinv" type="button">Copy the invitation</button></div></div>
+      <div class="card"><h3>The invitation</h3><textarea id="inv" aria-label="Invitation text">${esc(invite)}</textarea><div class="acts" style="margin-top:10px"><button class="btn solid" id="copyinv" type="button">Copy the invitation</button><button class="btn" id="shareinv" type="button">Share it</button></div></div>
     </div></div>`;
+  $('#copylist').onclick = () => copy(listText, 'Shopping list copied.');
 }
 
+/* ---------- Step 3: the guest link, QR and preview ---------- */
+let qrFor = '';
+function renderGuest() {
+  const ps = picked(); const link = guestLink();
+  $('#glink').textContent = link; $('#gopen').href = link;
+  $('#gnote').textContent = ps.length ? `Opens the guide for ${ps.map(p => p.name.toLowerCase()).join(', ')}${S.date ? ' on ' + fmtDate(S.date) : ''}. Change the plan above and this link updates.` : 'Pick a project in Step 1 and the link fills in.';
+  $('#qrtext').textContent = S.host ? `Print this and stand it on each table, or text the link. It opens ${S.host}'s guide for tonight's projects.` : 'Print this and stand it on each table, or text the link. It opens the guide for tonight\'s projects.';
+  if (qrFor !== link) { qrFor = link; drawQR(link); const f = $('#preview'); if (f.dataset.src !== link) { f.dataset.src = link; f.src = link; } }
+}
+function drawQR(link) {
+  const box = $('#qrbox'); if (!window.qrcode) { box.innerHTML = '<div class="nolib">QR code needs the network once. The link below works anyway.</div>'; return; }
+  try { const q = window.qrcode(0, 'M'); q.addData(link); q.make(); box.innerHTML = q.createSvgTag({ cellSize: 2, margin: 0, scalable: true }); }
+  catch (e) { box.innerHTML = '<div class="nolib">Link too long for a QR code; share the link instead.</div>'; }
+}
+
+/* ---------- host how-tos, with video ---------- */
 function renderGuide() {
-  $('#guide').innerHTML = P.map(p => `<details><summary><h3>${esc(p.name)}</h3><span>${p.mins} min · ${esc(p.mess)}</span></summary>
-    <div class="body"><ol>${p.steps.map(s => `<li>${esc(s)}</li>`).join('')}</ol>
-    <div class="tip">${p.tips.map(s => `<p>${esc(s)}</p>`).join('')}<p><a href="${etsy(p.kit.s)}" target="_blank" rel="noopener">Browse ${esc(p.kit.name.toLowerCase())}s on Etsy ›</a></p></div></div></details>`).join('');
+  $('#guide').innerHTML = P.map(p => `<details id="how-${p.id}"><summary><h3>${esc(p.name)}</h3><span>${p.mins} min · ${esc(p.mess)}</span></summary>
+    <div class="body"><div>${videoHTML(p.vid, `Also good: <a href="https://www.youtube.com/watch?v=${esc(p.vid2.id)}" target="_blank" rel="noopener">${esc(p.vid2.t)}</a> (${esc(p.vid2.by)}, ${esc(p.vid2.len)}) · <a href="${ytSearch(p.more)}" target="_blank" rel="noopener">more on YouTube ›</a>`)}</div>
+    <div><ol>${p.steps.map(s => `<li>${esc(s)}</li>`).join('')}</ol>
+    <div class="tip">${p.tips.map(s => `<p>${esc(s)}</p>`).join('')}<p><a href="${amazon(p.kit.a)}" target="_blank" rel="noopener">${esc(p.kit.name)}s on Amazon ›</a> · <a href="${etsy(p.kit.s)}" target="_blank" rel="noopener">handmade kits on Etsy ›</a></p></div></div></div></details>`).join('');
 }
 
-function render() { $('#ppl').textContent = S.n; $('#date').value = S.date; $('#start').value = S.start;
+function render() { $('#ppl').textContent = S.n; $('#date').value = S.date; $('#start').value = S.start; $('#host').value = S.host;
   document.querySelectorAll('#crowd button').forEach(b => b.setAttribute('aria-pressed', b.dataset.v === S.crowd));
   document.querySelectorAll('#mode button').forEach(b => b.setAttribute('aria-pressed', b.dataset.v === S.mode));
-  renderPicks(); renderPlan(); save(); }
+  renderPicks(); renderPlan(); renderGuest(); save(); }
 
-document.addEventListener('click', e => {
-  const d = e.target.closest('.step button'); if (d) { S.n = Math.min(40, Math.max(2, S.n + +d.dataset.d)); render(); return; }
-  const pr = e.target.closest('.proj'); if (pr) { const id = pr.dataset.id; if (S.pick.includes(id)) S.pick = S.pick.filter(x => x !== id); else if (S.pick.length < 3) S.pick.push(id); else toast('Three projects is the most one evening holds.'); render(); return; }
-  const c = e.target.closest('#crowd button'); if (c) { S.crowd = c.dataset.v; render(); return; }
-  const m = e.target.closest('#mode button'); if (m) { S.mode = m.dataset.v; render(); return; }
-  if (e.target.closest('#print')) { window.print(); return; }
-  if (e.target.closest('#share')) { const st = { ...S, got: {} }; const url = location.href.split('#')[0] + '#p=' + encodeURIComponent(JSON.stringify(st));
-    (navigator.clipboard ? navigator.clipboard.writeText(url) : Promise.reject()).then(() => toast('Link copied. It opens this plan.'), () => prompt('Copy this link', url)); return; }
-  if (e.target.closest('#copyinv')) { const v = $('#inv').value; (navigator.clipboard ? navigator.clipboard.writeText(v) : Promise.reject()).then(() => toast('Invitation copied.'), () => { $('#inv').select(); }); return; }
-});
-document.addEventListener('change', e => {
-  if (e.target.matches('[data-k]')) { const k = e.target.dataset.k; if (e.target.checked) S.got[k] = 1; else delete S.got[k]; e.target.closest('tr').classList.toggle('got', e.target.checked); save(); return; }
-  if (e.target.id === 'date') { S.date = e.target.value; render(); }
-  if (e.target.id === 'start') { S.start = e.target.value || '19:00'; render(); }
-});
+function hostEvents() {
+  document.addEventListener('click', e => {
+    const d = e.target.closest('.step button'); if (d) { S.n = Math.min(40, Math.max(2, S.n + +d.dataset.d)); render(); return; }
+    const pre = e.target.closest('[data-preset]'); if (pre) { const pr = PRESETS.find(x => x.id === pre.dataset.preset); S.pick = [...pr.pick]; S.crowd = pr.crowd; S.start = pr.start; S.filter = ''; render(); toast(`${pr.name}: ${pr.pick.length} projects picked. Set your head count below.`); return; }
+    const fl = e.target.closest('[data-filter]'); if (fl) { S.filter = S.filter === fl.dataset.filter ? '' : fl.dataset.filter; renderPicks(); save(); return; }
+    const pr = e.target.closest('.proj'); if (pr) { const id = pr.dataset.id; if (S.pick.includes(id)) S.pick = S.pick.filter(x => x !== id); else if (S.pick.length < 3) S.pick.push(id); else { toast('Three projects is the most one evening holds. Tap one to remove it first.'); return; } render(); return; }
+    const c = e.target.closest('#crowd button'); if (c) { S.crowd = c.dataset.v; render(); return; }
+    const m = e.target.closest('#mode button'); if (m) { S.mode = m.dataset.v; render(); return; }
+    const pl = e.target.closest('.vid .play'); if (pl) { playVideo(pl.closest('.vid')); return; }
+    if (e.target.closest('#print') || e.target.closest('#gprint')) { window.print(); return; }
+    if (e.target.closest('#share')) { const st = { ...S, got: {} }; const url = location.href.split('#')[0] + '#p=' + encodeURIComponent(JSON.stringify(st)); copy(url, 'Link copied. It opens this plan for a co-host.'); return; }
+    if (e.target.closest('#copyinv')) { const v = $('#inv').value; copy(v, 'Invitation copied.', () => $('#inv').select()); return; }
+    if (e.target.closest('#shareinv')) { const v = $('#inv').value; if (navigator.share) navigator.share({ text: v }).catch(() => {}); else copy(v, 'Invitation copied. Paste it into a text or an email.'); return; }
+    if (e.target.closest('#gcopy')) { copy(guestLink(), 'Guest link copied.'); return; }
+    if (e.target.closest('#gshare')) { const link = guestLink(); const text = `Craft night how-to${S.host ? ' from ' + S.host : ''}: steps and videos for ${picked().map(p => p.name.toLowerCase()).join(' and ')}.`;
+      if (navigator.share) navigator.share({ title: 'Craftmas guest guide', text, url: link }).catch(() => {}); else copy(link, 'Guest link copied. Paste it into the group text.'); return; }
+  });
+  document.addEventListener('change', e => {
+    if (e.target.matches('[data-k]')) { const k = e.target.dataset.k; if (e.target.checked) S.got[k] = 1; else delete S.got[k]; e.target.closest('tr').classList.toggle('got', e.target.checked); save(); return; }
+    if (e.target.id === 'date') { S.date = e.target.value; render(); }
+    if (e.target.id === 'start') { S.start = e.target.value || '19:00'; render(); }
+  });
+  $('#host').addEventListener('input', e => { S.host = e.target.value.trim().slice(0, 24); renderPlan(); renderGuest(); save(); });
+  // the QR library loads after the page; draw once it is here
+  const s = document.querySelector('script[src*="qrcode"]'); if (s) s.addEventListener('load', () => { qrFor = ''; renderGuest(); });
+}
+
+/* ======== guest mode: the same page, opened from the host's link ======== */
+function guestMode(q) {
+  const ids = (q.get('g') || '').split('.').filter(Boolean); const ps = ids.map(id => P.find(p => p.id === id)).filter(Boolean);
+  const host = (q.get('h') || '').slice(0, 24), date = q.get('d') || '', start = q.get('t') || '19:00', n = +q.get('n') || 0;
+  document.body.classList.add('guest'); document.title = `Craft night${host ? ' at ' + host + "'s" : ''} · Craftmas`;
+  $('#mast').hidden = true; $('#foot').hidden = true;
+  const GK = 'watch.craftmas.guest.' + ids.join('.') + '.' + date; let done = {}; try { done = JSON.parse(localStorage.getItem(GK) || '{}'); } catch (e) { /* storage off */ }
+  const saveDone = () => { try { localStorage.setItem(GK, JSON.stringify(done)); } catch (e) { /* storage off */ } };
+  if (!ps.length) { $('#main').innerHTML = `<div class="g-wrap"><div class="g-top"><p class="kick">Craftmas</p><h1>This link is missing its projects</h1><p>Ask your host to send it again, or <a href="${location.pathname}">plan a craft night of your own</a>.</p></div></div>`; return; }
+  const { run } = buildRun(ps, start);
+  let cur = ps[0].id;
+  const paneHTML = p => {
+    const d = done[p.id] || {}; const k = p.steps.filter((s, i) => d[i]).length;
+    return `<div class="g-pane" role="tabpanel" id="pane-${p.id}">
+      <h2>${esc(p.name)}</h2><p class="dek">${esc(p.dek)} About ${p.mins} minutes.</p>
+      ${videoHTML(p.vid, `Prefer another angle? <a href="https://www.youtube.com/watch?v=${esc(p.vid2.id)}" target="_blank" rel="noopener">${esc(p.vid2.t)}</a> (${esc(p.vid2.len)})`)}
+      <div class="g-card"><h3>At your station</h3><ul class="kit">${p.station.map(s => `<li>${esc(s)}</li>`).join('')}</ul></div>
+      <div class="g-card"><h3>Steps <span class="r">${k} of ${p.steps.length}</span></h3><div class="g-bar"><i style="width:${Math.round(k / p.steps.length * 100)}%"></i></div>
+        <ol class="steps">${p.steps.map((s, i) => `<li class="${d[i] ? 'done' : ''}"><label for="st-${p.id}-${i}">${esc(s)}</label><input type="checkbox" id="st-${p.id}-${i}" data-step="${i}" data-p="${p.id}" ${d[i] ? 'checked' : ''}></li>`).join('')}</ol>
+        ${k === p.steps.length ? `<div class="g-done"><b>Done. Nice.</b>Make a second one to swap, or try another table${ps.length > 1 ? ': ' + ps.filter(x => x.id !== p.id).map(x => x.name.toLowerCase()).join(', ') : ''}.</div>` : ''}</div>
+      <div class="g-card tips"><h3>If it goes sideways</h3>${p.snags.map(s => `<p>${esc(s)}</p>`).join('')}</div>
+      <div class="g-card tips"><h3>Good to know</h3>${p.tips.map(s => `<p>${esc(s)}</p>`).join('')}</div>
+    </div>`;
+  };
+  const draw = () => {
+    const p = P.find(x => x.id === cur);
+    $('#main').innerHTML = `<div class="g-wrap">
+      <div class="g-top"><p class="kick">Craftmas · guest guide</p><h1>Craft night${host ? ` at ${esc(host)}’s` : ''}</h1><p>${date ? esc(fmtDate(date)) + ', ' : ''}${esc(m2t(t2m(start)))}${n ? ` · ${n} of us` : ''} · ${ps.map(x => esc(x.name.toLowerCase())).join(' and ')}</p></div>
+      <div class="g-sched" aria-label="Tonight's schedule">${run.map(r => `<div><time>${m2t(r[0])}</time><span>${esc(r[1])}</span></div>`).join('')}</div>
+      ${ps.length > 1 ? `<div class="g-tabs" role="tablist" aria-label="Projects">${ps.map(x => `<button type="button" role="tab" data-tab="${x.id}" aria-selected="${x.id === cur}" aria-controls="pane-${x.id}">${esc(x.name)}</button>`).join('')}</div>` : ''}
+      ${paneHTML(p)}
+      <div class="g-foot">Made with Craftmas on The Watch. <a href="${location.pathname}">Host your own craft night ›</a></div>
+    </div>`;
+  };
+  draw();
+  document.addEventListener('click', e => {
+    const tb = e.target.closest('[data-tab]'); if (tb) { cur = tb.dataset.tab; draw(); window.scrollTo({ top: 0 }); return; }
+    const pl = e.target.closest('.vid .play'); if (pl) { playVideo(pl.closest('.vid')); }
+  });
+  document.addEventListener('change', e => {
+    if (!e.target.matches('[data-step]')) return;
+    const pid = e.target.dataset.p, i = e.target.dataset.step; done[pid] = done[pid] || {}; if (e.target.checked) done[pid][i] = 1; else delete done[pid][i]; saveDone();
+    const pane = $('#pane-' + pid); const y = window.scrollY; pane.outerHTML = paneHTML(P.find(x => x.id === pid)); window.scrollTo(0, y);
+  });
+}
 
 // theme toggle, shared with The Watch
 (function () { const b = $('#theme'); const set = () => { b.textContent = document.documentElement.dataset.theme === 'night' ? 'Day' : 'Night'; }; set();
   b.addEventListener('click', () => { const t = document.documentElement.dataset.theme === 'night' ? 'day' : 'night'; document.documentElement.dataset.theme = t;
     try { const p = JSON.parse(localStorage.getItem('watch.v1') || '{}'); p.theme = t; localStorage.setItem('watch.v1', JSON.stringify(p)); } catch (e) { /* storage off */ } set(); }); })();
 
-load(); if (!S.date) S.date = nextSat(); if (location.hash.startsWith('#p=')) history.replaceState(null, '', location.pathname);
-renderGuide(); render();
+const Q = new URLSearchParams(location.hash.slice(1));
+if (Q.has('g')) { guestMode(Q); window.addEventListener('hashchange', () => location.reload()); }
+else {
+  load(); if (!S.date) S.date = nextSat(); if (location.hash.startsWith('#p=')) history.replaceState(null, '', location.pathname);
+  renderGuide(); hostEvents(); render();
+}
 </script>
 </body>
 </html>
