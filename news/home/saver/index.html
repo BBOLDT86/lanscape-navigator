@@ -180,6 +180,8 @@ footer a{color:var(--ink-2)}
 .toast[hidden]{display:none}
 .toast a,.toast button{color:var(--paper);font-weight:700}
 .toast button{text-decoration:underline}
+/* phones: a text field under 16px makes iPhone Safari zoom the page when it is tapped */
+@media (pointer:coarse){input:not([type=checkbox]):not([type=radio]):not([type=range]):not([type=color]):not([type=file]),select,textarea{font-size:max(16px,1em)!important}}
 </style>
 </head>
 <body>

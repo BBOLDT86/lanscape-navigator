@@ -356,6 +356,8 @@ footer p{margin:0 0 8px;max-width:96ch}
   .five .card{grid-template-columns:24px minmax(0,1fr)}
 }
 @media print{.bar,.tools,.tray,.drawer,.scrim{display:none}}
+/* phones: a text field under 16px makes iPhone Safari zoom the page when it is tapped */
+@media (pointer:coarse){input:not([type=checkbox]):not([type=radio]):not([type=range]):not([type=color]):not([type=file]),select,textarea{font-size:max(16px,1em)!important}}
 </style>
 </head>
 <body>

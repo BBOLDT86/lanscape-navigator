@@ -250,6 +250,8 @@ footer a:hover{color:var(--white)}
 .toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(20px);background:var(--s4);border:1px solid var(--rule2);color:var(--white);padding:10px 16px;border-radius:12px;font-size:13px;opacity:0;transition:all .25s;z-index:60;pointer-events:none}
 .toast.show{opacity:1;transform:translateX(-50%)}
 @media (max-width:768px){.os-grid{grid-template-columns:1fr}.section{padding:60px 18px}.manifesto{padding:60px 18px}.hero{padding:40px 16px 30px;min-height:auto}.hero-specs{gap:18px}.kpis{grid-template-columns:repeat(3,1fr)}}
+/* phones: a text field under 16px makes iPhone Safari zoom the page when it is tapped */
+@media (pointer:coarse){input:not([type=checkbox]):not([type=radio]):not([type=range]):not([type=color]):not([type=file]),select,textarea{font-size:max(16px,1em)!important}}
 </style>
 </head>
 <body>

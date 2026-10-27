@@ -460,7 +460,8 @@ button.tag:hover{background:var(--fill2); color:var(--tx)}
 .sessrow .st b{display:block; font-size:13.5px; font-weight:600}
 .sessrow .st span{display:block; font-size:12.5px; color:var(--mut); line-height:1.5}
 @media (max-width:880px){ .sessrow{flex-direction:column; gap:4px} .sessrow .sd{flex:none} }
-
+/* phones: a text field under 16px makes iPhone Safari zoom the page when it is tapped */
+@media (pointer:coarse){input:not([type=checkbox]):not([type=radio]):not([type=range]):not([type=color]):not([type=file]),select,textarea{font-size:max(16px,1em)!important}}
 </style>
 </head>
 <body>

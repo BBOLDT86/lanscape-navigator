@@ -235,6 +235,8 @@ details.more summary{cursor:pointer;font-weight:600;color:var(--sea)}
 .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:var(--paper);padding:10px 16px;border-radius:999px;font-size:14px;opacity:0;transition:opacity .2s;pointer-events:none;z-index:50}
 .toast.on{opacity:1}
 @media print{.mast,.toast,.presets,.ctl{display:none}.sec{padding-top:24px}}
+/* phones: a text field under 16px makes iPhone Safari zoom the page when it is tapped */
+@media (pointer:coarse){input:not([type=checkbox]):not([type=radio]):not([type=range]):not([type=color]):not([type=file]),select,textarea{font-size:max(16px,1em)!important}}
 </style>
 </head>
 <body>

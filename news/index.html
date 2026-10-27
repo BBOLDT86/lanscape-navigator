@@ -125,7 +125,7 @@ img{display:block}
 .reelstrip{margin-top:30px}.reelstrip.lead{margin:22px 0 4px}
 .reelstrip .sh{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
 .reelstrip .sh .note{flex:1;margin:0;font-size:13.5px;color:var(--ink-2)}
-.reelstrip .sh .chip{padding:5px 12px;font-size:13px}
+.reelstrip .sh .chip{padding:7px 13px;font-size:13px}
 .vrow.reel{gap:10px}
 .rc{position:relative;flex:0 0 128px;scroll-snap-align:start;aspect-ratio:9/16;border-radius:12px;overflow:hidden;border:0;padding:0;background:#0b1320;color:#fff;text-align:left;display:block}
 .rc img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
@@ -1073,6 +1073,9 @@ body.ssopen{overflow:hidden}
   .hobhero{flex-direction:column;align-items:flex-start;gap:14px}.hobhero .hobart{width:150px}.hobhero h1{font-size:44px}
   .hobq{margin-left:0;width:100%}.hobtx b{font-size:30px}.hobfeats .rep .rt{font-size:23px}
 }
+/* phones: a text field under 16px makes iPhone Safari zoom the page when it is tapped */
+@media (pointer:coarse){.shelf .sh a,.pstrip .sh a{display:inline-block;padding:11px 0 11px 14px;margin:-11px 0 -11px -14px}}
+@media (pointer:coarse){input:not([type=checkbox]):not([type=radio]):not([type=range]):not([type=color]):not([type=file]),select,textarea{font-size:max(16px,1em)!important}}
 </style>
 </head>
 <body>

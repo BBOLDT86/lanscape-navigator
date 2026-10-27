@@ -326,6 +326,8 @@ body.received .header-sub{display:none}
 .card-watermark{position:absolute;bottom:10px;right:12px;opacity:.12;z-index:1;pointer-events:none}
 
 .footer{text-align:center;padding:1.2rem;border-top:1px solid rgba(255,255,255,.04);font-family:'DM Mono',monospace;font-size:.52rem;color:var(--text-dimmer);letter-spacing:.1em;text-transform:uppercase}
+/* phones: a text field under 16px makes iPhone Safari zoom the page when it is tapped */
+@media (pointer:coarse){input:not([type=checkbox]):not([type=radio]):not([type=range]):not([type=color]):not([type=file]),select,textarea{font-size:max(16px,1em)!important}}
 </style>
 </head>
 <body>

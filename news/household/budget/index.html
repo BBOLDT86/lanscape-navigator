@@ -258,6 +258,8 @@
     header.top{align-items:flex-start}
   }
   @media print{.tabs,.health,.actions,details.help,.demo-bar{display:none !important}.panel{display:block !important;break-after:page}.box{box-shadow:none}}
+/* phones: a text field under 16px makes iPhone Safari zoom the page when it is tapped */
+@media (pointer:coarse){input:not([type=checkbox]):not([type=radio]):not([type=range]):not([type=color]):not([type=file]),select,textarea{font-size:max(16px,1em)!important}}
 </style>
 </head>
 <body>
