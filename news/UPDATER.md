@@ -430,6 +430,15 @@ Runs after the edition, with a four-minute limit that can't hold up the edition'
   news shorts, and one per story from every outlet's picture. On a phone they play as stories (tap the right side for
   the next, the left for the last, hold to pause, swipe down to close); on a computer as a wide gallery with a
   filmstrip and the arrow keys. ⇆ switches either way.
+- **The Reel** is the same viewer in a third mode (`reel-<context>` shows, built in the page by `reelVids`): short
+  videos first, then the rest, one swipe up to the next, and the next one by itself after the reader's own time
+  (`P.reelAuto`: 15, 30, 60 or 90 seconds, or 0 for only when the video ends; `P.reelMute` for the sound). The
+  embedded player is opened with `enablejsapi` so it can say when a video ends and take a tap to pause or play; if it
+  stays quiet for eight seconds the clock runs anyway. Contexts: `all`, `desk:<k>` (the desk's news videos, plus the
+  garage's on Cars and the hobbies' on Hobbies; a desk with fewer than three gets today's reel after its own),
+  `garage`, `late` and `hobby:<k>`. The floating Reel button on every page, the reel rows on the front, the desks,
+  the video and pictures pages, the garage, Late Night and the hobby pages, Video › Reel in the bar and `#/reel/<context>`
+  all open it.
 
 ## Link previews (`share.py`)
 

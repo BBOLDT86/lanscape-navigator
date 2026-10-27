@@ -107,6 +107,51 @@ img{display:block}
 .bar button:hover{color:var(--ink)}
 .bar button[aria-current="page"]{color:var(--ink);border-bottom-color:var(--brass)}
 .bar .you{color:var(--brass-ink)}
+.bar button.grp{display:inline-flex;align-items:center;gap:5px}
+.bar button.grp::after{content:'';width:6px;height:6px;border-right:1.7px solid currentColor;border-bottom:1.7px solid currentColor;transform:rotate(45deg) translate(-1px,-1px);opacity:.55;transition:transform .15s}
+.bar button.grp[aria-expanded="true"]::after{transform:rotate(225deg) translate(-2px,0)}
+.bar .sub{border-top:1px solid var(--rule);background:var(--raise)}
+.bar .sub[hidden]{display:none}
+.bar .sub button{padding:11px 10px 10px;font-size:14px;font-weight:500;color:var(--ink-2)}
+.bar .sub button[aria-current="page"]{color:var(--ink);font-weight:600;border-bottom-color:var(--brass)}
+.bar .sub .rl{color:var(--brass-ink);font-weight:600}
+.bar .wrap.sub{scroll-padding:0 16px}
+
+/* ---------- the reel: short video, one swipe up to the next, the next one on its own after a while */
+.reelfab{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom));z-index:30;display:inline-flex;align-items:center;gap:7px;border:0;border-radius:999px;padding:11px 16px 11px 13px;background:var(--ink);color:var(--paper);font:700 14px var(--sans);box-shadow:0 10px 30px rgba(14,26,43,.32);transition:transform .15s,opacity .15s}
+.reelfab:hover{transform:translateY(-1px)}
+.reelfab i{display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--brass);color:#15243B;font-style:normal;font-size:10px;padding-left:2px}
+.reelfab[hidden],body.ssopen .reelfab,body.dopen .reelfab{display:none}
+.reelstrip{margin-top:30px}.reelstrip.lead{margin:22px 0 4px}
+.reelstrip .sh{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.reelstrip .sh .note{flex:1;margin:0;font-size:13.5px;color:var(--ink-2)}
+.reelstrip .sh .chip{padding:5px 12px;font-size:13px}
+.vrow.reel{gap:10px}
+.rc{position:relative;flex:0 0 128px;scroll-snap-align:start;aspect-ratio:9/16;border-radius:12px;overflow:hidden;border:0;padding:0;background:#0b1320;color:#fff;text-align:left;display:block}
+.rc img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
+.rc:hover img{transform:scale(1.04)}
+.rc .rct{position:absolute;left:0;right:0;bottom:0;margin:0;padding:34px 9px 9px;background:linear-gradient(180deg,rgba(4,7,12,0),rgba(4,7,12,.92));font:600 12.5px/1.3 var(--sans);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;text-shadow:0 1px 3px rgba(0,0,0,.6)}
+.rc .rcc{position:absolute;top:8px;left:8px;max-width:calc(100% - 16px);font:700 10.5px var(--sans);letter-spacing:.04em;text-transform:uppercase;background:rgba(4,7,12,.62);border-radius:4px;padding:2px 6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rc .rcp{position:absolute;right:8px;top:8px;width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,.9);color:#0E1A2B;display:grid;place-items:center;font-size:10px;padding-left:2px}
+.rc.all{display:grid;place-items:center;background:var(--shoal-2);color:var(--ink);font:600 15px var(--sans);text-align:center;padding:12px}
+.ss.reel .ssnav{display:none!important}
+.ss.reel .ssstrip{display:none!important}
+.ss.reel .ssbars{display:flex!important}
+.ss.reel .ssbars i.now b{animation-name:ssbar}
+.ss.reel .sl.video .slmedia{left:0;right:0;top:0;bottom:0;height:auto;padding:calc(58px + env(safe-area-inset-top)) 0 0}
+.ss.reel .sl.video:not(.short) .slmedia{padding-bottom:160px}
+.ss.reel .sl.video:not(.short) .vframe{aspect-ratio:16/9;width:100%;height:auto;max-height:100%}
+.ss.reel .sl.video.short .vframe{aspect-ratio:9/16;height:100%;width:auto;max-width:100%;border-radius:0}
+.ss.reel .sl.video .sld{display:none}
+.ss.reel .slcap{padding-bottom:calc(26px + env(safe-area-inset-bottom))}
+.ss.reel .slcap h2{font-size:24px}
+.ss.reel .vframe .vtap{position:absolute;left:0;right:0;top:0;bottom:52px;z-index:2;background:transparent;cursor:pointer}
+.ss.reel .vframe .vplay{z-index:3}
+.ssb.ssauto{width:auto;min-width:38px;padding:0 11px;border-radius:999px;font:700 12.5px var(--sans);letter-spacing:.02em;white-space:nowrap}
+.ssb.ssauto.off{opacity:.65}
+.ssb.ssmute.off{opacity:.65;text-decoration:line-through}
+.reelhint{position:absolute;z-index:7;left:50%;bottom:calc(150px + env(safe-area-inset-bottom));transform:translateX(-50%);display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.16);backdrop-filter:blur(8px);border-radius:999px;padding:9px 15px;font:600 13.5px var(--sans);pointer-events:none;white-space:nowrap;animation:hintUp 1.3s ease-in-out 3 both}
+@keyframes hintUp{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,-9px)}}
 
 /* ---------- stories */
 .st{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 16px;padding:14px 0;align-items:start}
@@ -833,16 +878,20 @@ body.ssopen{overflow:hidden}
   .wrap{padding:0 16px}
   .art,.mk{padding-top:24px}
   .mast{gap:12px 14px;padding-top:14px;padding-bottom:12px;flex-wrap:wrap}
-  .dial{width:62px;height:62px;align-self:flex-start}
+  .dial{width:54px;height:54px;align-self:center}
   .dial .hr,.dial .c1,.dial .c2{display:none}
   .brand{flex:1 1 0}
-  .brand h1{font-size:46px}
-  .ed{font-size:13.5px;margin-top:6px}
-  .ed .x2{display:none}
-  .tools{order:3;width:100%;margin:0;padding:0}
+  .brand h1{font-size:38px}
+  .ed{font-size:12.5px;margin-top:4px;line-height:1.35}
+  .ed .x2,.ed .x3,.ed br{display:none}
+  .mast{padding-top:10px;padding-bottom:8px}
+  .tools{order:3;width:100%;margin:0;padding:0;gap:6px}
   .search{flex:1}
-  .search input{width:100%}
+  .search input{width:100%;padding:8px 12px 8px 34px}
+  .tbtn{padding:8px 10px;min-height:38px}
   .tbtn .lbl{display:none}
+  .wxchip{margin-top:6px}
+  .bar button{padding:12px 10px 10px;font-size:14.5px}
   .front{grid-template-columns:1fr;gap:20px;padding-top:18px;padding-bottom:24px}
   .lead h2{font-size:34px;margin-top:14px}
   .lead .sn{font-size:16.5px}
@@ -1055,9 +1104,10 @@ if(t==='auto'){t=(h>=20||h<4)?'night':(matchMedia('(prefers-color-scheme: dark)'
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7.5 7.5L12 3l4.5 4.5"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg><span class="lbl">Share</span></button>
   </div>
 </header>
-<nav class="bar" aria-label="Sections"><div class="wrap" id="bar"></div></nav>
+<nav class="bar" aria-label="Sections"><div class="wrap" id="bar"></div><div class="wrap sub" id="bar2" hidden></div></nav>
 <main id="main"><div class="wrap state"><h2>Taking a sight…</h2><p>Loading the latest watch.</p></div></main>
 <footer class="foot" id="foot"></footer>
+<button type="button" class="reelfab" id="reelFab" hidden aria-label="Open the reel: short video, swipe up for the next"><i aria-hidden="true">▶</i><span>Reel</span></button>
 <div class="scrim" id="scrim"></div>
 <aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="drTitle" tabindex="-1"></aside>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
@@ -1151,7 +1201,7 @@ const ICON_OUT = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" str
 
 /* ================= what The Watch has learned (this browser only) ================= */
 const KEY = 'watch.v1', OLD_KEY = 'sextant.v1'; // the site was called Sextant on its first day
-function blank() { return { v: 1, sec: {}, src: {}, kw: {}, follow: {}, mute: { kw: {}, src: {} }, read: {}, seen: {}, last: 0, t: Date.now(), n: 0, theme: 'auto', pending: null }; }
+function blank() { return { v: 1, sec: {}, src: {}, kw: {}, follow: {}, mute: { kw: {}, src: {} }, read: {}, seen: {}, last: 0, t: Date.now(), n: 0, theme: 'auto', pending: null, reelAuto: 30, reelMute: 0, reelHint: 0 }; }
 let P;
 try { P = JSON.parse(localStorage.getItem(KEY) || localStorage.getItem(OLD_KEY) || 'null'); } catch (e) { P = null; }
 if (!P || P.v !== 1) P = blank();
@@ -1423,6 +1473,7 @@ function parseHash() {
   if (a === 'files') return { t: 'files' };
   if (a === 'pictures') return { t: 'pictures', show: b || '' };
   if (a === 'video') return { t: 'video' };
+  if (a === 'reel') return { t: 'reel', k: b || 'all' }; // the reel: short video, one swipe up to the next
   if (a === 'impact') return { t: 'impact', id: b || '' };
   if (a === 'columns') return { t: 'columns' };
   if (a === 'garage') return { t: 'garage' };
@@ -1451,13 +1502,37 @@ function storyRow(it, o = {}) {
     ${o.why ? `<p class="why">${esc(o.why)}</p>` : ''}</div></article>`;
 }
 
+const NAV_GROUPS = [ // the desks bar in two tiers: these groups on top, the open group's pages beneath. A desk the edition has that no group names goes under News.
+  { id: 'news', label: 'News', desks: ['us', 'world', 'europe', 'brazil', 'politics', 'business', 'power', 'longreads'], more: [['reports', 'reports', 'Reports'], ['files', 'files', 'Epstein files']] },
+  { id: 'life', label: 'Life', desks: ['household', 'home', 'lifestyle', 'food', 'travel', 'health', 'hobbies'], more: [['shop', 'shop', 'Shopping'], ['vision', '../vision/', 'Vision'], ['create', 'create', 'Create']] },
+  { id: 'play', label: 'Sports & culture', desks: ['sports', 'culture', 'cars'], more: [['f1', 'f1', 'Formula 1'], ['late', 'latenight', 'Late Night'], ['plus', 'plusone', 'Plus One']] },
+  { id: 'tech', label: 'Tech', desks: ['tech', 'science'], more: [] },
+  { id: 'watch', label: 'Video', desks: [], more: [['reel', 'reel', 'Reel'], ['video', 'video', 'All video'], ['pictures', 'pictures', 'Pictures']] }];
+let barOpen = null; // the group the reader tapped open; null follows the page
+function navCur() { // which bar item the page belongs to
+  const v = view;
+  return v.t === 'desk' ? 'desk:' + v.k : v.t === 'article' ? 'reports' : ['impact', 'col', 'columns'].includes(v.t) ? 'desk:business' : ['garage', 'build', 'fsd'].includes(v.t) ? 'desk:cars' : v.t === 'sports' ? 'desk:sports' : v.t === 'piece' ? 'late' : ['hobby', 'hf'].includes(v.t) ? 'desk:hobbies' : v.t === 'create' ? 'create' : v.t === 'plus' ? 'plus' : v.t;
+}
+function navGroups() {
+  const desks = deskList(), named = new Set(NAV_GROUPS.flatMap(g => g.desks));
+  return NAV_GROUPS.map(g => {
+    const ds = desks.filter(d => g.desks.includes(d.k) || (g.id === 'news' && !named.has(d.k))).map(d => ['desk:' + d.k, 's/' + d.k, secName(d.k)]);
+    const items = g.id === 'play' ? [ds[0], g.more[0], ...ds.slice(1), ...g.more.slice(1)].filter(Boolean) : [...ds, ...g.more];
+    return { ...g, items };
+  });
+}
 function renderBar() {
-  const items = [['home', '', 'Front'], ['you', 'for-you', 'For you'], ['reports', 'reports', 'Reports'], ['pictures', 'pictures', 'Pictures'], ['video', 'video', 'Video'], ['late', 'latenight', 'Late Night'], ['plus', 'plusone', 'Plus One'], ['weather', 'weather', 'Weather'], ['shop', 'shop', 'Shopping'], ['vision', '../vision/', 'Vision'], ['create', 'create', 'Create'], ...deskList().map(s => ['desk:' + s.k, 's/' + s.k, secName(s.k)]), ['files', 'files', 'Epstein files']];
-  const cur = view.t === 'desk' ? 'desk:' + view.k : view.t === 'article' ? 'reports' : ['impact', 'col', 'columns'].includes(view.t) ? 'desk:business' : ['garage', 'build', 'fsd'].includes(view.t) ? 'desk:cars' : view.t === 'sports' ? 'desk:sports' : view.t === 'piece' ? 'late' : ['hobby', 'hf'].includes(view.t) ? 'desk:hobbies' : view.t === 'create' ? 'create' : view.t;
-  $('#bar').innerHTML = items.map(([id, h, label]) =>
-    `<button type="button" data-go="${h.startsWith('../') ? h : '#/' + h}"${id === cur ? ' aria-current="page"' : ''}${id === 'you' ? ' class="you"' : ''}>${esc(label)}</button>`).join('');
-  const on = $('#bar [aria-current]');
-  if (on) on.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+  const cur = navCur(), groups = navGroups();
+  const curGroup = (groups.find(g => g.items.some(it => it[0] === cur)) || {}).id || null;
+  const open = barOpen === null ? curGroup : barOpen;
+  const top = [['home', '', 'Front'], ['you', 'for-you', 'For you'], ...groups.map(g => ['grp:' + g.id, '', g.label]), ['weather', 'weather', 'Weather']];
+  $('#bar').innerHTML = top.map(([id, h, label]) => id.startsWith('grp:')
+    ? `<button type="button" class="grp" data-grp="${id.slice(4)}" aria-expanded="${open === id.slice(4)}"${curGroup === id.slice(4) ? ' aria-current="page"' : ''}>${esc(label)}</button>`
+    : `<button type="button" data-go="#/${h}"${id === cur ? ' aria-current="page"' : ''}${id === 'you' ? ' class="you"' : ''}>${esc(label)}</button>`).join('');
+  const g = groups.find(x => x.id === open), b2 = $('#bar2');
+  b2.hidden = !g;
+  b2.innerHTML = g ? g.items.map(([id, h, label]) => `<button type="button" data-go="${h.startsWith('../') ? h : '#/' + h}"${id === cur ? ' aria-current="page"' : ''}${id === 'reel' ? ' class="rl"' : ''}>${id === 'reel' ? '▶ ' : ''}${esc(label)}</button>`).join('') : '';
+  for (const on of [$('#bar [aria-current]'), $('#bar2 [aria-current]')]) if (on) on.scrollIntoView({ block: 'nearest', inline: 'nearest' });
 }
 function renderMast() {
   drawDial();
@@ -1466,7 +1541,7 @@ function renderMast() {
   const newN = prevLast ? E.items.filter(it => it.f > prevLast).length : 0;
   const nextAt = clock(E.next);
   $('#edline').innerHTML = `${T('The <b>{watch}</b> edition, out at {time} {day}.', { watch: esc(T(w[1])), time: esc(clock(E.at)), day: esc(fmtDay.format(new Date(E.at))) })}<br>
-    ${T('{n} stories from {m} outlets.', { n: E.items.length.toLocaleString(LOC()), m: outlets })}${newN && !viewingArchive ? ` <span class="nwc">${T(newN === 1 ? '{n} new since your last visit.|one' : '{n} new since your last visit.', { n: newN })}</span>` : ''}
+    <span class="x3">${T('{n} stories from {m} outlets.', { n: E.items.length.toLocaleString(LOC()), m: outlets })}</span>${newN && !viewingArchive ? ` <span class="nwc">${T(newN === 1 ? '{n} new since your last visit.|one' : '{n} new since your last visit.', { n: newN })}</span>` : ''}
     <span class="x2">${viewingArchive ? '' : T('Next edition at {time}.', { time: esc(nextAt) })}</span>`;
   document.title = viewingArchive ? T('The Watch: {watch}, {time}', { watch: T(w[1]), time: clock(E.at) }) : 'The Watch';
   const ab = $('#archived');
@@ -1544,6 +1619,7 @@ function renderHome() {
       <div class="toplist"><h2>Top stories</h2><ol>${rest.map(it => `<li>${storyRow(it, { img: false })}</li>`).join('')}</ol></div>
     </div>
     ${nativeHTML}
+    ${reelStrip('all', { wrap: true })}
     ${picturesStrip()}
     ${viewingArchive ? '' : lifeSlot(lifeFront, true)}
     ${viewingArchive ? '' : frontReport(brf ? BRM.id : null)}
@@ -1571,7 +1647,7 @@ function nativeShelf(shown) { // for readers of Portuguese or German: the top st
 }
 function listPage(title, sub, list, o = {}) {
   const shown = list.slice(0, pageLimit);
-  $('#main').innerHTML = `<div class="wrap">${o.top ? `<div class="desk-top"><h1 class="sr">${esc(title)}</h1>${o.top}</div>` : ''}<div class="page">
+  $('#main').innerHTML = `<div class="wrap">${o.reel ? reelStrip(o.reel, { lead: true }) : ''}${o.top ? `<div class="desk-top"><h1 class="sr">${esc(title)}</h1>${o.top}</div>` : ''}<div class="page">
     <div class="page-h"><h1>${esc(title)}</h1>${sub ? `<p>${sub}</p>` : ''}${o.controls || ''}</div>
     ${shown.length ? shown.map(x => storyRow(x.it || x, { snip: true, why: x.why })).join('') : `<p class="endnote">${o.empty || 'Nothing here this watch.'}</p>`}
     ${list.length > shown.length ? `<button type="button" class="loadmore" id="more">${T('Show {n} more', { n: Math.min(40, list.length - shown.length) })}</button>` : shown.length ? `<p class="endnote">${o.end || T('That’s everything for now. The next edition is out at {time}.', { time: clock(E.next) })}</p>` : ''}
@@ -1599,7 +1675,7 @@ function renderDesk(k) {
   listPage(secName(k), T(list.length === 1 ? '{n} story' : '{n} stories', { n: list.length }), list.map(x => ({ it: x.it })),
     { controls: `<div class="seg" role="group" aria-label="Sort"><button type="button" data-sort="you" aria-pressed="${deskSort === 'you'}">Best for you</button><button type="button" data-sort="new" aria-pressed="${deskSort === 'new'}">Latest</button></div>`,
       top: (k === 'politics' ? electionsHTML(true) : k === 'brazil' ? brMissPromo() + electionsHTML(true, 'br') : k === 'travel' ? lifeSlot(lifeTravel) : k === 'power' ? `<div id="pwrWrap" class="mk">${powerHTML()}</div>` : k === 'cars' ? `<div id="garWrap">${garageHTML()}</div>` : k === 'food' ? cookbookFeature() + `<div id="fridgeWrap">${fridgeHTML()}</div>` : k === 'sports' ? finalsFeature() + filmFeature() : k === 'lifestyle' ? togetherFeature() + dateNightFeature() + carteFeature() + visionFeature() : k === 'tech' ? scrollFeature() + moeFeature() : '') + deskBanner(k) + deskShop(k),
-      empty: k === 'lifestyle' ? T('Lifestyle stories start with the next edition.') : undefined });
+      empty: k === 'lifestyle' ? T('Lifestyle stories start with the next edition.') : undefined, reel: 'desk:' + k });
   if (k === 'food') bindFridge();
   if (k === 'sports') sportsTop();
   if (k === 'cars' && !GAR) ensureGarage().then(() => { const w = $('#garWrap'); if (w && view.t === 'desk' && view.k === 'cars') w.innerHTML = garageHTML(); });
@@ -2095,6 +2171,7 @@ function render(keepScroll) {
   else if (view.t === 'files') renderFiles();
   else if (view.t === 'pictures') { renderPictures(); if (view.show && !SS.el && deepShow !== location.hash) { deepShow = location.hash; openShow(view.show); } }
   else if (view.t === 'video') renderVideo();
+  else if (view.t === 'reel') { renderVideo(); if (!SS.el && deepShow !== location.hash) { deepShow = location.hash; const h = location.hash; reelReady(view.k).then(() => { if (location.hash === h && !SS.el) openShow('reel-' + view.k); }); } }
   else if (view.t === 'impact') renderImpact(view.id);
   else if (view.t === 'columns') renderColumns();
   else if (view.t === 'garage') renderGarage();
@@ -2115,6 +2192,7 @@ function render(keepScroll) {
   if (view.t === 'desk' && PLUS_DESKS.has(view.k)) plusDesk(view.k);
   if (view.t === 'desk' && CREATE_DESKS.has(view.k)) createDesk(view.k);
   renderFoot();
+  reelFab();
   watchImpressions();
   if (!keepScroll) window.scrollTo(0, 0);
 }
@@ -2600,6 +2678,7 @@ async function renderGarage() {
   if (garFilter !== 'all' && !chans.includes(garFilter)) garFilter = 'all';
   const vs = garFilter === 'all' ? V : V.filter(v => v.cid === garFilter);
   $('#main').innerHTML = `<div class="wrap mk gar"><p class="crumb"><a href="#/s/cars">${secName('cars')}</a></p><div class="page-h"><h1>${T('The garage')}</h1><p>${T('Rebuilds, flips and auction rescues, and what the cars are worth.')}</p></div>
+    ${reelStrip('garage')}
     <section class="blk"><h2 class="sec-h">${T('Project files')}</h2>${P.length ? `<div class="gpg">${P.map(prjCard).join('')}</div>` : `<p class="note">${T('The first project files arrive this week.')}</p>`}</section>
     <section class="blk"><h2 class="sec-h">${T('From the builders')}</h2><p class="sub2">${T('The last two months of uploads from {n} YouTube builders who buy salvage, insurance write-offs and abandoned cars and fix them. They play here in YouTube’s privacy-enhanced player.', { n: Object.keys(B).length - 3 })}</p>
       <div class="tags" role="group" aria-label="${T('Filter by builder')}"><button type="button" class="chip" data-gf="all" aria-pressed="${garFilter === 'all'}">${T('All')} <span class="x">${V.length}</span></button>${chans.map(c => `<button type="button" class="chip" data-gf="${esc(c)}" aria-pressed="${garFilter === c}">${esc((B[c] || {}).n || c)} <span class="x">${V.filter(v => v.cid === c).length}</span></button>`).join('')}</div>
@@ -2915,6 +2994,7 @@ async function renderLate() {
   const vs = lnFilter === 'all' ? V : V.filter(v => v.cid === lnFilter);
   const main = P.find(p => p.kind === 'main'), desk = P.find(p => p.kind === 'desk'), rest = P.filter(p => p !== main && p !== desk);
   $('#main').innerHTML = `<div class="wrap mk late"><div class="page-h"><h1>${T('Late Night')}</h1><p>${T('The week’s news as the late shows tell it, and Receipts: our own takes, as sharp as the shows and sourced like a report.')}</p></div>
+    ${reelStrip('late')}
     <section class="blk"><h2 class="sec-h">${T('Receipts')}</h2><p class="sub2">${T('Comedy with footnotes. Written each week by Claude in the spirit of a late show’s main story and its headlines desk: the jokes are opinion, the facts are cited, and the receipts are at the bottom of every piece.')}</p>
       ${main || desk ? `<div class="lng">${main ? lnCard(main, true) : ''}${desk ? lnCard(desk) : ''}</div>` : `<p class="note">${T('The first pieces arrive Monday, after the weekend’s shows.')}</p>`}
       ${rest.length ? `<h3 class="glb">${T('Earlier')}</h3><div class="lnr">${rest.slice(0, 12).map(p => lnCard(p)).join('')}</div>` : ''}</section>
@@ -3528,7 +3608,8 @@ document.addEventListener('click', e => {
   if (ds.brm != null) brmMark('done'); // then the link does its work
   if (ds.vpin) { e.preventDefault(); vpinClick(ds.vpin); return; }
   if (ds.plhotel != null) { const f = $('#plFly'), c = f && LIFE && LIFE.cby[f.to.value]; const q = new URLSearchParams(Object.entries({ q: c ? `${c.name}, ${c.region || c.country}` : '', in: f ? f.dep.value : '', out: f ? f.ret.value : '', n: f ? f.n.value : '' }).filter(([, v]) => v)); location.href = '../travel/#/hotels?' + q.toString(); return; }
-  if (ds.go) { e.preventDefault(); if (ds.go.startsWith('../')) location.href = ds.go; else go(ds.go); return; }
+  if (ds.go) { e.preventDefault(); barOpen = null; if (ds.go.startsWith('../')) location.href = ds.go; else go(ds.go); return; }
+  if (ds.grp) { barOpen = a.getAttribute('aria-expanded') === 'true' ? '' : ds.grp; renderBar(); return; }
   if (ds.open) {
     const it = byId.get(ds.open);
     if (!it) return;
@@ -3615,7 +3696,7 @@ window.addEventListener('popstate', () => {
   if (document.body.classList.contains('dopen')) closeDrawer(true);
   else if (SS.el) closeShow(true);
 });
-window.addEventListener('hashchange', () => { pageLimit = 40; render(); });
+window.addEventListener('hashchange', () => { pageLimit = 40; barOpen = null; render(); });
 function refreshDrawer() {
   if (!document.body.classList.contains('dopen')) return;
   if ($('#drTitle') && $('#drTitle').dataset.kind === 'compass') { const st = $('#drawer').scrollTop; compassDrawer(); $('#drawer').scrollTop = st; }
@@ -4027,9 +4108,90 @@ function allShows() {
   SHOWS = shows.filter(s => s.slides.length); showsFor = key;
   return SHOWS;
 }
+/* ---- the reel: short video first, one swipe up to the next, the next one on its own after a while. Any page can open one
+   for what it is about: reel-all, reel-desk:<k>, reel-garage, reel-late, reel-hobby:<k>. ---- */
+const REEL_STEPS = [0, 15, 30, 60, 90]; // seconds before the reel moves on by itself (0: only when the video ends)
+const reelMs = () => (REEL_STEPS.includes(+P.reelAuto) ? +P.reelAuto : 30) * 1000;
+function reelVids(ctx) {
+  const news = VIDS(), byTime = l => [...l].sort((a, b) => vidMin(b) - vidMin(a)), shortsFirst = l => [...byTime(l.filter(v => v.s)), ...byTime(l.filter(v => !v.s))];
+  const tag = (l, c) => l.map(v => v.c ? v : { ...v, c });
+  let out = [];
+  if (ctx.startsWith('desk:')) {
+    const k = ctx.slice(5);
+    out = shortsFirst(news.filter(v => v.c === k));
+    if (k === 'cars' && GAR) out = out.concat(tag(byTime(GAR.videos || []), 'cars'));
+    if (k === 'hobbies' && HOB) out = out.concat(tag(byTime(Object.values(HOB.vids || {}).flat()), 'hobbies'));
+    if (k === 'sports' && window.F1 && window.F1.videos) out = out.concat(tag(byTime(window.F1.videos()), 'sports'));
+  } else if (ctx === 'garage') out = tag(byTime((GAR && GAR.videos) || []), 'cars');
+  else if (ctx === 'late') out = tag(byTime((LNV && LNV.videos) || []), 'culture');
+  else if (ctx.startsWith('hobby:')) out = tag(byTime((HOB && HOB.vids && HOB.vids[ctx.slice(6)]) || []), 'hobbies');
+  if (out.length < 3) out = out.concat(shortsFirst(news)); // little or nothing of its own: today's reel follows
+  const seen = new Set();
+  return out.filter(v => v && v.v && !seen.has(v.v) && seen.add(v.v));
+}
+function reelTitle(ctx) {
+  if (ctx.startsWith('desk:')) return T('{desk} reel', { desk: secName(ctx.slice(5)) });
+  if (ctx === 'garage') return T('The garage reel');
+  if (ctx === 'late') return T('Late Night reel');
+  if (ctx.startsWith('hobby:')) return T('{desk} reel', { desk: HOB ? hobName(ctx.slice(6)) : ctx.slice(6) });
+  return T('Today’s reel');
+}
+function reelShow(ctx) {
+  const list = reelVids(ctx);
+  return list.length ? { id: 'reel-' + ctx, title: reelTitle(ctx), kicker: T('Reel'), video: true, tall: true, reel: true, slides: vidSlides(list.slice(0, 60)) } : null;
+}
+function reelReady(ctx) { // the garage, the shows and the hobbies keep their videos in files of their own
+  if (ctx === 'garage' || ctx === 'desk:cars') return ensureGarage();
+  if (ctx === 'late') return ensureLate();
+  if (ctx.startsWith('hobby:') || ctx === 'desk:hobbies') return ensureHob();
+  return Promise.resolve();
+}
+function reelCtx() { // what the page the reader is on is about
+  const v = view;
+  if (v.t === 'desk') return 'desk:' + v.k;
+  if (['garage', 'build', 'fsd'].includes(v.t)) return GAR ? 'garage' : 'desk:cars';
+  if (v.t === 'late' || v.t === 'piece') return LNV ? 'late' : 'desk:culture';
+  if (v.t === 'hobby') return 'hobby:' + v.k;
+  if (v.t === 'hf') return 'desk:hobbies';
+  if (v.t === 'sports' || v.t === 'f1' || v.t === 'plus') return 'desk:sports';
+  if (v.t === 'reel') return v.k;
+  return 'all';
+}
+function reelCard(v, i, id) {
+  return `<button type="button" class="rc" data-show="${esc(id)}" data-at="${i}" aria-label="${esc(T('Play: {title}', { title: v.t }))}">
+    <img src="${esc(ytThumb(v.v, v.s ? 'hq720' : 'mqdefault'))}" data-orig="${esc(ytThumb(v.v))}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="if(this.src!==this.dataset.orig){this.src=this.dataset.orig}">
+    <span class="rcc">${esc(v.ch || (v.c ? secName(v.c) : ''))}</span><span class="rcp" aria-hidden="true">▶</span><p class="rct" data-nolc>${esc(v.t)}</p></button>`;
+}
+function reelStrip(ctx, o = {}) { // a row of vertical cards that opens the reel; on the front, every desk and the video pages
+  const list = reelVids(ctx); if (list.length < 3) return '';
+  const id = 'reel-' + ctx;
+  return `<section class="reelstrip${o.wrap ? ' wrap' : ''}${o.lead ? ' lead' : ''}"><div class="sh"><h2 class="sec-h">${esc(o.title || reelTitle(ctx))}</h2><p class="note">${T('Short video first. Swipe up for the next; it moves on by itself after a while.')}</p><button type="button" class="chip" data-show="${esc(id)}">▶ ${T('Play all')}</button></div>
+    <div class="vrow reel">${list.slice(0, 14).map((v, i) => reelCard(v, i, id)).join('')}<button type="button" class="rc all" data-show="${esc(id)}" data-at="${Math.min(14, list.length - 1)}">${T('All {n} videos', { n: list.length })} ›</button></div></section>`;
+}
+function reelFab() { // the button that opens the reel for whatever page this is
+  const b = $('#reelFab'); if (!b) return;
+  const ctx = reelCtx(), n = MEDIA ? Math.min(60, reelVids(ctx).length) : 0;
+  b.hidden = !n || view.t === 'reel' || view.t === 'video' || view.t === 'pictures';
+  if (!n) return;
+  b.dataset.show = 'reel-' + ctx; b.dataset.at = '0';
+  b.setAttribute('aria-label', T('Open the reel: {title}, {n} videos', { title: reelTitle(ctx), n }));
+}
+window.addEventListener('message', e => { // the player tells us when a video ends (enablejsapi); the reel moves on
+  if (!SS.el || !/^https:\/\/www\.youtube(-nocookie)?\.com$/.test(e.origin)) return;
+  let d; try { d = typeof e.data === 'string' ? JSON.parse(e.data) : e.data; } catch (x) { return; }
+  if (!d || typeof d !== 'object') return;
+  const cur = SS.el.querySelector('.sl.cur iframe'); if (!cur || e.source !== cur.contentWindow) return;
+  const st = d.event === 'onStateChange' ? d.info : d.event === 'infoDelivery' && d.info && d.info.playerState != null ? d.info.playerState : null;
+  if (st == null || st === SS.vst) return;
+  SS.vst = st;
+  if (st === 0 && SS.reel && SS.playing) { ssShow(SS.i + 1, 1); return; }
+  if (SS.reel) ssTime(false);
+});
+function ytCmd(frame, func) { try { frame.contentWindow.postMessage(JSON.stringify({ event: 'command', func, args: [] }), '*'); } catch (x) { /* not ready */ } }
 function getShow(id) {
   const s = allShows().find(x => x.id === id);
   if (s) return s;
+  if (id.startsWith('reel-')) return reelShow(id.slice(5));
   if (id.startsWith('vids-')) { // a list of videos from the video desk: vids-<desk|all|shorts>[~s|~l] (~s shorts only, ~l the rest)
     const [f, kind] = id.slice(5).split('~');
     const list = vidList(f, kind);
@@ -4072,6 +4234,7 @@ function renderPictures() {
   const rest = shows.filter(s => s !== day);
   $('#main').innerHTML = `<div class="wrap mk"><div class="page-h"><h1>${T('Pictures')}</h1><p>${T('Slideshows of this watch’s stories, rebuilt every edition: each slide is a story, its picture and its outlet. On a phone they play as stories (tap or swipe); on a computer as a wide gallery (arrow keys). Switch either way with <b>⇆</b> in the viewer.')}</p></div>
     ${day ? `<div class="phero">${showCard(day, true)}</div>` : '<p class="endnote">No pictures in this watch yet.</p>'}
+    ${reelStrip('all')}
     ${rest.filter(s => s.video).length ? `<h2 class="sec-h" style="margin-top:34px">Video</h2><div class="scgrid">${rest.filter(s => s.video).map(s => showCard(s)).join('')}</div>` : ''}
     ${rest.filter(s => !s.video).length ? `<h2 class="sec-h" style="margin-top:34px">By desk and topic</h2><div class="scgrid">${rest.filter(s => !s.video).map(s => showCard(s)).join('')}</div>` : ''}
     <p class="note" style="margin-top:26px">Pictures belong to the outlets that published them and stay on their sites; every slide links to its story.${MEDIA && MEDIA.videos && MEDIA.videos.length ? ' Videos play in YouTube’s own player from the news channels’ public uploads.' : ''}</p>
@@ -4098,6 +4261,7 @@ function renderVideo() {
   const fid = shortsOnly ? 'shorts' : vidFilter + '~l';
   const ch = MEDIA.channels || {};
   $('#main').innerHTML = `<div class="wrap mk"><div class="page-h"><h1>${T('Video')}</h1><p>${T('The last two days from {n} news channels, newest first, filed by desk and tied to the story they cover. Tap one to watch; swipe or use the arrows for the next.', { n: ch.read || 30 })}</p></div>
+    ${reelStrip(vidFilter === 'all' || vidFilter === 'shorts' ? 'all' : 'desk:' + vidFilter)}
     <div class="tags" role="group" aria-label="${T('Filter videos')}">${[['all', 'All'], ...(all.some(v => v.s) ? [['shorts', 'Shorts']] : []), ...desks.map(k => [k, secName(k)])].map(([k, l]) => `<button type="button" class="chip" data-vf="${esc(k)}" aria-pressed="${vidFilter === k}">${esc(l)} <span class="x">${k === 'all' ? all.length : k === 'shorts' ? all.filter(v => v.s).length : all.filter(v => v.c === k).length}</span></button>`).join('')}</div>
     ${shorts.length ? `<h2 class="sec-h" style="margin-top:26px">Shorts</h2><div class="vrow">${shorts.slice(0, 24).map((v, i) => videoCard(v, i, vidFilter + '~s')).join('')}</div>` : ''}
     ${longs.length ? `${shorts.length ? '<h2 class="sec-h" style="margin-top:22px">Latest</h2>' : ''}<div class="vgrid${shortsOnly ? ' shorts' : ''}">${longs.slice(0, pageLimit + 20).map((v, i) => videoCard(v, i, fid)).join('')}</div>` : shorts.length ? '' : '<p class="endnote">No videos came in with this watch. They return with the next edition.</p>'}
@@ -4107,7 +4271,7 @@ function renderVideo() {
 }
 
 /* ---- the viewer ---- */
-const SS = { show: null, i: 0, el: null, playing: false, wide: false, left: 0, t0: 0, timer: 0, held: false, viewT: 0, autoVid: false };
+const SS = { show: null, i: 0, el: null, playing: false, wide: false, left: 0, t0: 0, timer: 0, held: false, viewT: 0, autoVid: false, reel: false, vst: null, vstT: 0 };
 const SS_MS = 6500;
 function ssLayoutDefault(show) {
   if (show && show.tall) return false; // vertical video plays in the story layout; ⇆ still switches
@@ -4117,19 +4281,21 @@ function ssLayoutDefault(show) {
 function openShow(id, at) {
   const show = typeof id === 'string' ? getShow(id) : id;
   if (!show || !show.slides.length) { toast('That slideshow is no longer in this watch.'); return; }
-  SS.show = show; SS.i = clamp(+at || 0, 0, show.slides.length - 1); SS.wide = ssLayoutDefault(show);
-  SS.playing = !SS.wide && !show.video; SS.held = false;
+  SS.show = show; SS.i = clamp(+at || 0, 0, show.slides.length - 1); SS.reel = !!show.reel; SS.wide = !SS.reel && ssLayoutDefault(show);
+  SS.playing = SS.reel || (!SS.wide && !show.video); SS.held = false; SS.vst = null;
   let el = $('#ss');
   if (!el) { el = document.createElement('div'); el.id = 'ss'; document.body.appendChild(el); }
-  el.className = 'ss' + (SS.wide ? ' wide' : ' tall') + (show.slides.length > 30 ? ' many' : '');
+  el.className = 'ss' + (SS.wide ? ' wide' : ' tall') + (SS.reel ? ' reel' : '') + (show.slides.length > 30 ? ' many' : '');
   el.setAttribute('role', 'dialog'); el.setAttribute('aria-modal', 'true'); el.setAttribute('aria-label', show.title); el.tabIndex = -1;
   const n = show.slides.length;
-  el.innerHTML = `<div class="ssbars" aria-hidden="true">${show.slides.map(() => '<i><b></b></i>').join('')}</div>
+  el.innerHTML = `<div class="ssbars" aria-hidden="true">${SS.reel ? '<i class="now"><b></b></i>' : show.slides.map(() => '<i><b></b></i>').join('')}</div>
     <div class="sstop"><div class="ssh"><span class="ssk">${esc(show.kicker || '')}</span><span class="sst">${esc(show.title)}</span></div>
       <span class="ssc" aria-live="polite"></span>
       <button type="button" class="ssb" data-ss="play" aria-label="${T('Play')}"></button>
       <button type="button" class="ssb" data-ss="share" aria-label="${T('Share this slideshow')}" title="${T('Share')}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7.5 7.5L12 3l4.5 4.5"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg></button>
-      <button type="button" class="ssb" data-ss="layout" aria-label="${T(SS.wide ? 'Story view' : 'Wide view')}" title="${T(SS.wide ? 'Story view' : 'Wide view')}">⇆</button>
+      ${SS.reel ? `<button type="button" class="ssb ssauto${reelMs() ? '' : ' off'}" data-ss="auto" aria-label="${esc(reelAutoLabel(true))}" title="${esc(reelAutoLabel(true))}">${esc(reelAutoLabel())}</button>
+      <button type="button" class="ssb ssmute${P.reelMute ? ' off' : ''}" data-ss="mute" aria-label="${T(P.reelMute ? 'Sound off' : 'Sound on')}" title="${T(P.reelMute ? 'Sound off' : 'Sound on')}">${P.reelMute ? '🔇' : '🔊'}</button>` :
+      `<button type="button" class="ssb" data-ss="layout" aria-label="${T(SS.wide ? 'Story view' : 'Wide view')}" title="${T(SS.wide ? 'Story view' : 'Wide view')}">⇆</button>`}
       <button type="button" class="ssb" data-ss="close" aria-label="${T('Close slideshow')}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
     <div class="ssstage"></div>
     <button type="button" class="ssnav prev" data-ss="prev" aria-label="${T('Previous')}">‹</button><button type="button" class="ssnav next" data-ss="next" aria-label="${T('Next')}">›</button>
@@ -4139,11 +4305,17 @@ function openShow(id, at) {
   SS.t0 = 0; clearTimeout(SS.timer);
   ssBind(el);
   ssShow(SS.i, 0);
+  if (SS.reel && !P.reelHint) { // the first time: how it works
+    P.reelHint = 1; save();
+    el.insertAdjacentHTML('beforeend', `<div class="reelhint">↑ ${T('Swipe up for the next video')}</div>`);
+    setTimeout(() => { const h = el.querySelector('.reelhint'); if (h) h.remove(); }, 4500);
+  }
   setTimeout(() => el.focus({ preventScroll: true }), 20);
 }
+const reelAutoLabel = long => reelMs() ? (long ? T('Moves on after {s} seconds; tap to change', { s: reelMs() / 1000 }) : '⟳ ' + reelMs() / 1000 + 's') : (long ? T('Moves on only when a video ends; tap to change') : '⟳ ' + T('off'));
 function closeShow(fromPop) {
   if (!SS.el) return;
-  ssHalt(); ssCount();
+  ssHalt(); ssCount(); clearTimeout(SS.vstT); SS.reel = false;
   SS.el.remove(); SS.el = null; SS.show = null;
   document.body.classList.remove('ssopen');
   if (!fromPop && history.state && history.state.sx === 'ss') { skipPop = true; history.back(); }
@@ -4151,7 +4323,7 @@ function closeShow(fromPop) {
 function ssCount() { // a slide you stayed on for a couple of seconds counts, lightly, toward your picks
   const sl = SS.show && SS.show.slides[SS.i];
   if (sl && sl.kind === 'story' && sl.it && SS.viewT && performance.now() - SS.viewT > 2500 && !counted.has('view' + sl.it.i)) { counted.add('view' + sl.it.i); learn(sl.it, 'view'); }
-  if (sl && sl.kind === 'video' && SS.viewT && performance.now() - SS.viewT > 4000 && !counted.has('vview' + sl.v.v)) { counted.add('vview' + sl.v.v); bump(P.sec, sl.v.c, 0.3); }
+  if (sl && sl.kind === 'video' && sl.v.c && SS.viewT && performance.now() - SS.viewT > 4000 && !counted.has('vview' + sl.v.v)) { counted.add('vview' + sl.v.v); bump(P.sec, sl.v.c, 0.3); }
   SS.viewT = 0;
 }
 function slideHTML(sl, i) {
@@ -4161,8 +4333,8 @@ function slideHTML(sl, i) {
     return `<div class="sl video${v.s ? ' short' : ''}"><img class="slbg" src="${esc(ytThumb(v.v))}" alt="" referrerpolicy="no-referrer">
       <div class="slmedia"><div class="vframe" data-v="${esc(v.v)}"><img src="${esc(ytThumb(v.v, v.s ? 'hq720' : 'maxresdefault'))}" data-orig="${esc(ytThumb(v.v))}" alt="" referrerpolicy="no-referrer" onerror="if(this.src!==this.dataset.orig){this.src=this.dataset.orig}">
         <button type="button" class="vplay" data-ss="playvid" aria-label="${esc(T('Play video: {title}', { title: v.t }))}"><span>▶</span></button></div></div>
-      <div class="slcap"><p class="slk">${T('Video')} · ${esc(v.ch)} · ${ago(vidMin(v))}</p><h2>${esc(v.t)}</h2>${v.d ? `<p class="sld">${esc(v.d)}</p>` : ''}
-        <p class="slacts"><button type="button" class="go" data-ss="playvid">▶ ${T('Play')}</button><a class="chip" href="https://www.youtube.com/watch?v=${encodeURIComponent(v.v)}" target="_blank" rel="noopener">${T('Watch on YouTube')}</a>${lead ? `<button type="button" class="chip" data-open="${lead.i}">${c.n > 1 ? T('The story, {n} outlets', { n: c.n }) : T('The story')}</button>` : ''}</p></div></div>`;
+      <div class="slcap"><p class="slk">${SS.reel ? T('Reel') : T('Video')}${v.ch ? ' · ' + esc(v.ch) : ''}${SS.reel && v.c ? ' · ' + esc(secName(v.c)) : ''} · ${ago(vidMin(v))}</p><h2>${esc(v.t)}</h2>${v.d ? `<p class="sld">${esc(v.d)}</p>` : ''}
+        <p class="slacts">${SS.reel ? '' : `<button type="button" class="go" data-ss="playvid">▶ ${T('Play')}</button>`}<a class="chip" href="https://www.youtube.com/watch?v=${encodeURIComponent(v.v)}" target="_blank" rel="noopener">${T('Watch on YouTube')}</a>${lead ? `<button type="button" class="chip" data-open="${lead.i}">${c.n > 1 ? T('The story, {n} outlets', { n: c.n }) : T('The story')}</button>` : ''}</p></div></div>`;
   }
   const it = sl.it, c = clusterOf(it);
   return `<div class="sl story"><img class="slbg" src="${esc(sl.orig)}" alt="" referrerpolicy="no-referrer">
@@ -4204,13 +4376,13 @@ function ssShow(i, dir) {
   }
   const sl = show.slides[i] || { kind: 'end' };
   el.querySelector('.ssc').textContent = i === n ? T('The end') : `${i + 1} / ${n}`;
-  el.querySelectorAll('.ssbars i').forEach((b, k) => { b.className = k < i ? 'done' : k === i ? 'now' : ''; });
+  if (!SS.reel) el.querySelectorAll('.ssbars i').forEach((b, k) => { b.className = k < i ? 'done' : k === i ? 'now' : ''; });
   el.querySelectorAll('.ssstrip button').forEach((b, k) => { b.classList.toggle('on', k === i); if (k === i) b.scrollIntoView({ block: 'nearest', inline: 'center' }); });
   el.querySelector('.prev').disabled = i === 0;
   el.querySelector('.next').disabled = i === n;
   for (const k of [i + 1, i + 2]) { const s2 = show.slides[k]; if (s2) { const im = new Image(); im.referrerPolicy = 'no-referrer'; im.src = s2.kind === 'video' ? ytThumb(s2.v.v) : s2.img; } }
-  SS.viewT = performance.now();
-  if (sl.kind === 'video' && SS.autoVid) ssPlayVid(neu, sl.v);
+  SS.viewT = performance.now(); SS.vst = null; clearTimeout(SS.vstT);
+  if (sl.kind === 'video' && (SS.autoVid || SS.reel)) ssPlayVid(neu, sl.v);
   ssTime(true);
 }
 function ssHalt() { clearTimeout(SS.timer); if (SS.t0) { SS.left = Math.max(200, SS.left - (performance.now() - SS.t0)); SS.t0 = 0; } }
@@ -4219,30 +4391,38 @@ function ssTime(fresh) { // the autoplay clock: the bar's animation and a timer 
   const el = SS.el; if (!el || !SS.show) return;
   const end = SS.i >= SS.show.slides.length;
   const sl = SS.show.slides[SS.i];
-  const wait = end || (sl && sl.kind === 'video'); // a video waits for you
-  if (fresh) SS.left = SS_MS;
+  const ms = SS.reel ? reelMs() : SS_MS;
+  const wait = end || (sl && sl.kind === 'video' && (!SS.reel || !ms || SS.vst !== 1)); // a video waits for you; in the reel the clock runs while it plays
+  if (fresh) SS.left = ms || SS_MS;
   const run = SS.playing && !SS.held && !wait && !document.body.classList.contains('dopen') && document.visibilityState === 'visible';
   el.classList.toggle('paused', !SS.playing);
   const pb = el.querySelector('[data-ss="play"]');
   if (pb) { pb.innerHTML = SS.playing ? '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="5" y="4" width="5" height="16" rx="1"/><rect x="14" y="4" width="5" height="16" rx="1"/></svg>' : '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4l13 8-13 8z"/></svg>'; pb.setAttribute('aria-label', SS.playing ? 'Pause' : 'Play'); }
   const bar = el.querySelector('.ssbars i.now b');
   if (bar) {
-    if (fresh) { bar.style.animation = 'none'; void bar.offsetWidth; bar.style.animation = ''; bar.style.animationDuration = SS_MS + 'ms'; }
+    if (fresh) { bar.style.animation = 'none'; void bar.offsetWidth; bar.style.animation = ''; bar.style.animationDuration = (ms || SS_MS) + 'ms'; }
     bar.style.animationPlayState = run ? 'running' : 'paused';
   }
   if (run) { SS.t0 = performance.now(); SS.timer = setTimeout(() => ssShow(SS.i + 1, 1), SS.left); }
 }
 function ssPause(on) { if (!SS.el || SS.held === on) return; SS.held = on; ssTime(false); } // hold to pause; let go to carry on
+let ytSeq = 0;
 function ssPlayVid(slideEl, v) {
   const f = slideEl.querySelector('.vframe'); if (!f || f.querySelector('iframe')) return;
-  f.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${encodeURIComponent(v.v)}?autoplay=1&playsinline=1&rel=0&modestbranding=1" title="${esc(v.t)}" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>`;
-  SS.autoVid = true; SS.playing = false; ssTime(false);
+  const origin = /^https?:$/.test(location.protocol) ? '&origin=' + encodeURIComponent(location.origin) : '';
+  f.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${encodeURIComponent(v.v)}?autoplay=1&playsinline=1&rel=0&modestbranding=1&enablejsapi=1${SS.reel && P.reelMute ? '&mute=1' : ''}${origin}" title="${esc(v.t)}" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>${SS.reel ? '<div class="vtap"></div>' : ''}`;
+  const fr = f.querySelector('iframe');
+  fr.addEventListener('load', () => { try { fr.contentWindow.postMessage(JSON.stringify({ event: 'listening', id: ++ytSeq, channel: 'widget' }), '*'); } catch (x) { /* the player keeps quiet */ } });
+  SS.vst = -1;
+  if (SS.reel) { clearTimeout(SS.vstT); SS.vstT = setTimeout(() => { if (SS.vst === -1 || SS.vst == null) { SS.vst = 1; ssTime(false); } }, 8000); } // no word from the player: run the clock anyway
+  else { SS.autoVid = true; SS.playing = false; }
+  ssTime(false);
 }
 function ssBind(el) {
   const stage = el.querySelector('.ssstage');
   let sx = 0, sy = 0, st = 0, hold = 0, moved = false, down = false;
   stage.addEventListener('pointerdown', e => {
-    if (e.target.closest('a,button,iframe,.vframe')) return;
+    if (e.target.closest('a,button,iframe') || (e.target.closest('.vframe') && !e.target.closest('.vtap'))) return;
     down = true; moved = false; sx = e.clientX; sy = e.clientY; st = performance.now();
     if (!SS.wide) hold = setTimeout(() => ssPause(true), 220);
   });
@@ -4251,9 +4431,16 @@ function ssBind(el) {
     if (!down) return; down = false; clearTimeout(hold);
     const dx = e.clientX - sx, dy = e.clientY - sy, wasHeld = SS.held;
     if (wasHeld) { ssPause(false); if (!moved) return; }
+    if (SS.reel && Math.abs(dy) > 45 && Math.abs(dy) > Math.abs(dx)) { if (dy < 0) ssShow(SS.i + 1, 1); else if (SS.i === 0) closeShow(); else ssShow(SS.i - 1, -1); return; }
     if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy)) { ssShow(SS.i + (dx < 0 ? 1 : -1), dx < 0 ? 1 : -1); return; }
-    if (dy > 90 && Math.abs(dy) > Math.abs(dx) && !SS.wide) { closeShow(); return; }
+    if (dy > 90 && Math.abs(dy) > Math.abs(dx) && !SS.wide && !SS.reel) { closeShow(); return; }
     if (moved || performance.now() - st > 600) return;
+    if (e.target.closest('.vtap')) { // a tap on the video: pause, or play; a player that will not take it gets the tap itself next time
+      const fr = e.target.closest('.vframe').querySelector('iframe'), tap = e.target.closest('.vtap'); if (!fr) return;
+      if (SS.vst === 1 || SS.vst === 3) ytCmd(fr, 'pauseVideo');
+      else { ytCmd(fr, 'playVideo'); setTimeout(() => { if (SS.vst !== 1 && SS.vst !== 3 && tap.isConnected) tap.remove(); }, 1200); }
+      return;
+    }
     if (e.target.closest('a,button,iframe,.vframe')) return;
     const r = stage.getBoundingClientRect();
     if (SS.wide) { if (e.target.closest('.slmedia')) ssShow(SS.i + 1, 1); return; }
@@ -4262,6 +4449,12 @@ function ssBind(el) {
   stage.addEventListener('pointerup', up);
   stage.addEventListener('pointercancel', () => { down = false; clearTimeout(hold); ssPause(false); });
   stage.addEventListener('contextmenu', e => { if (!SS.wide) e.preventDefault(); });
+  let wheelT = 0; // a trackpad or wheel flick in the reel
+  el.addEventListener('wheel', e => {
+    if (!SS.reel) return; e.preventDefault();
+    const now = performance.now(); if (now - wheelT < 650 || Math.abs(e.deltaY) < 24) return; wheelT = now;
+    ssShow(SS.i + (e.deltaY > 0 ? 1 : -1), e.deltaY > 0 ? 1 : -1);
+  }, { passive: false });
 }
 function ssAction(a) {
   if (!SS.el) return;
@@ -4272,12 +4465,23 @@ function ssAction(a) {
   if (a === 'layout') { P.ssLayout = SS.wide ? 'tall' : 'wide'; save(); ssHalt(); const s = SS.show, i = Math.min(SS.i, s.slides.length - 1); SS.el.remove(); SS.el = null; openShow(s, i); return; }
   if (a === 'share') { ssPause(true); shareIt({ title: SS.show.title + ' · The Watch', text: T(SS.show.video ? '{title}: {n} videos from today’s news in The Watch.' : '{title}: {n} pictures from today’s news in The Watch.', { title: SS.show.title, n: SS.show.slides.length }), url: PUBLIC + '#/pictures/' + encodeURIComponent(SS.show.id) }).finally(() => ssPause(false)); return; }
   if (a === 'playvid') { const sl = SS.show.slides[SS.i]; if (sl.kind === 'video') ssPlayVid(SS.el.querySelector('.sl.cur'), sl.v); return; }
+  if (a === 'auto') { // how long before the reel moves on: 15, 30, 60, 90 seconds, or only when the video ends
+    const i = REEL_STEPS.indexOf(reelMs() / 1000); P.reelAuto = REEL_STEPS[(i + 1) % REEL_STEPS.length]; save();
+    const b = SS.el.querySelector('[data-ss="auto"]'); if (b) { b.textContent = reelAutoLabel(); b.setAttribute('aria-label', reelAutoLabel(true)); b.title = reelAutoLabel(true); b.classList.toggle('off', !reelMs()); }
+    toast(reelAutoLabel(true)); ssTime(true); return;
+  }
+  if (a === 'mute') {
+    P.reelMute = P.reelMute ? 0 : 1; save();
+    const b = SS.el.querySelector('[data-ss="mute"]'); if (b) { b.textContent = P.reelMute ? '🔇' : '🔊'; b.classList.toggle('off', !!P.reelMute); b.setAttribute('aria-label', T(P.reelMute ? 'Sound off' : 'Sound on')); }
+    const fr = SS.el.querySelector('.sl.cur iframe'); if (fr) ytCmd(fr, P.reelMute ? 'mute' : 'unMute'); return;
+  }
   if (a === 'vidof') { const sl = SS.show.slides[SS.i]; if (sl.vid) { const cur = SS.el.querySelector('.sl.cur'); const m = cur.querySelector('.slmedia'); m.innerHTML = `<div class="vframe" data-v="${esc(sl.vid.v)}"></div>`; cur.classList.add('video'); ssPlayVid(cur, sl.vid); } }
 }
 document.addEventListener('keydown', e => {
   if (!SS.el || document.body.classList.contains('dopen')) return;
-  if (e.key === 'ArrowRight' || e.key === 'PageDown') { e.preventDefault(); ssShow(SS.i + 1, 1); }
-  else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); ssShow(SS.i - 1, -1); }
+  if (e.key === 'ArrowRight' || e.key === 'PageDown' || (SS.reel && (e.key === 'ArrowDown' || e.key === 'j'))) { e.preventDefault(); ssShow(SS.i + 1, 1); }
+  else if (e.key === 'ArrowLeft' || e.key === 'PageUp' || (SS.reel && e.key === 'ArrowUp')) { e.preventDefault(); ssShow(SS.i - 1, -1); }
+  else if (SS.reel && e.key === 'm') { ssAction('mute'); }
   else if (e.key === ' ' || e.key === 'k') { if (!/INPUT|TEXTAREA|BUTTON|A/.test(document.activeElement.tagName) || document.activeElement === SS.el) { e.preventDefault(); ssAction('play'); } }
   else if (e.key === 'Escape') { e.stopImmediatePropagation(); closeShow(); }
   else if (e.key === 'Home') ssShow(0, -1);
@@ -4751,6 +4955,7 @@ async function renderHobby(k) {
     <p class="crumb"><a href="#/s/hobbies">${T('Hobbies')}</a></p>
     <div class="hobhero"><span class="hobart">${hobArt(k)}</span><div><h1>${esc(name)}</h1><p>${esc(L.dek || h.dek)}</p>
       <div class="hobsw">${hobFollow(k)}<span class="hobsep" aria-hidden="true"></span>${HOB.list.filter(x => x.key !== k).map(x => `<a class="chip" href="#/hobby/${esc(x.key)}">${esc(hobName(x.key))}</a>`).join('')}</div></div></div>
+    ${reelStrip('hobby:' + k)}
     ${k === 'dressage' ? `<div class="hobfin">${finalsFeature()}</div>` : ''}
     ${feats.length ? `<section class="blk hobfeat1">${hobFeatCard(feats[0], true)}${feats.length > 1 ? `<div class="hobfeats">${feats.slice(1, 4).map(f => hobFeatCard(f)).join('')}</div>` : ''}</section>` : ''}
     <section class="blk hobtwo"><div><div class="blk-h"><h2 class="sec-h">${T('The wire')}</h2>${hobSortSeg()}</div>
