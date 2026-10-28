@@ -1,8 +1,8 @@
 {
  "v": 1,
- "updated": "2026-10-25T13:24:28+00:00",
+ "updated": "2026-10-28T10:21:53+00:00",
  "model": "Claude Opus 5.5",
- "summary": "The week's news was less about new megaprojects than about who pays for the power behind them.\n\nIn Louisiana, Entergy put a number on Meta's Hyperion campus at a three-day hearing: 4,500 megawatts, served by seven proposed gas plants and a $12.9 billion buildout that regulators vote on Dec. 16. In New Mexico, Oracle asked Doña Ana County to let Project Jupiter connect to El Paso Electric for backup power, then pulled the request when commissioners said it broke the promise that the campus would supply its own power and leave residents' bills alone. In Wisconsin, Oracle offered to pay for nuclear power from Point Beach for the Port Washington campus, saying We Energies customers would save about $300 million; the state's regulators still have to approve it.\n\nMeta said the first phase of its Prometheus campus in Ohio is running, on the way to about a gigawatt. Mississippi regulators are seeking about $6.1 million from SpaceXAI over permits at its Southaven sites, and a federal judge kept the NAACP's lawsuit over the company's gas turbines alive. New proposals include a 1 GW campus on a former steel mill in Alton, Illinois, and another 1 GW near Taylor, Texas. Paducah's $100 billion campus on Energy Department land is on the ballot in a county race on Nov. 3.\n\nNot every project is going ahead. Oregon's pause on new data center permits led Umatilla to declare an emergency over lost tax revenue, and industry estimates cited this week say 30% to 50% of the capacity due to come online soon faces serious delays. For households, the open question is still whether the upgrades these campuses need get paid for in their tariffs or spread across everyone's rates. Duke Energy's new North Carolina deal puts some of that cost on all customers first.",
+ "summary": "This week's news was mostly about who pays for the power, and the answer keeps shifting toward the data center owner, with exceptions.\n\nIn Arkansas, Entergy filed a second phase for Google's $4 billion West Memphis campus: 440 MW of solar, 1,400 MWh of batteries and new transmission, with Google paying the roughly $600 million cost and Entergy promising no bill increase. Neither has said how much power the campus itself will draw, so it isn't on our map yet. In Michigan, Google's 1 GW Van Buren Township campus won final site approval, with DTE service due in late 2027. In Wyoming, Black Hills disclosed earlier this month that it signed Google up through 2048 for the Cheyenne campus once tied to Crusoe's Project Jade, building 564 MW of new gas with Google's money. And in West Texas, Amazon's GW Ranch plans up to 7.65 GW of gas turbines off the grid entirely.\n\nLouisiana is the counterexample. Reporting on Entergy's 10-plant plan for Meta's Hyperion campus says about $3.4 billion of the generation cost would be left for other customers after Meta's 20-year contract; regulators vote in December. Meta said it would sell up to $95 billion in stock to keep building.\n\nElsewhere, Dominion told Virginia it has about 12,000 MW of data centers under contract and a plan that could add more than $100 a month to residential bills over 20 years, backed by 14-year minimum-payment contracts so stranded costs fall on data centers. Amazon withdrew a Loudoun County proposal after neighbors objected, and AEP and Amazon agreed on early development of 960 MW of small reactors at a former Indiana coal plant, with a go-ahead decision expected by late 2029. For households, the details of each contract matter more than the headline megawatts.",
  "projects": [
   {
    "id": "stargate-abilene",
@@ -212,19 +212,31 @@
    "lon": -91.62,
    "mw": 4500,
    "status": "under construction",
-   "power": "Entergy Louisiana: three gas units approved in 2025, and seven more combined-cycle units (about 5,278 MW) proposed, with batteries and transmission",
+   "power": "Entergy Louisiana: three gas units approved in 2025 and seven more proposed, for ten in all (754 MW each, about 7.5 GW as reported), with batteries and transmission",
    "grid": "MISO",
-   "cost": "$12.9 billion for Entergy's proposed buildout; Meta's regional investment over $50 billion (as reported)",
-   "note": "Entergy disclosed a 4,500 MW load at an Oct. 7-9 hearing; Meta has said the campus will reach 5 GW. The seven-plant settlement goes to a Louisiana PSC vote on Dec. 16, and is still a proposal until then.",
+   "cost": "Entergy's estimates for the new generation are reported at $12.9 billion and about $13.6 billion; Meta's regional investment over $50 billion (as reported)",
+   "note": "The seven-plant request goes to a Louisiana PSC vote in December (Dec. 16 per earlier reporting); The Lens reports about a quarter of the generation cost, roughly $3.4 billion, would be left for other customers after Meta's 20-year contract, while an Earthjustice appeal of the PSC's decision to shield Meta's figures is in state court. Meta on Oct. 26 said it would sell up to $95 billion in stock, largely to fund campuses like this one, which it plans at 5 GW.",
    "sources": [
+    {
+     "title": "As Entergy pushes to fast-track 10 new gas plants for Meta, energy advocates head to court to protect Louisianans and their utility rates",
+     "outlet": "The Lens",
+     "url": "https://thelensnola.org/2026/10/22/as-entergy-pushes-to-fast-track-10-new-gas-plants-for-meta-energy-analysts-head-to-court-to-protect-louisiana-utility-rates/",
+     "date": "2026-10-22"
+    },
     {
      "title": "4,500 megawatts: Entergy's Meta power hearing puts Louisiana's AI buildout on trial",
      "outlet": "Louisiana AI",
      "url": "https://louisianai.com/briefs/2026-10-09-louisiana-ai-feature-article",
      "date": "2026-10-09"
+    },
+    {
+     "title": "Meta to sell up to $95B in stock to finance AI infrastructure buildout",
+     "outlet": "SiliconANGLE",
+     "url": "https://siliconangle.com/2026/10/26/meta-to-sell-up-to-95b-in-stock-to-finance-ai-infrastructure-buildout",
+     "date": "2026-10-26"
     }
    ],
-   "updated": "2026-10-25"
+   "updated": "2026-10-28"
   },
   {
    "id": "meta-prometheus",
@@ -449,8 +461,14 @@
    "power": "Mostly behind the meter: gas turbines first, with four AP1000 reactors under NRC review, plus solar, wind, batteries and grid power",
    "grid": "SPP",
    "cost": "not reported; TensorWave lease up to $6.5 billion over 15 years (as reported)",
-   "note": "AMD agreed this month to guarantee financing for the first 222 MW (IT load) building, due online in the second half of 2027. Fermi has cited 11 GW of power and, more recently, up to 17 GW of data center capacity.",
+   "note": "NRC staff's draft environmental review preliminarily favors a license for four AP1000 reactors, with comments due Nov. 23 and a final review targeted for December; the first 222 MW building (facility power) for TensorWave, backed by AMD credit support, is due in the second half of 2027. Fermi has cited 11 GW and, more recently, nearly 17 GW, and its cofounders have left the company.",
    "sources": [
+    {
+     "title": "Fermi America, Blue Energy make strides in Texas",
+     "outlet": "ANS Nuclear Newswire",
+     "url": "https://www.ans.org/news/article-8479/fermi-america-blue-energy-make-strides-in-texas/",
+     "date": "2026-10-09"
+    },
     {
      "title": "Fermi and AMD sign credit support deal for build-out of Project Matador campus in Amarillo, Texas",
      "outlet": "DCD",
@@ -464,23 +482,35 @@
      "date": "2025-07-03"
     }
    ],
-   "updated": "2026-10-25"
+   "updated": "2026-10-28"
   },
   {
    "id": "project-jade",
    "name": "Project Jade",
-   "company": "Black Hills Corp. (developer after Crusoe's exit); Tallgrass Energy (power); undisclosed customer",
+   "company": "Google (customer); Black Hills Corp. (power); Crusoe exited in June",
    "place": "Cheyenne",
    "state": "WY",
    "lat": 41.14,
    "lon": -104.82,
    "mw": 1800,
    "status": "planned",
-   "power": "Tallgrass's 2.7 GW Cheyenne Power Hub (gas) next to the campus",
+   "power": "Black Hills: up to 590 MW of grid service (564 MW of new gas at Cheyenne Prairie plus 26 MW of market power), and management of about 2.1 GW of third-party resources through a private microgrid; total resource mix about 2.7 GW",
    "grid": "WECC (Black Hills Energy)",
-   "cost": "customer committed over $200 million to milestones (as reported)",
-   "note": "Crusoe paused work in June 'at the request of our customer' and then left the project; Black Hills says it is continuing with an undisclosed large-load customer.",
+   "cost": "$1.8 billion for Black Hills' new gas generation; Google advanced $399 million (as reported)",
+   "note": "Black Hills disclosed Oct. 6 that it signed agreements through 2048 to serve Google's planned Cheyenne data center, with service from late 2027 and peak load in 2030; Bloomberg had reported in June that Google was the customer behind Crusoe's 1.8 GW Project Jade, though Black Hills' filing doesn't use that name. Four approvals are still pending, and Black Hills says the deal keeps costs off other customers.",
    "sources": [
+    {
+     "title": "Black Hills Books $1.8 Billion and 564 MW for Google's Cheyenne Data Center, But Owns None of the 2.1 GW Microgrid",
+     "outlet": "Microgrid Knowledge (mgrid.org)",
+     "url": "https://mgrid.org/2026/10/09/black-hills-books-1-8-billion-and-564-mw-for-googles-cheyenne-data-center-but-owns-none-of-the-2-1-gw-microgrid/",
+     "date": "2026-10-09"
+    },
+    {
+     "title": "Energy Company Signs Agreements to Serve Planned Google Data Center in Wyoming",
+     "outlet": "American Public Power Association",
+     "url": "https://www.publicpower.org/periodical/article/energy-company-signs-agreements-serve-planned-google-data-center-wyoming",
+     "date": "2026-10-08"
+    },
     {
      "title": "Crusoe pauses work on 1.8GW Cheyenne, Wyoming, data center \"at the request of our customer\"",
      "outlet": "DCD",
@@ -492,9 +522,15 @@
      "outlet": "Enverus",
      "url": "https://www.enverus.com/blog/jade-without-the-builder-crusoe-out-on-wyomings-1-8-gw-project/",
      "date": "2026-06-23"
+    },
+    {
+     "title": "Crusoe exited 1.8 GW Wyoming data center project after Google pressure, Bloomberg reports",
+     "outlet": "Blockspace",
+     "url": "https://blockspace.media/insight/crusoe-pushed-out-wyoming-ai-campus-google/",
+     "date": "2026-06-11"
     }
    ],
-   "updated": "2026-10-25"
+   "updated": "2026-10-28"
   },
   {
    "id": "terrawatt-alton",
@@ -567,18 +603,62 @@
     }
    ],
    "updated": "2026-10-25"
+  },
+  {
+   "id": "google-van-buren",
+   "name": "Project Cannoli",
+   "company": "Google",
+   "place": "Van Buren Township, Wayne County",
+   "state": "MI",
+   "lat": 42.22,
+   "lon": -83.48,
+   "mw": 1000,
+   "status": "permitted",
+   "power": "DTE Electric under contracts approved by the Michigan PSC on Oct. 1; Google to fund up to 1,600 MW of renewables and 480 MW of batteries; DTE has also proposed about 2.1 GW of new gas in Milan and Handy townships",
+   "grid": "MISO (DTE)",
+   "cost": "not reported; DTE's proposed gas plants estimated at $6.4 billion combined (as reported)",
+   "note": "The township planning commission gave final site-plan approval in mid-October; service is due in December 2027 with full load by December 2028. Regulators haven't ruled on DTE's proposed gas plants, and the PSC meets again Nov. 5.",
+   "updated": "2026-10-28",
+   "sources": [
+    {
+     "title": "Google data center wins final approval in Wayne County: What residents need to know",
+     "outlet": "Planet Detroit",
+     "url": "https://planetdetroit.org/2026/10/google-data-center-van-buren-township-resident/",
+     "date": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "id": "amazon-gw-ranch",
+   "name": "GW Ranch",
+   "company": "Pacifico Energy (developer); Amazon (owner of the data center buildings)",
+   "place": "Pecos County (Fort Stockton area)",
+   "state": "TX",
+   "lat": 30.89,
+   "lon": -102.88,
+   "mw": 7650,
+   "status": "permitted",
+   "power": "Off-grid at first: up to 7.65 GW of on-site gas turbines (35 units), up to 750 MW of solar and 1.8 GW of batteries, designed to connect to the grid later",
+   "grid": "ERCOT region (off-grid at first)",
+   "cost": "about $12 billion per the developer's February estimate (as reported)",
+   "note": "7,650 MW is the on-site gas plant's size; a data center load hasn't been reported. Amazon filed permits in August for three 189,000-square-foot buildings after the state permitted the turbines in January; because it runs off the grid, its cost doesn't land on ERCOT customers' bills.",
+   "updated": "2026-10-28",
+   "sources": [
+    {
+     "title": "Amazon Discloses Ownership of GW Ranch, Giant Texas Data Center-Gas Power Complex",
+     "outlet": "ENR",
+     "url": "https://www.enr.com/articles/63464-amazon-discloses-ownership-of-gw-ranch-giant-texas-data-center-gas-power-complex",
+     "date": "2026-08-11"
+    }
+   ]
   }
  ],
  "changes": [
-  "New tracker: 20 projects, from Abilene to Paducah, with sources.",
-  "Meta Hyperion: Entergy disclosed a 4,500 MW load; the seven-gas-plant settlement goes to a Louisiana PSC vote on Dec. 16.",
-  "Project Jupiter: Oracle withdrew a proposed El Paso Electric backup-power deal after county commissioners objected (Oct. 13).",
-  "Lighthouse (Port Washington): Oracle offered to pay for 125-250 MW of Point Beach nuclear power; awaiting Wisconsin PSC approval.",
-  "Meta Prometheus: first phase live in New Albany, scaling to about 1 GW.",
-  "SpaceXAI Southaven: about $6.1 million in proposed Mississippi penalties; the NAACP's turbine suit survived a DOJ bid to dismiss it.",
-  "Homer City: AWS named as tenant in plans filed for 36 buildings, construction starting December 2026.",
-  "Fermi Matador: AMD credit support for the first 222 MW (IT) building, due online in the second half of 2027.",
-  "Added: TerraWatt's 1 GW Alton, Illinois proposal and the 1 GW Taylor Technology Campus in Texas.",
-  "Paducah: the $100 billion DOE-site campus is the issue in the Nov. 3 McCracken County judge/executive race."
+  "Meta Hyperion: reporting puts Entergy's plan at ten 754 MW gas plants, with about $3.4 billion left for other customers; an appeal over Meta's sealed figures is in court; PSC vote in December.",
+  "Project Jade (Cheyenne): Black Hills signed Google through 2048: up to 590 MW of grid service plus a 2.1 GW private microgrid, $1.8 billion of new gas.",
+  "Fermi Matador: NRC draft environmental review preliminarily favors the four-reactor license; comments due Nov. 23.",
+  "Added: Google's 1 GW Project Cannoli in Van Buren Township, Michigan (final site approval).",
+  "Added: Amazon's GW Ranch in Pecos County, Texas: up to 7.65 GW of off-grid gas.",
+  "Not added: Google's West Memphis campus got a $600 million Google-funded second phase from Entergy Arkansas, but no load has been reported."
  ]
 }
