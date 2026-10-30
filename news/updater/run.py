@@ -60,7 +60,7 @@ SLOW = {'cars', 'travel', 'food', 'lifestyle', 'hobbies', 'longreads', 'home'}
 WINDOW_H = {'default': 36, 'slow': 96}
 WINDOW_BY_SEC = {'brazil': 72, 'household': 72, 'power': 72,  # fewer English-language stories a day, so they stay up longer
                  'hobbies': 168}  # the hobby press publishes a few times a week, so a week of it stays up
-CAP = {'us': 100, 'world': 100, 'europe': 90, 'brazil': 70, 'household': 60, 'home': 60, 'power': 60, 'politics': 80, 'business': 90, 'tech': 90, 'science': 55, 'health': 45, 'sports': 100,
+CAP = {'us': 100, 'world': 100, 'europe': 90, 'brazil': 70, 'household': 60, 'home': 60, 'power': 60, 'politics': 80, 'business': 90, 'tech': 90, 'science': 55, 'health': 45, 'sports': 240,
        'culture': 70, 'cars': 45, 'travel': 40, 'food': 35, 'lifestyle': 45, 'hobbies': 150, 'longreads': 35}
 SNIP = 210
 
@@ -1030,9 +1030,9 @@ def main():
     for it in items:
         bysec[it['c']].append(it)
     items = []
-    for s, lst in bysec.items():  # newest first, and no outlet takes more than a fifth of a desk (Yahoo Sports alone
+    for s, lst in bysec.items():  # newest first, and no outlet takes more than a sixth of a desk (Yahoo Sports alone
         lst.sort(key=lambda x: -x['p'])  # syndicates ~80 stories an hour, which was pushing every other sports outlet out)
-        cap = CAP.get(s, 60); share = max(8, cap // 5); per = defaultdict(int); kept = []
+        cap = CAP.get(s, 60); share = max(8, cap // 6); per = defaultdict(int); kept = []
         for it in lst:
             if per[it['o']] >= share:
                 continue

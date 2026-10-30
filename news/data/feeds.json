@@ -139,7 +139,7 @@
   {"name": "Yahoo Sports", "url": "https://sports.yahoo.com/rss/", "section": "sports", "domain": "sports.yahoo.com"},
   {"name": "Yahoo Fantasy (Google News)", "url": "https://news.google.com/rss/search?q=site:sports.yahoo.com+fantasy+football+when:2d&hl=en-US&gl=US&ceid=US:en", "section": "sports", "note": "fantasy football news for My Watch's Fantasy card"},
   {"name": "Barstool Sports", "url": "https://union.barstoolsports.com/v2/stories/latest?limit=40&type=standard_post", "section": "sports", "domain": "barstoolsports.com", "json": true, "link": "https://www.barstoolsports.com/blog/{id}/{slug}", "note": "Barstool's own story API (JSON, read by read_json_feed); the Google News search below backs it up"},
-  {"name": "Barstool Sports (Google News)", "url": "https://news.google.com/rss/search?q=site:barstoolsports.com+when:2d&hl=en-US&gl=US&ceid=US:en", "section": "sports", "skip": "^Search Barstool"},
+  {"name": "Barstool Sports (Google News)", "url": "https://news.google.com/rss/search?q=site:barstoolsports.com+when:2d&hl=en-US&gl=US&ceid=US:en", "section": "sports", "skip": "^Search Barstool|\\| Blogs & Videos$"},
   {"name": "WSJ (Google News)", "url": "https://news.google.com/rss/search?q=site:wsj.com+when:1d&hl=en-US&gl=US&ceid=US:en", "section": "auto", "note": "the dj.com feeds run thin; this fills My Watch's WSJ card"},
   {"name": "Variety", "url": "https://variety.com/feed/", "section": "culture", "domain": "variety.com"},
   {"name": "The Hollywood Reporter", "url": "https://www.hollywoodreporter.com/feed/", "section": "culture", "domain": "hollywoodreporter.com"},
