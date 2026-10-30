@@ -986,6 +986,8 @@ def main():
         old = prev_items.get(it['i'])
         if old:
             it['f'] = old.get('f', it['f'])
+            if old.get('p'):  # a story never gets newer than when the paper first saw it: feeds that re-stamp every item on
+                it['p'] = min(it['p'], old['p'])  # each fetch (Yahoo Sports) were crowding the capped Sports desk every watch
             if not it.get('m') and old.get('m'):
                 it['m'] = old['m']
         cur = merged.get(it['i'])
@@ -1028,9 +1030,16 @@ def main():
     for it in items:
         bysec[it['c']].append(it)
     items = []
-    for s, lst in bysec.items():
-        lst.sort(key=lambda x: -x['p'])
-        items.extend(lst[:CAP.get(s, 60)])
+    for s, lst in bysec.items():  # newest first, and no outlet takes more than a fifth of a desk (Yahoo Sports alone
+        lst.sort(key=lambda x: -x['p'])  # syndicates ~80 stories an hour, which was pushing every other sports outlet out)
+        cap = CAP.get(s, 60); share = max(8, cap // 5); per = defaultdict(int); kept = []
+        for it in lst:
+            if per[it['o']] >= share:
+                continue
+            per[it['o']] += 1; kept.append(it)
+            if len(kept) >= cap:
+                break
+        items.extend(kept)
     items.sort(key=lambda x: -x['p'])
     # names and topics
     ents = learn_entities(items)
