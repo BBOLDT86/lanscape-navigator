@@ -1,0 +1,915 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Luke&#x27;s Watch</title>
+<meta name="description" content="Luke&#x27;s page: his news, his teams, his markets and his everyday sites, all in one place.">
+<link rel="canonical" href="https://bboldt86.github.io/lanscape-navigator/luke/">
+<meta property="og:title" content="My Watch · your internet on one page">
+<meta property="og:description" content="Pick your sites. Get one page with all of them on it.">
+<meta property="og:image" content="https://bboldt86.github.io/lanscape-navigator/news/share.png">
+<link rel="icon" href="../news/icon-180.png">
+<link rel="apple-touch-icon" href="../news/icon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F5F7F6; --raise:#FFFFFF; --ink:#15243B; --ink-2:#465770; --ink-3:#8492A3; --rule:rgba(21,36,59,.12);
+  --shoal:#D7E7EC; --shoal-2:#C3DAE2; --brass:#A9852F; --brass-ink:#7A5E1C; --signal:#C2412D; --scrim:rgba(14,26,43,.42);
+  --up:#1C7A4C; --dn:#C2412D;
+  --serif:'Instrument Serif','Iowan Old Style',Georgia,serif;
+  --sans:'Instrument Sans',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="day"]){
+    --paper:#0E1A2B; --raise:#142539; --ink:#E7EDF4; --ink-2:#AEBBCB; --ink-3:#7F8EA3; --rule:rgba(231,237,244,.12);
+    --shoal:#12293F; --shoal-2:#1A3A55; --brass:#D6B25E; --brass-ink:#E3C47E; --signal:#E8705A; --scrim:rgba(4,9,16,.6);
+    --up:#5BC48C; --dn:#E8705A; color-scheme:dark;
+  }
+}
+:root[data-theme="night"]{
+  --paper:#0E1A2B; --raise:#142539; --ink:#E7EDF4; --ink-2:#AEBBCB; --ink-3:#7F8EA3; --rule:rgba(231,237,244,.12);
+  --shoal:#12293F; --shoal-2:#1A3A55; --brass:#D6B25E; --brass-ink:#E3C47E; --signal:#E8705A; --scrim:rgba(4,9,16,.6);
+  --up:#5BC48C; --dn:#E8705A; color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 15px/1.45 var(--sans);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--brass);outline-offset:2px;border-radius:4px}
+img{display:block}
+.wrap{max-width:1320px;margin:0 auto;padding:0 28px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ---------- top */
+.top{display:flex;align-items:flex-end;gap:20px;padding-top:26px;padding-bottom:18px;flex-wrap:wrap}
+.hi{flex:1;min-width:240px}
+.kick{font:600 12px var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--brass-ink);display:flex;gap:10px;align-items:center}
+.kick a{text-decoration:none}
+.kick a:hover{text-decoration:underline}
+h1{font:400 clamp(34px,5vw,54px)/1.02 var(--serif);margin:6px 0 6px;letter-spacing:-.01em}
+h1 i{color:var(--brass)}
+.sub{color:var(--ink-2);margin:0;font-size:15px}
+.tools{display:flex;gap:8px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--rule);background:var(--raise);border-radius:999px;padding:8px 15px;font-weight:600;font-size:14px;text-decoration:none;white-space:nowrap}
+.btn:hover{border-color:var(--ink-3)}
+.btn.pri{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.btn.on{background:var(--brass);border-color:var(--brass);color:#0E1A2B}
+.btn svg{width:15px;height:15px;flex:none}
+.edbar{display:none;background:var(--shoal);border-radius:14px;padding:10px 14px;margin-bottom:16px;align-items:center;gap:12px;flex-wrap:wrap;font-size:14px;color:var(--ink-2)}
+body.editing .edbar{display:flex}
+.edbar b{color:var(--ink)}
+.edbar .sp{flex:1}
+
+/* ---------- grid */
+.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:16px;padding-bottom:40px;grid-auto-flow:row dense}
+.w{grid-column:span 4;background:var(--raise);border:1px solid var(--rule);border-radius:16px;display:flex;flex-direction:column;min-height:120px;position:relative;transition:box-shadow .15s,transform .15s}
+.w.m{grid-column:span 8}
+.w.l{grid-column:span 12}
+.wh{display:flex;align-items:center;gap:10px;padding:13px 16px 9px}
+.wh .fv{width:20px;height:20px;border-radius:5px;flex:none;background:var(--shoal)}
+.wh .ic{width:20px;height:20px;flex:none;color:var(--brass)}
+.wt{font:600 15px var(--sans);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.wt small{font-weight:500;color:var(--ink-3);font-size:12px;margin-left:6px}
+.wa{display:flex;gap:4px}
+.wa a,.wa button{border:0;background:none;padding:4px 6px;border-radius:6px;color:var(--ink-3);font-size:12px;font-weight:600;text-decoration:none}
+.wa a:hover,.wa button:hover{color:var(--ink);background:var(--shoal)}
+.ec{display:none}
+body.editing .ec{display:inline-flex}
+body.editing .nec{display:none}
+.handle{cursor:grab;touch-action:none}
+.wb{padding:0 16px 14px;flex:1;min-width:0}
+body.editing .w{box-shadow:0 0 0 2px var(--shoal-2)}
+.w.drag{opacity:.55;transform:scale(.98);box-shadow:0 0 0 2px var(--brass)!important}
+body.dragging{user-select:none;-webkit-user-select:none}
+
+/* ---------- story rows */
+.ls{list-style:none;margin:0;padding:0}
+.ls li{border-top:1px solid var(--rule);padding:9px 0;display:flex;gap:11px;align-items:flex-start}
+.ls li:first-child{border-top:0;padding-top:2px}
+.ls a.h{text-decoration:none;font-weight:500;line-height:1.32;display:block}
+.ls a.h:hover{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:2px}
+.ls .th{width:64px;height:48px;object-fit:cover;border-radius:8px;flex:none;background:var(--shoal)}
+.ls .lead .th{width:100%;height:auto;aspect-ratio:16/9;margin-bottom:8px}
+.ls .lead{flex-direction:column;gap:0}
+.ls .lead a.h{font:400 23px/1.12 var(--serif)}
+.mt{font-size:12px;color:var(--ink-3);margin-top:3px;display:flex;gap:8px;flex-wrap:wrap}
+.mt .ou{color:var(--ink-2);font-weight:600}
+.mt .cv{color:var(--brass-ink)}
+.w.l .ls{columns:3;column-gap:28px}
+.w.l .ls li{break-inside:avoid}
+.w.m .ls.two{columns:2;column-gap:22px}
+.w.m .ls.two li{break-inside:avoid}
+.empty{color:var(--ink-3);font-size:14px;padding:6px 0}
+.empty a{color:var(--brass-ink)}
+.more{display:inline-block;margin-top:8px;font-size:13px;font-weight:600;color:var(--brass-ink);text-decoration:none}
+.more:hover{text-decoration:underline}
+
+/* ---------- tiles */
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(84px,1fr));gap:8px}
+.tile{display:flex;flex-direction:column;align-items:center;gap:7px;padding:12px 6px 10px;border-radius:12px;text-decoration:none;text-align:center;font-size:12.5px;font-weight:600;line-height:1.2;background:var(--paper);border:1px solid transparent}
+.tile:hover{border-color:var(--rule);background:var(--shoal)}
+.tile img,.tile .mono{width:32px;height:32px;border-radius:8px}
+.tile .mono{display:grid;place-items:center;background:var(--ink);color:var(--paper);font-size:15px}
+.tile span{overflow:hidden;text-overflow:ellipsis;max-width:100%;white-space:nowrap}
+.tile em{font-style:normal;font-weight:500;color:var(--ink-3);font-size:11px;white-space:normal}
+.note{font-size:12px;color:var(--ink-3);margin:10px 0 0}
+
+/* ---------- markets */
+.mk{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+.mk td{padding:6px 0;border-top:1px solid var(--rule);font-size:14px}
+.mk tr:first-child td{border-top:0}
+.mk .n{font-weight:600}
+.mk .n small{display:block;color:var(--ink-3);font-weight:500;font-size:11.5px}
+.mk .p{text-align:right;padding-right:10px}
+.mk .c{text-align:right;width:76px;font-weight:600}
+.mk .sp{width:70px;padding:0 10px}
+.mk svg{width:70px;height:24px;display:block}
+.up{color:var(--up)}.dn{color:var(--dn)}
+
+/* ---------- scores */
+.gm{display:grid;grid-template-columns:1fr auto;gap:2px 10px;padding:8px 0;border-top:1px solid var(--rule);font-variant-numeric:tabular-nums}
+.gm:first-child{border-top:0}
+.gm .tm{display:flex;align-items:center;gap:8px;font-size:14px}
+.gm .tm img{width:20px;height:20px}
+.gm .tm.win{font-weight:700}
+.gm .sc{text-align:right;font-size:14px}
+.gm .gs{grid-column:1/-1;font-size:12px;color:var(--ink-3)}
+.gm.fav{background:linear-gradient(90deg,color-mix(in srgb,var(--brass) 12%,transparent),transparent);margin:0 -8px;padding:8px}
+.gm .live{color:var(--signal);font-weight:700}
+.lgtabs{display:flex;gap:6px;margin:0 0 6px;flex-wrap:wrap}
+.lgtabs button{border:1px solid var(--rule);background:none;border-radius:999px;padding:3px 10px;font-size:12px;font-weight:600}
+.lgtabs button[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+
+/* ---------- weather */
+.wx{display:flex;align-items:center;gap:16px}
+.wx .t{font:400 54px/1 var(--serif)}
+.wx .d{color:var(--ink-2);font-size:14px}
+.wx .d b{color:var(--ink);display:block;font-size:15px}
+.days{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-top:12px;text-align:center;font-size:12.5px}
+.days div{background:var(--paper);border-radius:10px;padding:7px 2px}
+.days b{display:block;font-size:14px}
+.days span{color:var(--ink-3)}
+.days i{font-style:normal;font-size:18px;display:block;margin:2px 0}
+
+/* ---------- ai */
+.ask{display:flex;gap:8px}
+.ask input{flex:1;min-width:0;border:1px solid var(--rule);background:var(--paper);border-radius:999px;padding:9px 14px}
+.aibtns{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.aibtns button{border:1px solid var(--rule);background:var(--paper);border-radius:999px;padding:6px 12px;font-size:13px;font-weight:600}
+.aibtns button:hover{border-color:var(--ink-3)}
+
+/* ---------- notes & todo */
+.notes{width:100%;min-height:130px;border:0;background:var(--paper);border-radius:10px;padding:10px 12px;resize:vertical;line-height:1.5}
+.todo{list-style:none;margin:0;padding:0}
+.todo li{display:flex;gap:9px;align-items:center;padding:6px 0;border-top:1px solid var(--rule)}
+.todo li:first-child{border-top:0}
+.todo li.done span{text-decoration:line-through;color:var(--ink-3)}
+.todo span{flex:1}
+.todo button{border:0;background:none;color:var(--ink-3);padding:2px 6px}
+.todo input[type=checkbox]{width:17px;height:17px;accent-color:var(--brass)}
+.addrow{display:flex;gap:6px;margin-top:8px}
+.addrow input{flex:1;min-width:0;border:1px solid var(--rule);background:var(--paper);border-radius:8px;padding:7px 10px}
+
+/* ---------- sheet */
+.scrim{position:fixed;inset:0;background:var(--scrim);z-index:40;display:none}
+.sheet{position:fixed;z-index:41;left:50%;top:50%;transform:translate(-50%,-50%);width:min(760px,calc(100vw - 24px));max-height:min(88vh,900px);overflow:auto;background:var(--raise);border-radius:20px;box-shadow:0 30px 80px rgba(0,0,0,.3);display:none;padding:26px 28px 22px}
+body.sheet-open .scrim,body.sheet-open .sheet{display:block}
+body.sheet-open{overflow:hidden}
+.sheet h2{font:400 34px/1.05 var(--serif);margin:0 0 6px}
+.sheet h3{font:600 12px var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--brass-ink);margin:20px 0 8px}
+.sheet p.lede{color:var(--ink-2);margin:0 0 6px}
+.sheet .x{position:absolute;right:14px;top:12px;border:0;background:none;font-size:26px;line-height:1;color:var(--ink-3);padding:6px 10px}
+.chips{display:flex;flex-wrap:wrap;gap:7px}
+.chip{border:1px solid var(--rule);background:var(--paper);border-radius:999px;padding:6px 12px 6px 8px;font-size:13.5px;font-weight:600;display:inline-flex;align-items:center;gap:7px}
+.chip img{width:16px;height:16px;border-radius:4px}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.chip[aria-pressed="true"]::after{content:"✓";font-size:12px}
+.f{display:grid;gap:5px;margin:12px 0}
+.f label{font-weight:600;font-size:13.5px}
+.f .h{font-size:12.5px;color:var(--ink-3)}
+.f input,.f select,.f textarea{border:1px solid var(--rule);background:var(--paper);border-radius:10px;padding:9px 12px;width:100%}
+.f textarea{min-height:120px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px}
+.row{display:flex;gap:10px;flex-wrap:wrap}
+.row>*{flex:1;min-width:160px}
+.foot{display:flex;gap:10px;justify-content:flex-end;margin-top:22px;flex-wrap:wrap;align-items:center}
+.foot .sp{flex:1}
+.gal{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}
+.gal button{text-align:left;border:1px solid var(--rule);background:var(--paper);border-radius:14px;padding:13px 14px;display:grid;gap:4px}
+.gal button:hover{border-color:var(--ink-3);background:var(--shoal)}
+.gal b{font-size:14.5px;display:flex;gap:8px;align-items:center}
+.gal b svg{width:18px;height:18px;color:var(--brass)}
+.gal span{font-size:12.5px;color:var(--ink-2)}
+.res{display:grid;gap:4px;margin-top:6px}
+.res button{text-align:left;border:1px solid var(--rule);background:var(--paper);border-radius:8px;padding:7px 10px;font-size:13.5px}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:var(--paper);padding:10px 18px;border-radius:999px;font-weight:600;font-size:14px;z-index:60;opacity:0;pointer-events:none;transition:opacity .2s}
+.toast.on{opacity:1}
+.colophon{border-top:1px solid var(--rule);padding:18px 0 40px;color:var(--ink-3);font-size:13px}
+.colophon a{color:var(--ink-2)}
+.skel{height:12px;border-radius:6px;background:var(--shoal);margin:10px 0}
+.skel:nth-child(2){width:80%}.skel:nth-child(3){width:62%}
+
+@media (max-width:1060px){
+  .w,.w.m{grid-column:span 6}
+  .w.l .ls{columns:2}
+}
+@media (max-width:700px){
+  .wrap{padding:0 16px}
+  .grid{grid-template-columns:1fr;gap:12px}
+  .w,.w.m,.w.l{grid-column:1/-1}
+  .w.l .ls,.w.m .ls.two{columns:1}
+  .top{padding-top:18px;gap:14px}
+  .tools .btn span.lbl{display:none}
+  .sheet{left:0;right:0;top:auto;bottom:0;transform:none;width:100%;max-height:92vh;border-radius:20px 20px 0 0;padding:22px 18px calc(18px + env(safe-area-inset-bottom))}
+  .sheet h2{font-size:28px}
+  .days{grid-template-columns:repeat(5,1fr);font-size:11.5px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="hi">
+      <div class="kick"><a href="../news/#/">The Watch</a><span aria-hidden="true">·</span><span id="edline">Luke&#x27;s Watch</span></div>
+      <h1 id="hello">Your internet, <i>on one page.</i></h1>
+      <p class="sub" id="today"></p>
+    </div>
+    <div class="tools">
+      <button class="btn" type="button" id="bAdd"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3v10M3 8h10"/></svg><span class="lbl">Add</span></button>
+      <button class="btn" type="button" id="bEdit" aria-pressed="false"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M2 5h12M2 11h12M5 2v6M11 8v6"/></svg><span class="lbl">Arrange</span></button>
+      <button class="btn" type="button" id="bSet" aria-label="Settings"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="8" cy="8" r="2.4"/><path d="M8 1.5v2M8 12.5v2M1.5 8h2M12.5 8h2M3.4 3.4l1.4 1.4M11.2 11.2l1.4 1.4M3.4 12.6l1.4-1.4M11.2 4.8l1.4-1.4"/></svg></button>
+      <a class="btn pri" href="../news/#/"><span>Full paper</span></a>
+    </div>
+  </header>
+  <div class="edbar" role="status"><b>Arranging.</b> Drag the ⠿ handle to move a card, tap S · M · L to resize, ⚙ to change what it shows. <span class="sp"></span><button class="btn" type="button" id="bAdd2">+ Add a card</button><button class="btn pri" type="button" id="bDone">Done</button></div>
+  <main class="grid" id="grid" aria-live="polite"></main>
+  <footer class="colophon">
+    <p>My Watch lives on this device: your layout, notes and shortcuts are saved in this browser and never sent anywhere. Headlines are each outlet's own, pulled six times a day from the same 195 feeds as <a href="../news/#/">The Watch</a>; scores and markets come from the paper's live boards. Banks and insurers don't let other sites read your accounts, so those cards are one-tap doors to your own sign-in.</p>
+    <p><span id="feedAt"></span> · <a href="#" id="lnkShare">Share my layout</a> · <a href="#" id="lnkReset">Start over</a></p>
+  </footer>
+</div>
+<div class="scrim" id="scrim"></div>
+<div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="shTitle"></div>
+<div class="toast" id="toast"></div>
+
+<script>window.MYWATCH = {"base": "../news/", "key": "watch.my.luke", "home": "/lanscape-navigator/luke/", "title": "Luke's Watch", "preset": {"name": "Luke", "w": [{"t": "weather", "z": "s", "c": {"place": {"name": "New Albany", "admin": "Ohio", "cc": "US", "lat": 40.0812, "lon": -82.8088, "src": "preset"}}}, {"t": "top", "z": "m", "c": {"n": 6}}, {"t": "topic", "z": "s", "c": {"label": "Cannabis retail", "q": "cannabis, marijuana, dispensary, dispensaries, THC, hemp, multistate operator", "n": 7}}, {"t": "markets", "z": "s", "c": {"syms": "^GSPC,^DJI,^IXIC,MSOS,ANF,BTC-USD"}}, {"t": "source", "z": "s", "c": {"d": "wsj.com", "name": "Wall Street Journal", "home": "https://www.wsj.com", "n": 6}}, {"t": "topic", "z": "s", "c": {"label": "Buckeyes", "q": "Ohio State, Buckeyes, Ryan Day", "n": 6}}, {"t": "fantasy", "z": "s", "c": {}}, {"t": "scores", "z": "s", "c": {"lgs": "nfl,nba,nhl", "teams": "CLE,CIN,CBJ"}}, {"t": "source", "z": "s", "c": {"d": "sports.yahoo.com", "name": "Yahoo Sports", "home": "https://sports.yahoo.com", "n": 6}}, {"t": "source", "z": "s", "c": {"d": "barstoolsports.com", "name": "Barstool Sports", "home": "https://www.barstoolsports.com", "n": 6}}, {"t": "source", "z": "s", "c": {"d": "bloomberg.com", "name": "Bloomberg", "home": "https://www.bloomberg.com", "n": 6}}, {"t": "topic", "z": "s", "c": {"label": "Abercrombie & fashion", "q": "Abercrombie, Hollister, fashion industry, apparel, fashion week, retail sales", "n": 6}}, {"t": "sites", "z": "s", "c": {"title": "Cannabis business", "links": [{"n": "Ohio Cannabis Control", "u": "https://com.ohio.gov/divisions-and-programs/cannabis-control"}, {"n": "MJBizDaily", "u": "https://mjbizdaily.com"}, {"n": "Headset", "u": "https://www.headset.io"}, {"n": "Marijuana Moment", "u": "https://www.marijuanamoment.net"}]}}, {"t": "sites", "z": "s", "c": {"title": "Family weekends", "links": [{"n": "Columbus Zoo", "u": "https://www.columbuszoo.org"}, {"n": "COSI", "u": "https://cosi.org"}, {"n": "Metro Parks", "u": "https://www.metroparks.net"}, {"n": "Easton", "u": "https://www.eastontowncenter.com"}, {"n": "New Albany", "u": "https://newalbanyohio.org"}, {"n": "Franklin Park", "u": "https://www.fpconservatory.org"}]}}, {"t": "ai", "z": "s", "c": {"use": "claude,chatgpt,perplexity"}}, {"t": "accounts", "z": "s", "c": {"title": "Money & bills", "links": []}}, {"t": "todo", "z": "s", "c": {"title": "To-do", "items": []}}]}};</script>
+<script>
+'use strict';
+/* =====================================================================
+   My Watch: the reader's own front page. One file, no server.
+   State lives in localStorage['watch.my.v1']; the paper reads
+   localStorage['watch.my.home'] to open here first.
+   Data: ../data/edition.json (stories), ../data/markets.json, ../data/sports/<lg>.json,
+   Open-Meteo for weather (the paper's saved place, localStorage['watch.wx']).
+   ===================================================================== */
+const PUBLIC = 'https://bboldt86.github.io/lanscape-navigator/news/';
+// a personal page (e.g. /luke/) sets window.MYWATCH = { base, key, home, title, preset } before this script runs
+const CONF = window.MYWATCH || {};
+const BASE = CONF.base || '../';           // where The Watch lives, relative to this page
+const KEY = CONF.key || 'watch.my.v1', HOME = 'watch.my.home', WXK = 'watch.wx';
+const HOMEVAL = CONF.home || '1';          // what the paper's front door stores to open this page
+const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
+const lsGet = k => { try { return localStorage.getItem(k); } catch (e) { return null; } };
+const lsSet = (k, v) => { try { localStorage.setItem(k, v); } catch (e) { /* private mode */ } };
+const uid = () => Math.random().toString(36).slice(2, 9);
+const fav = d => `https://www.google.com/s2/favicons?domain=${encodeURIComponent(d)}&sz=64`;
+const host = u => { try { return new URL(u).hostname.replace(/^www\./, ''); } catch (e) { return ''; } };
+
+/* ---------------- icons */
+const IC = {
+  news: '<path d="M3 4h10v9H4a1 1 0 0 1-1-1V4zM13 6h1.5v6a1 1 0 0 1-2 0M5 6.5h6M5 9h6M5 11h4"/>',
+  desk: '<path d="M2.5 3.5h11v9h-11zM2.5 6.5h11M6 6.5v6"/>',
+  topic: '<circle cx="7" cy="7" r="4"/><path d="M10 10l3.5 3.5"/>',
+  chart: '<path d="M2 13h12M3 10l3-3 2.5 2L13 4.5"/>',
+  ball: '<circle cx="8" cy="8" r="5.5"/><path d="M2.5 8h11M8 2.5c2 2 2 9 0 11M8 2.5c-2 2-2 9 0 11"/>',
+  fantasy: '<path d="M4 2.5h8v4a4 4 0 0 1-8 0zM4 4H2v1.5a2 2 0 0 0 2 2M12 4h2v1.5a2 2 0 0 1-2 2M8 10.5v2M5.5 13.5h5"/>',
+  sun: '<circle cx="8" cy="8" r="3"/><path d="M8 1.5v1.5M8 13v1.5M1.5 8H3M13 8h1.5M3.4 3.4l1 1M11.6 11.6l1 1M3.4 12.6l1-1M11.6 4.4l1-1"/>',
+  link: '<path d="M6.5 9.5l3-3M7 4.5l1-1a2.5 2.5 0 0 1 3.5 3.5l-1 1M9 11.5l-1 1A2.5 2.5 0 0 1 4.5 9l1-1"/>',
+  bank: '<path d="M2 6l6-3.5L14 6M3 6.5v5M6 6.5v5M10 6.5v5M13 6.5v5M2 13h12"/>',
+  ai: '<path d="M8 2l1.4 3.6L13 7l-3.6 1.4L8 12l-1.4-3.6L3 7l3.6-1.4z"/><path d="M12.5 11.5l.6 1.4 1.4.6-1.4.6-.6 1.4-.6-1.4-1.4-.6 1.4-.6z"/>',
+  note: '<path d="M3.5 2.5h7l2 2v9h-9zM5.5 6.5h5M5.5 9h5M5.5 11.5h3"/>',
+  todo: '<path d="M3 4.5l1.2 1.2L6.5 3.5M3 9l1.2 1.2L6.5 8M8.5 4.5h5M8.5 9h5M8.5 13h5M3.5 12.5h2v1.5h-2z"/>',
+  top: '<path d="M8 2l1.8 3.8 4.2.5-3.1 2.9.8 4.1L8 11.3l-3.7 2 .8-4.1L2 6.3l4.2-.5z"/>'
+};
+const svg = k => `<svg class="ic" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${IC[k] || IC.news}</svg>`;
+
+/* ---------------- the sites people actually use. kind: src (headlines from the paper's feeds),
+   fantasy, ai, acct (money & bills), ins (insurance), site (a shortcut) */
+const SITES = [
+  // news
+  ['wsj', 'Wall Street Journal', 'news', 'src', 'wsj.com', 'https://www.wsj.com'],
+  ['bloomberg', 'Bloomberg', 'news', 'src', 'bloomberg.com', 'https://www.bloomberg.com'],
+  ['nyt', 'New York Times', 'news', 'src', 'nytimes.com', 'https://www.nytimes.com'],
+  ['cnbc', 'CNBC', 'news', 'src', 'cnbc.com', 'https://www.cnbc.com'],
+  ['reuters', 'Reuters', 'news', 'src', 'reuters.com', 'https://www.reuters.com'],
+  ['ap', 'AP News', 'news', 'src', 'apnews.com', 'https://apnews.com'],
+  ['fox', 'Fox News', 'news', 'src', 'foxnews.com', 'https://www.foxnews.com'],
+  ['wapo', 'Washington Post', 'news', 'src', 'washingtonpost.com', 'https://www.washingtonpost.com'],
+  ['bbc', 'BBC', 'news', 'src', 'bbc.com', 'https://www.bbc.com/news'],
+  ['axios', 'Axios', 'news', 'src', 'axios.com', 'https://www.axios.com'],
+  ['npr', 'NPR', 'news', 'src', 'npr.org', 'https://www.npr.org'],
+  ['fortune', 'Fortune', 'news', 'src', 'fortune.com', 'https://fortune.com'],
+  ['verge', 'The Verge', 'news', 'src', 'theverge.com', 'https://www.theverge.com'],
+  ['tc', 'TechCrunch', 'news', 'src', 'techcrunch.com', 'https://techcrunch.com'],
+  ['ars', 'Ars Technica', 'news', 'src', 'arstechnica.com', 'https://arstechnica.com'],
+  // sports & fun
+  ['yahoosports', 'Yahoo Sports', 'sports', 'src', 'sports.yahoo.com', 'https://sports.yahoo.com'],
+  ['barstool', 'Barstool Sports', 'sports', 'src', 'barstoolsports.com', 'https://www.barstoolsports.com'],
+  ['espn', 'ESPN', 'sports', 'src', 'espn.com', 'https://www.espn.com'],
+  ['cbssports', 'CBS Sports', 'sports', 'src', 'cbssports.com', 'https://www.cbssports.com'],
+  ['yfantasy', 'Yahoo Fantasy', 'sports', 'fantasy', 'football.fantasysports.yahoo.com', 'https://football.fantasysports.yahoo.com'],
+  ['scores', 'Live scores', 'sports', 'scores', 'espn.com', ''],
+  ['reddit', 'Reddit', 'sports', 'site', 'reddit.com', 'https://www.reddit.com'],
+  ['x', 'X', 'sports', 'site', 'x.com', 'https://x.com'],
+  ['youtube', 'YouTube', 'sports', 'site', 'youtube.com', 'https://www.youtube.com'],
+  ['netflix', 'Netflix', 'sports', 'site', 'netflix.com', 'https://www.netflix.com'],
+  // AI
+  ['claude', 'Claude', 'ai', 'ai', 'claude.ai', 'https://claude.ai/new'],
+  ['chatgpt', 'ChatGPT', 'ai', 'ai', 'chatgpt.com', 'https://chatgpt.com'],
+  ['gemini', 'Gemini', 'ai', 'ai', 'gemini.google.com', 'https://gemini.google.com'],
+  ['perplexity', 'Perplexity', 'ai', 'ai', 'perplexity.ai', 'https://www.perplexity.ai'],
+  // money
+  ['chase', 'Chase', 'money', 'acct', 'chase.com', 'https://secure.chase.com'],
+  ['amex', 'American Express', 'money', 'acct', 'americanexpress.com', 'https://www.americanexpress.com/en-us/account/login'],
+  ['boa', 'Bank of America', 'money', 'acct', 'bankofamerica.com', 'https://www.bankofamerica.com'],
+  ['wells', 'Wells Fargo', 'money', 'acct', 'wellsfargo.com', 'https://connect.secure.wellsfargo.com'],
+  ['capone', 'Capital One', 'money', 'acct', 'capitalone.com', 'https://verified.capitalone.com'],
+  ['citi', 'Citi', 'money', 'acct', 'citi.com', 'https://online.citi.com'],
+  ['fidelity', 'Fidelity', 'money', 'acct', 'fidelity.com', 'https://digital.fidelity.com'],
+  ['schwab', 'Schwab', 'money', 'acct', 'schwab.com', 'https://client.schwab.com'],
+  ['vanguard', 'Vanguard', 'money', 'acct', 'vanguard.com', 'https://investor.vanguard.com'],
+  ['robinhood', 'Robinhood', 'money', 'acct', 'robinhood.com', 'https://robinhood.com/login'],
+  ['venmo', 'Venmo', 'money', 'acct', 'venmo.com', 'https://account.venmo.com'],
+  ['markets', 'Markets board', 'money', 'markets', 'cnbc.com', ''],
+  // insurance
+  ['progressive', 'Progressive', 'ins', 'ins', 'progressive.com', 'https://account.apps.progressive.com'],
+  ['statefarm', 'State Farm', 'ins', 'ins', 'statefarm.com', 'https://www.statefarm.com/customer-care'],
+  ['geico', 'GEICO', 'ins', 'ins', 'geico.com', 'https://ecams.geico.com'],
+  ['allstate', 'Allstate', 'ins', 'ins', 'allstate.com', 'https://myaccountrwd.allstate.com'],
+  ['usaa', 'USAA', 'ins', 'ins', 'usaa.com', 'https://www.usaa.com/my/logon'],
+  ['liberty', 'Liberty Mutual', 'ins', 'ins', 'libertymutual.com', 'https://www.libertymutual.com/log-in'],
+  ['nationwide', 'Nationwide', 'ins', 'ins', 'nationwide.com', 'https://www.nationwide.com/personal/member-services/'],
+  // everyday
+  ['gmail', 'Gmail', 'day', 'site', 'mail.google.com', 'https://mail.google.com'],
+  ['gcal', 'Google Calendar', 'day', 'site', 'calendar.google.com', 'https://calendar.google.com'],
+  ['outlook', 'Outlook', 'day', 'site', 'outlook.live.com', 'https://outlook.live.com'],
+  ['amazon', 'Amazon', 'day', 'site', 'amazon.com', 'https://www.amazon.com'],
+  ['linkedin', 'LinkedIn', 'day', 'site', 'linkedin.com', 'https://www.linkedin.com'],
+  ['weather', 'Weather', 'day', 'weather', 'weather.gov', ''],
+  ['github', 'GitHub', 'day', 'site', 'github.com', 'https://github.com']
+];
+const GROUPS = [['news', 'News'], ['sports', 'Sports & fun'], ['ai', 'AI'], ['money', 'Banking & investing'], ['ins', 'Insurance'], ['day', 'Everyday']];
+const siteBy = id => SITES.find(s => s[0] === id);
+const AI = {
+  claude: ['Claude', 'claude.ai', q => 'https://claude.ai/new?q=' + encodeURIComponent(q)],
+  chatgpt: ['ChatGPT', 'chatgpt.com', q => 'https://chatgpt.com/?q=' + encodeURIComponent(q)],
+  gemini: ['Gemini', 'gemini.google.com', () => 'https://gemini.google.com/app'],
+  perplexity: ['Perplexity', 'perplexity.ai', q => 'https://www.perplexity.ai/search?q=' + encodeURIComponent(q)]
+};
+const LEAGUES = [['nfl', 'NFL'], ['nba', 'NBA'], ['nhl', 'NHL'], ['mlb', 'MLB'], ['mls', 'MLS'], ['soccer', 'Soccer'], ['wnba', 'WNBA']];
+
+/* ---------------- widget catalog */
+const TYPES = {
+  top: { name: 'Top stories', icon: 'top', blurb: 'What every outlet is covering this watch, ranked by how many have it.', size: 'm', cfg: { n: 6 } },
+  source: { name: 'Headlines from a site', icon: 'news', blurb: 'Top stories from one outlet: WSJ, Barstool, Bloomberg, Yahoo Sports and 240 more.', size: 's', cfg: { d: 'wsj.com', n: 6 } },
+  desk: { name: 'A section', icon: 'desk', blurb: 'Business, Sports, Tech or any desk of The Watch.', size: 's', cfg: { k: 'business', n: 6 } },
+  topic: { name: 'Follow a topic', icon: 'topic', blurb: 'Every story that mentions your words: a team, a company, a person, a place.', size: 's', cfg: { label: '', q: '', n: 6 } },
+  markets: { name: 'Markets', icon: 'chart', blurb: 'The indices plus your own watchlist, with today’s line.', size: 's', cfg: { syms: '^GSPC,^DJI,^IXIC,BTC-USD,AAPL,NVDA' } },
+  scores: { name: 'Scores', icon: 'ball', blurb: 'Last night, live now and what’s next, your teams first.', size: 's', cfg: { lgs: 'nfl,nba,nhl', teams: '' } },
+  fantasy: { name: 'Fantasy football', icon: 'fantasy', blurb: 'One tap into your league, plus news on the players you roster.', size: 's', cfg: { url: 'https://football.fantasysports.yahoo.com', players: '' } },
+  weather: { name: 'Weather', icon: 'sun', blurb: 'Now and the next five days where you are.', size: 's', cfg: {} },
+  sites: { name: 'My sites', icon: 'link', blurb: 'A launcher for the sites you go to every day.', size: 's', cfg: { title: 'My sites', links: [] } },
+  accounts: { name: 'Money & bills', icon: 'bank', blurb: 'Banking, cards, insurance and bills, each one tap from its sign-in.', size: 's', cfg: { title: 'Money & bills', links: [] } },
+  ai: { name: 'Ask AI', icon: 'ai', blurb: 'Type once, send the question to Claude, ChatGPT or Perplexity.', size: 's', cfg: { use: 'claude,chatgpt,perplexity' } },
+  notes: { name: 'Notes', icon: 'note', blurb: 'A scratchpad that’s always there.', size: 's', cfg: { title: 'Notes', text: '' } },
+  todo: { name: 'To-do', icon: 'todo', blurb: 'A short list you tick off.', size: 's', cfg: { title: 'To-do', items: [] } }
+};
+
+/* ---------------- state */
+let S = null;
+function load() { try { const s = JSON.parse(lsGet(KEY) || 'null'); if (s && Array.isArray(s.w)) return s; } catch (e) { /* bad save */ } return null; }
+function save() { lsSet(KEY, JSON.stringify(S)); }
+function mk(type, cfg = {}, size) { const T = TYPES[type]; return { id: uid(), t: type, z: size || T.size, c: { ...JSON.parse(JSON.stringify(T.cfg)), ...cfg } }; }
+
+/* ---------------- data */
+const D = { E: null, M: null, sp: {}, wx: null, byId: new Map(), deskName: {}, outlets: {} };
+async function getJSON(path) {
+  const tries = /^https?:$/.test(location.protocol) ? [BASE + path, PUBLIC + path] : [PUBLIC + path];
+  let last;
+  for (const u of tries) {
+    try {
+      const r = await fetch(u + (u.includes('?') ? '&' : '?') + 'v=' + Math.floor(Date.now() / 120000), { cache: 'no-cache' });
+      if (r.ok) return await r.json();
+      last = new Error(r.status + ' at ' + u);
+    } catch (e) { last = e; }
+  }
+  throw last || new Error('unreachable');
+}
+async function loadEdition() {
+  const e = await getJSON('data/edition.json');
+  D.E = e; D.byId = new Map(e.items.map(it => [it.i, it]));
+  D.deskName = Object.fromEntries((e.sections || []).map(s => [s.k, s.name]));
+  D.outlets = e.outlets || {};
+  return e;
+}
+const marketsP = () => D.Mp || (D.Mp = getJSON('data/markets.json').then(m => (D.M = m)).catch(() => (D.Mp = null, null)));
+const sportP = lg => D.sp[lg] || (D.sp[lg] = getJSON('data/sports/' + lg + '.json').catch(() => (delete D.sp[lg], null)));
+
+const nowMin = () => Date.now() / 60000;
+function ago(p) {
+  const m = Math.max(0, Math.round(nowMin() - p));
+  if (m < 60) return m <= 1 ? 'just now' : m + 'm ago';
+  const h = Math.round(m / 60); if (h < 24) return h + 'h ago';
+  return Math.round(h / 24) + 'd ago';
+}
+const outletName = o => D.outlets[o] || o.replace(/\/.*$/, '');
+const matchDom = (o, d) => o === d || o.endsWith('.' + d) || o.startsWith(d + '/');
+function clusterN(it) { const c = D.E && D.E.clusters && D.E.clusters[it.g]; return c ? c.n : 1; }
+const fresh = a => a.filter(it => !it.l || it.l === 'en').sort((x, y) => y.p - x.p);
+
+function rows(items, o = {}) {
+  if (!items.length) return `<p class="empty">${o.none || 'Nothing in this watch yet.'}</p>`;
+  return `<ul class="ls${o.two ? ' two' : ''}">${items.map((it, i) => {
+    const lead = o.lead && i === 0 && it.m;
+    const img = it.m && (lead || o.thumbs) ? `<img class="th" src="${esc(it.m)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">` : '';
+    const n = clusterN(it);
+    return `<li${lead ? ' class="lead"' : ''}>${lead ? img : ''}<div><a class="h" href="${esc(it.u)}" target="_blank" rel="noopener">${esc(it.t)}</a>
+      <div class="mt">${o.noOutlet ? '' : `<span class="ou">${esc(outletName(it.o))}</span>`}<span>${ago(it.p)}</span>${n > 2 ? `<span class="cv">${n} outlets</span>` : ''}</div></div>${!lead ? img : ''}</li>`;
+  }).join('')}</ul>`;
+}
+
+/* ---------------- renderers. each returns {title, sub, icon|fav, link, body} or a promise of one */
+const R = {
+  top(c) {
+    const E = D.E; if (!E) return null;
+    const seen = new Set(), out = [];
+    for (const ci of E.top || []) {
+      const cl = E.clusters[ci]; if (!cl) continue;
+      const it = D.byId.get(cl.lead); if (!it || (it.l && it.l !== 'en') || seen.has(it.i)) continue;
+      seen.add(it.i); out.push(it); if (out.length >= c.n) break;
+    }
+    return { title: 'Top stories', icon: 'top', link: BASE + '#/', body: rows(out, { lead: true, thumbs: true }) };
+  },
+  source(c, w) {
+    const name = c.name || outletName(c.d) || c.d;
+    if (!D.E) return null;
+    const its = fresh(D.E.items.filter(it => matchDom(it.o, c.d))).slice(0, c.n);
+    const site = c.home || 'https://' + c.d.replace(/\/.*$/, '');
+    const none = `Nothing from ${esc(name)} in this watch. ${c.d === 'barstoolsports.com' ? 'Its feed joins the paper with the next edition.' : 'It may be between stories; this card refills every watch.'} <a href="${esc(site)}" target="_blank" rel="noopener">Open ${esc(name)} ↗</a>`;
+    return { title: name, fav: c.d.replace(/\/.*$/, ''), link: site, linkLabel: 'Open ↗', body: rows(its, { lead: w.z !== 's', thumbs: w.z !== 's', noOutlet: true, none, two: w.z === 'm' }) };
+  },
+  desk(c, w) {
+    if (!D.E) return null;
+    const its = fresh(D.E.items.filter(it => it.c === c.k)).sort((a, b) => (clusterN(b) - clusterN(a)) * 30 + (b.p - a.p)).slice(0, c.n);
+    return { title: D.deskName[c.k] || c.k, icon: 'desk', link: BASE + '#/s/' + c.k, linkLabel: 'Desk', body: rows(its, { lead: w.z !== 's', thumbs: w.z !== 's', two: w.z === 'm' }) };
+  },
+  topic(c, w) {
+    if (!D.E) return null;
+    const words = (c.q || '').split(',').map(s => s.trim().toLowerCase()).filter(Boolean);
+    if (!words.length) return { title: c.label || 'Follow a topic', icon: 'topic', body: `<p class="empty">Tap ⚙ in Arrange and type what to follow: a team, company, person or place.</p>` };
+    const re = wordsRe(words);
+    const its = fresh(D.E.items.filter(it => re.test(it.t + ' ' + (it.d || '') + ' ' + (it.k || []).join(' ')))).slice(0, c.n);
+    return { title: c.label || words.join(', '), icon: 'topic', link: BASE + '#/q/' + encodeURIComponent(words[0]), linkLabel: 'All', body: rows(its, { none: 'No stories mention it in this watch.', two: w.z === 'm' }) };
+  },
+  async markets(c) {
+    const M = await marketsP();
+    if (!M) return { title: 'Markets', icon: 'chart', body: '<p class="empty">The markets board didn’t load.</p>' };
+    const all = [...M.board.flatMap(g => g.rows), ...(M.sectors || []), ...(M.stocks || [])];
+    const want = (c.syms || '').split(',').map(s => s.trim().toUpperCase()).filter(Boolean);
+    const list = want.map(s => all.find(r => r.s.toUpperCase() === s)).filter(Boolean);
+    const spark = a => { if (!a || a.length < 2) return ''; const lo = Math.min(...a), hi = Math.max(...a), r = hi - lo || 1; return `<svg viewBox="0 0 70 24" preserveAspectRatio="none"><polyline fill="none" stroke="currentColor" stroke-width="1.5" points="${a.map((v, i) => (i / (a.length - 1) * 70).toFixed(1) + ',' + (22 - (v - lo) / r * 20).toFixed(1)).join(' ')}"/></svg>`; };
+    const fmt = (r) => r.kind === 'yld' || /^\^(IRX|FVX|TNX|TYX)$|US2Y/.test(r.s) ? r.p.toFixed(2) + '%' : r.p >= 1000 ? r.p.toLocaleString('en-US', { maximumFractionDigits: 0 }) : r.p.toFixed(2);
+    const body = list.length ? `<table class="mk">${list.map(r => { const cls = r.c > 0 ? 'up' : r.c < 0 ? 'dn' : ''; return `<tr><td class="n">${esc(r.n)}<small>${esc(r.s.replace(/^\^/, ''))}</small></td><td class="sp ${cls}">${spark(r.i || (r.d || []).slice(-30))}</td><td class="p">${fmt(r)}</td><td class="c ${cls}">${r.cp > 0 ? '+' : ''}${(r.cp || 0).toFixed(2)}%</td></tr>`; }).join('')}</table>` : '<p class="empty">Add symbols with ⚙.</p>';
+    const at = new Date(M.at);
+    return { title: 'Markets', sub: 'as of ' + at.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }), icon: 'chart', link: BASE + '#/s/business', linkLabel: 'Board', body };
+  },
+  async scores(c, w) {
+    const lgs = (c.lgs || 'nfl').split(',').filter(Boolean);
+    const cur = w._lg && lgs.includes(w._lg) ? w._lg : lgs[0];
+    const d = await sportP(cur);
+    const teams = (c.teams || '').split(',').map(s => s.trim().toUpperCase()).filter(Boolean);
+    const tabs = lgs.length > 1 ? `<div class="lgtabs">${lgs.map(l => `<button type="button" data-lg="${l}" aria-pressed="${l === cur}">${(LEAGUES.find(x => x[0] === l) || [l, l.toUpperCase()])[1]}</button>`).join('')}</div>` : '';
+    if (!d) return { title: 'Scores', icon: 'ball', body: tabs + '<p class="empty">This league’s board didn’t load.</p>' };
+    const now = Date.now();
+    const isFav = g => teams.includes(g.h.ab) || teams.includes(g.a.ab);
+    let gs = d.games.slice();
+    const live = gs.filter(g => g.st === 'in'), past = gs.filter(g => g.st === 'post' && now - Date.parse(g.d) < 4 * 864e5).sort((a, b) => Date.parse(b.d) - Date.parse(a.d)),
+      next = gs.filter(g => g.st === 'pre').sort((a, b) => Date.parse(a.d) - Date.parse(b.d));
+    let pick = [...live, ...past.slice(0, 6), ...next.slice(0, 6)];
+    if (teams.length) { const f = gs.filter(isFav).sort((a, b) => Math.abs(Date.parse(a.d) - now) - Math.abs(Date.parse(b.d) - now)).slice(0, 3); pick = [...new Set([...f, ...pick])]; }
+    pick = pick.slice(0, w.z === 's' ? 6 : 10);
+    const tm = (t, g) => `<div class="tm${t.w ? ' win' : ''}"><img src="${esc(t.lo)}" alt="" loading="lazy" onerror="this.style.visibility='hidden'">${esc(t.sh || t.nm)}${t.r ? ` <span style="color:var(--ink-3);font-size:12px">${esc(t.r)}</span>` : ''}</div><div class="sc">${g.st === 'pre' ? '' : esc(t.sc)}</div>`;
+    const gsLine = g => g.st === 'in' ? `<span class="live">LIVE</span> · ${esc(g.sd)}` : g.st === 'post' ? esc(g.sd) + ' · ' + new Date(g.d).toLocaleDateString([], { weekday: 'short' }) : new Date(g.d).toLocaleString([], { weekday: 'short', hour: 'numeric', minute: '2-digit' }) + (g.tv && g.tv.length ? ' · ' + esc(g.tv.join(', ')) : '');
+    const body = tabs + (pick.length ? pick.map(g => `<div class="gm${isFav(g) ? ' fav' : ''}">${tm(g.a, g)}${tm(g.h, g)}<div class="gs">${gsLine(g)}</div></div>`).join('') : '<p class="empty">No games this week.</p>');
+    return { title: 'Scores', sub: d.phase || '', icon: 'ball', link: BASE + '#/sports/' + cur, linkLabel: 'All', body };
+  },
+  async fantasy(c, w) {
+    const nfl = await sportP('nfl');
+    const players = (c.players || '').split(',').map(s => s.trim()).filter(Boolean);
+    let news = [];
+    if (players.length) {
+      const re = wordsRe(players), hit = s => re.test(s);
+      news = fresh((D.E ? D.E.items : []).filter(it => hit(it.t + ' ' + (it.d || ''))));
+      for (const n of (nfl && nfl.news) || []) if (hit(n.t + ' ' + (n.d || ''))) news.push({ i: 'n' + n.u, t: n.t, u: n.u, o: 'espn.com', p: Date.parse(n.p) / 60000 });
+      news = dedupe(news);
+    } else {
+      news = fresh((D.E ? D.E.items : []).filter(it => /fantasy|waiver|start.?sit|sleeper|injury report/i.test(it.t)));
+      for (const n of (nfl && nfl.news) || []) if (/fantasy|DFS|waiver|start|sit/i.test(n.t)) news.push({ i: 'n' + n.u, t: n.t, u: n.u, o: 'espn.com', p: Date.parse(n.p) / 60000 });
+      news = dedupe(news);
+    }
+    const wk = nfl ? (nfl.phase && nfl.phase !== 'Regular Season' ? nfl.phase : nfl.week && nfl.week.cal ? (nfl.week.cal.find(x => x.w === nfl.week.n && x.t === nfl.week.type) || {}).l || '' : '') : '';
+    const bye = nfl && nfl.week && nfl.week.bye && nfl.week.bye.length ? `<p class="note">On bye: ${esc(nfl.week.bye.join(', '))}</p>` : '';
+    const body = `<a class="btn pri" href="${esc(c.url || 'https://football.fantasysports.yahoo.com')}" target="_blank" rel="noopener" style="margin-bottom:10px">Open my league ↗</a>
+      ${rows(news.slice(0, w.z === 's' ? 5 : 8), { none: players.length ? 'No news on your players this watch.' : 'Add your players with ⚙ to see only their news.' })}${bye}`;
+    return { title: 'Fantasy', sub: wk, icon: 'fantasy', body };
+  },
+  async weather(c, w) {
+    let l = c.place || null; if (!l) try { l = JSON.parse(lsGet(WXK) || 'null'); } catch (e) { l = null; }
+    if (!l || !isFinite(l.lat)) l = { name: 'New York', admin: 'New York', cc: 'US', lat: 40.7128, lon: -74.006, src: 'guess' };
+    const F = l.cc === 'US' || !l.cc;
+    const key = l.lat.toFixed(2) + ',' + l.lon.toFixed(2);
+    if (!D.wx || D.wx.key !== key || Date.now() - D.wx.at > 15 * 60000) {
+      try {
+        const r = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${l.lat}&longitude=${l.lon}&current=temperature_2m,apparent_temperature,weather_code,wind_speed_10m,is_day&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max&forecast_days=5&timezone=auto${F ? '&temperature_unit=fahrenheit&wind_speed_unit=mph' : ''}`);
+        if (!r.ok) throw new Error(r.status); D.wx = { key, at: Date.now(), d: await r.json() };
+      } catch (e) { return { title: 'Weather', icon: 'sun', link: BASE + '#/weather', body: '<p class="empty">The forecast didn’t load. <a href="${BASE}#/weather">Open Weather</a></p>' }; }
+    }
+    const d = D.wx.d, cu = d.current, dy = d.daily;
+    const body = `<div class="wx"><div class="t">${Math.round(cu.temperature_2m)}°</div><div class="d"><b>${wmo(cu.weather_code)[1]}</b>Feels ${Math.round(cu.apparent_temperature)}° · wind ${Math.round(cu.wind_speed_10m)} ${F ? 'mph' : 'km/h'}<br>H ${Math.round(dy.temperature_2m_max[0])}° · L ${Math.round(dy.temperature_2m_min[0])}°</div></div>
+      <div class="days">${dy.time.map((t, i) => `<div><span>${i ? new Date(t + 'T12:00').toLocaleDateString([], { weekday: 'short' }) : 'Today'}</span><i>${wmo(dy.weather_code[i])[0]}</i><b>${Math.round(dy.temperature_2m_max[i])}°</b><span>${Math.round(dy.temperature_2m_min[i])}° · ${dy.precipitation_probability_max[i] ?? 0}%</span></div>`).join('')}</div>`;
+    return { title: l.name + (l.src === 'guess' ? '' : ''), sub: l.src === 'guess' ? 'set your place with ⚙' : l.admin || '', icon: 'sun', link: BASE + '#/weather', linkLabel: 'Radar', body };
+  },
+  sites(c) { return { title: c.title || 'My sites', icon: 'link', body: tiles(c.links, 'Add the sites you visit every day with ⚙.') }; },
+  accounts(c) { return { title: c.title || 'Money & bills', icon: 'bank', body: tiles(c.links, 'Add your bank, cards and insurance with ⚙.') + `<p class="note">Opens each sign-in. Nothing about your accounts is stored here.</p>` }; },
+  ai(c) {
+    const use = (c.use || 'claude').split(',').filter(k => AI[k]);
+    return { title: 'Ask AI', icon: 'ai', body: `<form class="ask" data-ai><input type="text" name="q" placeholder="Ask anything…" aria-label="Your question"><button class="btn pri" type="submit">Ask</button></form>
+      <div class="aibtns">${use.map(k => `<button type="button" data-ai-go="${k}"><img src="${fav(AI[k][1])}" alt="" style="width:14px;height:14px;display:inline;vertical-align:-2px;margin-right:5px;border-radius:3px">${AI[k][0]}</button>`).join('')}</div>
+      <p class="note">Ask sends your question to ${esc(AI[use[0]] ? AI[use[0]][0] : 'Claude')}; the buttons pick another.</p>` };
+  },
+  notes(c, w) { return { title: c.title || 'Notes', icon: 'note', body: `<textarea class="notes" data-notes="${w.id}" placeholder="Jot something down…" aria-label="Notes">${esc(c.text)}</textarea>` }; },
+  todo(c, w) {
+    const items = c.items || [];
+    return { title: c.title || 'To-do', sub: items.length ? items.filter(x => !x.d).length + ' left' : '', icon: 'todo', body: `<ul class="todo">${items.map((x, i) => `<li${x.d ? ' class="done"' : ''}><input type="checkbox" data-td="${w.id}:${i}"${x.d ? ' checked' : ''} aria-label="Done"><span>${esc(x.t)}</span><button type="button" data-tdx="${w.id}:${i}" aria-label="Remove">✕</button></li>`).join('')}</ul>
+      <form class="addrow" data-tdadd="${w.id}"><input name="t" placeholder="Add a to-do" aria-label="New to-do"><button class="btn" type="submit">Add</button></form>` };
+  }
+};
+// whole words only, so "Ohio State" doesn't catch "Ohio Statehouse" and "THC" doesn't catch a longer word
+const wordsRe = ws => new RegExp('(^|[^\\p{L}\\p{N}])(' + ws.map(w => w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|') + ')(?![\\p{L}\\p{N}])', 'iu');
+// the same story often comes through ESPN and Yahoo both; keep the first by link or headline
+function dedupe(a) { const seen = new Set(); return a.sort((x, y) => y.p - x.p).filter(n => { const k = n.t.toLowerCase().replace(/\W+/g, ''); if (seen.has(n.u) || seen.has(k)) return false; seen.add(n.u); seen.add(k); return true; }); }
+function tiles(links, none) {
+  if (!links || !links.length) return `<p class="empty">${none}</p>`;
+  return `<div class="tiles">${links.map(l => { const h = host(l.u); return `<a class="tile" href="${esc(l.u)}" target="_blank" rel="noopener">${h ? `<img src="${fav(h)}" alt="" loading="lazy" onerror="this.outerHTML='<b class=&quot;mono&quot;>${esc((l.n || '?')[0])}</b>'">` : `<b class="mono">${esc((l.n || '?')[0])}</b>`}<span>${esc(l.n || h)}</span>${l.note ? `<em>${esc(l.note)}</em>` : ''}</a>`; }).join('')}</div>`;
+}
+function wmo(c) {
+  if (c === 0) return ['☀️', 'Clear']; if (c <= 2) return ['🌤️', 'Partly cloudy']; if (c === 3) return ['☁️', 'Cloudy'];
+  if (c <= 48) return ['🌫️', 'Fog']; if (c <= 57) return ['🌦️', 'Drizzle']; if (c <= 67) return ['🌧️', 'Rain'];
+  if (c <= 77) return ['🌨️', 'Snow']; if (c <= 82) return ['🌧️', 'Showers']; if (c <= 86) return ['🌨️', 'Snow showers'];
+  return ['⛈️', 'Thunderstorms'];
+}
+
+/* ---------------- drawing */
+function card(w) {
+  return `<section class="w ${w.z}" data-w="${w.id}" aria-label="${esc(TYPES[w.t].name)}"><div class="wh"><span class="hd">${svg(TYPES[w.t].icon)}</span><div class="wt">${esc(TYPES[w.t].name)}</div><div class="wa"></div></div><div class="wb"><div class="skel"></div><div class="skel"></div><div class="skel"></div></div></section>`;
+}
+function fill(w) {
+  const el = $(`[data-w="${w.id}"]`); if (!el) return;
+  let out; try { out = R[w.t](w.c, w); } catch (e) { out = { title: TYPES[w.t].name, body: '<p class="empty">This card hit a snag.</p>' }; console.error(e); }
+  Promise.resolve(out).then(o => {
+    if (!o) return; // edition not loaded yet; fillAll runs again when it is
+    const el2 = $(`[data-w="${w.id}"]`); if (!el2) return;
+    $('.hd', el2).innerHTML = o.fav ? `<img class="fv" src="${fav(o.fav)}" alt="">` : svg(o.icon || TYPES[w.t].icon);
+    $('.wt', el2).innerHTML = esc(o.title) + (o.sub ? `<small>${esc(o.sub)}</small>` : '');
+    $('.wa', el2).innerHTML = (o.link ? `<a class="nec" href="${esc(o.link)}"${/^https?:/.test(o.link) ? ' target="_blank" rel="noopener"' : ''}>${esc(o.linkLabel || 'More')}</a>` : '') +
+      `<button type="button" class="ec handle" data-drag="${w.id}" aria-label="Move" title="Drag to move">⠿</button>` +
+      `<button type="button" class="ec" data-up="${w.id}" aria-label="Move up" title="Move up">↑</button>` +
+      `<button type="button" class="ec" data-size="${w.id}" title="Size">${{ s: 'S', m: 'M', l: 'L' }[w.z]}</button>` +
+      `<button type="button" class="ec" data-cfg="${w.id}" aria-label="Settings" title="Change">⚙</button>` +
+      `<button type="button" class="ec" data-del="${w.id}" aria-label="Remove" title="Remove">✕</button>`;
+    $('.wb', el2).innerHTML = o.body;
+  }).catch(e => { console.error(e); $('.wb', el).innerHTML = '<p class="empty">This card didn’t load.</p>'; });
+}
+function draw() {
+  const g = $('#grid');
+  if (!S.w.length) { g.innerHTML = `<section class="w l"><div class="wb" style="padding:26px"><p class="empty" style="font-size:16px">Your page is empty. <a href="#" data-add>Add a card</a> or <a href="#" data-onboard>pick your sites</a>.</p></div></section>`; return; }
+  g.innerHTML = S.w.map(card).join('');
+  S.w.forEach(fill);
+}
+const fillAll = () => S.w.forEach(fill);
+function head() {
+  const h = new Date().getHours(), part = h < 5 ? 'Up late' : h < 12 ? 'Good morning' : h < 17 ? 'Good afternoon' : 'Good evening';
+  $('#hello').innerHTML = S.name ? `${part}, <i>${esc(S.name)}.</i>` : `Your internet, <i>on one page.</i>`;
+  $('#today').textContent = new Date().toLocaleDateString([], { weekday: 'long', month: 'long', day: 'numeric' }) + (D.E ? ` · ${D.E.items.length.toLocaleString()} stories from ${new Set(D.E.items.map(i => i.o)).size} outlets this watch` : '');
+  if (D.E) {
+    const at = new Date(D.E.at), nx = D.E.next ? new Date(D.E.next) : null, t = d => d.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+    $('#edline').textContent = `${D.E.label || 'This'} edition · ${t(at)}`;
+    $('#feedAt').textContent = `Edition out at ${t(at)}${nx ? `, next at ${t(nx)}` : ''}`;
+  }
+}
+
+/* ---------------- sheet */
+function openSheet(html) { $('#sheet').innerHTML = `<button type="button" class="x" data-close aria-label="Close">×</button>` + html; document.body.classList.add('sheet-open'); setTimeout(() => { const f = $('#sheet input,#sheet select,#sheet button:not(.x)'); f && f.focus(); }, 30); }
+function closeSheet() { document.body.classList.remove('sheet-open'); $('#sheet').innerHTML = ''; }
+function toast(t) { const el = $('#toast'); el.textContent = t; el.classList.add('on'); clearTimeout(toast.t); toast.t = setTimeout(() => el.classList.remove('on'), 2200); }
+
+/* onboarding: pick your sites, get a page */
+function onboard() {
+  const picked = new Set((S && S.picked) || ['wsj', 'bloomberg', 'yahoosports', 'barstool', 'yfantasy', 'claude', 'chatgpt', 'scores', 'markets', 'weather']);
+  openSheet(`<h2 id="shTitle">Build your Watch</h2>
+    <p class="lede">Pick the sites you open every day. You get one page with all of them on it, and you can move, resize or swap anything after.</p>
+    <div class="f"><label for="obName">What should we call you?</label><input id="obName" value="${esc((S && S.name) || '')}" placeholder="First name (optional)" autocomplete="given-name"></div>
+    ${GROUPS.map(([g, label]) => `<h3>${label}</h3><div class="chips">${SITES.filter(s => s[2] === g).map(s => `<button type="button" class="chip" data-pick="${s[0]}" aria-pressed="${picked.has(s[0])}"><img src="${fav(s[4])}" alt="">${esc(s[1])}</button>`).join('')}</div>`).join('')}
+    <div class="f" style="margin-top:20px"><label for="obMore">Anything else? One per line: <span style="font-weight:400">Name | web address</span></label><textarea id="obMore" placeholder="My credit union | https://www.mycu.org&#10;Kids' school | https://…" style="min-height:74px"></textarea></div>
+    <div class="foot"><span class="sp" style="font-size:13px;color:var(--ink-3)" id="obCount"></span><button class="btn pri" type="button" id="obGo">Build my page</button></div>`);
+  const count = () => { $('#obCount').textContent = $$('#sheet [data-pick][aria-pressed="true"]').length + ' picked'; };
+  count();
+  $('#sheet').onclick = e => { const b = e.target.closest('[data-pick]'); if (b) { b.setAttribute('aria-pressed', b.getAttribute('aria-pressed') !== 'true'); count(); } };
+  $('#obGo').onclick = () => {
+    const ids = $$('#sheet [data-pick][aria-pressed="true"]').map(b => b.dataset.pick);
+    const extra = $('#obMore').value.split('\n').map(parseLink).filter(Boolean);
+    S = build(ids, $('#obName').value.trim(), extra);
+    lsSet(HOME, HOMEVAL); save(); closeSheet(); head(); draw(); toast('Your page is ready. Tap Arrange to move things.');
+  };
+}
+function parseLink(line) {
+  const p = line.split('|').map(s => s.trim()); if (!p[0]) return null;
+  let u = p[1] || (/\./.test(p[0]) ? p[0] : ''); if (!u) return null;
+  if (!/^https?:\/\//i.test(u)) u = 'https://' + u;
+  return { n: p[1] ? p[0] : host(u), u, note: p[2] || '' };
+}
+function build(ids, name, extra = []) {
+  const has = id => ids.includes(id), w = [];
+  const pickedSites = ids.map(siteBy).filter(Boolean);
+  if (has('weather')) w.push(mk('weather'));
+  w.push(mk('top', {}, 'm'));
+  if (has('markets')) w.push(mk('markets'));
+  const srcs = pickedSites.filter(s => s[3] === 'src');
+  // money-ish outlets first so the business reads sit together
+  srcs.sort((a, b) => (a[2] === b[2] ? 0 : a[2] === 'news' ? -1 : 1));
+  for (const s of srcs) w.push(mk('source', { d: s[4], name: s[1], home: s[5], n: 6 }));
+  if (has('yfantasy')) w.push(mk('fantasy'));
+  if (has('scores') || srcs.some(s => s[2] === 'sports')) w.push(mk('scores'));
+  const ai = pickedSites.filter(s => s[3] === 'ai').map(s => s[0]);
+  if (ai.length) w.push(mk('ai', { use: ai.join(',') }));
+  const acct = pickedSites.filter(s => s[3] === 'acct' || s[3] === 'ins').map(s => ({ n: s[1], u: s[5] }));
+  if (acct.length) w.push(mk('accounts', { links: acct }));
+  const sites = [...pickedSites.filter(s => s[3] === 'site').map(s => ({ n: s[1], u: s[5] })), ...extra];
+  // AI sites also get a tile, so the launcher holds everything you open
+  if (sites.length) w.push(mk('sites', { links: sites }));
+  w.push(mk('todo'));
+  return { v: 1, name, picked: ids, w };
+}
+
+/* add a card */
+function addSheet() {
+  openSheet(`<h2 id="shTitle">Add a card</h2><p class="lede">Anything you add can be moved, resized and changed later.</p>
+    <h3>Quick add a site</h3><div class="chips">${SITES.filter(s => s[3] === 'src').map(s => `<button type="button" class="chip" data-qs="${s[0]}"><img src="${fav(s[4])}" alt="">${esc(s[1])}</button>`).join('')}</div>
+    <h3>All cards</h3><div class="gal">${Object.entries(TYPES).map(([k, T]) => `<button type="button" data-new="${k}"><b>${svg(T.icon)}${esc(T.name)}</b><span>${esc(T.blurb)}</span></button>`).join('')}</div>`);
+  $('#sheet').onclick = e => {
+    const q = e.target.closest('[data-qs]'), n = e.target.closest('[data-new]');
+    if (q) { const s = siteBy(q.dataset.qs); addW(mk('source', { d: s[4], name: s[1], home: s[5] })); closeSheet(); toast(s[1] + ' added at the top.'); }
+    else if (n) { const w = mk(n.dataset.new); if (['source', 'topic', 'sites', 'accounts', 'fantasy', 'desk'].includes(w.t)) cfgSheet(w, true); else { addW(w); closeSheet(); toast(TYPES[w.t].name + ' added at the top.'); } }
+  };
+}
+function addW(w) { S.w.unshift(w); save(); draw(); window.scrollTo({ top: 0, behavior: 'smooth' }); }
+
+/* change a card */
+function cfgSheet(w, isNew) {
+  const c = w.c, T = TYPES[w.t];
+  let f = '';
+  const linksTxt = (c.links || []).map(l => [l.n, l.u, l.note].filter(Boolean).join(' | ')).join('\n');
+  if (w.t === 'source') {
+    const counts = {}; for (const it of (D.E ? D.E.items : [])) { const d = it.o.replace(/\/.*$/, ''); counts[d] = (counts[d] || 0) + 1; }
+    const opts = Object.keys(counts).sort((a, b) => outletName(a).localeCompare(outletName(b)));
+    if (c.d && !counts[c.d]) opts.unshift(c.d);
+    f = `<div class="f"><label for="cD">Site</label><select id="cD">${opts.map(d => `<option value="${esc(d)}"${d === c.d ? ' selected' : ''}>${esc(outletName(d))} (${counts[d] || 0} now)</option>`).join('')}</select><span class="h">Every outlet The Watch reads, with how many stories it has this watch. Missing one? Use “Follow a topic” with its name for now.</span></div>
+      <div class="f"><label for="cN">Stories</label><select id="cN">${[4, 6, 8, 10, 12].map(n => `<option${n === c.n ? ' selected' : ''}>${n}</option>`).join('')}</select></div>`;
+  } else if (w.t === 'desk') {
+    f = `<div class="f"><label for="cK">Section</label><select id="cK">${(D.E ? D.E.sections : []).map(s => `<option value="${s.k}"${s.k === c.k ? ' selected' : ''}>${esc(s.name)}</option>`).join('')}</select></div>
+      <div class="f"><label for="cN">Stories</label><select id="cN">${[4, 6, 8, 10, 12].map(n => `<option${n === c.n ? ' selected' : ''}>${n}</option>`).join('')}</select></div>`;
+  } else if (w.t === 'top') {
+    f = `<div class="f"><label for="cN">Stories</label><select id="cN">${[4, 6, 8, 10].map(n => `<option${n === c.n ? ' selected' : ''}>${n}</option>`).join('')}</select></div>`;
+  } else if (w.t === 'topic') {
+    f = `<div class="f"><label for="cL">Card name</label><input id="cL" value="${esc(c.label)}" placeholder="Ohio State"></div>
+      <div class="f"><label for="cQ">Words to follow</label><input id="cQ" value="${esc(c.q)}" placeholder="Ohio State, Buckeyes, Ryan Day"><span class="h">Separate with commas. A story shows up if any of them is in its headline or summary.</span></div>
+      <div class="f"><label for="cN">Stories</label><select id="cN">${[4, 6, 8, 10, 12].map(n => `<option${n === c.n ? ' selected' : ''}>${n}</option>`).join('')}</select></div>`;
+  } else if (w.t === 'markets') {
+    const syms = D.M ? [...D.M.board.flatMap(g => g.rows), ...(D.M.stocks || []), ...(D.M.sectors || [])] : [];
+    f = `<div class="f"><label for="cS">Symbols</label><input id="cS" value="${esc(c.syms)}" list="symList"><datalist id="symList">${syms.map(r => `<option value="${esc(r.s)}">${esc(r.n)}</option>`).join('')}</datalist><span class="h">Comma-separated, in the order you want. The board carries the major indices, futures, yields, currencies, commodities, crypto, sector funds and about 75 big companies${syms.length ? ': ' + esc(syms.slice(0, 40).map(r => r.s).join(', ')) + '…' : ''}.</span></div>`;
+  } else if (w.t === 'scores') {
+    const on = new Set((c.lgs || '').split(','));
+    f = `<div class="f"><label>Leagues</label><div class="chips">${LEAGUES.map(([k, n]) => `<button type="button" class="chip" data-lgp="${k}" aria-pressed="${on.has(k)}">${n}</button>`).join('')}</div></div>
+      <div class="f"><label for="cT">Your teams</label><input id="cT" value="${esc(c.teams)}" placeholder="CLE, CHI, CBJ"><span class="h">Team abbreviations, comma-separated. Their games go to the top and get highlighted.</span></div>`;
+  } else if (w.t === 'fantasy') {
+    f = `<div class="f"><label for="cU">Your league’s address</label><input id="cU" value="${esc(c.url)}" placeholder="https://football.fantasysports.yahoo.com/f1/…"><span class="h">Open your team on Yahoo and paste the address so the button goes straight there.</span></div>
+      <div class="f"><label for="cP">Your players</label><textarea id="cP" style="min-height:90px" placeholder="Josh Allen, Bijan Robinson, Ja'Marr Chase">${esc(c.players)}</textarea><span class="h">Comma-separated. The card shows news that names them, from The Watch and ESPN.</span></div>`;
+  } else if (w.t === 'weather') {
+    let l = c.place || null; if (!l) try { l = JSON.parse(lsGet(WXK) || 'null'); } catch (e) { l = null; }
+    f = `<div class="f"><label for="cW">Place</label><input id="cW" placeholder="ZIP or city" value=""><span class="h">Now: ${esc(l && l.name ? l.name + (l.admin ? ', ' + l.admin : '') : 'not set (showing New York)')}.${c.place ? '' : ' Shared with The Watch’s weather page.'}</span><div class="res" id="wRes"></div></div>
+      <button class="btn" type="button" id="wGeo">Use my location</button>`;
+  } else if (w.t === 'sites' || w.t === 'accounts') {
+    const pool = SITES.filter(s => w.t === 'accounts' ? ['acct', 'ins'].includes(s[3]) : ['site', 'ai'].includes(s[3]));
+    f = `<div class="f"><label for="cTi">Card name</label><input id="cTi" value="${esc(c.title)}"></div>
+      <div class="f"><label>Tap to add</label><div class="chips">${pool.map(s => `<button type="button" class="chip" data-addlink="${s[0]}"><img src="${fav(s[4])}" alt="">${esc(s[1])}</button>`).join('')}</div></div>
+      <div class="f"><label for="cLk">Links, one per line: <span style="font-weight:400">Name | web address | short note</span></label><textarea id="cLk" placeholder="Chase | https://secure.chase.com | autopay on the 15th">${esc(linksTxt)}</textarea>${w.t === 'accounts' ? '<span class="h">Notes are for reminders like due dates. Don’t put passwords or account numbers here.</span>' : ''}</div>`;
+  } else if (w.t === 'ai') {
+    const on = new Set((c.use || '').split(','));
+    f = `<div class="f"><label>Assistants (the first one gets the Ask button)</label><div class="chips">${Object.entries(AI).map(([k, a]) => `<button type="button" class="chip" data-aip="${k}" aria-pressed="${on.has(k)}"><img src="${fav(a[1])}" alt="">${a[0]}</button>`).join('')}</div></div>`;
+  } else if (w.t === 'notes' || w.t === 'todo') {
+    f = `<div class="f"><label for="cTi">Card name</label><input id="cTi" value="${esc(c.title)}"></div>`;
+  }
+  openSheet(`<h2 id="shTitle">${isNew ? 'Add' : 'Change'}: ${esc(T.name)}</h2><p class="lede">${esc(T.blurb)}</p>${f}
+    <div class="f"><label>Size</label><div class="chips">${[['s', 'Small'], ['m', 'Medium'], ['l', 'Full width']].map(([k, n]) => `<button type="button" class="chip" data-zp="${k}" aria-pressed="${w.z === k}">${n}</button>`).join('')}</div></div>
+    <div class="foot">${isNew ? '' : `<button class="btn" type="button" id="cDel" style="color:var(--signal)">Remove card</button>`}<span class="sp"></span><button class="btn" type="button" data-close>Cancel</button><button class="btn pri" type="button" id="cOk">${isNew ? 'Add card' : 'Save'}</button></div>`);
+  const sh = $('#sheet'); let z = w.z;
+  sh.onclick = async e => {
+    const t = e.target.closest('button'); if (!t) return;
+    if (t.dataset.zp) { z = t.dataset.zp; $$('[data-zp]', sh).forEach(b => b.setAttribute('aria-pressed', b === t)); }
+    if (t.dataset.lgp || t.dataset.aip) t.setAttribute('aria-pressed', t.getAttribute('aria-pressed') !== 'true');
+    if (t.dataset.addlink) { const s = siteBy(t.dataset.addlink), ta = $('#cLk'); ta.value = (ta.value.trim() ? ta.value.trim() + '\n' : '') + s[1] + ' | ' + s[5]; t.disabled = true; t.style.opacity = .4; }
+    if (t.dataset.pl) { const l = JSON.parse(t.dataset.pl); if (w.c.place) w.c.place = l; else lsSet(WXK, JSON.stringify(l)); D.wx = null; $('#cW').value = l.name; $('#wRes').innerHTML = `<span class="h">Set to ${esc(l.name)}${l.admin ? ', ' + esc(l.admin) : ''}.</span>`; }
+    if (t.id === 'wGeo') {
+      t.textContent = 'Finding you…';
+      navigator.geolocation.getCurrentPosition(p => { const l = { name: 'Your location', admin: '', cc: 'US', lat: p.coords.latitude, lon: p.coords.longitude, src: 'gps' }; lsSet(WXK, JSON.stringify(l)); D.wx = null; t.textContent = 'Location set'; }, () => { t.textContent = 'Location blocked; type a ZIP'; }, { timeout: 9000 });
+    }
+    if (t.id === 'cDel') { S.w = S.w.filter(x => x.id !== w.id); save(); closeSheet(); draw(); }
+    if (t.id === 'cOk') {
+      const v = id => { const el = $('#' + id); return el ? el.value : undefined; };
+      if (w.t === 'source') { c.d = v('cD'); c.name = outletName(c.d); c.home = (SITES.find(s => s[4] === c.d) || [])[5] || ''; c.n = +v('cN'); }
+      if (w.t === 'desk') { c.k = v('cK'); c.n = +v('cN'); }
+      if (w.t === 'top') c.n = +v('cN');
+      if (w.t === 'topic') { c.label = v('cL').trim(); c.q = v('cQ'); c.n = +v('cN'); }
+      if (w.t === 'markets') c.syms = v('cS').toUpperCase().replace(/\s+/g, '');
+      if (w.t === 'scores') { c.lgs = $$('[data-lgp][aria-pressed="true"]', sh).map(b => b.dataset.lgp).join(',') || 'nfl'; c.teams = v('cT').toUpperCase().replace(/\s+/g, ''); delete w._lg; }
+      if (w.t === 'fantasy') { c.url = v('cU').trim() || TYPES.fantasy.cfg.url; c.players = v('cP').replace(/\n/g, ','); }
+      if (w.t === 'sites' || w.t === 'accounts') { c.title = v('cTi').trim() || T.cfg.title; c.links = v('cLk').split('\n').map(parseLink).filter(Boolean); }
+      if (w.t === 'ai') c.use = $$('[data-aip][aria-pressed="true"]', sh).map(b => b.dataset.aip).join(',') || 'claude';
+      if (w.t === 'notes' || w.t === 'todo') c.title = v('cTi').trim() || T.cfg.title;
+      w.z = z;
+      if (isNew) { closeSheet(); addW(w); } else { save(); closeSheet(); draw(); }
+    }
+  };
+  const wIn = $('#cW');
+  if (wIn) wIn.oninput = () => {
+    clearTimeout(wIn.t); wIn.t = setTimeout(async () => {
+      const q = wIn.value.trim(); if (q.length < 2) return;
+      try {
+        const r = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(q)}&count=6&language=en&format=json${/^\d{5}$/.test(q) ? '&countryCode=US' : ''}`);
+        const d = await r.json();
+        $('#wRes').innerHTML = (d.results || []).map(x => `<button type="button" data-pl='${esc(JSON.stringify({ name: x.name, admin: x.admin1 || '', cc: x.country_code || '', lat: x.latitude, lon: x.longitude, src: 'search' }))}'>${esc(x.name)}${x.admin1 ? ', ' + esc(x.admin1) : ''}${x.country_code && x.country_code !== 'US' ? ' · ' + esc(x.country_code) : ''}</button>`).join('') || '<span class="h">No match.</span>';
+      } catch (e) { $('#wRes').innerHTML = '<span class="h">Search didn’t answer. Try again.</span>'; }
+    }, 300);
+  };
+}
+
+/* settings */
+function settingsSheet() {
+  const home = lsGet(HOME) === HOMEVAL;
+  openSheet(`<h2 id="shTitle">Settings</h2>
+    <div class="f"><label for="sName">Your name</label><input id="sName" value="${esc(S.name || '')}" placeholder="First name"></div>
+    <div class="f"><label>Open The Watch to</label><div class="chips"><button type="button" class="chip" data-home="${esc(HOMEVAL)}" aria-pressed="${home}">${esc(CONF.title || 'My Watch')} (this page)</button><button type="button" class="chip" data-home="0" aria-pressed="${!home}">The front page</button></div><span class="h">Either way, “Full paper” and “My Watch” are one tap apart.</span></div>
+    <div class="f"><label>Theme</label><div class="chips">${[['auto', 'Follow the watch'], ['day', 'Day'], ['night', 'Night']].map(([k, n]) => `<button type="button" class="chip" data-th="${k}" aria-pressed="${themePref() === k}">${n}</button>`).join('')}</div></div>
+    <h3>Your layout</h3>
+    <div class="row"><button class="btn" type="button" id="sShare">Copy a link to my layout</button><button class="btn" type="button" id="sExport">Download a backup</button><label class="btn" style="cursor:pointer">Restore a backup<input type="file" id="sImport" accept="application/json,.json" hidden></label></div>
+    <p class="note">The share link carries your cards and which sites they show, never your notes, to-dos or money links.</p>
+    <h3>Start over</h3><div class="row"><button class="btn" type="button" id="sRe">Pick my sites again</button></div>
+    <div class="foot"><button class="btn pri" type="button" id="sOk">Done</button></div>`);
+  const sh = $('#sheet');
+  sh.onclick = e => {
+    const t = e.target.closest('button'); if (!t) return;
+    if (t.dataset.home) { lsSet(HOME, t.dataset.home); $$('[data-home]', sh).forEach(b => b.setAttribute('aria-pressed', b === t)); }
+    if (t.dataset.th) { setTheme(t.dataset.th); $$('[data-th]', sh).forEach(b => b.setAttribute('aria-pressed', b === t)); }
+    if (t.id === 'sShare') share();
+    if (t.id === 'sExport') { const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([JSON.stringify(S, null, 1)], { type: 'application/json' })); a.download = 'my-watch.json'; a.click(); }
+    if (t.id === 'sRe') onboard();
+    if (t.id === 'sOk') { S.name = $('#sName').value.trim(); save(); closeSheet(); head(); }
+  };
+  $('#sImport').onchange = async e => {
+    try { const s = JSON.parse(await e.target.files[0].text()); if (!Array.isArray(s.w)) throw 0; S = s; save(); closeSheet(); head(); draw(); toast('Layout restored.'); }
+    catch (x) { toast('That file isn’t a My Watch backup.'); }
+  };
+}
+// the paper's own theme setting (watch.v1.theme: auto, day or night), so both pages always match
+const paperP = () => { try { return JSON.parse(lsGet('watch.v1') || '{}') || {}; } catch (e) { return {}; } };
+function themePref() { return paperP().theme || 'auto'; }
+function setTheme(t) { const p = paperP(); p.theme = t; lsSet('watch.v1', JSON.stringify(p)); theme(); }
+function theme() {
+  let t = themePref();
+  if (t === 'auto') { const h = +new Intl.DateTimeFormat('en-US', { timeZone: 'America/New_York', hour: 'numeric', hourCycle: 'h23' }).format(new Date()); t = (h >= 20 || h < 4) || matchMedia('(prefers-color-scheme: dark)').matches ? 'night' : 'day'; }
+  document.documentElement.dataset.theme = t;
+}
+function share() {
+  const lite = { v: 1, w: S.w.filter(w => !['notes', 'todo', 'accounts'].includes(w.t)).map(w => ({ t: w.t, z: w.z, c: w.t === 'fantasy' ? { players: w.c.players } : w.c })) };
+  const b = btoa(unescape(encodeURIComponent(JSON.stringify(lite)))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+  const url = location.href.split('#')[0] + '#l=' + b;
+  (navigator.clipboard ? navigator.clipboard.writeText(url) : Promise.reject()).then(() => toast('Link copied. Anyone who opens it gets your layout.'), () => prompt('Copy this link:', url));
+}
+function fromLink() {
+  const m = location.hash.match(/^#l=([\w-]+)/); if (!m) return null;
+  try {
+    const j = JSON.parse(decodeURIComponent(escape(atob(m[1].replace(/-/g, '+').replace(/_/g, '/')))));
+    if (!Array.isArray(j.w)) return null;
+    return j.w.filter(w => TYPES[w.t]).map(w => ({ id: uid(), t: w.t, z: ['s', 'm', 'l'].includes(w.z) ? w.z : 's', c: { ...TYPES[w.t].cfg, ...(w.c || {}) } }));
+  } catch (e) { return null; }
+}
+
+/* ---------------- arrange: drag, up, size, change, remove */
+function setEditing(on) { document.body.classList.toggle('editing', on); $('#bEdit').setAttribute('aria-pressed', on); $('#bEdit').classList.toggle('on', on); }
+let drag = null;
+document.addEventListener('pointerdown', e => {
+  const h = e.target.closest('[data-drag]'); if (!h) return;
+  e.preventDefault();
+  const el = h.closest('.w'); drag = { el, id: h.dataset.drag };
+  el.classList.add('drag'); document.body.classList.add('dragging');
+  h.setPointerCapture && h.setPointerCapture(e.pointerId);
+});
+document.addEventListener('pointermove', e => {
+  if (!drag) return;
+  const over = document.elementFromPoint(e.clientX, e.clientY);
+  const tgt = over && over.closest('.w');
+  if (tgt && tgt !== drag.el && tgt.parentNode === drag.el.parentNode) {
+    const r = tgt.getBoundingClientRect();
+    const after = e.clientY > r.top + r.height / 2 || (e.clientX > r.left + r.width / 2 && e.clientY > r.top);
+    tgt.parentNode.insertBefore(drag.el, after ? tgt.nextSibling : tgt);
+  }
+  if (e.clientY < 60) window.scrollBy(0, -14); else if (e.clientY > innerHeight - 60) window.scrollBy(0, 14);
+});
+const endDrag = () => {
+  if (!drag) return;
+  drag.el.classList.remove('drag'); document.body.classList.remove('dragging');
+  const order = $$('#grid .w').map(x => x.dataset.w);
+  S.w.sort((a, b) => order.indexOf(a.id) - order.indexOf(b.id)); save(); drag = null;
+};
+document.addEventListener('pointerup', endDrag); document.addEventListener('pointercancel', endDrag);
+
+document.addEventListener('click', e => {
+  const t = e.target.closest('[data-close],[data-up],[data-size],[data-cfg],[data-del],[data-add],[data-onboard],[data-lg],[data-ai-go],[data-tdx]');
+  if (e.target === $('#scrim')) return closeSheet();
+  if (!t) return;
+  const d = t.dataset, W = id => S.w.find(x => x.id === id);
+  if ('close' in d) return closeSheet();
+  if ('add' in d) { e.preventDefault(); return addSheet(); }
+  if ('onboard' in d) { e.preventDefault(); return onboard(); }
+  if (d.up) { const i = S.w.findIndex(x => x.id === d.up); if (i > 0) { [S.w[i - 1], S.w[i]] = [S.w[i], S.w[i - 1]]; save(); draw(); const el = $(`[data-w="${d.up}"] [data-up]`); el && el.focus(); } }
+  if (d.size) { const w = W(d.size); w.z = { s: 'm', m: 'l', l: 's' }[w.z]; save(); const el = $(`[data-w="${w.id}"]`); el.className = 'w ' + w.z; fill(w); }
+  if (d.cfg) cfgSheet(W(d.cfg));
+  if (d.del) { const w = W(d.del); if (confirm(`Remove “${$(`[data-w="${w.id}"] .wt`).textContent}”?`)) { S.w = S.w.filter(x => x !== w); save(); draw(); } }
+  if (d.lg) { const w = W(t.closest('.w').dataset.w); w._lg = d.lg; fill(w); }
+  if (d.aiGo) { const f = t.closest('.wb').querySelector('[data-ai] input'), q = f.value.trim(); window.open(q ? AI[d.aiGo][2](q) : 'https://' + AI[d.aiGo][1], '_blank', 'noopener'); }
+  if (d.tdx) { const [id, i] = d.tdx.split(':'); const w = W(id); w.c.items.splice(+i, 1); save(); fill(w); }
+});
+document.addEventListener('change', e => {
+  const d = e.target.dataset;
+  if (d.td) { const [id, i] = d.td.split(':'); const w = S.w.find(x => x.id === id); w.c.items[+i].d = e.target.checked; save(); fill(w); }
+});
+document.addEventListener('input', e => {
+  const id = e.target.dataset.notes; if (!id) return;
+  const w = S.w.find(x => x.id === id); w.c.text = e.target.value; clearTimeout(w._t); w._t = setTimeout(save, 400);
+});
+document.addEventListener('submit', e => {
+  const f = e.target;
+  if ('ai' in f.dataset) { e.preventDefault(); const q = f.q.value.trim(); if (!q) return; const w = S.w.find(x => x.id === f.closest('.w').dataset.w); const k = (w.c.use || 'claude').split(',')[0]; window.open(AI[k][2](q), '_blank', 'noopener'); }
+  if (f.dataset.tdadd) { e.preventDefault(); const t = f.t.value.trim(); if (!t) return; const w = S.w.find(x => x.id === f.dataset.tdadd); (w.c.items = w.c.items || []).push({ t, d: false }); save(); fill(w); setTimeout(() => { const i = $(`[data-tdadd="${w.id}"] input`); i && i.focus(); }, 0); }
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && document.body.classList.contains('sheet-open')) closeSheet(); });
+$('#bAdd').onclick = addSheet; $('#bAdd2').onclick = addSheet;
+$('#bEdit').onclick = () => setEditing(!document.body.classList.contains('editing'));
+$('#bDone').onclick = () => setEditing(false);
+$('#bSet').onclick = settingsSheet;
+$('#lnkShare').onclick = e => { e.preventDefault(); share(); };
+$('#lnkReset').onclick = e => { e.preventDefault(); onboard(); };
+
+/* ---------------- boot */
+async function refresh() {
+  try {
+    const l = await getJSON('data/latest.json');
+    if (D.E && l && l.id && l.id !== D.E.id) { await loadEdition(); head(); fillAll(); toast('A new edition is in.'); }
+  } catch (e) { /* keep what we have */ }
+}
+(async function boot() {
+  theme();
+  S = load();
+  const shared = fromLink();
+  if (shared) {
+    history.replaceState(null, '', location.pathname);
+    if (!S || confirm('Use the layout from this link? Your current page will be replaced.')) { S = { v: 1, name: S ? S.name : '', w: shared }; save(); lsSet(HOME, HOMEVAL); toast('Layout loaded from the link.'); }
+  }
+  if (!S && CONF.preset) { const P = CONF.preset; S = { v: 1, name: P.name || '', w: P.w.filter(w => TYPES[w.t]).map(w => mk(w.t, JSON.parse(JSON.stringify(w.c || {})), w.z)) }; save(); }
+  const first = !S;
+  if (first) S = build(['wsj', 'bloomberg', 'yahoosports', 'barstool', 'yfantasy', 'claude', 'chatgpt', 'scores', 'markets', 'weather'], '');
+  head(); draw();
+  if (first) onboard();
+  try { await loadEdition(); } catch (e) { $('#feedAt').textContent = 'The edition didn’t load; headlines will fill in when it does.'; }
+  head(); fillAll();
+  setInterval(refresh, 10 * 60000);
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) refresh(); });
+})();
+</script>
+</body>
+</html>

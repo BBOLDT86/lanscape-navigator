@@ -266,7 +266,11 @@ body.sheet-open{overflow:hidden}
    Open-Meteo for weather (the paper's saved place, localStorage['watch.wx']).
    ===================================================================== */
 const PUBLIC = 'https://bboldt86.github.io/lanscape-navigator/news/';
-const KEY = 'watch.my.v1', HOME = 'watch.my.home', WXK = 'watch.wx';
+// a personal page (e.g. /luke/) sets window.MYWATCH = { base, key, home, title, preset } before this script runs
+const CONF = window.MYWATCH || {};
+const BASE = CONF.base || '../';           // where The Watch lives, relative to this page
+const KEY = CONF.key || 'watch.my.v1', HOME = 'watch.my.home', WXK = 'watch.wx';
+const HOMEVAL = CONF.home || '1';          // what the paper's front door stores to open this page
 const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
 const lsGet = k => { try { return localStorage.getItem(k); } catch (e) { return null; } };
@@ -394,7 +398,7 @@ function mk(type, cfg = {}, size) { const T = TYPES[type]; return { id: uid(), t
 /* ---------------- data */
 const D = { E: null, M: null, sp: {}, wx: null, byId: new Map(), deskName: {}, outlets: {} };
 async function getJSON(path) {
-  const tries = /^https?:$/.test(location.protocol) ? ['../' + path, PUBLIC + path] : [PUBLIC + path];
+  const tries = /^https?:$/.test(location.protocol) ? [BASE + path, PUBLIC + path] : [PUBLIC + path];
   let last;
   for (const u of tries) {
     try {
@@ -448,7 +452,7 @@ const R = {
       const it = D.byId.get(cl.lead); if (!it || (it.l && it.l !== 'en') || seen.has(it.i)) continue;
       seen.add(it.i); out.push(it); if (out.length >= c.n) break;
     }
-    return { title: 'Top stories', icon: 'top', link: '../#/', body: rows(out, { lead: true, thumbs: true }) };
+    return { title: 'Top stories', icon: 'top', link: BASE + '#/', body: rows(out, { lead: true, thumbs: true }) };
   },
   source(c, w) {
     const name = c.name || outletName(c.d) || c.d;
@@ -461,14 +465,15 @@ const R = {
   desk(c, w) {
     if (!D.E) return null;
     const its = fresh(D.E.items.filter(it => it.c === c.k)).sort((a, b) => (clusterN(b) - clusterN(a)) * 30 + (b.p - a.p)).slice(0, c.n);
-    return { title: D.deskName[c.k] || c.k, icon: 'desk', link: '../#/s/' + c.k, linkLabel: 'Desk', body: rows(its, { lead: w.z !== 's', thumbs: w.z !== 's', two: w.z === 'm' }) };
+    return { title: D.deskName[c.k] || c.k, icon: 'desk', link: BASE + '#/s/' + c.k, linkLabel: 'Desk', body: rows(its, { lead: w.z !== 's', thumbs: w.z !== 's', two: w.z === 'm' }) };
   },
   topic(c, w) {
     if (!D.E) return null;
     const words = (c.q || '').split(',').map(s => s.trim().toLowerCase()).filter(Boolean);
     if (!words.length) return { title: c.label || 'Follow a topic', icon: 'topic', body: `<p class="empty">Tap ⚙ in Arrange and type what to follow: a team, company, person or place.</p>` };
-    const its = fresh(D.E.items.filter(it => { const h = (it.t + ' ' + (it.d || '') + ' ' + (it.k || []).join(' ')).toLowerCase(); return words.some(x => h.includes(x)); })).slice(0, c.n);
-    return { title: c.label || words.join(', '), icon: 'topic', link: '../#/q/' + encodeURIComponent(words[0]), linkLabel: 'All', body: rows(its, { none: 'No stories mention it in this watch.', two: w.z === 'm' }) };
+    const re = wordsRe(words);
+    const its = fresh(D.E.items.filter(it => re.test(it.t + ' ' + (it.d || '') + ' ' + (it.k || []).join(' ')))).slice(0, c.n);
+    return { title: c.label || words.join(', '), icon: 'topic', link: BASE + '#/q/' + encodeURIComponent(words[0]), linkLabel: 'All', body: rows(its, { none: 'No stories mention it in this watch.', two: w.z === 'm' }) };
   },
   async markets(c) {
     const M = await marketsP();
@@ -480,7 +485,7 @@ const R = {
     const fmt = (r) => r.kind === 'yld' || /^\^(IRX|FVX|TNX|TYX)$|US2Y/.test(r.s) ? r.p.toFixed(2) + '%' : r.p >= 1000 ? r.p.toLocaleString('en-US', { maximumFractionDigits: 0 }) : r.p.toFixed(2);
     const body = list.length ? `<table class="mk">${list.map(r => { const cls = r.c > 0 ? 'up' : r.c < 0 ? 'dn' : ''; return `<tr><td class="n">${esc(r.n)}<small>${esc(r.s.replace(/^\^/, ''))}</small></td><td class="sp ${cls}">${spark(r.i || (r.d || []).slice(-30))}</td><td class="p">${fmt(r)}</td><td class="c ${cls}">${r.cp > 0 ? '+' : ''}${(r.cp || 0).toFixed(2)}%</td></tr>`; }).join('')}</table>` : '<p class="empty">Add symbols with ⚙.</p>';
     const at = new Date(M.at);
-    return { title: 'Markets', sub: 'as of ' + at.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }), icon: 'chart', link: '../#/s/business', linkLabel: 'Board', body };
+    return { title: 'Markets', sub: 'as of ' + at.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }), icon: 'chart', link: BASE + '#/s/business', linkLabel: 'Board', body };
   },
   async scores(c, w) {
     const lgs = (c.lgs || 'nfl').split(',').filter(Boolean);
@@ -500,14 +505,14 @@ const R = {
     const tm = (t, g) => `<div class="tm${t.w ? ' win' : ''}"><img src="${esc(t.lo)}" alt="" loading="lazy" onerror="this.style.visibility='hidden'">${esc(t.sh || t.nm)}${t.r ? ` <span style="color:var(--ink-3);font-size:12px">${esc(t.r)}</span>` : ''}</div><div class="sc">${g.st === 'pre' ? '' : esc(t.sc)}</div>`;
     const gsLine = g => g.st === 'in' ? `<span class="live">LIVE</span> · ${esc(g.sd)}` : g.st === 'post' ? esc(g.sd) + ' · ' + new Date(g.d).toLocaleDateString([], { weekday: 'short' }) : new Date(g.d).toLocaleString([], { weekday: 'short', hour: 'numeric', minute: '2-digit' }) + (g.tv && g.tv.length ? ' · ' + esc(g.tv.join(', ')) : '');
     const body = tabs + (pick.length ? pick.map(g => `<div class="gm${isFav(g) ? ' fav' : ''}">${tm(g.a, g)}${tm(g.h, g)}<div class="gs">${gsLine(g)}</div></div>`).join('') : '<p class="empty">No games this week.</p>');
-    return { title: 'Scores', sub: d.phase || '', icon: 'ball', link: '../#/sports/' + cur, linkLabel: 'All', body };
+    return { title: 'Scores', sub: d.phase || '', icon: 'ball', link: BASE + '#/sports/' + cur, linkLabel: 'All', body };
   },
   async fantasy(c, w) {
     const nfl = await sportP('nfl');
     const players = (c.players || '').split(',').map(s => s.trim()).filter(Boolean);
     let news = [];
     if (players.length) {
-      const hit = s => players.some(p => s.toLowerCase().includes(p.toLowerCase()));
+      const re = wordsRe(players), hit = s => re.test(s);
       news = fresh((D.E ? D.E.items : []).filter(it => hit(it.t + ' ' + (it.d || ''))));
       for (const n of (nfl && nfl.news) || []) if (hit(n.t + ' ' + (n.d || ''))) news.push({ i: 'n' + n.u, t: n.t, u: n.u, o: 'espn.com', p: Date.parse(n.p) / 60000 });
       news = dedupe(news);
@@ -523,7 +528,7 @@ const R = {
     return { title: 'Fantasy', sub: wk, icon: 'fantasy', body };
   },
   async weather(c, w) {
-    let l; try { l = JSON.parse(lsGet(WXK) || 'null'); } catch (e) { l = null; }
+    let l = c.place || null; if (!l) try { l = JSON.parse(lsGet(WXK) || 'null'); } catch (e) { l = null; }
     if (!l || !isFinite(l.lat)) l = { name: 'New York', admin: 'New York', cc: 'US', lat: 40.7128, lon: -74.006, src: 'guess' };
     const F = l.cc === 'US' || !l.cc;
     const key = l.lat.toFixed(2) + ',' + l.lon.toFixed(2);
@@ -531,12 +536,12 @@ const R = {
       try {
         const r = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${l.lat}&longitude=${l.lon}&current=temperature_2m,apparent_temperature,weather_code,wind_speed_10m,is_day&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max&forecast_days=5&timezone=auto${F ? '&temperature_unit=fahrenheit&wind_speed_unit=mph' : ''}`);
         if (!r.ok) throw new Error(r.status); D.wx = { key, at: Date.now(), d: await r.json() };
-      } catch (e) { return { title: 'Weather', icon: 'sun', link: '../#/weather', body: '<p class="empty">The forecast didn’t load. <a href="../#/weather">Open Weather</a></p>' }; }
+      } catch (e) { return { title: 'Weather', icon: 'sun', link: BASE + '#/weather', body: '<p class="empty">The forecast didn’t load. <a href="${BASE}#/weather">Open Weather</a></p>' }; }
     }
     const d = D.wx.d, cu = d.current, dy = d.daily;
     const body = `<div class="wx"><div class="t">${Math.round(cu.temperature_2m)}°</div><div class="d"><b>${wmo(cu.weather_code)[1]}</b>Feels ${Math.round(cu.apparent_temperature)}° · wind ${Math.round(cu.wind_speed_10m)} ${F ? 'mph' : 'km/h'}<br>H ${Math.round(dy.temperature_2m_max[0])}° · L ${Math.round(dy.temperature_2m_min[0])}°</div></div>
       <div class="days">${dy.time.map((t, i) => `<div><span>${i ? new Date(t + 'T12:00').toLocaleDateString([], { weekday: 'short' }) : 'Today'}</span><i>${wmo(dy.weather_code[i])[0]}</i><b>${Math.round(dy.temperature_2m_max[i])}°</b><span>${Math.round(dy.temperature_2m_min[i])}° · ${dy.precipitation_probability_max[i] ?? 0}%</span></div>`).join('')}</div>`;
-    return { title: l.name + (l.src === 'guess' ? '' : ''), sub: l.src === 'guess' ? 'set your place with ⚙' : l.admin || '', icon: 'sun', link: '../#/weather', linkLabel: 'Radar', body };
+    return { title: l.name + (l.src === 'guess' ? '' : ''), sub: l.src === 'guess' ? 'set your place with ⚙' : l.admin || '', icon: 'sun', link: BASE + '#/weather', linkLabel: 'Radar', body };
   },
   sites(c) { return { title: c.title || 'My sites', icon: 'link', body: tiles(c.links, 'Add the sites you visit every day with ⚙.') }; },
   accounts(c) { return { title: c.title || 'Money & bills', icon: 'bank', body: tiles(c.links, 'Add your bank, cards and insurance with ⚙.') + `<p class="note">Opens each sign-in. Nothing about your accounts is stored here.</p>` }; },
@@ -553,6 +558,8 @@ const R = {
       <form class="addrow" data-tdadd="${w.id}"><input name="t" placeholder="Add a to-do" aria-label="New to-do"><button class="btn" type="submit">Add</button></form>` };
   }
 };
+// whole words only, so "Ohio State" doesn't catch "Ohio Statehouse" and "THC" doesn't catch a longer word
+const wordsRe = ws => new RegExp('(^|[^\\p{L}\\p{N}])(' + ws.map(w => w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|') + ')(?![\\p{L}\\p{N}])', 'iu');
 // the same story often comes through ESPN and Yahoo both; keep the first by link or headline
 function dedupe(a) { const seen = new Set(); return a.sort((x, y) => y.p - x.p).filter(n => { const k = n.t.toLowerCase().replace(/\W+/g, ''); if (seen.has(n.u) || seen.has(k)) return false; seen.add(n.u); seen.add(k); return true; }); }
 function tiles(links, none) {
@@ -626,7 +633,7 @@ function onboard() {
     const ids = $$('#sheet [data-pick][aria-pressed="true"]').map(b => b.dataset.pick);
     const extra = $('#obMore').value.split('\n').map(parseLink).filter(Boolean);
     S = build(ids, $('#obName').value.trim(), extra);
-    lsSet(HOME, '1'); save(); closeSheet(); head(); draw(); toast('Your page is ready. Tap Arrange to move things.');
+    lsSet(HOME, HOMEVAL); save(); closeSheet(); head(); draw(); toast('Your page is ready. Tap Arrange to move things.');
   };
 }
 function parseLink(line) {
@@ -702,8 +709,8 @@ function cfgSheet(w, isNew) {
     f = `<div class="f"><label for="cU">Your league’s address</label><input id="cU" value="${esc(c.url)}" placeholder="https://football.fantasysports.yahoo.com/f1/…"><span class="h">Open your team on Yahoo and paste the address so the button goes straight there.</span></div>
       <div class="f"><label for="cP">Your players</label><textarea id="cP" style="min-height:90px" placeholder="Josh Allen, Bijan Robinson, Ja'Marr Chase">${esc(c.players)}</textarea><span class="h">Comma-separated. The card shows news that names them, from The Watch and ESPN.</span></div>`;
   } else if (w.t === 'weather') {
-    let l; try { l = JSON.parse(lsGet(WXK) || 'null'); } catch (e) { l = null; }
-    f = `<div class="f"><label for="cW">Place</label><input id="cW" placeholder="ZIP or city" value=""><span class="h">Now: ${esc(l && l.name ? l.name + (l.admin ? ', ' + l.admin : '') : 'not set (showing New York)')}. Shared with The Watch’s weather page.</span><div class="res" id="wRes"></div></div>
+    let l = c.place || null; if (!l) try { l = JSON.parse(lsGet(WXK) || 'null'); } catch (e) { l = null; }
+    f = `<div class="f"><label for="cW">Place</label><input id="cW" placeholder="ZIP or city" value=""><span class="h">Now: ${esc(l && l.name ? l.name + (l.admin ? ', ' + l.admin : '') : 'not set (showing New York)')}.${c.place ? '' : ' Shared with The Watch’s weather page.'}</span><div class="res" id="wRes"></div></div>
       <button class="btn" type="button" id="wGeo">Use my location</button>`;
   } else if (w.t === 'sites' || w.t === 'accounts') {
     const pool = SITES.filter(s => w.t === 'accounts' ? ['acct', 'ins'].includes(s[3]) : ['site', 'ai'].includes(s[3]));
@@ -725,7 +732,7 @@ function cfgSheet(w, isNew) {
     if (t.dataset.zp) { z = t.dataset.zp; $$('[data-zp]', sh).forEach(b => b.setAttribute('aria-pressed', b === t)); }
     if (t.dataset.lgp || t.dataset.aip) t.setAttribute('aria-pressed', t.getAttribute('aria-pressed') !== 'true');
     if (t.dataset.addlink) { const s = siteBy(t.dataset.addlink), ta = $('#cLk'); ta.value = (ta.value.trim() ? ta.value.trim() + '\n' : '') + s[1] + ' | ' + s[5]; t.disabled = true; t.style.opacity = .4; }
-    if (t.dataset.pl) { const l = JSON.parse(t.dataset.pl); lsSet(WXK, JSON.stringify(l)); D.wx = null; $('#cW').value = l.name; $('#wRes').innerHTML = `<span class="h">Set to ${esc(l.name)}${l.admin ? ', ' + esc(l.admin) : ''}.</span>`; }
+    if (t.dataset.pl) { const l = JSON.parse(t.dataset.pl); if (w.c.place) w.c.place = l; else lsSet(WXK, JSON.stringify(l)); D.wx = null; $('#cW').value = l.name; $('#wRes').innerHTML = `<span class="h">Set to ${esc(l.name)}${l.admin ? ', ' + esc(l.admin) : ''}.</span>`; }
     if (t.id === 'wGeo') {
       t.textContent = 'Finding you…';
       navigator.geolocation.getCurrentPosition(p => { const l = { name: 'Your location', admin: '', cc: 'US', lat: p.coords.latitude, lon: p.coords.longitude, src: 'gps' }; lsSet(WXK, JSON.stringify(l)); D.wx = null; t.textContent = 'Location set'; }, () => { t.textContent = 'Location blocked; type a ZIP'; }, { timeout: 9000 });
@@ -762,10 +769,10 @@ function cfgSheet(w, isNew) {
 
 /* settings */
 function settingsSheet() {
-  const home = lsGet(HOME) === '1';
+  const home = lsGet(HOME) === HOMEVAL;
   openSheet(`<h2 id="shTitle">Settings</h2>
     <div class="f"><label for="sName">Your name</label><input id="sName" value="${esc(S.name || '')}" placeholder="First name"></div>
-    <div class="f"><label>Open The Watch to</label><div class="chips"><button type="button" class="chip" data-home="1" aria-pressed="${home}">My Watch (this page)</button><button type="button" class="chip" data-home="0" aria-pressed="${!home}">The front page</button></div><span class="h">Either way, “Full paper” and “My Watch” are one tap apart.</span></div>
+    <div class="f"><label>Open The Watch to</label><div class="chips"><button type="button" class="chip" data-home="${esc(HOMEVAL)}" aria-pressed="${home}">${esc(CONF.title || 'My Watch')} (this page)</button><button type="button" class="chip" data-home="0" aria-pressed="${!home}">The front page</button></div><span class="h">Either way, “Full paper” and “My Watch” are one tap apart.</span></div>
     <div class="f"><label>Theme</label><div class="chips">${[['auto', 'Follow the watch'], ['day', 'Day'], ['night', 'Night']].map(([k, n]) => `<button type="button" class="chip" data-th="${k}" aria-pressed="${themePref() === k}">${n}</button>`).join('')}</div></div>
     <h3>Your layout</h3>
     <div class="row"><button class="btn" type="button" id="sShare">Copy a link to my layout</button><button class="btn" type="button" id="sExport">Download a backup</button><label class="btn" style="cursor:pointer">Restore a backup<input type="file" id="sImport" accept="application/json,.json" hidden></label></div>
@@ -890,8 +897,9 @@ async function refresh() {
   const shared = fromLink();
   if (shared) {
     history.replaceState(null, '', location.pathname);
-    if (!S || confirm('Use the layout from this link? Your current page will be replaced.')) { S = { v: 1, name: S ? S.name : '', w: shared }; save(); lsSet(HOME, '1'); toast('Layout loaded from the link.'); }
+    if (!S || confirm('Use the layout from this link? Your current page will be replaced.')) { S = { v: 1, name: S ? S.name : '', w: shared }; save(); lsSet(HOME, HOMEVAL); toast('Layout loaded from the link.'); }
   }
+  if (!S && CONF.preset) { const P = CONF.preset; S = { v: 1, name: P.name || '', w: P.w.filter(w => TYPES[w.t]).map(w => mk(w.t, JSON.parse(JSON.stringify(w.c || {})), w.z)) }; save(); }
   const first = !S;
   if (first) S = build(['wsj', 'bloomberg', 'yahoosports', 'barstool', 'yfantasy', 'claude', 'chatgpt', 'scores', 'markets', 'weather'], '');
   head(); draw();

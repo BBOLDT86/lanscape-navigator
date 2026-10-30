@@ -106,7 +106,8 @@ STOCKS = [('AAPL', 'Apple'), ('MSFT', 'Microsoft'), ('NVDA', 'Nvidia'), ('AMZN',
           ('RTX', 'RTX'), ('F', 'Ford'), ('GM', 'General Motors'), ('DAL', 'Delta Air Lines'), ('UAL', 'United Airlines'), ('LUV', 'Southwest'),
           ('MU', 'Micron'), ('TSM', 'TSMC'), ('ASML', 'ASML'), ('SAP', 'SAP'), ('NVO', 'Novo Nordisk'), ('AZN', 'AstraZeneca'),
           ('SHEL', 'Shell'), ('PBR', 'Petrobras'), ('VALE', 'Vale'), ('ITUB', 'Itaú Unibanco'), ('NU', 'Nu Holdings'), ('COIN', 'Coinbase'),
-          ('SMCI', 'Super Micro'), ('ARM', 'Arm'), ('SNOW', 'Snowflake'), ('SHOP', 'Shopify')]
+          ('SMCI', 'Super Micro'), ('ARM', 'Arm'), ('SNOW', 'Snowflake'), ('SHOP', 'Shopify'),
+          ('ANF', 'Abercrombie & Fitch'), ('MSOS', 'U.S. cannabis fund (MSOS)')]
 CNBC_SYM = {'BRK-B': 'BRK.B'}
 US_CASH = {'^GSPC', '^DJI', '^IXIC', '^RUT', '^VIX'}
 

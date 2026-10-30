@@ -1,0 +1,37 @@
+{
+  "slug": "luke",
+  "title": "Luke's Watch",
+  "description": "Luke's page: his news, his teams, his markets and his everyday sites, all in one place.",
+  "preset": {
+    "name": "Luke",
+    "w": [
+      {"t": "weather", "z": "s", "c": {"place": {"name": "New Albany", "admin": "Ohio", "cc": "US", "lat": 40.0812, "lon": -82.8088, "src": "preset"}}},
+      {"t": "top", "z": "m", "c": {"n": 6}},
+      {"t": "topic", "z": "s", "c": {"label": "Cannabis retail", "q": "cannabis, marijuana, dispensary, dispensaries, THC, hemp, multistate operator", "n": 7}},
+      {"t": "markets", "z": "s", "c": {"syms": "^GSPC,^DJI,^IXIC,MSOS,ANF,BTC-USD"}},
+      {"t": "source", "z": "s", "c": {"d": "wsj.com", "name": "Wall Street Journal", "home": "https://www.wsj.com", "n": 6}},
+      {"t": "topic", "z": "s", "c": {"label": "Buckeyes", "q": "Ohio State, Buckeyes, Ryan Day", "n": 6}},
+      {"t": "fantasy", "z": "s", "c": {}},
+      {"t": "scores", "z": "s", "c": {"lgs": "nfl,nba,nhl", "teams": "CLE,CIN,CBJ"}},
+      {"t": "source", "z": "s", "c": {"d": "sports.yahoo.com", "name": "Yahoo Sports", "home": "https://sports.yahoo.com", "n": 6}},
+      {"t": "source", "z": "s", "c": {"d": "barstoolsports.com", "name": "Barstool Sports", "home": "https://www.barstoolsports.com", "n": 6}},
+      {"t": "source", "z": "s", "c": {"d": "bloomberg.com", "name": "Bloomberg", "home": "https://www.bloomberg.com", "n": 6}},
+      {"t": "topic", "z": "s", "c": {"label": "Abercrombie & fashion", "q": "Abercrombie, Hollister, fashion industry, apparel, fashion week, retail sales", "n": 6}},
+      {"t": "sites", "z": "s", "c": {"title": "Cannabis business", "links": [
+        {"n": "Ohio Cannabis Control", "u": "https://com.ohio.gov/divisions-and-programs/cannabis-control"},
+        {"n": "MJBizDaily", "u": "https://mjbizdaily.com"},
+        {"n": "Headset", "u": "https://www.headset.io"},
+        {"n": "Marijuana Moment", "u": "https://www.marijuanamoment.net"}]}},
+      {"t": "sites", "z": "s", "c": {"title": "Family weekends", "links": [
+        {"n": "Columbus Zoo", "u": "https://www.columbuszoo.org"},
+        {"n": "COSI", "u": "https://cosi.org"},
+        {"n": "Metro Parks", "u": "https://www.metroparks.net"},
+        {"n": "Easton", "u": "https://www.eastontowncenter.com"},
+        {"n": "New Albany", "u": "https://newalbanyohio.org"},
+        {"n": "Franklin Park", "u": "https://www.fpconservatory.org"}]}},
+      {"t": "ai", "z": "s", "c": {"use": "claude,chatgpt,perplexity"}},
+      {"t": "accounts", "z": "s", "c": {"title": "Money & bills", "links": []}},
+      {"t": "todo", "z": "s", "c": {"title": "To-do", "items": []}}
+    ]
+  }
+}

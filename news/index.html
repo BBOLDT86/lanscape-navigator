@@ -1082,7 +1082,7 @@ body.ssopen{overflow:hidden}
 <script>
 // My Watch as the front door: set in My Watch's settings (watch.my.home). Only the bare English front page redirects;
 // any #/ address, ?paper, pt.html and de.html open the paper as before.
-(function(){try{if(!location.hash&&!/[?&]paper\b/.test(location.search)&&/\/news\/(index\.html)?$/.test(location.pathname)&&localStorage.getItem('watch.my.home')==='1')location.replace('my/'+location.search);}catch(e){}})();
+(function(){try{if(!location.hash&&!/[?&]paper\b/.test(location.search)&&/\/news\/(index\.html)?$/.test(location.pathname)){var v=localStorage.getItem('watch.my.home');if(v==='1')location.replace('my/'+location.search);else if(v&&/^\/[\w\/-]+\/$/.test(v))location.replace(v);}}catch(e){}})();
 </script>
 <script>
 // paint the right paper before anything draws: day, night, or follow the watch
