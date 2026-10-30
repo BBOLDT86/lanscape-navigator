@@ -357,7 +357,12 @@ def read_feed(f):
     try:
         raw = fetch_raw(url, name)
         if f.get('json') or raw.lstrip()[:1] in (b'{', b'['):
-            return name, read_json_feed(f, json.loads(raw)), None
+            data = json.loads(raw)
+            items = read_json_feed(f, data)
+            if not items and data:  # say what came back, so a changed API shows up in the footer instead of an empty card
+                shape = f'list of {len(data)}' if isinstance(data, list) else 'object with ' + ', '.join(list(data.keys())[:6])
+                return name, [], f'JSON read but no stories found ({shape}; {len(raw)} bytes)'
+            return name, items, None
         try:
             root = ET.fromstring(raw)
         except ET.ParseError:
@@ -1102,7 +1107,7 @@ def main():
         'kw': {k: ents.get(k) or ALIAS_LABEL.get(k, k) for k in sorted({k for it in items for k in it.get('k', []) if not k.startswith('#')})},
         'topics': {k: l for k, l, _rx in TOPICS},
         'items': items, 'clusters': clusters, 'top': top, 'topLang': top_lang,
-        'feeds': {'total': len(feeds), 'read': len(feeds) - len(errors), 'failed': errors, 'stories': len(fresh)} if not OFFLINE else prev.get('feeds', {}),
+        'feeds': {'total': len(feeds), 'read': len(feeds) - len(errors), 'failed': errors, 'stories': len(fresh), 'empty': sorted(n for n, c in counts.items() if not c)} if not OFFLINE else prev.get('feeds', {}),
     }
     # the archive: the last seven editions, by id
     os.makedirs(ARCH, exist_ok=True)
