@@ -506,7 +506,7 @@ const R = {
   source(c, w) {
     const name = c.name || outletName(c.d) || c.d;
     if (!D.E) return null;
-    const its = fresh(D.E.items.filter(it => matchDom(it.o, c.d) && !/^Search\b/i.test(it.t))).slice(0, c.n);
+    const its = fresh(D.E.items.filter(it => matchDom(it.o, c.d) && !/^Search\b|\| Blogs & Videos$/i.test(it.t))).slice(0, c.n);
     const site = c.home || 'https://' + c.d.replace(/\/.*$/, '');
     const none = `Nothing from ${esc(name)} in this watch. ${c.d === 'barstoolsports.com' ? 'Its feed joins the paper with the next edition.' : 'It may be between stories; this card refills every watch.'} <a href="${esc(site)}" target="_blank" rel="noopener">Open ${esc(name)} ↗</a>`;
     return { title: name, fav: c.d.replace(/\/.*$/, ''), link: site, linkLabel: 'Open ↗', body: rows(its, { lead: w.z !== 's', thumbs: w.z !== 's', noOutlet: true, none, two: w.z === 'm' }) };
