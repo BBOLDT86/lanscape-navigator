@@ -1080,6 +1080,11 @@ body.ssopen{overflow:hidden}
 </head>
 <body>
 <script>
+// My Watch as the front door: set in My Watch's settings (watch.my.home). Only the bare English front page redirects;
+// any #/ address, ?paper, pt.html and de.html open the paper as before.
+(function(){try{if(!location.hash&&!/[?&]paper\b/.test(location.search)&&/\/news\/(index\.html)?$/.test(location.pathname)&&localStorage.getItem('watch.my.home')==='1')location.replace('my/'+location.search);}catch(e){}})();
+</script>
+<script>
 // paint the right paper before anything draws: day, night, or follow the watch
 (function(){try{var p=JSON.parse(localStorage.getItem('watch.v1')||localStorage.getItem('sextant.v1')||'{}');var t=p.theme||'auto';var h=+new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',hour:'numeric',hourCycle:'h23'}).format(new Date());
 if(t==='auto'){t=(h>=20||h<4)?'night':(matchMedia('(prefers-color-scheme: dark)').matches?'night':'day')}document.documentElement.dataset.theme=t;}catch(e){}})();
@@ -1528,10 +1533,10 @@ function renderBar() {
   const cur = navCur(), groups = navGroups();
   const curGroup = (groups.find(g => g.items.some(it => it[0] === cur)) || {}).id || null;
   const open = barOpen === null ? curGroup : barOpen;
-  const top = [['home', '', 'Front'], ['you', 'for-you', 'For you'], ...groups.map(g => ['grp:' + g.id, '', g.label]), ['weather', 'weather', 'Weather']];
+  const top = [['my', 'my/', 'My Watch'], ['home', '', 'Front'], ['you', 'for-you', 'For you'], ...groups.map(g => ['grp:' + g.id, '', g.label]), ['weather', 'weather', 'Weather']];
   $('#bar').innerHTML = top.map(([id, h, label]) => id.startsWith('grp:')
     ? `<button type="button" class="grp" data-grp="${id.slice(4)}" aria-expanded="${open === id.slice(4)}"${curGroup === id.slice(4) ? ' aria-current="page"' : ''}>${esc(label)}</button>`
-    : `<button type="button" data-go="#/${h}"${id === cur ? ' aria-current="page"' : ''}${id === 'you' ? ' class="you"' : ''}>${esc(label)}</button>`).join('');
+    : `<button type="button" data-go="${id === 'my' ? h : '#/' + h}"${id === cur ? ' aria-current="page"' : ''}${id === 'you' || id === 'my' ? ' class="you"' : ''}>${esc(label)}</button>`).join('');
   const g = groups.find(x => x.id === open), b2 = $('#bar2');
   b2.hidden = !g;
   b2.innerHTML = g ? g.items.map(([id, h, label]) => `<button type="button" data-go="${h.startsWith('../') ? h : '#/' + h}"${id === cur ? ' aria-current="page"' : ''}${id === 'reel' ? ' class="rl"' : ''}>${id === 'reel' ? '▶ ' : ''}${esc(label)}</button>`).join('') : '';
@@ -3611,7 +3616,7 @@ document.addEventListener('click', e => {
   if (ds.brm != null) brmMark('done'); // then the link does its work
   if (ds.vpin) { e.preventDefault(); vpinClick(ds.vpin); return; }
   if (ds.plhotel != null) { const f = $('#plFly'), c = f && LIFE && LIFE.cby[f.to.value]; const q = new URLSearchParams(Object.entries({ q: c ? `${c.name}, ${c.region || c.country}` : '', in: f ? f.dep.value : '', out: f ? f.ret.value : '', n: f ? f.n.value : '' }).filter(([, v]) => v)); location.href = '../travel/#/hotels?' + q.toString(); return; }
-  if (ds.go) { e.preventDefault(); barOpen = null; if (ds.go.startsWith('../')) location.href = ds.go; else go(ds.go); return; }
+  if (ds.go) { e.preventDefault(); barOpen = null; if (ds.go.startsWith('../') || ds.go === 'my/') location.href = ds.go; else go(ds.go); return; }
   if (ds.grp) { barOpen = a.getAttribute('aria-expanded') === 'true' ? '' : ds.grp; renderBar(); return; }
   if (ds.open) {
     const it = byId.get(ds.open);
