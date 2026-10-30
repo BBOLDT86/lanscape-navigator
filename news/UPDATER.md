@@ -530,3 +530,25 @@ IFR or LIFR conditions, or thunderstorms.
 Each edition is about 450 KB of JSON (about 110 KB over the wire); the markets file about 150 KB; the Epstein files
 index about 380 KB; Zillow's ZIP table about 2.2 MB (about 700 KB over the wire), read only on the Home desk. Six commits a day add a few hundred KB to the
 repository's history per day after compression.
+
+## My Watch (`news/my/`) and the personal pages
+
+My Watch is the reader's own front page: cards for the sites they use (headlines per outlet, sections, topics),
+markets, scores, fantasy, weather, prompt ideas, bills, Runway Rewards (card credits, shared with Points Hacker's
+`wk.wallet` / `wk.used`), Together / 90 (reads the workbook's own save), launchers, Ask AI, notes and to-do.
+Everything the reader sets lives in their browser (`watch.my.v1`). It reads the same `data/` files as the paper.
+
+A personal page is a preset: `news/my/people/<slug>.json` (title, description, share text, the cards) becomes
+`/<slug>/index.html` and `/<slug>/share.png` (the link preview) when you run `python3 news/my/build-people.py`.
+Re-run it after changing `news/my/index.html` or a preset. The page keeps its own layout in `watch.my.<slug>`,
+and a changed preset nudges a reader who already has the page to load the new layout from Settings.
+`node news/my/build-t90.js` refreshes `news/my/t90.json` (the day list the Together / 90 card uses) after the
+workbook changes.
+
+## JSON sources
+
+A feed whose response is JSON (`"json": true`, or a body that starts with `{` or `[`) goes through
+`read_json_feed()`: a JSON Feed, or any API whose stories are a list of objects with a title. Field names are
+tried from short lists (`url`/`link`/`permalink`…, `date_published`/`published_at`/`date`…, `thumbnail`/`image`…),
+and `"link": "https://site/blog/{id}/{slug}"` builds links from fields when the items carry none. Barstool's
+story API is the first one.

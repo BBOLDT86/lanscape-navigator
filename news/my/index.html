@@ -175,6 +175,36 @@ body.dragging{user-select:none;-webkit-user-select:none}
 .addrow{display:flex;gap:6px;margin-top:8px}
 .addrow input{flex:1;min-width:0;border:1px solid var(--rule);background:var(--paper);border-radius:8px;padding:7px 10px}
 
+/* ---------- prompts, bills, rewards, together */
+.pk{font:600 11px var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--brass-ink)}
+.pr{display:grid;gap:10px}
+.w.m .pr,.w.l .pr{grid-template-columns:repeat(3,1fr)}
+.pq{background:var(--paper);border-radius:12px;padding:12px 13px;display:flex;flex-direction:column;gap:5px}
+.pq b{font:400 18px/1.2 var(--serif)}
+.pq p{margin:0;font-size:13.5px;line-height:1.45;color:var(--ink-2);flex:1}
+.pa{display:flex;gap:6px;margin-top:6px;flex-wrap:wrap}
+.btn.sm{padding:5px 11px;font-size:13px}
+.pfoot{display:flex;gap:6px;margin-top:10px}
+.ptech{margin-top:12px;border-top:1px solid var(--rule);padding-top:10px}
+.ptech b{display:block;font:600 14.5px var(--sans);margin:3px 0 2px}
+.ptech p{margin:0;font-size:13.5px;color:var(--ink-2)}
+.btot{display:flex;gap:18px;margin-bottom:8px}
+.btot b{font:400 26px/1 var(--serif);display:block}
+.btot span{font-size:12px;color:var(--ink-3)}
+.bl{list-style:none;margin:0;padding:0}
+.bl li{display:grid;grid-template-columns:auto 1fr auto auto;gap:8px;align-items:center;padding:7px 0;border-top:1px solid var(--rule);font-size:14px}
+.bl li:first-child{border-top:0}
+.bl li.soon .bd{color:var(--signal);font-weight:700}
+.bl li.done{opacity:.55}
+.bl input[type=checkbox]{width:17px;height:17px;accent-color:var(--brass);display:block}
+.bl .bn{min-width:0}.bl .bn b{font-weight:600;display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.bl .bn small{color:var(--ink-3);font-size:11.5px}
+.bl .bn a{text-decoration:none}.bl .bn a:hover{text-decoration:underline}
+.bl .ba{font-variant-numeric:tabular-nums;font-weight:600}
+.bl .bd{font-size:12px;color:var(--ink-3);min-width:50px;text-align:right}
+.t9 b{display:block;font:400 22px/1.15 var(--serif);margin:4px 0 4px}
+.t9 p{margin:0;font-size:13.5px;color:var(--ink-2)}
+@media (max-width:700px){.w.m .pr,.w.l .pr{grid-template-columns:1fr}}
+
 /* ---------- sheet */
 .scrim{position:fixed;inset:0;background:var(--scrim);z-index:40;display:none}
 .sheet{position:fixed;z-index:41;left:50%;top:50%;transform:translate(-50%,-50%);width:min(760px,calc(100vw - 24px));max-height:min(88vh,900px);overflow:auto;background:var(--raise);border-radius:20px;box-shadow:0 30px 80px rgba(0,0,0,.3);display:none;padding:26px 28px 22px}
@@ -293,7 +323,11 @@ const IC = {
   ai: '<path d="M8 2l1.4 3.6L13 7l-3.6 1.4L8 12l-1.4-3.6L3 7l3.6-1.4z"/><path d="M12.5 11.5l.6 1.4 1.4.6-1.4.6-.6 1.4-.6-1.4-1.4-.6 1.4-.6z"/>',
   note: '<path d="M3.5 2.5h7l2 2v9h-9zM5.5 6.5h5M5.5 9h5M5.5 11.5h3"/>',
   todo: '<path d="M3 4.5l1.2 1.2L6.5 3.5M3 9l1.2 1.2L6.5 8M8.5 4.5h5M8.5 9h5M8.5 13h5M3.5 12.5h2v1.5h-2z"/>',
-  top: '<path d="M8 2l1.8 3.8 4.2.5-3.1 2.9.8 4.1L8 11.3l-3.7 2 .8-4.1L2 6.3l4.2-.5z"/>'
+  top: '<path d="M8 2l1.8 3.8 4.2.5-3.1 2.9.8 4.1L8 11.3l-3.7 2 .8-4.1L2 6.3l4.2-.5z"/>',
+  bulb: '<path d="M5.5 11.5a4.5 4.5 0 1 1 5 0v1.5h-5zM6 14.5h4M8 2v.5"/>',
+  bill: '<path d="M3 2.5h10v11l-1.7-1-1.6 1-1.7-1-1.7 1-1.6-1-1.7 1zM5.5 6h5M5.5 8.5h5M5.5 11h3"/>',
+  gift: '<path d="M2.5 7h11v6.5h-11zM2 4.5h12V7H2zM8 4.5v9M8 4.5C6 4.5 4.5 3.5 5 2.5s2.5 0 3 2c.5-2 2.5-3 3-2s-1 2-3 2"/>',
+  heart: '<path d="M8 13.5S2.5 10 2.5 6.2A2.9 2.9 0 0 1 8 4.6a2.9 2.9 0 0 1 5.5 1.6C13.5 10 8 13.5 8 13.5z"/>'
 };
 const svg = k => `<svg class="ic" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${IC[k] || IC.news}</svg>`;
 
@@ -386,7 +420,11 @@ const TYPES = {
   accounts: { name: 'Money & bills', icon: 'bank', blurb: 'Banking, cards, insurance and bills, each one tap from its sign-in.', size: 's', cfg: { title: 'Money & bills', links: [] } },
   ai: { name: 'Ask AI', icon: 'ai', blurb: 'Type once, send the question to Claude, ChatGPT or Perplexity.', size: 's', cfg: { use: 'claude,chatgpt,perplexity' } },
   notes: { name: 'Notes', icon: 'note', blurb: 'A scratchpad that’s always there.', size: 's', cfg: { title: 'Notes', text: '' } },
-  todo: { name: 'To-do', icon: 'todo', blurb: 'A short list you tick off.', size: 's', cfg: { title: 'To-do', items: [] } }
+  todo: { name: 'To-do', icon: 'todo', blurb: 'A short list you tick off.', size: 's', cfg: { title: 'To-do', items: [] } },
+  prompts: { name: 'Prompt ideas', icon: 'bulb', blurb: 'Three fresh things to ask an AI today, written around your life, plus a prompting technique and what’s new in AI.', size: 'm', cfg: { cats: 'work,family,money,football,home,think,write', prof: { work: '', kids: '', city: '', team: '', partner: '' }, mine: [], saved: [] } },
+  bills: { name: 'Bills & due dates', icon: 'bill', blurb: 'What’s due in the next month, tick it off when it’s paid. Amounts stay on this device.', size: 's', cfg: { title: 'Bills', items: [], paid: {} } },
+  rewards: { name: 'Runway Rewards', icon: 'gift', blurb: 'Every card credit and loyalty perk you’re sitting on, what expires soon, and the rewards logins. Shares its checkmarks with Points Hacker.', size: 's', cfg: { cards: '', loyalty: [], balances: [] } },
+  t90: { name: 'Together / 90', icon: 'heart', blurb: 'Today’s session of the 90-day workbook for two, your streak, and one tap in.', size: 's', cfg: {} }
 };
 
 /* ---------------- state */
@@ -457,7 +495,7 @@ const R = {
   source(c, w) {
     const name = c.name || outletName(c.d) || c.d;
     if (!D.E) return null;
-    const its = fresh(D.E.items.filter(it => matchDom(it.o, c.d))).slice(0, c.n);
+    const its = fresh(D.E.items.filter(it => matchDom(it.o, c.d) && !/^Search\b/i.test(it.t))).slice(0, c.n);
     const site = c.home || 'https://' + c.d.replace(/\/.*$/, '');
     const none = `Nothing from ${esc(name)} in this watch. ${c.d === 'barstoolsports.com' ? 'Its feed joins the paper with the next edition.' : 'It may be between stories; this card refills every watch.'} <a href="${esc(site)}" target="_blank" rel="noopener">Open ${esc(name)} ↗</a>`;
     return { title: name, fav: c.d.replace(/\/.*$/, ''), link: site, linkLabel: 'Open ↗', body: rows(its, { lead: w.z !== 's', thumbs: w.z !== 's', noOutlet: true, none, two: w.z === 'm' }) };
@@ -562,8 +600,207 @@ const R = {
 const wordsRe = ws => new RegExp('(^|[^\\p{L}\\p{N}])(' + ws.map(w => w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|') + ')(?![\\p{L}\\p{N}])', 'iu');
 // the same story often comes through ESPN and Yahoo both; keep the first by link or headline
 function dedupe(a) { const seen = new Set(); return a.sort((x, y) => y.p - x.p).filter(n => { const k = n.t.toLowerCase().replace(/\W+/g, ''); if (seen.has(n.u) || seen.has(k)) return false; seen.add(n.u); seen.add(k); return true; }); }
+/* ---------------- Prompt ideas: a library written around the reader. {slots} fill from the card's profile
+   (work, kids, city, team, partner); an empty slot falls back to the generic word. Three a day, seeded by the date,
+   plus one technique; "Another three" reshuffles. */
+const PCATS = { work: 'Work', family: 'Family', money: 'Money & home', football: 'Football', home: 'Cooking & house', think: 'Think', write: 'Write', fun: 'Fun' };
+const SLOTS = { work: 'my business', kids: 'my kids', city: 'my town', team: 'my team', partner: 'my partner', league: 'my fantasy league' };
+const PLIB = [
+  // work
+  ['work', 'Shift huddle', 'Write a 90-second pre-shift huddle for the team at {work}: one number we’re chasing today, one thing to say to every customer, one thing to stop doing. Make it sound like a person, not a memo.'],
+  ['work', 'Menu that sells', 'Here’s my current product list and prices (I’ll paste). Rebuild it as a menu board that guides first-timers to three safe picks and regulars to what’s new, and tell me which three items to drop.'],
+  ['work', 'The slow Tuesday plan', 'Give me five promotions that bring people into {work} on a slow weekday without discounting the whole store. For each: who it’s for, the hook, how to measure if it worked, and the compliance thing I need to double-check.'],
+  ['work', 'Hire by the answers', 'Write six interview questions for a budtender/retail associate at {work} that reveal judgment and warmth instead of rehearsed answers, and for each tell me what a great answer sounds like versus a red flag.'],
+  ['work', 'Read the reviews', 'I’ll paste our last 30 online reviews. Sort what people actually praise and complain about into themes, count them, and give me the one operational change that would move the most reviews up a star.'],
+  ['work', 'Vendor negotiation', 'I’m renegotiating terms with a supplier for {work}. Play the supplier: push back on everything I say, and after the role-play tell me the three concessions I should have asked for.'],
+  ['work', 'Loss prevention walk', 'Build me a 15-minute weekly walk-through checklist for shrink, cash handling and inventory accuracy at {work}, ordered from the highest-dollar risk down, with the one question to ask the closer each night.'],
+  ['work', 'Local law watch', 'Explain the rules I need to keep an eye on for a retail cannabis shop in Ohio this year, in plain English, and give me a checklist for a surprise inspection. Flag anything you’re unsure about so I can verify it.'],
+  ['work', 'Loyalty that works', 'Design a loyalty program for {work} that regulars actually use: tiers, what earns points, what doesn’t, how to keep it legal in my state, and the three messages we’d send in the first month.'],
+  ['work', 'Quarter in one page', 'Ask me ten questions about how {work} did this quarter, then write the one-page summary I’d send to my partners with the numbers, the story and the two decisions to make.'],
+  // family
+  ['family', 'Rainy Saturday', 'It’s raining and I have {kids} at home. Give me a plan for the day with three activities using only things in a normal house, each with a 30-second setup and a way to make it a game.'],
+  ['family', 'Why is the sky blue, for a 6-year-old', 'My daughter asked a “why” question (I’ll paste it). Answer it the way a great kindergarten teacher would: true, short, one picture in words, and a follow-up question that gets her thinking.'],
+  ['family', 'Bedtime story, custom', 'Write a five-minute bedtime story for {kids} where they’re the heroes, set in {city}, with a quiet ending that winds down instead of up. Use their names when I give them.'],
+  ['family', 'The Saturday scout', 'List kid-friendly things to do this weekend within 30 minutes of {city} for ages 4 to 6, sorted by indoor and outdoor, with cost and the best hour to arrive before the crowd.'],
+  ['family', 'Dinner they’ll eat', 'Give me seven weeknight dinners {kids} will actually eat that I can make in 25 minutes, with one grown-up twist for each so {partner} and I aren’t eating nuggets.'],
+  ['family', 'Big feeling, small kid', 'My 4-year-old is melting down about (I’ll describe). Give me three things to say in the moment, what not to say, and one thing to try tomorrow so it happens less.'],
+  ['family', 'Date night, planned', 'Plan a date night for {partner} and me in {city} for under $150: a place, a backup if it’s full, a thing to do after, and two questions to ask each other that aren’t about the kids.'],
+  ['family', 'Road-trip games', 'We’re driving two hours with {kids}. Give me ten car games that need no screens and no supplies, ranked by how long each one actually lasts.'],
+  ['family', 'Birthday on a budget', 'Plan a birthday party for a girl turning 7 for 12 kids under $300: theme, a timeline for two hours, three games, the food, and what I can prep the night before.'],
+  ['family', 'Grandparent update', 'Turn these notes about what {kids} did this month (I’ll paste) into a warm two-paragraph update I can text their grandparents.'],
+  // money
+  ['money', 'Where the money goes', 'I’ll paste three months of spending by category. Tell me the three lines that are drifting, what a normal household our size spends on each, and the easiest $300 a month to find without feeling it.'],
+  ['money', 'Refinance or not', 'Walk me through whether refinancing makes sense: ask me for my rate, balance, years left and the rate I’m offered, then show the math on the break-even month in a table.'],
+  ['money', 'The subscription audit', 'Here are my recurring charges (I’ll paste). Group them, flag anything that looks duplicated or unused, and write the cancellation message for each one I pick.'],
+  ['money', 'Kids’ college, started', 'Explain a 529 plan for Ohio residents like I’m smart but busy: the tax break, how much to put in for two kids, and what happens if one doesn’t go to college. Flag what to verify.'],
+  ['money', 'Property tax check', 'My county reassessed my house. Explain how to check whether the value is fair, what comparable sales I should pull, and draft the appeal letter if it’s high.'],
+  ['money', 'Insurance gap finder', 'Ask me ten questions about my home, cars, income and family, then tell me where I’m probably under-insured or over-insured and what to ask my agent.'],
+  ['money', 'Big purchase, cold eyes', 'I want to buy (I’ll describe). Argue the case against it as hard as you can, then tell me the conditions under which it’s a good buy anyway.'],
+  ['money', 'Bonus plan', 'I got an unexpected $X. Rank the best uses for a family with two young kids and a mortgage, from boring to fun, with the reasoning for each.'],
+  // football
+  ['football', 'Start or sit, explained', 'I’ll paste my fantasy roster and this week’s matchups. Pick my lineup and explain each close call in one sentence, then tell me the one waiver move to make before Sunday.'],
+  ['football', 'Trade I’d actually accept', 'Here’s my roster and the one I’m trading with (I’ll paste). Propose three trades that help both teams, ordered by how likely they are to say yes.'],
+  ['football', '{team} film room', 'Explain what the {team} are doing differently on offense this season in terms a smart fan would get: the scheme, the personnel, and the one stat that shows whether it’s working.'],
+  ['football', 'Sunday from the couch', 'Give me a watching plan for Sunday with {kids} around: when the {team} game matters most, which other games to flip to, and three snacks I can make at halftime.'],
+  ['football', 'Trash talk, PG', 'Write me five lines of friendly trash talk for {league} this week that are funny without being mean, referencing this week’s matchup (I’ll paste it).'],
+  ['football', 'Explain it to a 6-year-old', 'Explain football to my 6-year-old daughter in five sentences so she can follow the {team} game with me, and give me three things to point out during the game.'],
+  ['football', 'The draft I should have had', 'Rate my fantasy draft (I’ll paste the picks by round): the three best picks, the three worst, and what to do about the bad ones now.'],
+  ['football', 'Playoff math', 'Here are the standings in {league} (I’ll paste). Tell me what I need to make the playoffs, which other games to root for, and whether to play for this week or next.'],
+  // cooking & house
+  ['home', 'Fridge to dinner', 'Here’s what’s in my fridge (I’ll list it). Give me three dinners I can make tonight, the fastest first, with one kid-friendly and one for {partner} and me after bedtime.'],
+  ['home', 'Tailgate menu', 'Plan a tailgate for 8 adults and 4 kids for a {team} game: a menu that travels, what to cook the night before, a shopping list by store aisle, and a timeline for game day.'],
+  ['home', 'Fix it myself?', 'I have this problem in my house (I’ll describe). Tell me whether it’s a 20-minute fix, a weekend project, or a call-a-pro job, and walk me through the first one if it is.'],
+  ['home', 'Yard by month', 'Write me a lawn and garden calendar for central Ohio, one task per weekend, from now through next summer, with the two that matter most if I skip everything else.'],
+  ['home', 'Sunday meal prep', 'Give me a 90-minute Sunday prep plan that sets up four weeknight dinners for a family of four, with one shared shopping list and what goes in which container.'],
+  ['home', 'The guest room sprint', 'Family is coming Friday. Give me a room-by-room cleaning plan for two evenings, 45 minutes each, ordered by what guests actually notice.'],
+  ['home', 'Better coffee', 'I make coffee with (I’ll describe). Give me the three changes that would improve it the most for the least money, and the one piece of gear worth buying.'],
+  // think
+  ['think', 'Steelman it', 'I believe (I’ll state it). Give me the strongest version of the opposite view, the kind its smartest defender would make, then tell me what would have to be true for me to be wrong.'],
+  ['think', 'Decide in one page', 'I’m deciding between (I’ll describe the options). Ask me the five questions that matter, then lay out the decision on one page: what I gain, what I give up, what I can undo, and your call.'],
+  ['think', 'The pre-mortem', 'I’m about to (I’ll describe the plan). It’s a year later and it failed. Write the most likely story of why, then the three things I’d do now to prevent that story.'],
+  ['think', 'Explain like a mentor', 'Teach me (a topic I’ll name) the way a great mentor would over coffee: start with why it matters to someone like me, one real example, then the three ideas that explain 80% of it.'],
+  ['think', 'What am I not seeing', 'Here’s a situation at work (I’ll describe it). What is each person in it probably thinking that they aren’t saying? Then tell me what I’m most likely getting wrong.'],
+  ['think', 'The week in review', 'Ask me five questions about my week, then tell me what I’d notice if I were reading my own answers as a friend: the pattern, the win I’m underrating, the thing to change next week.'],
+  ['think', 'Read the news like a pro', 'Here’s a headline I don’t understand (I’ll paste). Explain the background in five sentences, who gains and who loses, and the question a skeptical reader should ask.'],
+  // write
+  ['write', 'The hard email', 'I need to tell someone something they won’t like (I’ll describe). Draft it three ways: direct, warm, and short. Then tell me which one to send and why.'],
+  ['write', 'Toast, 60 seconds', 'Write a 60-second toast for (I’ll say the occasion and person) that gets one real laugh and one real moment, with no clichés. Use details I give you.'],
+  ['write', 'Post that doesn’t sound like a post', 'Turn this (I’ll paste the thing that happened) into a LinkedIn post that sounds like a human talking, under 120 words, no hashtags, no “excited to announce.”'],
+  ['write', 'Tighten it', 'Cut this (I’ll paste) by 40% without losing the point. Show me what you cut and why, so I learn to do it myself.'],
+  ['write', 'Thank-you that lands', 'Write a thank-you note to (I’ll say who, and for what) that mentions one specific thing they did and one way it mattered. Four sentences, no gush.'],
+  ['write', 'The review I owe', 'I need to write a performance review for someone on my team (I’ll describe their year). Draft it so it’s honest, specific, useful, and something they’d be glad to read twice.'],
+  ['write', 'Text to the group', 'Write the group text that gets eight dads to actually commit to a plan: the date, the thing, the price, and a deadline, in the tone of someone they like.'],
+  // fun
+  ['fun', 'Trivia night', 'Make a ten-question trivia round about {team} history, from easy to brutal, with answers and one fun fact per answer.'],
+  ['fun', 'Name that dish', 'I’m naming a new item at {work} (I’ll describe it). Give me 15 names: five safe, five playful, five that {partner} would veto, and tell me which one you’d pick.'],
+  ['fun', 'Halloween, planned', 'Plan a Halloween weekend in {city} for {kids}: costumes we can make from clothes we own, the best neighborhoods to trick-or-treat, and a parent-friendly candy trade policy.'],
+  ['fun', 'The playlist', 'Build a 20-song playlist for a Saturday morning with {kids} that the grown-ups won’t hate, in an order that starts slow and ends in a dance party.'],
+  ['fun', 'Two truths and a lie', 'Give me ten surprising-but-true facts about {city} and central Ohio, each with a plausible fake twin, so I can run two-truths-and-a-lie at dinner.']
+];
+const PTECH = [
+  ['Give it a role and a reader', 'Start with who it is and who it’s for: “You’re a retail operator with 20 years in. Write for a new store manager.” The answer changes more than you’d expect.'],
+  ['Ask for questions first', 'End with “Before you answer, ask me the five questions you need.” You get a tailored answer instead of a generic one.'],
+  ['Show it one example', 'Paste one thing you liked (an email, a menu, a post) and say “match this.” One example beats a paragraph of adjectives.'],
+  ['Make it argue with itself', '“Give me your answer, then the strongest case against it, then your final call.” Catches the confident-but-wrong first draft.'],
+  ['Set the shape', 'Say the format before the content: “a table with three columns,” “five bullets, each under 12 words,” “one paragraph I can read aloud in 30 seconds.”'],
+  ['Say what good looks like', 'Add the bar: “good enough to send to my boss without edits,” “something a 6-year-old would laugh at.” It aims higher when you tell it where the target is.'],
+  ['Iterate, don’t restart', 'Reply with “keep everything, but…” and the one change. Rewriting the whole prompt throws away what it got right.'],
+  ['Give it the real thing', 'Paste the actual numbers, the actual email, the actual roster. Summaries lose the details that make the answer specific.'],
+  ['Ask for the trade-offs', '“For each option, what do I give up?” Turns a list of ideas into a decision you can make.'],
+  ['Flag the unknowns', 'End with “tell me what you’re unsure about and what I should verify.” Especially for laws, prices and anything with a date.'],
+  ['Make it brief, then expand', '“Answer in three sentences. If I say ‘more,’ go deep.” You read less and still get the depth when you want it.'],
+  ['Name the audience’s mood', '“They’re tired, skeptical and on their phone.” Tone follows the reader, and the reader is rarely a blank page.'],
+  ['Chain it', 'Big task? “First, outline. Stop. I’ll pick a section, then you write it.” Smaller steps, fewer wrong turns.'],
+  ['Ask for the next question', 'Finish any answer with “what should I ask you next?” It knows the parts you haven’t thought of yet.']
+];
+const AIRE = /\b(AI|A\.I\.|artificial intelligence|OpenAI|ChatGPT|GPT-?\d|Anthropic|Claude|Gemini|Copilot|LLM|large language model|prompt(ing|s)?|chatbot|Nvidia|Perplexity|Midjourney|Sora|agentic|AI agents?)\b/i;
+function dayseed(n) { const d = new Date(); let x = d.getFullYear() * 1000 + d.getMonth() * 40 + d.getDate() + (n || 0); x = Math.sin(x) * 10000; return x - Math.floor(x); }
+function pickPrompts(c, w) {
+  const cats = (c.cats || '').split(',').filter(k => PCATS[k]);
+  const pool = PLIB.filter(x => cats.includes(x[0])).concat((c.mine || []).map(t => ['mine', 'Mine', t]));
+  if (!pool.length) return [];
+  const spin = w._spin || 0, out = [], used = new Set();
+  for (let i = 0; i < 3 && out.length < Math.min(3, pool.length); i++) {
+    let j = Math.floor(dayseed(spin * 7 + i * 13 + w.id.charCodeAt(0)) * pool.length), tries = 0;
+    while ((used.has(j) || (out.length && out.some(o => o[0] === pool[j][0]) && tries < pool.length)) && tries < pool.length) { j = (j + 1) % pool.length; tries++; }
+    used.add(j); out.push(pool[j]);
+  }
+  return out;
+}
+function fillSlots(t, prof) { return t.replace(/\{(\w+)\}/g, (m, k) => (prof && prof[k]) || SLOTS[k] || m); }
+R.prompts = function (c, w) {
+  const picks = pickPrompts(c, w), tech = PTECH[Math.floor(dayseed(w._spin || 0) * PTECH.length)];
+  const prof = c.prof || {};
+  const ai = D.E ? fresh(D.E.items.filter(it => AIRE.test(it.t))).slice(0, w.z === 's' ? 2 : 3) : [];
+  const saved = c.saved || [];
+  const body = `${picks.length ? `<div class="pr">${picks.map(([k, t, p], i) => { const txt = fillSlots(p, prof), isSaved = saved.includes(txt); return `<div class="pq"><div class="pk">${esc(PCATS[k] || 'Mine')}</div><b>${esc(fillSlots(t, prof))}</b><p>${esc(txt)}</p><div class="pa"><button type="button" class="btn pri sm" data-ask="${w.id}:${i}">Ask</button><button type="button" class="btn sm" data-copy="${w.id}:${i}">Copy</button><button type="button" class="btn sm${isSaved ? ' on' : ''}" data-psave="${w.id}:${i}" aria-pressed="${isSaved}" title="Save">♥</button></div></div>`; }).join('')}</div>
+    <div class="pfoot"><button type="button" class="btn sm" data-spin="${w.id}">Another three</button>${saved.length ? `<button type="button" class="btn sm" data-psaved="${w.id}">${saved.length} saved</button>` : ''}</div>` : '<p class="empty">Pick some categories with ⚙.</p>'}
+    <div class="ptech"><span class="pk">Technique of the day</span><b>${esc(tech[0])}</b><p>${esc(tech[1])}</p></div>
+    ${ai.length ? `<div class="pk" style="margin-top:12px">New in AI this watch</div>${rows(ai)}` : ''}`;
+  return { title: 'Prompt ideas', sub: new Date().toLocaleDateString([], { weekday: 'long' }), icon: 'bulb', body, picks: picks.map(x => fillSlots(x[2], prof)) };
+};
+
+/* ---------------- Bills & due dates: items {n, day, amt, u, auto}; paid[name:YYYY-M] = true */
+function billNext(day, now = new Date()) {
+  const y = now.getFullYear(), m = now.getMonth(), last = mm => new Date(y, mm + 1, 0).getDate();
+  let d = new Date(y, m, Math.min(day, last(m)));
+  if (d < new Date(y, m, now.getDate())) d = new Date(y, m + 1, Math.min(day, last(m + 1)));
+  return d;
+}
+const billKey = (b, d) => b.n + ':' + d.getFullYear() + '-' + (d.getMonth() + 1);
+R.bills = function (c, w) {
+  const items = c.items || [], paid = c.paid || {}, now = new Date(), today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  if (!items.length) return { title: c.title || 'Bills', icon: 'bill', body: '<p class="empty">Add your bills with ⚙: name, the day they’re due, the amount, and the link to pay.</p>' };
+  const rows = items.map(b => { let d = billNext(b.day, now); let k = billKey(b, d); if (paid[k]) { d = new Date(d.getFullYear(), d.getMonth() + 1, Math.min(b.day, new Date(d.getFullYear(), d.getMonth() + 2, 0).getDate())); k = billKey(b, d); } return { b, d, k, days: Math.round((d - today) / 864e5) }; }).sort((a, b) => a.d - b.d);
+  const soon = rows.filter(r => r.days <= 31), month = items.reduce((s, b) => s + (+b.amt || 0), 0), due = soon.filter(r => r.days <= 7).reduce((s, r) => s + (+r.b.amt || 0), 0);
+  const body = `<div class="btot"><div><b>${usd(due)}</b><span>due this week</span></div><div><b>${usd(month)}</b><span>a month, all in</span></div></div>
+    <ul class="bl">${(w.z === 's' ? soon.slice(0, 7) : soon).map(r => `<li class="${r.days <= 3 ? 'soon' : ''}"><label><input type="checkbox" data-paid="${w.id}:${esc(r.k)}" aria-label="Paid"></label><span class="bn"><b>${r.b.u ? `<a href="${esc(r.b.u)}" target="_blank" rel="noopener">${esc(r.b.n)}</a>` : esc(r.b.n)}</b>${r.b.auto ? '<small>autopay</small>' : ''}</span><span class="ba">${r.b.amt ? usd(+r.b.amt) : ''}</span><span class="bd">${r.days === 0 ? 'today' : r.days === 1 ? 'tomorrow' : r.days < 0 ? 'overdue' : r.d.toLocaleDateString([], { month: 'short', day: 'numeric' })}</span></li>`).join('')}</ul>
+    <p class="note">Tick a bill when it’s paid and it moves to next month. Nothing here leaves this device.</p>`;
+  return { title: c.title || 'Bills', sub: soon.length ? soon.length + ' coming up' : '', icon: 'bill', body };
+};
+const usd = v => '$' + (Math.round(v * 100) / 100).toLocaleString('en-US', { maximumFractionDigits: v % 1 ? 2 : 0 });
+
+/* ---------------- Runway Rewards: card credits from Points Hacker's data (travel/points/points.json), the wallet
+   and checkmarks shared with it (wk.wallet, wk.used; same origin), plus the loyalty logins and balances you type. */
+const PER = { month: 12, quarter: 4, half: 2, year: 1, '4years': 0.25 };
+function ptsPeriod(per, d = new Date()) {
+  const y = d.getFullYear(), m = d.getMonth(), end = (yy, mm) => new Date(yy, mm + 1, 0);
+  if (per === 'month') return { k: `${y}-${m + 1}`, end: end(y, m), lab: d.toLocaleDateString('en-US', { month: 'long' }) };
+  if (per === 'quarter') { const q = Math.floor(m / 3); return { k: `${y}-Q${q + 1}`, end: end(y, q * 3 + 2), lab: `Q${q + 1}` }; }
+  if (per === 'half') { const h = m < 6 ? 0 : 1; return { k: `${y}-H${h + 1}`, end: end(y, h * 6 + 5), lab: h ? 'Jul–Dec' : 'Jan–Jun' }; }
+  if (per === 'year') return { k: `${y}`, end: new Date(y, 11, 31), lab: `${y}` };
+  return { k: '4y', end: null, lab: 'every 4 years' };
+}
+const wkGet = (k, d) => { try { const v = lsGet('wk.' + k); return v == null ? d : JSON.parse(v); } catch (e) { return d; } };
+const wkSet = (k, v) => lsSet('wk.' + k, JSON.stringify(v));
+const pointsP = () => D.Pp || (D.Pp = getJSON('../travel/points/points.json').then(p => (D.P = p)).catch(() => (D.Pp = null, null)));
+R.rewards = async function (c, w) {
+  const P = await pointsP();
+  const wallet = (c.cards || '').split(',').filter(Boolean).length ? (c.cards || '').split(',').filter(Boolean) : wkGet('wallet', []);
+  const used = wkGet('used', {}), today = new Date(new Date().toDateString());
+  const cards = P ? P.cards.filter(x => wallet.includes(x.id)) : [];
+  const rows = [];
+  for (const cd of cards) for (const x of cd.credits || []) { const p = ptsPeriod(x.period); const key = `${cd.id}:${x.id}:${p.k}`; rows.push({ cd, x, p, key, left: p.end ? Math.ceil((p.end - today) / 864e5) : null, used: !!used[key] }); }
+  rows.sort((a, b) => a.used - b.used || (a.left ?? 9999) - (b.left ?? 9999));
+  const open = rows.filter(r => !r.used), total = open.reduce((s, r) => s + r.x.amount, 0), soon = open.filter(r => r.left != null && r.left <= 21);
+  const loyalty = c.loyalty || [], bal = c.balances || [];
+  let body = '';
+  if (cards.length) body += `<div class="btot"><div><b>${usd(total)}</b><span>in credits open now</span></div><div><b>${soon.length}</b><span>expire within 3 weeks</span></div></div>
+    <ul class="bl">${(w.z === 's' ? rows.slice(0, 6) : rows.slice(0, 14)).map(r => `<li class="${r.used ? 'done' : r.left != null && r.left <= 21 ? 'soon' : ''}"><label><input type="checkbox" data-used="${esc(r.key)}"${r.used ? ' checked' : ''} aria-label="Used"></label><span class="bn"><b>${esc(r.x.name)}</b><small>${esc(r.cd.name.replace(/^The /, '').replace(/ from American Express| Card$/g, ''))}</small></span><span class="ba">${usd(r.x.amount)}</span><span class="bd">${r.used ? 'used' : r.left == null ? '4 yrs' : r.left === 0 ? 'last day' : r.left + 'd left'}</span></li>`).join('')}</ul>`;
+  else if (P) body += `<p class="empty">Tap ⚙ and pick the cards you carry; every credit shows up here with a checkbox and a countdown.</p>`;
+  else body += `<p class="empty">The cards list didn’t load.</p>`;
+  if (bal.length) body += `<div class="pk" style="margin-top:12px">Balances</div><ul class="bl">${bal.map(b => `<li><span class="bn"><b>${esc(b.n)}</b>${b.note ? `<small>${esc(b.note)}</small>` : ''}</span><span class="ba">${esc(b.v)}</span></li>`).join('')}</ul>`;
+  if (loyalty.length) body += `<div class="pk" style="margin-top:12px">Rewards logins</div>${tiles(loyalty, '')}`;
+  body += `<p class="note">Checkmarks are shared with <a href="${BASE}../travel/#/points">Points Hacker</a>, where every card’s credits are explained.</p>`;
+  return { title: 'Runway Rewards', sub: cards.length ? cards.length + (cards.length === 1 ? ' card' : ' cards') : '', icon: 'gift', link: BASE + '../travel/#/points', linkLabel: 'Points Hacker', body };
+};
+
+/* ---------------- Together / 90: reads the workbook's own save (together90.v1, same origin) and news/my/t90.json */
+const t90P = () => D.Tp || (D.Tp = getJSON('my/t90.json').then(t => (D.T = t)).catch(() => (D.Tp = null, null)));
+R.t90 = async function (c, w) {
+  const T = await t90P(); let S9 = null; try { S9 = JSON.parse(lsGet('together90.v1') || 'null'); } catch (e) { S9 = null; }
+  const url = BASE + 'lifestyle/together-90/';
+  if (!T) return { title: 'Together / 90', icon: 'heart', link: url, body: '<p class="empty">The workbook list didn’t load. <a href="' + esc(url) + '">Open Together / 90</a></p>' };
+  const total = T.days.length;
+  if (!S9 || !S9.couple || !S9.couple.start || (!S9.couple.setup && !Object.keys(S9.progress || {}).length)) return { title: 'Together / 90', icon: 'heart', link: url, linkLabel: 'Open', body: `<p style="margin:0 0 10px">Fifteen minutes a day, ninety days, two people: from what you love about each other to the decisions you keep putting off. Free, private, runs in your browser.</p><a class="btn pri" href="${esc(url)}">Start day one</a><p class="note">Once you begin, this card shows today’s session and your streak.</p>` };
+  const done = new Set(Object.keys(S9.progress || {}).filter(k => S9.progress[k] && S9.progress[k].done));
+  const elapsed = Math.round((new Date(new Date().toDateString()) - new Date(S9.couple.start + 'T00:00')) / 864e5);
+  const next = T.days.find(d => !done.has(d.k)) || T.days[total - 1];
+  const sug = T.days[Math.max(0, Math.min(total, elapsed + 1) - 1)];
+  const d = S9.cur ? (T.days[Math.max(0, Math.min(total, S9.cur) - 1)] || next) : next;
+  const week = T.weeks[d.w - 1] || {};
+  const names = [S9.couple.a, S9.couple.b].filter(Boolean).join(' & ');
+  const streak = (() => { const dates = new Set(); for (const k of done) { const at = S9.progress[k].at; if (at) dates.add(at.slice(0, 10)); } let n = 0; const x = new Date(); for (;;) { const iso = x.toISOString().slice(0, 10); if (dates.has(iso)) { n++; x.setDate(x.getDate() - 1); } else if (n === 0 && iso === new Date().toISOString().slice(0, 10)) x.setDate(x.getDate() - 1); else break; } return n; })();
+  const body = `<div class="t9"><span class="pk">Day ${esc(d.lbl)} · week ${d.w}: ${esc(week.t || '')}${week.heavy ? ' · a heavy one' : ''}</span><b>${esc(d.t)}</b><p>${esc(d.why)}</p>
+    <div class="pa"><a class="btn pri sm" href="${esc(url)}" data-t90="${esc(String(d.n))}">Open day ${esc(d.lbl)}</a>${d.n !== sug.n && !done.has(sug.k) ? `<a class="btn sm" href="${esc(url)}" data-t90="${esc(String(sug.n))}">Today should be day ${esc(sug.lbl)}</a>` : ''}</div></div>
+    <div class="btot" style="margin-top:12px"><div><b>${done.size}<small style="font-weight:500;color:var(--ink-3)"> / ${total}</small></b><span>sessions done</span></div><div><b>${streak}</b><span>day streak</span></div><div><b>${Math.max(0, total - done.size)}</b><span>to go</span></div></div>
+    <p class="note">${names ? esc(names) + ' · ' : ''}began ${esc(new Date(S9.couple.start + 'T00:00').toLocaleDateString([], { month: 'short', day: 'numeric' }))}${d.mode ? ' · ' + esc(d.mode === 'together' ? 'together' : d.mode === 'solo' ? 'solo, then compare' : d.mode) : ''}</p>`;
+  return { title: 'Together / 90', sub: names, icon: 'heart', link: url, linkLabel: 'Open', body };
+};
+
 function tiles(links, none) {
   if (!links || !links.length) return `<p class="empty">${none}</p>`;
+  if (links.some(l => l.g)) { const gs = []; for (const l of links) { const g = l.g || 'Other'; (gs.find(x => x[0] === g) || gs[gs.push([g, []]) - 1])[1].push(l); } return gs.map(([g, ls]) => `<div class="pk" style="margin:8px 0 6px">${esc(g)}</div>${tiles(ls.map(l => ({ ...l, g: '' })), '')}`).join(''); }
   return `<div class="tiles">${links.map(l => { const h = host(l.u); return `<a class="tile" href="${esc(l.u)}" target="_blank" rel="noopener">${h ? `<img src="${fav(h)}" alt="" loading="lazy" onerror="this.outerHTML='<b class=&quot;mono&quot;>${esc((l.n || '?')[0])}</b>'">` : `<b class="mono">${esc((l.n || '?')[0])}</b>`}<span>${esc(l.n || h)}</span>${l.note ? `<em>${esc(l.note)}</em>` : ''}</a>`; }).join('')}</div>`;
 }
 function wmo(c) {
@@ -591,6 +828,7 @@ function fill(w) {
       `<button type="button" class="ec" data-size="${w.id}" title="Size">${{ s: 'S', m: 'M', l: 'L' }[w.z]}</button>` +
       `<button type="button" class="ec" data-cfg="${w.id}" aria-label="Settings" title="Change">⚙</button>` +
       `<button type="button" class="ec" data-del="${w.id}" aria-label="Remove" title="Remove">✕</button>`;
+    if (o.picks) w._picks = o.picks;
     $('.wb', el2).innerHTML = o.body;
   }).catch(e => { console.error(e); $('.wb', el).innerHTML = '<p class="empty">This card didn’t load.</p>'; });
 }
@@ -615,7 +853,7 @@ function head() {
 /* ---------------- sheet */
 function openSheet(html) { $('#sheet').innerHTML = `<button type="button" class="x" data-close aria-label="Close">×</button>` + html; document.body.classList.add('sheet-open'); setTimeout(() => { const f = $('#sheet input,#sheet select,#sheet button:not(.x)'); f && f.focus(); }, 30); }
 function closeSheet() { document.body.classList.remove('sheet-open'); $('#sheet').innerHTML = ''; }
-function toast(t) { const el = $('#toast'); el.textContent = t; el.classList.add('on'); clearTimeout(toast.t); toast.t = setTimeout(() => el.classList.remove('on'), 2200); }
+function toast(t, ms) { const el = $('#toast'); el.textContent = t; el.classList.add('on'); clearTimeout(toast.t); toast.t = setTimeout(() => el.classList.remove('on'), ms || 2200); }
 
 /* onboarding: pick your sites, get a page */
 function onboard() {
@@ -640,7 +878,7 @@ function parseLink(line) {
   const p = line.split('|').map(s => s.trim()); if (!p[0]) return null;
   let u = p[1] || (/\./.test(p[0]) ? p[0] : ''); if (!u) return null;
   if (!/^https?:\/\//i.test(u)) u = 'https://' + u;
-  return { n: p[1] ? p[0] : host(u), u, note: p[2] || '' };
+  return { n: p[1] ? p[0] : host(u), u, note: p[2] || '', g: p[3] || '' };
 }
 function build(ids, name, extra = []) {
   const has = id => ids.includes(id), w = [];
@@ -673,7 +911,7 @@ function addSheet() {
   $('#sheet').onclick = e => {
     const q = e.target.closest('[data-qs]'), n = e.target.closest('[data-new]');
     if (q) { const s = siteBy(q.dataset.qs); addW(mk('source', { d: s[4], name: s[1], home: s[5] })); closeSheet(); toast(s[1] + ' added at the top.'); }
-    else if (n) { const w = mk(n.dataset.new); if (['source', 'topic', 'sites', 'accounts', 'fantasy', 'desk'].includes(w.t)) cfgSheet(w, true); else { addW(w); closeSheet(); toast(TYPES[w.t].name + ' added at the top.'); } }
+    else if (n) { const w = mk(n.dataset.new); if (['source', 'topic', 'sites', 'accounts', 'fantasy', 'desk', 'bills', 'rewards', 'prompts'].includes(w.t)) { if (w.t === 'rewards') pointsP().then(() => cfgSheet(w, true)); else cfgSheet(w, true); } else { addW(w); closeSheet(); toast(TYPES[w.t].name + ' added at the top.'); } }
   };
 }
 function addW(w) { S.w.unshift(w); save(); draw(); window.scrollTo({ top: 0, behavior: 'smooth' }); }
@@ -682,7 +920,7 @@ function addW(w) { S.w.unshift(w); save(); draw(); window.scrollTo({ top: 0, beh
 function cfgSheet(w, isNew) {
   const c = w.c, T = TYPES[w.t];
   let f = '';
-  const linksTxt = (c.links || []).map(l => [l.n, l.u, l.note].filter(Boolean).join(' | ')).join('\n');
+  const linksTxt = (c.links || []).map(l => { const f = [l.n, l.u, l.note || '', l.g || '']; while (f.length > 2 && !f[f.length - 1]) f.pop(); return f.join(' | '); }).join('\n');
   if (w.t === 'source') {
     const counts = {}; for (const it of (D.E ? D.E.items : [])) { const d = it.o.replace(/\/.*$/, ''); counts[d] = (counts[d] || 0) + 1; }
     const opts = Object.keys(counts).sort((a, b) => outletName(a).localeCompare(outletName(b)));
@@ -716,12 +954,31 @@ function cfgSheet(w, isNew) {
     const pool = SITES.filter(s => w.t === 'accounts' ? ['acct', 'ins'].includes(s[3]) : ['site', 'ai'].includes(s[3]));
     f = `<div class="f"><label for="cTi">Card name</label><input id="cTi" value="${esc(c.title)}"></div>
       <div class="f"><label>Tap to add</label><div class="chips">${pool.map(s => `<button type="button" class="chip" data-addlink="${s[0]}"><img src="${fav(s[4])}" alt="">${esc(s[1])}</button>`).join('')}</div></div>
-      <div class="f"><label for="cLk">Links, one per line: <span style="font-weight:400">Name | web address | short note</span></label><textarea id="cLk" placeholder="Chase | https://secure.chase.com | autopay on the 15th">${esc(linksTxt)}</textarea>${w.t === 'accounts' ? '<span class="h">Notes are for reminders like due dates. Don’t put passwords or account numbers here.</span>' : ''}</div>`;
+      <div class="f"><label for="cLk">Links, one per line: <span style="font-weight:400">Name | web address | short note | group</span></label><textarea id="cLk" placeholder="Chase | https://secure.chase.com | autopay on the 15th | Banking">${esc(linksTxt)}</textarea><span class="h">A fourth part groups the tiles under a heading (Banking, Budget, Home, Utilities…).${w.t === 'accounts' ? ' Notes are for reminders like due dates. Don’t put passwords or account numbers here.' : ''}</span></div>`;
   } else if (w.t === 'ai') {
     const on = new Set((c.use || '').split(','));
     f = `<div class="f"><label>Assistants (the first one gets the Ask button)</label><div class="chips">${Object.entries(AI).map(([k, a]) => `<button type="button" class="chip" data-aip="${k}" aria-pressed="${on.has(k)}"><img src="${fav(a[1])}" alt="">${a[0]}</button>`).join('')}</div></div>`;
   } else if (w.t === 'notes' || w.t === 'todo') {
     f = `<div class="f"><label for="cTi">Card name</label><input id="cTi" value="${esc(c.title)}"></div>`;
+  } else if (w.t === 'prompts') {
+    const on = new Set((c.cats || '').split(',')), pf = c.prof || {};
+    f = `<div class="f"><label>Categories</label><div class="chips">${Object.entries(PCATS).map(([k, n]) => `<button type="button" class="chip" data-catp="${k}" aria-pressed="${on.has(k)}">${n}</button>`).join('')}</div></div>
+      <div class="f"><label>About you <span style="font-weight:400">(the prompts fill these in)</span></label>
+        <div class="row"><input id="pWork" value="${esc(pf.work || '')}" placeholder="My work: a cannabis dispensary"><input id="pKids" value="${esc(pf.kids || '')}" placeholder="Kids: two girls, 6 and 4"></div>
+        <div class="row" style="margin-top:8px"><input id="pCity" value="${esc(pf.city || '')}" placeholder="Town: New Albany, Ohio"><input id="pTeam" value="${esc(pf.team || '')}" placeholder="Team: Bears"></div>
+        <div class="row" style="margin-top:8px"><input id="pPartner" value="${esc(pf.partner || '')}" placeholder="Partner: my wife, who works in fashion"><input id="pLeague" value="${esc(pf.league || '')}" placeholder="League: our Yahoo league"></div></div>
+      <div class="f"><label for="pMine">Your own prompts, one per line</label><textarea id="pMine" style="min-height:80px">${esc((c.mine || []).join('\n'))}</textarea><span class="h">They join the daily rotation.</span></div>`;
+  } else if (w.t === 'bills') {
+    const txt = (c.items || []).map(b => [b.n, b.day, b.amt || '', b.u || '', b.auto ? 'autopay' : ''].join(' | ').replace(/( \| )+$/, '')).join('\n');
+    f = `<div class="f"><label for="cTi">Card name</label><input id="cTi" value="${esc(c.title)}"></div>
+      <div class="f"><label for="cBl">Bills, one per line: <span style="font-weight:400">Name | due day | amount | link to pay | autopay</span></label><textarea id="cBl" placeholder="Mortgage | 1 | 2450 | https://… | autopay&#10;AEP Ohio | 18 | 140 | https://www.aepohio.com&#10;Columbia Gas | 22 | 85">${esc(txt)}</textarea><span class="h">Day is the day of the month. Amounts are optional and stay on this device; don’t put account numbers here.</span></div>`;
+  } else if (w.t === 'rewards') {
+    const P = D.P, on = new Set((c.cards || '').split(',').filter(Boolean).length ? (c.cards || '').split(',') : wkGet('wallet', []));
+    f = `<div class="f"><label>Cards you carry</label><div class="chips">${P ? P.cards.map(x => `<button type="button" class="chip" data-cardp="${x.id}" aria-pressed="${on.has(x.id)}">${esc(x.name.replace(/^The /, '').replace(/ from American Express| American Express Card| Card$| Rewards$/g, ''))}</button>`).join('') : '<span class="h">The cards list hasn’t loaded yet; try again in a moment.</span>'}</div><span class="h">Same wallet as Points Hacker on Weekender.</span></div>
+      <div class="f"><label for="cBal">Balances, one per line: <span style="font-weight:400">Program | points or $ | note</span></label><textarea id="cBal" style="min-height:70px" placeholder="Membership Rewards | 84,200 | transfer to Virgin for Delta&#10;myAbercrombie | 1,200 pts">${esc((c.balances || []).map(b => [b.n, b.v, b.note].filter(Boolean).join(' | ')).join('\n'))}</textarea></div>
+      <div class="f"><label for="cLoy">Rewards logins, one per line: <span style="font-weight:400">Name | web address</span></label><textarea id="cLoy" style="min-height:70px">${esc((c.loyalty || []).map(l => [l.n, l.u, l.note].filter(Boolean).join(' | ')).join('\n'))}</textarea></div>`;
+  } else if (w.t === 't90') {
+    f = `<p class="h">This card reads the workbook’s own save on this device. Partner names, the start date and progress are set inside Together / 90.</p>`;
   }
   openSheet(`<h2 id="shTitle">${isNew ? 'Add' : 'Change'}: ${esc(T.name)}</h2><p class="lede">${esc(T.blurb)}</p>${f}
     <div class="f"><label>Size</label><div class="chips">${[['s', 'Small'], ['m', 'Medium'], ['l', 'Full width']].map(([k, n]) => `<button type="button" class="chip" data-zp="${k}" aria-pressed="${w.z === k}">${n}</button>`).join('')}</div></div>
@@ -730,7 +987,7 @@ function cfgSheet(w, isNew) {
   sh.onclick = async e => {
     const t = e.target.closest('button'); if (!t) return;
     if (t.dataset.zp) { z = t.dataset.zp; $$('[data-zp]', sh).forEach(b => b.setAttribute('aria-pressed', b === t)); }
-    if (t.dataset.lgp || t.dataset.aip) t.setAttribute('aria-pressed', t.getAttribute('aria-pressed') !== 'true');
+    if (t.dataset.lgp || t.dataset.aip || t.dataset.catp || t.dataset.cardp) t.setAttribute('aria-pressed', t.getAttribute('aria-pressed') !== 'true');
     if (t.dataset.addlink) { const s = siteBy(t.dataset.addlink), ta = $('#cLk'); ta.value = (ta.value.trim() ? ta.value.trim() + '\n' : '') + s[1] + ' | ' + s[5]; t.disabled = true; t.style.opacity = .4; }
     if (t.dataset.pl) { const l = JSON.parse(t.dataset.pl); if (w.c.place) w.c.place = l; else lsSet(WXK, JSON.stringify(l)); D.wx = null; $('#cW').value = l.name; $('#wRes').innerHTML = `<span class="h">Set to ${esc(l.name)}${l.admin ? ', ' + esc(l.admin) : ''}.</span>`; }
     if (t.id === 'wGeo') {
@@ -749,7 +1006,10 @@ function cfgSheet(w, isNew) {
       if (w.t === 'fantasy') { c.url = v('cU').trim() || TYPES.fantasy.cfg.url; c.players = v('cP').replace(/\n/g, ','); }
       if (w.t === 'sites' || w.t === 'accounts') { c.title = v('cTi').trim() || T.cfg.title; c.links = v('cLk').split('\n').map(parseLink).filter(Boolean); }
       if (w.t === 'ai') c.use = $$('[data-aip][aria-pressed="true"]', sh).map(b => b.dataset.aip).join(',') || 'claude';
-      if (w.t === 'notes' || w.t === 'todo') c.title = v('cTi').trim() || T.cfg.title;
+      if (w.t === 'notes' || w.t === 'todo' || w.t === 'bills') c.title = v('cTi').trim() || T.cfg.title;
+      if (w.t === 'prompts') { c.cats = $$('[data-catp][aria-pressed="true"]', sh).map(b => b.dataset.catp).join(',') || 'think'; c.prof = { work: v('pWork').trim(), kids: v('pKids').trim(), city: v('pCity').trim(), team: v('pTeam').trim(), partner: v('pPartner').trim(), league: v('pLeague').trim() }; c.mine = v('pMine').split('\n').map(x => x.trim()).filter(Boolean); }
+      if (w.t === 'bills') c.items = v('cBl').split('\n').map(l => { const p = l.split('|').map(x => x.trim()); if (!p[0] || !(+p[1] >= 1 && +p[1] <= 31)) return null; let u = p[3] || ''; if (u && !/^https?:/i.test(u)) u = 'https://' + u; return { n: p[0], day: +p[1], amt: p[2] ? +String(p[2]).replace(/[^0-9.]/g, '') || 0 : 0, u, auto: /auto/i.test(p[4] || '') }; }).filter(Boolean);
+      if (w.t === 'rewards') { const picked = $$('[data-cardp][aria-pressed="true"]', sh).map(b => b.dataset.cardp); c.cards = picked.join(','); if (D.P) wkSet('wallet', picked); c.balances = v('cBal').split('\n').map(l => { const p = l.split('|').map(x => x.trim()); return p[0] && p[1] ? { n: p[0], v: p[1], note: p[2] || '' } : null; }).filter(Boolean); c.loyalty = v('cLoy').split('\n').map(parseLink).filter(Boolean); }
       w.z = z;
       if (isNew) { closeSheet(); addW(w); } else { save(); closeSheet(); draw(); }
     }
@@ -767,6 +1027,7 @@ function cfgSheet(w, isNew) {
   };
 }
 
+function fromPreset() { const P = CONF.preset; return { v: 1, pv: CONF.pv || 1, name: P.name || '', w: P.w.filter(w => TYPES[w.t]).map(w => mk(w.t, JSON.parse(JSON.stringify(w.c || {})), w.z)) }; }
 /* settings */
 function settingsSheet() {
   const home = lsGet(HOME) === HOMEVAL;
@@ -777,7 +1038,7 @@ function settingsSheet() {
     <h3>Your layout</h3>
     <div class="row"><button class="btn" type="button" id="sShare">Copy a link to my layout</button><button class="btn" type="button" id="sExport">Download a backup</button><label class="btn" style="cursor:pointer">Restore a backup<input type="file" id="sImport" accept="application/json,.json" hidden></label></div>
     <p class="note">The share link carries your cards and which sites they show, never your notes, to-dos or money links.</p>
-    <h3>Start over</h3><div class="row"><button class="btn" type="button" id="sRe">Pick my sites again</button></div>
+    <h3>Start over</h3><div class="row">${CONF.preset ? `<button class="btn" type="button" id="sPre">Back to ${esc(CONF.title || 'the preset')}</button>` : ''}<button class="btn" type="button" id="sRe">Pick my sites again</button></div>
     <div class="foot"><button class="btn pri" type="button" id="sOk">Done</button></div>`);
   const sh = $('#sheet');
   sh.onclick = e => {
@@ -787,6 +1048,7 @@ function settingsSheet() {
     if (t.id === 'sShare') share();
     if (t.id === 'sExport') { const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([JSON.stringify(S, null, 1)], { type: 'application/json' })); a.download = 'my-watch.json'; a.click(); }
     if (t.id === 'sRe') onboard();
+    if (t.id === 'sPre') { if (confirm('Replace your current cards with the preset layout? Notes and to-dos on this page will be cleared.')) { S = fromPreset(); save(); closeSheet(); head(); draw(); toast('Back to the preset.'); } }
     if (t.id === 'sOk') { S.name = $('#sName').value.trim(); save(); closeSheet(); head(); }
   };
   $('#sImport').onchange = async e => {
@@ -848,7 +1110,7 @@ const endDrag = () => {
 document.addEventListener('pointerup', endDrag); document.addEventListener('pointercancel', endDrag);
 
 document.addEventListener('click', e => {
-  const t = e.target.closest('[data-close],[data-up],[data-size],[data-cfg],[data-del],[data-add],[data-onboard],[data-lg],[data-ai-go],[data-tdx]');
+  const t = e.target.closest('[data-close],[data-up],[data-size],[data-cfg],[data-del],[data-add],[data-onboard],[data-lg],[data-ai-go],[data-tdx],[data-ask],[data-copy],[data-psave],[data-spin],[data-psaved],[data-t90]');
   if (e.target === $('#scrim')) return closeSheet();
   if (!t) return;
   const d = t.dataset, W = id => S.w.find(x => x.id === id);
@@ -862,10 +1124,22 @@ document.addEventListener('click', e => {
   if (d.lg) { const w = W(t.closest('.w').dataset.w); w._lg = d.lg; fill(w); }
   if (d.aiGo) { const f = t.closest('.wb').querySelector('[data-ai] input'), q = f.value.trim(); window.open(q ? AI[d.aiGo][2](q) : 'https://' + AI[d.aiGo][1], '_blank', 'noopener'); }
   if (d.tdx) { const [id, i] = d.tdx.split(':'); const w = W(id); w.c.items.splice(+i, 1); save(); fill(w); }
+  if (d.ask || d.copy || d.psave) {
+    const [id, i] = (d.ask || d.copy || d.psave).split(':'), w = W(id), txt = (w._picks || [])[+i]; if (!txt) return;
+    if (d.ask) { const k = Object.keys(AI).find(k => (S.w.find(x => x.t === 'ai') || { c: { use: 'claude' } }).c.use.split(',')[0] === k) || 'claude'; window.open(AI[k][2](txt), '_blank', 'noopener'); }
+    if (d.copy) (navigator.clipboard ? navigator.clipboard.writeText(txt) : Promise.reject()).then(() => toast('Copied.'), () => prompt('Copy this prompt:', txt));
+    if (d.psave) { const sv = w.c.saved = w.c.saved || []; const j = sv.indexOf(txt); if (j >= 0) sv.splice(j, 1); else sv.push(txt); save(); fill(w); }
+  }
+  if (d.spin) { const w = W(d.spin); w._spin = (w._spin || 0) + 1; fill(w); }
+  if (d.psaved) { const w = W(d.psaved); openSheet(`<h2 id="shTitle">Saved prompts</h2>${(w.c.saved || []).map((p, i) => `<div class="pq" style="margin:10px 0"><p>${esc(p)}</p><div class="pa"><button type="button" class="btn sm" data-copys="${i}">Copy</button><button type="button" class="btn sm" data-dels="${i}">Remove</button></div></div>`).join('') || '<p class="empty">Nothing saved yet. Tap ♥ on a prompt.</p>'}`);
+    $('#sheet').onclick = ev => { const b = ev.target.closest('button'); if (!b) return; if (b.dataset.copys) { const p = w.c.saved[+b.dataset.copys]; (navigator.clipboard ? navigator.clipboard.writeText(p) : Promise.reject()).then(() => toast('Copied.'), () => prompt('Copy:', p)); } if (b.dataset.dels) { w.c.saved.splice(+b.dataset.dels, 1); save(); fill(w); closeSheet(); } }; }
+  if (d.t90) { try { const s9 = JSON.parse(lsGet('together90.v1') || 'null'); if (s9) { s9.cur = +d.t90; s9.view = 'today'; lsSet('together90.v1', JSON.stringify(s9)); } } catch (x) { /* the workbook will pick its own day */ } }
 });
 document.addEventListener('change', e => {
   const d = e.target.dataset;
   if (d.td) { const [id, i] = d.td.split(':'); const w = S.w.find(x => x.id === id); w.c.items[+i].d = e.target.checked; save(); fill(w); }
+  if (d.paid) { const [id, ...k] = d.paid.split(':'); const w = S.w.find(x => x.id === id); (w.c.paid = w.c.paid || {})[k.join(':')] = true; save(); setTimeout(() => fill(w), 250); }
+  if (d.used) { const u = wkGet('used', {}); if (e.target.checked) u[d.used] = Date.now(); else delete u[d.used]; wkSet('used', u); const w = S.w.find(x => x.id === e.target.closest('.w').dataset.w); setTimeout(() => fill(w), 250); }
 });
 document.addEventListener('input', e => {
   const id = e.target.dataset.notes; if (!id) return;
@@ -899,7 +1173,8 @@ async function refresh() {
     history.replaceState(null, '', location.pathname);
     if (!S || confirm('Use the layout from this link? Your current page will be replaced.')) { S = { v: 1, name: S ? S.name : '', w: shared }; save(); lsSet(HOME, HOMEVAL); toast('Layout loaded from the link.'); }
   }
-  if (!S && CONF.preset) { const P = CONF.preset; S = { v: 1, name: P.name || '', w: P.w.filter(w => TYPES[w.t]).map(w => mk(w.t, JSON.parse(JSON.stringify(w.c || {})), w.z)) }; save(); }
+  if (!S && CONF.preset) { S = fromPreset(); save(); }
+  else if (S && CONF.preset && CONF.pv && S.pv !== CONF.pv && !shared) { setTimeout(() => toast('This page has a new layout. Settings → “Back to ' + (CONF.title || 'the preset') + '” loads it.', 5000), 1200); }
   const first = !S;
   if (first) S = build(['wsj', 'bloomberg', 'yahoosports', 'barstool', 'yfantasy', 'claude', 'chatgpt', 'scores', 'markets', 'weather'], '');
   head(); draw();

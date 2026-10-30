@@ -303,11 +303,61 @@ def fetch_raw(url, name):
     return raw
 
 
+def read_json_feed(f, data):
+    """A JSON source: a JSON Feed (items[]), or any API whose stories are a list of objects with a title
+    (Barstool's union API, say). Field names vary, so each one is tried from a short list. A feed can give
+    "link": "https://site/blog/{id}/{slug}" to build links from fields when the items carry none."""
+    def first(d, *keys):
+        for k in keys:
+            v = d.get(k)
+            if v:
+                return v
+        return ''
+    def text(v):
+        if isinstance(v, dict):
+            return first(v, 'raw', 'url', 'src', 'desktop', 'large', 'medium', 'href', 'rendered', 'text', 'name')
+        if isinstance(v, list) and v:
+            return text(v[0])
+        return v if isinstance(v, str) else ''
+    items = []
+    if isinstance(data, dict):
+        for k in ('items', 'stories', 'posts', 'articles', 'data', 'results', 'entries'):
+            v = data.get(k)
+            if isinstance(v, dict):
+                v = first(v, 'items', 'stories', 'posts', 'data', 'results')
+            if isinstance(v, list):
+                items = v
+                break
+    elif isinstance(data, list):
+        items = data
+    out = []
+    for it in items:
+        if not isinstance(it, dict):
+            continue
+        title = clean(text(first(it, 'title', 'headline', 'name')))
+        if not title:
+            continue
+        link = text(first(it, 'url', 'link', 'permalink', 'canonical_url', 'href', 'web_url'))
+        if not link and f.get('link'):
+            vals = {k: it.get(k) for k in re.findall(r'{(\w+)}', f['link'])}
+            link = f['link'].format(**vals) if all(vals.values()) else ''
+        if not link.startswith('http'):
+            continue
+        when = parse_date(text(first(it, 'date_published', 'published_at', 'published', 'pubDate', 'date', 'created_at', 'updated_at', 'date_modified')))
+        desc = text(first(it, 'summary', 'description', 'excerpt', 'subtitle', 'dek', 'content_text'))
+        img = text(first(it, 'image', 'thumbnail', 'featured_image', 'banner_image', 'cover', 'hero'))
+        out.append({'title': title, 'link': link.strip(), 'when': when, 'desc': clean(desc)[:400] if desc else '', 'img': img if img.startswith('http') else '',
+                    'src_name': '', 'src_url': '', 'google': False, 'comments': ''})
+    return out
+
+
 def read_feed(f):
     """-> (feed name, [raw items], error or None)"""
     name, url = f.get('name') or f['url'], f['url']
     try:
         raw = fetch_raw(url, name)
+        if f.get('json') or raw.lstrip()[:1] in (b'{', b'['):
+            return name, read_json_feed(f, json.loads(raw)), None
         try:
             root = ET.fromstring(raw)
         except ET.ParseError:
