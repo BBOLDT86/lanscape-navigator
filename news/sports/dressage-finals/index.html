@@ -1230,8 +1230,9 @@ function liveWindow() { if (previewM != null) return true; const t = todayIdx(),
 function normRide(x) {
   const J = [];
   for (let i = 1; i <= (x.numberOfJudges || 0); i++) { const v = x['score' + i + 'Percent']; J.push([x['judge' + i + 'Position'] || '', v ? parseFloat(v) : null]); }
-  return { rider: x.rider || '', horse: x.horse || '', t: hhmm(x.time), pct: x.totalScorePercent ? parseFloat(x.totalScorePercent) : null, pl: x.place ? parseInt(x.place, 10) || null : null,
-    st: x.status || null, div: x.placingDivision || '', back: x.entrantNumber || null, at: x.ringStewardClearedTime || null, J };
+  const part = J.length > 1 && J.some(j => j[1] == null) && J.some(j => j[1] != null); // judges' marks still coming in: the posted total isn't the real one yet
+  return { rider: x.rider || '', horse: x.horse || '', t: hhmm(x.time), pct: x.totalScorePercent && !part ? parseFloat(x.totalScorePercent) : null, part, pl: x.place ? parseInt(x.place, 10) || null : null,
+    st: x.status || null, div: x.placingDivision || '', back: x.entrantNumber || null, at: part ? null : x.ringStewardClearedTime || null, J };
 }
 function rankAll(d) { // provisional rank inside each placing division; placed classes keep the show's placings first
   d.idx = {}; for (const y of d.rides) d.idx[nk(y.horse)] = y;
@@ -1399,6 +1400,7 @@ function resCard(k) {
 function scoreChip(x) { const y = resFor(x), d = RES.data[x.c]; if (!y || y.pct == null) return ''; return `<span class="sc${d.placed ? '' : ' pv'}">${d.placed && y.pl ? ribbon(y.pl, 1) : ''}${pctF(y.pct, 2)}</span>`; }
 function resLine(x) {
   const y = resFor(x), d = RES.data[x.c]; if (!y) return '';
+  if (y.part) return '<span class="resl">Being scored now</span>';
   if (y.pct == null) return d.placed || y.t == null ? '<span class="resl">No score posted</span>' : '';
   const st = standTxt(x.c, y);
   return `<span class="resl">${d.placed && y.pl ? ribbon(y.pl, 1) : ''}<b>${pctF(y.pct)}</b>${st ? ' · ' + st : ''}${d.placed ? '' : ' · provisional'}</span>`;
@@ -1407,23 +1409,23 @@ function resRow(c, y, d) {
   const our = ourRide(c, y.horse), r = our ? our.r : bySlug[slug(y.rider)] || null;
   const left = y.pct == null ? `<div class="t">${y.t != null ? hmS(y.t) : '—'}</div>` : `<div class="t">${d.placed && y.pl ? ribbon(y.pl) : `<span class="rk">${y.rk || ''}</span>`}</div>`;
   const name = r ? `<button class="rbtn" type="button" data-rider="${r.slug}"><b>${esc(y.rider)}</b></button>` : `<b>${esc(y.rider)}</b>`;
-  const jd = y.pct != null && y.J.length > 1 && y.J.some(j => j[1] != null) ? `<span class="jdg">${y.J.map(j => esc(j[0]) + ' ' + (j[1] != null ? j[1].toFixed(2) : '—')).join(' · ')}</span>` : '';
-  const sub = `<span>${esc(y.horse)}${y.pct != null && y.t != null ? ' · rode ' + hmS(y.t) : ''}</span>`;
+  const jd = (y.pct != null || y.part) && y.J.length > 1 && y.J.some(j => j[1] != null) ? `<span class="jdg">${y.J.map(j => esc(j[0]) + ' ' + (j[1] != null ? j[1].toFixed(2) : '—')).join(' · ')}</span>` : '';
+  const sub = `<span>${esc(y.horse)}${y.part ? ' · <b style="display:inline;color:var(--signal)">being scored</b>' : y.pct != null && y.t != null ? ' · rode ' + hmS(y.t) : ''}</span>`;
   const sc = y.pct != null ? `<span class="sc${d.placed ? '' : ' pv'}">${pctF(y.pct)}</span>` : '<span></span>';
   const star = our && our.day === SAT ? `<button class="star" type="button" data-star="${our.id}" aria-pressed="${picked.has(our.id)}" aria-label="${picked.has(our.id) ? 'Remove from' : 'Add to'} my day">${picked.has(our.id) ? SVG_STAR : SVG_STAR_O}</button>` : '<span></span>';
   return `<div class="rrow${our && picked.has(our.id) ? ' me' : ''}">${left}<div class="w">${name}${sub}${jd}</div>${sc}${star}</div>`;
 }
 function resultsHTML(c, d) {
   const scored = d.rides.filter(y => y.pct != null);
-  const toRide = d.placed ? [] : d.rides.filter(y => y.pct == null && y.t != null).sort((a, b) => a.t - b.t);
-  const none = d.rides.filter(y => y.pct == null && (d.placed || y.t == null));
+  const toRide = d.placed ? [] : d.rides.filter(y => y.pct == null && (y.t != null || y.part)).sort((a, b) => (b.part - a.part) || a.t - b.t);
+  const none = d.rides.filter(y => y.pct == null && !y.part && (d.placed || y.t == null));
   let h = '';
   if (scored.length) {
     h += `<h3>${d.placed ? 'Results' : 'Standings so far'} · ${scored.length} scored${d.placed ? '' : ' of ' + (scored.length + toRide.length)}</h3>`;
     const multi = d.divs.length > 1;
     for (const v of d.divs) { const g = scored.filter(y => y.div === v).sort(byRank); if (!g.length) continue; if (multi) h += `<p class="divh">${esc(DIVN2[v] || v)}</p>`; h += g.map(y => resRow(c, y, d)).join(''); }
   }
-  if (toRide.length) h += `<h3>${scored.length ? 'Still to ride' : 'Order of go'} · ${toRide.length}</h3>` + toRide.map(y => resRow(c, y, d)).join('');
+  if (toRide.length) h += `<h3>${scored.length || toRide.some(y => y.part) ? 'Still to come' : 'Order of go'} · ${toRide.length}</h3>` + toRide.map(y => resRow(c, y, d)).join('');
   if (none.length) h += `<h3>No score posted · ${none.length}</h3><p class="note" style="margin:0">${none.map(y => esc(y.rider) + ' on ' + esc(y.horse)).join('; ')}. Usually a scratch or a withdrawal.</p>`;
   return h;
 }
