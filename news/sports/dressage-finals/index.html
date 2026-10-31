@@ -93,8 +93,8 @@ button{cursor:pointer}
 
 /* ---------- tab bar: bottom on phones, under the hero on wide screens */
 .tabs{position:fixed;left:0;right:0;bottom:0;z-index:30;background:color-mix(in srgb,var(--paper) 92%,transparent);backdrop-filter:saturate(1.4) blur(14px);-webkit-backdrop-filter:saturate(1.4) blur(14px);border-top:1px solid var(--rule);padding-bottom:env(safe-area-inset-bottom,0px)}
-.tabs .wrap{display:grid;grid-template-columns:repeat(4,1fr);height:var(--tabh)}
-.tabs button{border:0;background:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font:600 12px var(--sans);color:var(--ink-3);position:relative}
+.tabs .wrap{display:grid;grid-template-columns:repeat(5,1fr);height:var(--tabh)}
+.tabs button{border:0;background:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font:600 12px var(--sans);color:var(--ink-3);position:relative;white-space:nowrap;padding:0 2px}
 .tabs button svg{width:24px;height:24px}
 .tabs button[aria-selected="true"]{color:var(--ink)}
 .tabs button[aria-selected="true"]::before{content:"";position:absolute;top:0;left:30%;right:30%;height:2px;border-radius:2px;background:var(--brass)}
@@ -298,7 +298,7 @@ table.meals{width:100%;border-collapse:collapse;font-size:14px}
 .ride .t small{display:block;font:500 12px var(--sans);color:var(--ink-3)}
 .ride .w{min-width:0}
 .ride .w b{display:block;font:650 15px/1.3 var(--sans)}
-.ride .w span{display:block;font-size:13.5px;color:var(--ink-2)}
+.ride .w > span{display:block;font-size:13.5px;color:var(--ink-2)}
 .ride.past{opacity:.55}
 .ride.me{background:linear-gradient(90deg,var(--brass-soft),transparent)}
 .ride .rbtn b{text-decoration:underline;text-decoration-color:var(--rule-2);text-underline-offset:3px}
@@ -311,6 +311,64 @@ table.meals{width:100%;border-collapse:collapse;font-size:14px}
 .scorebox span{font-size:13.5px;color:var(--ink-3)}
 .toast{position:fixed;left:50%;bottom:calc(var(--tabh) + env(safe-area-inset-bottom,0px) + 14px);transform:translate(-50%,20px);z-index:60;background:var(--ink);color:var(--paper);border-radius:999px;padding:10px 16px;font:600 14px var(--sans);opacity:0;pointer-events:none;transition:all .2s;max-width:calc(100vw - 32px);text-align:center}
 .toast.on{opacity:1;transform:translate(-50%,0)}
+/* ---------- live results */
+.rib{flex:none;display:inline-grid;place-items:center;min-width:24px;height:24px;padding:0 6px;border-radius:12px;font:700 12px/1 var(--sans);background:var(--rb,#1F4FA3);color:var(--rf,#fff);box-shadow:inset 0 0 0 1px rgba(0,0,0,.1)}
+.rib.p1{--rb:#1F4FA3}.rib.p2{--rb:#C0392B}.rib.p3{--rb:#E2B93B;--rf:#2A2108}.rib.p4{--rb:#FFFFFF;--rf:#15243B;box-shadow:inset 0 0 0 1px rgba(21,36,59,.4)}.rib.p5{--rb:#E79BB8;--rf:#3A1020}.rib.p6{--rb:#2E8B57}.rib.p7{--rb:#6B3FA0}.rib.p8{--rb:#7B4A2A}.rib.p9{--rb:#8A8F98}.rib.p10{--rb:#8CC6E8;--rf:#0E2A3B}
+.rib.sm{min-width:20px;height:20px;font-size:11px;padding:0 5px}
+.rk{flex:none;display:inline-grid;place-items:center;min-width:24px;height:24px;border-radius:12px;border:1px dashed var(--rule-2);font:700 12px/1 var(--sans);color:var(--ink-2)}
+.sc{font:650 15px var(--sans);font-variant-numeric:tabular-nums;white-space:nowrap}
+.sc.pv{color:var(--ink-2)}
+.livebar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:0 0 12px;font:600 13.5px/1.35 var(--sans);color:var(--ink-2)}
+.livebar .ld{flex:none;width:9px;height:9px;border-radius:50%;background:var(--ink-3)}
+.livebar.on .ld{background:var(--ok);animation:pulseG 2s infinite}
+.livebar.bad .ld{background:var(--signal)}
+.livebar .ibtn{margin-left:auto}
+@keyframes pulseG{0%{box-shadow:0 0 0 0 rgba(28,122,76,.5)}70%{box-shadow:0 0 0 8px rgba(28,122,76,0)}100%{box-shadow:0 0 0 0 rgba(28,122,76,0)}}
+.stt{flex:none;font:700 11px/1.5 var(--sans);letter-spacing:.05em;text-transform:uppercase;border-radius:6px;padding:1px 7px;white-space:nowrap}
+.stt.final{background:var(--ok-soft);color:var(--ok)}
+.stt.live{background:var(--signal-soft);color:var(--signal)}
+.stt.soon{background:var(--shoal);color:var(--ink-2)}
+.rcard{display:block;width:100%;text-align:left;background:var(--raise);border:1px solid var(--rule);border-left:4px solid var(--rc,var(--rule));border-radius:14px;padding:12px 14px;margin:0 0 10px;cursor:pointer}
+.rcard:hover{border-color:var(--rule-2);border-left-color:var(--rc,var(--rule))}
+.rcard .top{display:flex;align-items:flex-start;gap:8px}
+.rcard h4{margin:0;flex:1;min-width:0;font:650 15.5px/1.3 var(--sans)}
+.rcard .meta{margin:2px 0 0;font:500 13px var(--sans);color:var(--ink-3)}
+.pod{list-style:none;margin:9px 0 0;padding:0;display:grid;gap:7px}
+.pod li{display:flex;align-items:center;gap:9px;font-size:14.5px;min-width:0}
+.pod .who{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pod .who b{font-weight:650}
+.pod .who span{color:var(--ink-2)}
+.pod .dv{flex:none;font:600 11.5px var(--sans);color:var(--ink-3);width:56px}
+.rcard .nx{margin:8px 0 0;font:500 13.5px/1.4 var(--sans);color:var(--ink-2)}
+.jl{display:grid;grid-template-columns:52px auto 1fr auto;gap:10px;align-items:center;padding:9px 0;border-top:1px solid var(--rule);cursor:pointer}
+.jl:first-child{border-top:0}
+.jl .t{font:600 13px var(--sans);color:var(--ink-3)}
+.jl .w{min-width:0}
+.jl .w b{display:block;font:650 14.5px/1.3 var(--sans);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.jl .w span{display:block;font-size:13px;color:var(--ink-2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+details.opens summary{cursor:pointer;font:400 26px/1.1 var(--serif);list-style:none;display:flex;align-items:center;gap:8px;padding:4px 0 10px}
+details.opens summary::-webkit-details-marker{display:none}
+details.opens summary::after{content:"›";font:600 20px var(--sans);color:var(--ink-3);transition:transform .2s}
+details.opens[open] summary::after{transform:rotate(90deg)}
+.ticker{display:flex;gap:10px;align-items:center;width:100%;margin:8px 0 0;text-align:left;background:var(--brass-soft);border:0;border-radius:12px;padding:10px 12px;font:400 14px/1.4 var(--sans);color:var(--ink)}
+.ticker b{font-weight:650}
+.ticker .go{margin-left:auto;flex:none}
+.ldot{flex:none;width:8px;height:8px;border-radius:50%;background:var(--ok);animation:pulseG 2s infinite}
+.tabs .ldot{position:absolute;top:10px;left:calc(50% + 9px)}
+@media (min-width:900px){.tabs .ldot{position:static}}
+.rrow{display:grid;grid-template-columns:44px 1fr auto auto;gap:10px;align-items:center;padding:10px 0;border-top:1px solid var(--rule)}
+.rrow .t{font:600 14px/1.2 var(--sans);color:var(--ink-2)}
+.rrow .w{min-width:0}
+.rrow .w b{display:block;font:650 15px/1.3 var(--sans)}
+.rrow .w > span{display:block;font-size:13.5px;color:var(--ink-2)}
+.rrow .rbtn b{text-decoration:underline;text-decoration-color:var(--rule-2);text-underline-offset:3px}
+.rrow.me{background:linear-gradient(90deg,var(--brass-soft),transparent)}
+.jdg{display:block;font:500 12.5px var(--sans);color:var(--ink-3);margin-top:2px;font-variant-numeric:tabular-nums}
+.divh{margin:14px 0 2px;font:600 12px var(--sans);letter-spacing:.06em;text-transform:uppercase;color:var(--brass-ink)}
+.resl{display:flex!important;align-items:center;gap:6px;margin-top:3px;font:500 13.5px var(--sans);color:var(--ink-2)}
+.resl b{color:var(--ink);font-weight:650}
+.st .b .rides li .sc{margin-left:auto;display:inline-flex;align-items:center;gap:5px;font-size:13.5px}
+.nx .sc{font-size:12.5px}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 </head>
@@ -325,6 +383,7 @@ table.meals{width:100%;border-collapse:collapse;font-size:14px}
     <h1>Finals <i>Saturday</i></h1>
     <p class="dek">The US Dressage Finals at the World Equestrian Center in Wilmington, Ohio. Pick the rides you want to see, and the page builds your day: when to leave, where to sit, when to eat, and when you'll be home.</p>
     <div class="clock" id="clock" aria-live="polite"><i class="dot"></i><div><b id="clockA">&nbsp;</b><span id="clockB">&nbsp;</span></div></div>
+    <button class="ticker" id="ticker" type="button" hidden></button>
     <div class="facts" aria-label="At a glance">
       <span class="fact"><b>Free</b> admission</span>
       <span class="fact"><b>Free</b> parking</span>
@@ -340,6 +399,7 @@ table.meals{width:100%;border-collapse:collapse;font-size:14px}
   <div class="wrap" role="tablist">
     <button type="button" role="tab" data-tab="plan" aria-selected="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4M8 14h3M8 17h6"/></svg>My day<span class="badge" id="badge" hidden>0</span></button>
     <button type="button" role="tab" data-tab="rings" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 12h18M12 5v14"/></svg>Rings</button>
+    <button type="button" role="tab" data-tab="results" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="9" r="6"/><circle cx="12" cy="9" r="2.2"/><path d="M8.6 14l-2.1 7 5.5-3 5.5 3-2.1-7"/></svg>Results<i class="ldot" id="resDot" hidden></i></button>
     <button type="button" role="tab" data-tab="riders" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="7" r="4"/><path d="M4 21c0-4 4-7 8-7s8 3 8 7"/></svg>Riders</button>
     <button type="button" role="tab" data-tab="info" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg>Seats &amp; info</button>
   </div>
@@ -397,6 +457,19 @@ table.meals{width:100%;border-collapse:collapse;font-size:14px}
       <div class="chips" id="ringChips"></div>
       <div id="ringList"></div>
     </div>
+  </section>
+
+  <!-- ===== RESULTS ===== -->
+  <section class="view" id="v-results" role="tabpanel" hidden>
+    <div class="sec">
+      <div class="sh"><h2>Results</h2><span class="aside" id="resAside"></span></div>
+      <div class="livebar" id="liveBar"><i class="ld"></i><span id="liveTxt">Connecting to HorseShowOffice…</span><button class="ibtn" type="button" id="resRefresh">Refresh</button></div>
+      <div class="seg" role="group" aria-label="Day" id="resDay"><button type="button" data-rday="0" aria-pressed="false">Thu</button><button type="button" data-rday="1" aria-pressed="false">Fri</button><button type="button" data-rday="2" aria-pressed="true">Sat</button><button type="button" data-rday="3" aria-pressed="false">Sun</button></div>
+    </div>
+    <div class="sec" id="justSec" hidden><div class="sh"><h2>Just scored</h2></div><div class="card" id="just"></div></div>
+    <div class="sec"><div class="sh"><h2>Championships</h2><span class="aside" id="chCount"></span></div><div id="resCh"></div></div>
+    <div class="sec" id="openSec"><details class="opens"><summary>Fall Classic open classes</summary><div id="resOpen"></div></details></div>
+    <p class="note">Scores come straight from HorseShowOffice as the show office posts them. Standings are provisional until a class is placed, and the show office's results are the official ones.</p>
   </section>
 
   <!-- ===== RIDERS ===== -->
@@ -534,7 +607,7 @@ table.meals{width:100%;border-collapse:collapse;font-size:14px}
     <div class="sec">
       <div class="sh"><h2>Can't be there?</h2></div>
       <div class="card">
-        <p>Championship classes stream on USEF Network through ClipMyHorse.TV. USDF says some classes are streamed, not all. Results post live on HorseShowOffice.</p>
+        <p>Championship classes stream on USEF Network through ClipMyHorse.TV. USDF says some classes are streamed, not all. Scores post live on HorseShowOffice and on this page's Results tab.</p>
         <div class="acts" style="margin-top:12px">
           <a class="btn" target="_blank" rel="noopener" href="https://www.clipmyhorse.tv/en_US/events/17113/us-dressage-finals">Watch on ClipMyHorse.TV</a>
           <a class="btn" target="_blank" rel="noopener" href="https://results.horseshowoffice.com/">Live results</a>
@@ -874,7 +947,7 @@ function renderPlan() {
     const cl = s.classes.map(c => esc(cName(c))).join(' · ');
     html += `<li class="st r${s.ring}${isNow ? ' now' : ''}"><div class="t">${hmS(s.start)}<small>–${hmS(s.end)}</small></div><div class="b"><h4><span class="tag rc">${esc(RINGS[s.ring].n)}</span> ${cl}</h4>`;
     const many = s.rides.length > 6, open = OPENSIT.has(s.start + '-' + s.ring);
-    html += `<ul class="rides">${s.rides.map((x, k) => `<li${many && !open && k >= 4 ? ' hidden' : ''}><time>${hmS(x.t)}</time><span><button type="button" data-rider="${x.r.slug}">${esc(x.r.disp)}</button> · ${esc(x.horse)}</span></li>`).join('')}</ul>`;
+    html += `<ul class="rides">${s.rides.map((x, k) => `<li${many && !open && k >= 4 ? ' hidden' : ''}><time>${hmS(x.t)}</time><span><button type="button" data-rider="${x.r.slug}">${esc(x.r.disp)}</button> · ${esc(x.horse)}</span>${scoreChip(x)}</li>`).join('')}</ul>`;
     if (many) html += `<button class="more-r" type="button" data-sit="${s.start}-${s.ring}">${open ? 'Show fewer' : 'Show all ' + s.rides.length + ' rides'}</button>`;
     if (s.tight) html += `<p class="warn">Tight: the ${esc(RINGS[s.tight.ring].n)} ride ends about ${hm(s.tight.end)}, ${Math.max(0, s.start - s.tight.end)} min before this one. Allow ~10 min to walk.</p>`;
     html += `</div></li>`;
@@ -934,8 +1007,9 @@ function renderRingList() {
     const on = n != null && n >= b[0] && n < b[1];
     if (b[2] !== 'c') { h += `<li class="bl brk${on ? ' on' : ''}"><div class="t">${hmS(b[0])}<small>${hmS(b[1])}</small></div><div><h4>${esc(b[3])}</h4>${b[2] === 'm' ? '<p>The ring pauses: a good time to eat.</p>' : ''}</div><span></span></li>`; continue; }
     const rs = (byClass[b[3]] || []).filter(x => x.t >= b[0] - 1 && x.t < b[1]);
-    const nPick = rs.filter(x => picked.has(x.id)).length;
-    h += `<li class="bl${on ? ' on' : ''}"><div class="t">${hmS(b[0])}<small>${hmS(b[1])}</small></div><button class="rbtn" type="button" data-cls="${b[3]}"><h4>${esc(cName(b[3]))}</h4><p>${rs.length} rides${nPick ? ` · <b>${nPick} in your day</b>` : ''}${on ? ' · on now' : ''}</p></button><span class="go">Order ›</span></li>`;
+    const nPick = rs.filter(x => picked.has(x.id)).length, st = cState(b[3]), w = st && st.scored ? podium(b[3], 1)[0] : null;
+    const stH = st && st.placed ? (w ? ` · <b>Won by ${esc(w.rider)}, ${pctF(w.pct)}</b>` : ' · Final') : st && st.live ? ` · <b>Live: ${st.scored}/${st.total} scored${w ? ', ' + esc(w.rider) + ' leads at ' + pctF(w.pct) : ''}</b>` : '';
+    h += `<li class="bl${on ? ' on' : ''}"><div class="t">${hmS(b[0])}<small>${hmS(b[1])}</small></div><button class="rbtn" type="button" data-cls="${b[3]}"><h4>${esc(cName(b[3]))}</h4><p>${rs.length} rides${nPick ? ` · <b>${nPick} in your day</b>` : ''}${on ? ' · on now' : ''}${stH}</p></button><span class="go">${st && st.scored ? 'Scores ›' : 'Order ›'}</span></li>`;
   }
   h += '</ul>';
   $('#ringList').innerHTML = h;
@@ -969,7 +1043,7 @@ function renderRiders() {
     const rr = (S.day === 'sat' ? r.sat : r.rides);
     const horses = [...new Set(rr.map(x => x.horse))];
     const satAll = r.sat.length && r.sat.every(x => picked.has(x.id));
-    h += `<li class="rr"><button class="rbtn" type="button" data-rider="${r.slug}"><div class="nm">${esc(r.disp)}${NOTES[r.name] ? `<span class="champ-mark">${NOTES[r.name].ret ? '2025 champion' : 'Past champion'}</span>` : ''}</div><div class="hs">${esc(horses.join(' · '))}</div><div class="nx">${rr.slice(0, 3).map(x => `<span class="r${x.ring}"><i></i>${S.day === 'sat' ? '' : DAYS[x.day] + ' '}${hmS(x.t)} ${esc(cName(x.c, true))}</span>`).join('')}${rr.length > 3 ? `<span>+${rr.length - 3}</span>` : ''}</div></button>${r.sat.length ? `<button class="star" type="button" data-star-rider="${r.slug}" aria-pressed="${satAll}" aria-label="${satAll ? 'Remove' : 'Add'} ${esc(r.disp)}'s Saturday rides ${satAll ? 'from' : 'to'} my day">${satAll ? SVG_STAR : SVG_STAR_O}</button>` : '<span></span>'}</li>`;
+    h += `<li class="rr"><button class="rbtn" type="button" data-rider="${r.slug}"><div class="nm">${esc(r.disp)}${NOTES[r.name] ? `<span class="champ-mark">${NOTES[r.name].ret ? '2025 champion' : 'Past champion'}</span>` : ''}</div><div class="hs">${esc(horses.join(' · '))}</div><div class="nx">${rr.slice(0, 3).map(x => `<span class="r${x.ring}"><i></i>${S.day === 'sat' ? '' : DAYS[x.day] + ' '}${hmS(x.t)} ${esc(cName(x.c, true))}${scoreChip(x) ? ' · ' + scoreChip(x) : ''}</span>`).join('')}${rr.length > 3 ? `<span>+${rr.length - 3}</span>` : ''}</div></button>${r.sat.length ? `<button class="star" type="button" data-star-rider="${r.slug}" aria-pressed="${satAll}" aria-label="${satAll ? 'Remove' : 'Add'} ${esc(r.disp)}'s Saturday rides ${satAll ? 'from' : 'to'} my day">${satAll ? SVG_STAR : SVG_STAR_O}</button>` : '<span></span>'}</li>`;
   }
   $('#rlist').innerHTML = h || `<li class="empty"><b>No riders match</b>Try a horse's name, or switch to All week.</li>`;
   $('#moreBtn').hidden = list.length <= shown;
@@ -980,8 +1054,8 @@ function renderRiders() {
 let sheetOpen = null, lastFocus = null;
 function openSheet(kind, id, push) {
   const sh = $('#sheet');
-  if (kind === 'rider') fillRider(bySlug[id]);
-  else if (kind === 'cls') fillClass(id);
+  if (kind === 'rider') { const r = bySlug[id]; if (!r) return; fillRider(r); wantClasses(r.rides.map(x => x.c)); }
+  else if (kind === 'cls') { fillClass(id); wantClasses([id]); }
   else return;
   lastFocus = document.activeElement;
   sheetOpen = { kind, id };
@@ -1002,8 +1076,8 @@ function closeSheet(fromPop) {
   if (lastFocus && lastFocus.focus) lastFocus.focus({ preventScroll: true });
 }
 function rideRow(x, opts) {
-  const n = nowM(), past = x.day === SAT && n != null && n > x.t + x.dur;
-  const who = opts.rider ? `<b>${esc(x.horse)}</b><span>${x.day === SAT ? '' : DAYS[x.day] + ' · '}${esc(cName(x.c, true))} · ${esc(RINGS[x.ring].n)}${x.n ? ` · ${x.n} of ${x.of}` : ''}</span>`
+  const n = nowM(), past = x.day === SAT && n != null && n > x.t + x.dur && !(resFor(x) && resFor(x).pct != null);
+  const who = opts.rider ? `<b>${esc(x.horse)}</b><span>${x.day === SAT ? '' : DAYS[x.day] + ' · '}${esc(cName(x.c, true))} · ${esc(RINGS[x.ring].n)}${x.n ? ` · ${x.n} of ${x.of}` : ''}</span>${resLine(x)}`
     : `<button class="rbtn" type="button" data-rider="${x.r.slug}"><b>${esc(x.r.disp)}</b><span>${esc(x.horse)}${NOTES[x.r.name] ? (NOTES[x.r.name].ret ? ' · 2025 champion' : ' · past champion') : ''}</span></button>`;
   const star = x.day === SAT ? `<button class="star" type="button" data-star="${x.id}" aria-pressed="${picked.has(x.id)}" aria-label="${picked.has(x.id) ? 'Remove from' : 'Add to'} my day">${picked.has(x.id) ? SVG_STAR : SVG_STAR_O}</button>` : '<span></span>';
   return `<div class="ride${past ? ' past' : ''}${picked.has(x.id) ? ' me' : ''}"><div class="t">${hmS(x.t)}<small>${x.day === SAT ? (x.dur ? '~' + x.dur + ' min' : '') : DAYS[x.day]}</small></div><div class="w">${who}</div>${star}</div>`;
@@ -1025,25 +1099,44 @@ function fillRider(r) {
   if (other.length) h += `<h3>The rest of the week</h3>` + other.map(x => rideRow(x, { rider: 1 })).join('');
   h += `<h3>Your notes</h3><div class="notes"><textarea id="noteTA" data-note="${r.slug}" placeholder="What stood out: the horse, the music, a movement…" aria-label="Your notes on ${esc(r.disp)}">${esc(S.notes[r.slug] || '')}</textarea>`;
   if (r.sat.length) h += `<div class="scorebox"><input id="scoreIn" data-score="${r.slug}" type="number" inputmode="decimal" min="0" max="100" step="0.1" placeholder="e.g. 71.4" value="${S.scores[r.slug] != null ? esc(S.scores[r.slug]) : ''}" aria-label="Your score guess, percent"><span>Your score guess, %. Compare with the posted score afterward.</span></div>`;
+  if (r.sat.length) h += `<p class="fyi" id="guessCmp" style="margin-top:8px" hidden></p>`;
   h += `<div class="meta"><span>Saved in this browser only</span><span id="noteSaved"></span></div></div>`;
-  h += `<div class="acts" style="margin-top:14px"><a class="btn" target="_blank" rel="noopener" href="https://results.horseshowoffice.com/">Scores on HorseShowOffice</a><button class="btn" type="button" data-share-rider="${r.slug}">Share this card</button></div>`;
-  $('#sheetB').innerHTML = h;
+  h += `<div class="acts" style="margin-top:14px"><a class="btn" target="_blank" rel="noopener" href="https://results.horseshowoffice.com/riders/22/712">Scores on HorseShowOffice</a><button class="btn" type="button" data-share-rider="${r.slug}">Share this card</button></div>`;
+  $('#sheetB').innerHTML = h; guessCmp(r.slug);
+}
+function guessCmp(slugId) {
+  const el = $('#guessCmp'), r = bySlug[slugId]; if (!el || !r) return;
+  const g = parseFloat(S.scores[slugId]), y = r.sat.map(resFor).find(z => z && z.pct != null);
+  if (isNaN(g) || !y) { el.hidden = true; return; }
+  const dlt = y.pct - g; el.hidden = false;
+  el.innerHTML = `Posted: <b>${pctF(y.pct)}</b>. Your guess of ${g}% was ${Math.abs(dlt) < 0.0005 ? 'spot on' : Math.abs(dlt).toFixed(3) + ' points ' + (dlt > 0 ? 'low' : 'high')}.`;
 }
 function fillClass(c) {
-  const m = cMeta(c), list = (byClass[c] || []);
+  const m = cMeta(c), list = (byClass[c] || []), k = RES.cls && RES.cls[c], d = RES.data[c], sat = !!CLS[c];
+  const ring = m.ring || (k && k.ring) || 0, rn = RINGS[ring] ? RINGS[ring].n : '';
   $('#sheetT').textContent = m.open ? m.open[0].toUpperCase() + m.open.slice(1) : (LVN[m.lv] + (m.fs ? ' Freestyle' : ''));
-  const blocks = (BLOCKS[m.ring] || []).filter(b => b[2] === 'c' && b[3] === c);
-  $('#sheetS').textContent = (m.open ? 'USDF Fall Classic open class' : 'Championship · ' + DIVN[m.dv]) + ' · ' + RINGS[m.ring].n + (blocks.length ? ' · ' + hm(blocks[0][0]) + '–' + hm(blocks[blocks.length - 1][1]) : '');
+  const blocks = sat ? (BLOCKS[ring] || []).filter(b => b[2] === 'c' && b[3] === c) : [];
+  const when = blocks.length ? hm(blocks[0][0]) + '–' + hm(blocks[blocks.length - 1][1]) : k ? DAYL[k.day] + ' ' + hm(k.t) : '';
+  $('#sheetS').textContent = (m.open ? 'USDF Fall Classic open class' : 'Championship · ' + DIVN[m.dv]) + (rn ? ' · ' + rn : '') + (when ? ' · ' + when : '');
+  const st = cState(c);
   let h = '';
+  if (st && (st.placed || st.live)) h += `<p class="fyi">${st.placed ? '<b>Final.</b> The class is placed; these are the show office’s results.' : `<b>Live:</b> ${st.scored} of ${st.total} scored. Standings are provisional until the class is placed.`}</p>`;
+  const judges = d && d.judges.length ? d.judges.map(j => j[0] + ' at ' + j[1]).join(' · ') : m.j;
+  const scoresFirst = !!(st && st.scored && d);
+  if (scoresFirst) h += resultsHTML(c, d) + '<h3>About this class</h3>';
   if (!m.open) {
     h += `<p class="fyi">${esc(LEVEL[m.lv])}${m.fs ? ' In a freestyle the rider sets the required movements to music of their own choosing, and the judges add artistic marks for choreography, music and difficulty.' : ''} ${esc(DIVD[m.dv])}</p>`;
-    h += `<p class="fyi">Judges: ${esc(m.j)}. ${m.aw ? 'Awards at ' + hm(m.aw) + ' in the Sanctuary.' : ''}</p>`;
-  } else h += `<p class="fyi">An open class at the USDF Fall Classic, which runs alongside the Finals: each rider picks the test. Judge: ${esc(m.j)}.</p>`;
-  const allIn = list.length && list.every(x => picked.has(x.id));
-  h += `<div class="acts" style="margin:12px 0 4px"><button class="btn pri" type="button" data-star-class="${c}">${allIn ? 'Remove the class from my day' : 'Add the whole class to my day'}</button></div>`;
-  h += `<h3>Order of go · ${list.length} rides</h3>`;
-  let lastT = null;
-  for (const x of list) { if (lastT != null && x.t - lastT > 15) { const b = BLOCKS[m.ring].find(k => k[2] !== 'c' && k[0] >= lastT && k[0] <= x.t); h += `<p style="margin:6px 0;font:600 13px var(--sans);color:var(--ink-3)">${esc(b ? b[3] : 'Break')} · ${hm(b ? b[0] : lastT)}</p>`; } h += rideRow(x, {}); lastT = x.t; }
+    if (judges || m.aw) h += `<p class="fyi">${judges ? 'Judges: ' + esc(judges) + '.' : ''} ${m.aw ? 'Awards at ' + hm(m.aw) + ' in the Sanctuary.' : ''}</p>`;
+  } else h += `<p class="fyi">An open class at the USDF Fall Classic, which runs alongside the Finals: each rider picks the test${d && d.divs.length > 1 ? ', and Open, Adult Amateur and Jr/Young Rider are placed separately' : ''}.${judges ? ' Judge: ' + esc(judges) + '.' : ''}</p>`;
+  if (sat) { const allIn = list.length && list.every(x => picked.has(x.id)); h += `<div class="acts" style="margin:12px 0 4px"><button class="btn pri" type="button" data-star-class="${c}">${allIn ? 'Remove the class from my day' : 'Add the whole class to my day'}</button></div>`; }
+  if (scoresFirst) { /* already shown */ }
+  else if (d && d.rides.length) h += resultsHTML(c, d);
+  else if (sat) {
+    h += `<h3>Order of go · ${list.length} rides</h3>`;
+    let lastT = null;
+    for (const x of list) { if (lastT != null && x.t - lastT > 15) { const b = BLOCKS[ring].find(q => q[2] !== 'c' && q[0] >= lastT && q[0] <= x.t); h += `<p style="margin:6px 0;font:600 13px var(--sans);color:var(--ink-3)">${esc(b ? b[3] : 'Break')} · ${hm(b ? b[0] : lastT)}</p>`; } h += rideRow(x, {}); lastT = x.t; }
+  } else h += `<p class="note">${RES.ok === false ? 'Results aren’t loading from HorseShowOffice right now.' : 'Loading this class from HorseShowOffice…'}</p>`;
+  if (k) h += `<div class="acts" style="margin-top:14px"><a class="btn" target="_blank" rel="noopener" href="${HSO_WEB}/${k.id}/results2">This class on HorseShowOffice</a></div>`;
   $('#sheetB').innerHTML = h;
 }
 
@@ -1113,6 +1206,228 @@ function renderClock() {
   }
 }
 
+/* ================= live results: read from HorseShowOffice in this browser =================
+   Classes: /v2/api/Classes/22/712; a class's rides, scores and placings: /v2/api/Rides/22/ByClass/{id}.
+   A ride's status is Verified or Unofficial once scored and Final once the class is placed. */
+const HSO = 'https://results.horseshowoffice.com/v2/api/', HSO_WEB = 'https://results.horseshowoffice.com/classes/22/712';
+const DAYD = { '2026-10-29': 0, '2026-10-30': 1, '2026-10-31': 2, '2026-11-01': 3 };
+const RKEY = 'watch.wecfinals26.res';
+const RES = { cls: null, clsAt: 0, data: {}, at: 0, ok: null, err: 0, busy: false, want: new Set(), seen: null, sig: '', sheetDirty: false };
+const nk = s => String(s || '').normalize('NFKD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9]/g, '');
+const OUR = {}; for (const x of rides) OUR[x.c + '|' + nk(x.horse)] = x;
+const ourRide = (c, h) => OUR[c + '|' + nk(h)] || null;
+const hhmm = s => s ? +s.slice(11, 13) * 60 + +s.slice(14, 16) : null;
+const ord = n => { const v = n % 100; return n + (v >= 11 && v <= 13 ? 'th' : ({ 1: 'st', 2: 'nd', 3: 'rd' }[n % 10] || 'th')); };
+const ribbon = (n, sm) => `<span class="rib p${n <= 10 ? n : 9}${sm ? ' sm' : ''}" title="${ord(n)}">${n}</span>`;
+const DIVN2 = { 'Open': 'Open', 'Adult Am.': 'Adult Amateur', 'Jr/Yg Rider': 'Jr/Young Rider' };
+const DIVO = ['Open', 'Adult Am.', 'Jr/Yg Rider'];
+const divOrder = (a, b) => (DIVO.indexOf(a) + 1 || 9) - (DIVO.indexOf(b) + 1 || 9) || String(a).localeCompare(String(b));
+const pctF = (v, n) => v.toFixed(n == null ? 3 : n) + '%';
+function todayIdx() { if (previewM != null) return SAT; const i = DAYD[nyNow().d]; return i == null ? null : i; }
+function focusDay() { const t = todayIdx(); return t == null ? SAT : t; }
+function liveNowM() { if (previewM != null) return previewM; return todayIdx() != null ? nyNow().m : null; }
+function liveWindow() { if (previewM != null) return true; const t = todayIdx(), m = nyNow().m; return t != null && m >= 450 && m <= 1410; }
+function normRide(x) {
+  const J = [];
+  for (let i = 1; i <= (x.numberOfJudges || 0); i++) { const v = x['score' + i + 'Percent']; J.push([x['judge' + i + 'Position'] || '', v ? parseFloat(v) : null]); }
+  return { rider: x.rider || '', horse: x.horse || '', t: hhmm(x.time), pct: x.totalScorePercent ? parseFloat(x.totalScorePercent) : null, pl: x.place ? parseInt(x.place, 10) || null : null,
+    st: x.status || null, div: x.placingDivision || '', back: x.entrantNumber || null, at: x.ringStewardClearedTime || null, J };
+}
+function rankAll(d) { // provisional rank inside each placing division; placed classes keep the show's placings first
+  d.idx = {}; for (const y of d.rides) d.idx[nk(y.horse)] = y;
+  const by = {}; for (const y of d.rides) if (y.pct != null) (by[y.div] = by[y.div] || []).push(y);
+  for (const k in by) by[k].sort(byRank).forEach((y, i) => { y.rk = i + 1; });
+  d.divs = [...new Set(d.rides.map(y => y.div))].sort(divOrder);
+}
+function byRank(a, b) { return (a.pl || 999) - (b.pl || 999) || (b.pct - a.pct); }
+function primaryDiv(c, d) { const m = cMeta(c), want = m.dv === 'O' ? 'Open' : m.dv === 'A' ? 'Adult Am.' : m.dv === 'J' ? 'Jr/Yg Rider' : null; if (want && d.divs.includes(want)) return want; const n = {}; for (const y of d.rides) n[y.div] = (n[y.div] || 0) + 1; return Object.keys(n).sort((a, b) => n[b] - n[a])[0]; }
+function podium(c, n, div) { const d = RES.data[c]; if (!d) return []; const pd = div || primaryDiv(c, d); return d.rides.filter(y => y.pct != null && y.div === pd).sort(byRank).slice(0, n); }
+function resFor(x) { const d = RES.data[x.c]; return d && d.idx ? d.idx[nk(x.horse)] || null : null; }
+function cState(c) {
+  const d = RES.data[c], k = RES.cls && RES.cls[c];
+  if (!d) return k ? { placed: k.placed, live: false, scored: 0, total: null } : null;
+  const scored = d.rides.filter(y => y.pct != null).length, total = d.rides.filter(y => y.t != null || y.pct != null).length;
+  return { placed: d.placed, live: !d.placed && scored > 0, scored, total, d };
+}
+async function hso(path) {
+  const ac = 'AbortController' in window ? new AbortController() : null, tm = ac ? setTimeout(() => ac.abort(), 15000) : null;
+  try { const r = await fetch(HSO + path, { cache: 'no-store', signal: ac ? ac.signal : undefined }); if (!r.ok) throw new Error('HTTP ' + r.status); return await r.json(); }
+  finally { if (tm) clearTimeout(tm); }
+}
+async function loadClasses() {
+  const j = await hso('Classes/22/712'), m = {};
+  for (const k of (j.items || [])) {
+    const day = DAYD[String(k.showDay).slice(0, 10)]; if (day == null) continue;
+    m[k.classNumber] = { id: k.id, c: k.classNumber, name: k.name, day, ring: k.arenaNumber || +((String(k.arena).match(/Ring (\d)/) || [])[1] || 0), t: hhmm(k.startTime), placed: !!k.isPlaced };
+  }
+  RES.cls = m; RES.clsAt = Date.now();
+}
+async function loadClass(c) {
+  const k = RES.cls[c]; if (!k) return;
+  const j = await hso('Rides/22/ByClass/' + k.id + '?forCurrentStandings=false');
+  const d = { placed: !!(j.class ? j.class.isPlaced : k.placed), rides: (j.rides || []).map(normRide), judges: (j.judges || []).map(z => [z.fullName, z.position]), at: Date.now() };
+  k.placed = d.placed; rankAll(d); RES.data[c] = d;
+}
+async function pool(items, n, fn) {
+  const q = items.slice(); let bad = 0;
+  const run = async () => { while (q.length) { const it = q.shift(); try { await fn(it); } catch (e) { bad++; } } };
+  await Promise.all(Array.from({ length: Math.min(n, q.length) }, run));
+  return bad;
+}
+function dueClasses() {
+  const out = [], today = todayIdx(), n = liveNowM(), fd = focusDay();
+  for (const k of Object.values(RES.cls)) {
+    const d = RES.data[k.c];
+    if (!d) { if (k.day === fd || RES.want.has(k.c)) out.push(k); continue; }
+    if (d.placed) continue;
+    if (k.day === today && (n == null || k.t <= n + 10)) out.push(k);
+    else if (RES.want.has(k.c) && Date.now() - d.at > 120000) out.push(k);
+  }
+  RES.want.clear();
+  return out;
+}
+function saveRes() {
+  try {
+    const data = {}; for (const c in RES.data) { const d = RES.data[c]; data[c] = { placed: d.placed, rides: d.rides, judges: d.judges, at: d.at }; }
+    localStorage.setItem(RKEY, JSON.stringify({ v: 1, cls: RES.cls, clsAt: RES.clsAt, at: RES.at, data }));
+  } catch (e) { /* storage full or off: fine */ }
+}
+function loadSaved() {
+  try {
+    const o = JSON.parse(localStorage.getItem(RKEY) || 'null'); if (!o || o.v !== 1) return;
+    if (o.cls) { RES.cls = o.cls; RES.clsAt = 0; }
+    for (const c in (o.data || {})) { const d = o.data[c]; rankAll(d); RES.data[c] = d; }
+    RES.at = o.at || 0;
+  } catch (e) { /* start fresh */ }
+}
+function resSig() { let s = ''; for (const c of Object.keys(RES.data).sort()) { const d = RES.data[c]; s += c + (d.placed ? 'P' : '') + d.rides.filter(y => y.pct != null).length + ';'; } return s; }
+let tickQ = null;
+function wantClasses(list) { // ask for classes the reader is looking at
+  if (!RES.cls) return;
+  let any = false; for (const c of list) { const d = RES.data[c]; if (RES.cls[c] && (!d || (!d.placed && Date.now() - d.at > 120000))) { RES.want.add(c); any = true; } }
+  if (any) { clearTimeout(tickQ); tickQ = setTimeout(() => tick(), 50); }
+}
+async function tick(force) {
+  if (RES.busy) return; RES.busy = true; renderLiveBar();
+  let failed = false;
+  try {
+    if (!RES.cls || force || Date.now() - RES.clsAt > 10 * 60000) await loadClasses();
+    const due = dueClasses();
+    const bad = await pool(due, 4, k => loadClass(k.c));
+    failed = bad > 0 && bad === due.length;
+  } catch (e) { failed = true; }
+  RES.busy = false;
+  if (failed) { RES.ok = false; RES.err++; } else { RES.ok = true; RES.err = 0; RES.at = Date.now(); saveRes(); }
+  const sg = resSig();
+  if (sg !== RES.sig) { RES.sig = sg; notifyPicks(); liveChanged(); } else renderLiveBar();
+}
+function notifyPicks() { // a toast when a ride in your day gets its score
+  const now = new Set(); let hit = null;
+  for (const c in RES.data) for (const y of RES.data[c].rides) if (y.pct != null) {
+    const key = c + '|' + nk(y.horse); now.add(key);
+    if (RES.seen && !RES.seen.has(key)) { const o = ourRide(c, y.horse); if (o && picked.has(o.id) && !hit) hit = { y, c }; }
+  }
+  RES.seen = now;
+  if (hit) toast(`Scored: ${hit.y.rider} & ${hit.y.horse}, ${pctF(hit.y.pct)}`);
+}
+function liveChanged() {
+  renderLiveBar(); renderTicker(); renderPlan();
+  if (tab === 'results') renderResults();
+  if (tab === 'rings') renderRingList();
+  if (tab === 'riders') renderRiders();
+  if (sheetOpen) { const a = document.activeElement; if (a && $('#sheetB').contains(a) && /^(TEXTAREA|INPUT)$/.test(a.tagName)) RES.sheetDirty = true; else rerenderSheet(); }
+}
+function rerenderSheet() { if (!sheetOpen) return; RES.sheetDirty = false; const y = $('#sheetB').scrollTop; if (sheetOpen.kind === 'rider') fillRider(bySlug[sheetOpen.id]); else fillClass(sheetOpen.id); $('#sheetB').scrollTop = y; }
+function renderLiveBar() {
+  const el = $('#liveBar'), live = liveWindow();
+  el.classList.toggle('on', !!RES.ok && live); el.classList.toggle('bad', RES.ok === false);
+  const t = RES.at ? new Date(RES.at).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', timeZone: 'America/New_York' }) : '';
+  $('#liveTxt').innerHTML = RES.busy && !RES.at ? 'Loading scores from HorseShowOffice…'
+    : RES.ok === false ? `Can't reach HorseShowOffice right now${RES.at ? '; showing scores as of ' + t : ''}. <a href="${HSO_WEB}" target="_blank" rel="noopener">Open HorseShowOffice</a>`
+    : RES.at ? (live ? 'Live from HorseShowOffice · ' + t : 'From HorseShowOffice · ' + t) : 'Connecting to HorseShowOffice…';
+  $('#resDot').hidden = !(RES.ok && live && Object.values(RES.data).some(d => !d.placed && d.rides.some(y => y.pct != null)));
+}
+function latestScored(day, n) {
+  const out = [];
+  for (const c in RES.data) { const k = RES.cls && RES.cls[c]; if (!k || k.day !== day) continue; for (const y of RES.data[c].rides) if (y.pct != null && y.at) out.push({ c, y }); }
+  return out.sort((a, b) => a.y.at < b.y.at ? 1 : -1).slice(0, n);
+}
+const atM = s => +s.slice(11, 13) * 60 + +s.slice(14, 16);
+function standTxt(c, y) { const d = RES.data[c]; return d.placed ? (y.pl ? ord(y.pl) : '') : (y.rk ? ord(y.rk) + ' so far' : ''); }
+function renderTicker() {
+  const t = todayIdx(), el = $('#ticker'), L = t != null ? latestScored(t, 1)[0] : null;
+  if (!L) { el.hidden = true; return; }
+  const st = standTxt(L.c, L.y);
+  el.hidden = false; el.dataset.cls = L.c;
+  el.innerHTML = `<i class="ldot"></i><span><b>Just scored, ${hm(atM(L.y.at))}:</b> ${esc(L.y.rider)} &amp; ${esc(L.y.horse)}, ${pctF(L.y.pct)} in the ${esc(cName(L.c, true))}${st ? ', ' + st : ''}.</span><span class="go">Standings ›</span>`;
+}
+let resDay = null;
+function renderResults() {
+  if (resDay == null) resDay = focusDay();
+  $$('#resDay button').forEach(b => b.setAttribute('aria-pressed', String(+b.dataset.rday === resDay)));
+  renderLiveBar();
+  if (!RES.cls) { $('#resCh').innerHTML = `<div class="empty"><b>${RES.ok === false ? 'Results aren’t loading' : 'Loading results…'}</b>${RES.ok === false ? `HorseShowOffice didn’t answer. <a href="${HSO_WEB}" target="_blank" rel="noopener">See the results there</a>.` : 'Scores come straight from HorseShowOffice.'}</div>`; $('#resOpen').innerHTML = ''; $('#justSec').hidden = true; return; }
+  const ks = Object.values(RES.cls).filter(k => k.day === resDay);
+  wantClasses(ks.map(k => k.c));
+  const rank = k => { const s = cState(k.c); return s && s.live ? 0 : s && s.placed ? 1 : 2; };
+  const lastAt = k => { const d = RES.data[k.c]; let m = ''; if (d) for (const y of d.rides) if (y.at && y.at > m) m = y.at; return m; };
+  const sorter = (a, b) => rank(a) - rank(b) || (rank(a) === 1 && resDay === todayIdx() ? (lastAt(a) < lastAt(b) ? 1 : -1) : 0) || a.t - b.t || a.ring - b.ring;
+  const ch = ks.filter(k => isChamp(k.c)).sort(sorter), op = ks.filter(k => !isChamp(k.c)).sort(sorter);
+  const fin = ch.filter(k => { const s = cState(k.c); return s && s.placed; }).length;
+  $('#chCount').textContent = ch.length ? fin + ' of ' + ch.length + ' final' : '';
+  $('#resAside').textContent = DAYL[resDay];
+  $('#resCh').innerHTML = ch.map(resCard).join('') || '<div class="empty"><b>No championships this day</b></div>';
+  $('#openSec').hidden = !op.length;
+  $('#resOpen').innerHTML = op.map(resCard).join('');
+  const J = resDay === todayIdx() ? latestScored(resDay, 6) : [];
+  $('#justSec').hidden = !J.length;
+  $('#just').innerHTML = J.map(({ c, y }) => { const d = RES.data[c]; return `<div class="jl" role="button" tabindex="0" data-cls="${c}"><span class="t">${hmS(atM(y.at))}</span>${d.placed && y.pl ? ribbon(y.pl) : `<span class="rk">${y.rk || ''}</span>`}<span class="w"><b>${esc(y.rider)} · ${esc(y.horse)}</b><span>${esc(cName(c, true))}${d.placed ? '' : ' · provisional'}</span></span><span class="sc${d.placed ? '' : ' pv'}">${pctF(y.pct)}</span></div>`; }).join('');
+}
+function resCard(k) {
+  const c = k.c, st = cState(c), d = RES.data[c], ring = RINGS[k.ring] ? k.ring : 5;
+  const tag = st && st.placed ? '<span class="stt final">Final</span>' : st && st.live ? `<span class="stt live">Live · ${st.scored}/${st.total}</span>` : `<span class="stt soon">${hmS(k.t)}</span>`;
+  let body = '';
+  if (d && st.scored) {
+    const multi = !isChamp(c) && d.divs.length > 1;
+    const rows = multi ? d.divs.map(v => [v, podium(c, 1, v)[0]]).filter(x => x[1]) : podium(c, 3).map(y => [null, y]);
+    body = `<ol class="pod">${rows.map(([v, y]) => `<li>${v ? `<span class="dv">${esc(DIVN2[v] || v)}</span>` : ''}${st.placed && y.pl ? ribbon(y.pl) : `<span class="rk">${y.rk || ''}</span>`}<span class="who"><b>${esc(y.rider)}</b> <span>· ${esc(y.horse)}</span></span><span class="sc${st.placed ? '' : ' pv'}">${pctF(y.pct)}</span></li>`).join('')}</ol>`;
+  }
+  if (st && st.live) { const nx = d.rides.filter(y => y.pct == null && y.t != null).sort((a, b) => a.t - b.t)[0]; body += nx ? `<p class="nx">Next up: ${esc(nx.rider)} on ${esc(nx.horse)}, ${hm(nx.t)}. Standings are provisional.</p>` : '<p class="nx">All ridden; waiting for the class to be placed.</p>'; }
+  else if (!st || !st.scored) { const n = d ? d.rides.filter(y => y.t != null).length : (byClass[c] || []).length; body += `<p class="nx">${n ? n + ' rides · ' : ''}starts ${hm(k.t)}${d && d.placed ? ' · no scores posted' : ''}</p>`; }
+  return `<div class="rcard r${ring}" role="button" tabindex="0" data-cls="${c}"><div class="top"><h4>${esc(cName(c))}</h4>${tag}</div><p class="meta">${esc(RINGS[ring].n)} · ${DAYS[k.day]} ${hm(k.t)}${st && st.placed ? ' · ' + st.scored + ' scored' : ''}</p>${body}</div>`;
+}
+function scoreChip(x) { const y = resFor(x), d = RES.data[x.c]; if (!y || y.pct == null) return ''; return `<span class="sc${d.placed ? '' : ' pv'}">${d.placed && y.pl ? ribbon(y.pl, 1) : ''}${pctF(y.pct, 2)}</span>`; }
+function resLine(x) {
+  const y = resFor(x), d = RES.data[x.c]; if (!y) return '';
+  if (y.pct == null) return d.placed || y.t == null ? '<span class="resl">No score posted</span>' : '';
+  const st = standTxt(x.c, y);
+  return `<span class="resl">${d.placed && y.pl ? ribbon(y.pl, 1) : ''}<b>${pctF(y.pct)}</b>${st ? ' · ' + st : ''}${d.placed ? '' : ' · provisional'}</span>`;
+}
+function resRow(c, y, d) {
+  const our = ourRide(c, y.horse), r = our ? our.r : bySlug[slug(y.rider)] || null;
+  const left = y.pct == null ? `<div class="t">${y.t != null ? hmS(y.t) : '—'}</div>` : `<div class="t">${d.placed && y.pl ? ribbon(y.pl) : `<span class="rk">${y.rk || ''}</span>`}</div>`;
+  const name = r ? `<button class="rbtn" type="button" data-rider="${r.slug}"><b>${esc(y.rider)}</b></button>` : `<b>${esc(y.rider)}</b>`;
+  const jd = y.pct != null && y.J.length > 1 && y.J.some(j => j[1] != null) ? `<span class="jdg">${y.J.map(j => esc(j[0]) + ' ' + (j[1] != null ? j[1].toFixed(2) : '—')).join(' · ')}</span>` : '';
+  const sub = `<span>${esc(y.horse)}${y.pct != null && y.t != null ? ' · rode ' + hmS(y.t) : ''}</span>`;
+  const sc = y.pct != null ? `<span class="sc${d.placed ? '' : ' pv'}">${pctF(y.pct)}</span>` : '<span></span>';
+  const star = our && our.day === SAT ? `<button class="star" type="button" data-star="${our.id}" aria-pressed="${picked.has(our.id)}" aria-label="${picked.has(our.id) ? 'Remove from' : 'Add to'} my day">${picked.has(our.id) ? SVG_STAR : SVG_STAR_O}</button>` : '<span></span>';
+  return `<div class="rrow${our && picked.has(our.id) ? ' me' : ''}">${left}<div class="w">${name}${sub}${jd}</div>${sc}${star}</div>`;
+}
+function resultsHTML(c, d) {
+  const scored = d.rides.filter(y => y.pct != null);
+  const toRide = d.placed ? [] : d.rides.filter(y => y.pct == null && y.t != null).sort((a, b) => a.t - b.t);
+  const none = d.rides.filter(y => y.pct == null && (d.placed || y.t == null));
+  let h = '';
+  if (scored.length) {
+    h += `<h3>${d.placed ? 'Results' : 'Standings so far'} · ${scored.length} scored${d.placed ? '' : ' of ' + (scored.length + toRide.length)}</h3>`;
+    const multi = d.divs.length > 1;
+    for (const v of d.divs) { const g = scored.filter(y => y.div === v).sort(byRank); if (!g.length) continue; if (multi) h += `<p class="divh">${esc(DIVN2[v] || v)}</p>`; h += g.map(y => resRow(c, y, d)).join(''); }
+  }
+  if (toRide.length) h += `<h3>${scored.length ? 'Still to ride' : 'Order of go'} · ${toRide.length}</h3>` + toRide.map(y => resRow(c, y, d)).join('');
+  if (none.length) h += `<h3>No score posted · ${none.length}</h3><p class="note" style="margin:0">${none.map(y => esc(y.rider) + ' on ' + esc(y.horse)).join('; ')}. Usually a scratch or a withdrawal.</p>`;
+  return h;
+}
+
 /* ================= tabs, events ================= */
 let tab = 'plan';
 function showTab(t, scroll) {
@@ -1121,12 +1436,14 @@ function showTab(t, scroll) {
   $$('.view').forEach(v => { v.hidden = v.id !== 'v-' + t; });
   if (t === 'rings') { renderGantt(); renderRingList(); }
   if (t === 'riders') renderRiders();
+  if (t === 'results') renderResults();
   if (scroll) window.scrollTo({ top: Math.min(window.scrollY, $('.tabs').getBoundingClientRect().top + window.scrollY - 8), behavior: 'auto' });
 }
 function refresh() {
   renderPlan();
   if (tab === 'rings') renderRingList();
   if (tab === 'riders') renderRiders();
+  if (tab === 'results') renderResults();
   if (sheetOpen) { const y = $('#sheetB').scrollTop; if (sheetOpen.kind === 'rider') fillRider(bySlug[sheetOpen.id]); else fillClass(sheetOpen.id); $('#sheetB').scrollTop = y; }
 }
 let tt = null;
@@ -1176,6 +1493,7 @@ document.addEventListener('click', e => {
   if (d.rider) { openSheet('rider', d.rider); return; }
   if (d.cls) { openSheet('cls', d.cls); return; }
   if (d.preset) { applyPreset(+d.preset); return; }
+  if (d.rday != null) { resDay = +d.rday; renderResults(); return; }
   if (d.sit) { OPENSIT.has(d.sit) ? OPENSIT.delete(d.sit) : OPENSIT.add(d.sit); renderPlan(); return; }
   if (d.ring) { ringSel = +d.ring; renderRingList(); return; }
   if (d.div) { S.div = d.div; shown = 60; save(); renderRiders(); return; }
@@ -1184,6 +1502,9 @@ document.addEventListener('click', e => {
   if (d.shareRider) { const r = bySlug[d.shareRider]; share({ title: r.disp + ' at the US Dressage Finals', text: r.disp + "'s rides at the 2026 US Dressage Finals", url: PUBLIC + '#r/' + r.slug }); return; }
 });
 $('#sheetX').addEventListener('click', () => closeSheet());
+$('#resRefresh').addEventListener('click', () => { RES.want = new Set(Object.values(RES.cls || {}).filter(k => k.day === (resDay == null ? focusDay() : resDay)).map(k => k.c)); for (const c of RES.want) if (RES.data[c] && !RES.data[c].placed) RES.data[c].at = 0; tick(); });
+document.addEventListener('keydown', e => { if ((e.key === 'Enter' || e.key === ' ') && e.target.matches && e.target.matches('[role="button"][data-cls]')) { e.preventDefault(); e.target.click(); } });
+$('#sheetB').addEventListener('focusout', () => setTimeout(() => { const a = document.activeElement; if (RES.sheetDirty && !(a && $('#sheetB').contains(a) && /^(TEXTAREA|INPUT)$/.test(a.tagName))) rerenderSheet(); }, 80));
 $('#scrim').addEventListener('click', () => closeSheet());
 document.addEventListener('keydown', e => { if (e.key === 'Escape' && sheetOpen) closeSheet(); });
 window.addEventListener('popstate', () => { const m = location.hash.match(/^#(r|c)\/(.+)$/); if (m) openSheet(m[1] === 'r' ? 'rider' : 'cls', decodeURIComponent(m[2]), false); else closeSheet(true); });
@@ -1194,7 +1515,7 @@ document.addEventListener('input', e => {
   const t = e.target;
   if (t.id === 'q') { shown = 60; renderRiders(); }
   if (t.dataset.note != null) { S.notes[t.dataset.note] = t.value; if (!t.value) delete S.notes[t.dataset.note]; save(); const s = $('#noteSaved'); if (s) s.textContent = storeOK ? 'Saved' : 'This browser isn’t saving'; }
-  if (t.dataset.score != null) { if (t.value === '') delete S.scores[t.dataset.score]; else S.scores[t.dataset.score] = t.value; save(); }
+  if (t.dataset.score != null) { if (t.value === '') delete S.scores[t.dataset.score]; else S.scores[t.dataset.score] = t.value; save(); guessCmp(t.dataset.score); }
   if (['cMi', 'cMpg', 'cPpg'].includes(t.id)) calc();
   if (t.id === 'custom') { S.custom = +t.value || 60; save(); renderPlan(); }
 });
@@ -1223,6 +1544,10 @@ renderPresets(); renderDivChips(); renderInfo(); renderPlan(); renderClock();
 readShared();
 { const m = location.hash.match(/^#(r|c)\/(.+)$/); if (m) { history.replaceState(null, '', location.pathname + location.search); history.pushState({ sheet: 1 }, '', '#' + m[1] + '/' + m[2]); openSheet(m[1] === 'r' ? 'rider' : 'cls', decodeURIComponent(m[2]), false); } }
 weather();
+loadSaved(); RES.sig = resSig(); if (Object.keys(RES.data).length) liveChanged();
+tick();
+setInterval(() => { if (document.visibilityState === 'visible' && liveWindow()) tick(); }, 60000);
+document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible' && Date.now() - RES.at > 60000) tick(); });
 setInterval(() => { renderClock(); if (nowM() != null) { if (tab === 'rings') { renderGantt(); renderRingList(); } renderPlan(); } }, 30000);
 })();
 </script>
