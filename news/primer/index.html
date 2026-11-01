@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Primer · The Watch</title>
+<meta name="description" content="Fifty three-minute visual lessons on how the house, the money, the body, history and the wider world work: a deck of cards each, a picture on every card, a quick quiz at the end.">
+<link rel="canonical" href="https://bboldt86.github.io/lanscape-navigator/news/primer/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="The Watch">
+<meta property="og:title" content="Primer · The Watch">
+<meta property="og:description" content="Learn something in three minutes: fifty short visual lessons, a quiz at the end of each.">
+<meta property="og:url" content="https://bboldt86.github.io/lanscape-navigator/news/primer/">
+<meta property="og:image" content="https://bboldt86.github.io/lanscape-navigator/news/primer/share.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Primer, from The Watch: learn something in three minutes.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Primer · The Watch">
+<meta name="twitter:description" content="Learn something in three minutes: fifty short visual lessons, a quiz at the end of each.">
+<meta name="twitter:image" content="https://bboldt86.github.io/lanscape-navigator/news/primer/share.png">
+<meta name="theme-color" content="#0E1A2B">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Primer">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="../icon-180.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230E1A2B'/%3E%3Crect x='14' y='16' width='36' height='32' rx='6' fill='none' stroke='%23D6B25E' stroke-width='3'/%3E%3Cpath d='M22 28h20M22 36h12' stroke='%23D6B25E' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+/* The Watch's tokens, so Primer reads as the same paper on its own */
+:root{
+  --paper:#F5F7F6; --raise:#FFFFFF; --ink:#15243B; --ink-2:#465770; --ink-3:#8492A3; --rule:rgba(21,36,59,.12);
+  --shoal:#D7E7EC; --shoal-2:#C3DAE2; --brass:#A9852F; --brass-ink:#7A5E1C; --signal:#C2412D; --scrim:rgba(14,26,43,.42);
+  --serif:'Instrument Serif','Iowan Old Style',Georgia,serif;
+  --sans:'Instrument Sans',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="day"]){
+    --paper:#0E1A2B; --raise:#142539; --ink:#E7EDF4; --ink-2:#AEBBCB; --ink-3:#7F8EA3; --rule:rgba(231,237,244,.12);
+    --shoal:#12293F; --shoal-2:#1A3A55; --brass:#D6B25E; --brass-ink:#E3C47E; --signal:#E8705A; --scrim:rgba(4,9,16,.6); color-scheme:dark;
+  }
+}
+:root[data-theme="night"]{
+  --paper:#0E1A2B; --raise:#142539; --ink:#E7EDF4; --ink-2:#AEBBCB; --ink-3:#7F8EA3; --rule:rgba(231,237,244,.12);
+  --shoal:#12293F; --shoal-2:#1A3A55; --brass:#D6B25E; --brass-ink:#E3C47E; --signal:#E8705A; --scrim:rgba(4,9,16,.6); color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 16px/1.5 var(--sans);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;padding-top:env(safe-area-inset-top)}
+a{color:inherit}
+button{font:inherit;color:inherit;cursor:pointer}
+.wrap{max-width:1240px;margin:0 auto;padding:0 32px}
+.state{padding-top:90px;padding-bottom:90px;text-align:center}
+.sec-h{font:400 30px/1 var(--serif);margin:0 0 6px;letter-spacing:-.004em}
+.chip{border:1px solid var(--rule);background:var(--raise);border-radius:999px;padding:6px 12px;font:600 14px var(--sans);color:var(--ink);display:inline-flex;align-items:center;gap:6px;text-decoration:none}
+.crumb{margin:0 0 8px;font:600 12.5px var(--sans);letter-spacing:.06em;text-transform:uppercase}.crumb a{color:var(--brass-ink);text-decoration:none}
+.mast{border-bottom:1px solid var(--rule);background:var(--paper)}
+.mast .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;height:54px}
+.mast .name{font:400 24px var(--serif);text-decoration:none;letter-spacing:-.01em}
+.mast .name small{font:700 11px var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--brass-ink);margin-left:10px;vertical-align:middle}
+.mast .back{font:600 13px var(--sans);text-decoration:none;color:var(--ink-2)}
+.mast .back:hover{color:var(--ink)}
+@media (max-width:760px){.wrap{padding:0 16px}.mast .wrap{height:50px}.mast .name{font-size:21px}}
+</style>
+</head>
+<body>
+<header class="mast"><div class="wrap"><a class="name" href="#/">Primer<small>The Watch</small></a><a class="back" href="../">The Watch ›</a></div></header>
+<main id="main"><div class="wrap state"><h2>Opening Primer…</h2></div></main>
+<script>
+/* the paper's helpers, enough of them for Primer to run on its own */
+window.WATCH = {
+  standalone: true, LANG: 'en', PUBLIC: 'https://bboldt86.github.io/lanscape-navigator/news/',
+  T(s, v) { let r = s.includes('|') ? s.slice(0, s.indexOf('|')) : s; if (v) r = r.replace(/\{(\w+)\}/g, (m, k) => v[k] != null ? v[k] : m); return r; },
+  esc: s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])),
+  get view() { return { t: 'primer', p: decodeURIComponent(location.hash.replace(/^#\/?/, '')) }; },
+};
+</script>
+<script src="lessons.js"></script>
+<script src="app.js"></script>
+<script>
+(() => {
+  const draw = () => window.PRIMER.render(window.WATCH.view.p);
+  addEventListener('hashchange', draw);
+  draw();
+})();
+</script>
+</body>
+</html>

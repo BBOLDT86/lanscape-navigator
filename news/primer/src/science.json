@@ -1,0 +1,1030 @@
+{
+  "cat": "science",
+  "topics": [
+    {
+      "id": "how-the-internet-works",
+      "title": "How the internet works",
+      "dek": "Packets, addresses, DNS and the cables under the sea",
+      "icon": "🌐",
+      "slides": [
+        {
+          "h": "Everything is chopped into packets",
+          "p": "A web page, a video call or an email is broken into small packets, each with the sender's and receiver's addresses and a sequence number. Packets travel independently, often by different routes, and are reassembled at the far end. If one is lost, only that one is resent. This is why the network survives broken links.",
+          "v": {
+            "t": "flow",
+            "items": [
+              "Your message",
+              "Split into packets",
+              "Routed separately",
+              "Reassembled",
+              "Delivered"
+            ]
+          }
+        },
+        {
+          "h": "Every device has an address",
+          "p": "An IP address is the number packets are sent to: 142.250.72.14 in the older IPv4 system (about 4.3 billion addresses, long since exhausted) or a much longer IPv6 one. Your home usually has one public address shared by all its devices, which is what your router manages.",
+          "v": {
+            "t": "compare",
+            "a": [
+              "IPv4",
+              "192.0.2.44",
+              "4.3 billion addresses",
+              "ran out around 2011",
+              "still most traffic"
+            ],
+            "b": [
+              "IPv6",
+              "2001:db8::8a2e:370:7334",
+              "340 undecillion",
+              "rolling out since 1999",
+              "about half of Google's traffic"
+            ]
+          }
+        },
+        {
+          "h": "DNS: the phone book",
+          "p": "You type a name; the network needs a number. The Domain Name System turns 'example.com' into an IP address through a chain of lookups: your resolver asks the root servers, which point to the .com servers, which point to the site's own name servers. The answer is cached so it takes milliseconds next time.",
+          "v": {
+            "t": "steps",
+            "items": [
+              "Browser asks the resolver (your ISP's or 1.1.1.1 / 8.8.8.8)",
+              "Resolver asks a root server: who handles .com?",
+              ".com servers: who handles example.com?",
+              "Example.com's name server: here's the IP",
+              "Cached for next time"
+            ]
+          }
+        },
+        {
+          "h": "Routers pass packets hop by hop",
+          "p": "No router knows the whole path. Each one looks at a packet's destination, consults a table of which neighbour is closer, and forwards it. A packet from Ohio to Tokyo takes perhaps fifteen to twenty hops. The tables are built by routing protocols (BGP between networks) that constantly share who can reach what.",
+          "v": {
+            "t": "big",
+            "n": "15–20",
+            "c": "hops, each a router deciding only the next step"
+          }
+        },
+        {
+          "h": "TCP makes it reliable; HTTP makes it a web",
+          "p": "The protocols stack. IP delivers packets (no promises). TCP on top numbers them, acknowledges receipt, resends losses and controls speed. HTTP on top of that asks for pages and sends them back; HTTPS wraps it in encryption (TLS), the padlock, so the coffee shop can't read your bank login.",
+          "v": {
+            "t": "steps",
+            "items": [
+              "Physical: fiber, copper, radio",
+              "IP: addressing and routing",
+              "TCP: reliable, ordered delivery (or UDP: fast, lossy)",
+              "TLS: encryption",
+              "HTTP: the web's requests and pages"
+            ]
+          }
+        },
+        {
+          "h": "It mostly runs under the sea",
+          "p": "Satellites carry a sliver of traffic. More than 95 percent of intercontinental data travels through roughly 500 submarine fiber-optic cables, each about the thickness of a garden hose, carrying light pulses across oceans in tens of milliseconds. Ships' anchors and earthquakes are their enemies; repair ships splice them.",
+          "v": {
+            "t": "bars",
+            "unit": "",
+            "max": 99,
+            "items": [
+              [
+                "Submarine cables",
+                99,
+                "≈ 95–99% of intercontinental traffic"
+              ],
+              [
+                "Satellites",
+                1,
+                "about 1%"
+              ]
+            ]
+          }
+        },
+        {
+          "h": "Nobody owns it",
+          "p": "The internet is tens of thousands of independent networks (ISPs, universities, companies, governments) that agree to exchange traffic, often at exchange points in the same building. Standards come from open bodies: the IETF writes the protocols, ICANN coordinates names and numbers, the W3C the web. No one can switch it off.",
+          "v": {
+            "t": "icons",
+            "items": [
+              [
+                "🏢",
+                "~75,000 networks",
+                "autonomous systems"
+              ],
+              [
+                "🔀",
+                "Exchange points",
+                "where they connect"
+              ],
+              [
+                "📜",
+                "IETF",
+                "the protocols (RFCs)"
+              ],
+              [
+                "🏷",
+                "ICANN",
+                "names & numbers"
+              ]
+            ]
+          }
+        },
+        {
+          "h": "From your tap to the page",
+          "p": "Type a URL. DNS finds the address. TCP opens a connection; TLS agrees a key. HTTP asks for the page; the server, perhaps a content-delivery node a few miles away, sends it as hundreds of packets through a dozen routers. Your browser reassembles and draws it. Elapsed: a few hundred milliseconds.",
+          "v": {
+            "t": "timeline",
+            "items": [
+              [
+                "0 ms",
+                "You press Enter"
+              ],
+              [
+                "~20 ms",
+                "DNS answer"
+              ],
+              [
+                "~60 ms",
+                "TCP + TLS handshake"
+              ],
+              [
+                "~100 ms",
+                "First bytes arrive"
+              ],
+              [
+                "~300 ms",
+                "Page drawn"
+              ]
+            ]
+          }
+        }
+      ],
+      "quiz": [
+        {
+          "q": "Data crosses the internet as…",
+          "a": [
+            "One continuous stream on one path",
+            "Small packets that may take different routes",
+            "Radio waves to satellites"
+          ],
+          "c": 1,
+          "why": "Packets are routed independently and reassembled at the end, which is why the network survives broken links."
+        },
+        {
+          "q": "DNS is the system that…",
+          "a": [
+            "Encrypts your traffic",
+            "Turns names like example.com into IP addresses",
+            "Stores web pages"
+          ],
+          "c": 1,
+          "why": "It's the phone book: a chain of lookups from root servers down to the site's own name servers, cached along the way."
+        },
+        {
+          "q": "Most data between continents travels by…",
+          "a": [
+            "Satellite",
+            "Undersea fiber-optic cables",
+            "Microwave towers"
+          ],
+          "c": 1,
+          "why": "Roughly 500 submarine cables carry about 95–99 percent of it; satellites are a small fraction."
+        }
+      ],
+      "take": [
+        "Packets, each addressed and numbered, routed hop by hop and reassembled.",
+        "DNS turns names into numbers; TCP makes delivery reliable; TLS makes it private.",
+        "Undersea cables carry nearly all of it, and no single body owns the network."
+      ],
+      "src": [
+        [
+          "Mozilla: How the Internet works",
+          "https://developer.mozilla.org/en-US/docs/Learn_web_development/Howto/Web_mechanics/How_does_the_Internet_work"
+        ],
+        [
+          "Cloudflare: What is DNS?",
+          "https://www.cloudflare.com/learning/dns/what-is-dns/"
+        ],
+        [
+          "Submarine communications cable — Wikipedia",
+          "https://en.wikipedia.org/wiki/Submarine_communications_cable"
+        ]
+      ]
+    },
+    {
+      "id": "greenhouse-effect",
+      "title": "The greenhouse effect",
+      "dek": "Why a trace gas matters, how we know, and what the numbers are",
+      "icon": "🌍",
+      "slides": [
+        {
+          "h": "Sunlight in, heat out",
+          "p": "The Sun's light passes through the air and warms the ground. The ground radiates that energy back as infrared heat. Certain gases, water vapour, carbon dioxide, methane, absorb infrared and re-emit it in all directions, including back down. Without them Earth would average about −18 °C; with them, about +15 °C.",
+          "v": {
+            "t": "flow",
+            "items": [
+              "☀️ Sunlight in",
+              "Ground warms",
+              "Infrared out",
+              "Gases absorb & re-emit",
+              "Some returns down"
+            ]
+          }
+        },
+        {
+          "h": "Known since the 1850s",
+          "p": "Eunice Foote (1856) and John Tyndall (1859) measured that CO₂ and water vapour trap heat. In 1896 Svante Arrhenius calculated that doubling CO₂ would warm the planet by several degrees. The physics is old, laboratory-tested and not in dispute; what changed is how much CO₂ we add.",
+          "v": {
+            "t": "timeline",
+            "items": [
+              [
+                "1856",
+                "Foote: CO₂ warms in sunlight"
+              ],
+              [
+                "1859",
+                "Tyndall measures infrared absorption"
+              ],
+              [
+                "1896",
+                "Arrhenius: doubling CO₂ warms the Earth"
+              ],
+              [
+                "1958",
+                "Keeling starts measuring at Mauna Loa"
+              ],
+              [
+                "1988",
+                "IPCC founded"
+              ]
+            ]
+          }
+        },
+        {
+          "h": "The Keeling curve",
+          "p": "Since 1958 the observatory on Mauna Loa has measured CO₂ in the air. The line saws up and down with the Northern Hemisphere's seasons and climbs relentlessly: about 315 parts per million in 1958, 420-plus now, against about 280 before industry. Air bubbles in ice cores show it's the highest in at least 800,000 years.",
+          "v": {
+            "t": "line",
+            "pts": [
+              [
+                1958,
+                315
+              ],
+              [
+                1970,
+                325
+              ],
+              [
+                1980,
+                338
+              ],
+              [
+                1990,
+                354
+              ],
+              [
+                2000,
+                369
+              ],
+              [
+                2010,
+                389
+              ],
+              [
+                2020,
+                414
+              ],
+              [
+                2025,
+                425
+              ]
+            ],
+            "xl": "year",
+            "yl": "CO₂, parts per million",
+            "l1": "≈ 425 ppm"
+          }
+        },
+        {
+          "h": "A trace gas with a large effect",
+          "p": "0.04 percent sounds small, but the air's main gases (nitrogen, oxygen) are transparent to infrared; CO₂ and its companions do all the trapping. Water vapour traps more in total but follows temperature; CO₂ sets the thermostat and water amplifies it. Methane traps about 80 times more per ton over 20 years but decays in a decade.",
+          "v": {
+            "t": "bars",
+            "unit": "",
+            "max": 80,
+            "items": [
+              [
+                "CO₂",
+                1,
+                "baseline; lasts centuries"
+              ],
+              [
+                "Methane (20-yr)",
+                80,
+                "~80× per ton, ~12-year life"
+              ],
+              [
+                "Nitrous oxide",
+                60,
+                "~270× per ton (100-yr scale), ~110 years"
+              ]
+            ]
+          }
+        },
+        {
+          "h": "How much warmer, so far",
+          "p": "Global average surface temperature is about 1.2 to 1.3 °C above the late-1800s average, with the last decade the warmest on record and 2024 the warmest year. The land warms faster than the sea, the Arctic two to four times faster than the global average. The ocean has absorbed about 90 percent of the extra heat.",
+          "v": {
+            "t": "line",
+            "pts": [
+              [
+                1880,
+                -0.2
+              ],
+              [
+                1910,
+                -0.4
+              ],
+              [
+                1940,
+                0.05
+              ],
+              [
+                1970,
+                0
+              ],
+              [
+                1990,
+                0.4
+              ],
+              [
+                2010,
+                0.7
+              ],
+              [
+                2024,
+                1.3
+              ]
+            ],
+            "xl": "year",
+            "yl": "°C vs 1850–1900",
+            "l1": "+1.3 °C (2024)"
+          }
+        },
+        {
+          "h": "How we know it's us",
+          "p": "Fossil carbon has a different isotope signature, and the air's carbon is shifting toward it. Oxygen is falling as CO₂ rises, as burning predicts. The upper atmosphere is cooling while the surface warms, which a brighter Sun would not do. The amount added matches the fossil fuels burned, less what oceans and plants absorb.",
+          "v": {
+            "t": "list",
+            "items": [
+              [
+                "✓",
+                "Isotopes: the extra carbon is fossil carbon"
+              ],
+              [
+                "✓",
+                "Oxygen falls as CO₂ rises: combustion"
+              ],
+              [
+                "✓",
+                "Stratosphere cools as surface warms: not the Sun"
+              ],
+              [
+                "✓",
+                "Nights warm faster than days: trapped heat, not more sunlight"
+              ]
+            ]
+          }
+        },
+        {
+          "h": "Where the emissions come from",
+          "p": "Roughly three-quarters of greenhouse emissions come from energy: electricity and heat, transport, industry and buildings. Agriculture, forestry and land use are most of the rest, with methane from cattle and rice and nitrous oxide from fertiliser. Cement alone is about 7 percent of CO₂.",
+          "v": {
+            "t": "donut",
+            "c": "global emissions",
+            "parts": [
+              [
+                "energy: power, industry, transport, buildings",
+                73
+              ],
+              [
+                "agriculture & land use",
+                18
+              ],
+              [
+                "waste",
+                3
+              ],
+              [
+                "industrial processes (cement, chemicals)",
+                6
+              ]
+            ]
+          }
+        },
+        {
+          "h": "The numbers that frame the choices",
+          "p": "Each 1,000 billion tons of CO₂ adds about 0.45 °C. Holding warming to 1.5 °C leaves a budget of only a few years of current emissions; 2 °C, a couple of decades. Solar and wind are now the cheapest new power in most places, which is why the argument has moved from physics to speed. CO₂ already emitted stays for centuries.",
+          "v": {
+            "t": "scale",
+            "min": 0,
+            "max": 3,
+            "unit": " °C",
+            "zones": [
+              [
+                0,
+                1.3,
+                "warming so far"
+              ],
+              [
+                1.3,
+                1.5,
+                "Paris goal"
+              ],
+              [
+                1.5,
+                2,
+                "'well below 2'"
+              ],
+              [
+                2,
+                3,
+                "current policies' track"
+              ]
+            ],
+            "marks": [
+              [
+                1.3,
+                "now"
+              ],
+              [
+                2.7,
+                "policies as of 2020s"
+              ]
+            ]
+          }
+        }
+      ],
+      "quiz": [
+        {
+          "q": "Without any greenhouse gases, Earth's average temperature would be about…",
+          "a": [
+            "+15 °C, as now",
+            "−18 °C",
+            "+40 °C"
+          ],
+          "c": 1,
+          "why": "The natural greenhouse effect keeps the planet about 33 degrees warmer than it would otherwise be. The problem is adding to it."
+        },
+        {
+          "q": "CO₂ in the air has risen from about 280 ppm before industry to…",
+          "a": [
+            "About 300 ppm",
+            "About 420 ppm",
+            "About 1,000 ppm"
+          ],
+          "c": 1,
+          "why": "Mauna Loa measured 315 in 1958 and passed 420 in the 2020s, the highest in at least 800,000 years of ice-core records."
+        },
+        {
+          "q": "Which observation rules out the Sun as the cause of recent warming?",
+          "a": [
+            "Oceans are warming",
+            "The upper atmosphere is cooling while the surface warms",
+            "Ice is melting"
+          ],
+          "c": 1,
+          "why": "A brighter Sun would warm all layers. Trapped heat warms the surface and cools the stratosphere, which is what's measured."
+        }
+      ],
+      "take": [
+        "Greenhouse gases let sunlight in and slow heat out; the physics has been measured since the 1850s.",
+        "CO₂: 280 ppm before industry, 420-plus now; warming about 1.3 °C so far.",
+        "The added carbon is fossil carbon, and it stays for centuries."
+      ],
+      "src": [
+        [
+          "NASA: Climate change evidence",
+          "https://science.nasa.gov/climate-change/evidence/"
+        ],
+        [
+          "NOAA: Mauna Loa CO₂ record",
+          "https://gml.noaa.gov/ccgg/trends/"
+        ],
+        [
+          "IPCC AR6 Synthesis Report",
+          "https://www.ipcc.ch/report/ar6/syr/"
+        ]
+      ]
+    },
+    {
+      "id": "how-gps-works",
+      "title": "How GPS works",
+      "dek": "Thirty-one satellites, four signals and a correction from Einstein",
+      "icon": "🛰",
+      "slides": [
+        {
+          "h": "A constellation that broadcasts the time",
+          "p": "About 31 U.S. GPS satellites orbit at roughly 20,200 km, each circling twice a day, arranged so at least four are above the horizon anywhere on Earth. Each carries atomic clocks and continuously broadcasts its position and the exact time. Europe's Galileo, Russia's GLONASS and China's BeiDou do the same; phones use all of them.",
+          "v": {
+            "t": "icons",
+            "items": [
+              [
+                "🇺🇸",
+                "GPS",
+                "31 satellites, since 1978"
+              ],
+              [
+                "🇪🇺",
+                "Galileo",
+                "~28"
+              ],
+              [
+                "🇷🇺",
+                "GLONASS",
+                "~24"
+              ],
+              [
+                "🇨🇳",
+                "BeiDou",
+                "~35"
+              ]
+            ]
+          }
+        },
+        {
+          "h": "Your receiver only listens",
+          "p": "A GPS chip never transmits. It picks up the satellites' signals, each stamped with when it left, and compares that to its own clock to work out how long each one took to arrive. Light travels about 30 cm per nanosecond, so a time difference gives a distance. The satellites don't know you exist.",
+          "v": {
+            "t": "flow",
+            "items": [
+              "Satellite sends time + position",
+              "Signal takes ~67 ms",
+              "Receiver notes arrival",
+              "Delay × speed of light = distance"
+            ]
+          }
+        },
+        {
+          "h": "Three spheres meet at a point",
+          "p": "Knowing you're 20,300 km from one satellite puts you on a sphere. A second satellite narrows it to a circle, a third to two points, one of which is in space and discarded. That's trilateration. In practice a fourth satellite is needed, for a reason on the next card.",
+          "v": {
+            "t": "steps",
+            "items": [
+              "1 satellite: you're on a sphere",
+              "2 satellites: a circle",
+              "3 satellites: two points (one absurd)",
+              "4 satellites: a point, and the time"
+            ]
+          }
+        },
+        {
+          "h": "The fourth satellite fixes your cheap clock",
+          "p": "The satellites carry atomic clocks accurate to nanoseconds; your phone's clock is off by far more than that, and a microsecond of error is 300 meters. So the receiver treats its own clock error as a fourth unknown and solves for latitude, longitude, altitude and time together. Every GPS fix is also an atomic-clock sync.",
+          "v": {
+            "t": "big",
+            "n": "1 µs = 300 m",
+            "c": "why the receiver must solve for its own clock error"
+          }
+        },
+        {
+          "h": "Relativity is in the firmware",
+          "p": "Moving fast makes the satellites' clocks run slow by about 7 microseconds a day (special relativity); being higher in Earth's gravity makes them run fast by about 45 (general relativity). Net: 38 microseconds a day fast, which would put positions off by about 10 km a day. The clocks are deliberately set slow before launch.",
+          "v": {
+            "t": "bars",
+            "unit": " µs/day",
+            "max": 45,
+            "items": [
+              [
+                "Gravity (higher orbit): clocks run fast",
+                45,
+                "+45"
+              ],
+              [
+                "Speed (14,000 km/h): clocks run slow",
+                7,
+                "−7"
+              ],
+              [
+                "Net correction built in",
+                38,
+                "+38 µs/day"
+              ]
+            ]
+          }
+        },
+        {
+          "h": "What limits accuracy",
+          "p": "The ionosphere slows the signal; buildings reflect it (multipath); a satellite's orbit is known only so well. Civilian GPS alone gets about 5 meters outdoors. Phones add Wi-Fi and cell positioning, corrections broadcast from ground stations, and newer dual-frequency chips to get down to a meter or two.",
+          "v": {
+            "t": "bars",
+            "unit": " m",
+            "max": 10,
+            "items": [
+              [
+                "Civilian GPS alone",
+                5,
+                "≈ 5 m"
+              ],
+              [
+                "Dual-frequency phone",
+                1.5,
+                "≈ 1–2 m"
+              ],
+              [
+                "With ground corrections (RTK)",
+                0.02,
+                "≈ 2 cm"
+              ],
+              [
+                "Urban canyon, single frequency",
+                10,
+                "10 m or worse"
+              ]
+            ]
+          }
+        },
+        {
+          "h": "It runs more than maps",
+          "p": "Because every receiver gets atomic time for free, GPS timestamps bank transactions, keeps cell towers and power grids in sync and times stock trades. Farmers steer tractors to the centimeter; airliners land with it; surveyors watch continents drift at fingernail speed. A GPS outage would be a timing crisis first.",
+          "v": {
+            "t": "icons",
+            "items": [
+              [
+                "🏦",
+                "Finance",
+                "timestamps"
+              ],
+              [
+                "📡",
+                "Cell networks",
+                "tower sync"
+              ],
+              [
+                "⚡",
+                "Power grid",
+                "phase timing"
+              ],
+              [
+                "🚜",
+                "Farming",
+                "cm-level steering"
+              ],
+              [
+                "✈️",
+                "Aviation",
+                "approaches"
+              ],
+              [
+                "🌋",
+                "Geoscience",
+                "plate motion"
+              ]
+            ]
+          }
+        },
+        {
+          "h": "Weaknesses",
+          "p": "The signal reaching you is weaker than the background noise, which is why it fails indoors and can be jammed with a cheap device or spoofed with a fake signal, both increasingly common near conflict zones. Newer satellites, encrypted military codes and backups like eLoran are the responses. Keep a paper map in the glovebox.",
+          "v": {
+            "t": "list",
+            "items": [
+              [
+                "⚠️",
+                "Indoors, under trees, between tall buildings"
+              ],
+              [
+                "⚠️",
+                "Jamming: a $20 device can blank a highway"
+              ],
+              [
+                "⚠️",
+                "Spoofing: ships and planes shown miles off"
+              ],
+              [
+                "✓",
+                "Multi-constellation, dual-frequency receivers help"
+              ]
+            ]
+          }
+        }
+      ],
+      "quiz": [
+        {
+          "q": "A GPS receiver works out its position by…",
+          "a": [
+            "Sending a signal to the satellites and waiting for a reply",
+            "Timing how long signals from several satellites took to arrive",
+            "Reading its location from a cell tower"
+          ],
+          "c": 1,
+          "why": "It only listens. Each signal's travel time gives a distance; several distances pin down a point."
+        },
+        {
+          "q": "A fourth satellite is needed because…",
+          "a": [
+            "Three are never visible at once",
+            "The receiver's own clock is inaccurate and must be solved for",
+            "Earth is not a perfect sphere"
+          ],
+          "c": 1,
+          "why": "A microsecond of clock error is 300 meters, so the receiver treats its clock offset as a fourth unknown."
+        },
+        {
+          "q": "Without correcting for relativity, GPS positions would drift by about…",
+          "a": [
+            "10 cm a day",
+            "10 m a day",
+            "10 km a day"
+          ],
+          "c": 2,
+          "why": "The satellites' clocks gain about 38 microseconds a day net; that's roughly 10 kilometers of error daily if uncorrected."
+        }
+      ],
+      "take": [
+        "Satellites broadcast time and position; the receiver listens and turns delays into distances.",
+        "Four satellites: three for position, one to correct the receiver's cheap clock.",
+        "Relativity is corrected by 38 µs a day; accuracy is a few meters, and the signal is easily jammed."
+      ],
+      "src": [
+        [
+          "GPS.gov: How GPS works",
+          "https://www.gps.gov/systems/gps/"
+        ],
+        [
+          "Global Positioning System — Wikipedia",
+          "https://en.wikipedia.org/wiki/Global_Positioning_System"
+        ],
+        [
+          "Physics Central: Relativity and GPS",
+          "https://www.aps.org/archives/publications/apsnews/201110/physicshistory.cfm"
+        ]
+      ]
+    },
+    {
+      "id": "probability-sense",
+      "title": "Probability for real life",
+      "dek": "The gambler's fallacy, expected value, base rates and the house edge",
+      "icon": "🎲",
+      "slides": [
+        {
+          "h": "The coin has no memory",
+          "p": "After five heads, the chance of a sixth is still one half. Dice, roulette wheels and lottery balls don't 'owe' anything. The gambler's fallacy is the feeling that a run must correct itself; the hot-hand version is the feeling that it must continue. Independent events are independent either way.",
+          "v": {
+            "t": "cols",
+            "unit": "",
+            "items": [
+              [
+                "H",
+                50,
+                "50%"
+              ],
+              [
+                "H",
+                50,
+                "50%"
+              ],
+              [
+                "H",
+                50,
+                "50%"
+              ],
+              [
+                "H",
+                50,
+                "50%"
+              ],
+              [
+                "H",
+                50,
+                "50%"
+              ],
+              [
+                "next?",
+                50,
+                "still 50%"
+              ]
+            ]
+          }
+        },
+        {
+          "h": "Expected value: the average over many tries",
+          "p": "Multiply each outcome by its probability and add them up. A $2 lottery ticket with a 1-in-300-million jackpot of $300 million has an expected value of about $1 before taxes and shared prizes: you lose on average. Insurance has negative expected value too, and is still worth buying, because it covers losses you can't absorb.",
+          "v": {
+            "t": "big",
+            "n": "Σ p × value",
+            "c": "what a bet is worth on average, over many plays"
+          }
+        },
+        {
+          "h": "The house edge, by game",
+          "p": "Every casino game pays slightly less than true odds. American roulette has 38 pockets and pays 35 to 1: the house keeps 5.26 percent of every dollar bet, on average, forever. Blackjack with perfect basic strategy is about 0.5 percent; slots run 2 to 15. The edge is small per bet and certain over thousands of bets.",
+          "v": {
+            "t": "bars",
+            "unit": "%",
+            "max": 15,
+            "items": [
+              [
+                "Blackjack, basic strategy",
+                0.5
+              ],
+              [
+                "Craps (pass line)",
+                1.4
+              ],
+              [
+                "European roulette",
+                2.7
+              ],
+              [
+                "American roulette",
+                5.3
+              ],
+              [
+                "Slots",
+                8,
+                "2–15%"
+              ],
+              [
+                "State lottery",
+                50,
+                "≈ 50% (off scale)"
+              ]
+            ]
+          }
+        },
+        {
+          "h": "Law of large numbers",
+          "p": "Over few trials, anything happens; over many, the average settles toward the expected value. That is why the casino wins and a single gambler can win a night. It's also why a small sample of anything, five reviews, one season, one study, says less than it feels like it does.",
+          "v": {
+            "t": "line",
+            "pts": [
+              [
+                1,
+                20
+              ],
+              [
+                5,
+                72
+              ],
+              [
+                10,
+                40
+              ],
+              [
+                25,
+                56
+              ],
+              [
+                50,
+                47
+              ],
+              [
+                100,
+                52
+              ],
+              [
+                500,
+                50.3
+              ],
+              [
+                1000,
+                50.1
+              ]
+            ],
+            "xl": "coin flips (log-ish)",
+            "yl": "% heads so far",
+            "l1": "settles to 50%"
+          }
+        },
+        {
+          "h": "Base rates: the test that's '99% accurate'",
+          "p": "A disease affects 1 in 1,000 people. A test catches 99 percent of cases and gives 1 percent false positives. You test positive. Your chance of having it is about 9 percent, not 99: out of 1,000 people, about 1 true positive and about 10 false positives. The rarer the condition, the more a positive result lies.",
+          "v": {
+            "t": "flow",
+            "items": [
+              "1,000 people",
+              "1 sick → 1 positive",
+              "999 well → ~10 positives",
+              "11 positives, 1 real",
+              "≈ 9%"
+            ]
+          }
+        },
+        {
+          "h": "Small risks, big numbers",
+          "p": "A one-in-a-million chance per day is about one in 2,700 per year. Rare events happen constantly to someone; with eight billion people, a million-to-one coincidence happens eight thousand times a day. 'What are the odds?' usually has the answer: over enough trials, high.",
+          "v": {
+            "t": "cols",
+            "unit": "",
+            "items": [
+              [
+                "1 day",
+                1,
+                "1 in 1,000,000"
+              ],
+              [
+                "1 year",
+                365,
+                "1 in 2,700"
+              ],
+              [
+                "80 years",
+                29200,
+                "1 in 34"
+              ]
+            ]
+          }
+        },
+        {
+          "h": "Correlation, chance and the bigger sample",
+          "p": "Two things moving together might be cause, coincidence or a third thing driving both. Ice cream and drowning rise together every summer. Before believing a pattern, ask how many comparisons were tried (one in twenty looks 'significant' by luck), whether it replicated, and what the base rate was.",
+          "v": {
+            "t": "list",
+            "items": [
+              [
+                "?",
+                "Could a third factor drive both?"
+              ],
+              [
+                "?",
+                "How many things were compared?"
+              ],
+              [
+                "?",
+                "Has it been seen again, elsewhere?"
+              ],
+              [
+                "?",
+                "How big was the sample?"
+              ]
+            ]
+          }
+        },
+        {
+          "h": "Thinking in bets",
+          "p": "Say probabilities as numbers ('70%', not 'probably'), write them down, and score yourself later. Prefer decisions with good expected value and survivable downside; never bet the house, even on good odds, because ruin ends the game. A good decision can have a bad outcome, and the reverse; judge the process.",
+          "v": {
+            "t": "steps",
+            "items": [
+              "Name the odds as a number",
+              "Multiply by what's at stake",
+              "Check: can I survive the worst case?",
+              "Decide; record it; score it later"
+            ]
+          }
+        }
+      ],
+      "quiz": [
+        {
+          "q": "After red comes up six times in a row at roulette, the next spin is…",
+          "a": [
+            "More likely black",
+            "More likely red",
+            "Just as likely either, as always"
+          ],
+          "c": 2,
+          "why": "Spins are independent. The wheel doesn't remember; the feeling that it must even out is the gambler's fallacy."
+        },
+        {
+          "q": "A test is 99% accurate for a disease that 1 in 1,000 people have. You test positive. Your chance of having it is about…",
+          "a": [
+            "99%",
+            "50%",
+            "9%"
+          ],
+          "c": 2,
+          "why": "Among 1,000 people there's about one true positive and ten false positives. Rare conditions make positives unreliable."
+        },
+        {
+          "q": "The house edge on American roulette is about…",
+          "a": [
+            "0.5%",
+            "5.3%",
+            "25%"
+          ],
+          "c": 1,
+          "why": "38 pockets, paid as if there were 36: 2/38 = 5.26% of every dollar bet, on average, forever."
+        }
+      ],
+      "take": [
+        "Independent events don't remember; the house wins on volume.",
+        "Expected value = probability × payoff, summed; survivability matters more than EV.",
+        "Rare conditions make positive tests misleading; ask for the base rate."
+      ],
+      "src": [
+        [
+          "Gambler's fallacy — Wikipedia",
+          "https://en.wikipedia.org/wiki/Gambler%27s_fallacy"
+        ],
+        [
+          "Base rate fallacy — Wikipedia",
+          "https://en.wikipedia.org/wiki/Base_rate_fallacy"
+        ],
+        [
+          "Khan Academy: Expected value",
+          "https://www.khanacademy.org/math/statistics-probability/random-variables-stats-library/expected-value-lib/v/expected-value-of-a-discrete-random-variable"
+        ]
+      ]
+    }
+  ]
+}
