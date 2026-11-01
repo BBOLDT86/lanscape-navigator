@@ -1,5 +1,5 @@
 {
- "asOf": "2026-10-31",
+ "asOf": "2026-11-01",
  "balance": {
   "senate": {
    "current": {
@@ -572,14 +572,15 @@
     }
    ],
    "ratings": {
-    "cook": "Solid R",
-    "cookAsOf": "2026-10-20",
+    "cook": "Likely R",
+    "cookAsOf": "2026-10-30",
     "sabato": "Likely R",
     "sabatoAsOf": "2026-10-27",
     "inside": "Solid R",
     "insideAsOf": "2026-10-23",
     "note": "Cook/Sabato/IE unchanged in the 270toWin change logs; Almanac moved FL Safe to Likely R on Sep 23",
-    "sabatoChanged": "2026-10-27 (Safe R to Likely R)"
+    "sabatoChanged": "2026-10-27 (Safe R to Likely R)",
+    "cookChanged": "2026-10-30 (Solid R to Likely R)"
    },
    "polls": [
     {
@@ -701,6 +702,21 @@
      "other": null,
      "url": "https://realclearpolling.com/latest-polls/senate",
      "partisanNote": "pollster leans/affiliation not established on the listing"
+    },
+    {
+     "pollster": "Stetson University CPOR",
+     "sponsor": null,
+     "partisan": false,
+     "start": null,
+     "end": "2026-10-30",
+     "dateBasis": "fieldwork end date as listed by the source",
+     "n": 859,
+     "pop": "LV",
+     "d": 45,
+     "r": 49,
+     "other": 3,
+     "url": "https://www.callthemap.com/polls",
+     "partisanNote": "pollster leans/affiliation not established on the listing"
     }
    ],
    "pres2024": {
@@ -725,11 +741,11 @@
     "https://cookpolitical.com/print/ratings/races/senate"
    ],
    "average": {
-    "d": 43.1,
-    "r": 50,
-    "n_polls": 8,
-    "source": "mean of RCP-listed polls released Oct 12-30 (realclearpolling.com latest-polls)",
-    "asOf": "2026-10-30",
+    "d": 43.3,
+    "r": 49.9,
+    "n_polls": 9,
+    "source": "mean of polls released Oct 12-31 as listed by RealClearPolling latest-polls, callthemap.com and pollcheck.co.uk (partisan-sponsored polls excluded)",
+    "asOf": "2026-10-31",
     "method": "simple unweighted mean of the toplines listed; computed by this editorial pass, NOT an aggregator average"
    },
    "pollsClose": {
@@ -961,7 +977,23 @@
     "inside": "Solid D",
     "insideAsOf": "2026-10-23"
    },
-   "polls": [],
+   "polls": [
+    {
+     "pollster": "ActiVote",
+     "sponsor": null,
+     "partisan": false,
+     "start": null,
+     "end": "2026-10-30",
+     "dateBasis": "fieldwork end date as listed by the source",
+     "n": 400,
+     "pop": "LV",
+     "d": 55.6,
+     "r": 44.4,
+     "other": null,
+     "url": "https://www.pollcheck.co.uk/us-midterms-2026",
+     "partisanNote": "pollster leans/affiliation not established on the listing"
+    }
+   ],
    "pres2024": {
     "d": null,
     "r": null,
@@ -983,11 +1015,12 @@
     "https://cookpolitical.com/print/ratings/races/senate"
    ],
    "average": {
-    "d": null,
-    "r": null,
-    "n_polls": 0,
-    "source": "no polls since Oct 10 found",
-    "asOf": "2026-10-23"
+    "d": 55.6,
+    "r": 44.4,
+    "n_polls": 1,
+    "source": "mean of polls released Oct 12-31 as listed by RealClearPolling latest-polls, callthemap.com and pollcheck.co.uk (partisan-sponsored polls excluded)",
+    "asOf": "2026-10-31",
+    "method": "simple unweighted mean of the toplines listed; computed by this editorial pass, NOT an aggregator average"
    },
    "pollsClose": {
     "first": "20:00",
@@ -1432,7 +1465,23 @@
     "insideAsOf": "2026-10-23",
     "sabatoChanged": "2026-10-29 (Safe R to Likely R)"
    },
-   "polls": [],
+   "polls": [
+    {
+     "pollster": "Hart Research Associates",
+     "sponsor": null,
+     "partisan": true,
+     "start": null,
+     "end": "2026-10-29",
+     "dateBasis": "fieldwork end date as listed by the source",
+     "n": 502,
+     "pop": "LV",
+     "d": 45,
+     "r": 45,
+     "other": null,
+     "url": "https://www.pollcheck.co.uk/us-midterms-2026",
+     "partisanNote": "Democratic-affiliated pollster per pollcheck.co.uk (D)"
+    }
+   ],
    "pres2024": {
     "d": null,
     "r": null,
@@ -2364,15 +2413,32 @@
     }
    ],
    "ratings": {
-    "cook": "Likely R",
-    "cookAsOf": "2026-10-20",
+    "cook": "Lean R",
+    "cookAsOf": "2026-10-30",
     "sabato": "Likely R",
     "sabatoAsOf": "2026-10-14",
     "inside": "Lean R",
     "insideAsOf": "2026-10-23",
-    "insideChanged": "2026-10-01 (Likely to Lean R)"
+    "insideChanged": "2026-10-01 (Likely to Lean R)",
+    "cookChanged": "2026-10-30 (Likely R to Lean R)"
    },
-   "polls": [],
+   "polls": [
+    {
+     "pollster": "NY Times/Siena",
+     "sponsor": null,
+     "partisan": false,
+     "start": null,
+     "end": "2026-10-31",
+     "dateBasis": "released (RCP listing date Oct 31); fieldwork ended Oct 29 per pollcheck.co.uk",
+     "n": 809,
+     "pop": "LV",
+     "d": null,
+     "r": 49,
+     "other": 43,
+     "url": "https://www.realclearpolling.com/latest-polls",
+     "partisanNote": "Osborn (I) 43 recorded in other (no Democrat on the ballot); n=809 LV and fieldwork through Oct 29 per pollcheck.co.uk; RCP lists Oct 31"
+    }
+   ],
    "pres2024": {
     "d": null,
     "r": null,
@@ -2401,10 +2467,12 @@
    ],
    "average": {
     "d": null,
-    "r": null,
-    "n_polls": 0,
-    "source": "no polls since Oct 10 found",
-    "asOf": "2026-10-23"
+    "r": 49,
+    "n_polls": 1,
+    "i": 43,
+    "source": "NY Times/Siena (RCP listing Oct 31): Ricketts 49, Osborn (I) 43",
+    "asOf": "2026-10-31",
+    "method": "single poll; no Democrat on the ballot"
    },
    "lastAggregatorAverage": {
     "source": "FiftyPlusOne (https://www.fiftyplusone.news/averages)",
@@ -3011,6 +3079,21 @@
      "other": null,
      "url": "https://realclearpolling.com/latest-polls/senate",
      "partisanNote": "pollster leans/affiliation not established on the listing"
+    },
+    {
+     "pollster": "ActiVote",
+     "sponsor": null,
+     "partisan": false,
+     "start": null,
+     "end": "2026-10-31",
+     "dateBasis": "fieldwork end date as listed by the source",
+     "n": 400,
+     "pop": "LV",
+     "d": 50.2,
+     "r": 49.8,
+     "other": null,
+     "url": "https://www.callthemap.com/polls",
+     "partisanNote": "pollster leans/affiliation not established on the listing"
     }
    ],
    "pres2024": {
@@ -3041,11 +3124,11 @@
     "https://en.wikipedia.org/wiki/2026_United_States_Senate_elections"
    ],
    "average": {
-    "d": 48.3,
-    "r": 44.7,
-    "n_polls": 7,
-    "source": "mean of RCP-listed polls released Oct 12-30 (realclearpolling.com latest-polls)",
-    "asOf": "2026-10-30",
+    "d": 48.5,
+    "r": 45.4,
+    "n_polls": 8,
+    "source": "mean of polls released Oct 12-31 as listed by RealClearPolling latest-polls, callthemap.com and pollcheck.co.uk (partisan-sponsored polls excluded)",
+    "asOf": "2026-10-31",
     "method": "simple unweighted mean of the toplines listed; computed by this editorial pass, NOT an aggregator average"
    },
    "lastAggregatorAverage": {
@@ -3418,6 +3501,21 @@
      "other": null,
      "url": "https://realclearpolling.com/latest-polls/senate",
      "partisanNote": "pollster leans/affiliation not established on the listing"
+    },
+    {
+     "pollster": "Patinkin Research Strategies",
+     "sponsor": null,
+     "partisan": true,
+     "start": null,
+     "end": "2026-10-29",
+     "dateBasis": "fieldwork end date as listed by the source",
+     "n": 500,
+     "pop": "LV",
+     "d": 48,
+     "r": 43,
+     "other": null,
+     "url": "https://www.pollcheck.co.uk/us-midterms-2026",
+     "partisanNote": "Democratic-affiliated pollster per pollcheck.co.uk (D)"
     }
    ],
    "pres2024": {
@@ -3448,8 +3546,8 @@
     "d": 45,
     "r": 47.8,
     "n_polls": 4,
-    "source": "mean of RCP-listed polls released Oct 12-30 (realclearpolling.com latest-polls)",
-    "asOf": "2026-10-30",
+    "source": "mean of polls released Oct 12-31 as listed by RealClearPolling latest-polls, callthemap.com and pollcheck.co.uk (partisan-sponsored polls excluded)",
+    "asOf": "2026-10-31",
     "method": "simple unweighted mean of the toplines listed; computed by this editorial pass, NOT an aggregator average"
    },
    "pollsClose": {
@@ -3926,6 +4024,21 @@
      "other": null,
      "url": "https://realclearpolling.com/latest-polls/senate",
      "partisanNote": "pollster leans/affiliation not established on the listing"
+    },
+    {
+     "pollster": "Kreate Strategies (KStrat)",
+     "sponsor": null,
+     "partisan": false,
+     "start": null,
+     "end": "2026-10-30",
+     "dateBasis": "fieldwork end date as listed by the source",
+     "n": 900,
+     "pop": "LV",
+     "d": 48,
+     "r": 45,
+     "other": 0,
+     "url": "https://www.callthemap.com/polls",
+     "partisanNote": "Ted Brown (L) 0; 6 undecided; listed by callthemap.com and pollcheck.co.uk"
     }
    ],
    "pres2024": {
@@ -3957,10 +4070,10 @@
    ],
    "average": {
     "d": 48.6,
-    "r": 46.5,
-    "n_polls": 16,
-    "source": "mean of RCP-listed polls released Oct 12-30 (realclearpolling.com latest-polls)",
-    "asOf": "2026-10-30",
+    "r": 46.4,
+    "n_polls": 17,
+    "source": "mean of polls released Oct 12-31 as listed by RealClearPolling latest-polls, callthemap.com and pollcheck.co.uk (partisan-sponsored polls excluded)",
+    "asOf": "2026-10-31",
     "method": "simple unweighted mean of the toplines listed; computed by this editorial pass, NOT an aggregator average"
    },
    "lastAggregatorAverage": {
@@ -4495,13 +4608,14 @@
     }
    ],
    "ratings": {
-    "cook": "Lean D",
-    "cookAsOf": "2026-10-13",
+    "cook": "Likely D",
+    "cookAsOf": "2026-10-29",
     "sabato": "Leans D",
     "sabatoAsOf": "2026-10-06",
     "inside": "Tilt D",
     "insideAsOf": "2026-10-01",
-    "basis": "Wikipedia table (Cook Sep 10 / IE Sep 4 / Sabato Sep 3) plus 270toWin change logs through Oct 13 and Cook's Aug 27 print page"
+    "basis": "Wikipedia table (Cook Sep 10 / IE Sep 4 / Sabato Sep 3) plus 270toWin change logs through Oct 13 and Cook's Aug 27 print page",
+    "cookChanged": "2026-10-29 (Lean D to Likely D)"
    },
    "polls": [
     {
@@ -4518,6 +4632,36 @@
      "other": null,
      "url": "https://www.realclearpolling.com/latest-polls/governor",
      "partisanNote": "pollster leans/affiliation not established on the listing"
+    },
+    {
+     "pollster": "Noble Predictive Insights",
+     "sponsor": null,
+     "partisan": false,
+     "start": null,
+     "end": "2026-10-30",
+     "dateBasis": "released (RCP listing date); field dates not shown",
+     "n": null,
+     "pop": null,
+     "d": 51,
+     "r": 45,
+     "other": null,
+     "url": "https://www.realclearpolling.com/latest-polls/governor",
+     "partisanNote": "pollster leans/affiliation not established on the listing"
+    },
+    {
+     "pollster": "GrayHouse",
+     "sponsor": null,
+     "partisan": true,
+     "start": null,
+     "end": "2026-10-29",
+     "dateBasis": "fieldwork end date as listed by the source",
+     "n": 500,
+     "pop": "LV",
+     "d": 50,
+     "r": 45,
+     "other": null,
+     "url": "https://www.pollcheck.co.uk/us-midterms-2026",
+     "partisanNote": "Republican-affiliated pollster per pollcheck.co.uk (R)"
     }
    ],
    "lastRace": {
@@ -4532,11 +4676,11 @@
    "classNote": "four-year term",
    "average": {
     "d": 51,
-    "r": 34,
-    "n_polls": 1,
-    "source": "mean of RCP-listed polls released Oct 11-23 (realclearpolling.com/latest-polls/governor)",
-    "asOf": "2026-10-23",
-    "method": "simple unweighted mean of the toplines listed; computed by this research pass, NOT an aggregator average"
+    "r": 39.5,
+    "n_polls": 2,
+    "source": "mean of polls released Oct 12-31 as listed by RealClearPolling latest-polls, callthemap.com and pollcheck.co.uk (partisan-sponsored polls excluded)",
+    "asOf": "2026-10-31",
+    "method": "simple unweighted mean of the toplines listed; computed by this editorial pass, NOT an aggregator average"
    },
    "pres2024": {
     "d": null,
@@ -4709,6 +4853,36 @@
      "other": null,
      "url": "https://www.realclearpolling.com/latest-polls/governor",
      "partisanNote": "pollster leans/affiliation not established on the listing"
+    },
+    {
+     "pollster": "LA Times/Berkeley IGS",
+     "sponsor": null,
+     "partisan": false,
+     "start": null,
+     "end": "2026-10-30",
+     "dateBasis": "released (RCP listing date); field dates not shown",
+     "n": null,
+     "pop": null,
+     "d": 61,
+     "r": 34,
+     "other": null,
+     "url": "https://www.realclearpolling.com/latest-polls/governor",
+     "partisanNote": "pollster leans/affiliation not established on the listing"
+    },
+    {
+     "pollster": "ActiVote",
+     "sponsor": null,
+     "partisan": false,
+     "start": null,
+     "end": "2026-10-31",
+     "dateBasis": "fieldwork end date as listed by the source",
+     "n": 400,
+     "pop": "LV",
+     "d": 63.2,
+     "r": 36.8,
+     "other": null,
+     "url": "https://www.callthemap.com/polls",
+     "partisanNote": "pollster leans/affiliation not established on the listing"
     }
    ],
    "lastRace": {
@@ -4722,12 +4896,12 @@
    "special": false,
    "classNote": "four-year term",
    "average": {
-    "d": 57.5,
-    "r": 34,
-    "n_polls": 2,
-    "source": "mean of RCP-listed polls released Oct 11-23 (realclearpolling.com/latest-polls/governor)",
-    "asOf": "2026-10-23",
-    "method": "simple unweighted mean of the toplines listed; computed by this research pass, NOT an aggregator average"
+    "d": 59.8,
+    "r": 34.7,
+    "n_polls": 4,
+    "source": "mean of polls released Oct 12-31 as listed by RealClearPolling latest-polls, callthemap.com and pollcheck.co.uk (partisan-sponsored polls excluded)",
+    "asOf": "2026-10-31",
+    "method": "simple unweighted mean of the toplines listed; computed by this editorial pass, NOT an aggregator average"
    },
    "pres2024": {
     "d": null,
@@ -5045,6 +5219,66 @@
      "other": null,
      "url": "https://www.realclearpolling.com/latest-polls/governor",
      "partisanNote": "pollster leans/affiliation not established on the listing"
+    },
+    {
+     "pollster": "InsiderAdvantage",
+     "sponsor": null,
+     "partisan": false,
+     "start": null,
+     "end": "2026-10-30",
+     "dateBasis": "released (RCP listing date); field dates not shown",
+     "n": null,
+     "pop": null,
+     "d": 45,
+     "r": 49,
+     "other": null,
+     "url": "https://www.realclearpolling.com/latest-polls/governor",
+     "partisanNote": "pollster leans/affiliation not established on the listing"
+    },
+    {
+     "pollster": "Big Data Poll",
+     "sponsor": null,
+     "partisan": false,
+     "start": null,
+     "end": "2026-10-30",
+     "dateBasis": "released (RCP listing date); field dates not shown",
+     "n": null,
+     "pop": null,
+     "d": 44,
+     "r": 47,
+     "other": null,
+     "url": "https://www.realclearpolling.com/latest-polls/governor",
+     "partisanNote": "pollster leans/affiliation not established on the listing"
+    },
+    {
+     "pollster": "ActiVote",
+     "sponsor": null,
+     "partisan": false,
+     "start": null,
+     "end": "2026-10-31",
+     "dateBasis": "fieldwork end date as listed by the source",
+     "n": 400,
+     "pop": "LV",
+     "d": 47.7,
+     "r": 52.3,
+     "other": null,
+     "url": "https://www.callthemap.com/polls",
+     "partisanNote": "pollster leans/affiliation not established on the listing"
+    },
+    {
+     "pollster": "Stetson University CPOR",
+     "sponsor": null,
+     "partisan": false,
+     "start": null,
+     "end": "2026-10-30",
+     "dateBasis": "fieldwork end date as listed by the source",
+     "n": 858,
+     "pop": "LV",
+     "d": 45,
+     "r": 51,
+     "other": 1,
+     "url": "https://www.callthemap.com/polls",
+     "partisanNote": "pollster leans/affiliation not established on the listing"
     }
    ],
    "lastRace": {
@@ -5058,12 +5292,12 @@
    "special": false,
    "classNote": "four-year term",
    "average": {
-    "d": 42.5,
-    "r": 50,
-    "n_polls": 4,
-    "source": "mean of RCP-listed polls released Oct 11-23 (realclearpolling.com/latest-polls/governor)",
-    "asOf": "2026-10-23",
-    "method": "simple unweighted mean of the toplines listed; computed by this research pass, NOT an aggregator average"
+    "d": 44.0,
+    "r": 49.9,
+    "n_polls": 8,
+    "source": "mean of polls released Oct 12-31 as listed by RealClearPolling latest-polls, callthemap.com and pollcheck.co.uk (partisan-sponsored polls excluded)",
+    "asOf": "2026-10-31",
+    "method": "simple unweighted mean of the toplines listed; computed by this editorial pass, NOT an aggregator average"
    },
    "pres2024": {
     "d": null,
@@ -5377,7 +5611,23 @@
     "insideAsOf": "2026-10-01",
     "basis": "Wikipedia table (Cook Sep 10 / IE Sep 4 / Sabato Sep 3) plus 270toWin change logs through Oct 13 and Cook's Aug 27 print page"
    },
-   "polls": [],
+   "polls": [
+    {
+     "pollster": "ActiVote",
+     "sponsor": null,
+     "partisan": false,
+     "start": null,
+     "end": "2026-10-31",
+     "dateBasis": "fieldwork end date as listed by the source",
+     "n": 400,
+     "pop": "LV",
+     "d": 59,
+     "r": 41,
+     "other": null,
+     "url": "https://www.callthemap.com/polls",
+     "partisanNote": "pollster leans/affiliation not established on the listing"
+    }
+   ],
    "lastRace": {
     "year": 2022,
     "winner": "JB Pritzker",
@@ -5389,11 +5639,12 @@
    "special": false,
    "classNote": "four-year term",
    "average": {
-    "d": null,
-    "r": null,
-    "n_polls": 0,
-    "source": "no polls since Oct 10 found",
-    "asOf": "2026-10-23"
+    "d": 59,
+    "r": 41,
+    "n_polls": 1,
+    "source": "mean of polls released Oct 12-31 as listed by RealClearPolling latest-polls, callthemap.com and pollcheck.co.uk (partisan-sponsored polls excluded)",
+    "asOf": "2026-10-31",
+    "method": "simple unweighted mean of the toplines listed; computed by this editorial pass, NOT an aggregator average"
    },
    "pres2024": {
     "d": null,
@@ -5512,6 +5763,21 @@
      "other": null,
      "url": "https://www.realclearpolling.com/latest-polls/governor",
      "partisanNote": "pollster leans/affiliation not established on the listing"
+    },
+    {
+     "pollster": "co/efficient",
+     "sponsor": null,
+     "partisan": false,
+     "start": null,
+     "end": "2026-10-29",
+     "dateBasis": "released (RCP listing date); field dates not shown",
+     "n": null,
+     "pop": null,
+     "d": 50,
+     "r": 45,
+     "other": null,
+     "url": "https://www.realclearpolling.com/latest-polls/governor",
+     "partisanNote": "pollster leans/affiliation not established on the listing"
     }
    ],
    "lastRace": {
@@ -5525,12 +5791,12 @@
    "special": false,
    "classNote": "four-year term",
    "average": {
-    "d": 51,
-    "r": 44.2,
-    "n_polls": 4,
-    "source": "mean of RCP-listed polls released Oct 11-23 (realclearpolling.com/latest-polls/governor)",
-    "asOf": "2026-10-23",
-    "method": "simple unweighted mean of the toplines listed; computed by this research pass, NOT an aggregator average"
+    "d": 50.8,
+    "r": 44.4,
+    "n_polls": 5,
+    "source": "mean of polls released Oct 12-31 as listed by RealClearPolling latest-polls, callthemap.com and pollcheck.co.uk (partisan-sponsored polls excluded)",
+    "asOf": "2026-10-31",
+    "method": "simple unweighted mean of the toplines listed; computed by this editorial pass, NOT an aggregator average"
    },
    "pres2024": {
     "d": null,
@@ -5575,15 +5841,62 @@
     }
    ],
    "ratings": {
-    "cook": "Lean R",
-    "cookAsOf": "2026-10-13",
+    "cook": "Toss Up",
+    "cookAsOf": "2026-10-29",
     "sabato": "Leans R",
     "sabatoAsOf": "2026-10-06",
     "inside": "Tilt R",
     "insideAsOf": "2026-10-01",
-    "basis": "Wikipedia table (Cook Sep 10 / IE Sep 4 / Sabato Sep 3) plus 270toWin change logs through Oct 13 and Cook's Aug 27 print page"
+    "basis": "Wikipedia table (Cook Sep 10 / IE Sep 4 / Sabato Sep 3) plus 270toWin change logs through Oct 13 and Cook's Aug 27 print page",
+    "cookChanged": "2026-10-29 (Lean R to Toss Up)"
    },
-   "polls": [],
+   "polls": [
+    {
+     "pollster": "Emerson",
+     "sponsor": null,
+     "partisan": false,
+     "start": null,
+     "end": "2026-10-30",
+     "dateBasis": "released (RCP listing date); field dates not shown",
+     "n": null,
+     "pop": null,
+     "d": 46,
+     "r": 50,
+     "other": null,
+     "url": "https://www.realclearpolling.com/latest-polls/governor",
+     "partisanNote": "pollster leans/affiliation not established on the listing"
+    },
+    {
+     "pollster": "Washington Post",
+     "sponsor": null,
+     "partisan": false,
+     "start": null,
+     "end": "2026-10-30",
+     "dateBasis": "released (RCP listing date); field dates not shown",
+     "n": null,
+     "pop": null,
+     "d": 51,
+     "r": 45,
+     "other": null,
+     "url": "https://www.realclearpolling.com/latest-polls/governor",
+     "partisanNote": "pollster leans/affiliation not established on the listing"
+    },
+    {
+     "pollster": "CNN",
+     "sponsor": null,
+     "partisan": false,
+     "start": null,
+     "end": "2026-10-29",
+     "dateBasis": "released (RCP listing date); field dates not shown",
+     "n": null,
+     "pop": null,
+     "d": 45,
+     "r": 50,
+     "other": null,
+     "url": "https://www.realclearpolling.com/latest-polls/governor",
+     "partisanNote": "pollster leans/affiliation not established on the listing"
+    }
+   ],
    "lastRace": {
     "year": 2022,
     "winner": "Laura Kelly",
@@ -5595,11 +5908,12 @@
    "special": false,
    "classNote": "four-year term",
    "average": {
-    "d": null,
-    "r": null,
-    "n_polls": 0,
-    "source": "no polls since Oct 10 found",
-    "asOf": "2026-10-23"
+    "d": 47.3,
+    "r": 48.3,
+    "n_polls": 3,
+    "source": "mean of polls released Oct 12-31 as listed by RealClearPolling latest-polls, callthemap.com and pollcheck.co.uk (partisan-sponsored polls excluded)",
+    "asOf": "2026-10-31",
+    "method": "simple unweighted mean of the toplines listed; computed by this editorial pass, NOT an aggregator average"
    },
    "pres2024": {
     "d": null,
@@ -5703,6 +6017,21 @@
      "other": null,
      "url": "https://www.realclearpolling.com/latest-polls/governor",
      "partisanNote": "pollster leans/affiliation not established on the listing"
+    },
+    {
+     "pollster": "CNN",
+     "sponsor": null,
+     "partisan": false,
+     "start": null,
+     "end": "2026-10-29",
+     "dateBasis": "released (RCP listing date); field dates not shown",
+     "n": null,
+     "pop": null,
+     "d": 53,
+     "r": 39,
+     "other": null,
+     "url": "https://www.realclearpolling.com/latest-polls/governor",
+     "partisanNote": "pollster leans/affiliation not established on the listing"
     }
    ],
    "lastRace": {
@@ -5717,11 +6046,11 @@
    "special": false,
    "classNote": "four-year term",
    "average": {
-    "d": 47.3,
-    "r": 40.3,
-    "n_polls": 3,
-    "source": "mean of RCP-listed polls released Oct 12-30 (realclearpolling.com latest-polls)",
-    "asOf": "2026-10-30",
+    "d": 48.8,
+    "r": 40,
+    "n_polls": 4,
+    "source": "mean of polls released Oct 12-31 as listed by RealClearPolling latest-polls, callthemap.com and pollcheck.co.uk (partisan-sponsored polls excluded)",
+    "asOf": "2026-10-31",
     "method": "simple unweighted mean of the toplines listed; computed by this editorial pass, NOT an aggregator average"
    },
    "pres2024": {
@@ -5886,6 +6215,21 @@
      "other": null,
      "url": "https://www.realclearpolling.com/latest-polls/governor",
      "partisanNote": "pollster leans/affiliation not established on the listing"
+    },
+    {
+     "pollster": "UMass Lowell",
+     "sponsor": null,
+     "partisan": false,
+     "start": null,
+     "end": "2026-10-29",
+     "dateBasis": "released (RCP listing date); field dates not shown",
+     "n": null,
+     "pop": null,
+     "d": 57,
+     "r": 29,
+     "other": null,
+     "url": "https://www.realclearpolling.com/latest-polls/governor",
+     "partisanNote": "pollster leans/affiliation not established on the listing"
     }
    ],
    "lastRace": {
@@ -5899,12 +6243,12 @@
    "special": false,
    "classNote": "four-year term",
    "average": {
-    "d": 58,
-    "r": 34,
-    "n_polls": 2,
-    "source": "mean of RCP-listed polls released Oct 11-23 (realclearpolling.com/latest-polls/governor)",
-    "asOf": "2026-10-23",
-    "method": "simple unweighted mean of the toplines listed; computed by this research pass, NOT an aggregator average"
+    "d": 57.7,
+    "r": 32.3,
+    "n_polls": 3,
+    "source": "mean of polls released Oct 12-31 as listed by RealClearPolling latest-polls, callthemap.com and pollcheck.co.uk (partisan-sponsored polls excluded)",
+    "asOf": "2026-10-31",
+    "method": "simple unweighted mean of the toplines listed; computed by this editorial pass, NOT an aggregator average"
    },
    "pres2024": {
     "d": null,
@@ -5992,6 +6336,51 @@
      "other": null,
      "url": "https://www.realclearpolling.com/latest-polls/governor",
      "partisanNote": "pollster leans/affiliation not established on the listing"
+    },
+    {
+     "pollster": "Rasmussen Reports",
+     "sponsor": null,
+     "partisan": false,
+     "start": null,
+     "end": "2026-10-30",
+     "dateBasis": "released (RCP listing date); field dates not shown",
+     "n": null,
+     "pop": null,
+     "d": 50,
+     "r": 40,
+     "other": null,
+     "url": "https://www.realclearpolling.com/latest-polls/governor",
+     "partisanNote": "pollster leans/affiliation not established on the listing"
+    },
+    {
+     "pollster": "CNN",
+     "sponsor": null,
+     "partisan": false,
+     "start": null,
+     "end": "2026-10-29",
+     "dateBasis": "released (RCP listing date); field dates not shown",
+     "n": null,
+     "pop": null,
+     "d": 53,
+     "r": 41,
+     "other": null,
+     "url": "https://www.realclearpolling.com/latest-polls/governor",
+     "partisanNote": "pollster leans/affiliation not established on the listing"
+    },
+    {
+     "pollster": "CBS News/Mitchell",
+     "sponsor": null,
+     "partisan": false,
+     "start": null,
+     "end": "2026-10-29",
+     "dateBasis": "released (RCP listing date); field dates not shown",
+     "n": null,
+     "pop": null,
+     "d": 49,
+     "r": 44,
+     "other": null,
+     "url": "https://www.realclearpolling.com/latest-polls/governor",
+     "partisanNote": "pollster leans/affiliation not established on the listing"
     }
    ],
    "lastRace": {
@@ -6006,11 +6395,11 @@
    "special": false,
    "classNote": "four-year term",
    "average": {
-    "d": 52,
-    "r": 43,
-    "n_polls": 2,
-    "source": "mean of RCP-listed polls released Oct 12-30 (realclearpolling.com latest-polls)",
-    "asOf": "2026-10-30",
+    "d": 51.2,
+    "r": 42.2,
+    "n_polls": 5,
+    "source": "mean of polls released Oct 12-31 as listed by RealClearPolling latest-polls, callthemap.com and pollcheck.co.uk (partisan-sponsored polls excluded)",
+    "asOf": "2026-10-31",
     "method": "simple unweighted mean of the toplines listed; computed by this editorial pass, NOT an aggregator average"
    },
    "pres2024": {
@@ -6093,6 +6482,21 @@
      "other": null,
      "url": "https://www.realclearpolling.com/latest-polls/governor",
      "partisanNote": "pollster leans/affiliation not established on the listing"
+    },
+    {
+     "pollster": "KSTP/SurveyUSA",
+     "sponsor": null,
+     "partisan": false,
+     "start": null,
+     "end": "2026-10-30",
+     "dateBasis": "released (RCP listing date); field dates not shown",
+     "n": null,
+     "pop": null,
+     "d": 51,
+     "r": 39,
+     "other": null,
+     "url": "https://www.realclearpolling.com/latest-polls/governor",
+     "partisanNote": "pollster leans/affiliation not established on the listing"
     }
    ],
    "lastRace": {
@@ -6106,12 +6510,12 @@
    "special": false,
    "classNote": "four-year term",
    "average": {
-    "d": 49,
-    "r": 41,
-    "n_polls": 2,
-    "source": "mean of RCP-listed polls released Oct 11-23 (realclearpolling.com/latest-polls/governor)",
-    "asOf": "2026-10-23",
-    "method": "simple unweighted mean of the toplines listed; computed by this research pass, NOT an aggregator average"
+    "d": 49.7,
+    "r": 40.3,
+    "n_polls": 3,
+    "source": "mean of polls released Oct 12-31 as listed by RealClearPolling latest-polls, callthemap.com and pollcheck.co.uk (partisan-sponsored polls excluded)",
+    "asOf": "2026-10-31",
+    "method": "simple unweighted mean of the toplines listed; computed by this editorial pass, NOT an aggregator average"
    },
    "pres2024": {
     "d": null,
@@ -6165,18 +6569,33 @@
     }
    ],
    "ratings": {
-    "cook": "Likely R",
-    "cookAsOf": "2026-10-13",
+    "cook": "Lean R",
+    "cookAsOf": "2026-10-29",
     "sabato": "Likely R",
     "sabatoAsOf": "2026-10-06",
     "inside": "Solid R",
     "insideAsOf": "2026-10-01",
     "basis": "Wikipedia table (Cook Sep 10 / IE Sep 4 / Sabato Sep 3) plus 270toWin change logs through Oct 13 and Cook's Aug 27 print page",
-    "cookChanged": "2026-10-13",
-    "sabatoChanged": "2026-09-29 (Safe to Likely R)",
-    "note": "Cook shifted this race toward Democrats on Oct 13 (joemygod/Mediaite reports name AK, NE, VT, OK); the new category was not stated in the sources read, so 'Likely R' (one step from Solid R) is an inference to verify"
+    "cookChanged": "2026-10-29 (Likely R to Lean R)",
+    "sabatoChanged": "2026-09-29 (Safe to Likely R)"
    },
-   "polls": [],
+   "polls": [
+    {
+     "pollster": "NY Times/Siena",
+     "sponsor": null,
+     "partisan": false,
+     "start": null,
+     "end": "2026-10-31",
+     "dateBasis": "released (RCP listing date Oct 31); fieldwork ended Oct 29 per pollcheck.co.uk",
+     "n": 809,
+     "pop": "LV",
+     "d": 40,
+     "r": 53,
+     "other": null,
+     "url": "https://www.realclearpolling.com/latest-polls/governor",
+     "partisanNote": "pollster leans/affiliation not established on the listing"
+    }
+   ],
    "lastRace": {
     "year": 2022,
     "winner": "Jim Pillen",
@@ -6188,11 +6607,12 @@
    "special": false,
    "classNote": "four-year term",
    "average": {
-    "d": null,
-    "r": null,
-    "n_polls": 0,
-    "source": "no polls since Oct 10 found",
-    "asOf": "2026-10-23"
+    "d": 40,
+    "r": 53,
+    "n_polls": 1,
+    "source": "mean of polls released Oct 12-31 as listed by RealClearPolling latest-polls, callthemap.com and pollcheck.co.uk (partisan-sponsored polls excluded)",
+    "asOf": "2026-10-31",
+    "method": "simple unweighted mean of the toplines listed; computed by this editorial pass, NOT an aggregator average"
    },
    "pres2024": {
     "d": null,
@@ -6250,7 +6670,23 @@
     "insideAsOf": "2026-10-01",
     "basis": "Wikipedia table (Cook Sep 10 / IE Sep 4 / Sabato Sep 3) plus 270toWin change logs through Oct 13 and Cook's Aug 27 print page"
    },
-   "polls": [],
+   "polls": [
+    {
+     "pollster": "Noble Predictive Insights",
+     "sponsor": null,
+     "partisan": false,
+     "start": null,
+     "end": "2026-10-30",
+     "dateBasis": "released (RCP listing date); field dates not shown",
+     "n": null,
+     "pop": null,
+     "d": 47,
+     "r": 47,
+     "other": null,
+     "url": "https://www.realclearpolling.com/latest-polls/governor",
+     "partisanNote": "pollster leans/affiliation not established on the listing"
+    }
+   ],
    "lastRace": {
     "year": 2022,
     "winner": "Joe Lombardo",
@@ -6262,11 +6698,12 @@
    "special": false,
    "classNote": "four-year term",
    "average": {
-    "d": null,
-    "r": null,
-    "n_polls": 0,
-    "source": "no polls since Oct 10 found",
-    "asOf": "2026-10-23"
+    "d": 47,
+    "r": 47,
+    "n_polls": 1,
+    "source": "mean of polls released Oct 12-31 as listed by RealClearPolling latest-polls, callthemap.com and pollcheck.co.uk (partisan-sponsored polls excluded)",
+    "asOf": "2026-10-31",
+    "method": "simple unweighted mean of the toplines listed; computed by this editorial pass, NOT an aggregator average"
    },
    "pres2024": {
     "d": null,
@@ -6369,6 +6806,21 @@
      "url": "https://www.realclearpolling.com/latest-polls/governor",
      "partisanNote": "pollster leans/affiliation not established on the listing",
      "note": "third candidate listed as 'Villee' 3"
+    },
+    {
+     "pollster": "UMass Lowell",
+     "sponsor": null,
+     "partisan": false,
+     "start": null,
+     "end": "2026-10-29",
+     "dateBasis": "released (RCP listing date); field dates not shown",
+     "n": null,
+     "pop": null,
+     "d": 42,
+     "r": 48,
+     "other": null,
+     "url": "https://www.realclearpolling.com/latest-polls/governor",
+     "partisanNote": "pollster leans/affiliation not established on the listing"
     }
    ],
    "lastRace": {
@@ -6383,11 +6835,11 @@
    "special": false,
    "classNote": "two-year term",
    "average": {
-    "d": 39.3,
-    "r": 52.3,
-    "n_polls": 3,
-    "source": "mean of RCP-listed polls released Oct 12-30 (realclearpolling.com latest-polls)",
-    "asOf": "2026-10-30",
+    "d": 40,
+    "r": 51.2,
+    "n_polls": 4,
+    "source": "mean of polls released Oct 12-31 as listed by RealClearPolling latest-polls, callthemap.com and pollcheck.co.uk (partisan-sponsored polls excluded)",
+    "asOf": "2026-10-31",
     "method": "simple unweighted mean of the toplines listed; computed by this editorial pass, NOT an aggregator average"
    },
    "pres2024": {
@@ -6683,6 +7135,21 @@
      "other": null,
      "url": "https://www.realclearpolling.com/latest-polls/governor",
      "partisanNote": "pollster leans/affiliation not established on the listing"
+    },
+    {
+     "pollster": "ActiVote",
+     "sponsor": null,
+     "partisan": false,
+     "start": null,
+     "end": "2026-10-31",
+     "dateBasis": "fieldwork end date as listed by the source",
+     "n": 400,
+     "pop": "LV",
+     "d": 50.8,
+     "r": 49.2,
+     "other": null,
+     "url": "https://www.callthemap.com/polls",
+     "partisanNote": "pollster leans/affiliation not established on the listing"
     }
    ],
    "lastRace": {
@@ -6696,12 +7163,12 @@
    "special": false,
    "classNote": "four-year term",
    "average": {
-    "d": 49.8,
-    "r": 44.8,
-    "n_polls": 4,
-    "source": "mean of RCP-listed polls released Oct 11-23 (realclearpolling.com/latest-polls/governor)",
-    "asOf": "2026-10-23",
-    "method": "simple unweighted mean of the toplines listed; computed by this research pass, NOT an aggregator average"
+    "d": 50.0,
+    "r": 45.6,
+    "n_polls": 5,
+    "source": "mean of polls released Oct 12-31 as listed by RealClearPolling latest-polls, callthemap.com and pollcheck.co.uk (partisan-sponsored polls excluded)",
+    "asOf": "2026-10-31",
+    "method": "simple unweighted mean of the toplines listed; computed by this editorial pass, NOT an aggregator average"
    },
    "pres2024": {
     "d": null,
@@ -7531,6 +7998,81 @@
      "other": null,
      "url": "https://www.realclearpolling.com/latest-polls/governor",
      "partisanNote": "pollster leans/affiliation not established on the listing"
+    },
+    {
+     "pollster": "Quantus Insights",
+     "sponsor": null,
+     "partisan": false,
+     "start": null,
+     "end": "2026-10-30",
+     "dateBasis": "released (RCP listing date); field dates not shown",
+     "n": null,
+     "pop": null,
+     "d": 46,
+     "r": 52,
+     "other": null,
+     "url": "https://www.realclearpolling.com/latest-polls/governor",
+     "partisanNote": "pollster leans/affiliation not established on the listing"
+    },
+    {
+     "pollster": "CNN",
+     "sponsor": null,
+     "partisan": false,
+     "start": null,
+     "end": "2026-10-29",
+     "dateBasis": "released (RCP listing date); field dates not shown",
+     "n": null,
+     "pop": null,
+     "d": 46,
+     "r": 48,
+     "other": null,
+     "url": "https://www.realclearpolling.com/latest-polls/governor",
+     "partisanNote": "pollster leans/affiliation not established on the listing"
+    },
+    {
+     "pollster": "TSU/YouGov",
+     "sponsor": null,
+     "partisan": false,
+     "start": null,
+     "end": "2026-10-29",
+     "dateBasis": "released (RCP listing date); field dates not shown",
+     "n": null,
+     "pop": null,
+     "d": 47,
+     "r": 50,
+     "other": null,
+     "url": "https://www.realclearpolling.com/latest-polls/governor",
+     "partisanNote": "pollster leans/affiliation not established on the listing"
+    },
+    {
+     "pollster": "Kreate Strategies (KStrat)",
+     "sponsor": null,
+     "partisan": false,
+     "start": null,
+     "end": "2026-10-30",
+     "dateBasis": "fieldwork end date as listed by the source",
+     "n": 900,
+     "pop": "LV",
+     "d": 47,
+     "r": 49,
+     "other": 1,
+     "url": "https://www.callthemap.com/polls",
+     "partisanNote": "Pat Dixon (L) 1; listed by callthemap.com and pollcheck.co.uk"
+    },
+    {
+     "pollster": "ActiVote",
+     "sponsor": null,
+     "partisan": false,
+     "start": null,
+     "end": "2026-10-29",
+     "dateBasis": "fieldwork end date as listed by the source",
+     "n": 400,
+     "pop": "LV",
+     "d": 47.9,
+     "r": 52.1,
+     "other": null,
+     "url": "https://www.pollcheck.co.uk/us-midterms-2026",
+     "partisanNote": "pollster leans/affiliation not established on the listing"
     }
    ],
    "lastRace": {
@@ -7545,10 +8087,10 @@
    "classNote": "four-year term",
    "average": {
     "d": 46.7,
-    "r": 49.4,
-    "n_polls": 10,
-    "source": "mean of RCP-listed polls released Oct 12-30 (realclearpolling.com latest-polls)",
-    "asOf": "2026-10-30",
+    "r": 49.7,
+    "n_polls": 15,
+    "source": "mean of polls released Oct 12-31 as listed by RealClearPolling latest-polls, callthemap.com and pollcheck.co.uk (partisan-sponsored polls excluded)",
+    "asOf": "2026-10-31",
     "method": "simple unweighted mean of the toplines listed; computed by this editorial pass, NOT an aggregator average"
    },
    "pres2024": {
@@ -7671,15 +8213,32 @@
     }
    ],
    "ratings": {
-    "cook": "Toss Up",
-    "cookAsOf": "2026-10-13",
+    "cook": "Lean D",
+    "cookAsOf": "2026-10-29",
     "sabato": "Leans D",
     "sabatoAsOf": "2026-10-06",
     "inside": "Toss-up",
     "insideAsOf": "2026-10-01",
-    "basis": "Wikipedia table (Cook Sep 10 / IE Sep 4 / Sabato Sep 3) plus 270toWin change logs through Oct 13 and Cook's Aug 27 print page"
+    "basis": "Wikipedia table (Cook Sep 10 / IE Sep 4 / Sabato Sep 3) plus 270toWin change logs through Oct 13 and Cook's Aug 27 print page",
+    "cookChanged": "2026-10-29 (Toss Up to Lean D)"
    },
-   "polls": [],
+   "polls": [
+    {
+     "pollster": "LAW/Daily Signal",
+     "sponsor": null,
+     "partisan": false,
+     "start": null,
+     "end": "2026-10-29",
+     "dateBasis": "released (RCP listing date); field dates not shown",
+     "n": null,
+     "pop": null,
+     "d": 48,
+     "r": 45,
+     "other": null,
+     "url": "https://www.realclearpolling.com/latest-polls/governor",
+     "partisanNote": "pollster leans/affiliation not established on the listing"
+    }
+   ],
    "lastRace": {
     "year": 2022,
     "winner": "Tony Evers",
@@ -7691,11 +8250,12 @@
    "special": false,
    "classNote": "four-year term",
    "average": {
-    "d": null,
-    "r": null,
-    "n_polls": 0,
-    "source": "no polls since Oct 10 found",
-    "asOf": "2026-10-23"
+    "d": 48,
+    "r": 45,
+    "n_polls": 1,
+    "source": "mean of polls released Oct 12-31 as listed by RealClearPolling latest-polls, callthemap.com and pollcheck.co.uk (partisan-sponsored polls excluded)",
+    "asOf": "2026-10-31",
+    "method": "simple unweighted mean of the toplines listed; computed by this editorial pass, NOT an aggregator average"
    },
    "pres2024": {
     "d": null,
@@ -7939,14 +8499,78 @@
      "url": "https://www.realclearpolling.com/latest-polls/2026",
      "partisanNote": "pollster leans/affiliation not established on the listing",
      "race": "GB"
+    },
+    {
+     "pollster": "Emerson",
+     "sponsor": null,
+     "partisan": false,
+     "start": null,
+     "end": "2026-10-30",
+     "dateBasis": "released (RCP listing date); field dates not shown",
+     "n": null,
+     "pop": null,
+     "d": 52,
+     "r": 42,
+     "other": null,
+     "url": "https://www.realclearpolling.com/latest-polls",
+     "partisanNote": "pollster leans/affiliation not established on the listing",
+     "race": "GB"
+    },
+    {
+     "pollster": "THP/MM",
+     "sponsor": null,
+     "partisan": false,
+     "start": null,
+     "end": "2026-10-29",
+     "dateBasis": "released (RCP listing date); field dates not shown",
+     "n": null,
+     "pop": null,
+     "d": 54,
+     "r": 41,
+     "other": null,
+     "url": "https://www.realclearpolling.com/latest-polls",
+     "partisanNote": "pollster leans/affiliation not established on the listing",
+     "race": "GB"
+    },
+    {
+     "pollster": "Big Data Poll",
+     "sponsor": null,
+     "partisan": false,
+     "start": null,
+     "end": "2026-10-30",
+     "dateBasis": "fieldwork end date as listed by the source",
+     "n": 3214,
+     "pop": "LV",
+     "d": 52.3,
+     "r": 40.0,
+     "other": null,
+     "url": "https://www.callthemap.com/polls",
+     "partisanNote": "pollster leans/affiliation not established on the listing",
+     "race": "GB"
+    },
+    {
+     "pollster": "ActiVote",
+     "sponsor": null,
+     "partisan": false,
+     "start": null,
+     "end": "2026-10-30",
+     "dateBasis": "fieldwork end date as listed by the source",
+     "n": 2000,
+     "pop": "LV",
+     "d": 53.5,
+     "r": 46.5,
+     "other": null,
+     "url": "https://www.pollcheck.co.uk/us-midterms-2026",
+     "partisanNote": "pollster leans/affiliation not established on the listing",
+     "race": "GB"
     }
    ],
    "average": {
-    "d": 50.7,
-    "r": 43,
-    "n_polls": 9,
-    "source": "mean of RCP-listed generic-ballot polls released Oct 12-27 (realclearpolling.com/latest-polls/2026)",
-    "asOf": "2026-10-27",
+    "d": 51.4,
+    "r": 42.8,
+    "n_polls": 13,
+    "source": "mean of generic-ballot polls released Oct 12-31 as listed by RealClearPolling latest-polls, callthemap.com and pollcheck.co.uk",
+    "asOf": "2026-10-31",
     "method": "simple unweighted mean of the toplines listed; computed by this editorial pass, NOT an aggregator average",
     "lastAggregator": {
      "source": "RealClearPolling average",
@@ -9770,6 +10394,22 @@
    "text": "Cook Political Report moved 12 more House races toward Democrats: among them CO-05 (Crank) Lean R to Toss Up, PA-01 (Fitzpatrick) Lean R to Toss Up, SC-01 (open) Lean R to Toss Up, PA-08 (Bresnahan) Toss Up to Lean D, OH-09 (Kaptur) Toss Up to Lean D; 18 Toss Ups remain. Forbes: Democrats would hold 240 seats if they won every Toss Up and every seat they are favored in; Cook projects a minimum pickup of five seats.",
    "source": "https://www.forbes.com/sites/saradorn/2026/10/30/blue-wave-likely-12-seats-shift-left-as-democrats-could-have-largest-majority-since-2009/",
    "also": "https://thehill.com/homenews/campaign/6183415-cook-political-report-house-race-shifts-democrats-midterms/"
+  },
+  {
+   "date": "2026-10-29",
+   "text": "Cook Political Report moved four governor races: Wisconsin Toss Up to Lean D, Arizona Lean D to Likely D, Kansas Lean R to Toss Up, Nebraska Likely R to Lean R.",
+   "source": "https://newsweek.com/forecast-shifts-14-races-towards-democrats-in-final-days-before-midterms-12640820"
+  },
+  {
+   "date": "2026-10-30",
+   "text": "Cook Political Report's closing Senate update moved Florida from Solid R to Likely R and Nebraska from Likely R to Lean R; Cook kept its range of a Democratic gain of two to six seats.",
+   "source": "https://newsweek.com/forecast-shifts-14-races-towards-democrats-in-final-days-before-midterms-12640820",
+   "also": "https://www.cookpolitical.com/analysis/senate/nebraska-senate/tightening-contest"
+  },
+  {
+   "date": "2026-10-30",
+   "text": "Cook House update (12 moves): CO-05 Lean R to Toss Up; FL-07, FL-09, IN-05 Likely R to Lean R; NC-05, NC-09, NJ-02, WA-05 Solid R to Likely R; OH-09 Toss Up to Lean D; PA-01 Lean R to Toss Up; PA-08 Toss Up to Lean D; SC-01 Lean R to Toss Up.",
+   "source": "https://newsweek.com/forecast-shifts-14-races-towards-democrats-in-final-days-before-midterms-12640820"
   }
  ],
  "gaps": [
