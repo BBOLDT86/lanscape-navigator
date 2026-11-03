@@ -6,6 +6,8 @@
   note    GA-S "what the desk is watching"           (one-line status shown on the race card)
   status  GA-S open|watching|called                  (set explicitly; call/uncall set it for you)
   log     "7:40 PM: ..." [--at ...]                  (appends to the desk log and stamps asOf)
+  apcall  OH-02 --party R --at ... [--by AP]          (record AP's call for a race the Election Desk's results.json
+                                                      does not track, e.g. House and down-ballot; used for the scorecard)
   check                                              (validate the file; exit 1 if broken)
 
 Rules the desk follows (also shown on the page): a call needs 99.5% confidence or more; nothing is called before
@@ -47,6 +49,7 @@ p = sub.add_parser('uncall'); p.add_argument('id'); p.add_argument('--at'); p.ad
 p = sub.add_parser('note'); p.add_argument('id'); p.add_argument('text')
 p = sub.add_parser('status'); p.add_argument('id'); p.add_argument('status', choices=['open', 'watching', 'called'])
 p = sub.add_parser('log'); p.add_argument('text'); p.add_argument('--at')
+p = sub.add_parser('apcall'); p.add_argument('id'); p.add_argument('--party', required=True, choices=['D', 'R', 'I']); p.add_argument('--at'); p.add_argument('--by', default='AP')
 p = sub.add_parser('check')
 a = ap.parse_args()
 
@@ -72,6 +75,8 @@ elif a.cmd == 'status':
     r = race(a.id); r['status'] = a.status; board['asOf'] = now()
 elif a.cmd == 'log':
     stamp(a.text, a.at)
+elif a.cmd == 'apcall':
+    r = race(a.id); r['ap'] = {'party': a.party, 'at': iso(a.at), 'by': a.by}; board['asOf'] = now()
 elif a.cmd == 'check':
     bad = [r['id'] for r in board['races'] if r.get('call') and r['call'].get('confidence', 0) < 0.995]
     if bad: sys.exit(f'calls below the rule: {bad}')

@@ -1,75 +1,1100 @@
 {
  "title": "The Call Desk",
  "subtitle": "Claude vs. the networks · election night 2026",
- "asOf": "2026-11-03T23:03:00Z",
+ "asOf": "2026-11-03T23:45:00Z",
  "boardSetAt": "2026-11-03T23:03:00Z",
  "rule": {
   "headline": "A race is called only at 99.5% confidence or more.",
-  "text": "Senate and governor polling averages have historically missed by about five points on average, so a 99.5% (2.6σ) call on polls alone needs a lead of 13 points or more. None of these ten races has one, so the first calls will come from the returns: a race is called when the outstanding vote, at any plausible composition, cannot close the gap. Nothing is called before a state's polls close. Every call carries its timestamp; a wrong call is withdrawn in public and stays in the log.",
+  "text": "Senate and governor polling averages have historically missed by about five points on average, so a 99.5% (2.6σ) call on polls alone needs a lead of 13 points or more. None of these ten races has one, so the first calls will come from the returns: a race is called when the outstanding vote, at any plausible composition, cannot close the gap. Nothing is called before a state's polls close. Every call carries its timestamp; a wrong call is withdrawn in public and stays in the log. Races with no public polling (House seats, down-ballot offices) can be called at poll close only when every rater has them Solid or Safe and the district voted for the 2024 presidential winner by 20 points or more under the current map; everything else waits for the count.",
   "scoring": "Scored against the Associated Press: a call counts when AP later calls the same winner. The AP column shows AP's own call and time as recorded by the Election Desk."
  },
  "races": [
-  {"id": "GA-S", "name": "Georgia Senate", "state": "GA", "office": "Senate", "closesET": "19:00",
-   "candidates": [{"name": "Jon Ossoff", "party": "D", "incumbent": true}, {"name": "Mike Collins", "party": "R"}],
-   "pollAvg": {"d": 52.4, "r": 43.2, "margin": "D +9", "src": "Poliwave average, Nov. 2", "url": "https://www.poliwave.com/us/senate"},
-   "status": "open", "call": null,
-   "note": "A 9-point lead is short of the 13 the rule needs. Georgia counts its early vote first, so the first drops will run Democratic; the test is the Election Day vote in the Atlanta exurbs. A majority is required, or it goes to a December runoff."},
-  {"id": "GA-G", "name": "Georgia Governor", "state": "GA", "office": "Governor", "closesET": "19:00",
-   "candidates": [{"name": "Keisha Lance Bottoms", "party": "D"}, {"name": "Rick Jackson", "party": "R"}],
-   "pollAvg": {"d": 47.8, "r": 48.2, "margin": "Tie", "src": "Election Desk mean of 5 polls, Oct. 12–Nov. 2", "url": "https://bboldt86.github.io/lanscape-navigator/election2026/"},
-   "status": "open", "call": null,
-   "note": "The closest race on the board: Research Co. had Bottoms +1, InsiderAdvantage a tie. A runoff is live if nobody clears 50%."},
-  {"id": "SC-S", "name": "South Carolina Senate", "state": "SC", "office": "Senate", "closesET": "19:00",
-   "candidates": [{"name": "Darline Graham Nordone", "party": "R", "incumbent": true}, {"name": "Annie Andrews", "party": "D"}],
-   "pollAvg": {"d": 45.9, "r": 47.4, "margin": "R +1", "src": "Election Desk mean of 7 polls; PollCheck final average Graham +1.1", "url": "https://www.pollcheck.co.uk/us-midterms-2026"},
-   "status": "open", "call": null,
-   "note": "A state Trump carried by 18. If Andrews is within a few points as the Upstate reports, the polls were right and this goes late."},
-  {"id": "OH-S", "name": "Ohio Senate (special)", "state": "OH", "office": "Senate", "closesET": "19:30",
-   "candidates": [{"name": "Sherrod Brown", "party": "D"}, {"name": "Jon Husted", "party": "R", "incumbent": true}],
-   "pollAvg": {"d": 48.2, "r": 45.5, "margin": "D +3", "src": "Poliwave average, Nov. 1; RealClearPolling has Husted +1", "url": "https://www.poliwave.com/us/senate"},
-   "status": "open", "call": null,
-   "note": "The averages disagree most here. Ohio reports early and absentee first; watch the margin in Franklin, Cuyahoga and Hamilton against 2024, then the Election Day vote in the rest of the state."},
-  {"id": "NC-S", "name": "North Carolina Senate", "state": "NC", "office": "Senate", "closesET": "19:30",
-   "candidates": [{"name": "Roy Cooper", "party": "D"}, {"name": "Michael Whatley", "party": "R"}],
-   "pollAvg": {"d": 54.1, "r": 42.5, "margin": "D +11", "src": "Fifty+One average; YouGov +11, East Carolina +9", "url": "https://fiftyplusone.news/averages"},
-   "status": "open", "call": null,
-   "note": "Closest to the 13-point line. North Carolina's early vote reports within minutes of 7:30; if Cooper's early-vote margin matches the polls this can be called early."},
-  {"id": "ME-S", "name": "Maine Senate", "state": "ME", "office": "Senate", "closesET": "20:00",
-   "candidates": [{"name": "Troy Jackson", "party": "D"}, {"name": "Susan Collins", "party": "R", "incumbent": true}],
-   "pollAvg": {"d": 50.2, "r": 46.4, "margin": "D +4", "src": "Poliwave average, Nov. 2; Silver Bulletin D +3.9", "url": "https://www.poliwave.com/us/senate"},
-   "status": "open", "call": null,
-   "note": "Collins has beaten her polls before. Maine counts by town and slowly; ranked-choice tabulation only if nobody reaches 50%."},
-  {"id": "TX-S", "name": "Texas Senate", "state": "TX", "office": "Senate", "closesET": "20:00/21:00",
-   "candidates": [{"name": "James Talarico", "party": "D"}, {"name": "Ken Paxton", "party": "R"}],
-   "pollAvg": {"d": 48.8, "r": 45.8, "margin": "D +3", "src": "Poliwave average, Nov. 2; Silver Bulletin D +3.3", "url": "https://www.poliwave.com/us/senate"},
-   "status": "open", "call": null,
-   "note": "Texas reports its early vote in one large drop around 8 p.m. ET; Election Day votes follow county by county. Most of the state closes at 8, El Paso at 9."},
-  {"id": "MI-S", "name": "Michigan Senate", "state": "MI", "office": "Senate", "closesET": "20:00/21:00",
-   "candidates": [{"name": "Abdul El-Sayed", "party": "D"}, {"name": "Mike Rogers", "party": "R"}],
-   "pollAvg": {"d": 49.7, "r": 44.8, "margin": "D +5", "src": "Poliwave average, Nov. 2; NYT/Siena +11, YouGov +4", "url": "https://www.poliwave.com/us/senate"},
-   "status": "open", "call": null,
-   "note": "Michigan now pre-processes mail ballots, so the count is faster than 2020. Wayne and Oakland are the keys; the Upper Peninsula closes at 9."},
-  {"id": "IA-S", "name": "Iowa Senate", "state": "IA", "office": "Senate", "closesET": "21:00",
-   "candidates": [{"name": "Josh Turek", "party": "D"}, {"name": "Ashley Hinson", "party": "R"}],
-   "pollAvg": {"d": 46.7, "r": 46.4, "margin": "D +0.3", "src": "Poliwave average, Nov. 1; Silver Bulletin D +1.1", "url": "https://www.poliwave.com/us/senate"},
-   "status": "open", "call": null,
-   "note": "A coin flip in the polls. Iowa counts fast; the call will come from the full count, not a projection."},
-  {"id": "KS-S", "name": "Kansas Senate", "state": "KS", "office": "Senate", "closesET": "20:00/21:00",
-   "candidates": [{"name": "Adam Hamilton", "party": "D"}, {"name": "Roger Marshall", "party": "R", "incumbent": true}],
-   "pollAvg": {"d": 48.9, "r": 45.2, "margin": "D +4", "src": "Poliwave average, Nov. 1; PollCheck Hamilton +3.0", "url": "https://www.poliwave.com/us/senate"},
-   "status": "open", "call": null,
-   "note": "No Democrat has won a Kansas Senate race since 1932. Johnson County (Kansas City suburbs) decides it; the rural vote reports late."}
+  {
+   "id": "GA-S",
+   "name": "Georgia Senate",
+   "state": "GA",
+   "office": "Senate",
+   "closesET": "19:00",
+   "candidates": [
+    {
+     "name": "Jon Ossoff",
+     "party": "D",
+     "incumbent": true
+    },
+    {
+     "name": "Mike Collins",
+     "party": "R"
+    }
+   ],
+   "pollAvg": {
+    "d": 52.4,
+    "r": 43.2,
+    "margin": "D +9",
+    "src": "Poliwave average, Nov. 2",
+    "url": "https://www.poliwave.com/us/senate"
+   },
+   "status": "open",
+   "call": null,
+   "note": "A 9-point lead is short of the 13 the rule needs. Georgia counts its early vote first, so the first drops will run Democratic; the test is the Election Day vote in the Atlanta exurbs. A majority is required, or it goes to a December runoff.",
+   "group": "The ten"
+  },
+  {
+   "id": "GA-G",
+   "name": "Georgia Governor",
+   "state": "GA",
+   "office": "Governor",
+   "closesET": "19:00",
+   "candidates": [
+    {
+     "name": "Keisha Lance Bottoms",
+     "party": "D"
+    },
+    {
+     "name": "Rick Jackson",
+     "party": "R"
+    }
+   ],
+   "pollAvg": {
+    "d": 47.8,
+    "r": 48.2,
+    "margin": "Tie",
+    "src": "Election Desk mean of 5 polls, Oct. 12–Nov. 2",
+    "url": "https://bboldt86.github.io/lanscape-navigator/election2026/"
+   },
+   "status": "open",
+   "call": null,
+   "note": "The closest race on the board: Research Co. had Bottoms +1, InsiderAdvantage a tie. A runoff is live if nobody clears 50%.",
+   "group": "The ten"
+  },
+  {
+   "id": "SC-S",
+   "name": "South Carolina Senate",
+   "state": "SC",
+   "office": "Senate",
+   "closesET": "19:00",
+   "candidates": [
+    {
+     "name": "Darline Graham Nordone",
+     "party": "R",
+     "incumbent": true
+    },
+    {
+     "name": "Annie Andrews",
+     "party": "D"
+    }
+   ],
+   "pollAvg": {
+    "d": 45.9,
+    "r": 47.4,
+    "margin": "R +1",
+    "src": "Election Desk mean of 7 polls; PollCheck final average Graham +1.1",
+    "url": "https://www.pollcheck.co.uk/us-midterms-2026"
+   },
+   "status": "open",
+   "call": null,
+   "note": "A state Trump carried by 18. If Andrews is within a few points as the Upstate reports, the polls were right and this goes late.",
+   "group": "The ten"
+  },
+  {
+   "id": "OH-S",
+   "name": "Ohio Senate (special)",
+   "state": "OH",
+   "office": "Senate",
+   "closesET": "19:30",
+   "candidates": [
+    {
+     "name": "Sherrod Brown",
+     "party": "D"
+    },
+    {
+     "name": "Jon Husted",
+     "party": "R",
+     "incumbent": true
+    }
+   ],
+   "pollAvg": {
+    "d": 48.2,
+    "r": 45.5,
+    "margin": "D +3",
+    "src": "Poliwave average, Nov. 1; RealClearPolling has Husted +1",
+    "url": "https://www.poliwave.com/us/senate"
+   },
+   "status": "open",
+   "call": null,
+   "note": "The averages disagree most here. Ohio reports early and absentee first; watch the margin in Franklin, Cuyahoga and Hamilton against 2024, then the Election Day vote in the rest of the state.",
+   "group": "The ten"
+  },
+  {
+   "id": "NC-S",
+   "name": "North Carolina Senate",
+   "state": "NC",
+   "office": "Senate",
+   "closesET": "19:30",
+   "candidates": [
+    {
+     "name": "Roy Cooper",
+     "party": "D"
+    },
+    {
+     "name": "Michael Whatley",
+     "party": "R"
+    }
+   ],
+   "pollAvg": {
+    "d": 54.1,
+    "r": 42.5,
+    "margin": "D +11",
+    "src": "Fifty+One average; YouGov +11, East Carolina +9",
+    "url": "https://fiftyplusone.news/averages"
+   },
+   "status": "open",
+   "call": null,
+   "note": "Closest to the 13-point line. North Carolina's early vote reports within minutes of 7:30; if Cooper's early-vote margin matches the polls this can be called early.",
+   "group": "The ten"
+  },
+  {
+   "id": "ME-S",
+   "name": "Maine Senate",
+   "state": "ME",
+   "office": "Senate",
+   "closesET": "20:00",
+   "candidates": [
+    {
+     "name": "Troy Jackson",
+     "party": "D"
+    },
+    {
+     "name": "Susan Collins",
+     "party": "R",
+     "incumbent": true
+    }
+   ],
+   "pollAvg": {
+    "d": 50.2,
+    "r": 46.4,
+    "margin": "D +4",
+    "src": "Poliwave average, Nov. 2; Silver Bulletin D +3.9",
+    "url": "https://www.poliwave.com/us/senate"
+   },
+   "status": "open",
+   "call": null,
+   "note": "Collins has beaten her polls before. Maine counts by town and slowly; ranked-choice tabulation only if nobody reaches 50%.",
+   "group": "The ten"
+  },
+  {
+   "id": "TX-S",
+   "name": "Texas Senate",
+   "state": "TX",
+   "office": "Senate",
+   "closesET": "20:00/21:00",
+   "candidates": [
+    {
+     "name": "James Talarico",
+     "party": "D"
+    },
+    {
+     "name": "Ken Paxton",
+     "party": "R"
+    }
+   ],
+   "pollAvg": {
+    "d": 48.8,
+    "r": 45.8,
+    "margin": "D +3",
+    "src": "Poliwave average, Nov. 2; Silver Bulletin D +3.3",
+    "url": "https://www.poliwave.com/us/senate"
+   },
+   "status": "open",
+   "call": null,
+   "note": "Texas reports its early vote in one large drop around 8 p.m. ET; Election Day votes follow county by county. Most of the state closes at 8, El Paso at 9.",
+   "group": "The ten"
+  },
+  {
+   "id": "MI-S",
+   "name": "Michigan Senate",
+   "state": "MI",
+   "office": "Senate",
+   "closesET": "20:00/21:00",
+   "candidates": [
+    {
+     "name": "Abdul El-Sayed",
+     "party": "D"
+    },
+    {
+     "name": "Mike Rogers",
+     "party": "R"
+    }
+   ],
+   "pollAvg": {
+    "d": 49.7,
+    "r": 44.8,
+    "margin": "D +5",
+    "src": "Poliwave average, Nov. 2; NYT/Siena +11, YouGov +4",
+    "url": "https://www.poliwave.com/us/senate"
+   },
+   "status": "open",
+   "call": null,
+   "note": "Michigan now pre-processes mail ballots, so the count is faster than 2020. Wayne and Oakland are the keys; the Upper Peninsula closes at 9.",
+   "group": "The ten"
+  },
+  {
+   "id": "IA-S",
+   "name": "Iowa Senate",
+   "state": "IA",
+   "office": "Senate",
+   "closesET": "21:00",
+   "candidates": [
+    {
+     "name": "Josh Turek",
+     "party": "D"
+    },
+    {
+     "name": "Ashley Hinson",
+     "party": "R"
+    }
+   ],
+   "pollAvg": {
+    "d": 46.7,
+    "r": 46.4,
+    "margin": "D +0.3",
+    "src": "Poliwave average, Nov. 1; Silver Bulletin D +1.1",
+    "url": "https://www.poliwave.com/us/senate"
+   },
+   "status": "open",
+   "call": null,
+   "note": "A coin flip in the polls. Iowa counts fast; the call will come from the full count, not a projection.",
+   "group": "The ten"
+  },
+  {
+   "id": "KS-S",
+   "name": "Kansas Senate",
+   "state": "KS",
+   "office": "Senate",
+   "closesET": "20:00/21:00",
+   "candidates": [
+    {
+     "name": "Adam Hamilton",
+     "party": "D"
+    },
+    {
+     "name": "Roger Marshall",
+     "party": "R",
+     "incumbent": true
+    }
+   ],
+   "pollAvg": {
+    "d": 48.9,
+    "r": 45.2,
+    "margin": "D +4",
+    "src": "Poliwave average, Nov. 1; PollCheck Hamilton +3.0",
+    "url": "https://www.poliwave.com/us/senate"
+   },
+   "status": "open",
+   "call": null,
+   "note": "No Democrat has won a Kansas Senate race since 1932. Johnson County (Kansas City suburbs) decides it; the rural vote reports late.",
+   "group": "The ten"
+  },
+  {
+   "id": "KY-06",
+   "name": "Kentucky 6th District",
+   "state": "KY",
+   "office": "U.S. House",
+   "group": "Kentucky 6th",
+   "closesET": "18:00",
+   "candidates": [
+    {
+     "name": "Zach Dembo",
+     "party": "D"
+    },
+    {
+     "name": "Ralph Alvarado",
+     "party": "R"
+    }
+   ],
+   "pollAvg": {
+    "d": 45,
+    "r": 38,
+    "margin": "D +7",
+    "src": "Mean of three Oct. polls (Change Research 47–38, DCCC 46–40, GQR 42–37), all Democratic-sponsored; no nonpartisan public poll",
+    "url": "https://ballotpedia.org/Kentucky's_6th_Congressional_District_election,_2026"
+   },
+   "lean": {
+    "d": 42,
+    "r": 57,
+    "margin": "R +15",
+    "src": "2024 presidential vote in the district (Election Desk)",
+    "ratings": "Cook Toss-up · Sabato Lean R · Inside Tilt R"
+   },
+   "status": "watching",
+   "call": null,
+   "note": "Open seat (Barr left to run for Senate). Polls closed at 6 p.m. ET. Every public poll is Democratic-sponsored, so the desk discounts the lead; a Trump +15 district needs the count. Fayette County (Lexington) reports first and will run Dembo; the test is the rural counties."
+  },
+  {
+   "id": "OH-G",
+   "name": "Ohio Governor",
+   "state": "OH",
+   "office": "Governor",
+   "group": "Ohio: statewide",
+   "closesET": "19:30",
+   "candidates": [
+    {
+     "name": "Amy Acton",
+     "party": "D"
+    },
+    {
+     "name": "Vivek Ramaswamy",
+     "party": "R"
+    }
+   ],
+   "pollAvg": {
+    "d": 49.9,
+    "r": 45.5,
+    "margin": "D +4",
+    "src": "Election Desk mean of 11 polls, Oct. 12–Nov. 2 (NYT/Siena 49–43, Atlas 52–44, Emerson 48–48)",
+    "url": "https://bboldt86.github.io/lanscape-navigator/election2026/"
+   },
+   "status": "open",
+   "call": null,
+   "note": "Open seat; DeWine is term-limited. Same early-vote-first count as the Senate race: watch the three big counties, then the Election Day vote.",
+   "order": 1
+  },
+  {
+   "id": "OH-AG",
+   "name": "Ohio Attorney General",
+   "state": "OH",
+   "office": "Attorney General",
+   "group": "Ohio: statewide",
+   "closesET": "19:30",
+   "candidates": [
+    {
+     "name": "John Kulewicz",
+     "party": "D"
+    },
+    {
+     "name": "Keith Faber",
+     "party": "R"
+    }
+   ],
+   "lean": {
+    "d": 41,
+    "r": 59,
+    "margin": "R +18 (2022 result)",
+    "src": "2022 attorney general result (Yost 59–41); no public polling",
+    "url": "https://en.wikipedia.org/wiki/2022_Ohio_Attorney_General_election",
+    "ratings": "Not rated; Faber is the sitting auditor"
+   },
+   "status": "open",
+   "call": null,
+   "note": "Open seat; Yost is term-limited. Down-ballot Republicans won every Ohio statewide office by about 20 in 2022; the question is how much of a D+8 national year reaches this line.",
+   "order": 2
+  },
+  {
+   "id": "OH-SOS",
+   "name": "Ohio Secretary of State",
+   "state": "OH",
+   "office": "Secretary of State",
+   "group": "Ohio: statewide",
+   "closesET": "19:30",
+   "candidates": [
+    {
+     "name": "Allison Russo",
+     "party": "D"
+    },
+    {
+     "name": "Robert Sprague",
+     "party": "R"
+    }
+   ],
+   "lean": {
+    "d": 40,
+    "r": 60,
+    "margin": "R +20 (2022 result)",
+    "src": "2022 secretary of state result (LaRose 60–40); no public polling",
+    "url": "https://en.wikipedia.org/wiki/2022_Ohio_Secretary_of_State_election",
+    "ratings": "Not rated; Sprague is the sitting treasurer"
+   },
+   "status": "open",
+   "call": null,
+   "note": "Open seat; LaRose is term-limited and running for auditor. Russo is the Ohio House minority leader.",
+   "order": 3
+  },
+  {
+   "id": "OH-AUD",
+   "name": "Ohio Auditor",
+   "state": "OH",
+   "office": "Auditor",
+   "group": "Ohio: statewide",
+   "closesET": "19:30",
+   "candidates": [
+    {
+     "name": "Annette Blackwell",
+     "party": "D"
+    },
+    {
+     "name": "Frank LaRose",
+     "party": "R"
+    }
+   ],
+   "lean": {
+    "d": 40,
+    "r": 60,
+    "margin": "R +20 (2022 result)",
+    "src": "2022 auditor result (Faber 60–40); no public polling",
+    "url": "https://en.wikipedia.org/wiki/2026_Ohio_elections",
+    "ratings": "Not rated; LaRose is the sitting secretary of state"
+   },
+   "status": "open",
+   "call": null,
+   "note": "Open seat; Faber is term-limited and running for attorney general.",
+   "order": 4
+  },
+  {
+   "id": "OH-TRE",
+   "name": "Ohio Treasurer",
+   "state": "OH",
+   "office": "Treasurer",
+   "group": "Ohio: statewide",
+   "closesET": "19:30",
+   "candidates": [
+    {
+     "name": "Seth Walsh",
+     "party": "D"
+    },
+    {
+     "name": "Jay Edwards",
+     "party": "R"
+    }
+   ],
+   "lean": {
+    "d": 40,
+    "r": 60,
+    "margin": "R +20 (2022 result)",
+    "src": "2022 treasurer result (Sprague 60–40); no public polling",
+    "url": "https://en.wikipedia.org/wiki/2026_Ohio_elections",
+    "ratings": "Not rated"
+   },
+   "status": "open",
+   "call": null,
+   "note": "Open seat; Sprague is term-limited and running for secretary of state. Edwards is a former state representative.",
+   "order": 5
+  },
+  {
+   "id": "OH-SC1",
+   "name": "Ohio Supreme Court: Brunner seat",
+   "state": "OH",
+   "office": "Supreme Court",
+   "group": "Ohio: statewide",
+   "closesET": "19:30",
+   "candidates": [
+    {
+     "name": "Jennifer Brunner",
+     "party": "D",
+     "incumbent": true
+    },
+    {
+     "name": "Colleen O'Donnell",
+     "party": "R"
+    }
+   ],
+   "lean": {
+    "d": 44,
+    "r": 56,
+    "margin": "R +12 (2024 court races)",
+    "src": "Republicans won the three 2024 Ohio Supreme Court seats by 10–14 points; no public polling",
+    "url": "https://en.wikipedia.org/wiki/2026_Ohio_Supreme_Court_election",
+    "ratings": "Not rated; Brunner is the court's only Democrat"
+   },
+   "status": "open",
+   "call": null,
+   "note": "Party labels have been on the ballot for court seats since 2022. Brunner is the last Democrat on the seven-member court.",
+   "order": 6
+  },
+  {
+   "id": "OH-SC2",
+   "name": "Ohio Supreme Court: Zayas v. Hawkins",
+   "state": "OH",
+   "office": "Supreme Court",
+   "group": "Ohio: statewide",
+   "closesET": "19:30",
+   "candidates": [
+    {
+     "name": "Marilyn Zayas",
+     "party": "D"
+    },
+    {
+     "name": "Dan Hawkins",
+     "party": "R"
+    }
+   ],
+   "lean": {
+    "d": 44,
+    "r": 56,
+    "margin": "R +12 (2024 court races)",
+    "src": "Republicans won the three 2024 Ohio Supreme Court seats by 10–14 points; no public polling",
+    "url": "https://en.wikipedia.org/wiki/2026_Ohio_Supreme_Court_election",
+    "ratings": "Not rated"
+   },
+   "status": "open",
+   "call": null,
+   "note": "The second of two seats up. Zayas is a First District Court of Appeals judge; Hawkins sits on the Franklin County bench.",
+   "order": 7
+  },
+  {
+   "id": "OH-01",
+   "name": "Ohio 1st District",
+   "state": "OH",
+   "office": "U.S. House",
+   "group": "Ohio: U.S. House",
+   "closesET": "19:30",
+   "candidates": [
+    {
+     "name": "Greg Landsman",
+     "party": "D",
+     "incumbent": true
+    },
+    {
+     "name": "Eric Conroy",
+     "party": "R",
+     "incumbent": false
+    }
+   ],
+   "lean": {
+    "d": 48,
+    "r": 51,
+    "margin": "R +3",
+    "src": "Signal Ohio, 2024 presidential vote under the new map (Oct. 31, 2025)",
+    "url": "https://signalohio.org/ohio-officials-approve-new-congressional-map-that-could-help-republicans-win-two-more-u-s-house-seats/",
+    "ratings": "Cook Likely D · Sabato Likely D · Inside Tilt D · DDHQ Likely D",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Ohio"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": false,
+   "note": "Cincinnati. Trump +3 under the new map, but Landsman won by 5 in 2024 on the old lines; Hamilton County reports fast."
+  },
+  {
+   "id": "OH-02",
+   "name": "Ohio 2nd District",
+   "state": "OH",
+   "office": "U.S. House",
+   "group": "Ohio: U.S. House",
+   "closesET": "19:30",
+   "candidates": [
+    {
+     "name": "Jen Mazzuckelli",
+     "party": "D",
+     "incumbent": false
+    },
+    {
+     "name": "David Taylor",
+     "party": "R",
+     "incumbent": true
+    }
+   ],
+   "lean": {
+    "d": 71,
+    "r": 29,
+    "margin": "D +42",
+    "src": "Signal Ohio, 2024 presidential vote under the new map (Oct. 31, 2025)",
+    "url": "https://signalohio.org/ohio-officials-approve-new-congressional-map-that-could-help-republicans-win-two-more-u-s-house-seats/",
+    "ratings": "Cook Solid R · Sabato Safe R · Inside Solid R · DDHQ Safe R",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Ohio"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": true,
+   "note": "Southern Ohio, Trump +42. Callable at 7:30 under the rule."
+  },
+  {
+   "id": "OH-03",
+   "name": "Ohio 3rd District",
+   "state": "OH",
+   "office": "U.S. House",
+   "group": "Ohio: U.S. House",
+   "closesET": "19:30",
+   "candidates": [
+    {
+     "name": "Joyce Beatty",
+     "party": "D",
+     "incumbent": true
+    },
+    {
+     "name": "Cleophus Dulaney",
+     "party": "R",
+     "incumbent": false
+    }
+   ],
+   "lean": {
+    "d": 31,
+    "r": 69,
+    "margin": "R +38",
+    "src": "Signal Ohio, 2024 presidential vote under the new map (Oct. 31, 2025)",
+    "url": "https://signalohio.org/ohio-officials-approve-new-congressional-map-that-could-help-republicans-win-two-more-u-s-house-seats/",
+    "ratings": "Cook Solid D · Sabato Safe D · Inside Solid D · DDHQ Safe D",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Ohio"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": true,
+   "note": "Columbus, Harris +38 on the commission's score. Callable at 7:30 under the rule."
+  },
+  {
+   "id": "OH-04",
+   "name": "Ohio 4th District",
+   "state": "OH",
+   "office": "U.S. House",
+   "group": "Ohio: U.S. House",
+   "closesET": "19:30",
+   "candidates": [
+    {
+     "name": "Joshua Kolasinski",
+     "party": "D",
+     "incumbent": false
+    },
+    {
+     "name": "Jim Jordan",
+     "party": "R",
+     "incumbent": true
+    }
+   ],
+   "lean": {
+    "d": 71,
+    "r": 28,
+    "margin": "D +43",
+    "src": "Signal Ohio, 2024 presidential vote under the new map (Oct. 31, 2025)",
+    "url": "https://signalohio.org/ohio-officials-approve-new-congressional-map-that-could-help-republicans-win-two-more-u-s-house-seats/",
+    "ratings": "Cook Solid R · Sabato Safe R · Inside Solid R · DDHQ Safe R",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Ohio"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": true,
+   "note": "Trump +43. Callable at 7:30 under the rule."
+  },
+  {
+   "id": "OH-05",
+   "name": "Ohio 5th District",
+   "state": "OH",
+   "office": "U.S. House",
+   "group": "Ohio: U.S. House",
+   "closesET": "19:30",
+   "candidates": [
+    {
+     "name": "Brian Shaver",
+     "party": "D",
+     "incumbent": false
+    },
+    {
+     "name": "Bob Latta",
+     "party": "R",
+     "incumbent": true
+    }
+   ],
+   "lean": {
+    "d": 61,
+    "r": 38,
+    "margin": "D +23",
+    "src": "Signal Ohio, 2024 presidential vote under the new map (Oct. 31, 2025)",
+    "url": "https://signalohio.org/ohio-officials-approve-new-congressional-map-that-could-help-republicans-win-two-more-u-s-house-seats/",
+    "ratings": "Cook Solid R · Sabato Safe R · Inside Solid R · DDHQ Safe R",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Ohio"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": true,
+   "note": "Northwest Ohio, Trump +23. Callable at 7:30 under the rule."
+  },
+  {
+   "id": "OH-06",
+   "name": "Ohio 6th District",
+   "state": "OH",
+   "office": "U.S. House",
+   "group": "Ohio: U.S. House",
+   "closesET": "19:30",
+   "candidates": [
+    {
+     "name": "Elizabeth Kirtley",
+     "party": "D",
+     "incumbent": false
+    },
+    {
+     "name": "Michael Rulli",
+     "party": "R",
+     "incumbent": true
+    }
+   ],
+   "lean": {
+    "d": 64,
+    "r": 36,
+    "margin": "D +28",
+    "src": "Signal Ohio, 2024 presidential vote under the new map (Oct. 31, 2025)",
+    "url": "https://signalohio.org/ohio-officials-approve-new-congressional-map-that-could-help-republicans-win-two-more-u-s-house-seats/",
+    "ratings": "Cook Solid R · Sabato Safe R · Inside Solid R · DDHQ Safe R",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Ohio"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": true,
+   "note": "Eastern Ohio, R +28 on the commission's score. Callable at 7:30 under the rule."
+  },
+  {
+   "id": "OH-07",
+   "name": "Ohio 7th District",
+   "state": "OH",
+   "office": "U.S. House",
+   "group": "Ohio: U.S. House",
+   "closesET": "19:30",
+   "candidates": [
+    {
+     "name": "Brian Poindexter",
+     "party": "D",
+     "incumbent": false
+    },
+    {
+     "name": "Max Miller",
+     "party": "R",
+     "incumbent": true
+    }
+   ],
+   "lean": {
+    "d": 55,
+    "r": 44,
+    "margin": "D +11",
+    "src": "Signal Ohio, 2024 presidential vote under the new map (Oct. 31, 2025)",
+    "url": "https://signalohio.org/ohio-officials-approve-new-congressional-map-that-could-help-republicans-win-two-more-u-s-house-seats/",
+    "ratings": "Cook Toss Up · Sabato Toss-up · Inside Toss-up · DDHQ Toss-up",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Ohio"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": false,
+   "note": "Cleveland's western suburbs, Trump +11, every rater a toss-up. Lorain and Medina counties decide it; needs the count."
+  },
+  {
+   "id": "OH-08",
+   "name": "Ohio 8th District",
+   "state": "OH",
+   "office": "U.S. House",
+   "group": "Ohio: U.S. House",
+   "closesET": "19:30",
+   "candidates": [
+    {
+     "name": "Vanessa Enoch",
+     "party": "D",
+     "incumbent": false
+    },
+    {
+     "name": "Warren Davidson",
+     "party": "R",
+     "incumbent": true
+    }
+   ],
+   "lean": {
+    "d": 57,
+    "r": 42,
+    "margin": "D +15",
+    "src": "Signal Ohio, 2024 presidential vote under the new map (Oct. 31, 2025)",
+    "url": "https://signalohio.org/ohio-officials-approve-new-congressional-map-that-could-help-republicans-win-two-more-u-s-house-seats/",
+    "ratings": "Cook Solid R · Sabato Safe R · Inside Solid R · DDHQ Likely R",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Ohio"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": false,
+   "note": "Trump +15: under the 20-point line, so it waits for the count even though every rater has it safe."
+  },
+  {
+   "id": "OH-09",
+   "name": "Ohio 9th District",
+   "state": "OH",
+   "office": "U.S. House",
+   "group": "Ohio: U.S. House",
+   "closesET": "19:30",
+   "candidates": [
+    {
+     "name": "Marcy Kaptur",
+     "party": "D",
+     "incumbent": true
+    },
+    {
+     "name": "Derek Merrin",
+     "party": "R",
+     "incumbent": false
+    }
+   ],
+   "lean": {
+    "d": 55,
+    "r": 44,
+    "margin": "D +11",
+    "src": "Signal Ohio, 2024 presidential vote under the new map (Oct. 31, 2025)",
+    "url": "https://signalohio.org/ohio-officials-approve-new-congressional-map-that-could-help-republicans-win-two-more-u-s-house-seats/",
+    "ratings": "Cook Toss Up · Sabato Toss-up · Inside Toss-up · DDHQ Lean D",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Ohio"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": false,
+   "note": "Toledo. Trump +11; Kaptur has held a Trump district twice. Lucas County reports early and runs Kaptur; the rural counties come late."
+  },
+  {
+   "id": "OH-10",
+   "name": "Ohio 10th District",
+   "state": "OH",
+   "office": "U.S. House",
+   "group": "Ohio: U.S. House",
+   "closesET": "19:30",
+   "candidates": [
+    {
+     "name": "Kristina Knickerbocker",
+     "party": "D",
+     "incumbent": false
+    },
+    {
+     "name": "Michael Turner",
+     "party": "R",
+     "incumbent": true
+    }
+   ],
+   "lean": {
+    "d": 53,
+    "r": 46,
+    "margin": "D +7",
+    "src": "Signal Ohio, 2024 presidential vote under the new map (Oct. 31, 2025)",
+    "url": "https://signalohio.org/ohio-officials-approve-new-congressional-map-that-could-help-republicans-win-two-more-u-s-house-seats/",
+    "ratings": "Cook Lean R · Sabato Likely R · Inside Solid R · DDHQ Likely R",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Ohio"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": false,
+   "note": "Dayton, Trump +7. Montgomery County is the whole district; needs the count."
+  },
+  {
+   "id": "OH-11",
+   "name": "Ohio 11th District",
+   "state": "OH",
+   "office": "U.S. House",
+   "group": "Ohio: U.S. House",
+   "closesET": "19:30",
+   "candidates": [
+    {
+     "name": "Shontel Brown",
+     "party": "D",
+     "incumbent": true
+    },
+    {
+     "name": "Mike Kirchner",
+     "party": "R",
+     "incumbent": false
+    }
+   ],
+   "lean": {
+    "d": 22,
+    "r": 77,
+    "margin": "R +55",
+    "src": "Signal Ohio, 2024 presidential vote under the new map (Oct. 31, 2025)",
+    "url": "https://signalohio.org/ohio-officials-approve-new-congressional-map-that-could-help-republicans-win-two-more-u-s-house-seats/",
+    "ratings": "Cook Solid D · Sabato Safe D · Inside Solid D · DDHQ Safe D",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Ohio"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": true,
+   "note": "Cleveland, Harris +55. Callable at 7:30 under the rule."
+  },
+  {
+   "id": "OH-12",
+   "name": "Ohio 12th District",
+   "state": "OH",
+   "office": "U.S. House",
+   "group": "Ohio: U.S. House",
+   "closesET": "19:30",
+   "candidates": [
+    {
+     "name": "Jerrad Christian",
+     "party": "D",
+     "incumbent": false
+    },
+    {
+     "name": "Troy Balderson",
+     "party": "R",
+     "incumbent": true
+    }
+   ],
+   "lean": {
+    "d": 65,
+    "r": 35,
+    "margin": "D +30",
+    "src": "Signal Ohio, 2024 presidential vote under the new map (Oct. 31, 2025)",
+    "url": "https://signalohio.org/ohio-officials-approve-new-congressional-map-that-could-help-republicans-win-two-more-u-s-house-seats/",
+    "ratings": "Cook Solid R · Sabato Safe R · Inside Solid R · DDHQ Safe R",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Ohio"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": true,
+   "note": "Trump +30. Callable at 7:30 under the rule."
+  },
+  {
+   "id": "OH-13",
+   "name": "Ohio 13th District",
+   "state": "OH",
+   "office": "U.S. House",
+   "group": "Ohio: U.S. House",
+   "closesET": "19:30",
+   "candidates": [
+    {
+     "name": "Emilia Sykes",
+     "party": "D",
+     "incumbent": true
+    },
+    {
+     "name": "Carey Coleman",
+     "party": "R",
+     "incumbent": false
+    }
+   ],
+   "lean": {
+    "d": 48,
+    "r": 51,
+    "margin": "R +3",
+    "src": "Signal Ohio, 2024 presidential vote under the new map (Oct. 31, 2025)",
+    "url": "https://signalohio.org/ohio-officials-approve-new-congressional-map-that-could-help-republicans-win-two-more-u-s-house-seats/",
+    "ratings": "Cook Likely D · Sabato Likely D · Inside Solid D · DDHQ Likely D",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Ohio"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": false,
+   "note": "Akron, Harris +3 under the new map. Summit County reports fast; needs the count."
+  },
+  {
+   "id": "OH-14",
+   "name": "Ohio 14th District",
+   "state": "OH",
+   "office": "U.S. House",
+   "group": "Ohio: U.S. House",
+   "closesET": "19:30",
+   "candidates": [
+    {
+     "name": "Maria Jukic",
+     "party": "D",
+     "incumbent": false
+    },
+    {
+     "name": "David Joyce",
+     "party": "R",
+     "incumbent": true
+    }
+   ],
+   "lean": {
+    "d": 60,
+    "r": 39,
+    "margin": "D +21",
+    "src": "Signal Ohio, 2024 presidential vote under the new map (Oct. 31, 2025)",
+    "url": "https://signalohio.org/ohio-officials-approve-new-congressional-map-that-could-help-republicans-win-two-more-u-s-house-seats/",
+    "ratings": "Cook Solid R · Sabato Safe R · Inside Solid R · DDHQ Safe R",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Ohio"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": true,
+   "note": "Northeast Ohio, Trump +21: just over the line. Callable at 7:30 under the rule."
+  },
+  {
+   "id": "OH-15",
+   "name": "Ohio 15th District",
+   "state": "OH",
+   "office": "U.S. House",
+   "group": "Ohio: U.S. House",
+   "closesET": "19:30",
+   "candidates": [
+    {
+     "name": "Don Leonard",
+     "party": "D",
+     "incumbent": false
+    },
+    {
+     "name": "Mike Carey",
+     "party": "R",
+     "incumbent": true
+    }
+   ],
+   "lean": {
+    "d": 55,
+    "r": 45,
+    "margin": "D +10",
+    "src": "Signal Ohio, 2024 presidential vote under the new map (Oct. 31, 2025)",
+    "url": "https://signalohio.org/ohio-officials-approve-new-congressional-map-that-could-help-republicans-win-two-more-u-s-house-seats/",
+    "ratings": "Cook Lean R · Sabato Likely R · Inside Likely R · DDHQ Likely R",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Ohio"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": false,
+   "note": "Columbus suburbs and west, Trump +10. Needs the count."
+  }
  ],
  "log": [
-  {"at": "2026-11-03T23:03:00Z", "text": "6:03 p.m. ET: Board set. Ten races, calls so far: 0. Nothing has closed, and none of the ten clears a 99.5% bar on polling alone. First results check at 7:40 p.m., then hourly."}
+  {
+   "at": "2026-11-03T23:03:00Z",
+   "text": "6:03 p.m. ET: Board set. Ten races, calls so far: 0. Nothing has closed, and none of the ten clears a 99.5% bar on polling alone. First results check at 7:40 p.m., then hourly."
+  },
+  {
+   "at": "2026-11-03T23:45:00Z",
+   "text": "6:45 p.m. ET: Added Kentucky's 6th District and every Ohio race on the ballot: governor, attorney general, secretary of state, auditor, treasurer, two Supreme Court seats and all 15 U.S. House districts. Eight Ohio House seats (2, 3, 4, 5, 6, 11, 12, 14) are callable at 7:30 under the no-polling rule; everything else waits for the count."
+  }
  ],
  "sources": [
-  {"t": "Silver Bulletin, final 2026 forecast", "u": "https://www.natesilver.net/p/nate-silver-2026-midterm-election-polls-model"},
-  {"t": "Poliwave, 2026 Senate forecast", "u": "https://www.poliwave.com/us/senate"},
-  {"t": "PollCheck, US midterms 2026", "u": "https://www.pollcheck.co.uk/us-midterms-2026"},
-  {"t": "Fifty+One, 2026 averages", "u": "https://fiftyplusone.news/averages"},
-  {"t": "RealClearPolling, Senate polls", "u": "https://www.realclearpolling.com/latest-polls/senate"},
-  {"t": "Forbes, final NYT/Siena polls", "u": "https://www.forbes.com/sites/saradorn/2026/11/01/latest-polls-in-2026-midterms-democrats-lead-nearly-all-key-senate-races/"},
-  {"t": "Decision Desk HQ, hour-by-hour guide", "u": "https://decisiondeskhq.substack.com/p/hour-by-hour-guide-to-the-2026-midterms-senate-house-governor-forecast-poll-closing"}
+  {
+   "t": "Silver Bulletin, final 2026 forecast",
+   "u": "https://www.natesilver.net/p/nate-silver-2026-midterm-election-polls-model"
+  },
+  {
+   "t": "Poliwave, 2026 Senate forecast",
+   "u": "https://www.poliwave.com/us/senate"
+  },
+  {
+   "t": "PollCheck, US midterms 2026",
+   "u": "https://www.pollcheck.co.uk/us-midterms-2026"
+  },
+  {
+   "t": "Fifty+One, 2026 averages",
+   "u": "https://fiftyplusone.news/averages"
+  },
+  {
+   "t": "RealClearPolling, Senate polls",
+   "u": "https://www.realclearpolling.com/latest-polls/senate"
+  },
+  {
+   "t": "Forbes, final NYT/Siena polls",
+   "u": "https://www.forbes.com/sites/saradorn/2026/11/01/latest-polls-in-2026-midterms-democrats-lead-nearly-all-key-senate-races/"
+  },
+  {
+   "t": "Decision Desk HQ, hour-by-hour guide",
+   "u": "https://decisiondeskhq.substack.com/p/hour-by-hour-guide-to-the-2026-midterms-senate-house-governor-forecast-poll-closing"
+  },
+  {
+   "t": "Ohio Capital Journal, 2026 voter guide",
+   "u": "https://ohiocapitaljournal.com/voter-guides/2026-ohio-general-election/"
+  },
+  {
+   "t": "Ballotpedia, U.S. House elections in Ohio 2026",
+   "u": "https://ballotpedia.org/United_States_House_of_Representatives_elections_in_Ohio,_2026"
+  },
+  {
+   "t": "Signal Ohio, the new congressional map",
+   "u": "https://signalohio.org/ohio-officials-approve-new-congressional-map-that-could-help-republicans-win-two-more-u-s-house-seats/"
+  },
+  {
+   "t": "Ballotpedia, Kentucky's 6th District 2026",
+   "u": "https://ballotpedia.org/Kentucky's_6th_Congressional_District_election,_2026"
+  }
+ ],
+ "groups": [
+  "The ten",
+  "Kentucky 6th",
+  "Ohio: statewide",
+  "Ohio: U.S. House"
  ]
 }

@@ -163,8 +163,7 @@ h2.sec small{font:500 13.5px/1.3 var(--sans);color:var(--ink-2);margin-left:10px
   <div class="alert" id="alert" role="status"><span class="k">CALL</span><span class="x" id="alert-x"></span><span class="t" id="alert-t"></span></div>
   <section class="rule" id="rule"></section>
 
-  <h2 class="sec">The ten races <small id="order"></small></h2>
-  <section class="races" id="races" aria-live="polite"></section>
+  <div id="board" aria-live="polite"></div>
 
   <h2 class="sec">The desk log</h2>
   <section class="log" id="log"></section>
@@ -197,6 +196,7 @@ function raceCard(r, now) {
   const status = r.call ? 'called' : (r.status === 'watching' || (closed && r.status !== 'open') || closed ? 'watching' : 'open');
   const c = r.call ? COL[r.call.party] || COL.I : 'var(--ink-2)';
   const res = (RES && RES.races && RES.races[r.id]) || null;
+  const apc = res && res.call ? { call: res.call, callAt: res.callAt, callBy: res.callBy } : (r.ap && r.ap.party ? { call: r.ap.party, callAt: r.ap.at, callBy: r.ap.by || 'AP' } : null);
   let live = '';
   if (res && res.c && Object.keys(res.c).length) {
     const vd = res.c[d.name] || 0, vr = res.c[p.name] || 0, tot = res.tot || (vd + vr), vo = Math.max(0, tot - vd - vr);
@@ -215,22 +215,25 @@ function raceCard(r, now) {
   }
   // AP line, from the Election Desk's results file
   let ap = '';
-  if (res && res.call) {
-    const apName = (r.candidates.find(x => x.party === res.call) || {}).name || res.call;
+  if (apc) {
+    const apName = (r.candidates.find(x => x.party === apc.call) || {}).name || apc.call;
     let first = '';
-    if (r.call) { const dm = Math.round((new Date(res.callAt) - new Date(r.call.at)) / 60000); first = dm > 0 ? `<span class="first desk">Desk first by ${dm} min</span>` : dm < 0 ? `<span class="first">AP first by ${-dm} min</span>` : `<span class="first">Same minute</span>`; if (r.call.party !== res.call) first = `<span class="first" style="background:color-mix(in srgb,var(--signal) 18%,transparent);color:var(--signal)">Disagree</span>`; }
-    ap = `<div class="ap"><span><b>${esc(res.callBy || 'AP')}</b> called it for ${esc(apName)} · ${et(res.callAt)}</span>${first}</div>`;
+    if (r.call) { const dm = Math.round((new Date(apc.callAt) - new Date(r.call.at)) / 60000); first = dm > 0 ? `<span class="first desk">Desk first by ${dm} min</span>` : dm < 0 ? `<span class="first">AP first by ${-dm} min</span>` : `<span class="first">Same minute</span>`; if (r.call.party !== apc.call) first = `<span class="first" style="background:color-mix(in srgb,var(--signal) 18%,transparent);color:var(--signal)">Disagree</span>`; }
+    ap = `<div class="ap"><span><b>${esc(apc.callBy || 'AP')}</b> called it for ${esc(apName)} · ${et(apc.callAt)}</span>${first}</div>`;
   } else {
     ap = `<div class="ap"><span><b>AP</b>: not called${r.call ? ' yet' : ''}</span>${r.call ? '<span class="first desk">Desk ahead</span>' : ''}</div>`;
   }
   const wd = (r.withdrawn || []).length ? `<p class="note"><b>Withdrawn:</b> ${r.withdrawn.map(w => esc(w.winner) + ' (' + et(w.at) + '), ' + esc(w.why)).join('; ')}</p>` : '';
   return `<article class="card ${status}" style="--c:${c}" id="r-${r.id}">
     <div class="top"><div class="st">${esc(r.state)}</div><div class="ttl"><h3>${esc(r.name)}</h3><div class="cl">${closed ? 'Polls closed ' + closeLabel(r.closesET) : 'Polls close ' + closeLabel(r.closesET)}${d.incumbent ? ' · ' + esc(d.name.split(' ').pop()) + ' is the incumbent' : p.incumbent ? ' · ' + esc(p.name.split(' ').pop()) + ' is the incumbent' : ' · open seat'}</div></div>
-      <span class="badge ${status}">${status === 'called' ? 'Called' : status === 'watching' ? 'Watching' : 'Open'}</span></div>
+      <span class="badge ${status}">${status === 'called' ? 'Called' : status === 'watching' ? 'Watching' : r.callableAtClose ? 'Callable at close' : 'Open'}</span></div>
     <div class="cands"><span><i style="background:var(--dem)"></i><span class="n">${esc(d.name)}</span><span class="p">D</span></span><span class="r"><span class="p">R</span><span class="n">${esc(p.name)}</span><i style="background:var(--rep)"></i></span></div>
-    <div><div class="lbl">Final polling average</div>${bar(r.pollAvg.d, r.pollAvg.r, 0)}
+    ${r.pollAvg ? `<div><div class="lbl">Final polling average</div>${bar(r.pollAvg.d, r.pollAvg.r, 0)}
       <div class="row"><b style="color:var(--dem)">${r.pollAvg.d}</b><span class="mg">${esc(r.pollAvg.margin)}</span><b style="color:var(--rep)">${r.pollAvg.r}</b></div>
-      <div class="src">${r.pollAvg.url ? `<a href="${esc(r.pollAvg.url)}" rel="noopener">${esc(r.pollAvg.src)}</a>` : esc(r.pollAvg.src)}</div></div>
+      <div class="src">${r.pollAvg.url ? `<a href="${esc(r.pollAvg.url)}" rel="noopener">${esc(r.pollAvg.src)}</a>` : esc(r.pollAvg.src)}</div></div>` : ''}
+    ${r.lean ? `<div><div class="lbl">${r.pollAvg ? 'District lean' : 'No public polling · lean'}</div>${bar(r.lean.d, r.lean.r, 0)}
+      <div class="row"><b style="color:var(--dem)">${r.lean.d}</b><span class="mg">${esc(r.lean.margin)}</span><b style="color:var(--rep)">${r.lean.r}</b></div>
+      <div class="src">${r.lean.url ? `<a href="${esc(r.lean.url)}" rel="noopener">${esc(r.lean.src)}</a>` : esc(r.lean.src)}${r.lean.ratings ? ' · ' + (r.lean.ratingsUrl ? `<a href="${esc(r.lean.ratingsUrl)}" rel="noopener">${esc(r.lean.ratings)}</a>` : esc(r.lean.ratings)) : ''}</div></div>` : ''}
     ${live}${call}
     <div class="block">${ap}</div>
     ${wd}<p class="note"><b>Watching:</b> ${esc(r.note || '')}</p>
@@ -240,19 +243,21 @@ function raceCard(r, now) {
 function render() {
   if (!BOARD) return;
   const now = new Date();
-  const races = BOARD.races.slice().sort((a, b) => closedAt(a.closesET) - closedAt(b.closesET));
+  const races = BOARD.races.slice();
+  const apOf = r => { const x = RES && RES.races && RES.races[r.id]; return x && x.call ? { call: x.call, callAt: x.callAt } : (r.ap && r.ap.party ? { call: r.ap.party, callAt: r.ap.at } : null); };
   const called = races.filter(r => r.call);
-  const apCalled = races.filter(r => RES && RES.races && RES.races[r.id] && RES.races[r.id].call);
-  const agree = called.filter(r => { const x = RES && RES.races && RES.races[r.id]; return x && x.call && x.call === r.call.party; });
-  const deskFirst = agree.filter(r => new Date(RES.races[r.id].callAt) > new Date(r.call.at));
-  const wrong = called.filter(r => { const x = RES && RES.races && RES.races[r.id]; return x && x.call && x.call !== r.call.party; });
+  const apCalled = races.filter(r => apOf(r));
+  const agree = called.filter(r => { const x = apOf(r); return x && x.call === r.call.party; });
+  const deskFirst = agree.filter(r => new Date(apOf(r).callAt) > new Date(r.call.at));
+  const wrong = called.filter(r => { const x = apOf(r); return x && x.call !== r.call.party; });
   $('#score').innerHTML = `
-    <div class="t"><div class="k">Desk calls</div><div class="v">${called.length}<small>of ${races.length}</small></div><div class="m">${called.length ? called.map(r => r.state).join(', ') : 'None yet'}</div></div>
-    <div class="t"><div class="k">AP calls</div><div class="v">${apCalled.length}<small>of ${races.length}</small></div><div class="m">${apCalled.length ? apCalled.map(r => r.state).join(', ') : 'None yet'}</div></div>
+    <div class="t"><div class="k">Desk calls</div><div class="v">${called.length}<small>of ${races.length}</small></div><div class="m">${called.length ? called.map(r => r.id).join(', ') : 'None yet'}</div></div>
+    <div class="t"><div class="k">AP calls</div><div class="v">${apCalled.length}<small>of ${races.length}</small></div><div class="m">${apCalled.length ? apCalled.map(r => r.id).join(', ') : 'None yet'}</div></div>
     <div class="t"><div class="k">Scorecard</div><div class="v">${agree.length}<small>agree${wrong.length ? ' · ' + wrong.length + ' wrong' : ''}</small></div><div class="m">${deskFirst.length ? 'Desk first in ' + deskFirst.length : agree.length ? 'AP first in ' + agree.length : 'Scored when AP calls the same races'}</div></div>`;
   $('#rule').innerHTML = `<h2>${esc(BOARD.rule.headline)}</h2><p>${esc(BOARD.rule.text)}</p><p>${esc(BOARD.rule.scoring)}</p>`;
-  $('#races').innerHTML = races.map(r => raceCard(r, now)).join('');
-  $('#order').textContent = 'in order of poll closing';
+  const groups = BOARD.groups || [...new Set(races.map(r => r.group || 'Races'))];
+  $('#board').innerHTML = groups.map(g => { const rs = races.filter(r => (r.group || 'Races') === g).sort((a, b) => closedAt(a.closesET) - closedAt(b.closesET) || (a.order || 99) - (b.order || 99) || a.id.localeCompare(b.id, undefined, { numeric: true })); if (!rs.length) return ''; const c = rs.filter(r => r.call).length;
+    return `<h2 class="sec">${esc(g)} <small>${rs.length} race${rs.length === 1 ? '' : 's'} · ${c} called</small></h2><section class="races">${rs.map(r => raceCard(r, now)).join('')}</section>`; }).join('');
   const log = (BOARD.log || []).slice().reverse();
   $('#log').innerHTML = log.length ? `<ol>${log.map(l => `<li class="${/^[^:]*: (CALL|WITHDRAWN)/.test(l.text) ? 'call' : ''}"><time datetime="${esc(l.at)}">${et(l.at)}</time><span>${esc(l.text.replace(/^\d{1,2}:\d{2} [ap]\.m\. ET: /, ''))}</span></li>`).join('')}</ol>` : '<p class="empty">Nothing yet.</p>';
   $('#srcs').innerHTML = (BOARD.sources || []).length ? 'Pre-election sources: ' + BOARD.sources.map(s => `<a href="${esc(s.u)}" rel="noopener">${esc(s.t)}</a>`).join('') : '';
