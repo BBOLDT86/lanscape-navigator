@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Call Desk · Election night 2026</title>
+<meta name="description" content="Claude vs. the networks: ten Senate and governor races tracked through election night 2026, each called only at 99.5% confidence, every call timestamped and scored against the Associated Press.">
+<meta name="theme-color" content="#F5F7F6" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0E1A2B" media="(prefers-color-scheme: dark)">
+<meta property="og:title" content="The Call Desk · Election night 2026">
+<meta property="og:description" content="Claude vs. the networks: ten races, calls only at 99.5% confidence, every call timestamped and scored against AP.">
+<meta property="og:image" content="https://bboldt86.github.io/lanscape-navigator/election2026/calls/share.png">
+<link rel="icon" href="../../news/icon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F5F7F6; --raise:#FFFFFF; --ink:#15243B; --ink-2:#465770; --ink-3:#8492A3; --rule:rgba(21,36,59,.12); --rule-2:rgba(21,36,59,.22);
+  --shoal:#D7E7EC; --shoal-2:#C3DAE2; --brass:#A9852F; --brass-ink:#7A5E1C; --signal:#C2412D;
+  --dem:#2F5FA8; --rep:#B83B36; --ind:#1F7F6F; --ok:#1C7A4C;
+  --serif:'Instrument Serif','Iowan Old Style',Georgia,serif;
+  --sans:'Instrument Sans',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --shadow:0 18px 50px rgba(14,26,43,.16);
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --paper:#0E1A2B; --raise:#142539; --ink:#E7EDF4; --ink-2:#AEBBCB; --ink-3:#7F8EA3; --rule:rgba(231,237,244,.12); --rule-2:rgba(231,237,244,.22);
+    --shoal:#12293F; --shoal-2:#1A3A55; --brass:#D6B25E; --brass-ink:#E3C47E; --signal:#E8705A;
+    --dem:#7AA3E6; --rep:#E57D77; --ind:#7fe3d1; --ok:#5BC48C; --shadow:0 18px 50px rgba(4,9,16,.6);
+    color-scheme:dark;
+  }
+}
+*{box-sizing:border-box}
+html{background:var(--paper);-webkit-text-size-adjust:100%}
+body{margin:0;font:400 15px/1.5 var(--sans);color:var(--ink);background:var(--paper);font-variant-numeric:tabular-nums;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:underline;text-decoration-color:color-mix(in srgb,var(--brass) 70%,transparent);text-underline-offset:3px}
+a:hover{text-decoration-color:var(--brass)}
+:focus-visible{outline:2px solid var(--brass);outline-offset:2px;border-radius:3px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 clamp(16px,2.4vw,32px) 40px}
+
+.mast{display:flex;align-items:flex-end;gap:10px 22px;padding:20px 0 12px;flex-wrap:wrap}
+.brand{min-width:0}
+.brand h1{font:400 clamp(40px,5vw,62px)/.9 var(--serif);letter-spacing:-.012em;margin:0}
+.brand h1 em{font-style:normal;color:var(--brass)}
+.brand .sub{display:block;font:500 14.5px/1.35 var(--sans);color:var(--ink-2);margin-top:8px}
+.status{display:flex;align-items:center;gap:8px 12px;margin-left:auto;font:500 13.5px/1.3 var(--sans);color:var(--ink-2);flex-wrap:wrap}
+.pill{display:inline-flex;align-items:center;gap:8px;padding:7px 13px;border:1px solid var(--rule);border-radius:999px;background:var(--raise);white-space:nowrap;font-weight:600;color:var(--ink)}
+.pill .dot{width:8px;height:8px;border-radius:50%;background:var(--brass)}
+.pill.live .dot{background:var(--signal);animation:pulse 1.6s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--signal) 55%,transparent)}70%{box-shadow:0 0 0 8px transparent}100%{box-shadow:0 0 0 0 transparent}}
+.nav{display:flex;gap:2px 14px;overflow-x:auto;scrollbar-width:none;border-bottom:1px solid var(--rule);font:600 14.5px/1.2 var(--sans)}
+.nav::-webkit-scrollbar{display:none}
+.nav a{flex:none;padding:11px 0 9px;color:var(--brass-ink);text-decoration:none;white-space:nowrap}
+.nav a:hover{color:var(--ink)}
+.nav .sp{flex:1 0 8px}
+
+.score{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;padding:16px 0 4px}
+.score .t{background:var(--raise);border:1px solid var(--rule);border-radius:14px;padding:12px 14px;min-width:0}
+.score .k{font:600 11.5px/1.2 var(--sans);letter-spacing:.05em;text-transform:uppercase;color:var(--ink-2)}
+.score .v{font:400 40px/1 var(--serif);margin-top:6px;letter-spacing:-.01em}
+.score .v small{font:500 14px/1 var(--sans);color:var(--ink-2);margin-left:4px}
+.score .m{font:500 12.5px/1.35 var(--sans);color:var(--ink-2);margin-top:6px}
+
+.rule{margin:12px 0 0;padding:14px 18px;border-radius:14px;background:color-mix(in srgb,var(--brass) 9%,var(--raise));border:1px solid color-mix(in srgb,var(--brass) 45%,transparent)}
+.rule h2{font:400 24px/1.1 var(--serif);margin:0 0 6px}
+.rule p{margin:0;font:400 14.5px/1.5 var(--sans);color:var(--ink-2)}
+.rule p+p{margin-top:6px}
+
+.alert{display:none;align-items:center;gap:12px;margin:12px 0 0;padding:10px 14px;border-radius:12px;background:color-mix(in srgb,var(--signal) 9%,var(--raise));border:1px solid color-mix(in srgb,var(--signal) 40%,transparent)}
+.alert.on{display:flex}
+.alert .k{font:700 11.5px/1 var(--sans);letter-spacing:.04em;color:#fff;background:var(--signal);padding:6px 10px;border-radius:999px;white-space:nowrap}
+.alert .x{font:600 15px/1.35 var(--sans)}
+.alert .t{font:500 13px/1 var(--sans);color:var(--ink-2);margin-left:auto;white-space:nowrap}
+
+h2.sec{font:400 30px/1.05 var(--serif);margin:26px 0 10px;letter-spacing:-.006em}
+h2.sec small{font:500 13.5px/1.3 var(--sans);color:var(--ink-2);margin-left:10px;letter-spacing:0}
+.races{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:12px}
+.card{background:var(--raise);border:1px solid var(--rule);border-radius:14px;padding:14px 16px 14px;min-width:0;display:flex;flex-direction:column;gap:10px;position:relative}
+.card.called{border-color:color-mix(in srgb,var(--c) 55%,transparent);box-shadow:inset 4px 0 0 var(--c)}
+.card .top{display:flex;align-items:flex-start;gap:10px}
+.card .st{flex:none;width:44px;height:44px;border-radius:12px;background:var(--shoal);display:grid;place-items:center;font:600 15px/1 var(--sans);color:var(--ink)}
+.card .ttl{min-width:0;flex:1}
+.card .ttl h3{font:400 23px/1.05 var(--serif);margin:0;letter-spacing:-.004em}
+.card .ttl .cl{font:500 12.5px/1.35 var(--sans);color:var(--ink-2);margin-top:3px}
+.badge{flex:none;font:700 11px/1 var(--sans);letter-spacing:.05em;text-transform:uppercase;padding:6px 9px;border-radius:999px;border:1px solid var(--rule);color:var(--ink-2);white-space:nowrap;align-self:flex-start}
+.badge.open{color:var(--ink-3)}
+.badge.watching{color:var(--brass-ink);border-color:color-mix(in srgb,var(--brass) 55%,transparent);background:color-mix(in srgb,var(--brass) 10%,transparent)}
+.badge.called{color:#fff;background:var(--c);border-color:var(--c)}
+.cands{display:flex;justify-content:space-between;gap:8px;font:600 14px/1.3 var(--sans)}
+.cands span{display:flex;align-items:center;gap:6px;min-width:0}
+.cands span.r{justify-content:flex-end;text-align:right}
+.cands i{display:inline-block;width:9px;height:9px;border-radius:50%;flex:none}
+.cands .n{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cands .p{font-weight:500;color:var(--ink-2)}
+.bar{position:relative;height:12px;border-radius:4px;overflow:hidden;background:var(--shoal);display:flex}
+.bar i{display:block;height:100%}
+.bar .mid{position:absolute;top:-2px;bottom:-2px;width:2px;background:var(--ink);left:50%;margin-left:-1px;opacity:.7}
+.row{display:flex;justify-content:space-between;gap:8px;font:500 12.5px/1.35 var(--sans);color:var(--ink-2)}
+.row b{color:var(--ink);font-weight:600}
+.row .mg{color:var(--ink);font-weight:700}
+.lbl{font:600 11px/1.2 var(--sans);letter-spacing:.05em;text-transform:uppercase;color:var(--ink-3);margin-bottom:4px}
+.block{border-top:1px solid var(--rule);padding-top:9px}
+.call{border-radius:10px;padding:9px 11px;background:color-mix(in srgb,var(--c) 10%,var(--raise));border:1px solid color-mix(in srgb,var(--c) 40%,transparent)}
+.call .h{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;font:700 12px/1.2 var(--sans);letter-spacing:.04em;text-transform:uppercase;color:var(--c)}
+.call .h .t{font:500 12px/1.2 var(--sans);letter-spacing:0;text-transform:none;color:var(--ink-2);margin-left:auto}
+.call .w{font:400 22px/1.1 var(--serif);margin:3px 0 2px}
+.call .w small{font:600 13px var(--sans);color:var(--ink-2);margin-left:6px}
+.call .b{font:400 13.5px/1.45 var(--sans);color:var(--ink-2)}
+.call .b a{color:var(--brass-ink)}
+.ap{display:flex;justify-content:space-between;gap:8px;align-items:baseline;font:500 13px/1.4 var(--sans);color:var(--ink-2)}
+.ap b{font-weight:700;color:var(--ink)}
+.ap .first{font:700 11px/1 var(--sans);letter-spacing:.04em;text-transform:uppercase;padding:4px 7px;border-radius:999px;background:var(--shoal);color:var(--ink);white-space:nowrap}
+.ap .first.desk{background:color-mix(in srgb,var(--ok) 18%,transparent);color:var(--ok)}
+.note{font:400 13.5px/1.45 var(--sans);color:var(--ink-2);margin:0}
+.note b{color:var(--ink);font-weight:600}
+.src{font:500 11.5px/1.35 var(--sans);color:var(--ink-3)}
+.src a{color:inherit}
+
+.log{background:var(--raise);border:1px solid var(--rule);border-radius:14px;padding:6px 16px}
+.log ol{list-style:none;margin:0;padding:0}
+.log li{display:grid;grid-template-columns:92px minmax(0,1fr);gap:10px;padding:10px 0;border-top:1px solid var(--rule);font:400 14.5px/1.45 var(--sans)}
+.log li:first-child{border-top:0}
+.log li time{font:600 13px/1.5 var(--sans);color:var(--brass-ink);white-space:nowrap}
+.log li.call{font-weight:600}
+.srcs{font:500 13px/1.6 var(--sans);color:var(--ink-2);margin:10px 0 0}
+.srcs a{margin-right:14px}
+.foot{margin-top:28px;padding-top:14px;border-top:1px solid var(--rule);font:500 12.5px/1.5 var(--sans);color:var(--ink-3)}
+.foot a{color:var(--ink-2)}
+.empty{font:400 15px var(--sans);color:var(--ink-2)}
+@media (max-width:640px){
+  .score{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+  .score .t{padding:10px 11px;border-radius:12px}
+  .score .v{font-size:30px}
+  .score .m{display:none}
+  .brand h1{font-size:40px}
+  .races{grid-template-columns:1fr}
+  .log li{grid-template-columns:80px minmax(0,1fr)}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="mast">
+    <div class="brand">
+      <h1>The Call <em>Desk</em></h1>
+      <span class="sub" id="sub">Claude vs. the networks · election night 2026</span>
+    </div>
+    <div class="status">
+      <span class="pill" id="pill"><span class="dot"></span><span id="mode">Election night</span></span>
+      <span id="updated">Updated —</span>
+    </div>
+  </header>
+  <nav class="nav" aria-label="Related">
+    <a href="../">← Election Desk</a>
+    <a href="../../news/">The Watch</a>
+    <span class="sp"></span>
+    <a href="../../the-hinge/">The Hinge forecast →</a>
+  </nav>
+
+  <section class="score" id="score" aria-label="Scoreboard"></section>
+  <div class="alert" id="alert" role="status"><span class="k">CALL</span><span class="x" id="alert-x"></span><span class="t" id="alert-t"></span></div>
+  <section class="rule" id="rule"></section>
+
+  <h2 class="sec">The ten races <small id="order"></small></h2>
+  <section class="races" id="races" aria-live="polite"></section>
+
+  <h2 class="sec">The desk log</h2>
+  <section class="log" id="log"></section>
+  <p class="srcs" id="srcs"></p>
+
+  <p class="foot">Polling averages as published by the named aggregators before polls closed. Live counts and AP calls are the <a href="../">Election Desk</a>'s, recorded from AP and state results pages with the time of every number. The desk's own calls are Claude's projections, not results; a race is decided by the count and the state's certification. Part of <a href="../../news/">The Watch</a>.</p>
+</div>
+<script>
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const ET = new Intl.DateTimeFormat('en-US', { timeZone: 'America/New_York', hour: 'numeric', minute: '2-digit' });
+const ETD = new Intl.DateTimeFormat('en-US', { timeZone: 'America/New_York', weekday: 'short', hour: 'numeric', minute: '2-digit' });
+function et(s, day) { if (!s) return '—'; const d = new Date(s); if (isNaN(d)) return esc(s); const t = (day ? ETD : ET).format(d).replace(' AM', ' a.m.').replace(' PM', ' p.m.'); return t + ' ET'; }
+function closeLabel(c) { // "19:00" or "20:00/21:00" -> "7 p.m. ET" / "8 and 9 p.m. ET"
+  const f = h => { const [H, M] = h.split(':').map(Number); const hh = ((H + 11) % 12) + 1; return hh + (M ? ':' + String(M).padStart(2, '0') : '') + (H >= 12 ? ' p.m.' : ' a.m.'); };
+  const parts = c.split('/'); return parts.length > 1 ? f(parts[0]).replace(/ [ap]\.m\./, '') + ' and ' + f(parts[1]) + ' ET' : f(parts[0]) + ' ET';
+}
+function closedAt(c) { const last = c.split('/').pop(); return new Date(`2026-11-03T${last}:00-05:00`); }
+const COL = { D: 'var(--dem)', R: 'var(--rep)', I: 'var(--ind)' };
+const PARTY = { D: 'Democrat', R: 'Republican', I: 'Independent' };
+let BOARD = null, RES = null, lastCallKey = '';
+
+async function getJSON(u) { const r = await fetch(u + (u.includes('?') ? '&' : '?') + 't=' + Math.floor(Date.now() / 30000), { cache: 'no-store' }); if (!r.ok) throw new Error(u + ' ' + r.status); return r.json(); }
+
+function bar(d, r, o) { const tot = (d || 0) + (r || 0) + (o || 0) || 1; return `<div class="bar" aria-hidden="true"><i style="width:${(100 * (d || 0) / tot).toFixed(1)}%;background:var(--dem)"></i><i style="width:${(100 * (o || 0) / tot).toFixed(1)}%;background:var(--ink-3)"></i><i style="width:${(100 * (r || 0) / tot).toFixed(1)}%;background:var(--rep);margin-left:auto"></i><span class="mid"></span></div>`; }
+
+function raceCard(r, now) {
+  const d = r.candidates.find(c => c.party === 'D'), p = r.candidates.find(c => c.party === 'R');
+  const closed = now >= closedAt(r.closesET);
+  const status = r.call ? 'called' : (r.status === 'watching' || (closed && r.status !== 'open') || closed ? 'watching' : 'open');
+  const c = r.call ? COL[r.call.party] || COL.I : 'var(--ink-2)';
+  const res = (RES && RES.races && RES.races[r.id]) || null;
+  let live = '';
+  if (res && res.c && Object.keys(res.c).length) {
+    const vd = res.c[d.name] || 0, vr = res.c[p.name] || 0, tot = res.tot || (vd + vr), vo = Math.max(0, tot - vd - vr);
+    const pd = tot ? 100 * vd / tot : 0, pr = tot ? 100 * vr / tot : 0, lead = pd - pr;
+    live = `<div class="block"><div class="lbl">Live count</div>${bar(vd, vr, vo)}
+      <div class="row"><b style="color:var(--dem)">${pd.toFixed(1)}%</b><span class="mg">${lead === 0 ? 'Even' : (lead > 0 ? 'D' : 'R') + ' +' + Math.abs(lead).toFixed(1)}</span><b style="color:var(--rep)">${pr.toFixed(1)}%</b></div>
+      <div class="row"><span>${res.pctIn != null ? esc(res.pctIn) + '% of expected vote in' : (tot ? tot.toLocaleString() + ' votes counted' : 'Counting')}</span><span>${et(res.asOf)}${res.src ? ' · ' + esc(res.src) : ''}</span></div></div>`;
+  } else if (closed) {
+    live = `<div class="block"><div class="lbl">Live count</div><p class="note">Polls closed; no returns recorded yet.</p></div>`;
+  }
+  let call = '';
+  if (r.call) {
+    call = `<div class="block"><div class="call" style="--c:${c}"><div class="h"><span>Desk call</span><span class="t">${et(r.call.at)}</span></div>
+      <div class="w">${esc(r.call.winner)}<small>${esc(PARTY[r.call.party] || r.call.party)} · ${(100 * r.call.confidence).toFixed(1)}%</small></div>
+      <div class="b">${esc(r.call.basis)}${(r.call.sources || []).length ? ' ' + r.call.sources.map((u, i) => `<a href="${esc(u)}" rel="noopener">[${i + 1}]</a>`).join(' ') : ''}</div></div></div>`;
+  }
+  // AP line, from the Election Desk's results file
+  let ap = '';
+  if (res && res.call) {
+    const apName = (r.candidates.find(x => x.party === res.call) || {}).name || res.call;
+    let first = '';
+    if (r.call) { const dm = Math.round((new Date(res.callAt) - new Date(r.call.at)) / 60000); first = dm > 0 ? `<span class="first desk">Desk first by ${dm} min</span>` : dm < 0 ? `<span class="first">AP first by ${-dm} min</span>` : `<span class="first">Same minute</span>`; if (r.call.party !== res.call) first = `<span class="first" style="background:color-mix(in srgb,var(--signal) 18%,transparent);color:var(--signal)">Disagree</span>`; }
+    ap = `<div class="ap"><span><b>${esc(res.callBy || 'AP')}</b> called it for ${esc(apName)} · ${et(res.callAt)}</span>${first}</div>`;
+  } else {
+    ap = `<div class="ap"><span><b>AP</b>: not called${r.call ? ' yet' : ''}</span>${r.call ? '<span class="first desk">Desk ahead</span>' : ''}</div>`;
+  }
+  const wd = (r.withdrawn || []).length ? `<p class="note"><b>Withdrawn:</b> ${r.withdrawn.map(w => esc(w.winner) + ' (' + et(w.at) + '), ' + esc(w.why)).join('; ')}</p>` : '';
+  return `<article class="card ${status}" style="--c:${c}" id="r-${r.id}">
+    <div class="top"><div class="st">${esc(r.state)}</div><div class="ttl"><h3>${esc(r.name)}</h3><div class="cl">${closed ? 'Polls closed ' + closeLabel(r.closesET) : 'Polls close ' + closeLabel(r.closesET)}${d.incumbent ? ' · ' + esc(d.name.split(' ').pop()) + ' is the incumbent' : p.incumbent ? ' · ' + esc(p.name.split(' ').pop()) + ' is the incumbent' : ' · open seat'}</div></div>
+      <span class="badge ${status}">${status === 'called' ? 'Called' : status === 'watching' ? 'Watching' : 'Open'}</span></div>
+    <div class="cands"><span><i style="background:var(--dem)"></i><span class="n">${esc(d.name)}</span><span class="p">D</span></span><span class="r"><span class="p">R</span><span class="n">${esc(p.name)}</span><i style="background:var(--rep)"></i></span></div>
+    <div><div class="lbl">Final polling average</div>${bar(r.pollAvg.d, r.pollAvg.r, 0)}
+      <div class="row"><b style="color:var(--dem)">${r.pollAvg.d}</b><span class="mg">${esc(r.pollAvg.margin)}</span><b style="color:var(--rep)">${r.pollAvg.r}</b></div>
+      <div class="src">${r.pollAvg.url ? `<a href="${esc(r.pollAvg.url)}" rel="noopener">${esc(r.pollAvg.src)}</a>` : esc(r.pollAvg.src)}</div></div>
+    ${live}${call}
+    <div class="block">${ap}</div>
+    ${wd}<p class="note"><b>Watching:</b> ${esc(r.note || '')}</p>
+  </article>`;
+}
+
+function render() {
+  if (!BOARD) return;
+  const now = new Date();
+  const races = BOARD.races.slice().sort((a, b) => closedAt(a.closesET) - closedAt(b.closesET));
+  const called = races.filter(r => r.call);
+  const apCalled = races.filter(r => RES && RES.races && RES.races[r.id] && RES.races[r.id].call);
+  const agree = called.filter(r => { const x = RES && RES.races && RES.races[r.id]; return x && x.call && x.call === r.call.party; });
+  const deskFirst = agree.filter(r => new Date(RES.races[r.id].callAt) > new Date(r.call.at));
+  const wrong = called.filter(r => { const x = RES && RES.races && RES.races[r.id]; return x && x.call && x.call !== r.call.party; });
+  $('#score').innerHTML = `
+    <div class="t"><div class="k">Desk calls</div><div class="v">${called.length}<small>of ${races.length}</small></div><div class="m">${called.length ? called.map(r => r.state).join(', ') : 'None yet'}</div></div>
+    <div class="t"><div class="k">AP calls</div><div class="v">${apCalled.length}<small>of ${races.length}</small></div><div class="m">${apCalled.length ? apCalled.map(r => r.state).join(', ') : 'None yet'}</div></div>
+    <div class="t"><div class="k">Scorecard</div><div class="v">${agree.length}<small>agree${wrong.length ? ' · ' + wrong.length + ' wrong' : ''}</small></div><div class="m">${deskFirst.length ? 'Desk first in ' + deskFirst.length : agree.length ? 'AP first in ' + agree.length : 'Scored when AP calls the same races'}</div></div>`;
+  $('#rule').innerHTML = `<h2>${esc(BOARD.rule.headline)}</h2><p>${esc(BOARD.rule.text)}</p><p>${esc(BOARD.rule.scoring)}</p>`;
+  $('#races').innerHTML = races.map(r => raceCard(r, now)).join('');
+  $('#order').textContent = 'in order of poll closing';
+  const log = (BOARD.log || []).slice().reverse();
+  $('#log').innerHTML = log.length ? `<ol>${log.map(l => `<li class="${/^[^:]*: (CALL|WITHDRAWN)/.test(l.text) ? 'call' : ''}"><time datetime="${esc(l.at)}">${et(l.at)}</time><span>${esc(l.text.replace(/^\d{1,2}:\d{2} [ap]\.m\. ET: /, ''))}</span></li>`).join('')}</ol>` : '<p class="empty">Nothing yet.</p>';
+  $('#srcs').innerHTML = (BOARD.sources || []).length ? 'Pre-election sources: ' + BOARD.sources.map(s => `<a href="${esc(s.u)}" rel="noopener">${esc(s.t)}</a>`).join('') : '';
+  const latest = called.slice().sort((a, b) => new Date(b.call.at) - new Date(a.call.at))[0];
+  if (latest) { const key = latest.id + latest.call.at; $('#alert').classList.add('on'); $('#alert-x').textContent = `${latest.name}: ${latest.call.winner} (${latest.call.party})`; $('#alert-t').textContent = et(latest.call.at); if (lastCallKey && key !== lastCallKey && document.title.indexOf('NEW CALL') < 0) document.title = 'NEW CALL · ' + document.title; lastCallKey = key; }
+  const asOf = [BOARD.asOf, RES && RES.asOf].filter(Boolean).sort().pop();
+  $('#updated').textContent = 'Updated ' + et(asOf, true);
+  const allCalled = called.length === races.length;
+  $('#pill').classList.toggle('live', !allCalled); $('#mode').textContent = allCalled ? 'Board complete' : 'LIVE · Election night';
+}
+
+async function refresh() {
+  try { BOARD = await getJSON('../data/calls.json'); } catch (e) { if (!BOARD) { $('#races').innerHTML = `<p class="empty">The board could not be loaded (${esc(e.message)}).</p>`; return; } }
+  try { RES = await getJSON('../data/results.json'); } catch (e) { /* the Election Desk's file is optional */ }
+  render();
+}
+refresh();
+setInterval(refresh, 60000);
+document.addEventListener('visibilitychange', () => { if (!document.hidden) refresh(); });
+</script>
+</body>
+</html>

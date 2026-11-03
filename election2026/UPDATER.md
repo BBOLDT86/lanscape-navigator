@@ -122,6 +122,24 @@ The runs act without asking for approval, in the cloud (no computer needed). The
 which appends `$COMMIT_TRAILER` (attribution lines) to its commit messages when a run exports it. Once the desk is
 final the tasks can be deleted; a run that finds `mode post` and a final log line does nothing.
 
+## The Call Desk (`election2026/calls/`)
+
+A separate page, set up on election night (Nov. 3, 2026): Claude's own projections in ten tracked races, timestamped
+and scored against AP. It reads `data/calls.json` (the board, written by `updater/call_desk.py`) and
+`data/results.json` (the Election Desk's counts and AP calls, above) live; nothing to rebuild. The desk rule: a call
+needs 99.5% confidence or more; nothing is called before the state's polls close (`call_desk.py` enforces both).
+
+```sh
+python3 election2026/updater/call_desk.py call NC-S --winner "Roy Cooper" --at 2026-11-04T00:51-05:00 --conf 0.997 --basis "..." --src URL
+python3 election2026/updater/call_desk.py note GA-S "what the desk is watching"
+python3 election2026/updater/call_desk.py log "8:40 PM: ..."
+python3 election2026/updater/call_desk.py check
+git add election2026/data/calls.json && git commit -m "Call Desk: 8:40 PM ET" && git pull --rebase origin main && git push origin HEAD:main
+```
+
+The Election Desk's rule above (it never calls a race itself) is unchanged: the Call Desk is labeled as Claude's
+projection, and its scorecard is only ever filled in by AP's calls.
+
 ## If something is broken
 
 - `build.py --check` refuses a results file that names a candidate not in `races.json`: fix the name.

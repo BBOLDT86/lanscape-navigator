@@ -3437,7 +3437,7 @@ function usCard(full) {
     ${gb ? `<p class="eh"><b>${T('Generic ballot, House:')}</b> ${T('Democrats {d}, Republicans {r}', { d: fnum(gb.d, 1), r: fnum(gb.r, 1) })} <span>${T('(average of {n} recent polls)', { n: gb.n_polls })}</span>.</p>` : ''}
     ${ev && ev.totalBallots ? `<p class="eh"><b>${T('Early vote:')}</b> ${T('{n} million ballots cast so far in {s} states.', { n: fnum(ev.totalBallots / 1e6, 1), s: ev.statesReporting })}</p>` : ''}
     ${races}
-    <p class="elinks"><a href="../election2026/">${T('Open the Election Desk')}</a> <a href="../the-hinge/">${T('The Hinge forecast')}</a></p>
+    <p class="elinks"><a href="../election2026/calls/">${T('The Call Desk: live calls tonight')}</a> <a href="../election2026/">${T('Open the Election Desk')}</a> <a href="../the-hinge/">${T('The Hinge forecast')}</a></p>
   </section>`;
 }
 function electionsHTML(full, only) {
