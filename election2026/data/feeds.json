@@ -338,9 +338,9 @@
  "resultsNight": {
   "ap": {
    "hubUrl": null,
-   "candidateUrl": "https://apnews.com/projects/election-results-2026/",
+   "candidateUrl": "https://apnews.com/projects/elections-2026/",
    "verified": false,
-   "notes": "The 2026 hub could not be surfaced by search today (searches returned only syndicated AP copy). AP's 2024 free results hub was https://apnews.com/projects/election-results-2024/, so the 2026 equivalent is expected at the candidate URL, with topic hub https://apnews.com/hub/election-2026 (pattern, unverified). What is public: the apnews.com interactive results pages (HTML/JS; the JSON that feeds them is undocumented and unlicensed for reuse). What is not public: the AP Elections API (licensed, API key; results, race calls, county-level data) and AP's Google/partner feeds. AP race calls are what most outlets (NYT, NPR, PBS, Google) display."
+   "notes": "Nov 3 morning pass: search shows AP's 2026 cycle pages (primary results, calendar) indexed under apnews.com/projects/elections-2026/ (seen via mirrors of apnews.com), not /projects/election-results-2026/, so the candidate hub was changed to that path; apnews.com itself refused the fetch, so still unverified. The 2026 hub could not be surfaced by search today (searches returned only syndicated AP copy). AP's 2024 free results hub was https://apnews.com/projects/election-results-2024/, so the 2026 equivalent is expected at the candidate URL, with topic hub https://apnews.com/hub/election-2026 (pattern, unverified). What is public: the apnews.com interactive results pages (HTML/JS; the JSON that feeds them is undocumented and unlicensed for reuse). What is not public: the AP Elections API (licensed, API key; results, race calls, county-level data) and AP's Google/partner feeds. AP race calls are what most outlets (NYT, NPR, PBS, Google) display."
   },
   "nyt": {
    "hubUrl": null,
