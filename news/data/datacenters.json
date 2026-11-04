@@ -1,8 +1,8 @@
 {
  "v": 1,
- "updated": "2026-10-28T10:21:53+00:00",
+ "updated": "2026-11-04T11:26:13+00:00",
  "model": "Claude Opus 5.5",
- "summary": "This week's news was mostly about who pays for the power, and the answer keeps shifting toward the data center owner, with exceptions.\n\nIn Arkansas, Entergy filed a second phase for Google's $4 billion West Memphis campus: 440 MW of solar, 1,400 MWh of batteries and new transmission, with Google paying the roughly $600 million cost and Entergy promising no bill increase. Neither has said how much power the campus itself will draw, so it isn't on our map yet. In Michigan, Google's 1 GW Van Buren Township campus won final site approval, with DTE service due in late 2027. In Wyoming, Black Hills disclosed earlier this month that it signed Google up through 2048 for the Cheyenne campus once tied to Crusoe's Project Jade, building 564 MW of new gas with Google's money. And in West Texas, Amazon's GW Ranch plans up to 7.65 GW of gas turbines off the grid entirely.\n\nLouisiana is the counterexample. Reporting on Entergy's 10-plant plan for Meta's Hyperion campus says about $3.4 billion of the generation cost would be left for other customers after Meta's 20-year contract; regulators vote in December. Meta said it would sell up to $95 billion in stock to keep building.\n\nElsewhere, Dominion told Virginia it has about 12,000 MW of data centers under contract and a plan that could add more than $100 a month to residential bills over 20 years, backed by 14-year minimum-payment contracts so stranded costs fall on data centers. Amazon withdrew a Loudoun County proposal after neighbors objected, and AEP and Amazon agreed on early development of 960 MW of small reactors at a former Indiana coal plant, with a go-ahead decision expected by late 2029. For households, the details of each contract matter more than the headline megawatts.",
+ "summary": "This week the buildout ran into voters. In Texas, which holds more than a quarter of planned U.S. data center capacity, Democrat Gina Hinojosa won the governor's race after promising a moratorium on new data center construction, stricter water and power rules and an end to tax breaks. Gov. Greg Abbott had already ordered state permits for data centers halted on Sept. 21 until ERCOT finishes an audit of facilities seeking grid connections; ERCOT reports to state regulators Dec. 10. Nothing has stopped projects already under way, but Texas campuses on our map that still need permits now face more uncertainty.\n\nIn Ohio, at least 14 of 18 local measures passed bans or limits, including Piqua, where voters banned data centers and recalled three commissioners, and Wilmington, where voters rejected rezonings near a proposed Amazon campus. In Paducah, Kentucky, the incumbent who campaigned on the DOE-site investment won.\n\nNew on the map: OpenAI's 3.2 GW Project Camellia in Georgia, where it pledged up to 1 GW of emergency curtailment; a 6 GW proposal in Cochise County, Arizona; and the 9 GW Stratos plan in Utah, where a study commissioned by an environmental group estimated health harms from its gas power, which the developer disputes.\n\nFor households, curtailment pledges and developer-paid upgrades help on paper, but most are not yet binding, and the price of power still depends on each utility's contracts and regulators' votes, including Louisiana's December decision on Meta's gas plants.",
  "projects": [
   {
    "id": "stargate-abilene",
@@ -281,8 +281,14 @@
    "power": "On-site gas turbines in Southaven (41 permanent turbines permitted in March to replace 27 unpermitted ones) and Tesla Megapacks",
    "grid": "SERC/TVA",
    "cost": "more than $20 billion for the Mississippi facility (as reported)",
-   "note": "Mississippi regulators are seeking about $6.1 million in stormwater-permit penalties across three sites, and a federal judge refused the Justice Department's bid to end the NAACP's turbine lawsuit. The 2 GW figure is Musk's total for Colossus training compute, not a utility-filed load.",
+   "note": "On Oct. 30 a federal judge denied xAI's motion to dismiss the NAACP's Clean Air Act suit, rejecting the claim that the Southaven turbines are exempt mobile sources; xAI said in August it would replace the unpermitted turbines with a larger permitted plant, which could take a year. The 2 GW figure is Musk's total for Colossus training compute, not a utility-filed load.",
    "sources": [
+    {
+     "title": "SpaceX loses bid to dismiss lawsuit over xAI data center pollution",
+     "outlet": "Tom's Hardware",
+     "url": "https://www.tomshardware.com/tech-industry/data-centers/spacex-loses-bid-to-dismiss-lawsuit-over-xai-data-center-pollution-judge-rules-mississippi-gas-turbines-are-not-exempt-from-the-clean-air-act",
+     "date": "2026-11-02"
+    },
     {
      "title": "Elon Musk's SpaceXAI facing $6.1m fine in Mississippi for building data centers without securing correct permits",
      "outlet": "DCD",
@@ -302,7 +308,7 @@
      "date": "2026-01-08"
     }
    ],
-   "updated": "2026-10-25"
+   "updated": "2026-11-04"
   },
   {
    "id": "homer-city",
@@ -317,8 +323,14 @@
    "power": "A 4.5 GW natural gas plant on the former coal plant site",
    "grid": "PJM",
    "cost": "not disclosed (as reported)",
-   "note": "AWS filed plans this month for 36 buildings on 1,100 acres, with data center construction in four stages from December 2026 to 2036. 4,500 MW is the gas plant's size; a campus load hasn't been reported.",
+   "note": "Indiana County's planning commission accepted (not approved) AWS's application for 36 buildings on 1,100 acres on Oct. 14, starting a 90-day review that runs to Jan. 12; a state wastewater permit for cooling-tower discharge is separate. 4,500 MW is the gas plant's size; a campus load hasn't been reported.",
    "sources": [
+    {
+     "title": "What's next? Indiana County officials approve Amazon application for proposed data center",
+     "outlet": "WJAC",
+     "url": "https://wjactv.com/news/local/indiana-co-officials-discuss-plans-for-proposed-data-center",
+     "date": "2026-10-15"
+    },
     {
      "title": "AWS is building a massive 36-building, 1,100-acre data center campus in Pennsylvania",
      "outlet": "TechRadar",
@@ -332,7 +344,7 @@
      "date": "2026-04"
     }
    ],
-   "updated": "2026-10-25"
+   "updated": "2026-11-04"
   },
   {
    "id": "amazon-susquehanna",
@@ -431,8 +443,14 @@
    "power": "NextEra-built generation of up to 2 GW of grid-connected gas and 2.6 GW of batteries; Big Rivers Electric wholesale, Jackson Purchase Energy retail",
    "grid": "MISO",
    "cost": "$100 billion (as reported)",
-   "note": "Up to 1.8 GW of utility capacity for more than 1.2 GW of compute on the former uranium enrichment plant; the project has become the issue in the Nov. 3 county judge/executive race, where the challenger wants a community benefit agreement.",
+   "note": "Up to 1.8 GW of utility capacity for more than 1.2 GW of compute on the former uranium enrichment plant. Incumbent judge-executive Craig Clymer, who campaigned on the site's investment, won a third term Nov. 3 over George Bray, 12,077 to 7,558 (unofficial).",
    "sources": [
+    {
+     "title": "Clymer defeats Bray to win third judge executive term",
+     "outlet": "WPSD Local 6",
+     "url": "https://www.wpsdlocal6.com/news/clymer-defeats-bray-to-win-third-judge-executive-term/article_47a80aab-755e-4be2-9afb-7cf077dc8c77.html",
+     "date": "2026-11-03"
+    },
     {
      "title": "Brookfield, NextEra to Develop $100B Data Center Campus at DOE's Paducah Site, Paired With 4.6 GW of Dedicated Generation",
      "outlet": "POWER Magazine",
@@ -446,7 +464,7 @@
      "date": "2026-10-23"
     }
    ],
-   "updated": "2026-10-25"
+   "updated": "2026-11-04"
   },
   {
    "id": "fermi-matador",
@@ -461,8 +479,14 @@
    "power": "Mostly behind the meter: gas turbines first, with four AP1000 reactors under NRC review, plus solar, wind, batteries and grid power",
    "grid": "SPP",
    "cost": "not reported; TensorWave lease up to $6.5 billion over 15 years (as reported)",
-   "note": "NRC staff's draft environmental review preliminarily favors a license for four AP1000 reactors, with comments due Nov. 23 and a final review targeted for December; the first 222 MW building (facility power) for TensorWave, backed by AMD credit support, is due in the second half of 2027. Fermi has cited 11 GW and, more recently, nearly 17 GW, and its cofounders have left the company.",
+   "note": "At its Nov. 2 annual meeting Fermi said it is pivoting to a powered-land model and that its two director nominees preliminarily failed to win enough votes; it reports first gas turbines delivered on site and an earnings call Nov. 12. The NRC's draft environmental review of four AP1000 reactors is open for comment until Nov. 23, and Texas's governor-elect campaigned on a moratorium on new data center construction. Fermi has cited both 11 GW and nearly 17 GW.",
    "sources": [
+    {
+     "title": "Fermi Advances Project Matador, Pivots to Powered-Land Strategy as Director Vote Fails",
+     "outlet": "MarketBeat",
+     "url": "https://www.marketbeat.com/instant-alerts/event-fermi-advances-project-matador-pivots-to-powered-land-strategy-as-director-vote-fails-2026-11-02/",
+     "date": "2026-11-02"
+    },
     {
      "title": "Fermi America, Blue Energy make strides in Texas",
      "outlet": "ANS Nuclear Newswire",
@@ -482,7 +506,7 @@
      "date": "2025-07-03"
     }
    ],
-   "updated": "2026-10-28"
+   "updated": "2026-11-04"
   },
   {
    "id": "project-jade",
@@ -651,14 +675,105 @@
      "date": "2026-08-11"
     }
    ]
+  },
+  {
+   "id": "openai-camellia",
+   "name": "Project Camellia",
+   "company": "OpenAI",
+   "place": "Rincon, Effingham County",
+   "state": "GA",
+   "lat": 32.3,
+   "lon": -81.24,
+   "mw": 3200,
+   "status": "planned",
+   "power": "Georgia Power, under a 25-year agreement for 3.2 GW delivered over about four years; OpenAI says it pays for the electrical infrastructure",
+   "grid": "SERC (Southern Company/Georgia Power)",
+   "cost": "$20 billion (as reported)",
+   "note": "On Nov. 2 OpenAI launched a non-binding 'Grid Protectors' program, starting with a pledge to make up to 1,000 MW of this campus's load available for curtailment in grid emergencies, about 31% of peak; terms are still being worked out with Georgia Power.",
+   "updated": "2026-11-04",
+   "sources": [
+    {
+     "title": "OpenAI Launches Grid Protectors Program With 1 GW Georgia Pledge",
+     "outlet": "Dataconomy",
+     "url": "https://dataconomy.com/2026/11/03/openai-launches-grid-protectors-program-with-1-gw-georgia/",
+     "date": "2026-11-03"
+    },
+    {
+     "title": "OpenAI Plans $20B Data Center in Effingham County",
+     "outlet": "Effingham Herald",
+     "url": "https://www.effinghamherald.net/local/openai-plans-20b-data-center-in-effingham-county-rincon-georgia/",
+     "date": "2026-07"
+    }
+   ]
+  },
+  {
+   "id": "cochise-tombstone",
+   "name": "Cochise County data center campus",
+   "company": "Tombstone Resources LLC; tenant not named",
+   "place": "Cochise, Cochise County",
+   "state": "AZ",
+   "lat": 32.11,
+   "lon": -109.92,
+   "mw": 6000,
+   "status": "announced",
+   "power": "Wholesale generation and transmission from AEPCO and retail service from SSVEC, with 90 MW of backup gas generators and batteries; the developer is to pay for upgrades",
+   "grid": "WECC (AEPCO/SSVEC)",
+   "cost": "not disclosed (as reported)",
+   "note": "Arizona's largest proposal: nine buildings on about 750 acres near the Apache Generating Station; the first community meeting is Nov. 4 and the county zoning hearing Dec. 9. Site studies are still required.",
+   "updated": "2026-11-04",
+   "sources": [
+    {
+     "title": "Largest data center proposal in Arizona heads to Cochise County. 1st community meeting scheduled",
+     "outlet": "KJZZ",
+     "url": "https://www.kjzz.org/business/2026-11-03/largest-data-center-proposal-in-arizona-heads-to-cochise-county-1st-community-meeting-scheduled",
+     "date": "2026-11-03"
+    }
+   ]
+  },
+  {
+   "id": "stratos-utah",
+   "name": "Stratos Project",
+   "company": "Kevin O'Leary's Stratos (developer); no tenant named",
+   "place": "Hansel Valley, Box Elder County",
+   "state": "UT",
+   "lat": 41.83,
+   "lon": -112.45,
+   "mw": 9000,
+   "status": "planned",
+   "power": "Off-grid natural gas behind the meter (turbines, with reciprocating engines for backup), fed by the Ruby Pipeline; models not yet selected",
+   "grid": "Off-grid (Utah, WECC)",
+   "cost": "not disclosed (as reported)",
+   "note": "An NRDC-commissioned study (not peer-reviewed) estimates the gas power could cause 5 to 45 premature deaths a year and up to $690 million in health costs; Stratos disputes it. Box Elder County approved the plan in May, but air permits are ahead; recent water filings describe 7.5 GW and first-phase permits are capped at 1 GW.",
+   "updated": "2026-11-04",
+   "sources": [
+    {
+     "title": "Study projects health impacts from proposed data center; O'Leary's team disputes findings",
+     "outlet": "KSL",
+     "url": "https://www.ksl.com/article/51642235/study-projects-health-impacts-from-proposed-stratos-data-center-kevin-olearys-team-disputes-findings",
+     "date": "2026-10-28"
+    },
+    {
+     "title": "Kevin O'Leary's colossal Utah data center hits a wall",
+     "outlet": "Yahoo Finance",
+     "url": "https://finance.yahoo.com/technology/ai/articles/kevin-olearys-colossal-utah-data-233700681.html",
+     "date": "2026-08-16"
+    },
+    {
+     "title": "Box Elder County approved the largest data center in the country. Now what?",
+     "outlet": "Utah Public Radio",
+     "url": "https://www.upr.org/politics/2026-05-06/box-elder-data-center",
+     "date": "2026-05-06"
+    }
+   ]
   }
  ],
  "changes": [
-  "Meta Hyperion: reporting puts Entergy's plan at ten 754 MW gas plants, with about $3.4 billion left for other customers; an appeal over Meta's sealed figures is in court; PSC vote in December.",
-  "Project Jade (Cheyenne): Black Hills signed Google through 2048: up to 590 MW of grid service plus a 2.1 GW private microgrid, $1.8 billion of new gas.",
-  "Fermi Matador: NRC draft environmental review preliminarily favors the four-reactor license; comments due Nov. 23.",
-  "Added: Google's 1 GW Project Cannoli in Van Buren Township, Michigan (final site approval).",
-  "Added: Amazon's GW Ranch in Pecos County, Texas: up to 7.65 GW of off-grid gas.",
-  "Not added: Google's West Memphis campus got a $600 million Google-funded second phase from Entergy Arkansas, but no load has been reported."
+  "Added: OpenAI's 3.2 GW Project Camellia in Effingham County, Georgia, with a non-binding pledge to curtail up to 1 GW in grid emergencies.",
+  "Added: Tombstone Resources' 6 GW campus proposal in Cochise County, Arizona; zoning hearing Dec. 9.",
+  "Added: Stratos, the 9 GW off-grid gas campus in Box Elder County, Utah; a new NRDC-commissioned health study, disputed by the developer.",
+  "Colossus 2: a federal judge denied xAI's motion to dismiss the NAACP turbine lawsuit (Oct. 30).",
+  "Fermi Matador: pivot to powered land; director nominees preliminarily failed; Texas governor-elect backs a data center moratorium.",
+  "Homer City: Indiana County accepted AWS's application, starting a review that runs to Jan. 12.",
+  "Paducah DOE site: the incumbent judge-executive who backed the project won re-election."
  ]
 }
