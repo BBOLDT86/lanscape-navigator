@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Reel Check · The Watch</title>
+<meta name="description" content="Viral DIY build videos, tested against the physics: what the clip shows, why it would fail, and a version you could actually build, with a sizer, a priced bill of materials and a schedule. A new build every morning.">
+<link rel="canonical" href="https://bboldt86.github.io/lanscape-navigator/news/home/reel-check/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="The Watch">
+<meta property="og:title" content="Reel Check · The Watch">
+<meta property="og:description" content="Viral DIY build videos, tested against the physics, with a build kit for a version that works.">
+<meta property="og:url" content="https://bboldt86.github.io/lanscape-navigator/news/home/reel-check/">
+<meta property="og:image" content="https://bboldt86.github.io/lanscape-navigator/news/share.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#F5F7F6" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0E1A2B" media="(prefers-color-scheme: dark)">
+<link rel="apple-touch-icon" href="../../icon-180.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%2315243B'/%3E%3Crect x='17' y='19' width='30' height='26' rx='4' fill='none' stroke='%23D6B25E' stroke-width='4'/%3E%3Cpath d='M28 27l9 5-9 5z' fill='%23F5F7F6'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F5F7F6; --raise:#FFFFFF; --ink:#15243B; --ink-2:#465770; --ink-3:#7A889A; --rule:rgba(21,36,59,.12); --rule-2:rgba(21,36,59,.22);
+  --shoal:#D7E7EC; --brass:#A9852F; --brass-ink:#7A5E1C; --brass-soft:rgba(169,133,47,.12); --signal:#C2412D; --ok:#2F7A55; --bar:#B9C3CF;
+  --serif:'Instrument Serif','Iowan Old Style',Georgia,serif;
+  --sans:'Instrument Sans',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="day"]){
+    --paper:#0E1A2B; --raise:#142539; --ink:#E7EDF4; --ink-2:#AEBBCB; --ink-3:#8492A6; --rule:rgba(231,237,244,.12); --rule-2:rgba(231,237,244,.24);
+    --shoal:#12293F; --brass:#D6B25E; --brass-ink:#E3C47E; --brass-soft:rgba(214,178,94,.16); --signal:#E8705A; --ok:#5BC48C; --bar:#3A4C63; color-scheme:dark;
+  }
+}
+:root[data-theme="night"]{
+  --paper:#0E1A2B; --raise:#142539; --ink:#E7EDF4; --ink-2:#AEBBCB; --ink-3:#8492A6; --rule:rgba(231,237,244,.12); --rule-2:rgba(231,237,244,.24);
+  --shoal:#12293F; --brass:#D6B25E; --brass-ink:#E3C47E; --brass-soft:rgba(214,178,94,.16); --signal:#E8705A; --ok:#5BC48C; --bar:#3A4C63; color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 16px/1.55 var(--sans);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+button,select{font:inherit;color:inherit}
+button{cursor:pointer;background:none;border:0;padding:0}
+:focus-visible{outline:2px solid var(--brass);outline-offset:2px;border-radius:4px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+@media (max-width:640px){.wrap{padding:0 16px}}
+.mast{border-bottom:1px solid var(--rule);background:var(--paper);position:sticky;top:0;z-index:30}
+.mast .wrap{display:flex;align-items:center;justify-content:space-between;height:52px;gap:12px}
+.back{display:inline-flex;align-items:center;gap:10px;text-decoration:none;font-weight:600;font-size:15px;min-width:0;white-space:nowrap}
+.back svg{width:26px;height:26px;flex:none}
+.back span{color:var(--ink-3);font-weight:500}
+.tbtn{font-size:14px;color:var(--ink-2);border:1px solid var(--rule);border-radius:999px;padding:5px 12px;background:var(--raise);text-decoration:none}
+.tbtn:hover{border-color:var(--brass)}
+.mast-r{display:flex;gap:6px}
+.k{font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--brass-ink);font-weight:600}
+.head{padding:38px 0 18px}
+.head h1{font:400 58px/1 var(--serif);letter-spacing:-.01em;margin:6px 0 10px}
+.lede{margin:0;color:var(--ink-2);font-size:17px;max-width:62ch}
+@media (max-width:640px){.head{padding-top:24px}.head h1{font-size:42px}.lede{font-size:15.5px}}
+.next{margin-top:12px;font-size:14px;color:var(--ink-3)}
+/* list */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,320px),1fr));gap:14px;padding-bottom:48px}
+.card{display:flex;flex-direction:column;gap:8px;text-decoration:none;background:var(--raise);border:1px solid var(--rule);border-radius:14px;padding:18px}
+.card:hover{border-color:var(--brass)}
+.card h2{font:400 26px/1.1 var(--serif);margin:0}
+.card p{margin:0;color:var(--ink-2);font-size:14.5px}
+.card .meta{display:flex;justify-content:space-between;align-items:center;margin-top:auto;padding-top:8px;font-size:13px;color:var(--ink-3)}
+.sc{display:inline-flex;gap:6px;align-items:center;font-variant-numeric:tabular-nums}
+.pill{display:inline-flex;align-items:baseline;gap:4px;border-radius:999px;padding:2px 9px;font-size:13px;font-weight:600;border:1px solid var(--rule)}
+.pill.s{color:var(--signal)} .pill.f{color:var(--ok)}
+.cats{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 18px}
+.cats button{font-size:14px;border:1px solid var(--rule);border-radius:999px;padding:5px 12px;background:var(--raise);color:var(--ink-2)}
+.cats button[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+/* article */
+.art{display:grid;grid-template-columns:minmax(0,680px) minmax(0,1fr);gap:40px;padding-bottom:30px}
+@media (max-width:960px){.art{grid-template-columns:1fr;gap:10px}}
+.art h1{font:400 48px/1.04 var(--serif);margin:8px 0 10px;letter-spacing:-.01em}
+@media (max-width:640px){.art h1{font-size:36px}}
+.dek{font-size:19px;color:var(--ink-2);margin:0 0 12px}
+.by{font-size:13.5px;color:var(--ink-3);margin-bottom:22px}
+.body{font-size:17.5px;line-height:1.62}
+.body h2{font:400 30px/1.15 var(--serif);margin:34px 0 8px}
+.body p{margin:0 0 16px}
+.body ol,.body ul{padding-left:22px;margin:0 0 16px}
+.body li{margin-bottom:8px}
+.body sup a{text-decoration:none;color:var(--brass-ink);font-weight:600;font-size:12px;padding:0 1px}
+.reel{border-left:3px solid var(--brass);background:var(--brass-soft);padding:12px 16px;border-radius:0 10px 10px 0;margin:0 0 24px;font-size:15.5px;color:var(--ink-2)}
+.reel b{color:var(--ink);display:block;font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:2px}
+aside .box{position:sticky;top:70px;background:var(--raise);border:1px solid var(--rule);border-radius:14px;padding:18px}
+aside .vline{font:400 22px/1.2 var(--serif);margin:6px 0 14px}
+.dial{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+.dial div{border:1px solid var(--rule);border-radius:10px;padding:10px 12px}
+.dial span{display:block;font-size:12.5px;color:var(--ink-3)}
+.dial b{font:400 40px/1 var(--serif);font-variant-numeric:tabular-nums}
+.dial .s b{color:var(--signal)} .dial .f b{color:var(--ok)}
+table{width:100%;border-collapse:collapse;font-size:14px;font-variant-numeric:tabular-nums}
+th{text-align:left;font-weight:600;color:var(--ink-3);font-size:12.5px;padding:6px 8px;border-bottom:1px solid var(--rule-2);background:var(--raise);position:sticky;top:0}
+td{padding:7px 8px;border-bottom:1px solid var(--rule);vertical-align:top}
+.r{text-align:right}
+.scores td.n{font-weight:600;text-align:right;width:3.2em}
+.scores .why{display:block;color:var(--ink-3);font-size:12.5px}
+/* kit */
+.kit{border-top:1px solid var(--rule-2);padding:30px 0 50px}
+.kit h2{font:400 40px/1.05 var(--serif);margin:6px 0 6px}
+.kit .sum{color:var(--ink-2);margin:0 0 18px;max-width:70ch}
+.ctl{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:16px}
+.ctl label{display:grid;gap:4px;font-size:12.5px;color:var(--ink-3);font-weight:600}
+.ctl select{font-size:16px;padding:7px 10px;border:1px solid var(--rule-2);border-radius:10px;background:var(--raise);min-width:9rem}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,160px),1fr));gap:10px;margin-bottom:16px}
+.tile{background:var(--raise);border:1px solid var(--rule);border-radius:12px;padding:14px}
+.tile span{display:block;font-size:12.5px;color:var(--ink-3)}
+.tile b{display:block;font:400 34px/1.05 var(--serif);margin:4px 0;font-variant-numeric:tabular-nums}
+.tile em{font-style:normal;font-size:12.5px;color:var(--ink-2)}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:14px}
+.panel{background:var(--raise);border:1px solid var(--rule);border-radius:14px;padding:16px}
+.panel h3{font-size:16px;margin:0 0 2px}
+.panel > p{margin:0 0 12px;font-size:13px;color:var(--ink-3)}
+.scroll{max-height:420px;overflow:auto}
+tfoot td{font-weight:700;border-bottom:0}
+.gantt{position:relative}
+.gantt svg{display:block;width:100%;height:auto}
+.gantt text{font-family:var(--sans)}
+.tip{position:absolute;pointer-events:none;background:var(--raise);border:1px solid var(--rule-2);border-radius:10px;box-shadow:0 6px 24px rgba(0,0,0,.14);padding:8px 10px;font-size:13px;max-width:260px;display:none}
+.tip span{display:block;color:var(--ink-3)}
+.gates{counter-reset:g;list-style:none;padding:0;margin:0}
+.gates li{counter-increment:g;display:grid;grid-template-columns:28px 1fr;gap:4px 10px;padding:10px 0;border-bottom:1px solid var(--rule)}
+.gates li::before{content:counter(g);grid-row:span 2;width:24px;height:24px;border-radius:50%;background:var(--brass-soft);color:var(--brass-ink);font-weight:700;font-size:13px;display:grid;place-items:center}
+.gates b{font-size:14.5px}
+.gates span{font-size:13.5px;color:var(--ink-2)}
+.gates input{margin-right:6px}
+.note{font-size:13px;color:var(--ink-3);margin:14px 0 0}
+.src{padding:6px 0 60px;font-size:14px}
+.src h2{font:400 28px/1.1 var(--serif);margin:0 0 8px}
+.src ol{padding-left:22px;color:var(--ink-2)}
+.src li{margin-bottom:6px}
+.src li:target{background:var(--brass-soft);border-radius:6px}
+.empty{padding:40px 0;color:var(--ink-3)}
+#kit,.src li{scroll-margin-top:64px}
+.navb{display:flex;justify-content:space-between;gap:10px;padding:0 0 40px;flex-wrap:wrap}
+</style>
+</head>
+<body>
+<script>
+// the same paper as The Watch: day, night, or follow the watch (8 p.m. to 4 a.m. Eastern is night)
+(function(){try{var p=JSON.parse(localStorage.getItem('watch.v1')||'{}');var t=p.theme||'auto';var h=+new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',hour:'numeric',hourCycle:'h23'}).format(new Date());
+if(t==='auto'){t=(h>=20||h<4)?'night':(matchMedia('(prefers-color-scheme: dark)').matches?'night':'day')}document.documentElement.dataset.theme=t;}catch(e){}})();
+</script>
+<header class="mast"><div class="wrap">
+  <a class="back" href="../../#/s/home"><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" fill="#15243B"/><circle cx="32" cy="32" r="21" fill="none" stroke="#D6B25E" stroke-width="6" stroke-dasharray="19 3"/><path d="M32 32 L46 14" stroke="#F5F7F6" stroke-width="4" stroke-linecap="round"/></svg>The Watch <span>Home</span></a>
+  <div class="mast-r"><a class="tbtn" href="./" id="all">All builds</a><button class="tbtn" id="theme" type="button" aria-label="Switch between day and night paper">Night</button></div>
+</div></header>
+<main id="main" class="wrap"><p class="empty">Loading…</p></main>
+<script>
+const $ = (s, r = document) => r.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const num = new Intl.NumberFormat('en-US', { maximumFractionDigits: 1 });
+const usd = v => '$' + new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 }).format(v);
+const day = d => new Date(d + 'T12:00:00').toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+const LS = { get(k, d) { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } }, set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) { /* storage off */ } } };
+let INDEX = null, cat = 'All';
+
+function md(src) { // the small Markdown the builds use: ## headings, paragraphs, numbered and bulleted lists, **bold**, *italic*, [n] citations
+  const inline = t => esc(t).replace(/\*\*(.+?)\*\*/g, '<b>$1</b>').replace(/\*(.+?)\*/g, '<i>$1</i>')
+    .replace(/\[(\d+)\]/g, '<sup><a href="#src-$1" aria-label="source $1">$1</a></sup>');
+  const out = []; let list = null;
+  for (const block of src.trim().split(/\n\s*\n/)) {
+    const lines = block.split('\n');
+    if (/^## /.test(lines[0])) { out.push(`<h2>${inline(lines[0].slice(3))}</h2>`); if (lines.length > 1) out.push(`<p>${inline(lines.slice(1).join(' '))}</p>`); continue; }
+    if (lines.every(l => /^(\d+\.|-|\*)\s/.test(l) || /^\s+\S/.test(l))) {
+      const ol = /^\d+\./.test(lines[0]); const items = [];
+      for (const l of lines) { if (/^\s+\S/.test(l) && items.length) items[items.length - 1] += ' ' + l.trim(); else items.push(l.replace(/^(\d+\.|-|\*)\s+/, '')); }
+      out.push(`<${ol ? 'ol' : 'ul'}>${items.map(i => `<li>${inline(i)}</li>`).join('')}</${ol ? 'ol' : 'ul'}>`); continue;
+    }
+    out.push(`<p>${inline(lines.join(' '))}</p>`);
+  }
+  return out.join('');
+}
+
+async function getIndex() {
+  if (!INDEX) INDEX = await fetch('builds/index.json', { cache: 'no-cache' }).then(r => r.json());
+  return INDEX;
+}
+
+async function showList() {
+  document.title = 'Reel Check · The Watch';
+  const ix = await getIndex();
+  const cats = ['All', ...new Set(ix.builds.map(b => b.category))];
+  const shown = ix.builds.filter(b => cat === 'All' || b.category === cat);
+  $('#main').innerHTML = `<div class="head"><span class="k">Home · a new build every morning</span><h1>Reel Check</h1>
+    <p class="lede">The backyard builds that go viral, many of them made by AI, tested against the physics. Each one says what the clip shows, why it would fail, and how to build a version that works, with a sizer, a priced bill of materials and a schedule with a check before each step.</p>
+    ${ix.next ? `<p class="next">Next build: ${esc(day(ix.next))}. ${ix.queued} more on the way.</p>` : ''}</div>
+    <div class="cats" role="group" aria-label="Category">${cats.map(c => `<button type="button" aria-pressed="${c === cat}" data-cat="${esc(c)}">${esc(c)}</button>`).join('')}</div>
+    <div class="grid">${shown.map(b => `<a class="card" href="#${esc(b.id)}"><span class="k">${esc(b.category)} · ${esc(day(b.publish))}</span><h2>${esc(b.title)}</h2><p>${esc(b.dek)}</p>
+      <div class="meta"><span class="sc"><span class="pill s" title="As shown in the reel">${b.shown}<small>/10</small></span>as shown → <span class="pill f" title="The version that works">${b.fixed}<small>/10</small></span>done right</span><span aria-hidden="true">›</span></div></a>`).join('') || '<p class="empty">Nothing here yet.</p>'}</div>`;
+  $('#all').hidden = true;
+  document.querySelectorAll('.cats button').forEach(b => b.addEventListener('click', () => { cat = b.dataset.cat; showList(); }));
+}
+
+async function showBuild(id) {
+  const ix = await getIndex();
+  if (!ix.builds.some(b => b.id === id)) { location.hash = ''; return; }
+  const b = await fetch(`builds/${encodeURIComponent(id)}.json`, { cache: 'no-cache' }).then(r => r.json());
+  document.title = b.title + ' · Reel Check · The Watch';
+  $('#all').hidden = false;
+  const i = ix.builds.findIndex(x => x.id === id), newer = ix.builds[i - 1], older = ix.builds[i + 1];
+  const k = b.kit;
+  $('#main').innerHTML = `<div class="art"><article>
+      <div style="padding-top:30px"><span class="k">Reel Check · ${esc(b.category)}</span></div>
+      <h1>${esc(b.title)}</h1><p class="dek">${esc(b.dek)}</p>
+      <div class="by">By ${esc(b.byline)} (${esc(b.model)}) · ${esc(day(b.publish))}</div>
+      <div class="reel"><b>The reel</b>${esc(b.reel)}</div>
+      <div class="body">${md(b.body)}</div>
+    </article>
+    <aside><div class="box"><span class="k">The verdict</span><p class="vline">${esc(b.verdict.line)}</p>
+      <div class="dial"><div class="s"><span>As shown</span><b>${b.verdict.shown}</b><span>out of 10</span></div><div class="f"><span>Done right</span><b>${b.verdict.fixed}</b><span>out of 10</span></div></div>
+      <table class="scores"><thead><tr><th>Test</th><th class="r">Shown</th><th class="r">Fixed</th></tr></thead><tbody>
+      ${b.scores.map(s => `<tr><td>${esc(s.test)}<span class="why">${esc(s.why)}</span></td><td class="n" style="color:var(--signal)">${s.shown}</td><td class="n" style="color:var(--ok)">${s.fixed}</td></tr>`).join('')}</tbody></table>
+      <p class="note"><a href="#kit">Open the build kit ↓</a></p></div></aside></div>
+    <section class="kit" id="kit"><span class="k">Build kit</span><h2>Plan the version that works</h2><p class="sum">${esc(k.summary)}</p>
+      <div class="ctl">${k.options.map(o => `<label>${esc(o.label)}${o.unit ? ` (${esc(o.unit)})` : ''}<select data-opt="${esc(o.key)}">${o.values.map(v => `<option value="${esc(v)}"${v === o.default ? ' selected' : ''}>${esc(typeof v === "number" ? num.format(v) : v)}</option>`).join('')}</select></label>`).join('')}</div>
+      <div class="tiles" id="tiles"></div>
+      <div class="two">
+        <div class="panel"><h3>Bill of materials</h3><p>For the size above. Prices are rough US ranges; swap in local quotes.</p>
+          <div class="scroll"><table><thead><tr><th>Item</th><th class="r">Qty</th><th>Unit</th><th class="r">Low</th><th class="r">High</th></tr></thead><tbody id="bom"></tbody><tfoot><tr><td colspan="3">Total</td><td class="r" id="tlo"></td><td class="r" id="thi"></td></tr></tfoot></table></div></div>
+        <div class="panel"><h3 id="ganttH">Schedule</h3><p>Days from the start. Hover or tap a bar for the check that ends it.</p><div class="gantt" id="gantt"></div></div>
+      </div>
+      <div class="panel" style="margin-top:14px"><h3>Go / no-go checks</h3><p>Don’t start a step until the one before it passes. Ticks stay in this browser.</p><ol class="gates" id="gates"></ol></div>
+      <p class="note">${esc(k.assumptions)} Not an engineered design: anything that holds water, people or soil should be checked by a licensed professional where you live.</p>
+    </section>
+    <section class="src" id="sources"><h2>Sources</h2><ol>${b.sources.map(s => `<li id="src-${s.n}"><a href="${esc(s.url)}" rel="noopener" target="_blank">${esc(s.title)}</a>, ${esc(s.outlet)}</li>`).join('')}</ol>
+      <p class="note">Written ${esc(new Date(b.written).toLocaleString('en-US', { dateStyle: 'long', timeStyle: 'short', timeZone: 'America/New_York' }))} ET. Load figures are Claude’s own calculations from the sources and the dimensions given.</p></section>
+    <nav class="navb">${older ? `<a class="tbtn" href="#${esc(older.id)}">‹ ${esc(older.title)}</a>` : '<span></span>'}${newer ? `<a class="tbtn" href="#${esc(newer.id)}">${esc(newer.title)} ›</a>` : ''}</nav>`;
+  window.scrollTo(0, 0);
+  const sel = {}; k.options.forEach(o => { sel[o.key] = o.default; });
+  const match = r => k.options.every(o => r[o.key] === sel[o.key]);
+  const draw = () => {
+    const c = k.configs.find(match) || {};
+    $('#tiles').innerHTML = k.metrics.map(m => `<div class="tile"><span>${esc(m.label)}</span><b>${c[m.key] == null ? '—' : esc(num.format(c[m.key]))}</b><em>${esc(m.unit)}${m.note ? ' · ' + esc(m.note) : ''}</em></div>`).join('');
+    const rows = k.materials.filter(match);
+    $('#bom').innerHTML = rows.map(r => `<tr><td>${esc(r.item)}</td><td class="r">${esc(num.format(r.qty))}</td><td>${esc(r.unit)}</td><td class="r">${r.low ? usd(r.low) : 'Free'}</td><td class="r">${r.high ? usd(r.high) : 'Free'}</td></tr>`).join('');
+    $('#tlo').textContent = usd(rows.reduce((s, r) => s + r.low, 0));
+    $('#thi').textContent = usd(rows.reduce((s, r) => s + r.high, 0));
+  };
+  document.querySelectorAll('[data-opt]').forEach(s => s.addEventListener('change', () => { const o = k.options.find(x => x.key === s.dataset.opt); sel[o.key] = o.values.find(v => String(v) === s.value); draw(); }));
+  draw();
+  drawGantt(k.phases);
+  const ticks = LS.get('watch.reel', {}); const mine = ticks[b.id] || [];
+  $('#gates').innerHTML = k.phases.map((p, j) => `<li><b><label><input type="checkbox" data-g="${j}"${mine.includes(j) ? ' checked' : ''}>${esc(p.phase)}</label></b><span>${esc(p.gate)}</span></li>`).join('');
+  document.querySelectorAll('[data-g]').forEach(c => c.addEventListener('change', () => {
+    const t = LS.get('watch.reel', {}); const s = new Set(t[b.id] || []); c.checked ? s.add(+c.dataset.g) : s.delete(+c.dataset.g); t[b.id] = [...s]; LS.set('watch.reel', t);
+  }));
+}
+
+function drawGantt(ph) {
+  window.__ph = ph;
+  const el = $('#gantt'); const W = Math.max(300, el.clientWidth), rowH = 38, y0 = 6, H = y0 + ph.length * rowH + 26;
+  const end = Math.max(...ph.map(p => p.start + p.days)); const x = v => 4 + v / end * (W - 16);
+  const longest = ph.reduce((a, p) => p.days > a.days ? p : a, ph[0]);
+  $('#ganttH').textContent = `Schedule: about ${end} days`;
+  const step = end > 120 ? 30 : end > 50 ? 14 : end > 20 ? 7 : end > 8 ? 2 : 1; const ticks = []; for (let t = 0; t <= end; t += step) ticks.push(t);
+  el.innerHTML = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Build schedule by phase">${ticks.map(t => `<line x1="${x(t)}" x2="${x(t)}" y1="${y0}" y2="${H - 22}" stroke="var(--rule)"/><text x="${x(t)}" y="${H - 6}" font-size="12" fill="var(--ink-3)" text-anchor="${t === 0 ? 'start' : 'middle'}">Day ${t}</text>`).join('')}
+    ${ph.map((p, i) => { const right = x(p.start) > W * .55; return `<g data-i="${i}" transform="translate(0,${y0 + i * rowH})"><text x="${right ? x(p.start + p.days) : x(p.start)}" y="12" font-size="12.5" fill="var(--ink)" text-anchor="${right ? 'end' : 'start'}">${esc(p.phase)}</text>
+      <rect x="${x(p.start)}" y="17" height="13" rx="3" width="${Math.max(4, x(p.start + p.days) - x(p.start))}" fill="${p === longest ? 'var(--brass)' : 'var(--bar)'}"/><rect x="0" y="0" width="${W}" height="${rowH}" fill="transparent"/></g>`; }).join('')}</svg><div class="tip" id="tip"></div>`;
+  const tip = $('#tip');
+  el.querySelectorAll('g[data-i]').forEach(g => {
+    const p = ph[+g.dataset.i];
+    const show = ev => { const r = el.getBoundingClientRect(); tip.style.display = 'block'; tip.innerHTML = `<span>Day ${p.start}–${p.start + p.days} · ${p.days} days</span>${esc(p.phase)}<span>Check: ${esc(p.gate)}</span>`; tip.style.left = Math.min(ev.clientX - r.left + 10, r.width - 265) + 'px'; tip.style.top = (ev.clientY - r.top + 12) + 'px'; };
+    g.addEventListener('pointermove', show); g.addEventListener('pointerdown', show); g.addEventListener('pointerleave', () => { tip.style.display = 'none'; });
+  });
+}
+
+function route() { const id = decodeURIComponent(location.hash.slice(1)); (id && /^\d{4}-/.test(id) ? showBuild(id) : showList()).catch(e => { $('#main').innerHTML = `<p class="empty">Reel Check didn’t load (${esc(e.message)}). Try again in a minute.</p>`; }); }
+addEventListener('hashchange', route);
+document.addEventListener('click', e => { // citations and the kit link scroll in place, so the build's own link stays in the address bar
+  const a = e.target.closest('a[href^="#src-"], a[href="#kit"]'); if (!a) return;
+  const t = document.getElementById(a.getAttribute('href').slice(1)); if (!t) return;
+  e.preventDefault(); t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
+let resizeT; addEventListener('resize', () => { clearTimeout(resizeT); resizeT = setTimeout(() => { if ($('#gantt') && window.__ph) drawGantt(window.__ph); }, 200); });
+function themeLabel() { $('#theme').textContent = document.documentElement.dataset.theme === 'night' ? 'Day' : 'Night'; }
+$('#theme').addEventListener('click', () => { const t = document.documentElement.dataset.theme === 'night' ? 'day' : 'night'; document.documentElement.dataset.theme = t; const w = LS.get('watch.v1', {}) || {}; w.theme = t; LS.set('watch.v1', w); themeLabel(); });
+themeLabel();
+route();
+</script>
+</body>
+</html>
