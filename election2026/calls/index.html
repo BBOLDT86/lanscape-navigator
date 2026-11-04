@@ -359,7 +359,7 @@ function render() {
   $('#strip').innerHTML = key.map(r => stripCard(r, now)).join('');
   $('#strip-n').textContent = key.length ? `${key.length} of ${races.length} · calls, live counts, the headline ten, toss-ups and leans` : '';
   tickClose();
-  const log = (BOARD.log || []).slice().reverse();
+  const log = (BOARD.log || []).slice().sort((a, b) => new Date(a.at) - new Date(b.at)).reverse(); // newest first, by timestamp (the file is append-ordered and two writers interleave)
   $('#log').innerHTML = log.length ? `<ol>${log.map(l => `<li class="${/^[^:]*: (CALL|WITHDRAWN)/.test(l.text) ? 'call' : ''}"><time datetime="${esc(l.at)}">${et(l.at)}</time><span>${esc(l.text.replace(/^\d{1,2}:\d{2} [ap]\.m\. ET: /, ''))}</span></li>`).join('')}</ol>` : '<p class="empty">Nothing yet.</p>';
   $('#srcs').innerHTML = (BOARD.sources || []).length ? 'Pre-election sources: ' + BOARD.sources.map(s => `<a href="${esc(s.u)}" rel="noopener">${esc(s.t)}</a>`).join('') : '';
   const latest = called.slice().sort((a, b) => new Date(b.call.at) - new Date(a.call.at))[0];
