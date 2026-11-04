@@ -1,7 +1,7 @@
 {
  "title": "The Call Desk",
  "subtitle": "Claude vs. the networks · election night 2026",
- "asOf": "2026-11-04T01:53:39Z",
+ "asOf": "2026-11-04T01:56:00Z",
  "boardSetAt": "2026-11-03T23:03:00Z",
  "rule": {
   "headline": "A race is called only at 99.5% confidence or more.",
@@ -33,11 +33,26 @@
     "src": "Poliwave average, Nov. 2",
     "url": "https://www.poliwave.com/us/senate"
    },
-   "status": "watching",
-   "call": null,
+   "status": "called",
+   "call": {
+    "winner": "Jon Ossoff",
+    "party": "D",
+    "at": "2026-11-04T01:54:00Z",
+    "confidence": 0.996,
+    "basis": "37% of the expected vote in, Ossoff 62.9%: Collins would need the remaining 63% by about 16 points, redder than Georgia's remaining vote ran in 2024 (a Trump +2 year) and a 13-point miss from a D +9 polling average. The second batch (25% to 37%) still ran Ossoff +12. AP called it shortly before 8.",
+    "sources": [
+     "https://www.washingtonexaminer.com/news/campaigns/congressional/4780192/georgia-senate-election-results-jon-ossoff-mike-collins/",
+     "https://atlanta.capitalbnews.org/ossoff-cruises-to-victory-over-trump-endorsed-collins/"
+    ]
+   },
    "note": "NBC News and Decision Desk HQ projected Ossoff at about 7:35 p.m. with 25% of the expected vote in (66–34, a 366,000-vote lead, 3.35 million votes to come). The desk holds for now: the counted vote is the metro early vote, and clearing 99.5% needs the county-by-county comparison to 2024 that the desk does not have yet. Next check.",
    "group": "The ten",
-   "noteAt": "2026-11-04T00:43:54Z"
+   "noteAt": "2026-11-04T00:43:54Z",
+   "ap": {
+    "party": "D",
+    "at": "2026-11-04T00:58:00Z",
+    "by": "AP"
+   }
   },
   {
    "id": "GA-G",
@@ -64,8 +79,9 @@
    },
    "status": "watching",
    "call": null,
-   "note": "The closest race on the board: Research Co. had Bottoms +1, InsiderAdvantage a tie. A runoff is live if nobody clears 50%.",
-   "group": "The ten"
+   "note": "No usable statewide count reached the desk by 8:55; the Senate race shows the early vote running far ahead of 2024 for Democrats, which matters for a tied governor's race.",
+   "group": "The ten",
+   "noteAt": "2026-11-04T22:03:16Z"
   },
   {
    "id": "SC-S",
@@ -120,10 +136,11 @@
     "src": "Poliwave average, Nov. 1; RealClearPolling has Husted +1",
     "url": "https://www.poliwave.com/us/senate"
    },
-   "status": "open",
+   "status": "watching",
    "call": null,
-   "note": "The averages disagree most here. Ohio reports early and absentee first; watch the margin in Franklin, Cuyahoga and Hamilton against 2024, then the Election Day vote in the rest of the state.",
-   "group": "The ten"
+   "note": "8:03 p.m.: Brown 61%, Husted 35% with 26% of the expected vote in (ABC). That is the early and absentee vote; Husted needs the remaining 74% by about 9 points, and Ohio's Election Day vote ran about R +15 in 2024, so this is not callable yet. Watch the Election Day drops from the big three counties.",
+   "group": "The ten",
+   "noteAt": "2026-11-04T22:03:16Z"
   },
   {
    "id": "NC-S",
@@ -148,10 +165,24 @@
     "src": "Fifty+One average; YouGov +11, East Carolina +9",
     "url": "https://fiftyplusone.news/averages"
    },
-   "status": "open",
-   "call": null,
+   "status": "called",
+   "call": {
+    "winner": "Roy Cooper",
+    "party": "D",
+    "at": "2026-11-04T01:55:00Z",
+    "confidence": 0.997,
+    "basis": "Cooper 66.8% to 31.6% in the first returns, which in North Carolina are the early vote, the majority of all ballots. On any plausible split of the Election Day vote the gap cannot close; the polls had Cooper +11. AP called it at 8:23.",
+    "sources": [
+     "https://www.wbtv.com/2026/11/04/roy-cooper-wins-2026-us-senate-race-north-carolina-ap-projects/"
+    ]
+   },
    "note": "Closest to the 13-point line. North Carolina's early vote reports within minutes of 7:30; if Cooper's early-vote margin matches the polls this can be called early.",
-   "group": "The ten"
+   "group": "The ten",
+   "ap": {
+    "party": "D",
+    "at": "2026-11-04T01:23:00Z",
+    "by": "AP"
+   }
   },
   {
    "id": "ME-S",
@@ -177,7 +208,7 @@
     "src": "Poliwave average, Nov. 2; Silver Bulletin D +3.9",
     "url": "https://www.poliwave.com/us/senate"
    },
-   "status": "open",
+   "status": "watching",
    "call": null,
    "note": "Collins has beaten her polls before. Maine counts by town and slowly; ranked-choice tabulation only if nobody reaches 50%.",
    "group": "The ten"
@@ -205,7 +236,7 @@
     "src": "Poliwave average, Nov. 2; Silver Bulletin D +3.3",
     "url": "https://www.poliwave.com/us/senate"
    },
-   "status": "open",
+   "status": "watching",
    "call": null,
    "note": "Texas reports its early vote in one large drop around 8 p.m. ET; Election Day votes follow county by county. Most of the state closes at 8, El Paso at 9.",
    "group": "The ten"
@@ -355,7 +386,7 @@
     "src": "Election Desk mean of 11 polls, Oct. 12–Nov. 2 (NYT/Siena 49–43, Atlas 52–44, Emerson 48–48)",
     "url": "https://bboldt86.github.io/lanscape-navigator/election2026/"
    },
-   "status": "open",
+   "status": "watching",
    "call": null,
    "note": "Open seat; DeWine is term-limited. Same early-vote-first count as the Senate race: watch the three big counties, then the Election Day vote.",
    "order": 1
@@ -569,7 +600,7 @@
     "ratings": "Cook Likely D · Sabato Likely D · Inside Tilt D · DDHQ Likely D",
     "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Ohio"
    },
-   "status": "open",
+   "status": "watching",
    "call": null,
    "callableAtClose": false,
    "note": "Cincinnati. Trump +3 under the new map, but Landsman won by 5 in 2024 on the old lines; Hamilton County reports fast."
@@ -817,7 +848,7 @@
     "ratings": "Cook Toss Up · Sabato Toss-up · Inside Toss-up · DDHQ Toss-up",
     "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Ohio"
    },
-   "status": "open",
+   "status": "watching",
    "call": null,
    "callableAtClose": false,
    "note": "Cleveland's western suburbs, Trump +11, every rater a toss-up. Lorain and Medina counties decide it; needs the count."
@@ -850,7 +881,7 @@
     "ratings": "Cook Solid R · Sabato Safe R · Inside Solid R · DDHQ Likely R",
     "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Ohio"
    },
-   "status": "open",
+   "status": "watching",
    "call": null,
    "callableAtClose": false,
    "note": "Trump +15: under the 20-point line, so it waits for the count even though every rater has it safe."
@@ -883,7 +914,7 @@
     "ratings": "Cook Toss Up · Sabato Toss-up · Inside Toss-up · DDHQ Lean D",
     "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Ohio"
    },
-   "status": "open",
+   "status": "watching",
    "call": null,
    "callableAtClose": false,
    "note": "Toledo. Trump +11; Kaptur has held a Trump district twice. Lucas County reports early and runs Kaptur; the rural counties come late."
@@ -916,7 +947,7 @@
     "ratings": "Cook Lean R · Sabato Likely R · Inside Solid R · DDHQ Likely R",
     "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Ohio"
    },
-   "status": "open",
+   "status": "watching",
    "call": null,
    "callableAtClose": false,
    "note": "Dayton, Trump +7. Montgomery County is the whole district; needs the count."
@@ -1035,10 +1066,11 @@
     "ratings": "Cook Likely D · Sabato Likely D · Inside Solid D · DDHQ Likely D",
     "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Ohio"
    },
-   "status": "open",
+   "status": "watching",
    "call": null,
    "callableAtClose": false,
-   "note": "Akron, Harris +3 under the new map. Summit County reports fast; needs the count."
+   "note": "ABC News projected Sykes at about 7:54 p.m. (no AP call recorded yet). The desk waits for a count; Harris +3 district, Likely D.",
+   "noteAt": "2026-11-04T22:03:16Z"
   },
   {
    "id": "OH-14",
@@ -1111,7 +1143,7 @@
     "ratings": "Cook Lean R · Sabato Likely R · Inside Likely R · DDHQ Likely R",
     "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Ohio"
    },
-   "status": "open",
+   "status": "watching",
    "call": null,
    "callableAtClose": false,
    "note": "Columbus suburbs and west, Trump +10. Needs the count."
@@ -5395,6 +5427,18 @@
   {
    "at": "2026-11-04T01:53:39Z",
    "text": "8:53 p.m. ET: Added the Columbus ballot from the Franklin County Board of Elections' certified list: county commissioner and auditor, the three Ohio Senate and twelve Ohio House seats on Franklin County ballots, and the two 10th District Court of Appeals seats (19 races; 157 on the board). Five are unopposed and callable at the close (auditor, both appeals seats, House 2 and 4); no rater covers the rest, so they are called from the count. Left off: the seven Common Pleas seats, which run without party labels (six uncontested), and the 45 local levies. AP does not call these; they are scored against the county's unofficial count."
+  },
+  {
+   "at": "2026-11-04T01:54:00Z",
+   "text": "8:54 p.m. ET: CALL Georgia Senate for Jon Ossoff (D), 99.6%. 37% of the expected vote in, Ossoff 62.9%: Collins would need the remaining 63% by about 16 points, redder than Georgia's remaining vote ran in 2024 (a Trump +2 year) and a 13-point miss from a D +9 polling average. The second batch (25% to 37%) still ran Ossoff +12. AP called it shortly before 8."
+  },
+  {
+   "at": "2026-11-04T01:55:00Z",
+   "text": "8:55 p.m. ET: CALL North Carolina Senate for Roy Cooper (D), 99.7%. Cooper 66.8% to 31.6% in the first returns, which in North Carolina are the early vote, the majority of all ballots. On any plausible split of the Election Day vote the gap cannot close; the polls had Cooper +11. AP called it at 8:23."
+  },
+  {
+   "at": "2026-11-04T01:56:00Z",
+   "text": "8:56 p.m. ET: Check #2. CALLS: Georgia Senate for Ossoff (99.6%; 37% in, 62.9%; AP first, ~7:58) and North Carolina Senate for Cooper (99.7%; early vote 66.8–31.6; AP first, 8:23). Ohio Senate: Brown 61–35 with 26% in, early vote only, not callable. ABC projected Sykes in OH-13. No fresh numbers reached the desk for Georgia governor, South Carolina, Kentucky's 6th, Maine or Texas; the results pages served stale snapshots."
   }
  ],
  "sources": [
