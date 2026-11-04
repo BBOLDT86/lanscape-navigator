@@ -1,5 +1,5 @@
 {
- "asOf": "2026-11-04T00:50:12Z",
+ "asOf": "2026-11-04T01:57:02Z",
  "races": {
   "VA-S": {
    "c": {},
@@ -20,10 +20,13 @@
    },
    "tot": 1136949,
    "exp": 3937535,
-   "pctIn": 25.3,
+   "pctIn": 28.9,
    "asOf": "2026-11-04T00:37:00Z",
-   "src": "NBC News count (via GV Wire)",
-   "note": "NBC News and Decision Desk HQ projected Ossoff the winner at about 25% of the expected vote; an AP call could not be verified by this run, so the desk shows no call."
+   "src": "NBC News count (via GV Wire); AP call via Fox 5 Atlanta",
+   "note": "AP called the race for Ossoff at 7:55 p.m. ET (per Fox 5 Atlanta; AP's own 'Ossoff wins reelection' story followed in the feed at 8:07 p.m.). Count shown is NBC News's at 7:37 p.m. (25% of expected); no newer statewide count was readable from the 8:40 p.m. run.",
+   "call": "D",
+   "callBy": "AP",
+   "callAt": "2026-11-04T00:55:00Z"
   },
   "SC-S": {
    "c": {
@@ -52,6 +55,18 @@
    "asOf": "2026-11-04T00:23:00Z",
    "src": "WMBF News (SC Election Commission returns)",
    "note": "Early returns reflecting a small share of the vote; AP had not called the race as of 7:23 p.m. ET."
+  },
+  "IL-S": {
+   "c": {},
+   "tot": 0,
+   "exp": 4194276,
+   "pctIn": null,
+   "asOf": "2026-11-04T01:01:00Z",
+   "src": "AP (via Google News RSS headline)",
+   "note": "AP's story 'Democrat Juliana Stratton wins election to U.S. Senate from Illinois' appeared in the feed at 8:01 p.m. ET; no statewide count was readable from this run.",
+   "call": "D",
+   "callBy": "AP",
+   "callAt": "2026-11-04T01:01:00Z"
   }
  },
  "counties": {},
@@ -61,6 +76,16 @@
    "t": "2026-11-04T00:03:00Z",
    "text": "AP calls the Virginia Senate race for Mark Warner",
    "id": "VA-S"
+  },
+  {
+   "t": "2026-11-04T00:55:00Z",
+   "text": "AP calls the Georgia Senate race for Jon Ossoff",
+   "id": "GA-S"
+  },
+  {
+   "t": "2026-11-04T01:01:00Z",
+   "text": "AP calls the Illinois Senate race for Juliana Stratton",
+   "id": "IL-S"
   }
  ]
 }
