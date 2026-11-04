@@ -284,7 +284,7 @@ async function getJSON(u) { const r = await fetch(u + (u.includes('?') ? '&' : '
 
 function bar(d, r, o) { const tot = (d || 0) + (r || 0) + (o || 0) || 1; return `<div class="bar" aria-hidden="true"><i style="width:${(100 * (d || 0) / tot).toFixed(1)}%;background:var(--dem)"></i><i style="width:${(100 * (o || 0) / tot).toFixed(1)}%;background:var(--ink-3)"></i><i style="width:${(100 * (r || 0) / tot).toFixed(1)}%;background:var(--rep);margin-left:auto"></i><span class="mid"></span></div>`; }
 
-const NO_D = { name: 'No Democrat on the ballot', party: 'D', none: true }, NO_R = { name: 'No Republican on the ballot', party: 'R', none: true };
+const NO_D = { name: 'No Democrat', party: 'D', none: true }, NO_R = { name: 'No Republican', party: 'R', none: true };
 function raceCard(r, now) {
   const d = r.candidates.find(c => c.party === 'D') || NO_D, p = r.candidates.find(c => c.party === 'R') || NO_R;
   const closed = now >= closedAt(r.closesET);
