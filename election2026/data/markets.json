@@ -1,5 +1,5 @@
 {
- "asOf": "2026-11-04T06:15:38Z",
+ "asOf": "2026-11-04T11:06:02Z",
  "senate": {
   "D": 1.0,
   "R": 0.001,
@@ -10,11 +10,11 @@
  },
  "house": {
   "D": 1.0,
-  "R": 0.001,
+  "R": 0.0,
   "venue": "Polymarket",
   "url": "https://polymarket.com/event/which-party-will-win-the-house-in-2026",
-  "asOf": "2026-11-04T06:15:38Z",
-  "volume": 61922305
+  "asOf": "2026-11-04T11:06:02Z",
+  "volume": 63218591
  },
  "races": {
   "NC-S": {
@@ -89,32 +89,26 @@
    "volume": 21790215
   },
   "AK-S": {
-   "D": 0.965,
-   "R": 0.037,
+   "D": 0.845,
+   "R": 0.158,
    "venue": "Polymarket",
    "url": "https://polymarket.com/event/alaska-senate-election-winner",
-   "asOf": "2026-11-04T06:15:38Z",
-   "volume": 3558731,
+   "asOf": "2026-11-04T11:06:02Z",
+   "volume": 4654778,
    "kalshi": {
-    "D": 0.968,
-    "R": 0.032,
+    "D": 0.865,
+    "R": 0.135,
     "url": "https://kalshi.com/markets/senateak"
    }
   },
   "NE-S": {
    "D": 0.001,
-   "R": 0.982,
+   "R": 1.0,
    "venue": "Polymarket",
    "url": "https://polymarket.com/event/nebraska-senate-election-winner",
-   "asOf": "2026-11-04T06:15:38Z",
-   "volume": 4178866,
-   "I": 0.015,
-   "kalshi": {
-    "D": 0.002,
-    "R": 0.984,
-    "I": 0.014,
-    "url": "https://kalshi.com/markets/senatene"
-   }
+   "asOf": "2026-11-04T11:06:02Z",
+   "volume": 4284243,
+   "I": 0.001
   },
   "MN-S": {
    "D": 1.0,
@@ -150,9 +144,18 @@
   }
  },
  "errors": [
+  "polymarket SENATE: no D/R outcome found in which-party-will-win-the-senate-in-2026",
   "polymarket NC-S: no D/R outcome found in north-carolina-senate-election-winner",
+  "polymarket ME-S: no D/R outcome found in maine-senate-election-winner",
   "polymarket GA-S: no D/R outcome found in georgia-senate-election-winner",
+  "polymarket MI-S: no D/R outcome found in michigan-senate-election-winner",
   "polymarket NH-S: no D/R outcome found in new-hampshire-senate-election-winner",
+  "polymarket IA-S: no D/R outcome found in iowa-senate-election-winner",
+  "polymarket TX-S: no D/R outcome found in texas-senate-election-winner",
+  "polymarket MN-S: no D/R outcome found in minnesota-senate-election-winner",
+  "polymarket KS-S: no D/R outcome found in kansas-senate-election-winner",
+  "polymarket OH-S: no D/R outcome found in ohio-senate-election-winner",
+  "polymarket OH-G: no D/R outcome found in ohio-governor-winner-2026",
   "kalshi SENATE: no party markets in CONTROLS-2026",
   "kalshi HOUSE: no party markets in CONTROLH-2026",
   "kalshi OH-G: no party markets in GOVPARTYOH-26",
@@ -160,9 +163,11 @@
   "kalshi NC-S: no party markets in SENATENC-26",
   "kalshi ME-S: no party markets in SENATEME-26",
   "kalshi GA-S: no party markets in SENATEGA-26",
+  "kalshi MI-S: no party markets in SENATEMI-26",
   "kalshi NH-S: no party markets in SENATENH-26",
   "kalshi IA-S: no party markets in SENATEIA-26",
   "kalshi TX-S: no party markets in SENATETX-26",
+  "kalshi NE-S: no party markets in SENATENE-26",
   "kalshi MN-S: no party markets in SENATEMN-26",
   "kalshi KS-S: no party markets in SENATEKS-26"
  ]
