@@ -392,6 +392,17 @@ rent, the change over a year) and links straight to the matching search on Zillo
   free tier is 50 requests a month; `home.py` refreshes one search per run, each every few days, to stay under it).
   Listing sites' own search pages are not collected: their terms forbid it, and this site is public.
 
+## Reel Check (`news/home/reel-check/`, `reel.py`)
+
+Viral DIY build videos (often AI-made) tested against the physics, linked from the Home desk. Each build is one JSON
+file: the article (Markdown body with numbered citations, at least five sources from four outlets), a verdict scored
+as shown and done right, and a build kit the page draws: one or two options to size it, metrics per size, a priced
+bill of materials, and phases with a go/no-go check each (readers' ticks stay in `localStorage` `watch.reel`).
+`python3 news/home/reel-check/reel.py format` prints the format and `check <file>` enforces it. Published builds are in
+`builds/` (with `builds/index.json`); scheduled ones wait in `queue/` named for their publish date, and
+`.github/workflows/reel-check.yml` runs `reel.py release` each morning to move the day's build live. `tools/` holds
+the brief and each build's generator and text.
+
 ## Reports (`news/articles/`, `articles.py`)
 
 One in-depth report a day, written by Claude through a scheduled task. Each is a JSON file named for its id

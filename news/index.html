@@ -4038,7 +4038,7 @@ function renderHomeDesk() {
       <input id="hq" type="search" autocomplete="off" placeholder="${esc(LANG === 'pt' ? 'casas com 4 quartos em 43215 até 750 mil' : LANG === 'de' ? 'Häuser mit 4 Schlafzimmern in 43215 bis 750.000' : '4BR homes in 43215 under 750k')}" value="${esc(homeQ)}" class="nolc">
       <div class="tags ex">${(LANG === 'pt' ? ['casas com 4 quartos em 43215 até 750 mil', 'apartamentos de 3 quartos em Columbus, OH entre 250 mil e 400 mil', 'sobrados em 02116 até 1,2 milhão', 'casas com piscina em 33139'] : LANG === 'de' ? ['Häuser mit 4 Schlafzimmern in 43215 bis 750.000', 'Wohnungen mit 3 Zimmern in Columbus, OH zwischen 250k und 400k', 'Reihenhäuser in 02116 bis 1,2 Mio', 'Häuser mit Pool in 33139'] : ['4BR homes in 43215 under 750k', '3 bed condos in Columbus, OH between 250k and 400k', 'townhouses in 02116 under 1.2m', 'houses with a pool in 33139 over 2,000 sq ft']).map(x => `<button type="button" class="chip" data-hq="${esc(x)}">${esc(x)}</button>`).join('')}</div>
       <div id="hres">${homeQ ? searchCard(homeQ, f, { isSaved: isSavedF(f) }) : ''}</div></div>
-    <div class="blk">${homeSaverFeature()}</div>
+    <div class="blk">${reelFeature()}${homeSaverFeature()}</div>
     <div class="blk">${deskShop('home')}</div>
     ${saved.length || pend.length ? `<section class="blk"><h2 class="sec-h">Saved searches</h2>${saved.map(s => searchCard(s.q, s.f, { saved: true, id: s.id, savedAt: s.saved })).join('')}${pend.map(p => searchCard(p.q, p.f, { saved: true, pending: true })).join('')}</section>` : ''}
     ${us.value ? `<section class="blk"><h2 class="sec-h">The national market</h2><div class="econ">${natTile(us.value, 'Typical U.S. home', '', 'The middle of the market for U.S. homes (Zillow Home Value Index).')}${natTile(us.rent, 'Typical U.S. rent', '/mo', 'The typical asking rent (Zillow Observed Rent Index).')}${MK ? ['MORT', 'MORT15'].map(id => (MK.econ || []).find(e => e.id === id)).filter(Boolean).map(econTile).join('') : ''}</div></section>` : ''}
@@ -4609,6 +4609,12 @@ function dateNightFeature() { // Lifestyle, after Together / 90: an evening for 
     <span class="t90t"><span class="k">${T('Date Night · for two people')}</span><b>${pl ? esc(T('Tonight near {place}: three ways to spend it', { place: pl.name })) : T('An evening out, planned from what’s open')}</b>
     <span class="d">${T('Dinner, drinks, a show or a walk at sunset, near you or in any of Weekender’s eight cities: three plans built from places that are open when you get there, with the weather, the walk between stops and a link to send to your date.')}</span>
     <span class="go">${T('Plan the evening')} ›</span></span></a>`;
+}
+function reelFeature() { // Home: Reel Check, viral DIY build videos tested against the physics, one a morning (home/reel-check/)
+  return `<a class="t90f" href="home/reel-check/"><span class="t90v" aria-hidden="true"><svg viewBox="0 0 132 88"><rect x="8" y="12" width="52" height="64" rx="8" fill="#C2412D" fill-opacity=".12" stroke="#C2412D" stroke-width="2"/><path d="M27 34l14 10-14 10z" fill="#C2412D"/><rect x="72" y="12" width="52" height="64" rx="8" fill="#2F7A55" fill-opacity=".12" stroke="#2F7A55" stroke-width="2"/><path d="M86 46l8 8 16-18" fill="none" stroke="#2F7A55" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+    <span class="t90t"><span class="k">${T('Reel Check · a new build every morning')}</span><b>${T('The viral backyard builds, tested against the physics')}</b>
+    <span class="d">${T('Bottle pools, underwater rooms, hobbit houses: what the clip shows, why it would fail, and how to build a version that works, with a sizer, a priced bill of materials and a schedule.')}</span>
+    <span class="go">${T('Open Reel Check')} ›</span></span></a>`;
 }
 function homeSaverFeature() { // Home: the reader's own list of listings (home/saver/)
   let n = 0, fav = 0; try { const d = JSON.parse(localStorage.getItem('watch.homes') || 'null'); const it = d && Array.isArray(d.items) ? d.items.filter(e => !e.archived) : []; n = it.length; fav = it.filter(e => e.favorite).length; } catch (e) { /* storage off */ }

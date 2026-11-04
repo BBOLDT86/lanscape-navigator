@@ -1,0 +1,38 @@
+name: Reel Check release
+# Each morning, moves the queued Reel Check build whose publish date has come (Eastern time) from
+# news/home/reel-check/queue/ to builds/ and rebuilds builds/index.json, so one build goes live a day.
+on:
+  schedule:
+    - cron: '41 10 * * *'   # 5:41 a.m. EST / 6:41 a.m. EDT
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: reel-check
+  cancel-in-progress: false
+jobs:
+  release:
+    if: github.repository == 'BBOLDT86/lanscape-navigator'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Release today's build
+        run: python3 news/home/reel-check/reel.py release
+      - name: Commit and push
+        run: |
+          git config user.name "Reel Check updater"
+          git config user.email "the-watch-news@users.noreply.github.com"
+          git add -A news/home/reel-check/builds news/home/reel-check/queue
+          if git diff --cached --quiet; then echo "nothing due"; exit 0; fi
+          git commit -qm "Reel Check: release $(TZ=America/New_York date +%Y-%m-%d)"
+          for i in 1 2 3; do
+            git pull --rebase -X theirs origin main && git push -q origin HEAD:main && exit 0
+            sleep 10
+          done
+          echo "push failed" >&2; exit 1
