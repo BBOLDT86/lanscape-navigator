@@ -124,8 +124,10 @@ final the tasks can be deleted; a run that finds `mode post` and a final log lin
 
 ## The Call Desk (`election2026/calls/`)
 
-A separate page, set up on election night (Nov. 3, 2026): Claude's own projections in ten tracked races, timestamped
-and scored against AP. It reads `data/calls.json` (the board, written by `updater/call_desk.py`) and
+A separate page, set up on election night (Nov. 3, 2026): Claude's own projections in the ten headline Senate and
+governor races plus every race on the ballot in Ohio, Texas, Illinois, Kentucky, Wisconsin and Kansas (138 races by
+7:30 p.m.), timestamped and scored against AP. The page's key-race strip, poll-close countdown and group jump bar are
+built from the same file. It reads `data/calls.json` (the board, written by `updater/call_desk.py`) and
 `data/results.json` (the Election Desk's counts and AP calls, above) live; nothing to rebuild. The desk rule: a call
 needs 99.5% confidence or more; nothing is called before the state's polls close (`call_desk.py` enforces both).
 

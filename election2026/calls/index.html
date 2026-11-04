@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>The Call Desk · Election night 2026</title>
-<meta name="description" content="Claude vs. the networks: ten Senate and governor races tracked through election night 2026, each called only at 99.5% confidence, every call timestamped and scored against the Associated Press.">
+<meta name="description" content="Claude vs. the networks: the ten headline Senate and governor races plus every race on the ballot in Ohio, Texas, Illinois, Kentucky, Wisconsin and Kansas, tracked through election night 2026, each called only at 99.5% confidence, every call timestamped and scored against the Associated Press.">
 <meta name="theme-color" content="#F5F7F6" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0E1A2B" media="(prefers-color-scheme: dark)">
 <meta property="og:title" content="The Call Desk · Election night 2026">
-<meta property="og:description" content="Claude vs. the networks: ten races, calls only at 99.5% confidence, every call timestamped and scored against AP.">
+<meta property="og:description" content="Claude vs. the networks: the headline races and every race in six states, calls only at 99.5% confidence, every call timestamped and scored against AP.">
 <meta property="og:image" content="https://bboldt86.github.io/lanscape-navigator/election2026/calls/share.png">
 <link rel="icon" href="../../news/icon-180.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -61,7 +61,7 @@ a:hover{text-decoration-color:var(--brass)}
 .score .k{font:600 11.5px/1.2 var(--sans);letter-spacing:.05em;text-transform:uppercase;color:var(--ink-2)}
 .score .v{font:400 40px/1 var(--serif);margin-top:6px;letter-spacing:-.01em}
 .score .v small{font:500 14px/1 var(--sans);color:var(--ink-2);margin-left:4px}
-.score .m{font:500 12.5px/1.35 var(--sans);color:var(--ink-2);margin-top:6px}
+.score .m{font:500 12.5px/1.35 var(--sans);color:var(--ink-2);margin-top:6px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 
 .rule{margin:12px 0 0;padding:14px 18px;border-radius:14px;background:color-mix(in srgb,var(--brass) 9%,var(--raise));border:1px solid color-mix(in srgb,var(--brass) 45%,transparent)}
 .rule h2{font:400 24px/1.1 var(--serif);margin:0 0 6px}
@@ -74,7 +74,47 @@ a:hover{text-decoration-color:var(--brass)}
 .alert .x{font:600 15px/1.35 var(--sans)}
 .alert .t{font:500 13px/1 var(--sans);color:var(--ink-2);margin-left:auto;white-space:nowrap}
 
-h2.sec{font:400 30px/1.05 var(--serif);margin:26px 0 10px;letter-spacing:-.006em}
+.pill.next{font-weight:500;color:var(--ink-2)}
+.pill.next b{font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums}
+.pill.next .dot{background:var(--ink-3)}
+
+.strip-wrap{margin:16px 0 0}
+.strip-h{display:flex;align-items:baseline;gap:10px;margin:0 0 8px;flex-wrap:wrap}
+.strip-h h2{font:400 24px/1.1 var(--serif);margin:0;letter-spacing:-.004em}
+.strip-h small{font:500 13px/1.3 var(--sans);color:var(--ink-2)}
+.strip-h .arrows{margin-left:auto;display:flex;gap:6px}
+.strip-h button{width:32px;height:32px;border-radius:50%;border:1px solid var(--rule-2);background:var(--raise);color:var(--ink);font:600 15px/1 var(--sans);cursor:pointer;padding:0}
+.strip-h button:hover{border-color:var(--brass);color:var(--brass-ink)}
+.strip{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x proximity;scroll-behavior:smooth;scrollbar-width:none;padding:2px 2px 6px;margin:0 -2px}
+.strip::-webkit-scrollbar{display:none}
+.kr{flex:0 0 268px;scroll-snap-align:start;background:var(--raise);border:1px solid var(--rule);border-radius:12px;padding:10px 12px 11px;text-decoration:none;color:inherit;display:flex;flex-direction:column;gap:7px;min-width:0;--c:var(--ink-2)}
+.kr:hover{border-color:var(--brass)}
+.kr.called{border-color:color-mix(in srgb,var(--c) 55%,transparent);box-shadow:inset 3px 0 0 var(--c)}
+.kr .h{display:flex;flex-direction:column;gap:2px;min-width:0}
+.kr .h .n{font:600 14.5px/1.25 var(--sans);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+.kr .h .n b{color:var(--ink-3);font-weight:600;margin-right:6px}
+.kr .h .s{display:flex;justify-content:space-between;gap:8px;font:500 11.5px/1.3 var(--sans);color:var(--ink-2)}
+.kr .h .s em{font-style:normal;font-weight:700;letter-spacing:.03em;text-transform:uppercase;font-size:10.5px;color:var(--ink-3);white-space:nowrap}
+.kr .h .s em.live{color:var(--signal)}
+.kr .h .s em.won{color:var(--c)}
+.kr .c{display:flex;justify-content:space-between;gap:8px;font:500 13px/1.3 var(--sans)}
+.kr .c span{display:flex;align-items:center;gap:6px;min-width:0}
+.kr .c i{width:8px;height:8px;border-radius:50%;flex:none}
+.kr .c .nm{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.kr .c b{font-weight:700;flex:none}
+.kr .c.w .nm,.kr .c.w b{font-weight:700;color:var(--ink)}
+.kr .c.l{color:var(--ink-2)}
+.kr .bar{height:6px}
+.kr .f{display:flex;justify-content:space-between;gap:8px;font:500 11px/1.25 var(--sans);color:var(--ink-3)}
+.kr .f span:last-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+.jump{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding:10px 0 8px;margin:14px 0 -6px;position:sticky;top:0;z-index:5;background:linear-gradient(var(--paper) 86%,transparent)}
+.jump::-webkit-scrollbar{display:none}
+.jump a{flex:none;font:600 12.5px/1 var(--sans);padding:7px 11px;border-radius:999px;border:1px solid var(--rule);color:var(--ink-2);text-decoration:none;background:var(--raise);white-space:nowrap}
+.jump a b{color:var(--ink);font-weight:700;margin-right:5px}
+.jump a:hover{border-color:var(--brass);color:var(--ink)}
+.jump a .on{color:var(--ok)}
+h2.sec{font:400 30px/1.05 var(--serif);margin:26px 0 10px;letter-spacing:-.006em;scroll-margin-top:52px}
 h2.sec small{font:500 13.5px/1.3 var(--sans);color:var(--ink-2);margin-left:10px;letter-spacing:0}
 .races{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:12px}
 .card{background:var(--raise);border:1px solid var(--rule);border-radius:14px;padding:14px 16px 14px;min-width:0;display:flex;flex-direction:column;gap:10px;position:relative}
@@ -137,6 +177,9 @@ h2.sec small{font:500 13.5px/1.3 var(--sans);color:var(--ink-2);margin-left:10px
   .brand h1{font-size:40px}
   .races{grid-template-columns:1fr}
   .log li{grid-template-columns:80px minmax(0,1fr)}
+  .strip-h .arrows{display:none}
+  .strip-h small{display:none}
+  .kr{flex-basis:252px}
 }
 </style>
 </head>
@@ -149,6 +192,7 @@ h2.sec small{font:500 13.5px/1.3 var(--sans);color:var(--ink-2);margin-left:10px
     </div>
     <div class="status">
       <span class="pill" id="pill"><span class="dot"></span><span id="mode">Election night</span></span>
+      <span class="pill next" id="next" hidden><span class="dot"></span><span id="next-x"></span></span>
       <span id="updated">Updated —</span>
     </div>
   </header>
@@ -159,10 +203,16 @@ h2.sec small{font:500 13.5px/1.3 var(--sans);color:var(--ink-2);margin-left:10px
     <a href="../../the-hinge/">The Hinge forecast →</a>
   </nav>
 
+  <section class="strip-wrap" id="strip-wrap" aria-label="Key races" hidden>
+    <div class="strip-h"><h2>Key races</h2><small id="strip-n"></small><div class="arrows"><button type="button" id="strip-prev" aria-label="Scroll key races left">‹</button><button type="button" id="strip-next" aria-label="Scroll key races right">›</button></div></div>
+    <div class="strip" id="strip"></div>
+  </section>
+
   <section class="score" id="score" aria-label="Scoreboard"></section>
   <div class="alert" id="alert" role="status"><span class="k">CALL</span><span class="x" id="alert-x"></span><span class="t" id="alert-t"></span></div>
   <section class="rule" id="rule"></section>
 
+  <nav class="jump" id="jump" aria-label="Jump to a group of races"></nav>
   <div id="board" aria-live="polite"></div>
 
   <h2 class="sec">The desk log</h2>
@@ -182,6 +232,50 @@ function closeLabel(c) { // "19:00" or "20:00/21:00" -> "7 p.m. ET" / "8 and 9 p
   const parts = c.split('/'); return parts.length > 1 ? f(parts[0]).replace(/ [ap]\.m\./, '') + ' and ' + f(parts[1]) + ' ET' : f(parts[0]) + ' ET';
 }
 function closedAt(c) { const last = c.split('/').pop(); return new Date(`2026-11-03T${last}:00-05:00`); }
+const slug = s => String(s).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+function apOf(r) { const x = RES && RES.races && RES.races[r.id]; return x && x.call ? { call: x.call, callAt: x.callAt, by: x.callBy || 'AP' } : (r.ap && r.ap.party ? { call: r.ap.party, callAt: r.ap.at, by: r.ap.by || 'AP' } : null); }
+// the next poll-closing time across the board, as a live countdown in the masthead
+function tickClose() {
+  if (!BOARD) return;
+  const now = Date.now(), el = $('#next');
+  const times = [...new Set(BOARD.races.flatMap(r => r.closesET.split('/')))].map(t => new Date(`2026-11-03T${t}:00-05:00`)).sort((a, b) => a - b);
+  const next = times.find(t => t > now);
+  el.hidden = false;
+  if (!next) { el.innerHTML = '<span class="dot"></span><span id="next-x">All polls closed</span>'; return; }
+  const s = Math.max(0, Math.round((next - now) / 1000)), h = Math.floor(s / 3600), m = Math.floor(s % 3600 / 60), ss = s % 60;
+  const left = h ? `${h}:${String(m).padStart(2, '0')}:${String(ss).padStart(2, '0')}` : `${m}:${String(ss).padStart(2, '0')}`;
+  const n = BOARD.races.filter(r => r.closesET.split('/').some(t => +new Date(`2026-11-03T${t}:00-05:00`) === +next)).length;
+  el.innerHTML = `<span class="dot"></span><span id="next-x">Next close ${et(next)} · <b>${left}</b> · ${n} race${n === 1 ? '' : 's'}</span>`;
+}
+// the key-race strip: called races first (newest call first), then races with votes in, then the headline ten, then toss-ups and leans
+function keyRaces(races, now) {
+  const tier = r => {
+    const ap = apOf(r), res = RES && RES.races && RES.races[r.id];
+    if (r.call || ap) return [0, -new Date(r.call ? r.call.at : ap.callAt)];
+    if (res && res.tot) return [1, closedAt(r.closesET) - now];
+    if ((r.group || '') === 'The ten') return [2, +closedAt(r.closesET)];
+    const rt = (r.lean && r.lean.ratings) || '';
+    if (/Toss|Tilt/i.test(rt)) return [3, +closedAt(r.closesET)];
+    if (/Lean/i.test(rt) || (r.pollAvg && Math.abs((r.pollAvg.d || 0) - (r.pollAvg.r || 0)) <= 6)) return [4, +closedAt(r.closesET)];
+    return [9, 0];
+  };
+  return races.map(r => [tier(r), r]).filter(x => x[0][0] < 9).sort((a, b) => a[0][0] - b[0][0] || a[0][1] - b[0][1] || a[1].id.localeCompare(b[1].id, undefined, { numeric: true })).map(x => x[1]).slice(0, 40);
+}
+function stripCard(r, now) {
+  const d = r.candidates.find(c => c.party === 'D') || NO_D, p = r.candidates.find(c => c.party === 'R') || NO_R;
+  const res = RES && RES.races && RES.races[r.id], ap = apOf(r), closed = now >= closedAt(r.closesET);
+  const winner = r.call ? r.call.party : ap ? ap.call : null, c = winner ? COL[winner] || COL.I : 'var(--ink-2)';
+  let pd, pr, lbl, foot;
+  if (res && res.c && Object.keys(res.c).length) { const vd = res.c[d.name] || 0, vr = res.c[p.name] || 0, tot = res.tot || (vd + vr); pd = tot ? 100 * vd / tot : 0; pr = tot ? 100 * vr / tot : 0; lbl = res.pctIn != null ? `Est. ${esc(res.pctIn)}% in` : `${(tot || 0).toLocaleString()} votes`; foot = et(res.asOf) + (res.src ? ' · ' + esc(res.src) : ''); }
+  else if (r.pollAvg) { pd = r.pollAvg.d; pr = r.pollAvg.r; lbl = 'Final poll avg'; foot = esc(r.pollAvg.margin); }
+  else if (r.lean) { pd = r.lean.d; pr = r.lean.r; lbl = '2024 lean'; foot = esc(r.lean.margin); }
+  else { pd = pr = 0; lbl = 'No count yet'; foot = ''; }
+  const when = closed ? 'Polls closed ' + closeLabel(r.closesET) : 'Polls close ' + closeLabel(r.closesET);
+  const st = r.call ? `<span class="s"><span>Desk call ${et(r.call.at)}</span><em class="won">Called</em></span>` : ap ? `<span class="s"><span>${esc(ap.by)} call ${et(ap.callAt)}</span><em class="won">Called</em></span>` : res && res.tot ? `<span class="s"><span>Updated ${et(res.asOf)}</span><em class="live">Live</em></span>` : closed ? `<span class="s"><span>${when}</span><em>Counting</em></span>` : `<span class="s"><span>${when}</span><em>Open</em></span>`;
+  const row = (cand, pct, party) => `<div class="c ${winner === party ? 'w' : winner ? 'l' : ''}"><span><i style="background:${COL[party]}"></i><span class="nm">${esc(cand.name)}</span></span><b>${pd || pr ? pct.toFixed(1) + '%' : '—'}</b></div>`;
+  const first = pr > pd ? [[p, pr, 'R'], [d, pd, 'D']] : [[d, pd, 'D'], [p, pr, 'R']];
+  return `<a class="kr ${winner ? 'called' : ''}" href="#r-${esc(r.id)}" style="--c:${c}"><div class="h"><span class="n"><b>${esc(r.state)}</b>${esc(r.name)}</span>${st}</div>${first.map(x => row(...x)).join('')}${bar(pd, pr, 0)}<div class="f"><span>${lbl}</span><span>${foot}</span></div></a>`;
+}
 const COL = { D: 'var(--dem)', R: 'var(--rep)', I: 'var(--ind)' };
 const PARTY = { D: 'Democrat', R: 'Republican', I: 'Independent' };
 let BOARD = null, RES = null, lastCallKey = '';
@@ -190,8 +284,9 @@ async function getJSON(u) { const r = await fetch(u + (u.includes('?') ? '&' : '
 
 function bar(d, r, o) { const tot = (d || 0) + (r || 0) + (o || 0) || 1; return `<div class="bar" aria-hidden="true"><i style="width:${(100 * (d || 0) / tot).toFixed(1)}%;background:var(--dem)"></i><i style="width:${(100 * (o || 0) / tot).toFixed(1)}%;background:var(--ink-3)"></i><i style="width:${(100 * (r || 0) / tot).toFixed(1)}%;background:var(--rep);margin-left:auto"></i><span class="mid"></span></div>`; }
 
+const NO_D = { name: 'No Democrat on the ballot', party: 'D', none: true }, NO_R = { name: 'No Republican on the ballot', party: 'R', none: true };
 function raceCard(r, now) {
-  const d = r.candidates.find(c => c.party === 'D'), p = r.candidates.find(c => c.party === 'R');
+  const d = r.candidates.find(c => c.party === 'D') || NO_D, p = r.candidates.find(c => c.party === 'R') || NO_R;
   const closed = now >= closedAt(r.closesET);
   const status = r.call ? 'called' : (r.status === 'watching' || (closed && r.status !== 'open') || closed ? 'watching' : 'open');
   const c = r.call ? COL[r.call.party] || COL.I : 'var(--ink-2)';
@@ -231,7 +326,7 @@ function raceCard(r, now) {
     ${r.pollAvg ? `<div><div class="lbl">Final polling average</div>${bar(r.pollAvg.d, r.pollAvg.r, 0)}
       <div class="row"><b style="color:var(--dem)">${r.pollAvg.d}</b><span class="mg">${esc(r.pollAvg.margin)}</span><b style="color:var(--rep)">${r.pollAvg.r}</b></div>
       <div class="src">${r.pollAvg.url ? `<a href="${esc(r.pollAvg.url)}" rel="noopener">${esc(r.pollAvg.src)}</a>` : esc(r.pollAvg.src)}</div></div>` : ''}
-    ${r.lean ? `<div><div class="lbl">${r.pollAvg ? 'District lean' : 'No public polling · lean'}</div>${bar(r.lean.d, r.lean.r, 0)}
+    ${r.lean ? `<div><div class="lbl">${esc(r.lean.label || (r.pollAvg ? 'District lean' : 'No public polling · lean'))}</div>${bar(r.lean.d, r.lean.r, 0)}
       <div class="row"><b style="color:var(--dem)">${r.lean.d}</b><span class="mg">${esc(r.lean.margin)}</span><b style="color:var(--rep)">${r.lean.r}</b></div>
       <div class="src">${r.lean.url ? `<a href="${esc(r.lean.url)}" rel="noopener">${esc(r.lean.src)}</a>` : esc(r.lean.src)}${r.lean.ratings ? ' · ' + (r.lean.ratingsUrl ? `<a href="${esc(r.lean.ratingsUrl)}" rel="noopener">${esc(r.lean.ratings)}</a>` : esc(r.lean.ratings)) : ''}</div></div>` : ''}
     ${live}${call}
@@ -244,20 +339,26 @@ function render() {
   if (!BOARD) return;
   const now = new Date();
   const races = BOARD.races.slice();
-  const apOf = r => { const x = RES && RES.races && RES.races[r.id]; return x && x.call ? { call: x.call, callAt: x.callAt } : (r.ap && r.ap.party ? { call: r.ap.party, callAt: r.ap.at } : null); };
   const called = races.filter(r => r.call);
   const apCalled = races.filter(r => apOf(r));
   const agree = called.filter(r => { const x = apOf(r); return x && x.call === r.call.party; });
   const deskFirst = agree.filter(r => new Date(apOf(r).callAt) > new Date(r.call.at));
   const wrong = called.filter(r => { const x = apOf(r); return x && x.call !== r.call.party; });
   $('#score').innerHTML = `
-    <div class="t"><div class="k">Desk calls</div><div class="v">${called.length}<small>of ${races.length}</small></div><div class="m">${called.length ? called.map(r => r.id).join(', ') : 'None yet'}</div></div>
-    <div class="t"><div class="k">AP calls</div><div class="v">${apCalled.length}<small>of ${races.length}</small></div><div class="m">${apCalled.length ? apCalled.map(r => r.id).join(', ') : 'None yet'}</div></div>
+    <div class="t"><div class="k">Desk calls</div><div class="v">${called.length}<small>of ${races.length}</small></div><div class="m">${called.length ? called.slice(-14).map(r => r.id).join(', ') : 'None yet'}</div></div>
+    <div class="t"><div class="k">AP calls</div><div class="v">${apCalled.length}<small>of ${races.length}</small></div><div class="m">${apCalled.length ? apCalled.slice(-14).map(r => r.id).join(', ') : 'None yet'}</div></div>
     <div class="t"><div class="k">Scorecard</div><div class="v">${agree.length}<small>agree${wrong.length ? ' · ' + wrong.length + ' wrong' : ''}</small></div><div class="m">${deskFirst.length ? 'Desk first in ' + deskFirst.length : agree.length ? 'AP first in ' + agree.length : 'Scored when AP calls the same races'}</div></div>`;
   $('#rule').innerHTML = `<h2>${esc(BOARD.rule.headline)}</h2><p>${esc(BOARD.rule.text)}</p><p>${esc(BOARD.rule.scoring)}</p>`;
   const groups = BOARD.groups || [...new Set(races.map(r => r.group || 'Races'))];
   $('#board').innerHTML = groups.map(g => { const rs = races.filter(r => (r.group || 'Races') === g).sort((a, b) => closedAt(a.closesET) - closedAt(b.closesET) || (a.order || 99) - (b.order || 99) || a.id.localeCompare(b.id, undefined, { numeric: true })); if (!rs.length) return ''; const c = rs.filter(r => r.call).length;
-    return `<h2 class="sec">${esc(g)} <small>${rs.length} race${rs.length === 1 ? '' : 's'} · ${c} called</small></h2><section class="races">${rs.map(r => raceCard(r, now)).join('')}</section>`; }).join('');
+    return `<h2 class="sec" id="g-${slug(g)}">${esc(g)} <small>${rs.length} race${rs.length === 1 ? '' : 's'} · ${c} called</small></h2><section class="races">${rs.map(r => raceCard(r, now)).join('')}</section>`; }).join('');
+  $('#jump').innerHTML = groups.map(g => { const rs = races.filter(r => (r.group || 'Races') === g); if (!rs.length) return ''; const c = rs.filter(r => r.call || apOf(r)).length;
+    return `<a href="#g-${slug(g)}"><b>${esc(g)}</b>${rs.length}${c ? ` · <span class="on">${c} called</span>` : ''}</a>`; }).join('');
+  const key = keyRaces(races, now);
+  $('#strip-wrap').hidden = !key.length;
+  $('#strip').innerHTML = key.map(r => stripCard(r, now)).join('');
+  $('#strip-n').textContent = key.length ? `${key.length} of ${races.length} · calls, live counts, the headline ten, toss-ups and leans` : '';
+  tickClose();
   const log = (BOARD.log || []).slice().reverse();
   $('#log').innerHTML = log.length ? `<ol>${log.map(l => `<li class="${/^[^:]*: (CALL|WITHDRAWN)/.test(l.text) ? 'call' : ''}"><time datetime="${esc(l.at)}">${et(l.at)}</time><span>${esc(l.text.replace(/^\d{1,2}:\d{2} [ap]\.m\. ET: /, ''))}</span></li>`).join('')}</ol>` : '<p class="empty">Nothing yet.</p>';
   $('#srcs').innerHTML = (BOARD.sources || []).length ? 'Pre-election sources: ' + BOARD.sources.map(s => `<a href="${esc(s.u)}" rel="noopener">${esc(s.t)}</a>`).join('') : '';
@@ -265,17 +366,21 @@ function render() {
   if (latest) { const key = latest.id + latest.call.at; $('#alert').classList.add('on'); $('#alert-x').textContent = `${latest.name}: ${latest.call.winner} (${latest.call.party})`; $('#alert-t').textContent = et(latest.call.at); if (lastCallKey && key !== lastCallKey && document.title.indexOf('NEW CALL') < 0) document.title = 'NEW CALL · ' + document.title; lastCallKey = key; }
   const asOf = [BOARD.asOf, RES && RES.asOf].filter(Boolean).sort().pop();
   $('#updated').textContent = 'Updated ' + et(asOf, true);
+  $('#sub').textContent = `Claude vs. the networks · election night 2026 · ${races.length} races`;
   const allCalled = called.length === races.length;
   $('#pill').classList.toggle('live', !allCalled); $('#mode').textContent = allCalled ? 'Board complete' : 'LIVE · Election night';
 }
 
 async function refresh() {
-  try { BOARD = await getJSON('../data/calls.json'); } catch (e) { if (!BOARD) { $('#races').innerHTML = `<p class="empty">The board could not be loaded (${esc(e.message)}).</p>`; return; } }
+  try { BOARD = await getJSON('../data/calls.json'); } catch (e) { if (!BOARD) { $('#board').innerHTML = `<p class="empty">The board could not be loaded (${esc(e.message)}).</p>`; return; } }
   try { RES = await getJSON('../data/results.json'); } catch (e) { /* the Election Desk's file is optional */ }
   render();
 }
 refresh();
 setInterval(refresh, 60000);
+setInterval(tickClose, 1000);
+$('#strip-prev').addEventListener('click', () => { const s = $('#strip'); s.scrollBy({ left: -s.clientWidth * 0.85, behavior: 'smooth' }); });
+$('#strip-next').addEventListener('click', () => { const s = $('#strip'); s.scrollBy({ left: s.clientWidth * 0.85, behavior: 'smooth' }); });
 document.addEventListener('visibilitychange', () => { if (!document.hidden) refresh(); });
 </script>
 </body>

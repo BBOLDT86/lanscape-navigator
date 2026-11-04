@@ -1,11 +1,11 @@
 {
  "title": "The Call Desk",
  "subtitle": "Claude vs. the networks · election night 2026",
- "asOf": "2026-11-03T23:45:00Z",
+ "asOf": "2026-11-04T00:27:14Z",
  "boardSetAt": "2026-11-03T23:03:00Z",
  "rule": {
   "headline": "A race is called only at 99.5% confidence or more.",
-  "text": "Senate and governor polling averages have historically missed by about five points on average, so a 99.5% (2.6σ) call on polls alone needs a lead of 13 points or more. None of these ten races has one, so the first calls will come from the returns: a race is called when the outstanding vote, at any plausible composition, cannot close the gap. Nothing is called before a state's polls close. Every call carries its timestamp; a wrong call is withdrawn in public and stays in the log. Races with no public polling (House seats, down-ballot offices) can be called at poll close only when every rater has them Solid or Safe and the district voted for the 2024 presidential winner by 20 points or more under the current map; everything else waits for the count.",
+  "text": "Senate and governor polling averages have historically missed by about five points on average, so a 99.5% (2.6σ) call on polls alone needs a lead of 13 points or more. None of the ten headline races has one (Illinois's Senate and governor races do), so most first calls will come from the returns: a race is called when the outstanding vote, at any plausible composition, cannot close the gap. Nothing is called before a state's polls close. Every call carries its timestamp; a wrong call is withdrawn in public and stays in the log. Races with no public polling (House seats, down-ballot offices) can be called at poll close only when every rater has them Solid or Safe and the district voted for the 2024 presidential winner by 20 points or more under the current map; everything else waits for the count.",
   "scoring": "Scored against the Associated Press: a call counts when AP later calls the same winner. The AP column shows AP's own call and time as recorded by the Election Desk."
  },
  "races": [
@@ -299,7 +299,7 @@
    "name": "Kentucky 6th District",
    "state": "KY",
    "office": "U.S. House",
-   "group": "Kentucky 6th",
+   "group": "Kentucky: U.S. House",
    "closesET": "18:00",
    "candidates": [
     {
@@ -323,7 +323,8 @@
     "r": 57,
     "margin": "R +15",
     "src": "2024 presidential vote in the district (Election Desk)",
-    "ratings": "Cook Toss-up · Sabato Lean R · Inside Tilt R"
+    "ratings": "Cook Toss-up · Sabato Lean R · Inside Toss-up · DDHQ Lean R",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Kentucky"
    },
    "status": "watching",
    "call": null,
@@ -592,9 +593,9 @@
     }
    ],
    "lean": {
-    "d": 71,
-    "r": 29,
-    "margin": "D +42",
+    "d": 29,
+    "r": 71,
+    "margin": "R +42",
     "src": "Signal Ohio, 2024 presidential vote under the new map (Oct. 31, 2025)",
     "url": "https://signalohio.org/ohio-officials-approve-new-congressional-map-that-could-help-republicans-win-two-more-u-s-house-seats/",
     "ratings": "Cook Solid R · Sabato Safe R · Inside Solid R · DDHQ Safe R",
@@ -625,9 +626,9 @@
     }
    ],
    "lean": {
-    "d": 31,
-    "r": 69,
-    "margin": "R +38",
+    "d": 69,
+    "r": 31,
+    "margin": "D +38",
     "src": "Signal Ohio, 2024 presidential vote under the new map (Oct. 31, 2025)",
     "url": "https://signalohio.org/ohio-officials-approve-new-congressional-map-that-could-help-republicans-win-two-more-u-s-house-seats/",
     "ratings": "Cook Solid D · Sabato Safe D · Inside Solid D · DDHQ Safe D",
@@ -658,9 +659,9 @@
     }
    ],
    "lean": {
-    "d": 71,
-    "r": 28,
-    "margin": "D +43",
+    "d": 28,
+    "r": 71,
+    "margin": "R +43",
     "src": "Signal Ohio, 2024 presidential vote under the new map (Oct. 31, 2025)",
     "url": "https://signalohio.org/ohio-officials-approve-new-congressional-map-that-could-help-republicans-win-two-more-u-s-house-seats/",
     "ratings": "Cook Solid R · Sabato Safe R · Inside Solid R · DDHQ Safe R",
@@ -691,9 +692,9 @@
     }
    ],
    "lean": {
-    "d": 61,
-    "r": 38,
-    "margin": "D +23",
+    "d": 38,
+    "r": 61,
+    "margin": "R +23",
     "src": "Signal Ohio, 2024 presidential vote under the new map (Oct. 31, 2025)",
     "url": "https://signalohio.org/ohio-officials-approve-new-congressional-map-that-could-help-republicans-win-two-more-u-s-house-seats/",
     "ratings": "Cook Solid R · Sabato Safe R · Inside Solid R · DDHQ Safe R",
@@ -724,9 +725,9 @@
     }
    ],
    "lean": {
-    "d": 64,
-    "r": 36,
-    "margin": "D +28",
+    "d": 36,
+    "r": 64,
+    "margin": "R +28",
     "src": "Signal Ohio, 2024 presidential vote under the new map (Oct. 31, 2025)",
     "url": "https://signalohio.org/ohio-officials-approve-new-congressional-map-that-could-help-republicans-win-two-more-u-s-house-seats/",
     "ratings": "Cook Solid R · Sabato Safe R · Inside Solid R · DDHQ Safe R",
@@ -757,9 +758,9 @@
     }
    ],
    "lean": {
-    "d": 55,
-    "r": 44,
-    "margin": "D +11",
+    "d": 44,
+    "r": 55,
+    "margin": "R +11",
     "src": "Signal Ohio, 2024 presidential vote under the new map (Oct. 31, 2025)",
     "url": "https://signalohio.org/ohio-officials-approve-new-congressional-map-that-could-help-republicans-win-two-more-u-s-house-seats/",
     "ratings": "Cook Toss Up · Sabato Toss-up · Inside Toss-up · DDHQ Toss-up",
@@ -790,9 +791,9 @@
     }
    ],
    "lean": {
-    "d": 57,
-    "r": 42,
-    "margin": "D +15",
+    "d": 42,
+    "r": 57,
+    "margin": "R +15",
     "src": "Signal Ohio, 2024 presidential vote under the new map (Oct. 31, 2025)",
     "url": "https://signalohio.org/ohio-officials-approve-new-congressional-map-that-could-help-republicans-win-two-more-u-s-house-seats/",
     "ratings": "Cook Solid R · Sabato Safe R · Inside Solid R · DDHQ Likely R",
@@ -823,9 +824,9 @@
     }
    ],
    "lean": {
-    "d": 55,
-    "r": 44,
-    "margin": "D +11",
+    "d": 44,
+    "r": 55,
+    "margin": "R +11",
     "src": "Signal Ohio, 2024 presidential vote under the new map (Oct. 31, 2025)",
     "url": "https://signalohio.org/ohio-officials-approve-new-congressional-map-that-could-help-republicans-win-two-more-u-s-house-seats/",
     "ratings": "Cook Toss Up · Sabato Toss-up · Inside Toss-up · DDHQ Lean D",
@@ -856,9 +857,9 @@
     }
    ],
    "lean": {
-    "d": 53,
-    "r": 46,
-    "margin": "D +7",
+    "d": 46,
+    "r": 53,
+    "margin": "R +7",
     "src": "Signal Ohio, 2024 presidential vote under the new map (Oct. 31, 2025)",
     "url": "https://signalohio.org/ohio-officials-approve-new-congressional-map-that-could-help-republicans-win-two-more-u-s-house-seats/",
     "ratings": "Cook Lean R · Sabato Likely R · Inside Solid R · DDHQ Likely R",
@@ -889,9 +890,9 @@
     }
    ],
    "lean": {
-    "d": 22,
-    "r": 77,
-    "margin": "R +55",
+    "d": 77,
+    "r": 22,
+    "margin": "D +55",
     "src": "Signal Ohio, 2024 presidential vote under the new map (Oct. 31, 2025)",
     "url": "https://signalohio.org/ohio-officials-approve-new-congressional-map-that-could-help-republicans-win-two-more-u-s-house-seats/",
     "ratings": "Cook Solid D · Sabato Safe D · Inside Solid D · DDHQ Safe D",
@@ -922,9 +923,9 @@
     }
    ],
    "lean": {
-    "d": 65,
-    "r": 35,
-    "margin": "D +30",
+    "d": 35,
+    "r": 65,
+    "margin": "R +30",
     "src": "Signal Ohio, 2024 presidential vote under the new map (Oct. 31, 2025)",
     "url": "https://signalohio.org/ohio-officials-approve-new-congressional-map-that-could-help-republicans-win-two-more-u-s-house-seats/",
     "ratings": "Cook Solid R · Sabato Safe R · Inside Solid R · DDHQ Safe R",
@@ -955,9 +956,9 @@
     }
    ],
    "lean": {
-    "d": 48,
-    "r": 51,
-    "margin": "R +3",
+    "d": 51,
+    "r": 48,
+    "margin": "D +3",
     "src": "Signal Ohio, 2024 presidential vote under the new map (Oct. 31, 2025)",
     "url": "https://signalohio.org/ohio-officials-approve-new-congressional-map-that-could-help-republicans-win-two-more-u-s-house-seats/",
     "ratings": "Cook Likely D · Sabato Likely D · Inside Solid D · DDHQ Likely D",
@@ -988,9 +989,9 @@
     }
    ],
    "lean": {
-    "d": 60,
-    "r": 39,
-    "margin": "D +21",
+    "d": 39,
+    "r": 60,
+    "margin": "R +21",
     "src": "Signal Ohio, 2024 presidential vote under the new map (Oct. 31, 2025)",
     "url": "https://signalohio.org/ohio-officials-approve-new-congressional-map-that-could-help-republicans-win-two-more-u-s-house-seats/",
     "ratings": "Cook Solid R · Sabato Safe R · Inside Solid R · DDHQ Safe R",
@@ -1021,9 +1022,9 @@
     }
    ],
    "lean": {
-    "d": 55,
-    "r": 45,
-    "margin": "D +10",
+    "d": 45,
+    "r": 55,
+    "margin": "R +10",
     "src": "Signal Ohio, 2024 presidential vote under the new map (Oct. 31, 2025)",
     "url": "https://signalohio.org/ohio-officials-approve-new-congressional-map-that-could-help-republicans-win-two-more-u-s-house-seats/",
     "ratings": "Cook Lean R · Sabato Likely R · Inside Likely R · DDHQ Likely R",
@@ -1033,6 +1034,3600 @@
    "call": null,
    "callableAtClose": false,
    "note": "Columbus suburbs and west, Trump +10. Needs the count."
+  },
+  {
+   "id": "TX-G",
+   "name": "Texas Governor",
+   "state": "TX",
+   "office": "Governor",
+   "group": "Texas: statewide",
+   "closesET": "20:00/21:00",
+   "candidates": [
+    {
+     "name": "Gina Hinojosa",
+     "party": "D",
+     "incumbent": false
+    },
+    {
+     "name": "Greg Abbott",
+     "party": "R",
+     "incumbent": true
+    }
+   ],
+   "pollAvg": {
+    "d": 47.2,
+    "r": 49.5,
+    "margin": "R +2",
+    "src": "Election Desk mean of 19 polls, Oct. 12–Nov. 2; RealClearPolitics Abbott +2.5, Silver Bulletin +1.7, Decision Desk HQ +1.6",
+    "url": "https://bboldt86.github.io/lanscape-navigator/election2026/"
+   },
+   "lean": {
+    "d": 42.5,
+    "r": 56.2,
+    "margin": "R +14",
+    "src": "2024 presidential vote statewide (Election Desk baseline)",
+    "url": "https://bboldt86.github.io/lanscape-navigator/election2026/",
+    "label": "2024 presidential vote",
+    "ratings": "Cook Lean R · Sabato Lean R · Inside Tilt R · DDHQ Lean R",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_Texas_gubernatorial_election"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": false,
+   "note": "Abbott seeks a fourth term; the final polls had him ahead by about two, far short of the bar. Same count as the Senate race: one big early-vote drop around 8, then Election Day county by county, El Paso last.",
+   "order": 1
+  },
+  {
+   "id": "TX-LG",
+   "name": "Texas Lieutenant Governor",
+   "state": "TX",
+   "office": "Lieutenant Governor",
+   "group": "Texas: statewide",
+   "closesET": "20:00/21:00",
+   "candidates": [
+    {
+     "name": "Vikki Goodwin",
+     "party": "D",
+     "incumbent": false
+    },
+    {
+     "name": "Dan Patrick",
+     "party": "R",
+     "incumbent": true
+    }
+   ],
+   "pollAvg": {
+    "d": 45.8,
+    "r": 48.0,
+    "margin": "R +2",
+    "src": "Election Desk mean of 4 polls, Sept. 25–Oct. 25 (Texas Southern 49–45, Texas Public Opinion Research 50–47, U. of Houston 47–42, UT/Texas Politics Project 46–49), as listed on Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/2026_Texas_lieutenant_gubernatorial_election"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": false,
+   "note": "Patrick seeks a fourth term. The October polls ran within four points; no public rating.",
+   "order": 2
+  },
+  {
+   "id": "TX-AG",
+   "name": "Texas Attorney General",
+   "state": "TX",
+   "office": "Attorney General",
+   "group": "Texas: statewide",
+   "closesET": "20:00/21:00",
+   "candidates": [
+    {
+     "name": "Nathan Johnson",
+     "party": "D",
+     "incumbent": false
+    },
+    {
+     "name": "Mayes Middleton",
+     "party": "R",
+     "incumbent": false
+    }
+   ],
+   "pollAvg": {
+    "d": 45.8,
+    "r": 48.2,
+    "margin": "R +2",
+    "src": "Election Desk mean of 4 polls, Sept. 25–Oct. 25 (Texas Southern 49–45, Texas Public Opinion Research 50–48, U. of Houston 47–42, UT/Texas Politics Project 47–48), as listed on Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/2026_Texas_Attorney_General_election"
+   },
+   "lean": {
+    "d": 42.5,
+    "r": 56.2,
+    "margin": "R +14",
+    "src": "2024 presidential vote statewide (Election Desk baseline)",
+    "url": "https://bboldt86.github.io/lanscape-navigator/election2026/",
+    "label": "2024 presidential vote",
+    "ratings": "Sabato Likely R",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_Texas_Attorney_General_election"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": false,
+   "note": "Open seat; Paxton left to run for Senate. Middleton beat Chip Roy in the May runoff. The October polls ran within five points.",
+   "order": 3
+  },
+  {
+   "id": "TX-COMP",
+   "name": "Texas Comptroller",
+   "state": "TX",
+   "office": "Comptroller",
+   "group": "Texas: statewide",
+   "closesET": "20:00/21:00",
+   "candidates": [
+    {
+     "name": "Sarah Eckhardt",
+     "party": "D",
+     "incumbent": false
+    },
+    {
+     "name": "Don Huffines",
+     "party": "R",
+     "incumbent": true
+    }
+   ],
+   "pollAvg": {
+    "d": 44.5,
+    "r": 48.5,
+    "margin": "R +4",
+    "src": "Election Desk mean of 4 polls, Sept. 25–Oct. 25 (Texas Southern 50–44, Texas Public Opinion Research 50–48, U. of Houston 47–40, UT/Texas Politics Project 47–46), as listed on Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/2026_Texas_Comptroller_of_Public_Accounts_election"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": false,
+   "note": "Huffines was appointed acting comptroller in August after winning the March primary; Eckhardt is an Austin state senator.",
+   "order": 4
+  },
+  {
+   "id": "TX-LAND",
+   "name": "Texas Land Commissioner",
+   "state": "TX",
+   "office": "Land Commissioner",
+   "group": "Texas: statewide",
+   "closesET": "20:00/21:00",
+   "candidates": [
+    {
+     "name": "Benjamin Flores",
+     "party": "D",
+     "incumbent": false
+    },
+    {
+     "name": "Dawn Buckingham",
+     "party": "R",
+     "incumbent": true
+    }
+   ],
+   "pollAvg": {
+    "d": 44.0,
+    "r": 48.0,
+    "margin": "R +4",
+    "src": "Election Desk mean of 2 polls, Oct. 10–18 (Texas Public Opinion Research 49–48, U. of Houston 47–40), as listed on Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/2026_Texas_Land_Commissioner_election"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": false,
+   "note": "Buckingham seeks a second term. Flores, a Bay City councilor, suspended campaigning in June for cancer treatment but stayed on the ballot.",
+   "order": 5
+  },
+  {
+   "id": "TX-AGR",
+   "name": "Texas Agriculture Commissioner",
+   "state": "TX",
+   "office": "Agriculture Commissioner",
+   "group": "Texas: statewide",
+   "closesET": "20:00/21:00",
+   "candidates": [
+    {
+     "name": "Clayton Tucker",
+     "party": "D",
+     "incumbent": false
+    },
+    {
+     "name": "Nate Sheets",
+     "party": "R",
+     "incumbent": false
+    }
+   ],
+   "pollAvg": {
+    "d": 44.0,
+    "r": 48.0,
+    "margin": "R +4",
+    "src": "Election Desk mean of 2 polls, Oct. 10–18 (Texas Public Opinion Research 50–48, U. of Houston 46–40), as listed on Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/2026_Texas_Commissioner_of_Agriculture_election"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": false,
+   "note": "Open seat: Sheets, a beekeeper backed by Abbott, beat Sid Miller in the March primary despite a late Trump endorsement of Miller.",
+   "order": 6
+  },
+  {
+   "id": "TX-RRC",
+   "name": "Texas Railroad Commissioner",
+   "state": "TX",
+   "office": "Railroad Commissioner",
+   "group": "Texas: statewide",
+   "closesET": "20:00/21:00",
+   "candidates": [
+    {
+     "name": "Jon Rosenthal",
+     "party": "D",
+     "incumbent": false
+    },
+    {
+     "name": "Bo French",
+     "party": "R",
+     "incumbent": false
+    }
+   ],
+   "pollAvg": {
+    "d": 46.4,
+    "r": 48.0,
+    "margin": "R +2",
+    "src": "Election Desk mean of 5 polls, Sept. 25–Oct. 25 (Texas Southern 47–46, Texas Public Opinion Research 50–48, ActiVote 52–48, U. of Houston 45–43, UT/Texas Politics Project 46–47), as listed on Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/2026_Texas_Railroad_Commissioner_election"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": false,
+   "note": "Open seat: French, the former Tarrant County GOP chair, beat Commissioner Jim Wright in the May runoff. Democrats last won a Railroad Commission seat in 1990; the October polls ran within two points.",
+   "order": 7
+  },
+  {
+   "id": "TX-SC-CJ",
+   "name": "Texas Supreme Court: Chief Justice",
+   "state": "TX",
+   "office": "Court",
+   "group": "Texas: courts",
+   "closesET": "20:00/21:00",
+   "candidates": [
+    {
+     "name": "Maggie Ellis",
+     "party": "D",
+     "incumbent": false
+    },
+    {
+     "name": "Jimmy Blacklock",
+     "party": "R",
+     "incumbent": true
+    }
+   ],
+   "lean": {
+    "d": 42.5,
+    "r": 56.2,
+    "margin": "R +14",
+    "src": "2024 presidential vote statewide (Election Desk baseline)",
+    "url": "https://bboldt86.github.io/lanscape-navigator/election2026/",
+    "label": "2024 presidential vote",
+    "ratings": "Not rated",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_Texas_Supreme_Court_election"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": false,
+   "note": "Partisan statewide judicial race; no public polling or rating. Republicans have won every statewide Texas race since 1994; the test is whether the Senate race's ticket-splitting reaches the bottom of the ballot. Not callable at the close.",
+   "order": 1
+  },
+  {
+   "id": "TX-SC2",
+   "name": "Texas Supreme Court: Place 2",
+   "state": "TX",
+   "office": "Court",
+   "group": "Texas: courts",
+   "closesET": "20:00/21:00",
+   "candidates": [
+    {
+     "name": "Chari Kelly",
+     "party": "D",
+     "incumbent": false
+    },
+    {
+     "name": "James Sullivan",
+     "party": "R",
+     "incumbent": true
+    }
+   ],
+   "lean": {
+    "d": 42.5,
+    "r": 56.2,
+    "margin": "R +14",
+    "src": "2024 presidential vote statewide (Election Desk baseline)",
+    "url": "https://bboldt86.github.io/lanscape-navigator/election2026/",
+    "label": "2024 presidential vote",
+    "ratings": "Not rated",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_Texas_Supreme_Court_election"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": false,
+   "note": "Partisan statewide judicial race; no public polling or rating. Republicans have won every statewide Texas race since 1994; the test is whether the Senate race's ticket-splitting reaches the bottom of the ballot. Not callable at the close.",
+   "order": 2
+  },
+  {
+   "id": "TX-SC7",
+   "name": "Texas Supreme Court: Place 7",
+   "state": "TX",
+   "office": "Court",
+   "group": "Texas: courts",
+   "closesET": "20:00/21:00",
+   "candidates": [
+    {
+     "name": "Kristen Hawkins",
+     "party": "D",
+     "incumbent": false
+    },
+    {
+     "name": "Kyle Hawkins",
+     "party": "R",
+     "incumbent": true
+    }
+   ],
+   "lean": {
+    "d": 42.5,
+    "r": 56.2,
+    "margin": "R +14",
+    "src": "2024 presidential vote statewide (Election Desk baseline)",
+    "url": "https://bboldt86.github.io/lanscape-navigator/election2026/",
+    "label": "2024 presidential vote",
+    "ratings": "Not rated",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_Texas_Supreme_Court_election"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": false,
+   "note": "Partisan statewide judicial race; no public polling or rating. Republicans have won every statewide Texas race since 1994; the test is whether the Senate race's ticket-splitting reaches the bottom of the ballot. Not callable at the close.",
+   "order": 3
+  },
+  {
+   "id": "TX-SC8",
+   "name": "Texas Supreme Court: Place 8",
+   "state": "TX",
+   "office": "Court",
+   "group": "Texas: courts",
+   "closesET": "20:00/21:00",
+   "candidates": [
+    {
+     "name": "Gisela Triana",
+     "party": "D",
+     "incumbent": false
+    },
+    {
+     "name": "Brett Busby",
+     "party": "R",
+     "incumbent": true
+    }
+   ],
+   "lean": {
+    "d": 42.5,
+    "r": 56.2,
+    "margin": "R +14",
+    "src": "2024 presidential vote statewide (Election Desk baseline)",
+    "url": "https://bboldt86.github.io/lanscape-navigator/election2026/",
+    "label": "2024 presidential vote",
+    "ratings": "Not rated",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_Texas_Supreme_Court_election"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": false,
+   "note": "Partisan statewide judicial race; no public polling or rating. Republicans have won every statewide Texas race since 1994; the test is whether the Senate race's ticket-splitting reaches the bottom of the ballot. Not callable at the close.",
+   "order": 4
+  },
+  {
+   "id": "TX-CCA3",
+   "name": "Court of Criminal Appeals: Place 3",
+   "state": "TX",
+   "office": "Court",
+   "group": "Texas: courts",
+   "closesET": "20:00/21:00",
+   "candidates": [
+    {
+     "name": "Okey Anyiam",
+     "party": "D",
+     "incumbent": false
+    },
+    {
+     "name": "Tom Smith",
+     "party": "R",
+     "incumbent": false
+    }
+   ],
+   "lean": {
+    "d": 42.5,
+    "r": 56.2,
+    "margin": "R +14",
+    "src": "2024 presidential vote statewide (Election Desk baseline)",
+    "url": "https://bboldt86.github.io/lanscape-navigator/election2026/",
+    "label": "2024 presidential vote",
+    "ratings": "Not rated",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_Texas_elections#Texas_Court_of_Criminal_Appeals"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": false,
+   "note": "Partisan statewide judicial race; no public polling or rating. Republicans have won every statewide Texas race since 1994; the test is whether the Senate race's ticket-splitting reaches the bottom of the ballot. Not callable at the close.",
+   "order": 5
+  },
+  {
+   "id": "TX-CCA4",
+   "name": "Court of Criminal Appeals: Place 4",
+   "state": "TX",
+   "office": "Court",
+   "group": "Texas: courts",
+   "closesET": "20:00/21:00",
+   "candidates": [
+    {
+     "name": "Audra Riley",
+     "party": "D",
+     "incumbent": false
+    },
+    {
+     "name": "Kevin Yeary",
+     "party": "R",
+     "incumbent": true
+    }
+   ],
+   "lean": {
+    "d": 42.5,
+    "r": 56.2,
+    "margin": "R +14",
+    "src": "2024 presidential vote statewide (Election Desk baseline)",
+    "url": "https://bboldt86.github.io/lanscape-navigator/election2026/",
+    "label": "2024 presidential vote",
+    "ratings": "Not rated",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_Texas_elections#Texas_Court_of_Criminal_Appeals"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": false,
+   "note": "Partisan statewide judicial race; no public polling or rating. Republicans have won every statewide Texas race since 1994; the test is whether the Senate race's ticket-splitting reaches the bottom of the ballot. Not callable at the close.",
+   "order": 6
+  },
+  {
+   "id": "TX-CCA9",
+   "name": "Court of Criminal Appeals: Place 9",
+   "state": "TX",
+   "office": "Court",
+   "group": "Texas: courts",
+   "closesET": "20:00/21:00",
+   "candidates": [
+    {
+     "name": "Holly Taylor",
+     "party": "D",
+     "incumbent": false
+    },
+    {
+     "name": "John Messinger",
+     "party": "R",
+     "incumbent": false
+    }
+   ],
+   "lean": {
+    "d": 42.5,
+    "r": 56.2,
+    "margin": "R +14",
+    "src": "2024 presidential vote statewide (Election Desk baseline)",
+    "url": "https://bboldt86.github.io/lanscape-navigator/election2026/",
+    "label": "2024 presidential vote",
+    "ratings": "Not rated",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_Texas_elections#Texas_Court_of_Criminal_Appeals"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": false,
+   "note": "Partisan statewide judicial race; no public polling or rating. Republicans have won every statewide Texas race since 1994; the test is whether the Senate race's ticket-splitting reaches the bottom of the ballot. Not callable at the close.",
+   "order": 7
+  },
+  {
+   "id": "TX-COA-CJ",
+   "name": "15th Court of Appeals: Chief Justice",
+   "state": "TX",
+   "office": "Court",
+   "group": "Texas: courts",
+   "closesET": "20:00/21:00",
+   "candidates": [
+    {
+     "name": "Jerry Zimmerer",
+     "party": "D",
+     "incumbent": false
+    },
+    {
+     "name": "Scott Brister",
+     "party": "R",
+     "incumbent": true
+    }
+   ],
+   "lean": {
+    "d": 42.5,
+    "r": 56.2,
+    "margin": "R +14",
+    "src": "2024 presidential vote statewide (Election Desk baseline)",
+    "url": "https://bboldt86.github.io/lanscape-navigator/election2026/",
+    "label": "2024 presidential vote",
+    "ratings": "Not rated",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_Texas%27s_15th_Court_of_Appeals_district_election"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": false,
+   "note": "Partisan statewide judicial race; no public polling or rating. Republicans have won every statewide Texas race since 1994; the test is whether the Senate race's ticket-splitting reaches the bottom of the ballot. Not callable at the close.",
+   "order": 8
+  },
+  {
+   "id": "TX-COA2",
+   "name": "15th Court of Appeals: Place 2",
+   "state": "TX",
+   "office": "Court",
+   "group": "Texas: courts",
+   "closesET": "20:00/21:00",
+   "candidates": [
+    {
+     "name": "Tom Baker",
+     "party": "D",
+     "incumbent": false
+    },
+    {
+     "name": "Scott Field",
+     "party": "R",
+     "incumbent": true
+    }
+   ],
+   "lean": {
+    "d": 42.5,
+    "r": 56.2,
+    "margin": "R +14",
+    "src": "2024 presidential vote statewide (Election Desk baseline)",
+    "url": "https://bboldt86.github.io/lanscape-navigator/election2026/",
+    "label": "2024 presidential vote",
+    "ratings": "Not rated",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_Texas%27s_15th_Court_of_Appeals_district_election"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": false,
+   "note": "Partisan statewide judicial race; no public polling or rating. Republicans have won every statewide Texas race since 1994; the test is whether the Senate race's ticket-splitting reaches the bottom of the ballot. Not callable at the close.",
+   "order": 9
+  },
+  {
+   "id": "TX-COA3",
+   "name": "15th Court of Appeals: Place 3",
+   "state": "TX",
+   "office": "Court",
+   "group": "Texas: courts",
+   "closesET": "20:00/21:00",
+   "candidates": [
+    {
+     "name": "Marc Meyer",
+     "party": "D",
+     "incumbent": false
+    },
+    {
+     "name": "April Farris",
+     "party": "R",
+     "incumbent": true
+    }
+   ],
+   "lean": {
+    "d": 42.5,
+    "r": 56.2,
+    "margin": "R +14",
+    "src": "2024 presidential vote statewide (Election Desk baseline)",
+    "url": "https://bboldt86.github.io/lanscape-navigator/election2026/",
+    "label": "2024 presidential vote",
+    "ratings": "Not rated",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_Texas%27s_15th_Court_of_Appeals_district_election"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": false,
+   "note": "Partisan statewide judicial race; no public polling or rating. Republicans have won every statewide Texas race since 1994; the test is whether the Senate race's ticket-splitting reaches the bottom of the ballot. Not callable at the close.",
+   "order": 10
+  },
+  {
+   "id": "IL-S",
+   "name": "Illinois Senate",
+   "state": "IL",
+   "office": "Senate",
+   "group": "Illinois: statewide",
+   "closesET": "20:00",
+   "candidates": [
+    {
+     "name": "Juliana Stratton",
+     "party": "D",
+     "incumbent": false
+    },
+    {
+     "name": "Don Tracy",
+     "party": "R",
+     "incumbent": false
+    }
+   ],
+   "pollAvg": {
+    "d": 56.0,
+    "r": 42.3,
+    "margin": "D +14",
+    "src": "Election Desk mean of 3 polls, Sept. 26–Nov. 2 (Research Co. 53–41, ActiVote 56–44 and 59–42), as listed on Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/2026_United_States_Senate_election_in_Illinois"
+   },
+   "lean": {
+    "d": 54.8,
+    "r": 43.8,
+    "margin": "D +11",
+    "src": "2024 presidential vote statewide (Election Desk baseline)",
+    "url": "https://bboldt86.github.io/lanscape-navigator/election2026/",
+    "label": "2024 presidential vote",
+    "ratings": "Cook Solid D · Sabato Safe D · Inside Solid D · DDHQ Safe D",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_Senate_election_in_Illinois"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": true,
+   "note": "Open seat; Durbin is retiring. A 14-point polling lead clears the 13-point bar and every rater has it Safe D (Harris +11, Durbin +16 in 2020), so it is callable when Illinois closes at 8.",
+   "order": 1
+  },
+  {
+   "id": "IL-G",
+   "name": "Illinois Governor",
+   "state": "IL",
+   "office": "Governor",
+   "group": "Illinois: statewide",
+   "closesET": "20:00",
+   "candidates": [
+    {
+     "name": "JB Pritzker",
+     "party": "D",
+     "incumbent": true
+    },
+    {
+     "name": "Darren Bailey",
+     "party": "R",
+     "incumbent": false
+    }
+   ],
+   "pollAvg": {
+    "d": 58.3,
+    "r": 39.3,
+    "margin": "D +19",
+    "src": "Election Desk mean of 3 polls, Oct. 2–Nov. 2 (Research Co. 57–36, ActiVote 59–41 twice), as listed on Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/2026_Illinois_gubernatorial_election"
+   },
+   "lean": {
+    "d": 54.8,
+    "r": 43.8,
+    "margin": "D +11",
+    "src": "2024 presidential vote statewide (Election Desk baseline)",
+    "url": "https://bboldt86.github.io/lanscape-navigator/election2026/",
+    "label": "2024 presidential vote",
+    "ratings": "Cook Solid D · Sabato Safe D · Inside Solid D · DDHQ Safe D",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_Illinois_gubernatorial_election"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": true,
+   "note": "Pritzker seeks a third term in a rematch of 2022, which he won by 13. A 19-point polling lead clears the bar and every rater has it Safe D: callable at 8.",
+   "order": 2
+  },
+  {
+   "id": "IL-AG",
+   "name": "Illinois Attorney General",
+   "state": "IL",
+   "office": "Attorney General",
+   "group": "Illinois: statewide",
+   "closesET": "20:00",
+   "candidates": [
+    {
+     "name": "Kwame Raoul",
+     "party": "D",
+     "incumbent": true
+    },
+    {
+     "name": "Bob Fioretti",
+     "party": "R",
+     "incumbent": false
+    }
+   ],
+   "pollAvg": {
+    "d": 52,
+    "r": 38,
+    "margin": "D +14",
+    "src": "Public Policy Polling, Sept. 30–Oct. 1 (the only public poll)",
+    "url": "https://en.wikipedia.org/wiki/2026_Illinois_Attorney_General_election"
+   },
+   "lean": {
+    "d": 54.8,
+    "r": 43.8,
+    "margin": "D +11",
+    "src": "2024 presidential vote statewide (Election Desk baseline)",
+    "url": "https://bboldt86.github.io/lanscape-navigator/election2026/",
+    "label": "2024 presidential vote",
+    "ratings": "Sabato Safe D",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_Illinois_Attorney_General_election"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": false,
+   "note": "Raoul seeks a third term. One public poll (a 14-point lead) and only Sabato rates it, so it waits for the count.",
+   "order": 3
+  },
+  {
+   "id": "IL-SOS",
+   "name": "Illinois Secretary of State",
+   "state": "IL",
+   "office": "Secretary of State",
+   "group": "Illinois: statewide",
+   "closesET": "20:00",
+   "candidates": [
+    {
+     "name": "Alexi Giannoulias",
+     "party": "D",
+     "incumbent": true
+    },
+    {
+     "name": "Diane Harris",
+     "party": "R",
+     "incumbent": false
+    }
+   ],
+   "pollAvg": {
+    "d": 55,
+    "r": 37,
+    "margin": "D +18",
+    "src": "Public Policy Polling, Sept. 30–Oct. 1 (the only public poll)",
+    "url": "https://en.wikipedia.org/wiki/2026_Illinois_Secretary_of_State_election"
+   },
+   "lean": {
+    "d": 54.8,
+    "r": 43.8,
+    "margin": "D +11",
+    "src": "2024 presidential vote statewide (Election Desk baseline)",
+    "url": "https://bboldt86.github.io/lanscape-navigator/election2026/",
+    "label": "2024 presidential vote",
+    "ratings": "Sabato Safe D",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_Illinois_Secretary_of_State_election"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": false,
+   "note": "Giannoulias seeks a second term. One public poll; waits for the count.",
+   "order": 4
+  },
+  {
+   "id": "IL-COMP",
+   "name": "Illinois Comptroller",
+   "state": "IL",
+   "office": "Comptroller",
+   "group": "Illinois: statewide",
+   "closesET": "20:00",
+   "candidates": [
+    {
+     "name": "Margaret Croke",
+     "party": "D",
+     "incumbent": false
+    },
+    {
+     "name": "Bryan Drew",
+     "party": "R",
+     "incumbent": false
+    }
+   ],
+   "pollAvg": {
+    "d": 48,
+    "r": 37,
+    "margin": "D +11",
+    "src": "Public Policy Polling (D), Sept. 30–Oct. 1 (the only public poll)",
+    "url": "https://en.wikipedia.org/wiki/2026_Illinois_Comptroller_election"
+   },
+   "lean": {
+    "d": 54.8,
+    "r": 43.8,
+    "margin": "D +11",
+    "src": "2024 presidential vote statewide (Election Desk baseline)",
+    "url": "https://bboldt86.github.io/lanscape-navigator/election2026/",
+    "label": "2024 presidential vote",
+    "ratings": "Not rated"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": false,
+   "note": "Open seat; Mendoza is retiring. Croke is a Chicago state representative. One Democratic-sponsored poll; waits for the count.",
+   "order": 5
+  },
+  {
+   "id": "IL-TRE",
+   "name": "Illinois Treasurer",
+   "state": "IL",
+   "office": "Treasurer",
+   "group": "Illinois: statewide",
+   "closesET": "20:00",
+   "candidates": [
+    {
+     "name": "Mike Frerichs",
+     "party": "D",
+     "incumbent": true
+    },
+    {
+     "name": "Max Solomon",
+     "party": "R",
+     "incumbent": false
+    }
+   ],
+   "lean": {
+    "d": 54.8,
+    "r": 43.8,
+    "margin": "D +11",
+    "src": "2024 presidential vote statewide (Election Desk baseline)",
+    "url": "https://bboldt86.github.io/lanscape-navigator/election2026/",
+    "label": "2024 presidential vote",
+    "ratings": "Not rated",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_state_treasurer_elections#Illinois"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": false,
+   "note": "Frerichs seeks a fourth term; he won with 54.3% in 2022. No public polling; waits for the count.",
+   "order": 6
+  },
+  {
+   "id": "KY-S",
+   "name": "Kentucky Senate",
+   "state": "KY",
+   "office": "Senate",
+   "group": "Kentucky: statewide",
+   "closesET": "18:00/19:00",
+   "candidates": [
+    {
+     "name": "Charles Booker",
+     "party": "D",
+     "incumbent": false
+    },
+    {
+     "name": "Andy Barr",
+     "party": "R",
+     "incumbent": false
+    }
+   ],
+   "lean": {
+    "d": 34.0,
+    "r": 64.5,
+    "margin": "R +31",
+    "src": "2024 presidential vote statewide (Election Desk baseline)",
+    "url": "https://bboldt86.github.io/lanscape-navigator/election2026/",
+    "label": "2024 presidential vote",
+    "ratings": "Cook Solid R · Sabato Safe R · Inside Solid R · DDHQ Likely R",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_Senate_election_in_Kentucky"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": false,
+   "note": "Open seat; McConnell is retiring. No nonpartisan public poll. Trump +31 statewide and Cook, Sabato and Inside have it Solid R, but DDHQ only Likely R, so under the rule it waits for the first returns rather than a call at the close. Booker lost to Paul by 23 in 2022.",
+   "order": 1
+  },
+  {
+   "id": "WI-G",
+   "name": "Wisconsin Governor",
+   "state": "WI",
+   "office": "Governor",
+   "group": "Wisconsin: statewide",
+   "closesET": "21:00",
+   "candidates": [
+    {
+     "name": "David Crowley",
+     "party": "D",
+     "incumbent": false
+    },
+    {
+     "name": "Tom Tiffany",
+     "party": "R",
+     "incumbent": false
+    }
+   ],
+   "pollAvg": {
+    "d": 48.7,
+    "r": 43.7,
+    "margin": "D +5",
+    "src": "RealClearPolitics average, Oct. 28 (Marquette 51–44, Research Co. 50–45, Wick (R) 48–45); Silver Bulletin Crowley +4.4",
+    "url": "https://www.realclearpolling.com/latest-polls/governor"
+   },
+   "lean": {
+    "d": 48.8,
+    "r": 49.7,
+    "margin": "R +1",
+    "src": "2024 presidential vote statewide (Election Desk baseline)",
+    "url": "https://bboldt86.github.io/lanscape-navigator/election2026/",
+    "label": "2024 presidential vote",
+    "ratings": "Cook Lean D · Sabato Lean D · Inside Tilt D · DDHQ Lean D",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_Wisconsin_gubernatorial_election"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": false,
+   "note": "Open seat; Evers is retiring. Crowley is the Milwaukee County executive, Tiffany the 7th District congressman. Milwaukee counts its absentee ballots centrally and reports them late, often after midnight; early leads in Wisconsin mean little.",
+   "order": 1
+  },
+  {
+   "id": "WI-AG",
+   "name": "Wisconsin Attorney General",
+   "state": "WI",
+   "office": "Attorney General",
+   "group": "Wisconsin: statewide",
+   "closesET": "21:00",
+   "candidates": [
+    {
+     "name": "Josh Kaul",
+     "party": "D",
+     "incumbent": true
+    },
+    {
+     "name": "Eric Toney",
+     "party": "R",
+     "incumbent": false
+    }
+   ],
+   "pollAvg": {
+    "d": 50,
+    "r": 43,
+    "margin": "D +7",
+    "src": "Global Strategy Group (D), Sept. 27–Oct. 1 (the only public poll)",
+    "url": "https://en.wikipedia.org/wiki/2026_Wisconsin_Attorney_General_election"
+   },
+   "lean": {
+    "d": 48.8,
+    "r": 49.7,
+    "margin": "R +1",
+    "src": "2024 presidential vote statewide (Election Desk baseline)",
+    "url": "https://bboldt86.github.io/lanscape-navigator/election2026/",
+    "label": "2024 presidential vote",
+    "ratings": "Sabato Lean D",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_Wisconsin_Attorney_General_election"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": false,
+   "note": "Rematch of 2022, which Kaul won narrowly. One Democratic-sponsored poll; waits for the count.",
+   "order": 2
+  },
+  {
+   "id": "WI-SOS",
+   "name": "Wisconsin Secretary of State",
+   "state": "WI",
+   "office": "Secretary of State",
+   "group": "Wisconsin: statewide",
+   "closesET": "21:00",
+   "candidates": [
+    {
+     "name": "JoCasta Zamarripa",
+     "party": "D",
+     "incumbent": false
+    },
+    {
+     "name": "Jay Schroeder",
+     "party": "R",
+     "incumbent": false
+    }
+   ],
+   "lean": {
+    "d": 48.8,
+    "r": 49.7,
+    "margin": "R +1",
+    "src": "2024 presidential vote statewide (Election Desk baseline)",
+    "url": "https://bboldt86.github.io/lanscape-navigator/election2026/",
+    "label": "2024 presidential vote",
+    "ratings": "Sabato Lean D",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_Wisconsin_Secretary_of_State_election"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": false,
+   "note": "Open seat; Godlewski is Crowley's running mate. The first open secretary of state race in Wisconsin since 1978. No public polling.",
+   "order": 3
+  },
+  {
+   "id": "WI-TRE",
+   "name": "Wisconsin Treasurer",
+   "state": "WI",
+   "office": "Treasurer",
+   "group": "Wisconsin: statewide",
+   "closesET": "21:00",
+   "candidates": [
+    {
+     "name": "Yee Leng Xiong",
+     "party": "D",
+     "incumbent": false
+    },
+    {
+     "name": "John Leiber",
+     "party": "R",
+     "incumbent": true
+    }
+   ],
+   "lean": {
+    "d": 48.8,
+    "r": 49.7,
+    "margin": "R +1",
+    "src": "2024 presidential vote statewide (Election Desk baseline)",
+    "url": "https://bboldt86.github.io/lanscape-navigator/election2026/",
+    "label": "2024 presidential vote",
+    "ratings": "Not rated",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_Wisconsin_State_Treasurer_election"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": false,
+   "note": "Leiber, the only Republican holding statewide office in Wisconsin, seeks a second term against a Marathon County supervisor. No public polling.",
+   "order": 4
+  },
+  {
+   "id": "KS-G",
+   "name": "Kansas Governor",
+   "state": "KS",
+   "office": "Governor",
+   "group": "Kansas: statewide",
+   "closesET": "20:00/21:00",
+   "candidates": [
+    {
+     "name": "Cindy Holscher",
+     "party": "D",
+     "incumbent": false
+    },
+    {
+     "name": "Ty Masterson",
+     "party": "R",
+     "incumbent": false
+    }
+   ],
+   "pollAvg": {
+    "d": 48.2,
+    "r": 48.0,
+    "margin": "Even",
+    "src": "Election Desk mean of 6 polls, Oct. 12–Nov. 2; RealClearPolitics Masterson +1.8, Silver Bulletin +1.2, Decision Desk HQ +0.7",
+    "url": "https://bboldt86.github.io/lanscape-navigator/election2026/"
+   },
+   "lean": {
+    "d": 41.0,
+    "r": 57.2,
+    "margin": "R +16",
+    "src": "2024 presidential vote statewide (Election Desk baseline)",
+    "url": "https://bboldt86.github.io/lanscape-navigator/election2026/",
+    "label": "2024 presidential vote",
+    "ratings": "Cook Toss Up · Sabato Lean R · Inside Tilt R",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_Kansas_gubernatorial_election"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": false,
+   "note": "Open seat; Kelly is term-limited. Holscher is an Overland Park state senator, Masterson the state Senate president. Dead even on the polls. Johnson and Sedgwick counties decide it; the western counties report late, and four of them close at 9.",
+   "order": 1
+  },
+  {
+   "id": "KS-AG",
+   "name": "Kansas Attorney General",
+   "state": "KS",
+   "office": "Attorney General",
+   "group": "Kansas: statewide",
+   "closesET": "20:00/21:00",
+   "candidates": [
+    {
+     "name": "Chris Mann",
+     "party": "D",
+     "incumbent": false
+    },
+    {
+     "name": "Kris Kobach",
+     "party": "R",
+     "incumbent": true
+    }
+   ],
+   "pollAvg": {
+    "d": 49,
+    "r": 45,
+    "margin": "D +4",
+    "src": "Global Strategy Group (D), Sept. 27–Oct. 1 (Democratic-sponsored; the only recent public poll)",
+    "url": "https://en.wikipedia.org/wiki/2026_Kansas_Attorney_General_election"
+   },
+   "lean": {
+    "d": 41.0,
+    "r": 57.2,
+    "margin": "R +16",
+    "src": "2024 presidential vote statewide (Election Desk baseline)",
+    "url": "https://bboldt86.github.io/lanscape-navigator/election2026/",
+    "label": "2024 presidential vote",
+    "ratings": "Sabato Lean R",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_Kansas_Attorney_General_election"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": false,
+   "note": "Rematch of 2022, which Kobach won narrowly. Two Democratic-sponsored polls had Mann ahead; waits for the count.",
+   "order": 2
+  },
+  {
+   "id": "KS-SOS",
+   "name": "Kansas Secretary of State",
+   "state": "KS",
+   "office": "Secretary of State",
+   "group": "Kansas: statewide",
+   "closesET": "20:00/21:00",
+   "candidates": [
+    {
+     "name": "Jennifer Day",
+     "party": "D",
+     "incumbent": false
+    },
+    {
+     "name": "Pat Proctor",
+     "party": "R",
+     "incumbent": false
+    }
+   ],
+   "pollAvg": {
+    "d": 37,
+    "r": 39,
+    "margin": "R +2",
+    "src": "Public Policy Polling (D), Aug. 31–Sept. 1 (24% undecided; the only public poll)",
+    "url": "https://en.wikipedia.org/wiki/2026_Kansas_Secretary_of_State_election"
+   },
+   "lean": {
+    "d": 41.0,
+    "r": 57.2,
+    "margin": "R +16",
+    "src": "2024 presidential vote statewide (Election Desk baseline)",
+    "url": "https://bboldt86.github.io/lanscape-navigator/election2026/",
+    "label": "2024 presidential vote",
+    "ratings": "Sabato Lean R",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_Kansas_Secretary_of_State_election"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": false,
+   "note": "Open seat; Schwab lost the governor primary. Proctor is a state representative. One early Democratic-sponsored poll with a quarter undecided; waits for the count.",
+   "order": 3
+  },
+  {
+   "id": "KS-TRE",
+   "name": "Kansas Treasurer",
+   "state": "KS",
+   "office": "Treasurer",
+   "group": "Kansas: statewide",
+   "closesET": "20:00/21:00",
+   "candidates": [
+    {
+     "name": "Juan Luengo",
+     "party": "D",
+     "incumbent": false
+    },
+    {
+     "name": "Steven Johnson",
+     "party": "R",
+     "incumbent": true
+    }
+   ],
+   "lean": {
+    "d": 41.0,
+    "r": 57.2,
+    "margin": "R +16",
+    "src": "2024 presidential vote statewide (Election Desk baseline)",
+    "url": "https://bboldt86.github.io/lanscape-navigator/election2026/",
+    "label": "2024 presidential vote",
+    "ratings": "Not rated",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_Kansas_State_Treasurer_election"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": false,
+   "note": "Johnson seeks a second term. No public polling or rating; waits for the count.",
+   "order": 4
+  },
+  {
+   "id": "KS-INS",
+   "name": "Kansas Insurance Commissioner",
+   "state": "KS",
+   "office": "Insurance Commissioner",
+   "group": "Kansas: statewide",
+   "closesET": "20:00/21:00",
+   "candidates": [
+    {
+     "name": "Dinah Sykes",
+     "party": "D",
+     "incumbent": false
+    },
+    {
+     "name": "Daniel Hawkins",
+     "party": "R",
+     "incumbent": false
+    }
+   ],
+   "lean": {
+    "d": 41.0,
+    "r": 57.2,
+    "margin": "R +16",
+    "src": "2024 presidential vote statewide (Election Desk baseline)",
+    "url": "https://bboldt86.github.io/lanscape-navigator/election2026/",
+    "label": "2024 presidential vote",
+    "ratings": "Not rated",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_Kansas_Insurance_Commissioner_election"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": false,
+   "note": "Open seat; Schmidt lost the governor primary. Hawkins is the state House speaker, Sykes the state Senate minority leader. No public polling.",
+   "order": 5
+  },
+  {
+   "id": "TX-01",
+   "name": "Texas 1st District",
+   "state": "TX",
+   "office": "U.S. House",
+   "group": "Texas: U.S. House",
+   "closesET": "20:00/21:00",
+   "candidates": [
+    {
+     "name": "Nathaniel Moran",
+     "party": "R",
+     "incumbent": true
+    },
+    {
+     "name": "Yolanda Prince",
+     "party": "D",
+     "incumbent": false
+    }
+   ],
+   "lean": {
+    "d": 25.0,
+    "r": 74.0,
+    "margin": "R +49",
+    "src": "2024 presidential vote under the 2025 map (Wikipedia district article)",
+    "url": "https://en.wikipedia.org/wiki/Texas%27s_1st_congressional_district",
+    "ratings": "Cook Solid R · Sabato Safe R · Inside Solid R · DDHQ Safe R",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Texas"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": true,
+   "note": "The new 1st district encompasses much of East Texas, including Tyler, Longview, Nacogdoches and Texarkana. Trump +49 in 2024; callable at 9, when the last Texas polls (El Paso) close, under the rule."
+  },
+  {
+   "id": "TX-02",
+   "name": "Texas 2nd District",
+   "state": "TX",
+   "office": "U.S. House",
+   "group": "Texas: U.S. House",
+   "closesET": "20:00/21:00",
+   "candidates": [
+    {
+     "name": "Steve Toth",
+     "party": "R",
+     "incumbent": false
+    },
+    {
+     "name": "Shaun Finnie",
+     "party": "D",
+     "incumbent": false
+    }
+   ],
+   "lean": {
+    "d": 38.0,
+    "r": 61.0,
+    "margin": "R +23",
+    "src": "2024 presidential vote under the 2025 map (Wikipedia district article)",
+    "url": "https://en.wikipedia.org/wiki/Texas%27s_2nd_congressional_district",
+    "ratings": "Cook Solid R · Sabato Safe R · Inside Solid R · DDHQ Likely R",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Texas"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": false,
+   "note": "The new 2nd district encompasses most of the northern and northeastern suburbs of Houston, including The Woodlands, Spring, Kingwood, New Caney, Humble, and Atascocita. Trump +23 in 2024; waits for the count."
+  },
+  {
+   "id": "TX-03",
+   "name": "Texas 3rd District",
+   "state": "TX",
+   "office": "U.S. House",
+   "group": "Texas: U.S. House",
+   "closesET": "20:00/21:00",
+   "candidates": [
+    {
+     "name": "Keith Self",
+     "party": "R",
+     "incumbent": true
+    },
+    {
+     "name": "Evan Hunt",
+     "party": "D",
+     "incumbent": false
+    }
+   ],
+   "lean": {
+    "d": 37.0,
+    "r": 60.0,
+    "margin": "R +23",
+    "src": "2024 presidential vote under the 2025 map (Wikipedia district article)",
+    "url": "https://en.wikipedia.org/wiki/Texas%27s_3rd_congressional_district",
+    "ratings": "Cook Solid R · Sabato Safe R · Inside Solid R · DDHQ Safe R",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Texas"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": true,
+   "note": "The new 3rd district encompasses much of Collin County and Hunt County in the Dallas–Fort Worth Metroplex, including eastern Plano, McKinney, Allen, Wylie and Greenville. Trump +23 in 2024; callable at 9, when the last Texas polls (El Paso) close, under the rule."
+  },
+  {
+   "id": "TX-04",
+   "name": "Texas 4th District",
+   "state": "TX",
+   "office": "U.S. House",
+   "group": "Texas: U.S. House",
+   "closesET": "20:00/21:00",
+   "candidates": [
+    {
+     "name": "Pat Fallon",
+     "party": "R",
+     "incumbent": true
+    },
+    {
+     "name": "Jason Pearce",
+     "party": "D",
+     "incumbent": false
+    }
+   ],
+   "lean": {
+    "d": 37.0,
+    "r": 61.0,
+    "margin": "R +24",
+    "src": "2024 presidential vote under the 2025 map (Wikipedia district article)",
+    "url": "https://en.wikipedia.org/wiki/Texas%27s_4th_congressional_district",
+    "ratings": "Cook Solid R · Sabato Safe R · Inside Solid R · DDHQ Safe R",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Texas"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": true,
+   "note": "The new 4th district encompasses most of the counties in the eastern part of the Texoma region along the Red River, including the communities of Sherman and Paris. Trump +24 in 2024; callable at 9, when the last Texas polls (El Paso) close, under the rule."
+  },
+  {
+   "id": "TX-05",
+   "name": "Texas 5th District",
+   "state": "TX",
+   "office": "U.S. House",
+   "group": "Texas: U.S. House",
+   "closesET": "20:00/21:00",
+   "candidates": [
+    {
+     "name": "Lance Gooden",
+     "party": "R",
+     "incumbent": true
+    },
+    {
+     "name": "Chelsey Hockett",
+     "party": "D",
+     "incumbent": false
+    }
+   ],
+   "lean": {
+    "d": 39.0,
+    "r": 60.0,
+    "margin": "R +21",
+    "src": "2024 presidential vote under the 2025 map (Wikipedia district article)",
+    "url": "https://en.wikipedia.org/wiki/Texas%27s_5th_congressional_district",
+    "ratings": "Cook Solid R · Sabato Safe R · Inside Solid R · DDHQ Safe R",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Texas"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": true,
+   "note": "The new 5th district encompasses the southeastern parts of the Dallas–Fort Worth Metroplex, including Mesquite, Terrell, Palestine, Athens, Canton, Kaufman. Trump +21 in 2024; callable at 9, when the last Texas polls (El Paso) close, under the rule."
+  },
+  {
+   "id": "TX-06",
+   "name": "Texas 6th District",
+   "state": "TX",
+   "office": "U.S. House",
+   "group": "Texas: U.S. House",
+   "closesET": "20:00/21:00",
+   "candidates": [
+    {
+     "name": "Jake Ellzey",
+     "party": "R",
+     "incumbent": true
+    },
+    {
+     "name": "Danny Minton",
+     "party": "D",
+     "incumbent": false
+    }
+   ],
+   "lean": {
+    "d": 38.0,
+    "r": 61.0,
+    "margin": "R +23",
+    "src": "2024 presidential vote under the 2025 map (Wikipedia district article)",
+    "url": "https://en.wikipedia.org/wiki/Texas%27s_6th_congressional_district",
+    "ratings": "Cook Solid R · Sabato Safe R · Inside Solid R · DDHQ Safe R",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Texas"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": true,
+   "note": "The new 6th district encompasses most of the southern parts of the Dallas–Fort Worth Metroplex, including most or all of the suburbs of Midlothian, Mansfield, Burleson. Trump +23 in 2024; callable at 9, when the last Texas polls (El Paso) close, under the rule."
+  },
+  {
+   "id": "TX-07",
+   "name": "Texas 7th District",
+   "state": "TX",
+   "office": "U.S. House",
+   "group": "Texas: U.S. House",
+   "closesET": "20:00/21:00",
+   "candidates": [
+    {
+     "name": "Lizzie Fletcher",
+     "party": "D",
+     "incumbent": true
+    },
+    {
+     "name": "Alexander Hale",
+     "party": "R",
+     "incumbent": false
+    }
+   ],
+   "lean": {
+    "d": 60.0,
+    "r": 37.0,
+    "margin": "D +23",
+    "src": "2024 presidential vote under the 2025 map (Wikipedia district article)",
+    "url": "https://en.wikipedia.org/wiki/Texas%27s_7th_congressional_district",
+    "ratings": "Cook Solid D · Sabato Safe D · Inside Solid D · DDHQ Safe D",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Texas"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": true,
+   "note": "The new 7th district encompasses a diverse southwestern stretch of the Greater Houston area across Harris and Fort Bend counties. Harris +23 in 2024; callable at 9, when the last Texas polls (El Paso) close, under the rule."
+  },
+  {
+   "id": "TX-08",
+   "name": "Texas 8th District",
+   "state": "TX",
+   "office": "U.S. House",
+   "group": "Texas: U.S. House",
+   "closesET": "20:00/21:00",
+   "candidates": [
+    {
+     "name": "Jessica Steinmann",
+     "party": "R",
+     "incumbent": false
+    },
+    {
+     "name": "Laura Jones",
+     "party": "D",
+     "incumbent": false
+    }
+   ],
+   "lean": {
+    "d": 36.0,
+    "r": 63.0,
+    "margin": "R +27",
+    "src": "2024 presidential vote under the 2025 map (Wikipedia district article)",
+    "url": "https://en.wikipedia.org/wiki/Texas%27s_8th_congressional_district",
+    "ratings": "Cook Solid R · Sabato Safe R · Inside Solid R · DDHQ Safe R",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Texas"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": true,
+   "note": "The 8th district includes most of the northern and northwestern exurbs of Houston, including Conroe, part of Huntsville, Willis, Magnolia, Brookshire and Hempstead. Trump +27 in 2024; callable at 9, when the last Texas polls (El Paso) close, under the rule."
+  },
+  {
+   "id": "TX-09",
+   "name": "Texas 9th District",
+   "state": "TX",
+   "office": "U.S. House",
+   "group": "Texas: U.S. House",
+   "closesET": "20:00/21:00",
+   "candidates": [
+    {
+     "name": "Leticia Gutierrez",
+     "party": "D",
+     "incumbent": false
+    },
+    {
+     "name": "Alex Mealer",
+     "party": "R",
+     "incumbent": false
+    }
+   ],
+   "lean": {
+    "d": 40.0,
+    "r": 59.0,
+    "margin": "R +19",
+    "src": "2024 presidential vote under the 2025 map (Wikipedia district article)",
+    "url": "https://en.wikipedia.org/wiki/Texas%27s_9th_congressional_district",
+    "ratings": "Cook Likely R · Sabato Likely R · Inside Lean R · DDHQ Likely R",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Texas"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": false,
+   "note": "New east Houston seat: Trump +19 on the new lines, and every rater has it Republican (Inside only Lean). Harris County reports its early vote first and it will run Gutierrez."
+  },
+  {
+   "id": "TX-10",
+   "name": "Texas 10th District",
+   "state": "TX",
+   "office": "U.S. House",
+   "group": "Texas: U.S. House",
+   "closesET": "20:00/21:00",
+   "candidates": [
+    {
+     "name": "Chris Gober",
+     "party": "R",
+     "incumbent": false
+    },
+    {
+     "name": "Caitlin Rourk",
+     "party": "D",
+     "incumbent": false
+    }
+   ],
+   "lean": {
+    "d": 38.0,
+    "r": 60.0,
+    "margin": "R +22",
+    "src": "2024 presidential vote under the 2025 map (Wikipedia district article)",
+    "url": "https://en.wikipedia.org/wiki/Texas%27s_10th_congressional_district",
+    "ratings": "Cook Solid R · Sabato Safe R · Inside Solid R · DDHQ Likely R",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Texas"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": false,
+   "note": "The new 10th district stretches from downtown and western Austin (including Lake Travis) through the Bryan–College Station area to a rural stretch of east-central Texas… Trump +22 in 2024; waits for the count."
+  },
+  {
+   "id": "TX-11",
+   "name": "Texas 11th District",
+   "state": "TX",
+   "office": "U.S. House",
+   "group": "Texas: U.S. House",
+   "closesET": "20:00/21:00",
+   "candidates": [
+    {
+     "name": "August Pfluger",
+     "party": "R",
+     "incumbent": true
+    },
+    {
+     "name": "Claire Reynolds",
+     "party": "D",
+     "incumbent": false
+    }
+   ],
+   "lean": {
+    "d": 32.0,
+    "r": 66.0,
+    "margin": "R +34",
+    "src": "2024 presidential vote under the 2025 map (Wikipedia district article)",
+    "url": "https://en.wikipedia.org/wiki/Texas%27s_11th_congressional_district",
+    "ratings": "Cook Solid R · Sabato Safe R · Inside Solid R · DDHQ Safe R",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Texas"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": true,
+   "note": "The new 11th district is based in midwestern Texas, including Midland, Odessa, San Angelo and Brownwood. Trump +34 in 2024; callable at 9, when the last Texas polls (El Paso) close, under the rule."
+  },
+  {
+   "id": "TX-12",
+   "name": "Texas 12th District",
+   "state": "TX",
+   "office": "U.S. House",
+   "group": "Texas: U.S. House",
+   "closesET": "20:00/21:00",
+   "candidates": [
+    {
+     "name": "Craig Goldman",
+     "party": "R",
+     "incumbent": true
+    },
+    {
+     "name": "Angela Rodriguez Prilliman",
+     "party": "D",
+     "incumbent": false
+    }
+   ],
+   "lean": {
+    "d": 37.0,
+    "r": 61.0,
+    "margin": "R +24",
+    "src": "2024 presidential vote under the 2025 map (Wikipedia district article)",
+    "url": "https://en.wikipedia.org/wiki/Texas%27s_12th_congressional_district",
+    "ratings": "Cook Solid R · Sabato Safe R · Inside Solid R · DDHQ Safe R",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Texas"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": true,
+   "note": "The new 12th district is in the western part of the Dallas–Fort Worth metroplex, and takes in most of Parker County and western Tarrant County. Trump +24 in 2024; callable at 9, when the last Texas polls (El Paso) close, under the rule."
+  },
+  {
+   "id": "TX-13",
+   "name": "Texas 13th District",
+   "state": "TX",
+   "office": "U.S. House",
+   "group": "Texas: U.S. House",
+   "closesET": "20:00/21:00",
+   "candidates": [
+    {
+     "name": "Ronny Jackson",
+     "party": "R",
+     "incumbent": true
+    },
+    {
+     "name": "Mark Nair",
+     "party": "D",
+     "incumbent": false
+    }
+   ],
+   "lean": {
+    "d": 26.0,
+    "r": 73.0,
+    "margin": "R +47",
+    "src": "2024 presidential vote under the 2025 map (Wikipedia district article)",
+    "url": "https://en.wikipedia.org/wiki/Texas%27s_13th_congressional_district",
+    "ratings": "Cook Solid R · Sabato Safe R · Inside Solid R · DDHQ Safe R",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Texas"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": true,
+   "note": "The new 13th district encompasses most of the Texas Panhandle and the western part of the Texoma region, containing the cities of Amarillo and Wichita Falls. Trump +47 in 2024; callable at 9, when the last Texas polls (El Paso) close, under the rule."
+  },
+  {
+   "id": "TX-14",
+   "name": "Texas 14th District",
+   "state": "TX",
+   "office": "U.S. House",
+   "group": "Texas: U.S. House",
+   "closesET": "20:00/21:00",
+   "candidates": [
+    {
+     "name": "Randy Weber",
+     "party": "R",
+     "incumbent": true
+    },
+    {
+     "name": "Thurman Bartie",
+     "party": "D",
+     "incumbent": false
+    }
+   ],
+   "lean": {
+    "d": 37.0,
+    "r": 62.0,
+    "margin": "R +25",
+    "src": "2024 presidential vote under the 2025 map (Wikipedia district article)",
+    "url": "https://en.wikipedia.org/wiki/Texas%27s_14th_congressional_district",
+    "ratings": "Cook Solid R · Sabato Safe R · Inside Solid R · DDHQ Safe R",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Texas"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": true,
+   "note": "The new 14th district remains anchored in Galveston County in the southeast corner of Greater Houston, including Galveston, League City, Friendswood and Texas City. Trump +25 in 2024; callable at 9, when the last Texas polls (El Paso) close, under the rule."
+  },
+  {
+   "id": "TX-15",
+   "name": "Texas 15th District",
+   "state": "TX",
+   "office": "U.S. House",
+   "group": "Texas: U.S. House",
+   "closesET": "20:00/21:00",
+   "candidates": [
+    {
+     "name": "Monica De La Cruz",
+     "party": "R",
+     "incumbent": true
+    },
+    {
+     "name": "Bobby Pulido",
+     "party": "D",
+     "incumbent": false
+    }
+   ],
+   "lean": {
+    "d": 41.0,
+    "r": 59.0,
+    "margin": "R +18",
+    "src": "2024 presidential vote under the 2025 map (Wikipedia district article)",
+    "url": "https://en.wikipedia.org/wiki/Texas%27s_15th_congressional_district",
+    "ratings": "Cook Toss-up · Sabato Lean D · Inside Tilt D · DDHQ Toss-up",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Texas"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": false,
+   "note": "Rio Grande Valley: Trump +18 on the lines but a toss-up on the ratings, and the public polls had Pulido even or ahead. Hidalgo County reports early; the ranch counties come late."
+  },
+  {
+   "id": "TX-16",
+   "name": "Texas 16th District",
+   "state": "TX",
+   "office": "U.S. House",
+   "group": "Texas: U.S. House",
+   "closesET": "20:00/21:00",
+   "candidates": [
+    {
+     "name": "Veronica Escobar",
+     "party": "D",
+     "incumbent": true
+    },
+    {
+     "name": "Adam Bauman",
+     "party": "R",
+     "incumbent": false
+    }
+   ],
+   "lean": {
+    "d": 57.0,
+    "r": 41.0,
+    "margin": "D +16",
+    "src": "2024 presidential vote under the 2025 map (Wikipedia district article)",
+    "url": "https://en.wikipedia.org/wiki/Texas%27s_16th_congressional_district",
+    "ratings": "Cook Solid D · Sabato Safe D · Inside Solid D · DDHQ Safe D",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Texas"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": false,
+   "note": "Harris +16 in 2024; every rater Solid/Safe but under the 20-point line, so it waits for the count."
+  },
+  {
+   "id": "TX-17",
+   "name": "Texas 17th District",
+   "state": "TX",
+   "office": "U.S. House",
+   "group": "Texas: U.S. House",
+   "closesET": "20:00/21:00",
+   "candidates": [
+    {
+     "name": "Pete Sessions",
+     "party": "R",
+     "incumbent": true
+    },
+    {
+     "name": "Casey Shepard",
+     "party": "D",
+     "incumbent": false
+    }
+   ],
+   "lean": {
+    "d": 38.0,
+    "r": 60.0,
+    "margin": "R +22",
+    "src": "2024 presidential vote under the 2025 map (Wikipedia district article)",
+    "url": "https://en.wikipedia.org/wiki/Texas%27s_17th_congressional_district",
+    "ratings": "Cook Solid R · Sabato Safe R · Inside Solid R · DDHQ Safe R",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Texas"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": true,
+   "note": "The new 17th district is anchored in Waco and its surrounding metropolitan area. Trump +22 in 2024; callable at 9, when the last Texas polls (El Paso) close, under the rule."
+  },
+  {
+   "id": "TX-18",
+   "name": "Texas 18th District",
+   "state": "TX",
+   "office": "U.S. House",
+   "group": "Texas: U.S. House",
+   "closesET": "20:00/21:00",
+   "candidates": [
+    {
+     "name": "Christian Menefee",
+     "party": "D",
+     "incumbent": true
+    },
+    {
+     "name": "Ronald Whitfield",
+     "party": "R",
+     "incumbent": false
+    }
+   ],
+   "lean": {
+    "d": 77.0,
+    "r": 22.0,
+    "margin": "D +55",
+    "src": "2024 presidential vote under the 2025 map (Wikipedia district article)",
+    "url": "https://en.wikipedia.org/wiki/Texas%27s_18th_congressional_district",
+    "ratings": "Cook Solid D · Sabato Safe D · Inside Solid D · DDHQ Safe D",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Texas"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": true,
+   "note": "Houston's 18th, Harris +55 on the new lines. Menefee, who won January's special election, is the nominee; Al Green, drawn in from the old 9th, is not. Callable at 9 under the rule."
+  },
+  {
+   "id": "TX-19",
+   "name": "Texas 19th District",
+   "state": "TX",
+   "office": "U.S. House",
+   "group": "Texas: U.S. House",
+   "closesET": "20:00/21:00",
+   "candidates": [
+    {
+     "name": "Tom Sell",
+     "party": "R",
+     "incumbent": false
+    },
+    {
+     "name": "Kyle Rable",
+     "party": "D",
+     "incumbent": false
+    }
+   ],
+   "lean": {
+    "d": 24.0,
+    "r": 75.0,
+    "margin": "R +51",
+    "src": "2024 presidential vote under the 2025 map (Wikipedia district article)",
+    "url": "https://en.wikipedia.org/wiki/Texas%27s_19th_congressional_district",
+    "ratings": "Cook Solid R · Sabato Safe R · Inside Solid R · DDHQ Safe R",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Texas"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": true,
+   "note": "The new 19th district, then as now, encompasses much of West Texas including Lubbock and Abilene along with Big Spring. Trump +51 in 2024; callable at 9, when the last Texas polls (El Paso) close, under the rule."
+  },
+  {
+   "id": "TX-20",
+   "name": "Texas 20th District",
+   "state": "TX",
+   "office": "U.S. House",
+   "group": "Texas: U.S. House",
+   "closesET": "20:00/21:00",
+   "candidates": [
+    {
+     "name": "Joaquin Castro",
+     "party": "D",
+     "incumbent": true
+    },
+    {
+     "name": "Edgardo Baez",
+     "party": "R",
+     "incumbent": false
+    }
+   ],
+   "lean": {
+    "d": 63.0,
+    "r": 35.0,
+    "margin": "D +28",
+    "src": "2024 presidential vote under the 2025 map (Wikipedia district article)",
+    "url": "https://en.wikipedia.org/wiki/Texas%27s_20th_congressional_district",
+    "ratings": "Cook Solid D · Sabato Safe D · Inside Solid D · DDHQ Safe D",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Texas"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": true,
+   "note": "The new 20th district encompasses downtown San Antonio and extends eastward to its historically Black east side and the community of Kirby. Harris +28 in 2024; callable at 9, when the last Texas polls (El Paso) close, under the rule."
+  },
+  {
+   "id": "TX-21",
+   "name": "Texas 21st District",
+   "state": "TX",
+   "office": "U.S. House",
+   "group": "Texas: U.S. House",
+   "closesET": "20:00/21:00",
+   "candidates": [
+    {
+     "name": "Mark Teixeira",
+     "party": "R",
+     "incumbent": false
+    },
+    {
+     "name": "Kristin Hook",
+     "party": "D",
+     "incumbent": false
+    }
+   ],
+   "lean": {
+    "d": 38.0,
+    "r": 60.0,
+    "margin": "R +22",
+    "src": "2024 presidential vote under the 2025 map (Wikipedia district article)",
+    "url": "https://en.wikipedia.org/wiki/Texas%27s_21st_congressional_district",
+    "ratings": "Cook Solid R · Sabato Safe R · Inside Solid R · DDHQ Safe R",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Texas"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": true,
+   "note": "The new 21st district takes in the Texas Hill Country, including Fredericksburg, Boerne, Kerrville and Bandera. Trump +22 in 2024; callable at 9, when the last Texas polls (El Paso) close, under the rule."
+  },
+  {
+   "id": "TX-22",
+   "name": "Texas 22nd District",
+   "state": "TX",
+   "office": "U.S. House",
+   "group": "Texas: U.S. House",
+   "closesET": "20:00/21:00",
+   "candidates": [
+    {
+     "name": "Trever Nehls",
+     "party": "R",
+     "incumbent": false
+    },
+    {
+     "name": "Marquette Greene-Scott",
+     "party": "D",
+     "incumbent": false
+    }
+   ],
+   "lean": {
+    "d": 38.0,
+    "r": 60.0,
+    "margin": "R +22",
+    "src": "2024 presidential vote under the 2025 map (Wikipedia district article)",
+    "url": "https://en.wikipedia.org/wiki/Texas%27s_22nd_congressional_district",
+    "ratings": "Cook Solid R · Sabato Safe R · Inside Solid R · DDHQ Likely R",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Texas"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": false,
+   "note": "The new 22nd district encompasses the southwest suburban corner of the Greater Houston metropolitan area across Harris, Fort Bend and Brazoria counties. Trump +22 in 2024; waits for the count."
+  },
+  {
+   "id": "TX-23",
+   "name": "Texas 23rd District",
+   "state": "TX",
+   "office": "U.S. House",
+   "group": "Texas: U.S. House",
+   "closesET": "20:00/21:00",
+   "candidates": [
+    {
+     "name": "Brandon Herrera",
+     "party": "R",
+     "incumbent": false
+    },
+    {
+     "name": "Katy Padilla Stout",
+     "party": "D",
+     "incumbent": false
+    }
+   ],
+   "lean": {
+    "d": 42.0,
+    "r": 57.0,
+    "margin": "R +15",
+    "src": "2024 presidential vote under the 2025 map (Wikipedia district article)",
+    "url": "https://en.wikipedia.org/wiki/Texas%27s_23rd_congressional_district",
+    "ratings": "Cook Lean R · Sabato Lean R · Inside Likely R · DDHQ Lean R",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Texas"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": false,
+   "note": "Open: Herrera beat Gonzales in the primary. Trump +15 and Lean R. The Bexar County suburbs report first; the border counties late."
+  },
+  {
+   "id": "TX-24",
+   "name": "Texas 24th District",
+   "state": "TX",
+   "office": "U.S. House",
+   "group": "Texas: U.S. House",
+   "closesET": "20:00/21:00",
+   "candidates": [
+    {
+     "name": "Beth Van Duyne",
+     "party": "R",
+     "incumbent": true
+    },
+    {
+     "name": "Kevin Burge",
+     "party": "D",
+     "incumbent": false
+    }
+   ],
+   "lean": {
+    "d": 41.0,
+    "r": 57.0,
+    "margin": "R +16",
+    "src": "2024 presidential vote under the 2025 map (Wikipedia district article)",
+    "url": "https://en.wikipedia.org/wiki/Texas%27s_24th_congressional_district",
+    "ratings": "Cook Solid R · Sabato Safe R · Inside Solid R · DDHQ Likely R",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Texas"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": false,
+   "note": "Trump +16 on the new lines, under the 20-point line, and DDHQ has it Likely R: waits for the count."
+  },
+  {
+   "id": "TX-25",
+   "name": "Texas 25th District",
+   "state": "TX",
+   "office": "U.S. House",
+   "group": "Texas: U.S. House",
+   "closesET": "20:00/21:00",
+   "candidates": [
+    {
+     "name": "Roger Williams",
+     "party": "R",
+     "incumbent": true
+    },
+    {
+     "name": "Dione Sims",
+     "party": "D",
+     "incumbent": false
+    }
+   ],
+   "lean": {
+    "d": 37.0,
+    "r": 61.0,
+    "margin": "R +24",
+    "src": "2024 presidential vote under the 2025 map (Wikipedia district article)",
+    "url": "https://en.wikipedia.org/wiki/Texas%27s_25th_congressional_district",
+    "ratings": "Cook Solid R · Sabato Safe R · Inside Solid R · DDHQ Safe R",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Texas"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": true,
+   "note": "The new 25th district runs from northern Arlington and southern and eastern Fort Worth in Tarrant County. Trump +24 in 2024; callable at 9, when the last Texas polls (El Paso) close, under the rule."
+  },
+  {
+   "id": "TX-26",
+   "name": "Texas 26th District",
+   "state": "TX",
+   "office": "U.S. House",
+   "group": "Texas: U.S. House",
+   "closesET": "20:00/21:00",
+   "candidates": [
+    {
+     "name": "Brandon Gill",
+     "party": "R",
+     "incumbent": true
+    },
+    {
+     "name": "Steven Shook",
+     "party": "D",
+     "incumbent": false
+    }
+   ],
+   "lean": {
+    "d": 37.0,
+    "r": 61.0,
+    "margin": "R +24",
+    "src": "2024 presidential vote under the 2025 map (Wikipedia district article)",
+    "url": "https://en.wikipedia.org/wiki/Texas%27s_26th_congressional_district",
+    "ratings": "Cook Solid R · Sabato Safe R · Inside Solid R · DDHQ Safe R",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Texas"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": true,
+   "note": "The new 26th district is based in the northwestern corner of the Dallas–Fort Worth metroplex. Trump +24 in 2024; callable at 9, when the last Texas polls (El Paso) close, under the rule."
+  },
+  {
+   "id": "TX-27",
+   "name": "Texas 27th District",
+   "state": "TX",
+   "office": "U.S. House",
+   "group": "Texas: U.S. House",
+   "closesET": "20:00/21:00",
+   "candidates": [
+    {
+     "name": "Michael Cloud",
+     "party": "R",
+     "incumbent": true
+    },
+    {
+     "name": "Tanya Lloyd",
+     "party": "D",
+     "incumbent": false
+    }
+   ],
+   "lean": {
+    "d": 39.0,
+    "r": 60.0,
+    "margin": "R +21",
+    "src": "2024 presidential vote under the 2025 map (Wikipedia district article)",
+    "url": "https://en.wikipedia.org/wiki/Texas%27s_27th_congressional_district",
+    "ratings": "Cook Solid R · Sabato Safe R · Inside Solid R · DDHQ Likely R",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Texas"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": false,
+   "note": "The new 27th district stretches across the Coastal Bend, from downtown Corpus Christi and Port Aransas in the south. Trump +21 in 2024; waits for the count."
+  },
+  {
+   "id": "TX-28",
+   "name": "Texas 28th District",
+   "state": "TX",
+   "office": "U.S. House",
+   "group": "Texas: U.S. House",
+   "closesET": "20:00/21:00",
+   "candidates": [
+    {
+     "name": "Henry Cuellar",
+     "party": "D",
+     "incumbent": true
+    },
+    {
+     "name": "Tano Tijerina",
+     "party": "R",
+     "incumbent": false
+    }
+   ],
+   "lean": {
+    "d": 44.0,
+    "r": 55.0,
+    "margin": "R +11",
+    "src": "2024 presidential vote under the 2025 map (Wikipedia district article)",
+    "url": "https://en.wikipedia.org/wiki/Texas%27s_28th_congressional_district",
+    "ratings": "Cook Likely D · Sabato Lean D · Inside Lean D · DDHQ Likely D",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Texas"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": false,
+   "note": "Laredo and the border: Trump +11 on the new lines, but Cuellar has held a Trump district before and the raters have it Lean or Likely D. Webb County is his base."
+  },
+  {
+   "id": "TX-29",
+   "name": "Texas 29th District",
+   "state": "TX",
+   "office": "U.S. House",
+   "group": "Texas: U.S. House",
+   "closesET": "20:00/21:00",
+   "candidates": [
+    {
+     "name": "Sylvia Garcia",
+     "party": "D",
+     "incumbent": true
+    },
+    {
+     "name": "Martha Fierro",
+     "party": "R",
+     "incumbent": false
+    }
+   ],
+   "lean": {
+    "d": 65.0,
+    "r": 34.0,
+    "margin": "D +31",
+    "src": "2024 presidential vote under the 2025 map (Wikipedia district article)",
+    "url": "https://en.wikipedia.org/wiki/Texas%27s_29th_congressional_district",
+    "ratings": "Cook Solid D · Sabato Safe D · Inside Solid D · DDHQ Safe D",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Texas"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": true,
+   "note": "The new 29th district encompasses much of north Houston, taking in the heavily Latino Lindale Park and Northline areas along with historically Black Acres Homes… Harris +31 in 2024; callable at 9, when the last Texas polls (El Paso) close, under the rule."
+  },
+  {
+   "id": "TX-30",
+   "name": "Texas 30th District",
+   "state": "TX",
+   "office": "U.S. House",
+   "group": "Texas: U.S. House",
+   "closesET": "20:00/21:00",
+   "candidates": [
+    {
+     "name": "Frederick Haynes III",
+     "party": "D",
+     "incumbent": false
+    },
+    {
+     "name": "Everett Jackson",
+     "party": "R",
+     "incumbent": false
+    }
+   ],
+   "lean": {
+    "d": 73.0,
+    "r": 26.0,
+    "margin": "D +47",
+    "src": "2024 presidential vote under the 2025 map (Wikipedia district article)",
+    "url": "https://en.wikipedia.org/wiki/Texas%27s_30th_congressional_district",
+    "ratings": "Cook Solid D · Sabato Safe D · Inside Solid D · DDHQ Safe D",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Texas"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": true,
+   "note": "The new 30th district is anchored in the southern portions of Dallas and encompasses South Dallas and Fair Park. Harris +47 in 2024; callable at 9, when the last Texas polls (El Paso) close, under the rule."
+  },
+  {
+   "id": "TX-31",
+   "name": "Texas 31st District",
+   "state": "TX",
+   "office": "U.S. House",
+   "group": "Texas: U.S. House",
+   "closesET": "20:00/21:00",
+   "candidates": [
+    {
+     "name": "John Carter",
+     "party": "R",
+     "incumbent": true
+    },
+    {
+     "name": "Justin Early",
+     "party": "D",
+     "incumbent": false
+    }
+   ],
+   "lean": {
+    "d": 38.0,
+    "r": 60.0,
+    "margin": "R +22",
+    "src": "2024 presidential vote under the 2025 map (Wikipedia district article)",
+    "url": "https://en.wikipedia.org/wiki/Texas%27s_31st_congressional_district",
+    "ratings": "Cook Solid R · Sabato Safe R · Inside Solid R · DDHQ Likely R",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Texas"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": false,
+   "note": "The new 31st district is anchored in the northern exurbs of Austin (including Georgetown and Burnet) and stretches northward to Killeen and most of Temple… Trump +22 in 2024; waits for the count."
+  },
+  {
+   "id": "TX-32",
+   "name": "Texas 32nd District",
+   "state": "TX",
+   "office": "U.S. House",
+   "group": "Texas: U.S. House",
+   "closesET": "20:00/21:00",
+   "candidates": [
+    {
+     "name": "Dan Barrios",
+     "party": "D",
+     "incumbent": false
+    },
+    {
+     "name": "Jace Yarbrough",
+     "party": "R",
+     "incumbent": false
+    }
+   ],
+   "lean": {
+    "d": 40.0,
+    "r": 58.0,
+    "margin": "R +18",
+    "src": "2024 presidential vote under the 2025 map (Wikipedia district article)",
+    "url": "https://en.wikipedia.org/wiki/Texas%27s_32nd_congressional_district",
+    "ratings": "Cook Solid R · Sabato Safe R · Inside Solid R · DDHQ Likely R",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Texas"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": false,
+   "note": "Redrawn from Harris +23 to Trump +18 north of Dallas. Cook, Sabato and Inside Solid R, but DDHQ only Likely R, so under the rule it waits for the count."
+  },
+  {
+   "id": "TX-33",
+   "name": "Texas 33rd District",
+   "state": "TX",
+   "office": "U.S. House",
+   "group": "Texas: U.S. House",
+   "closesET": "20:00/21:00",
+   "candidates": [
+    {
+     "name": "Colin Allred",
+     "party": "D",
+     "incumbent": false
+    },
+    {
+     "name": "Patrick Gillespie",
+     "party": "R",
+     "incumbent": false
+    }
+   ],
+   "lean": {
+    "d": 65.0,
+    "r": 33.0,
+    "margin": "D +32",
+    "src": "2024 presidential vote under the 2025 map (Wikipedia district article)",
+    "url": "https://en.wikipedia.org/wiki/Texas%27s_33rd_congressional_district",
+    "ratings": "Cook Solid D · Sabato Safe D · Inside Solid D · DDHQ Safe D",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Texas"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": true,
+   "note": "The new 33rd district, previously encompassing mostly Hispanic parts of the Dallas–Fort Worth metroplex including Downtown Fort Worth, western Dallas. Harris +32 in 2024; callable at 9, when the last Texas polls (El Paso) close, under the rule."
+  },
+  {
+   "id": "TX-34",
+   "name": "Texas 34th District",
+   "state": "TX",
+   "office": "U.S. House",
+   "group": "Texas: U.S. House",
+   "closesET": "20:00/21:00",
+   "candidates": [
+    {
+     "name": "Vicente Gonzalez",
+     "party": "D",
+     "incumbent": true
+    },
+    {
+     "name": "Eric Flores",
+     "party": "R",
+     "incumbent": false
+    }
+   ],
+   "lean": {
+    "d": 44.0,
+    "r": 55.0,
+    "margin": "R +11",
+    "src": "2024 presidential vote under the 2025 map (Wikipedia district article)",
+    "url": "https://en.wikipedia.org/wiki/Texas%27s_34th_congressional_district",
+    "ratings": "Cook Lean D · Sabato Lean D · Inside Toss-up · DDHQ Likely D",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Texas"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": false,
+   "note": "Brownsville and the lower Valley: Trump +11 on the new lines, Gonzalez Lean or Likely D on the ratings. Cameron County is his base; the test is the vote outside it."
+  },
+  {
+   "id": "TX-35",
+   "name": "Texas 35th District",
+   "state": "TX",
+   "office": "U.S. House",
+   "group": "Texas: U.S. House",
+   "closesET": "20:00/21:00",
+   "candidates": [
+    {
+     "name": "Johnny Garcia",
+     "party": "D",
+     "incumbent": false
+    },
+    {
+     "name": "Carlos De La Cruz",
+     "party": "R",
+     "incumbent": false
+    }
+   ],
+   "lean": {
+    "d": 44.0,
+    "r": 55.0,
+    "margin": "R +11",
+    "src": "2024 presidential vote under the 2025 map (Wikipedia district article)",
+    "url": "https://en.wikipedia.org/wiki/Texas%27s_35th_congressional_district",
+    "ratings": "Cook Toss-up · Sabato Lean D · Inside Toss-up · DDHQ Toss-up",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Texas"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": false,
+   "note": "Open; Casar moved to the 37th. Redrawn from Austin–San Antonio into a Trump +11 seat; three raters Toss-up, Sabato Lean D. Bexar County reports its early vote first."
+  },
+  {
+   "id": "TX-36",
+   "name": "Texas 36th District",
+   "state": "TX",
+   "office": "U.S. House",
+   "group": "Texas: U.S. House",
+   "closesET": "20:00/21:00",
+   "candidates": [
+    {
+     "name": "Brian Babin",
+     "party": "R",
+     "incumbent": true
+    },
+    {
+     "name": "Rhonda Hart",
+     "party": "D",
+     "incumbent": false
+    }
+   ],
+   "lean": {
+    "d": 37.0,
+    "r": 62.0,
+    "margin": "R +25",
+    "src": "2024 presidential vote under the 2025 map (Wikipedia district article)",
+    "url": "https://en.wikipedia.org/wiki/Texas%27s_36th_congressional_district",
+    "ratings": "Cook Solid R · Sabato Safe R · Inside Solid R · DDHQ Safe R",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Texas"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": true,
+   "note": "The new 36th district encompasses parts of Southeast Texas, including the Harris County side of the Clear Lake region of Houston. Trump +25 in 2024; callable at 9, when the last Texas polls (El Paso) close, under the rule."
+  },
+  {
+   "id": "TX-37",
+   "name": "Texas 37th District",
+   "state": "TX",
+   "office": "U.S. House",
+   "group": "Texas: U.S. House",
+   "closesET": "20:00/21:00",
+   "candidates": [
+    {
+     "name": "Greg Casar",
+     "party": "D",
+     "incumbent": true
+    },
+    {
+     "name": "Lauren Peña",
+     "party": "R",
+     "incumbent": false
+    }
+   ],
+   "lean": {
+    "d": 77.0,
+    "r": 21.0,
+    "margin": "D +56",
+    "src": "2024 presidential vote under the 2025 map (Wikipedia district article)",
+    "url": "https://en.wikipedia.org/wiki/Texas%27s_37th_congressional_district",
+    "ratings": "Cook Solid D · Sabato Safe D · Inside Solid D · DDHQ Safe D",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Texas"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": true,
+   "note": "The new 37th district is based in all but the westernmost parts of Austin. Harris +56 in 2024; callable at 9, when the last Texas polls (El Paso) close, under the rule."
+  },
+  {
+   "id": "TX-38",
+   "name": "Texas 38th District",
+   "state": "TX",
+   "office": "U.S. House",
+   "group": "Texas: U.S. House",
+   "closesET": "20:00/21:00",
+   "candidates": [
+    {
+     "name": "Jon Bonck",
+     "party": "R",
+     "incumbent": false
+    },
+    {
+     "name": "Melissa McDonough",
+     "party": "D",
+     "incumbent": false
+    }
+   ],
+   "lean": {
+    "d": 39.0,
+    "r": 60.0,
+    "margin": "R +21",
+    "src": "2024 presidential vote under the 2025 map (Wikipedia district article)",
+    "url": "https://en.wikipedia.org/wiki/Texas%27s_38th_congressional_district",
+    "ratings": "Cook Solid R · Sabato Safe R · Inside Solid R · DDHQ Likely R",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Texas"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": false,
+   "note": "Open; Hunt left to run for Senate. West Houston, Trump +21 on the new lines, but DDHQ has it only Likely R, so it waits for the count."
+  },
+  {
+   "id": "IL-01",
+   "name": "Illinois 1st District",
+   "state": "IL",
+   "office": "U.S. House",
+   "group": "Illinois: U.S. House",
+   "closesET": "20:00",
+   "candidates": [
+    {
+     "name": "Jonathan Jackson",
+     "party": "D",
+     "incumbent": true
+    },
+    {
+     "name": "Christian Maxwell",
+     "party": "R",
+     "incumbent": false
+    }
+   ],
+   "lean": {
+    "d": 65.0,
+    "r": 33.0,
+    "margin": "D +32",
+    "src": "2024 presidential vote in the district (Wikipedia district article)",
+    "url": "https://en.wikipedia.org/wiki/Illinois%27s_1st_congressional_district",
+    "ratings": "Cook Solid D · Sabato Safe D · Inside Solid D · DDHQ Safe D",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Illinois"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": true,
+   "note": "The 1st district is based in the South Side of Chicago, including portions of Bronzeville, Hyde Park, Grand Crossing, Morgan Park, and Roseland. Harris +32 in 2024; callable at 8 under the rule."
+  },
+  {
+   "id": "IL-02",
+   "name": "Illinois 2nd District",
+   "state": "IL",
+   "office": "U.S. House",
+   "group": "Illinois: U.S. House",
+   "closesET": "20:00",
+   "candidates": [
+    {
+     "name": "Donna Miller",
+     "party": "D",
+     "incumbent": false
+    },
+    {
+     "name": "Michael Noack",
+     "party": "R",
+     "incumbent": false
+    }
+   ],
+   "lean": {
+    "d": 66.0,
+    "r": 33.0,
+    "margin": "D +33",
+    "src": "2024 presidential vote in the district (Wikipedia district article)",
+    "url": "https://en.wikipedia.org/wiki/Illinois%27s_2nd_congressional_district",
+    "ratings": "Cook Solid D · Sabato Safe D · Inside Solid D · DDHQ Safe D",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Illinois"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": true,
+   "note": "The 2nd district includes the far southeast portion of Chicago and part of its southern suburbs, as well as portions of Will, Kankakee, Iroquois. Harris +33 in 2024; callable at 8 under the rule."
+  },
+  {
+   "id": "IL-03",
+   "name": "Illinois 3rd District",
+   "state": "IL",
+   "office": "U.S. House",
+   "group": "Illinois: U.S. House",
+   "closesET": "20:00",
+   "candidates": [
+    {
+     "name": "Delia Ramirez",
+     "party": "D",
+     "incumbent": true
+    },
+    {
+     "name": "Angel Oakley",
+     "party": "R",
+     "incumbent": false
+    }
+   ],
+   "lean": {
+    "d": 64.0,
+    "r": 33.0,
+    "margin": "D +31",
+    "src": "2024 presidential vote in the district (Wikipedia district article)",
+    "url": "https://en.wikipedia.org/wiki/Illinois%27s_3rd_congressional_district",
+    "ratings": "Cook Solid D · Sabato Safe D · Inside Solid D · DDHQ Safe D",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Illinois"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": true,
+   "note": "The 3rd district is based in northwestern Chicago, including the neighborhoods of Albany Park, Belmont Cragin, Dunning, Humboldt Park, Irving Park, Logan Square. Harris +31 in 2024; callable at 8 under the rule."
+  },
+  {
+   "id": "IL-04",
+   "name": "Illinois 4th District",
+   "state": "IL",
+   "office": "U.S. House",
+   "group": "Illinois: U.S. House",
+   "closesET": "20:00",
+   "candidates": [
+    {
+     "name": "Patty Garcia",
+     "party": "D",
+     "incumbent": false
+    },
+    {
+     "name": "Lupe Castillo",
+     "party": "R",
+     "incumbent": false
+    }
+   ],
+   "lean": {
+    "d": 63.0,
+    "r": 35.0,
+    "margin": "D +28",
+    "src": "2024 presidential vote in the district (Wikipedia district article)",
+    "url": "https://en.wikipedia.org/wiki/Illinois%27s_4th_congressional_district",
+    "ratings": "Cook Solid D · Sabato Safe D · Inside Solid D · DDHQ Safe D",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Illinois"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": true,
+   "note": "The 4th district is based in southwest Chicago, including Ashburn, Brighton Park, Clearing, Gage Park, Garfield Ridge, South Lawndale, West Elsdon, and West Lawn. Harris +28 in 2024; callable at 8 under the rule."
+  },
+  {
+   "id": "IL-05",
+   "name": "Illinois 5th District",
+   "state": "IL",
+   "office": "U.S. House",
+   "group": "Illinois: U.S. House",
+   "closesET": "20:00",
+   "candidates": [
+    {
+     "name": "Mike Quigley",
+     "party": "D",
+     "incumbent": true
+    },
+    {
+     "name": "Tommy Hanson",
+     "party": "R",
+     "incumbent": false
+    }
+   ],
+   "lean": {
+    "d": 67.0,
+    "r": 31.0,
+    "margin": "D +36",
+    "src": "2024 presidential vote in the district (Wikipedia district article)",
+    "url": "https://en.wikipedia.org/wiki/Illinois%27s_5th_congressional_district",
+    "ratings": "Cook Solid D · Sabato Safe D · Inside Solid D · DDHQ Safe D",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Illinois"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": true,
+   "note": "The 5th district includes portions of northern Chicago, including Albany Park, Forest Glen, Lake View, Lincoln Park, Lincoln Square, Norwood Park, North Center. Harris +36 in 2024; callable at 8 under the rule."
+  },
+  {
+   "id": "IL-06",
+   "name": "Illinois 6th District",
+   "state": "IL",
+   "office": "U.S. House",
+   "group": "Illinois: U.S. House",
+   "closesET": "20:00",
+   "candidates": [
+    {
+     "name": "Sean Casten",
+     "party": "D",
+     "incumbent": true
+    },
+    {
+     "name": "Niki Conforti",
+     "party": "R",
+     "incumbent": false
+    }
+   ],
+   "lean": {
+    "d": 51.0,
+    "r": 45.0,
+    "margin": "D +6",
+    "src": "2024 presidential vote in the district (Wikipedia district article)",
+    "url": "https://en.wikipedia.org/wiki/Illinois%27s_6th_congressional_district",
+    "ratings": "Cook Solid D · Sabato Safe D · Inside Solid D · DDHQ Safe D",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Illinois"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": false,
+   "note": "The 6th district is based in the southwest Chicago suburbs, including Oak Lawn and Downers Grove, as well as parts of the eastern DuPage County suburbs. Harris +6 in 2024; every rater Solid/Safe but under the 20-point line, so it waits for the count."
+  },
+  {
+   "id": "IL-07",
+   "name": "Illinois 7th District",
+   "state": "IL",
+   "office": "U.S. House",
+   "group": "Illinois: U.S. House",
+   "closesET": "20:00",
+   "candidates": [
+    {
+     "name": "La Shawn Ford",
+     "party": "D",
+     "incumbent": false
+    },
+    {
+     "name": "Chad Koppie",
+     "party": "R",
+     "incumbent": false
+    }
+   ],
+   "lean": {
+    "d": 81.0,
+    "r": 17.0,
+    "margin": "D +64",
+    "src": "2024 presidential vote in the district (Wikipedia district article)",
+    "url": "https://en.wikipedia.org/wiki/Illinois%27s_7th_congressional_district",
+    "ratings": "Cook Solid D · Sabato Safe D · Inside Solid D · DDHQ Safe D",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Illinois"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": true,
+   "note": "The 7th district is based in the West Side and downtown of Chicago, including Austin, East Garfield Park, the Loop, the Near North Side, the Near South Side. Harris +64 in 2024; callable at 8 under the rule."
+  },
+  {
+   "id": "IL-08",
+   "name": "Illinois 8th District",
+   "state": "IL",
+   "office": "U.S. House",
+   "group": "Illinois: U.S. House",
+   "closesET": "20:00",
+   "candidates": [
+    {
+     "name": "Melissa Bean",
+     "party": "D",
+     "incumbent": false
+    },
+    {
+     "name": "Jennifer Davis",
+     "party": "R",
+     "incumbent": false
+    }
+   ],
+   "lean": {
+    "d": 52.0,
+    "r": 45.0,
+    "margin": "D +7",
+    "src": "2024 presidential vote in the district (Wikipedia district article)",
+    "url": "https://en.wikipedia.org/wiki/Illinois%27s_8th_congressional_district",
+    "ratings": "Cook Solid D · Sabato Safe D · Inside Solid D · DDHQ Safe D",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Illinois"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": false,
+   "note": "The 8th district is based in the western outer suburbs of Chicago, including Elgin, Schaumburg, and Des Plaines. Harris +7 in 2024; every rater Solid/Safe but under the 20-point line, so it waits for the count."
+  },
+  {
+   "id": "IL-09",
+   "name": "Illinois 9th District",
+   "state": "IL",
+   "office": "U.S. House",
+   "group": "Illinois: U.S. House",
+   "closesET": "20:00",
+   "candidates": [
+    {
+     "name": "Daniel Biss",
+     "party": "D",
+     "incumbent": false
+    },
+    {
+     "name": "John Elleson",
+     "party": "R",
+     "incumbent": false
+    }
+   ],
+   "lean": {
+    "d": 67.0,
+    "r": 31.0,
+    "margin": "D +36",
+    "src": "2024 presidential vote in the district (Wikipedia district article)",
+    "url": "https://en.wikipedia.org/wiki/Illinois%27s_9th_congressional_district",
+    "ratings": "Cook Solid D · Sabato Safe D · Inside Solid D · DDHQ Safe D",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Illinois"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": true,
+   "note": "The 9th district is based in northern Chicago and the North Shore, taking in Evanston and Skokie. Harris +36 in 2024; callable at 8 under the rule."
+  },
+  {
+   "id": "IL-10",
+   "name": "Illinois 10th District",
+   "state": "IL",
+   "office": "U.S. House",
+   "group": "Illinois: U.S. House",
+   "closesET": "20:00",
+   "candidates": [
+    {
+     "name": "Brad Schneider",
+     "party": "D",
+     "incumbent": true
+    },
+    {
+     "name": "Carl Lambrecht",
+     "party": "R",
+     "incumbent": false
+    }
+   ],
+   "lean": {
+    "d": 60.0,
+    "r": 38.0,
+    "margin": "D +22",
+    "src": "2024 presidential vote in the district (Wikipedia district article)",
+    "url": "https://en.wikipedia.org/wiki/Illinois%27s_10th_congressional_district",
+    "ratings": "Cook Solid D · Sabato Safe D · Inside Solid D · DDHQ Safe D",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Illinois"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": true,
+   "note": "The 10th district is based in the northern suburbs and exurbs of Chicago, including Mundelein, Northbrook, and Waukegan. Harris +22 in 2024; callable at 8 under the rule."
+  },
+  {
+   "id": "IL-11",
+   "name": "Illinois 11th District",
+   "state": "IL",
+   "office": "U.S. House",
+   "group": "Illinois: U.S. House",
+   "closesET": "20:00",
+   "candidates": [
+    {
+     "name": "Bill Foster",
+     "party": "D",
+     "incumbent": true
+    },
+    {
+     "name": "Jeff Walter",
+     "party": "R",
+     "incumbent": false
+    }
+   ],
+   "lean": {
+    "d": 54.0,
+    "r": 43.0,
+    "margin": "D +11",
+    "src": "2024 presidential vote in the district (Wikipedia district article)",
+    "url": "https://en.wikipedia.org/wiki/Illinois%27s_11th_congressional_district",
+    "ratings": "Cook Solid D · Sabato Safe D · Inside Solid D · DDHQ Safe D",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Illinois"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": false,
+   "note": "The 11th district is based in the western suburbs and exurbs of Chicago, including Aurora, Naperville, and Belvidere. Harris +11 in 2024; every rater Solid/Safe but under the 20-point line, so it waits for the count."
+  },
+  {
+   "id": "IL-12",
+   "name": "Illinois 12th District",
+   "state": "IL",
+   "office": "U.S. House",
+   "group": "Illinois: U.S. House",
+   "closesET": "20:00",
+   "candidates": [
+    {
+     "name": "Mike Bost",
+     "party": "R",
+     "incumbent": true
+    },
+    {
+     "name": "Julie Fortier",
+     "party": "D",
+     "incumbent": false
+    }
+   ],
+   "lean": {
+    "d": 27.0,
+    "r": 71.0,
+    "margin": "R +44",
+    "src": "2024 presidential vote in the district (Wikipedia district article)",
+    "url": "https://en.wikipedia.org/wiki/Illinois%27s_12th_congressional_district",
+    "ratings": "Cook Solid R · Sabato Safe R · Inside Solid R · DDHQ Safe R",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Illinois"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": true,
+   "note": "The 12th district is based in southern Illinois, taking in the southeastern St. Louis exurbs. Trump +44 in 2024; callable at 8 under the rule."
+  },
+  {
+   "id": "IL-13",
+   "name": "Illinois 13th District",
+   "state": "IL",
+   "office": "U.S. House",
+   "group": "Illinois: U.S. House",
+   "closesET": "20:00",
+   "candidates": [
+    {
+     "name": "Nikki Budzinski",
+     "party": "D",
+     "incumbent": true
+    },
+    {
+     "name": "Jeff Wilson",
+     "party": "R",
+     "incumbent": false
+    }
+   ],
+   "lean": {
+    "d": 54.0,
+    "r": 43.0,
+    "margin": "D +11",
+    "src": "2024 presidential vote in the district (Wikipedia district article)",
+    "url": "https://en.wikipedia.org/wiki/Illinois%27s_13th_congressional_district",
+    "ratings": "Cook Solid D · Sabato Safe D · Inside Solid D · DDHQ Safe D",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Illinois"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": false,
+   "note": "The 13th district is based in central Illinois, stretching from the Champaign–Urbana metropolitan area to the eastern St. Louis suburbs and taking in Decatur… Harris +11 in 2024; every rater Solid/Safe but under the 20-point line, so it waits for the count."
+  },
+  {
+   "id": "IL-14",
+   "name": "Illinois 14th District",
+   "state": "IL",
+   "office": "U.S. House",
+   "group": "Illinois: U.S. House",
+   "closesET": "20:00",
+   "candidates": [
+    {
+     "name": "Lauren Underwood",
+     "party": "D",
+     "incumbent": true
+    },
+    {
+     "name": "James Marter",
+     "party": "R",
+     "incumbent": false
+    }
+   ],
+   "lean": {
+    "d": 51.0,
+    "r": 46.0,
+    "margin": "D +5",
+    "src": "2024 presidential vote in the district (Wikipedia district article)",
+    "url": "https://en.wikipedia.org/wiki/Illinois%27s_14th_congressional_district",
+    "ratings": "Cook Solid D · Sabato Safe D · Inside Solid D · DDHQ Safe D",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Illinois"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": false,
+   "note": "The 14th district is based in the western exurbs of Chicago, including all or parts of Aurora, DeKalb, Granville, Joliet, Montgomery, Naperville, Oswego, Ottawa, Peru. Harris +5 in 2024; every rater Solid/Safe but under the 20-point line, so it waits for the count."
+  },
+  {
+   "id": "IL-15",
+   "name": "Illinois 15th District",
+   "state": "IL",
+   "office": "U.S. House",
+   "group": "Illinois: U.S. House",
+   "closesET": "20:00",
+   "candidates": [
+    {
+     "name": "Mary Miller",
+     "party": "R",
+     "incumbent": true
+    },
+    {
+     "name": "Jennifer Todd",
+     "party": "D",
+     "incumbent": false
+    }
+   ],
+   "lean": {
+    "d": 29.0,
+    "r": 69.0,
+    "margin": "R +40",
+    "src": "2024 presidential vote in the district (Wikipedia district article)",
+    "url": "https://en.wikipedia.org/wiki/Illinois%27s_15th_congressional_district",
+    "ratings": "Cook Solid R · Sabato Safe R · Inside Solid R · DDHQ Safe R",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Illinois"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": true,
+   "note": "The 15th district is based in the rural areas of central Illinois. Trump +40 in 2024; callable at 8 under the rule."
+  },
+  {
+   "id": "IL-16",
+   "name": "Illinois 16th District",
+   "state": "IL",
+   "office": "U.S. House",
+   "group": "Illinois: U.S. House",
+   "closesET": "20:00",
+   "candidates": [
+    {
+     "name": "Darin LaHood",
+     "party": "R",
+     "incumbent": true
+    },
+    {
+     "name": "Paul Nolley",
+     "party": "D",
+     "incumbent": false
+    }
+   ],
+   "lean": {
+    "d": 38.0,
+    "r": 60.0,
+    "margin": "R +22",
+    "src": "2024 presidential vote in the district (Wikipedia district article)",
+    "url": "https://en.wikipedia.org/wiki/Illinois%27s_16th_congressional_district",
+    "ratings": "Cook Solid R · Sabato Safe R · Inside Solid R · DDHQ Safe R",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Illinois"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": true,
+   "note": "The 16th district is based in the rural areas of northern Illinois. Trump +22 in 2024; callable at 8 under the rule."
+  },
+  {
+   "id": "IL-17",
+   "name": "Illinois 17th District",
+   "state": "IL",
+   "office": "U.S. House",
+   "group": "Illinois: U.S. House",
+   "closesET": "20:00",
+   "candidates": [
+    {
+     "name": "Eric Sorensen",
+     "party": "D",
+     "incumbent": true
+    },
+    {
+     "name": "Dillan Vancil",
+     "party": "R",
+     "incumbent": false
+    }
+   ],
+   "lean": {
+    "d": 51.0,
+    "r": 46.0,
+    "margin": "D +5",
+    "src": "2024 presidential vote in the district (Wikipedia district article)",
+    "url": "https://en.wikipedia.org/wiki/Illinois%27s_17th_congressional_district",
+    "ratings": "Cook Solid D · Sabato Safe D · Inside Solid D · DDHQ Safe D",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Illinois"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": false,
+   "note": "The 17th district is based in north-central Illinois, stretching from Rockford to the Quad Cities metropolitan area to Bloomington, also taking in Peoria. Harris +5 in 2024; every rater Solid/Safe but under the 20-point line, so it waits for the count."
+  },
+  {
+   "id": "KY-01",
+   "name": "Kentucky 1st District",
+   "state": "KY",
+   "office": "U.S. House",
+   "group": "Kentucky: U.S. House",
+   "closesET": "18:00/19:00",
+   "candidates": [
+    {
+     "name": "James Comer",
+     "party": "R",
+     "incumbent": true
+    },
+    {
+     "name": "Drew Williams",
+     "party": "D",
+     "incumbent": false
+    }
+   ],
+   "lean": {
+    "d": 26.0,
+    "r": 73.0,
+    "margin": "R +47",
+    "src": "2024 presidential vote in the district (Wikipedia district article)",
+    "url": "https://en.wikipedia.org/wiki/Kentucky%27s_1st_congressional_district",
+    "ratings": "Cook Solid R · Sabato Safe R · Inside Solid R · DDHQ Safe R",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Kentucky"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": true,
+   "note": "The 1st district is based in Western Kentucky, and stretches into Central Kentucky, taking in Henderson, Hopkinsville, Madisonville, Paducah, Murray, and Frankfort. Trump +47 in 2024; callable now (polls closed at 7) under the rule."
+  },
+  {
+   "id": "KY-02",
+   "name": "Kentucky 2nd District",
+   "state": "KY",
+   "office": "U.S. House",
+   "group": "Kentucky: U.S. House",
+   "closesET": "18:00/19:00",
+   "candidates": [
+    {
+     "name": "Brett Guthrie",
+     "party": "R",
+     "incumbent": true
+    },
+    {
+     "name": "Megan Wingfield",
+     "party": "D",
+     "incumbent": false
+    }
+   ],
+   "lean": {
+    "d": 29.0,
+    "r": 70.0,
+    "margin": "R +41",
+    "src": "2024 presidential vote in the district (Wikipedia district article)",
+    "url": "https://en.wikipedia.org/wiki/Kentucky%27s_2nd_congressional_district",
+    "ratings": "Cook Solid R · Sabato Safe R · Inside Solid R · DDHQ Safe R",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Kentucky"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": true,
+   "note": "The 2nd district is located in west central Kentucky, and includes Bowling Green, Owensboro, Elizabethtown, and a portion of eastern Louisville. Trump +41 in 2024; callable now (polls closed at 7) under the rule."
+  },
+  {
+   "id": "KY-03",
+   "name": "Kentucky 3rd District",
+   "state": "KY",
+   "office": "U.S. House",
+   "group": "Kentucky: U.S. House",
+   "closesET": "18:00/19:00",
+   "candidates": [
+    {
+     "name": "Morgan McGarvey",
+     "party": "D",
+     "incumbent": true
+    },
+    {
+     "name": "Maria Rodriguez",
+     "party": "R",
+     "incumbent": false
+    }
+   ],
+   "lean": {
+    "d": 59.0,
+    "r": 40.0,
+    "margin": "D +19",
+    "src": "2024 presidential vote in the district (Wikipedia district article)",
+    "url": "https://en.wikipedia.org/wiki/Kentucky%27s_3rd_congressional_district",
+    "ratings": "Cook Solid D · Sabato Safe D · Inside Solid D · DDHQ Safe D",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Kentucky"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": false,
+   "note": "Louisville: Harris +19, one point under the 20-point line, so it waits for the first Jefferson County drop."
+  },
+  {
+   "id": "KY-04",
+   "name": "Kentucky 4th District",
+   "state": "KY",
+   "office": "U.S. House",
+   "group": "Kentucky: U.S. House",
+   "closesET": "18:00/19:00",
+   "candidates": [
+    {
+     "name": "Ed Gallrein",
+     "party": "R",
+     "incumbent": false
+    },
+    {
+     "name": "Melissa Strange",
+     "party": "D",
+     "incumbent": false
+    }
+   ],
+   "lean": {
+    "d": 31.0,
+    "r": 67.0,
+    "margin": "R +36",
+    "src": "2024 presidential vote in the district (Wikipedia district article)",
+    "url": "https://en.wikipedia.org/wiki/Kentucky%27s_4th_congressional_district",
+    "ratings": "Cook Solid R · Sabato Safe R · Inside Solid R · DDHQ Safe R",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Kentucky"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": true,
+   "note": "The 4th district is located in the northeastern part of the state, along the Ohio River, including the suburbs of Cincinnati and the eastern suburbs of Louisville. Trump +36 in 2024; callable now (polls closed at 7) under the rule."
+  },
+  {
+   "id": "KY-05",
+   "name": "Kentucky 5th District",
+   "state": "KY",
+   "office": "U.S. House",
+   "group": "Kentucky: U.S. House",
+   "closesET": "18:00/19:00",
+   "candidates": [
+    {
+     "name": "Hal Rogers",
+     "party": "R",
+     "incumbent": true
+    },
+    {
+     "name": "Ned Pillersdorf",
+     "party": "D",
+     "incumbent": false
+    }
+   ],
+   "lean": {
+    "d": 17.0,
+    "r": 81.0,
+    "margin": "R +64",
+    "src": "2024 presidential vote in the district (Wikipedia district article)",
+    "url": "https://en.wikipedia.org/wiki/Kentucky%27s_5th_congressional_district",
+    "ratings": "Cook Solid R · Sabato Safe R · Inside Solid R · DDHQ Safe R",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Kentucky"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": true,
+   "note": "The 5th district is based in the coalfields of eastern Kentucky. Trump +64 in 2024; callable now (polls closed at 7) under the rule."
+  },
+  {
+   "id": "WI-01",
+   "name": "Wisconsin 1st District",
+   "state": "WI",
+   "office": "U.S. House",
+   "group": "Wisconsin: U.S. House",
+   "closesET": "21:00",
+   "candidates": [
+    {
+     "name": "Bryan Steil",
+     "party": "R",
+     "incumbent": true
+    },
+    {
+     "name": "Mitchell Berman",
+     "party": "D",
+     "incumbent": false
+    }
+   ],
+   "lean": {
+    "d": 47.0,
+    "r": 51.0,
+    "margin": "R +4",
+    "src": "2024 presidential vote in the district (Wikipedia district article)",
+    "url": "https://en.wikipedia.org/wiki/Wisconsin%27s_1st_congressional_district",
+    "ratings": "Cook Lean R · Sabato Lean R · Inside Lean R · DDHQ Lean R",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Wisconsin"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": false,
+   "note": "Kenosha, Racine and Janesville: Trump +4 in 2024, Lean R across the board. Racine and Kenosha counties report through the evening."
+  },
+  {
+   "id": "WI-02",
+   "name": "Wisconsin 2nd District",
+   "state": "WI",
+   "office": "U.S. House",
+   "group": "Wisconsin: U.S. House",
+   "closesET": "21:00",
+   "candidates": [
+    {
+     "name": "Mark Pocan",
+     "party": "D",
+     "incumbent": true
+    }
+   ],
+   "lean": {
+    "d": 69.0,
+    "r": 29.0,
+    "margin": "D +40",
+    "src": "2024 presidential vote in the district (Wikipedia district article)",
+    "url": "https://en.wikipedia.org/wiki/Wisconsin%27s_2nd_congressional_district",
+    "ratings": "Cook Solid D · Sabato Safe D · Inside Solid D · DDHQ Safe D",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Wisconsin"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": true,
+   "note": "Madison, Harris +40. No Republican filed, so Pocan is unopposed by a major party: callable at 9."
+  },
+  {
+   "id": "WI-03",
+   "name": "Wisconsin 3rd District",
+   "state": "WI",
+   "office": "U.S. House",
+   "group": "Wisconsin: U.S. House",
+   "closesET": "21:00",
+   "candidates": [
+    {
+     "name": "Derrick Van Orden",
+     "party": "R",
+     "incumbent": true
+    },
+    {
+     "name": "Rebecca Cooke",
+     "party": "D",
+     "incumbent": false
+    }
+   ],
+   "lean": {
+    "d": 45.0,
+    "r": 53.0,
+    "margin": "R +8",
+    "src": "2024 presidential vote in the district (Wikipedia district article)",
+    "url": "https://en.wikipedia.org/wiki/Wisconsin%27s_3rd_congressional_district",
+    "ratings": "Cook Lean D · Sabato Lean D · Inside Tilt D · DDHQ Likely D",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Wisconsin"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": false,
+   "note": "Rematch of 2024, when Van Orden won with 51.4%. Every rater now has Cooke favored. La Crosse and Eau Claire report early and run Democratic; the rural counties come late."
+  },
+  {
+   "id": "WI-04",
+   "name": "Wisconsin 4th District",
+   "state": "WI",
+   "office": "U.S. House",
+   "group": "Wisconsin: U.S. House",
+   "closesET": "21:00",
+   "candidates": [
+    {
+     "name": "Gwen Moore",
+     "party": "D",
+     "incumbent": true
+    },
+    {
+     "name": "Tim Rogers",
+     "party": "R",
+     "incumbent": false
+    }
+   ],
+   "lean": {
+    "d": 75.0,
+    "r": 23.0,
+    "margin": "D +52",
+    "src": "2024 presidential vote in the district (Wikipedia district article)",
+    "url": "https://en.wikipedia.org/wiki/Wisconsin%27s_4th_congressional_district",
+    "ratings": "Cook Solid D · Sabato Safe D · Inside Solid D · DDHQ Safe D",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Wisconsin"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": true,
+   "note": "The 4th district encompasses Milwaukee County, taking in the city of Milwaukee and its working-class suburbs of West Milwaukee and most of West Allis. Harris +52 in 2024; callable at 9 under the rule."
+  },
+  {
+   "id": "WI-05",
+   "name": "Wisconsin 5th District",
+   "state": "WI",
+   "office": "U.S. House",
+   "group": "Wisconsin: U.S. House",
+   "closesET": "21:00",
+   "candidates": [
+    {
+     "name": "Scott Fitzgerald",
+     "party": "R",
+     "incumbent": true
+    },
+    {
+     "name": "Andrew Beck",
+     "party": "D",
+     "incumbent": false
+    }
+   ],
+   "lean": {
+    "d": 38.0,
+    "r": 60.0,
+    "margin": "R +22",
+    "src": "2024 presidential vote in the district (Wikipedia district article)",
+    "url": "https://en.wikipedia.org/wiki/Wisconsin%27s_5th_congressional_district",
+    "ratings": "Cook Solid R · Sabato Safe R · Inside Solid R · DDHQ Safe R",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Wisconsin"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": true,
+   "note": "The 5th district takes in the northern and western suburbs of Milwaukee, including Washington County, Jefferson County, as well as most of Waukesha County. Trump +22 in 2024; callable at 9 under the rule."
+  },
+  {
+   "id": "WI-06",
+   "name": "Wisconsin 6th District",
+   "state": "WI",
+   "office": "U.S. House",
+   "group": "Wisconsin: U.S. House",
+   "closesET": "21:00",
+   "candidates": [
+    {
+     "name": "Glenn Grothman",
+     "party": "R",
+     "incumbent": true
+    },
+    {
+     "name": "Brad Smith",
+     "party": "D",
+     "incumbent": false
+    }
+   ],
+   "lean": {
+    "d": 41.0,
+    "r": 57.0,
+    "margin": "R +16",
+    "src": "2024 presidential vote in the district (Wikipedia district article)",
+    "url": "https://en.wikipedia.org/wiki/Wisconsin%27s_6th_congressional_district",
+    "ratings": "Cook Solid R · Sabato Safe R · Inside Solid R · DDHQ Likely R",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Wisconsin"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": false,
+   "note": "The 6th district is based in east-central Wisconsin, encompassing part of the Fox River Valley, and takes in Fond du Lac, Oshkosh, and Sheboygan. Trump +16 in 2024; waits for the count."
+  },
+  {
+   "id": "WI-07",
+   "name": "Wisconsin 7th District",
+   "state": "WI",
+   "office": "U.S. House",
+   "group": "Wisconsin: U.S. House",
+   "closesET": "21:00",
+   "candidates": [
+    {
+     "name": "Michael Alfonso",
+     "party": "R",
+     "incumbent": false
+    },
+    {
+     "name": "Fred Clark",
+     "party": "D",
+     "incumbent": false
+    }
+   ],
+   "lean": {
+    "d": 38.0,
+    "r": 60.0,
+    "margin": "R +22",
+    "src": "2024 presidential vote in the district (Wikipedia district article)",
+    "url": "https://en.wikipedia.org/wiki/Wisconsin%27s_7th_congressional_district",
+    "ratings": "Cook Solid R · Sabato Safe R · Inside Solid R · DDHQ Likely R",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Wisconsin"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": false,
+   "note": "The 7th district is located in northwestern Wisconsin and includes Wausau and Superior. Trump +22 in 2024; waits for the count."
+  },
+  {
+   "id": "WI-08",
+   "name": "Wisconsin 8th District",
+   "state": "WI",
+   "office": "U.S. House",
+   "group": "Wisconsin: U.S. House",
+   "closesET": "21:00",
+   "candidates": [
+    {
+     "name": "Tony Wied",
+     "party": "R",
+     "incumbent": true
+    },
+    {
+     "name": "Rick Crosson",
+     "party": "D",
+     "incumbent": false
+    }
+   ],
+   "lean": {
+    "d": 41.0,
+    "r": 57.0,
+    "margin": "R +16",
+    "src": "2024 presidential vote in the district (Wikipedia district article)",
+    "url": "https://en.wikipedia.org/wiki/Wisconsin%27s_8th_congressional_district",
+    "ratings": "Cook Solid R · Sabato Safe R · Inside Solid R · DDHQ Likely R",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Wisconsin"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": false,
+   "note": "The 8th district encompasses northeastern Wisconsin, including Green Bay and Appleton. Trump +16 in 2024; waits for the count."
+  },
+  {
+   "id": "KS-01",
+   "name": "Kansas 1st District",
+   "state": "KS",
+   "office": "U.S. House",
+   "group": "Kansas: U.S. House",
+   "closesET": "20:00/21:00",
+   "candidates": [
+    {
+     "name": "Tracey Mann",
+     "party": "R",
+     "incumbent": true
+    },
+    {
+     "name": "Lauren Reinhold",
+     "party": "D",
+     "incumbent": false
+    }
+   ],
+   "lean": {
+    "d": 33.0,
+    "r": 65.0,
+    "margin": "R +32",
+    "src": "2024 presidential vote in the district (Wikipedia district article)",
+    "url": "https://en.wikipedia.org/wiki/Kansas%27s_1st_congressional_district",
+    "ratings": "Cook Solid R · Sabato Safe R · Inside Solid R · DDHQ Safe R",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Kansas"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": true,
+   "note": "The 1st district encompasses all or part of 60 counties, spanning more than half the state. Trump +32 in 2024; callable at 9, when the western counties close, under the rule."
+  },
+  {
+   "id": "KS-02",
+   "name": "Kansas 2nd District",
+   "state": "KS",
+   "office": "U.S. House",
+   "group": "Kansas: U.S. House",
+   "closesET": "20:00/21:00",
+   "candidates": [
+    {
+     "name": "Derek Schmidt",
+     "party": "R",
+     "incumbent": true
+    },
+    {
+     "name": "Don Coover",
+     "party": "D",
+     "incumbent": false
+    }
+   ],
+   "lean": {
+    "d": 39.0,
+    "r": 59.0,
+    "margin": "R +20",
+    "src": "2024 presidential vote in the district (Wikipedia district article)",
+    "url": "https://en.wikipedia.org/wiki/Kansas%27s_2nd_congressional_district",
+    "ratings": "Cook Likely R · Sabato Likely R · Inside Likely R · DDHQ Likely R",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Kansas"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": false,
+   "note": "Topeka and eastern Kansas: Trump +20, but every rater has it only Likely R, so it waits for the count."
+  },
+  {
+   "id": "KS-03",
+   "name": "Kansas 3rd District",
+   "state": "KS",
+   "office": "U.S. House",
+   "group": "Kansas: U.S. House",
+   "closesET": "20:00/21:00",
+   "candidates": [
+    {
+     "name": "Sharice Davids",
+     "party": "D",
+     "incumbent": true
+    },
+    {
+     "name": "Eric Jenkins",
+     "party": "R",
+     "incumbent": false
+    }
+   ],
+   "lean": {
+    "d": 51.0,
+    "r": 47.0,
+    "margin": "D +4",
+    "src": "2024 presidential vote in the district (Wikipedia district article)",
+    "url": "https://en.wikipedia.org/wiki/Kansas%27s_3rd_congressional_district",
+    "ratings": "Cook Solid D · Sabato Safe D · Inside Solid D · DDHQ Safe D",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Kansas"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": false,
+   "note": "Johnson County: Harris +4, and Davids won with 53.4% in 2024. Safe D on the ratings but far under the 20-point line, so it waits for the count."
+  },
+  {
+   "id": "KS-04",
+   "name": "Kansas 4th District",
+   "state": "KS",
+   "office": "U.S. House",
+   "group": "Kansas: U.S. House",
+   "closesET": "20:00/21:00",
+   "candidates": [
+    {
+     "name": "Ron Estes",
+     "party": "R",
+     "incumbent": true
+    },
+    {
+     "name": "Katy Tyndell",
+     "party": "D",
+     "incumbent": false
+    }
+   ],
+   "lean": {
+    "d": 37.0,
+    "r": 61.0,
+    "margin": "R +24",
+    "src": "2024 presidential vote in the district (Wikipedia district article)",
+    "url": "https://en.wikipedia.org/wiki/Kansas%27s_4th_congressional_district",
+    "ratings": "Cook Solid R · Sabato Safe R · Inside Solid R · DDHQ Safe R",
+    "ratingsUrl": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Kansas"
+   },
+   "status": "open",
+   "call": null,
+   "callableAtClose": true,
+   "note": "The 4th district encompasses the city of Wichita, the largest city in Kansas, three universities, Arkansas City, and the State of Kansas's only national airport. Trump +24 in 2024; callable at 9, when the western counties close, under the rule."
   }
  ],
  "log": [
@@ -1043,6 +4638,10 @@
   {
    "at": "2026-11-03T23:45:00Z",
    "text": "6:45 p.m. ET: Added Kentucky's 6th District and every Ohio race on the ballot: governor, attorney general, secretary of state, auditor, treasurer, two Supreme Court seats and all 15 U.S. House districts. Eight Ohio House seats (2, 3, 4, 5, 6, 11, 12, 14) are callable at 7:30 under the no-polling rule; everything else waits for the count."
+  },
+  {
+   "at": "2026-11-04T00:27:14Z",
+   "text": "7:27 p.m. ET: Added every race on the ballot in Texas, Illinois, Kentucky, Wisconsin and Kansas: 33 statewide offices (Texas's ten partisan court seats among them) and 72 U.S. House districts (Kentucky's 6th was already up), 138 races in all. Under the no-polling rule 43 House seats are callable when their states close: Texas 1, 3, 4, 5, 6, 7, 8, 11, 12, 13, 14, 17, 18, 19, 20, 21, 25, 26, 29, 30, 33, 36, 37; Illinois 1, 2, 3, 4, 5, 7, 9, 10, 12, 15, 16; Kentucky 1, 2, 4, 5; Wisconsin 2, 4, 5; Kansas 1, 4. Illinois's Senate and governor races clear the 13-point polling bar and are callable at 8. Everything else waits for the count. Also corrected the 2024 lean bars on the Ohio House cards, which had the parties reversed."
   }
  ],
  "sources": [
@@ -1089,12 +4688,62 @@
   {
    "t": "Ballotpedia, Kentucky's 6th District 2026",
    "u": "https://ballotpedia.org/Kentucky's_6th_Congressional_District_election,_2026"
+  },
+  {
+   "t": "Wikipedia, 2026 U.S. House elections in Texas",
+   "u": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Texas"
+  },
+  {
+   "t": "Wikipedia, 2026 U.S. House elections in Illinois",
+   "u": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Illinois"
+  },
+  {
+   "t": "Wikipedia, 2026 U.S. House elections in Kentucky",
+   "u": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Kentucky"
+  },
+  {
+   "t": "Wikipedia, 2026 U.S. House elections in Wisconsin",
+   "u": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Wisconsin"
+  },
+  {
+   "t": "Wikipedia, 2026 U.S. House elections in Kansas",
+   "u": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Kansas"
+  },
+  {
+   "t": "Wikipedia, 2026 Texas elections",
+   "u": "https://en.wikipedia.org/wiki/2026_Texas_elections"
+  },
+  {
+   "t": "Wikipedia, 2025 Texas redistricting",
+   "u": "https://en.wikipedia.org/wiki/2025_Texas_redistricting"
+  },
+  {
+   "t": "Wikipedia, 2026 Kansas elections",
+   "u": "https://en.wikipedia.org/wiki/2026_Kansas_elections"
+  },
+  {
+   "t": "Wikipedia, 2026 Wisconsin elections",
+   "u": "https://en.wikipedia.org/wiki/2026_Wisconsin_elections"
+  },
+  {
+   "t": "RealClearPolling, governor polls",
+   "u": "https://www.realclearpolling.com/latest-polls/governor"
   }
  ],
  "groups": [
   "The ten",
-  "Kentucky 6th",
+  "Kentucky: statewide",
+  "Kentucky: U.S. House",
   "Ohio: statewide",
-  "Ohio: U.S. House"
+  "Ohio: U.S. House",
+  "Texas: statewide",
+  "Texas: courts",
+  "Texas: U.S. House",
+  "Illinois: statewide",
+  "Illinois: U.S. House",
+  "Kansas: statewide",
+  "Kansas: U.S. House",
+  "Wisconsin: statewide",
+  "Wisconsin: U.S. House"
  ]
 }
