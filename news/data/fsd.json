@@ -1,7 +1,7 @@
 {
- "updated": "2026-10-29T06:40:00-04:00",
+ "updated": "2026-11-05T06:50:00-05:00",
  "model": "Claude Opus 5.5",
- "summary": "FSD (Supervised) is a subscription in the U.S.: Tesla lists $99 a month and no longer sells it outright [2][3]. Tesla reported 1.74 million active FSD subscriptions at the end of Q3, counting earlier lifetime purchases [4].\n\nThe current software is FSD v14.3.13 on AI4 cars and v14.3 Lite on HW3, now in update 2026.38.5.11, which began a wider rollout on October 24 [1][19]. HW3 still won't get unsupervised FSD [5]. Tesla's manuals have quietly renamed the computers: AI4 is now \"SI4\" and HW3 \"SI3\" [21]. Tesla's target for unsupervised FSD in owners' cars is Q2 2027, inside Robotaxi zones first [5][6].\n\nRobotaxi runs with no one on board in six metros, and Houston's zone grew roughly tenfold this week to an estimated 254 square miles [14][23]. Texas registrations reached 1,080 robotaxis, more than half Cybercabs [24]. Federal crash reports list 26 Tesla robotaxi incidents in Austin since July 2025, against 188 for Waymo since 2023 [25].\n\nLatvia became the 10th European country to approve the system, sold there as Tesla Assisted Driving, with rollout \"soon\" [20]. In the U.S., Turo now shows renters which Teslas have verified FSD [22]. In South Korea, police booked 80 people for illegally unlocking FSD on cars not approved for it [26].",
+ "summary": "FSD (Supervised) is a subscription in the U.S.: Tesla lists $99 a month and no longer sells it outright [2][3]. Tesla reported 1.74 million active FSD subscriptions at the end of Q3, counting earlier lifetime purchases, and the fleet passed 17 billion supervised miles this week [4][31].\n\nThe current software is still FSD v14.3.13 on AI4 cars and v14.3 Lite on HW3; 2026.38.5.11 is the most widely installed build and a 2026.38.5.12 point release carrying the same FSD began appearing on November 4 [1][19][27]. HW3 still won't get unsupervised FSD, and Tesla's target for unsupervised FSD in owners' cars is Q2 2027, inside Robotaxi zones first [5][6].\n\nRobotaxi added Fort Worth on November 2, its seventh city, and service hours now run 6 a.m. to 2 a.m. [28]. Federal crash reports list 26 Tesla robotaxi incidents in Austin since July 2025 [25].\n\nIn Europe, the Dutch regulator approved changes that cut the system's maximum speed margin over the limit from 50% to 10% and name it Tesla Assisted Driving on screen; EU-wide approval is still pending [29]. Tesla's new referral program pays FSD owners a free month or a $99 credit per referral, up to 12 a year [30]. In South Korea, a consumer group is taking Tesla to the Fair Trade Commission over selling FSD on cars that can't legally use it [32].",
  "price": {
   "subscription": "$99 a month in the U.S. [2]",
   "purchase": "Can't be bought outright: Tesla says FSD (Supervised) is subscription-only [2]. The $8,000 one-time purchase ended after February 14, 2026 [3].",
@@ -11,16 +11,16 @@
   {
    "hw": "AI4",
    "version": "v14.3.13",
-   "build": "2026.38.5.11",
-   "date": "2026-10",
-   "note": "First out in 2026.38.5.10 on October 20; the 2026.38.5.11 point release began rolling October 24 and reached about 10% of cars by October 26. Rewritten AI compiler, vision-encoder upgrades and Automatic Collision Evasion [1][19]. Tesla's manuals now call this computer SI4 [21]."
+   "build": "2026.38.5.12",
+   "date": "2026-11",
+   "note": "2026.38.5.11 began rolling October 24 and is the most widely installed build; 2026.38.5.12, with the same FSD, appeared on November 4 [19][27]. Rewritten AI compiler, vision-encoder upgrades and Automatic Collision Evasion [1]. In Europe, AI4 cars run FSD 14.2.2.6 in 2026.39.6 [27]. Tesla's manuals now call this computer SI4 [21]."
   },
   {
    "hw": "HW3",
    "version": "v14.3 Lite",
-   "build": "2026.38.5.11",
-   "date": "2026-10",
-   "note": "Distilled from v14 for HW3: parking, unparking, reversing, Arrival Options and Speed Profiles at all times, including a new SLOTH profile; 2026.38.5.11 has reached some 2020-and-older HW3 Model S and X [1][19]."
+   "build": "2026.38.5.12",
+   "date": "2026-11",
+   "note": "Distilled from v14 for HW3: parking, unparking, reversing, Arrival Options and Speed Profiles, including a new SLOTH profile; carried in 2026.38.5.11 and the November 4 point release 2026.38.5.12 [1][19][27]."
   }
  ],
  "hardware": [
@@ -144,7 +144,7 @@
   "Build date: S/X after about March 2023, U.S. Model Y after late May 2023 and the 2024 Model 3 are likely AI4 [12].",
   "Tesla's owner's manuals now call the computer the \"SI Computer\": HW3 is listed as SI3 and AI4 as SI4. Same hardware, new name [21]."
  ],
- "transfer": "You can no longer move FSD to another car or account: Tesla's FSD (Supervised) Transfer Program ended on March 31, 2026 [2][3]. If you sell a car whose FSD was bought outright, the purchase stays with that car, so the next owner gets it [2]. If you had a subscription, it ends with your ownership and the buyer must subscribe on their own Tesla account [2]. Owners who bought FSD before the change keep it on the car permanently, but a new Tesla means a new $99 subscription [3]. We found no current transfer offer; the Tesla app 4.62 adds FSD referral rewards, which are not a transfer [18].",
+ "transfer": "You can no longer move FSD to another car or account: Tesla's FSD (Supervised) Transfer Program ended on March 31, 2026 [2][3]. If you sell a car whose FSD was bought outright, the purchase stays with that car, so the next owner gets it [2]. If you had a subscription, it ends with your ownership and the buyer must subscribe on their own Tesla account [2]. There is no current transfer offer. The new referral program is not a transfer: subscribers get a free month and outright owners a $99 Tesla credit for each referral who subscribes, up to 12 a year, in app 4.62 or later [30].",
  "where": [
   "United States",
   "Canada",
@@ -173,13 +173,18 @@
   },
   {
    "place": "Dallas, TX",
-   "status": "No one on board; Cybercab rides due in November [6][14]",
+   "status": "No one on board; Tesla says Cybercab rides start in Dallas this month [6][14][28]",
    "since": "2026-04"
   },
   {
    "place": "Houston, TX",
    "status": "No one on board [14]; on October 26 the zone grew from about 25 to an estimated 254 square miles, by third-party trackers' count [23]",
    "since": "2026-04"
+  },
+  {
+   "place": "Fort Worth, TX",
+   "status": "Launched November 2 at 6 a.m.; the zone runs west of downtown to TCU and White Settlement and along I-820 toward Saginaw [28]; reported as unsupervised [33]",
+   "since": "2026-11"
   },
   {
    "place": "Miami, FL",
@@ -203,7 +208,7 @@
   },
   {
    "place": "Las Vegas, Phoenix, Jacksonville, San Antonio",
-   "status": "Announced as coming soon; no dates [7][8]",
+   "status": "Announced as coming soon; no dates. Tesla says San Antonio is next [7][8][28]",
    "since": null
   }
  ],
@@ -213,17 +218,16 @@
   "Prefer AI4: HW3 gets the Lite build and won't run unsupervised FSD [1][5].",
   "On a 2017-2019 S/X or early Model 3, confirm the computer is HW3 or later, not HW2/HW2.5 [12][13].",
   "Budget $99 a month if the car has no purchased FSD [2].",
-  "Want to try it first? From October 28 Turo shows U.S. renters which Teslas have verified FSD (Supervised) [22].",
-  "Outside the U.S., don't buy a car with an aftermarket FSD unlock: Korean police booked 80 people for using such devices, which carry up to two years in prison there [26]."
+  "Outside the U.S., don't buy a car with an aftermarket FSD unlock: Korean police booked 80 people for using such devices, which carry up to two years in prison there [26].",
+  "Selling a car with purchased FSD? It stays with the car, so price it in; a referral reward is not a way to move it [2][30]."
  ],
  "changes": [
-  "Update 2026.38.5.11 (FSD v14.3.13 on AI4, v14.3 Lite on HW3) began a wider rollout on October 24 [19].",
-  "Latvia approved FSD (Supervised), sold in Europe as Tesla Assisted Driving: the 10th European country [20].",
-  "Tesla's owner's manuals renamed the computers: AI4 is now SI4, HW3 is SI3 [21].",
-  "Houston's Robotaxi zone grew about tenfold, to an estimated 254 square miles [23]; Texas registrations reached 1,080 robotaxis, more than half Cybercabs [24].",
-  "Turo began labelling rentals with verified FSD on October 28; eligible hosts get a free month [22].",
-  "NHTSA data: 249 robotaxi incidents in Austin since 2023, 26 of them Tesla's, 14 people with alleged minor injuries [25].",
-  "Seoul police booked 80 people for illegal FSD unlock devices on cars not approved for it [26]."
+  "Robotaxi launched in Fort Worth on November 2, Tesla's seventh city; service hours are now 6 a.m. to 2 a.m. [28][33].",
+  "Netherlands' RDW approved changes for Europe: maximum speed margin cut from 50% to 10%, reset to 0% at every start, and the name Tesla Assisted Driving on screen; EU-wide approval still pending [29].",
+  "FSD referral program live: a free month (subscribers) or $99 credit (owners) per referral, up to 12 a year [30].",
+  "Update 2026.38.5.12, with FSD v14.3.13 and v14.3 Lite, appeared on November 4; 2026.38.5.11 remains the most installed build [27].",
+  "The fleet passed 17 billion miles on FSD (Supervised), about 6.76 billion of them in cities [31].",
+  "A Korean consumer group is filing a Fair Trade Commission complaint over FSD sold for about $6,726 on cars that can't legally use it [32]."
  ],
  "sources": [
   {
@@ -381,14 +385,56 @@
    "outlet": "Electrek",
    "url": "https://electrek.co/2026/10/27/tesla-fsd-south-korea-police-80-illegal-unlock-devices/",
    "date": "2026-10-27"
+  },
+  {
+   "title": "Tesla Software Updates & Release Notes",
+   "outlet": "Not a Tesla App",
+   "url": "https://www.notateslaapp.com/software-updates/",
+   "date": "2026-11-05"
+  },
+  {
+   "title": "Tesla adds Fort Worth to its growing Texas robotaxi network",
+   "outlet": "Austin American-Statesman via Yahoo Autos",
+   "url": "https://autos.yahoo.com/ev-and-future-tech/articles/tesla-adds-fort-worth-growing-211522456.html",
+   "date": "2026-11-02"
+  },
+  {
+   "title": "Dutch Regulator Cuts Tesla FSD's Speed Margin From +50% to +10%",
+   "outlet": "TeslaNorth",
+   "url": "https://teslanorth.com/2026/11/03/rdw-tesla-assisted-driving-speed-margin-10-percent/",
+   "date": "2026-11-03"
+  },
+  {
+   "title": "Full Self-Driving (Supervised) Referral Program",
+   "outlet": "Tesla",
+   "url": "https://www.tesla.com/support/fsd/refer",
+   "date": "2026-11"
+  },
+  {
+   "title": "Tesla FSD Fleet Tops 17 Billion Miles, Nearly 6.8 Billion in Cities",
+   "outlet": "TeslaNorth",
+   "url": "https://teslanorth.com/2026/11/02/fsd-fleet-17-billion-miles/",
+   "date": "2026-11-02"
+  },
+  {
+   "title": "Tesla Reportedly Faces Korea Complaint for Selling FSD 99% Can't Use",
+   "outlet": "TeslaNorth",
+   "url": "https://teslanorth.com/2026/11/04/korea-fsd-kftc-complaint/",
+   "date": "2026-11-04"
+  },
+  {
+   "title": "Tesla Expands Robotaxi Service, Launches Unsupervised Rides in Fort Worth",
+   "outlet": "Google News (headline)",
+   "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxNZnRkNDhjYmhrcm00aDBsc2RHYjdQTkJCcFQ3ZEhIeDRRUWpURDk2OHBNWmhBc0RWLU5zUkc2R3JOWGVrSUp3bnlkTWJwemptcmNaMUs1S3ZtSVdhY1MtZGVCbkZKdXowMVVEbXZTWTVBM2ZFUGE0T0NIeTNlb2RXTW1Sdl83V0RoLVctbEFtUUV4TUd6M0FhNmdvSW53c2dVTVVIZ1pOZWRkMXNMb2szdQ?oc=5",
+   "date": "2026-11-02"
   }
  ],
  "i18n": {
   "pt": {
-   "summary": "O FSD (Supervised) é vendido por assinatura nos EUA: a Tesla cobra US$ 99 por mês e não o vende mais à vista [2][3]. A Tesla relatou 1,74 milhão de assinaturas ativas do FSD no fim do terceiro trimestre, contando compras vitalícias anteriores [4].\n\nO software atual é o FSD v14.3.13 nos carros AI4 e o v14.3 Lite no HW3, agora na atualização 2026.38.5.11, que começou a chegar a mais carros em 24 de outubro [1][19]. O HW3 continua sem previsão de FSD não supervisionado [5]. Os manuais da Tesla renomearam os computadores: o AI4 agora é \"SI4\" e o HW3, \"SI3\" [21]. A meta da Tesla para o FSD não supervisionado nos carros dos donos é o segundo trimestre de 2027, primeiro dentro das zonas do Robotaxi [5][6].\n\nO Robotaxi roda sem ninguém a bordo em seis regiões metropolitanas, e a zona de Houston cresceu cerca de dez vezes nesta semana, para cerca de 254 milhas quadradas [14][23]. Os registros do Texas chegaram a 1.080 robotáxis, mais da metade Cybercabs [24]. Relatórios federais listam 26 incidentes com robotáxis da Tesla em Austin desde julho de 2025, contra 188 da Waymo desde 2023 [25].\n\nA Letônia foi o 10º país europeu a aprovar o sistema, vendido lá como Tesla Assisted Driving, com lançamento \"em breve\" [20]. Nos EUA, a Turo agora mostra quais Teslas para alugar têm FSD verificado [22]. Na Coreia do Sul, a polícia indiciou 80 pessoas por desbloquear ilegalmente o FSD em carros não aprovados [26]."
+   "summary": "O FSD (Supervised) é uma assinatura nos EUA: a Tesla cobra US$ 99 por mês e não vende mais a compra definitiva [2][3]. A Tesla informou 1,74 milhão de assinaturas ativas no fim do 3º trimestre, contando compras vitalícias antigas, e a frota passou de 17 bilhões de milhas supervisionadas nesta semana [4][31].\n\nO software atual continua sendo o FSD v14.3.13 nos carros AI4 e o v14.3 Lite no HW3; a 2026.38.5.11 é a versão mais instalada e uma atualização 2026.38.5.12, com o mesmo FSD, começou a aparecer em 4 de novembro [1][19][27]. O HW3 não terá FSD sem supervisão, e a meta da Tesla para o FSD sem supervisão nos carros de clientes é o 2º trimestre de 2027, primeiro dentro das zonas de Robotaxi [5][6].\n\nO Robotaxi chegou a Fort Worth em 2 de novembro, sua sétima cidade, e agora funciona das 6h às 2h [28]. Relatórios federais registram 26 incidentes com robotáxis da Tesla em Austin desde julho de 2025 [25].\n\nNa Europa, o regulador holandês aprovou mudanças que reduzem a margem máxima acima do limite de velocidade de 50% para 10% e dão ao sistema o nome Tesla Assisted Driving na tela; a aprovação em toda a UE ainda está pendente [29]. O novo programa de indicação da Tesla dá aos donos de FSD um mês grátis ou US$ 99 em crédito por indicação, até 12 por ano [30]. Na Coreia do Sul, um grupo de consumidores vai à Comissão de Comércio Justo contra a venda do FSD a carros que não podem usá-lo legalmente [32]."
   },
   "de": {
-   "summary": "FSD (Supervised) gibt es in den USA nur im Abo: Tesla verlangt 99 Dollar im Monat und verkauft es nicht mehr zum Festpreis [2][3]. Tesla meldete zum Ende des dritten Quartals 1,74 Millionen aktive FSD-Abos, frühere Einmalkäufe eingerechnet [4].\n\nAktuell laufen FSD v14.3.13 auf AI4-Autos und v14.3 Lite auf HW3, jetzt im Update 2026.38.5.11, das seit dem 24. Oktober breiter verteilt wird [1][19]. HW3 bekommt weiterhin kein unbeaufsichtigtes FSD [5]. Teslas Handbücher haben die Computer umbenannt: AI4 heißt jetzt \"SI4\", HW3 \"SI3\" [21]. Tesla peilt unbeaufsichtigtes FSD in Kundenautos für das zweite Quartal 2027 an, zuerst in den Robotaxi-Zonen [5][6].\n\nRobotaxi fährt in sechs Großräumen ohne Person an Bord, und die Zone in Houston wuchs diese Woche etwa auf das Zehnfache, auf geschätzt 254 Quadratmeilen [14][23]. In Texas sind 1.080 Robotaxis zugelassen, mehr als die Hälfte Cybercabs [24]. Bundesberichte verzeichnen in Austin seit Juli 2025 26 Vorfälle mit Tesla-Robotaxis, gegenüber 188 bei Waymo seit 2023 [25].\n\nLettland hat das System als zehntes europäisches Land zugelassen, dort als Tesla Assisted Driving verkauft, Start \"bald\" [20]. In den USA zeigt Turo jetzt, welche Mietteslas verifiziertes FSD haben [22]. In Südkorea zeigte die Polizei 80 Personen an, die FSD auf nicht zugelassenen Autos illegal freigeschaltet hatten [26]."
+   "summary": "FSD (Supervised) ist in den USA ein Abo: Tesla verlangt 99 Dollar im Monat und verkauft es nicht mehr dauerhaft [2][3]. Tesla meldete Ende des dritten Quartals 1,74 Millionen aktive FSD-Abos, frühere Käufe eingerechnet, und die Flotte hat diese Woche 17 Milliarden überwachte Meilen überschritten [4][31].\n\nAktuell bleibt FSD v14.3.13 auf AI4-Autos und v14.3 Lite auf HW3; 2026.38.5.11 ist der am weitesten verbreitete Stand, und ein Update 2026.38.5.12 mit demselben FSD tauchte am 4. November auf [1][19][27]. HW3 bekommt kein unüberwachtes FSD, und Teslas Ziel für unüberwachtes FSD in Kundenautos ist das zweite Quartal 2027, zuerst in Robotaxi-Zonen [5][6].\n\nRobotaxi startete am 2. November in Fort Worth, der siebten Stadt, und fährt jetzt von 6 bis 2 Uhr [28]. Bundesunfallberichte verzeichnen seit Juli 2025 26 Vorfälle mit Tesla-Robotaxis in Austin [25].\n\nIn Europa hat die niederländische Behörde Änderungen genehmigt, die den maximalen Spielraum über dem Tempolimit von 50 auf 10 Prozent senken und das System auf dem Bildschirm Tesla Assisted Driving nennen; die EU-weite Zulassung steht noch aus [29]. Teslas neues Empfehlungsprogramm gibt FSD-Besitzern pro Empfehlung einen Gratismonat oder 99 Dollar Guthaben, bis zu zwölfmal im Jahr [30]. In Südkorea zieht eine Verbrauchergruppe wegen des FSD-Verkaufs an Autos, die es nicht legal nutzen dürfen, vor die Fair Trade Commission [32]."
   }
  }
 }
