@@ -49,7 +49,7 @@ p = sub.add_parser('uncall'); p.add_argument('id'); p.add_argument('--at'); p.ad
 p = sub.add_parser('note'); p.add_argument('id'); p.add_argument('text')
 p = sub.add_parser('status'); p.add_argument('id'); p.add_argument('status', choices=['open', 'watching', 'called'])
 p = sub.add_parser('log'); p.add_argument('text'); p.add_argument('--at')
-p = sub.add_parser('apcall'); p.add_argument('id'); p.add_argument('--party', required=True, choices=['D', 'R', 'I']); p.add_argument('--at'); p.add_argument('--by', default='AP')
+p = sub.add_parser('apcall'); p.add_argument('id'); p.add_argument('--party', required=True, choices=['D', 'R', 'I']); p.add_argument('--at'); p.add_argument('--by', default='AP'); p.add_argument('--time-unknown', action='store_true')
 p = sub.add_parser('check')
 a = ap.parse_args()
 
@@ -76,7 +76,7 @@ elif a.cmd == 'status':
 elif a.cmd == 'log':
     stamp(a.text, a.at)
 elif a.cmd == 'apcall':
-    r = race(a.id); r['ap'] = {'party': a.party, 'at': iso(a.at), 'by': a.by}; board['asOf'] = now()
+    r = race(a.id); r['ap'] = {'party': a.party, 'at': iso(a.at), 'by': a.by, 'timeUnknown': bool(a.time_unknown)}; board['asOf'] = now()
 elif a.cmd == 'check':
     bad = [r['id'] for r in board['races'] if r.get('call') and r['call'].get('confidence', 0) < 0.995]
     if bad: sys.exit(f'calls below the rule: {bad}')

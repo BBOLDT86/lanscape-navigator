@@ -291,7 +291,7 @@ function raceCard(r, now) {
   const status = r.call ? 'called' : (r.status === 'watching' || (closed && r.status !== 'open') || closed ? 'watching' : 'open');
   const c = r.call ? COL[r.call.party] || COL.I : 'var(--ink-2)';
   const res = (RES && RES.races && RES.races[r.id]) || null;
-  const apc = res && res.call ? { call: res.call, callAt: res.callAt, callBy: res.callBy } : (r.ap && r.ap.party ? { call: r.ap.party, callAt: r.ap.at, callBy: r.ap.by || 'AP' } : null);
+  const apc = res && res.call ? { call: res.call, callAt: res.callAt, callBy: res.callBy } : (r.ap && r.ap.party ? { call: r.ap.party, callAt: r.ap.at, callBy: r.ap.by || 'AP', tu: !!r.ap.timeUnknown } : null);
   let live = '';
   if (res && res.c && Object.keys(res.c).length) {
     const vd = res.c[d.name] || 0, vr = res.c[p.name] || 0, tot = res.tot || (vd + vr), vo = Math.max(0, tot - vd - vr);
@@ -313,8 +313,8 @@ function raceCard(r, now) {
   if (apc) {
     const apName = (r.candidates.find(x => x.party === apc.call) || {}).name || apc.call;
     let first = '';
-    if (r.call) { const dm = Math.round((new Date(apc.callAt) - new Date(r.call.at)) / 60000); first = dm > 0 ? `<span class="first desk">Desk first by ${dm} min</span>` : dm < 0 ? `<span class="first">AP first by ${-dm} min</span>` : `<span class="first">Same minute</span>`; if (r.call.party !== apc.call) first = `<span class="first" style="background:color-mix(in srgb,var(--signal) 18%,transparent);color:var(--signal)">Disagree</span>`; }
-    ap = `<div class="ap"><span><b>${esc(apc.callBy || 'AP')}</b> called it for ${esc(apName)} · ${et(apc.callAt)}</span>${first}</div>`;
+    if (r.call && apc.tu) first = `<span class="first">AP time not reported</span>`; else if (r.call) { const dm = Math.round((new Date(apc.callAt) - new Date(r.call.at)) / 60000); first = dm > 0 ? `<span class="first desk">Desk first by ${dm} min</span>` : dm < 0 ? `<span class="first">AP first by ${-dm} min</span>` : `<span class="first">Same minute</span>`; if (r.call.party !== apc.call) first = `<span class="first" style="background:color-mix(in srgb,var(--signal) 18%,transparent);color:var(--signal)">Disagree</span>`; }
+    ap = `<div class="ap"><span><b>${esc(apc.callBy || 'AP')}</b> called it for ${esc(apName)}${apc.tu ? '' : ' · ' + et(apc.callAt)}</span>${first}</div>`;
   } else {
     ap = `<div class="ap"><span><b>AP</b>: not called${r.call ? ' yet' : ''}</span>${r.call ? '<span class="first desk">Desk ahead</span>' : ''}</div>`;
   }
@@ -342,7 +342,7 @@ function render() {
   const called = races.filter(r => r.call);
   const apCalled = races.filter(r => apOf(r));
   const agree = called.filter(r => { const x = apOf(r); return x && x.call === r.call.party; });
-  const deskFirst = agree.filter(r => new Date(apOf(r).callAt) > new Date(r.call.at));
+  const deskFirst = agree.filter(r => !(r.ap && r.ap.timeUnknown && !(RES && RES.races && RES.races[r.id] && RES.races[r.id].call)) && new Date(apOf(r).callAt) > new Date(r.call.at));
   const wrong = called.filter(r => { const x = apOf(r); return x && x.call !== r.call.party; });
   $('#score').innerHTML = `
     <div class="t"><div class="k">Desk calls</div><div class="v">${called.length}<small>of ${races.length}</small></div><div class="m">${called.length ? called.slice(-14).map(r => r.id).join(', ') : 'None yet'}</div></div>
