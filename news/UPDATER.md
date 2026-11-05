@@ -427,6 +427,8 @@ is rebuilt. The Politics desk opens with the same package in a compact form.
 ```json
 {"v": 1, "id": "hegseth-impeachment", "from": "2026-11-05T12:00:00Z", "until": "2026-11-10T05:00:00Z",
  "kicker": "After the midterms", "lead": "<report id>", "sides": ["<report id>", ...], "sidesTitle": "More on the vote",
+ "hero": {"type": "hemicycle", "seats": [{"n": 214, "c": "dem"}, {"n": 1, "c": "brass", "front": true, "mark": true},
+          {"n": 2, "c": "need", "front": true}, {"n": 216, "c": "rep"}], "label": "Thomas Massie", "sub": "+ 2 more Republicans", "alt": "..."},
  "path": {"title": "How it plays out", "steps": [{"when": "Week of Nov. 9", "t": "The House returns", "d": "one or two sentences"}]},
  "math": {"title": "The House math", "terms": [{"n": "214", "l": "Democrats", "c": "dem"}], "sum": {"n": "217", "l": "a majority"}, "note": "..."},
  "count": "us",
@@ -435,9 +437,15 @@ is rebuilt. The Politics desk opens with the same package in a compact form.
 
 - It shows from `from` until `until`, and only while the lead report is in `articles/index.json`. To take it down
   early, delete the file or set `until` to a time in the past. To replace it, write a new one.
-- `path`, `math`, `sides` and `count` are each optional. A term's `c` is `dem`, `rep` or `brass` (its colour).
-- `i18n.pt` and `i18n.de` replace `kicker`, `sidesTitle`, `path` and `math` whole for readers in those languages; the
-  reports' own titles and summaries come from their translations.
+- `hero`, `path`, `math`, `sides` and `count` are each optional. A term's `c` is `dem`, `rep` or `brass` (its colour).
+- `hero` is the package's picture, drawn in the page so nothing is copied from anyone: `hemicycle` is a chamber seat
+  by seat, dots on a half circle, the groups in `seats` laid out left to right (`c`: `dem`, `rep`, `brass`, or `need`
+  for a ringed seat). A group with `front` takes the seats nearest the front row at its boundary, and the `mark` group's
+  first seat is drawn large with `label` and `sub` under it. With a hero, the picture and the arithmetic sit beside
+  the headline and the steps run across below; without one, the steps sit beside the headline. Photographs are not
+  used here unless the site holds the rights to them.
+- `i18n.pt` and `i18n.de` replace `kicker`, `sidesTitle`, `hero`, `path` and `math` whole for readers in those
+  languages; the reports' own titles and summaries come from their translations.
 - Every line in `path` and `math` is a claim: keep each one to what the lead report says and cites, with the same
   hedges (who says it, "if every member votes"), and change the file when the facts move.
 - While a package is up, Today's report shows the newest report that is not in it.

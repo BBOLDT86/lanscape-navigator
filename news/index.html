@@ -579,12 +579,26 @@ h3.glb{font:600 12.5px var(--sans);letter-spacing:.07em;text-transform:uppercase
 .pk-go{display:inline-block;margin-top:16px;background:var(--ink);color:var(--paper);border-radius:999px;padding:10px 20px;font:600 15px var(--sans)}
 .pkg h3{font:400 25px/1.1 var(--serif);margin:0 0 10px;letter-spacing:-.003em}
 .pk-math{margin-top:28px;border-top:1px solid var(--rule);padding-top:16px}
+.pk-grid.hero{grid-template-columns:minmax(0,6fr) minmax(0,5fr);gap:40px;padding-bottom:22px}
+.pk-hero{margin:4px 0 0;border:1px solid var(--rule);background:var(--raise);border-radius:10px;padding:16px 18px 12px}
+.pk-hero + .pk-math{margin-top:16px;border-top:0;padding-top:0}
+.pk-grid.hero .pk-eq{gap:6px 10px}.pk-grid.hero .pk-term b{font-size:clamp(36px,3.4vw,46px)}.pk-grid.hero .pk-term span{max-width:12ch}.pk-grid.hero .pk-op{font-size:28px;padding-top:7px}
+.hm{position:relative}.hm svg{display:block;width:100%;height:auto;overflow:visible}
+.hm .d{fill:var(--dem)}.hm .r{fill:var(--rep)}.hm .m{fill:var(--brass)}.hm .n{fill:var(--rep);stroke:var(--brass);stroke-width:5}
+.hm .mh{fill:none;stroke:var(--brass);stroke-width:3}.hm .ml{stroke:var(--ink-3);stroke-width:2.5;stroke-linecap:round}
+.hm-well{position:absolute;transform:translateX(-50%);text-align:center;white-space:nowrap}
+.hm-well b{display:block;font:400 clamp(15px,1.9vw,22px)/1.05 var(--serif);letter-spacing:-.004em}
+.hm-well span{display:block;font:600 clamp(10.5px,.95vw,12.5px)/1.25 var(--sans);color:var(--brass-ink);margin-top:3px}
+.pk-path.row{border-top:1px solid var(--rule);padding:18px 0 6px}
+.pk-path.row ol{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:0 30px}
+.pk-path.row li{border-top:0;padding:2px 0 14px;align-content:start}
 .pk-eq{display:flex;flex-wrap:wrap;align-items:flex-start;gap:8px 16px}
 .pk-term{display:flex;flex-direction:column;min-width:0}
 .pk-term b{font:400 clamp(42px,4.4vw,58px)/.95 var(--serif);font-variant-numeric:lining-nums tabular-nums}
 .pk-term span{font:600 13px/1.3 var(--sans);color:var(--ink-2);max-width:17ch;margin-top:5px}
 .pk-term.c-dem b{color:var(--dem)}.pk-term.c-rep b{color:var(--rep)}.pk-term.c-brass b{color:var(--brass-ink)}
 .pk-op{font:400 34px/1 var(--serif);color:var(--ink-3);padding-top:clamp(8px,1vw,14px)}
+.pk-sum{display:flex;align-items:flex-start;gap:inherit}
 .pk-note{margin:12px 0 0;font-size:13px;color:var(--ink-2);line-height:1.5;max-width:72ch}
 .pk-path ol{list-style:none;margin:0;padding:0;counter-reset:pk}
 .pk-path li{counter-increment:pk;display:grid;grid-template-columns:30px minmax(0,1fr);gap:1px 8px;padding:12px 0 13px;border-top:1px solid var(--rule)}
@@ -625,6 +639,8 @@ h3.glb{font:600 12.5px var(--sans);letter-spacing:.07em;text-transform:uppercase
   .pk-sg{grid-template-columns:1fr}.pk-side{padding:12px 0 14px}.pk-side + .pk-side{border-top:1px solid var(--rule)}.pk-st{font-size:23px}
   .cnt{grid-template-columns:1fr;gap:18px}.cn .nums b{font-size:40px}.pk-count{padding:16px}
   .pk-term span{max-width:13ch}
+  .pk-grid.hero{grid-template-columns:1fr;gap:20px;padding-bottom:16px}.pk-hero{padding:12px 12px 8px}
+  .pk-path.row ol{grid-template-columns:1fr}.pk-path.row li{border-top:1px solid var(--rule);padding:12px 0 13px}.pk-path.row li:first-child{border-top:0}
 }
 .art{max-width:760px;padding-top:34px;padding-bottom:30px}
 .art .ak{font:600 12.5px var(--sans);letter-spacing:.06em;text-transform:uppercase;color:var(--brass-ink);margin:0 0 10px}
@@ -3580,26 +3596,49 @@ function fpLive() { // up from its start until it expires, for as long as its le
   if (!lead) return null;
   return { lead, sides: (FP.sides || []).map(id => arts.find(a => a.id === id)).filter(Boolean), f: Object.assign({}, FP, (FP.i18n || {})[LANG] || {}) };
 }
+function hemicycle(h) { // a package's hero picture: a chamber seat by seat, dots on a half circle, the groups laid out left to right
+  const groups = (h.seats || []).filter(g => g.n > 0), total = groups.reduce((a, g) => a + g.n, 0); if (!total) return '';
+  const R = 10, rin = 215, rout = 470, cx = 500, cy = 500, dr = (rout - rin) / (R - 1);
+  const rad = Array.from({ length: R }, (x, i) => rin + i * dr), sum = rad.reduce((a, b) => a + b, 0);
+  let left = total; const per = rad.map((r, i) => { const n = i === R - 1 ? left : Math.min(left, Math.round(total * r / sum)); left -= n; return n; }); // seats per row, by its length
+  const seats = [];
+  rad.forEach((r, i) => { for (let j = 0; j < per[i]; j++) { const t = Math.PI * (1 - (j + 0.5) / per[i]); seats.push({ x: cx + r * Math.cos(t), y: cy - r * Math.sin(t), t, r }); } });
+  seats.sort((a, b) => b.t - a.t || a.r - b.r); // left to right, so each group is a wedge
+  let free = seats.slice(), mark = null;
+  for (const g of groups) { // "front": the group's seats are the ones nearest the front row at the boundary it sits on
+    const pool = g.front ? free.slice(0, 12).sort((a, b) => a.r - b.r || b.t - a.t).slice(0, g.n) : free.slice(0, g.n);
+    for (const st of pool) { st.c = g.c; if (g.mark && !mark) mark = st; }
+    free = free.filter(st => !pool.includes(st));
+  }
+  const K = { dem: 'd', rep: 'r', brass: 'm', need: 'n' }, f1 = v => v.toFixed(1);
+  const dots = seats.filter(st => st !== mark).map(st => `<circle class="${K[st.c] || 'r'}" cx="${f1(st.x)}" cy="${f1(st.y)}" r="${st.c === 'need' ? 8 : 9.5}"/>`).join('');
+  const top = 400 / 515 * 100; // the label sits low in the well, where it is widest
+  return `<figure class="pk-hero"><div class="hm"><svg viewBox="0 0 1000 515" role="img" aria-label="${esc(h.alt || '')}">${dots}
+      ${mark ? `<circle class="mh" cx="${f1(mark.x)}" cy="${f1(mark.y)}" r="21"/><circle class="m" cx="${f1(mark.x)}" cy="${f1(mark.y)}" r="13"/><line class="ml" x1="${f1(mark.x)}" y1="${f1(mark.y + 25)}" x2="${f1(mark.x)}" y2="392"/>` : ''}</svg>
+    ${h.label ? `<div class="hm-well nolc" style="top:${top.toFixed(1)}%;left:${mark ? (mark.x / 10).toFixed(1) : 50}%"><b>${esc(h.label)}</b>${h.sub ? `<span>${esc(h.sub)}</span>` : ''}</div>` : ''}</div></figure>`;
+}
 function frontPackage(compact) { // compact: on a desk page, without the count
   const p = fpLive(); if (!p) return '';
   const { lead, sides, f } = p, L = artL(lead);
   const day = new Date(lead.written).toLocaleDateString(LOC(), { timeZone: 'America/New_York', weekday: 'long', month: 'long', day: 'numeric' });
   const path = f.path && (f.path.steps || []).length ? `<div class="pk-path"><h3 class="nolc">${esc(f.path.title || '')}</h3><ol class="nolc">${f.path.steps.map(s => `<li><span class="pw">${esc(s.when || '')}</span><b>${esc(s.t || '')}</b><span class="pd">${esc(s.d || '')}</span></li>`).join('')}</ol></div>` : '';
   const term = x => `<span class="pk-term${/^(dem|rep|brass)$/.test(x.c || '') ? ' c-' + x.c : ''}"><b>${esc(x.n)}</b><span>${esc(x.l || '')}</span></span>`;
-  const math = !compact && f.math && (f.math.terms || []).length ? `<div class="pk-math nolc"><h3>${esc(f.math.title || '')}</h3>
-    <div class="pk-eq">${f.math.terms.map(term).join('<span class="pk-op" aria-hidden="true">+</span>')}${f.math.sum ? `<span class="pk-op" aria-hidden="true">=</span>${term(f.math.sum)}` : ''}</div>
+  const hero = !compact && f.hero && f.hero.type === 'hemicycle' ? hemicycle(f.hero) : '';
+  const math = !compact && f.math && (f.math.terms || []).length ? `<div class="pk-math nolc">${hero ? '' : `<h3>${esc(f.math.title || '')}</h3>`}
+    <div class="pk-eq">${f.math.terms.map(term).join('<span class="pk-op" aria-hidden="true">+</span>')}${f.math.sum ? `<span class="pk-sum"><span class="pk-op" aria-hidden="true">=</span>${term(f.math.sum)}</span>` : ''}</div>
     ${f.math.note ? `<p class="pk-note">${esc(f.math.note)}</p>` : ''}</div>` : '';
   const side = a => { const SL = artL(a); return `<a class="pk-side" href="#/a/${esc(a.id)}"><span class="pk-st nolc">${esc(SL.title || a.title)}</span><span class="pk-sd nolc">${esc(SL.dek || a.dek)}</span><span class="pk-sm">${T('{n} min read.', { n: a.min })}</span></a>`; };
   const count = !compact && f.count === 'us' ? usCount(false) : '';
   return `<section class="${compact ? '' : 'wrap '}pkg${compact ? ' compact' : ''}" aria-label="${esc(f.kicker || '')}" data-nolc>
     <div class="pk-top"><span class="pk-k nolc">${esc(f.kicker || '')}</span><span class="pk-w">${esc(day)}</span></div>
-    <div class="pk-grid"><div>
+    <div class="pk-grid${hero ? ' hero' : ''}"><div>
       <a class="pk-lead" href="#/a/${esc(lead.id)}"><span class="rk">${esc(secName(lead.desk))} · ${T('The Watch report')}</span>
         <h2 class="nolc">${esc(L.title || lead.title)}</h2><span class="pk-dek nolc">${esc(L.dek || lead.dek)}</span>
         <span class="pk-by">${T('By Claude ({model}), {date}. {min} min read, {n} sources.', { model: esc(lead.model), date: esc(new Date(lead.written).toLocaleDateString(LOC(), { timeZone: 'America/New_York', month: 'long', day: 'numeric' })), min: lead.min, n: lead.sources })}${LANG !== 'en' && !L.title ? ' ' + T('In English.') : ''}</span>
         <span class="pk-go">${T('Read the report')}</span></a>
-      ${math}</div>
-      ${path}</div>
+      ${hero ? '' : math}</div>
+      ${hero ? `<div>${hero}${math}</div>` : path}</div>
+    ${hero && path ? path.replace('class="pk-path"', 'class="pk-path row"') : ''}
     ${sides.length ? `<div class="pk-sides">${f.sidesTitle ? `<h3 class="nolc">${esc(f.sidesTitle)}</h3>` : ''}<div class="pk-sg">${sides.map(side).join('')}</div></div>` : ''}
     ${count ? `<div class="pk-count"><h3>${T('Where the count stands')}</h3>${count}</div>` : ''}
   </section>`;
