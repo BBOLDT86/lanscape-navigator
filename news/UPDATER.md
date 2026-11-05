@@ -414,6 +414,41 @@ carries Portuguese and German translations (`i18n`), that each is complete and k
 `articles.py index` rebuilds `articles/index.json`, which the page reads. The page shows the newest on the front for
 four days and keeps all of them under Reports.
 
+A report can name its companions: `"related": ["<id>", ...]` lists the other reports in the same package, and the page
+shows them under the sources as "More on this story". `"package"` is a free label for the set.
+
+## The front package (`data/front.json`)
+
+When one story should lead the front page, `news/data/front.json` puts a package above the lead from the feeds: a lead
+report with its headline, summary and byline, a short "how it plays out" list, an optional line of arithmetic, the
+companion reports, and (with `"count": "us"`) the election count below. The page reads the file when it loads; nothing
+is rebuilt. The Politics desk opens with the same package in a compact form.
+
+```json
+{"v": 1, "id": "hegseth-impeachment", "from": "2026-11-05T12:00:00Z", "until": "2026-11-10T05:00:00Z",
+ "kicker": "After the midterms", "lead": "<report id>", "sides": ["<report id>", ...], "sidesTitle": "More on the vote",
+ "path": {"title": "How it plays out", "steps": [{"when": "Week of Nov. 9", "t": "The House returns", "d": "one or two sentences"}]},
+ "math": {"title": "The House math", "terms": [{"n": "214", "l": "Democrats", "c": "dem"}], "sum": {"n": "217", "l": "a majority"}, "note": "..."},
+ "count": "us",
+ "i18n": {"pt": {"kicker": "...", "sidesTitle": "...", "path": {...}, "math": {...}}, "de": {...}}}
+```
+
+- It shows from `from` until `until`, and only while the lead report is in `articles/index.json`. To take it down
+  early, delete the file or set `until` to a time in the past. To replace it, write a new one.
+- `path`, `math`, `sides` and `count` are each optional. A term's `c` is `dem`, `rep` or `brass` (its colour).
+- `i18n.pt` and `i18n.de` replace `kicker`, `sidesTitle`, `path` and `math` whole for readers in those languages; the
+  reports' own titles and summaries come from their translations.
+- Every line in `path` and `math` is a claim: keep each one to what the lead report says and cites, with the same
+  hedges (who says it, "if every member votes"), and change the file when the facts move.
+- While a package is up, Today's report shows the newest report that is not in it.
+
+After Election Day the U.S. election card (the package's count, the Elections section on the front and the Politics
+desk) stops showing markets and polls and shows the count instead, worked out in the page from the Election Desk's
+`model.json`: for the Senate and the governors, the seats that were not on the ballot plus every race the desk has
+recorded as called; for the House, the desk's count of AP's calls with its time; then the seats that changed party and
+each uncalled race with its leader and margin. It is as fresh as the Election Desk's last pass and never calls a race
+itself. The front keeps the count for three days after the election, or two weeks while a race is still uncalled.
+
 ## The Epstein files (`files.py` -> `data/files.json`)
 
 A compact index of Inbox Atlas's archive (`inbox-atlas/data/atlas.json.gz`): the counts, its sourced stories, the

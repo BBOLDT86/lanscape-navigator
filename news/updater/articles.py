@@ -11,6 +11,7 @@ An article is one JSON file in news/articles/, named for its id:
             and numbered citations like [3] that point at sources[2]",
    "sources": [{"title": "...", "outlet": "...", "url": "https://...", "date": "2026-10-24"}, ...],
    "edition": "2026-10-25-morning", "story": "the edition story id it grew out of, if any",
+   "related": ["ids of the other reports in the same package; the page lists them under the sources"],
    "i18n": {"pt": {"title": "...", "dek": "...", "body": "the whole body in Brazilian Portuguese, same [n] citations",
                    "model": "Claude Opus 5.5"},
             "de": {... the same in German ...}}}

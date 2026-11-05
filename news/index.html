@@ -562,6 +562,70 @@ h3.glb{font:600 12.5px var(--sans);letter-spacing:.07em;text-transform:uppercase
 .rep.big{border:1px solid var(--rule);background:var(--raise);border-radius:10px;padding:22px 26px 24px;max-width:none}
 .rep.big .rt{font-size:40px}
 .repfront{margin-top:34px}.repfront .note{margin:10px 0 0}
+
+/* ---------- the front package: a lead report, how it plays out, its companions and the count (data/front.json) */
+.pkg{margin-top:20px}
+.pkg.compact{margin:6px 0 26px}
+.pk-top{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;border-top:3px solid var(--ink);padding-top:10px}
+.pk-k{font:700 12.5px var(--sans);letter-spacing:.09em;text-transform:uppercase;color:var(--brass-ink)}
+.pk-w{font:500 13.5px var(--sans);color:var(--ink-2)}
+.pk-grid{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,4fr);gap:44px;padding:16px 0 28px}
+.pk-lead{display:block;text-decoration:none}
+.pk-lead .rk{font:600 12.5px var(--sans);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2)}
+.pk-lead h2{margin:8px 0 14px;font:400 clamp(36px,4.5vw,60px)/1.03 var(--serif);letter-spacing:-.008em;max-width:21ch;text-wrap:balance}
+.pk-lead:hover h2{text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:6px}
+.pk-dek{display:block;font-size:18.5px;line-height:1.5;color:var(--ink-2);max-width:60ch}
+.pk-by{display:block;margin-top:12px;font:500 13.5px var(--sans);color:var(--ink-3)}
+.pk-go{display:inline-block;margin-top:16px;background:var(--ink);color:var(--paper);border-radius:999px;padding:10px 20px;font:600 15px var(--sans)}
+.pkg h3{font:400 25px/1.1 var(--serif);margin:0 0 10px;letter-spacing:-.003em}
+.pk-math{margin-top:28px;border-top:1px solid var(--rule);padding-top:16px}
+.pk-eq{display:flex;flex-wrap:wrap;align-items:flex-start;gap:8px 16px}
+.pk-term{display:flex;flex-direction:column;min-width:0}
+.pk-term b{font:400 clamp(42px,4.4vw,58px)/.95 var(--serif);font-variant-numeric:lining-nums tabular-nums}
+.pk-term span{font:600 13px/1.3 var(--sans);color:var(--ink-2);max-width:17ch;margin-top:5px}
+.pk-term.c-dem b{color:var(--dem)}.pk-term.c-rep b{color:var(--rep)}.pk-term.c-brass b{color:var(--brass-ink)}
+.pk-op{font:400 34px/1 var(--serif);color:var(--ink-3);padding-top:clamp(8px,1vw,14px)}
+.pk-note{margin:12px 0 0;font-size:13px;color:var(--ink-2);line-height:1.5;max-width:72ch}
+.pk-path ol{list-style:none;margin:0;padding:0;counter-reset:pk}
+.pk-path li{counter-increment:pk;display:grid;grid-template-columns:30px minmax(0,1fr);gap:1px 8px;padding:12px 0 13px;border-top:1px solid var(--rule)}
+.pk-path li::before{content:counter(pk);grid-row:1 / span 3;font:400 30px/1 var(--serif);color:var(--brass)}
+.pk-path .pw{font:700 11.5px var(--sans);letter-spacing:.07em;text-transform:uppercase;color:var(--brass-ink)}
+.pk-path b{font:600 16.5px/1.3 var(--sans)}
+.pk-path .pd{font-size:14.5px;line-height:1.45;color:var(--ink-2)}
+.pk-sides{border-top:1px solid var(--rule);padding:18px 0 8px}
+.pk-sg{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 36px}
+.pk-side{display:flex;flex-direction:column;gap:7px;text-decoration:none;padding:2px 0 14px}
+.pk-st{font:400 25px/1.13 var(--serif);letter-spacing:-.004em}
+.pk-side:hover .pk-st{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:4px}
+.pk-sd{font-size:14.5px;color:var(--ink-2);line-height:1.45}
+.pk-sm{font:500 12.5px var(--sans);color:var(--ink-3)}
+.pk-count{border:1px solid var(--rule);background:var(--raise);border-radius:10px;padding:18px 22px 16px;margin:12px 0 8px}
+.pkg.compact .pk-grid{padding-bottom:18px}.pkg.compact .pk-lead h2{font-size:clamp(30px,3.4vw,42px)}
+/* the count after Election Day (the Election Desk's record of AP's calls) */
+.cnt-h{margin:0 0 14px;font-size:15.5px;line-height:1.45}
+.cnt{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px 34px}
+.cn h4{font:700 12px var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);margin:0 0 4px}
+.cn .nums{display:flex;justify-content:space-between;align-items:flex-end;font-variant-numeric:lining-nums tabular-nums}
+.cn .nums b{display:block;font:400 46px/1 var(--serif)}
+.cn .nums small{display:block;font:600 12.5px var(--sans);color:var(--ink-2);margin-top:2px}
+.cn .nd b{color:var(--dem)}.cn .nr b{color:var(--rep)}.cn .nr{text-align:right}
+.sbw{position:relative;padding:4px 0;margin:6px 0 5px}
+.sbar{display:flex;height:12px;border-radius:6px;overflow:hidden;gap:2px}
+.sbar span{display:block;min-width:0}.sbar .sd{background:var(--dem)}.sbar .sr{background:var(--rep)}.sbar .so{background:var(--ink-3);opacity:.38}
+.sbw i{position:absolute;left:50%;top:0;bottom:0;width:2px;margin-left:-1px;background:var(--ink)}
+.cn p{margin:0;font-size:13.5px;color:var(--ink-2);line-height:1.45}
+.cnt-f{margin:14px 0 0;font-size:14.5px;line-height:1.5}.cnt-f b{font-weight:600}
+.cnt-open{list-style:none;margin:12px 0 0;padding:0;border-top:1px solid var(--rule)}
+.cnt-open li{padding:9px 0;border-bottom:1px solid var(--rule);font-size:14.5px;line-height:1.45}
+.cnt-open b{font-weight:600}.cnt-open span{color:var(--ink-2)}
+.arel{margin-top:34px;border-top:1px solid var(--rule);padding-top:8px}.arel h2{font:400 28px/1.15 var(--serif);margin:10px 0 0}.arel .rep:first-of-type{border-top:0}
+@media (max-width:820px){
+  .pk-grid{grid-template-columns:1fr;gap:22px;padding:12px 0 20px}
+  .pk-lead h2{font-size:35px;max-width:none}.pk-dek{font-size:16.5px}
+  .pk-sg{grid-template-columns:1fr}.pk-side{padding:12px 0 14px}.pk-side + .pk-side{border-top:1px solid var(--rule)}.pk-st{font-size:23px}
+  .cnt{grid-template-columns:1fr;gap:18px}.cn .nums b{font-size:40px}.pk-count{padding:16px}
+  .pk-term span{max-width:13ch}
+}
 .art{max-width:760px;padding-top:34px;padding-bottom:30px}
 .art .ak{font:600 12.5px var(--sans);letter-spacing:.06em;text-transform:uppercase;color:var(--brass-ink);margin:0 0 10px}
 .art .ak a{text-decoration:none}
@@ -1628,11 +1692,12 @@ function renderHome() {
       ${ordered.map((it, i) => storyRow(it, { top: i === 0, img: i === 0 })).join('')}</section>`;
   }).join('');
   const coldChips = warm ? '' : `<div class="cold"><span>Or tap the desks you follow:</span>${E.sections.map(s => `<button type="button" class="chip" data-seed="${s.k}" aria-pressed="${(P.sec[s.k] || 0) > 0 ? 'true' : 'false'}">${esc(secName(s.k))}</button>`).join('')}</div>`;
-  ensureElections(false);
+  ensureElections(usPost()); // after the vote the front needs the Election Desk's results, not only its markets
   const brf = viewingArchive ? '' : brFrontCard();
   $('#main').innerHTML = `${!viewingArchive && MK ? `<div class="wrap">${tapeHTML()}</div>` : ''}
     <div class="wrap" id="wxband">${wxBandHTML()}${WX.aptBand || ''}</div>
     ${brf}
+    ${viewingArchive ? '' : frontPackage()}
     <div class="wrap front">${leadHTML}
       <div class="toplist"><h2>Top stories</h2><ol>${rest.map(it => `<li>${storyRow(it, { img: false })}</li>`).join('')}</ol></div>
     </div>
@@ -1693,7 +1758,7 @@ function renderDesk(k) {
   list.sort(deskSort === 'new' ? (a, b) => b.p - a.p : (a, b) => b.s - a.s);
   listPage(secName(k), T(list.length === 1 ? '{n} story' : '{n} stories', { n: list.length }), list.map(x => ({ it: x.it })),
     { controls: `<div class="seg" role="group" aria-label="Sort"><button type="button" data-sort="you" aria-pressed="${deskSort === 'you'}">Best for you</button><button type="button" data-sort="new" aria-pressed="${deskSort === 'new'}">Latest</button></div>`,
-      top: (k === 'politics' ? electionsHTML(true) : k === 'brazil' ? brMissPromo() + electionsHTML(true, 'br') : k === 'travel' ? lifeSlot(lifeTravel) : k === 'power' ? `<div id="pwrWrap" class="mk">${powerHTML()}</div>` : k === 'cars' ? `<div id="garWrap">${garageHTML()}</div>` : k === 'food' ? cookbookFeature() + `<div id="fridgeWrap">${fridgeHTML()}</div>` : k === 'sports' ? finalsFeature() + filmFeature() : k === 'lifestyle' ? togetherFeature() + dateNightFeature() + carteFeature() + visionFeature() : k === 'tech' ? scrollFeature() + moeFeature() + arcadeFeature() : '') + deskBanner(k) + deskShop(k),
+      top: (k === 'politics' ? frontPackage(true) + electionsHTML(true) : k === 'brazil' ? brMissPromo() + electionsHTML(true, 'br') : k === 'travel' ? lifeSlot(lifeTravel) : k === 'power' ? `<div id="pwrWrap" class="mk">${powerHTML()}</div>` : k === 'cars' ? `<div id="garWrap">${garageHTML()}</div>` : k === 'food' ? cookbookFeature() + `<div id="fridgeWrap">${fridgeHTML()}</div>` : k === 'sports' ? finalsFeature() + filmFeature() : k === 'lifestyle' ? togetherFeature() + dateNightFeature() + carteFeature() + visionFeature() : k === 'tech' ? scrollFeature() + moeFeature() + arcadeFeature() : '') + deskBanner(k) + deskShop(k),
       empty: k === 'lifestyle' ? T('Lifestyle stories start with the next edition.') : undefined, reel: 'desk:' + k });
   if (k === 'food') bindFridge();
   if (k === 'sports') sportsTop();
@@ -3416,6 +3481,7 @@ function usCard(full) {
   const m = ELX.us || null, mk = (m && m.markets) || ELX.usM || null;
   if (!m && !mk) return '';
   const day = daysTo((m && m.meta.electionDay) || '2026-11-03');
+  if (day < 0) { const c = usCount(full); return c ? `<section class="ecard"><h3>${T('U.S. midterms: the count')}</h3>${c}</section>` : ''; } // after the vote the markets and polls give way to the count
   const hinge = (m && m.hinge) || {};
   const ctl = (k, label) => { const x = mk && mk[k]; if (!x) return ''; return `<p class="eh"><b>${T(label)}:</b> ${T('Democrats {d}, Republicans {r} on {venue}', { d: pc0(x.D), r: pc0(x.R), venue: esc(x.venue) })}${x.kalshi ? ` (Kalshi: ${pc0(x.kalshi.D)} / ${pc0(x.kalshi.R)})` : ''}${hinge[k.toUpperCase()] != null ? '. ' + T('The Hinge’s blend: Democrats {d}', { d: pc0(hinge[k.toUpperCase()]) }) : ''}.</p>
       <div class="vbar"><span style="flex:${x.D};background:var(--dem)"></span><span style="flex:${x.R};background:var(--rep)"></span></div>`; };
@@ -3451,9 +3517,92 @@ function electionsHTML(full, only) {
 function frontElections() { // the front shows an election from a few days before it until the count is settled
   const b = ELX.br, show = [];
   if (b && b.election) { const d = daysTo(b.election.election.runoff); if (d <= 3 && d >= -2) show.push('br'); }
-  const d2 = daysTo((ELX.us && ELX.us.meta.electionDay) || '2026-11-03'); if (d2 <= 14 && d2 >= -3 && (ELX.us || ELX.usM)) show.push('us');
-  if (!show.length) return '';
-  return `<section class="wrap fe"><h2 class="sec-h">${T('Elections')}</h2>${electionsHTML(false, show.length === 1 ? show[0] : null)}</section>`;
+  const d2 = daysTo((ELX.us && ELX.us.meta.electionDay) || '2026-11-03'), tl = d2 < 0 ? usTally(ELX.us) : null, pk = fpLive();
+  const open = tl && (tl.S.open.length || tl.G.open.length || (tl.H && tl.H.open)); // races still uncalled keep the count on the front a while longer
+  if (!(pk && pk.f.count === 'us') && d2 <= 14 && (d2 >= -3 || (d2 >= -14 && open)) && (ELX.us || ELX.usM)) show.push('us'); // the front package carries the count when it is up
+  const html = show.length ? electionsHTML(false, show.length === 1 ? show[0] : null) : '';
+  return html ? `<section class="wrap fe"><h2 class="sec-h">${T('Elections')}</h2>${html}</section>` : '';
+}
+
+/* ---- after Election Day: the count, from the Election Desk's record of The Associated Press's calls */
+const usPost = () => { const d = daysTo((ELX.us && ELX.us.meta.electionDay) || '2026-11-03'); return d < 0 && d >= -21; };
+function usTally(m) { // seats per party: those not on the ballot plus every called race; what is left is uncalled
+  if (!m || !m.races || !m.results || !m.balance) return null;
+  const R = m.results.races || {}, bal = m.balance;
+  const mk = k => { const n = (bal[k] || {}).notUp || {}; return { D: (n.D || 0) + (n.I || 0), R: n.R || 0, I: 0, open: [], gainD: [], gainR: [] }; }; // independents not on the ballot caucus with the Democrats
+  const S = mk('senate'), G = mk('gov');
+  for (const [id, r] of Object.entries(m.races)) {
+    const o = r.type === 'S' ? S : r.type === 'G' ? G : null; if (!o) continue;
+    const x = R[id] || {}, st = String(r.name || id).replace(/ (Senate|Governor).*$/, '');
+    if (!x.call) { o.open.push({ id, r, x }); continue; }
+    if (x.call === 'D' || x.call === 'R') o[x.call]++; else o.I++;
+    const was = r.inc && r.inc.party;
+    if (x.call !== 'R' && was === 'R') o.gainD.push(st); else if (x.call === 'R' && was && was !== 'R') o.gainR.push(st);
+  }
+  for (const o of [S, G]) { o.gainD.sort(); o.gainR.sort(); }
+  const h = m.results.house || {};
+  const H = h.calledD != null ? { D: h.calledD, R: h.calledR || 0, open: Math.max(0, 435 - h.calledD - (h.calledR || 0)), asOf: h.asOf } : null;
+  return { S, G, H };
+}
+function usCount(full) {
+  const m = ELX.us, t = usTally(m); if (!t) return '';
+  const { S, G, H } = t;
+  const when = iso => new Date(iso).toLocaleString(LOC(), { timeZone: 'America/New_York', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' }) + ' ET';
+  const cell = (name, o, total, maj, nOpen) => `<div class="cn"><h4>${T(name)}</h4>
+    <div class="nums"><span class="nd"><b>${fnum(o.D, 0)}</b><small>${T('Democrats')}</small></span><span class="nr"><b>${fnum(o.R, 0)}</b><small>${T('Republicans')}</small></span></div>
+    <div class="sbw" role="img" aria-label="${esc(T('Democrats {d}, Republicans {r}', { d: o.D, r: o.R }))}"><div class="sbar"><span class="sd" style="flex:${o.D}"></span>${total - o.D - o.R > 0 ? `<span class="so" style="flex:${total - o.D - o.R}"></span>` : ''}<span class="sr" style="flex:${o.R}"></span></div>${maj ? '<i></i>' : ''}</div>
+    <p>${[maj ? T('{n} for a majority', { n: maj }) : '', nOpen ? T(nOpen === 1 ? '{n} race uncalled' : '{n} races uncalled', { n: nOpen }) : T('Every race called'), o.I ? T('{n} independent', { n: o.I }) : ''].filter(Boolean).join(' · ')}</p></div>`;
+  const sen = S.D >= 51, hou = H && H.D >= 218;
+  const head = sen && hou ? T('Democrats have won the Senate and the House.') : sen ? T('Democrats have won the Senate.') : hou ? T('Democrats have won the House.') : '';
+  const flips = [[S.gainD, 'Senate seats Democrats flipped'], [S.gainR, 'Senate seats Republicans flipped'], [G.gainD, 'Governorships Democrats flipped'], [G.gainR, 'Governorships Republicans flipped']]
+    .filter(x => x[0].length).map(x => `<b>${T(x[1])} (${x[0].length}):</b> <span class="nolc">${x[0].map(esc).join(', ')}</span>.`).join(' ');
+  const openRow = ({ r, x }) => {
+    const c = Object.entries(x.c || {}).sort((a, b) => b[1] - a[1]), nm = n => `${esc(n)}${((r.cands || []).find(k => k.n === n) || {}).p ? ' (' + (r.cands || []).find(k => k.n === n).p + ')' : ''}`;
+    const lead = c.length >= 2 && c[0][1] > 0 ? T('{a} leads {b} by {n} votes', { a: nm(c[0][0]), b: nm(c[1][0]), n: fnum(c[0][1] - c[1][1], 0) }) : T('No count recorded yet');
+    return `<li><b>${esc(raceName(r.name))}:</b> <span class="nolc">${lead}</span>${x.asOf ? ` <span>(${esc(when(x.asOf))})</span>` : ''}</li>`;
+  };
+  const open = [...S.open, ...G.open];
+  return `${head ? `<p class="cnt-h"><b>${head}</b> ${T('The seats so far, by The Associated Press’s calls:')}</p>` : ''}
+    <div class="cnt">${cell('Senate|chamber', S, 100, 51, S.open.length)}${H ? cell('House|chamber', H, 435, 218, H.open) : ''}${cell('Governors|count', G, 50, 0, G.open.length)}</div>
+    ${flips ? `<p class="cnt-f">${flips}</p>` : ''}
+    ${open.length ? `<ul class="cnt-open">${open.map(openRow).join('')}</ul>` : ''}
+    <p class="esrc">${T('Calls are The Associated Press’s, as recorded by the Election Desk. Senate and governor totals include the seats that were not on the ballot, and the Senate’s Democratic total counts the two independents who caucus with them.')}${H && H.asOf ? ' ' + T('House count as of {time}.', { time: esc(when(H.asOf)) }) : ''}</p>
+    <p class="elinks"><a href="../election2026/">${T('Open the Election Desk')}</a> <a href="../election2026/calls/">${T('The Call Desk: every call, scored')}</a>${full ? ` <a href="../the-hinge/">${T('The Hinge forecast')}</a>` : ''}</p>`;
+}
+
+/* ================= the front package: a lead report, how it plays out, its companions and the count (data/front.json) ================= */
+let FP = null;
+function fpLive() { // up from its start until it expires, for as long as its lead report is in the index
+  if (!FP || !FP.lead) return null;
+  const now = Date.now();
+  if ((FP.from && now < Date.parse(FP.from)) || (FP.until && now > Date.parse(FP.until))) return null;
+  const arts = (ART && ART.articles) || [], lead = arts.find(a => a.id === FP.lead);
+  if (!lead) return null;
+  return { lead, sides: (FP.sides || []).map(id => arts.find(a => a.id === id)).filter(Boolean), f: Object.assign({}, FP, (FP.i18n || {})[LANG] || {}) };
+}
+function frontPackage(compact) { // compact: on a desk page, without the count
+  const p = fpLive(); if (!p) return '';
+  const { lead, sides, f } = p, L = artL(lead);
+  const day = new Date(lead.written).toLocaleDateString(LOC(), { timeZone: 'America/New_York', weekday: 'long', month: 'long', day: 'numeric' });
+  const path = f.path && (f.path.steps || []).length ? `<div class="pk-path"><h3 class="nolc">${esc(f.path.title || '')}</h3><ol class="nolc">${f.path.steps.map(s => `<li><span class="pw">${esc(s.when || '')}</span><b>${esc(s.t || '')}</b><span class="pd">${esc(s.d || '')}</span></li>`).join('')}</ol></div>` : '';
+  const term = x => `<span class="pk-term${/^(dem|rep|brass)$/.test(x.c || '') ? ' c-' + x.c : ''}"><b>${esc(x.n)}</b><span>${esc(x.l || '')}</span></span>`;
+  const math = !compact && f.math && (f.math.terms || []).length ? `<div class="pk-math nolc"><h3>${esc(f.math.title || '')}</h3>
+    <div class="pk-eq">${f.math.terms.map(term).join('<span class="pk-op" aria-hidden="true">+</span>')}${f.math.sum ? `<span class="pk-op" aria-hidden="true">=</span>${term(f.math.sum)}` : ''}</div>
+    ${f.math.note ? `<p class="pk-note">${esc(f.math.note)}</p>` : ''}</div>` : '';
+  const side = a => { const SL = artL(a); return `<a class="pk-side" href="#/a/${esc(a.id)}"><span class="pk-st nolc">${esc(SL.title || a.title)}</span><span class="pk-sd nolc">${esc(SL.dek || a.dek)}</span><span class="pk-sm">${T('{n} min read.', { n: a.min })}</span></a>`; };
+  const count = !compact && f.count === 'us' ? usCount(false) : '';
+  return `<section class="${compact ? '' : 'wrap '}pkg${compact ? ' compact' : ''}" aria-label="${esc(f.kicker || '')}" data-nolc>
+    <div class="pk-top"><span class="pk-k nolc">${esc(f.kicker || '')}</span><span class="pk-w">${esc(day)}</span></div>
+    <div class="pk-grid"><div>
+      <a class="pk-lead" href="#/a/${esc(lead.id)}"><span class="rk">${esc(secName(lead.desk))} · ${T('The Watch report')}</span>
+        <h2 class="nolc">${esc(L.title || lead.title)}</h2><span class="pk-dek nolc">${esc(L.dek || lead.dek)}</span>
+        <span class="pk-by">${T('By Claude ({model}), {date}. {min} min read, {n} sources.', { model: esc(lead.model), date: esc(new Date(lead.written).toLocaleDateString(LOC(), { timeZone: 'America/New_York', month: 'long', day: 'numeric' })), min: lead.min, n: lead.sources })}${LANG !== 'en' && !L.title ? ' ' + T('In English.') : ''}</span>
+        <span class="pk-go">${T('Read the report')}</span></a>
+      ${math}</div>
+      ${path}</div>
+    ${sides.length ? `<div class="pk-sides">${f.sidesTitle ? `<h3 class="nolc">${esc(f.sidesTitle)}</h3>` : ''}<div class="pk-sg">${sides.map(side).join('')}</div></div>` : ''}
+    ${count ? `<div class="pk-count"><h3>${T('Where the count stands')}</h3>${count}</div>` : ''}
+  </section>`;
 }
 
 /* ================= the drawer ================= */
@@ -3816,6 +3965,7 @@ async function renderArticle(id) {
   const L0 = artL(a), L = artOrig ? {} : L0;
   const body = L.body || a.body;
   const words = (body.match(/\S+/g) || []).length;
+  const rel = (a.related || []).map(x => ((ART && ART.articles) || []).find(y => y.id === x)).filter(Boolean); // the other reports in the same package
   bump(P.sec, a.desk, 0.6);
   if (a.desk === 'brazil') brTouch();
   if (a.id === BRM.id) brmMark('read');
@@ -3827,6 +3977,7 @@ async function renderArticle(id) {
     <p class="adis">${T('This report was written by an AI model, Claude, from the published reporting and records listed at the end. Read the originals for anything you rely on.')}${L0.body ? ` ${T(artOrig ? 'You are reading the English original.' : 'Translated from English by Claude ({model}).', { model: esc(L0.model || a.model) })} <button type="button" class="lnk" data-artorig="1">${T(artOrig ? 'Read it in your language' : 'Read the English original')}</button>` : LANG !== 'en' ? ' ' + T('This report is in English; a translation comes with the next report.') : ''}</p>
     <div class="abody">${md(body, n)}</div>
     <section class="asrc"><h2>${T('Sources')}</h2><ol>${(a.sources || []).map((s, i) => `<li id="src-${i + 1}"><a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.title)}</a> <span>${esc(s.outlet)}${s.date ? ', ' + esc(s.date) : ''}</span></li>`).join('')}</ol></section>
+    ${rel.length ? `<section class="arel"><h2>${T('More on this story')}</h2>${rel.map(x => reportCard(x)).join('')}</section>` : ''}
     <p class="aby" style="margin-top:28px"><a href="#/reports">${T('All reports')}</a></p>
   </article>`;
   document.title = (L.title || a.title) + ' · The Watch';
@@ -4872,7 +5023,8 @@ function deskBanner(k) {
   return `<div class="ssban">${s ? `<button type="button" data-show="${esc(s.id)}"><img src="${esc(coverImg(s))}" alt="" referrerpolicy="no-referrer">${esc(s.title)} · ${s.slides.length}</button>` : ''}${vs.length ? `<button type="button" data-show="vids-${esc(k)}"><img src="${esc(ytThumb(vs[0].v, 'mqdefault'))}" alt="" referrerpolicy="no-referrer">▶ ${T(vs.length > 1 ? '{n} videos' : '{n} video', { n: vs.length })}</button>` : ''}</div>`;
 }
 function frontReport(skip) { // skip: a report already pinned at the top of the front
-  const a = ART && ART.articles && ART.articles[0];
+  const pk = fpLive(), taken = new Set(pk ? [pk.lead.id, ...pk.sides.map(x => x.id)] : []); // the front package's reports are already up top
+  const a = ((ART && ART.articles) || []).find(x => !taken.has(x.id));
   if (!a || a.id === skip || Date.now() - new Date(a.written) > 4 * 864e5) return '';
   return `<section class="wrap repfront"><h2 class="sec-h">${T('Today’s report')}</h2>${reportCard(a, true)}<p class="note"><a href="#/reports">${T('All reports')}</a></p></section>`;
 }
@@ -5167,8 +5319,9 @@ async function renderHobbyFeature(id) {
 /* ================= loading ================= */
 async function loadLatest(scrollTop) {
   try {
-    const [ed, mk, art, md] = await Promise.all([getJSON('data/edition.json'), getJSON('data/markets.json').catch(() => null), getJSON('articles/index.json').catch(() => null), getJSON('data/media.json').catch(() => null)]);
+    const [ed, mk, art, md, fp] = await Promise.all([getJSON('data/edition.json'), getJSON('data/markets.json').catch(() => null), getJSON('articles/index.json').catch(() => null), getJSON('data/media.json').catch(() => null), getJSON('data/front.json').catch(() => null)]);
     if (md && md.v) MEDIA = md;
+    FP = fp && fp.v && fp.lead ? fp : null;
     MK = mk && mk.board ? mk : null;
     if (art && art.articles) ART = art;
     LATEST = { id: ed.id, at: ed.at, archive: ed.archive };
