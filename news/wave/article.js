@@ -27,7 +27,7 @@ document.querySelectorAll('[data-view]').forEach(b => b.addEventListener('click'
   if (!W) return; const v = b.dataset.view;
   document.querySelectorAll('[data-view]').forEach(x => x.setAttribute('aria-pressed', x === b ? 'true' : 'false'));
   await W.setView(v); setPlayLabel();
-  const dl = $('#dlBtn'), dlv = $('#dlBtnV'); if (dl) dl.href = v === 'wave' ? 'share.mp4' : v + '-hd.mp4'; if (dlv) { dlv.href = v + '-vertical.mp4'; dlv.hidden = v !== 'night'; }
+  const dl = $('#dlBtn'), dlv = $('#dlBtnV'); if (dl) dl.href = v + '-hd.mp4'; if (dlv) { dlv.href = v + '-vertical.mp4'; dlv.hidden = false; }
   $('#raceWrap') && ($('#raceWrap').hidden = v !== 'wave');
   document.querySelectorAll('[data-viewtext]').forEach(x => x.hidden = x.dataset.viewtext !== v);
 }));
