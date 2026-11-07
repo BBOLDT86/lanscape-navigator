@@ -1,0 +1,143 @@
+{
+"v": 1,
+"fetched": "2026-11-07T14:54:16Z",
+"cycle": 2026,
+"key": "DEMO_KEY",
+"calls": 4,
+"seconds": 8,
+"sources": {
+"fec": "Federal Election Commission, OpenFEC API (api.open.fec.gov): candidate totals (Form 3), independent expenditures by candidate (Schedule E, 24/48-hour reports included), itemized receipts (Schedule A) and disbursements (Schedule B) for the 2025–2026 cycle",
+"results": "AP via The New York Times (The Watch’s wave data)",
+"google": "Google Ads Transparency Center political-ads bundle (storage.googleapis.com/transparencyreport/google-political-ads-transparency-bundle.zip)"
+},
+"candidates": {},
+"ie": [],
+"committees": {},
+"donors": {},
+"platforms": {
+"meta": {
+"total_itemized": 0,
+"n": 0,
+"floor": true,
+"by_committee": [],
+"by_month": {},
+"by_party_month": {}
+},
+"google": {
+"total_itemized": 0,
+"n": 0,
+"floor": true,
+"by_committee": [],
+"by_month": {},
+"by_party_month": {}
+}
+},
+"google_ads": {
+"fetched": "2026-11-07T14:54:16Z",
+"source": "Google Ads Transparency Center political-ads bundle (storage.googleapis.com/transparencyreport/google-political-ads-transparency-bundle.zip)",
+"since": "2025-01-01",
+"weekly_total": [],
+"advertisers": [],
+"state_all_time": {}
+},
+"log": [
+{
+"q": "/candidates/totals/?page=1&cycle=2026&election_year=2026&office=S&is_active_candidate=true&sort=-receipts&per_page=100",
+"status": 200,
+"n": 100,
+"note": "",
+"at": "2026-11-07T14:54:09Z"
+},
+{
+"q": "/candidates/totals/?page=2&cycle=2026&election_year=2026&office=S&is_active_candidate=true&sort=-receipts&per_page=100",
+"status": 200,
+"n": 100,
+"note": "",
+"at": "2026-11-07T14:54:12Z"
+},
+{
+"q": "/candidates/totals/?page=3&cycle=2026&election_year=2026&office=S&is_active_candidate=true&sort=-receipts&per_page=100",
+"status": 200,
+"n": 100,
+"note": "",
+"at": "2026-11-07T14:54:14Z"
+},
+{
+"q": "candidates",
+"status": "crash",
+"n": 0,
+"note": "Traceback (most recent call last):\n  File \"/home/runner/work/lanscape-navigator/lanscape-navigator/news/money/fetch.py\", line 258, in stage\n    try: return fn()\n                ^^^^\n  File \"/home/runner/work/lanscape-navigator/lanscape-navigator/news/money/fetch.py\", line 116, in candidates\n    'rec",
+"at": "2026-11-07T14:54:16Z"
+},
+{
+"q": "/schedules/schedule_e/by_candidate/?page=1&cycle=2026&election_full=true&sort=-total&per_page=100",
+"status": 422,
+"n": 0,
+"note": "{\"message\":\"Must include \\\"candidate_id\\\" or \\\"office\\\" argument(s)\",\"status\":422}\n",
+"at": "2026-11-07T14:54:16Z"
+},
+{
+"q": "google bundle",
+"status": 200,
+"n": 0,
+"note": "MB",
+"at": "2026-11-07T14:54:16Z"
+},
+{
+"q": "google bundle files",
+"status": "ok",
+"n": 6,
+"note": ", .DS_Store, ._.DS_Store, ._README.txt, ._google-political-ads-transparency-bundle, README.txt",
+"at": "2026-11-07T14:54:16Z"
+},
+{
+"q": "advertiser-weekly-spend.csv",
+"status": "missing",
+"n": 0,
+"note": "",
+"at": "2026-11-07T14:54:16Z"
+},
+{
+"q": "advertiser-stats.csv",
+"status": "missing",
+"n": 0,
+"note": "",
+"at": "2026-11-07T14:54:16Z"
+},
+{
+"q": "google advertisers this cycle",
+"status": "ok",
+"n": 0,
+"note": "",
+"at": "2026-11-07T14:54:16Z"
+},
+{
+"q": "advertiser-geo-spend.csv",
+"status": "missing",
+"n": 0,
+"note": "",
+"at": "2026-11-07T14:54:16Z"
+},
+{
+"q": "geo-spend.csv",
+"status": "missing",
+"n": 0,
+"note": "",
+"at": "2026-11-07T14:54:16Z"
+},
+{
+"q": "creative-stats.csv",
+"status": "missing",
+"n": 0,
+"note": "",
+"at": "2026-11-07T14:54:16Z"
+},
+{
+"q": "google ads this cycle (top advertisers)",
+"status": "ok",
+"n": 0,
+"note": "",
+"at": "2026-11-07T14:54:16Z"
+}
+]
+}
