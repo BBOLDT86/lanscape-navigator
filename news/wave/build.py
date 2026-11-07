@@ -140,7 +140,7 @@ def night():
             try: seat = int(r['id'].split('-H-')[1].split('-')[0])
             except Exception: seat = r.get('seat')
         rec = {'id': r['id'], 'o': r['office'], 'st': r['st'], 'seat': seat, 'p': r.get('wp'), 'at': mins(r.get('calledAt')), 'd': r['d'], 'r': r['r'], 't': r['t'], 'e': r.get('eevp'),
-               'won': r.get('won') or [], 'cands': [[c['n'], c['p'], c['v']] for c in (r.get('cands') or [])][:4], 'unc': r.get('uncontested')}
+               'won': r.get('won') or [], 'cands': [[c['n'], c['p'], c['v']] for c in (r.get('cands') or [])][:4], 'unc': r.get('uncontested'), 'g': bool(r.get('gained'))}
         if r['office'] == 'H':
             ck = {u[0] for u in (r.get('units') or []) if u[5] == 'county'}
             keep = [u for u in (r.get('units') or []) if u[5] == 'county' or (u[5] == 'city' and u[0] not in ck)]
@@ -164,11 +164,40 @@ def night():
                             'flipsD': (o.get('party_balance') or {}).get('DEM', {}).get('flip_count'), 'flipsR': (o.get('party_balance') or {}).get('GOP', {}).get('flip_count'),
                             'controlledAt': mins((o.get('party_balance') or {}).get('DEM', {}).get('controlled_at')) if (o.get('party_balance') or {}).get('DEM', {}).get('winner') else mins((o.get('party_balance') or {}).get('GOP', {}).get('controlled_at'))}
         except Exception: pass
+    # the captions: the night's milestones, in order, for the replay to narrate
+    NAMES = {'AL': 'Alabama', 'AK': 'Alaska', 'AZ': 'Arizona', 'AR': 'Arkansas', 'CA': 'California', 'CO': 'Colorado', 'CT': 'Connecticut', 'DE': 'Delaware', 'FL': 'Florida', 'GA': 'Georgia', 'HI': 'Hawaii', 'ID': 'Idaho', 'IL': 'Illinois', 'IN': 'Indiana', 'IA': 'Iowa', 'KS': 'Kansas', 'KY': 'Kentucky', 'LA': 'Louisiana', 'ME': 'Maine', 'MD': 'Maryland', 'MA': 'Massachusetts', 'MI': 'Michigan', 'MN': 'Minnesota', 'MS': 'Mississippi', 'MO': 'Missouri', 'MT': 'Montana', 'NE': 'Nebraska', 'NV': 'Nevada', 'NH': 'New Hampshire', 'NJ': 'New Jersey', 'NM': 'New Mexico', 'NY': 'New York', 'NC': 'North Carolina', 'ND': 'North Dakota', 'OH': 'Ohio', 'OK': 'Oklahoma', 'OR': 'Oregon', 'PA': 'Pennsylvania', 'RI': 'Rhode Island', 'SC': 'South Carolina', 'SD': 'South Dakota', 'TN': 'Tennessee', 'TX': 'Texas', 'UT': 'Utah', 'VT': 'Vermont', 'VA': 'Virginia', 'WA': 'Washington', 'WV': 'West Virginia', 'WI': 'Wisconsin', 'WY': 'Wyoming'}
+    def loser(r):
+        cs = sorted([c for c in (r.get('cands') or []) if c[0] not in (r.get('won') or [])], key=lambda c: -c[2]); return cs[0][0] if cs else ''
+    caps = []
+    closes = {}
+    for st, m in close.items():
+        if st in ('AK', 'HI', 'DC'): continue
+        closes.setdefault(m, []).append(st)
+    caps.append({'at': 0, 'k': 'The first polls close', 't': 'The night begins in Kentucky and Indiana', 's': 'Six o’clock on the East Coast: the first precincts close in the two states that straddle the time line.'})
+    for m, sts in sorted(closes.items()):
+        if m <= 0 or len(sts) < 3: continue
+        caps.append({'at': m, 'k': f'Polls close in {len(sts)} states', 't': ', '.join(NAMES[s] for s in sorted(sts)[:5]) + (f' and {len(sts) - 5} more' if len(sts) > 5 else ''), 's': ''})
+    called = sorted([r for r in N['races'] if r.get('calledAt') and r.get('wp')], key=lambda r: r['calledAt'])
+    if called:
+        f = called[0]; fm = mins(f['calledAt'])
+        who = f['won'][0] if f['won'] else ''
+        caps.append({'at': fm, 'k': 'The first call', 't': f"{who} {'holds' if not f.get('gained') else 'wins'} {NAMES.get(f['st'], f['st'])}{'’s Senate seat' if f['office'] == 'S' else ' governor' if f['office'] == 'G' else '-' + str(f['id'].split('-H-')[1].split('-')[0]) if '-H-' in f['id'] else ''}", 's': 'AP’s first call of the night, as the polls close.'})
+    for r in called:
+        m = mins(r['calledAt'])
+        if m is None or m > 540 or not r.get('gained') or r['office'] not in ('S', 'G'): continue
+        who = r['won'][0] if r['won'] else ''
+        caps.append({'at': m, 'k': f"{NAMES.get(r['st'], r['st'])} flips", 't': f"{who} takes the {'Senate seat' if r['office'] == 'S' else 'governorship'} from {'the Republicans' if r['wp'] == 'D' else 'the Democrats'}", 's': f"AP’s call at {(dt.datetime(2026, 11, 3, 18, 0) + dt.timedelta(minutes=m)).strftime('%-I:%M %p')} ET, over {loser(r)}.", 'c': r['wp']})
+    S_ctl, H_ctl = ctl.get('S') or {}, ctl.get('H') or {}
+    if S_ctl.get('controlledAt') is not None:
+        caps.append({'at': S_ctl['controlledAt'], 'k': 'The Senate', 't': 'Democrats win the Senate', 's': f"AP’s count reaches a majority at {(dt.datetime(2026, 11, 3, 18, 0) + dt.timedelta(minutes=S_ctl['controlledAt'])).strftime('%-I:%M %p')} ET.", 'c': 'D', 'big': True})
+    if H_ctl.get('controlledAt') is not None and H_ctl['controlledAt'] <= 540:
+        caps.append({'at': H_ctl['controlledAt'], 'k': 'The House', 't': 'Democrats take the House', 's': f"The 218th seat is called at {(dt.datetime(2026, 11, 3, 18, 0) + dt.timedelta(minutes=H_ctl['controlledAt'])).strftime('%-I:%M %p')} ET.", 'c': 'D', 'big': True})
+    caps.sort(key=lambda c: c['at'])
     out = {'v': 1, 'asOf': N['asOf'], 'source': N['source'], 't0': '2026-11-03T23:00:00Z', 'end': 540, 'close': close, 'tau': tau, 'ceil': ceil,
-           'races': races, 'counties': counties, 'stateVotes': stateVotes, 'control': ctl, 'closeText': {st: v.get('et') for st, v in N['pollClose'].items()}}
+           'races': races, 'counties': counties, 'stateVotes': stateVotes, 'control': ctl, 'closeText': {st: v.get('et') for st, v in N['pollClose'].items()}, 'captions': caps}
     p = os.path.join(HERE, 'data', 'night.json')
     json.dump(out, open(p, 'w', encoding='utf-8'), separators=(',', ':'), ensure_ascii=False)
-    print('wrote', p, os.path.getsize(p), 'bytes:', len(races), 'races,', sum(1 for r in races if r['at'] is not None), 'called,', len(counties), 'counties; tau fitted for', sorted(k for k in tau if DEFAULT.get(REGION.get(k, 'E'), 110) != tau[k]))
+    print('wrote', p, os.path.getsize(p), 'bytes:', len(races), 'races,', sum(1 for r in races if r['at'] is not None), 'called,', len(counties), 'counties,', len(caps), 'captions; tau fitted for', sorted(k for k in tau if DEFAULT.get(REGION.get(k, 'E'), 110) != tau[k]))
 
 if __name__ == '__main__':
     main()

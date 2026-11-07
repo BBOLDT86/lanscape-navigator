@@ -59,7 +59,7 @@ def race_rec(rc, with_units):
     d, r, o, t = sides(top, meta)
     rec = {'id': rc.get('nyt_id'), 'st': top.get('state_postal') or (rc.get('nyt_id') or '')[:2], 'office': rc.get('office_id'),
            'seat': rc.get('seat') if rc.get('seat') not in ('None', None) else None, 'desc': rc.get('seat_description'),
-           'won': [cname(meta, w) for w in won], 'wp': wp, 'calledAt': acc[0] if acc else None, 'calledBy': oc.get('called_by') or [],
+           'won': [cname(meta, w) for w in won], 'wp': wp, 'calledAt': acc[0] if acc else None, 'calledBy': oc.get('called_by') or [], 'gained': oc.get('gained'),
            'status': rc.get('race_call_status'), 'uncontested': bool(rc.get('uncontested')), 'd': d, 'r': r, 'o': o, 't': t,
            'eevp': top.get('eevp'), 'exp': top.get('total_expected_vote'), 'inc': rc.get('has_incumbent'),
            'incParty': None, 'rating': rc.get('general_rating') or rc.get('rating'),
