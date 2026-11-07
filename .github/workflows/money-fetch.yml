@@ -26,12 +26,14 @@ jobs:
       - name: Fetch
         run: |
           timeout -k 30 55m python3 news/money/fetch.py || echo "fetch stopped with $?"
-          python3 -c "import json; d=json.load(open('news/money/data/money.json')); print(json.dumps(d.get('log'), indent=0)[:6000])"
+          ls -la news/money/data/ || true
       - name: Build
+        if: always()
         run: |
           python3 news/money/build.py
           python3 news/wave/tools/make_pages.py
       - name: Commit and push
+        if: always()
         run: |
           git config user.name "The Watch writer"
           git config user.email "the-watch@users.noreply.github.com"

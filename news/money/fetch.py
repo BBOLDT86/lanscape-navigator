@@ -9,7 +9,7 @@ news/money/data/money.json. Runs on GitHub Actions (.github/workflows/money.yml)
 Every request is logged (status, rows, the error text) into money.json["log"], so a failed query can be fixed from the
 committed file. Standard library only.
 """
-import json, os, sys, time, re, io, csv, zipfile, urllib.request, urllib.error, urllib.parse, datetime as dt, tempfile, collections
+import json, os, sys, time, re, io, csv, zipfile, urllib.request, urllib.error, urllib.parse, datetime as dt, tempfile, collections, traceback
 
 HERE = os.path.dirname(os.path.abspath(__file__)); DATA = os.path.join(HERE, 'data'); os.makedirs(DATA, exist_ok=True)
 OUT = os.path.join(DATA, 'money.json')
@@ -88,8 +88,8 @@ for r in NIGHT.get('races', []):
 def lastname(n):
     n = re.sub(r',.*', '', n or '').strip(); n = re.sub(r'\s+(JR|SR|II|III|IV)\.?$', '', n, flags=re.I); return n.split()[-1].upper() if n else ''
 def fec_name_last(n):
-    """FEC names are 'LAST, FIRST M' ."""
-    return (n or '').split(',')[0].strip().split()[-1].upper() if n else ''
+    """FEC names are 'LAST, FIRST M'."""
+    parts = (n or '').split(',')[0].strip().split(); return parts[-1].upper() if parts else ''
 def match_result(cid, name, state, office, district=None):
     """The result record and whether this candidate won, by state, office, district and last name."""
     key = (state, office, int(district) if district not in (None, '', '00') else None)
@@ -253,19 +253,25 @@ def google_ads():
 
 
 # ---------- put it together ----------
+def stage(name, fn, default):
+    """One stage of the fetch; a crash is logged (with its traceback) instead of ending the run."""
+    try: return fn()
+    except Exception as e:
+        log(name, 'crash', 0, traceback.format_exc()[-900:]); print(traceback.format_exc(), file=sys.stderr); return default
+
 def build():
     prev = load(OUT, {}) or {}
     if MOCK: return mock(prev)
     t0 = time.time()
-    cands = candidates()
-    ie = independent_expenditures(cands)
+    cands = stage('candidates', candidates, {})
+    ie = stage('ie', lambda: independent_expenditures(cands), [])
     by_cmte = collections.Counter()
     for r in ie: by_cmte[r['cmte']] += r['total']
     cmte_names = {r['cmte']: r['cmte_name'] for r in ie}
     top_cmtes = [c for c, _ in by_cmte.most_common(60)]
-    dons = donors(top_cmtes, 30 if not DEMO else 0)
-    plats = platform_payments()
-    gads = google_ads()
+    dons = stage('donors', lambda: donors(top_cmtes, 30 if not DEMO else 0), {})
+    plats = stage('platforms', platform_payments, {})
+    gads = stage('google', google_ads, None)
     # keep what the last run had when a source came back empty this time
     if not cands and prev.get('candidates'): cands = prev['candidates']; log('candidates', 'kept', len(cands), 'from the last run')
     if not ie and prev.get('ie'): ie = prev['ie']; log('ie', 'kept', len(ie), 'from the last run')
@@ -299,6 +305,10 @@ def mock(prev):
 
 
 if __name__ == '__main__':
-    out = build()
+    try: out = build()
+    except Exception:
+        log('build', 'crash', 0, traceback.format_exc()[-900:]); print(traceback.format_exc(), file=sys.stderr)
+        out = {'v': 1, 'fetched': now(), 'cycle': CYCLE, 'key': 'DEMO_KEY' if DEMO else 'FEC_API_KEY', 'calls': CALLS[0], 'candidates': {}, 'ie': [], 'committees': {}, 'donors': {}, 'platforms': {}, 'google_ads': None, 'log': LOG[-400:], 'crashed': True}
     json.dump(out, open(OUT, 'w', encoding='utf-8'), indent=0, ensure_ascii=False)
+    print('LOG:'); [print(' ', l['status'], l['q'], l['n'], l['note'][:200]) for l in out.get('log', [])[-60:]]
     print(f"money.json: {len(out['candidates'])} candidates, {len(out['ie'])} outside-spending rows, {len(out['donors'])} committees with donors, platforms {[ (k, v.get('n')) for k, v in (out.get('platforms') or {}).items() ]}, google {len((out.get('google_ads') or {}).get('advertisers') or [])} advertisers; {out['calls']} FEC calls ({out['key']})")
