@@ -34,8 +34,12 @@ def get(url):
 
 def party(meta, cid):
     m = (meta or {}).get(cid) or {}
-    p = (m.get('party_id') or m.get('party') or '').lower()
-    return {'democrat': 'D', 'republican': 'R', 'dem': 'D', 'gop': 'R', 'rep': 'R'}.get(p, 'I' if p else '?')
+    p = m.get('party_id') or m.get('party') or ''
+    if isinstance(p, dict): p = p.get('nyt_id') or p.get('party_id') or p.get('id') or p.get('name') or p.get('abbreviation') or ''
+    p = str(p).lower()
+    if p in ('democrat', 'dem', 'democratic', 'd'): return 'D'
+    if p in ('republican', 'gop', 'rep', 'r'): return 'R'
+    return 'I' if p else '?'
 
 def cname(meta, cid):
     m = (meta or {}).get(cid) or {}
@@ -110,9 +114,9 @@ def main():
         except Exception as e:
             res['errors'].append(f'{st}: {type(e).__name__} {str(e)[:120]}'); print(st, 'ERR', e); continue
         races = j.get('races') or []
-        if DEBUG and st == 'TX':
+        if DEBUG and st in ('AL', 'TX', 'NE', 'CT'):
             for rc in races:
-                if rc.get('office_id') == 'S':
+                if rc.get('office_id') in ('S', 'G'):
                     print('TX senate race keys:', list(rc.keys()))
                     ru = rc.get('reporting_units') or []
                     print('reporting_units:', len(ru), json.dumps(ru[1] if len(ru) > 1 else ru[:1])[:1500])
@@ -126,7 +130,9 @@ def main():
             rt = (rc.get('race_type_id') or rc.get('type') or 'general')
             if str(rt).lower() not in ('general', 'g', 'general election'): continue
             if not rc.get('reporting_units'): continue
-            ex = extract(rc)
+            try: ex = extract(rc)
+            except Exception as e:
+                import traceback; traceback.print_exc(); res['errors'].append(f'{st} {rc.get("nyt_id")}: {type(e).__name__} {e}'); continue
             # a state can have two Senate races (Ohio, Florida: a special beside none this year, but keep both keyed by seat)
             k = oid if oid not in keep else oid + '2'
             keep[k] = ex
