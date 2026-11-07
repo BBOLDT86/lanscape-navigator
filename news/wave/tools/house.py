@@ -104,6 +104,11 @@ def hemicycle():
     return ''.join(out)
 
 # ---------- pieces ----------
+def md(h):
+    """The pieces are asked for plain text; when the model slips in markdown, render the common bits instead of showing the asterisks."""
+    h = re.sub(r'\*\*(.+?)\*\*', r'<b>\1</b>', h); h = re.sub(r'(?<![\w*])\*(?!\s)([^*\n]+?)\*(?![\w*])', r'<i>\1</i>', h)
+    h = re.sub(r'^[-•]\s+', '• ', h); h = re.sub(r'\n[-•]\s+', '<br>• ', h)
+    return h
 def render_paras(rep, prefix='src'):
     out = []; first = True
     for p in rep.get('paras') or []:
@@ -117,6 +122,7 @@ def render_paras(rep, prefix='src'):
             if off > pos: flush(); h += esc(t[pos:off]); pos = off
             pend.append(src)
         flush(); h += esc(t[pos:])
+        h = md(h)
         out.append(f"<p{' class=\"lede\"' if first else ''}>{h}</p>"); first = False
     return ''.join(out)
 ICON = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%230b1526'/%3E%3Cpath d='M12 44c6-14 10-6 16-16s10 4 16-8 8 2 10 6' fill='none' stroke='%237fc4ff' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E"

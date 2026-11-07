@@ -15,7 +15,7 @@ on:
         description: 'What to write'
         type: choice
         default: both
-        options: [both, states, national, counties, collect, house, refresh]
+        options: [both, states, national, counties, collect, house, bigcounties, refresh]
       budget:
         description: 'Dollars the state pieces may spend this run (Opus 5.5 with web search; about $3-4 a state)'
         default: '140'
@@ -70,7 +70,7 @@ jobs:
           import json; r = json.load(open('news/wave/run.json'))
           print('JOB=' + str(r.get('job', 'both'))); print('BUDGET=' + str(r.get('budget', 140))); print('CBUDGET=' + str(r.get('counties_budget', 40)))
           print('EFFORT=' + str(r.get('effort', 'high'))); print('STATES=' + str(r.get('states', ''))); print('REDO=' + ('true' if r.get('redo') else 'false'))
-          print('NBUDGET=' + str(r.get('national_budget', 15)))
+          print('NBUDGET=' + str(r.get('national_budget', 15))); print('N=' + str(r.get('n', 50)))
           PY
           echo "run request: $(cat news/wave/run.json)"
       - name: Inputs (Run workflow)
@@ -95,6 +95,7 @@ jobs:
             national) timeout -k 60 30m python3 $W national --budget "$NBUDGET" --effort max $REDO_FLAG || echo "national: stopped ($?)" ;;
             counties) timeout -k 60 300m python3 $W counties --budget "$CBUDGET" --wait 280 $ST $REDO_FLAG || echo "counties: stopped ($?)" ;;
             collect)  timeout -k 60 300m python3 $W collect --wait 280 || echo "collect: stopped ($?)" ;;
+            bigcounties) timeout -k 60 200m python3 $W bigcounties --budget "$BUDGET" --effort "$EFFORT" --n "${N:-50}" $REDO_FLAG || echo "bigcounties: stopped ($?)" ;;
             house)    HW=news/wave/tools/house_write.py
                       timeout -k 60 100m python3 $HW notes --budget 12 --wait 90 $REDO_FLAG || echo "house notes: stopped ($?)"
                       timeout -k 60 200m python3 $HW pieces --budget "$BUDGET" --effort "$EFFORT" $REDO_FLAG || echo "house pieces: stopped ($?)" ;;

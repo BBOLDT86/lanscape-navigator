@@ -323,6 +323,62 @@ def cmd_national(a):
     rep.update({'st': 'US', 'name': 'The country', 'written': now(), 'asOf': S['asOf'], 'model': MODEL, 'effort': a.effort, 'searches': searches, 'usage': usage, 'usd': price(usage, searches=searches), 'races': {st: race_snapshot(st) for st in STATES}, 'seconds': round(time.time() - t0)})
     save(p, rep); print(f'national: "{rep["headline"]}" — {rep["words"]} words, {len(rep["sources"])} sources, {searches} searches, {rep["seconds"]}s; {run.summary()}')
 
+COUNTY_SYSTEM = STATE_SYSTEM.replace("You are writing the piece for one state.", "You are writing the piece for one county: one of the biggest in the country by votes cast, up close — what happened there, who moved, and what the local press found.").replace(
+    "- 650 to 950 words of body text. Three subheads, one of them about the voters: use the VOTER ANALYSIS block (the page draws it as charts next to that section) to say who moved — big counties or small, the reddest or the bluest, places where turnout fell or held, and, where the Census figures are given, Hispanic, educated, richer or poorer places — and whether turnout or persuasion better explains it. Give the numbers from the block; say plainly that counties are not voters.",
+    "- 550 to 800 words of body text. Two or three subheads: what the county did (its numbers, against its state and the comparable counties in the block), why — what the local press, the county's election officials and the exit or voter polls said about turnout, the issues and who moved (attribute every such claim), and what it means for the county's politics. Use the Census profile in the block to say what kind of place it is. Say plainly that a county's move mixes who turned out with who changed sides.").replace(
+    "<four lines, one per county the map should point at while the reader looks at it, chosen for the story — the biggest move, the most votes, the most telling flip, an exception — each as: FIPS | County label as a reader would say it (e.g. \"Starr County\", \"Cuyahoga County (Cleveland)\") | one clause of at most 18 words saying what it did, with its numbers from the data block>",
+    "<up to three lines: this county first, then up to two of the comparable counties in the block, each as: FIPS | County label (e.g. \"Harris County (Houston)\") | one clause of at most 18 words on what it did, with its numbers from the data block>")
+def county_block(r):
+    st = r['st']; rs = BYST[st]; stt = stats(rs); rc = main_race(st)
+    near = sorted([x for x in rs if x['f'] != r['f']], key=lambda x: -x['t'])[:6]
+    big = sorted(ROWS.values(), key=lambda x: -x['t']); rank_us = next(i for i, x in enumerate(big) if x['f'] == r['f']) + 1
+    peers = sorted([x for x in big[:60] if x['f'] != r['f']], key=lambda x: abs(x['m24'] - r['m24']))[:5]
+    def ordn(i): return f"{i}{'th' if 10 <= i % 100 <= 20 else {1: 'st', 2: 'nd', 3: 'rd'}.get(i % 10, 'th')}"
+    L = [f"COUNTY: {r['n']} {county_word(st).capitalize()}, {NAME[st]} (FIPS {r['f']}); the {ordn(rank_us)}-biggest county in the country by 2026 votes among the states with a race, {ordn(r['rank_votes'])} in {NAME[st]}.",
+         f"THE VOTE: 2024 Harris–Trump {margin(r['m24'])} on {n(r['t24'])} votes. 2026 {rc['office']} ({rc['dem']} v {rc['rep']}): {margin(r['m26'])} ({n(r['d'])} to {n(r['r'])}) on {n(r['t'])} votes, {r['e'] if r['e'] is not None else '–'}% of the expected vote counted. Move {pts(r['sh'])} points. Turnout {r['t'] / r['t24'] * 100 if r['t24'] else 0:.0f}% of 2024.",
+         f"THE STATE: {race_lines(st)}",
+         f"IN {NAME[st].upper()}: the county ranks {r['rank_move']} of {stt['n']} by move; {stt['left']} of {stt['n']} counties moved left; typical move {pts(stt['median'])}, weighted {pts(stt['weighted'])}; the state's other big counties: " + '; '.join(f"{x['n']} {margin(x['m24'])} → {margin(x['m26'])}, {pts(x['sh'])}, {n(x['t'])} votes" for x in near) + '.',
+         f"COMPARABLE BIG COUNTIES ELSEWHERE (by 2024 margin): " + '; '.join(f"{x['n']}, {x['st']} {margin(x['m24'])} → {margin(x['m26'])}, {pts(x['sh'])}, {n(x['t'])} votes" for x in peers) + '.',
+         f"NATIONALLY: {ALL['n']} counties counted, {ALL['left']} moved left, typical move {pts(ALL['median'])}; the biggest counties moved less in points: " + '; '.join(f"{x['n']}, {x['st']} {pts(x['sh'])}" for x in big[:8]) + '.']
+    if ctx_line(r['f']): L.append(ctx_line(r['f']))
+    return '\n'.join(L)
+def county_params(r, effort):
+    return {'model': MODEL, 'max_tokens': 24000, 'output_config': {'effort': effort},
+            'system': [{'type': 'text', 'text': COUNTY_SYSTEM, 'cache_control': {'type': 'ephemeral'}}],
+            'tools': [{'type': 'web_search_20250305', 'name': 'web_search', 'max_uses': 10, 'user_location': {'type': 'approximate', 'country': 'US', 'region': NAME[r['st']], 'city': r['n']}}],
+            'messages': [{'role': 'user', 'content': [{'type': 'text', 'text': f"Write The Watch's piece on {r['n']} {county_word(r['st']).capitalize()}, {NAME[r['st']]}. Here is the data block.\n\n{county_block(r)}"}]}]}
+def county_report_path(f): return os.path.join(DATA, 'reports', 'counties', f + '.json')
+def county_stale(r, rep):
+    old = rep.get('snapshot') or {}
+    return abs(old.get('sh', 0) - r['sh']) > 1.0 or old.get('winner') != main_race(r['st']).get('winner')
+def cmd_bigcounties(a, stale_only=False):
+    run = Run('counties-big', a.budget); big = sorted(ROWS.values(), key=lambda r: -r['t'])[:a.n]
+    todo = []
+    for r in big:
+        rep = load(county_report_path(r['f']))
+        if rep and not a.redo and not county_stale(r, rep): continue
+        if stale_only and not rep: continue
+        todo.append(r)
+    print(f'big counties: {len(todo)} to write of the top {a.n}, effort {a.effort}, budget ${a.budget}')
+    if a.dry: print(county_block(todo[0] if todo else big[0])); return
+    sem = threading.Semaphore(max(1, a.parallel)); threads = []; done = []
+    def work(r):
+        with sem:
+            if run.over(): print(f'  {r["n"]}: budget spent, skipped'); return
+            t0 = time.time()
+            try:
+                if MOCK: rep = mock_state(r['st']); rep['headline'] = f"{r['n']} County (mock)"; usage = {'input_tokens': 6000, 'output_tokens': 3000}; searches = 6
+                else:
+                    content, usage, searches, stop = message(county_params(r, a.effort)); rep, raw = parse_skeleton(content, callouts=3)
+                    run.charge(usage, searches=searches, what=f'county {r["n"]}, {r["st"]}')
+                    if not rep or not rep['headline'] or rep['words'] < 250: save(county_report_path('_failed_' + r['f']).replace('.json', '.txt'), {'stop': stop, 'doc': raw}); print(f'  {r["n"]}: could not parse ({stop})'); return
+                rep.update({'f': r['f'], 'county': r['n'], 'st': r['st'], 'written': now(), 'asOf': S['asOf'], 'model': MODEL, 'effort': a.effort, 'searches': searches, 'usage': usage, 'usd': price(usage, searches=searches), 'seconds': round(time.time() - t0), 'snapshot': {'sh': round(r['sh'], 2), 'winner': main_race(r['st']).get('winner'), 'e': r['e']}})
+                save(county_report_path(r['f']), rep); done.append(r['f']); print(f'  {r["n"]}, {r["st"]}: "{rep["headline"]}" — {rep["words"]} words, {len(rep["sources"])} sources, {searches} searches', flush=True)
+            except Exception as e: print(f'  {r["n"]}: FAILED {e}', flush=True)
+    for r in todo: t = threading.Thread(target=work, args=(r,), daemon=True); t.start(); threads.append(t); time.sleep(2)
+    for t in threads: t.join()
+    print(run.summary(), f'— {len(done)} written')
+
 def mock_state(st):
     rs = BYST.get(st, []); top = sorted(rs, key=lambda r: -r['sh'])[:4] or []
     paras = [{'t': 'p', 'text': f"(Mock) {NAME[st]} moved {pts(main_race(st)['m26'] - main_race(st)['m24'])} points. This paragraph is made up to test the page.", 'cites': [[60, 1]]}, {'t': 'h2', 'text': 'What moved it', 'cites': []}, {'t': 'p', 'text': 'A second mock paragraph with a citation at its end.', 'cites': [[51, 2]]}]
@@ -483,6 +539,8 @@ def cmd_refresh(a):
     cmd_states(argparse.Namespace(**dict(vars(a), budget=left, redo=False, states=None, effort=a.effort or 'high')), stale_only=True)
     L = ledger(); used = sum(r['usd'] for r in L['runs'] if r['when'][:10] == today); left = max(0.0, a.budget - used)
     if left >= 8 and load(os.path.join(DATA, 'reports', '_US.json')): cmd_national(argparse.Namespace(**dict(vars(a), budget=left, redo=False, effort='high')))
+    L = ledger(); used = sum(r['usd'] for r in L['runs'] if r['when'][:10] == today); left = max(0.0, a.budget - used)
+    if left >= 1 and os.path.isdir(os.path.join(DATA, 'reports', 'counties')): cmd_bigcounties(argparse.Namespace(**dict(vars(a), budget=left, redo=False, effort='high', n=getattr(a, 'n', 50))), stale_only=True)
 
 def cmd_cost(a):
     runs = all_runs(); byjob = {}
@@ -525,7 +583,8 @@ def cmd_check(a):
 
 if __name__ == '__main__':
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument('job', choices=['context', 'states', 'national', 'counties', 'collect', 'refresh', 'cost', 'check'])
+    ap.add_argument('job', choices=['context', 'states', 'national', 'counties', 'bigcounties', 'collect', 'refresh', 'cost', 'check'])
+    ap.add_argument('--n', type=int, default=50, help='bigcounties: how many of the biggest counties')
     ap.add_argument('--budget', type=float, default=None, help='dollars this run may spend (states: stop starting new ones; counties: size the batch)')
     ap.add_argument('--states', default=None, help='only these, e.g. TX,OH')
     ap.add_argument('--effort', default='high', choices=['low', 'medium', 'high', 'xhigh', 'max'])
@@ -534,5 +593,5 @@ if __name__ == '__main__':
     ap.add_argument('--redo', action='store_true', help='rewrite even what is already written')
     ap.add_argument('--dry', action='store_true'); ap.add_argument('--mock', action='store_true'); ap.add_argument('--strict', action='store_true')
     a = ap.parse_args(); MOCK = a.mock
-    if a.budget is None: a.budget = {'states': 140.0, 'national': 15.0, 'counties': 40.0, 'refresh': 3.5}.get(a.job, 0.0)
-    {'context': cmd_context, 'states': cmd_states, 'national': cmd_national, 'counties': cmd_counties, 'collect': cmd_collect, 'refresh': cmd_refresh, 'cost': cmd_cost, 'check': cmd_check}[a.job](a)
+    if a.budget is None: a.budget = {'states': 140.0, 'national': 15.0, 'counties': 40.0, 'bigcounties': 50.0, 'refresh': 3.5}.get(a.job, 0.0)
+    {'context': cmd_context, 'states': cmd_states, 'national': cmd_national, 'counties': cmd_counties, 'bigcounties': cmd_bigcounties, 'collect': cmd_collect, 'refresh': cmd_refresh, 'cost': cmd_cost, 'check': cmd_check}[a.job](a)

@@ -253,7 +253,14 @@ NOTE_STATES = sorted(st for st in S['states'] if os.path.exists(os.path.join(W, 
 STATE_SLUG = {st: NAME[st].lower().replace(' ', '-') for st in NAME}
 STATE_PAGES = {st: STATE_SLUG[st] for st in REPORTS}
 MODEL_NAME = {'claude-opus-5-5': 'Claude Opus 5.5', 'claude-sonnet-5-5': 'Claude Sonnet 5.5', 'claude-fable-5-1': 'Claude Fable 5.1'}
-def page_ctx(): return {'statePages': STATE_PAGES, 'notes': NOTE_STATES}
+CREPORTS = {}
+if os.path.isdir(os.path.join(W, 'data', 'reports', 'counties')):
+    for f in os.listdir(os.path.join(W, 'data', 'reports', 'counties')):
+        if f.endswith('.json') and not f.startswith('_'):
+            r = _load(os.path.join(W, 'data', 'reports', 'counties', f))
+            if r and r.get('headline') and f[:-5] in S['counties']: CREPORTS[f[:-5]] = r
+COUNTY_PAGES = {f: 'county-' + f for f in CREPORTS}
+def page_ctx(): return {'statePages': STATE_PAGES, 'notes': NOTE_STATES, 'countyPages': COUNTY_PAGES}
 def swing_of(st): v, u = race_of(st); return (u['m26'] - u['m24']) if u else 0
 def when(iso):
     try: return dt.datetime.fromisoformat(iso.replace('Z', '+00:00')).astimezone(dt.timezone(dt.timedelta(hours=-5))).strftime('%b. %-d, %Y')
@@ -272,6 +279,11 @@ def races_table(st):
     out.append('</tbody></table></div>')
     return ''.join(out)
 
+def md(h):
+    """The pieces are asked for plain text; when the model slips in markdown, render the common bits instead of showing the asterisks."""
+    h = re.sub(r'\*\*(.+?)\*\*', r'<b>\1</b>', h); h = re.sub(r'(?<![\w*])\*(?!\s)([^*\n]+?)\*(?![\w*])', r'<i>\1</i>', h)
+    h = re.sub(r'^[-•]\s+', '• ', h); h = re.sub(r'\n[-•]\s+', '<br>• ', h)
+    return h
 def render_paras(rep, insert=None, prefix='src'):
     """The piece's paragraphs, with the API's web citations as numbered footnote links. `insert` (html) goes after the
     first paragraph under the subhead about the voters (or, failing that, under the second subhead, or at the end)."""
@@ -289,6 +301,7 @@ def render_paras(rep, insert=None, prefix='src'):
             if off > pos: flush(); html_ += esc(t[pos:off]); pos = off
             pending.append(src)
         flush(); html_ += esc(t[pos:])
+        html_ = md(html_)
         cls = ' class="lede"' if first else ''
         out.append(f"<p{cls}>{html_}</p>"); first = False
         if insert and under_voters and not placed: out.append(insert); placed = True; under_voters = False
@@ -352,6 +365,39 @@ def national_section():
     return f"""<h2 id="voters">What the voters did</h2>
 <p>The move cut by who moved: the biggest counties and the smallest, the reddest and the bluest, the places where turnout fell and where it held, and, from the Census, the more Hispanic, the more educated and the richer and poorer counties. Weighted by votes the country's counties moved {a['move']:+.1f} points; the typical county {a['median']:+.1f}. A reported piece on these charts, by Claude Opus 5.5 through Anthropic's API, is being written.</p>
 {block}
+"""
+
+def county_page(f, rep):
+    r = next(x for x in rows if x['f'] == f); st = r['st']; v, u = race_of(st); slug = 'county-' + f; model = MODEL_NAME.get(rep.get('model', ''), 'Claude')
+    big = sorted(rows, key=lambda x: -x['t']); rank = next(i for i, x in enumerate(big) if x['f'] == f) + 1
+    title = rep['headline']; dek = rep['dek']; srcs = rep.get('sources') or []; k = len(srcs)
+    viz = {'dur': 22, 'loop': True, 'title': {'kicker': 'The wave · ' + esc(r['n']) + ' County, ' + st, 'h2': f"moved {pts(r['sh'])}<br>since 2024", 'what': county_word(st)}, 'focus': {'states': [st], 'pad': 1.2}, 'callouts': state_callouts(rep) or [{'at': 'county:' + f, 'html': f"<b>{esc(r['n'])} County</b><span>moved {pts(r['sh'])}, {margin(r['m24'])} to {margin(r['m26'])}</span>", 'off': [0.08, -0.26], 'from': 3.0, 'to': 19.0}]}
+    page = {'slug': slug, 'url': PUBLIC + slug + '.html', 'shareText': f"{title}: {dek}", 'viz': viz, 'states': [st], 'st': st, 'sort': 'votes-desc', **page_ctx()}
+    order = sorted(CREPORTS, key=lambda x: -next(y['t'] for y in rows if y['f'] == x)); i = order.index(f); nxt = order[(i + 1) % len(order)]
+    sources = '<ol>' + ''.join(f'<li id="src-{x["n"]}">{esc(x["title"])}. <a href="{esc(x["url"])}" rel="noopener">{esc(x["url"])}</a></li>' for x in srcs) + f'<li id="src-{k + 1}">The New York Times, 2026 election results (county-level counts provided by The Associated Press), read {ASOF}.</li><li id="src-{k + 2}">The Watch’s Election Desk, 2024 presidential results by county; U.S. Census Bureau, ACS 2023 five-year estimates.</li></ol>'
+    body = f"""{head(title, dek, slug, 'share', published=rep.get('written'))}
+{viz_block(views=False, race=False, hint='The map is turned on the state with this county lit. Drag to turn it, scroll to zoom, hover a county for its numbers; tap or click one to read its note.')}
+<main>
+<div class="narrow head"><p class="k">The wave · the biggest counties · {esc(r['n'])} County, {esc(NAME[st])}</p><h1>{esc(title)}</h1><p class="dek">{esc(dek)}</p>
+<p class="byline">By <b>Claude</b> ({esc(model)}, with web search) for The Watch, {when(rep.get('written'))}, from the count as of {when(rep.get('asOf'))}; rewritten when the count moves. {k} sources. <a href="./#counties">The biggest counties ›</a> · <a href="{STATE_SLUG[st]}.html">How {esc(NAME[st])} voted ›</a></p></div>
+<div class="narrow body">
+<div class="stat-row"><div class="stat {mclass(r['sh'])}"><b>{pts(r['sh'])}</b><span>the county’s move since 2024, in points</span></div><div class="stat {mclass(r['m26'])}"><b>{margin(r['m26'])}</b><span>{esc(u['office'])}, 2026, on {n(r['t'])} votes</span></div><div class="stat {mclass(r['m24'])}"><b>{margin(r['m24'])}</b><span>Harris–Trump, 2024, on {n(r['t24'])} votes</span></div><div class="stat"><b>#{rank}</b><span>by votes cast among the {len(rows):,} counties on the map</span></div></div>
+{render_paras(rep)}
+<div class="next"><span class="k">Next county</span><a href="county-{nxt}.html">{esc(CREPORTS[nxt]['headline'])}</a><p style="margin:8px 0 0;font-size:14px;color:var(--ink-2)"><a href="./#counties">All the big counties</a> · <a href="{STATE_SLUG[st]}.html">{esc(NAME[st])}</a> · <a href="./">The whole wave</a></p></div>
+<h2>Sources</h2><div class="sources">{sources}</div>
+</div>
+</main>
+<script>window.WAVE_PAGE = {json.dumps(page)};</script>
+{foot()}"""
+    open(os.path.join(W, slug + '.html'), 'w', encoding='utf-8').write(body)
+    return {'f': f, 'county': r['n'], 'st': st, 'slug': slug, 'title': title, 'dek': dek, 'summary': rep.get('summary', ''), 'votes': r['t'], 'sh': round(r['sh'], 1), 'written': rep.get('written')}
+
+def counties_section():
+    if not CREPORTS: return ''
+    cards = sorted(CREPORTS.items(), key=lambda kv: -next(y['t'] for y in rows if y['f'] == kv[0]))
+    return f"""<h2 id="counties">The biggest counties, up close</h2>
+<p>A reported piece on each of the biggest counties on the map, by votes cast: what it did, who moved and what the local press found. Written by Claude (Opus 5.5) through Anthropic’s API with web search, numbers from the count, every web claim cited. {len(cards)} so far; the map’s county card links to them.</p>
+<div class="states-grid">{''.join(f'<a class="sc" href="county-{f}.html"><span class="st">{esc(next(y["n"] for y in rows if y["f"] == f))} County, {f_st}</span><span class="sn"><b class="{mclass(sh)}">{pts(sh)}</b> · {n(t)} votes</span><b>{esc(rep["headline"])}</b><span>{esc(rep.get("summary") or rep["dek"])}</span></a>' for f, rep in cards for f_st, sh, t in [(next(y["st"] for y in rows if y["f"] == f), next(y["sh"] for y in rows if y["f"] == f), next(y["t"] for y in rows if y["f"] == f))])}</div>
 """
 
 def states_section():
@@ -653,6 +699,8 @@ def main_page(cards):
 
 {national_section()}
 
+{counties_section()}
+
 {states_section()}
 
 <h2>How we made it</h2>
@@ -680,7 +728,8 @@ def main_page(cards):
 cards = [area_page(a) for a in AREAS]
 border_card = border_page()
 state_cards = [state_page(st, rep) for st, rep in sorted(REPORTS.items())]
+county_cards = [county_page(f, rep) for f, rep in CREPORTS.items()]
 mainp = main_page(cards)
-json.dump({'v': 1, 'built': BUILT_ISO, 'published': PUB_ISO, 'asOf': S['asOf'], 'title': mainp['title'], 'dek': mainp['dek'], 'pct': PCT, 'left': ALL['left'], 'right': ALL['right'], 'counted': ALL['n'], 'median': round(ALL['median'], 1), 'starr': round(starr['sh'], 1), 'areas': cards, 'border': border_card, 'states': sorted(state_cards, key=lambda x: -x['swing']), 'notes': NOTE_STATES, 'control': ctl, 'money': ({'title': MONEY['title'], 'dek': MONEY['dek'], 'url': MONEY['url'], 'states': len(MONEY.get('states') or [])} if MONEY else None), 'house': ({'D': HOUSE['D'], 'R': HOUSE['R'], 'U': HOUSE['U'], 'pieces': len(HOUSE.get('pieces') or []), 'notes': bool(NOTE_STATES)} if HOUSE else None)},
+json.dump({'v': 1, 'built': BUILT_ISO, 'published': PUB_ISO, 'asOf': S['asOf'], 'title': mainp['title'], 'dek': mainp['dek'], 'pct': PCT, 'left': ALL['left'], 'right': ALL['right'], 'counted': ALL['n'], 'median': round(ALL['median'], 1), 'starr': round(starr['sh'], 1), 'areas': cards, 'border': border_card, 'states': sorted(state_cards, key=lambda x: -x['swing']), 'counties': sorted(county_cards, key=lambda x: -x['votes']), 'notes': NOTE_STATES, 'control': ctl, 'money': ({'title': MONEY['title'], 'dek': MONEY['dek'], 'url': MONEY['url'], 'states': len(MONEY.get('states') or [])} if MONEY else None), 'house': ({'D': HOUSE['D'], 'R': HOUSE['R'], 'U': HOUSE['U'], 'pieces': len(HOUSE.get('pieces') or []), 'notes': bool(NOTE_STATES)} if HOUSE else None)},
           open(os.path.join(W, 'pages.json'), 'w', encoding='utf-8'), indent=1, ensure_ascii=False)
-print('wrote index.html,', ', '.join(a['slug'] + '.html' for a in AREAS), f'{len(state_cards)} state pages', 'and pages.json;', PCT, '% left,', ALL)
+print('wrote index.html,', ', '.join(a['slug'] + '.html' for a in AREAS), f'{len(state_cards)} state pages, {len(county_cards)} county pages', 'and pages.json;', PCT, '% left,', ALL)

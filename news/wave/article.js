@@ -48,7 +48,7 @@ function toast(m) { let t = $('#toast'); if (!t) { t = document.createElement('d
 
 /* the county notes: data/notes/<ST>.json, one file per state, written by Claude from the count (tools/write.py) */
 const shiftP = fetch('data/shift.json').then(r => r.json());
-const noteFiles = new Map(), NOTES = new Set(PAGE.notes || []), STATE_PAGES = PAGE.statePages || {};
+const noteFiles = new Map(), NOTES = new Set(PAGE.notes || []), STATE_PAGES = PAGE.statePages || {}, COUNTY_PAGES = PAGE.countyPages || {};
 const STNAME = { AL: 'Alabama', AK: 'Alaska', AZ: 'Arizona', AR: 'Arkansas', CA: 'California', CO: 'Colorado', CT: 'Connecticut', DE: 'Delaware', FL: 'Florida', GA: 'Georgia', HI: 'Hawaii', ID: 'Idaho', IL: 'Illinois', IN: 'Indiana', IA: 'Iowa', KS: 'Kansas', KY: 'Kentucky', LA: 'Louisiana', ME: 'Maine', MD: 'Maryland', MA: 'Massachusetts', MI: 'Michigan', MN: 'Minnesota', MS: 'Mississippi', MO: 'Missouri', MT: 'Montana', NE: 'Nebraska', NV: 'Nevada', NH: 'New Hampshire', NJ: 'New Jersey', NM: 'New Mexico', NY: 'New York', NC: 'North Carolina', ND: 'North Dakota', OH: 'Ohio', OK: 'Oklahoma', OR: 'Oregon', PA: 'Pennsylvania', RI: 'Rhode Island', SC: 'South Carolina', SD: 'South Dakota', TN: 'Tennessee', TX: 'Texas', UT: 'Utah', VT: 'Vermont', VA: 'Virginia', WA: 'Washington', WV: 'West Virginia', WI: 'Wisconsin', WY: 'Wyoming' };
 const WORD = { LA: 'Parish', AK: 'Borough' };
 function noteFile(st) {
@@ -58,9 +58,10 @@ function noteFile(st) {
 async function noteFor(st, f) { const d = await noteFile(st); return d && d.notes ? d.notes[f] || null : null; }
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const fmtM = v => v == null ? '–' : `<span class="${v > 0 ? 'b' : v < 0 ? 'r' : ''}">${v > 0 ? 'D+' : v < 0 ? 'R+' : 'Even '}${Math.abs(v).toFixed(1)}</span>`;
-function noteHTML(note, st) {
-  if (note) return `<div class="note">${note.t.split(/\n\s*\n/).map(p => `<p>${esc(p)}</p>`).join('')}</div><p class="meta">Written by Claude (Opus 5.5) from the count as of ${new Date(note.asOf).toLocaleString('en-US', { timeZone: 'America/New_York', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' })} ET, the 2024 baseline and Census ACS 2023 figures; rewritten when the count moves.${STATE_PAGES[st] && PAGE.st !== st ? ` <a href="${STATE_PAGES[st]}.html">The ${STNAME[st] || st} piece ›</a>` : ''}</p>`;
-  return `<div class="note"><p class="soon">${NOTES.has(st) ? 'No note for this county yet.' : `Notes for ${STNAME[st] || st}’s counties are being written.`}</p></div>${STATE_PAGES[st] && PAGE.st !== st ? `<p class="meta"><a href="${STATE_PAGES[st]}.html">The ${STNAME[st] || st} piece ›</a></p>` : ''}`;
+function noteHTML(note, st, f) {
+  const links = [COUNTY_PAGES[f] && PAGE.slug !== COUNTY_PAGES[f] ? `<a href="${COUNTY_PAGES[f]}.html"><b>The piece on this county ›</b></a>` : '', STATE_PAGES[st] && PAGE.st !== st ? `<a href="${STATE_PAGES[st]}.html">The ${STNAME[st] || st} piece ›</a>` : ''].filter(Boolean).join(' · ');
+  if (note) return `<div class="note">${note.t.split(/\n\s*\n/).map(p => `<p>${esc(p)}</p>`).join('')}</div><p class="meta">Written by Claude (Opus 5.5) from the count as of ${new Date(note.asOf).toLocaleString('en-US', { timeZone: 'America/New_York', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' })} ET, the 2024 baseline and Census ACS 2023 figures; rewritten when the count moves.${links ? ' ' + links : ''}</p>`;
+  return `<div class="note"><p class="soon">${NOTES.has(st) ? 'No note for this county yet.' : `Notes for ${STNAME[st] || st}’s counties are being written.`}</p></div>${links ? `<p class="meta">${links}</p>` : ''}`;
 }
 function numsHTML(S, f) {
   const v = S.counties[f]; if (!v) return '<p class="nums">No 2026 count reported yet.</p>';
@@ -76,7 +77,7 @@ async function showCounty(f) {
   card.querySelector('.cx').addEventListener('click', () => { card.hidden = true; cardFor = null; });
   if (!document.fullscreenElement) { const r = card.getBoundingClientRect(); if (r.bottom > innerHeight || r.top < 0) card.scrollIntoView({ block: 'end', behavior: 'smooth' }); }
   const note = await noteFor(st, f); if (cardFor !== f) return;
-  card.querySelector('.cc > div:last-child').innerHTML = noteHTML(note, st);
+  card.querySelector('.cc > div:last-child').innerHTML = noteHTML(note, st, f);
 }
 
 /* the county explorer */
@@ -104,7 +105,7 @@ if (tbl) {
       body.querySelectorAll('tr.noterow').forEach(x => x.remove());
       const f = tr.dataset.f, st = F2S[f.slice(0, 2)] || '';
       const nr = document.createElement('tr'); nr.className = 'noterow'; nr.innerHTML = `<td colspan="6"><p>Loading…</p></td>`; tr.after(nr);
-      const note = await noteFor(st, f); if (nr.parentNode) nr.firstElementChild.innerHTML = noteHTML(note, st);
+      const note = await noteFor(st, f); if (nr.parentNode) nr.firstElementChild.innerHTML = noteHTML(note, st, f);
     });
     tbl.querySelectorAll('th[data-k]').forEach(th => th.addEventListener('click', () => { const k = th.dataset.k; sort = sort === k + '-desc' ? k + '-asc' : k + '-desc'; if (sel) sel.value = sort; draw(); }));
     draw();

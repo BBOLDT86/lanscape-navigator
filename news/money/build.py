@@ -189,6 +189,11 @@ def weekly_line(points, title, note):
     return ''.join(out)
 
 # ---------- the pieces ----------
+def md(h):
+    """The pieces are asked for plain text; when the model slips in markdown, render the common bits instead of showing the asterisks."""
+    h = re.sub(r'\*\*(.+?)\*\*', r'<b>\1</b>', h); h = re.sub(r'(?<![\w*])\*(?!\s)([^*\n]+?)\*(?![\w*])', r'<i>\1</i>', h)
+    h = re.sub(r'^[-•]\s+', '• ', h); h = re.sub(r'\n[-•]\s+', '<br>• ', h)
+    return h
 def render_paras(rep, prefix='src'):
     out = []; first = True
     for p in rep.get('paras') or []:
@@ -202,6 +207,7 @@ def render_paras(rep, prefix='src'):
             if off > pos: flush(); h += esc(t[pos:off]); pos = off
             pend.append(src)
         flush(); h += esc(t[pos:])
+        h = md(h)
         out.append(f"<p{' class=\"lede\"' if first else ''}>{h}</p>"); first = False
     return ''.join(out)
 def sources_list(rep, prefix='src', extra=()):
