@@ -22,6 +22,7 @@ CYCLE = 2026
 PLATFORMS = {'meta': ['META PLATFORMS', 'FACEBOOK'], 'google': ['GOOGLE']}
 MOCK = '--mock' in sys.argv
 LOG = []; CALLS = [0]
+csv.field_size_limit(min(sys.maxsize, 2 ** 31 - 1))
 
 
 def now(): return dt.datetime.now(dt.timezone.utc).replace(microsecond=0).isoformat().replace('+00:00', 'Z')
@@ -256,17 +257,19 @@ def google_ads():
     for row in rows('geo-spend.csv'):
         if (col(row, 'Country') or 'US') == 'US': state_all[col(row, 'Country_Subdivision_Primary') or ''] += num(col(row, 'Spend_USD'))
     nads = 0; allads = []
-    for row in rows('creative-stats.csv'):
-        aid = col(row, 'Advertiser_ID')
-        if aid not in topids: continue
-        start = col(row, 'Date_Range_Start') or col(row, 'First_Served_Timestamp') or ''
-        if start[:10] < since: continue
-        reg = col(row, 'Regions') or ''
-        if reg and 'US' not in reg: continue
-        a = {'id': col(row, 'Ad_ID'), 'url': col(row, 'Ad_URL'), 'type': col(row, 'Ad_Type'), 'adv': aid, 'start': start[:10], 'end': (col(row, 'Date_Range_End') or col(row, 'Last_Served_Timestamp') or '')[:10],
-             'impr': col(row, 'Impressions') or '', 'lo': round(num(col(row, 'Spend_Range_Min_USD'))), 'hi': round(num(col(row, 'Spend_Range_Max_USD'))), 'geo': (col(row, 'Geo_Targeting_Included') or '')[:120], 'age': (col(row, 'Age_Targeting') or '')[:60], 'gender': (col(row, 'Gender_Targeting') or '')[:40]}
-        nads += 1; adv[aid]['ads'].append(a)
-        if len(adv[aid]['ads']) > 400: adv[aid]['ads'] = sorted(adv[aid]['ads'], key=lambda x: -x['lo'])[:200]
+    try:
+      for row in rows('creative-stats.csv'):
+          aid = col(row, 'Advertiser_ID')
+          if aid not in topids: continue
+          start = col(row, 'Date_Range_Start') or col(row, 'First_Served_Timestamp') or ''
+          if start[:10] < since: continue
+          reg = col(row, 'Regions') or ''
+          if reg and 'US' not in reg: continue
+          a = {'id': col(row, 'Ad_ID'), 'url': col(row, 'Ad_URL'), 'type': col(row, 'Ad_Type'), 'adv': aid, 'start': start[:10], 'end': (col(row, 'Date_Range_End') or col(row, 'Last_Served_Timestamp') or '')[:10],
+               'impr': col(row, 'Impressions') or '', 'lo': round(num(col(row, 'Spend_Range_Min_USD'))), 'hi': round(num(col(row, 'Spend_Range_Max_USD'))), 'geo': (col(row, 'Geo_Targeting_Included') or '')[:120], 'age': (col(row, 'Age_Targeting') or '')[:60], 'gender': (col(row, 'Gender_Targeting') or '')[:40]}
+          nads += 1; adv[aid]['ads'].append(a)
+          if len(adv[aid]['ads']) > 400: adv[aid]['ads'] = sorted(adv[aid]['ads'], key=lambda x: -x['lo'])[:200]
+    except Exception: log('google creatives', 'crash', nads, traceback.format_exc()[-900:])
     for a in top: a['ads'] = sorted(a['ads'], key=lambda x: (-x['lo'], x['start']))[:10]; a['n_ads_cycle'] = sum(1 for _ in a['ads'])
     log('google ads this cycle (top advertisers)', 'ok', nads)
     z.close()
@@ -297,8 +300,8 @@ def build():
     plats = stage('platforms', platform_payments, {})
     gads = stage('google', google_ads, None)
     # keep what the last run had when a source came back empty this time
-    if not cands and prev.get('candidates'): cands = prev['candidates']; log('candidates', 'kept', len(cands), 'from the last run')
-    if not ie and prev.get('ie'): ie = prev['ie']; log('ie', 'kept', len(ie), 'from the last run')
+    if len(cands) < len(prev.get('candidates') or {}): cands = prev['candidates']; log('candidates', 'kept', len(cands), 'from the last run (this run got fewer)')
+    if len(ie) < len(prev.get('ie') or []): ie = prev['ie']; log('ie', 'kept', len(ie), 'from the last run (this run got fewer)')
     if not dons and prev.get('donors'): dons = prev['donors']; log('donors', 'kept', len(dons), 'from the last run')
     if (not plats or not any(v.get('n') for v in plats.values())) and prev.get('platforms'): plats = prev['platforms']; log('platforms', 'kept', 0, 'from the last run')
     if not gads and prev.get('google_ads'): gads = prev['google_ads']; log('google', 'kept', 0, 'from the last run')
