@@ -26,7 +26,7 @@ LOG = []; CALLS = [0]
 
 def now(): return dt.datetime.now(dt.timezone.utc).replace(microsecond=0).isoformat().replace('+00:00', 'Z')
 def log(q, status, n=0, note=''):
-    LOG.append({'q': q, 'status': status, 'n': n, 'note': note[:300], 'at': now()}); print(f'  {status} {q} -> {n} {note[:120]}', flush=True)
+    LOG.append({'q': q, 'status': status, 'n': n, 'note': note[:1600], 'at': now()}); print(f'  {status} {q} -> {n} {note[:160]}', flush=True)
 def load(p, default=None):
     try: return json.load(open(p, encoding='utf-8'))
     except FileNotFoundError: return default
@@ -92,7 +92,9 @@ def fec_name_last(n):
     parts = (n or '').split(',')[0].strip().split(); return parts[-1].upper() if parts else ''
 def match_result(cid, name, state, office, district=None):
     """The result record and whether this candidate won, by state, office, district and last name."""
-    key = (state, office, int(district) if district not in (None, '', '00') else None)
+    try: d = int(district) if district not in (None, '', '00') else None
+    except (TypeError, ValueError): d = None
+    key = (state, office, d)
     if office == 'S' and key not in RESULTS:  # special elections (the FL and OH seats) carry a seat tag; try any Senate race in the state
         cands = [k for k in RESULTS if k[0] == state and k[1] == 'S']; key = cands[0] if len(cands) == 1 else key
     res = RESULTS.get(key)
@@ -109,19 +111,29 @@ def candidates():
     out = {}
     for office, max_pages, min_receipts in (('S', 3, 100000), ('H', 6, 1500000)):
         rows = pages('/candidates/totals/', max_pages, cycle=CYCLE, election_year=CYCLE, office=office, is_active_candidate='true', sort='-receipts', per_page=100)
+        bad = 0
         for c in rows:
-            if (c.get('receipts') or 0) < min_receipts: continue
-            res, won = match_result(c['candidate_id'], c.get('name'), c.get('state'), office, c.get('district'))
-            out[c['candidate_id']] = {'id': c['candidate_id'], 'name': c.get('name'), 'party': (c.get('party') or '')[:3], 'st': c.get('state'), 'office': office, 'district': c.get('district'),
-                                      'receipts': round(c.get('receipts') or 0), 'disbursements': round(c.get('disbursements') or 0), 'cash': round(c.get('cash_on_hand_end_period') or 0),
-                                      'individual': round(c.get('individual_itemized_contributions') or 0), 'pacs': round(c.get('other_political_committee_contributions') or 0),
-                                      'incumbent': (c.get('incumbent_challenge') or ''), 'won': won, 'race': res['id'] if res else None}
+            try:
+                if num(c.get('receipts')) < min_receipts: continue
+                res, won = match_result(c['candidate_id'], c.get('name'), c.get('state'), office, c.get('district'))
+                out[c['candidate_id']] = {'id': c['candidate_id'], 'name': c.get('name'), 'party': str(c.get('party') or '')[:3], 'st': c.get('state'), 'office': office, 'district': c.get('district'),
+                                          'receipts': round(num(c.get('receipts'))), 'disbursements': round(num(c.get('disbursements'))), 'cash': round(num(c.get('cash_on_hand_end_period'))),
+                                          'individual': round(num(c.get('individual_itemized_contributions'))), 'pacs': round(num(c.get('other_political_committee_contributions'))),
+                                          'incumbent': str(c.get('incumbent_challenge') or ''), 'won': won, 'race': res['id'] if res else None}
+            except Exception:
+                bad += 1
+                if bad == 1: log('candidate row', 'crash', 0, traceback.format_exc()[-700:] + ' ROW: ' + json.dumps(c)[:500])
+        if bad: log('candidate rows skipped', 'warn', bad)
         if not rows and office == 'S': break
     return out
 
 def independent_expenditures(cands):
     """Outside spending for and against candidates, by committee: Schedule E aggregated by candidate and committee."""
-    rows = pages('/schedules/schedule_e/by_candidate/', 40, cycle=CYCLE, election_full='true', sort='-total', per_page=100)
+    rows = []
+    for office, mp in (('senate', 25), ('house', 30)):
+        got = pages('/schedules/schedule_e/by_candidate/', mp, cycle=CYCLE, election_full='true', office=office, sort='-total', per_page=100)
+        if not got and office == 'senate': got = pages('/schedules/schedule_e/by_candidate/', mp, cycle=CYCLE, election_full='true', office='S', sort='-total', per_page=100)
+        rows += got or []
     if not rows:  # the aggregate didn't answer: ask per Senate candidate
         for cid in [c for c, v in cands.items() if v['office'] == 'S'][:60]:
             rows += pages('/schedules/schedule_e/by_candidate/', 2, cycle=CYCLE, election_full='true', candidate_id=cid, per_page=100) or []
@@ -202,7 +214,11 @@ def google_ads():
                 f.write(b)
         log('google bundle', 200, os.path.getsize(zp) // (1 << 20), 'MB')
     except Exception as e: log('google bundle', 'error', 0, str(e)); return None
-    z = zipfile.ZipFile(zp); names = {os.path.basename(n): n for n in z.namelist()}; log('google bundle files', 'ok', len(names), ', '.join(sorted(names))[:280])
+    z = zipfile.ZipFile(zp); names = {os.path.basename(n): n for n in z.namelist() if not n.startswith('__MACOSX')}; log('google bundle files', 'ok', len(names), ', '.join(f'{i.filename} ({i.file_size // 1024}K)' for i in z.infolist())[:1500])
+    for nm, full in names.items():
+        if nm.lower().startswith('readme'):
+            try: log('google bundle README', 'ok', 0, z.read(full).decode('utf-8', 'replace')[:1500])
+            except Exception as e: log('google bundle README', 'error', 0, str(e))
     def rows(fname):
         n = next((v for k, v in names.items() if k.endswith(fname)), None)
         if not n: log(fname, 'missing'); return
