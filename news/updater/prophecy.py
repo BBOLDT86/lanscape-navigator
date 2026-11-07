@@ -46,7 +46,10 @@ PARTY = {'Ossoff': 'D', 'Vance': 'R', 'Rubio': 'R', 'Ocasio-Cortez': 'D', 'Newso
          'Cuban': 'D', 'Stewart': 'D', 'Clinton': 'D', 'Obama': 'D', 'Gillibrand': 'D', 'Duckworth': 'D', 'Omar': 'D',
          'Crockett': 'D', 'Abrams': 'D', 'Boebert': 'R', 'Stefanik': 'R', 'Ernst': 'R', 'Britt': 'R', 'Scott': 'R',
          'Hawley': 'R', 'Cotton': 'R', 'Burgum': 'R', 'Donalds': 'R', 'Paul': 'R', 'Johnson': 'R', 'Rogan': 'R',
-         'Kemp': 'R', 'Abbott': 'R', 'Patrick': 'R', 'Huckabee Sanders': 'R', 'Trump Jr.': 'R'}
+         'Kemp': 'R', 'Abbott': 'R', 'Patrick': 'R', 'Huckabee Sanders': 'R', 'Trump Jr.': 'R', 'Warnock': 'D',
+         'McEntee': 'R', 'Massie': 'R', 'El-Sayed': 'D', 'Kent': 'R', 'Jeffries': 'D', 'Schiff': 'D', 'Bannon': 'R',
+         'Hogan': 'R', 'Sununu': 'R', 'Zeldin': 'R', 'Cassidy': 'R', 'Jordan': 'R', 'Lake': 'R', 'Bessent': 'R',
+         'Kennedy Jr.': 'R', 'Platner': 'D', 'Frost': 'D', 'Landrieu': 'D', 'Newsome': 'D', 'Kaine': 'D'}
 
 
 def log(*a):
