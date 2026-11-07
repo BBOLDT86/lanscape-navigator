@@ -534,7 +534,7 @@ Census cuts; `write.py context` logs the failure to `data/context_error.json`.
 Prompt caching makes a web-searched Opus 5.5 piece about 85 cents (a state, a House seat or a county), the national
 pieces $1–3, a batch note about a cent. The wave's first run (43 states, the national, 2,775 county notes) was $57;
 the money's 45 states $33; the House (80 pieces, 435 notes) $71. Two ledgers (`news/wave/data/spend.json`,
-`news/money/data/spend.json`), one cap (`WAVE_CAP`, $400) across both; `write.py cost` sums them. Batch collection
+`news/money/data/spend.json`), one cap (`WAVE_CAP`, $300: the promotional credits, $200 expiring Nov. 9 and $100 expiring Dec. 9, 2026; raise it in the two workflows only to spend past the credits, which bills the card) across both; `write.py cost` sums them. Batch collection
 is idempotent: a batch id already in the ledger isn't charged again (one was, Nov. 7, when the print after the
 charge crashed on a run with no budget — fixed).
 
@@ -564,7 +564,7 @@ advertiser, with the top ads linked) and a Claude-written piece per state.
   cards) and `data/donors/<key>.json` (short cited profiles of the top donors). A piece is rewritten when its races'
   outside money moves 10% or a race is called (`stale()`).
 - `money.yml`: on a push of `news/money/run.json`, by hand, and daily until Dec. 9 (refresh, $4 a day). Spending goes
-  to the same ledger as the wave (`news/wave/data/spend.json`), under the same `WAVE_CAP` ($400).
+  to the same ledger as the wave (`news/wave/data/spend.json`), under the same `WAVE_CAP` ($300).
 
 ## The front package (`data/front.json`)
 

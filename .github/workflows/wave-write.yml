@@ -56,7 +56,7 @@ jobs:
           python-version: '3.12'
       - name: Check the key and the calendar
         run: |
-          echo "WAVE_CAP=400" >> "$GITHUB_ENV"
+          echo "WAVE_CAP=300" >> "$GITHUB_ENV"   # the promotional credits ($200 to Nov. 9, $100 to Dec. 9, 2026): the writers stop there, so the card is never billed
           if [ -z "$ANTHROPIC_API_KEY" ]; then echo "::error::ANTHROPIC_API_KEY is not set (Settings -> Secrets and variables -> Actions)"; exit 1; fi
           if [ "${{ github.event_name }}" = "schedule" ] && [ "$(date -u +%Y%m%d)" -gt 20261130 ]; then echo "past Nov. 30, 2026: nothing to do"; echo "SKIP=1" >> "$GITHUB_ENV"; fi
       - name: Census context for the county notes
