@@ -154,3 +154,29 @@ a.sc:hover > b{text-decoration:underline}
 .own .who{display:block;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);margin:2px 0 6px}
 .own .sought,.own .cost{display:block;font-size:15px;color:var(--ink-2);margin-top:4px}
 .own .sought i,.own .cost i{font-style:normal;font-weight:600;color:var(--ink)}
+/* the voter charts (tools/charts.py): inline SVG, themed by these classes */
+.charts{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:18px 28px;margin:18px 0 28px}
+.chart{margin:0;background:var(--raise);border:1px solid var(--rule);border-radius:12px;padding:14px 14px 10px;min-width:0}
+.chart figcaption{margin:0 0 8px}
+.chart figcaption b{display:block;font:600 15px/1.3 var(--sans);color:var(--ink)}
+.chart figcaption span{display:block;font-size:12.5px;line-height:1.45;color:var(--ink-3);margin-top:3px}
+.chart svg{width:100%;height:auto;display:block;font-family:var(--sans)}
+.chart .grid{stroke:var(--rule);stroke-width:1}
+.chart .grid.zero{stroke:var(--rule-2);stroke-dasharray:3 3}
+.chart .tick{font-size:11px;fill:var(--ink-3)}
+.chart .axis{font-size:11.5px;fill:var(--ink-3)}
+.chart .lbl{font-size:11px;fill:var(--ink-2);font-weight:600;paint-order:stroke;stroke:var(--raise);stroke-width:3px;stroke-linejoin:round}
+.chart .rowl{font-size:12.5px;fill:var(--ink);font-weight:600}
+.chart .rowm{font-size:11px;fill:var(--ink-3)}
+.chart .val{font-size:12px;fill:var(--ink-2);font-weight:600}
+.chart .dot{stroke:var(--raise);stroke-width:1.5;fill-opacity:.78}
+.chart .dot.l{fill:var(--dem)}.chart .dot.r{fill:var(--rep)}
+.chart .dot:hover{fill-opacity:1;stroke:var(--ink)}
+.chart .bar.l{fill:var(--dem)}.chart .bar.r{fill:var(--rep)}
+.chart .bar.a{fill:var(--dem)}.chart .bar.b{fill:var(--brass)}
+.chart .legend{display:flex;gap:14px;font-size:12px;color:var(--ink-2);margin:0 0 4px}
+.chart .legend .sw{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+.chart .legend .sw.a{background:var(--dem)}.chart .legend .sw.b{background:var(--brass)}
+.chart.wide{grid-column:1 / -1}
+.chart .rowl{font-size:12px}
+.voters-note{font-size:13.5px;color:var(--ink-3);margin:-10px 0 22px}

@@ -4,7 +4,8 @@
 news/wave/data/shift.json and night.json, so re-running after a data refresh keeps the words honest.
 `python3 news/wave/tools/make_pages.py`; the counties workflow runs it after each refresh.
 """
-import json, os, re, html, datetime as dt, statistics
+import json, os, re, html, datetime as dt, statistics, sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); import voters, charts
 
 HERE = os.path.dirname(os.path.abspath(__file__)); W = os.path.normpath(os.path.join(HERE, '..'))
 S = json.load(open(os.path.join(W, 'data', 'shift.json'), encoding='utf-8'))
@@ -242,6 +243,9 @@ def _load(p):
     try: return json.load(open(p, encoding='utf-8'))
     except FileNotFoundError: return None
 REPORTS = {st: r for st in S['states'] if S['states'][st].get('use') for r in [_load(os.path.join(W, 'data', 'reports', st + '.json'))] if r and r.get('headline')}
+USREP = _load(os.path.join(W, 'data', 'reports', '_US.json'))
+CTX = (_load(os.path.join(W, 'data', 'context.json')) or {}).get('counties', {})
+def cword(st): return {'parish': 'parishes', 'borough': 'boroughs'}.get(COUNTY_WORD.get(st, ''), 'counties')
 NOTE_STATES = sorted(st for st in S['states'] if os.path.exists(os.path.join(W, 'data', 'notes', st + '.json')))
 STATE_SLUG = {st: NAME[st].lower().replace(' ', '-') for st in NAME}
 STATE_PAGES = {st: STATE_SLUG[st] for st in REPORTS}
@@ -265,15 +269,18 @@ def races_table(st):
     out.append('</tbody></table></div>')
     return ''.join(out)
 
-def render_paras(rep):
-    """The piece's paragraphs, with the API's web citations as numbered footnote links."""
-    out = []; first = True
+def render_paras(rep, insert=None, prefix='src'):
+    """The piece's paragraphs, with the API's web citations as numbered footnote links. `insert` (html) goes after the
+    first paragraph under the subhead about the voters (or, failing that, under the second subhead, or at the end)."""
+    out = []; first = True; h2s = 0; under_voters = False; placed = False
     for p in rep['paras']:
-        if p['t'] == 'h2': out.append(f"<h2>{esc(p['text'])}</h2>"); continue
+        if p['t'] == 'h2':
+            h2s += 1; under_voters = bool(re.search(r'voter|who moved|turnout|persua|who |moved most|the people', p['text'], re.I)) or (h2s == 2 and not placed)
+            out.append(f"<h2>{esc(p['text'])}</h2>"); continue
         t = p['text']; cuts = sorted(p.get('cites') or [], key=lambda c: c[0]); html_ = ''; pos = 0; pending = []
         def flush():
             nonlocal html_, pending
-            if pending: html_ += '<sup>' + ', '.join(f'<a href="#src-{s}">{s}</a>' for s in sorted(set(pending))) + '</sup>'; pending = []
+            if pending: html_ += '<sup>' + ', '.join(f'<a href="#{prefix}-{x}">{x}</a>' for x in sorted(set(pending))) + '</sup>'; pending = []
         for off, src in cuts:
             off = max(pos, min(off, len(t)))
             if off > pos: flush(); html_ += esc(t[pos:off]); pos = off
@@ -281,6 +288,8 @@ def render_paras(rep):
         flush(); html_ += esc(t[pos:])
         cls = ' class="lede"' if first else ''
         out.append(f"<p{cls}>{html_}</p>"); first = False
+        if insert and under_voters and not placed: out.append(insert); placed = True; under_voters = False
+    if insert and not placed: out.append(insert)
     return ''.join(out)
 
 def state_callouts(rep):
@@ -312,7 +321,7 @@ def state_page(st, rep):
 <p class="byline">By <b>Claude</b> ({esc(model)}, with web search) for The Watch, {when(rep.get('written'))}, from the count as of {when(rep.get('asOf'))}; the tables below refresh with the count (last {built.strftime('%b. %-d, %-I:%M %p')} ET, AP via The New York Times), and the piece is rewritten when a race is called or a margin moves more than a point. {len(srcs)} sources. <a href="./#states">All the states ›</a></p></div>
 <div class="narrow body">
 {stat_row}
-{render_paras(rep)}
+{render_paras(rep, charts.voter_charts(voters.analysis(rs, CTX), cword(st), NAME[st]) if rs else None)}
 <h2>The race{'s' if len(S['states'][st]['races']) > 1 else ''}</h2>
 {races_table(st)}
 <p><small>The map uses the {'Senate' if v['use'] == 'S' else 'governor’s'} race for this state’s {county_word(st)}. Counts from AP via The New York Times, as of {ASOF}; 2024 baseline from The Watch’s Election Desk.<sup><a href="#src-{k + 1}">{k + 1}</a>, <a href="#src-{k + 2}">{k + 2}</a></sup></small></p>
@@ -326,6 +335,21 @@ def state_page(st, rep):
 {foot()}"""
     open(os.path.join(W, slug + '.html'), 'w', encoding='utf-8').write(body)
     return {'st': st, 'name': NAME[st], 'slug': slug, 'title': title, 'dek': dek, 'summary': rep.get('summary', ''), 'swing': round(swing_of(st), 1), 'race': v['use'], 'winner': u.get('winner'), 'written': rep.get('written')}
+
+def national_section():
+    a = voters.analysis(rows, CTX, points=700); block = charts.voter_charts(a, 'counties', 'the country')
+    if USREP:
+        srcs = USREP.get('sources') or []; k = len(srcs); model = MODEL_NAME.get(USREP.get('model', ''), 'Claude')
+        return f"""<h2 id="voters">{esc(USREP['headline'])}</h2>
+<p class="dek" style="margin-bottom:8px">{esc(USREP['dek'])}</p>
+<p class="byline">By <b>Claude</b> ({esc(model)}, with web search) for The Watch, {when(USREP.get('written'))}, from the count as of {when(USREP.get('asOf'))}; rewritten when the count moves. {k} sources, numbered in the text; <a href="#us-sources">the list</a>.</p>
+{render_paras(USREP, block, 'ussrc')}
+<details class="sources" id="us-sources"><summary>Sources for this piece</summary><ol>{''.join(f'<li id="ussrc-{x["n"]}">{esc(x["title"])}. <a href="{esc(x["url"])}" rel="noopener">{esc(x["url"])}</a></li>' for x in srcs)}</ol></details>
+"""
+    return f"""<h2 id="voters">What the voters did</h2>
+<p>The move cut by who moved: the biggest counties and the smallest, the reddest and the bluest, the places where turnout fell and where it held, and, from the Census, the more Hispanic, the more educated and the richer and poorer counties. Weighted by votes the country's counties moved {a['move']:+.1f} points; the typical county {a['median']:+.1f}. A reported piece on these charts, by Claude Opus 5.5 through Anthropic's API, is being written.</p>
+{block}
+"""
 
 def states_section():
     sts = sorted((st for st, v in S['states'].items() if v.get('use')), key=lambda st: -swing_of(st))
@@ -623,6 +647,8 @@ def main_page(cards):
 <h2>The border, and five places up close</h2>
 <p>Each of these takes a region of the map, turns the camera on it and walks through its counties.</p>
 <div class="cards"><a class="card" href="border.html"><img src="border.png" alt="" loading="lazy"><div class="cb"><div class="n">The border</div><h3>The wall, and the counties around it</h3><p>A flight along the boundary from San Diego to Brownsville: all 24 counties on it moved left, and the Texas map drawn to flip five seats flipped one.</p></div></a>{''.join(f'<a class="card" href="{x["slug"]}.html"><img src="{x["slug"]}.png" alt="" loading="lazy"><div class="cb"><div class="n">Part {x["n"]} · {esc(x["short"])}</div><h3>{esc(x["title"])}</h3><p>{esc(x["dek"])}</p></div></a>' for x in cards)}</div>
+
+{national_section()}
 
 {states_section()}
 

@@ -18,6 +18,7 @@ spent (a batch is sized to fit before it is submitted). --mock writes made-up ou
 testing the pages. --dry prints one prompt and exits.
 """
 import json, os, re, sys, time, math, random, argparse, statistics, threading, urllib.request, urllib.error, datetime as dt
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); import voters
 
 HERE = os.path.dirname(os.path.abspath(__file__)); W = os.path.normpath(os.path.join(HERE, '..')); DATA = os.path.join(W, 'data')
 API = 'https://api.anthropic.com'
@@ -25,6 +26,7 @@ MODEL = 'claude-opus-5-5'
 # $ per million tokens (platform.claude.com, Nov. 2026): Opus 5.5 $4 in / $20 out, cache read $0.20, 5-min cache write $5;
 # the Batch API bills half; web search $10 per 1,000 searches.
 PRICE = {'in': 4.0, 'out': 20.0, 'cache_read': 0.20, 'cache_write': 5.0, 'search': 0.01}
+CAP = float(os.environ.get('WAVE_CAP', '400'))  # dollars, all jobs, all time: nothing new starts once the ledger reaches it
 F2S = {'01': 'AL', '02': 'AK', '04': 'AZ', '05': 'AR', '06': 'CA', '08': 'CO', '09': 'CT', '10': 'DE', '11': 'DC', '12': 'FL', '13': 'GA', '15': 'HI', '16': 'ID', '17': 'IL', '18': 'IN', '19': 'IA', '20': 'KS', '21': 'KY', '22': 'LA', '23': 'ME', '24': 'MD', '25': 'MA', '26': 'MI', '27': 'MN', '28': 'MS', '29': 'MO', '30': 'MT', '31': 'NE', '32': 'NV', '33': 'NH', '34': 'NJ', '35': 'NM', '36': 'NY', '37': 'NC', '38': 'ND', '39': 'OH', '40': 'OK', '41': 'OR', '42': 'PA', '44': 'RI', '45': 'SC', '46': 'SD', '47': 'TN', '48': 'TX', '49': 'UT', '50': 'VT', '51': 'VA', '53': 'WA', '54': 'WV', '55': 'WI', '56': 'WY'}
 S2F = {v: k for k, v in F2S.items()}
 NAME = {'AL': 'Alabama', 'AK': 'Alaska', 'AZ': 'Arizona', 'AR': 'Arkansas', 'CA': 'California', 'CO': 'Colorado', 'CT': 'Connecticut', 'DE': 'Delaware', 'FL': 'Florida', 'GA': 'Georgia', 'HI': 'Hawaii', 'ID': 'Idaho', 'IL': 'Illinois', 'IN': 'Indiana', 'IA': 'Iowa', 'KS': 'Kansas', 'KY': 'Kentucky', 'LA': 'Louisiana', 'ME': 'Maine', 'MD': 'Maryland', 'MA': 'Massachusetts', 'MI': 'Michigan', 'MN': 'Minnesota', 'MS': 'Mississippi', 'MO': 'Missouri', 'MT': 'Montana', 'NE': 'Nebraska', 'NV': 'Nevada', 'NH': 'New Hampshire', 'NJ': 'New Jersey', 'NM': 'New Mexico', 'NY': 'New York', 'NC': 'North Carolina', 'ND': 'North Dakota', 'OH': 'Ohio', 'OK': 'Oklahoma', 'OR': 'Oregon', 'PA': 'Pennsylvania', 'RI': 'Rhode Island', 'SC': 'South Carolina', 'SD': 'South Dakota', 'TN': 'Tennessee', 'TX': 'Texas', 'UT': 'Utah', 'VT': 'Vermont', 'VA': 'Virginia', 'WA': 'Washington', 'WV': 'West Virginia', 'WI': 'Wisconsin', 'WY': 'Wyoming'}
@@ -98,7 +100,7 @@ class Run:
             save(os.path.join(DATA, 'spend.json'), L)
         print(f'  {what}: ${usd:.3f} (run ${self.usd:.2f} of ${self.budget:.0f}; total ${L["usd"]:.2f})', flush=True)
         return usd
-    def over(self): return self.budget is not None and self.usd >= self.budget
+    def over(self): return (self.budget is not None and self.usd >= self.budget) or ledger().get('usd', 0.0) >= CAP
     def summary(self): return f'{self.job}: {self.items} items, ${self.usd:.2f}, {self.tok["in"]:,} in / {self.tok["out"]:,} out / {self.tok["cache_read"]:,} cached, {self.tok["searches"]} searches, {time.time() - self.t0:.0f}s'
 
 
@@ -180,7 +182,7 @@ Standards:
 - No invented quotes, no speculation presented as fact, no predictions. If reporting disagrees, say so. If something is not known yet (an uncalled race, ballots still being counted), say that.
 - A move is not persuasion: the county-level count cannot tell voters changing their minds from who turned out. Say so once where it matters, using the turnout numbers in the data block.
 - Neutral, concrete, plain English, in the voice of a careful newspaper feature: specific places, specific numbers, no cheerleading for either party and no cliché ("wake-up call", "bombshell", "stunning"). Use the candidates' full names on first mention. Spell out what the county word is where it is not "county" (parish in Louisiana).
-- 650 to 900 words of body text. Two or three subheads.
+- 650 to 950 words of body text. Three subheads, one of them about the voters: use the VOTER ANALYSIS block (the page draws it as charts next to that section) to say who moved — big counties or small, the reddest or the bluest, places where turnout fell or held, and, where the Census figures are given, Hispanic, educated, richer or poorer places — and whether turnout or persuasion better explains it. Give the numbers from the block; say plainly that counties are not voters.
 
 Output exactly this skeleton, in plain text (no markdown besides the "## " subheads), nothing before or after it:
 
@@ -227,6 +229,7 @@ def state_data_block(st):
                 if ctx_line(r['f']): L.append(f"- {r['n']}: {ctx_line(r['f'])[len('Census (ACS 2023 five-year): '):]}")
         if len(rs) <= 120: L += ["", "EVERY COUNTY:", county_table(sorted(rs, key=lambda r: r['n']))]
         else: L += ["", f"(All {len(rs)} counties are in the published data; the tables above are what the piece should draw on.)"]
+    if rs: L += ["", voters.prose(voters.analysis(rs, CTX), {'parish': 'parishes', 'borough': 'boroughs'}.get(county_word(st), 'counties'))]
     ar = area_of(st)
     if ar: L += ["", f"The Watch already published a regional piece that includes this state: \"{AREA_TITLE[ar]}\" ({ar}.html). This state piece should stand on its own and go deeper into the state, not repeat it."]
     return '\n'.join(L)
@@ -238,7 +241,8 @@ def state_params(st, effort):
             'tools': [{'type': 'web_search_20250305', 'name': 'web_search', 'max_uses': 12, 'user_location': loc}],
             'messages': [{'role': 'user', 'content': [{'type': 'text', 'text': f"Write The Watch's wave piece for {NAME[st]}. Here is the data block.\n\n{state_data_block(st)}"}]}]}
 
-def parse_skeleton(content):
+def parse_skeleton(content, callouts=4):
+    callouts_n = callouts
     """The text blocks, concatenated, with each web citation placed at the end of the block it supports."""
     doc = ''; marks = []; sources = []; seen = {}
     for b in content:
@@ -264,15 +268,49 @@ def parse_skeleton(content):
         cites = sorted({(min(max(off - a0, 0), len(text)), src) for off, src in marks if a0 < off <= a1 + 1})
         kind = 'h2' if text.startswith('## ') else 'p'
         paras.append({'t': kind, 'text': text[3:].strip() if kind == 'h2' else text, 'cites': [[o, s] for o, s in cites]})
-    callouts = []
+    callouts = []  # the parsed lines; callouts_n is the cap
     for line in doc[mc.end():].strip().splitlines():
         parts = [p.strip() for p in line.split('|')]
         if len(parts) >= 3 and re.fullmatch(r'\d{5}', parts[0]) and parts[0] in ROWS: callouts.append({'f': parts[0], 'label': parts[1][:60], 'note': parts[2][:160]})
     words = sum(len(p['text'].split()) for p in paras if p['t'] == 'p')
-    return {'headline': head, 'dek': dek, 'summary': summ, 'paras': paras, 'callouts': callouts[:4], 'sources': sources, 'words': words}, doc
+    return {'headline': head, 'dek': dek, 'summary': summ, 'paras': paras, 'callouts': callouts[:callouts_n], 'sources': sources, 'words': words}, doc
 
 def race_snapshot(st): return {k: {'winner': rc.get('winner'), 'm26': round(rc['m26'], 2), 'eevp': rc.get('eevp')} for k, rc in races_of(st).items()}
 def report_path(st): return os.path.join(DATA, 'reports', st + '.json')
+NATIONAL_SYSTEM = STATE_SYSTEM.replace("You are writing the piece for one state.", "You are writing the piece for the whole country: what the voters did, county by county, across every state with a race.").replace(
+    "- 650 to 950 words of body text. Three subheads,", "- 1,100 to 1,500 words of body text. Four or five subheads,").replace(
+    "<a headline of at most 12 words, specific to this state>", "<a headline of at most 12 words>").replace(
+    "<one sentence of at most 22 words for a list of all the states>", "<one sentence of at most 22 words>").replace(
+    "<four lines, one per county", "<six lines, one per county").replace("around 6 to 12 searches", "around 10 to 16 searches")
+def national_data_block():
+    rs = list(ROWS.values()); top = sorted(rs, key=lambda r: -r['sh']); big = sorted(rs, key=lambda r: -r['t'])
+    sts = sorted(STATES, key=lambda st: -(main_race(st)['m26'] - main_race(st)['m24']))
+    L = [f"THE COUNTRY: {ALL['n']} counties with a 2026 count across the {len(STATES)} states with a Senate or governor's race; {ALL['left']} moved toward the Democrats, {ALL['right']} toward the Republicans; typical move {pts(ALL['median'])}, weighted by votes {pts(ALL['weighted'])}; {ALL['flipD']} counties went from a Trump win in 2024 to a Democratic win, {ALL['flipR']} the other way. Votes cast {n(ALL['votes'])} against {n(ALL['votes24'])} in 2024 ({ALL['votes'] / ALL['votes24'] * 100:.0f}%).",
+         f"Counts: AP via The New York Times, as of {S['asOf'].replace('T', ' ').replace('Z', ' UTC')}; 2024 baseline: county-level presidential results. States without a race (IN, MO, ND, UT, WA) are not on the map; Alaska has no county count; Connecticut reports by town.",
+         "", "THE STATES, by how far the state moved (the race on the map; 2024 presidential margin -> 2026 margin; move; result):"]
+    for st in sts:
+        rc = main_race(st); res = {'D': f"{rc['dem']} (D) won", 'R': f"{rc['rep']} (R) won", None: 'not called'}[rc.get('winner')]
+        L.append(f"- {NAME[st]} ({rc['office']}): {margin(rc['m24'])} -> {margin(rc['m26'])}, {pts(rc['m26'] - rc['m24'])}; {res}; {rc['eevp'] if rc['eevp'] is not None else '–'}% counted")
+    L += ["", "BIGGEST MOVES LEFT (15):", county_table(top, 15), "", "MOVES RIGHT (all counties that moved right, up to 15):", county_table(sorted([r for r in rs if r['sh'] < 0], key=lambda r: r['sh']), 15), "", "MOST VOTES (15):", county_table(big, 15), "", voters.prose(voters.analysis(rs, CTX))]
+    return '\n'.join(L)
+def national_params(effort):
+    return {'model': MODEL, 'max_tokens': 32000, 'output_config': {'effort': effort},
+            'system': [{'type': 'text', 'text': NATIONAL_SYSTEM, 'cache_control': {'type': 'ephemeral'}}],
+            'tools': [{'type': 'web_search_20250305', 'name': 'web_search', 'max_uses': 16, 'user_location': {'type': 'approximate', 'country': 'US'}}],
+            'messages': [{'role': 'user', 'content': [{'type': 'text', 'text': f"Write The Watch's piece on what the voters did across the country. Here is the data block.\n\n{national_data_block()}"}]}]}
+def cmd_national(a):
+    run = Run('national', a.budget); p = os.path.join(DATA, 'reports', '_US.json'); old = load(p)
+    if old and not a.redo and old.get('asOf') and not any(state_stale(st, {'races': old.get('races', {}).get(st, {})}) for st in STATES): print('national: written and current'); return
+    if a.dry: print(national_data_block()); return
+    t0 = time.time()
+    if MOCK: rep = mock_state('TX'); rep['headline'] = 'What the voters did (mock)'; usage = {'input_tokens': 20000, 'output_tokens': 6000}; searches = 12
+    else:
+        content, usage, searches, stop = message(national_params(a.effort)); rep, raw = parse_skeleton(content, callouts=6)
+        run.charge(usage, searches=searches, what='national')
+        if not rep or not rep['headline'] or rep['words'] < 500: save(os.path.join(DATA, 'reports', '_failed_US.txt'), {'stop': stop, 'doc': raw}); print(f'national: could not parse ({stop})'); return
+    rep.update({'st': 'US', 'name': 'The country', 'written': now(), 'asOf': S['asOf'], 'model': MODEL, 'effort': a.effort, 'searches': searches, 'usage': usage, 'usd': price(usage, searches=searches), 'races': {st: race_snapshot(st) for st in STATES}, 'seconds': round(time.time() - t0)})
+    save(p, rep); print(f'national: "{rep["headline"]}" — {rep["words"]} words, {len(rep["sources"])} sources, {searches} searches, {rep["seconds"]}s; {run.summary()}')
+
 def mock_state(st):
     rs = BYST.get(st, []); top = sorted(rs, key=lambda r: -r['sh'])[:4] or []
     paras = [{'t': 'p', 'text': f"(Mock) {NAME[st]} moved {pts(main_race(st)['m26'] - main_race(st)['m24'])} points. This paragraph is made up to test the page.", 'cites': [[60, 1]]}, {'t': 'h2', 'text': 'What moved it', 'cites': []}, {'t': 'p', 'text': 'A second mock paragraph with a citation at its end.', 'cites': [[51, 2]]}]
@@ -372,7 +410,7 @@ def cmd_counties(a, stale_only=False):
         todo.append(r)
     todo.sort(key=lambda r: -r['t'])
     per = (NOTE_EST['in'] * PRICE['in'] + NOTE_EST['out'] * PRICE['out']) / 1e6 * 0.5
-    fit = int(a.budget / per) if a.budget else len(todo)
+    room = max(0.0, CAP - ledger().get('usd', 0.0)); fit = int(min(a.budget if a.budget else room, room) / per)
     if fit < len(todo): print(f'counties: {len(todo)} to write, but ${a.budget} fits about {fit} at ~${per:.4f} each; the biggest {fit} go in this batch'); todo = todo[:fit]
     print(f'counties: {len(todo)} notes, ~${len(todo) * per:.2f} at batch rates')
     if a.dry: print(note_prompt(todo[0] if todo else ROWS['48427'])); return
@@ -427,6 +465,8 @@ def cmd_refresh(a):
     left = max(0.0, a.budget - used)
     if left < 0.5: print(f'refresh: ${used:.2f} spent today, nothing left for states'); return
     cmd_states(argparse.Namespace(**dict(vars(a), budget=left, redo=False, states=None, effort=a.effort or 'high')), stale_only=True)
+    L = ledger(); used = sum(r['usd'] for r in L['runs'] if r['when'][:10] == today); left = max(0.0, a.budget - used)
+    if left >= 8 and load(os.path.join(DATA, 'reports', '_US.json')): cmd_national(argparse.Namespace(**dict(vars(a), budget=left, redo=False, effort='high')))
 
 def cmd_cost(a):
     L = ledger(); byjob = {}
@@ -469,7 +509,7 @@ def cmd_check(a):
 
 if __name__ == '__main__':
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument('job', choices=['context', 'states', 'counties', 'collect', 'refresh', 'cost', 'check'])
+    ap.add_argument('job', choices=['context', 'states', 'national', 'counties', 'collect', 'refresh', 'cost', 'check'])
     ap.add_argument('--budget', type=float, default=None, help='dollars this run may spend (states: stop starting new ones; counties: size the batch)')
     ap.add_argument('--states', default=None, help='only these, e.g. TX,OH')
     ap.add_argument('--effort', default='high', choices=['low', 'medium', 'high', 'xhigh', 'max'])
@@ -478,5 +518,5 @@ if __name__ == '__main__':
     ap.add_argument('--redo', action='store_true', help='rewrite even what is already written')
     ap.add_argument('--dry', action='store_true'); ap.add_argument('--mock', action='store_true'); ap.add_argument('--strict', action='store_true')
     a = ap.parse_args(); MOCK = a.mock
-    if a.budget is None: a.budget = {'states': 140.0, 'counties': 40.0, 'refresh': 3.5}.get(a.job, 0.0)
-    {'context': cmd_context, 'states': cmd_states, 'counties': cmd_counties, 'collect': cmd_collect, 'refresh': cmd_refresh, 'cost': cmd_cost, 'check': cmd_check}[a.job](a)
+    if a.budget is None: a.budget = {'states': 140.0, 'national': 15.0, 'counties': 40.0, 'refresh': 3.5}.get(a.job, 0.0)
+    {'context': cmd_context, 'states': cmd_states, 'national': cmd_national, 'counties': cmd_counties, 'collect': cmd_collect, 'refresh': cmd_refresh, 'cost': cmd_cost, 'check': cmd_check}[a.job](a)

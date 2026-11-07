@@ -7,13 +7,15 @@ name: The wave, written
 on:
   schedule:
     - cron: '17 */6 * * *'
+  push:
+    paths: ['news/wave/run.json']   # a run request pushed from a Claude session (the same inputs as below, as JSON)
   workflow_dispatch:
     inputs:
       job:
         description: 'What to write'
         type: choice
         default: both
-        options: [both, states, counties, collect, refresh]
+        options: [both, states, national, counties, collect, refresh]
       budget:
         description: 'Dollars the state pieces may spend this run (Opus 5.5 with web search; about $3-4 a state)'
         default: '140'
@@ -54,26 +56,44 @@ jobs:
           python-version: '3.12'
       - name: Check the key and the calendar
         run: |
+          echo "WAVE_CAP=400" >> "$GITHUB_ENV"
           if [ -z "$ANTHROPIC_API_KEY" ]; then echo "::error::ANTHROPIC_API_KEY is not set (Settings -> Secrets and variables -> Actions)"; exit 1; fi
           if [ "${{ github.event_name }}" = "schedule" ] && [ "$(date -u +%Y%m%d)" -gt 20261130 ]; then echo "past Nov. 30, 2026: nothing to do"; echo "SKIP=1" >> "$GITHUB_ENV"; fi
       - name: Census context for the county notes
         if: env.SKIP != '1'
         run: |
           python3 news/wave/tools/write.py context || echo "context - Census could not be read; the notes go without it"
-      - name: Write (by hand)
+      - name: Read the run request (on a push of news/wave/run.json)
+        if: env.SKIP != '1' && github.event_name == 'push'
+        run: |
+          python3 - <<'PY' >> "$GITHUB_ENV"
+          import json; r = json.load(open('news/wave/run.json'))
+          print('JOB=' + str(r.get('job', 'both'))); print('BUDGET=' + str(r.get('budget', 140))); print('CBUDGET=' + str(r.get('counties_budget', 40)))
+          print('EFFORT=' + str(r.get('effort', 'high'))); print('STATES=' + str(r.get('states', ''))); print('REDO=' + ('true' if r.get('redo') else 'false'))
+          print('NBUDGET=' + str(r.get('national_budget', 15)))
+          PY
+          echo "run request: $(cat news/wave/run.json)"
+      - name: Inputs (Run workflow)
         if: env.SKIP != '1' && github.event_name == 'workflow_dispatch'
         run: |
-          JOB="${{ inputs.job }}"; REDO=""; ST=""
-          if [ "${{ inputs.redo }}" = "true" ]; then REDO="--redo"; fi
-          if [ -n "${{ inputs.states }}" ]; then ST="--states ${{ inputs.states }}"; fi
+          echo "JOB=${{ inputs.job }}" >> "$GITHUB_ENV"; echo "BUDGET=${{ inputs.budget }}" >> "$GITHUB_ENV"; echo "CBUDGET=${{ inputs.counties_budget }}" >> "$GITHUB_ENV"
+          echo "EFFORT=${{ inputs.effort }}" >> "$GITHUB_ENV"; echo "STATES=${{ inputs.states }}" >> "$GITHUB_ENV"; echo "REDO=${{ inputs.redo }}" >> "$GITHUB_ENV"; echo "NBUDGET=15" >> "$GITHUB_ENV"
+      - name: Write
+        if: env.SKIP != '1' && github.event_name != 'schedule'
+        run: |
+          REDO_FLAG=""; ST=""
+          if [ "$REDO" = "true" ]; then REDO_FLAG="--redo"; fi
+          if [ -n "$STATES" ]; then ST="--states $STATES"; fi
           # each step is time-limited so the commit below always runs; a piece is saved as soon as it is written, and a
           # batch still out when the clock runs down is collected by the next scheduled run
           W=news/wave/tools/write.py
           case "$JOB" in
-            both)     timeout -k 60 230m python3 $W states --budget "${{ inputs.budget }}" --effort "${{ inputs.effort }}" $ST $REDO || echo "states: stopped ($?)"
-                      timeout -k 60 90m python3 $W counties --budget "${{ inputs.counties_budget }}" --wait 80 $ST $REDO || echo "counties: stopped ($?)" ;;
-            states)   timeout -k 60 320m python3 $W states --budget "${{ inputs.budget }}" --effort "${{ inputs.effort }}" $ST $REDO || echo "states: stopped ($?)" ;;
-            counties) timeout -k 60 300m python3 $W counties --budget "${{ inputs.counties_budget }}" --wait 280 $ST $REDO || echo "counties: stopped ($?)" ;;
+            both)     timeout -k 60 25m python3 $W national --budget "$NBUDGET" --effort max $REDO_FLAG || echo "national: stopped ($?)"
+                      timeout -k 60 210m python3 $W states --budget "$BUDGET" --effort "$EFFORT" $ST $REDO_FLAG || echo "states: stopped ($?)"
+                      timeout -k 60 90m python3 $W counties --budget "$CBUDGET" --wait 80 $ST $REDO_FLAG || echo "counties: stopped ($?)" ;;
+            states)   timeout -k 60 320m python3 $W states --budget "$BUDGET" --effort "$EFFORT" $ST $REDO_FLAG || echo "states: stopped ($?)" ;;
+            national) timeout -k 60 30m python3 $W national --budget "$NBUDGET" --effort max $REDO_FLAG || echo "national: stopped ($?)" ;;
+            counties) timeout -k 60 300m python3 $W counties --budget "$CBUDGET" --wait 280 $ST $REDO_FLAG || echo "counties: stopped ($?)" ;;
             collect)  timeout -k 60 300m python3 $W collect --wait 280 || echo "collect: stopped ($?)" ;;
             refresh)  timeout -k 60 120m python3 $W refresh --budget 3.5 --wait 60 || echo "refresh: stopped ($?)" ;;
           esac
