@@ -271,6 +271,7 @@ def main_page():
     top_meta = (PL.get('meta') or {}).get('by_committee') or []; top_goog = (PL.get('google') or {}).get('by_committee') or []
     adv = GA.get('advertisers') or []
     gads_total = sum(v for _, v in (GA.get('weekly_total') or []))
+    pl_direct = (PL.get('meta') or {}).get('total_itemized', 0) + (PL.get('google') or {}).get('total_itemized', 0); pl_read = bool(pl_direct) or bool((PL.get('meta') or {}).get('by_month') or (PL.get('google') or {}).get('by_month'))
     donors_html = ''
     for d in DONORS[:25]:
         piece = DONOR_PIECES.get(d['key'])
@@ -285,7 +286,7 @@ def main_page():
 <div class="narrow head"><p class="k">The Watch report · Politics · The money</p><h1>{esc(title)}</h1><p class="dek">{esc(dek)}</p>
 <p class="byline">{('By <b>Claude</b> (' + esc(MODEL_NAME.get(USREP.get('model', ''), 'Claude')) + ', with web search) for The Watch, ' + when(USREP.get('written')) + '. ') if USREP else 'By <b>The Watch</b>, with pieces by Claude (Opus 5.5) through Anthropic’s API being written. '}FEC data read {FETCHED}; the sums refresh daily. {(str(len(USREP.get('sources') or [])) + ' sources, numbered in the text.') if USREP else ''}{' <b>This page is built on made-up data for testing.</b>' if MOCK else ''}</p></div>
 <div class="narrow body">
-<div class="stat-row"><div class="stat"><b>{usd(TOTAL_IE)}</b><span>outside money reported in the Senate and House races (independent expenditures, for and against)</span></div><div class="stat"><b>{money_won} of {decided}</b><span>decided Senate races went to the side with more outside money</span></div><div class="stat"><b>{usd((PL.get('meta') or {}).get('total_itemized', 0) + (PL.get('google') or {}).get('total_itemized', 0))}</b><span>paid straight to Meta and Google by committees this cycle, itemized; a floor</span></div><div class="stat"><b>{usd(gads_total)}</b><span>political ads on Google’s platforms since Jan. 2025, by Google’s own count</span></div></div>
+<div class="stat-row"><div class="stat"><b>{usd(TOTAL_IE)}</b><span>outside money reported in the Senate and House races (independent expenditures, for and against)</span></div><div class="stat"><b>{money_won} of {decided}</b><span>decided Senate races went to the side with more outside money</span></div><div class="stat">{f"<b>{usd(pl_direct)}</b><span>paid straight to Meta and Google by committees this cycle, itemized; a floor</span>" if pl_read else "<b>–</b><span>paid straight to Meta and Google: the platform payments (Schedule B) are not in the filings read so far</span>"}</div><div class="stat"><b>{usd(gads_total)}</b><span>political ads on Google’s platforms since Jan. 2025, by Google’s own count</span></div></div>
 {render_paras(USREP) if USREP else ''}
 
 <h2 id="seats">What a seat cost</h2>
