@@ -1,0 +1,42 @@
+name: The money, data only
+# Fetches the FEC and Google data for news/money/ and commits data/money.json (with its query log) and the rebuilt
+# pages, without writing anything with the API. Runs on a push of news/money/fetch.json or by hand; its own
+# concurrency group so it doesn't wait behind a long writing run.
+on:
+  push:
+    paths: ['news/money/fetch.json']
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: money-fetch
+  cancel-in-progress: false
+jobs:
+  fetch:
+    if: github.repository == 'BBOLDT86/lanscape-navigator'
+    runs-on: ubuntu-latest
+    timeout-minutes: 70
+    env:
+      FEC_API_KEY: ${{ secrets.FEC_API_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Fetch
+        run: |
+          timeout -k 30 55m python3 news/money/fetch.py || echo "fetch stopped with $?"
+          python3 -c "import json; d=json.load(open('news/money/data/money.json')); print(json.dumps(d.get('log'), indent=0)[:6000])"
+      - name: Build
+        run: |
+          python3 news/money/build.py
+          python3 news/wave/tools/make_pages.py
+      - name: Commit and push
+        run: |
+          git config user.name "The Watch writer"
+          git config user.email "the-watch@users.noreply.github.com"
+          git add news/money news/wave/*.html news/wave/pages.json
+          if git diff --cached --quiet; then echo "no changes"; exit 0; fi
+          git commit -qm "The money: data ($(date -u +%Y-%m-%dT%H:%MZ))"
+          for i in 1 2 3 4; do git pull --rebase -X theirs origin main && git push -q origin HEAD:main && exit 0; sleep 15; done
+          exit 1
