@@ -13,6 +13,7 @@ let W = null;
 const scrub = $('#scrub'), playBtn = $('#playBtn'), fsBtn = $('#fsBtn'), fsClose = $('#fsClose');
 opts.onTime = p => { if (scrub && !scrub.matches(':active')) scrub.value = Math.round(p * 1000); };
 opts.onReady = ctl => { W = ctl; window.WAVE = ctl; setPlayLabel(); };
+opts.onPick = c => showCounty(c.id);
 opts.fsTarget = stage;
 mount($('#wave'), opts).catch(e => { stage.classList.add('nogl'); stage.insertAdjacentHTML('beforeend', `<div class="nogl-msg"><b>The 3-D map needs WebGL.</b><span>Your browser could not start it. The write-up below has every number the picture shows.</span></div>`); console.warn(e); });
 function setPlayLabel() { if (!playBtn || !W) return; playBtn.querySelector('span').textContent = W.playing ? 'Pause' : 'Play'; playBtn.setAttribute('aria-pressed', W.playing ? 'true' : 'false'); }
@@ -42,6 +43,39 @@ async function share() {
 document.querySelectorAll('[data-share]').forEach(b => b.addEventListener('click', share));
 function toast(m) { let t = $('#toast'); if (!t) { t = document.createElement('div'); t.id = 'toast'; t.style.cssText = 'position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:var(--paper);padding:8px 14px;border-radius:999px;font-size:14px;z-index:99'; document.body.appendChild(t); } t.textContent = m; t.hidden = false; clearTimeout(t._t); t._t = setTimeout(() => { t.hidden = true; }, 1800); }
 
+/* the county notes: data/notes/<ST>.json, one file per state, written by Claude from the count (tools/write.py) */
+const shiftP = fetch('data/shift.json').then(r => r.json());
+const noteFiles = new Map(), NOTES = new Set(PAGE.notes || []), STATE_PAGES = PAGE.statePages || {};
+const STNAME = { AL: 'Alabama', AK: 'Alaska', AZ: 'Arizona', AR: 'Arkansas', CA: 'California', CO: 'Colorado', CT: 'Connecticut', DE: 'Delaware', FL: 'Florida', GA: 'Georgia', HI: 'Hawaii', ID: 'Idaho', IL: 'Illinois', IN: 'Indiana', IA: 'Iowa', KS: 'Kansas', KY: 'Kentucky', LA: 'Louisiana', ME: 'Maine', MD: 'Maryland', MA: 'Massachusetts', MI: 'Michigan', MN: 'Minnesota', MS: 'Mississippi', MO: 'Missouri', MT: 'Montana', NE: 'Nebraska', NV: 'Nevada', NH: 'New Hampshire', NJ: 'New Jersey', NM: 'New Mexico', NY: 'New York', NC: 'North Carolina', ND: 'North Dakota', OH: 'Ohio', OK: 'Oklahoma', OR: 'Oregon', PA: 'Pennsylvania', RI: 'Rhode Island', SC: 'South Carolina', SD: 'South Dakota', TN: 'Tennessee', TX: 'Texas', UT: 'Utah', VT: 'Vermont', VA: 'Virginia', WA: 'Washington', WV: 'West Virginia', WI: 'Wisconsin', WY: 'Wyoming' };
+const WORD = { LA: 'Parish', AK: 'Borough' };
+function noteFile(st) {
+  if (!noteFiles.has(st)) noteFiles.set(st, NOTES.has(st) ? fetch(`data/notes/${st}.json`).then(r => r.ok ? r.json() : null).catch(() => null) : Promise.resolve(null));
+  return noteFiles.get(st);
+}
+async function noteFor(st, f) { const d = await noteFile(st); return d && d.notes ? d.notes[f] || null : null; }
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const fmtM = v => v == null ? '–' : `<span class="${v > 0 ? 'b' : v < 0 ? 'r' : ''}">${v > 0 ? 'D+' : v < 0 ? 'R+' : 'Even '}${Math.abs(v).toFixed(1)}</span>`;
+function noteHTML(note, st) {
+  if (note) return `<div class="note">${note.t.split(/\n\s*\n/).map(p => `<p>${esc(p)}</p>`).join('')}</div><p class="meta">Written by Claude (Opus 5.5) from the count as of ${new Date(note.asOf).toLocaleString('en-US', { timeZone: 'America/New_York', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' })} ET, the 2024 baseline and Census ACS 2023 figures; rewritten when the count moves.${STATE_PAGES[st] && PAGE.st !== st ? ` <a href="${STATE_PAGES[st]}.html">The ${STNAME[st] || st} piece ›</a>` : ''}</p>`;
+  return `<div class="note"><p class="soon">${NOTES.has(st) ? 'No note for this county yet.' : `Notes for ${STNAME[st] || st}’s counties are being written.`}</p></div>${STATE_PAGES[st] && PAGE.st !== st ? `<p class="meta"><a href="${STATE_PAGES[st]}.html">The ${STNAME[st] || st} piece ›</a></p>` : ''}`;
+}
+function numsHTML(S, f) {
+  const v = S.counties[f]; if (!v) return '<p class="nums">No 2026 count reported yet.</p>';
+  const st = F2S[f.slice(0, 2)], stt = S.states[st], race = stt && stt.races && stt.races[v[4]];
+  return `<p class="nums"><b class="${v[2] >= 0 ? 'b' : 'r'}">${v[2] >= 0 ? 'Moved left' : 'Moved right'} ${Math.abs(v[2]).toFixed(1)} points</b><br>2024 Harris–Trump: ${fmtM(v[0])} on ${NUM.format(v[10])} votes<br>2026 ${race ? (race.key === 'S' ? 'Senate' : 'Governor') + ` (${race.dem.split(' ').pop()} v ${race.rep.split(' ').pop()})` : ''}: ${fmtM(v[1])} on ${NUM.format(v[7])} votes<br>${v[3] != null ? Math.round(v[3]) : '–'}% of the expected vote counted</p>`;
+}
+let cardFor = null;
+async function showCounty(f) {
+  const card = $('#countyCard'); if (!card) return;
+  const S = await shiftP; const st = F2S[f.slice(0, 2)] || ''; const name = S.names[f] || f; cardFor = f;
+  card.hidden = false;
+  card.innerHTML = `<button type="button" class="cx" aria-label="Close">×</button><div class="cc"><div><h3><small>${esc(STNAME[st] || st)}</small>${esc(name)} ${WORD[st] || 'County'}</h3>${numsHTML(S, f)}</div><div><div class="note"><p class="soon">Loading…</p></div></div></div>`;
+  card.querySelector('.cx').addEventListener('click', () => { card.hidden = true; cardFor = null; });
+  if (!document.fullscreenElement) { const r = card.getBoundingClientRect(); if (r.bottom > innerHeight || r.top < 0) card.scrollIntoView({ block: 'end', behavior: 'smooth' }); }
+  const note = await noteFor(st, f); if (cardFor !== f) return;
+  card.querySelector('.cc > div:last-child').innerHTML = noteHTML(note, st);
+}
+
 /* the county explorer */
 const tbl = $('#countyTable');
 if (tbl) {
@@ -57,9 +91,17 @@ if (tbl) {
       const [k, dir] = sort.split('-'); const m = dir === 'desc' ? -1 : 1;
       list.sort((a, b) => (k === 'n' ? a.n.localeCompare(b.n) : (a[k] - b[k])) * m);
       count.textContent = `${NUM.format(list.length)} counties`;
-      body.innerHTML = list.slice(0, 400).map(r => `<tr><td>${r.n}<small>, ${r.st}</small></td><td>${f(r.m24)}</td><td>${f(r.m26)}<small> ${r.race === 'S' ? 'Sen.' : 'Gov.'}</small></td><td><b class="${r.sh > 0 ? 'd' : 'r'}">${r.sh > 0 ? '+' : ''}${r.sh.toFixed(1)}</b></td><td>${NUM.format(r.t)}</td><td>${r.e != null ? Math.round(r.e) + '%' : '–'}</td></tr>`).join('') + (list.length > 400 ? `<tr><td colspan="6"><small>Showing 400 of ${NUM.format(list.length)}; search to narrow.</small></td></tr>` : '');
+      body.innerHTML = list.slice(0, 400).map(r => `<tr class="pick" data-f="${r.f}" title="Read this county’s note"><td>${r.n}<small>, ${r.st}</small></td><td>${f(r.m24)}</td><td>${f(r.m26)}<small> ${r.race === 'S' ? 'Sen.' : 'Gov.'}</small></td><td><b class="${r.sh > 0 ? 'd' : 'r'}">${r.sh > 0 ? '+' : ''}${r.sh.toFixed(1)}</b></td><td>${NUM.format(r.t)}</td><td>${r.e != null ? Math.round(r.e) + '%' : '–'}</td></tr>`).join('') + (list.length > 400 ? `<tr><td colspan="6"><small>Showing 400 of ${NUM.format(list.length)}; search to narrow.</small></td></tr>` : '');
     }
     q?.addEventListener('input', draw); sel?.addEventListener('change', () => { sort = sel.value; draw(); });
+    body.addEventListener('click', async ev => { // a row opens its note beneath it
+      const tr = ev.target.closest('tr.pick'); if (!tr || ev.target.closest('a')) return;
+      const open = tr.nextElementSibling; if (open && open.classList.contains('noterow')) { open.remove(); return; }
+      body.querySelectorAll('tr.noterow').forEach(x => x.remove());
+      const f = tr.dataset.f, st = F2S[f.slice(0, 2)] || '';
+      const nr = document.createElement('tr'); nr.className = 'noterow'; nr.innerHTML = `<td colspan="6"><p>Loading…</p></td>`; tr.after(nr);
+      const note = await noteFor(st, f); if (nr.parentNode) nr.firstElementChild.innerHTML = noteHTML(note, st);
+    });
     tbl.querySelectorAll('th[data-k]').forEach(th => th.addEventListener('click', () => { const k = th.dataset.k; sort = sort === k + '-desc' ? k + '-asc' : k + '-desc'; if (sel) sel.value = sort; draw(); }));
     draw();
     $('#csvBtn')?.addEventListener('click', () => {

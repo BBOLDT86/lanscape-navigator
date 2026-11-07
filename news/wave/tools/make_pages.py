@@ -148,6 +148,7 @@ def viz_block(views=True, race=True, hint=''):
     <button type="button" class="vb" id="fsBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>Full screen</button>
     <span class="hint">{hint}</span>
   </div>
+  <div class="county-card" id="countyCard" hidden aria-live="polite"></div>
 </section>
 """
 def foot():
@@ -176,6 +177,114 @@ def explorer(states=None, title='Explore every county'):
 <p>Search a county or a state’s two letters; click a heading to sort. The 2026 column is the Senate race where the state had one, otherwise the governor’s race. “Counted” is AP’s estimate of how much of the expected vote is in.</p>
 <div class="explore"><input id="q" type="search" placeholder="Search counties, or a state like TX" aria-label="Search counties"><select id="sortSel" aria-label="Sort"><option value="sh-desc">Biggest move left</option><option value="sh-asc">Biggest move right</option><option value="t-desc">Most votes</option><option value="m26-desc">Bluest 2026</option><option value="m26-asc">Reddest 2026</option><option value="n-asc">By name</option></select><button type="button" class="tbtn" id="csvBtn">Download CSV</button><span id="tcount" class="pill"></span></div>
 <div class="tblwrap"><table class="tbl" id="countyTable"><thead><tr><th data-k="n">County</th><th data-k="m24">2024</th><th data-k="m26">2026</th><th data-k="sh">Move</th><th data-k="t">Votes 2026</th><th data-k="e">Counted</th></tr></thead><tbody></tbody></table></div>
+"""
+
+# ---------- the states, written by Claude through the API (tools/write.py) ----------
+def _load(p):
+    try: return json.load(open(p, encoding='utf-8'))
+    except FileNotFoundError: return None
+REPORTS = {st: r for st in S['states'] if S['states'][st].get('use') for r in [_load(os.path.join(W, 'data', 'reports', st + '.json'))] if r and r.get('headline')}
+NOTE_STATES = sorted(st for st in S['states'] if os.path.exists(os.path.join(W, 'data', 'notes', st + '.json')))
+STATE_SLUG = {st: NAME[st].lower().replace(' ', '-') for st in NAME}
+STATE_PAGES = {st: STATE_SLUG[st] for st in REPORTS}
+MODEL_NAME = {'claude-opus-5-5': 'Claude Opus 5.5', 'claude-sonnet-5-5': 'Claude Sonnet 5.5', 'claude-fable-5-1': 'Claude Fable 5.1'}
+def page_ctx(): return {'statePages': STATE_PAGES, 'notes': NOTE_STATES}
+def swing_of(st): v, u = race_of(st); return (u['m26'] - u['m24']) if u else 0
+def when(iso):
+    try: return dt.datetime.fromisoformat(iso.replace('Z', '+00:00')).astimezone(dt.timezone(dt.timedelta(hours=-5))).strftime('%b. %-d, %Y')
+    except Exception: return ''
+
+def races_table(st):
+    out = ['<div class="tblwrap"><table class="tbl"><thead><tr><th>Race</th><th>2024 presidential</th><th>2026</th><th>Swing</th><th>Counted</th></tr></thead><tbody>']
+    for k, u in S['states'][st]['races'].items():
+        win = u.get('winner'); dem, rep = u['dem'] or '', u['rep'] or ''; dp = 'D' if u['demParty'] == 'D' else 'I'
+        who = f"{esc(dem)} ({dp}) v {esc(rep)} (R)"
+        if win == 'D': who = f"<b class='d'>{esc(dem)}</b> ({dp}) beat {esc(rep)} (R)"
+        elif win == 'R': who = f"<b class='r'>{esc(rep)}</b> (R) beat {esc(dem)} ({dp})"
+        else: who += ' <small>(not called)</small>'
+        sw = u['m26'] - u['m24']
+        out.append(f"<tr><td>{esc(u['office'])}<br><small>{who}</small></td><td class='{mclass(u['m24'])}'>{margin(u['m24'])}</td><td class='{mclass(u['m26'])}'>{margin(u['m26'])}<br><small>{n(u['demVotes'])} – {n(u['repVotes'])}</small></td><td><b class='{mclass(sw)}'>{pts(sw)}</b></td><td>{u['eevp'] if u['eevp'] is not None else '–'}%</td></tr>")
+    out.append('</tbody></table></div>')
+    return ''.join(out)
+
+def render_paras(rep):
+    """The piece's paragraphs, with the API's web citations as numbered footnote links."""
+    out = []; first = True
+    for p in rep['paras']:
+        if p['t'] == 'h2': out.append(f"<h2>{esc(p['text'])}</h2>"); continue
+        t = p['text']; cuts = sorted(p.get('cites') or [], key=lambda c: c[0]); html_ = ''; pos = 0; pending = []
+        def flush():
+            nonlocal html_, pending
+            if pending: html_ += '<sup>' + ', '.join(f'<a href="#src-{s}">{s}</a>' for s in sorted(set(pending))) + '</sup>'; pending = []
+        for off, src in cuts:
+            off = max(pos, min(off, len(t)))
+            if off > pos: flush(); html_ += esc(t[pos:off]); pos = off
+            pending.append(src)
+        flush(); html_ += esc(t[pos:])
+        cls = ' class="lede"' if first else ''
+        out.append(f"<p{cls}>{html_}</p>"); first = False
+    return ''.join(out)
+
+def state_callouts(rep):
+    out = []; t0 = 3.0
+    for i, c in enumerate((rep.get('callouts') or [])[:4]):
+        if c['f'] not in S['counties']: continue
+        out.append({'at': 'county:' + c['f'], 'html': f"<b>{esc(c['label'])}</b><span>{esc(c['note'])}</span>", 'off': [[0.08, -0.26], [-0.34, 0.08], [0.1, 0.1], [-0.36, -0.22]][i % 4], 'from': t0 + i * 4.2, 'to': t0 + i * 4.2 + 3.9})
+    return out
+
+def state_page(st, rep):
+    rs = byst.get(st, []); stt = stats(rs); v, u = race_of(st); slug = STATE_SLUG[st]
+    title = rep['headline']; dek = rep['dek']; model = MODEL_NAME.get(rep.get('model', ''), rep.get('model', 'Claude'))
+    mapped = bool(rs) and st != 'HI'
+    viz = {'dur': 22, 'loop': True, 'title': {'kicker': 'The wave · ' + NAME[st], 'h2': f"{stt['left']} of {stt['n']} {county_word(st)}<br>moved left" if rs else f"{NAME[st]}<br>moved {pts(u['m26'] - u['m24'])}", 'what': county_word(st)}, 'callouts': state_callouts(rep) if mapped else []}
+    if mapped: viz['focus'] = {'states': [st], 'pad': 1.2}
+    page = {'slug': slug, 'url': PUBLIC + slug + '.html', 'shareText': f"{title}: {dek}", 'viz': viz, 'states': [st], 'st': st, 'sort': 'sh-desc', **page_ctx()}
+    area = next((a for a in AREAS if st in a['states']), None)
+    order = sorted(REPORTS, key=lambda s: NAME[s]); i = order.index(st); prev, nxt = order[i - 1], order[(i + 1) % len(order)]
+    srcs = rep.get('sources') or []; k = len(srcs)
+    sources = '<ol>' + ''.join(f'<li id="src-{s["n"]}">{esc(s["title"])}. <a href="{esc(s["url"])}" rel="noopener">{esc(s["url"])}</a></li>' for s in srcs) + \
+        f'<li id="src-{k + 1}">The New York Times, 2026 election results pages (county-level vote counts provided by The Associated Press), one file per state, read {ASOF}. <a href="https://www.nytimes.com/interactive/2026/11/03/us/elections/results-senate.html" rel="noopener">https://www.nytimes.com/interactive/2026/11/03/us/elections/results-senate.html</a></li>' + \
+        f'<li id="src-{k + 2}">The Watch’s Election Desk, 2024 presidential results by county (the baseline every 2026 county is compared with). <a href="https://bboldt86.github.io/lanscape-navigator/election2026/" rel="noopener">https://bboldt86.github.io/lanscape-navigator/election2026/</a></li></ol>'
+    stat_row = (f"<div class=\"stat-row\"><div class=\"stat d\"><b>{stt['left']}</b><span>of {stt['n']} {county_word(st)} moved toward the Democrats</span></div><div class=\"stat r\"><b>{stt['right']}</b><span>moved toward the Republicans</span></div><div class=\"stat\"><b>{pts(stt['median'])}</b><span>the typical {county_word(st, False)}’s move, in points</span></div><div class=\"stat\"><b>{stt['flipD']}</b><span>went from a Trump win to a Democratic one</span></div></div>" if rs else
+                f"<div class=\"stat-row\"><div class=\"stat {mclass(u['m24'])}\"><b>{margin(u['m24'])}</b><span>Harris–Trump, 2024</span></div><div class=\"stat {mclass(u['m26'])}\"><b>{margin(u['m26'])}</b><span>{esc(u['office'])}, 2026</span></div><div class=\"stat\"><b>{pts(u['m26'] - u['m24'])}</b><span>the state’s move, in points</span></div><div class=\"stat\"><b>{u['eevp'] if u['eevp'] is not None else '–'}%</b><span>of the expected vote counted</span></div></div>")
+    body = f"""{head(title, dek, slug, 'share', published=rep.get('written'))}
+{viz_block(views=False, race=False, hint='Drag to turn the map, scroll to zoom, hover a county for its numbers; tap or click one to read its note. Full screen for a recording.')}
+<main>
+<div class="narrow head"><p class="k">The wave · state by state · {esc(NAME[st])}</p><h1>{esc(title)}</h1><p class="dek">{esc(dek)}</p>
+<p class="byline">By <b>Claude</b> ({esc(model)}, with web search) for The Watch, {when(rep.get('written'))}, from the count as of {when(rep.get('asOf'))}; the tables below refresh with the count (last {built.strftime('%b. %-d, %-I:%M %p')} ET, AP via The New York Times), and the piece is rewritten when a race is called or a margin moves more than a point. {len(srcs)} sources. <a href="./#states">All the states ›</a></p></div>
+<div class="narrow body">
+{stat_row}
+{render_paras(rep)}
+<h2>The race{'s' if len(S['states'][st]['races']) > 1 else ''}</h2>
+{races_table(st)}
+<p><small>The map uses the {'Senate' if v['use'] == 'S' else 'governor’s'} race for this state’s {county_word(st)}. Counts from AP via The New York Times, as of {ASOF}; 2024 baseline from The Watch’s Election Desk.<sup><a href="#src-{k + 1}">{k + 1}</a>, <a href="#src-{k + 2}">{k + 2}</a></sup></small></p>
+{(f'<h2>The biggest moves</h2>{county_list(rs, 8)}<h2>The biggest {county_word(st)}</h2>{county_list(rs, 8, key=lambda r: -r["t"])}' if rs else '')}
+{explorer([st], 'Every ' + county_word(st, False) + ' in ' + NAME[st]) if rs else ''}
+<div class="next"><span class="k">Next state</span><a href="{STATE_SLUG[nxt]}.html">{esc(REPORTS[nxt]['headline'])}</a><p style="margin:8px 0 0;font-size:14px;color:var(--ink-2)"><a href="{STATE_SLUG[prev]}.html">‹ {esc(NAME[prev])}</a> · <a href="./#states">All the states</a> · <a href="./">The whole wave</a>{f' · <a href="{area["slug"]}.html">{esc(area["short"])}</a>' if area else ''}</p></div>
+<h2>Sources</h2><div class="sources">{sources}</div>
+</div>
+</main>
+<script>window.WAVE_PAGE = {json.dumps(page)};</script>
+{foot()}"""
+    open(os.path.join(W, slug + '.html'), 'w', encoding='utf-8').write(body)
+    return {'st': st, 'name': NAME[st], 'slug': slug, 'title': title, 'dek': dek, 'summary': rep.get('summary', ''), 'swing': round(swing_of(st), 1), 'race': v['use'], 'winner': u.get('winner'), 'written': rep.get('written')}
+
+def states_section():
+    sts = sorted((st for st, v in S['states'].items() if v.get('use')), key=lambda st: -swing_of(st))
+    cards = []
+    for st in sts:
+        v, u = race_of(st); sw = swing_of(st); rep = REPORTS.get(st); word = 'Senate' if v['use'] == 'S' else 'Governor'
+        who = f"{esc(last(u['dem']))} v {esc(last(u['rep']))}" + (f", <b class='{'d' if u['winner'] == 'D' else 'r'}'>{esc(last(u['dem'] if u['winner'] == 'D' else u['rep']))}</b>" if u.get('winner') else ', not called')
+        num = f"<span class='sn'><b class='{mclass(sw)}'>{pts(sw)}</b> · {word}: {who}</span>"
+        if rep: cards.append(f'<a class="sc" href="{STATE_SLUG[st]}.html"><span class="st">{esc(NAME[st])}</span>{num}<b>{esc(rep["headline"])}</b><span>{esc(rep.get("summary") or rep["dek"])}</span></a>')
+        else: cards.append(f'<div class="sc soon"><span class="st">{esc(NAME[st])}</span>{num}<span>Being written.</span></div>')
+    done = len(REPORTS); total = len(sts)
+    if not done: return f"""<h2 id="states">Every state</h2>
+<p>A piece for each of the {total} states with a Senate or governor’s race is being written, reported with web search by Claude Opus 5.5 through Anthropic’s API with its numbers locked to the count above, along with a note on every county. They appear here as they are finished.</p>
+"""
+    return f"""<h2 id="states">Every state</h2>
+<p>One piece for each of the {total} states with a Senate or governor’s race, reported with web search and written by Claude Opus 5.5 through Anthropic’s API, its numbers locked to the count above: {done} written so far{', the rest being written' if done < total else ''}. Sorted by how far the state moved. {f'Tap any county on the map, or a row in the tables, for a note on what it did; notes are written for {len(NOTE_STATES)} states so far.' if NOTE_STATES else ''}</p>
+<div class="states-grid">{''.join(cards)}</div>
 """
 
 # ---------- the areas ----------
@@ -262,10 +371,10 @@ def area_page(a):
     viz = {'focus': {'states': a['states'], 'pad': a.get('pad', 1.18), **({'bbox': a['bbox']} if a.get('bbox') else {})}, 'dur': 22, 'loop': True,
            'title': {'kicker': 'The wave · ' + a['short'], 'h2': f"{st['right']} of {st['n']} counties<br>moved right" if a['slug'] == 'moved-right' else f"{st['left']} of {st['n']} counties<br>moved left", 'what': 'counties'},
            'callouts': area_callouts(a, st)}
-    page = {'slug': a['slug'], 'url': PUBLIC + a['slug'] + '.html', 'shareText': f"{title}: {dek}", 'viz': viz, 'states': a['states'], 'sort': 'sh-desc' if a['slug'] != 'moved-right' else 'sh-asc'}
+    page = {'slug': a['slug'], 'url': PUBLIC + a['slug'] + '.html', 'shareText': f"{title}: {dek}", 'viz': viz, 'states': a['states'], 'sort': 'sh-desc' if a['slug'] != 'moved-right' else 'sh-asc', **page_ctx()}
     others = [x for x in AREAS if x['slug'] != a['slug']]
     body = f"""{head(title, dek, a['slug'], a['slug'], published=PUB_ISO)}
-{viz_block(views=False, race=False, hint='Drag to turn the map, scroll to zoom, hover or tap a county for its numbers. Full screen for a recording.')}
+{viz_block(views=False, race=False, hint='Drag to turn the map, scroll to zoom, hover a county for its numbers; tap or click one to read its note. Full screen for a recording.')}
 <main>
 <div class="narrow head"><p class="k">The wave · part {a['n']} of 5 · {a['short']}</p><h1>{esc(title)}</h1><p class="dek">{esc(dek)}</p>
 <p class="byline">By <b>Claude</b> (Claude Fable 5.1) for The Watch, {PUBLISHED.strftime('%b. %-d, %Y')}; the numbers refresh with the count (last {built.strftime('%b. %-d, %-I:%M %p')} ET). Counts as of {ASOF}, AP via The New York Times. <a href="./">The whole wave ›</a></p></div>
@@ -274,6 +383,7 @@ def area_page(a):
 {area_prose(a, st)}
 <h2>The states</h2>
 {state_table(a['states'])}
+{('<p class="state-links"><span class="k">State by state</span> ' + ' · '.join(f'<a href="{STATE_SLUG[s]}.html">{esc(NAME[s])}</a>' for s in a['states'] if s in REPORTS) + '</p>') if any(s in REPORTS for s in a['states']) else ''}
 <h2>The biggest moves {'right' if a['slug']=='moved-right' else 'left'}</h2>
 {county_list(rs, 10, key=(lambda r: r['sh']) if a['slug']=='moved-right' else (lambda r: -r['sh']))}
 <h2>The biggest counties</h2>
@@ -298,9 +408,9 @@ def main_page(cards):
     tallest_east = sorted([r for r in rows if r['st'] not in ('TX', 'KS')], key=lambda r: -r['sh'])[:3]
     regions = {'South': ['TX', 'GA', 'NC', 'SC', 'FL', 'VA', 'MS', 'AL', 'LA', 'KY', 'WV', 'TN', 'AR', 'OK'], 'Midwest': ['OH', 'IA', 'KS', 'MI', 'WI', 'MN', 'NE', 'IL', 'SD'], 'Northeast': ['VT', 'ME', 'NH', 'NY', 'MA', 'MD', 'NJ', 'PA', 'DE', 'RI', 'CT'], 'West': ['CA', 'OR', 'ID', 'MT', 'WY', 'NV', 'AZ', 'CO', 'NM', 'HI']}
     reg_rows = ''.join(f"<tr><td>{k}</td><td>{stats([r for r in rows if r['st'] in v])['n']}</td><td class='d'>{stats([r for r in rows if r['st'] in v])['left']}</td><td class='r'>{stats([r for r in rows if r['st'] in v])['right']}</td><td><b class='d'>{pts(stats([r for r in rows if r['st'] in v])['median'])}</b></td><td>{pts(stats([r for r in rows if r['st'] in v])['weighted'])}</td><td>{stats([r for r in rows if r['st'] in v])['flipD']}</td></tr>" for k, v in regions.items())
-    page = {'slug': 'the-wave', 'url': PUBLIC, 'shareText': f"{title}. The Watch drew every county's move since 2024 as a 3-D map, and replayed election night seat by seat.", 'viz': {'view': 'wave', 'loop': True}}
+    page = {'slug': 'the-wave', 'url': PUBLIC, 'shareText': f"{title}. The Watch drew every county's move since 2024 as a 3-D map, and replayed election night seat by seat.", 'viz': {'view': 'wave', 'loop': True}, **page_ctx()}
     body = f"""{head(title, dek, '', 'share', published=PUB_ISO)}
-{viz_block(views=True, race=True, hint='Two views: the wave (every county’s move since 2024) and election night (the calls and the count, 6 p.m. to 3 a.m. ET). Drag to turn the map, scroll to zoom, hover or tap a county. Full screen to record it.')}
+{viz_block(views=True, race=True, hint='Two views: the wave (every county’s move since 2024) and election night (the calls and the count, 6 p.m. to 3 a.m. ET). Drag to turn the map, scroll to zoom, hover a county for its numbers, click one to read its note. Full screen to record it.')}
 <main>
 <div class="narrow head"><p class="k">The Watch report · Politics · The wave</p><h1>{esc(title)}</h1><p class="dek">{esc(dek)}</p>
 <p class="byline">By <b>Claude</b> (Claude Fable 5.1) for The Watch, {PUBLISHED.strftime('%b. %-d, %Y')}; the numbers refresh with the count (last {built.strftime('%b. %-d, %-I:%M %p')} ET). Counts as of {ASOF}, AP via The New York Times; the 2024 baseline is The Watch’s Election Desk. {len(SOURCES)} sources.</p></div>
@@ -349,6 +459,8 @@ def main_page(cards):
 <p>Each of these takes a region of the map, turns the camera on it and walks through its counties.</p>
 <div class="cards">{''.join(f'<a class="card" href="{x["slug"]}.html"><img src="{x["slug"]}.png" alt="" loading="lazy"><div class="cb"><div class="n">Part {x["n"]} · {esc(x["short"])}</div><h3>{esc(x["title"])}</h3><p>{esc(x["dek"])}</p></div></a>' for x in cards)}</div>
 
+{states_section()}
+
 <h2>How we made it</h2>
 <ul>
 <li><b>The 2026 counts</b> are The New York Times’s public results files, one per state, which carry The Associated Press’s county-level vote counts, AP’s race calls and its estimate of the expected vote. They were read {ASOF} and are refreshed every three hours while the count continues; this page and its numbers are rebuilt from them.{c('nyt')}</li>
@@ -358,6 +470,7 @@ def main_page(cards):
 <li><b>What is left out:</b> {', '.join(NAME[s] for s in S['noRace'])} (no race); Alaska (no county map); Hawaii (off the frame); any county with no 2026 votes reported yet. Connecticut reports by town, so its towns are summed into the eight historical counties the map draws. Cities that AP reports inside a county it also reports whole (Michigan’s, East St. Louis) are not double-counted; Virginia’s independent cities, Baltimore, St. Louis and Carson City are counties of their own.</li>
 <li><b>Still counting:</b> California ({race_of('CA')[1]['eevp']:.0f}% of the expected vote in), Oregon ({race_of('OR')[1]['eevp']:.0f}%), Maryland ({S['states']['MD']['races']['G']['eevp']:.0f}%) and New York ({S['states']['NY']['races']['G']['eevp']:.0f}%) will move. Late-counted mail ballots on the West Coast have leaned Democratic in recent elections, so their blocks will more likely grow than shrink.{c('nyt')}</li>
 <li><b>The replay’s timing</b> is modeled as described above; its calls, counts and poll-close times are not.</li>
+<li><b>The state pieces and the county notes</b> are written by Claude Opus 5.5 through Anthropic’s API (<code>tools/write.py</code>): each state piece from the data block for that state plus web search, with every web claim carrying the search’s own citation, and every vote number taken from the count rather than the web; each county note from the county’s numbers, its rank in the state, three comparable counties and Census ACS 2023 context, nothing else. Notes are rewritten when a county’s count moves by more than a point; pieces when a race is called or its margin moves. What it cost is in <a href="data/spend.json">spend.json</a>.</li>
 <li><b>The data</b> behind both views is published with this page: <a href="data/shift.json">shift.json</a> (every county) and <a href="data/night.json">night.json</a> (every race and call), and the table below downloads as a CSV.</li>
 </ul>
 
@@ -371,7 +484,8 @@ def main_page(cards):
     return {'title': title, 'dek': dek}
 
 cards = [area_page(a) for a in AREAS]
+state_cards = [state_page(st, rep) for st, rep in sorted(REPORTS.items())]
 mainp = main_page(cards)
-json.dump({'v': 1, 'built': BUILT_ISO, 'published': PUB_ISO, 'asOf': S['asOf'], 'title': mainp['title'], 'dek': mainp['dek'], 'pct': PCT, 'left': ALL['left'], 'right': ALL['right'], 'counted': ALL['n'], 'median': round(ALL['median'], 1), 'starr': round(starr['sh'], 1), 'areas': cards, 'control': ctl},
+json.dump({'v': 1, 'built': BUILT_ISO, 'published': PUB_ISO, 'asOf': S['asOf'], 'title': mainp['title'], 'dek': mainp['dek'], 'pct': PCT, 'left': ALL['left'], 'right': ALL['right'], 'counted': ALL['n'], 'median': round(ALL['median'], 1), 'starr': round(starr['sh'], 1), 'areas': cards, 'states': sorted(state_cards, key=lambda x: -x['swing']), 'notes': NOTE_STATES, 'control': ctl},
           open(os.path.join(W, 'pages.json'), 'w', encoding='utf-8'), indent=1, ensure_ascii=False)
-print('wrote index.html,', ', '.join(a['slug'] + '.html' for a in AREAS), 'and pages.json;', PCT, '% left,', ALL)
+print('wrote index.html,', ', '.join(a['slug'] + '.html' for a in AREAS), f'{len(state_cards)} state pages', 'and pages.json;', PCT, '% left,', ALL)

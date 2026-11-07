@@ -207,7 +207,7 @@ function shiftColor(sh, out) { // blue for a move left, red for a move right; br
 
 /* ---------- the module ---------- */
 export async function mount(el, opts = {}) {
-  const O = Object.assign({ view: 'wave', mode: 'hero', autoplay: true, loop: true, race: 'auto', onReady: null, onTime: null, hud: true, interactive: true, dpr: null, focus: null, callouts: null, title: null, dur: null }, opts);
+  const O = Object.assign({ view: 'wave', mode: 'hero', autoplay: true, loop: true, race: 'auto', onReady: null, onTime: null, onPick: null, hud: true, interactive: true, dpr: null, focus: null, callouts: null, title: null, dur: null }, opts);
   el.classList.add('wave-root'); el.classList.toggle('wave-hero', O.mode === 'hero');
   el.innerHTML = `<canvas class="wave-canvas" aria-hidden="true"></canvas><svg class="wave-leaders" aria-hidden="true"></svg><div class="wave-hud" hidden></div><div class="wave-tip" hidden></div>`;
   const canvas = el.querySelector('canvas'), hud = el.querySelector('.wave-hud'), leaders = el.querySelector('.wave-leaders'), tip = el.querySelector('.wave-tip');
@@ -432,7 +432,9 @@ export async function mount(el, opts = {}) {
     el.addEventListener('pointermove', onMove);
     el.addEventListener('pointerleave', () => { tip.hidden = true; if (hoverId !== -1) { hoverId = -1; cmat.uniforms.uHover.value = -1; draw(); } });
     el.addEventListener('pointerdown', ev => { if (O.mode === 'hero') return; dragging = { x: ev.clientX, y: ev.clientY, az: cam.az, el: cam.el, moved: false }; el.setPointerCapture(ev.pointerId); });
-    el.addEventListener('pointerup', ev => { if (dragging && !dragging.moved && ev.pointerType === 'touch') { const h = pick(ev); if (h) { hoverId = h.i; cmat.uniforms.uHover.value = h.i; showTip(h.i, ev); draw(); } else tip.hidden = true; } dragging = null; });
+    el.addEventListener('pointerup', ev => { // a tap or a click (not a drag): the tip on touch, and the page's county note either way
+      if (dragging && !dragging.moved) { const h = pick(ev); if (h) { hoverId = h.i; cmat.uniforms.uHover.value = h.i; if (ev.pointerType === 'touch') showTip(h.i, ev); draw(); if (O.onPick && view === 'wave') O.onPick(C[h.i], stat[h.i]); } else if (ev.pointerType === 'touch') tip.hidden = true; }
+      dragging = null; });
     el.addEventListener('wheel', ev => { if (O.mode === 'hero') return; ev.preventDefault(); userCam = userCam || Object.assign({}, cam); userCam.dist = clamp(userCam.dist * (1 + ev.deltaY * 0.001), 450, 3200); Object.assign(cam, userCam); draw(); }, { passive: false });
   }
 

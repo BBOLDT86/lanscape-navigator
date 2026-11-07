@@ -110,3 +110,38 @@ button{cursor:pointer;background:none;border:0;padding:0}
 .next a{font:400 24px/1.15 var(--serif);text-decoration:none}
 .next a:hover{color:var(--brass-ink)}
 .pill{display:inline-block;border:1px solid var(--rule-2);border-radius:999px;padding:1px 8px;font-size:12px;color:var(--ink-2);margin-left:6px;vertical-align:middle}
+/* the county note: under the map when a county is tapped, and under a row of the explorer */
+.county-card{background:#0b1526;color:#dfe7f1;border-top:1px solid rgba(255,255,255,.1);padding:14px 20px 16px}
+.county-card .cc{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:6px 32px;align-items:start}
+.county-card h3{margin:0 0 4px;font:400 26px/1.1 var(--serif);color:#fff}
+.county-card h3 small{display:block;font:600 12px var(--sans);letter-spacing:.08em;text-transform:uppercase;color:#aebbcb;margin-bottom:6px}
+.county-card .nums{margin:0;font-size:14px;line-height:1.5;color:#cfdbeb}
+.county-card .nums b{color:#fff;font-weight:600}
+.county-card .nums .b{color:#8fcaff;font-weight:600}.county-card .nums .r{color:#ff9478;font-weight:600}
+.county-card .note{margin:0;font-size:16.5px;line-height:1.55;color:#e9f0f8;max-width:62ch}
+.county-card .note p{margin:0 0 10px}
+.county-card .note .soon{color:#aebbcb;font-style:italic}
+.county-card .meta{margin:8px 0 0;font-size:12.5px;color:#8492a6}
+.county-card .meta a{color:#cfdbeb}
+.county-card .cx{position:absolute;right:14px;top:10px;color:#aebbcb;font-size:22px;line-height:1;padding:4px 8px}
+.county-card .cx:hover{color:#fff}
+.county-card{position:relative}
+@media (max-width:720px){.county-card .cc{grid-template-columns:1fr;gap:8px}.county-card .note{font-size:15.5px}}
+.tbl tr.pick{cursor:pointer}
+.tbl tr.pick:hover td{background:var(--brass-soft)}
+.tbl tr.noterow td{white-space:normal;text-align:left;background:var(--raise);padding:12px 14px 14px;font-size:15px;line-height:1.5;border-left:3px solid var(--brass)}
+.tbl tr.noterow p{margin:0 0 8px}
+.tbl tr.noterow .meta{font-size:12.5px;color:var(--ink-3)}
+/* every state */
+.states-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,250px),1fr));gap:10px;margin:14px 0 30px}
+.sc{display:block;text-decoration:none;background:var(--raise);border:1px solid var(--rule);border-radius:10px;padding:12px 14px 13px;font-size:14px;line-height:1.4;color:var(--ink-2)}
+.sc .st{display:block;font:600 12px var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--brass-ink);margin-bottom:3px}
+.sc .sn{display:block;font-size:13px;color:var(--ink-3);margin-bottom:6px}
+.sc .sn b{font-size:14px}
+.sc b.d{color:var(--dem)}.sc b.r{color:var(--rep)}
+.sc > b{display:block;font:600 16px/1.3 var(--sans);color:var(--ink);margin:0 0 4px}
+a.sc:hover{border-color:var(--brass)}
+a.sc:hover > b{text-decoration:underline}
+.sc.soon{color:var(--ink-3)}
+.state-links{font-size:15px;margin:-6px 0 18px}
+.state-links .k{margin-right:6px}

@@ -1821,7 +1821,7 @@ async function heroFill() {
   card.innerHTML = `<div><span class="rk">${T('Politics')} · ${T('The Watch report')}</span>
       <h2 class="nolc"><a href="wave/">${esc(pg.title)}</a></h2><p class="hd nolc">${esc(pg.dek)}</p>
       <p class="hb2">${T('By Claude for The Watch. Counts: AP via The New York Times, as of {when} ET. Two views: the wave and election night, in 3-D, drawn live from the data.', { when: esc(when) })}</p></div>
-    <div><ul class="hero-areas"><li class="k">${T('Five places, up close')}</li>${(pg.areas || []).map(a => `<li><a href="wave/${esc(a.slug)}.html"><span class="n">${a.n}</span><span><b class="nolc">${esc(a.title)}</b><span class="nolc">${esc(a.dek)}</span></span></a></li>`).join('')}</ul></div>`;
+    <div><ul class="hero-areas"><li class="k">${T('Five places, up close')}</li>${(pg.areas || []).map(a => `<li><a href="wave/${esc(a.slug)}.html"><span class="n">${a.n}</span><span><b class="nolc">${esc(a.title)}</b><span class="nolc">${esc(a.dek)}</span></span></a></li>`).join('')}${(pg.states || []).length ? `<li><a href="wave/#states"><span class="n">+</span><span><b class="nolc">${T('Every state, and a note on every county')}</b><span class="nolc">${T('{n} state pieces so far, reported with web search and written by Claude Opus 5.5 through the API; tap any county on the map for its note.', { n: pg.states.length })}</span></span></a></li>` : ''}</ul></div>`;
   heroMount();
 }
 async function heroMount() {

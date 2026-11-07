@@ -444,6 +444,37 @@ the pages.
 - The front's hero (`heroHTML()`, `heroMount()` in `index.html`) loads `wave/wave.js` the first time the front draws
   and unmounts it when the reader leaves; the reader's last view (wave or night) is kept in `watch.hero`.
 
+### The wave, written (`news/wave/tools/write.py`; `.github/workflows/wave-write.yml`)
+
+Claude, through Anthropic's API (Claude Opus 5.5), writes two more layers over the data:
+- **A piece for every state with a race** (45), `wave/data/reports/<ST>.json`, published as `wave/<state-name>.html`
+  with the map turned on that state and four county callouts the piece chose. One Messages call per state, with web
+  search (up to 12 searches, `user_location` set to the state) and `output_config.effort` high: the state's data block
+  (the races, every county, the biggest moves and counties, Census context) goes in the prompt, every vote number must
+  come from it, and every claim from the web carries the search's own citation, which the page renders as a numbered
+  source. The reply follows a fixed skeleton (HEADLINE / DEK / SUMMARY / BODY / CALLOUTS); `parse_skeleton()` keeps each
+  citation at the end of the text block it supports. About $3–4 a state. A piece is rewritten when a race is called or
+  its margin moves more than a point (`state_stale()`).
+- **A note for every county** (about 2,775), `wave/data/notes/<ST>.json`, one file per state, shown when a reader taps a
+  county on the map (`onPick` in `wave.js`, the card under the map in `article.js`) or a row of the explorer. A Message
+  Batch (half price), effort low, from the county's numbers, its rank in its state, three comparable counties and the
+  Census figures, nothing else; about a cent each. A note is rewritten when the county's move changes by more than a
+  point or its count passes 95% (`note_stale()`). A batch still out is recorded in `data/notes/_batch.json` and picked
+  up by `collect`.
+- **Census context**, `wave/data/context.json`: population, median household income, Hispanic and Black shares and the
+  share of adults with a degree from the ACS 2023 five-year estimates (`api.census.gov`, keyless; `CENSUS_API_KEY` is
+  optional). Connecticut's planning regions don't match the map's counties, so it has none.
+
+Every response's usage is priced (`PRICE` in `write.py`: the published rates, batch at half) and appended to
+`wave/data/spend.json`; `write.py cost` sums it. A run stops starting new pieces once its `--budget` is spent, and a
+batch is sized to fit its budget before it is submitted. The workflow needs the repository secret `ANTHROPIC_API_KEY`.
+**Run workflow** with `job: both` writes everything (`budget` for the pieces, `counties_budget` for the notes); the
+schedule (every six hours until Nov. 30) runs `refresh`, which collects a pending batch and rewrites what the count
+has moved, within $3.50 a day. `write.py check` validates the files (word counts, no quotation over 25 words, callouts
+on the map); `--mock` writes made-up pieces to test the pages without the API; `--dry` prints a prompt.
+`make_pages.py` builds the state pages from the reports, lists them on the main page (“Every state”) and in
+`pages.json` (`states`, `notes`), and tells each page which states have notes (`WAVE_PAGE.notes`, `statePages`).
+
 ## The front package (`data/front.json`)
 
 When one story should lead the front page, `news/data/front.json` puts a package above the lead from the feeds: a lead

@@ -1,0 +1,103 @@
+name: The wave, written
+# Claude (the API, Opus 5.5) writes the wave's state pieces and county notes from news/wave/data/shift.json:
+# news/wave/tools/write.py. Run by hand to write them (the big spend: see the budget inputs), and every six hours
+# until Nov. 30, 2026 to pick up a batch still out and rewrite what the count has moved, within a small daily budget.
+# Needs the repository secret ANTHROPIC_API_KEY (Settings -> Secrets and variables -> Actions). Spending is logged
+# to news/wave/data/spend.json; see news/UPDATER.md.
+on:
+  schedule:
+    - cron: '17 */6 * * *'
+  workflow_dispatch:
+    inputs:
+      job:
+        description: 'What to write'
+        type: choice
+        default: both
+        options: [both, states, counties, collect, refresh]
+      budget:
+        description: 'Dollars the state pieces may spend this run (Opus 5.5 with web search; about $3-4 a state)'
+        default: '140'
+      counties_budget:
+        description: 'Dollars the county notes may spend (Batch API; all 2,775 fit in about $25)'
+        default: '40'
+      effort:
+        description: 'Thinking effort for the state pieces'
+        type: choice
+        default: high
+        options: [medium, high, xhigh, max]
+      states:
+        description: 'Only these states, comma-separated (e.g. TX,OH); empty = every state with a race'
+        default: ''
+      redo:
+        description: 'Rewrite pieces and notes that are already written'
+        type: boolean
+        default: false
+permissions:
+  contents: write
+concurrency:
+  group: counties2026
+  cancel-in-progress: false
+jobs:
+  write:
+    if: github.repository == 'BBOLDT86/lanscape-navigator'
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    env:
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      CENSUS_API_KEY: ${{ secrets.CENSUS_API_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check the key and the calendar
+        run: |
+          if [ -z "$ANTHROPIC_API_KEY" ]; then echo "::error::ANTHROPIC_API_KEY is not set (Settings -> Secrets and variables -> Actions)"; exit 1; fi
+          if [ "${{ github.event_name }}" = "schedule" ] && [ "$(date -u +%Y%m%d)" -gt 20261130 ]; then echo "past Nov. 30, 2026: nothing to do"; echo "SKIP=1" >> "$GITHUB_ENV"; fi
+      - name: Census context for the county notes
+        if: env.SKIP != '1'
+        run: |
+          python3 news/wave/tools/write.py context || echo "context - Census could not be read; the notes go without it"
+      - name: Write (by hand)
+        if: env.SKIP != '1' && github.event_name == 'workflow_dispatch'
+        run: |
+          JOB="${{ inputs.job }}"; REDO=""; ST=""
+          if [ "${{ inputs.redo }}" = "true" ]; then REDO="--redo"; fi
+          if [ -n "${{ inputs.states }}" ]; then ST="--states ${{ inputs.states }}"; fi
+          # each step is time-limited so the commit below always runs; a piece is saved as soon as it is written, and a
+          # batch still out when the clock runs down is collected by the next scheduled run
+          W=news/wave/tools/write.py
+          case "$JOB" in
+            both)     timeout -k 60 230m python3 $W states --budget "${{ inputs.budget }}" --effort "${{ inputs.effort }}" $ST $REDO || echo "states: stopped ($?)"
+                      timeout -k 60 90m python3 $W counties --budget "${{ inputs.counties_budget }}" --wait 80 $ST $REDO || echo "counties: stopped ($?)" ;;
+            states)   timeout -k 60 320m python3 $W states --budget "${{ inputs.budget }}" --effort "${{ inputs.effort }}" $ST $REDO || echo "states: stopped ($?)" ;;
+            counties) timeout -k 60 300m python3 $W counties --budget "${{ inputs.counties_budget }}" --wait 280 $ST $REDO || echo "counties: stopped ($?)" ;;
+            collect)  timeout -k 60 300m python3 $W collect --wait 280 || echo "collect: stopped ($?)" ;;
+            refresh)  timeout -k 60 120m python3 $W refresh --budget 3.5 --wait 60 || echo "refresh: stopped ($?)" ;;
+          esac
+          python3 news/wave/tools/write.py check || true
+          python3 news/wave/tools/write.py cost
+      - name: Refresh (on the schedule)
+        if: env.SKIP != '1' && github.event_name == 'schedule'
+        run: |
+          timeout -k 60 150m python3 news/wave/tools/write.py refresh --budget 3.5 --wait 60 || echo "refresh: stopped ($?)"
+          python3 news/wave/tools/write.py check || true
+          python3 news/wave/tools/write.py cost
+      - name: Rebuild the pages
+        if: env.SKIP != '1'
+        run: python3 news/wave/tools/make_pages.py
+      - name: Commit and push
+        if: env.SKIP != '1'
+        run: |
+          git config user.name "The Watch writer"
+          git config user.email "the-watch@users.noreply.github.com"
+          git add news/wave/data news/wave/*.html news/wave/pages.json
+          if git diff --cached --quiet; then echo "no changes"; exit 0; fi
+          git commit -qm "The wave, written: $(python3 news/wave/tools/write.py cost | head -1) ($(date -u +%Y-%m-%dT%H:%MZ))"
+          for i in 1 2 3; do
+            git pull --rebase -X theirs origin main && git push -q origin HEAD:main && exit 0
+            sleep 10
+          done
+          echo "push failed" >&2; exit 1
