@@ -501,6 +501,43 @@ against; add a name when a new one is listed. The page draws the chart, the boar
 of each card for screenshots. The three reports of Nov. 6, 2026 (`package: "prophecy-watch"`) explain the episode,
 the market and the budget.
 
+### The House, seat by seat (`news/wave/house.html`; `tools/house.py`, `tools/house_write.py`)
+
+All 435 seats as a hemicycle (Democrats from the left, Republicans from the right, the uncalled between, the safest
+at the ends), from `data/night.json` (AP's calls and counts, the district's counties → their weighted move on the
+wave) and `news/money/data/money.json` (the FEC's incumbency flag → a flip is an incumbent who lost; outside money by
+side). `house.py` writes `house.html`, `house-<st-nn>.html` for each written piece and `data/house/seats.json`;
+`house.js` shows the seat card (the note from `data/house/notes.json`) and note rows in the tables. `house_write.py`
+writes the notes (a batch, 60–110 words, numbers only) and the pieces (550–800 words, web search) on the ~80 seats
+`interest()` picks (closest, flips, uncalled, most outside money); `wave-write.yml`'s `house` job runs both, and
+the scheduled refresh rewrites what the count or the money has changed. `counties.yml` rebuilds the page every 3 h.
+
+### The biggest counties (`county-<fips>.html`; `write.py bigcounties`)
+
+A reported piece on each of the 50 biggest counties by 2026 votes (`data/reports/counties/<fips>.json`; the county's
+numbers, its state's races, the state's other big counties, comparable big counties elsewhere and Census context in
+the prompt; web search for the local reporting), built by `make_pages.py` as `county-<fips>.html` (the map turned on
+the state with a callout on the county) and listed on the main page ("The biggest counties, up close"); the county
+card on every map links to the piece (`WAVE_PAGE.countyPages`). Rewritten when the county's move changes more than a
+point or its race is called.
+
+### Keys
+
+`ANTHROPIC_API_KEY` (required). `FEC_API_KEY` (free at api.open.fec.gov/developers): without it the FEC's DEMO_KEY
+allows 40 calls an hour shared across GitHub's runners — the Senate candidates and a few states' outside spending,
+no donors, no platform payments, no House money. `CENSUS_API_KEY` (free at api.census.gov/data/key_signup.html): the
+Census API now refuses keyless requests ("Missing Key"), so without it the county notes and voter charts have no
+Census cuts; `write.py context` logs the failure to `data/context_error.json`.
+
+### Costs (Nov. 7, 2026)
+
+Prompt caching makes a web-searched Opus 5.5 piece about 85 cents (a state, a House seat or a county), the national
+pieces $1–3, a batch note about a cent. The wave's first run (43 states, the national, 2,775 county notes) was $57;
+the money's 45 states $33; the House (80 pieces, 435 notes) $71. Two ledgers (`news/wave/data/spend.json`,
+`news/money/data/spend.json`), one cap (`WAVE_CAP`, $400) across both; `write.py cost` sums them. Batch collection
+is idempotent: a batch id already in the ledger isn't charged again (one was, Nov. 7, when the print after the
+charge crashed on a run with no budget — fixed).
+
 ## The money (`news/money/`; `fetch.py`, `write.py`, `build.py`; `.github/workflows/money.yml`)
 
 Who paid for the 2026 midterms, as a companion to the wave: `news/money/` opens on an animated money flow (donors ->
@@ -508,11 +545,16 @@ committees -> Senate races, `money.js` drawing `data/flow.json`) and goes on to 
 for each side against the result), the committees and their records, the biggest donors with the seats their money
 reached, the platforms (direct FEC payments to Meta and Google by month; Google's own transparency count, weekly, by
 advertiser, with the top ads linked) and a Claude-written piece per state.
-- `fetch.py` reads the OpenFEC API (`FEC_API_KEY`, free; `DEMO_KEY` otherwise, ~30 requests an hour, enough for the
-  core) — candidate totals, Schedule E by candidate and committee, the top committees' Schedule A donors ($10,000+),
-  Schedule B payments naming Meta/Facebook/Google ($2,500+) — and Google's political-ads bundle (advertiser weekly
-  spend since Jan. 2025, geo spend, creative stats for the top advertisers). Every request is logged in
-  `data/money.json["log"]`. Neither site is reachable from the sandbox; the Action does it. `--mock` fakes the data.
+- `fetch.py` reads the OpenFEC API (`FEC_API_KEY`, free; `DEMO_KEY` otherwise, 40 requests an hour shared across
+  GitHub's runners, enough for the Senate candidates and a few states) — candidate totals, Schedule E by candidate
+  and committee (the Senate state by state, `office=senate&state=XX`; the House in `candidate_id` batches of 20),
+  the top committees' Schedule A donors ($10,000+), Schedule B payments naming Meta/Facebook/Google ($2,500+) — and
+  Google's political-ads bundle (now at `storage.googleapis.com/political-csv/…`; the old URL holds a README saying
+  so; `creative-stats.csv` is 2.9 GB and needs `csv.field_size_limit`): advertiser weekly spend since Jan. 2025, geo
+  spend by state, the top advertisers' biggest ads with targeting and transparency-center links. Every request is
+  logged in `data/money.json["log"]`, crash tracebacks included; a run that gets fewer rows than the last keeps the
+  last run's. Neither site is reachable from the sandbox; the Action does it (`money-fetch.yml`, data only, every 3 h
+  or on a push of `news/money/fetch.json`). `--mock` fakes the data.
 - `build.py` does the sums (sides, records, donors' seats, per-vote cost), draws the inline SVG charts and writes
   `index.html`, `<state>.html` for each written piece, `data/flow.json` and `pages.json` (the wave's `make_pages.py`
   reads that to add a card and the front's hero link).
