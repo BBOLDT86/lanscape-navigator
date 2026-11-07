@@ -1,0 +1,31 @@
+/* The House, seat by seat (house.html): the hemicycle and the seat card; the rest is article.css */
+.hemi-wrap{background:var(--night);color:#e9f0f8;padding:18px 0 14px;border-bottom:1px solid var(--rule)}
+.narrow-wide{max-width:1000px;margin:0 auto;padding:0 20px}
+.hemi{width:100%;height:auto;display:block;font-family:var(--sans)}
+.hemi .seat{stroke:#0b1526;stroke-width:1.5;cursor:pointer;transition:r .12s}
+.hemi .seat.d{fill:#4f8fe6}.hemi .seat.r{fill:#e0674e}.hemi .seat.u{fill:#5a6a80}
+.hemi .seat.flip{stroke:#ffd98a;stroke-width:3}
+.hemi .seat.piece{stroke:#fff;stroke-width:2}
+.hemi .seat.flip.piece{stroke:#ffd98a}
+.hemi .seat:hover,.hemi .seat.on{r:12;stroke:#fff;stroke-width:3}
+.hemi .big{font:400 64px var(--serif)}.hemi .big.d{fill:#7fb7ff}.hemi .big.r{fill:#ff8f6b}
+.hemi .mid{font-size:14px;fill:#aebbcb}
+.hemi-wrap .legend{display:flex;flex-wrap:wrap;gap:8px 16px;font-size:12.5px;color:#aebbcb;margin:8px 0 0}
+.hemi-wrap .legend .sw{display:inline-block;width:11px;height:11px;border-radius:50%;margin-right:5px;vertical-align:-1px;border:1.5px solid #0b1526}
+.hemi-wrap .legend .sw.d{background:#4f8fe6}.hemi-wrap .legend .sw.r{background:#e0674e}.hemi-wrap .legend .sw.u{background:#5a6a80}
+.hemi-wrap .legend .sw.flip{background:transparent;border:2.5px solid #ffd98a}.hemi-wrap .legend .sw.piece{background:transparent;border:2px solid #fff}
+.seat-card{margin:14px 0 4px;background:#0f1d33;border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:14px 18px 16px;position:relative;display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:6px 28px}
+.seat-card h3{margin:0 0 4px;font:400 26px/1.1 var(--serif);color:#fff}
+.seat-card h3 small{display:block;font:600 12px var(--sans);letter-spacing:.08em;text-transform:uppercase;color:#aebbcb;margin-bottom:6px}
+.seat-card .nums{margin:0;font-size:14px;line-height:1.55;color:#cfdbeb}
+.seat-card .nums b{color:#fff}.seat-card .nums .b{color:#8fcaff;font-weight:600}.seat-card .nums .r{color:#ff9478;font-weight:600}
+.seat-card .note{margin:0;font-size:16px;line-height:1.55;color:#e9f0f8}
+.seat-card .note p{margin:0 0 10px}.seat-card .note .soon{color:#aebbcb;font-style:italic}
+.seat-card .meta{margin:8px 0 0;font-size:12.5px;color:#8492a6}.seat-card .meta a{color:#cfdbeb}
+.seat-card .cx{position:absolute;right:12px;top:8px;color:#aebbcb;font-size:22px;line-height:1;padding:4px 8px;background:none;border:0;cursor:pointer}
+@media (max-width:720px){.seat-card{grid-template-columns:1fr}.hemi .seat{r:10}}
+.tbl.seats td .flip{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--brass-ink);font-weight:600;margin-left:6px}
+.tbl.seats td a{font-size:13px;margin-left:6px}
+.tbl tr.pick{cursor:pointer}.tbl tr.pick:hover td{background:var(--brass-soft)}
+.tbl tr.noterow td{white-space:normal;text-align:left;background:var(--raise);padding:12px 14px 14px;font-size:15px;line-height:1.5;border-left:3px solid var(--brass)}
+.tbl tr.noterow p{margin:0 0 8px}.tbl tr.noterow .meta{font-size:12.5px;color:var(--ink-3)}

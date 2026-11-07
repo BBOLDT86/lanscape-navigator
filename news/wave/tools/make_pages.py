@@ -246,6 +246,7 @@ REPORTS = {st: r for st in S['states'] if S['states'][st].get('use') for r in [_
 USREP = _load(os.path.join(W, 'data', 'reports', '_US.json'))
 MONEY = _load(os.path.join(W, '..', 'money', 'pages.json'))
 MONEY = MONEY if MONEY and not MONEY.get('mock') else None
+HOUSE = _load(os.path.join(W, 'data', 'house', 'seats.json'))
 CTX = (_load(os.path.join(W, 'data', 'context.json')) or {}).get('counties', {})
 def cword(st): return {'parish': 'parishes', 'borough': 'boroughs'}.get(COUNTY_WORD.get(st, ''), 'counties')
 NOTE_STATES = sorted(st for st in S['states'] if os.path.exists(os.path.join(W, 'data', 'notes', st + '.json')))
@@ -648,7 +649,7 @@ def main_page(cards):
 
 <h2>The border, and five places up close</h2>
 <p>Each of these takes a region of the map, turns the camera on it and walks through its counties.</p>
-<div class="cards">{(f'<a class="card money" href="../money/"><div class="cb"><div class="n">The money</div><h3>{esc(MONEY["title"])}</h3><p>{esc(MONEY["dek"][:220])}</p></div></a>') if MONEY else ''}<a class="card" href="border.html"><img src="border.png" alt="" loading="lazy"><div class="cb"><div class="n">The border</div><h3>The wall, and the counties around it</h3><p>A flight along the boundary from San Diego to Brownsville: all 24 counties on it moved left, and the Texas map drawn to flip five seats flipped one.</p></div></a>{''.join(f'<a class="card" href="{x["slug"]}.html"><img src="{x["slug"]}.png" alt="" loading="lazy"><div class="cb"><div class="n">Part {x["n"]} · {esc(x["short"])}</div><h3>{esc(x["title"])}</h3><p>{esc(x["dek"])}</p></div></a>' for x in cards)}</div>
+<div class="cards">{(f'<a class="card money" href="house.html"><div class="cb"><div class="n">The House</div><h3>All 435 seats, seat by seat</h3><p>{HOUSE["D"]} Democrats, {HOUSE["R"]} Republicans{(", " + str(HOUSE["U"]) + " not called") if HOUSE["U"] else ""}. Tap a seat for its note; the seats that flipped, came closest or drew the most money have a reported piece{(" (" + str(len(HOUSE.get("pieces") or [])) + " so far)") if HOUSE.get("pieces") else ""}.</p></div></a>') if HOUSE else ''}{(f'<a class="card money" href="../money/"><div class="cb"><div class="n">The money</div><h3>{esc(MONEY["title"])}</h3><p>{esc(MONEY["dek"][:220])}</p></div></a>') if MONEY else ''}<a class="card" href="border.html"><img src="border.png" alt="" loading="lazy"><div class="cb"><div class="n">The border</div><h3>The wall, and the counties around it</h3><p>A flight along the boundary from San Diego to Brownsville: all 24 counties on it moved left, and the Texas map drawn to flip five seats flipped one.</p></div></a>{''.join(f'<a class="card" href="{x["slug"]}.html"><img src="{x["slug"]}.png" alt="" loading="lazy"><div class="cb"><div class="n">Part {x["n"]} · {esc(x["short"])}</div><h3>{esc(x["title"])}</h3><p>{esc(x["dek"])}</p></div></a>' for x in cards)}</div>
 
 {national_section()}
 
@@ -680,6 +681,6 @@ cards = [area_page(a) for a in AREAS]
 border_card = border_page()
 state_cards = [state_page(st, rep) for st, rep in sorted(REPORTS.items())]
 mainp = main_page(cards)
-json.dump({'v': 1, 'built': BUILT_ISO, 'published': PUB_ISO, 'asOf': S['asOf'], 'title': mainp['title'], 'dek': mainp['dek'], 'pct': PCT, 'left': ALL['left'], 'right': ALL['right'], 'counted': ALL['n'], 'median': round(ALL['median'], 1), 'starr': round(starr['sh'], 1), 'areas': cards, 'border': border_card, 'states': sorted(state_cards, key=lambda x: -x['swing']), 'notes': NOTE_STATES, 'control': ctl, 'money': ({'title': MONEY['title'], 'dek': MONEY['dek'], 'url': MONEY['url'], 'states': len(MONEY.get('states') or [])} if MONEY else None)},
+json.dump({'v': 1, 'built': BUILT_ISO, 'published': PUB_ISO, 'asOf': S['asOf'], 'title': mainp['title'], 'dek': mainp['dek'], 'pct': PCT, 'left': ALL['left'], 'right': ALL['right'], 'counted': ALL['n'], 'median': round(ALL['median'], 1), 'starr': round(starr['sh'], 1), 'areas': cards, 'border': border_card, 'states': sorted(state_cards, key=lambda x: -x['swing']), 'notes': NOTE_STATES, 'control': ctl, 'money': ({'title': MONEY['title'], 'dek': MONEY['dek'], 'url': MONEY['url'], 'states': len(MONEY.get('states') or [])} if MONEY else None), 'house': ({'D': HOUSE['D'], 'R': HOUSE['R'], 'U': HOUSE['U'], 'pieces': len(HOUSE.get('pieces') or []), 'notes': bool(NOTE_STATES)} if HOUSE else None)},
           open(os.path.join(W, 'pages.json'), 'w', encoding='utf-8'), indent=1, ensure_ascii=False)
 print('wrote index.html,', ', '.join(a['slug'] + '.html' for a in AREAS), f'{len(state_cards)} state pages', 'and pages.json;', PCT, '% left,', ALL)

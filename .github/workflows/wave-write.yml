@@ -15,7 +15,7 @@ on:
         description: 'What to write'
         type: choice
         default: both
-        options: [both, states, national, counties, collect, refresh]
+        options: [both, states, national, counties, collect, house, refresh]
       budget:
         description: 'Dollars the state pieces may spend this run (Opus 5.5 with web search; about $3-4 a state)'
         default: '140'
@@ -95,6 +95,9 @@ jobs:
             national) timeout -k 60 30m python3 $W national --budget "$NBUDGET" --effort max $REDO_FLAG || echo "national: stopped ($?)" ;;
             counties) timeout -k 60 300m python3 $W counties --budget "$CBUDGET" --wait 280 $ST $REDO_FLAG || echo "counties: stopped ($?)" ;;
             collect)  timeout -k 60 300m python3 $W collect --wait 280 || echo "collect: stopped ($?)" ;;
+            house)    HW=news/wave/tools/house_write.py
+                      timeout -k 60 100m python3 $HW notes --budget 12 --wait 90 $REDO_FLAG || echo "house notes: stopped ($?)"
+                      timeout -k 60 200m python3 $HW pieces --budget "$BUDGET" --effort "$EFFORT" $REDO_FLAG || echo "house pieces: stopped ($?)" ;;
             refresh)  timeout -k 60 120m python3 $W refresh --budget 3.5 --wait 60 || echo "refresh: stopped ($?)" ;;
           esac
           python3 news/wave/tools/write.py check || true
@@ -103,11 +106,14 @@ jobs:
         if: env.SKIP != '1' && github.event_name == 'schedule'
         run: |
           timeout -k 60 150m python3 news/wave/tools/write.py refresh --budget 3.5 --wait 60 || echo "refresh: stopped ($?)"
+          timeout -k 60 60m python3 news/wave/tools/house_write.py refresh --budget 3 --wait 30 || echo "house refresh: stopped ($?)"
           python3 news/wave/tools/write.py check || true
           python3 news/wave/tools/write.py cost
       - name: Rebuild the pages
         if: env.SKIP != '1'
-        run: python3 news/wave/tools/make_pages.py
+        run: |
+          python3 news/wave/tools/house.py
+          python3 news/wave/tools/make_pages.py
       - name: Commit and push
         if: env.SKIP != '1'
         run: |

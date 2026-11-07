@@ -145,8 +145,12 @@ def cmd_context(a):
     """Population, median household income, Hispanic and Black shares and the share of adults with a bachelor's degree,
     for every county, from the Census Bureau's ACS 2023 five-year estimates (api.census.gov; keyless, or CENSUS_API_KEY)."""
     url = f"{ACS}?get=NAME,{','.join(ACS_VARS)}&for=county:*" + (f"&key={os.environ['CENSUS_API_KEY']}" if os.environ.get('CENSUS_API_KEY') else '')
-    req = urllib.request.Request(url, headers={'User-Agent': 'the-watch-wave/1.0'})
-    with urllib.request.urlopen(req, timeout=120) as r: rows = json.loads(r.read())
+    req = urllib.request.Request(url, headers={'User-Agent': 'the-watch-wave/1.0 (bboldt86.github.io/lanscape-navigator)'})
+    try:
+        with urllib.request.urlopen(req, timeout=120) as r: rows = json.loads(r.read())
+    except Exception as e:
+        body = e.read().decode('utf-8', 'replace')[:500] if hasattr(e, 'read') else ''
+        save(os.path.join(DATA, 'context_error.json'), {'when': now(), 'error': repr(e), 'body': body, 'url': url.split('&key=')[0]}); print(f'context: {e!r} {body[:200]}'); return
     hdr = rows[0]; out = {}
     for row in rows[1:]:
         d = dict(zip(hdr, row)); f = d['state'] + d['county']
@@ -440,7 +444,11 @@ def cmd_collect(a):
         if b.get('processing_status') == 'ended': break
         if waited >= (a.wait or 0): print(f'still running; collect again later (`write.py collect`)'); return
         time.sleep(300); waited += 5
-    if not b.get('results_url'): print('no results url'); os.remove(batch_path()); return
+    try: os.remove(batch_path())  # first, so a crash below can't collect (and charge) the same batch twice
+    except OSError: pass
+    if any(pending['id'] in (r.get('what') or '') for r in ledger()['runs']): print(f'batch {pending["id"]} was already collected and charged; not charging again'); charged = True
+    else: charged = False
+    if not b.get('results_url'): print('no results url'); return
     lines = api('', raw=True, url=b['results_url']).splitlines()
     ok = err = 0; usage_sum = {}
     for line in lines:
@@ -452,8 +460,8 @@ def cmd_collect(a):
         put_note(ROWS[f], text, msg.get('usage')); ok += 1
         for k, v in (msg.get('usage') or {}).items():
             if isinstance(v, int): usage_sum[k] = usage_sum.get(k, 0) + v
-    run.charge(usage_sum, batch=True, what=f'batch {pending["id"]}: {ok} notes')
-    print(f'collected {ok} notes ({err} errored or empty)'); os.remove(batch_path())
+    if not charged: run.charge(usage_sum, batch=True, what=f'batch {pending["id"]}: {ok} notes')
+    print(f'collected {ok} notes ({err} errored or empty)')
     cmd_check(a)
 
 def cmd_refresh(a):

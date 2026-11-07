@@ -35,6 +35,7 @@ jobs:
         if: env.SKIP != '1'
         run: |
           if [ -f news/wave/build.py ]; then python3 news/wave/build.py; fi
+          if [ -f news/wave/tools/house.py ]; then python3 news/wave/tools/house.py; fi
           if [ -f news/wave/tools/make_pages.py ]; then python3 news/wave/tools/make_pages.py; fi
       - name: Commit and push
         if: env.SKIP != '1'
