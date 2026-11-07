@@ -206,10 +206,14 @@ def platform_payments():
 
 
 # ---------- Google's transparency bundle ----------
+_COLS = {}
 def col(row, *names):
+    """A column by name, case- and space-insensitively; the lookup is memoized per header."""
+    hdr = tuple(row); m = _COLS.get(hdr)
+    if m is None: m = _COLS[hdr] = {k.lower().replace(' ', '_'): k for k in hdr}
     for nme in names:
-        for k in row:
-            if k.lower().replace(' ', '_') == nme.lower(): return row[k]
+        k = m.get(nme.lower())
+        if k is not None: return row[k]
     return None
 def google_ads():
     """Advertisers, their weekly spend this cycle, their state split and their biggest ads, from the public bundle."""
