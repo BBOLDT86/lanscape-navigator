@@ -99,16 +99,20 @@ def extract(race):
            'precincts': [top.get('precincts_reporting'), top.get('precincts_total')], 'updated': top.get('provider_updated_at') or race.get('updated_at'),
            'note': note, 'units': {}}
     units = [u for u in race.get('reporting_units') or [] if u.get('level') != 'state']
-    COUNTY = ('county', 'parish', 'borough', 'census_area', 'city', 'independent_city')
-    has_county = any(u.get('level') in COUNTY for u in units)
+    COUNTY = ('county', 'parish', 'borough', 'census_area', 'independent_city')
+    county_keys = {(u.get('fips_state') or '') + (u.get('fips_county') or '') for u in units if u.get('level') in COUNTY and u.get('fips_county')}
+    has_county = bool(county_keys)
     for u in units:
         lvl = u.get('level')
         fs, fc = u.get('fips_state'), u.get('fips_county')
         d, r, o, tot = unit_votes(u, meta, dkey, rkey)
         if has_county:
-            if lvl not in COUNTY and fc:  # a town or ward inside a county that is also reported whole: skip, the county has it
-                continue
-            key = (fs or '') + (fc or '') if fc and lvl in COUNTY else (u.get('nyt_id') or u.get('name'))
+            key = (fs or '') + (fc or '')
+            # a city with a county code of its own (Virginia's independent cities, Baltimore, St. Louis, Carson City) is a county
+            # equivalent; a city reported inside a county that is also reported whole (Michigan's, East St. Louis) is skipped
+            if lvl == 'city' and fc and key not in county_keys: pass
+            elif lvl not in COUNTY and fc: continue
+            key = key if fc and (lvl in COUNTY or lvl == 'city') else (u.get('nyt_id') or u.get('name'))
             out['units'][key] = {'n': u.get('name'), 'l': lvl, 'd': d, 'r': r, 'o': o, 't': tot, 'e': u.get('eevp'), 'p': [u.get('precincts_reporting'), u.get('precincts_total')]}
         elif fc:  # Connecticut: towns and wards, summed into their counties (eevp = votes-weighted)
             key = (fs or '') + fc

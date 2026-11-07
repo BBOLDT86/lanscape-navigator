@@ -106,4 +106,71 @@ def main():
     if out['noRace']: print('  no race:', out['noRace'])
     if out['errors']: print('  errors:', out['errors'])
 
-if __name__ == '__main__': main()
+
+def night():
+    """news/wave/data/night.json: the night's calls, counts and poll-close times for the replay"""
+    N = json.load(open(os.path.join(ROOT, 'election2026', 'data', 'night2026.json'), encoding='utf-8'))
+    R = json.load(open(os.path.join(ROOT, 'election2026', 'data', 'results.json'), encoding='utf-8'))
+    T0 = dt.datetime(2026, 11, 3, 23, 0, tzinfo=dt.timezone.utc)  # 6 p.m. ET
+    def mins(iso):
+        if not iso: return None
+        d = dt.datetime.fromisoformat(iso.replace('Z', '+00:00'))
+        return round((d - T0).total_seconds() / 60, 2)
+    close = {st: mins(v['t']) for st, v in N['pollClose'].items() if v.get('t')}
+    # how fast each state counted: pct(t) = ceil * (1 - exp(-(t - close) / tau)); tau fitted where the Election Desk
+    # recorded a "% in" during the night, otherwise by region
+    DEFAULT = {'E': 110, 'C': 150, 'M': 240, 'W': 900}
+    REGION = {'CA': 'W', 'OR': 'W', 'WA': 'W', 'NV': 'W', 'AZ': 'W', 'HI': 'W', 'AK': 'W', 'UT': 'M', 'ID': 'M', 'MT': 'M', 'WY': 'M', 'CO': 'M', 'NM': 'M',
+              'ND': 'C', 'SD': 'C', 'NE': 'C', 'KS': 'C', 'OK': 'C', 'TX': 'C', 'MN': 'C', 'IA': 'C', 'MO': 'C', 'AR': 'C', 'LA': 'C', 'WI': 'C', 'IL': 'C', 'MS': 'C', 'AL': 'C', 'TN': 'C', 'KY': 'C', 'IN': 'C', 'MI': 'C', 'OH': 'C'}
+    import math
+    tau = {}
+    for rid, rc in (R.get('races') or {}).items():
+        st = rid[:2]; pct = rc.get('pctIn'); at = mins(rc.get('asOf'))
+        if not pct or pct < 5 or at is None or at > 600 or st not in close or at <= close[st] or pct >= 99.5: continue
+        dtm = at - close[st]; frac = min(pct / 100, 0.985)
+        tau[st] = min(900, max(20, round(-dtm / math.log(1 - frac))))
+    for st in close:
+        tau.setdefault(st, DEFAULT.get(REGION.get(st, 'E'), 110))
+    races, counties, stateVotes = [], {}, {}
+    for r in N['races']:
+        if r['id'].startswith('US-') or r.get('st') == 'US': continue
+        seat = None
+        if r['office'] == 'H':
+            try: seat = int(r['id'].split('-H-')[1].split('-')[0])
+            except Exception: seat = r.get('seat')
+        rec = {'id': r['id'], 'o': r['office'], 'st': r['st'], 'seat': seat, 'p': r.get('wp'), 'at': mins(r.get('calledAt')), 'd': r['d'], 'r': r['r'], 't': r['t'], 'e': r.get('eevp'),
+               'won': r.get('won') or [], 'cands': [[c['n'], c['p'], c['v']] for c in (r.get('cands') or [])][:4], 'unc': r.get('uncontested')}
+        if r['office'] == 'H':
+            ck = {u[0] for u in (r.get('units') or []) if u[5] == 'county'}
+            keep = [u for u in (r.get('units') or []) if u[5] == 'county' or (u[5] == 'city' and u[0] not in ck)]
+            rec['u'] = sorted({u[0] for u in keep})
+            for u in keep:
+                c = counties.setdefault(u[0], [0, 0, 0]); c[0] += u[1]; c[1] += u[2]; c[2] += u[3]
+            sv = stateVotes.setdefault(r['st'], [0, 0, 0]); sv[0] += r['d']; sv[1] += r['r']; sv[2] += r['t']
+        races.append(rec)
+    ceil = {}
+    for r in N['races']:
+        if r['office'] == 'H' and r.get('eevp') and not r['id'].startswith('US-'):
+            ceil.setdefault(r['st'], []).append(r['eevp'])
+    ceil = {st: round(sum(v) / len(v) / 100, 3) for st, v in ceil.items()}
+    ctl = {}
+    for k, v in (N.get('control') or {}).items():
+        try:
+            offs = v['results'][0]['offices']
+            for oid, o in offs.items():
+                ctl[oid] = {'called': o.get('num_races_called'), 'total': o.get('total'), 'toWin': (o.get('to_win') or {}).get('DEM'),
+                            'D': (o.get('party_balance') or {}).get('DEM', {}).get('seats'), 'R': (o.get('party_balance') or {}).get('GOP', {}).get('seats'),
+                            'flipsD': (o.get('party_balance') or {}).get('DEM', {}).get('flip_count'), 'flipsR': (o.get('party_balance') or {}).get('GOP', {}).get('flip_count'),
+                            'controlledAt': mins((o.get('party_balance') or {}).get('DEM', {}).get('controlled_at')) if (o.get('party_balance') or {}).get('DEM', {}).get('winner') else mins((o.get('party_balance') or {}).get('GOP', {}).get('controlled_at'))}
+        except Exception: pass
+    out = {'v': 1, 'asOf': N['asOf'], 'source': N['source'], 't0': '2026-11-03T23:00:00Z', 'end': 540, 'close': close, 'tau': tau, 'ceil': ceil,
+           'races': races, 'counties': counties, 'stateVotes': stateVotes, 'control': ctl, 'closeText': {st: v.get('et') for st, v in N['pollClose'].items()}}
+    p = os.path.join(HERE, 'data', 'night.json')
+    json.dump(out, open(p, 'w', encoding='utf-8'), separators=(',', ':'), ensure_ascii=False)
+    print('wrote', p, os.path.getsize(p), 'bytes:', len(races), 'races,', sum(1 for r in races if r['at'] is not None), 'called,', len(counties), 'counties; tau fitted for', sorted(k for k in tau if DEFAULT.get(REGION.get(k, 'E'), 110) != tau[k]))
+
+if __name__ == '__main__':
+    main()
+    try: night()
+    except FileNotFoundError as e: print('night: skipped,', e)
+
