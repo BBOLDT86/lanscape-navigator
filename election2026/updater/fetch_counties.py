@@ -72,12 +72,16 @@ def pick_sides(race):
     byp = {'D': [], 'R': [], 'I': [], '?': []}
     for cid in totals: byp[party(meta, cid)].append(cid)
     for k in byp: byp[k].sort(key=lambda c: -totals[c])
-    dkey = byp['D'][0] if byp['D'] else None
+    # the left side is the Democrat, unless an independent out-polled the Democrat statewide (Nebraska's Dan Osborn,
+    # Montana's Seth Bodnar): then the independent is the Democrats' effective candidate and the file says so
     rkey = byp['R'][0] if byp['R'] else None
+    nonR = sorted(byp['D'] + byp['I'], key=lambda c: -totals[c])
+    dkey = nonR[0] if nonR else None
     note = None
-    if not dkey and byp['I']:
-        dkey = byp['I'][0]; note = f"no Democrat: the independent {cname(meta, dkey)} counted as the Democratic side"
-    if not rkey and byp['I']:
+    if dkey and party(meta, dkey) != 'D':
+        note = (f"the independent {cname(meta, dkey)} out-polled the Democrat {cname(meta, byp['D'][0])} and is counted as the Democratic side" if byp['D']
+                else f"no Democrat: the independent {cname(meta, dkey)} counted as the Democratic side")
+    if not rkey:
         cand = [c for c in byp['I'] if c != dkey]
         if cand: rkey = cand[0]; note = f"no Republican: the independent {cname(meta, rkey)} counted as the Republican side"
     return dkey, rkey, note, totals, meta

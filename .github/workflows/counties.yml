@@ -28,7 +28,9 @@ jobs:
           if [ "$(date -u +%Y%m%d)" -gt 20261130 ]; then echo "past Nov. 30, 2026: nothing to do"; echo "SKIP=1" >> "$GITHUB_ENV"; fi
       - name: Fetch the counties
         if: env.SKIP != '1'
-        run: python3 election2026/updater/fetch_counties.py --debug
+        run: |
+          python3 election2026/updater/fetch_counties.py
+          python3 election2026/updater/fetch_night.py --debug || echo "night: failed (kept last values)"
       - name: Build the wave
         if: env.SKIP != '1'
         run: |
@@ -38,7 +40,7 @@ jobs:
         run: |
           git config user.name "Election Desk updater"
           git config user.email "election-desk@users.noreply.github.com"
-          git add election2026/data/counties2026.json
+          git add election2026/data/counties2026.json election2026/data/night2026.json 2>/dev/null || git add election2026/data/counties2026.json
           if [ -d news/wave/data ]; then git add news/wave/data; fi
           if git diff --cached --quiet; then echo "no changes"; exit 0; fi
           git commit -qm "County results: automated update $(date -u +%Y-%m-%dT%H:%MZ)"
