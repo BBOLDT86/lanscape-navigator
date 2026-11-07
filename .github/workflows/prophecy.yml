@@ -1,0 +1,44 @@
+name: The Watch Prophecy Watch odds
+# Once a day, Kalshi's prices on the second half of the Simpsons' 2000 joke (a woman follows Trump): the 2028 winner,
+# the Democratic nominee and the party markets, into news/prophecy/data/odds.json. One history point per day; a run
+# that can't reach Kalshi keeps the last file. A manual run (Run workflow) or a push to the updater also runs it.
+# See news/UPDATER.md.
+on:
+  schedule:
+    - cron: '23 13 * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['news/updater/prophecy.py']
+permissions:
+  contents: write
+concurrency:
+  group: the-watch-prophecy
+  cancel-in-progress: false
+jobs:
+  update:
+    if: github.repository == 'BBOLDT86/lanscape-navigator'
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Read Kalshi's boards
+        run: python3 news/updater/prophecy.py && python3 news/updater/prophecy.py check
+      - name: Commit and push
+        run: |
+          git config user.name "The Watch updater"
+          git config user.email "the-watch-news@users.noreply.github.com"
+          git add news/prophecy/data
+          if git diff --cached --quiet; then echo "no change"; exit 0; fi
+          label=$(python3 -c "import json;d=json.load(open('news/prophecy/data/odds.json'));h=d['history'][-1];print(h['d'], 'AOC', h.get('aoc'), 'cents')")
+          git commit -qm "The Watch: Prophecy Watch odds, $label"
+          for i in 1 2 3; do
+            git pull --rebase -X theirs origin main && git push -q origin HEAD:main && exit 0
+            sleep 10
+          done
+          echo "push failed" >&2; exit 1

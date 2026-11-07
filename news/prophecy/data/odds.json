@@ -1,0 +1,203 @@
+{
+ "v": 1,
+ "updated": "2026-11-07T01:55:00Z",
+ "source": {
+  "name": "Kalshi",
+  "api": "https://api.elections.kalshi.com/trade-api/v2/markets",
+  "winner": "https://kalshi.com/markets/kxpresperson/pres-person/kxpresperson-28",
+  "nominee": "https://kalshi.com/markets/kxpresnomd/democratic-primary-winner/kxpresnomd-28",
+  "party": "https://kalshi.com/markets/kxpresparty/party-winning-presidency/kxpresparty-2028"
+ },
+ "watch": {
+  "name": "Alexandria Ocasio-Cortez",
+  "ticker": null
+ },
+ "women": [
+  "Alexandria Ocasio-Cortez",
+  "Kamala Harris",
+  "Gretchen Whitmer"
+ ],
+ "board": {
+  "at": "2026-11-06T22:00:00Z",
+  "note": "Seeded by hand on Nov. 6, 2026 from Kalshi's market pages (top three on each board, read that evening) and RotoWire's Nov. 5 table of Kalshi prices for the rest; the daily updater replaces it from Kalshi's API.",
+  "winner": [
+   {
+    "name": "Jon Ossoff",
+    "p": 22,
+    "party": "D",
+    "woman": false
+   },
+   {
+    "name": "J.D. Vance",
+    "p": 14,
+    "party": "R",
+    "woman": false
+   },
+   {
+    "name": "Marco Rubio",
+    "p": 12,
+    "party": "R",
+    "woman": false
+   },
+   {
+    "name": "Alexandria Ocasio-Cortez",
+    "p": 10,
+    "party": "D",
+    "woman": true
+   },
+   {
+    "name": "Gavin Newsom",
+    "p": 8.4,
+    "party": "D",
+    "woman": false
+   },
+   {
+    "name": "Ron DeSantis",
+    "p": 6.6,
+    "party": "R",
+    "woman": false
+   },
+   {
+    "name": "Kamala Harris",
+    "p": 3.7,
+    "party": "D",
+    "woman": true
+   },
+   {
+    "name": "James Talarico",
+    "p": 3.0,
+    "party": "D",
+    "woman": false
+   },
+   {
+    "name": "Andy Beshear",
+    "p": 2.9,
+    "party": "D",
+    "woman": false
+   },
+   {
+    "name": "Josh Shapiro",
+    "p": 2.8,
+    "party": "D",
+    "woman": false
+   },
+   {
+    "name": "Pete Buttigieg",
+    "p": 2.8,
+    "party": "D",
+    "woman": false
+   },
+   {
+    "name": "Mark Kelly",
+    "p": 2.4,
+    "party": "D",
+    "woman": false
+   },
+   {
+    "name": "J.B. Pritzker",
+    "p": 1.9,
+    "party": "D",
+    "woman": false
+   },
+   {
+    "name": "Rahm Emanuel",
+    "p": 1.8,
+    "party": "D",
+    "woman": false
+   },
+   {
+    "name": "Donald Trump",
+    "p": 1.7,
+    "party": "R",
+    "woman": false
+   }
+  ],
+  "nominee": [
+   {
+    "name": "Jon Ossoff",
+    "p": 25,
+    "party": "D",
+    "woman": false
+   },
+   {
+    "name": "Alexandria Ocasio-Cortez",
+    "p": 14,
+    "party": "D",
+    "woman": true
+   },
+   {
+    "name": "Gavin Newsom",
+    "p": 12,
+    "party": "D",
+    "woman": false
+   }
+  ],
+  "party": {
+   "D": 66,
+   "R": 34
+  },
+  "volume": 87441594
+ },
+ "history": [
+  {
+   "d": "2026-08-11",
+   "aoc": 8.8,
+   "women": null,
+   "aocNom": null,
+   "lead": {
+    "name": "J.D. Vance",
+    "p": 19.5
+   },
+   "dem": null,
+   "src": "Stokastic, Kalshi mid prices, Aug. 11, 2026"
+  },
+  {
+   "d": "2026-08-13",
+   "aoc": null,
+   "women": null,
+   "aocNom": 18,
+   "lead": null,
+   "dem": null,
+   "src": "Kalshi News, Aug. 13, 2026 (nomination market)"
+  },
+  {
+   "d": "2026-10-18",
+   "aoc": 10,
+   "women": null,
+   "aocNom": 14,
+   "lead": {
+    "name": "J.D. Vance",
+    "p": 21
+   },
+   "dem": null,
+   "src": "Kalshi market pages as indexed in mid-October 2026",
+   "approx": true
+  },
+  {
+   "d": "2026-11-05",
+   "aoc": 10.0,
+   "women": 13.7,
+   "aocNom": null,
+   "lead": {
+    "name": "Jon Ossoff",
+    "p": 23
+   },
+   "dem": 66,
+   "src": "RotoWire table of Kalshi prices, Nov. 5, 2026, 11:45 a.m. ET"
+  },
+  {
+   "d": "2026-11-06",
+   "aoc": 10,
+   "women": 13.7,
+   "aocNom": 14,
+   "lead": {
+    "name": "Jon Ossoff",
+    "p": 22
+   },
+   "dem": 65.5,
+   "src": "Kalshi market pages, Nov. 6, 2026; DeFi Rate's Kalshi quote for the watched contract"
+  }
+ ],
+ "seed": "Hand-entered points before the daily updater began on Nov. 6, 2026 are marked by their source; points marked approx carry an uncertain date.",
+ "errors": []
+}

@@ -1,0 +1,470 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Prophecy Watch · The Watch</title>
+<meta name="description" content="In 2000, The Simpsons gave Lisa the Oval Office after President Trump. The Trump half came true. The Watch tracks Kalshi's daily price on the other half: a woman next, and the name the market attaches to it.">
+<link rel="canonical" href="https://bboldt86.github.io/lanscape-navigator/news/prophecy/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="The Watch">
+<meta property="og:title" content="The Prophecy Watch · Will The Simpsons be right twice?">
+<meta property="og:description" content="Kalshi's daily price on the second half of the 2000 joke: a woman follows Trump. The board, the chart, the fine print and the briefing cards.">
+<meta property="og:url" content="https://bboldt86.github.io/lanscape-navigator/news/prophecy/">
+<meta property="og:image" content="https://bboldt86.github.io/lanscape-navigator/news/share.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#F5F7F6" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0E1A2B" media="(prefers-color-scheme: dark)">
+<link rel="apple-touch-icon" href="../icon-180.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='2' y='2' width='60' height='60' rx='14' fill='%2315243B'/%3E%3Cpath d='M14 44 L26 30 L36 36 L50 18' fill='none' stroke='%23D6B25E' stroke-width='5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<script>
+// The Watch's paper (day, night, or follow the watch), read from its own setting so the two pages match
+(function(){try{var p=JSON.parse(localStorage.getItem('watch.v1')||'{}');var t=p.theme||'auto';var h=+new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',hour:'numeric',hourCycle:'h23'}).format(new Date());
+if(t==='auto'){t=(h>=20||h<4)?'night':(matchMedia('(prefers-color-scheme: dark)').matches?'night':'day')}document.documentElement.dataset.theme=t;}catch(e){}})();
+</script>
+<style>
+:root{
+  --paper:#F5F7F6; --raise:#FFFFFF; --ink:#15243B; --ink-2:#465770; --ink-3:#7A889A; --rule:rgba(21,36,59,.12); --rule-2:rgba(21,36,59,.2);
+  --shoal:#D7E7EC; --shoal-2:#C3DAE2; --brass:#A9852F; --brass-ink:#7A5E1C; --signal:#C2412D; --scrim:rgba(14,26,43,.42);
+  --dem:#2a78d6; --rep:#d04a3a; --brd:#15243B; --brd-ink:#F5F7F6;
+  --serif:'Instrument Serif','Iowan Old Style',Georgia,serif;
+  --sans:'Instrument Sans',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="day"]){
+    --paper:#0E1A2B; --raise:#142539; --ink:#E7EDF4; --ink-2:#AEBBCB; --ink-3:#8494A9; --rule:rgba(231,237,244,.12); --rule-2:rgba(231,237,244,.22);
+    --shoal:#12293F; --shoal-2:#1A3A55; --brass:#D6B25E; --brass-ink:#E3C47E; --signal:#E8705A; --scrim:rgba(4,9,16,.6);
+    --dem:#3987e5; --rep:#e66767; --brd:#060C16; --brd-ink:#E7EDF4; color-scheme:dark;
+  }
+}
+:root[data-theme="night"]{
+  --paper:#0E1A2B; --raise:#142539; --ink:#E7EDF4; --ink-2:#AEBBCB; --ink-3:#8494A9; --rule:rgba(231,237,244,.12); --rule-2:rgba(231,237,244,.22);
+  --shoal:#12293F; --shoal-2:#1A3A55; --brass:#D6B25E; --brass-ink:#E3C47E; --signal:#E8705A; --scrim:rgba(4,9,16,.6);
+  --dem:#3987e5; --rep:#e66767; --brd:#060C16; --brd-ink:#E7EDF4; color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 16px/1.5 var(--sans);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;font-variant-numeric:tabular-nums}
+a{color:inherit}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--brass);outline-offset:2px;border-radius:3px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.k{font:700 12px/1.3 var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--brass-ink)}
+.muted{color:var(--ink-2)}.faint{color:var(--ink-3)}
+.src{font-size:13px;color:var(--ink-3);margin:10px 0 0;line-height:1.45}
+.src a{color:var(--ink-2)}
+
+/* masthead */
+.top{display:flex;align-items:center;gap:10px;padding:14px 0 0;font:600 14px var(--sans);color:var(--ink-2);flex-wrap:wrap}
+.top a{text-decoration:none}.top a:hover{color:var(--ink);text-decoration:underline;text-underline-offset:3px}
+.top .sep{color:var(--ink-3)}
+.mast{padding:6px 0 18px;border-bottom:1px solid var(--rule)}
+.mast h1{font:400 clamp(40px,6vw,66px)/.95 var(--serif);letter-spacing:-.012em;margin:0}
+.mast h1 i{color:var(--brass-ink);font-size:.5em;letter-spacing:0;margin-left:10px}
+.mast .ed{margin:10px 0 0;font:500 15px/1.45 var(--sans);color:var(--ink-2);max-width:78ch}
+
+/* hero */
+.hero{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:34px;align-items:start;padding:34px 0 10px}
+.hero h2{font:400 clamp(30px,4vw,46px)/1.05 var(--serif);letter-spacing:-.008em;margin:0 0 14px}
+.hero h2 em{font-style:italic;color:var(--brass-ink)}
+.hero .lede{font-size:17.5px;line-height:1.55;color:var(--ink-2);margin:0 0 18px;max-width:62ch}
+.hero .lede b{color:var(--ink);font-weight:600}
+.bign{background:var(--raise);border:1px solid var(--rule);border-radius:18px;padding:22px 24px 18px;position:relative;overflow:hidden}
+.bign .k{display:block;margin-bottom:6px}
+.bign .n{font:400 clamp(72px,11vw,124px)/.9 var(--serif);letter-spacing:-.03em;margin:0;display:flex;align-items:baseline;gap:6px}
+.bign .n small{font-size:.38em;color:var(--brass-ink);letter-spacing:0}
+.bign .who{margin:10px 0 0;font-size:15px;color:var(--ink-2);line-height:1.45}
+.bign .who b{color:var(--ink);font-weight:600}
+.bign .chg{display:block;margin:6px 0 0;font:600 13px var(--sans);color:var(--ink-3);letter-spacing:0}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:18px 0 0}
+.stat{background:var(--raise);border:1px solid var(--rule);border-radius:12px;padding:12px 14px 10px}
+.stat .k{font-size:11px;display:block;margin-bottom:4px;color:var(--ink-3)}
+.stat .v{font:400 30px/1 var(--serif);letter-spacing:-.01em}
+.stat .v small{font-size:.5em;color:var(--brass-ink)}
+.stat .d{font-size:12.5px;color:var(--ink-2);margin-top:4px;line-height:1.35}
+
+/* sections */
+section.blk{padding:34px 0 8px;border-top:1px solid var(--rule);margin-top:30px}
+.sh{display:flex;align-items:flex-end;gap:16px;flex-wrap:wrap;margin:0 0 14px}
+.sh h2{font:400 clamp(28px,3.4vw,38px)/1.05 var(--serif);margin:0;letter-spacing:-.005em}
+.sh .sub{margin:6px 0 0;color:var(--ink-2);font-size:15.5px;max-width:74ch;line-height:1.5}
+.card{background:var(--raise);border:1px solid var(--rule);border-radius:14px;padding:16px 18px}
+
+/* chart */
+.chartwrap{background:var(--raise);border:1px solid var(--rule);border-radius:16px;padding:14px 16px 10px}
+.chartwrap svg{display:block;width:100%;height:auto}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:13.5px;color:var(--ink-2);margin:8px 2px 0}
+.legend span{display:inline-flex;align-items:center;gap:7px}
+.legend i{display:inline-block;width:18px;height:0;border-top:3px solid var(--brass);border-radius:2px}
+.legend i.nom{border-top:2px dashed var(--ink-2)}
+.legend i.wom{border-top:3px solid var(--shoal-2)}
+.legend i.pt{width:10px;height:10px;border:2px solid var(--ink-3);border-radius:50%}
+
+/* boards */
+.boards{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,2fr);gap:18px}
+table.bd{width:100%;border-collapse:collapse;font-size:15px}
+table.bd th{text-align:left;font:700 11.5px/1.3 var(--sans);letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3);padding:0 8px 8px 0;border-bottom:1px solid var(--rule)}
+table.bd td{padding:8px 8px 8px 0;border-bottom:1px solid var(--rule);vertical-align:middle}
+table.bd tr:last-child td{border-bottom:0}
+table.bd .n{text-align:right;font:400 20px/1 var(--serif);white-space:nowrap}
+table.bd .n small{font-size:.6em;color:var(--ink-3)}
+table.bd .rk{color:var(--ink-3);width:28px;font-size:13px}
+table.bd .party{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:8px;vertical-align:middle;background:var(--ink-3)}
+table.bd .party.D{background:var(--dem)}table.bd .party.R{background:var(--rep)}
+table.bd tr.w td{background:color-mix(in srgb,var(--brass) 10%,transparent)}
+table.bd tr.w td:first-child{border-left:3px solid var(--brass);padding-left:8px}
+table.bd .bar{display:block;height:6px;border-radius:3px;background:var(--shoal);position:relative;min-width:40px}
+table.bd .bar i{position:absolute;left:0;top:0;bottom:0;border-radius:3px;background:var(--ink-3)}
+table.bd tr.w .bar i{background:var(--brass)}
+.pbar{display:flex;height:14px;border-radius:7px;overflow:hidden;background:var(--shoal);margin:8px 0 6px}
+.pbar i{display:block;height:100%}
+.pbar .D{background:var(--dem)}.pbar .R{background:var(--rep)}
+.plab{display:flex;justify-content:space-between;font-size:13.5px;color:var(--ink-2)}
+
+/* fine print */
+.fine{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.fp{display:grid;grid-template-columns:44px minmax(0,1fr);gap:12px;align-items:start;background:var(--raise);border:1px solid var(--rule);border-radius:14px;padding:14px 16px}
+.fp .st{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font:700 13px var(--sans);letter-spacing:.02em}
+.fp .st.yes{background:color-mix(in srgb,#1baf7a 18%,transparent);color:#0f7a54}
+.fp .st.open{background:color-mix(in srgb,var(--brass) 20%,transparent);color:var(--brass-ink)}
+.fp .st.no{background:color-mix(in srgb,var(--signal) 16%,transparent);color:var(--signal)}
+.fp .st.na{background:var(--shoal);color:var(--ink-2)}
+.fp h3{font:400 21px/1.15 var(--serif);margin:2px 0 4px}
+.fp p{margin:0;font-size:14.5px;color:var(--ink-2);line-height:1.5}
+.fp p b{color:var(--ink);font-weight:600}
+
+/* briefing cards */
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.bc{position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--rule);background:var(--raise);display:flex;flex-direction:column}
+.bc .body{flex:1}
+.bc .tools{flex:none;margin-left:auto}
+.bc .tb{border:1px solid var(--rule-2);background:var(--raise);border-radius:999px;padding:4px 10px;font:600 12px var(--sans);color:var(--ink-2)}
+.bc .tb:hover{border-color:var(--ink-3);color:var(--ink)}
+.bc .body{padding:20px 22px 18px}
+.bc .cap{display:flex;gap:14px;align-items:center;padding:10px 22px 12px;font-size:13px;color:var(--ink-3);border-top:1px solid var(--rule);line-height:1.45}
+.bc .cap span{flex:1}
+/* card A: the chyron */
+.chy{background:var(--brd);color:var(--brd-ink)}
+.chy .body{padding:26px 24px 0;display:flex;flex-direction:column}
+.chy .tag{font:700 11.5px/1.4 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:#D6B25E;display:flex;gap:12px;align-items:center}
+.chy .cap{border-top-color:rgba(255,255,255,.14);color:#AEBBCB}
+.chy .tb{background:transparent;color:#E7EDF4;border-color:rgba(255,255,255,.3)}
+.chy .tag i{display:inline-block;width:8px;height:8px;border-radius:50%;background:#E8705A;box-shadow:0 0 0 3px rgba(232,112,90,.25)}
+.chy blockquote{margin:16px 0 10px;flex:1;font:italic 400 clamp(24px,2.6vw,32px)/1.18 var(--serif);letter-spacing:-.005em}
+.chy .by{font:600 13px var(--sans);letter-spacing:.04em;color:#AEBBCB}
+.chy .ticker{margin:18px -24px 0;padding:10px 24px;background:#D6B25E;color:#15243B;font:700 12.5px/1.45 var(--sans);letter-spacing:.06em;text-transform:uppercase}
+.chy .ticker b{font-weight:800}
+/* card B: Milhouse's chart */
+.mil .h{display:flex;flex-direction:column;gap:4px}
+.mil h3{font:400 26px/1.05 var(--serif);margin:0}
+.mil .ans{font:italic 400 18px var(--serif);color:var(--brass-ink)}
+.mil .nums{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:14px 0 6px}
+.mil .nums div{border-top:2px solid var(--rule-2);padding-top:8px}
+.mil .nums b{display:block;font:400 30px/1 var(--serif);letter-spacing:-.015em}
+.mil .nums span{display:block;font-size:12.5px;color:var(--ink-2);margin-top:4px;line-height:1.35}
+.mil svg{display:block;width:100%;height:auto;margin-top:8px}
+/* card C: the spec sheet */
+.spec table{width:100%;border-collapse:collapse;font-size:14.5px}
+.spec th{font:700 11.5px/1.3 var(--sans);letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3);text-align:left;padding:0 8px 8px 0;border-bottom:1px solid var(--rule)}
+.spec td{padding:7px 8px 7px 0;border-bottom:1px solid var(--rule);vertical-align:top;line-height:1.35}
+.spec tr:last-child td{border-bottom:0}
+.spec td:first-child{color:var(--ink-3);font-size:12.5px;text-transform:uppercase;letter-spacing:.05em;font-weight:700;width:26%;padding-top:9px}
+.spec td.l{font-family:var(--serif);font-size:17px}
+.spec h3{font:400 24px/1.1 var(--serif);margin:0 0 12px}
+/* card D: the ticket */
+.tix .body{padding:0}
+.stub{margin:18px;border:1.5px dashed var(--rule-2);border-radius:12px;padding:18px 20px;background:var(--paper);position:relative}
+.stub:before,.stub:after{content:"";position:absolute;top:50%;width:18px;height:18px;border-radius:50%;background:var(--raise);border:1.5px dashed var(--rule-2);transform:translateY(-50%)}
+.stub:before{left:-10px;border-left-color:transparent}.stub:after{right:-10px;border-right-color:transparent}
+.stub .k{display:block}
+.stub h3{font:400 26px/1.1 var(--serif);margin:6px 0 10px}
+.stub .row{display:flex;justify-content:space-between;gap:12px;font-size:14px;color:var(--ink-2);padding:6px 0;border-top:1px solid var(--rule)}
+.stub .row b{color:var(--ink);font-weight:600}
+.stub .yn{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0 4px}
+.stub .yn div{border-radius:10px;padding:10px 12px;text-align:center}
+.stub .yn .y{background:color-mix(in srgb,var(--brass) 22%,transparent)}.stub .yn .nn{background:var(--shoal)}
+.stub .yn b{display:block;font:400 34px/1 var(--serif)}
+.stub .yn span{font:700 11.5px var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2)}
+.stub .small{display:block;margin-top:10px;font-size:12px;color:var(--ink-3);line-height:1.4}
+
+/* full-screen card */
+body.fs{overflow:hidden}
+.fsw{position:fixed;inset:0;z-index:50;background:var(--scrim);display:none;place-items:center;padding:4vmin}
+body.fs .fsw{display:grid}
+.fsw .bc{width:min(92vw,1100px);box-shadow:0 30px 90px rgba(0,0,0,.4);font-size:1.25em}
+.fsw .bc .tools{display:none}
+.fsw .x{position:fixed;right:18px;top:14px;border:0;background:var(--raise);color:var(--ink);border-radius:999px;padding:8px 14px;font:600 14px var(--sans)}
+
+/* reports */
+.reps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.rep{display:flex;flex-direction:column;gap:6px;text-decoration:none;background:var(--raise);border:1px solid var(--rule);border-radius:14px;padding:16px 18px}
+.rep:hover{border-color:var(--brass)}
+.rep .rk{font:700 11.5px var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--brass-ink)}
+.rep .rt{font:400 22px/1.15 var(--serif)}
+.rep .rd{font-size:14px;color:var(--ink-2);line-height:1.45}
+.rep .rb{font-size:12.5px;color:var(--ink-3);margin-top:auto}
+
+footer{margin:40px 0 50px;padding-top:18px;border-top:1px solid var(--rule);font-size:13.5px;color:var(--ink-2);line-height:1.55}
+footer p{margin:0 0 8px;max-width:90ch}
+
+@media (max-width:900px){
+  .hero{grid-template-columns:1fr;gap:18px}
+  .boards{grid-template-columns:1fr}
+  .cards,.fine{grid-template-columns:1fr}
+  .reps{grid-template-columns:1fr}
+  .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:560px){
+  .wrap{padding:0 16px}
+  #chart{overflow-x:auto;-webkit-overflow-scrolling:touch}#chart svg{min-width:640px}
+  .mil .nums{grid-template-columns:1fr 1fr}
+  .spec td:first-child{width:34%}
+}
+@media (prefers-reduced-motion:no-preference){.bc{transition:border-color .15s}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav class="top" aria-label="The Watch">
+    <a href="../">The Watch</a><span class="sep">›</span><a href="../#/s/culture">Culture</a><span class="sep">›</span><span>The Prophecy Watch</span>
+    <span style="margin-left:auto" id="asof" class="faint"></span>
+  </nav>
+  <header class="mast">
+    <h1>The Prophecy Watch <i>Will The Simpsons be right twice?</i></h1>
+    <p class="ed">In March 2000, “Bart to the Future” put Lisa Simpson in the Oval Office with a budget crunch inherited from President Trump. The Trump half came true. This page tracks what Kalshi's traders pay for the other half, <b>a woman next</b>, and the name they attach to it, every day until Jan. 20, 2029.</p>
+  </header>
+
+  <main>
+    <section class="hero" aria-labelledby="h2hero">
+      <div>
+        <h2 id="h2hero">The episode said a woman follows Trump. The market says: <em id="heroPrice">10¢</em> on the dollar.</h2>
+        <p class="lede" id="lede">That is Kalshi's price that <b>Alexandria Ocasio-Cortez</b> is sworn in on Jan. 20, 2029, the woman the traders like most. Every woman on the board together comes to about <b>14¢</b>. The favorite is a man.</p>
+        <div class="stats" id="stats"></div>
+      </div>
+      <div class="bign" id="bign">
+        <span class="k">The watched contract · Kalshi, to win 2028</span>
+        <p class="n"><span id="bigN">10</span><small>¢</small></p><span class="chg" id="bigChg"></span>
+        <p class="who" id="bigWho"><b>Alexandria Ocasio-Cortez</b> · 4th on the board</p>
+      </div>
+    </section>
+
+    <section class="blk" aria-labelledby="h2chart">
+      <div class="sh"><div><h2 id="h2chart">The prophecy's price</h2><p class="sub">The contract that answers the Simpsons' question, day by day: Ocasio-Cortez to win the 2028 election, in cents on the dollar at Kalshi. Her price to be nominated, and every woman on the winner board added together, ride along. Points before Nov. 6, 2026 were entered by hand from dated snapshots; hollow points carry an uncertain date.</p></div></div>
+      <div class="chartwrap"><div id="chart"></div>
+        <div class="legend"><span><i></i>Ocasio-Cortez to win</span><span><i class="nom"></i>Ocasio-Cortez to be nominated</span><span><i class="wom"></i>Every woman on the board</span><span><i class="pt"></i>Hand-entered, date approximate</span></div>
+        <p class="src" id="chartSrc"></p>
+      </div>
+    </section>
+
+    <section class="blk" aria-labelledby="h2board">
+      <div class="sh"><div><h2 id="h2board">The board</h2><p class="sub">Kalshi's last trades, in cents, so a 22 means a contract that pays $1 if that person is inaugurated was last bought for 22 cents. Women are marked in brass. The nomination board is the Democratic primary.</p></div></div>
+      <div class="boards">
+        <div class="card"><span class="k">2028 presidential election winner</span><table class="bd" id="winner" aria-label="Kalshi winner market"></table><p class="src" id="winSrc"></p></div>
+        <div>
+          <div class="card"><span class="k">2028 Democratic nominee</span><table class="bd" id="nominee" aria-label="Kalshi Democratic nominee market"></table></div>
+          <div class="card" style="margin-top:14px"><span class="k">Which party wins</span><div class="pbar" id="pbar"></div><div class="plab" id="plab"></div><p class="src">Kalshi's party market. The Simpsons never say which party Lisa belongs to.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="blk" aria-labelledby="h2fine">
+      <div class="sh"><div><h2 id="h2fine">The fine print</h2><p class="sub">Read as a forecast rather than a joke, the episode makes a handful of checkable claims. Here is the scorecard.</p></div></div>
+      <div class="fine" id="fine"></div>
+    </section>
+
+    <section class="blk" aria-labelledby="h2cards">
+      <div class="sh"><div><h2 id="h2cards">The briefing cards</h2><p class="sub">Four cards drawn in the page, nothing copied from anyone, with today's numbers filled in. Open one full screen for a clean screenshot. The quote is Lisa's; the odds are Kalshi's; the arithmetic is ours.</p></div></div>
+      <div class="cards" id="cards"></div>
+    </section>
+
+    <section class="blk" aria-labelledby="h2reps">
+      <div class="sh"><div><h2 id="h2reps">The reports</h2><p class="sub">Three Watch reports from Nov. 6, 2026, the week the midterms ended and the question opened.</p></div></div>
+      <div class="reps">
+        <a class="rep" href="../#/a/2026-11-06-simpsons-bart-to-the-future-trump-prophecy-woman-next"><span class="rk">Culture · The Watch report</span><span class="rt">The Simpsons called President Trump in 2000. The same episode says a woman is next, and the market has a name for her</span><span class="rd">What “Bart to the Future” actually said, how a gag became a legend, and the fine print for it to come true a second time.</span><span class="rb">By Claude, Nov. 6 · 7 min read</span></a>
+        <a class="rep" href="../#/a/2026-11-06-ocasio-cortez-2028-odds-kalshi-decision-after-midterms"><span class="rk">Politics · The Watch report</span><span class="rt">Ten cents on the prophecy: the market's likeliest woman to follow Trump promised an answer after the midterms</span><span class="rd">The board, how it got here, and what Ocasio-Cortez has said about the choice between the White House, the Senate and staying put.</span><span class="rb">By Claude, Nov. 6 · 6 min read</span></a>
+        <a class="rep" href="../#/a/2026-11-06-budget-crunch-next-president-inherits-deficit-debt-interest"><span class="rk">Business · The Watch report</span><span class="rt">“How bad is it?” “We're broke.” The budget crunch the next president actually inherits</span><span class="rd">A $1.99 trillion deficit, more than $1 trillion a year in interest and a debt past $40 trillion: what is on the desk on Jan. 20, 2029.</span><span class="rb">By Claude, Nov. 6 · 7 min read</span></a>
+      </div>
+    </section>
+
+    <footer>
+      <p><b>How this page works.</b> Once a day a script reads three of Kalshi's public markets (the 2028 winner, the Democratic nominee, and which party wins) and writes the prices here; the chart keeps one point a day. Prices are the last trade, or the middle of the bid and the ask when nothing has traded. A contract pays $1 if its person is inaugurated; the price is a crowd's bet, not a poll, and two years out the crowd is small. Nothing here is advice, and The Watch holds no positions.</p>
+      <p><b>Sources.</b> <a href="https://kalshi.com/markets/kxpresperson/pres-person/kxpresperson-28" target="_blank" rel="noopener">Kalshi: 2028 U.S. Presidential Election winner</a> · <a href="https://kalshi.com/markets/kxpresnomd/democratic-primary-winner/kxpresnomd-28" target="_blank" rel="noopener">Kalshi: 2028 Democratic presidential nominee</a> · budget figures from the <a href="https://www.spokesman.com/stories/2026/oct/16/us-fiscal-2026-budget-deficit-rises-to-199-trillio/" target="_blank" rel="noopener">Treasury's fiscal 2026 statement (Reuters)</a>, <a href="https://finance.yahoo.com/economy/policy/article/the-us-federal-budget-deficit-for-2026-just-came-in-its-1992-trillion-191917669.html" target="_blank" rel="noopener">Yahoo Finance</a>, the <a href="https://www.cbo.gov/publication/62105" target="_blank" rel="noopener">Congressional Budget Office</a> and the <a href="https://www.pgpf.org/article/new-report-national-debt-outlook-gets-worse-as-interest-costs-exceed-1-trillion-annually/" target="_blank" rel="noopener">Peterson Foundation</a> · episode details from <a href="https://www.cbsnews.com/news/how-america-survives-a-donald-trump-presidency-according-to-the-simpsons" target="_blank" rel="noopener">CBS News</a> and <a href="https://www.snopes.com/fact-check/simpsons-predicted-trump-budget/" target="_blank" rel="noopener">Snopes</a>. “The Simpsons” and its characters belong to their owners; this page quotes one line and draws nothing from the show.</p>
+      <p><a href="../">Back to The Watch</a></p>
+    </footer>
+  </main>
+</div>
+<div class="fsw" id="fsw" role="dialog" aria-modal="true" aria-label="Card, full screen"><button class="x" id="fsx">Close ✕</button><div id="fsin"></div></div>
+
+<script>
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const fmtC = v => v == null ? '–' : (Math.round(v * 10) / 10).toLocaleString('en-US', { maximumFractionDigits: 1 });
+const fmtD = s => { const d = new Date(s.length === 10 ? s + 'T12:00:00Z' : s); return d.toLocaleDateString('en-US', { timeZone: 'America/New_York', month: 'short', day: 'numeric', year: d.getUTCFullYear() === new Date().getUTCFullYear() ? undefined : 'numeric' }); };
+const fmtDT = s => new Date(s).toLocaleString('en-US', { timeZone: 'America/New_York', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit', timeZoneName: 'short' });
+// The budget figures on the cards: Treasury's fiscal 2026 statement (via Reuters and Yahoo Finance), CBO's February 2026 outlook, the Peterson Foundation.
+const BUDGET = { deficit: '$1.99T', deficitNote: 'deficit, fiscal 2026 (6.2% of GDP)', interest: '$1.1T', interestNote: 'net interest, a record 3.4% of GDP', debt: '$40.3T', debtNote: 'gross debt, Oct. 14, 2026',
+  gdp: [{ y: '2025', v: 99 }, { y: '2026', v: 101 }, { y: '2030', v: 108, note: 'passes the 1946 record' }, { y: '2036', v: 120 }], record: 106 };
+
+let D = null;
+async function load() {
+  try { D = await (await fetch('data/odds.json', { cache: 'no-store' })).json(); }
+  catch (e) { $('#asof').textContent = 'The odds file could not be read.'; return; }
+  render();
+}
+function latest() { // the newest history point with the watched contract, and the one before it on a different day
+  const h = (D.history || []).filter(p => p.aoc != null);
+  return { now: h[h.length - 1], prev: h.length > 1 ? h[h.length - 2] : null, all: h };
+}
+function render() {
+  const win = D.board.winner || [], nom = D.board.nominee || [], party = D.board.party || {};
+  const aoc = win.find(r => /Ocasio/.test(r.name)) || null, rank = aoc ? win.indexOf(aoc) + 1 : null;
+  const women = win.filter(r => r.woman), womenSum = women.reduce((s, r) => s + r.p, 0);
+  const lead = win[0], { now, prev } = latest();
+  const price = aoc ? aoc.p : now ? now.aoc : null;
+  $('#asof').textContent = D.board.at ? 'Kalshi prices as of ' + fmtDT(D.board.at) : '';
+  $('#heroPrice').textContent = fmtC(price) + '¢';
+  $('#bigN').textContent = fmtC(price);
+  if (prev && now && prev.aoc != null) { const d = Math.round((now.aoc - prev.aoc) * 10) / 10; $('#bigChg').textContent = d === 0 ? `unchanged since ${fmtD(prev.d)}` : `${d > 0 ? '▲' : '▼'} ${Math.abs(d)} since ${fmtD(prev.d)}`; }
+  $('#bigWho').innerHTML = `<b>${esc(aoc ? aoc.name : 'Alexandria Ocasio-Cortez')}</b>${rank ? ` · ${ord(rank)} on the board of ${win.length}` : ''}${aoc && aoc.vol ? ` · ${aoc.vol.toLocaleString('en-US')} contracts traded` : ''}`;
+  $('#lede').innerHTML = `That is Kalshi's price that <b>${esc(aoc ? aoc.name : 'Alexandria Ocasio-Cortez')}</b> is sworn in on Jan. 20, 2029, the woman the traders like most. Every woman on the board together comes to about <b>${fmtC(womenSum)}¢</b>. ${lead && !lead.woman ? `The favorite, <b>${esc(lead.name)}</b> at ${fmtC(lead.p)}¢, is a man.` : lead ? `The favorite is <b>${esc(lead.name)}</b> at ${fmtC(lead.p)}¢.` : ''}`;
+  const other = women.filter(r => r !== aoc);
+  $('#stats').innerHTML = [
+    { k: 'Any woman wins', v: fmtC(womenSum), d: women.length ? women.map(r => `${last(r.name)} ${fmtC(r.p)}`).join(' · ') : 'nobody listed' },
+    { k: 'The favorite', v: lead ? fmtC(lead.p) : '–', d: lead ? lead.name : '' },
+    { k: 'Democrats win', v: party.D != null ? fmtC(party.D) : '–', d: party.R != null ? `Republicans ${fmtC(party.R)}¢` : 'party market' },
+    { k: 'To be nominated', v: (() => { const n = nom.find(r => /Ocasio/.test(r.name)); return n ? fmtC(n.p) : '–'; })(), d: nom[0] ? `${last(nom[0].name)} leads the Democratic board at ${fmtC(nom[0].p)}¢` : '' }
+  ].map(s => `<div class="stat"><span class="k">${s.k}</span><div class="v">${s.v}<small>¢</small></div><div class="d">${esc(s.d)}</div></div>`).join('');
+  drawChart();
+  board('#winner', win.slice(0, 15), true);
+  board('#nominee', nom.slice(0, 10), false);
+  $('#winSrc').textContent = (D.board.note ? D.board.note + ' ' : '') + (D.board.volume ? `About ${(D.board.volume / 1e6).toFixed(0)} million contracts have traded on the winner market.` : '');
+  if (party.D != null || party.R != null) {
+    const d = party.D || 0, r = party.R || 0, tot = Math.max(1, d + r);
+    $('#pbar').innerHTML = `<i class="D" style="width:${d / tot * 100}%"></i><i class="R" style="width:${r / tot * 100}%"></i>`;
+    $('#plab').innerHTML = `<span>Democrats <b>${fmtC(d)}¢</b></span><span>Republicans <b>${fmtC(r)}¢</b></span>`;
+  }
+  fine(price, womenSum);
+  cards({ aoc, price, women, womenSum, lead, nom });
+  wire();
+}
+const last = n => n.split(' ').slice(-1)[0];
+const ord = n => n + (['th', 'st', 'nd', 'rd'][(n % 100 - 20) % 10] || ['th', 'st', 'nd', 'rd'][n % 100] || 'th');
+
+function board(sel, rows, showBar) {
+  const max = Math.max(1, ...rows.map(r => r.p));
+  $(sel).innerHTML = `<thead><tr><th></th><th>Name</th>${showBar ? '<th></th>' : ''}<th class="num" style="text-align:right">Cents</th></tr></thead><tbody>` +
+    rows.map((r, i) => `<tr class="${r.woman ? 'w' : ''}"><td class="rk">${i + 1}</td><td><i class="party ${esc(r.party || '')}" title="${r.party === 'D' ? 'Democrat' : r.party === 'R' ? 'Republican' : ''}"></i>${esc(r.name)}${r.woman ? ' <span class="k" style="font-size:10px;margin-left:6px">woman</span>' : ''}</td>${showBar ? `<td style="width:30%"><span class="bar"><i style="width:${r.p / max * 100}%"></i></span></td>` : ''}<td class="n">${fmtC(r.p)}<small>¢</small></td></tr>`).join('') + '</tbody>';
+}
+
+function drawChart() {
+  const H = (D.history || []).slice().sort((a, b) => a.d < b.d ? -1 : 1);
+  const W = 760, HT = 340, L = 44, R = 150, T = 28, B = 46;
+  const t0 = Date.parse(H[0].d + 'T12:00:00Z'), t1 = Math.max(Date.parse(H[H.length - 1].d + 'T12:00:00Z'), Date.now());
+  const span = Math.max(1, t1 - t0);
+  const ymax = Math.max(20, Math.ceil(Math.max(...H.flatMap(p => [p.aoc || 0, p.aocNom || 0, p.women || 0])) / 5) * 5 + 5);
+  const x = d => L + (Date.parse(d + 'T12:00:00Z') - t0) / span * (W - L - R);
+  const y = v => T + (1 - v / ymax) * (HT - T - B);
+  const path = key => { let s = '', on = false; for (const p of H) { if (p[key] == null) continue; s += (on ? ' L' : 'M') + x(p.d).toFixed(1) + ' ' + y(p[key]).toFixed(1); on = true; } return s; };
+  const ticks = []; for (let v = 0; v <= ymax; v += 5) ticks.push(v);
+  // year/month labels along the bottom: the first point of each month that has one, thinned
+  const months = []; let lastM = '';
+  for (const p of H) { const m = p.d.slice(0, 7); if (m !== lastM) { months.push(p.d); lastM = m; } }
+  const midterm = '2026-11-03', showMid = Date.parse(midterm) > t0;
+  const end = H.filter(p => p.aoc != null).slice(-1)[0], endN = H.filter(p => p.aocNom != null).slice(-1)[0], endW = H.filter(p => p.women != null).slice(-1)[0];
+  const labelY = []; const place = (v) => { let yy = y(v); for (const l of labelY) if (Math.abs(l - yy) < 14) yy = l + 14; labelY.push(yy); return yy; };
+  const ends = [end && { p: end, v: end.aoc, t: `${fmtC(end.aoc)}¢ to win`, cls: 'brass' }, endN && { p: endN, v: endN.aocNom, t: `${fmtC(endN.aocNom)}¢ nominee`, cls: 'ink2' }, endW && { p: endW, v: endW.women, t: `${fmtC(endW.women)}¢ any woman`, cls: 'ink3' }].filter(Boolean).sort((a, b) => b.v - a.v);
+  const svg = `<svg viewBox="0 0 ${W} ${HT}" role="img" aria-label="Kalshi price for Ocasio-Cortez to win the 2028 election, over time" font-family="var(--sans)" font-size="12">
+    ${ticks.map(v => `<line x1="${L}" x2="${W - R}" y1="${y(v)}" y2="${y(v)}" stroke="var(--rule)" /><text x="${L - 8}" y="${y(v) + 4}" text-anchor="end" fill="var(--ink-3)">${v}¢</text>`).join('')}
+    ${months.map(d => `<text x="${x(d)}" y="${HT - 18}" text-anchor="middle" fill="var(--ink-3)">${fmtD(d)}</text>`).join('')}
+    ${showMid ? `<line x1="${x(midterm)}" x2="${x(midterm)}" y1="${T - 6}" y2="${HT - B}" stroke="var(--ink-3)" stroke-dasharray="3 4"/><text x="${x(midterm) + 5}" y="${T + 6}" fill="var(--ink-2)" font-size="11.5">Midterms, Nov. 3</text>` : ''}
+    <path d="${path('women')}" fill="none" stroke="var(--shoal-2)" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round"/>
+    <path d="${path('aocNom')}" fill="none" stroke="var(--ink-2)" stroke-width="2" stroke-dasharray="6 5" stroke-linejoin="round" stroke-linecap="round"/>
+    <path d="${path('aoc')}" fill="none" stroke="var(--brass)" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round"/>
+    ${H.filter(p => p.aoc != null).map(p => `<circle cx="${x(p.d)}" cy="${y(p.aoc)}" r="${p.approx ? 5 : 4}" fill="${p.approx ? 'var(--raise)' : 'var(--brass)'}" stroke="var(--brass)" stroke-width="2.2"><title>${esc(fmtD(p.d))}: ${fmtC(p.aoc)}¢ to win${p.aocNom != null ? `, ${fmtC(p.aocNom)}¢ to be nominated` : ''}${p.women != null ? `, every woman ${fmtC(p.women)}¢` : ''}${p.lead ? `; favorite ${esc(p.lead.name)} ${fmtC(p.lead.p)}¢` : ''} (${esc(p.src || 'Kalshi')})</title></circle>`).join('')}
+    ${H.filter(p => p.aocNom != null).map(p => `<circle cx="${x(p.d)}" cy="${y(p.aocNom)}" r="3.2" fill="var(--raise)" stroke="var(--ink-2)" stroke-width="1.8"><title>${esc(fmtD(p.d))}: ${fmtC(p.aocNom)}¢ to be nominated (${esc(p.src || 'Kalshi')})</title></circle>`).join('')}
+    ${ends.map(e => { const yy = place(e.v); return `<text x="${W - R + 10}" y="${yy + 4}" fill="${e.cls === 'brass' ? 'var(--brass-ink)' : e.cls === 'ink2' ? 'var(--ink-2)' : 'var(--ink-3)'}" font-weight="${e.cls === 'brass' ? 700 : 500}">${e.t}</text>`; }).join('')}
+  </svg>`;
+  $('#chart').innerHTML = svg;
+  const n = H.filter(p => p.src === 'Kalshi API').length;
+  $('#chartSrc').textContent = `${H.length} points, ${fmtD(H[0].d)} to ${fmtD(H[H.length - 1].d)}. ${n ? n + ' read daily from Kalshi’s API; the rest' : 'All'} entered by hand from dated snapshots of Kalshi’s boards (hover a point for its source). Cents on the dollar.`;
+}
+
+function fine(price, womenSum) {
+  const rows = [
+    { st: 'yes', t: 'TRUE', h: 'President Trump', p: 'Written in 2000 as a joke about excess. Came true on Jan. 20, 2017, and again on Jan. 20, 2025. The writer, Dan Greaney, called the line “a warning to America.”' },
+    { st: 'open', t: `${fmtC(womenSum)}¢`, h: 'A woman follows Trump', p: `The open half. Trump cannot be elected again, so this is whoever wins in 2028. Kalshi prices every woman on the board at about <b>${fmtC(womenSum)}¢</b> combined, <b>${fmtC(price)}¢</b> of it on Ocasio-Cortez. It looked like Harris in pearls in 2021; it did not in November 2024.` },
+    { st: 'yes', t: 'TRUE', h: '“Quite a budget crunch”', p: `Fiscal 2026 closed with a <b>${BUDGET.deficit}</b> deficit, net interest above <b>$1 trillion</b> a year for the first time, and a gross debt past <b>$40 trillion</b>. Milhouse's answer, “We're broke,” is not literally true; the country borrows in its own currency. But the chart is real.` },
+    { st: 'na', t: '—', h: '“Borrowed from every country in the world”', p: 'The episode’s creditors come to the White House in person and Bart talks them into waiting. Real ones hold Treasury securities and do not need to visit. No market exists for this.' },
+    { st: 'open', t: '38 ≈ 39', h: 'A president about Lisa’s age', p: 'The vision is set 30 years on, in 2030, and Lisa is 8 in the show, so President Simpson is about 38. Ocasio-Cortez would be 39 on Jan. 20, 2029. Nobody else on the board comes close.' },
+    { st: 'na', t: '?', h: 'A childhood friend in the cabinet', p: 'Secretary Milhouse Van Houten presents the chart. The episode never says Secretary of what. Not tradable.' }
+  ];
+  $('#fine').innerHTML = rows.map(r => `<div class="fp"><div class="st ${r.st}">${r.t}</div><div><h3>${r.h}</h3><p>${r.p}</p></div></div>`).join('');
+}
+
+function cards(ctx) {
+  const { aoc, price, women, womenSum, lead, nom } = ctx;
+  const harris = women.find(r => /Harris/.test(r.name));
+  const man = Math.max(0, Math.round((100 - womenSum) * 10) / 10);
+  const asof = D.board.at ? fmtD(D.board.at.slice(0, 10)) : '';
+  const nomAoc = nom.find(r => /Ocasio/.test(r.name));
+  const A = `<article class="bc chy" data-card="line"><div class="body">
+      <div class="tag"><i></i>Springfield · 2030 · “Bart to the Future,” The Simpsons, March 19, 2000</div>
+      <blockquote>“As you know, we've inherited quite a budget crunch from President Trump. How bad is it?”</blockquote>
+      <div class="by">— President Lisa Simpson, to her cabinet. Secretary Van Houten: “We're broke.”</div>
+      <div class="ticker">Who says it next, per Kalshi, ${esc(asof)}: <b>Ocasio-Cortez ${fmtC(price)}¢</b>${harris ? ` · Harris ${fmtC(harris.p)}¢` : ''} · any woman ${fmtC(womenSum)}¢ · a man ${fmtC(man)}¢</div>
+    </div><div class="cap"><span>The line is the show's, from 2000. The casting is the market's, today. Nothing here is a quotation from a living person.</span><button class="tb tools" data-fs="line">Full screen</button></div></article>`;
+  const gmax = 135, bw = 120;
+  const B = `<article class="bc mil" data-card="chart"><div class="body">
+      <div class="h"><h3>“How bad is it?”</h3><span class="ans">“We're broke.” — Secretary Van Houten, 2030</span></div>
+      <div class="nums"><div><b>${BUDGET.deficit}</b><span>${BUDGET.deficitNote}</span></div><div><b>${BUDGET.interest}</b><span>${BUDGET.interestNote}</span></div><div><b>${BUDGET.debt}</b><span>${BUDGET.debtNote}</span></div></div>
+      <svg viewBox="0 0 560 196" role="img" aria-label="Debt held by the public as a share of GDP: 99 percent in 2025, 101 in 2026, 108 in 2030, 120 in 2036; the record is 106 percent from 1946" font-family="var(--sans)" font-size="12">
+        <text x="0" y="14" fill="var(--ink-2)" font-weight="600">Milhouse's chart, redrawn: debt held by the public, % of GDP, on CBO's path</text><text x="0" y="30" fill="var(--signal)" font-size="11.5">Dashed line: the record, ${BUDGET.record}% in 1946</text>
+        ${BUDGET.gdp.map((g, i) => { const h = g.v / gmax * 115, x0 = 20 + i * 135; return `<rect x="${x0}" y="${160 - h}" width="${bw}" height="${h}" rx="4" fill="${i >= 2 ? 'var(--brass)' : 'var(--ink-3)'}" fill-opacity="${i >= 2 ? .85 : .55}"/><text x="${x0 + bw / 2}" y="${160 - h - 8}" text-anchor="middle" fill="var(--ink)" font-weight="700" font-size="15">${g.v}%</text><text x="${x0 + bw / 2}" y="${178}" text-anchor="middle" fill="var(--ink-2)">${g.y}${g.note ? ' · ' + g.note : ''}</text>`; }).join('')}
+        <line x1="14" x2="${20 + 4 * 135}" y1="${160 - BUDGET.record / gmax * 115}" y2="${160 - BUDGET.record / gmax * 115}" stroke="var(--signal)" stroke-dasharray="4 4"/>
+      </svg>
+    </div><div class="cap"><span>Treasury's fiscal 2026 statement (via Reuters and Yahoo Finance); CBO's February 2026 outlook and the Peterson Foundation for the path. The next president's term is 2029–2033; the record falls in year two.</span><button class="tb tools" data-fs="chart">Full screen</button></div></article>`;
+  const C = `<article class="bc spec" data-card="spec"><div class="body">
+      <h3>The spec sheet</h3>
+      <table><thead><tr><th></th><th>President Simpson · per the episode</th><th>The market's pick · per the record</th></tr></thead><tbody>
+      <tr><td>Predecessor</td><td class="l">President Trump</td><td class="l">President Trump</td></tr>
+      <tr><td>Age at inauguration</td><td class="l">about 38 (8 in 2000, vision set in 2030)</td><td class="l">39 (born October 1989)</td></tr>
+      <tr><td>First words on the budget</td><td class="l">“quite a budget crunch”</td><td class="l">a $1.99 trillion deficit, if the Treasury writes the speech</td></tr>
+      <tr><td>Path to power</td><td class="l">unstated; saxophone, straight A's</td><td class="l">Bronx bartender; beat a 10-term incumbent at 28; Congress at 29</td></tr>
+      <tr><td>Party</td><td class="l">never said</td><td class="l">Democrat</td></tr>
+      <tr><td>Press-conference boast</td><td class="l">“first straight female president”</td><td class="l">none on record</td></tr>
+      <tr><td>Brother who charms creditors</td><td class="l">yes</td><td class="l">no</td></tr>
+      <tr><td>Odds</td><td class="l">written, 2000</td><td class="l">${fmtC(price)}¢ to win · ${nomAoc ? fmtC(nomAoc.p) + '¢ to be nominated' : ''} (Kalshi, ${esc(asof)})</td></tr>
+      </tbody></table>
+    </div><div class="cap"><span>Left column from the episode as described by CBS News, Salon and NPR in 2016. Right column from the public record and Kalshi's board today. The resemblance ends at the predecessor and the age.</span><button class="tb tools" data-fs="spec">Full screen</button></div></article>`;
+  const Dc = `<article class="bc tix" data-card="ticket"><div class="body"><div class="stub">
+      <span class="k">The Prophecy Watch · not a real market</span>
+      <h3>Will The Simpsons be right twice?</h3>
+      <div class="yn"><div class="y"><span>Yes · a woman</span><b>${fmtC(womenSum)}¢</b></div><div class="nn"><span>No · a man</span><b>${fmtC(man)}¢</b></div></div>
+      <div class="row"><span>Resolves</span><b>Jan. 20, 2029, noon, the Capitol steps</b></div>
+      <div class="row"><span>Yes is the sum of</span><b>${women.length ? women.map(r => `${last(r.name)} ${fmtC(r.p)}¢`).join(' + ') : 'no women listed'}</b></div>
+      <div class="row"><span>Favorite</span><b>${lead ? `${esc(lead.name)}, ${fmtC(lead.p)}¢` : '–'}</b></div>
+      <div class="row"><span>Pays</span><b>$1, in bragging rights</b></div>
+      <span class="small">Kalshi's prices for each person to win the 2028 election, ${esc(asof)}, added up by The Watch. Not a tradable contract, not advice, and not a prediction; a joke from 2000 scored against a market in 2026.</span>
+    </div></div><div class="cap"><span>A joke from 2000 scored against a market in 2026. The “yes” side is every woman on Kalshi's winner board added together; the exchange lists no such contract.</span><button class="tb tools" data-fs="ticket">Full screen</button></div></article>`;
+  $('#cards').innerHTML = A + B + C + Dc;
+}
+
+function wire() {
+  document.querySelectorAll('[data-fs]').forEach(b => b.addEventListener('click', () => {
+    const card = document.querySelector(`.bc[data-card="${b.dataset.fs}"]`); if (!card) return;
+    $('#fsin').innerHTML = ''; $('#fsin').appendChild(card.cloneNode(true)); document.body.classList.add('fs'); $('#fsx').focus();
+  }));
+  const close = () => { document.body.classList.remove('fs'); $('#fsin').innerHTML = ''; };
+  $('#fsx').addEventListener('click', close);
+  $('#fsw').addEventListener('click', e => { if (e.target === $('#fsw')) close(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+}
+load();
+</script>
+</body>
+</html>

@@ -474,6 +474,23 @@ has moved, within $3.50 a day. `write.py check` validates the files (word counts
 on the map); `--mock` writes made-up pieces to test the pages without the API; `--dry` prints a prompt.
 `make_pages.py` builds the state pages from the reports, lists them on the main page (“Every state”) and in
 `pages.json` (`states`, `notes`), and tells each page which states have notes (`WAVE_PAGE.notes`, `statePages`).
+## The Prophecy Watch (`prophecy.py` -> `news/prophecy/data/odds.json`; `news/prophecy/`)
+
+A standalone page, linked from the Politics and Culture desks, that scores the Simpsons' 2000 joke ("Bart to the
+Future": President Lisa Simpson inherits "quite a budget crunch from President Trump") against Kalshi's 2028 markets.
+The Trump half came true; the page tracks the other half, a woman next, as the price of the woman the traders like
+most (Alexandria Ocasio-Cortez to win), every woman on the board added together, her price to be nominated, the
+favorite and the party line. `.github/workflows/prophecy.yml` runs `news/updater/prophecy.py` once a day (and by hand,
+and on a push to the updater): it reads three of Kalshi's public markets through the API, no key needed (the 2028
+winner `KXPRESPERSON-28`, the Democratic nominee `KXPRESNOMD-28`, the party `KXPRESPARTY-2028`), takes the last trade
+in cents or the middle of the book when nothing has traded, writes the latest boards and one history point per day,
+and keeps the last file with the error listed if Kalshi can't be reached. `prophecy.py check` validates the file.
+Points before Nov. 6, 2026 were entered by hand from dated snapshots and say so in `src`; `approx` marks a point
+whose date is uncertain. `WOMEN` in the script (or `women` in the file) is the list of women the board is checked
+against; add a name when a new one is listed. The page draws the chart, the boards, the fine-print scorecard and four
+"briefing cards" in the browser from the file, nothing copied from the show or anyone else, with a full-screen view
+of each card for screenshots. The three reports of Nov. 6, 2026 (`package: "prophecy-watch"`) explain the episode,
+the market and the budget.
 
 ## The front package (`data/front.json`)
 
