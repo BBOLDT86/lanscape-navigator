@@ -15,6 +15,8 @@ opts.onTime = p => { if (scrub && !scrub.matches(':active')) scrub.value = Math.
 opts.onReady = ctl => { W = ctl; window.WAVE = ctl; setPlayLabel(); };
 opts.onPick = c => showCounty(c.id);
 opts.fsTarget = stage;
+if (!PAGE.viz || !PAGE.viz.focus) { const dlv = $('#dlBtnV'); if (dlv) dlv.hidden = false; /* the main page opens on the night, which has both files */ } else { const dlv = $('#dlBtnV'); if (dlv) dlv.remove(); const dl = $('#dlBtn'); if (dl) dl.href = (PAGE.slug || 'night') + '.mp4'; }
+if (PAGE.st) { const dl = $('#dlBtn'); if (dl) dl.remove(); } // the state pieces have no video of their own
 mount($('#wave'), opts).catch(e => { stage.classList.add('nogl'); stage.insertAdjacentHTML('beforeend', `<div class="nogl-msg"><b>The 3-D map needs WebGL.</b><span>Your browser could not start it. The write-up below has every number the picture shows.</span></div>`); console.warn(e); });
 function setPlayLabel() { if (!playBtn || !W) return; playBtn.querySelector('span').textContent = W.playing ? 'Pause' : 'Play'; playBtn.setAttribute('aria-pressed', W.playing ? 'true' : 'false'); }
 if (playBtn) playBtn.addEventListener('click', () => { if (!W) return; if (W.playing) W.pause(); else W.play(); setPlayLabel(); });
@@ -25,6 +27,7 @@ document.querySelectorAll('[data-view]').forEach(b => b.addEventListener('click'
   if (!W) return; const v = b.dataset.view;
   document.querySelectorAll('[data-view]').forEach(x => x.setAttribute('aria-pressed', x === b ? 'true' : 'false'));
   await W.setView(v); setPlayLabel();
+  const dl = $('#dlBtn'), dlv = $('#dlBtnV'); if (dl) dl.href = v === 'wave' ? 'share.mp4' : v + '-hd.mp4'; if (dlv) { dlv.href = v + '-vertical.mp4'; dlv.hidden = v !== 'night'; }
   $('#raceWrap') && ($('#raceWrap').hidden = v !== 'wave');
   document.querySelectorAll('[data-viewtext]').forEach(x => x.hidden = x.dataset.viewtext !== v);
 }));
@@ -81,7 +84,8 @@ const tbl = $('#countyTable');
 if (tbl) {
   fetch('data/shift.json').then(r => r.json()).then(S => {
     const states = PAGE.states ? new Set(PAGE.states) : null;
-    const rows = Object.entries(S.counties).map(([f, v]) => ({ f, n: S.names[f] || f, st: F2S[f.slice(0, 2)] || '', m24: v[0], m26: v[1], sh: v[2], e: v[3], race: v[4], t: v[7] })).filter(r => !states || states.has(r.st));
+    const only = PAGE.only ? new Set(PAGE.only) : null;
+    const rows = Object.entries(S.counties).map(([f, v]) => ({ f, n: S.names[f] || f, st: F2S[f.slice(0, 2)] || '', m24: v[0], m26: v[1], sh: v[2], e: v[3], race: v[4], t: v[7] })).filter(r => (!states || states.has(r.st)) && (!only || only.has(r.f)));
     const q = $('#q'), sel = $('#sortSel'), body = tbl.querySelector('tbody'), count = $('#tcount');
     const f = v => v == null ? '–' : `<span class="${v > 0 ? 'd' : v < 0 ? 'r' : ''}">${v > 0 ? 'D+' : v < 0 ? 'R+' : ''}${Math.abs(v).toFixed(1)}</span>`;
     let sort = PAGE.sort || 'sh-desc';

@@ -31,6 +31,33 @@
 .wave-tip .b{color:#8fcaff;font-weight:600}.wave-tip .r{color:#ff9478;font-weight:600}
 .wave-theater{position:fixed!important;inset:0!important;z-index:9999!important;width:100vw!important;height:100vh!important;height:100dvh!important;border-radius:0!important;margin:0!important}
 .wave-root:fullscreen{width:100vw;height:100vh}
+/* an end card (the scoreboard) */
+.wave-endcard{right:4%;top:26%;width:min(44%,440px);background:rgba(10,20,36,.78);border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:14px 16px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);animation:wave-pop .5s ease-out both}
+.wave-endcard[hidden]{display:none}
+.wave-endcard .k{display:block;font:600 clamp(9px,1vw,12px)/1.2 var(--sans,'Instrument Sans',system-ui,sans-serif);letter-spacing:.18em;text-transform:uppercase;color:#aab8cb;margin-bottom:6px}
+.wave-endcard h3{margin:0 0 8px;font:400 clamp(18px,2.4vw,30px)/1.05 'Instrument Serif','Iowan Old Style',Georgia,serif;color:#fff}
+.wave-endcard p{margin:0;font-size:clamp(10.5px,1.1vw,13.5px);color:#c3cfdf;line-height:1.4}
+.wave-endcard .seats{display:grid;grid-template-columns:repeat(19,1fr);gap:4px;margin:10px 0 8px}
+.wave-endcard .seats i{display:block;aspect-ratio:1;border-radius:50%;background:#44546e;position:relative}
+.wave-endcard .seats i.d{background:#6fb2ff}.wave-endcard .seats i.r{background:#ff8f6b}
+.wave-endcard .seats i.t::after{content:'';position:absolute;inset:-3px;border:1.5px solid #ffd27a;border-radius:50%}
+.wave-endcard .seats i.x{background:#ff8f6b;opacity:.35}
+.wave-endcard .lg{display:flex;gap:12px;flex-wrap:wrap;font-size:clamp(9.5px,1vw,12px);color:#aab8cb}
+.wave-endcard .lg span::before{content:'';display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px;vertical-align:-1px;background:#6fb2ff}
+.wave-endcard .lg span.r::before{background:#ff8f6b}.wave-endcard .lg span.t::before{background:none;border:1.5px solid #ffd27a;width:7px;height:7px}
+@media (max-width:640px){.wave-endcard{right:4%;left:4%;top:auto;bottom:30%;width:auto}}
+.wave-vertical .wave-endcard{right:4%;left:4%;top:auto;bottom:30%;width:auto}
+/* the night's captions */
+.n-cap{left:4%;top:34%;width:30%;max-width:380px;animation:n-cap-in .7s cubic-bezier(.2,.7,.2,1) both}
+.n-cap-k{display:block;font:600 clamp(9px,1.05vw,12px)/1.2 var(--sans,'Instrument Sans',system-ui,sans-serif);letter-spacing:.2em;text-transform:uppercase;color:#aab8cb;margin-bottom:8px;padding-left:1px}
+.n-cap-k::before{content:'';display:inline-block;width:22px;height:1px;background:currentColor;vertical-align:middle;margin-right:10px;opacity:.7}
+.n-cap-t{display:block;font:400 clamp(22px,3.2vw,44px)/1.02 'Instrument Serif','Iowan Old Style',Georgia,serif;letter-spacing:-.01em;color:#fff;text-shadow:0 2px 30px rgba(0,0,0,.6)}
+.n-cap-s{display:block;margin-top:8px;font-size:clamp(10.5px,1.15vw,14px);line-height:1.4;color:#c3cfdf;max-width:34ch}
+.n-cap.d .n-cap-k{color:#8fc3ff}.n-cap.r .n-cap-k{color:#ff9a7a}
+.n-cap.big{width:38%;max-width:520px;top:30%}
+.n-cap.big .n-cap-t{font-size:clamp(28px,4.4vw,62px);font-style:italic}
+@keyframes n-cap-in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.wave-static .n-cap{animation:none}
 /* the night view */
 .night-hud{position:absolute;inset:0;pointer-events:none;font-variant-numeric:tabular-nums}
 .night-hud>*{position:absolute}
@@ -68,8 +95,37 @@
   .wave-callout{max-width:58vw;padding:6px 9px}
   .n-side{width:40%;bottom:3%}
   .n-mid{left:4%;right:4%;top:3%;bottom:auto}
+  .n-cap{left:5%;top:17%;width:80%;max-width:none}
+  .n-cap.big{width:88%;top:15%}
+  .n-cap-t{font-size:clamp(22px,7vw,34px)}
+  .n-cap.big .n-cap-t{font-size:clamp(26px,8.5vw,42px)}
+  .n-cap-k{font-size:10px}
+  .n-cap-s{font-size:12px}
   .n-states,.n-more,.n-src{display:none}
   .n-pct{margin-top:2px}
 }
+/* the same layout for a vertical render (1080 x 1920) */
+.wave-vertical .n-cap{top:12%}.wave-vertical .n-side{bottom:7%}.wave-vertical .wave-tally{bottom:15%}.wave-vertical .wave-legend{bottom:7%}.wave-vertical .wave-callout{max-width:70vw}
+.wave-vertical .wave-title{max-width:88%}
+.wave-vertical .wave-tally{bottom:17%}
+.wave-vertical .wave-foot{display:none}
+.wave-vertical .wave-legend{max-width:90%;left:5%;right:auto;justify-content:flex-start;bottom:3%}
+.wave-vertical .wave-callout{max-width:58vw;padding:6px 9px}
+.wave-vertical .n-side{width:40%;bottom:3%}
+.wave-vertical .n-mid{left:4%;right:4%;top:3%;bottom:auto}
+.wave-vertical .n-cap{left:5%;top:17%;width:80%;max-width:none}
+.wave-vertical .n-cap.big{width:88%;top:15%}
+.wave-vertical .n-cap-t{font-size:clamp(22px,7vw,34px)}
+.wave-vertical .n-cap.big .n-cap-t{font-size:clamp(26px,8.5vw,42px)}
+.wave-vertical .n-cap-k{font-size:10px}
+.wave-vertical .n-cap-s{font-size:12px}
+.wave-vertical .n-states, .wave-vertical .n-more, .wave-vertical .n-src{display:none}
+.wave-vertical .n-pct{margin-top:2px}
 
-.wave-static .wave-callout{animation:none}
+.wave-static .wave-callout,.wave-static .wave-endcard{animation:none}
+/* in the front page's hero the Read-the-story button sits bottom-left: keep the HUD clear of it */
+.wave-hero .n-side,.wave-hero .n-mid{bottom:11%}
+.wave-hero .wave-foot{bottom:11%}
+.wave-hero .wave-tally{bottom:20%}
+.wave-hero .wave-legend{bottom:11%}
+@media (max-width:820px){.wave-hero .n-side{bottom:12%}.wave-hero .wave-tally{bottom:22%}.wave-hero .wave-legend{bottom:12%}}

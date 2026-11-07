@@ -1,13 +1,16 @@
 <!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="wave.css">
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 <style>html,body{margin:0;background:#0b1526;overflow:hidden}#w{width:1200px;height:630px}</style></head><body><div id="w" class="wave-static"></div>
 <script type="module">
+/* renders the posters and videos: ?view=wave|night&page=<slug>&w=1920&h=1080&t=0.5 ; W.seek(p) then screenshot (tools: scratch/render.py) */
 import { mount } from './wave.js';
 const q = new URLSearchParams(location.search);
-const pages = await (await fetch('pages.json')).json();
-let opts = { view: q.get('view') || 'wave', mode: 'full', autoplay: false, loop: false, hud: true, interactive: false, dpr: 1 };
-if (q.get('page')) { const html = await (await fetch(q.get('page') + '.html')).text(); const m = html.match(/window\.WAVE_PAGE = (\{.*?\});<\/script>/s); if (m) Object.assign(opts, JSON.parse(m[1]).viz, { autoplay: false, loop: false, interactive: false, dpr: 1, mode: 'full' }); }
-window.W = await mount(document.getElementById('w'), opts);
+const el = document.getElementById('w');
+const w = +q.get('w') || 1200, h = +q.get('h') || 630; el.style.width = w + 'px'; el.style.height = h + 'px';
+if (h > w) el.classList.add('wave-vertical');
+let opts = { view: q.get('view') || 'wave', mode: 'full', autoplay: false, loop: false, hud: true, interactive: false, dpr: window.devicePixelRatio || 1 };
+if (q.get('page')) { const html = await (await fetch(q.get('page') + '.html')).text(); const m = html.match(/window\.WAVE_PAGE = (\{.*?\});<\/script>/s); if (m) Object.assign(opts, JSON.parse(m[1]).viz, { autoplay: false, loop: false, interactive: false, dpr: window.devicePixelRatio || 1, mode: 'full' }); }
+window.W = await mount(el, opts);
 if (q.get('t')) W.seek(+q.get('t'));
 W.draw(); document.title = 'ready';
 </script></body></html>

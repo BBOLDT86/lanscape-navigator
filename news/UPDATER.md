@@ -442,7 +442,16 @@ the pages.
 - The link previews (`wave/share.png`, `wave/<area>.png` and the `.mp4`s the `og:video` tags point at) are rendered
   by hand from `wave/render.html` with Playwright (frames at 1200 x 630, ffmpeg); they are not refreshed by the Action.
 - The front's hero (`heroHTML()`, `heroMount()` in `index.html`) loads `wave/wave.js` the first time the front draws
-  and unmounts it when the reader leaves; the reader's last view (wave or night) is kept in `watch.hero`.
+  and unmounts it when the reader leaves; election night is the default view and the reader's last choice (wave or
+  night) is kept in `watch.hero`. The hero's Download menu and the pages' Download buttons point at the rendered
+  videos (`wave/night-hd.mp4`, `night-vertical.mp4`, `wave-hd.mp4`, `wave-vertical.mp4`, `<area>.mp4`, `border.mp4`).
+- The night's captions (`captions` in `data/night.json`, built by `build.py night()`) are the night's milestones from
+  AP's calls: the first close, each wave of poll closings, the first call, every Senate and governor flip, and the
+  minute AP's count gave each chamber away. The replay runs its quiet first two hours 2.6x faster (`WARP` in `wave.js`).
+- `wave/border.html` is the border piece: a flythrough from San Diego to Brownsville (`camPath` keyframes, the
+  `highlight` list of the 24 border counties, the boundary drawn as a ribbon from the county arcs no other county
+  shares, an `endCard` with the Texas House scoreboard), the write-up, the three-election table for the 24 counties,
+  the Texas House seat by seat and the ranking. Its sources are `SOURCES_B` in `make_pages.py`.
 
 ### The wave, written (`news/wave/tools/write.py`; `.github/workflows/wave-write.yml`)
 

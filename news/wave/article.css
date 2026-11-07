@@ -145,3 +145,12 @@ a.sc:hover > b{text-decoration:underline}
 .sc.soon{color:var(--ink-3)}
 .state-links{font-size:15px;margin:-6px 0 18px}
 .state-links .k{margin-right:6px}
+
+/* the own-goals list */
+.own{list-style:none;padding:0;margin:0 0 20px;counter-reset:own}
+.own li{counter-increment:own;position:relative;padding:14px 0 14px 54px;border-top:1px solid var(--rule)}
+.own li::before{content:counter(own);position:absolute;left:0;top:10px;font:400 34px/1 var(--serif);color:var(--brass)}
+.own li b{display:block;font:400 22px/1.15 var(--serif)}
+.own .who{display:block;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);margin:2px 0 6px}
+.own .sought,.own .cost{display:block;font-size:15px;color:var(--ink-2);margin-top:4px}
+.own .sought i,.own .cost i{font-style:normal;font-weight:600;color:var(--ink)}

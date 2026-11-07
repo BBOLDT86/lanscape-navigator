@@ -73,9 +73,65 @@ SOURCES = [
 ]
 SRC = {k: i + 1 for i, (k, _, _) in enumerate(SOURCES)}
 def c(*keys): return '<sup>' + ', '.join(f'<a href="#src-{SRC[k]}">{SRC[k]}</a>' for k in keys) + '</sup>'
-def sources_html(keys=None):
-    items = [(k, t, u) for k, t, u in SOURCES if not keys or k in keys]
-    return '<ol>' + ''.join(f'<li id="src-{SRC[k]}">{esc(t)}. <a href="{esc(u)}" rel="noopener">{esc(u)}</a></li>' for k, t, u in items) + '</ol>'
+def sources_html(keys=None, lst=None, idx=None):
+    lst = lst or SOURCES; idx = idx or SRC
+    items = [(k, t, u) for k, t, u in lst if not keys or k in keys]
+    return '<ol>' + ''.join(f'<li id="src-{idx[k]}">{esc(t)}. <a href="{esc(u)}" rel="noopener">{esc(u)}</a></li>' for k, t, u in items) + '</ol>'
+SOURCES_B = [
+    ('nyt', 'The New York Times, 2026 election results pages (county-level and district-level vote counts provided by The Associated Press), read ' + ASOF, 'https://www.nytimes.com/interactive/2026/11/03/us/elections/results-texas.html'),
+    ('base', 'The Watch’s Election Desk, 2020 and 2024 presidential results by county (the baselines every county is compared with)', 'https://bboldt86.github.io/lanscape-navigator/election2026/'),
+    ('axios-5', 'Axios, “Trump says Republicans ‘entitled’ to five more Texas seats,” Aug. 5, 2025 (the CNBC remark)', 'https://www.axios.com/2025/08/05/trump-texas-five-seats-entitled'),
+    ('trib-map', 'The Texas Tribune, “Texas Republicans’ new map targets five Democratic seats,” July 31, 2025 (the five targets: Cuellar, Gonzalez, Green, Johnson, Casar; drawn to Trump margins of about 10 or more)', 'https://www.texastribune.org/2025/07/31/texas-redistricting-map-democrats-defense-targeted-seats-congress/'),
+    ('bp-map', 'Ballotpedia, “Texas enacted a new congressional map for the 2026 U.S. House elections,” Sept. 2, 2025 (the DOJ letter of July 7, the votes of Aug. 20 and 23, Abbott’s signature Aug. 29)', 'https://news.ballotpedia.org/2025/09/02/texas-enacted-a-new-congressional-map-for-the-2026-u-s-house-elections/'),
+    ('tpr-quorum', 'Texas Public Radio, “Texas House Democrats return to Capitol, ending walkout,” Aug. 18, 2025', 'https://www.tpr.org/government-politics/2025-08-18/texas-house-democrats-return-to-capitol-ending-walkout-over-redistricting-plan'),
+    ('bloomberg-scotus', 'Bloomberg Law, “Supreme Court lets Texas use GOP-drawn voting map for 2026,” Dec. 4, 2025 (the El Paso panel’s Nov. 18 ruling; Abbott v. LULAC)', 'https://news.bloomberglaw.com/esg/supreme-court-lets-texas-use-gop-drawn-voting-map-for-2026'),
+    ('jurist', 'JURIST, “Supreme Court reinstates Texas congressional map previously rejected over racial gerrymandering,” April 2026', 'https://www.jurist.org/news/2026/04/supreme-court-reinstates-texas-congressional-map-previously-rejected-over-racial-gerrymandering/'),
+    ('trib-score', 'The Texas Tribune, “Texas Republicans’ redistricting gamble falls short,” Nov. 3–4, 2026 (the delegation from 25–13 to 24–14 against a map drawn for 30–8)', 'https://www.texastribune.org/2026/11/03/texas-congress-us-house-redistricting-elections-2026/'),
+    ('spectrum', 'Spectrum News, “Texas Republicans’ redistricting push backfires in the midterms,” Nov. 5, 2026 (analysts on a map built on 2024’s Latino numbers)', 'https://spectrumlocalnews.com/tx/south-texas-el-paso/news/2026/11/05/texas-republican-redistricting-midterms'),
+    ('latintimes', 'Latin Times (reporting Axios), “Texas Democrats win border districts despite GOP map,” Nov. 2026 (all six districts Republicans failed to win or hold are majority-Latino)', 'https://www.latintimes.com/texas-democrats-win-border-districts-despite-gop-map-600908'),
+    ('aljazeera-32', 'Al Jazeera, “Why one Republican won a redrawn Texas district despite the blue tsunami,” Nov. 6, 2026', 'https://www.aljazeera.com/amp/news/2026/11/6/why-one-republican-won-a-redrawn-texas-district-despite-blue-tsunami'),
+    ('rollcall', 'Roll Call, “Redistricting: how the new maps played out,” Nov. 4, 2026 (nine states voted under new maps; California’s five Democratic pickups; North Carolina, Ohio, Florida, Missouri, Virginia)', 'https://rollcall.com/2026/11/04/redistrcting-republican-house-seats-midterm-elections/'),
+    ('dd-prop50', 'Democracy Docket, “California voters overwhelmingly approve new map countering Trump’s gerrymander push,” Nov. 4–5, 2025', 'https://www.democracydocket.com/news-alerts/california-voters-overwhelmingly-approve-new-map-countering-trumps-gerrymander-push/'),
+    ('time-wall', 'Time, “Where Trump’s border wall stands,” Aug. 6, 2026 (the $46.5 billion in the July 2025 law; $33.6 billion awarded; CBP’s mileage; 250 new miles targeted by Sept. 30, 2026)', 'https://time.com/article/2026/08/06/trump-border-wall-immigration/'),
+    ('observer-rgv', 'Texas Observer, “Trump’s border wall returns to the Rio Grande Valley,” 2026 (about 90 miles from the Brownsville Ship Channel to Falcon Dam; the Starr County segment; the Valley’s refuges; the buoys)', 'https://www.texasobserver.org/trump-border-wall-rio-grande-valley/'),
+    ('krgv-buoys', 'KRGV, “DHS announces deployment of 17 miles of waterborne barrier in Cameron County,” Sept. 2025', 'https://www.krgv.com/news/dhs-announces-deployment-of-17-miles-of-waterborne-barrier-in-cameron-county'),
+    ('tpr-bigbend', 'Texas Public Radio, “Judge halts Big Bend-area border wall construction, use of federal waivers,” Oct. 4, 2026', 'https://www.tpr.org/border-immigration/2026-10-04/judge-halts-big-bend-area-border-wall-construction-use-of-federal-waivers'),
+    ('tfc', 'Texas Facilities Commission, Texas border wall construction status (82.2 miles complete; the program wound down in February 2026)', 'https://web.tfc.texas.gov/government/programs-construction-projects/texas-border-wall-construction-status'),
+    ('spectrum-ols', 'Spectrum News, “Operation Lone Star remains in effect after five years,” May 1, 2026 ($11 billion spent)', 'https://spectrumlocalnews.com/tx/south-texas-el-paso/news/2026/05/01/operation-lone-star-remains-in-effect-after-5-years'),
+    ('trib-reimburse', 'The Texas Tribune, “Texas gets $7.5 billion from the federal government for its border operation,” Sept. 18, 2026', 'https://www.texastribune.org/2026/09/18/texas-border-money-reimburse-billions/'),
+    ('stripes', 'Stars and Stripes, “Military zones on the border expanding,” Feb. 10, 2026 (about 8,500 troops; the national defense areas, including the 250-mile South Texas zone)', 'https://www.stripes.com/branches/air_force/2026-02-10/military-zones-border-expanding-20693054.html'),
+    ('execgov', 'ExecutiveGov, “DHS: October border encounters the lowest on record,” 2025 (30,561 encounters nationwide in October 2025; 258 Southwest apprehensions a day)', 'https://www.executivegov.com/articles/dhs-cbp-border-encounters-record-low-noem'),
+    ('lt-raids', 'Latin Times (reporting The Wall Street Journal), “Immigration raids stall South Texas homebuilding,” 2026 (the Monte Cielo raids in Hidalgo County; residential construction down about 30 percent)', 'https://www.latintimes.com/immigration-raids-stall-south-texas-homebuilding-leave-projects-idle-hurting-its-economy-report-594433'),
+    ('unidos', 'UnidosUS, Texas Hispanic voter poll, Oct. 8–22, 2025 (66 percent disapprove of the president; 73 percent oppose arrests based on appearance or language)', 'https://unidosus.org/press-releases/texas-poll-pocketbook-issues-dominate-hispanic-voters-priorities-yet-nearly-7-in-10-feel-the-president-and-republicans-are-not-focusing-enough-attention-on-the-economy/'),
+    ('axios-latino', 'Axios, “Poll: Latino voters’ shift to Trump is fading,” Sept. 8, 2026 (Hart Research for TelevisaUnivision; Texas’s three districts from 44–44 to 56–36)', 'https://axios.com/2026/09/08/poll-latino-voters-trump-gains-fade'),
+    ('trib-latino', 'The Texas Tribune, “South Texas Latino voters and the 2026 election,” Oct. 22, 2026', 'https://www.texastribune.org/2026/10/22/south-texas-latino-voters-rio-grande-valley-2026-election/'),
+    ('trib-border', 'The Texas Tribune, “Border counties’ turnout rose most of any region,” Nov. 4, 2026 (Talarico’s border margin against O’Rourke’s in 2018; the organizers and analysts quoted)', 'https://www.texastribune.org/2026/11/04/texas-border-counties-voter-turnout/'),
+    ('trib-turnout', 'The Texas Tribune, “Texas’ blue wave, by the turnout,” Nov. 4, 2026 (9.8 million voted, the most in a Texas midterm since at least 1970)', 'https://www.texastribune.org/2026/11/04/texas-blue-wave-voter-turnout/'),
+    ('fox7', 'Fox 7 Austin, “Massive Latino turnout and a border-county reversal fuel Democratic wins,” Nov. 2026 (about 1.6 million Latino voters, 400,000 of them first-timers, per LULAC)', 'https://www.fox7austin.com/news/2026-election-massive-latino-turnout-border-county-reversal-fuel-democratic-wins'),
+    ('kut-why', 'KUT, “Why Democrats won Texas,” Nov. 4, 2026 (a Republican consultant on a roughly 50-point Hispanic swing)', 'https://www.kut.org/politics/2026-11-04/texas-midterm-election-blue-wave-democrats-won-why'),
+    ('trib-2024', 'The Texas Tribune, “Trump nearly sweeps the Texas border counties,” Nov. 6, 2024', 'https://www.texastribune.org/2024/11/06/donald-trump-near-sweep-texas-border-counties'),
+    ('fox4-starr', 'Fox 4, “Starr County goes Republican for the first time since 1896,” Nov. 2024', 'https://www.fox4news.com/election/starr-county-texas-donald-trump'),
+    ('bp-187', 'Ballotpedia, California Proposition 187 (1994)', 'https://ballotpedia.org/California_Proposition_187_(1994)'),
+    ('calmatters', 'CalMatters, “How California shifted from pro-GOP purple to deep blue,” Oct. 2018', 'https://calmatters.org/commentary/2018/10/how-california-shifted-from-pro-gop-purple-to-deep-blue/'),
+    ('laist', 'LAist, “Prop 187’s political impact: Latino participation surges, the Republican Party fades”', 'https://laist.com/news/prop-187-political-impact-california-latino-participation-power-surges-republican-party-fading'),
+    ('brexit', 'Wikipedia, 2016 United Kingdom European Union membership referendum', 'https://en.wikipedia.org/wiki/2016_United_Kingdom_European_Union_membership_referendum'),
+    ('uk2017', 'Wikipedia, 2017 United Kingdom general election', 'https://en.wikipedia.org/wiki/2017_United_Kingdom_general_election'),
+    ('uk2024', 'Wikipedia, 2024 United Kingdom general election', 'https://en.wikipedia.org/wiki/2024_United_Kingdom_general_election'),
+    ('fr2024', 'Wikipedia, 2024 French legislative election', 'https://en.wikipedia.org/wiki/2024_French_legislative_election'),
+    ('fr1997', 'Wikipedia, 1997 French legislative election', 'https://en.wikipedia.org/wiki/1997_French_legislative_election'),
+    ('uk1974', 'Wikipedia, February 1974 United Kingdom general election', 'https://en.wikipedia.org/wiki/February_1974_United_Kingdom_general_election'),
+    ('kn', 'American Battlefield Trust, “The Kansas–Nebraska Act”', 'https://www.battlefields.org/learn/articles/kansas-nebraska-act'),
+    ('delay', 'Wikipedia, 2003 Texas redistricting; Tom DeLay campaign finance trial', 'https://en.wikipedia.org/wiki/2003_Texas_redistricting'),
+    ('miller', 'Miller Center, “The 1995–96 government shutdown”', 'https://millercenter.org/1995-96-government-shutdown'),
+    ('gallup-ford', 'Gallup Vault, “The pardon took a decade to forgive”', 'https://news.gallup.com/vault/218198/gallup-vault-pardon-took-decade-forgive.aspx'),
+    ('dummy', 'Bernard Grofman and Thomas Brunell, “The Art of the Dummymander,” in Redistricting in the New Millennium (2005)', 'https://sites.socsci.uci.edu/~bgrofman/Grofman-Brunell%20Dummymander.pdf'),
+    ('aj-approval', 'Al Jazeera, “Trump approval rating near record low on eve of US midterm elections,” Nov. 2, 2026 (Reuters/Ipsos 32 percent)', 'https://www.aljazeera.com/news/2026/11/2/trump-approval-rating-near-record-low-on-eve-of-us-midterm-elections-poll'),
+    ('gma-gas', 'Good Morning America, “Gas prices set a record for days above $4,” Oct. 2026 ($4.33 a gallon; diesel $6.29)', 'https://www.goodmorningamerica.com/news/story/gas-prices-set-record-highest-number-days-4-137253203'),
+    ('cbs-exit', 'CBS News, exit polls, Nov. 3, 2026 (Trump’s approval among voters at 38 percent)', 'https://www.cbsnews.com/news/cbs-news-exit-polls-midterm-elections-2026/'),
+    ('reel', 'rendered.earth on Instagram, the 3-D county map this series reproduces from the public data', 'https://www.instagram.com/reel/DfXpzuju25n/'),
+]
+SRCB = {k: i + 1 for i, (k, _, _) in enumerate(SOURCES_B)}
+def cb(*keys): return '<sup>' + ', '.join(f'<a href="#src-{SRCB[k]}">{SRCB[k]}</a>' for k in keys) + '</sup>'
 
 # ---------- page scaffolding ----------
 ICON = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%230b1526'/%3E%3Cpath d='M12 44c6-14 10-6 16-16s10 4 16-8 8 2 10 6' fill='none' stroke='%237fc4ff' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E"
@@ -133,19 +189,21 @@ def head(title, desc, slug, img, kind='article', published=None):
   <div class="mast-r"><button type="button" class="tbtn" data-share>Share</button></div>
 </div></header>
 """
-def viz_block(views=True, race=True, hint=''):
+def viz_block(views=True, race=True, hint='', dl='night'):
     return f"""<section class="viz" aria-label="The visual">
   <div class="viz-stage" id="stage"><div id="wave" class="wave-root"></div>
     <button type="button" class="fs-close" id="fsClose">Exit full screen</button>
     <div class="fs-bar"><button type="button" id="hideHud">Hide / show text</button></div>
   </div>
   <div class="viz-bar" id="vizbar">
-    {'<div class="seg" role="group" aria-label="View"><button type="button" data-view="wave" aria-pressed="true">The wave</button><button type="button" data-view="night" aria-pressed="false">Election night</button></div>' if views else ''}
+    {'<div class="seg" role="group" aria-label="View"><button type="button" data-view="night" aria-pressed="true">Election night</button><button type="button" data-view="wave" aria-pressed="false">The wave</button></div>' if views else ''}
     <button type="button" class="vb" id="playBtn" aria-pressed="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg><span>Pause</span></button>
     <button type="button" class="vb" id="replayBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 12a8 8 0 1 0 3-6.2"/><path d="M4 4v5h5"/></svg>Replay</button>
     <div class="scrub"><input type="range" id="scrub" min="0" max="1000" value="0" aria-label="Scrub"></div>
-    {'<span id="raceWrap"><select id="raceSel" aria-label="Which race"><option value="auto">Senate, or governor where there is no Senate race</option><option value="S">Senate races only</option><option value="G">Governor races only</option></select></span>' if race else ''}
+    {'<span id="raceWrap" hidden><select id="raceSel" aria-label="Which race"><option value="auto">Senate, or governor where there is no Senate race</option><option value="S">Senate races only</option><option value="G">Governor races only</option></select></span>' if race else ''}
     <button type="button" class="vb" id="fsBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>Full screen</button>
+    <a class="vb" id="dlBtn" href="{dl}-hd.mp4" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v12M7 11l5 5 5-5M5 20h14"/></svg>Download video</a>
+    <a class="vb" id="dlBtnV" href="{dl}-vertical.mp4" download hidden>Vertical, for a phone</a>
     <span class="hint">{hint}</span>
   </div>
   <div class="county-card" id="countyCard" hidden aria-live="polite"></div>
@@ -398,6 +456,113 @@ def area_page(a):
     open(os.path.join(W, a['slug'] + '.html'), 'w', encoding='utf-8').write(body)
     return {'slug': a['slug'], 'title': title, 'dek': dek, 'short': a['short'], 'n': a['n'], 'left': st['left'], 'right': st['right'], 'counties': st['n'], 'median': round(st['median'], 1)}
 
+
+# ---------- the border ----------
+BORDER = ['06073', '06025', '04027', '04019', '04023', '04003', '35023', '35029', '35013', '48141', '48229', '48109', '48243', '48377', '48043', '48443', '48465', '48271', '48323', '48479', '48505', '48427', '48215', '48061']
+BORDER_NAMES = {'06073': 'San Diego', '06025': 'Imperial', '04027': 'Yuma', '04019': 'Pima (Tucson)', '04023': 'Santa Cruz (Nogales)', '04003': 'Cochise', '35023': 'Hidalgo, N.M.', '35029': 'Luna', '35013': 'Doña Ana (Las Cruces)', '48141': 'El Paso', '48229': 'Hudspeth', '48109': 'Culberson', '48243': 'Jeff Davis', '48377': 'Presidio', '48043': 'Brewster (Big Bend)', '48443': 'Terrell', '48465': 'Val Verde (Del Rio)', '48271': 'Kinney', '48323': 'Maverick (Eagle Pass)', '48479': 'Webb (Laredo)', '48505': 'Zapata', '48427': 'Starr', '48215': 'Hidalgo (McAllen)', '48061': 'Cameron (Brownsville)'}
+TX_TARGETS = {9: 'Houston (Al Green’s seat, redrawn)', 28: 'Laredo (Cuellar)', 32: 'Dallas (redrawn)', 34: 'Brownsville (Gonzalez)', 35: 'San Antonio–Austin (redrawn)'}  # the five seats the 2025 map was drawn to flip
+def border_rows(): return sorted([r for r in rows if r['f'] in BORDER], key=lambda r: BORDER.index(r['f']))
+def tx_house():
+    H = sorted([r for r in N['races'] if r['o'] == 'H' and r['st'] == 'TX' and isinstance(r.get('seat'), int)], key=lambda r: r['seat'])
+    return H
+def border_page():
+    rs = border_rows(); st = stats(rs); rs_by = {r['f']: r for r in rs}
+    H = tx_house(); D = sum(1 for r in H if r['p'] == 'D'); R = sum(1 for r in H if r['p'] == 'R')
+    targets = {n: next((r for r in H if r['seat'] == n), None) for n in TX_TARGETS}
+    flippedR = [n for n, r in targets.items() if r and r['p'] == 'R']
+    lostR = [r for r in H if r['p'] == 'D' and r['seat'] in (15, 23)]
+    title = 'The wall, and the counties around it'
+    dek = f"Every one of the {st['n']} counties on the Mexican border moved toward the Democrats, Starr County by {rs_by['48427']['sh']:.0f} points and the border as a whole by a median {st['median']:.0f}. In the state that redrew its map to send five more Republicans to Washington, the border is where the plan came apart."
+    seats_html = ''.join(f"<i class=\"{'d' if r['p'] == 'D' else 'r'}{' t' if r['seat'] in TX_TARGETS else ''}\" title=\"TX-{r['seat']}\"></i>" for r in H)
+    endcard = {'at': 0.86, 'html': f"<span class=\"k\">The Texas House map, drawn for 30–8</span><h3>{R} Republicans, {D} Democrats</h3><div class=\"seats\">{seats_html}</div><div class=\"lg\"><span>Democrat</span><span class=\"r\">Republican</span><span class=\"t\">one of the five seats the 2025 map was drawn to flip</span></div><p>Republicans won {len(flippedR)} of the five, and lost {len(lostR)} of their own along the border and the Valley.</p>"}
+    def co(f, label, off, frm, to):
+        r = rs_by[f]; v, u = race_of(r['st'])
+        return {'at': 'county:' + f, 'html': f"<b>{label}</b><span>moved left {r['sh']:.0f} points: {margin(r['m24'])} for Harris–Trump, {margin(r['m26'])} for {esc(last(u['dem']))}–{esc(last(u['rep']))}</span>", 'off': off, 'from': frm, 'to': to}
+    callouts = [co('06073', 'San Diego County', [0.1, 0.12], 1.5, 5.5), co('04027', 'Yuma County, Ariz.', [0.1, 0.12], 6.5, 10.5), co('04023', 'Santa Cruz County (Nogales)', [0.08, 0.14], 11.5, 15.5),
+                co('48141', 'El Paso', [0.1, 0.12], 16.5, 20.5), co('48465', 'Val Verde (Del Rio)', [0.1, 0.12], 21.5, 25), co('48323', 'Maverick County (Eagle Pass)', [0.1, 0.1], 26, 30),
+                co('48479', 'Webb County (Laredo)', [0.1, 0.1], 30.5, 34), co('48427', 'Starr County', [-0.3, 0.16], 35, 40), co('48215', 'Hidalgo County (McAllen)', [0.08, 0.14], 40.5, 44.5)]
+    cam = [{'at': 0.0, 'county': '06073', 'az': 0.62, 'el': 0.66, 'dist': 420, 'pan': 14}, {'at': 0.1, 'county': '06025', 'az': 0.58, 'el': 0.66, 'dist': 420, 'pan': 14},
+           {'at': 0.2, 'county': '04023', 'az': 0.52, 'el': 0.66, 'dist': 430, 'pan': 14}, {'at': 0.32, 'county': '48141', 'az': 0.46, 'el': 0.66, 'dist': 430, 'pan': 16},
+           {'at': 0.44, 'county': '48465', 'az': 0.44, 'el': 0.64, 'dist': 400, 'pan': 18}, {'at': 0.54, 'county': '48323', 'az': 0.46, 'el': 0.62, 'dist': 360, 'pan': 22},
+           {'at': 0.64, 'county': '48479', 'az': 0.5, 'el': 0.62, 'dist': 340, 'pan': 24}, {'at': 0.74, 'county': '48427', 'az': 0.56, 'el': 0.6, 'dist': 300, 'pan': 28},
+           {'at': 0.84, 'county': '48215', 'az': 0.6, 'el': 0.62, 'dist': 340, 'pan': 28}, {'at': 1.0, 'county': '48479', 'az': 0.66, 'el': 0.7, 'dist': 820, 'pan': 40}]
+    viz = {'focus': {'states': ['CA', 'AZ', 'NM', 'TX'], 'bbox': [95, 378, 474, 598], 'pad': 1.1}, 'highlight': BORDER, 'border': True, 'camPath': cam, 'dur': 52, 'loop': True, 'exag': 1.15,
+           'title': {'kicker': 'The wave · the border', 'h2': f"{st['left']} of {st['n']} border counties<br>moved left", 'what': 'border counties'}, 'callouts': callouts, 'endCard': endcard}
+    page = {'slug': 'border', 'url': PUBLIC + 'border.html', 'shareText': f"{title}: {dek}", 'viz': viz, 'states': ['CA', 'AZ', 'NM', 'TX'], 'only': BORDER, 'sort': 'sh-desc', **page_ctx()}
+    H_rows = ''.join(f"<tr><td>TX-{r['seat']}{' <span class=\"pill\">target</span>' if r['seat'] in TX_TARGETS else ''}{' <span class=\"pill\">lost by GOP</span>' if r in lostR else ''}</td><td><b class=\"{'d' if r['p'] == 'D' else 'r'}\">{esc(r['won'][0] if r['won'] else '')}</b> ({r['p']})</td><td>{esc(next((c[0] for c in r['cands'] if c[1] != r['p']), ''))}</td><td class=\"{'d' if r['d'] > r['r'] else 'r'}\">{margin((r['d'] - r['r']) / r['t'] * 100) if r['t'] else '–'}</td><td>{n(r['t'])}</td></tr>" for r in H)
+    body = f"""{head(title, dek, 'border', 'border', published=PUB_ISO)}
+{viz_block(views=False, race=False, hint='A flight along the border, San Diego to Brownsville: every county on it, drawn by its move since 2024, with the boundary itself in gold. Drag to turn, scroll to zoom, hover or tap a county. Full screen to record, or download the video.', dl='border')}
+<main>
+<div class="narrow head"><p class="k">The Watch report · Politics · The wave · the border</p><h1>{esc(title)}</h1><p class="dek">{esc(dek)}</p>
+<p class="byline">By <b>Claude</b> (Claude Fable 5.1) for The Watch, {PUBLISHED.strftime('%b. %-d, %Y')}; the numbers refresh with the count (last {built.strftime('%b. %-d, %-I:%M %p')} ET). Counts as of {ASOF}, AP via The New York Times. <a href="./">The whole wave ›</a></p></div>
+<div class="narrow body">
+<div class="stat-row"><div class="stat d"><b>{st['left']}</b><span>of {st['n']} counties on the border moved toward the Democrats</span></div><div class="stat"><b>{pts(st['median'])}</b><span>the typical border county’s move, in points</span></div><div class="stat"><b>{st['flipD']}</b><span>border counties went from a Trump win to a Democratic one</span></div><div class="stat r"><b>{len(flippedR)} of 5</b><span>seats the Texas map was drawn to flip that Republicans actually won</span></div></div>
+{border_prose(rs_by, st, H, targets, flippedR, lostR)}
+<h2>The 24 counties on the line</h2>
+{county_table(rs)}
+<h2>The Texas House, seat by seat</h2>
+<p>The 38 districts under the 2025 map, with the five it was drawn to flip marked, and the two Republican seats along the border and the Valley that went the other way.</p>
+<div class="tblwrap"><table class="tbl"><thead><tr><th>District</th><th>Winner</th><th>Runner-up</th><th>Margin</th><th>Votes</th></tr></thead><tbody>{H_rows}</tbody></table></div>
+{ranking_html()}
+{explorer(['CA', 'AZ', 'NM', 'TX'], 'Every county in the four border states')}
+<div class="next"><span class="k">More of the wave</span><a href="south-texas.html">{esc(AREAS[0]['title'])}</a><p style="margin:8px 0 0;font-size:14px;color:var(--ink-2)"><a href="./">The whole wave</a> · {' · '.join(f'<a href="{x["slug"]}.html">{esc(x["short"])}</a>' for x in AREAS)}</p></div>
+<h2>Sources</h2><div class="sources">{sources_html(lst=SOURCES_B, idx=SRCB)}</div>
+</div>
+</main>
+<script>window.WAVE_PAGE = {json.dumps(page)};</script>
+{foot()}"""
+    open(os.path.join(W, 'border.html'), 'w', encoding='utf-8').write(body)
+    return {'slug': 'border', 'title': title, 'dek': dek, 'short': 'The border', 'n': 0, 'left': st['left'], 'right': st['right'], 'counties': st['n'], 'median': round(st['median'], 1)}
+
+def county_table(rs):
+    out = ['<div class="tblwrap"><table class="tbl"><thead><tr><th>County</th><th>2020 → 2024</th><th>2024</th><th>2026</th><th>Move</th><th>Votes 2026</th></tr></thead><tbody>']
+    for r in rs:
+        b = B['c'].get(r['f']); m20 = (b[3] - b[4]) / b[5] * 100 if b and b[5] else None
+        out.append(f"<tr><td>{esc(BORDER_NAMES.get(r['f'], r['n']))}, {r['st']}</td><td>{(margin(m20) + ' → ' + margin(r['m24'])) if m20 is not None else '–'}</td><td class='{mclass(r['m24'])}'>{margin(r['m24'])}</td><td class='{mclass(r['m26'])}'>{margin(r['m26'])}</td><td><b class='{mclass(r['sh'])}'>{pts(r['sh'])}</b></td><td>{n(r['t'])}</td></tr>")
+    out.append('</tbody></table></div>'); return ''.join(out)
+B = json.load(open(os.path.join(W, '..', '..', 'election2026', 'data', 'baseline.json'), encoding='utf-8'))
+def border_prose(rs_by, st, H, targets, flippedR, lostR):
+    r = lambda f: rs_by[f]
+    b20 = lambda f: (B['c'][f][3] - B['c'][f][4]) / B['c'][f][5] * 100
+    starr, webb, zap, mav, hid, cam, elp, vv = r('48427'), r('48479'), r('48505'), r('48323'), r('48215'), r('48061'), r('48141'), r('48465')
+    tx32 = targets[32]; tx28 = targets[28]; tx34 = targets[34]; tx35 = targets[35]; tx9 = targets[9]
+    mg = lambda x: (x['d'] - x['r']) / x['t'] * 100 if x and x['t'] else 0
+    t15 = next((x for x in H if x['seat'] == 15), None); t23 = next((x for x in H if x['seat'] == 23), None)
+    P = []
+    P.append(f"""<p class="lede">The wall was the promise, and the counties it runs through were supposed to be the proof. In 2024 Donald Trump carried 14 of the 18 Texas counties within twenty miles of the river; Starr County, {n(starr['t24'])} votes and ninety-seven percent Hispanic, went Republican for the first time since 1896.{cb('trib-2024', 'fox4-starr')} The map the Legislature drew the next summer was built on those numbers. On Tuesday the numbers were gone. All {st['n']} counties on the Mexican border, from San Diego to Brownsville, moved toward the Democrats, the typical one by {st['median']:.0f} points; Starr moved {starr['sh']:.0f}, Zapata {zap['sh']:.0f}, Maverick {mav['sh']:.0f}, Webb {webb['sh']:.0f}, Hidalgo {hid['sh']:.0f}.{cb('nyt', 'base')} Nowhere else in the country moved as far.</p>""")
+    P.append(f"""<p>The picture above is a flight along the line. The gold thread is the border itself; each county on it stands up by how far it moved from the Harris–Trump vote to this week’s vote for senator (Texas, New Mexico) or governor (Arizona, California). The Valley rises like a wall of its own at the end of the flight. The table below carries three elections for every county, and the shape is the same in nearly all of them: a Democratic county in 2020, a Republican or nearly Republican one in 2024, a Democratic one again by a wider margin than before. Webb County (Laredo) went from {margin(b20('48479'))} to {margin(webb['m24'])} to {margin(webb['m26'])}; Starr from {margin(b20('48427'))} to {margin(starr['m24'])} to {margin(starr['m26'])}.{cb('nyt', 'base')} The {st['flipD']} border counties that Trump won and Talarico or Hobbs or Luján carried are the biggest group of flips in any region of the map.</p>""")
+    P.append(f"""<h2>What was built, and what happened around it</h2>
+<p>The wall is real and it is being built. The July 2025 reconciliation law set aside $46.5 billion for it, $33.6 billion of it awarded by August; Customs and Border Protection counted about 700 miles of primary wall standing, 59 new miles from the second term, 287 miles under construction and 280 more under contract, with a target of 250 new miles by the end of September.{cb('time-wall')} The Valley’s share is about 90 miles from the Brownsville Ship Channel to Falcon Dam, Starr County walled end to end, a 34-mile segment past the colonias near Roma, and 17 miles of river buoys off Cameron County, which the county’s commissioners voted unanimously against.{cb('observer-rgv', 'krgv-buoys')} The state had built 82 miles of its own by the time it wound its program down in February, after $11 billion on Operation Lone Star and a $7.5 billion federal reimbursement in September; about 8,500 troops hold six “national defense areas,” one of them a 250-mile strip of Cameron and Hidalgo counties where crossing is a military-trespass charge.{cb('tfc', 'spectrum-ols', 'trib-reimburse', 'stripes')} On its own terms the policy succeeded: October 2025 had the fewest border encounters on record, 30,561 nationwide, against a daily Southwest average of 258 apprehensions where there had been 5,110.{cb('execgov')}</p>
+<p>The vote cannot say that the wall is what the border counties voted against, and the reporting from the Valley does not say so either. What it names is what came with it: the immigration raids of the past year, which in Hidalgo County hit a subdivision called Monte Cielo at least six times and stalled enough homebuilding that a concrete supplier’s business fell 60 percent and went into bankruptcy; and prices, which Trump had promised to bring down.{cb('lt-raids', 'trib-border')} A UnidosUS poll of Texas Hispanic voters a year before the election found 73 percent opposed to arrests based on appearance or language; Hart Research found the three Texas districts it tracked moving from an even 44–44 in 2024 to 56–36 Democratic by August.{cb('unidos', 'axios-latino')} The Tribune’s reporting from the border quotes an organizer whose group knocked on 90,000 doors, a political scientist who says Democrats “did not invest” in 2024 and did this time, and a consultant who says immigration is the economy in a place where the raids stopped construction.{cb('trib-border')} A Republican consultant put the swing among Hispanic voters at roughly 50 points, back to the levels of the Clinton years.{cb('kut-why')} Turnout in the border counties rose more than in any other region of the state: by the Tribune’s count, 9.8 million Texans voted, the most in a midterm since at least 1970, and LULAC estimated 1.6 million Latino voters, 400,000 of them for the first time.{cb('trib-border', 'trib-turnout', 'fox7')}</p>""")
+    P.append(f"""<h2>The map that was drawn for 30–8</h2>
+<p>On Aug. 5, 2025, the president said on CNBC that Republicans were “entitled to five more seats” in Texas because of how he had carried the state.{cb('axios-5')} The map the Legislature had unveiled a week earlier was built to deliver exactly that, up to 30 of 38 seats, by redrawing five Democratic districts to margins Trump had won by about ten points or more under the new lines: Henry Cuellar’s TX-28 around Laredo, Vicente Gonzalez’s TX-34 around Brownsville, Al Green’s TX-9 in Houston, Julie Johnson’s TX-32 in Dallas and Greg Casar’s TX-35 between San Antonio and Austin.{cb('trib-map')} More than fifty Democrats left the state for two weeks to deny a quorum; they came back, the House passed the map 88–52 and the Senate 18–11, and the governor signed it on Aug. 29.{cb('tpr-quorum', 'bp-map')} A three-judge panel in El Paso blocked it in November as a likely racial gerrymander; the Supreme Court reinstated it in December over three dissents and reversed the panel outright in April, so the map Texans voted under on Tuesday was the one drawn for the five seats.{cb('bloomberg-scotus', 'jurist')}</p>
+<p>Three of the five run along the border or draw from it, and the border is where the plan came apart. Cuellar won the redrawn TX-28 by {mg(tx28):.0f} points in a district Trump had carried by about ten; Gonzalez won TX-34 by {mg(tx34):.0f}; Johnny Garcia held Casar’s old TX-35 by {mg(tx35):.0f}; in Houston, Leticia Gutierrez won the redrawn TX-9 by {mg(tx9):.0f} against a Republican who had led the polls and out-raised her.{cb('nyt', 'trib-score', 'kut-why')} The one target Republicans took was TX-32 in Dallas, by {abs(mg(tx32)):.1f} points in a district drawn at Trump +17; an SMU political scientist credited the winner’s campaign on the cost of living.{cb('nyt', 'aljazeera-32')} Along the way the party lost two seats it already held: TX-15 in the Valley, where Bobby Pulido beat Rep. Monica De La Cruz by {mg(t15):.0f} points, and TX-23, the vast district from San Antonio to El Paso, which Katy Padilla Stout won by {mg(t23):.0f} in a seat drawn at Trump +15.{cb('nyt', 'trib-score')} The delegation that was meant to go from 25–13 to 30–8 went to {sum(1 for x in H if x['p']=='R')}–{sum(1 for x in H if x['p']=='D')}: a net loss of one.{cb('trib-score')} All six districts Republicans failed to win or hold are majority-Latino.{cb('latintimes')}</p>
+<p>The map did its damage beyond Texas too. California answered with Proposition 50 in November 2025, a Democratic map the governor framed as a reply to “find me five seats,” and on Tuesday Democrats took five California seats under it, including David Valadao’s and Darrell Issa’s.{cb('dd-prop50', 'rollcall')} Of the nine states that voted under new maps this year, the redrawn Republican lines in North Carolina yielded five Democratic pickups and the defeat of the House Republican campaign chairman, Ohio’s commission map cost three Republican incumbents, and Florida’s hoped-for four seats came to none; Missouri’s voters repealed theirs by referendum.{cb('rollcall')} Political scientists have a word for a map that spreads a party’s own voters so thin that a bad year sweeps it away: Bernard Grofman and Thomas Brunell called it a dummymander, and their textbook cases are Georgia and North Carolina Democrats in the 1990s, who drew maps for 9–1 and 8–4 and were at 3–8 and 5–7 within a cycle or two.{cb('dummy')} The analysts quoted this week say the same of Texas: a map built on 2024’s Latino numbers that evaporated.{cb('spectrum')}</p>
+<p>The case for the defense is real and worth stating. The national environment would have cost Republicans seats under any map: the president’s approval was 32 percent in Reuters/Ipsos on the eve of the vote and 38 percent among those who voted, gas was $4.33 a gallon and diesel $6.29 after the war with Iran, and the exit polls put the economy first.{cb('aj-approval', 'gma-gas', 'cbs-exit')} TX-32 shows the lines held where the swing was ordinary. The Supreme Court found the map lawful. And the border policy, measured by crossings, worked. What the county data says is narrower and harder to argue with: the voters the map was drawn around did not stay where the map assumed they would, and they left in larger numbers than anyone else in the country.</p>""")
+    return ''.join(P)
+
+def ranking_html():
+    items = [
+        ('1', 'The Kansas–Nebraska Act, 1854', 'Stephen Douglas', 'A transcontinental railroad through Chicago, Southern votes, and a path to the presidency.', 'Democrats lost 66 of their 91 Northern House seats the next year; only seven of the 44 Northern Democrats who voted for it survived; the Whigs collapsed, the Republican Party was founded in response, and the road to Fort Sumter opened. The gold standard for a move that destroyed what it meant to secure.', 'kn'),
+        ('2', 'Proposition 187, 1994', 'Pete Wilson', 'A second term as governor of California, won on a measure to deny public services to undocumented immigrants.', 'He got the term. The measure passed 59–41 and was enjoined within three days, never enforced; over the next two decades Republican registration in California fell from 35.6 to 24.5 percent and Latino officeholding more than doubled. The state has not elected a Republican governor since 2006 nor backed one for president since 1988. The closest parallel to Texas 2025: a border-politics gamble that won the election it was meant to and lost the generation after it.', 'bp-187'),
+        ('3', 'The Brexit referendum, 2016', 'David Cameron', 'To settle a quarrel inside his party by winning a vote he was confident of.', 'Leave won 51.9 percent; he resigned the next morning; the country left the European Union and his party went through four prime ministers in six years.', 'brexit'),
+        ('4', 'The Texas map, 2025', 'The Texas Legislature, at the president’s urging', 'Five more Republican seats, 30 of 38, from a map drawn to Trump’s 2024 margins in five Democratic districts.', f'One of the five; two seats of their own lost; the delegation down one, not up five. California’s answering map took five more. Provisional, since the damage is three days old; ranked here for the size of the gap between what was promised and what arrived, and for the fact that the voters the map was drawn around were the ones who left.', 'trib-score'),
+        ('5', 'The July election, 2024', 'Rishi Sunak', 'A reset, called six months early in the rain outside Downing Street.', 'The Conservatives fell from 372 seats to 121, the worst result in the party’s history.', 'uk2024'),
+        ('6', 'The snap election, 2017', 'Theresa May', 'A bigger majority to carry Brexit through, called with a 21-point lead.', 'She lost the majority she had, 330 seats to 317, and governed by arrangement with the DUP until her own party removed her.', 'uk2017'),
+        ('7', 'The dissolution, 2024', 'Emmanuel Macron', 'A clarifying majority after a rout in the European elections.', 'A hung National Assembly with the left in first place and the far right in third; the government he appointed fell within six months.', 'fr2024'),
+        ('8', '“Who governs Britain?”, February 1974', 'Edward Heath', 'A mandate against the miners’ strike.', 'The voters’ answer was “not you”: more votes than Labour but fewer seats, no coalition, and Harold Wilson back in Downing Street.', 'uk1974'),
+        ('9', 'The dissolution, 1997', 'Jacques Chirac', 'To catch the left off guard a year early.', 'The Socialists won 255 seats to his party’s 139, and he spent the next five years in cohabitation with Lionel Jospin.', 'fr1997'),
+        ('10', 'The shutdowns, 1995–96', 'Newt Gingrich', 'To force a Democratic president to accept a Republican budget.', 'Twenty-seven days of closed government over two rounds, 49 percent blaming the Republican leadership against 26 percent blaming Clinton, and a re-election narrative handed to the other side.', 'miller'),
+    ]
+    out = ['<h2 id="ranking">The all-time ranking of political own goals</h2>',
+           '<p>The Watch’s list, in the spirit of the question readers asked this week: where does the Texas map rank among the moves that scored for the other side? The test is the gap between what a decision sought and what it produced, whether it was a choice rather than a corner, and how long the damage lasted. It is a judgment, not a measurement, and the entries are drawn from the record, not the mood of the week; the sources are at the foot of the page.</p>',
+           '<ol class="own">']
+    for rank, what, who, sought, cost, src in items:
+        out.append(f'<li><b>{esc(what)}</b> <span class="who">{esc(who)}</span><span class="sought"><i>Sought:</i> {esc(sought)}</span><span class="cost"><i>Got:</i> {esc(cost)}{cb(src)}</span></li>')
+    out.append('</ol>')
+    out.append(f'<p><b>The contrast that worked.</b> The last time Texas redrew its map in the middle of a decade, in 2003, it did what it was drawn to do: Tom DeLay’s plan moved the delegation from 17–15 Democratic to 21–11 Republican in a single election, and the Supreme Court blessed mid-decade redistricting on its way to upholding nearly all of it. The architect fared worse than the map: indicted in 2005, out of Congress in 2006, convicted in 2010 and acquitted on appeal three years later.{cb("delay")} <b>And the one historians have forgiven.</b> Gerald Ford’s pardon of Richard Nixon took his approval from 71 percent to 50 in a month and to 37 within a year, and 55 percent still called it wrong on the eve of the election he lost by two points; it is on most such lists, and off this one, because the judgment of time has largely reversed.{cb("gallup-ford")}</p>')
+    return ''.join(out)
+
 # ---------- the main page ----------
 def main_page(cards):
     title = f"{PCT}% of counties counted moved left since 2024"
@@ -408,9 +573,9 @@ def main_page(cards):
     tallest_east = sorted([r for r in rows if r['st'] not in ('TX', 'KS')], key=lambda r: -r['sh'])[:3]
     regions = {'South': ['TX', 'GA', 'NC', 'SC', 'FL', 'VA', 'MS', 'AL', 'LA', 'KY', 'WV', 'TN', 'AR', 'OK'], 'Midwest': ['OH', 'IA', 'KS', 'MI', 'WI', 'MN', 'NE', 'IL', 'SD'], 'Northeast': ['VT', 'ME', 'NH', 'NY', 'MA', 'MD', 'NJ', 'PA', 'DE', 'RI', 'CT'], 'West': ['CA', 'OR', 'ID', 'MT', 'WY', 'NV', 'AZ', 'CO', 'NM', 'HI']}
     reg_rows = ''.join(f"<tr><td>{k}</td><td>{stats([r for r in rows if r['st'] in v])['n']}</td><td class='d'>{stats([r for r in rows if r['st'] in v])['left']}</td><td class='r'>{stats([r for r in rows if r['st'] in v])['right']}</td><td><b class='d'>{pts(stats([r for r in rows if r['st'] in v])['median'])}</b></td><td>{pts(stats([r for r in rows if r['st'] in v])['weighted'])}</td><td>{stats([r for r in rows if r['st'] in v])['flipD']}</td></tr>" for k, v in regions.items())
-    page = {'slug': 'the-wave', 'url': PUBLIC, 'shareText': f"{title}. The Watch drew every county's move since 2024 as a 3-D map, and replayed election night seat by seat.", 'viz': {'view': 'wave', 'loop': True}, **page_ctx()}
-    body = f"""{head(title, dek, '', 'share', published=PUB_ISO)}
-{viz_block(views=True, race=True, hint='Two views: the wave (every county’s move since 2024) and election night (the calls and the count, 6 p.m. to 3 a.m. ET). Drag to turn the map, scroll to zoom, hover a county for its numbers, click one to read its note. Full screen to record it.')}
+    page = {'slug': 'the-wave', 'url': PUBLIC, 'shareText': f"Election night, seat by seat, and {title[0].lower() + title[1:]}: The Watch replayed the night in 3-D and drew every county's move since 2024.", 'viz': {'view': 'night', 'loop': True}, **page_ctx()}
+    body = f"""{head(title, dek, '', 'night', published=PUB_ISO)}
+{viz_block(views=True, race=True, hint='Two views: election night (the calls and the count as they came, 6 p.m. to 3 a.m. ET) and the wave (every county’s move since 2024). Drag to turn the map, scroll to zoom, hover or tap a county. Full screen to record it, or download the video.')}
 <main>
 <div class="narrow head"><p class="k">The Watch report · Politics · The wave</p><h1>{esc(title)}</h1><p class="dek">{esc(dek)}</p>
 <p class="byline">By <b>Claude</b> (Claude Fable 5.1) for The Watch, {PUBLISHED.strftime('%b. %-d, %Y')}; the numbers refresh with the count (last {built.strftime('%b. %-d, %-I:%M %p')} ET). Counts as of {ASOF}, AP via The New York Times; the 2024 baseline is The Watch’s Election Desk. {len(SOURCES)} sources.</p></div>
@@ -455,9 +620,9 @@ def main_page(cards):
 <p>The second view, Election night, replays Tuesday from 6 p.m. to 3 a.m. Eastern. The half-circle is the House, 435 seats, with the 35 Senate seats on the ballot in the inner row; a seat lights up at the minute AP’s call was accepted, blue from the left and red from the right, and the counties in that district reach up to claim it. Below, each county’s block rises as its votes come in, blue or red by who led there.{c('nyt')} The clock, the calls and their times, the final counts and the poll-closing times are real. The pace at which each county’s block rises is reconstructed: the files we can read carry the final count, not the count minute by minute, so each state’s count is drawn starting at its poll close and fitted to the percentages The Watch’s Election Desk recorded during the night, with the West Coast left slow. Treat the vote totals in that view as a reconstruction and the calls as the record. The idea is borrowed too, from an animation by dotsimulate.{c('dots')}</p>
 <p>By 3 a.m. ET, {sum(1 for r in N['races'] if r['o']=='H' and r['at'] is not None and r['at'] <= 540 and r['p']=='D')} House seats had been called for Democrats and {sum(1 for r in N['races'] if r['o']=='H' and r['at'] is not None and r['at'] <= 540 and r['p']=='R')} for Republicans; the Senate stood at {sum(1 for r in N['races'] if r['o']=='S' and r['at'] is not None and r['at'] <= 540 and r['p']=='D')}–{sum(1 for r in N['races'] if r['o']=='S' and r['at'] is not None and r['at'] <= 540 and r['p']=='R')} of the 35 on the ballot, and AP’s count gave Democrats the Senate at {dt.datetime.fromisoformat(N['t0'].replace('Z','+00:00')).astimezone(dt.timezone(dt.timedelta(hours=-5))) and (dt.datetime(2026,11,3,18,0) + dt.timedelta(minutes=SEN.get('controlledAt') or 0)).strftime('%-I:%M %p')} and the House at {(dt.datetime(2026,11,3,18,0) + dt.timedelta(minutes=H.get('controlledAt') or 0)).strftime('%-I:%M %p')}.{c('nyt')} As of {ASOF}, {H.get('called', '–')} of 435 House races were called, {H.get('D', '–')}–{H.get('R', '–')}, and the uncalled Senate and governor races were {', '.join(uncalled) if uncalled else 'none'}.{c('nyt')}</p>
 
-<h2>Five places, up close</h2>
+<h2>The border, and five places up close</h2>
 <p>Each of these takes a region of the map, turns the camera on it and walks through its counties.</p>
-<div class="cards">{''.join(f'<a class="card" href="{x["slug"]}.html"><img src="{x["slug"]}.png" alt="" loading="lazy"><div class="cb"><div class="n">Part {x["n"]} · {esc(x["short"])}</div><h3>{esc(x["title"])}</h3><p>{esc(x["dek"])}</p></div></a>' for x in cards)}</div>
+<div class="cards"><a class="card" href="border.html"><img src="border.png" alt="" loading="lazy"><div class="cb"><div class="n">The border</div><h3>The wall, and the counties around it</h3><p>A flight along the boundary from San Diego to Brownsville: all 24 counties on it moved left, and the Texas map drawn to flip five seats flipped one.</p></div></a>{''.join(f'<a class="card" href="{x["slug"]}.html"><img src="{x["slug"]}.png" alt="" loading="lazy"><div class="cb"><div class="n">Part {x["n"]} · {esc(x["short"])}</div><h3>{esc(x["title"])}</h3><p>{esc(x["dek"])}</p></div></a>' for x in cards)}</div>
 
 {states_section()}
 
@@ -484,8 +649,9 @@ def main_page(cards):
     return {'title': title, 'dek': dek}
 
 cards = [area_page(a) for a in AREAS]
+border_card = border_page()
 state_cards = [state_page(st, rep) for st, rep in sorted(REPORTS.items())]
 mainp = main_page(cards)
-json.dump({'v': 1, 'built': BUILT_ISO, 'published': PUB_ISO, 'asOf': S['asOf'], 'title': mainp['title'], 'dek': mainp['dek'], 'pct': PCT, 'left': ALL['left'], 'right': ALL['right'], 'counted': ALL['n'], 'median': round(ALL['median'], 1), 'starr': round(starr['sh'], 1), 'areas': cards, 'states': sorted(state_cards, key=lambda x: -x['swing']), 'notes': NOTE_STATES, 'control': ctl},
+json.dump({'v': 1, 'built': BUILT_ISO, 'published': PUB_ISO, 'asOf': S['asOf'], 'title': mainp['title'], 'dek': mainp['dek'], 'pct': PCT, 'left': ALL['left'], 'right': ALL['right'], 'counted': ALL['n'], 'median': round(ALL['median'], 1), 'starr': round(starr['sh'], 1), 'areas': cards, 'border': border_card, 'states': sorted(state_cards, key=lambda x: -x['swing']), 'notes': NOTE_STATES, 'control': ctl},
           open(os.path.join(W, 'pages.json'), 'w', encoding='utf-8'), indent=1, ensure_ascii=False)
 print('wrote index.html,', ', '.join(a['slug'] + '.html' for a in AREAS), f'{len(state_cards)} state pages', 'and pages.json;', PCT, '% left,', ALL)

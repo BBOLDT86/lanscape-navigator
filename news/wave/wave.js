@@ -24,9 +24,12 @@ function loadGeo() { return geoP || (geoP = getJSON(BASE + '../../election2026/d
 function loadShift() { return shiftP || (shiftP = getJSON(BASE + 'data/shift.json')); }
 function loadNight() { return nightP || (nightP = getJSON(BASE + 'data/night.json')); }
 
-function decodeTopo(g) { // TopoJSON -> {counties:[{id,n,st,rings:[[x,y]...],cx,cy,bbox}], states:[...]}
+const BORDER = ['06073', '06025', '04027', '04019', '04023', '04003', '35023', '35029', '35013', '48141', '48229', '48109', '48243', '48377', '48043', '48443', '48465', '48271', '48323', '48479', '48505', '48427', '48215', '48061']; // the 24 counties on the Mexican border, west to east
+function decodeTopo(g) { // TopoJSON -> {counties:[{id,n,st,rings:[[x,y]...],cx,cy,bbox}], states:[...], border:[[x,y]...][]}
   const sc = g.transform.scale, tl = g.transform.translate;
   const arcs = g.arcs.map(a => { let x = 0, y = 0; return a.map(([dx, dy]) => { x += dx; y += dy; return [x * sc[0] + tl[0], y * sc[1] + tl[1]]; }); });
+  const use = new Map(); // how many counties use each arc
+  for (const c of g.objects.counties.geometries) for (const poly of (c.type === 'Polygon' ? [c.arcs] : c.arcs)) for (const r of poly) for (const i of r) { const k = i < 0 ? ~i : i; use.set(k, (use.get(k) || 0) + 1); }
   const ring = idx => { const out = []; for (const i of idx) { const a = i < 0 ? arcs[~i].slice().reverse() : arcs[i]; for (let k = out.length ? 1 : 0; k < a.length; k++) out.push(a[k]); } if (out.length > 1 && out[0][0] === out[out.length - 1][0] && out[0][1] === out[out.length - 1][1]) out.pop(); return out; };
   const obj = (name) => g.objects[name].geometries.map(c => {
     const polys = c.type === 'Polygon' ? [c.arcs] : c.arcs; // each polygon: [outer, holes...]
@@ -40,7 +43,21 @@ function decodeTopo(g) { // TopoJSON -> {counties:[{id,n,st,rings:[[x,y]...],cx,
   const drop = id => id.startsWith('02') || id.startsWith('15'); // Alaska has no county map and Hawaii is off the frame: both are left out
   const counties = obj('counties').filter(c => !drop(c.id)), states = obj('states').filter(c => !drop(c.id));
   let minx = 1e9, miny = 1e9, maxx = -1e9, maxy = -1e9; for (const c of states) { minx = Math.min(minx, c.bbox[0]); miny = Math.min(miny, c.bbox[1]); maxx = Math.max(maxx, c.bbox[2]); maxy = Math.max(maxy, c.bbox[3]); }
-  return { counties, states, bbox: [minx, miny, maxx, maxy] };
+  // the border: each border county's arcs that no other county shares (the national boundary, or a coast), kept when they run along
+  // the county's southern side (so San Diego's Pacific and Cameron's Gulf coasts drop out); ordered west to east
+  const border = [];
+  const byId = new Map(g.objects.counties.geometries.map(c => [c.id, c]));
+  for (const id of BORDER) {
+    const c = byId.get(id); const cc = counties.find(x => x.id === id); if (!c || !cc) continue;
+    for (const poly of (c.type === 'Polygon' ? [c.arcs] : c.arcs)) for (const r of poly) for (const i of r) {
+      const k = i < 0 ? ~i : i; if (use.get(k) !== 1) continue;
+      const pts = i < 0 ? arcs[k].slice().reverse() : arcs[k];
+      const my = pts.reduce((a, p) => a + p[1], 0) / pts.length;
+      if (my > cc.cy - (cc.bbox[3] - cc.bbox[1]) * 0.05) border.push(pts);
+    }
+  }
+  border.sort((a, b) => (a[0][0] + a[a.length - 1][0]) - (b[0][0] + b[b.length - 1][0]));
+  return { counties, states, bbox: [minx, miny, maxx, maxy], border };
 }
 
 /* ---------- geometry ---------- */
@@ -207,7 +224,8 @@ function shiftColor(sh, out) { // blue for a move left, red for a move right; br
 
 /* ---------- the module ---------- */
 export async function mount(el, opts = {}) {
-  const O = Object.assign({ view: 'wave', mode: 'hero', autoplay: true, loop: true, race: 'auto', onReady: null, onTime: null, onPick: null, hud: true, interactive: true, dpr: null, focus: null, callouts: null, title: null, dur: null }, opts);
+  const O = Object.assign({ view: 'wave', mode: 'hero', autoplay: true, loop: true, race: 'auto', onReady: null, onTime: null, onPick: null, hud: true, interactive: true, dpr: null, focus: null, callouts: null, title: null, dur: null, highlight: null, camPath: null, border: false, endCard: null, exag: null }, opts);
+  const HL = O.highlight ? new Set(O.highlight) : null;
   el.classList.add('wave-root'); el.classList.toggle('wave-hero', O.mode === 'hero');
   el.innerHTML = `<canvas class="wave-canvas" aria-hidden="true"></canvas><svg class="wave-leaders" aria-hidden="true"></svg><div class="wave-hud" hidden></div><div class="wave-tip" hidden></div>`;
   const canvas = el.querySelector('canvas'), hud = el.querySelector('.wave-hud'), leaders = el.querySelector('.wave-leaders'), tip = el.querySelector('.wave-tip');
@@ -241,11 +259,36 @@ export async function mount(el, opts = {}) {
   const floor = new THREE.Mesh(new THREE.PlaneGeometry(6000, 6000), new THREE.MeshBasicMaterial({ color: PAL.fogDay }));
   floor.rotation.x = -Math.PI / 2; floor.position.set(cx, -4, cz); scene.add(floor);
 
+  // the border: a ribbon along the boundary, drawn west to east as the sequence runs
+  let borderMat = null;
+  if (O.border && geo.border && geo.border.length) {
+    const total = geo.border.reduce((a, pts) => { for (let i = 1; i < pts.length; i++) a += Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]); return a; }, 0);
+    const mk = (width, y) => {
+      const pos = [], us = [], ind = []; let run = 0;
+      for (const pts of geo.border) {
+        for (let i = 0; i < pts.length; i++) {
+          const a = pts[Math.max(0, i - 1)], b = pts[Math.min(pts.length - 1, i + 1)]; let nx = b[1] - a[1], nz = -(b[0] - a[0]); const l = Math.hypot(nx, nz) || 1; nx = nx / l * width; nz = nz / l * width;
+          if (i) run += Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]);
+          const base = pos.length / 3; pos.push(pts[i][0] + nx, y, pts[i][1] + nz, pts[i][0] - nx, y, pts[i][1] - nz); us.push(run / total, run / total);
+          if (i) ind.push(base - 2, base - 1, base, base - 1, base + 1, base);
+        }
+      }
+      const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); g.setAttribute('aU', new THREE.Float32BufferAttribute(us, 1)); g.setIndex(ind); return g;
+    };
+    borderMat = new THREE.RawShaderMaterial({
+      vertexShader: 'precision highp float; uniform mat4 modelViewMatrix, projectionMatrix; attribute vec3 position; attribute float aU; varying float vU; void main(){ vU = aU; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.); }',
+      fragmentShader: 'precision highp float; uniform float uP; uniform vec3 uColor; uniform float uA; varying float vU; void main(){ if (vU > uP) discard; float head = smoothstep(0.0, 0.03, uP - vU); float tip = exp(-(uP - vU) * 60.0) * 1.5; gl_FragColor = vec4(uColor * (1.0 + tip), uA * head); }',
+      uniforms: { uP: { value: 0 }, uColor: { value: col('#ffd27a') }, uA: { value: 0.9 } }, transparent: true, depthWrite: false, side: THREE.DoubleSide
+    });
+    const glowMat = new THREE.RawShaderMaterial({ vertexShader: borderMat.vertexShader, fragmentShader: borderMat.fragmentShader, uniforms: { uP: borderMat.uniforms.uP, uColor: { value: col('#ff9c3a') }, uA: { value: 0.22 } }, transparent: true, depthWrite: false, side: THREE.DoubleSide, blending: THREE.AdditiveBlending });
+    scene.add(new THREE.Mesh(mk(1.1, 1.6), borderMat)); scene.add(new THREE.Mesh(mk(4.5, 1.3), glowMat));
+  }
+
   // the counties
   const cg = buildCounties(geo);
   const cmat = new THREE.RawShaderMaterial({
     vertexShader: 'precision highp float; uniform mat4 modelViewMatrix, projectionMatrix; attribute vec3 position;' + COUNTY_VS, fragmentShader: COUNTY_FS,
-    uniforms: { uT: { value: 0 }, uExag: { value: 2.1 }, uHover: { value: -1 }, uWin: { value: 0.16 }, uLight: { value: new THREE.Vector3(-0.5, 0.85, 0.45) }, uFog: { value: PAL.fogDay } },
+    uniforms: { uT: { value: 0 }, uExag: { value: O.exag || 2.1 }, uHover: { value: -1 }, uWin: { value: 0.16 }, uLight: { value: new THREE.Vector3(-0.5, 0.85, 0.45) }, uFog: { value: PAL.fogDay } },
     side: THREE.DoubleSide
   });
   const counties = new THREE.Mesh(cg, cmat); scene.add(counties);
@@ -269,11 +312,14 @@ export async function mount(el, opts = {}) {
         const sh = row[2]; h = clamp(Math.abs(sh), 0.6, 80); color = shiftColor(sh, tmp); counted++; if (sh > 0) left++; else if (sh < 0) right++;
         stat[i] = { sh, m24: row[0], m26: row[1], race: row[4], e: row[3], d: row[5], r: row[6], t: row[7], d24: row[8], r24: row[9], t24: row[10] };
       }
-      if (FOCUS && !FOCUS.has(st)) color = tmp.copy(color).lerp(PAL.dim, 0.72);
+      if (HL ? !HL.has(c.id) : (FOCUS && !FOCUS.has(st))) color = tmp.copy(color).lerp(PAL.dim, HL ? 0.6 : 0.72);
       hs[i] = h; cols[i * 3] = color.r; cols[i * 3 + 1] = color.g; cols[i * 3 + 2] = color.b;
       const cl = closeMin[st] != null ? closeMin[st] : cmax;
       const xf = (c.cx - geo.bbox[0]) / (geo.bbox[2] - geo.bbox[0]); // 0 west .. 1 east
       delay[i] = row ? 0.03 + 0.66 * clamp((cl - cmin) / (cmax - cmin), 0, 1) + 0.10 * (1 - xf) + ((c.id.charCodeAt(3) * 7 + c.id.charCodeAt(4) * 13) % 17) / 17 * 0.05 : 0;
+      if (O.camPath && row) { // a flythrough: the blocks rise west to east, just ahead of the camera
+        const span = O.focus && O.focus.bbox ? O.focus.bbox : geo.bbox; delay[i] = 0.02 + 0.82 * clamp((c.cx - span[0]) / (span[2] - span[0]), 0, 1) + ((c.id.charCodeAt(3) * 7 + c.id.charCodeAt(4) * 13) % 17) / 17 * 0.03;
+      }
     }
     for (let v = 0; v < vertIds.length; v++) { const i = vertIds[v]; aH.array[v] = hs[i]; aDelay.array[v] = delay[i]; aColor.array[v * 3] = cols[i * 3]; aColor.array[v * 3 + 1] = cols[i * 3 + 1]; aColor.array[v * 3 + 2] = cols[i * 3 + 2]; }
     aH.needsUpdate = aDelay.needsUpdate = aColor.needsUpdate = true;
@@ -283,10 +329,10 @@ export async function mount(el, opts = {}) {
       let row = row0; const alt = shift.alt && shift.alt[f];
       if (raceMode !== 'auto' && row[4] !== raceMode) row = alt && alt[4] === raceMode ? alt : null;
       if (!row) continue; const st = FIPS2ST[f.slice(0, 2)];
-      if (FOCUS && !FOCUS.has(st)) continue;
+      if (HL ? !HL.has(f) : (FOCUS && !FOCUS.has(st))) continue;
       counted++; if (row[2] > 0) left++; else if (row[2] < 0) right++;
     }
-    if (raceMode !== 'auto' && shift.alt) for (const [f, alt] of Object.entries(shift.alt)) { if (shift.counties[f] || alt[4] !== raceMode) continue; const st = FIPS2ST[f.slice(0, 2)]; if (FOCUS && !FOCUS.has(st)) continue; counted++; if (alt[2] > 0) left++; else if (alt[2] < 0) right++; }
+    if (raceMode !== 'auto' && shift.alt) for (const [f, alt] of Object.entries(shift.alt)) { if (shift.counties[f] || alt[4] !== raceMode) continue; const st = FIPS2ST[f.slice(0, 2)]; if (HL ? !HL.has(f) : (FOCUS && !FOCUS.has(st))) continue; counted++; if (alt[2] > 0) left++; else if (alt[2] < 0) right++; }
     return { left, right, counted };
   }
 
@@ -326,7 +372,8 @@ export async function mount(el, opts = {}) {
     const w = el.clientWidth, h = el.clientHeight;
     for (const c of callouts) {
       if (!c.on) { c.el.hidden = true; c.ln.setAttribute('d', ''); c.dot.setAttribute('r', '0'); continue; }
-      const [x, y, z] = c.anchor(); const [sx, sy, vis] = toScreen(x, y, z);
+      const [x, y, z] = c.anchor(); const [sx, sy, vis0] = toScreen(x, y, z);
+      const vis = vis0 && sx >= -4 && sx <= w + 4 && sy >= -4 && sy <= h + 4;
       c.el.hidden = false;
       const r = c.el.getBoundingClientRect();
       let lx = sx + c.off[0] * w, ly = sy + c.off[1] * h;
@@ -334,7 +381,7 @@ export async function mount(el, opts = {}) {
       c.el.style.left = lx + 'px'; c.el.style.top = ly + 'px';
       const ex = lx + (sx < lx + r.width / 2 ? 0 : r.width), ey = ly + r.height - 6;
       const mx = ex + (sx < ex ? -14 : 14);
-      c.ln.setAttribute('d', `M${sx},${sy} L${mx},${ey} L${ex},${ey}`); c.dot.setAttribute('cx', sx); c.dot.setAttribute('cy', sy); c.dot.setAttribute('r', vis ? '3.2' : '0');
+      c.ln.setAttribute('d', vis ? `M${sx},${sy} L${mx},${ey} L${ex},${ey}` : ''); c.dot.setAttribute('cx', sx); c.dot.setAttribute('cy', sy); c.dot.setAttribute('r', vis ? '3.2' : '0');
     }
   }
   const tally = document.createElement('div'); tally.className = 'wave-tally';
@@ -351,7 +398,7 @@ export async function mount(el, opts = {}) {
   const anchorCounty = i => () => { const c = C[i]; const s = stat[i]; return [c.cx, (s ? clamp(Math.abs(s.sh), 0.6, 80) : 1) * cmat.uniforms.uExag.value, c.cy]; };
   const CALL = {};
   function buildWaveHud() {
-    hud.hidden = !O.hud; callouts.length = 0; hud.querySelectorAll('.wave-callout').forEach(x => x.remove()); leaders.innerHTML = '';
+    hud.hidden = !O.hud; callouts.length = 0; hud.querySelectorAll('.wave-callout,.wave-endcard').forEach(x => x.remove()); leaders.innerHTML = ''; CALL.end = null;
     const T = W.totals, pct = Math.round(T.left / T.counted * 100);
     const tt = O.title || {};
     title.innerHTML = `<p class="wave-kicker"><span class="wave-globe"></span>${tt.kicker || '2026 vote vs 2024 vote'}</p><h2>${tt.h2 || `${pct}% of counties counted<br>moved left since 2024`}</h2>`;
@@ -359,6 +406,7 @@ export async function mount(el, opts = {}) {
     legend.innerHTML = `<span class="sw blue"></span>moved toward Democrats <span class="sw red"></span>toward Republicans <span class="sw grey"></span>no Senate or governor race`;
     const src = shift.asOf ? new Date(shift.asOf) : null;
     foot.innerHTML = `Height = how far the county moved: its Senate or governor vote vs Harris–Trump, in points. Counts: AP via The New York Times${src ? ', as of ' + src.toLocaleString('en-US', { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit', timeZone: 'America/New_York' }) + ' ET' : ''}. Analysis: The Watch.`;
+    if (O.endCard) { const d = document.createElement('div'); d.className = 'wave-endcard'; d.innerHTML = O.endCard.html; d.hidden = true; hud.appendChild(d); CALL.end = d; }
     if (O.callouts) { // the page's own callouts: {at:'county:48427'|'state:VT'|[x,y,z], html, off, from, to}
       O.callouts.forEach((o, k) => { const at = typeof o.at === 'string' && o.at.startsWith('county:') ? anchorCounty(ci.get(o.at.slice(7))) : typeof o.at === 'string' && o.at.startsWith('state:') ? (() => { const st = geo.states.find(x => x.st === o.at.slice(6)); return () => [st.cx, 24, st.cy]; })() : () => o.at; const c = callout('c' + k, o.html, at, { off: o.off }); c.from = o.from; c.to = o.to; });
       return;
@@ -376,17 +424,29 @@ export async function mount(el, opts = {}) {
     const a = tally.querySelector('[data-n=left]'), b = tally.querySelector('[data-n=right]'); if (a) a.textContent = NUM.format(l); if (b) b.textContent = NUM.format(r);
   }
   function waveFrame(t) { // t seconds since the start of the sequence
-    const reveal = clamp((t - 0.6) / Math.min(6.2, W.dur * 0.3), 0, 1.1);
+    const reveal = O.camPath ? clamp(t / W.dur * 1.06 + 0.04, 0, 1.1) : clamp((t - 0.6) / Math.min(6.2, W.dur * 0.3), 0, 1.1);
     cmat.uniforms.uT.value = reveal;
-    tickCount(W.totals, (t - 0.9) / Math.min(6.2, W.dur * 0.3));
+    tickCount(W.totals, O.camPath ? t / (W.dur * 0.9) : (t - 0.9) / Math.min(6.2, W.dur * 0.3));
     const seq = [['height', 3.2, 8.2], ['blank', 8.8, 12.4], ['texas', 13.0, 19.2], ['right', 19.8, 25.5]];
     for (const [k, a, b] of seq) { const c = CALL[k]; if (c) c.on = t >= a && t < b; }
     for (const c of callouts) if (c.from != null) c.on = t >= c.from && t < c.to;
     title.style.opacity = clamp(t / 0.8, 0, 1); tally.style.opacity = clamp((t - 1.0) / 0.8, 0, 1);
     foot.style.opacity = clamp((t - 1.6) / 0.8, 0, 1); legend.style.opacity = clamp((t - 1.6) / 0.8, 0, 1);
-    if (!userCam) {
+    if (borderMat) borderMat.uniforms.uP.value = O.camPath ? clamp(t / W.dur * 1.04 + 0.02, 0, 1) : reveal;
+    if (CALL.end) { const on = O.endCard && t / W.dur >= O.endCard.at; CALL.end.hidden = !on; }
+    if (!userCam && O.camPath && O.camPath.length) { // keyframes: {at (0..1), county|xy, az, el, dist (map units), pan}; eased between keys
+      const p = clamp(t / W.dur, 0, 1); const K = O.camPath;
+      let i = 0; while (i < K.length - 1 && K[i + 1].at <= p) i++;
+      const a = K[i], b = K[Math.min(i + 1, K.length - 1)]; const span = Math.max(1e-6, b.at - a.at); const u = a === b ? 1 : easeInOut((p - a.at) / span);
+      const pt = k => { if (k._xy) return k._xy; const c = k.county ? C[ci.get(k.county)] : null; k._xy = c ? [c.cx, c.cy] : (k.xy || [center.x, center.z]); return k._xy; };
+      const [ax, az] = pt(a), [bx, bz] = pt(b);
+      cam.tx = lerp(ax, bx, u) - center.x; cam.tz = lerp(az, bz, u) - center.z;
+      cam.az = lerp(a.az != null ? a.az : 0.3, b.az != null ? b.az : 0.3, u); cam.el = lerp(a.el != null ? a.el : 0.55, b.el != null ? b.el : 0.55, u);
+      cam.dist = lerp(a.dist || 400, b.dist || 400, u) * (el.clientHeight > el.clientWidth ? 1.5 : 1); cam.pan = lerp(a.pan || 0, b.pan || 0, u);
+    } else if (!userCam) {
       const p = clamp(t / W.dur, 0, 1);
-      cam.az = lerp(0.50, 0.22, easeInOut(p)); cam.el = lerp(0.82, 0.66, easeInOut(p)); cam.dist = fitDist() * lerp(1.04, 0.94, easeInOut(p)); cam.pan = lerp(10, 50, p); cam.tx = lerp(0, 20, p); cam.tz = lerp(0, -20, p);
+      const tall = el.clientHeight > el.clientWidth * 1.1;
+      cam.az = lerp(0.50, 0.22, easeInOut(p)); cam.el = lerp(0.82, 0.66, easeInOut(p)); cam.dist = fitDist() * lerp(1.04, 0.94, easeInOut(p)) * (tall ? 0.9 : 1); cam.pan = lerp(10, 50, p) + (tall ? 60 : 0); cam.tx = lerp(0, 20, p); cam.tz = lerp(0, -20, p);
     }
   }
 
@@ -520,6 +580,10 @@ function buildNight(ctx) {
   const T0 = 0, TEND = N.end || 540; // minutes since 6 p.m. ET
   const SPEED = mode === 'hero' ? TEND / 48 : TEND / 64; // replay minutes per real second
   const S = { t: 0, hold: 0, ended: false };
+  // the quiet first two hours (before 8 p.m., when most of the East closes) run 2.6x faster; budget minutes map to replay minutes
+  const WARP = { until: 115, rate: 2.6 }; const BUDGET = WARP.until / WARP.rate + (TEND - WARP.until);
+  const warp = b => b < WARP.until / WARP.rate ? b * WARP.rate : WARP.until + (b - WARP.until / WARP.rate);
+  const unwarp = t => t < WARP.until ? t / WARP.rate : WARP.until / WARP.rate + (t - WARP.until);
   const tmp = new THREE.Color();
 
   /* spikes: one per county, height from the House vote reported there, rising from the state's poll close */
@@ -610,9 +674,22 @@ function buildNight(ctx) {
     <div class="n-side n-dem"><p class="n-lab">Democrats</p><b class="n-big" data-k="dv">0</b><span class="n-sub">votes counted</span><svg class="n-spark" viewBox="0 0 120 26" preserveAspectRatio="none"><path data-k="dpath" d=""/></svg><p class="n-called"><b data-k="dc">0</b> called</p><ul class="n-calls" data-k="dl"></ul></div>
     <div class="n-side n-rep"><p class="n-lab">Republicans</p><b class="n-big" data-k="rv">0</b><span class="n-sub">votes counted</span><svg class="n-spark" viewBox="0 0 120 26" preserveAspectRatio="none"><path data-k="rpath" d=""/></svg><p class="n-called"><b data-k="rc">0</b> called</p><ul class="n-calls" data-k="rl"></ul></div>
     <div class="n-mid"><div class="n-clock"><b data-k="clock">6:00 PM ET</b><span data-k="close"></span></div><ul class="n-states" data-k="states"></ul><p class="n-more" data-k="more"></p><p class="n-pct"><b data-k="pct">0%</b> of the expected vote in</p><p class="n-src">Calls and final counts: AP via The New York Times · county timing reconstructed by The Watch</p></div>
+    <div class="n-cap" data-k="cap" hidden><span class="n-cap-k" data-k="capk"></span><b class="n-cap-t" data-k="capt"></b><span class="n-cap-s" data-k="caps"></span></div>
     <div class="n-end" data-k="end" hidden></div>`;
   const K = {}; box.querySelectorAll('[data-k]').forEach(e => K[e.dataset.k] = e);
-  const dSeries = [], rSeries = []; let lastHud = -1;
+  const dSeries = [], rSeries = []; let lastHud = -1, capIdx = -1;
+  const CAPS = (N.captions || []).map((c, i, a) => Object.assign({}, c, { until: Math.min(c.at + (c.big ? 70 : 42), a[i + 1] ? a[i + 1].at + 6 : 1e9) }));
+  function caption(t) {
+    let idx = -1;
+    for (let i = CAPS.length - 1; i >= 0; i--) if (t >= CAPS[i].at) { idx = t < CAPS[i].until ? i : -1; break; }
+    K.cap.hidden = idx < 0;
+    if (idx === capIdx) return;
+    capIdx = idx; const c = CAPS[idx];
+    if (idx < 0) return;
+    K.cap.className = 'n-cap' + (c.c === 'D' ? ' d' : c.c === 'R' ? ' r' : '') + (c.big ? ' big' : '');
+    K.capk.textContent = c.k || ''; K.capt.textContent = c.t || ''; K.caps.textContent = c.s || '';
+    K.cap.style.animation = 'none'; void K.cap.offsetWidth; K.cap.style.animation = '';
+  }
   const finalVotes = Object.values(cnt).reduce((s, v) => s + v[2], 0);
   const closeGroups = {}; for (const [st, m] of Object.entries(N.close)) (closeGroups[m] = closeGroups[m] || []).push(st);
   const label = r => r.o === 'H' ? `${r.st}-${r.seat}` : r.o === 'S' ? `${r.st} Senate` : `${r.st} Gov.`;
@@ -622,7 +699,7 @@ function buildNight(ctx) {
     if (!force && t - lastHud < 2 && t !== 0) return; lastHud = t;
     let dv = 0, rv = 0, tv = 0; const margins = [];
     for (const [st, v] of Object.entries(N.stateVotes)) { const p = progressOf(st, t); dv += v[0] * p; rv += v[1] * p; tv += v[2] * p; if (p > 0) margins.push([st, (v[0] - v[1]) * p]); }
-    K.clock.textContent = clock(t);
+    K.clock.textContent = clock(t); caption(t);
     K.dv.textContent = NUM.format(Math.round(dv)); K.rv.textContent = NUM.format(Math.round(rv));
     dSeries.push(dv); rSeries.push(rv); if (dSeries.length > 160) { dSeries.shift(); rSeries.shift(); }
     const spark = (arr, max) => arr.length < 2 ? '' : 'M' + arr.map((v, i) => `${(i / (arr.length - 1) * 120).toFixed(1)},${(25 - v / (max || 1) * 24).toFixed(1)}`).join(' L');
@@ -652,14 +729,14 @@ function buildNight(ctx) {
     hide() { group.visible = false; box.hidden = true; hud.querySelectorAll('.wave-title,.wave-tally,.wave-legend,.wave-foot').forEach(e => e.hidden = false); },
     step(dt) {
       if (S.ended) { S.hold += dt; if (S.hold > 6 && ctx.mode === 'hero') { S.t = 0; S.hold = 0; S.ended = false; dSeries.length = rSeries.length = 0; } else return; }
-      S.t = Math.min(TEND, S.t + dt * SPEED); if (S.t >= TEND) S.ended = true;
+      S.t = Math.min(TEND, S.t + dt * SPEED * (S.t < WARP.until ? WARP.rate : 1)); if (S.t >= TEND) S.ended = true;
       night.apply(); night.cam();
     },
     apply() { const t = S.t; smat.uniforms.uTime.value = t; tmat.uniforms.uTime.value = t; seatMat.uniforms.uTime.value = t; stMat.uniforms.uTime.value = t; hudTick(t, S.ended); },
-    cam() { const p = S.t / TEND; cam.az = lerp(0.12, -0.10, p); cam.el = lerp(0.27, 0.31, p); cam.dist = fitDist() * lerp(1.22, 1.14, p); cam.pan = 95; cam.tx = 0; cam.tz = -120; },
+    cam() { const p = S.t / TEND; const tall = el.clientHeight > el.clientWidth; cam.az = lerp(0.12, -0.10, p); cam.el = lerp(0.27, 0.31, p); cam.dist = fitDist() * lerp(1.22, 1.14, p) * (tall ? 0.74 : 1); cam.pan = tall ? 90 : 95; cam.tx = 0; cam.tz = -120; },
     hud() { },
-    progress() { return S.t / TEND; },
-    seek(p) { S.t = clamp(p, 0, 1) * TEND; S.ended = S.t >= TEND; dSeries.length = rSeries.length = 0; lastHud = -1; night.apply(); night.cam(); },
+    progress() { return unwarp(S.t) / BUDGET; },
+    seek(p) { S.t = Math.min(TEND, warp(clamp(p, 0, 1) * BUDGET)); S.ended = S.t >= TEND; dSeries.length = rSeries.length = 0; lastHud = -1; capIdx = -2; night.apply(); night.cam(); },
     resize(w, h) { tmat.uniforms.uPx.value = Math.min(window.devicePixelRatio || 1, 2); seatMat.uniforms.uPx.value = Math.min(window.devicePixelRatio || 1, 2); },
     nStreams
   };
