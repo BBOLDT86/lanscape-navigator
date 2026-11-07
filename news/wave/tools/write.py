@@ -105,7 +105,7 @@ class Run:
             L['runs'].append({'when': now(), 'job': self.job, 'what': what, 'usd': usd, 'in': u.get('input_tokens', 0), 'out': u.get('output_tokens', 0), 'cache_read': u.get('cache_read_input_tokens', 0), 'cache_write': u.get('cache_creation_input_tokens', 0), 'searches': searches, 'batch': batch})
             L['runs'] = L['runs'][-4000:]
             save(LEDGER, L)
-        print(f'  {what}: ${usd:.3f} (run ${self.usd:.2f} of ${self.budget:.0f}; this ledger ${L["usd"]:.2f}; all ${ledger_total():.2f} of the ${CAP:.0f} cap)', flush=True)
+        print(f'  {what}: ${usd:.3f} (run ${self.usd:.2f}' + (f' of ${self.budget:.0f}' if self.budget is not None else '') + f'; this ledger ${L["usd"]:.2f}; all ${ledger_total():.2f} of the ${CAP:.0f} cap)', flush=True)
         return usd
     def over(self): return (self.budget is not None and self.usd >= self.budget) or ledger_total() >= CAP
     def summary(self): return f'{self.job}: {self.items} items, ${self.usd:.2f}, {self.tok["in"]:,} in / {self.tok["out"]:,} out / {self.tok["cache_read"]:,} cached, {self.tok["searches"]} searches, {time.time() - self.t0:.0f}s'
@@ -153,11 +153,12 @@ def cmd_context(a):
     for every county, from the Census Bureau's ACS 2023 five-year estimates (api.census.gov; keyless, or CENSUS_API_KEY)."""
     url = f"{ACS}?get=NAME,{','.join(ACS_VARS)}&for=county:*" + (f"&key={os.environ['CENSUS_API_KEY']}" if os.environ.get('CENSUS_API_KEY') else '')
     req = urllib.request.Request(url, headers={'User-Agent': 'the-watch-wave/1.0 (bboldt86.github.io/lanscape-navigator)'})
+    raw = b''
     try:
-        with urllib.request.urlopen(req, timeout=120) as r: rows = json.loads(r.read())
+        with urllib.request.urlopen(req, timeout=120) as r: raw = r.read(); rows = json.loads(raw)
     except Exception as e:
-        body = e.read().decode('utf-8', 'replace')[:500] if hasattr(e, 'read') else ''
-        save(os.path.join(DATA, 'context_error.json'), {'when': now(), 'error': repr(e), 'body': body, 'url': url.split('&key=')[0]}); print(f'context: {e!r} {body[:200]}'); return
+        body = (e.read().decode('utf-8', 'replace')[:500] if hasattr(e, 'read') else raw.decode('utf-8', 'replace')[:500])
+        save(os.path.join(DATA, 'context_error.json'), {'when': now(), 'error': repr(e), 'body': body, 'status': getattr(e, 'code', None), 'url': url.split('&key=')[0]}); print(f'context: {e!r} {body[:200]}'); return
     hdr = rows[0]; out = {}
     for row in rows[1:]:
         d = dict(zip(hdr, row)); f = d['state'] + d['county']
