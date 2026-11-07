@@ -1,0 +1,113 @@
+name: The money
+# Who paid for the 2026 midterms (news/money/): reads the FEC's API and Google's political-ads bundle (fetch.py), has
+# Claude (the API) write the national piece, a piece per state and the donor profiles (write.py), and builds the pages
+# (build.py). Runs on a push of news/money/run.json (a run request), by hand, and daily until Dec. 9, 2026 to refresh
+# the data and rewrite what changed, within a small budget. Secrets: ANTHROPIC_API_KEY (required), FEC_API_KEY (free,
+# api.open.fec.gov/developers; without it the donor lists and platform payments wait for the next run with one).
+on:
+  schedule:
+    - cron: '23 9 * * *'
+  push:
+    paths: ['news/money/run.json']
+  workflow_dispatch:
+    inputs:
+      job:
+        description: 'What to do'
+        type: choice
+        default: all
+        options: [all, fetch, national, states, donors, refresh]
+      budget:
+        description: 'Dollars the state pieces may spend'
+        default: '100'
+      national_budget:
+        default: '12'
+      donors_budget:
+        default: '20'
+      effort:
+        type: choice
+        default: high
+        options: [medium, high, xhigh, max]
+      states:
+        description: 'Only these states (e.g. OH,TX); empty = all'
+        default: ''
+      redo:
+        type: boolean
+        default: false
+permissions:
+  contents: write
+concurrency:
+  group: money2026
+  cancel-in-progress: false
+jobs:
+  money:
+    if: github.repository == 'BBOLDT86/lanscape-navigator'
+    runs-on: ubuntu-latest
+    timeout-minutes: 340
+    env:
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      FEC_API_KEY: ${{ secrets.FEC_API_KEY }}
+      WAVE_CAP: '400'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Inputs
+        run: |
+          if [ "${{ github.event_name }}" = "schedule" ] && [ "$(date -u +%Y%m%d)" -gt 20261209 ]; then echo "SKIP=1" >> "$GITHUB_ENV"; fi
+          if [ "${{ github.event_name }}" = "push" ]; then
+            python3 - <<'PY' >> "$GITHUB_ENV"
+          import json; r = json.load(open('news/money/run.json'))
+          print('JOB=' + str(r.get('job', 'all'))); print('BUDGET=' + str(r.get('budget', 100))); print('NBUDGET=' + str(r.get('national_budget', 12))); print('DBUDGET=' + str(r.get('donors_budget', 20)))
+          print('EFFORT=' + str(r.get('effort', 'high'))); print('STATES=' + str(r.get('states', ''))); print('REDO=' + ('true' if r.get('redo') else 'false'))
+          PY
+            echo "run request: $(cat news/money/run.json)"
+          elif [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            { echo "JOB=${{ inputs.job }}"; echo "BUDGET=${{ inputs.budget }}"; echo "NBUDGET=${{ inputs.national_budget }}"; echo "DBUDGET=${{ inputs.donors_budget }}"; echo "EFFORT=${{ inputs.effort }}"; echo "STATES=${{ inputs.states }}"; echo "REDO=${{ inputs.redo }}"; } >> "$GITHUB_ENV"
+          else
+            { echo "JOB=refresh"; echo "BUDGET=4"; echo "NBUDGET=0"; echo "DBUDGET=0"; echo "EFFORT=high"; echo "STATES="; echo "REDO=false"; } >> "$GITHUB_ENV"
+          fi
+          if [ -z "$ANTHROPIC_API_KEY" ]; then echo "::warning::ANTHROPIC_API_KEY is not set; fetching and building only"; echo "NOKEY=1" >> "$GITHUB_ENV"; fi
+          if [ -z "$FEC_API_KEY" ]; then echo "::warning::FEC_API_KEY is not set (free at api.open.fec.gov/developers); using DEMO_KEY, which allows only the core queries"; fi
+      - name: Fetch the FEC and Google data
+        if: env.SKIP != '1'
+        run: |
+          timeout -k 30 50m python3 news/money/fetch.py || echo "fetch stopped with $?"
+      - name: Build the pages (before writing, so the data is up even if the writing stops)
+        if: env.SKIP != '1'
+        run: python3 news/money/build.py
+      - name: Write
+        if: env.SKIP != '1' && env.NOKEY != '1' && env.JOB != 'fetch'
+        run: |
+          W=news/money/write.py; REDO_FLAG=""; ST=""
+          if [ "$REDO" = "true" ]; then REDO_FLAG="--redo"; fi
+          if [ -n "$STATES" ]; then ST="--states $STATES"; fi
+          case "$JOB" in
+            all)      timeout -k 60 25m python3 $W national --budget "$NBUDGET" --effort max $REDO_FLAG || echo "national: stopped ($?)"
+                      timeout -k 60 200m python3 $W states --budget "$BUDGET" --effort "$EFFORT" $ST $REDO_FLAG || echo "states: stopped ($?)"
+                      timeout -k 60 60m python3 $W donors --budget "$DBUDGET" --effort medium $REDO_FLAG || echo "donors: stopped ($?)" ;;
+            national) timeout -k 60 30m python3 $W national --budget "$NBUDGET" --effort max $REDO_FLAG || echo "national: stopped ($?)" ;;
+            states)   timeout -k 60 300m python3 $W states --budget "$BUDGET" --effort "$EFFORT" $ST $REDO_FLAG || echo "states: stopped ($?)" ;;
+            donors)   timeout -k 60 90m python3 $W donors --budget "$DBUDGET" --effort medium $REDO_FLAG || echo "donors: stopped ($?)" ;;
+            refresh)  timeout -k 60 120m python3 $W refresh --budget "$BUDGET" || echo "refresh: stopped ($?)" ;;
+          esac
+          python3 $W check || true
+          python3 $W cost
+      - name: Build the pages again, and the wave's links
+        if: env.SKIP != '1'
+        run: |
+          python3 news/money/build.py
+          python3 news/wave/tools/make_pages.py
+      - name: Commit and push
+        if: env.SKIP != '1'
+        run: |
+          git config user.name "The Watch writer"
+          git config user.email "the-watch@users.noreply.github.com"
+          git add news/money news/wave/data/spend.json news/wave/*.html news/wave/pages.json
+          if git diff --cached --quiet; then echo "no changes"; exit 0; fi
+          git commit -qm "The money: $(python3 -c "import json;d=json.load(open('news/money/pages.json'));print(len(d.get('states') or []), 'state pieces;', 'national' if d.get('national') else 'no national')") ($(date -u +%Y-%m-%dT%H:%MZ))"
+          for i in 1 2 3 4; do
+            git pull --rebase -X theirs origin main && git push -q origin HEAD:main && exit 0
+            sleep 15
+          done
+          echo "push failed" >&2; exit 1

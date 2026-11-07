@@ -501,6 +501,29 @@ against; add a name when a new one is listed. The page draws the chart, the boar
 of each card for screenshots. The three reports of Nov. 6, 2026 (`package: "prophecy-watch"`) explain the episode,
 the market and the budget.
 
+## The money (`news/money/`; `fetch.py`, `write.py`, `build.py`; `.github/workflows/money.yml`)
+
+Who paid for the 2026 midterms, as a companion to the wave: `news/money/` opens on an animated money flow (donors ->
+committees -> Senate races, `money.js` drawing `data/flow.json`) and goes on to what each seat cost (outside money
+for each side against the result), the committees and their records, the biggest donors with the seats their money
+reached, the platforms (direct FEC payments to Meta and Google by month; Google's own transparency count, weekly, by
+advertiser, with the top ads linked) and a Claude-written piece per state.
+- `fetch.py` reads the OpenFEC API (`FEC_API_KEY`, free; `DEMO_KEY` otherwise, ~30 requests an hour, enough for the
+  core) — candidate totals, Schedule E by candidate and committee, the top committees' Schedule A donors ($10,000+),
+  Schedule B payments naming Meta/Facebook/Google ($2,500+) — and Google's political-ads bundle (advertiser weekly
+  spend since Jan. 2025, geo spend, creative stats for the top advertisers). Every request is logged in
+  `data/money.json["log"]`. Neither site is reachable from the sandbox; the Action does it. `--mock` fakes the data.
+- `build.py` does the sums (sides, records, donors' seats, per-vote cost), draws the inline SVG charts and writes
+  `index.html`, `<state>.html` for each written piece, `data/flow.json` and `pages.json` (the wave's `make_pages.py`
+  reads that to add a card and the front's hero link).
+- `write.py` imports the wave writer (client, prices, ledger, cap) and writes `data/reports/_US.json` (national, max
+  effort), `data/reports/<ST>.json` (a state's money: the data block for its federal races; the web for governor's
+  races, the ads and the donors; skeleton HEADLINE/DEK/SUMMARY/BODY/ADS/PLAYERS — the ADS and PLAYERS lines become
+  cards) and `data/donors/<key>.json` (short cited profiles of the top donors). A piece is rewritten when its races'
+  outside money moves 10% or a race is called (`stale()`).
+- `money.yml`: on a push of `news/money/run.json`, by hand, and daily until Dec. 9 (refresh, $4 a day). Spending goes
+  to the same ledger as the wave (`news/wave/data/spend.json`), under the same `WAVE_CAP` ($400).
+
 ## The front package (`data/front.json`)
 
 When one story should lead the front page, `news/data/front.json` puts a package above the lead from the feeds: a lead
