@@ -72,6 +72,7 @@ travel/voyage-planner/   Voyage Planner, a worked sample trip planner plus a pro
 shop/                    Finds, a Pinterest-style shopping board of real products, priced live (see below); not part of the app
 vision/                  Vision, a shared board for two people (trips, things, the home), synced phone to phone (see below); not part of the app
 barnlife/index.html      Central Ohio Barn Hunt, a separate page (see below); not part of the app
+final-table/index.html   Final Table Journal, a separate page (see below); www.finaltablejournal.com inside the app
 ```
 
 ## Also hosted here: Weekender
@@ -199,6 +200,12 @@ A Pinterest-style wall of secondhand fall layers, $20 to $100 an item, from eBay
 **Open it: <https://bboldt86.github.io/lanscape-navigator/barnlife/>**
 
 A single-file shopping guide for horse properties around Johnstown, Sunbury, Delaware, Dublin and Pickerington, priced $750k to $4M and catalogued Oct 24, 2026. Each listing is a numbered "hip" with photos, list price against my own valuation, stalls, arena, and what it would cost to add an arena, build or convert stalls, and refresh the house. Sliders set board per stall, occupancy, down payment, rate and the housing-to-income ratio, and every card, the ledger and the comps recalculate. Photos load from the listing sites, so the page needs a connection. Listing facts come from the MLS feed on LandSearch, HorseProperties.net, Compass and LandWatch; check status with the agent before acting. It is not part of the LANscape app.
+
+## Also hosted here: Final Table Journal
+
+**Open it: <https://bboldt86.github.io/lanscape-navigator/final-table/>**
+
+The journal for Operation Final Table at the WSOP Circuit Main Event ($1,700, #12) at The Reserve Poker Club in Toledo. Day 1A charts the stack level by level against the field average (worked out from entries and players left), with what each stretch says. Journal goes through the hands from the Day 1A voice notes with the equity and EV math behind each verdict. Day 2 study gives first-in, re-steal, jam-call and facing-a-3-bet decisions for Broadways, Ace-x and pocket pairs at 15, 20, 25 and 30 big blinds with a big-blind ante (chip EV, preflop only, from an all-in equity table and push/fold ranges), plus re-steal ranges against a big stack that keeps opening into the blinds. The room shows how the Reserve's fields play preflop at final tables, Day 2s and day-one fields, from 36 of the club's streams read off YouTube by the Rail reader. No other player is named on the page. One HTML file with its data inlined; it is also on the LANscape intranet at `www.finaltablejournal.com`.
 
 ## Credits
 
