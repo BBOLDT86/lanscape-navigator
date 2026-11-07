@@ -3,6 +3,8 @@ name: The money, data only
 # pages, without writing anything with the API. Runs on a push of news/money/fetch.json or by hand; its own
 # concurrency group so it doesn't wait behind a long writing run.
 on:
+  schedule:
+    - cron: '7 */3 * * *'   # every three hours until Dec. 9 (the step below checks the date): the counts and the 24-hour reports move
   push:
     paths: ['news/money/fetch.json']
   workflow_dispatch:
@@ -25,6 +27,7 @@ jobs:
           python-version: '3.12'
       - name: Fetch
         run: |
+          if [ "${{ github.event_name }}" = "schedule" ] && [ "$(date -u +%Y%m%d)" -gt 20261209 ]; then echo "past Dec. 9"; exit 0; fi
           timeout -k 30 55m python3 news/money/fetch.py || echo "fetch stopped with $?"
           ls -la news/money/data/ || true
       - name: Build

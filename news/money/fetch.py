@@ -16,8 +16,8 @@ OUT = os.path.join(DATA, 'money.json')
 FEC = 'https://api.open.fec.gov/v1'
 KEY = os.environ.get('FEC_API_KEY') or 'DEMO_KEY'
 DEMO = KEY == 'DEMO_KEY'
-LIMIT = 26 if DEMO else 900
-GOOGLE_ZIP = 'https://storage.googleapis.com/transparencyreport/google-political-ads-transparency-bundle.zip'
+LIMIT = 38 if DEMO else 900  # DEMO_KEY: 40 calls an hour
+GOOGLE_ZIP = 'https://storage.googleapis.com/political-csv/google-political-ads-transparency-bundle.zip'  # moved here in 2025; the old bundle holds only a README saying so
 CYCLE = 2026
 PLATFORMS = {'meta': ['META PLATFORMS', 'FACEBOOK'], 'google': ['GOOGLE']}
 MOCK = '--mock' in sys.argv
@@ -25,6 +25,9 @@ LOG = []; CALLS = [0]
 
 
 def now(): return dt.datetime.now(dt.timezone.utc).replace(microsecond=0).isoformat().replace('+00:00', 'Z')
+def num(v):
+    try: return float(str(v).replace(',', '').replace('$', ''))
+    except (TypeError, ValueError): return 0.0
 def log(q, status, n=0, note=''):
     LOG.append({'q': q, 'status': status, 'n': n, 'note': note[:1600], 'at': now()}); print(f'  {status} {q} -> {n} {note[:160]}', flush=True)
 def load(p, default=None):
@@ -47,7 +50,8 @@ def fec(path, **params):
             return res, d.get('pagination') or {}
         except urllib.error.HTTPError as e:
             txt = e.read().decode('utf-8', 'replace')
-            if e.code == 429 and attempt < 3: log(q, 429, 0, 'rate limited, waiting'); time.sleep(70 if DEMO else 20); continue
+            if e.code == 429 and DEMO: log(q, 429, 0, 'DEMO_KEY rate limit (40 an hour) reached; stopping'); CALLS[0] = LIMIT; return None, None
+            if e.code == 429 and attempt < 3: log(q, 429, 0, 'rate limited, waiting'); time.sleep(20); continue
             log(q, e.code, 0, txt); return None, None
         except Exception as e:
             log(q, 'error', 0, str(e)); time.sleep(5)
@@ -59,7 +63,7 @@ def pages(path, max_pages, **params):
     out = []
     for p in range(1, max_pages + 1):
         res, pg = fec(path, page=p, **params)
-        if res is None: break
+        if res is None: return None if p == 1 else out
         out += res
         if not res or p >= (pg.get('pages') or 1): break
     return out
@@ -69,7 +73,7 @@ def keyset(path, max_pages, amount_key, **params):
     out = []; last = {}
     for _ in range(max_pages):
         res, pg = fec(path, **params, **last)
-        if res is None: break
+        if res is None: break  # what came before stands
         out += res
         li = (pg or {}).get('last_indexes') or {}
         if not res or not li.get('last_index'): break
@@ -109,8 +113,8 @@ def match_result(cid, name, state, office, district=None):
 def candidates():
     """Senate candidates of 2026 with their totals (Form 3), and the House candidates who raised the most."""
     out = {}
-    for office, max_pages, min_receipts in (('S', 3, 100000), ('H', 6, 1500000)):
-        rows = pages('/candidates/totals/', max_pages, cycle=CYCLE, election_year=CYCLE, office=office, is_active_candidate='true', sort='-receipts', per_page=100)
+    for office, max_pages, min_receipts in (('S', 3, 100000), ('H', 6 if not DEMO else 0, 1500000)):
+        rows = pages('/candidates/totals/', max_pages, cycle=CYCLE, election_year=CYCLE, office=office, is_active_candidate='true', sort='-receipts', per_page=100) or []
         bad = 0
         for c in rows:
             try:
@@ -128,24 +132,32 @@ def candidates():
     return out
 
 def independent_expenditures(cands):
-    """Outside spending for and against candidates, by committee: Schedule E aggregated by candidate and committee."""
+    """Outside spending for and against candidates, by committee: Schedule E aggregated by candidate and committee.
+    The endpoint wants a state with office=senate, so the Senate is asked state by state (every state with a race);
+    the House is asked in batches of candidate ids (with a key only: it takes ~40 calls)."""
     rows = []
-    for office, mp in (('senate', 25), ('house', 30)):
-        got = pages('/schedules/schedule_e/by_candidate/', mp, cycle=CYCLE, election_full='true', office=office, sort='-total', per_page=100)
-        if not got and office == 'senate': got = pages('/schedules/schedule_e/by_candidate/', mp, cycle=CYCLE, election_full='true', office='S', sort='-total', per_page=100)
-        rows += got or []
-    if not rows:  # the aggregate didn't answer: ask per Senate candidate
-        for cid in [c for c, v in cands.items() if v['office'] == 'S'][:60]:
-            rows += pages('/schedules/schedule_e/by_candidate/', 2, cycle=CYCLE, election_full='true', candidate_id=cid, per_page=100) or []
+    senate_states = sorted({k[0] for k in RESULTS if k[1] == 'S'})
+    for st in senate_states:
+        got = pages('/schedules/schedule_e/by_candidate/', 2, cycle=CYCLE, election_full='true', office='senate', state=st, sort='-total', per_page=100)
+        if got is None: break
+        rows += got
+    if not DEMO:
+        house = [c for c, v in cands.items() if v['office'] == 'H']
+        for i in range(0, len(house), 20):
+            got = pages('/schedules/schedule_e/by_candidate/', 3, cycle=CYCLE, election_full='true', candidate_id=house[i:i + 20], sort='-total', per_page=100)
+            if got is None: break
+            rows += got
     ie = []
     for r in rows:
         cid = r.get('candidate_id') or ''
-        if not cid or (r.get('total') or 0) < 25000: continue
+        if not cid or num(r.get('total')) < 25000: continue
         if cid[0] not in 'SH': continue
-        ie.append({'cand': cid, 'cand_name': r.get('candidate_name'), 'cmte': r.get('committee_id'), 'cmte_name': r.get('committee_name'), 'so': r.get('support_oppose_indicator'), 'total': round(r.get('total') or 0), 'n': r.get('count')})
+        ie.append({'cand': cid, 'cand_name': r.get('candidate_name'), 'cmte': r.get('committee_id'), 'cmte_name': r.get('committee_name'), 'so': r.get('support_oppose_indicator'), 'total': round(num(r.get('total'))), 'n': r.get('count')})
         if cid not in cands:  # a candidate the totals didn't list (e.g. one who raised little but drew outside money)
-            st = cid[2:4]; office = cid[0]; dist = None
-            cands[cid] = {'id': cid, 'name': r.get('candidate_name'), 'party': '', 'st': st, 'office': office, 'district': None, 'receipts': 0, 'disbursements': 0, 'cash': 0, 'individual': 0, 'pacs': 0, 'incumbent': '', 'won': None, 'race': None, 'thin': True}
+            st = cid[2:4]; office = cid[0]
+            res, won = match_result(cid, r.get('candidate_name'), st, office, None)
+            cands[cid] = {'id': cid, 'name': r.get('candidate_name'), 'party': '', 'st': st, 'office': office, 'district': None, 'receipts': 0, 'disbursements': 0, 'cash': 0, 'individual': 0, 'pacs': 0, 'incumbent': '', 'won': won, 'race': res['id'] if res else None, 'thin': True}
+    log('ie rows', 'ok', len(ie))
     return ie
 
 def donors(committees, top_n):
@@ -198,10 +210,6 @@ def col(row, *names):
         for k in row:
             if k.lower().replace(' ', '_') == nme.lower(): return row[k]
     return None
-def num(v):
-    try: return float(str(v).replace(',', '').replace('$', ''))
-    except (TypeError, ValueError): return 0.0
-
 def google_ads():
     """Advertisers, their weekly spend this cycle, their state split and their biggest ads, from the public bundle."""
     tmp = tempfile.mkdtemp(prefix='gads-'); zp = os.path.join(tmp, 'bundle.zip')
