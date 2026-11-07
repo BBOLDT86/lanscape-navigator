@@ -73,6 +73,7 @@ shop/                    Finds, a Pinterest-style shopping board of real product
 vision/                  Vision, a shared board for two people (trips, things, the home), synced phone to phone (see below); not part of the app
 barnlife/index.html      Central Ohio Barn Hunt, a separate page (see below); not part of the app
 final-table/index.html   Final Table Journal, a separate page (see below); www.finaltablejournal.com inside the app
+final-table/maps/        The Reserve in 3-D, the journal's three 3-D maps (three.js from news/wave/lib)
 ```
 
 ## Also hosted here: Weekender
@@ -206,6 +207,8 @@ A single-file shopping guide for horse properties around Johnstown, Sunbury, Del
 **Open it: <https://bboldt86.github.io/lanscape-navigator/final-table/>**
 
 The journal for Operation Final Table at the WSOP Circuit Main Event ($1,700, #12) at The Reserve Poker Club in Toledo. Day 1A charts the stack level by level against the field average (worked out from entries and players left), with what each stretch says. Journal goes through the hands from the Day 1A voice notes with the equity and EV math behind each verdict. Day 2 study gives first-in, re-steal, jam-call and facing-a-3-bet decisions for Broadways, Ace-x and pocket pairs at 15, 20, 25 and 30 big blinds with a big-blind ante (chip EV, preflop only, from an all-in equity table and push/fold ranges), plus re-steal ranges against a big stack that keeps opening into the blinds. Postflop sets five rules for a stack-to-pot ratio near 3 and five hands to play out decision by decision (top pair against a check-raise, a missed c-bet, a big draw, second pair against a second barrel, an overpair against a check-raise from a tight or a wild player), each answer graded with the equity and pot-odds math (equities by Monte Carlo against stated ranges). The room shows how the Reserve's fields play at final tables, Day 2s and day-one fields, from 42 of the club's streams read off YouTube by the Rail reader: a plain-English summary, every number explained with what it measures and how to use it, opens by seat, open sizes, a steal calculator and a re-steal jam calculator. No other player is named on the page. One HTML file with its data inlined; it is also on the LANscape intranet at `www.finaltablejournal.com`.
+
+**The Reserve in 3-D** (<https://bboldt86.github.io/lanscape-navigator/final-table/maps/>) borrows the wave's ideas for three maps of the same data: blocks rising out of a dark stage, a replay you can scrub, drag to turn, hover or tap for numbers, full screen. *The table* stands a column at every seat of a nine-handed table for how often that seat opens (the big blind: how often it defends), and replays day-one fields, Day 2s and final tables; the columns can also show 3-bets, playing back at an open and folding to a 3-bet. *The ranges* turns the 13-by-13 hand chart into a landscape of what the room actually did with the hole cards the streams showed (height is how often a hand was played, color is raise, call or limp) and sweeps from the early seats to the small blind. *The room* puts every player with 30 or more hands on video on a VPIP-by-PFR floor, colored by style and rising stream by stream from the oldest broadcast to the newest. No player is named. It loads three.js from `news/wave/lib/`.
 
 ## Credits
 
