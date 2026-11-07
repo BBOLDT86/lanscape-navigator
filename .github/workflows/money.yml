@@ -83,10 +83,10 @@ jobs:
           if [ "$REDO" = "true" ]; then REDO_FLAG="--redo"; fi
           if [ -n "$STATES" ]; then ST="--states $STATES"; fi
           case "$JOB" in
-            all)      timeout -k 60 25m python3 $W national --budget "$NBUDGET" --effort max $REDO_FLAG || echo "national: stopped ($?)"
+            all)      timeout -k 60 40m python3 $W national --budget "$NBUDGET" --effort high $REDO_FLAG || echo "national: stopped ($?)"
                       timeout -k 60 200m python3 $W states --budget "$BUDGET" --effort "$EFFORT" $ST $REDO_FLAG || echo "states: stopped ($?)"
                       timeout -k 60 60m python3 $W donors --budget "$DBUDGET" --effort medium $REDO_FLAG || echo "donors: stopped ($?)" ;;
-            national) timeout -k 60 30m python3 $W national --budget "$NBUDGET" --effort max $REDO_FLAG || echo "national: stopped ($?)" ;;
+            national) timeout -k 60 40m python3 $W national --budget "$NBUDGET" --effort high $REDO_FLAG || echo "national: stopped ($?)" ;;
             states)   timeout -k 60 300m python3 $W states --budget "$BUDGET" --effort "$EFFORT" $ST $REDO_FLAG || echo "states: stopped ($?)" ;;
             donors)   timeout -k 60 90m python3 $W donors --budget "$DBUDGET" --effort medium $REDO_FLAG || echo "donors: stopped ($?)" ;;
             refresh)  timeout -k 60 120m python3 $W refresh --budget "$BUDGET" || echo "refresh: stopped ($?)" ;;
@@ -103,7 +103,7 @@ jobs:
         run: |
           git config user.name "The Watch writer"
           git config user.email "the-watch@users.noreply.github.com"
-          git add news/money news/wave/data/spend.json news/wave/*.html news/wave/pages.json
+          git add news/money news/wave/*.html news/wave/pages.json
           if git diff --cached --quiet; then echo "no changes"; exit 0; fi
           git commit -qm "The money: $(python3 -c "import json;d=json.load(open('news/money/pages.json'));print(len(d.get('states') or []), 'state pieces;', 'national' if d.get('national') else 'no national')") ($(date -u +%Y-%m-%dT%H:%MZ))"
           for i in 1 2 3 4; do

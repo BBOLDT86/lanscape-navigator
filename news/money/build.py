@@ -315,7 +315,7 @@ def main_page():
 <li><b>Donors</b> are itemized receipts (Schedule A) of $10,000 and more to the committees that spent the most, summed by contributor name; a donor’s “seats” are every race the committees it funded spent on, won when that committee’s side won. Pass-through entities (ActBlue, WinRed) appear as contributors where the committee reported them that way.</li>
 <li><b>Platform payments</b> are itemized disbursements (Schedule B) naming Meta Platforms, Facebook or Google as the payee, $2,500 and up. They are a floor: digital buys through vendors are reported under the vendor’s name.</li>
 <li><b>Google’s figures</b> come from its political-ads transparency bundle: weekly spend by verified advertiser since Jan. 2025, geographic spend by state (cumulative), and per-ad spend and impression ranges with targeting. Meta has no equivalent file.</li>
-<li><b>The written pieces</b> are by Claude Opus 5.5 through Anthropic’s API: the data above goes in the prompt, every dollar figure must come from it or be attributed to a named filing or outlet, and every web claim carries the search’s own citation. Spending on the API is logged in <a href="../wave/data/spend.json">spend.json</a>.</li>
+<li><b>The written pieces</b> are by Claude Opus 5.5 through Anthropic’s API: the data above goes in the prompt, every dollar figure must come from it or be attributed to a named filing or outlet, and every web claim carries the search’s own citation. Spending on the API is logged in <a href="data/spend.json">spend.json</a> (and the wave’s in <a href="../wave/data/spend.json">its own</a>).</li>
 </ul>
 <h2>Sources</h2><div class="sources">{sources_list(USREP or {'sources': []}, 'src', DATA_SOURCES)}</div>
 </div>

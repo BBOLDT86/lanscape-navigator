@@ -16,6 +16,7 @@ import write as wave  # the client, PRICE, Run, ledger, message(), now(), save()
 from write import NAME, now, save, load, margin, pts, n, message, Run, price, MODEL
 sys.path.insert(0, HERE)
 import build as B  # the sums: races, committees, donors, platforms (reads data/money.json)
+wave.LEDGER = os.path.join(DATA, 'spend.json')  # the money's own ledger (the cap counts every ledger)
 
 MOCK = False
 def usd(v): return B.usd(v)
@@ -159,6 +160,7 @@ def parse(content, sections=('HEADLINE', 'DEK', 'SUMMARY', 'BODY', 'ADS', 'PLAYE
     return {'headline': text('HEADLINE'), 'dek': text('DEK'), 'summary': text('SUMMARY'), 'paras': paras, 'ads': ads[:8], 'players': players[:10], 'sources': sources, 'words': words}, doc
 
 def params(system, user, effort, max_uses, region=None, max_tokens=24000):
+    if effort in ('max', 'xhigh'): effort, max_tokens = 'high', 32000  # at max effort the thinking alone can use the whole output budget
     loc = {'type': 'approximate', 'country': 'US'}
     if region: loc['region'] = region
     return {'model': MODEL, 'max_tokens': max_tokens, 'output_config': {'effort': effort},
@@ -241,10 +243,10 @@ def cmd_donors(a):
     print(run.summary(), f'— {done} written')
 
 def cmd_refresh(a):
-    L = wave.ledger(); today = now()[:10]; used = sum(r['usd'] for r in L['runs'] if r['when'][:10] == today and r['job'].startswith('money')); left = max(0.0, a.budget - used)
+    today = now()[:10]; used = sum(r['usd'] for r in wave.ledger()['runs'] if r['when'][:10] == today); left = max(0.0, a.budget - used)
     if left < 1: print(f'money refresh: ${used:.2f} spent today'); return
     cmd_states(argparse.Namespace(**dict(vars(a), budget=left, redo=False, states=None, effort='high')), stale_only=True)
-    L = wave.ledger(); used = sum(r['usd'] for r in L['runs'] if r['when'][:10] == today and r['job'].startswith('money')); left = max(0.0, a.budget - used)
+    used = sum(r['usd'] for r in wave.ledger()['runs'] if r['when'][:10] == today); left = max(0.0, a.budget - used)
     if left >= 8 and load(os.path.join(DATA, 'reports', '_US.json')): cmd_national(argparse.Namespace(**dict(vars(a), budget=left, redo=False, effort='high')))
 
 def cmd_check(a):

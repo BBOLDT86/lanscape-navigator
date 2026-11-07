@@ -77,7 +77,14 @@ def county_word(st): return COUNTY_WORD.get(st, 'county')
 
 
 # ---------- the ledger ----------
-def ledger(): return load(os.path.join(DATA, 'spend.json'), {'v': 1, 'usd': 0.0, 'runs': []})
+LEDGER = os.path.join(DATA, 'spend.json')  # this module's ledger; news/money/write.py points it at its own file
+LEDGERS = [os.path.join(DATA, 'spend.json'), os.path.normpath(os.path.join(DATA, '..', '..', 'money', 'data', 'spend.json'))]  # every ledger, for the cap and the total
+def ledger(): return load(LEDGER, {'v': 1, 'usd': 0.0, 'runs': []})
+def ledger_total(): return round(sum((load(p, {}) or {}).get('usd', 0.0) for p in LEDGERS), 4)
+def all_runs():
+    out = []
+    for p in LEDGERS: out += (load(p, {}) or {}).get('runs', [])
+    return sorted(out, key=lambda r: r['when'])
 def price(usage, batch=False, searches=0):
     u = usage or {}
     usd = (u.get('input_tokens', 0) * PRICE['in'] + u.get('output_tokens', 0) * PRICE['out'] + u.get('cache_read_input_tokens', 0) * PRICE['cache_read']
@@ -97,10 +104,10 @@ class Run:
             L = ledger(); L['usd'] = round(L.get('usd', 0.0) + usd, 4)
             L['runs'].append({'when': now(), 'job': self.job, 'what': what, 'usd': usd, 'in': u.get('input_tokens', 0), 'out': u.get('output_tokens', 0), 'cache_read': u.get('cache_read_input_tokens', 0), 'cache_write': u.get('cache_creation_input_tokens', 0), 'searches': searches, 'batch': batch})
             L['runs'] = L['runs'][-4000:]
-            save(os.path.join(DATA, 'spend.json'), L)
-        print(f'  {what}: ${usd:.3f} (run ${self.usd:.2f} of ${self.budget:.0f}; total ${L["usd"]:.2f})', flush=True)
+            save(LEDGER, L)
+        print(f'  {what}: ${usd:.3f} (run ${self.usd:.2f} of ${self.budget:.0f}; this ledger ${L["usd"]:.2f}; all ${ledger_total():.2f} of the ${CAP:.0f} cap)', flush=True)
         return usd
-    def over(self): return (self.budget is not None and self.usd >= self.budget) or ledger().get('usd', 0.0) >= CAP
+    def over(self): return (self.budget is not None and self.usd >= self.budget) or ledger_total() >= CAP
     def summary(self): return f'{self.job}: {self.items} items, ${self.usd:.2f}, {self.tok["in"]:,} in / {self.tok["out"]:,} out / {self.tok["cache_read"]:,} cached, {self.tok["searches"]} searches, {time.time() - self.t0:.0f}s'
 
 
@@ -414,7 +421,7 @@ def cmd_counties(a, stale_only=False):
         todo.append(r)
     todo.sort(key=lambda r: -r['t'])
     per = (NOTE_EST['in'] * PRICE['in'] + NOTE_EST['out'] * PRICE['out']) / 1e6 * 0.5
-    room = max(0.0, CAP - ledger().get('usd', 0.0)); fit = int(min(a.budget if a.budget else room, room) / per)
+    room = max(0.0, CAP - ledger_total()); fit = int(min(a.budget if a.budget else room, room) / per)
     if fit < len(todo): print(f'counties: {len(todo)} to write, but ${a.budget} fits about {fit} at ~${per:.4f} each; the biggest {fit} go in this batch'); todo = todo[:fit]
     print(f'counties: {len(todo)} notes, ~${len(todo) * per:.2f} at batch rates')
     if a.dry: print(note_prompt(todo[0] if todo else ROWS['48427'])); return
@@ -477,10 +484,10 @@ def cmd_refresh(a):
     if left >= 8 and load(os.path.join(DATA, 'reports', '_US.json')): cmd_national(argparse.Namespace(**dict(vars(a), budget=left, redo=False, effort='high')))
 
 def cmd_cost(a):
-    L = ledger(); byjob = {}
-    for r in L['runs']: byjob[r['job']] = byjob.get(r['job'], 0) + r['usd']
-    print(f"total ${L['usd']:.2f} over {len(L['runs'])} calls"); [print(f'  {k}: ${v:.2f}') for k, v in sorted(byjob.items(), key=lambda kv: -kv[1])]
-    for d in sorted({r['when'][:10] for r in L['runs']}): print(f"  {d}: ${sum(r['usd'] for r in L['runs'] if r['when'][:10] == d):.2f}")
+    runs = all_runs(); byjob = {}
+    for r in runs: byjob[r['job']] = byjob.get(r['job'], 0) + r['usd']
+    print(f"total ${sum(r['usd'] for r in runs):.2f} over {len(runs)} calls, all ledgers (cap ${CAP:.0f})"); [print(f'  {k}: ${v:.2f}') for k, v in sorted(byjob.items(), key=lambda kv: -kv[1])]
+    for d in sorted({r['when'][:10] for r in runs}): print(f"  {d}: ${sum(r['usd'] for r in runs if r['when'][:10] == d):.2f}")
 
 def cmd_check(a):
     bad = 0; reps = 0; notes = 0; shown = [0]
