@@ -256,7 +256,7 @@ def parse_skeleton(content, callouts=4):
     def field(name, nxt):
         m = re.search(rf'^{name}:\s*(.*?)\s*(?=^{nxt}:)', doc, re.S | re.M); return (m.group(1).strip() if m else '')
     head = field('HEADLINE', 'DEK'); dek = field('DEK', 'SUMMARY'); summ = field('SUMMARY', 'BODY')
-    mb = re.search(r'^BODY:\s*\n', doc, re.M); mc = re.search(r'^CALLOUTS:\s*\n', doc, re.M)
+    mb = re.search(r'^BODY:[ \t]*\n', doc, re.M); mc = re.search(r'^CALLOUTS:[ \t]*(\n|$)', doc, re.M)
     if not (mb and mc and mc.start() > mb.end()): return None, doc
     body_start, body_end = mb.end(), mc.start(); body = doc[body_start:body_end]
     # paragraphs with their marks (char offsets within the paragraph)
@@ -294,7 +294,7 @@ def national_data_block():
     L += ["", "BIGGEST MOVES LEFT (15):", county_table(top, 15), "", "MOVES RIGHT (all counties that moved right, up to 15):", county_table(sorted([r for r in rs if r['sh'] < 0], key=lambda r: r['sh']), 15), "", "MOST VOTES (15):", county_table(big, 15), "", voters.prose(voters.analysis(rs, CTX))]
     return '\n'.join(L)
 def national_params(effort):
-    return {'model': MODEL, 'max_tokens': 32000, 'output_config': {'effort': effort},
+    return {'model': MODEL, 'max_tokens': 32000, 'output_config': {'effort': 'high' if effort in ('max', 'xhigh') else effort},  # at max effort the thinking alone can use the whole budget
             'system': [{'type': 'text', 'text': NATIONAL_SYSTEM, 'cache_control': {'type': 'ephemeral'}}],
             'tools': [{'type': 'web_search_20250305', 'name': 'web_search', 'max_uses': 16, 'user_location': {'type': 'approximate', 'country': 'US'}}],
             'messages': [{'role': 'user', 'content': [{'type': 'text', 'text': f"Write The Watch's piece on what the voters did across the country. Here is the data block.\n\n{national_data_block()}"}]}]}
