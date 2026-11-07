@@ -24,6 +24,8 @@ STATES = {'AL': 'Alabama', 'AK': 'Alaska', 'AZ': 'Arizona', 'AR': 'Arkansas', 'C
           'OR': 'Oregon', 'PA': 'Pennsylvania', 'RI': 'Rhode Island', 'SC': 'South Carolina', 'SD': 'South Dakota', 'TN': 'Tennessee', 'TX': 'Texas',
           'UT': 'Utah', 'VT': 'Vermont', 'VA': 'Virginia', 'WA': 'Washington', 'WV': 'West Virginia', 'WI': 'Wisconsin', 'WY': 'Wyoming'}
 DEBUG = '--debug' in sys.argv
+try: COUNTY_NAMES = {g['id']: g.get('n') for g in json.load(open(os.path.join(D, 'geo.json'), encoding='utf-8'))['objects']['counties']['geometries']}
+except Exception: COUNTY_NAMES = {}
 
 def get(url):
     req = urllib.request.Request(url, headers=UA)
@@ -92,13 +94,31 @@ def extract(race):
            'total': top.get('total_votes'), 'expected': top.get('total_expected_vote'), 'eevp': top.get('eevp'),
            'precincts': [top.get('precincts_reporting'), top.get('precincts_total')], 'updated': top.get('provider_updated_at') or race.get('updated_at'),
            'note': note, 'units': {}}
-    for u in race.get('reporting_units') or []:
+    units = [u for u in race.get('reporting_units') or [] if u.get('level') != 'state']
+    COUNTY = ('county', 'parish', 'borough', 'census_area', 'city', 'independent_city')
+    has_county = any(u.get('level') in COUNTY for u in units)
+    for u in units:
         lvl = u.get('level')
-        if lvl == 'state': continue
         fs, fc = u.get('fips_state'), u.get('fips_county')
-        key = (fs or '') + (fc or '') if fc else (u.get('nyt_id') or u.get('name'))
         d, r, o, tot = unit_votes(u, meta, dkey, rkey)
-        out['units'][key] = {'n': u.get('name'), 'l': lvl, 'd': d, 'r': r, 'o': o, 't': tot, 'e': u.get('eevp'), 'p': [u.get('precincts_reporting'), u.get('precincts_total')]}
+        if has_county:
+            if lvl not in COUNTY and fc:  # a town or ward inside a county that is also reported whole: skip, the county has it
+                continue
+            key = (fs or '') + (fc or '') if fc and lvl in COUNTY else (u.get('nyt_id') or u.get('name'))
+            out['units'][key] = {'n': u.get('name'), 'l': lvl, 'd': d, 'r': r, 'o': o, 't': tot, 'e': u.get('eevp'), 'p': [u.get('precincts_reporting'), u.get('precincts_total')]}
+        elif fc:  # Connecticut: towns and wards, summed into their counties (eevp = votes-weighted)
+            key = (fs or '') + fc
+            a = out['units'].setdefault(key, {'n': None, 'l': 'county_sum', 'd': 0, 'r': 0, 'o': 0, 't': 0, 'e': 0, 'p': [0, 0], 'parts': 0, '_ew': 0})
+            a['d'] += d; a['r'] += r; a['o'] += o; a['t'] += tot; a['parts'] += 1
+            a['p'][0] += u.get('precincts_reporting') or 0; a['p'][1] += u.get('precincts_total') or 0
+            a['_ew'] += (u.get('eevp') or 0) * (u.get('total_expected_vote') or tot or 0)
+        else:
+            out['units'][u.get('nyt_id') or u.get('name')] = {'n': u.get('name'), 'l': lvl, 'd': d, 'r': r, 'o': o, 't': tot, 'e': u.get('eevp'), 'p': [u.get('precincts_reporting'), u.get('precincts_total')]}
+    for key, a in out['units'].items():
+        if a.get('l') == 'county_sum':
+            a['n'] = COUNTY_NAMES.get(key, key)
+            a['e'] = round(a['p'][0] / a['p'][1] * 100, 2) if a['p'][1] else None
+            a.pop('_ew', None)
     return out
 
 def main():
@@ -114,7 +134,7 @@ def main():
         except Exception as e:
             res['errors'].append(f'{st}: {type(e).__name__} {str(e)[:120]}'); print(st, 'ERR', e); continue
         races = j.get('races') or []
-        if DEBUG and st in ('AL', 'TX', 'NE', 'CT'):
+        if DEBUG and st in ('AL',):
             for rc in races:
                 if rc.get('office_id') in ('S', 'G'):
                     print('TX senate race keys:', list(rc.keys()))
@@ -127,8 +147,10 @@ def main():
         for rc in races:
             oid = rc.get('office_id')
             if oid not in ('S', 'G'): continue
-            rt = (rc.get('race_type_id') or rc.get('type') or 'general')
-            if str(rt).lower() not in ('general', 'g', 'general election'): continue
+            rt = str(rc.get('race_type_id') or rc.get('type') or 'general').lower()
+            if DEBUG: print('  race', rc.get('nyt_id'), oid, 'type', rc.get('type'), 'race_type_id', rc.get('race_type_id'), 'date', rc.get('election_date'), 'units', len(rc.get('reporting_units') or []))
+            if 'primary' in rt or 'runoff' in rt or 'caucus' in rt: continue
+            if rc.get('election_date') and rc.get('election_date') != '2026-11-03': continue
             if not rc.get('reporting_units'): continue
             try: ex = extract(rc)
             except Exception as e:
