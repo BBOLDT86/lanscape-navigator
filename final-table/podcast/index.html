@@ -1,0 +1,589 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#6e1421">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Rail Report">
+<link rel="apple-touch-icon" href="cover-512.png">
+<title>The Rail Report</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* A podcast player for the car: one big now-playing card (scrubber, -15 / play / +30, speed 1.0 / 1.25 / 1.5), then tabs for
+   episodes, chapters and the transcript. Car mode fills the screen with three giant buttons. */
+:root{
+  --bg:#f2f4f1; --surface:#ffffff; --surface-2:#e8ece8; --ink:#17201c; --muted:#5b6862; --line:#d3dad5;
+  --accent:#8c1d2b; --accent-2:#6e1421; --accent-ink:#ffffff; --track:#d9dfdb; --good:#2f7a3b;
+  --display:"Barlow Condensed","Arial Narrow",Arial,sans-serif; --body:"Public Sans",system-ui,-apple-system,"Segoe UI",sans-serif; --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --r:12px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#101513; --surface:#171e1b; --surface-2:#1f2824; --ink:#e4ebe6; --muted:#97a69e; --line:#2b3530;
+  --accent:#e2697a; --accent-2:#b8475a; --accent-ink:#1a0d10; --track:#2f3a35; --good:#7fcf8b; color-scheme:dark }}
+:root[data-theme="dark"]{
+  --bg:#101513; --surface:#171e1b; --surface-2:#1f2824; --ink:#e4ebe6; --muted:#97a69e; --line:#2b3530;
+  --accent:#e2697a; --accent-2:#b8475a; --accent-ink:#1a0d10; --track:#2f3a35; --good:#7fcf8b; color-scheme:dark }
+[hidden]{display:none!important}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5;-webkit-tap-highlight-color:transparent}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--accent-2);z-index:30}
+.wrap{max-width:720px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:12px calc(32px + env(safe-area-inset-bottom,0px))}
+a{color:var(--accent)}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;font-family:var(--display);text-transform:uppercase;letter-spacing:.06em;font-size:14px;color:var(--muted)}
+.top a{text-decoration:none;font-weight:600}
+.btn-car{display:inline-flex;align-items:center;gap:6px;padding:8px 12px;border-radius:999px;background:var(--surface);border:1px solid var(--line);font-family:var(--display);font-weight:700;letter-spacing:.06em;text-transform:uppercase;font-size:14px;color:var(--ink)}
+/* now playing */
+.np{margin-top:10px;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:16px;display:grid;gap:14px}
+.np-head{display:grid;grid-template-columns:88px 1fr;gap:14px;align-items:center}
+.np-head img{width:88px;height:88px;border-radius:10px;display:block}
+.np-head>div{min-width:0}
+.kicker{font-family:var(--display);font-weight:600;letter-spacing:.08em;text-transform:uppercase;font-size:13px;color:var(--accent)}
+.np-title{font-family:var(--display);font-weight:700;font-size:28px;line-height:1.05;margin:2px 0 4px;text-wrap:balance}
+.np-chap{color:var(--muted);font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.scrub{display:grid;gap:4px}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:36px;background:transparent;margin:0;touch-action:none}
+input[type=range]::-webkit-slider-runnable-track{height:8px;border-radius:8px;background:linear-gradient(to right,var(--accent) var(--p,0%),var(--track) var(--p,0%))}
+input[type=range]::-moz-range-track{height:8px;border-radius:8px;background:var(--track)}
+input[type=range]::-moz-range-progress{height:8px;border-radius:8px;background:var(--accent)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:24px;height:24px;border-radius:50%;background:var(--accent);margin-top:-8px;border:3px solid var(--surface);box-shadow:0 1px 3px rgba(0,0,0,.3)}
+input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:var(--accent);border:3px solid var(--surface)}
+.ticks{position:relative;height:6px;margin:-14px 12px 6px}
+.ticks i{position:absolute;top:0;width:2px;height:6px;background:var(--muted);opacity:.5;border-radius:1px}
+.times{display:flex;justify-content:space-between;font-family:var(--mono);font-size:13px;color:var(--muted)}
+.ctrls{display:grid;grid-template-columns:1fr 1fr 1.3fr 1fr 1fr;align-items:center;justify-items:center;gap:4px}
+.cbtn{width:64px;height:64px;border-radius:50%;display:grid;place-items:center;position:relative}
+.cbtn:active{background:var(--surface-2)}
+.cbtn svg{width:34px;height:34px}
+.cbtn small{position:absolute;font-family:var(--display);font-weight:700;font-size:13px;top:50%;left:50%;transform:translate(-50%,-38%)}
+.play{width:84px;height:84px;border-radius:50%;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;box-shadow:0 4px 14px rgba(110,20,33,.35)}
+.play svg{width:40px;height:40px}
+.side{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;color:var(--muted)}
+.side svg{width:26px;height:26px}
+.speed{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.speed button{height:52px;border-radius:12px;border:1px solid var(--line);background:var(--surface-2);font-family:var(--display);font-weight:700;font-size:22px;letter-spacing:.02em}
+.speed button[aria-pressed=true]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.chip{display:inline-flex;align-items:center;gap:6px;min-height:40px;padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:var(--surface);font-size:14px}
+.chip[aria-pressed=true]{border-color:var(--accent);color:var(--accent);font-weight:600}
+.chip svg{width:16px;height:16px}
+/* tabs */
+.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin-top:16px;padding:6px 0;border-bottom:1px solid var(--line)}
+.tabs button{height:44px;border-radius:10px;font-family:var(--display);font-weight:700;letter-spacing:.06em;text-transform:uppercase;font-size:16px;color:var(--muted)}
+.tabs button[aria-selected=true]{background:var(--surface);color:var(--ink);box-shadow:inset 0 -3px 0 var(--accent)}
+.list{display:grid;gap:10px;margin-top:12px}
+.ep{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px;display:grid;grid-template-columns:44px 1fr auto;gap:12px;align-items:center}
+.ep.cur{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.ep .num{width:44px;height:44px;border-radius:10px;background:var(--surface-2);display:grid;place-items:center;font-family:var(--display);font-weight:700;font-size:22px}
+.ep.cur .num{background:var(--accent);color:var(--accent-ink)}
+.ep .body{min-width:0;text-align:left}
+.ep .h3{display:block;margin:0;font-family:var(--display);font-weight:700;font-size:20px;line-height:1.1}
+.ep .p{display:block;margin:2px 0 0;color:var(--muted);font-size:13.5px}
+.ep .meta{display:flex;gap:10px;align-items:center;margin-top:6px;font-size:12.5px;color:var(--muted);font-family:var(--mono)}
+.bar{height:4px;border-radius:4px;background:var(--track);overflow:hidden;flex:1;max-width:140px}
+.bar b{display:block;height:100%;background:var(--accent)}
+.ep .acts{display:flex;flex-direction:column;gap:6px}
+.mini{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;border:1px solid var(--line);background:var(--surface)}
+.mini svg{width:20px;height:20px}
+.mini.saved{color:var(--good);border-color:var(--good)}
+.soon{opacity:.6}
+.chap{display:grid;grid-template-columns:64px 1fr;gap:10px;align-items:center;text-align:left;width:100%;padding:12px 14px;background:var(--surface);border:1px solid var(--line);border-radius:10px;min-height:52px}
+.chap span{font-family:var(--mono);font-size:13px;color:var(--muted)}
+.chap b{font-weight:600}
+.chap.cur{border-color:var(--accent)}
+.chap.cur span{color:var(--accent)}
+.tx{margin-top:12px;display:grid;gap:2px}
+.tx-tools{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:12px}
+.ln{display:grid;grid-template-columns:52px 1fr;gap:10px;text-align:left;padding:8px 10px;border-radius:8px;width:100%;max-width:68ch}
+.ln .who{font-family:var(--display);font-weight:700;letter-spacing:.05em;text-transform:uppercase;font-size:13px;padding-top:2px}
+.ln .who.m{color:var(--accent)} .ln .who.c{color:var(--muted)}
+.ln.cur{background:var(--surface)}
+.ln:active{background:var(--surface-2)}
+.note{color:var(--muted);font-size:13.5px;margin-top:16px;max-width:68ch}
+.sheet{position:fixed;inset:auto 0 0 0;z-index:40;background:var(--surface);border-top:1px solid var(--line);border-radius:18px 18px 0 0;padding:16px max(16px,env(safe-area-inset-right,0px)) calc(16px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));box-shadow:0 -10px 30px rgba(0,0,0,.25);max-height:80vh;overflow:auto}
+.sheet-x{float:right}
+.sheet h2{font-family:var(--display);font-size:22px;margin:0 0 8px}
+.sheet h4{margin:14px 0 6px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.scrim{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:35}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:999px;font-size:14px;z-index:60;max-width:calc(100% - 32px)}
+/* car mode */
+.car{position:fixed;inset:0;z-index:50;overflow:hidden;background:#0b0f0d;color:#f2f5f3;display:grid;grid-template-rows:auto 1fr auto auto;padding:calc(12px + env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) calc(16px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));gap:12px}
+.car-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.car-top .t{min-width:0;flex:1}
+.car-top .k{font-family:var(--display);letter-spacing:.08em;text-transform:uppercase;color:#e2697a;font-weight:700;font-size:16px}
+.car-top h2{font-family:var(--display);font-size:30px;margin:0;line-height:1.05;text-wrap:balance}
+.car-top .c{color:#a9b5ae;font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.car-x{min-width:64px;height:48px;border-radius:12px;background:#1d2622;color:#f2f5f3;font-family:var(--display);font-weight:700;font-size:18px;text-transform:uppercase;letter-spacing:.06em;padding:0 14px}
+.car-pad{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr) minmax(0,1fr);gap:12px;align-items:stretch;min-width:0}
+.car-pad button{border-radius:24px;background:#1d2622;color:#f2f5f3;display:grid;place-items:center;align-content:center;gap:6px;font-family:var(--display);font-weight:700;font-size:24px;min-height:150px}
+.car-pad button svg{width:56px;height:56px}
+.car-pad .cp{background:#e2697a;color:#1a0d10}
+.car-pad .cp svg{width:80px;height:80px}
+.car-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;min-width:0}
+.car-row button{height:84px;border-radius:18px;background:#1d2622;color:#f2f5f3;font-family:var(--display);font-weight:700;font-size:17px;letter-spacing:.04em;text-transform:uppercase;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-width:0}
+.car-row button svg{width:28px;height:28px}
+#carSpeed{font-size:30px;text-transform:none;letter-spacing:0}
+.car-bar{height:10px;border-radius:10px;background:#2a3430;overflow:hidden}
+.car-bar b{display:block;height:100%;background:#e2697a}
+.car-times{display:flex;justify-content:space-between;font-family:var(--mono);color:#a9b5ae;font-size:16px;margin-top:6px}
+@media (orientation: landscape) and (max-height:520px){
+  .car{grid-template-rows:auto 1fr auto}
+  .car-pad button{min-height:110px}
+  .car-row button{height:60px}
+}
+@media (max-width:380px){.cbtn{width:56px;height:56px}.play{width:76px;height:76px}.np-title{font-size:24px}}
+</style>
+
+<div class="wrap">
+  <div class="top">
+    <a href="../">← Final Table Journal</a>
+    <button class="btn-car" id="carBtn" aria-label="Car mode"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17h14M6 17l1.5-6h9L18 17M7 17v2M17 17v2M8.5 14h.01M15.5 14h.01M7.5 11l1.2-3h6.6l1.2 3"/></svg>Car mode</button>
+  </div>
+
+  <section class="np" aria-label="Now playing">
+    <div class="np-head">
+      <img src="cover-512.png" alt="The Rail Report cover art">
+      <div>
+        <div class="kicker" id="npKick">The Rail Report</div>
+        <div class="np-title" id="npTitle">Pick an episode</div>
+        <div class="np-chap" id="npChap">Seven episodes for Day 2 and the final table</div>
+      </div>
+    </div>
+    <div class="scrub">
+      <input type="range" id="seek" min="0" max="1000" value="0" step="1" aria-label="Seek">
+      <div class="ticks" id="ticks"></div>
+      <div class="times"><span id="tCur">0:00</span><span id="tLeft">-0:00</span></div>
+    </div>
+    <div class="ctrls">
+      <button class="side" id="prevEp" aria-label="Previous episode"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 5h2v14H6zM20 5v14L9 12z"/></svg></button>
+      <button class="cbtn" id="back" aria-label="Back 15 seconds"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4.5 12a7.5 7.5 0 1 0 2.2-5.3"/><path d="M4 4v4h4"/></svg><small>15</small></button>
+      <button class="play" id="play" aria-label="Play"><svg id="icoPlay" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg><svg id="icoPause" viewBox="0 0 24 24" fill="currentColor" hidden><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg></button>
+      <button class="cbtn" id="fwd" aria-label="Forward 30 seconds"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M19.5 12a7.5 7.5 0 1 1-2.2-5.3"/><path d="M20 4v4h-4"/></svg><small>30</small></button>
+      <button class="side" id="nextEp" aria-label="Next episode"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 5h2v14h-2zM4 5v14l11-7z"/></svg></button>
+    </div>
+    <div class="speed" role="group" aria-label="Playback speed">
+      <button data-rate="1" aria-pressed="true">1.0×</button>
+      <button data-rate="1.25" aria-pressed="false">1.25×</button>
+      <button data-rate="1.5" aria-pressed="false">1.5×</button>
+    </div>
+    <div class="opts">
+      <button class="chip" id="sleepBtn" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg><span id="sleepTxt">Sleep timer</span></button>
+      <button class="chip" id="autoBtn" aria-pressed="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h12M12 6l6 6-6 6"/></svg>Auto-play next</button>
+      <button class="chip" id="moreBtn" aria-pressed="false"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg>More options</button>
+    </div>
+  </section>
+
+  <div class="tabs" role="tablist">
+    <button role="tab" data-tab="eps" aria-selected="true">Episodes</button>
+    <button role="tab" data-tab="chaps" aria-selected="false">Chapters</button>
+    <button role="tab" data-tab="tx" aria-selected="false">Transcript</button>
+  </div>
+  <section id="tab-eps" class="list"></section>
+  <section id="tab-chaps" class="list" hidden></section>
+  <section id="tab-tx" hidden>
+    <div class="tx-tools"><span class="note" style="margin:0">Tap a line to jump there.</span><button class="chip" id="followBtn" aria-pressed="true">Follow along</button></div>
+    <div class="tx" id="tx"></div>
+  </section>
+  <p class="note">The Rail Report is made from the Rail's reads of the Reserve's own streams and Brad's Day 2 study. These public versions refer to opponents by seat, not by name. Your place in each episode is saved on this device. Tap the download button on an episode to keep it for spots with no signal.</p>
+</div>
+
+<audio id="au" preload="metadata" playsinline></audio>
+
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheetSleep" hidden role="dialog" aria-label="Sleep timer">
+  <button class="chip sheet-x" data-close>Done</button><h2>Sleep timer</h2>
+  <div class="opts" id="sleepOpts"></div>
+</div>
+<div class="sheet" id="sheetMore" hidden role="dialog" aria-label="More options">
+  <button class="chip sheet-x" data-close>Done</button><h2>More options</h2>
+  <h4>Other speeds</h4>
+  <div class="opts" id="moreSpeeds"></div>
+  <h4>Steering-wheel and lock-screen buttons</h4>
+  <div class="opts" id="wheelOpts"></div>
+  <h4>Skip lengths</h4>
+  <div class="opts" id="skipOpts"></div>
+  <h4>Offline</h4>
+  <div class="opts"><button class="chip" id="saveAll">Download all episodes</button><button class="chip" id="clearAll">Remove downloads</button></div>
+  <h4>Play a file from this device</h4>
+  <div class="opts"><label class="chip" style="cursor:pointer">Choose an audio file<input type="file" id="localFile" accept="audio/*" hidden></label></div>
+  <h4>Episode</h4>
+  <div class="opts"><button class="chip" id="restartEp">Play this episode from the start</button><button class="chip" id="markPlayed">Mark as played</button></div>
+</div>
+
+<div class="car" id="car" hidden>
+  <div class="car-top">
+    <div class="t"><div class="k" id="carKick">The Rail Report</div><h2 id="carTitle"></h2><div class="c" id="carChap"></div></div>
+    <button class="car-x" id="carClose">Done</button>
+  </div>
+  <div class="car-pad">
+    <button id="carBack" aria-label="Back 15 seconds"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4.5 12a7.5 7.5 0 1 0 2.2-5.3"/><path d="M4 4v4h4"/></svg><span id="carBackTxt">15 s</span></button>
+    <button class="cp" id="carPlay" aria-label="Play or pause"><svg id="carIcoPlay" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg><svg id="carIcoPause" viewBox="0 0 24 24" fill="currentColor" hidden><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg></button>
+    <button id="carFwd" aria-label="Forward 30 seconds"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M19.5 12a7.5 7.5 0 1 1-2.2-5.3"/><path d="M20 4v4h-4"/></svg><span id="carFwdTxt">30 s</span></button>
+  </div>
+  <div>
+    <div class="car-bar"><b id="carBar" style="width:0%"></b></div>
+    <div class="car-times"><span id="carCur">0:00</span><span id="carLeft">-0:00</span></div>
+  </div>
+  <div class="car-row">
+    <button id="carPrev" aria-label="Previous chapter"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 5h2v14H6zM20 5v14L9 12z"/></svg><span>Chapter</span></button>
+    <button id="carSpeed" aria-label="Change speed">1.0×</button>
+    <button id="carNext" aria-label="Next chapter"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 5h2v14h-2zM4 5v14l11-7z"/></svg><span>Chapter</span></button>
+  </div>
+</div>
+<div class="toast" id="toast" hidden></div>
+
+<script>
+const D = {"eps":[{"n":1,"id":"ep1","title":"The field and your table","blurb":"Your Day 1A story, how Day 2 tables at the Reserve play, the big stack two seats to your right, and the restart plan.","soon":true},{"n":2,"id":"ep2","title":"Playing 22 big blinds","blurb":"King-queen and the Broadways, ace-x, pairs, your journal hands, 15 and 30 big blinds, five postflop rules, and a 12-spot lightning round.","src":"audio/ep2.mp3","dur":1398.6,"mb":11.2,"lines":[[0.0,"C","This is The Rail Report, episode two. I'm Cole."],[4.32,"M","And I'm Maya. Brad, in episode one we covered the room and your table. This one is about the cards. You start Day 2 with twenty-two big blinds, and you told us two families of hands still feel uncertain: king-queen with the other Broadway hands, and the ace-x hands. So that's where we start."],[22.2,"C","First, a word on why twenty-two big blinds is simpler than it feels. At this depth, almost every preflop decision is one of four things. Do I open when it's folded to me? Do I shove over someone's open? Do I call someone's shove? And if I open and get three-bet, do I shove or fold? That's it. There's very little calling and very little guessing."],[45.45,"M","The numbers we'll give you come from the study in your Final Table Journal. They're chip expected value, preflop only, with a big blind ante. They assume opens to about two and a half big blinds, openers who fold to a re-raise about sixty percent of the time, which is close to what the Reserve's Day 2 tables actually do, and a three-bettor whose range is roughly the top seven percent of hands."],[69.03,"C","We'll give you twenty big blinds and twenty-five big blinds, because you'll float between them all day."],[75.61,"M","King-queen. Let's settle it."],[78.24,"C","Opening first in. At twenty big blinds, king-queen offsuit is an open from the middle seats onward. Under the gun at twenty, it's a fold. Not because it's bad, but because there are eight players behind you and the stack is too short to play it well when someone re-raises. At twenty-five big blinds, you can open it from anywhere. King-queen suited is an open from every seat at either depth."],[104.22,"M","Now the spot that matters most. Someone opens, and you have king-queen. At twenty big blinds, king-queen offsuit is a shove over every open in our study. Even over an under-the-gun open it's a small profit. Over a hijack open it's worth about one and a third big blinds. Over a cutoff open, about one and three quarters. And from the big blind over a button open, about two and a half."],[127.3,"C","At twenty-five big blinds it's the same story except against the earliest opener, where it becomes close to break-even. So the rule is easy. King-queen shoves over anything from the middle seats onward, and over an early open it's a coin you can flip either way."],[145.11,"M","Now your journal hand. You folded king-queen against an open on your right, and that player turned out to have ace-king. Here's the honest read. Ace-king is the worst thing you can run into. King-queen has about twenty-five percent against it. But you don't decide against one hand. You decide against the range."],[162.46,"C","Against an under-the-gun opening range, king-queen offsuit has about forty and a half percent. Against a cutoff range, about forty-nine. So if that open came from early position, folding was fine. It's close either way. If it came from late position, it was a shove, even though this time the ace-king meant the fold happened to save you chips. Judge the decision by the range, not by the one hand you saw."],[188.78,"M","Calling a shove with king-queen. If the cutoff shoves twenty big blinds and you're in the big blind, king-queen offsuit has about forty-seven percent against a normal shoving range, and you need about forty-six. It's a call, barely. Against a button shove, forty-nine percent, a call. Against a small blind shove, fifty-six percent, an easy call."],[209.55,"C","And if you open king-queen and someone three-bets, at twenty big blinds, shove. It's worth about one and a half big blinds. At twenty-five it's thinner, but still a shove."],[220.51,"M","King-queen summary. Fold it under the gun at twenty big blinds. Open it everywhere else. Shove it over any later open. Call shoves from the cutoff and later. And shove it over a three-bet. It's a better hand at this depth than it feels."],[234.2,"C","The rest of the Broadways, quickly."],[236.64,"M","King-jack offsuit and queen-jack offsuit. At twenty big blinds, open them from the hijack onward. At twenty-five, king-jack opens from the middle seats too. Both are profitable shoves over late opens. Against the cutoff, king-jack is worth about one and a third big blinds, queen-jack about one."],[254.63,"C","Calling shoves is where they get worse. King-jack offsuit folds to a cutoff shove, it has about forty-four and a half percent and needs about forty-six. It calls a button shove. Queen-jack offsuit folds to both, and only calls the small blind."],[271.16,"M","Your other journal hand: queen-jack facing a three-bet on Day 1. You folded. At deeper stacks that's correct. Queen-jack has about thirty to thirty-three percent against a real three-betting range. But here's a twist for Day 2. At twenty big blinds, if you've opened and a normal player three-bets you, a shove with queen-jack becomes slightly profitable, because they fold about forty percent of the time. At twenty-five big blinds it goes back to a fold. So, short is shove; deeper is fold."],[300.36,"C","Ace-jack and ace-ten offsuit. Open them from any seat at twenty big blinds. Shove them over any open from the hijack on. Call any shove from the cutoff or later. Facing a three-bet at twenty big blinds, both shove. At twenty-five, ace-ten folds to a three-bet. That one surprises people."],[319.85,"M","Now ace-x. Brad, this is the one you called a weak spot, so let's slow down."],[325.02,"C","The big idea first. Weak aces are re-steal hands. They're not early-position opens, and they're not calling hands. The ace in your hand blocks the hands that would call you, which makes them great for shoving and poor for calling."],[339.58,"M","Opening first in. At twenty big blinds: ace-nine offsuit opens from the middle seats onward. Ace-eight, ace-seven, ace-six, and ace-five offsuit open from the hijack onward. Ace-four, ace-three, and ace-two offsuit open from the cutoff onward. Under the gun, fold all of them."],[357.85,"C","The suited aces are better. Ace-nine suited opens from anywhere. Ace-five suited at twenty big blinds is interesting: from under the gun, the study prefers a shove to an open, because it plays badly when re-raised and great when it gets folds. From every other seat, just open it."],[376.85,"M","Re-stealing with weak aces. Over an under-the-gun open, fold them. Ace-nine, ace-eight, ace-five offsuit, they all lose money shoving into an early range. Over a hijack open at twenty big blinds, they turn into small profits. Over a cutoff or button open, they're all clear shoves. Ace-five offsuit from the button over a cutoff open is worth about a big blind."],[399.14,"C","At twenty-five big blinds, tighten against the hijack. Ace-eight and ace-five offsuit become folds there, and ace-nine is about break-even. Against the cutoff and button, still shove."],[411.45,"M","Calling shoves with aces. This is where most people go wrong, so here are the exact cutoffs at twenty big blinds, calling from the big blind."],[420.22,"C","Against a cutoff shove, call with ace-nine offsuit and better. Ace-eight offsuit is a fold, about forty-four percent when you need forty-six."],[429.62,"M","Against a button shove, call down to about ace-six offsuit. Ace-five offsuit and below, fold."],[435.62,"C","Against a small blind shove, any ace calls."],[439.35,"M","At twenty-five big blinds, the cutoff line stays at ace-nine, and against the button it tightens to ace-seven."],[446.32,"C","And facing a three-bet after you've opened an ace at twenty big blinds: ace-jack and ace-ten shove. Ace-nine is about break-even. Ace-eight offsuit folds. And here's the fun one: ace-five, suited or offsuit, shoves. The ace blocks their aces, and the five gives you a little extra when you're called."],[466.1,"M","Then there's your ace-queen hand from Day 1. You shoved ace-queen and got called by a worse ace. Ace-queen against ace-nine has about seventy-four percent. Against ace-five suited, about sixty-eight. You got your money in as a big favorite. If you lost that pot, it was the deck, not you."],[482.46,"C","Ace-x summary in one breath. Fold weak aces early. Shove them over late opens. Call shoves only with the better ones, ace-nine or better against the cutoff, about ace-six or better against the button. And re-shove ace-five over a three-bet."],[499.66,"M","Pocket pairs. These are easier."],[502.35,"C","Small pairs, twos through fives. At twenty big blinds, open them from any seat. Shove them over any open from the hijack on, and fold them over an under-the-gun open. If you open and get three-bet, shove. Pocket fives against a three-bet is worth more than a big blind and a half."],[521.02,"M","Calling shoves with small pairs. From the big blind at twenty big blinds: against a cutoff shove, call with fours and better. Against a button shove, threes and better. Against a small blind shove, any pair."],[533.58,"C","Medium pairs, sixes through tens. At twenty big blinds they call every shove, and they shove over every open from the hijack on. Over an under-the-gun open, eights and better shove, sevens is a coin flip, and sixes fold. When you open and get three-bet, they all shove at twenty. At twenty-five, sixes through eights get close against a three-bet, and nines and tens are the clear shoves."],[559.29,"M","And now the hand from your journal that I want you to hear clearly, because it's the most important one. Pocket jacks."],[566.25,"C","On Day 1, at about fifteen hundred and three thousand, you opened to seven thousand with pocket jacks and faced a re-raise to thirteen thousand. You had about fifty thousand behind, roughly seventeen big blinds. And you folded."],[582.08,"M","Here's the math. To call the extra six thousand, you needed about eighteen percent equity. Against a tight three-betting range, the top four percent of hands, jacks have about forty-nine percent. Against a more normal range, fifty-six to sixty percent. Shoving was worth somewhere between four and seven big blinds."],[600.71,"C","So at that depth, jacks never fold to a single re-raise. And Brad, we know why it happened. A min-ish three-bet feels like strength. But at seventeen big blinds, the size doesn't matter. You're getting it in."],[614.56,"M","And your late shove with pocket tens: at twenty big blinds, tens are worth more than four big blinds when they shove over a three-bet, and they call any shove. That was right."],[624.89,"M","Now, one thing we know for sure about tomorrow: you won't stay at twenty-two big blinds. Levels are forty minutes. Go one level without winning a pot and you're closer to fifteen. Win one big pot and you're past thirty. So let's do those two depths, quickly. First, fifteen big blinds."],[641.31,"C","At fifteen, the biggest change is that opening stops being the plan. For the hands you'd play first in, the study says shove instead of raising to two and a half. If you raise and someone shoves over you, the price is so good you're calling anyway, so you might as well put the pressure on first."],[659.38,"M","Here's the fifteen big blind shoving chart, seat by seat. Under the gun: ace-jack and better, king-queen suited, and eights and better. Jack-ten suited too, which surprises people. King-queen offsuit, ace-ten, and the small pairs fold under the gun at fifteen."],[674.65,"C","One seat later, add king-queen offsuit and every pocket pair. From the hijack, add ace-ten, ace-nine, ace-eight, king-jack, and ace-five suited. From the cutoff, add ace-five offsuit and queen-jack. And from the button, any ace."],[689.83,"M","Re-shoving over someone else's open gets even better at fifteen. Every hand on our list is a profitable shove over a hijack, cutoff, or button open, and almost all of them over an under-the-gun open too. Only the weakest aces are close there."],[704.81,"C","And calling shoves gets a little looser, because you need about forty-four percent instead of forty-six. Against a cutoff shove at fifteen, ace-eight offsuit and king-jack become calls. Against a button shove, ace-five offsuit, queen-jack, and pocket twos become calls."],[722.55,"M","The simple version for fifteen big blinds: shove or fold first in, re-shove almost anything playable over a late open, and call a bit wider. Brad, that's the stack you played best with on Day 1A."],[734.89,"C","Now the other direction. Say you win a big pot early and you're at thirty big blinds or more. That's the zone where your Day 1A chart showed the leak, so this part matters."],[746.09,"M","First in, not much changes. You open the same hands to a small size, and king-queen offsuit even becomes an open under the gun. The changes are all in the re-raising and the calling."],[757.38,"C","Re-shoving thirty big blinds over an open risks a lot more to win the same five big blinds, so the ranges tighten sharply. Over an under-the-gun open, only ace-king, ace-queen, king-queen suited, and eights or better are shoves. Ace-jack is close, and king-queen offsuit is a fold."],[777.43,"M","Over a hijack open, add ace-jack, ace-ten, king-queen offsuit, and pairs from fours up. Fold ace-nine, ace-eight, and the ace-fives. Over a cutoff open, add ace-nine, king-jack, jack-ten suited, and ace-five suited. And from the blinds over a button open, everything on our list is still a shove."],[795.32,"C","Calling a shove at thirty big blinds needs about forty-seven percent. That turns two hands we called at twenty into folds against a cutoff shove: king-queen offsuit and ace-nine offsuit. Both have about forty-seven percent, right on the line, so let them go. Against a button shove, king-queen and ace-eight are still calls."],[816.11,"M","And the big one. If you open at thirty big blinds and get three-bet, most of your hands fold. Ace-jack, ace-ten, king-queen offsuit, the ace-fives, and pairs below nines all fold. Ace-queen, king-queen suited, and nines or better shove."],[830.71,"C","Brad, that's the mid-stack lesson in numbers. At twenty big blinds, getting three-bet is a happy moment for most of your hands. At thirty, it's mostly a fold. So at thirty, keep opening, but when the three-bet comes and you hold a middle hand, fold it and move on. That isn't weakness. That's the math."],[850.38,"M","Three stacks, three moods. Fifteen: shove or fold. Twenty-two: open, re-shove over late opens, and get it in over three-bets. Thirty: open, re-shove more carefully, and fold to three-bets unless you're strong."],[863.45,"C","Before we leave preflop, the big blind. You said the big stack min-raised your big blind every orbit on Day 1. With a big blind ante, a min-raise gives you a fantastic price. You're calling one more big blind to win a pot of about four and a half, so you only need about eighteen percent equity. Defend very wide against pure min-raises, and mix in shoves with the ranges from episode one."],[889.08,"M","Now, postflop. Brad, you asked us to ease your nerves, so let's do that."],[893.84,"C","Here's the thing that makes postflop at twenty-two big blinds easier than it feels. After one raise and a call, the pot on the flop is about six big blinds, and you have about twenty behind. That's a stack-to-pot ratio near three. There are only one or two real decisions per hand, and most of them get made before the flop."],[914.82,"M","Five rules."],[916.42,"C","Rule one. Decide before the flop. Top pair with a good kicker, an overpair to the board, and big draws are all-in hands at this depth. If one of those gets raised, you're not folding. You knew that before the flop came."],[931.59,"M","Rule two. As the raiser, bet small. About a third of the pot on boards that favor you: aces, kings, dry and disconnected flops. A two big blind bet into six only has to work one time in four."],[944.81,"C","Rule three. One bullet, then let it go. If you miss, bet once, and give up when they call. A missed continuation bet costs you about two big blinds, and you still have about eighteen. That's not a disaster. That's the plan."],[960.38,"M","Rule four. Big draws shove the flop. With twelve or more outs, like a flush draw plus a straight draw, you're usually the favorite against one pair. Shove over their bet and collect the folds too."],[972.29,"C","Rule five. Believe the second barrel at the Reserve. Day 2 players here bet or raise about a quarter of their flop actions and only about sixteen percent on the turn. A turn bet from this room usually means it. Medium pairs call the flop and fold the turn."],[989.75,"M","Let me run the five hands from your Postflop tab, out loud, so they're in your head before you sit down."],[995.93,"C","Hand one. You open ace-jack, the big blind calls, and the flop is jack, seven, three. Bet small. If they check-raise, you have about forty-eight percent against a normal check-raise range and need thirty-nine. You're getting it in."],[1011.7,"M","Hand two. You open king-queen, the flop is ace, eight, four, and you miss. Bet small once. If they call and the turn is a blank, check and give it up. If they bet the river, fold king-high. You lose about four big blinds and keep eighteen."],[1026.12,"C","Hand three. You defend the big blind with eight-seven of spades and the flop is nine, six, two with two spades. You have fifteen outs. When they bet, shove. You have about fifty-six percent against an overpair and forty percent even against a set."],[1043.15,"M","Hand four. You defend with nine-eight and flop second pair on king, nine, four. Call one bet. When they bet the turn, fold. In this room, a turn bet is a king."],[1053.65,"C","Hand five. You open pocket tens, a big stack calls, and the flop is queen, six, three. Bet small. If they check-raise, it depends on who they are. A tight player has a queen or better, and you have about nine percent: fold. A wild player is raising sixes, threes, draws, and air, and you have about forty-three percent against that: shove."],[1077.13,"M","And hand five is basically the big stack at your table. If he check-raises you, remember what we said: his early betting is wide. If he's been passive and then raises late, believe him."],[1088.14,"C","One more hand from your journal, the river one. You value-bet a medium pair thinly and lost to a slightly better pair. That's okay. In this room, players call more than they raise. They flat about twenty-one percent of opens and three-bet only about seven. Passive callers are exactly who you value-bet thin against. Sometimes they'll have the slightly better pair. Over time, that bet makes money."],[1113.21,"M","Before the mental game, a lightning round. Cole reads a spot, there's a short pause, and Brad, you answer out loud in the car before I do. Ready?"],[1122.45,"C","Spot one. Twenty big blinds, folded to you in the hijack. Ace-seven offsuit."],[1131.49,"M","Open. Ace-seven through ace-five offsuit all open from the hijack onward."],[1136.98,"C","Spot two. The cutoff opens, you're on the button with king-queen offsuit and twenty-two big blinds."],[1146.64,"M","Shove. King-queen goes in over every late open, and here it's worth about a big blind and a half."],[1153.11,"C","Spot three. The button shoves twenty big blinds. You're in the big blind with ace-eight offsuit."],[1162.2,"M","Call. Ace-eight has about fifty percent against a button shove, and you need about forty-six."],[1168.25,"C","Spot four. Same hand, ace-eight offsuit, but now it's the cutoff who shoves."],[1176.68,"M","Fold. Against the cutoff, the calling line is ace-nine or better."],[1181.38,"C","Spot five. Under the gun, twenty big blinds, pocket twos."],[1188.8,"M","Open. Small pairs open from every seat at this depth."],[1192.82,"C","Spot six. Under the gun opens. You're in the hijack with ace-five offsuit."],[1201.35,"M","Fold. Weak aces don't fight an early range. Wait for a late opener."],[1206.47,"C","Spot seven. You open queen-jack offsuit at twenty big blinds, and a normal player three-bets."],[1215.96,"M","Shove, but only because you're short. Give it five more big blinds, at twenty-five, and it's a fold."],[1221.96,"C","Spot eight. Under the gun, twenty big blinds, ace-five suited."],[1229.39,"M","Shove. That's the one first-in shove from the study. It hates getting re-raised and loves folds."],[1235.32,"C","Spot nine. You open pocket jacks, someone re-raises, and you have about seventeen big blinds behind."],[1245.72,"M","All in. Jacks never fold to one re-raise at this depth. You need eighteen percent and you have about fifty."],[1252.49,"C","Spot ten. You open king-queen, the flop is ace, eight, four. You bet a third of the pot and get called. The turn is a blank."],[1263.62,"M","Check and let it go. One bullet. You still have eighteen big blinds, and that's the plan working."],[1269.76,"C","Two bonus spots for the other depths. Spot eleven. Fifteen big blinds, folded to you in the hijack, ace-eight offsuit."],[1280.75,"M","Shove. At fifteen, ace-eight goes in first from the hijack. No open-raise."],[1286.15,"C","Spot twelve. Thirty big blinds. You open king-queen offsuit from the cutoff and get three-bet."],[1295.62,"M","Fold. At twenty it's a shove. At thirty it's a fold. Same hand, different stack."],[1301.67,"C","If you got ten or more of those twelve, you're ready. If you missed a couple, they're all on the Day 2 study tab with the numbers."],[1309.4,"M","Last part. The mental game, and a checklist for tomorrow."],[1313.53,"C","On Day 1, your best poker came when you were short and decisive. The leak came in the middle, when there was room to drift. So if you double up early tomorrow, keep the same energy. Keep opening, keep stealing, keep re-stealing, and stop paying to see flops out of position."],[1330.69,"M","When a big decision comes, and it will, remember that you've already made most of it. You know what king-queen does over a late open. You know where your ace calling lines are. You know jacks don't fold. Take a breath, find the spot in your head, and act."],[1344.52,"C","And on a bad beat, do the math once. If you got it in ahead, it was the deck. Then let it go before the next hand."],[1352.07,"M","The checklist. Before noon: check the app for your table and seat, and see who filled in around you. Eat a real meal and bring water and a snack for the breaks."],[1361.31,"C","First orbit: find who covers you, find the short stacks, watch the first opens and the first big blind defenses. Assume the room's numbers until you see otherwise."],[1372.73,"M","Then play your game. Small opens. Shove over late opens. Shove or fold against the big stack's steals. King-queen always goes in over a late open. Jacks never fold."],[1383.71,"C","And the five postflop rules: decide before the flop, bet small, one bullet, shove big draws, believe the turn."],[1391.75,"M","That's The Rail Report. Brad, good luck tomorrow. We'll be watching the app."],[1396.61,"C","Go get that final table."]],"chapters":[{"t":0,"title":"Intro"},{"t":75.61,"title":"King-queen"},{"t":234.2,"title":"Broadways"},{"t":319.85,"title":"Ace-x hands"},{"t":499.66,"title":"Pocket pairs"},{"t":559.29,"title":"Pocket jacks"},{"t":624.89,"title":"15 and 30 big blinds"},{"t":863.45,"title":"Big blind vs a min-raise"},{"t":889.08,"title":"Five postflop rules"},{"t":989.75,"title":"Five postflop hands"},{"t":1088.14,"title":"Thin value"},{"t":1113.21,"title":"Lightning round"},{"t":1309.4,"title":"Mental game and checklist"}]},{"n":3,"id":"ep3","title":"The money and the pay jumps","blurb":"Why a fair flip costs money, the bubble rule, who to shove into, four bubble hands, and what changes once you're in the money.","src":"audio/ep3.mp3","dur":755.1,"mb":6.0,"lines":[[0.0,"C","This is The Rail Report. I'm Cole."],[3.38,"M","And I'm Maya. Brad, this is a bonus run of five episodes for your sauna day, and then for tomorrow. Here's the lineup. Today, episode three: the money, the bubble, and the pay jumps. Episode four goes seat by seat through how the Reserve actually plays. Episode five is about the stacks around you: the big stack who covers you and the short stacks who are desperate. Episode six is the final table, because we think you can get there. And episode seven is a Day 2 morning routine, with a recap quiz to lock it all in."],[34.01,"C","And since you're listening in a sauna: drink water between rounds. We'd like you sharp tomorrow, not dried out."],[41.28,"M","Okay. The money. First thing at the restart tomorrow, before the first hand, open the app and find three things. How many places are paid. How many players are left. And what the first few pay jumps look like. That tells you whether you're playing a bubble tomorrow, or whether you're already in the money and playing for ladders. The plan is different for each, so let's do both."],[62.44,"C","Start with the idea underneath both of them. Brad, in a cash game a chip is a chip. If you win a hundred dollars and lose a hundred dollars, you're even. In a tournament that isn't true. The chips you lose are worth more to you than the chips you win."],[78.3,"M","Here's the simplest example. Three players left, equal stacks. First pays fifty dollars, second pays thirty, third pays twenty. Each player's stack is worth about thirty-three dollars right now, because everyone's equally likely to finish anywhere."],[93.09,"C","Now you get all in against one of them on a pure coin flip. If you win, you have two thirds of the chips and you're heads-up. Your stack is worth about forty-three dollars. If you lose, you finish third and get twenty."],[106.1,"M","Average those two. Half of forty-three plus half of twenty is about thirty-one and a half dollars. You started at thirty-three. So a perfectly fair coin flip just cost you almost two dollars of real money."],[118.06,"C","Turn it around. To make that all-in worth it, you'd need about fifty-seven percent to win, not fifty. That gap, from fifty to fifty-seven, is what tournament people call the risk premium. It's the extra edge you need before you put your tournament at risk."],[134.58,"M","The risk premium is biggest near the bubble and near big pay jumps, and it's biggest for medium stacks. That's the key idea for this whole episode. When busting costs a lot, you need more equity to call."],[146.31,"C","So here's the bubble rule in four words. Shove more, call less."],[150.95,"M","Let's take those one at a time. Call less first."],[154.39,"C","In episode two we gave you calling lines at twenty big blinds. Against a cutoff shove, call with ace-nine offsuit and better, king-queen offsuit, and fours and better. Those are chip-EV lines, and a lot of them are thin. King-queen against a cutoff shove has about forty-seven percent when it needs forty-six. Ace-nine, same thing, forty-seven."],[177.63,"M","On the bubble those thin calls become folds. A rough rule: add five to ten points to the equity you need, depending on how close you are to the money and how many short stacks are left. So a call that needs forty-six now needs something like fifty-one to fifty-six."],[193.12,"C","What survives? Against a cutoff shove, ace-jack has about fifty-five percent. Ace-ten, about fifty-one. Pocket sevens, fifty-two. Those are still calls on most bubbles. King-queen, ace-nine, and the small pairs mostly aren't."],[209.13,"M","Against a button shove, the button's range is wider, so you keep a little more. Ace-nine has about fifty-two percent. Ace-ten, fifty-seven. Ace-jack, fifty-nine. But ace-eight at fifty and king-queen at forty-nine get thin, and on a tight bubble you can let them go."],[224.9,"C","Now shove more. This is the half people forget. On the bubble, everybody's calling ranges shrink, not just yours. So when you shove, you get more folds. And every extra fold is pure profit."],[238.22,"M","Remember the math from episode one. Over a cutoff open, there's about five big blinds in the pot. At the Reserve, openers fold to a re-raise about sixty percent of the time in normal play. On a bubble, that number goes up, because the opener is facing the same risk premium you are. They need a better hand to call your shove."],[257.32,"C","So your re-shoving ranges from episode two stay in place, and they get a bit better. King-queen over a late open, ace-jack and ace-ten over the hijack and later, the weak aces over the cutoff and button, small pairs over late opens. All of those still go in."],[275.22,"M","With one exception, and it's an important one. Who you're shoving into."],[279.41,"C","Right. Bubble pressure depends on stacks. Picture three kinds of players at your table. The big stack, who covers everyone and has plenty to spare. The medium stacks, who are comfortable and would hate to bust on the bubble. And the short stacks, who are close to busting no matter what."],[297.6,"M","The medium stacks are the ones who feel the bubble the most. They have the most to lose by calling. So the best player to re-shove against on a bubble is a medium stack that opened. They're opening to steal, and they almost never want to call off a big chunk of their stack."],[312.46,"C","The big stack is different. When the big stack opens and you shove twenty-two big blinds, he's risking a small piece of his stack to knock you out. He can call much wider than a medium stack, because busting you doesn't threaten him. So against the big stack, tighten your re-shoves a little. Keep the strong ones, king-queen, ace-jack, the good pairs. Let go of the weakest aces and the small pairs."],[336.99,"M","And the short stacks change things too. If there's a player at your table with three big blinds, he's going to be all in soon. When that player is about to bust, you can afford to fold more marginal spots, because his exit moves you up for free."],[350.64,"C","One more thing about the big blind on a bubble. When a big stack min-raises your big blind, the price is still great. You need only about eighteen percent equity to call one more big blind. Calling and seeing a flop is fine. What you want to avoid is calling, then getting it all in on a marginal flop. Decide before the flop, like we said in episode two."],[373.89,"M","Let's play four bubble hands out loud."],[376.43,"C","Hand one. Bubble, hand-for-hand. You have twenty-two big blinds in the big blind. A medium stack, about thirty big blinds, shoves from the cutoff. You look down at ace-nine offsuit."],[388.72,"M","Normally that's a call. Forty-seven percent, you need forty-six. On the bubble, it's a fold. You're paying almost your whole stack for one percent of edge, and the risk premium is bigger than that. Fold, and let someone else bust."],[401.93,"C","Hand two. Same bubble. A medium stack opens the cutoff to two and a half big blinds. You're on the button with king-queen offsuit."],[411.01,"M","Shove. King-queen has about forty-nine percent against the whole range he opens, and he's going to fold most of the time. He doesn't want to bust any more than you do. This is the spot where you make money on the bubble."],[423.41,"C","Hand three. The big stack opens the button. You're in the big blind with ace-five offsuit and twenty-two big blinds."],[431.67,"M","Off the bubble, ace-five offsuit is a shove over a button open. On the bubble against a big stack who covers you, it's closer. He can call wider than normal, so your fold equity drops. If you're comfortable, a fold is fine here. If you're getting short, it's still a shove. Your stack size decides it."],[448.8,"C","Hand four. Bubble. You're in the small blind, folded to you, and the big blind has three big blinds left. You have queen-eight offsuit."],[458.69,"M","Here you can just fold. He's about to be all in. The bubble is about to break with you still in it. There's no reason to play a big pot with a marginal hand when someone else is about to go out."],[469.71,"C","Okay. Now the other scenario. Say you check the app tomorrow and Day 2 is already in the money, or the bubble breaks in the first hour. What changes?"],[480.69,"M","Less than people think. The first few pay jumps in a big tournament are small. Going from, say, sixtieth to fiftieth place is usually a few hundred dollars. Most of the prize pool sits at the top. The final table, and especially the top three, get a big share."],[496.26,"C","So once you're in the money, the risk premium mostly shrinks back down. You don't want to fold your way into a slightly bigger min-cash. You want chips, because chips are what get you to the final table, and the final table is where the money is."],[511.32,"M","There's a trap here we see all the time. A player squeaks into the money, relaxes, and then either plays scared or plays reckless. Both cost money. The right mindset is: the bubble's gone, go back to your normal ranges, and start building."],[525.37,"C","And there's an upside for you. Right after the bubble breaks, a lot of short stacks start shoving. They've locked up a cash and they want to double or go home. That means more all-ins coming at you. Your calling lines from episode two are your friend here. Use the chip-EV numbers, not the bubble numbers."],[544.25,"M","There's one more pressure point later on. The jumps grow as you get closer to the final table. The last couple of tables, and especially the jump into the final table, can be big. When the jumps get big, the risk premium comes back. Shove more, call less, again."],[559.23,"C","Let's talk about what you actually see at the table on a bubble, because that's where the edge is."],[565.11,"M","On a bubble, watch for three tells. First, players who suddenly stop opening. If someone who's been raising every orbit goes quiet, they're protecting their stack. Steal their blinds."],[575.81,"C","Second, players who look at the payout screen, or ask the dealer how many are left. They're thinking about the money, not the hand. Pressure them."],[585.18,"M","Third, and this one's for you, Brad: notice it in yourself. If you catch yourself counting places, take a breath and go back to the plan. You already know your ranges. The bubble just moves the calling lines a little."],[597.14,"C","Let's do the hand-for-hand part, because it can feel strange. Near the bubble, the tournament usually goes hand-for-hand. Every table plays one hand, then waits until every other table finishes its hand. It's slow. Players get antsy."],[613.14,"M","Use the waiting. You'll see fewer hands per hour, so the blinds hit you harder relative to the hands you get. If you're short, that's an argument to make your move with a good spot early, rather than waiting for a perfect one that may not come."],[626.45,"C","And remember that if two players bust on the same hand at different tables, they usually split the bubble money, depending on the rules. Ask the floor how it works at the Reserve if it matters."],[638.49,"M","Now let's bring this back to your stack and your table. You start Day 2 at about twenty-two big blinds, roughly seventy percent of the average. The big stack is two seats to your right with seventy big blinds. The player on your left has about twenty."],[652.57,"C","On a bubble, the player on your left is a medium-to-short stack who probably wants to cash. When you open, he's less likely to shove light over you than in normal play. That's good for your opens. But when he does shove, believe him more than usual."],[668.19,"M","And the big stack. In episode one we said his footage shows a very wide opener in the middle and late seats, about sixty percent when it folds to him. On a bubble, a big stack like that usually opens even wider. That's when your re-shoves make money, but only with hands that do well when he calls, because he'll call more."],[687.04,"C","So against him on a bubble: king-queen, ace-jack, ace-ten, and pairs sevens and up are happy shoves over his late opens. The weak aces and baby pairs get worse, so mix them in only when you're getting short."],[700.79,"M","Last part. The numbers that matter, one more time."],[704.49,"C","The chips you lose are worth more than the chips you win. A fair coin flip near the money costs you real dollars. You need something like fifty-seven percent, not fifty, in a big spot."],[716.22,"M","On the bubble, shove more and call less. Your re-shoves get more folds. Your thin calls become folds."],[722.39,"C","Shove into medium stacks that open. Be a little careful shoving into a big stack who covers you. Fold marginal spots when someone short is about to bust."],[732.45,"M","After the bubble, go back to normal. The first pay jumps are small, the money is at the top, and chips are what get you there."],[739.78,"C","And when the jumps get big near the final table, the bubble rules come back."],[744.94,"M","Next episode, we go seat by seat through the Reserve: who opens from where, how big, and what that tells you about the hand. That's The Rail Report. Enjoy the heat, Brad."]],"chapters":[{"t":0,"title":"Intro"},{"t":41.28,"title":"Check the app first"},{"t":62.44,"title":"Why lost chips count more"},{"t":146.31,"title":"Shove more, call less"},{"t":275.22,"title":"Who you shove into"},{"t":373.89,"title":"Four bubble hands"},{"t":469.71,"title":"After the bubble"},{"t":559.23,"title":"Bubble tells"},{"t":597.14,"title":"Hand-for-hand"},{"t":638.49,"title":"Your table on the bubble"},{"t":700.79,"title":"Recap"}]},{"n":4,"id":"ep4","title":"The Reserve, seat by seat","blurb":"Who opens from where and how big, who calls and who re-raises, limpers, the three fields, and the five player types.","soon":true},{"n":5,"id":"ep5","title":"The stacks around you","blurb":"Effective stacks, the big stack, similar stacks, short-stack shoves and what to call them with, isolation, and five hands.","soon":true},{"n":6,"id":"ep6","title":"The final table","blurb":"How the Reserve's final tables play, pay jumps all the way down, short-handed and heads-up, and what to do about a deal.","soon":true},{"n":7,"id":"ep7","title":"Game day routine and recap quiz","blurb":"Tonight, the morning, the breaks, a bad-beat reset, and a 15-question quiz across the series.","soon":true}]};
+const EPS = D.eps;
+const $ = id => document.getElementById(id);
+const au = $('au');
+const CACHE = 'rail-report-audio-v1';
+const store = {
+  get(k, d) { try { const v = localStorage.getItem('rr.' + k); return v == null ? d : JSON.parse(v); } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem('rr.' + k, JSON.stringify(v)); } catch (e) {} }
+};
+const S = {
+  cur: store.get('cur', null), rate: store.get('rate', 1), auto: store.get('auto', true), wheel: store.get('wheel', 'skip'),
+  back: store.get('back', 15), fwd: store.get('fwd', 30), pos: store.get('pos', {}), played: store.get('played', {}),
+  follow: true, sleepAt: null, sleepEnd: false, saved: {}, blobUrl: null, local: null
+};
+const live = EPS.filter(e => !e.soon);
+const byId = id => EPS.find(e => e.id === id);
+const fmt = s => { s = Math.max(0, Math.floor(s || 0)); const h = Math.floor(s / 3600), m = Math.floor(s % 3600 / 60), x = String(s % 60).padStart(2, '0'); return h ? `${h}:${String(m).padStart(2, '0')}:${x}` : `${m}:${x}`; };
+const mins = s => `${Math.round(s / 60)} min`;
+function toast(msg) { const t = $('toast'); t.textContent = msg; t.hidden = false; clearTimeout(toast.t); toast.t = setTimeout(() => t.hidden = true, 2200); }
+
+/* ---------- episodes list ---------- */
+const ICON = {
+  play: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>',
+  dl: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>',
+  ok: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12l5 5 9-10"/></svg>'
+};
+function epStatus(e) {
+  if (e.soon) return 'Recording now';
+  if (S.played[e.id]) return 'Played';
+  const p = S.pos[e.id] || 0;
+  return p > 5 ? `${mins(e.dur - p)} left` : mins(e.dur);
+}
+function renderEps() {
+  const box = $('tab-eps'); box.innerHTML = '';
+  for (const e of EPS) {
+    const el = document.createElement('div');
+    el.className = 'ep' + (e.id === S.cur ? ' cur' : '') + (e.soon ? ' soon' : '');
+    const pct = e.soon ? 0 : S.played[e.id] ? 100 : Math.min(100, 100 * (S.pos[e.id] || 0) / e.dur);
+    el.innerHTML = `<div class="num">${e.n}</div>
+      <button class="body" ${e.soon ? 'disabled' : ''} aria-label="Play episode ${e.n}">
+        <span class="h3">${e.title}</span><span class="p">${e.blurb}</span>
+        <div class="meta"><span>${epStatus(e)}</span>${e.soon ? '' : `<span class="bar"><b style="width:${pct}%"></b></span>`}</div>
+      </button>
+      <div class="acts">${e.soon ? '' : `<button class="mini" data-play="${e.id}" aria-label="Play">${ICON.play}</button>
+        <button class="mini ${S.saved[e.id] ? 'saved' : ''}" data-dl="${e.id}" aria-label="${S.saved[e.id] ? 'Downloaded' : 'Download'}">${S.saved[e.id] ? ICON.ok : ICON.dl}</button>`}</div>`;
+    if (!e.soon) {
+      el.querySelector('.body').onclick = () => playEp(e.id, true);
+      el.querySelector('[data-play]').onclick = () => playEp(e.id, true);
+      el.querySelector('[data-dl]').onclick = () => S.saved[e.id] ? toast(`Episode ${e.n} is saved on this device`) : saveEp(e);
+    }
+    box.appendChild(el);
+  }
+}
+
+/* ---------- chapters + transcript ---------- */
+function curEp() { return S.local ? null : byId(S.cur); }
+function chapAt(e, t) { if (!e || !e.chapters) return -1; let i = 0; for (let k = 0; k < e.chapters.length; k++) if (e.chapters[k].t <= t + 0.5) i = k; return i; }
+function renderChaps() {
+  const box = $('tab-chaps'); box.innerHTML = ''; const e = curEp();
+  if (!e) { box.innerHTML = '<p class="note">Pick an episode to see its chapters.</p>'; return; }
+  e.chapters.forEach((c, i) => {
+    const b = document.createElement('button'); b.className = 'chap'; b.dataset.i = i;
+    b.innerHTML = `<span>${fmt(c.t)}</span><b>${c.title}</b>`; b.onclick = () => { seekTo(c.t); if (au.paused) play(); };
+    box.appendChild(b);
+  });
+  markChap();
+}
+function markChap() {
+  const e = curEp(); const i = chapAt(e, au.currentTime || 0);
+  document.querySelectorAll('.chap').forEach(b => b.classList.toggle('cur', +b.dataset.i === i));
+  const name = e && i >= 0 ? e.chapters[i].title : '';
+  $('npChap').textContent = e ? (name || e.blurb) : (S.local ? 'A file from this device' : $('npChap').textContent);
+  $('carChap').textContent = name;
+}
+function renderTx() {
+  const box = $('tx'); box.innerHTML = ''; const e = curEp();
+  if (!e) { box.innerHTML = '<p class="note">Pick an episode to read along.</p>'; return; }
+  const frag = document.createDocumentFragment();
+  e.lines.forEach((l, i) => {
+    const b = document.createElement('button'); b.className = 'ln'; b.dataset.i = i;
+    b.innerHTML = `<span class="who ${l[1] === 'M' ? 'm' : 'c'}">${l[1] === 'M' ? 'Maya' : 'Cole'}</span><span>${l[2]}</span>`;
+    b.onclick = () => { seekTo(l[0]); if (au.paused) play(); };
+    frag.appendChild(b);
+  });
+  box.appendChild(frag); lastLine = -1; markLine();
+}
+let lastLine = -1;
+function markLine() {
+  const e = curEp(); if (!e || $('tab-tx').hidden) return;
+  const t = au.currentTime || 0; let lo = 0, hi = e.lines.length - 1, i = 0;
+  while (lo <= hi) { const m = (lo + hi) >> 1; if (e.lines[m][0] <= t + 0.2) { i = m; lo = m + 1; } else hi = m - 1; }
+  if (i === lastLine) return;
+  const nodes = $('tx').children; if (nodes[lastLine]) nodes[lastLine].classList.remove('cur');
+  if (nodes[i]) { nodes[i].classList.add('cur'); if (S.follow) nodes[i].scrollIntoView({ block: 'center', behavior: 'smooth' }); }
+  lastLine = i;
+}
+
+/* ---------- playback ---------- */
+async function srcFor(e) {
+  try {
+    if ('caches' in window) {
+      const c = await caches.open(CACHE); const r = await c.match(e.src);
+      if (r) { const b = await r.blob(); if (S.blobUrl) URL.revokeObjectURL(S.blobUrl); S.blobUrl = URL.createObjectURL(b); return S.blobUrl; }
+    }
+  } catch (err) {}
+  return e.src;
+}
+function loadEp(id, startAt) {
+  const e = byId(id); if (!e || e.soon) return;
+  S.cur = id; S.local = null; store.set('cur', id);
+  const at = startAt != null ? startAt : (S.played[id] ? 0 : (S.pos[id] || 0));
+  au.dataset.start = at;
+  const done = () => afterLoad(e, at);
+  if (S.saved[id]) return srcFor(e).then(u => { au.src = u; au.dataset.start = at; done(); });
+  au.src = e.src; done();                       /* not downloaded: stay synchronous so iPhone keeps the tap as the play gesture */
+}
+function afterLoad(e, at) {
+  $('npKick').textContent = `Episode ${e.n} of ${EPS.length}`; $('npTitle').textContent = e.title;
+  $('carKick').textContent = `Episode ${e.n}`; $('carTitle').textContent = e.title;
+  drawTicks(e); renderEps(); renderChaps(); renderTx(); mediaMeta(e); setSeekUI(at, e.dur);
+}
+function playEp(id, go, startAt) {
+  if (S.cur !== id || S.local || !au.src) { const r = loadEp(id, startAt); if (r && r.then) { r.then(() => { if (go) play(); }); return; } }
+  else if (startAt != null) seekTo(startAt);
+  if (go) play();
+}
+function play() {
+  if (!au.src) { const first = S.cur && byId(S.cur) && !byId(S.cur).soon ? S.cur : (live[0] && live[0].id); if (!first) return; return playEp(first, true); }
+  au.playbackRate = S.rate; const p = au.play(); if (p && p.catch) p.catch(err => { if (err && err.name === 'NotAllowedError') toast('Tap play to start'); });
+}
+function pause() { au.pause(); }
+function toggle() { au.paused ? play() : pause(); }
+function seekTo(t) { if (!isFinite(au.duration)) { au.dataset.start = t; return; } au.currentTime = Math.max(0, Math.min(t, au.duration - 0.25)); tick(true); }
+function skip(d) { seekTo((au.currentTime || 0) + d); }
+function stepEp(dir) {
+  const i = live.findIndex(e => e.id === S.cur); const j = i < 0 ? 0 : i + dir;
+  if (j < 0 || j >= live.length) { toast(dir > 0 ? 'That was the last episode' : 'This is the first episode'); return; }
+  playEp(live[j].id, !au.paused || dir > 0, 0);
+}
+function stepChap(dir) {
+  const e = curEp(); if (!e) return; const t = au.currentTime || 0; let i = chapAt(e, t);
+  if (dir < 0 && t - e.chapters[i].t > 4) return seekTo(e.chapters[i].t);
+  i += dir; if (i < 0) i = 0;
+  if (i >= e.chapters.length) return toast('Last chapter');
+  seekTo(e.chapters[i].t); toast(e.chapters[i].title);
+}
+function setRate(r) {
+  S.rate = r; store.set('rate', r); au.playbackRate = r; au.defaultPlaybackRate = r;
+  document.querySelectorAll('.speed button').forEach(b => b.setAttribute('aria-pressed', String(+b.dataset.rate === r)));
+  document.querySelectorAll('#moreSpeeds .chip').forEach(b => b.setAttribute('aria-pressed', String(+b.dataset.rate === r)));
+  $('carSpeed').textContent = (r % 1 ? r : r.toFixed(1)) + '×';
+  posState();
+}
+au.addEventListener('loadedmetadata', () => {
+  const s = +au.dataset.start || 0; if (s > 0 && s < au.duration - 2) au.currentTime = s; au.dataset.start = 0;
+  au.playbackRate = S.rate; tick(true);
+});
+au.addEventListener('play', () => { au.playbackRate = S.rate; setPlayIcons(true); posState(); wakeIfCar(); });
+au.addEventListener('pause', () => { setPlayIcons(false); savePos(true); posState(); });
+au.addEventListener('ratechange', () => { if (Math.abs(au.playbackRate - S.rate) > 0.01 && !au.paused) au.playbackRate = S.rate; });
+au.addEventListener('ended', () => {
+  const e = curEp(); if (e) { S.played[e.id] = true; S.pos[e.id] = 0; store.set('played', S.played); store.set('pos', S.pos); }
+  if (S.sleepEnd) { S.sleepEnd = false; updSleep(); toast('Sleep timer: stopped at the end of the episode'); renderEps(); return; }
+  const i = live.findIndex(x => x.id === S.cur);
+  if (S.auto && e && i >= 0 && i < live.length - 1) playEp(live[i + 1].id, true, 0); else renderEps();
+});
+au.addEventListener('timeupdate', () => tick(false));
+au.addEventListener('error', () => { if (au.src) toast('Could not load the audio. Check the connection or download it first.'); });
+function setPlayIcons(on) {
+  $('icoPlay').hidden = on; $('icoPause').hidden = !on; $('carIcoPlay').hidden = on; $('carIcoPause').hidden = !on;
+  $('play').setAttribute('aria-label', on ? 'Pause' : 'Play');
+  if ('mediaSession' in navigator) navigator.mediaSession.playbackState = on ? 'playing' : 'paused';
+}
+let lastSave = 0, dragging = false;
+function savePos(force) {
+  const e = curEp(); if (!e || !isFinite(au.duration)) return;
+  const now = Date.now(); if (!force && now - lastSave < 3000) return; lastSave = now;
+  const t = au.currentTime; if (t > au.duration - 15) { S.played[e.id] = true; store.set('played', S.played); }
+  else if (t > 3) { S.pos[e.id] = Math.round(t); if (S.played[e.id] && t < au.duration - 30) { delete S.played[e.id]; store.set('played', S.played); } }
+  store.set('pos', S.pos);
+}
+function setSeekUI(t, d) {
+  const p = d ? 1000 * t / d : 0; if (!dragging) $('seek').value = p; $('seek').style.setProperty('--p', p / 10 + '%');
+  $('tCur').textContent = fmt(t); $('tLeft').textContent = '-' + fmt((d - t) / (S.rate || 1));
+  $('carBar').style.width = p / 10 + '%'; $('carCur').textContent = fmt(t); $('carLeft').textContent = '-' + fmt((d - t) / (S.rate || 1));
+}
+let lastTick = 0;
+function tick(force) {
+  const d = au.duration, t = au.currentTime || 0; if (!isFinite(d)) return;
+  setSeekUI(t, d); markChap(); markLine(); savePos(false); checkSleep();
+  const now = Date.now(); if (force || now - lastTick > 5000) { lastTick = now; posState(); }
+  if (force || now - (tick.list || 0) > 15000) { tick.list = now; renderEpsMeta(); }
+}
+function renderEpsMeta() { const st = document.querySelectorAll('#tab-eps .ep'); if (st.length) renderEps(); }
+$('seek').addEventListener('input', ev => {
+  dragging = true; const d = au.duration; if (!isFinite(d)) return; const t = d * ev.target.value / 1000;
+  ev.target.style.setProperty('--p', ev.target.value / 10 + '%'); $('tCur').textContent = fmt(t);
+});
+$('seek').addEventListener('change', ev => { dragging = false; const d = au.duration; if (isFinite(d)) seekTo(d * ev.target.value / 1000); });
+function drawTicks(e) {
+  const box = $('ticks'); box.innerHTML = '';
+  if (!e || !e.chapters) return;
+  for (const c of e.chapters.slice(1)) { const i = document.createElement('i'); i.style.left = (100 * c.t / e.dur) + '%'; box.appendChild(i); }
+}
+
+/* ---------- lock screen, Bluetooth and steering-wheel buttons ---------- */
+function mediaMeta(e) {
+  if (!('mediaSession' in navigator)) return;
+  const base = new URL('.', location.href).href;
+  navigator.mediaSession.metadata = new MediaMetadata({
+    title: e ? `${e.n}. ${e.title}` : (S.local || 'Audio file'), artist: 'The Rail Report', album: 'Operation Final Table',
+    artwork: [{ src: base + 'cover-512.png', sizes: '512x512', type: 'image/png' }, { src: base + 'cover-1024.png', sizes: '1024x1024', type: 'image/png' }]
+  });
+  wireMedia();
+}
+function wireMedia() {
+  if (!('mediaSession' in navigator)) return;
+  const ms = navigator.mediaSession, set = (a, f) => { try { ms.setActionHandler(a, f); } catch (e) {} };
+  set('play', play); set('pause', pause); set('stop', pause);
+  set('seekbackward', d => skip(-((d && d.seekOffset) || S.back)));
+  set('seekforward', d => skip((d && d.seekOffset) || S.fwd));
+  set('seekto', d => { if (d && d.seekTime != null) seekTo(d.seekTime); });
+  if (S.wheel === 'skip') { set('previoustrack', () => skip(-S.back)); set('nexttrack', () => skip(S.fwd)); }
+  else if (S.wheel === 'chapter') { set('previoustrack', () => stepChap(-1)); set('nexttrack', () => stepChap(1)); }
+  else { set('previoustrack', () => stepEp(-1)); set('nexttrack', () => stepEp(1)); }
+}
+function posState() {
+  if (!('mediaSession' in navigator) || !navigator.mediaSession.setPositionState) return;
+  const d = au.duration; if (!isFinite(d) || d <= 0) return;
+  try { navigator.mediaSession.setPositionState({ duration: d, playbackRate: au.playbackRate || 1, position: Math.min(au.currentTime || 0, d) }); } catch (e) {}
+}
+
+/* ---------- sleep timer ---------- */
+function updSleep() {
+  const on = !!(S.sleepAt || S.sleepEnd); $('sleepBtn').setAttribute('aria-pressed', String(on));
+  $('sleepTxt').textContent = S.sleepEnd ? 'Sleep: end of episode' : S.sleepAt ? `Sleep: ${Math.max(1, Math.ceil((S.sleepAt - Date.now()) / 60000))} min` : 'Sleep timer';
+}
+function checkSleep() { if (S.sleepAt && Date.now() >= S.sleepAt) { S.sleepAt = null; pause(); toast('Sleep timer: paused'); } updSleep(); }
+setInterval(() => { if (S.sleepAt) checkSleep(); }, 15000);
+const SLEEP = [['Off', 0], ['10 min', 10], ['15 min', 15], ['20 min', 20], ['30 min', 30], ['45 min', 45], ['End of episode', -1]];
+function renderSleep() {
+  const box = $('sleepOpts'); box.innerHTML = '';
+  for (const [label, m] of SLEEP) {
+    const b = document.createElement('button'); b.className = 'chip'; b.textContent = label;
+    b.setAttribute('aria-pressed', String(m === -1 ? S.sleepEnd : m === 0 ? !(S.sleepAt || S.sleepEnd) : false));
+    b.onclick = () => { S.sleepAt = m > 0 ? Date.now() + m * 60000 : null; S.sleepEnd = m === -1; updSleep(); closeSheets(); if (m) toast(m > 0 ? `Pausing in ${m} minutes` : 'Stopping at the end of this episode'); };
+    box.appendChild(b);
+  }
+}
+
+/* ---------- options sheet ---------- */
+function openSheet(id) { $('scrim').hidden = false; $(id).hidden = false; }
+function closeSheets() { $('scrim').hidden = true; $('sheetSleep').hidden = true; $('sheetMore').hidden = true; }
+$('scrim').onclick = closeSheets;
+document.querySelectorAll('[data-close]').forEach(b => b.onclick = closeSheets);
+$('sleepBtn').onclick = () => { renderSleep(); openSheet('sheetSleep'); };
+$('moreBtn').onclick = () => { renderMore(); openSheet('sheetMore'); };
+$('autoBtn').onclick = () => { S.auto = !S.auto; store.set('auto', S.auto); $('autoBtn').setAttribute('aria-pressed', String(S.auto)); toast(S.auto ? 'Next episode plays automatically' : 'Stops after each episode'); };
+function renderMore() {
+  const sp = $('moreSpeeds'); sp.innerHTML = '';
+  for (const r of [0.75, 1, 1.1, 1.25, 1.5, 1.75, 2]) {
+    const b = document.createElement('button'); b.className = 'chip'; b.dataset.rate = r; b.textContent = (r % 1 ? r : r.toFixed(1)) + '×';
+    b.setAttribute('aria-pressed', String(r === S.rate)); b.onclick = () => setRate(r); sp.appendChild(b);
+  }
+  const wh = $('wheelOpts'); wh.innerHTML = '';
+  for (const [k, label] of [['skip', `Skip back ${S.back} s / ahead ${S.fwd} s`], ['chapter', 'Previous / next chapter'], ['episode', 'Previous / next episode']]) {
+    const b = document.createElement('button'); b.className = 'chip'; b.textContent = label; b.setAttribute('aria-pressed', String(S.wheel === k));
+    b.onclick = () => { S.wheel = k; store.set('wheel', k); wireMedia(); renderMore(); }; wh.appendChild(b);
+  }
+  const sk = $('skipOpts'); sk.innerHTML = '';
+  for (const [bk, fw] of [[10, 10], [15, 30], [30, 30], [15, 60]]) {
+    const b = document.createElement('button'); b.className = 'chip'; b.textContent = `Back ${bk} s · ahead ${fw} s`;
+    b.setAttribute('aria-pressed', String(S.back === bk && S.fwd === fw));
+    b.onclick = () => { S.back = bk; S.fwd = fw; store.set('back', bk); store.set('fwd', fw); skipLabels(); wireMedia(); renderMore(); }; sk.appendChild(b);
+  }
+}
+function skipLabels() {
+  document.querySelector('#back small').textContent = S.back; document.querySelector('#fwd small').textContent = S.fwd;
+  $('back').setAttribute('aria-label', `Back ${S.back} seconds`); $('fwd').setAttribute('aria-label', `Forward ${S.fwd} seconds`);
+  $('carBackTxt').textContent = `${S.back} s`; $('carFwdTxt').textContent = `${S.fwd} s`;
+}
+$('restartEp').onclick = () => { if (S.cur) { closeSheets(); playEp(S.cur, true, 0); } };
+$('markPlayed').onclick = () => { const e = curEp(); if (!e) return; S.played[e.id] = true; S.pos[e.id] = 0; store.set('played', S.played); store.set('pos', S.pos); renderEps(); closeSheets(); toast(`Episode ${e.n} marked as played`); };
+$('localFile').onchange = ev => {
+  const f = ev.target.files && ev.target.files[0]; if (!f) return;
+  if (S.blobUrl) URL.revokeObjectURL(S.blobUrl); S.blobUrl = URL.createObjectURL(f);
+  S.local = f.name.replace(/\.[^.]+$/, ''); S.cur = null; au.src = S.blobUrl; au.dataset.start = 0; au.load();
+  $('npKick').textContent = 'From this device'; $('npTitle').textContent = S.local; $('carTitle').textContent = S.local; $('carKick').textContent = 'From this device';
+  drawTicks(null); renderEps(); renderChaps(); renderTx(); mediaMeta(null); markChap(); closeSheets(); play();
+};
+
+/* ---------- offline ---------- */
+async function checkSaved() {
+  if (!('caches' in window)) return;
+  try { const c = await caches.open(CACHE); for (const e of live) S.saved[e.id] = !!(await c.match(e.src)); } catch (err) {}
+  renderEps();
+}
+async function saveEp(e, quiet) {
+  if (!('caches' in window)) { toast('This browser can’t save audio offline'); return false; }
+  try {
+    if (!quiet) toast(`Downloading episode ${e.n} (${e.mb} MB)…`);
+    const c = await caches.open(CACHE); const r = await fetch(e.src, { cache: 'no-store' });
+    if (!r.ok) throw new Error(r.status); await c.put(e.src, r); S.saved[e.id] = true; renderEps();
+    if (!quiet) toast(`Episode ${e.n} saved for offline`); return true;
+  } catch (err) { toast(`Couldn’t download episode ${e.n}`); return false; }
+}
+$('saveAll').onclick = async () => { closeSheets(); toast('Downloading all episodes…'); let n = 0; for (const e of live) if (S.saved[e.id] || await saveEp(e, true)) n++; toast(`${n} of ${live.length} episodes saved for offline`); };
+$('clearAll').onclick = async () => { try { await caches.delete(CACHE); } catch (e) {} S.saved = {}; renderEps(); closeSheets(); toast('Downloads removed'); };
+
+/* ---------- car mode ---------- */
+let wake = null;
+async function wakeIfCar() { if ($('car').hidden || !('wakeLock' in navigator)) return; try { if (!wake) { wake = await navigator.wakeLock.request('screen'); wake.addEventListener('release', () => wake = null); } } catch (e) {} }
+function openCar() { $('car').hidden = false; store.set('car', true); wakeIfCar(); }
+function closeCar() { $('car').hidden = true; store.set('car', false); if (wake) { wake.release().catch(() => {}); wake = null; } }
+document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') wakeIfCar(); else savePos(true); });
+$('carBtn').onclick = openCar; $('carClose').onclick = closeCar;
+$('carPlay').onclick = toggle; $('carBack').onclick = () => skip(-S.back); $('carFwd').onclick = () => skip(S.fwd);
+$('carPrev').onclick = () => stepChap(-1); $('carNext').onclick = () => stepChap(1);
+$('carSpeed').onclick = () => { const seq = [1, 1.25, 1.5]; const i = seq.indexOf(S.rate); setRate(seq[(i + 1) % seq.length]); toast(`Speed ${$('carSpeed').textContent}`); };
+
+/* ---------- wiring ---------- */
+$('play').onclick = toggle; $('back').onclick = () => skip(-S.back); $('fwd').onclick = () => skip(S.fwd);
+$('prevEp').onclick = () => stepEp(-1); $('nextEp').onclick = () => stepEp(1);
+document.querySelectorAll('.speed button').forEach(b => b.onclick = () => setRate(+b.dataset.rate));
+document.querySelectorAll('.tabs button').forEach(b => b.onclick = () => {
+  document.querySelectorAll('.tabs button').forEach(x => x.setAttribute('aria-selected', String(x === b)));
+  for (const k of ['eps', 'chaps', 'tx']) $('tab-' + k).hidden = k !== b.dataset.tab;
+  if (b.dataset.tab === 'tx') { lastLine = -1; markLine(); }
+});
+$('followBtn').onclick = () => { S.follow = !S.follow; $('followBtn').setAttribute('aria-pressed', String(S.follow)); if (S.follow) { lastLine = -1; markLine(); } };
+document.addEventListener('keydown', ev => {
+  if (ev.target.closest('input,textarea')) return;
+  const k = ev.key;
+  if (k === ' ' || k === 'k') { ev.preventDefault(); toggle(); }
+  else if (k === 'ArrowLeft' || k === 'j') skip(-S.back);
+  else if (k === 'ArrowRight' || k === 'l') skip(S.fwd);
+  else if (k === 'n') stepEp(1); else if (k === 'p') stepEp(-1);
+  else if (k === '1') setRate(1); else if (k === '2') setRate(1.25); else if (k === '3') setRate(1.5);
+  else if (k === 'Escape') { closeSheets(); if (!$('car').hidden) closeCar(); }
+});
+window.addEventListener('pagehide', () => savePos(true));
+
+/* ---------- start ---------- */
+setRate(S.rate); skipLabels(); updSleep();
+$('autoBtn').setAttribute('aria-pressed', String(S.auto));
+renderEps(); renderChaps(); renderTx(); wireMedia(); checkSaved();
+const start = (S.cur && byId(S.cur) && !byId(S.cur).soon) ? S.cur : (live.find(e => !S.played[e.id]) || live[0] || {}).id;
+if (start) loadEp(start);
+if (store.get('car', false)) openCar();
+</script>
+</html>
