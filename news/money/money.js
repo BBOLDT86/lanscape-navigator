@@ -36,8 +36,9 @@ if (stage) {
     const narrow = W < 720;
     const cols = [[], [], []]; F.nodes.forEach(n => cols[n.col].push(n));
     const padX = narrow ? 8 : 24, colW = narrow ? 112 : Math.min(230, W * 0.22), gapY = narrow ? 4 : 6;
-    const xs = [padX, W / 2 - colW / 2, W - padX - colW];
-    const hudH = $('#hud') ? $('#hud').getBoundingClientRect().height : 0; const top = hudH + (narrow ? 12 : 36), usable = H - top - 16;
+    const two = !cols[0].length; // no donor lists yet: two columns
+    const xs = two ? [-9999, W * 0.3 - colW / 2, W - padX - colW - (narrow ? 0 : W * 0.08)] : [padX, W / 2 - colW / 2, W - padX - colW];
+    const hudH = $('#hud') ? ($('#hud').getBoundingClientRect().bottom - el.getBoundingClientRect().top) : 0; const top = hudH + (narrow ? 12 : 30), usable = H - top - 16;
     const pos = {};
     cols.forEach((c, ci) => {
       c.sort((a, b) => (a.side === b.side ? b.usd - a.usd : (a.side === 'D' ? -1 : a.side === 'R' ? 1 : 0) - (b.side === 'D' ? -1 : b.side === 'R' ? 1 : 0)));
@@ -67,7 +68,7 @@ if (stage) {
       if (p.h >= 30 && !narrow) svg += `<text class="ns" x="${p.x + 6}" y="${p.y + 28}">${esc(usd(n.usd))}${n.sub ? ' · ' + esc(n.sub.slice(0, 28)) : ''}</text>`;
       svg += `<title>${esc(n.name)}: ${usd(n.usd)}${n.sub ? '. ' + esc(n.sub) : ''}${n.col === 1 ? `. Record ${n.won} won, ${n.lost} lost` : ''}</title></g>`;
     });
-    if (!narrow) svg += `<text class="ch" x="${xs[0]}" y="${top - 8}">DONORS</text><text class="ch" x="${xs[1]}" y="${top - 8}">COMMITTEES</text><text class="ch" x="${xs[2]}" y="${top - 8}">SENATE RACES</text>`;
+    if (!narrow) svg += `${two ? '' : `<text class="ch" x="${xs[0]}" y="${top - 8}">DONORS</text>`}<text class="ch" x="${xs[1]}" y="${top - 8}">COMMITTEES</text><text class="ch" x="${xs[2]}" y="${top - 8}">SENATE RACES</text>`;
     svg += '</svg>';
     el.innerHTML = svg;
     // hover: follow one node's money

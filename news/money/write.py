@@ -89,9 +89,9 @@ def state_block(st):
         for b in (pl.get(plat) or {}).get('by_committee', []):
             if (b.get('state') or '') == st: paid.append(f"{b['name']} paid {plat.title()} {usd(b['amount'])} ({b['n']} payments)")
     if paid: L += ["", f"DIRECT PLATFORM PAYMENTS by committees registered in {NAME[st]} (a floor; most digital buys go through vendors): " + '; '.join(paid[:12])]
-    ga = B.GA or {}; advs = [a for a in (ga.get('advertisers') or []) if NAME[st] in (a.get('states') or {})]
-    advs.sort(key=lambda a: -a['states'][NAME[st]])
-    if advs: L += ["", f"GOOGLE'S TRANSPARENCY REPORT, advertisers with the most spending targeted at {NAME[st]} (cumulative by state; the cycle total is since Jan. 2025): " + '; '.join(f"{a['name']} {usd(a['states'][NAME[st]])} in the state, {usd(a['cycle'])} this cycle" + (f", e.g. {a['ads'][0]['type'].title()} ad {usd(a['ads'][0]['lo'])}–{usd(a['ads'][0]['hi'])} {a['ads'][0]['url']}" if a.get('ads') else '') for a in advs[:8])]
+    ga = B.GA or {}; advs = [a for a in (ga.get('advertisers') or []) if st in (a.get('states') or {})]
+    advs.sort(key=lambda a: -a['states'][st])
+    if advs: L += ["", f"GOOGLE'S TRANSPARENCY REPORT (political ads on Google's platforms — Search, YouTube, display), advertisers with the most spending in {NAME[st]} (by state, cumulative since 2018 for the advertiser; the cycle total is since Jan. 2025) — note that Google's 'political' category also sweeps in advertisers like prediction markets: " + '; '.join(f"{a['name']} {usd(a['states'][st])} in the state, {usd(a['cycle'])} this cycle" + (f"; its biggest ad: {a['ads'][0]['type'].title()}, {B.spend_range(a['ads'][0])}, ran {a['ads'][0]['start']} to {a['ads'][0]['end']}, targeted {a['ads'][0]['geo'][:60] or 'US'}, {a['ads'][0]['url']}" if a.get('ads') else '') for a in advs[:8])]
     return '\n'.join(L)
 
 def national_block():
