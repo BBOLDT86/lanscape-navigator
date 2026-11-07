@@ -219,6 +219,61 @@ img{display:block}
 .shelf .sh a{font:600 14px var(--sans);color:var(--brass-ink);text-decoration:none;white-space:nowrap}
 .shelf .sh a:hover{text-decoration:underline}
 
+/* ---------- the wave: the front's hero, and the desks grid */
+.hero{padding-top:14px;padding-bottom:4px}
+.hero-stage{position:relative;border-radius:14px;overflow:hidden;background:#0b1526;aspect-ratio:16/9;max-height:min(78vh,760px);cursor:pointer;box-shadow:0 18px 50px -24px rgba(5,12,24,.55)}
+.hero-stage .wave-root{position:absolute;inset:0}
+.hero-stage.wave-theater{border-radius:0;cursor:default;max-height:none;aspect-ratio:auto}
+.hero-ctl{position:absolute;top:12px;right:12px;z-index:4;display:flex;gap:6px;align-items:center}
+.hero-ctl .seg{margin:0;padding:2px;background:rgba(10,20,36,.72);border:1px solid rgba(255,255,255,.18);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.hero-ctl .seg button{color:#cfdbeb;padding:5px 11px;font-size:13.5px}
+.hero-ctl .seg button[aria-pressed="true"]{background:#e9f0f8;color:#0b1526}
+.hero-ctl .hb{display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(255,255,255,.18);background:rgba(10,20,36,.72);color:#cfdbeb;border-radius:999px;padding:6px 11px;font:600 13px var(--sans);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.hero-ctl .hb:hover{color:#fff;border-color:#fff}
+.hero-ctl .hb svg{width:14px;height:14px}
+.hero-stage .fsx{display:none}
+.hero-stage.wave-theater .fsx,.hero-stage:fullscreen .fsx{display:inline-flex}
+.hero-stage.wave-theater .hb.fso,.hero-stage:fullscreen .hb.fso{display:none}
+.hero-go{position:absolute;left:12px;bottom:12px;z-index:4;display:inline-flex;align-items:center;gap:8px;background:#e9f0f8;color:#0b1526;border-radius:999px;padding:8px 14px;font:600 14px var(--sans);text-decoration:none;box-shadow:0 6px 20px rgba(0,0,0,.35)}
+.hero-go:hover{background:#fff}
+.hero-stage.wave-theater .hero-go,.hero-stage:fullscreen .hero-go{display:none}
+.hero-card{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:18px 40px;padding:18px 4px 6px;align-items:start}
+.hero-card .rk{display:block;font:700 12px var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--brass-ink);margin-bottom:6px}
+.hero-card h2{margin:0 0 8px;font:400 clamp(30px,3.6vw,46px)/1.04 var(--serif);letter-spacing:-.006em}
+.hero-card h2 a{text-decoration:none}
+.hero-card h2 a:hover{text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:6px}
+.hero-card .hd{margin:0;color:var(--ink-2);font-size:17px;line-height:1.5;max-width:62ch}
+.hero-card .hb2{margin:12px 0 0;font:500 14px var(--sans);color:var(--ink-3)}
+.hero-areas{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.hero-areas li a{display:grid;grid-template-columns:28px minmax(0,1fr);gap:10px;align-items:baseline;text-decoration:none;padding:9px 0;border-top:1px solid var(--rule)}
+.hero-areas li:first-child a{border-top:0;padding-top:0}
+.hero-areas .n{font:400 22px/1 var(--serif);color:var(--brass)}
+.hero-areas b{display:block;font:600 15.5px/1.3 var(--sans)}
+.hero-areas b:hover{text-decoration:underline}
+.hero-areas span{display:block;font-size:13px;color:var(--ink-2);margin-top:2px}
+.hero-areas .k{font:700 11px var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin-bottom:4px}
+.hero-stage.nogl{cursor:pointer}
+.hero-stage.nogl::after{content:'The wave: every county’s move since 2024. Tap to read.';position:absolute;inset:0;display:grid;place-items:center;color:#e9f0f8;font:600 18px var(--sans);text-align:center;padding:24px}
+@media (max-width:820px){.hero{padding-top:8px}.hero-stage{aspect-ratio:4/5;border-radius:10px;max-height:none}.hero-card{grid-template-columns:1fr;gap:14px;padding-top:14px}.hero-ctl{top:auto;bottom:12px;right:10px}.hero-ctl .hb .lbl{display:none}.hero-ctl .seg button{padding:5px 9px;font-size:12.5px}.hero-go{left:10px;bottom:12px;padding:7px 12px;font-size:13px}.hero-stage.wave-theater .hero-ctl{top:12px;bottom:auto}}
+.desks{padding-top:30px;padding-bottom:30px}
+.desks .dh{display:flex;align-items:baseline;gap:14px;margin-bottom:10px}
+.desks .dh p{margin:0;color:var(--ink-2);font-size:15px}
+.desk-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,290px),1fr));gap:4px 32px}
+.desk{padding:14px 0 12px;border-top:1px solid var(--rule)}
+.desk .sh{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:4px}
+.desk .sh h2{font:400 22px/1 var(--serif);margin:0;letter-spacing:-.004em}
+.desk .sh h2 a{text-decoration:none}
+.desk .sh a.all{font:600 13px var(--sans);color:var(--brass-ink);text-decoration:none;white-space:nowrap}
+.desk .sh a.all:hover{text-decoration:underline}
+.desk .st{padding:8px 0 6px}
+.desk .st .th{width:96px;height:64px}
+.desk .st h3{font-size:16px}
+.desk ul{list-style:none;margin:0;padding:0}
+.desk li{padding:7px 0 0;font:500 14.5px/1.35 var(--sans)}
+.desk li a{text-decoration:none;color:var(--ink)}
+.desk li a:hover{text-decoration:underline}
+.desk li span{display:block;font-size:12.5px;color:var(--ink-3);margin-top:1px}
+
 /* ---------- desk, topic and search pages */
 .page{padding-top:28px;padding-bottom:40px;max-width:860px}
 .page-h{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:10px}
@@ -1696,27 +1751,29 @@ function renderHome() {
     .map(c => ({ c, it: rep(c) })).filter(x => !muted(x.it));
   rising.forEach(x => shown.add('c' + x.c.id));
   const prevLabel = (() => { const a = (E.archive || []); const i = a.findIndex(x => x.id === E.id); return i > 0 ? T(a[i - 1].label) : T('last watch'); })();
-  const shelves = deskOrder().map(k => {
+  const shelves = deskOrder().map(k => { // one compact card per desk: the best story with its picture, then two more headlines
     const all = deskUnits(k);
     const list = all.filter(it => !shown.has(unitKey(it))).map(it => ({ it, s: score(it) })).filter(x => x.s > 0).sort((a, b) => b.s - a.s).slice(0, 5).map(x => x.it);
     if (!list.length) return '';
     const withImg = list.slice(0, 3).find(it => it.m) || list[0];
-    const ordered = [withImg, ...list.filter(x => x !== withImg)].slice(0, 4);
+    const ordered = [withImg, ...list.filter(x => x !== withImg)].slice(0, 3);
     ordered.forEach(it => shown.add(unitKey(it)));
     const count = all.length;
-    return `<section class="shelf"><div class="sh"><h2 class="sec-h">${esc(secName(k))}</h2><a href="#/s/${k}">${T('All {n}', { n: count })}</a></div>
-      ${ordered.map((it, i) => storyRow(it, { top: i === 0, img: i === 0 })).join('')}</section>`;
+    return `<section class="desk"><div class="sh"><h2><a href="#/s/${k}">${esc(secName(k))}</a></h2><a class="all" href="#/s/${k}">${T('All {n}', { n: count })}</a></div>
+      ${storyRow(ordered[0], { top: true, img: true })}
+      ${ordered.length > 1 ? `<ul>${ordered.slice(1).map(it => `<li><a href="${esc(it.u)}" target="_blank" rel="noopener" data-open="${it.i}">${esc(it.t)}</a><span>${esc(outlet(it.o))} · ${ago(it.p)}</span></li>`).join('')}</ul>` : ''}</section>`;
   }).join('');
   const coldChips = warm ? '' : `<div class="cold"><span>Or tap the desks you follow:</span>${E.sections.map(s => `<button type="button" class="chip" data-seed="${s.k}" aria-pressed="${(P.sec[s.k] || 0) > 0 ? 'true' : 'false'}">${esc(secName(s.k))}</button>`).join('')}</div>`;
   ensureElections(usPost()); // after the vote the front needs the Election Desk's results, not only its markets
   const brf = viewingArchive ? '' : brFrontCard();
-  $('#main').innerHTML = `${!viewingArchive && MK ? `<div class="wrap">${tapeHTML()}</div>` : ''}
+  $('#main').innerHTML = `${viewingArchive ? '' : heroHTML()}
+    ${!viewingArchive && MK ? `<div class="wrap">${tapeHTML()}</div>` : ''}
     <div class="wrap" id="wxband">${wxBandHTML()}${WX.aptBand || ''}</div>
     ${brf}
-    ${viewingArchive ? '' : frontPackage()}
     <div class="wrap front">${leadHTML}
       <div class="toplist"><h2>Top stories</h2><ol>${rest.map(it => `<li>${storyRow(it, { img: false })}</li>`).join('')}</ol></div>
     </div>
+    ${viewingArchive ? '' : frontPackage()}
     ${nativeHTML}
     ${reelStrip('all', { wrap: true })}
     ${picturesStrip()}
@@ -1731,9 +1788,59 @@ function renderHome() {
     </div></section>
     ${rising.length ? `<section class="wrap rising"><h2 class="sec-h">Gaining coverage</h2><div class="rise-row">${rising.map(({ c, it }) => `<div class="rise" data-id="${it.i}"><h3><a href="${esc(it.u)}" target="_blank" rel="noopener" data-open="${it.i}">${esc(it.t)}</a></h3>
       <p>${c.rise ? T('<b>{n} outlets</b>, up {r} since the {watch}', { n: c.n, r: c.rise, watch: esc(prevLabel) }) : T('<b>New this watch</b>, already at {n} outlets', { n: c.n })}</p></div>`).join('')}</div></section>` : ''}
-    <div class="wrap shelves">${shelves}</div>`;
+    <section class="wrap desks" aria-label="${T('The desks')}"><div class="dh"><h2 class="sec-h">The desks</h2><p>${T('The best story from every desk this watch. Open a desk for all of it.')}</p></div><div class="desk-grid">${shelves}</div></section>`;
   wxFront();
+  if (!viewingArchive) heroFill();
 }
+
+/* ================= the wave: the front's hero. The 3-D county map (wave/wave.js) drawn live at the top of the front,
+   with the election-night replay one tap away; both open the story at wave/. The headline and the five area pieces
+   come from wave/pages.json, which tools/make_pages.py writes with every data refresh. ================= */
+const HERO = { ctl: null, pages: undefined, view: (() => { const v = lsGet('watch.hero'); return v === 'night' ? 'night' : 'wave'; })() };
+function heroHTML() {
+  return `<section class="wrap hero" id="waveHero" aria-label="${T('The wave')}">
+    <div class="hero-stage" id="heroStage" data-nolc>
+      <div class="wave-root" id="heroViz"></div>
+      <div class="hero-ctl"><div class="seg" role="group" aria-label="${T('View')}"><button type="button" data-hv="wave" aria-pressed="${HERO.view === 'wave'}">${T('The wave')}</button><button type="button" data-hv="night" aria-pressed="${HERO.view === 'night'}">${T('Election night')}</button></div>
+        <button type="button" class="hb fso" data-hfs="1" aria-label="${T('Full screen')}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg><span class="lbl">${T('Full screen')}</span></button>
+        <button type="button" class="hb fsx" data-hfs="0">${T('Exit full screen')}</button></div>
+      <a class="hero-go" href="wave/">${T('Read the story')} <span aria-hidden="true">›</span></a>
+    </div>
+    <div class="hero-card" id="heroCard"><div><span class="rk">${T('Politics')} · ${T('The Watch report')}</span><h2><a href="wave/">${T('The wave: every county’s move since 2024')}</a></h2><p class="hd">${T('Loading the story…')}</p></div><div></div></div>
+  </section>`;
+}
+async function heroPages() {
+  if (HERO.pages !== undefined) return HERO.pages;
+  try { HERO.pages = await getJSON('wave/pages.json'); } catch (e) { HERO.pages = null; }
+  return HERO.pages;
+}
+async function heroFill() {
+  const pg = await heroPages(); const card = $('#heroCard'); if (!card) return;
+  if (!pg) { const h = $('#waveHero'); if (h) h.remove(); return; }
+  const when = pg.asOf ? new Date(pg.asOf).toLocaleString(LOC(), { timeZone: 'America/New_York', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' }) : '';
+  card.innerHTML = `<div><span class="rk">${T('Politics')} · ${T('The Watch report')}</span>
+      <h2 class="nolc"><a href="wave/">${esc(pg.title)}</a></h2><p class="hd nolc">${esc(pg.dek)}</p>
+      <p class="hb2">${T('By Claude for The Watch. Counts: AP via The New York Times, as of {when} ET. Two views: the wave and election night, in 3-D, drawn live from the data.', { when: esc(when) })}</p></div>
+    <div><ul class="hero-areas"><li class="k">${T('Five places, up close')}</li>${(pg.areas || []).map(a => `<li><a href="wave/${esc(a.slug)}.html"><span class="n">${a.n}</span><span><b class="nolc">${esc(a.title)}</b><span class="nolc">${esc(a.dek)}</span></span></a></li>`).join('')}</ul></div>`;
+  heroMount();
+}
+async function heroMount() {
+  const el = $('#heroViz'), stage = $('#heroStage'); if (!el || !stage || HERO.ctl === 'loading') return;
+  if (HERO.ctl && HERO.ctl.el === el) return;
+  heroUnmount(); HERO.ctl = 'loading';
+  if (!$('#waveCss')) { const l = document.createElement('link'); l.id = 'waveCss'; l.rel = 'stylesheet'; l.href = 'wave/wave.css'; document.head.appendChild(l); }
+  stage.addEventListener('click', ev => { if (ev.target.closest('.hero-ctl, .hero-go, .wave-tip')) return; if (stage.classList.contains('wave-theater') || document.fullscreenElement === stage) return; location.href = 'wave/'; });
+  stage.querySelectorAll('[data-hv]').forEach(b => b.addEventListener('click', async ev => { ev.stopPropagation(); const v = b.dataset.hv; stage.querySelectorAll('[data-hv]').forEach(x => x.setAttribute('aria-pressed', x === b ? 'true' : 'false')); HERO.view = v; lsSet('watch.hero', v); if (HERO.ctl && HERO.ctl.setView) await HERO.ctl.setView(v); }));
+  stage.querySelectorAll('[data-hfs]').forEach(b => b.addEventListener('click', ev => { ev.stopPropagation(); if (HERO.ctl && HERO.ctl.fullscreen) HERO.ctl.fullscreen(b.dataset.hfs === '1'); }));
+  try {
+    const m = await import('./wave/wave.js');
+    if (!el.isConnected) { HERO.ctl = null; return; }
+    const ctl = await m.mount(el, { mode: 'hero', view: HERO.view, autoplay: true, loop: true, hud: true, interactive: true, fsTarget: stage });
+    ctl.el = el; HERO.ctl = ctl;
+    if (!el.isConnected) heroUnmount();
+  } catch (e) { console.warn('the wave could not start', e); HERO.ctl = null; stage.classList.add('nogl'); }
+}
+function heroUnmount() { if (HERO.ctl && HERO.ctl !== 'loading') { try { HERO.ctl.destroy(); } catch (e) { /* gone */ } } if (HERO.ctl !== 'loading') HERO.ctl = null; }
 function nativeShelf(shown) { // for readers of Portuguese or German: the top stories from outlets writing in their language
   if (LANG !== 'pt' && LANG !== 'de') return '';
   const fromTop = ((E.topLang || {})[LANG] || []).map(id => E.clusters[id]).filter(Boolean).map(c => rep(c));
@@ -2258,6 +2365,7 @@ function wxGPS(btn) {
 function render(keepScroll) {
   if (!E) return;
   view = parseHash(); VKEYS = null;
+  if (view.t !== 'home') heroUnmount();
   renderMast(); renderBar();
   if (!wxChipT) { wxChipT = setInterval(() => wxChip(), 20 * 60000); wxChip(); }
   if (view.t !== 'search' && document.activeElement !== $('#q')) $('#q').value = '';

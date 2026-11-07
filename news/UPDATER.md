@@ -417,6 +417,33 @@ four days and keeps all of them under Reports.
 A report can name its companions: `"related": ["<id>", ...]` lists the other reports in the same package, and the page
 shows them under the sources as "More on this story". `"package"` is a free label for the set.
 
+## The wave (`news/wave/`; `election2026/updater/fetch_counties.py`, `fetch_night.py`; `news/wave/build.py`)
+
+The front page opens with a 3-D map of every county's move from the 2024 presidential vote to the 2026 Senate or
+governor vote (the wave), with the election-night replay one tap away; both open the story at `news/wave/`, which
+carries the write-up, five area pieces (`south-texas.html`, `southeast.html`, `midwest.html`, `deep-south.html`,
+`moved-right.html`) and a county explorer. Everything is drawn in the browser from the data by `wave/wave.js`
+(three.js and earcut, vendored in `wave/lib/`); `wave/wave.css` styles the HUD, `wave/article.css` and `article.js`
+the pages.
+
+- `.github/workflows/counties.yml` (every three hours until Nov. 30, 2026, and by hand) runs `fetch_counties.py`,
+  which reads The New York Times' public results files, one per state (AP's county-level counts and calls), and
+  writes `election2026/data/counties2026.json`; `fetch_night.py` reads the Senate, governor and House files for every
+  race's call time, the House districts' counties and the poll-closing times into `night2026.json`. The sandbox cannot
+  reach nytimes.com, so these run only on the Action.
+- `news/wave/build.py` compares each county with `election2026/data/baseline.json` (2024) and writes
+  `wave/data/shift.json` (margin 2024, margin 2026, the move, votes, which race) and `wave/data/night.json` (the
+  calls by minute from 6 p.m. ET, each House district's counties, poll closes, and a counting-pace constant per state
+  fitted to the "% in" the Election Desk recorded during the night). The left side of a race is the Democrat, or the
+  independent who out-polled the Democrat (Osborn, Bodnar, Achilles, Bengs), and the file says so. Connecticut's
+  towns are summed into counties; a city AP reports inside a county it also reports whole is skipped.
+- `news/wave/tools/make_pages.py` writes the six pages and `wave/pages.json` (the front's hero reads it) from the
+  data, so every number in the text follows the count. The Action runs it after the build and commits the pages.
+- The link previews (`wave/share.png`, `wave/<area>.png` and the `.mp4`s the `og:video` tags point at) are rendered
+  by hand from `wave/render.html` with Playwright (frames at 1200 x 630, ffmpeg); they are not refreshed by the Action.
+- The front's hero (`heroHTML()`, `heroMount()` in `index.html`) loads `wave/wave.js` the first time the front draws
+  and unmounts it when the reader leaves; the reader's last view (wave or night) is kept in `watch.hero`.
+
 ## The front package (`data/front.json`)
 
 When one story should lead the front page, `news/data/front.json` puts a package above the lead from the feeds: a lead

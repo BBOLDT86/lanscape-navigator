@@ -24,6 +24,16 @@ Copyright (c) 2015 Michelle Bu and Eric Zhang, PeerJS contributors. MIT License 
 
 A copy of the browser client, `news/create/test/peerjs.min.js`, is kept only for the Create test harness (`news/create/test/smoke.py`), which runs the apps against a local PeerJS server; the apps themselves load PeerJS from the jsDelivr CDN.
 
+## three.js r170
+
+Copyright © 2010-2024 three.js authors. MIT License (below). <https://github.com/mrdoob/three.js>
+A copy of `three.module.min.js` is kept at `news/wave/lib/` for The Watch's wave map.
+
+## earcut 3.0.0
+
+Copyright (c) 2016, Mapbox. ISC License: permission to use, copy, modify, and/or distribute this software for any purpose with or without fee is hereby granted, provided that the above copyright notice and this permission notice appear in all copies; the software is provided "as is" without warranty (the full text is in `news/wave/lib/LICENSE-earcut.txt`). <https://github.com/mapbox/earcut>
+A copy of `earcut.js` is kept at `news/wave/lib/`.
+
 ## MIT License
 
 Permission is hereby granted, free of charge, to any person obtaining a copy

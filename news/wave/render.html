@@ -1,0 +1,13 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="wave.css">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+<style>html,body{margin:0;background:#0b1526;overflow:hidden}#w{width:1200px;height:630px}</style></head><body><div id="w" class="wave-static"></div>
+<script type="module">
+import { mount } from './wave.js';
+const q = new URLSearchParams(location.search);
+const pages = await (await fetch('pages.json')).json();
+let opts = { view: q.get('view') || 'wave', mode: 'full', autoplay: false, loop: false, hud: true, interactive: false, dpr: 1 };
+if (q.get('page')) { const html = await (await fetch(q.get('page') + '.html')).text(); const m = html.match(/window\.WAVE_PAGE = (\{.*?\});<\/script>/s); if (m) Object.assign(opts, JSON.parse(m[1]).viz, { autoplay: false, loop: false, interactive: false, dpr: 1, mode: 'full' }); }
+window.W = await mount(document.getElementById('w'), opts);
+if (q.get('t')) W.seek(+q.get('t'));
+W.draw(); document.title = 'ready';
+</script></body></html>

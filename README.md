@@ -66,6 +66,7 @@ news/                    The Watch, a news site that updates six times a day (se
 news/create/             Create, the Scrolls product line inside The Watch: the launcher, the portfolio and build spec, the catalog and the apps (see below)
 news/home/saver/         Home Saver, the reader's own list of home listings, on The Watch's Home desk (see below)
 news/primer/             Primer, fifty three-minute visual lessons inside The Watch and as a page of its own (see below)
+news/wave/               The wave: a 3-D map of every county's move since 2024 and an election-night replay, the front page's hero and a story of its own
 travel/                  Weekender, a travel site with weekly guides and flight and hotel search (see below); www.weekender.travel inside the app
 travel/voyage-planner/   Voyage Planner, a worked sample trip planner plus a prompt builder for the reader's own AI (see below)
 shop/                    Finds, a Pinterest-style shopping board of real products, priced live (see below); not part of the app

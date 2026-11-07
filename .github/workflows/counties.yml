@@ -35,13 +35,14 @@ jobs:
         if: env.SKIP != '1'
         run: |
           if [ -f news/wave/build.py ]; then python3 news/wave/build.py; fi
+          if [ -f news/wave/tools/make_pages.py ]; then python3 news/wave/tools/make_pages.py; fi
       - name: Commit and push
         if: env.SKIP != '1'
         run: |
           git config user.name "Election Desk updater"
           git config user.email "election-desk@users.noreply.github.com"
           git add election2026/data/counties2026.json election2026/data/night2026.json 2>/dev/null || git add election2026/data/counties2026.json
-          if [ -d news/wave/data ]; then git add news/wave/data; fi
+          if [ -d news/wave/data ]; then git add news/wave/data news/wave/*.html news/wave/pages.json; fi
           if git diff --cached --quiet; then echo "no changes"; exit 0; fi
           git commit -qm "County results: automated update $(date -u +%Y-%m-%dT%H:%MZ)"
           for i in 1 2 3; do

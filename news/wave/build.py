@@ -117,6 +117,7 @@ def night():
         d = dt.datetime.fromisoformat(iso.replace('Z', '+00:00'))
         return round((d - T0).total_seconds() / 60, 2)
     close = {st: mins(v['t']) for st, v in N['pollClose'].items() if v.get('t')}
+    close = {st: (m + 1440 if m is not None and m < 0 else m) for st, m in close.items()}  # NYT dates Alaska's close a day early
     # how fast each state counted: pct(t) = ceil * (1 - exp(-(t - close) / tau)); tau fitted where the Election Desk
     # recorded a "% in" during the night, otherwise by region
     DEFAULT = {'E': 110, 'C': 150, 'M': 240, 'W': 900}
