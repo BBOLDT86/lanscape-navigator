@@ -1,142 +1,463 @@
 {
  "v": 1,
- "updated": "2026-11-07T01:55:00Z",
+ "updated": "2026-11-07T01:48:18Z",
  "source": {
-  "name": "Kalshi",
-  "api": "https://api.elections.kalshi.com/trade-api/v2/markets",
   "winner": "https://kalshi.com/markets/kxpresperson/pres-person/kxpresperson-28",
   "nominee": "https://kalshi.com/markets/kxpresnomd/democratic-primary-winner/kxpresnomd-28",
-  "party": "https://kalshi.com/markets/kxpresparty/party-winning-presidency/kxpresparty-2028"
+  "party": "https://kalshi.com/markets/kxpresparty/party-winning-presidency/kxpresparty-2028",
+  "name": "Kalshi",
+  "api": "https://api.elections.kalshi.com/trade-api/v2/markets"
  },
  "watch": {
   "name": "Alexandria Ocasio-Cortez",
-  "ticker": null
+  "ticker": "KXPRESPERSON-28-AOCA"
  },
  "women": [
+  "Abigail Spanberger",
   "Alexandria Ocasio-Cortez",
+  "Amy Klobuchar",
+  "Elise Stefanik",
+  "Elizabeth Warren",
+  "Gina Raimondo",
+  "Gretchen Whitmer",
+  "Hillary Clinton",
+  "Ilhan Omar",
+  "Ivanka Trump",
+  "Jasmine Crockett",
+  "Jennifer Granholm",
+  "Joni Ernst",
   "Kamala Harris",
-  "Gretchen Whitmer"
+  "Katie Britt",
+  "Katie Hobbs",
+  "Katie Porter",
+  "Kelly Ayotte",
+  "Kirsten Gillibrand",
+  "Kristi Noem",
+  "Lara Trump",
+  "Lauren Boebert",
+  "Marjorie Taylor Greene",
+  "Maura Healey",
+  "Michelle Obama",
+  "Mikie Sherrill",
+  "Nikki Haley",
+  "Sarah Huckabee Sanders",
+  "Stacey Abrams",
+  "Susan Rice",
+  "Tammy Baldwin",
+  "Tammy Duckworth",
+  "Tulsi Gabbard"
  ],
  "board": {
-  "at": "2026-11-06T22:00:00Z",
-  "note": "Seeded by hand on Nov. 6, 2026 from Kalshi's market pages (top three on each board, read that evening) and RotoWire's Nov. 5 table of Kalshi prices for the rest; the daily updater replaces it from Kalshi's API.",
+  "at": "2026-11-07T01:48:18Z",
   "winner": [
    {
     "name": "Jon Ossoff",
-    "p": 22,
+    "p": 20.0,
     "party": "D",
-    "woman": false
+    "woman": false,
+    "vol": 6280189,
+    "ticker": "KXPRESPERSON-28-JOSS"
    },
    {
     "name": "J.D. Vance",
-    "p": 14,
+    "p": 14.0,
     "party": "R",
-    "woman": false
+    "woman": false,
+    "vol": 5255253,
+    "ticker": "KXPRESPERSON-28-JVAN"
    },
    {
     "name": "Marco Rubio",
-    "p": 12,
+    "p": 10.0,
     "party": "R",
-    "woman": false
+    "woman": false,
+    "vol": 6228562,
+    "ticker": "KXPRESPERSON-28-MRUB"
    },
    {
     "name": "Alexandria Ocasio-Cortez",
-    "p": 10,
+    "p": 9.6,
     "party": "D",
-    "woman": true
+    "woman": true,
+    "vol": 4937945,
+    "ticker": "KXPRESPERSON-28-AOCA"
    },
    {
     "name": "Gavin Newsom",
-    "p": 8.4,
+    "p": 8.5,
     "party": "D",
-    "woman": false
+    "woman": false,
+    "vol": 5214993,
+    "ticker": "KXPRESPERSON-28-GNEWS"
    },
    {
     "name": "Ron DeSantis",
-    "p": 6.6,
+    "p": 6.7,
     "party": "R",
-    "woman": false
+    "woman": false,
+    "vol": 3538298,
+    "ticker": "KXPRESPERSON-28-RDES"
    },
    {
     "name": "Kamala Harris",
-    "p": 3.7,
+    "p": 3.4,
     "party": "D",
-    "woman": true
-   },
-   {
-    "name": "James Talarico",
-    "p": 3.0,
-    "party": "D",
-    "woman": false
+    "woman": true,
+    "vol": 3360322,
+    "ticker": "KXPRESPERSON-28-KHAR"
    },
    {
     "name": "Andy Beshear",
-    "p": 2.9,
+    "p": 3.4,
     "party": "D",
-    "woman": false
-   },
-   {
-    "name": "Josh Shapiro",
-    "p": 2.8,
-    "party": "D",
-    "woman": false
+    "woman": false,
+    "vol": 2709672,
+    "ticker": "KXPRESPERSON-28-ABES"
    },
    {
     "name": "Pete Buttigieg",
     "p": 2.8,
     "party": "D",
-    "woman": false
+    "woman": false,
+    "vol": 2745443,
+    "ticker": "KXPRESPERSON-28-PBUT"
+   },
+   {
+    "name": "Josh Shapiro",
+    "p": 2.8,
+    "party": "D",
+    "woman": false,
+    "vol": 2503522,
+    "ticker": "KXPRESPERSON-28-JSHA"
+   },
+   {
+    "name": "James Talarico",
+    "p": 2.7,
+    "party": "D",
+    "woman": false,
+    "vol": 3139546,
+    "ticker": "KXPRESPERSON-28-JTAL"
    },
    {
     "name": "Mark Kelly",
     "p": 2.4,
     "party": "D",
-    "woman": false
+    "woman": false,
+    "vol": 2816970,
+    "ticker": "KXPRESPERSON-28-MKEL"
+   },
+   {
+    "name": "Wes Moore",
+    "p": 1.9,
+    "party": "D",
+    "woman": false,
+    "vol": 2774938,
+    "ticker": "KXPRESPERSON-28-WMOO"
    },
    {
     "name": "J.B. Pritzker",
     "p": 1.9,
     "party": "D",
-    "woman": false
+    "woman": false,
+    "vol": 3407353,
+    "ticker": "KXPRESPERSON-28-JPRI"
+   },
+   {
+    "name": "Raphael Warnock",
+    "p": 1.6,
+    "party": "",
+    "woman": false,
+    "vol": 344524,
+    "ticker": "KXPRESPERSON-28-RWAR"
    },
    {
     "name": "Rahm Emanuel",
-    "p": 1.8,
+    "p": 1.3,
     "party": "D",
-    "woman": false
+    "woman": false,
+    "vol": 2198234,
+    "ticker": "KXPRESPERSON-28-REMA"
    },
    {
-    "name": "Donald Trump",
-    "p": 1.7,
+    "name": "Donald J. Trump",
+    "p": 1.2,
     "party": "R",
-    "woman": false
+    "woman": false,
+    "vol": 4169493,
+    "ticker": "KXPRESPERSON-28-DTRU"
+   },
+   {
+    "name": "Tucker Carlson",
+    "p": 1.2,
+    "party": "R",
+    "woman": false,
+    "vol": 3281768,
+    "ticker": "KXPRESPERSON-28-TCAR"
+   },
+   {
+    "name": "John McEntee",
+    "p": 1.0,
+    "party": "",
+    "woman": false,
+    "vol": 298196,
+    "ticker": "KXPRESPERSON-28-JMCE"
+   },
+   {
+    "name": "Tulsi Gabbard",
+    "p": 0.9,
+    "party": "R",
+    "woman": true,
+    "vol": 2618041,
+    "ticker": "KXPRESPERSON-28-TGAB"
+   },
+   {
+    "name": "Glenn Youngkin",
+    "p": 0.9,
+    "party": "R",
+    "woman": false,
+    "vol": 1625146,
+    "ticker": "KXPRESPERSON-28-GYOU"
+   },
+   {
+    "name": "Thomas Massie",
+    "p": 0.9,
+    "party": "",
+    "woman": false,
+    "vol": 1598115,
+    "ticker": "KXPRESPERSON-28-TMAS"
+   },
+   {
+    "name": "Rand Paul",
+    "p": 0.8,
+    "party": "R",
+    "woman": false,
+    "vol": 44581,
+    "ticker": "KXPRESPERSON-28-RPAU"
+   },
+   {
+    "name": "Abdul El-Sayed",
+    "p": 0.8,
+    "party": "",
+    "woman": false,
+    "vol": 355279,
+    "ticker": "KXPRESPERSON-28-AELS"
+   },
+   {
+    "name": "Gretchen Whitmer",
+    "p": 0.7,
+    "party": "D",
+    "woman": true,
+    "vol": 2533672,
+    "ticker": "KXPRESPERSON-28-GWHI"
+   },
+   {
+    "name": "Ted Cruz",
+    "p": 0.6,
+    "party": "R",
+    "woman": false,
+    "vol": 215452,
+    "ticker": "KXPRESPERSON-28-TCRU"
+   },
+   {
+    "name": "Ro Khanna",
+    "p": 0.6,
+    "party": "D",
+    "woman": false,
+    "vol": 848855,
+    "ticker": "KXPRESPERSON-28-RKHA"
+   },
+   {
+    "name": "Nikki Haley",
+    "p": 0.6,
+    "party": "R",
+    "woman": true,
+    "vol": 1054545,
+    "ticker": "KXPRESPERSON-28-NHAL"
+   },
+   {
+    "name": "Brian Kemp",
+    "p": 0.5,
+    "party": "R",
+    "woman": false,
+    "vol": 628106,
+    "ticker": "KXPRESPERSON-28-BKEM"
+   },
+   {
+    "name": "Joe Kent",
+    "p": 0.5,
+    "party": "",
+    "woman": false,
+    "vol": 183543,
+    "ticker": "KXPRESPERSON-28-JKEN"
    }
   ],
   "nominee": [
    {
     "name": "Jon Ossoff",
-    "p": 25,
+    "p": 25.0,
     "party": "D",
-    "woman": false
+    "woman": false,
+    "vol": 11562750,
+    "ticker": "KXPRESNOMD-28-JOSS"
    },
    {
     "name": "Alexandria Ocasio-Cortez",
-    "p": 14,
+    "p": 14.0,
     "party": "D",
-    "woman": true
+    "woman": true,
+    "vol": 10617365,
+    "ticker": "KXPRESNOMD-28-AOC"
    },
    {
     "name": "Gavin Newsom",
-    "p": 12,
+    "p": 13.0,
     "party": "D",
-    "woman": false
+    "woman": false,
+    "vol": 12151588,
+    "ticker": "KXPRESNOMD-28-GN"
+   },
+   {
+    "name": "Kamala Harris",
+    "p": 5.6,
+    "party": "D",
+    "woman": true,
+    "vol": 9250972,
+    "ticker": "KXPRESNOMD-28-KH"
+   },
+   {
+    "name": "Pete Buttigieg",
+    "p": 5.2,
+    "party": "D",
+    "woman": false,
+    "vol": 7476210,
+    "ticker": "KXPRESNOMD-28-PB"
+   },
+   {
+    "name": "Andy Beshear",
+    "p": 4.6,
+    "party": "D",
+    "woman": false,
+    "vol": 7277245,
+    "ticker": "KXPRESNOMD-28-AB"
+   },
+   {
+    "name": "Josh Shapiro",
+    "p": 4.5,
+    "party": "D",
+    "woman": false,
+    "vol": 6787305,
+    "ticker": "KXPRESNOMD-28-JS"
+   },
+   {
+    "name": "Raphael Warnock",
+    "p": 4.4,
+    "party": "",
+    "woman": false,
+    "vol": 6467361,
+    "ticker": "KXPRESNOMD-28-RW"
+   },
+   {
+    "name": "James Talarico",
+    "p": 3.7,
+    "party": "D",
+    "woman": false,
+    "vol": 10328181,
+    "ticker": "KXPRESNOMD-28-JTAL"
+   },
+   {
+    "name": "Mark Kelly",
+    "p": 3.6,
+    "party": "D",
+    "woman": false,
+    "vol": 8947166,
+    "ticker": "KXPRESNOMD-28-MK"
+   },
+   {
+    "name": "Abdul El-Sayed",
+    "p": 2.8,
+    "party": "",
+    "woman": false,
+    "vol": 7999749,
+    "ticker": "KXPRESNOMD-28-AELS"
+   },
+   {
+    "name": "J.B. Pritzker",
+    "p": 2.2,
+    "party": "D",
+    "woman": false,
+    "vol": 7227664,
+    "ticker": "KXPRESNOMD-28-JBP"
+   },
+   {
+    "name": "Wes Moore",
+    "p": 2.1,
+    "party": "D",
+    "woman": false,
+    "vol": 5785549,
+    "ticker": "KXPRESNOMD-28-WM"
+   },
+   {
+    "name": "Rahm Emanuel",
+    "p": 1.8,
+    "party": "D",
+    "woman": false,
+    "vol": 8039397,
+    "ticker": "KXPRESNOMD-28-REMA"
+   },
+   {
+    "name": "Ro Khanna",
+    "p": 1.6,
+    "party": "D",
+    "woman": false,
+    "vol": 7343220,
+    "ticker": "KXPRESNOMD-28-RKHA"
+   },
+   {
+    "name": "Michelle Obama",
+    "p": 1.4,
+    "party": "D",
+    "woman": true,
+    "vol": 7791763,
+    "ticker": "KXPRESNOMD-28-MO"
+   },
+   {
+    "name": "Cory Booker",
+    "p": 0.8,
+    "party": "D",
+    "woman": false,
+    "vol": 4513949,
+    "ticker": "KXPRESNOMD-28-CBOO"
+   },
+   {
+    "name": "Bernie Sanders",
+    "p": 0.7,
+    "party": "R",
+    "woman": false,
+    "vol": 6159210,
+    "ticker": "KXPRESNOMD-28-BS"
+   },
+   {
+    "name": "Mark Cuban",
+    "p": 0.7,
+    "party": "D",
+    "woman": false,
+    "vol": 6222139,
+    "ticker": "KXPRESNOMD-28-MC"
+   },
+   {
+    "name": "Gretchen Whitmer",
+    "p": 0.6,
+    "party": "D",
+    "woman": true,
+    "vol": 5516959,
+    "ticker": "KXPRESNOMD-28-GW"
    }
   ],
   "party": {
-   "D": 66,
-   "R": 34
+   "R": 34.0,
+   "D": 66.0
   },
-  "volume": 87441594
+  "volume": 89015974
  },
  "history": [
   {
@@ -187,15 +508,16 @@
   },
   {
    "d": "2026-11-06",
-   "aoc": 10,
-   "women": 13.7,
-   "aocNom": 14,
+   "at": "2026-11-07T01:48:18Z",
+   "aoc": 9.6,
+   "women": 16.1,
+   "aocNom": 14.0,
    "lead": {
     "name": "Jon Ossoff",
-    "p": 22
+    "p": 20.0
    },
-   "dem": 65.5,
-   "src": "Kalshi market pages, Nov. 6, 2026; DeFi Rate's Kalshi quote for the watched contract"
+   "dem": 66.0,
+   "src": "Kalshi API"
   }
  ],
  "seed": "Hand-entered points before the daily updater began on Nov. 6, 2026 are marked by their source; points marked approx carry an uncertain date.",
