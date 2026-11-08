@@ -467,7 +467,7 @@ function rebalance(G, initial){
   const offAlive=alive.filter(p=>!p.isHero && !seated.has(p.id));
   while(seatedIds(G).length<target && offAlive.length){
     const p=offAlive.splice(rint(offAlive.length),1)[0]; const s=seatPlayer(G,p);
-    if(!initial) addLog(G, p.name+' ('+p.flight+' bag, '+fmtK(p.stack)+') takes seat '+seatNo(s)+' at your table.','n');
+    if(!initial && G.hero.alive) addLog(G, p.name+' ('+p.flight+' bag, '+fmtK(p.stack)+') takes seat '+seatNo(s)+' at your table.','n');
   }
   G.offTables = tablesNeeded>1 ? partition(offAlive.map(p=>p.id), tablesNeeded-1) : [];
 }
@@ -513,7 +513,7 @@ function simOffTables(G){
 /* ---------------- Hand engine ---------------- */
 function buildCtx(t,p){
   const toCall=Math.max(0,Math.min(t.currentBet-p.bet,p.stack));
-  let pot=t.anteTotal; for(const q of t.players) pot+=q.contrib;
+  const cap=p.contrib+p.stack; let pot=t.anteTotal; for(const q of t.players) pot+=Math.min(q.contrib,cap);
   const maxRaiseTo=p.stack+p.bet;
   const minRaiseTo=Math.min(t.currentBet+t.lastRaise, maxRaiseTo);
   const canRaise=p.canRaise && maxRaiseTo>t.currentBet && t.raises<12 && t.players.some(q=>q!==p && !q.folded && !q.allIn);
@@ -829,7 +829,7 @@ function studyPre(t,p,ctx){
     if(!op.allIn){ const key=SPOS[op.pos]+'>'+hp; const r=row.rs[key]; if(r) return {rec:ACT[r[0]], txt:tag+', '+key+' open): '+ACT_TXT[ACT[r[0]]]+(r[1]!=null?' ('+(r[1]>=0?'+':'')+r[1]+'bb vs folding)':'')+'.'}; }
     else if(hp==='BB'){ const v=row.vj[SPOS[op.pos]]; if(v) return {rec:ACT[v[0]], txt:tag+', facing a '+SPOS[op.pos]+' jam): '+ACT_TXT[ACT[v[0]]]+'. '+v[1]+'% equity vs a '+v[3]+'% jam range; you need '+v[2]+'%.'}; }
   }
-  if(t.raises===2 && op===p && row.v3){ return {rec:ACT[row.v3[0]], txt:tag+', facing a 3-bet after your open): '+ACT_TXT[ACT[row.v3[0]]]+(row.v3[1]!=null?' ('+(row.v3[1]>=0?'+':'')+row.v3[1]+'bb vs folding)':'')+'.'}; }
+  if(t.raises===2 && op===p && row.v3 && !(t.lastAggressor && t.lastAggressor.allIn) && ctx.toCall<p.stack){ return {rec:ACT[row.v3[0]], txt:tag+', facing a 3-bet after your open): '+ACT_TXT[ACT[row.v3[0]]]+(row.v3[1]!=null?' ('+(row.v3[1]>=0?'+':'')+row.v3[1]+'bb vs folding)':'')+'.'}; }
   return null;
 }
 function coachPre(t,p,ctx){
