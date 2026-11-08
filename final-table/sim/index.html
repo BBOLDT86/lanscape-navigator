@@ -108,6 +108,19 @@ table.t3 .small{margin:0}
 .sheet li{margin:2px 0}
 .sheet h4{margin:14px 0 4px;font-size:13px;color:var(--gold)}
 .sheet a{color:var(--blue)}
+
+#expsheet h3{margin:0 0 2px}
+#expsheet .exrow{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 8px}
+#expsheet select{flex:1 1 150px;min-width:0;background:var(--panel2);color:var(--text);border:1px solid var(--line);border-radius:8px;padding:7px 6px;font-size:13px}
+#expsheet .seg{display:flex;border:1px solid var(--line);border-radius:9px;overflow:hidden;margin-bottom:8px}
+#expsheet .seg button{flex:1;background:var(--panel2);color:var(--text);border:0;border-right:1px solid var(--line);padding:8px 4px;font-size:12.5px;font-weight:600}
+#expsheet .seg button:last-child{border-right:0}
+#expsheet .seg button.on{background:var(--gold);color:#111}
+#exptext{width:100%;height:36vh;font:11px/1.4 ui-monospace,Menlo,Consolas,monospace;background:var(--bg);color:var(--text);border:1px solid var(--line);border-radius:8px;padding:8px;white-space:pre;overflow:auto;resize:vertical}
+#expstat{font-size:12px;color:var(--muted);min-height:17px;margin-top:5px}
+#expsheet .btnrow{flex-wrap:wrap}
+#expsheet .btnrow .btn{flex:1 1 30%;padding:11px 4px;font-size:14px}
+@media (max-width:429px){ header{padding-left:8px;padding-right:8px} .tb-row{gap:4px} header .iconbtn{padding:4px 5px;font-size:12px} #title{font-size:12px;letter-spacing:0} #lvl{white-space:nowrap} }
 </style>
 </head>
 <body>
@@ -116,7 +129,7 @@ table.t3 .small{margin:0}
     <div class="tb-row">
       <a id="title" href="../" target="_top" style="text-decoration:none">‹ THE RESTART</a>
       <span id="lvl"></span>
-      <span style="display:inline-flex;gap:6px;flex:none"><button class="iconbtn" id="btn-t3">Table 3</button><button class="iconbtn" id="btn-settings">⚙</button></span>
+      <span style="display:inline-flex;gap:6px;flex:none"><button class="iconbtn" id="btn-t3">Table 3</button><button class="iconbtn" id="btn-exp" title="Export your play">Export</button><button class="iconbtn" id="btn-settings">⚙</button></span>
     </div>
     <div class="tb-row">
       <span id="fieldinfo"></span>
@@ -176,6 +189,7 @@ table.t3 .small{margin:0}
   <div class="modal" id="m-pay"><div class="sheet" id="paysheet"></div></div>
   <div class="modal" id="m-end"><div class="sheet" id="endsheet"></div></div>
   <div class="modal" id="m-t3"><div class="sheet" id="t3sheet"></div></div>
+  <div class="modal" id="m-exp"><div class="sheet" id="expsheet"></div></div>
 </div>
 
 <script>
@@ -425,7 +439,13 @@ function seatedIds(G){ return G.table.seats.filter(id=>id!=null); }
 function seatPlayer(G,p){ for(let i=1;i<9;i++){ if(G.table.seats[i]==null){ G.table.seats[i]=p.id; return i; } } return -1; }
 function partition(ids,k){ const out=[]; for(let i=0;i<k;i++) out.push([]); const a=ids.slice(); for(let i=a.length-1;i>0;i--){ const j=rint(i+1); const t=a[i]; a[i]=a[j]; a[j]=t; } a.forEach((id,i)=>out[i%k].push(id)); return out; }
 function dn(p){ return p.isHero?'You':p.name; }
-function addLog(G,txt,cls){ G.log.push({t:txt,c:cls||''}); if(G.log.length>400) G.log.splice(0,G.log.length-400); if(G.onLog) G.onLog(txt,cls); }
+function youFix(s){ return s.replace(/^You (fold|check|call|raise|bet|win|bust|post|show|muck|collect|get)s\b/,'You $1').replace(/^You goes\b/,'You go').replace(/^You is\b/,'You are').replace(/^You has\b/,'You have'); }
+function histAdd(G,txt){
+  if(!G.hist) G.hist=[];
+  if(txt.indexOf('— Hand #')===0){ const m=/#(\d+)/.exec(txt); G.hcur={n:m?Number(m[1]):G.hist.length+1, lv:G.level, bb:levelInfo(G.level).bb, l:[txt]}; G.hist.push(G.hcur); if(G.hist.length>1500) G.hist.splice(0,G.hist.length-1500); return; }
+  if(G.hcur) G.hcur.l.push(txt); else (G.hpre=G.hpre||[]).push(txt);
+}
+function addLog(G,txt,cls){ txt=youFix(txt); histAdd(G,txt); G.log.push({t:txt,c:cls||''}); if(G.log.length>400) G.log.splice(0,G.log.length-400); if(G.onLog) G.onLog(txt,cls); }
 function rebalance(G, initial){
   const alive=alivePlayers(G); const n=alive.length;
   const tablesNeeded=Math.max(1,Math.ceil(n/9));
@@ -490,7 +510,7 @@ function buildCtx(t,p){
   let pot=t.anteTotal; for(const q of t.players) pot+=q.contrib;
   const maxRaiseTo=p.stack+p.bet;
   const minRaiseTo=Math.min(t.currentBet+t.lastRaise, maxRaiseTo);
-  const canRaise=p.canRaise && maxRaiseTo>t.currentBet && t.raises<12;
+  const canRaise=p.canRaise && maxRaiseTo>t.currentBet && t.raises<12 && t.players.some(q=>q!==p && !q.folded && !q.allIn);
   return {toCall,pot,currentBet:t.currentBet,minRaiseTo,maxRaiseTo,canRaise,street:t.street,board:t.board,bb:t.bb,unit:t.unit,stackBB:(p.stack+p.bet)/t.bb,pos:p.pos,hand:p.hand};
 }
 function legalize(t,p,ctx,a){
@@ -603,6 +623,7 @@ async function playHand(G,ctl){
   if(ctl.onStart) await ctl.onStart(t);
   const hero=players.find(p=>p.isHero);
   if(hero) addLog(G,'You: '+cardTxt(hero.hand[0])+' '+cardTxt(hero.hand[1])+' ('+hero.pos+', '+Math.round((hero.stack+hero.bet)/bb)+' BB)');
+  if(hero && G.hcur){ G.hcur.pos=hero.pos; G.hcur.c=cardTxt(hero.hand[0])+' '+cardTxt(hero.hand[1]); G.hcur.s0=hero.start; }
   const first= n===2 ? 1 : 2;
   await bettingRound(t,first,ctl);
   const live=()=>players.filter(p=>!p.folded);
@@ -632,15 +653,16 @@ async function playHand(G,ctl){
       let best=-1; for(const p of pot.elig) if(p.score>best) best=p.score;
       const ws=pot.elig.filter(p=>p.score===best);
       const share=Math.floor(pot.amt/ws.length/100)*100; let rem=pot.amt-share*ws.length;
-      for(const w of ws){ let got=share; if(rem>0){ got+=rem; rem=0; } w.stack+=got; t.winners.push({p:w,amt:got}); }
+      for(const w of ws){ let got=share; if(rem>0){ got+=rem; rem=0; } w.stack+=got; t.winners.push({p:w,amt:got,ret:pot.elig.length===1}); }
     }
     for(const p of contenders) addLog(G, dn(p)+' shows '+cardTxt(p.hand[0])+' '+cardTxt(p.hand[1])+' — '+handName(p.score));
-    for(const w of t.winners) addLog(G, dn(w.p)+' wins '+fmt(w.amt)+' with '+handName(w.p.score),'w');
+    for(const w of t.winners) addLog(G, w.ret ? dn(w.p)+' gets back '+fmt(w.amt)+' (uncalled)' : dn(w.p)+' wins '+fmt(w.amt)+' with '+handName(w.p.score),'w');
   }
   // write back
   for(const p of players){ p.f.stack=p.stack; if(p.vpipF) p.f.st.vpip++; if(p.pfrF) p.f.st.pfr++; if(!p.folded && t.street==='showdown') p.f.st.wtsd=(p.f.st.wtsd||0)+1; }
+  { const hp=players.find(p=>p.isHero); if(hp && G.hcur && G.hcur.n===t.handNo) G.hcur.s1=hp.stack; }
   for(const p of players){ if(p.f.away>0){ p.f.away--; if(!p.f.away) addLog(G,dn(p)+' is back in his seat.','n'); } const S0=STYLES[p.f.style]; if(S0&&S0.steam){ const lost=p.start-p.stack; if(lost>=Math.max(0.35*p.start,40*bb)){ p.f.steam=15; addLog(G,dn(p)+' just lost '+fmtK(lost)+'. Expect him to play even faster for a while.','n'); } else if(p.f.steam>0) p.f.steam--; } }
-  for(const w of t.winners) w.p.f.st.won+=w.amt;
+  for(const w of t.winners) if(!w.ret) w.p.f.st.won+=w.amt;
   if(ctl.onEnd) await ctl.onEnd(t);
   // eliminations at hero table (bust order by contrib size: smaller stack busts "lower")
   const busted=players.filter(p=>p.stack<=0).sort((a,b)=>a.contrib-b.contrib);
@@ -951,7 +973,7 @@ const ctl={
   onStart:async(t)=>{ renderTable(t,{clearActs:true}); setMsg(''); $('#coach').textContent=''; },
   onStreet:async(t)=>{ renderTable(t,{clearActs:true}); const heroIn=t.players.some(q=>q.isHero&&!q.folded); await sleep(heroIn?Math.max(300,G.settings.delay):60); },
   beforeHero:(t,p,ctx)=>{ coachState = G.settings.coach ? coachPre(t,p,ctx) : null; },
-  afterHero:(t,p,res)=>{ if(G.settings.coach && coachState){ const line=coachPost(coachState,res.a); if(line) $('#coach').textContent=line; } coachState=null; },
+  afterHero:(t,p,res)=>{ if(G.settings.coach && coachState){ const line=coachPost(coachState,res.a); if(line){ $('#coach').textContent=line; if(G.hcur) G.hcur.l.push('Coach: '+line); } } coachState=null; },
   onEnd:async(t)=>{
     renderTable(t,{showdown:true});
     const agg={}; for(const x of t.winners){ const k=x.p.isHero?'You':shortName(x.p.name); agg[k]=(agg[k]||0)+x.amt; } const w=Object.keys(agg).map(k=>k+' +'+fmtK(agg[k])).join(' · ');
@@ -977,13 +999,15 @@ async function loop(){
   if(G && G.over) showEnd();
 }
 function showEnd(){
+  archiveGame(G); saveState();
   const r=G.result; const sheet=$('#endsheet');
   sheet.innerHTML='<h3>'+(r.place===1?'You won the ring. ':'Busted.')+'</h3><div class="big">'+ordinal(r.place)+' place · $'+fmt(r.pay)+'</div>'+
    '<div class="kv"><span>Hands played</span><span>'+G.hero.st.hands+'</span><span>VPIP / PFR</span><span>'+Math.round(100*G.hero.st.vpip/Math.max(1,G.hero.st.hands))+'% / '+Math.round(100*G.hero.st.pfr/Math.max(1,G.hero.st.hands))+'%</span><span>Chips won in pots</span><span>'+fmtK(G.hero.st.won)+'</span><span>Final level</span><span>L'+G.level+' '+blindsStr(levelInfo(G.level))+'</span></div>'+
-   '<div class="btnrow"><button class="btn next" id="e-new">New tournament</button><button class="btn" id="e-close">Close</button></div>';
+   '<div class="btnrow"><button class="btn next" id="e-new">New tournament</button><button class="btn" id="e-exp">Export my play</button><button class="btn" id="e-close">Close</button></div>';
   $('#m-end').classList.add('on');
   $('#e-new').addEventListener('click',()=>{ $('#m-end').classList.remove('on'); startNew(); });
   $('#e-close').addEventListener('click',()=>$('#m-end').classList.remove('on'));
+  $('#e-exp').addEventListener('click',()=>{ $('#m-end').classList.remove('on'); openExport(); });
 }
 /* ----- player sheet ----- */
 function bigStackHTML(){
@@ -1049,19 +1073,148 @@ $('#s-close').addEventListener('click',()=>{ readSettings(); if(G){ Object.assig
 $('#s-apply').addEventListener('click',()=>{ readSettings(); $('#m-settings').classList.remove('on'); startNew(); });
 $('#s-reset').addEventListener('click',()=>{ try{ localStorage.removeItem(GKEY); localStorage.removeItem(SKEY); }catch(e){} location.reload(); });
 /* ----- persistence ----- */
-function saveState(){ if(!G) return; try{ const copy={settings:G.settings,level:G.level,handsThisLevel:G.handsThisLevel,handNo:G.handNo,field:G.field,table:G.table,offTables:G.offTables,tablesCount:G.tablesCount,fieldLeft:G.fieldLeft,log:G.log.slice(-120),over:G.over,result:G.result,tableNo:G.tableNo}; localStorage.setItem(GKEY,JSON.stringify(copy)); }catch(e){} }
-function loadState(){ try{ const raw=localStorage.getItem(GKEY); if(!raw) return null; const c=JSON.parse(raw); if(!c||!c.field||c.over) return null; const byId={}; for(const p of c.field) byId[p.id]=p; c.byId=byId; c.hero=c.field.find(p=>p.isHero); c.hands=[]; c.cur=null; return c; }catch(e){ return null; } }
+function saveState(){ if(!G) return; try{ const copy={settings:G.settings,level:G.level,handsThisLevel:G.handsThisLevel,handNo:G.handNo,field:G.field,table:G.table,offTables:G.offTables,tablesCount:G.tablesCount,fieldLeft:G.fieldLeft,log:G.log.slice(-120),hist:G.hist||[],hpre:G.hpre||[],t0:G.t0||null,archived:!!G.archived,over:G.over,result:G.result,tableNo:G.tableNo}; const js=JSON.stringify(copy); try{ localStorage.setItem(GKEY,js); }catch(e){ const a=loadArch(); while(a.length){ a.shift(); saveArch(a); try{ localStorage.setItem(GKEY,js); return; }catch(e2){} } } }catch(e){} }
+function loadState(){ try{ const raw=localStorage.getItem(GKEY); if(!raw) return null; const c=JSON.parse(raw); if(!c||!c.field||c.over) return null; const byId={}; for(const p of c.field) byId[p.id]=p; c.byId=byId; c.hero=c.field.find(p=>p.isHero); c.hands=[]; c.cur=null; c.hist=c.hist||[]; c.hpre=c.hpre||[]; c.hcur=c.hist[c.hist.length-1]||null; if(c.hcur && c.hcur.s1==null && !c.hcur.x){ c.hcur.l.push('(hand interrupted: the page reloaded)'); c.hcur.x=1; } return c; }catch(e){ return null; } }
 function startNew(){
   if(waitingHero){ resolveHero({type:'fold'}); }
   pendingNext=null;
-  G=newGame(S); G.onLog=logLine; $('#log').innerHTML=''; $('#coach').textContent='';
+  if(G) archiveGame(G); G=newGame(S); G.t0=Date.now(); G.onLog=logLine; $('#log').innerHTML=''; $('#coach').textContent='';
   addLog(G,'Day 2 restart · '+G.field.length+' players · '+G.tablesCount+' tables · you have '+fmtK(G.hero.stack)+' ('+Math.round(G.hero.stack/levelInfo(G.level).bb)+' BB)','h');
   for(let n=1;n<=9;n++){ const id=G.table.seats[seatIdx(n)]; if(id==null) continue; const f=G.byId[id]; addLog(G,'Seat '+n+': '+(f.isHero?'You':f.name)+' ('+fmtK(f.stack)+(f.scouted?', scouted':f.est?', estimated Day '+f.flight+' bag':', Day '+f.flight+' bag')+')'); }
   addLog(G,'The button starts in Seat '+START_BUTTON_SEAT+', so you post the big blind on hand 1. Tap Table 3 for the reads.','h');
   renderHeader(); renderTable(null); saveState(); loop();
 }
+
+/* ---------------- Export your play ---------------- */
+const AKEY='restart-sim-archive-t3', ARCH_MAX=6;
+function loadArch(){ try{ const a=JSON.parse(localStorage.getItem(AKEY)||'[]'); return Array.isArray(a)?a:[]; }catch(e){ return []; } }
+function saveArch(a){ for(let k=0;k<6;k++){ try{ localStorage.setItem(AKEY,JSON.stringify(a)); return true; }catch(e){ if(a.length>1) a.shift(); else return false; } } return false; }
+function runOf(g){ const h=g.hero||{}; return {id:g.t0||0, t0:g.t0||null, t1:Date.now(), over:!!g.over, result:g.result||null, level:g.level, stack:h.stack||0, left:g.fieldLeft,
+  settings:{heroStack:g.settings.heroStack, field:g.settings.field, level:g.settings.level, model:g.settings.model||'room', coach:!!g.settings.coach}, hpre:g.hpre||[], hist:g.hist||[]}; }
+function archiveGame(g){ if(!g||g.archived||!g.hist||g.hist.length<5) return; g.archived=true; const a=loadArch().filter(r=>r.id!==(g.t0||0)); a.push(runOf(g)); while(a.length>ARCH_MAX) a.shift(); saveArch(a); }
+function sgnK(v){ return v==null?'':v===0?'0':(v>0?'+':'−')+fmtK(Math.abs(v)); }
+function padR(s,n){ s=String(s==null?'':s); return s.length>=n?s+' ':s+' '.repeat(n-s.length); }
+function pctOf(a,n){ return n?Math.round(100*a/n)+'%':'–'; }
+function dtLong(ms){ if(!ms) return '?'; try{ return new Date(ms).toLocaleString('en-US',{weekday:'short',month:'short',day:'numeric',hour:'numeric',minute:'2-digit'}); }catch(e){ return new Date(ms).toISOString(); } }
+function dtShort(ms){ if(!ms) return '?'; try{ return new Date(ms).toLocaleString('en-US',{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'}); }catch(e){ return ''; } }
+function handInfo(h){
+  let st='P', cur=null; const parts=[], fl=[]; let pv=false, pr=false, ai=false, won=false;
+  for(const x of h.l){
+    if(/^Flop:/.test(x)) st='F'; else if(/^Turn:/.test(x)) st='T'; else if(/^River:/.test(x)) st='R';
+    if(/^Coach: ⚠/.test(x)) fl.push(x.slice(9));
+    if(/^You wins? /.test(x)) won=true;
+    const m=/^You (fold|check|call|raise|bet)s?\b(.*)$/.exec(x); if(!m) continue;
+    let a=m[1]; const num=/(\d[\d,]*)/.exec(m[2]);
+    if(num && a!=='fold' && a!=='check') a+=' '+fmtK(Number(num[1].replace(/,/g,'')));
+    if(/all-in/.test(m[2])){ a+=' all-in'; ai=true; }
+    if(st==='P' && (m[1]==='call'||m[1]==='raise')) pv=true;
+    if(st==='P' && m[1]==='raise') pr=true;
+    if(cur && cur.s===st) cur.a.push(a); else { cur={s:st,a:[a]}; parts.push(cur); }
+  }
+  const net=(h.s1!=null && h.s0!=null)? h.s1-h.s0 : null;
+  const vol=parts.some(p=>p.a.some(a=>/^(call|raise|bet)/.test(a)));
+  const line=parts.map(p=>p.s+' '+p.a.join(', ')).join(' · ')||(won?'walk':'no action');
+  return {line, pv, pr, ai, fl, won, net, vol, key: vol||ai||fl.length>0||(net!=null && Math.abs(net)>=10*h.bb)};
+}
+function statusLine(r){
+  const last=r.hist[r.hist.length-1];
+  if(r.over && r.result){ return r.result.place===1 ? 'Result: won the tournament ($'+fmt(r.result.pay)+')' :
+    'Result: busted in '+ordinal(r.result.place)+(r.result.pay?' ($'+fmt(r.result.pay)+')':' (no cash)')+(last?' on hand #'+last.n+' at Level '+last.lv:''); }
+  return 'In progress: '+(last?(last.s1==null?'during hand #':'after hand #')+last.n+', ':'')+'Level '+r.level+', '+fmtK(r.stack)+' ('+Math.round(r.stack/levelInfo(r.level).bb)+'bb)'+(r.left?', '+r.left+' players left':'');
+}
+function headLines(run,kind){ const S=run.settings||{};
+  return ['THE RESTART · Day 2 sim · '+kind, 'Exported '+dtLong(Date.now())+(run.t0?' · run started '+dtLong(run.t0):''),
+    'Setup: Level '+(S.level||18)+' restart, '+fmtK(S.heroStack||0)+' starting stack, '+(S.field||'?')+' players, opponents: '+(S.model==='orig'?'original sim mix':'Reserve Day 2 room')+(S.coach?', coach on':''),
+    statusLine(run)]; }
+function packetText(run,H){
+  const I=H.map(h=>[h,handInfo(h)]), n=H.length;
+  const pv=I.filter(x=>x[1].pv).length, pr=I.filter(x=>x[1].pr).length, ai=I.filter(x=>x[1].ai).length, fl=I.reduce((s,x)=>s+x[1].fl.length,0);
+  const L=headLines(run,'review packet');
+  L.push('Hands: '+n+(n<run.hist.length?' (the last '+n+' of '+run.hist.length+')':'')+' · VPIP '+pctOf(pv,n)+' · PFR '+pctOf(pr,n)+' · all-ins '+ai+' · coach flags '+fl);
+  L.push('','STACK BY LEVEL');
+  const lv={}; for(const [h] of I) (lv[h.lv]=lv[h.lv]||[]).push(h);
+  for(const k of Object.keys(lv).sort((a,b)=>a-b)){ const a=lv[k], f=a[0], z=a[a.length-1], s0=f.s0||0, s1=(z.s1!=null?z.s1:(z.s0||0)), bb=levelInfo(+k).bb;
+    L.push(padR('L'+k,4)+padR(blindsStr(levelInfo(+k)),15)+fmtK(s0)+' → '+fmtK(s1)+' ('+Math.round(s1/bb)+'bb) · '+a.length+' hand'+(a.length>1?'s':'')); }
+  const sw=I.filter(x=>x[1].net).sort((a,b)=>Math.abs(b[1].net)-Math.abs(a[1].net)).slice(0,5);
+  if(sw.length){ L.push('','BIGGEST SWINGS'); for(const [h,i] of sw) L.push(padR('#'+h.n,5)+padR(sgnK(i.net),7)+padR(h.pos,7)+padR(h.c,7)+i.line); }
+  if(fl){ L.push('','COACH FLAGS'); for(const [h,i] of I) for(const f of i.fl) L.push('#'+h.n+' '+(h.pos||'')+' '+(h.c||'')+': '+f); }
+  L.push('','EVERY HAND (P preflop, F flop, T turn, R river · net = change in your stack)');
+  for(const [h,i] of I) L.push(padR('#'+h.n,5)+padR('L'+h.lv,4)+padR(h.pos,7)+padR(h.s0!=null?Math.round(h.s0/h.bb)+'bb':'',5)+padR(h.c,7)+padR(sgnK(i.net),7)+i.line+(h.x?' (interrupted)':''));
+  const K=I.filter(x=>x[1].key);
+  L.push('','KEY HANDS IN FULL: '+K.length+' of '+n+' (you put chips in, went all-in, got a coach flag, or won or lost 10bb+)');
+  for(const [h] of K){ L.push(''); for(const x of h.l) L.push(x); }
+  L.push('','Review request: go through the key hands. Where did I lose chips I didn\'t need to, and which spots should I play differently at the real restart?');
+  return L.join('\n');
+}
+function fullText(run,H){ const L=headLines(run,'hand history'); L.push('');
+  if(H.length===run.hist.length && run.hpre && run.hpre.length) L.push(...run.hpre,'');
+  for(const h of H) L.push(...h.l,''); return L.join('\n'); }
+function jsonText(run,H){ return JSON.stringify({app:'the-restart-day2-sim', version:1, exported:new Date().toISOString(), started:run.t0?new Date(run.t0).toISOString():null,
+  status:statusLine(run), result:run.result, settings:run.settings, setup:run.hpre,
+  hands:H.map(h=>{ const i=handInfo(h); return {hand:h.n, level:h.lv, bb:h.bb, pos:h.pos||null, cards:h.c||null, start:h.s0==null?null:h.s0, end:h.s1==null?null:h.s1, net:i.net, action:i.line, vpip:i.pv, pfr:i.pr, allin:i.ai, coachFlags:i.fl, key:i.key, lines:h.l}; })}, null, 1); }
+const EXP={run:'cur', range:'all', fmt:'packet', txt:'', name:'restart-sim.txt'};
+function expRuns(){ const out=[];
+  if(G && G.hist && G.hist.length) out.push(['cur','This run · '+G.hist.length+' hand'+(G.hist.length===1?'':'s')+' · '+(G.over?(G.result&&G.result.place===1?'won':'busted'):'live'), ()=>runOf(G)]);
+  for(const r of loadArch().slice().reverse()){ if(G && r.id===G.t0) continue; out.push(['a'+r.id, dtShort(r.t1)+' · '+(r.over&&r.result?(r.result.place===1?'won':'out in '+ordinal(r.result.place)):'unfinished')+' · '+r.hist.length+' hand'+(r.hist.length===1?'':'s'), ()=>r]); }
+  return out; }
+function stamp(ms){ const d=new Date(ms||Date.now()), z=v=>String(v).padStart(2,'0'); return d.getFullYear()+'-'+z(d.getMonth()+1)+'-'+z(d.getDate())+'-'+z(d.getHours())+z(d.getMinutes()); }
+function expRender(){
+  const runs=expRuns(), r=runs.find(x=>x[0]===EXP.run)||runs[0]; if(!r) return; EXP.run=r[0];
+  const run=r[2](); let H=run.hist; if(EXP.range!=='all') H=H.slice(-Number(EXP.range));
+  EXP.txt= EXP.fmt==='json'?jsonText(run,H): EXP.fmt==='full'?fullText(run,H): packetText(run,H);
+  EXP.name='restart-sim-'+stamp(run.t0)+'-'+(EXP.fmt==='packet'?'review':EXP.fmt==='full'?'history':'data')+(EXP.fmt==='json'?'.json':'.txt');
+  const ta=$('#exptext'); ta.value=EXP.txt; ta.scrollTop=0;
+  $('#expstat').textContent=H.length+' hand'+(H.length===1?'':'s')+' · '+Math.max(1,Math.round(EXP.txt.length/1024))+' KB · '+EXP.name;
+  for(const b of $('#x-fmt').children) b.classList.toggle('on',b.dataset.f===EXP.fmt);
+}
+async function expCopy(){
+  const t=EXP.txt; let ok=false;
+  try{ if(navigator.clipboard && navigator.clipboard.writeText){ await navigator.clipboard.writeText(t); ok=true; } }catch(e){}
+  if(!ok){ const ta=$('#exptext'); ta.removeAttribute('readonly'); ta.focus(); ta.select(); try{ ta.setSelectionRange(0,t.length); }catch(e){} try{ ok=document.execCommand('copy'); }catch(e){} ta.setAttribute('readonly',''); }
+  $('#expstat').textContent= ok?'Copied. Paste it into a chat, a note or an email.':'The text is selected: tap Copy in the menu, or use Save file.';
+}
+async function expShare(){
+  const t=EXP.txt, name=EXP.name;
+  try{
+    if(EXP.fmt!=='packet' && window.File){ const f=new File([t],name,{type:name.endsWith('.json')?'application/json':'text/plain'});
+      if(navigator.canShare && navigator.canShare({files:[f]})){ await navigator.share({files:[f],title:name}); return; } }
+    await navigator.share({title:'The Restart sim: my play', text:t});
+  }catch(e){ if(e && e.name==='AbortError') return; $('#expstat').textContent='Sharing isn\'t available here. Use Copy or Save file.'; }
+}
+function expSave(){
+  const t=EXP.txt, name=EXP.name;
+  try{ const blob=new Blob([t],{type:name.endsWith('.json')?'application/json':'text/plain'}); const u=URL.createObjectURL(blob);
+    const a=document.createElement('a'); a.href=u; a.download=name; a.rel='noopener'; document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(u),5000);
+    $('#expstat').textContent='Saved '+name+'. Look in Downloads (on iPhone: Files › Downloads).';
+  }catch(e){ $('#expstat').textContent='Saving is blocked here. Use Copy or Share.'; }
+}
+function openExport(){
+  const sh=$('#expsheet'), runs=expRuns();
+  if(!runs.length){ sh.innerHTML='<h3>Export your play</h3><div class="small">No hands recorded yet. Play a few hands, then come back.</div><div class="btnrow"><button class="btn" id="x-close">Close</button></div>'; }
+  else {
+    if(!runs.some(r=>r[0]===EXP.run)) EXP.run=runs[0][0];
+    sh.innerHTML='<h3>Export your play</h3><div class="small">The review packet has your stats, stack by level, coach flags, a one-line summary of every hand, and your key hands in full. Paste it into a chat for a hand review.</div>'+
+      '<div class="exrow"><select id="x-run" aria-label="Which run">'+runs.map(r=>'<option value="'+r[0]+'">'+esc(r[1])+'</option>').join('')+'</select>'+
+      '<select id="x-range" aria-label="Which hands"><option value="all">All hands</option><option value="25">Last 25 hands</option><option value="10">Last 10 hands</option></select></div>'+
+      '<div class="seg" id="x-fmt"><button data-f="packet">Review packet</button><button data-f="full">Full history</button><button data-f="json">JSON</button></div>'+
+      '<textarea id="exptext" readonly spellcheck="false" aria-label="Export text"></textarea><div id="expstat"></div>'+
+      '<div class="btnrow"><button class="btn next" id="x-copy">Copy</button>'+(navigator.share?'<button class="btn" id="x-share">Share</button>':'')+'<button class="btn" id="x-save">Save file</button><button class="btn" id="x-close">Close</button></div>';
+    $('#x-run').value=EXP.run; $('#x-range').value=EXP.range;
+    $('#x-run').addEventListener('change',e=>{ EXP.run=e.target.value; expRender(); });
+    $('#x-range').addEventListener('change',e=>{ EXP.range=e.target.value; expRender(); });
+    $('#x-fmt').addEventListener('click',e=>{ const b=e.target.closest('button'); if(!b) return; EXP.fmt=b.dataset.f; expRender(); });
+    $('#x-copy').addEventListener('click',expCopy); $('#x-save').addEventListener('click',expSave);
+    if($('#x-share')) $('#x-share').addEventListener('click',expShare);
+    expRender();
+  }
+  $('#x-close').addEventListener('click',()=>$('#m-exp').classList.remove('on'));
+  $('#m-exp').classList.add('on');
+}
+$('#btn-exp').addEventListener('click',openExport);
+$('#m-exp').addEventListener('click',e=>{ if(e.target.id==='m-exp') $('#m-exp').classList.remove('on'); });
 (function init(){
   const saved=loadState();
+  if(!saved){ try{ const c=JSON.parse(localStorage.getItem(GKEY)||'null'); if(c && c.over && !c.archived && c.hist && c.field){ c.hero=c.field.find(p=>p.isHero); archiveGame(c); } }catch(e){} }
   if(saved){ G=saved; MODEL=(G.settings&&G.settings.model)||'room'; G.onLog=logLine; for(const l of G.log) logLine(l.t,l.c); logLine('— resumed saved tournament —','h'); renderHeader(); renderTable(null); loop(); }
   else startNew();
 })();
