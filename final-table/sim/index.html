@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#0b0f14">
+<title>The Restart — Day 2 Sim</title>
+<style>
+:root{
+  --bg:#0b0f14; --panel:#131a22; --panel2:#1a232d; --line:#263241; --text:#e8edf2; --muted:#8fa0b3;
+  --gold:#e6b84f; --green:#2fbf71; --red:#e2554f; --blue:#5aa9ff; --felt:#1f5a3a; --felt2:#174630;
+  --card:#f7f7f2; --cardtext:#111;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-size:14px;overscroll-behavior:none}
+body{min-height:100vh;display:flex;flex-direction:column}
+#app{display:flex;flex-direction:column;min-height:100vh;max-width:560px;margin:0 auto;width:100%}
+header{padding:8px 10px 6px;background:var(--panel);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+.tb-row{display:flex;gap:8px;align-items:center;justify-content:space-between;font-size:12px;line-height:1.3}
+.tb-row+.tb-row{margin-top:4px}
+.tb-row .k{color:var(--muted)}
+.tb-row b{color:var(--gold);font-weight:600}
+.iconbtn{background:var(--panel2);border:1px solid var(--line);color:var(--text);border-radius:8px;padding:4px 8px;font-size:13px}
+#title{font-weight:700;color:var(--gold);letter-spacing:.3px;font-size:13px}
+main{flex:1;display:flex;flex-direction:column}
+#table-wrap{padding:8px 6px 0}
+#table{position:relative;width:100%;aspect-ratio:1/1.12;max-height:62vh;margin:0 auto}
+#felt{position:absolute;left:13%;top:12%;width:74%;height:72%;border-radius:50%;background:radial-gradient(ellipse at 50% 40%,#2a6f4a 0%,var(--felt) 55%,var(--felt2) 100%);box-shadow:inset 0 0 0 6px #3b2a18,inset 0 0 0 9px #6b4a2b,0 10px 30px rgba(0,0,0,.5)}
+#center{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);text-align:center;width:70%}
+#board{display:flex;gap:4px;justify-content:center;min-height:38px}
+#pot{margin-top:6px;font-size:12px;color:#ffe9a8;font-weight:600;text-shadow:0 1px 2px #000}
+#msg{margin-top:4px;font-size:11px;color:#d7f3e3;min-height:14px;text-shadow:0 1px 2px #000}
+.seat{position:absolute;width:88px;margin-left:-44px;margin-top:-26px;text-align:center;font-size:11px;transition:opacity .2s}
+.seat.empty{opacity:.35}
+.seat .nm{background:rgba(10,14,20,.85);border:1px solid var(--line);border-radius:8px;padding:3px 4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:600}
+.seat .st{font-size:10.5px;color:#cfe3ff;background:rgba(10,14,20,.85);border-radius:0 0 8px 8px;padding:1px 4px;margin-top:-1px}
+.seat.folded .nm,.seat.folded .st{opacity:.45}
+.seat.acting .nm{border-color:var(--gold);box-shadow:0 0 0 2px rgba(230,184,79,.35)}
+.seat.allin .nm{border-color:var(--red)}
+.seat.hero .nm{border-color:var(--blue)}
+.seat .cards{display:flex;gap:2px;justify-content:center;margin-top:3px;min-height:26px}
+.seat .bet{position:absolute;font-size:10.5px;color:#ffe9a8;font-weight:700;text-shadow:0 1px 2px #000;white-space:nowrap}
+.seat .pos{position:absolute;top:-10px;right:-4px;background:var(--gold);color:#222;border-radius:10px;font-size:9px;padding:1px 5px;font-weight:700}
+.seat .pos.d{background:#fff}
+.seat .act{position:absolute;left:50%;transform:translateX(-50%);top:-24px;background:#000c;border-radius:8px;padding:2px 6px;font-size:10px;color:#fff;white-space:nowrap}
+.seat.hero{width:110px;margin-left:-55px}
+.seat.hero .cards .card{width:34px;height:46px;font-size:17px}
+.seat .pos:empty,.seat .act:empty{display:none}
+.card{display:inline-flex;align-items:center;justify-content:center;width:24px;height:34px;border-radius:4px;background:var(--card);color:var(--cardtext);font-weight:700;font-size:13px;box-shadow:0 1px 2px #0008;line-height:1}
+.card.h,.card.d{color:#c62828}
+.four .card.d{color:#1565c0}.four .card.c{color:#2e7d32}
+.card.back{background:repeating-linear-gradient(45deg,#2b3f8a,#2b3f8a 3px,#1f2f6b 3px,#1f2f6b 6px);color:transparent}
+#board .card{width:30px;height:42px;font-size:15px}
+#actions{padding:8px 8px 6px;background:var(--panel);border-top:1px solid var(--line);position:sticky;bottom:0;z-index:5}
+.btnrow{display:flex;gap:6px}
+.btn{flex:1;border:none;border-radius:10px;padding:12px 6px;font-size:15px;font-weight:700;color:#fff;background:var(--panel2);border:1px solid var(--line)}
+.btn:active{transform:scale(.98)}
+.btn.fold{background:#4a2a2a;border-color:#7a3a3a}
+.btn.call{background:#214a35;border-color:#2fbf71}
+.btn.raise{background:#4a3a14;border-color:var(--gold)}
+.btn.next{background:#1d3550;border-color:var(--blue)}
+.btn:disabled{opacity:.4}
+#sizing{display:none;margin-top:8px}
+#sizing.on{display:block}
+.presets{display:flex;gap:5px;margin-bottom:6px}
+.presets button{flex:1;padding:8px 2px;border-radius:8px;border:1px solid var(--line);background:var(--panel2);color:var(--text);font-size:12px}
+.presets button.sel{border-color:var(--gold);color:var(--gold)}
+#sizeline{display:flex;gap:8px;align-items:center}
+#sizeline input[type=range]{flex:1}
+#sizeline input[type=text]{width:88px;background:var(--bg);border:1px solid var(--line);color:var(--text);border-radius:8px;padding:8px;font-size:14px;text-align:right}
+#coach{padding:6px 10px;font-size:12px;color:#ffe9a8;background:#1a1a12;border-top:1px solid #3a3420;min-height:0}
+#coach:empty{display:none}
+#logwrap{padding:4px 10px 10px}
+#logtitle{display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--muted);padding:4px 0}
+#log{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;line-height:1.45;max-height:170px;overflow:auto;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:6px 8px;color:#c8d3de}
+#log .h{color:var(--gold)}
+#log .w{color:#9ff0c1}
+#log .b{color:#ff9a94}
+#log .n{color:#9fd1ff}
+.modal{position:fixed;inset:0;background:#000a;display:none;align-items:flex-end;justify-content:center;z-index:20}
+.modal.on{display:flex}
+.sheet{background:var(--panel);border:1px solid var(--line);border-radius:16px 16px 0 0;width:100%;max-width:560px;max-height:88vh;overflow:auto;padding:14px 14px 24px}
+.sheet h3{margin:0 0 10px;font-size:16px;color:var(--gold)}
+.row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid var(--line);font-size:13px}
+.row label{color:var(--muted)}
+.row input[type=number],.row input[type=text],.row select{background:var(--bg);border:1px solid var(--line);color:var(--text);border-radius:8px;padding:8px;font-size:14px;width:140px}
+.row input[type=checkbox]{transform:scale(1.3)}
+.sheet .btnrow{margin-top:12px}
+.small{font-size:11px;color:var(--muted);margin-top:6px;line-height:1.4}
+textarea{width:100%;background:var(--bg);border:1px solid var(--line);color:var(--text);border-radius:8px;padding:8px;font-size:13px;min-height:60px}
+.tag{display:inline-block;background:var(--panel2);border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:11px;margin-right:4px}
+.kv{display:grid;grid-template-columns:1fr 1fr;gap:4px 10px;font-size:12px;margin:8px 0}
+.kv span:nth-child(odd){color:var(--muted)}
+table.pay{width:100%;border-collapse:collapse;font-size:12px}
+table.pay td{padding:3px 4px;border-bottom:1px solid var(--line)}
+table.pay td:last-child{text-align:right;color:var(--gold)}
+#endsheet .big{font-size:22px;font-weight:800;color:var(--gold);margin:6px 0}
+.tb-row>*{white-space:nowrap}
+.seat .sn{position:absolute;top:-10px;left:-4px;background:var(--panel2);color:var(--muted);border:1px solid var(--line);border-radius:10px;font-size:9px;padding:0 5px;font-weight:700;line-height:14px}
+.seat.scout .nm{border-color:#c0613f}
+table.t3{width:100%;border-collapse:collapse;font-size:12.5px;margin:8px 0}
+table.t3 td{padding:5px 4px;border-bottom:1px solid var(--line);vertical-align:top}
+table.t3 td:first-child{color:var(--muted);width:24px}
+table.t3 tr.me td{color:var(--gold)}
+table.t3 .small{margin:0}
+.sheet ul{margin:4px 0 4px 18px;padding:0;font-size:12.5px;line-height:1.45}
+.sheet li{margin:2px 0}
+.sheet h4{margin:14px 0 4px;font-size:13px;color:var(--gold)}
+.sheet a{color:var(--blue)}
+</style>
+</head>
+<body>
+<div id="app">
+  <header>
+    <div class="tb-row">
+      <a id="title" href="../" style="text-decoration:none">‹ THE RESTART</a>
+      <span id="lvl"></span>
+      <span style="display:inline-flex;gap:6px;flex:none"><button class="iconbtn" id="btn-t3">Table 3</button><button class="iconbtn" id="btn-settings">⚙</button></span>
+    </div>
+    <div class="tb-row">
+      <span id="fieldinfo"></span>
+      <span id="clock"></span>
+    </div>
+    <div class="tb-row">
+      <span id="herostat"></span>
+      <span id="payinfo"></span>
+    </div>
+  </header>
+  <main>
+    <div id="table-wrap"><div id="table">
+      <div id="felt"></div>
+      <div id="center"><div id="board"></div><div id="pot"></div><div id="msg"></div></div>
+    </div></div>
+    <div id="coach"></div>
+    <div id="logwrap">
+      <div id="logtitle"><span>Hand history</span><span><button class="iconbtn" id="btn-standings">Standings</button> <button class="iconbtn" id="btn-pay">Payouts</button></span></div>
+      <div id="log"></div>
+    </div>
+  </main>
+  <section id="actions">
+    <div class="btnrow" id="mainbtns" style="visibility:hidden">
+      <button class="btn fold" id="b-fold">Fold</button>
+      <button class="btn call" id="b-call">Check</button>
+      <button class="btn raise" id="b-raise">Raise</button>
+    </div>
+    <div id="sizing">
+      <div class="presets" id="presets"></div>
+      <div id="sizeline"><input type="range" id="sizerange" min="0" max="100" value="0"><input type="text" id="sizeinput" inputmode="numeric"><button class="btn raise" id="b-confirm" style="flex:0 0 auto;padding:8px 14px">Go</button></div>
+    </div>
+    <div class="btnrow" id="nextrow" style="display:none;margin-top:6px"><button class="btn next" id="b-next">Next hand ▶</button></div>
+  </section>
+
+  <div class="modal" id="m-settings"><div class="sheet">
+    <h3>Settings</h3>
+    <div class="row"><label>Your stack at restart</label><input type="number" id="s-hero" step="1000"></div>
+    <div class="row"><label>Day 2 starting field</label><input type="number" id="s-field" min="10" max="400"></div>
+    <div class="row"><label>Prize pool ($)</label><input type="number" id="s-pool" step="1000"></div>
+    <div class="row"><label>Places paid</label><input type="number" id="s-places" min="9" max="300"></div>
+    <div class="row"><label>Starting level</label><input type="number" id="s-level" min="1" max="37"></div>
+    <div class="row"><label>Hands per level (40-min levels ≈ 17 hands)</label><input type="number" id="s-hpl" min="5" max="80"></div>
+    <div class="row"><label>Opponents</label><select id="s-model"><option value="room">Reserve Day 2 room (Rail data)</option><option value="orig">Original sim mix</option></select></div>
+    <div class="row"><label>Big stack away for the first N hands</label><input type="number" id="s-away" min="0" max="60"></div>
+    <div class="row"><label>Villain action delay (ms)</label><input type="number" id="s-delay" min="0" max="3000" step="50"></div>
+    <div class="row"><label>Coach notes (your Day 2 study first)</label><input type="checkbox" id="s-coach"></div>
+    <div class="row"><label>Show villain styles</label><input type="checkbox" id="s-styles"></div>
+    <div class="row"><label>Four-color deck</label><input type="checkbox" id="s-four"></div>
+    <div class="row"><label>Auto next hand after fold</label><input type="checkbox" id="s-auto"></div>
+    <div class="small">Table 3 is set from the WSOP Live draw: you in Seat 2 with 228K, a Day 1B bag in Seat 1, a Day 1A bag in Seat 3, and the big stack (711K) in Seat 9. The button starts in Seat 9, so you're in the big blind on hand 1. Seats 4–8 are estimated Day 1C bags. The big stack plays from his Rail scouting profile; everyone else gets a style drawn from the Reserve's Day 2 room (79 streams). Real Day 1A and 1B chip counts fill the other tables under made-up names. The coach checks your preflop decisions against your Day 2 study and the Ep 11 ranges.</div>
+    <div class="btnrow"><button class="btn" id="s-close">Close</button><button class="btn next" id="s-apply">Apply & new tournament</button></div>
+    <div class="btnrow"><button class="btn fold" id="s-reset">Wipe saved state</button></div>
+  </div></div>
+
+  <div class="modal" id="m-player"><div class="sheet" id="playersheet"></div></div>
+  <div class="modal" id="m-stand"><div class="sheet" id="standsheet"></div></div>
+  <div class="modal" id="m-pay"><div class="sheet" id="paysheet"></div></div>
+  <div class="modal" id="m-end"><div class="sheet" id="endsheet"></div></div>
+  <div class="modal" id="m-t3"><div class="sheet" id="t3sheet"></div></div>
+</div>
+
+<script>
+/* ============================================================
+   THE RESTART — Day 2 tournament simulator (single file)
+   Engine: 9-max NLHE, BB ante, side pots, Monte Carlo equity,
+   style-profiled opponents, background field simulation.
+   ============================================================ */
+'use strict';
+(function(){
+const IS_BROWSER = typeof document !== 'undefined';
+
+/* ---------------- RNG ---------------- */
+let _seed = (Date.now() ^ Math.floor(Math.random()*1e9)) >>> 0;
+function seedRng(s){ _seed = s>>>0; }
+function rnd(){ _seed = (_seed + 0x6D2B79F5) >>> 0; let t=_seed; t=Math.imul(t ^ (t>>>15), t|1); t ^= t + Math.imul(t ^ (t>>>7), t|61); return ((t ^ (t>>>14))>>>0)/4294967296; }
+function rint(n){ return Math.floor(rnd()*n); }
+function pick(a){ return a[rint(a.length)]; }
+let COACH_MODE=false;              // when true, decisions are deterministic (no noise)
+function pr(){ return COACH_MODE?0.5:rnd(); }
+function noise(){ return COACH_MODE?1:(0.82+0.36*rnd()); }
+
+/* ---------------- Cards ---------------- */
+const RANK_CHARS='23456789TJQKA';
+const SUIT_CHARS=['s','h','d','c'];
+const SUIT_SYM=['♠','♥','♦','♣'];
+function cardRank(c){ return (c>>2)+2; }
+function cardSuit(c){ return c&3; }
+function cardStr(c){ return RANK_CHARS[c>>2]+SUIT_SYM[c&3]; }
+function cardTxt(c){ return RANK_CHARS[c>>2]+SUIT_CHARS[c&3]; }
+function makeDeck(){ const d=new Array(52); for(let i=0;i<52;i++) d[i]=i; for(let i=51;i>0;i--){ const j=rint(i+1); const t=d[i]; d[i]=d[j]; d[j]=t; } return d; }
+
+/* ---------------- Evaluator (5–7 cards) ---------------- */
+function straightHigh(mask){
+  const m = mask | (((mask>>14)&1) ? 2 : 0);
+  for(let h=14;h>=5;h--){ let ok=true; for(let k=0;k<5;k++){ if(!((m>>(h-k))&1)){ ok=false; break; } } if(ok) return h; }
+  return 0;
+}
+function topRanks(mask,n){ const out=[]; for(let r=14;r>=2&&out.length<n;r--) if((mask>>r)&1) out.push(r); return out; }
+function mkScore(cat,ks){ let s=cat; for(let i=0;i<5;i++) s=s*16+(ks[i]||0); return s; }
+function evaluate(cards){
+  const rc=new Uint8Array(15); const sc=[0,0,0,0]; const sm=[0,0,0,0]; let rm=0;
+  for(let i=0;i<cards.length;i++){ const c=cards[i]; const r=(c>>2)+2, s=c&3; rc[r]++; sc[s]++; sm[s]|=1<<r; rm|=1<<r; }
+  let fs=-1; for(let s=0;s<4;s++) if(sc[s]>=5) fs=s;
+  if(fs>=0){ const st=straightHigh(sm[fs]); if(st) return mkScore(8,[st]); return mkScore(5,topRanks(sm[fs],5)); }
+  let quad=0; const trips=[], pairs=[];
+  for(let r=14;r>=2;r--){ if(rc[r]===4) quad=r; else if(rc[r]===3) trips.push(r); else if(rc[r]===2) pairs.push(r); }
+  if(quad){ return mkScore(7,[quad, topRanks(rm&~(1<<quad),1)[0]]); }
+  if(trips.length && (pairs.length||trips.length>1)){ const t=trips[0]; const p2 = trips.length>1 ? Math.max(trips[1], pairs.length?pairs[0]:0) : pairs[0]; return mkScore(6,[t,p2]); }
+  const st=straightHigh(rm); if(st) return mkScore(4,[st]);
+  if(trips.length){ const t=trips[0]; return mkScore(3,[t].concat(topRanks(rm&~(1<<t),2))); }
+  if(pairs.length>=2){ const p1=pairs[0],p2=pairs[1]; return mkScore(2,[p1,p2, topRanks(rm&~(1<<p1)&~(1<<p2),1)[0]]); }
+  if(pairs.length===1){ const p=pairs[0]; return mkScore(1,[p].concat(topRanks(rm&~(1<<p),3))); }
+  return mkScore(0, topRanks(rm,5));
+}
+const RNAME={2:'2',3:'3',4:'4',5:'5',6:'6',7:'7',8:'8',9:'9',10:'T',11:'J',12:'Q',13:'K',14:'A'};
+const RWORD={2:'deuces',3:'threes',4:'fours',5:'fives',6:'sixes',7:'sevens',8:'eights',9:'nines',10:'tens',11:'jacks',12:'queens',13:'kings',14:'aces'};
+function handName(score){
+  const ks=[]; let s=score; for(let i=0;i<5;i++){ ks.unshift(s%16); s=Math.floor(s/16); } const cat=s;
+  switch(cat){
+    case 8: return ks[0]===14?'a royal flush':'a straight flush, '+RNAME[ks[0]]+' high';
+    case 7: return 'quad '+RWORD[ks[0]];
+    case 6: return 'a full house, '+RWORD[ks[0]]+' full of '+RWORD[ks[1]];
+    case 5: return 'a flush, '+RNAME[ks[0]]+' high';
+    case 4: return 'a straight, '+RNAME[ks[0]]+' high';
+    case 3: return 'trip '+RWORD[ks[0]];
+    case 2: return 'two pair, '+RWORD[ks[0]]+' and '+RWORD[ks[1]];
+    case 1: return 'a pair of '+RWORD[ks[0]];
+    default: return RNAME[ks[0]]+' high';
+  }
+}
+
+/* ---------------- Preflop hand ranking ---------------- */
+const HAND_ORDER=("AA KK QQ JJ AKs TT AQs AJs KQs AKo 99 ATs KJs AQo KTs QJs 88 QTs A9s AJo JTs KQo 77 A8s K9s ATo A5s A7s KJo 66 T9s A4s Q9s J9s QJo A6s 55 A3s K8s KTo 98s T8s K7s A2s 87s QTo Q8s 44 A9o J8s 76s JTo 97s K6s K5s K4s Q7s T7s 33 65s 86s A8o J7s 54s Q6s 75s 96s K3s K2s 22 Q5s 64s T9o A7o A5o 98o Q4s K9o T6s J6s 53s 85s A4o A6o Q3s J5s J9o Q9o 74s 43s 95s J4s A3o Q2s T8o 63s J3s 87o K8o A2o T5s 52s 84s J2s 97o T4s 76o K7o T3s 42s 73s Q8o 86o 65o J8o 32s T2s 94s K6o 93s 62s 54o 92s 83s 75o 82s 72s K5o 96o K4o T7o 64o Q7o K3o J7o 53o Q6o 85o K2o 43o Q5o T6o 74o J6o Q4o 95o J5o 63o Q3o J4o T5o 52o 84o Q2o J3o T4o 42o 73o J2o T3o 32o 62o 94o 93o 92o T2o 83o 82o 72o").split(' ');
+const HAND_PCT={}, ORDER_INFO=[];
+(function(){ let cum=0; for(const h of HAND_ORDER){ const combos = h.length===2?6:(h[2]==='s'?4:12); const lo=cum/1326, hi=(cum+combos)/1326; HAND_PCT[h]=(lo+hi)/2; ORDER_INFO.push({h,lo,hi}); cum+=combos; } })();
+function handClass(c1,c2){ let r1=cardRank(c1), r2=cardRank(c2); if(r1<r2){ const t=r1; r1=r2; r2=t; } const a=RNAME[r1], b=RNAME[r2]; if(r1===r2) return a+b; return a+b+((cardSuit(c1)===cardSuit(c2))?'s':'o'); }
+function handPct(c1,c2){ return HAND_PCT[handClass(c1,c2)]; }
+function sampleFromRange(lo,hi,dead){
+  lo=Math.max(0,Math.min(lo,0.999)); hi=Math.max(lo+0.001,Math.min(hi,1));
+  for(let tries=0;tries<40;tries++){
+    const u=lo+rnd()*(hi-lo);
+    let a=0,b=ORDER_INFO.length-1; while(a<b){ const m=(a+b)>>1; if(ORDER_INFO[m].hi<u) a=m+1; else b=m; }
+    const cls=ORDER_INFO[a].h; const r1=RANK_CHARS.indexOf(cls[0]), r2=RANK_CHARS.indexOf(cls[1]);
+    let c1,c2;
+    if(cls.length===2 || cls[2]==='o'){ const s1=rint(4); let s2=rint(3); if(s2>=s1) s2++; c1=r1*4+s1; c2=r2*4+s2; }
+    else { const s=rint(4); c1=r1*4+s; c2=r2*4+s; }
+    if(!dead[c1] && !dead[c2]) return [c1,c2];
+  }
+  const live=[]; for(let c=0;c<52;c++) if(!dead[c]) live.push(c);
+  if(live.length<2) return null;
+  const i=rint(live.length); let j=rint(live.length-1); if(j>=i) j++;
+  return [live[i],live[j]];
+}
+/* equity of `hand` vs opponents drawn from percentile ranges, board partial */
+function equityVs(hand, board, ranges, trials){
+  const dead=new Uint8Array(52); for(const c of hand) dead[c]=1; for(const c of board) dead[c]=1;
+  let wins=0, done=0;
+  for(let t=0;t<trials;t++){
+    const d=dead.slice(); const opp=[]; let ok=true;
+    for(const rg of ranges){ const h=sampleFromRange(rg[0],rg[1],d); if(!h){ ok=false; break; } d[h[0]]=1; d[h[1]]=1; opp.push(h); }
+    if(!ok) continue;
+    const b=board.slice(); while(b.length<5){ const c=rint(52); if(!d[c]){ d[c]=1; b.push(c); } }
+    const hs=evaluate(hand.concat(b)); let best=hs, nBest=1, heroBest=true;
+    for(const h of opp){ const s=evaluate(h.concat(b)); if(s>best){ best=s; heroBest=false; nBest=1; } else if(s===best) nBest++; }
+    if(heroBest) wins+=1/nBest; done++;
+  }
+  return done? wins/done : 0.5;
+}
+
+/* ---------------- Styles ---------------- */
+const STYLES={
+  reg:    {label:'Solid reg (GTO-ish)', loose:1.0, aggr:1.0, threeBet:1.0, cbet:0.65, foldToCbet:0.5, bluff:0.35, callDown:0.0,  risk:0.0,  limp:0.0,  sizing:2.4, overbet:0,   skill:1.08, callMult:1.0},
+  tag:    {label:'Old-school TAG',      loose:0.85,aggr:1.1, threeBet:0.8, cbet:0.7,  foldToCbet:0.55,bluff:0.25, callDown:-0.03,risk:0.03, limp:0.25, sizing:3.0, overbet:0,   skill:1.04, callMult:1.1},
+  nit:    {label:'Nit',                 loose:0.6, aggr:0.8, threeBet:0.5, cbet:0.55, foldToCbet:0.7, bluff:0.1,  callDown:-0.1, risk:0.08, limp:0.1,  sizing:2.5, overbet:0,   skill:0.98, callMult:1.3},
+  lag:    {label:'LAG',                 loose:1.5, aggr:1.4, threeBet:1.8, cbet:0.8,  foldToCbet:0.35,bluff:0.6,  callDown:0.05, risk:-0.03,limp:0.0,  sizing:2.5, overbet:0.1, skill:1.02, callMult:0.9},
+  station:{label:'Calling station',     loose:1.6, aggr:0.5, threeBet:0.4, cbet:0.4,  foldToCbet:0.15,bluff:0.1,  callDown:0.25, risk:-0.12,limp:0.5,  sizing:2.2, overbet:0,   skill:0.9, callMult:0.62},
+  maniac: {label:'Maniac',              loose:2.2, aggr:2.0, threeBet:2.5, cbet:0.9,  foldToCbet:0.25,bluff:0.85, callDown:0.15, risk:-0.08,limp:0.0,  sizing:3.0, overbet:0.4, skill:0.92, callMult:0.75},
+  shorty: {label:'Push/fold grinder',   loose:1.05,aggr:1.2, threeBet:1.3, cbet:0.6,  foldToCbet:0.5, bluff:0.3,  callDown:0.0,  risk:0.0,  limp:0.0,  sizing:2.2, overbet:0,   skill:1.05, callMult:1.0},
+};
+const STYLE_WEIGHTS=[['reg',30],['tag',15],['nit',15],['lag',12],['station',15],['maniac',5],['shorty',8]];
+function randomStyle(){ const tot=STYLE_WEIGHTS.reduce((a,b)=>a+b[1],0); let r=rnd()*tot; for(const [k,w] of STYLE_WEIGHTS){ r-=w; if(r<=0) return k; } return 'reg'; }
+
+/* ---------------- Reserve Day 2 room (Rail data) ----------------
+   The Rail's read of the Reserve's streams: 79 streams, 7,991 hands, 233 players with 30+ hands.
+   Day 2 room: VPIP 28, PFR 18, 3-bet 7, BB defend 41, fold to a 3-bet 58.
+   Opens first in by seat: UTG 16, MP 20, HJ 20, CO 26, BTN 33.
+   Player types: TAG 36%, tight 18%, LAG 18%, loose 17%, loose-passive 12%. */
+const OPEN_ROOM={'UTG':0.17,'UTG+1':0.16,'MP':0.20,'LJ':0.20,'HJ':0.20,'CO':0.22,'BTN':0.32,'SB':0.12,'BB':0.5};
+Object.assign(STYLES,{
+  r_tag:    {label:'Reserve TAG (36% of the room)',          room:true, bbDef:0.66,loose:1.1,aggr:1.2,threeBet:0.7,cbet:0.65,foldToCbet:0.5,bluff:0.3,callDown:0,risk:0.02,limp:0.04,sizing:2.3,overbet:0,skill:1.04,callMult:1.05},
+  r_tight:  {label:'Reserve tight (18%)',                    room:true, bbDef:0.62,loose:0.75,aggr:1.0,threeBet:0.2,cbet:0.55,foldToCbet:0.65,bluff:0.12,callDown:-0.08,risk:0.08,limp:0.05,sizing:2.5,overbet:0,skill:0.98,callMult:1.3},
+  r_lag:    {label:'Reserve LAG (18%)',                      room:true, bbDef:0.75,loose:1.85,aggr:1.6,threeBet:2.0,cbet:0.78,foldToCbet:0.38,bluff:0.55,callDown:0.04,risk:-0.03,limp:0,sizing:2.3,overbet:0.08,skill:1.02,callMult:0.9},
+  r_loose:  {label:'Reserve loose limper (17%)',             room:true, bbDef:0.75,loose:1.25,aggr:0.75,threeBet:0.6,cbet:0.5,foldToCbet:0.45,bluff:0.2,callDown:0.1,risk:-0.05,limp:0.45,sizing:2.5,overbet:0,skill:0.95,callMult:0.8},
+  r_passive:{label:'Reserve loose-passive caller (12%)',     room:true, bbDef:0.75,loose:2.1,aggr:0.75,threeBet:1.4,cbet:0.45,foldToCbet:0.2,bluff:0.12,callDown:0.22,risk:-0.1,limp:0.5,sizing:2.4,overbet:0,skill:0.9,callMult:0.65},
+  /* Scouted big stack: opens ~25% from the first two seats and ~55-60% from the middle and late seats,
+     3-bets light late, check-raises flops wide, c-bets flops but slows down on the turn, fires rivers,
+     calls a 20bb jam with about the top third, and speeds up after a big loss. */
+  bigstack: {label:'Big stack (scouted)', open:{'UTG':0.25,'UTG+1':0.27,'MP':0.37,'LJ':0.46,'HJ':0.55,'CO':0.60,'BTN':0.64,'SB':0.55,'BB':0.5}, loose:2.1,aggr:1.5,threeBet:1.8,cbet:0.72,foldToCbet:0.35,bluff:0.6,callDown:0.06,risk:-0.06,limp:0,sizing:2.3,overbet:0.1,skill:1.08,callMult:0.85,steam:true,xr:0.16,turnMult:0.6,riverBluff:1.3}
+});
+const ROOM_WEIGHTS=[['r_tag',36],['r_tight',18],['r_lag',18],['r_loose',17],['r_passive',12]];
+let MODEL='room';
+function roomStyle(){ const tot=ROOM_WEIGHTS.reduce((a,b)=>a+b[1],0); let r=rnd()*tot; for(const [k,w] of ROOM_WEIGHTS){ r-=w; if(r<=0) return k; } return 'r_tag'; }
+function drawStyle(){ return MODEL==='orig'? randomStyle() : roomStyle(); }
+function openFreq(S,pos){ return S.open?(S.open[pos]||0.3):((S.room?OPEN_ROOM:OPEN_PCT)[pos]||0.3)*Math.min(S.loose,S.aggr); }
+function styleOf(p){
+  let S=STYLES[p.style]||STYLES.reg; const f=p.f||p;
+  if(S.steam && f.steam>0){ S=Object.assign({},S,{loose:S.loose*1.15,aggr:S.aggr*1.2,bluff:Math.min(1,S.bluff*1.3),threeBet:S.threeBet*1.25}); if(S.open){ const o={}; for(const k in S.open) o[k]=Math.min(0.85,S.open[k]*1.15); S.open=o; } }
+  return S;
+}
+
+
+/* ---------------- Positions & ranges ---------------- */
+const POS_NAMES=['UTG','UTG+1','MP','LJ','HJ','CO','BTN','SB','BB'];
+const OPEN_PCT={'UTG':0.14,'UTG+1':0.16,'MP':0.18,'LJ':0.21,'HJ':0.25,'CO':0.31,'BTN':0.46,'SB':0.40,'BB':0.5};
+const PUSH10={'UTG':0.10,'UTG+1':0.11,'MP':0.13,'LJ':0.15,'HJ':0.18,'CO':0.24,'BTN':0.38,'SB':0.52,'BB':0.6};
+function pushPct(pos,bb){ const base=PUSH10[pos]||0.2; return Math.min(1, base*Math.pow(10/Math.max(bb,1.5),0.8)); }
+
+/* ---------------- Levels / chips / payouts ---------------- */
+const LEVELS=[[100,200,200],[100,300,300],[200,400,400],[300,500,500],[300,600,600],[400,800,800],[500,1000,1000],[600,1200,1200],[800,1600,1600],[1000,2000,2000],
+ [1500,2500,2500],[1500,3000,3000],[2000,4000,4000],[2500,5000,5000],[3000,6000,6000],[4000,8000,8000],[5000,10000,10000],[6000,12000,12000],[8000,16000,16000],[10000,20000,20000],
+ [15000,25000,25000],[15000,30000,30000],[20000,40000,40000],[25000,50000,50000],[30000,60000,60000],[40000,80000,80000],[50000,100000,100000],[60000,120000,120000],[75000,150000,150000],[100000,200000,200000],
+ [125000,250000,250000],[150000,300000,300000],[200000,400000,400000],[250000,500000,500000],[300000,600000,600000],[400000,800000,800000],[500000,1000000,1000000]];
+function levelInfo(L){ const i=Math.max(0,Math.min(L-1, LEVELS.length-1)); const [sb,bb,ante]=LEVELS[i]; return {sb,bb,ante,level:L}; }
+function chipUnit(bb){ return bb>=4000?1000: bb>=1000?500:100; }
+function roundChips(x,unit){ return Math.max(unit, Math.round(x/unit)*unit); }
+function fmt(n){ return Math.round(n).toLocaleString('en-US'); }
+function fmtK(n){ n=Math.round(n); if(n>=1e6) return (n/1e6).toFixed(2).replace(/\.?0+$/,'')+'M'; if(n>=100000) return Math.round(n/1000)+'K'; if(n>=10000) return (n/1000).toFixed(1).replace(/\.0$/,'')+'K'; return fmt(n); }
+function blindsStr(l){ return fmtK(l.sb)+'/'+fmtK(l.bb)+' ('+fmtK(l.ante)+')'; }
+const PAY_TIERS=[[1,1,0.1733],[2,2,0.115],[3,3,0.080],[4,4,0.0558],[5,5,0.0403],[6,6,0.0295],[7,7,0.0221],[8,8,0.0168],[9,9,0.0130],[10,11,0.01033],[12,13,0.00833],[14,17,0.00683],[18,27,0.00583],[28,36,0.00525],[37,45,0.00475],[46,54,0.00433],[55,63,0.0040],[64,72,0.00371],[73,81,0.00346],[82,90,0.00321],[91,99,0.0030],[100,9999,0.002833]];
+const _normCache={};
+function payNorm(places){ if(_normCache[places]) return _normCache[places]; let tot=0; for(const [a,b,pc] of PAY_TIERS){ if(a>places) break; tot+=pc*(Math.min(b,places)-a+1); } return _normCache[places]=1/tot; }
+function payoutFor(place,pool,places){ if(place>places) return 0; const k=payNorm(places); for(const [a,b,pc] of PAY_TIERS) if(place>=a&&place<=b) return Math.round(pc*k*pool/100)*100; return 0; }
+function nextJump(place,pool,places){ const cur=payoutFor(place,pool,places); for(let p=place-1;p>=1;p--){ const v=payoutFor(p,pool,places); if(v>cur) return {place:p,amount:v}; } return null; }
+function ordinal(n){ const s=['th','st','nd','rd'], v=n%100; return n+(s[(v-20)%10]||s[v]||s[0]); }
+
+/* ---------------- Field ---------------- */
+const REAL_1A=[["#1A-1", 720000], ["#1A-2", 711000], ["#1A-3", 686000], ["#1A-4", 536000], ["#1A-5", 448000], ["#1A-6", 423000], ["#1A-7", 397000], ["#1A-8", 393000], ["#1A-9", 353000], ["#1A-10", 330000], ["#1A-11", 294000], ["#1A-12", 236000], ["#1A-13", 233000], ["#1A-14", 228000], ["#1A-15", 218000], ["#1A-16", 208000], ["#1A-17", 202000], ["#1A-18", 198000], ["#1A-19", 162000], ["#1A-20", 155000], ["#1A-21", 136000], ["#1A-22", 69000], ["#1A-23", 56000]];
+const REAL_1B=[["#1B-1", 910000], ["#1B-2", 672000], ["#1B-3", 622000], ["#1B-4", 559000], ["#1B-5", 496000], ["#1B-6", 463000], ["#1B-7", 454000], ["#1B-8", 443000], ["#1B-9", 391000], ["#1B-10", 378000], ["#1B-11", 352000], ["#1B-12", 320000], ["#1B-13", 302000], ["#1B-14", 273000], ["#1B-15", 258000], ["#1B-16", 254000], ["#1B-17", 250000], ["#1B-18", 242000], ["#1B-19", 241000], ["#1B-20", 222000], ["#1B-21", 220000], ["#1B-22", 197000], ["#1B-23", 228000], ["#1B-24", 174000], ["#1B-25", 165000], ["#1B-26", 164000], ["#1B-27", 160000], ["#1B-28", 158000], ["#1B-29", 147000], ["#1B-30", 143000], ["#1B-31", 142000], ["#1B-32", 132000], ["#1B-33", 123000], ["#1B-34", 123000], ["#1B-35", 101000], ["#1B-36", 92000], ["#1B-37", 88000]];
+const FIRST=['Mike','Chris','Dave','Tony','Rob','Jake','Nick','Steve','Marcus','Derek','Kevin','Ryan','Jordan','Sam','Tyler','Eric','Brian','Jeff','Anthony','Matt','Luis','Andre','Omar','Vic','Danny','Pete','Terrance','Greg','Alex','Carl','Jason','Paul','Jay','Troy','Nate','Ben','Joe','Tim','Mark','Dan','Lisa','Amy','Kat','Jen','Rachel','Monica','Sara','Nina','Dawn','Tara'];
+const LAST=['Kowalski','Nguyen','Patel','Russo','Gallagher','Hernandez','Baumgartner','Okafor','Zielinski','Dombrowski','Washington','Jablonski','Carver','Reyes','Sato','Lindqvist','Brennan','Fischer','Mahoney','Castillo','Bruno','Schultz','Vukovic','Ahmed','Kraus','Novak','Pappas','Trinh','Lombardi','Delgado','Hartmann','Yoder','Bianchi','Sullivan','Petrov','Kim','Haddad','Moreau','Guzman','Oyelaran','Whitaker','Bergstrom','Tanaka','Kovacs','Rossi','Figueroa','Larsen','Marchetti','Duarte','Steinberg'];
+function synthName(used){ for(let i=0;i<200;i++){ const n=pick(FIRST)+' '+pick(LAST); if(!used.has(n)){ used.add(n); return n; } } return 'Player '+rint(9999); }
+function mkPlayer(id,name,raw,stack,style,flight,isHero){ return {id, name, raw, stack, style, flight, alive:true, place:0, isHero, notes:'', shown:0, st:{hands:0,vpip:0,pfr:0,won:0}}; }
+function buildField(S){
+  const field=[]; let id=1; const used=new Set();
+  for(const [raw] of REAL_1A.concat(REAL_1B)) if(raw[0]!=='#') used.add(raw);
+  const nameOf=(raw)=>raw[0]==='#'?synthName(used):raw;
+  for(const [raw,stack] of REAL_1A){ const isHero=raw===HERO_RAW; field.push(mkPlayer(id++, isHero?HERO_LABEL:nameOf(raw), raw, isHero?S.heroStack:stack, isHero?'hero':drawStyle(), '1A', isHero)); }
+  for(const [raw,stack] of REAL_1B){ field.push(mkPlayer(id++, nameOf(raw), raw, stack, drawStyle(), '1B', false)); }
+  const need=Math.max(0,S.field-field.length);
+  // Day 1C bags: resample the shape of the real 1A and 1B bags, scaled to the estimated 1C average
+  const shape=REAL_1A.concat(REAL_1B).filter(r=>r[0]!==HERO_RAW).map(r=>r[1]); const m=shape.reduce((a,b)=>a+b,0)/shape.length;
+  const synth=[]; for(let i=0;i<need;i++) synth.push(pick(shape)/m*Math.exp((rnd()+rnd()+rnd()-1.5)*0.25));
+  const sum=synth.reduce((a,b)=>a+b,0); const k=sum?need*(S.c1avg||305000)/sum:1;
+  for(let i=0;i<need;i++){ const stack=Math.max(40000,Math.round(synth[i]*k/1000)*1000); field.push(mkPlayer(id++, synthName(used), '', stack, drawStyle(), '1C', false)); }
+  return field;
+}
+
+/* ---------------- Game state ---------------- */
+
+/* ---------------- Table 3 (WSOP Live draw for Nov 8) ----------------
+   You in Seat 2. The button starts in Seat 9, so you post the big blind on hand 1.
+   Seats 4-8 aren't drawn yet: they fill from Day 1C bags. */
+const HERO_SEAT=2, START_BUTTON_SEAT=9, LEVEL_MIN=40;
+function seatNo(i){ return ((i+HERO_SEAT-1)%9)+1; }
+function seatIdx(n){ return (n-HERO_SEAT+9)%9; }
+const TABLE3={"1": {"raw": "#1B-23", "label": "Seat 1 (your right)", "short": "Seat 1", "src": "Day 1B bag (228K). No footage yet, so the sim draws a style from the Reserve room."}, "3": {"raw": "#1A-17", "label": "Seat 3 (your left)", "short": "Seat 3", "src": "Day 1A bag (202K). No footage yet, so the sim draws a style from the room."}, "9": {"raw": "#1A-2", "label": "The big stack", "short": "Big stack", "style": "bigstack", "src": "Scouted from Reserve footage and televised tournament play."}};
+const T3_INTRO="Blinds 5K/10K with a 10K big blind ante, 40-minute levels. The button starts in Seat 9, so you post the big blind on hand 1 and the small blind on hand 2. Tap a seat for its profile and your notes.";
+const T3_EST="Seats 4–8 aren't drawn yet: they fill from Day 1C bags after tonight. Using the real Day 1A and 1B bags, scaled to a 1C average of about 305K (30bb), expect a median near 24bb, about one stack in three under 20bb and one in seven over 50bb. Across five seats that usually means one or two short stacks and maybe one big one. Styles follow the Reserve's Day 2 room: typically two TAGs, one tight player, one LAG, and one limper or caller. Every new deal redraws them, so play a few to see the spread.";
+const BIG_TITLE="The big stack · Seat 9";
+const BIG_READS=["Opens wide from every seat: about 25% from the first two seats and 55–60% from the middle and late seats. The room opens 16% early and 26–33% late.", "Three-bets light from late position (J-3 suited and J-4 offsuit from the button on film), but also with jacks, A-Q and A-K. Don't put him on aces.", "Check-raises flops wide: top pair, draws, and overcards on low paired boards.", "C-bets most flops but bets the turn far less. Float a flop c-bet when you have something.", "Keeps betting the river with air, and plays even faster right after losing a big pot.", "Calls a 20bb jam with about the top third of hands. Don't widen your jams below the Ep 11 ranges unless you've seen him fold."];
+const BIG_WATCH=[];
+const STUDY={"rows":{"15":{"AKs":{"fi":{"UTG":"J","MP":"J","HJ":"J","CO":"J","BTN":"J","SB":"J"},"rs":{"UTG>BTN":["J",3.09],"HJ>BTN":["J",4.36],"CO>BTN":["J",4.59],"CO>BB":["J",4.77],"BTN>SB":["J",5.04],"BTN>BB":["J",5.12],"SB>BB":["J",5.44]},"vj":{"CO":["K",64.3,44.4,29],"BTN":["K",65.2,44.4,36],"SB":["K",66.7,45.2,61]},"v3":["J",6.13]},"AKo":{"fi":{"UTG":"J","MP":"J","HJ":"J","CO":"J","BTN":"J","SB":"J"},"rs":{"UTG>BTN":["J",2.73],"HJ>BTN":["J",4.08],"CO>BTN":["J",4.32],"CO>BB":["J",4.5],"BTN>SB":["J",4.81],"BTN>BB":["J",4.89],"SB>BB":["J",5.22]},"vj":{"CO":["K",62.6,44.4,29],"BTN":["K",63.4,44.4,36],"SB":["K",65.0,45.2,61]},"v3":["J",5.61]},"AQs":{"fi":{"UTG":"J","MP":"J","HJ":"J","CO":"J","BTN":"J","SB":"J"},"rs":{"UTG>BTN":["J",2.06],"HJ>BTN":["J",3.63],"CO>BTN":["J",4.01],"CO>BB":["J",4.2],"BTN>SB":["J",4.55],"BTN>BB":["J",4.63],"SB>BB":["J",5.04]},"vj":{"CO":["K",61.8,44.4,29],"BTN":["K",62.9,44.4,36],"SB":["K",64.9,45.2,61]},"v3":["J",4.02]},"AQo":{"fi":{"UTG":"J","MP":"J","HJ":"J","CO":"J","BTN":"J","SB":"J"},"rs":{"UTG>BTN":["J",1.63],"HJ>BTN":["J",3.3],"CO>BTN":["J",3.69],"CO>BB":["J",3.89],"BTN>SB":["J",4.27],"BTN>BB":["J",4.36],"SB>BB":["J",4.79]},"vj":{"CO":["K",59.9,44.4,29],"BTN":["K",61.0,44.4,36],"SB":["K",63.0,45.2,61]},"v3":["J",3.44]},"AJs":{"fi":{"UTG":"J","MP":"J","HJ":"J","CO":"J","BTN":"J","SB":"J"},"rs":{"UTG>BTN":["J",1.58],"HJ>BTN":["J",2.94],"CO>BTN":["J",3.38],"CO>BB":["J",3.59],"BTN>SB":["J",4.12],"BTN>BB":["J",4.21],"SB>BB":["J",4.72]},"vj":{"CO":["K",59.5,44.4,29],"BTN":["K",61.0,44.4,36],"SB":["K",63.3,45.2,61]},"v3":["J",3.48]},"AJo":{"fi":{"UTG":"J","MP":"J","HJ":"J","CO":"J","BTN":"J","SB":"J"},"rs":{"UTG>BTN":["J",1.13],"HJ>BTN":["J",2.57],"CO>BTN":["J",3.02],"CO>BB":["J",3.24],"BTN>SB":["J",3.83],"BTN>BB":["J",3.92],"SB>BB":["J",4.45]},"vj":{"CO":["K",57.4,44.4,29],"BTN":["K",58.9,44.4,36],"SB":["K",61.3,45.2,61]},"v3":["J",2.76]},"ATs":{"fi":{"UTG":"J","MP":"J","HJ":"J","CO":"J","BTN":"J","SB":"J"},"rs":{"UTG>BTN":["J",1.28],"HJ>BTN":["J",2.29],"CO>BTN":["J",2.85],"CO>BB":["J",3.08],"BTN>SB":["J",3.67],"BTN>BB":["J",3.77],"SB>BB":["J",4.37]},"vj":{"CO":["K",57.1,44.4,29],"BTN":["K",59.2,44.4,36],"SB":["K",62.2,45.2,61]},"v3":["J",2.93]},"ATo":{"fi":{"UTG":"F","MP":"F","HJ":"J","CO":"J","BTN":"J","SB":"J"},"rs":{"UTG>BTN":["J",0.77],"HJ>BTN":["J",1.86],"CO>BTN":["J",2.44],"CO>BB":["J",2.68],"BTN>SB":["J",3.33],"BTN>BB":["J",3.43],"SB>BB":["J",4.07]},"vj":{"CO":["K",54.8,44.4,29],"BTN":["K",57.0,44.4,36],"SB":["K",60.2,45.2,61]},"v3":["J",2.06]},"KQs":{"fi":{"UTG":"J","MP":"J","HJ":"J","CO":"J","BTN":"J","SB":"J"},"rs":{"UTG>BTN":["J",1.78],"HJ>BTN":["J",2.25],"CO>BTN":["J",2.55],"CO>BB":["J",2.79],"BTN>SB":["J",3.07],"BTN>BB":["J",3.18],"SB>BB":["J",3.67]},"vj":{"CO":["K",50.6,44.4,29],"BTN":["K",53.0,44.4,36],"SB":["K",59.8,45.2,61]},"v3":["J",3.41]},"KQo":{"fi":{"UTG":"F","MP":"J","HJ":"J","CO":"J","BTN":"J","SB":"J"},"rs":{"UTG>BTN":["J",1.31],"HJ>BTN":["J",1.84],"CO>BTN":["J",2.15],"CO>BB":["J",2.4],"BTN>SB":["J",2.71],"BTN>BB":["J",2.82],"SB>BB":["J",3.33]},"vj":{"CO":["K",48.0,44.4,29],"BTN":["K",50.4,44.4,36],"SB":["K",57.7,45.2,61]},"v3":["J",2.69]},"KJs":{"fi":{"UTG":"J","MP":"J","HJ":"J","CO":"J","BTN":"J","SB":"J"},"rs":{"UTG>BTN":["J",1.59],"HJ>BTN":["J",2.01],"CO>BTN":["J",2.21],"CO>BB":["J",2.46],"BTN>SB":["J",2.7],"BTN>BB":["J",2.81],"SB>BB":["J",3.39]},"vj":{"CO":["K",48.7,44.4,29],"BTN":["K",51.4,44.4,36],"SB":["K",58.4,45.2,61]},"v3":["J",3.35]},"KJo":{"fi":{"UTG":"F","MP":"F","HJ":"J","CO":"J","BTN":"J","SB":"J"},"rs":{"UTG>BTN":["J",1.11],"HJ>BTN":["J",1.59],"CO>BTN":["J",1.8],"CO>BB":["J",2.06],"BTN>SB":["J",2.31],"BTN>BB":["J",2.43],"SB>BB":["J",3.02]},"vj":{"CO":["K",45.9,44.4,29],"BTN":["K",48.7,44.4,36],"SB":["K",56.1,45.2,61]},"v3":["J",2.65]},"KTs":{"fi":{"UTG":"J","MP":"J","HJ":"J","CO":"J","BTN":"J","SB":"J"},"rs":{"UTG>BTN":["J",1.43],"HJ>BTN":["J",1.86],"CO>BTN":["J",2.0],"CO>BB":["J",2.25],"BTN>SB":["J",2.43],"BTN>BB":["J",2.55],"SB>BB":["J",3.06]},"vj":{"CO":["K",46.7,44.4,29],"BTN":["K",49.9,44.4,36],"SB":["K",57.3,45.2,61]},"v3":["J",3.03]},"KTo":{"fi":{"UTG":"F","MP":"F","HJ":"F","CO":"J","BTN":"J","SB":"J"},"rs":{"UTG>BTN":["J",0.95],"HJ>BTN":["J",1.41],"CO>BTN":["J",1.56],"CO>BB":["J",1.82],"BTN>SB":["J",2.02],"BTN>BB":["J",2.15],"SB>BB":["J",2.66]},"vj":{"CO":["F",43.7,44.4,29],"BTN":["K",47.0,44.4,36],"SB":["K",54.9,45.2,61]},"v3":["J",2.32]},"QJs":{"fi":{"UTG":"J","MP":"J","HJ":"J","CO":"J","BTN":"J","SB":"J"},"rs":{"UTG>BTN":["J",1.54],"HJ>BTN":["J",1.99],"CO>BTN":["J",2.08],"CO>BB":["J",2.33],"BTN>SB":["J",2.42],"BTN>BB":["J",2.54],"SB>BB":["J",2.87]},"vj":{"CO":["K",46.1,44.4,29],"BTN":["K",48.4,44.4,36],"SB":["K",54.1,45.2,61]},"v3":["J",3.02]},"QJo":{"fi":{"UTG":"F","MP":"F","HJ":"F","CO":"J","BTN":"J","SB":"J"},"rs":{"UTG>BTN":["J",1.07],"HJ>BTN":["J",1.56],"CO>BTN":["J",1.65],"CO>BB":["J",1.92],"BTN>SB":["J",2.01],"BTN>BB":["J",2.14],"SB>BB":["J",2.47]},"vj":{"CO":["F",43.1,44.4,29],"BTN":["K",45.5,44.4,36],"SB":["K",51.6,45.2,61]},"v3":["J",2.29]},"QTs":{"fi":{"UTG":"J","MP":"J","HJ":"J","CO":"J","BTN":"J","SB":"J"},"rs":{"UTG>BTN":["J",1.39],"HJ>BTN":["J",1.92],"CO>BTN":["J",1.94],"CO>BB":["J",2.19],"BTN>SB":["J",2.32],"BTN>BB":["J",2.44],"SB>BB":["J",2.65]},"vj":{"CO":["F",44.1,44.4,29],"BTN":["K",46.8,44.4,36],"SB":["K",53.0,45.2,61]},"v3":["J",2.71]},"QTo":{"fi":{"UTG":"F","MP":"F","HJ":"F","CO":"J","BTN":"J","SB":"J"},"rs":{"UTG>BTN":["J",0.91],"HJ>BTN":["J",1.47],"CO>BTN":["J",1.5],"CO>BB":["J",1.77],"BTN>SB":["J",1.91],"BTN>BB":["J",2.03],"SB>BB":["J",2.25]},"vj":{"CO":["F",41.0,44.4,29],"BTN":["F",43.8,44.4,36],"SB":["K",50.4,45.2,61]},"v3":["J",1.97]},"JTs":{"fi":{"UTG":"J","MP":"J","HJ":"J","CO":"J","BTN":"J","SB":"J"},"rs":{"UTG>BTN":["J",1.34],"HJ>BTN":["J",1.94],"CO>BTN":["J",2.03],"CO>BB":["J",2.28],"BTN>SB":["J",2.31],"BTN>BB":["J",2.43],"SB>BB":["J",2.6]},"vj":{"CO":["F",42.9,44.4,29],"BTN":["K",45.5,44.4,36],"SB":["K",50.5,45.2,61]},"v3":["J",2.91]},"JTo":{"fi":{"UTG":"F","MP":"F","HJ":"F","CO":"J","BTN":"J","SB":"J"},"rs":{"UTG>BTN":["J",0.84],"HJ>BTN":["J",1.48],"CO>BTN":["J",1.57],"CO>BB":["J",1.84],"BTN>SB":["J",1.88],"BTN>BB":["J",2.01],"SB>BB":["J",2.18]},"vj":{"CO":["F",39.7,44.4,29],"BTN":["F",42.4,44.4,36],"SB":["K",47.7,45.2,61]},"v3":["J",2.13]},"A9s":{"fi":{"UTG":"F","MP":"J","HJ":"J","CO":"J","BTN":"J","SB":"J"},"rs":{"UTG>BTN":["J",1.06],"HJ>BTN":["J",1.75],"CO>BTN":["J",2.34],"CO>BB":["J",2.59],"BTN>SB":["J",3.12],"BTN>BB":["J",3.22],"SB>BB":["J",3.91]},"vj":{"CO":["K",52.9,44.4,29],"BTN":["K",55.7,44.4,36],"SB":["K",59.9,45.2,61]},"v3":["J",2.44]},"A8s":{"fi":{"UTG":"F","MP":"J","HJ":"J","CO":"J","BTN":"J","SB":"J"},"rs":{"UTG>BTN":["J",0.92],"HJ>BTN":["J",1.65],"CO>BTN":["J",2.2],"CO>BB":["J",2.45],"BTN>SB":["J",2.87],"BTN>BB":["J",2.98],"SB>BB":["J",3.61]},"vj":{"CO":["K",50.7,44.4,29],"BTN":["K",53.4,44.4,36],"SB":["K",58.7,45.2,61]},"v3":["J",1.96]},"A7s":{"fi":{"UTG":"F","MP":"F","HJ":"J","CO":"J","BTN":"J","SB":"J"},"rs":{"UTG>BTN":["J",0.73],"HJ>BTN":["J",1.58],"CO>BTN":["J",2.06],"CO>BB":["J",2.31],"BTN>SB":["J",2.74],"BTN>BB":["J",2.85],"SB>BB":["J",3.34]},"vj":{"CO":["K",48.5,44.4,29],"BTN":["K",51.6,44.4,36],"SB":["K",57.3,45.2,61]},"v3":["J",1.96]},"A6s":{"fi":{"UTG":"F","MP":"F","HJ":"J","CO":"J","BTN":"J","SB":"J"},"rs":{"UTG>BTN":["J",0.5],"HJ>BTN":["J",1.47],"CO>BTN":["J",1.95],"CO>BB":["J",2.2],"BTN>SB":["J",2.61],"BTN>BB":["J",2.73],"SB>BB":["J",3.18]},"vj":{"CO":["K",46.7,44.4,29],"BTN":["K",49.8,44.4,36],"SB":["K",55.6,45.2,61]},"v3":["J",1.94]},"A5s":{"fi":{"UTG":"F","MP":"F","HJ":"J","CO":"J","BTN":"J","SB":"J"},"rs":{"UTG>BTN":["J",0.69],"HJ>BTN":["J",1.54],"CO>BTN":["J",2.0],"CO>BB":["J",2.26],"BTN>SB":["J",2.67],"BTN>BB":["J",2.78],"SB>BB":["J",3.21]},"vj":{"CO":["K",46.6,44.4,29],"BTN":["K",49.4,44.4,36],"SB":["K",55.4,45.2,61]},"v3":["J",2.52]},"A4s":{"fi":{"UTG":"F","MP":"F","HJ":"J","CO":"J","BTN":"J","SB":"J"},"rs":{"UTG>BTN":["J",0.65],"HJ>BTN":["J",1.46],"CO>BTN":["J",1.89],"CO>BB":["J",2.14],"BTN>SB":["J",2.56],"BTN>BB":["J",2.67],"SB>BB":["J",3.07]},"vj":{"CO":["K",45.7,44.4,29],"BTN":["K",48.3,44.4,36],"SB":["K",54.4,45.2,61]},"v3":["J",2.48]},"A3s":{"fi":{"UTG":"F","MP":"F","HJ":"J","CO":"J","BTN":"J","SB":"J"},"rs":{"UTG>BTN":["J",0.62],"HJ>BTN":["J",1.34],"CO>BTN":["J",1.79],"CO>BB":["J",2.05],"BTN>SB":["J",2.48],"BTN>BB":["J",2.6],"SB>BB":["J",3.03]},"vj":{"CO":["K",45.3,44.4,29],"BTN":["K",47.9,44.4,36],"SB":["K",53.7,45.2,61]},"v3":["J",2.42]},"A2s":{"fi":{"UTG":"F","MP":"F","HJ":"J","CO":"J","BTN":"J","SB":"J"},"rs":{"UTG>BTN":["J",0.54],"HJ>BTN":["J",1.28],"CO>BTN":["J",1.67],"CO>BB":["J",1.93],"BTN>SB":["J",2.38],"BTN>BB":["J",2.5],"SB>BB":["J",2.96]},"vj":{"CO":["K",44.7,44.4,29],"BTN":["K",47.3,44.4,36],"SB":["K",53.0,45.2,61]},"v3":["J",2.33]},"A9o":{"fi":{"UTG":"F","MP":"F","HJ":"J","CO":"J","BTN":"J","SB":"J"},"rs":{"UTG>BTN":["J",0.51],"HJ>BTN":["J",1.28],"CO>BTN":["J",1.9],"CO>BB":["J",2.16],"BTN>SB":["J",2.74],"BTN>BB":["J",2.85],"SB>BB":["J",3.58]},"vj":{"CO":["K",50.3,44.4,29],"BTN":["K",53.3,44.4,36],"SB":["K",57.6,45.2,61]},"v3":["J",1.65]},"A8o":{"fi":{"UTG":"F","MP":"F","HJ":"J","CO":"J","BTN":"J","SB":"J"},"rs":{"UTG>BTN":["J",0.36],"HJ>BTN":["J",1.16],"CO>BTN":["J",1.74],"CO>BB":["J",2.0],"BTN>SB":["J",2.46],"BTN>BB":["J",2.58],"SB>BB":["J",3.25]},"vj":{"CO":["K",47.9,44.4,29],"BTN":["K",50.8,44.4,36],"SB":["K",56.3,45.2,61]},"v3":["J",1.13]},"A7o":{"fi":{"UTG":"F","MP":"F","HJ":"F","CO":"J","BTN":"J","SB":"J"},"rs":{"UTG>BTN":["C",0.15],"HJ>BTN":["J",1.09],"CO>BTN":["J",1.61],"CO>BB":["J",1.87],"BTN>SB":["J",2.34],"BTN>BB":["J",2.46],"SB>BB":["J",2.96]},"vj":{"CO":["K",45.6,44.4,29],"BTN":["K",48.9,44.4,36],"SB":["K",54.9,45.2,61]},"v3":["J",1.13]},"A6o":{"fi":{"UTG":"F","MP":"F","HJ":"F","CO":"J","BTN":"J","SB":"J"},"rs":{"UTG>BTN":["C",-0.06],"HJ>BTN":["J",0.98],"CO>BTN":["J",1.47],"CO>BB":["J",1.74],"BTN>SB":["J",2.2],"BTN>BB":["J",2.32],"SB>BB":["J",2.8]},"vj":{"CO":["F",43.7,44.4,29],"BTN":["K",47.0,44.4,36],"SB":["K",53.1,45.2,61]},"v3":["J",1.11]},"A5o":{"fi":{"UTG":"F","MP":"F","HJ":"F","CO":"J","BTN":"J","SB":"J"},"rs":{"UTG>BTN":["C",0.16],"HJ>BTN":["J",1.07],"CO>BTN":["J",1.56],"CO>BB":["J",1.83],"BTN>SB":["J",2.28],"BTN>BB":["J",2.4],"SB>BB":["J",2.83]},"vj":{"CO":["F",43.6,44.4,29],"BTN":["K",46.5,44.4,36],"SB":["K",52.9,45.2,61]},"v3":["J",1.78]},"A4o":{"fi":{"UTG":"F","MP":"F","HJ":"F","CO":"J","BTN":"J","SB":"J"},"rs":{"UTG>BTN":["C",0.11],"HJ>BTN":["J",0.96],"CO>BTN":["J",1.42],"CO>BB":["J",1.69],"BTN>SB":["J",2.15],"BTN>BB":["J",2.27],"SB>BB":["J",2.69]},"vj":{"CO":["F",42.6,44.4,29],"BTN":["K",45.4,44.4,36],"SB":["K",51.8,45.2,61]},"v3":["J",1.71]},"A3o":{"fi":{"UTG":"F","MP":"F","HJ":"F","CO":"F","BTN":"J","SB":"J"},"rs":{"UTG>BTN":["C",0.04],"HJ>BTN":["J",0.81],"CO>BTN":["J",1.3],"CO>BB":["J",1.57],"BTN>SB":["J",2.05],"BTN>BB":["J",2.17],"SB>BB":["J",2.62]},"vj":{"CO":["F",42.0,44.4,29],"BTN":["K",44.8,44.4,36],"SB":["K",50.9,45.2,61]},"v3":["J",1.62]},"A2o":{"fi":{"UTG":"F","MP":"F","HJ":"F","CO":"F","BTN":"J","SB":"J"},"rs":{"UTG>BTN":["C",-0.01],"HJ>BTN":["J",0.76],"CO>BTN":["J",1.18],"CO>BB":["J",1.46],"BTN>SB":["J",1.96],"BTN>BB":["J",2.08],"SB>BB":["J",2.56]},"vj":{"CO":["F",41.5,44.4,29],"BTN":["F",44.2,44.4,36],"SB":["K",50.2,45.2,61]},"v3":["J",1.53]},"JJ":{"fi":{"UTG":"J","MP":"J","HJ":"J","CO":"J","BTN":"J","SB":"J"},"rs":{"UTG>BTN":["J",4.1],"HJ>BTN":["J",5.07],"CO>BTN":["J",5.28],"CO>BB":["J",5.43],"BTN>SB":["J",5.5],"BTN>BB":["J",5.57],"SB>BB":["J",5.83]},"vj":{"CO":["K",67.9,44.4,29],"BTN":["K",69.5,44.4,36],"SB":["K",72.7,45.2,61]},"v3":["J",6.37]},"TT":{"fi":{"UTG":"J","MP":"J","HJ":"J","CO":"J","BTN":"J","SB":"J"},"rs":{"UTG>BTN":["J",3.23],"HJ>BTN":["J",4.42],"CO>BTN":["J",4.73],"CO>BB":["J",4.9],"BTN>SB":["J",4.99],"BTN>BB":["J",5.07],"SB>BB":["J",5.37]},"vj":{"CO":["K",63.9,44.4,29],"BTN":["K",66.0,44.4,36],"SB":["K",70.0,45.2,61]},"v3":["J",4.75]},"99":{"fi":{"UTG":"J","MP":"J","HJ":"J","CO":"J","BTN":"J","SB":"J"},"rs":{"UTG>BTN":["J",2.47],"HJ>BTN":["J",3.8],"CO>BTN":["J",4.18],"CO>BB":["J",4.37],"BTN>SB":["J",4.45],"BTN>BB":["J",4.54],"SB>BB":["J",4.86]},"vj":{"CO":["K",59.7,44.4,29],"BTN":["K",61.9,44.4,36],"SB":["K",66.6,45.2,61]},"v3":["J",3.37]},"88":{"fi":{"UTG":"J","MP":"J","HJ":"J","CO":"J","BTN":"J","SB":"J"},"rs":{"UTG>BTN":["J",1.71],"HJ>BTN":["J",3.38],"CO>BTN":["J",3.82],"CO>BB":["J",4.02],"BTN>SB":["J",4.09],"BTN>BB":["J",4.18],"SB>BB":["J",4.45]},"vj":{"CO":["K",56.8,44.4,29],"BTN":["K",58.8,44.4,36],"SB":["K",63.4,45.2,61]},"v3":["J",2.26]},"77":{"fi":{"UTG":"F","MP":"J","HJ":"J","CO":"J","BTN":"J","SB":"J"},"rs":{"UTG>BTN":["J",0.94],"HJ>BTN":["J",3.01],"CO>BTN":["J",3.48],"CO>BB":["J",3.69],"BTN>SB":["J",3.82],"BTN>BB":["J",3.92],"SB>BB":["J",4.1]},"vj":{"CO":["K",54.3,44.4,29],"BTN":["K",56.3,44.4,36],"SB":["K",60.0,45.2,61]},"v3":["J",2.28]},"66":{"fi":{"UTG":"F","MP":"J","HJ":"J","CO":"J","BTN":"J","SB":"J"},"rs":{"UTG>BTN":["J",0.49],"HJ>BTN":["J",2.62],"CO>BTN":["J",3.15],"CO>BB":["J",3.37],"BTN>SB":["J",3.55],"BTN>BB":["J",3.65],"SB>BB":["J",3.85]},"vj":{"CO":["K",52.3,44.4,29],"BTN":["K",53.7,44.4,36],"SB":["K",57.2,45.2,61]},"v3":["J",2.27]},"55":{"fi":{"UTG":"F","MP":"J","HJ":"J","CO":"J","BTN":"J","SB":"J"},"rs":{"UTG>BTN":["J",0.5],"HJ>BTN":["J",2.23],"CO>BTN":["J",2.82],"CO>BB":["J",3.05],"BTN>SB":["J",3.29],"BTN>BB":["J",3.4],"SB>BB":["J",3.59]},"vj":{"CO":["K",50.3,44.4,29],"BTN":["K",51.7,44.4,36],"SB":["K",54.7,45.2,61]},"v3":["J",2.74]},"44":{"fi":{"UTG":"F","MP":"J","HJ":"J","CO":"J","BTN":"J","SB":"J"},"rs":{"UTG>BTN":["J",0.42],"HJ>BTN":["J",1.87],"CO>BTN":["J",2.45],"CO>BB":["J",2.69],"BTN>SB":["J",2.99],"BTN>BB":["J",3.1],"SB>BB":["J",3.28]},"vj":{"CO":["K",48.1,44.4,29],"BTN":["K",49.6,44.4,36],"SB":["K",52.1,45.2,61]},"v3":["J",2.61]},"33":{"fi":{"UTG":"F","MP":"J","HJ":"J","CO":"J","BTN":"J","SB":"J"},"rs":{"UTG>BTN":["J",0.38],"HJ>BTN":["J",1.59],"CO>BTN":["J",2.11],"CO>BB":["J",2.36],"BTN>SB":["J",2.68],"BTN>BB":["J",2.8],"SB>BB":["J",3.03]},"vj":{"CO":["K",46.2,44.4,29],"BTN":["K",47.6,44.4,36],"SB":["K",49.9,45.2,61]},"v3":["J",2.55]},"22":{"fi":{"UTG":"F","MP":"J","HJ":"J","CO":"J","BTN":"J","SB":"J"},"rs":{"UTG>BTN":["J",0.31],"HJ>BTN":["J",1.51],"CO>BTN":["J",1.74],"CO>BB":["J",2.0],"BTN>SB":["J",2.37],"BTN>BB":["J",2.49],"SB>BB":["J",2.8]},"vj":{"CO":["F",44.4,44.4,29],"BTN":["K",45.6,44.4,36],"SB":["K",47.9,45.2,61]},"v3":["J",2.43]}},"20":{"AKs":{"fi":{"UTG":"O","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["J",2.99],"HJ>BTN":["J",4.63],"CO>BTN":["J",4.95],"CO>BB":["J",5.12],"BTN>SB":["J",5.47],"BTN>BB":["J",5.55],"SB>BB":["J",5.97]},"vj":{"CO":["K",62.4,45.8,23],"BTN":["K",65.0,45.8,34],"SB":["K",66.5,46.3,54]},"v3":["J",5.99]},"AKo":{"fi":{"UTG":"O","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["J",2.51],"HJ>BTN":["J",4.27],"CO>BTN":["J",4.59],"CO>BB":["J",4.77],"BTN>SB":["J",5.17],"BTN>BB":["J",5.25],"SB>BB":["J",5.69]},"vj":{"CO":["K",60.4,45.8,23],"BTN":["K",63.2,45.8,34],"SB":["K",64.7,46.3,54]},"v3":["J",5.31]},"AQs":{"fi":{"UTG":"O","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["J",1.66],"HJ>BTN":["J",3.67],"CO>BTN":["J",4.18],"CO>BB":["J",4.37],"BTN>SB":["J",4.83],"BTN>BB":["J",4.92],"SB>BB":["J",5.45]},"vj":{"CO":["K",59.6,45.8,23],"BTN":["K",62.7,45.8,34],"SB":["K",64.3,46.3,54]},"v3":["J",3.33]},"AQo":{"fi":{"UTG":"O","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["J",1.09],"HJ>BTN":["J",3.24],"CO>BTN":["J",3.76],"CO>BB":["J",3.96],"BTN>SB":["J",4.47],"BTN>BB":["J",4.56],"SB>BB":["J",5.13]},"vj":{"CO":["K",57.5,45.8,23],"BTN":["K",60.8,45.8,34],"SB":["K",62.4,46.3,54]},"v3":["J",2.53]},"AJs":{"fi":{"UTG":"O","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["J",1.03],"HJ>BTN":["J",2.77],"CO>BTN":["J",3.36],"CO>BB":["J",3.57],"BTN>SB":["J",4.27],"BTN>BB":["J",4.36],"SB>BB":["J",5.04]},"vj":{"CO":["K",57.0,45.8,23],"BTN":["K",60.7,45.8,34],"SB":["K",62.8,46.3,54]},"v3":["J",2.56]},"AJo":{"fi":{"UTG":"O","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["J",0.44],"HJ>BTN":["J",2.28],"CO>BTN":["J",2.89],"CO>BB":["J",3.11],"BTN>SB":["J",3.88],"BTN>BB":["J",3.98],"SB>BB":["J",4.67]},"vj":{"CO":["K",54.8,45.8,23],"BTN":["K",58.6,45.8,34],"SB":["K",60.8,46.3,54]},"v3":["J",1.6]},"ATs":{"fi":{"UTG":"O","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["J",0.64],"HJ>BTN":["J",1.92],"CO>BTN":["J",2.67],"CO>BB":["J",2.9],"BTN>SB":["J",3.68],"BTN>BB":["J",3.78],"SB>BB":["J",4.58]},"vj":{"CO":["K",53.7,45.8,23],"BTN":["K",58.8,45.8,34],"SB":["K",61.5,46.3,54]},"v3":["J",1.84]},"ATo":{"fi":{"UTG":"O","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["C",-0.03],"HJ>BTN":["J",1.35],"CO>BTN":["J",2.13],"CO>BB":["J",2.37],"BTN>SB":["J",3.24],"BTN>BB":["J",3.34],"SB>BB":["J",4.18]},"vj":{"CO":["K",51.2,45.8,23],"BTN":["K",56.6,45.8,34],"SB":["K",59.4,46.3,54]},"v3":["J",0.72]},"KQs":{"fi":{"UTG":"O","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["J",1.27],"HJ>BTN":["J",1.88],"CO>BTN":["J",2.28],"CO>BB":["J",2.51],"BTN>SB":["J",2.91],"BTN>BB":["J",3.02],"SB>BB":["J",3.67]},"vj":{"CO":["K",49.7,45.8,23],"BTN":["K",51.9,45.8,34],"SB":["K",58.4,46.3,54]},"v3":["J",2.46]},"KQo":{"fi":{"UTG":"F","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["J",0.65],"HJ>BTN":["J",1.35],"CO>BTN":["J",1.76],"CO>BB":["J",2.0],"BTN>SB":["J",2.43],"BTN>BB":["J",2.55],"SB>BB":["J",3.23]},"vj":{"CO":["K",47.0,45.8,23],"BTN":["K",49.3,45.8,34],"SB":["K",56.2,46.3,54]},"v3":["J",1.52]},"KJs":{"fi":{"UTG":"O","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["J",1.01],"HJ>BTN":["J",1.57],"CO>BTN":["J",1.84],"CO>BB":["J",2.09],"BTN>SB":["J",2.42],"BTN>BB":["J",2.53],"SB>BB":["J",3.29]},"vj":{"CO":["K",47.4,45.8,23],"BTN":["K",50.2,45.8,34],"SB":["K",57.0,46.3,54]},"v3":["J",2.33]},"KJo":{"fi":{"UTG":"F","MP":"F","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["J",0.39],"HJ>BTN":["J",1.01],"CO>BTN":["J",1.29],"CO>BB":["J",1.55],"BTN>SB":["J",1.9],"BTN>BB":["J",2.02],"SB>BB":["J",2.81]},"vj":{"CO":["F",44.6,45.8,23],"BTN":["K",47.5,45.8,34],"SB":["K",54.7,46.3,54]},"v3":["J",1.41]},"KTs":{"fi":{"UTG":"O","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["J",0.81],"HJ>BTN":["J",1.37],"CO>BTN":["J",1.56],"CO>BB":["J",1.81],"BTN>SB":["J",2.07],"BTN>BB":["J",2.19],"SB>BB":["J",2.87]},"vj":{"CO":["F",45.5,45.8,23],"BTN":["K",48.6,45.8,34],"SB":["K",55.8,46.3,54]},"v3":["J",1.95]},"KTo":{"fi":{"UTG":"F","MP":"F","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["C",0.18],"HJ>BTN":["J",0.78],"CO>BTN":["J",0.98],"CO>BB":["J",1.24],"BTN>SB":["J",1.53],"BTN>BB":["J",1.66],"SB>BB":["J",2.35]},"vj":{"CO":["F",42.4,45.8,23],"BTN":["F",45.7,45.8,34],"SB":["K",53.2,46.3,54]},"v3":["J",1.01]},"QJs":{"fi":{"UTG":"J","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["J",0.96],"HJ>BTN":["J",1.53],"CO>BTN":["J",1.65],"CO>BB":["J",1.9],"BTN>SB":["J",2.06],"BTN>BB":["J",2.18],"SB>BB":["J",2.61]},"vj":{"CO":["F",45.1,45.8,23],"BTN":["K",47.7,45.8,34],"SB":["K",52.3,46.3,54]},"v3":["J",1.98]},"QJo":{"fi":{"UTG":"F","MP":"F","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["J",0.35],"HJ>BTN":["J",0.96],"CO>BTN":["J",1.1],"CO>BB":["J",1.36],"BTN>SB":["J",1.52],"BTN>BB":["J",1.64],"SB>BB":["J",2.09]},"vj":{"CO":["F",42.1,45.8,23],"BTN":["F",44.7,45.8,34],"SB":["K",49.7,46.3,54]},"v3":["J",1.03]},"QTs":{"fi":{"UTG":"F","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["J",0.78],"HJ>BTN":["J",1.44],"CO>BTN":["J",1.48],"CO>BB":["J",1.73],"BTN>SB":["J",1.92],"BTN>BB":["J",2.05],"SB>BB":["J",2.33]},"vj":{"CO":["F",43.8,45.8,23],"BTN":["K",46.0,45.8,34],"SB":["K",51.1,46.3,54]},"v3":["J",1.61]},"QTo":{"fi":{"UTG":"F","MP":"F","HJ":"F","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["C",0.15],"HJ>BTN":["J",0.85],"CO>BTN":["J",0.9],"CO>BB":["J",1.17],"BTN>SB":["J",1.38],"BTN>BB":["J",1.51],"SB>BB":["J",1.8]},"vj":{"CO":["F",40.8,45.8,23],"BTN":["F",43.0,45.8,34],"SB":["K",48.4,46.3,54]},"v3":["J",0.64]},"JTs":{"fi":{"UTG":"F","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["J",0.72],"HJ>BTN":["J",1.47],"CO>BTN":["J",1.6],"CO>BB":["J",1.85],"BTN>SB":["J",1.91],"BTN>BB":["J",2.03],"SB>BB":["J",2.26]},"vj":{"CO":["F",42.6,45.8,23],"BTN":["F",44.8,45.8,34],"SB":["K",49.3,46.3,54]},"v3":["J",1.81]},"JTo":{"fi":{"UTG":"F","MP":"F","HJ":"F","CO":"J","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["C",0.06],"HJ>BTN":["J",0.87],"CO>BTN":["J",1.0],"CO>BB":["J",1.26],"BTN>SB":["J",1.35],"BTN>BB":["J",1.48],"SB>BB":["J",1.72]},"vj":{"CO":["F",39.4,45.8,23],"BTN":["F",41.8,45.8,34],"SB":["K",46.4,46.3,54]},"v3":["J",0.8]},"A9s":{"fi":{"UTG":"O","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["J",0.34],"HJ>BTN":["J",1.22],"CO>BTN":["J",2.01],"CO>BB":["J",2.26],"BTN>SB":["J",2.96],"BTN>BB":["J",3.07],"SB>BB":["J",3.97]},"vj":{"CO":["K",49.8,45.8,23],"BTN":["K",54.9,45.8,34],"SB":["K",59.0,46.3,54]},"v3":["J",1.19]},"A8s":{"fi":{"UTG":"O","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["C",0.15],"HJ>BTN":["J",1.08],"CO>BTN":["J",1.83],"CO>BB":["J",2.08],"BTN>SB":["J",2.64],"BTN>BB":["J",2.75],"SB>BB":["J",3.58]},"vj":{"CO":["K",47.4,45.8,23],"BTN":["K",52.7,45.8,34],"SB":["K",57.7,46.3,54]},"v3":["J",0.67]},"A7s":{"fi":{"UTG":"O","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["C",-0.09],"HJ>BTN":["J",0.99],"CO>BTN":["J",1.64],"CO>BB":["J",1.89],"BTN>SB":["J",2.47],"BTN>BB":["J",2.58],"SB>BB":["J",3.22]},"vj":{"CO":["F",45.7,45.8,23],"BTN":["K",50.7,45.8,34],"SB":["K",55.7,46.3,54]},"v3":["J",0.67]},"A6s":{"fi":{"UTG":"F","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["F",-0.37],"HJ>BTN":["J",0.85],"CO>BTN":["J",1.49],"CO>BB":["J",1.74],"BTN>SB":["J",2.3],"BTN>BB":["J",2.41],"SB>BB":["J",3.02]},"vj":{"CO":["F",44.7,45.8,23],"BTN":["K",48.9,45.8,34],"SB":["K",54.3,46.3,54]},"v3":["J",0.64]},"A5s":{"fi":{"UTG":"J","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["C",-0.13],"HJ>BTN":["J",0.94],"CO>BTN":["J",1.56],"CO>BB":["J",1.82],"BTN>SB":["J",2.36],"BTN>BB":["J",2.48],"SB>BB":["J",3.04]},"vj":{"CO":["F",45.0,45.8,23],"BTN":["K",48.5,45.8,34],"SB":["K",54.2,46.3,54]},"v3":["J",1.35]},"A4s":{"fi":{"UTG":"J","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["C",-0.17],"HJ>BTN":["J",0.83],"CO>BTN":["J",1.41],"CO>BB":["J",1.67],"BTN>SB":["J",2.22],"BTN>BB":["J",2.33],"SB>BB":["J",2.87]},"vj":{"CO":["F",44.2,45.8,23],"BTN":["K",47.5,45.8,34],"SB":["K",53.1,46.3,54]},"v3":["J",1.29]},"A3s":{"fi":{"UTG":"F","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["C",-0.22],"HJ>BTN":["J",0.68],"CO>BTN":["J",1.29],"CO>BB":["J",1.55],"BTN>SB":["J",2.12],"BTN>BB":["J",2.24],"SB>BB":["J",2.81]},"vj":{"CO":["F",43.8,45.8,23],"BTN":["K",47.0,45.8,34],"SB":["K",52.5,46.3,54]},"v3":["J",1.21]},"A2s":{"fi":{"UTG":"F","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["F",-0.31],"HJ>BTN":["J",0.6],"CO>BTN":["J",1.12],"CO>BB":["J",1.38],"BTN>SB":["J",1.99],"BTN>BB":["J",2.11],"SB>BB":["J",2.72]},"vj":{"CO":["F",43.1,45.8,23],"BTN":["K",46.4,45.8,34],"SB":["K",51.8,46.3,54]},"v3":["J",1.09]},"A9o":{"fi":{"UTG":"F","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["F",-0.37],"HJ>BTN":["J",0.61],"CO>BTN":["J",1.44],"CO>BB":["J",1.69],"BTN>SB":["J",2.47],"BTN>BB":["J",2.58],"SB>BB":["J",3.53]},"vj":{"CO":["K",47.0,45.8,23],"BTN":["K",52.4,45.8,34],"SB":["K",56.7,46.3,54]},"v3":["C",0.16]},"A8o":{"fi":{"UTG":"F","MP":"F","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["F",-0.58],"HJ>BTN":["J",0.44],"CO>BTN":["J",1.22],"CO>BB":["J",1.49],"BTN>SB":["J",2.1],"BTN>BB":["J",2.22],"SB>BB":["J",3.1]},"vj":{"CO":["F",44.3,45.8,23],"BTN":["K",50.1,45.8,34],"SB":["K",55.2,46.3,54]},"v3":["F",-0.41]},"A7o":{"fi":{"UTG":"F","MP":"F","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["F",-0.85],"HJ>BTN":["J",0.35],"CO>BTN":["J",1.04],"CO>BB":["J",1.31],"BTN>SB":["J",1.94],"BTN>BB":["J",2.05],"SB>BB":["J",2.72]},"vj":{"CO":["F",42.5,45.8,23],"BTN":["K",47.9,45.8,34],"SB":["K",53.2,46.3,54]},"v3":["F",-0.42]},"A6o":{"fi":{"UTG":"F","MP":"F","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["F",-1.1],"HJ>BTN":["C",0.21],"CO>BTN":["J",0.87],"CO>BB":["J",1.14],"BTN>SB":["J",1.76],"BTN>BB":["J",1.88],"SB>BB":["J",2.51]},"vj":{"CO":["F",41.4,45.8,23],"BTN":["K",45.9,45.8,34],"SB":["K",51.7,46.3,54]},"v3":["F",-0.44]},"A5o":{"fi":{"UTG":"F","MP":"F","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["F",-0.81],"HJ>BTN":["J",0.32],"CO>BTN":["J",0.98],"CO>BB":["J",1.25],"BTN>SB":["J",1.85],"BTN>BB":["J",1.97],"SB>BB":["J",2.54]},"vj":{"CO":["F",41.9,45.8,23],"BTN":["F",45.6,45.8,34],"SB":["K",51.6,46.3,54]},"v3":["J",0.38]},"A4o":{"fi":{"UTG":"F","MP":"F","HJ":"F","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["F",-0.88],"HJ>BTN":["C",0.18],"CO>BTN":["J",0.8],"CO>BB":["J",1.07],"BTN>SB":["J",1.68],"BTN>BB":["J",1.8],"SB>BB":["J",2.36]},"vj":{"CO":["F",41.0,45.8,23],"BTN":["F",44.5,45.8,34],"SB":["K",50.5,46.3,54]},"v3":["J",0.28]},"A3o":{"fi":{"UTG":"F","MP":"F","HJ":"F","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["F",-0.97],"HJ>BTN":["C",-0.01],"CO>BTN":["J",0.64],"CO>BB":["J",0.91],"BTN>SB":["J",1.56],"BTN>BB":["J",1.68],"SB>BB":["J",2.27]},"vj":{"CO":["F",40.4,45.8,23],"BTN":["F",43.8,45.8,34],"SB":["K",49.7,46.3,54]},"v3":["C",0.16]},"A2o":{"fi":{"UTG":"F","MP":"F","HJ":"F","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["F",-1.04],"HJ>BTN":["C",-0.08],"CO>BTN":["J",0.48],"CO>BB":["J",0.76],"BTN>SB":["J",1.43],"BTN>BB":["J",1.55],"SB>BB":["J",2.18]},"vj":{"CO":["F",39.7,45.8,23],"BTN":["F",43.2,45.8,34],"SB":["K",48.9,46.3,54]},"v3":["C",0.05]},"JJ":{"fi":{"UTG":"O","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["J",4.32],"HJ>BTN":["J",5.56],"CO>BTN":["J",5.84],"CO>BB":["J",5.99],"BTN>SB":["J",6.1],"BTN>BB":["J",6.17],"SB>BB":["J",6.51]},"vj":{"CO":["K",67.0,45.8,23],"BTN":["K",69.1,45.8,34],"SB":["K",71.8,46.3,54]},"v3":["J",6.33]},"TT":{"fi":{"UTG":"O","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["J",3.2],"HJ>BTN":["J",4.71],"CO>BTN":["J",5.13],"CO>BB":["J",5.3],"BTN>SB":["J",5.43],"BTN>BB":["J",5.51],"SB>BB":["J",5.92]},"vj":{"CO":["K",62.4,45.8,23],"BTN":["K",65.5,45.8,34],"SB":["K",68.9,46.3,54]},"v3":["J",4.26]},"99":{"fi":{"UTG":"O","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["J",2.18],"HJ>BTN":["J",3.91],"CO>BTN":["J",4.43],"CO>BB":["J",4.62],"BTN>SB":["J",4.73],"BTN>BB":["J",4.82],"SB>BB":["J",5.25]},"vj":{"CO":["K",58.2,45.8,23],"BTN":["K",61.3,45.8,34],"SB":["K",65.4,46.3,54]},"v3":["J",2.42]},"88":{"fi":{"UTG":"O","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["J",1.19],"HJ>BTN":["J",3.37],"CO>BTN":["J",3.95],"CO>BB":["J",4.15],"BTN>SB":["J",4.26],"BTN>BB":["J",4.36],"SB>BB":["J",4.72]},"vj":{"CO":["K",54.7,45.8,23],"BTN":["K",58.4,45.8,34],"SB":["K",61.9,46.3,54]},"v3":["J",1.11]},"77":{"fi":{"UTG":"O","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["C",0.18],"HJ>BTN":["J",2.87],"CO>BTN":["J",3.5],"CO>BB":["J",3.71],"BTN>SB":["J",3.9],"BTN>BB":["J",4.0],"SB>BB":["J",4.26]},"vj":{"CO":["K",52.2,45.8,23],"BTN":["K",55.8,45.8,34],"SB":["K",58.8,46.3,54]},"v3":["J",1.13]},"66":{"fi":{"UTG":"O","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["F",-0.38],"HJ>BTN":["J",2.37],"CO>BTN":["J",3.07],"CO>BB":["J",3.29],"BTN>SB":["J",3.55],"BTN>BB":["J",3.65],"SB>BB":["J",3.92]},"vj":{"CO":["K",50.4,45.8,23],"BTN":["K",53.5,45.8,34],"SB":["K",56.3,46.3,54]},"v3":["J",1.12]},"55":{"fi":{"UTG":"O","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["F",-0.37],"HJ>BTN":["J",1.86],"CO>BTN":["J",2.64],"CO>BB":["J",2.87],"BTN>SB":["J",3.2],"BTN>BB":["J",3.31],"SB>BB":["J",3.57]},"vj":{"CO":["K",48.6,45.8,23],"BTN":["K",51.5,45.8,34],"SB":["K",54.0,46.3,54]},"v3":["J",1.65]},"44":{"fi":{"UTG":"O","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["F",-0.47],"HJ>BTN":["J",1.37],"CO>BTN":["J",2.15],"CO>BB":["J",2.4],"BTN>SB":["J",2.8],"BTN>BB":["J",2.92],"SB>BB":["J",3.17]},"vj":{"CO":["K",46.5,45.8,23],"BTN":["K",49.5,45.8,34],"SB":["K",51.5,46.3,54]},"v3":["J",1.48]},"33":{"fi":{"UTG":"O","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["F",-0.53],"HJ>BTN":["J",1.02],"CO>BTN":["J",1.7],"CO>BB":["J",1.96],"BTN>SB":["J",2.41],"BTN>BB":["J",2.52],"SB>BB":["J",2.84]},"vj":{"CO":["F",44.5,45.8,23],"BTN":["K",47.4,45.8,34],"SB":["K",49.3,46.3,54]},"v3":["J",1.4]},"22":{"fi":{"UTG":"O","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["F",-0.62],"HJ>BTN":["J",0.92],"CO>BTN":["J",1.22],"CO>BB":["J",1.49],"BTN>SB":["J",1.99],"BTN>BB":["J",2.11],"SB>BB":["J",2.53]},"vj":{"CO":["F",42.5,45.8,23],"BTN":["F",45.3,45.8,34],"SB":["K",47.4,46.3,54]},"v3":["J",1.25]}},"25":{"AKs":{"fi":{"UTG":"O","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["J",3.26],"HJ>BTN":["J",4.9],"CO>BTN":["J",5.31],"CO>BB":["J",5.48],"BTN>SB":["J",6.03],"BTN>BB":["J",6.1],"SB>BB":["J",6.33]},"vj":{"CO":["K",62.4,46.6,23],"BTN":["K",65.0,46.6,34],"SB":["K",66.5,47.1,54]},"v3":["J",5.85]},"AKo":{"fi":{"UTG":"O","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["J",2.72],"HJ>BTN":["J",4.46],"CO>BTN":["J",4.86],"CO>BB":["J",5.05],"BTN>SB":["J",5.66],"BTN>BB":["J",5.73],"SB>BB":["J",5.98]},"vj":{"CO":["K",60.4,46.6,23],"BTN":["K",63.2,46.6,34],"SB":["K",64.7,47.1,54]},"v3":["J",5.01]},"AQs":{"fi":{"UTG":"O","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["J",1.77],"HJ>BTN":["J",3.71],"CO>BTN":["J",4.36],"CO>BB":["J",4.55],"BTN>SB":["J",5.27],"BTN>BB":["J",5.35],"SB>BB":["J",5.62]},"vj":{"CO":["K",59.6,46.6,23],"BTN":["K",62.7,46.6,34],"SB":["K",64.3,47.1,54]},"v3":["J",2.64]},"AQo":{"fi":{"UTG":"O","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["J",1.12],"HJ>BTN":["J",3.17],"CO>BTN":["J",3.83],"CO>BB":["J",4.03],"BTN>SB":["J",4.83],"BTN>BB":["J",4.92],"SB>BB":["J",5.21]},"vj":{"CO":["K",57.5,46.6,23],"BTN":["K",60.8,46.6,34],"SB":["K",62.4,47.1,54]},"v3":["J",1.62]},"AJs":{"fi":{"UTG":"O","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["J",1.14],"HJ>BTN":["J",2.59],"CO>BTN":["J",3.34],"CO>BB":["J",3.55],"BTN>SB":["J",4.6],"BTN>BB":["J",4.69],"SB>BB":["J",5.06]},"vj":{"CO":["K",57.0,46.6,23],"BTN":["K",60.7,46.6,34],"SB":["K",62.8,47.1,54]},"v3":["J",1.64]},"AJo":{"fi":{"UTG":"O","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["J",0.47],"HJ>BTN":["J",1.99],"CO>BTN":["J",2.76],"CO>BB":["J",2.98],"BTN>SB":["J",4.13],"BTN>BB":["J",4.22],"SB>BB":["J",4.61]},"vj":{"CO":["K",54.8,46.6,23],"BTN":["K",58.6,46.6,34],"SB":["K",60.8,47.1,54]},"v3":["J",0.45]},"ATs":{"fi":{"UTG":"O","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["J",0.53],"HJ>BTN":["J",1.54],"CO>BTN":["J",2.49],"CO>BB":["J",2.71],"BTN>SB":["J",3.9],"BTN>BB":["J",3.99],"SB>BB":["J",4.53]},"vj":{"CO":["K",53.7,46.6,23],"BTN":["K",58.8,46.6,34],"SB":["K",61.5,47.1,54]},"v3":["J",0.76]},"ATo":{"fi":{"UTG":"O","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["C",-0.18],"HJ>BTN":["J",0.84],"CO>BTN":["J",1.82],"CO>BB":["J",2.06],"BTN>SB":["J",3.37],"BTN>BB":["J",3.46],"SB>BB":["J",4.04]},"vj":{"CO":["K",51.2,46.6,23],"BTN":["K",56.6,46.6,34],"SB":["K",59.4,47.1,54]},"v3":["F",-0.62]},"KQs":{"fi":{"UTG":"O","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["J",0.88],"HJ>BTN":["J",1.52],"CO>BTN":["J",2.01],"CO>BB":["J",2.24],"BTN>SB":["J",2.73],"BTN>BB":["J",2.84],"SB>BB":["J",3.37]},"vj":{"CO":["K",49.7,46.6,23],"BTN":["K",51.9,46.6,34],"SB":["K",58.4,47.1,54]},"v3":["J",1.51]},"KQo":{"fi":{"UTG":"O","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["C",0.17],"HJ>BTN":["J",0.85],"CO>BTN":["J",1.36],"CO>BB":["J",1.61],"BTN>SB":["J",2.12],"BTN>BB":["J",2.24],"SB>BB":["J",2.82]},"vj":{"CO":["K",47.0,46.6,23],"BTN":["K",49.3,46.6,34],"SB":["K",56.2,47.1,54]},"v3":["J",0.35]},"KJs":{"fi":{"UTG":"O","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["J",0.66],"HJ>BTN":["J",1.12],"CO>BTN":["J",1.46],"CO>BB":["J",1.71],"BTN>SB":["J",2.14],"BTN>BB":["J",2.25],"SB>BB":["J",2.86]},"vj":{"CO":["K",47.4,46.6,23],"BTN":["K",50.2,46.6,34],"SB":["K",57.0,47.1,54]},"v3":["J",1.31]},"KJo":{"fi":{"UTG":"F","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["C",-0.05],"HJ>BTN":["J",0.44],"CO>BTN":["J",0.79],"CO>BB":["J",1.04],"BTN>SB":["J",1.5],"BTN>BB":["J",1.62],"SB>BB":["J",2.26]},"vj":{"CO":["F",44.6,46.6,23],"BTN":["K",47.5,46.6,34],"SB":["K",54.7,47.1,54]},"v3":["C",0.18]},"KTs":{"fi":{"UTG":"O","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["J",0.42],"HJ>BTN":["J",0.87],"CO>BTN":["J",1.12],"CO>BB":["J",1.37],"BTN>SB":["J",1.74],"BTN>BB":["J",1.86],"SB>BB":["J",2.37]},"vj":{"CO":["F",45.5,46.6,23],"BTN":["K",48.6,46.6,34],"SB":["K",55.8,47.1,54]},"v3":["J",0.86]},"KTo":{"fi":{"UTG":"F","MP":"F","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["F",-0.32],"HJ>BTN":["C",0.14],"CO>BTN":["J",0.4],"CO>BB":["J",0.67],"BTN>SB":["J",1.05],"BTN>BB":["J",1.18],"SB>BB":["J",1.73]},"vj":{"CO":["F",42.4,46.6,23],"BTN":["F",45.7,46.6,34],"SB":["K",53.2,47.1,54]},"v3":["F",-0.3]},"QJs":{"fi":{"UTG":"O","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["J",0.64],"HJ>BTN":["J",1.07],"CO>BTN":["J",1.23],"CO>BB":["J",1.48],"BTN>SB":["J",1.74],"BTN>BB":["J",1.86],"SB>BB":["J",2.19]},"vj":{"CO":["F",45.1,46.6,23],"BTN":["K",47.7,46.6,34],"SB":["K",52.3,47.1,54]},"v3":["J",0.95]},"QJo":{"fi":{"UTG":"F","MP":"F","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["C",-0.1],"HJ>BTN":["J",0.37],"CO>BTN":["J",0.55],"CO>BB":["J",0.81],"BTN>SB":["J",1.07],"BTN>BB":["J",1.2],"SB>BB":["J",1.54]},"vj":{"CO":["F",42.1,46.6,23],"BTN":["F",44.7,46.6,34],"SB":["K",49.7,47.1,54]},"v3":["C",-0.23]},"QTs":{"fi":{"UTG":"F","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["J",0.38],"HJ>BTN":["J",0.95],"CO>BTN":["J",1.01],"CO>BB":["J",1.27],"BTN>SB":["J",1.58],"BTN>BB":["J",1.7],"SB>BB":["J",1.98]},"vj":{"CO":["F",43.8,46.6,23],"BTN":["F",46.0,46.6,34],"SB":["K",51.1,47.1,54]},"v3":["J",0.51]},"QTo":{"fi":{"UTG":"F","MP":"F","HJ":"F","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["F",-0.36],"HJ>BTN":["C",0.23],"CO>BTN":["J",0.3],"CO>BB":["J",0.57],"BTN>SB":["J",0.92],"BTN>BB":["J",1.04],"SB>BB":["J",1.33]},"vj":{"CO":["F",40.8,46.6,23],"BTN":["F",43.0,46.6,34],"SB":["K",48.4,47.1,54]},"v3":["F",-0.69]},"JTs":{"fi":{"UTG":"F","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["J",0.41],"HJ>BTN":["J",0.99],"CO>BTN":["J",1.16],"CO>BB":["J",1.41],"BTN>SB":["J",1.57],"BTN>BB":["J",1.7],"SB>BB":["J",1.92]},"vj":{"CO":["F",42.6,46.6,23],"BTN":["F",44.8,46.6,34],"SB":["K",49.3,47.1,54]},"v3":["J",0.72]},"JTo":{"fi":{"UTG":"F","MP":"F","HJ":"F","CO":"F","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["F",-0.35],"HJ>BTN":["J",0.25],"CO>BTN":["J",0.42],"CO>BB":["J",0.69],"BTN>SB":["J",0.88],"BTN>BB":["J",1.01],"SB>BB":["J",1.26]},"vj":{"CO":["F",39.4,46.6,23],"BTN":["F",41.8,46.6,34],"SB":["F",46.4,47.1,54]},"v3":["F",-0.53]},"A9s":{"fi":{"UTG":"O","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["C",0.0],"HJ>BTN":["J",0.69],"CO>BTN":["J",1.68],"CO>BB":["J",1.93],"BTN>SB":["J",3.04],"BTN>BB":["J",3.14],"SB>BB":["J",3.73]},"vj":{"CO":["K",49.8,46.6,23],"BTN":["K",54.9,46.6,34],"SB":["K",59.0,47.1,54]},"v3":["C",-0.05]},"A8s":{"fi":{"UTG":"O","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["C",-0.2],"HJ>BTN":["J",0.52],"CO>BTN":["J",1.45],"CO>BB":["J",1.7],"BTN>SB":["J",2.52],"BTN>BB":["J",2.62],"SB>BB":["J",3.19]},"vj":{"CO":["K",47.4,46.6,23],"BTN":["K",52.7,46.6,34],"SB":["K",57.7,47.1,54]},"v3":["F",-0.62]},"A7s":{"fi":{"UTG":"O","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["F",-0.47],"HJ>BTN":["J",0.4],"CO>BTN":["J",1.22],"CO>BB":["J",1.47],"BTN>SB":["J",2.17],"BTN>BB":["J",2.28],"SB>BB":["J",2.8]},"vj":{"CO":["F",45.7,46.6,23],"BTN":["K",50.7,46.6,34],"SB":["K",55.7,47.1,54]},"v3":["F",-0.62]},"A6s":{"fi":{"UTG":"F","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["F",-0.75],"HJ>BTN":["C",0.23],"CO>BTN":["J",1.03],"CO>BB":["J",1.29],"BTN>SB":["J",1.95],"BTN>BB":["J",2.06],"SB>BB":["J",2.51]},"vj":{"CO":["F",44.7,46.6,23],"BTN":["K",48.9,46.6,34],"SB":["K",54.3,47.1,54]},"v3":["F",-0.66]},"A5s":{"fi":{"UTG":"O","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["F",-0.48],"HJ>BTN":["J",0.34],"CO>BTN":["J",1.12],"CO>BB":["J",1.38],"BTN>SB":["J",2.04],"BTN>BB":["J",2.15],"SB>BB":["J",2.58]},"vj":{"CO":["F",45.0,46.6,23],"BTN":["K",48.5,46.6,34],"SB":["K",54.2,47.1,54]},"v3":["C",0.17]},"A4s":{"fi":{"UTG":"F","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["F",-0.53],"HJ>BTN":["C",0.19],"CO>BTN":["J",0.93],"CO>BB":["J",1.19],"BTN>SB":["J",1.88],"BTN>BB":["J",2.0],"SB>BB":["J",2.43]},"vj":{"CO":["F",44.2,46.6,23],"BTN":["K",47.5,46.6,34],"SB":["K",53.1,47.1,54]},"v3":["C",0.1]},"A3s":{"fi":{"UTG":"F","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["F",-0.58],"HJ>BTN":["C",0.02],"CO>BTN":["J",0.78],"CO>BB":["J",1.04],"BTN>SB":["J",1.77],"BTN>BB":["J",1.88],"SB>BB":["J",2.36]},"vj":{"CO":["F",43.8,46.6,23],"BTN":["K",47.0,46.6,34],"SB":["K",52.5,47.1,54]},"v3":["C",-0.0]},"A2s":{"fi":{"UTG":"F","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["F",-0.69],"HJ>BTN":["C",-0.08],"CO>BTN":["J",0.58],"CO>BB":["J",0.84],"BTN>SB":["J",1.6],"BTN>BB":["J",1.72],"SB>BB":["J",2.21]},"vj":{"CO":["F",43.1,46.6,23],"BTN":["F",46.4,46.6,34],"SB":["K",51.8,47.1,54]},"v3":["C",-0.15]},"A9o":{"fi":{"UTG":"F","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["F",-0.82],"HJ>BTN":["C",-0.07],"CO>BTN":["J",0.97],"CO>BB":["J",1.23],"BTN>SB":["J",2.44],"BTN>BB":["J",2.55],"SB>BB":["J",3.19]},"vj":{"CO":["K",47.0,46.6,23],"BTN":["K",52.4,46.6,34],"SB":["K",56.7,47.1,54]},"v3":["F",-1.32]},"A8o":{"fi":{"UTG":"F","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["F",-1.03],"HJ>BTN":["F",-0.27],"CO>BTN":["J",0.71],"CO>BB":["J",0.97],"BTN>SB":["J",1.87],"BTN>BB":["J",1.98],"SB>BB":["J",2.58]},"vj":{"CO":["F",44.3,46.6,23],"BTN":["K",50.1,46.6,34],"SB":["K",55.2,47.1,54]},"v3":["F",-1.96]},"A7o":{"fi":{"UTG":"F","MP":"F","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["F",-1.32],"HJ>BTN":["F",-0.39],"CO>BTN":["J",0.48],"CO>BB":["J",0.75],"BTN>SB":["J",1.5],"BTN>BB":["J",1.62],"SB>BB":["J",2.18]},"vj":{"CO":["F",42.5,46.6,23],"BTN":["K",47.9,46.6,34],"SB":["K",53.2,47.1,54]},"v3":["F",-1.97]},"A6o":{"fi":{"UTG":"F","MP":"F","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["F",-1.58],"HJ>BTN":["F",-0.57],"CO>BTN":["J",0.26],"CO>BB":["J",0.53],"BTN>SB":["J",1.28],"BTN>BB":["J",1.4],"SB>BB":["J",1.87]},"vj":{"CO":["F",41.4,46.6,23],"BTN":["F",45.9,46.6,34],"SB":["K",51.7,47.1,54]},"v3":["F",-2.0]},"A5o":{"fi":{"UTG":"F","MP":"F","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["F",-1.3],"HJ>BTN":["F",-0.42],"CO>BTN":["J",0.4],"CO>BB":["J",0.67],"BTN>SB":["J",1.4],"BTN>BB":["J",1.52],"SB>BB":["J",1.96]},"vj":{"CO":["F",41.9,46.6,23],"BTN":["F",45.6,46.6,34],"SB":["K",51.6,47.1,54]},"v3":["F",-1.03]},"A4o":{"fi":{"UTG":"F","MP":"F","HJ":"F","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["F",-1.34],"HJ>BTN":["F",-0.61],"CO>BTN":["C",0.18],"CO>BB":["J",0.45],"BTN>SB":["J",1.23],"BTN>BB":["J",1.34],"SB>BB":["J",1.79]},"vj":{"CO":["F",41.0,46.6,23],"BTN":["F",44.5,46.6,34],"SB":["K",50.5,47.1,54]},"v3":["F",-1.15]},"A3o":{"fi":{"UTG":"F","MP":"F","HJ":"F","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["F",-1.44],"HJ>BTN":["F",-0.84],"CO>BTN":["C",-0.02],"CO>BB":["J",0.25],"BTN>SB":["J",1.07],"BTN>BB":["J",1.19],"SB>BB":["J",1.69]},"vj":{"CO":["F",40.4,46.6,23],"BTN":["F",43.8,46.6,34],"SB":["K",49.7,47.1,54]},"v3":["F",-1.3]},"A2o":{"fi":{"UTG":"F","MP":"F","HJ":"F","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["F",-1.52],"HJ>BTN":["F",-0.92],"CO>BTN":["C",-0.21],"CO>BB":["C",0.07],"BTN>SB":["J",0.91],"BTN>BB":["J",1.03],"SB>BB":["J",1.56]},"vj":{"CO":["F",39.7,46.6,23],"BTN":["F",43.2,46.6,34],"SB":["K",48.9,47.1,54]},"v3":["F",-1.44]},"JJ":{"fi":{"UTG":"O","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["J",4.72],"HJ>BTN":["J",6.05],"CO>BTN":["J",6.4],"CO>BB":["J",6.56],"BTN>SB":["J",6.78],"BTN>BB":["J",6.85],"SB>BB":["J",7.08]},"vj":{"CO":["K",67.0,46.6,23],"BTN":["K",69.1,46.6,34],"SB":["K",71.8,47.1,54]},"v3":["J",6.29]},"TT":{"fi":{"UTG":"O","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["J",3.43],"HJ>BTN":["J",5.0],"CO>BTN":["J",5.53],"CO>BB":["J",5.7],"BTN>SB":["J",6.0],"BTN>BB":["J",6.08],"SB>BB":["J",6.3]},"vj":{"CO":["K",62.4,46.6,23],"BTN":["K",65.5,46.6,34],"SB":["K",68.9,47.1,54]},"v3":["J",3.77]},"99":{"fi":{"UTG":"O","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["J",2.18],"HJ>BTN":["J",4.02],"CO>BTN":["J",4.67],"CO>BB":["J",4.87],"BTN>SB":["J",5.18],"BTN>BB":["J",5.27],"SB>BB":["J",5.45]},"vj":{"CO":["K",58.2,46.6,23],"BTN":["K",61.3,46.6,34],"SB":["K",65.4,47.1,54]},"v3":["J",1.47]},"88":{"fi":{"UTG":"O","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["J",1.09],"HJ>BTN":["J",3.36],"CO>BTN":["J",4.08],"CO>BB":["J",4.28],"BTN>SB":["J",4.54],"BTN>BB":["J",4.63],"SB>BB":["J",4.8]},"vj":{"CO":["K",54.7,46.6,23],"BTN":["K",58.4,46.6,34],"SB":["K",61.9,47.1,54]},"v3":["C",-0.04]},"77":{"fi":{"UTG":"O","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["C",-0.02],"HJ>BTN":["J",2.74],"CO>BTN":["J",3.52],"CO>BB":["J",3.73],"BTN>SB":["J",4.04],"BTN>BB":["J",4.14],"SB>BB":["J",4.26]},"vj":{"CO":["K",52.2,46.6,23],"BTN":["K",55.8,46.6,34],"SB":["K",58.8,47.1,54]},"v3":["C",-0.02]},"66":{"fi":{"UTG":"O","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["F",-0.62],"HJ>BTN":["J",2.11],"CO>BTN":["J",2.99],"CO>BB":["J",3.21],"BTN>SB":["J",3.59],"BTN>BB":["J",3.7],"SB>BB":["J",3.81]},"vj":{"CO":["K",50.4,46.6,23],"BTN":["K",53.5,46.6,34],"SB":["K",56.3,47.1,54]},"v3":["C",-0.03]},"55":{"fi":{"UTG":"O","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["F",-0.69],"HJ>BTN":["J",1.48],"CO>BTN":["J",2.46],"CO>BB":["J",2.69],"BTN>SB":["J",3.17],"BTN>BB":["J",3.28],"SB>BB":["J",3.41]},"vj":{"CO":["K",48.6,46.6,23],"BTN":["K",51.5,46.6,34],"SB":["K",54.0,47.1,54]},"v3":["J",0.56]},"44":{"fi":{"UTG":"O","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["F",-0.74],"HJ>BTN":["J",0.87],"CO>BTN":["J",1.86],"CO>BB":["J",2.1],"BTN>SB":["J",2.71],"BTN>BB":["J",2.82],"SB>BB":["J",2.98]},"vj":{"CO":["F",46.5,46.6,23],"BTN":["K",49.5,46.6,34],"SB":["K",51.5,47.1,54]},"v3":["J",0.35]},"33":{"fi":{"UTG":"O","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["F",-0.8],"HJ>BTN":["J",0.45],"CO>BTN":["J",1.3],"CO>BB":["J",1.55],"BTN>SB":["J",2.22],"BTN>BB":["J",2.34],"SB>BB":["J",2.59]},"vj":{"CO":["F",44.5,46.6,23],"BTN":["K",47.4,46.6,34],"SB":["K",49.3,47.1,54]},"v3":["J",0.25]},"22":{"fi":{"UTG":"O","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["F",-0.92],"HJ>BTN":["J",0.32],"CO>BTN":["J",0.71],"CO>BB":["J",0.97],"BTN>SB":["J",1.72],"BTN>BB":["J",1.84],"SB>BB":["J",2.15]},"vj":{"CO":["F",42.5,46.6,23],"BTN":["F",45.3,46.6,34],"SB":["K",47.4,47.1,54]},"v3":["C",0.06]}},"30":{"AKs":{"fi":{"UTG":"O","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["J",3.21],"HJ>BTN":["J",5.17],"CO>BTN":["J",5.66],"CO>BB":["J",5.84],"BTN>SB":["J",6.48],"BTN>BB":["J",6.55],"SB>BB":["J",6.82]},"vj":{"CO":["K",62.4,47.2,23],"BTN":["K",65.0,47.2,34],"SB":["K",66.5,47.5,54]},"v3":["J",5.71]},"AKo":{"fi":{"UTG":"O","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["J",2.57],"HJ>BTN":["J",4.64],"CO>BTN":["J",5.14],"CO>BB":["J",5.32],"BTN>SB":["J",6.04],"BTN>BB":["J",6.12],"SB>BB":["J",6.4]},"vj":{"CO":["K",60.4,47.2,23],"BTN":["K",63.2,47.2,34],"SB":["K",64.7,47.5,54]},"v3":["J",4.71]},"AQs":{"fi":{"UTG":"O","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["J",1.45],"HJ>BTN":["J",3.75],"CO>BTN":["J",4.53],"CO>BB":["J",4.72],"BTN>SB":["J",5.58],"BTN>BB":["J",5.66],"SB>BB":["J",5.98]},"vj":{"CO":["K",59.6,47.2,23],"BTN":["K",62.7,47.2,34],"SB":["K",64.3,47.5,54]},"v3":["J",1.94]},"AQo":{"fi":{"UTG":"O","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["J",0.67],"HJ>BTN":["J",3.11],"CO>BTN":["J",3.91],"CO>BB":["J",4.11],"BTN>SB":["J",5.06],"BTN>BB":["J",5.15],"SB>BB":["J",5.49]},"vj":{"CO":["K",57.5,47.2,23],"BTN":["K",60.8,47.2,34],"SB":["K",62.4,47.5,54]},"v3":["J",0.72]},"AJs":{"fi":{"UTG":"O","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["J",0.7],"HJ>BTN":["J",2.42],"CO>BTN":["J",3.32],"CO>BB":["J",3.53],"BTN>SB":["J",4.78],"BTN>BB":["J",4.87],"SB>BB":["J",5.32]},"vj":{"CO":["K",57.0,47.2,23],"BTN":["K",60.7,47.2,34],"SB":["K",62.8,47.5,54]},"v3":["J",0.72]},"AJo":{"fi":{"UTG":"O","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["C",-0.1],"HJ>BTN":["J",1.71],"CO>BTN":["J",2.63],"CO>BB":["J",2.85],"BTN>SB":["J",4.22],"BTN>BB":["J",4.31],"SB>BB":["J",4.78]},"vj":{"CO":["K",54.8,47.2,23],"BTN":["K",58.6,47.2,34],"SB":["K",60.8,47.5,54]},"v3":["F",-0.71]},"ATs":{"fi":{"UTG":"O","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["C",-0.03],"HJ>BTN":["J",1.17],"CO>BTN":["J",2.31],"CO>BB":["J",2.53],"BTN>SB":["J",3.95],"BTN>BB":["J",4.04],"SB>BB":["J",4.68]},"vj":{"CO":["K",53.7,47.2,23],"BTN":["K",58.8,47.2,34],"SB":["K",61.5,47.5,54]},"v3":["F",-0.33]},"ATo":{"fi":{"UTG":"O","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["F",-0.88],"HJ>BTN":["J",0.34],"CO>BTN":["J",1.51],"CO>BB":["J",1.75],"BTN>SB":["J",3.31],"BTN>BB":["J",3.41],"SB>BB":["J",4.09]},"vj":{"CO":["K",51.2,47.2,23],"BTN":["K",56.6,47.2,34],"SB":["K",59.4,47.5,54]},"v3":["F",-1.95]},"KQs":{"fi":{"UTG":"O","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["J",0.39],"HJ>BTN":["J",1.15],"CO>BTN":["J",1.73],"CO>BB":["J",1.97],"BTN>SB":["J",2.56],"BTN>BB":["J",2.67],"SB>BB":["J",3.31]},"vj":{"CO":["K",49.7,47.2,23],"BTN":["K",51.9,47.2,34],"SB":["K",58.4,47.5,54]},"v3":["J",0.56]},"KQo":{"fi":{"UTG":"O","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["F",-0.46],"HJ>BTN":["J",0.35],"CO>BTN":["J",0.96],"CO>BB":["J",1.21],"BTN>SB":["J",1.84],"BTN>BB":["J",1.96],"SB>BB":["J",2.64]},"vj":{"CO":["F",47.0,47.2,23],"BTN":["K",49.3,47.2,34],"SB":["K",56.2,47.5,54]},"v3":["F",-0.82]},"KJs":{"fi":{"UTG":"O","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["C",0.12],"HJ>BTN":["J",0.68],"CO>BTN":["J",1.09],"CO>BB":["J",1.33],"BTN>SB":["J",1.86],"BTN>BB":["J",1.98],"SB>BB":["J",2.7]},"vj":{"CO":["K",47.4,47.2,23],"BTN":["K",50.2,47.2,34],"SB":["K",57.0,47.5,54]},"v3":["J",0.29]},"KJo":{"fi":{"UTG":"F","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["F",-0.73],"HJ>BTN":["C",-0.14],"CO>BTN":["J",0.28],"CO>BB":["J",0.54],"BTN>SB":["J",1.09],"BTN>BB":["J",1.21],"SB>BB":["J",1.98]},"vj":{"CO":["F",44.6,47.2,23],"BTN":["K",47.5,47.2,34],"SB":["K",54.7,47.5,54]},"v3":["F",-1.06]},"KTs":{"fi":{"UTG":"O","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["C",-0.18],"HJ>BTN":["J",0.38],"CO>BTN":["J",0.68],"CO>BB":["J",0.93],"BTN>SB":["J",1.39],"BTN>BB":["J",1.51],"SB>BB":["J",2.11]},"vj":{"CO":["F",45.5,47.2,23],"BTN":["K",48.6,47.2,34],"SB":["K",55.8,47.5,54]},"v3":["C",-0.23]},"KTo":{"fi":{"UTG":"F","MP":"F","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["F",-1.05],"HJ>BTN":["F",-0.49],"CO>BTN":["C",-0.18],"CO>BB":["C",0.09],"BTN>SB":["J",0.57],"BTN>BB":["J",0.7],"SB>BB":["J",1.34]},"vj":{"CO":["F",42.4,47.2,23],"BTN":["F",45.7,47.2,34],"SB":["K",53.2,47.5,54]},"v3":["F",-1.6]},"QJs":{"fi":{"UTG":"O","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["C",0.1],"HJ>BTN":["J",0.61],"CO>BTN":["J",0.81],"CO>BB":["J",1.06],"BTN>SB":["J",1.39],"BTN>BB":["J",1.51],"SB>BB":["J",1.9]},"vj":{"CO":["F",45.1,47.2,23],"BTN":["K",47.7,47.2,34],"SB":["K",52.3,47.5,54]},"v3":["C",-0.09]},"QJo":{"fi":{"UTG":"F","MP":"F","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["F",-0.78],"HJ>BTN":["C",-0.22],"CO>BTN":["C",-0.01],"CO>BB":["J",0.25],"BTN>SB":["J",0.59],"BTN>BB":["J",0.71],"SB>BB":["J",1.12]},"vj":{"CO":["F",42.1,47.2,23],"BTN":["F",44.7,47.2,34],"SB":["K",49.7,47.5,54]},"v3":["F",-1.49]},"QTs":{"fi":{"UTG":"F","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["C",-0.21],"HJ>BTN":["J",0.47],"CO>BTN":["J",0.55],"CO>BB":["J",0.8],"BTN>SB":["J",1.2],"BTN>BB":["J",1.32],"SB>BB":["J",1.65]},"vj":{"CO":["F",43.8,47.2,23],"BTN":["F",46.0,47.2,34],"SB":["K",51.1,47.5,54]},"v3":["F",-0.59]},"QTo":{"fi":{"UTG":"F","MP":"F","HJ":"F","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["F",-1.09],"HJ>BTN":["F",-0.39],"CO>BTN":["F",-0.3],"CO>BB":["C",-0.03],"BTN>SB":["J",0.41],"BTN>BB":["J",0.53],"SB>BB":["J",0.87]},"vj":{"CO":["F",40.8,47.2,23],"BTN":["F",43.0,47.2,34],"SB":["K",48.4,47.5,54]},"v3":["F",-2.02]},"JTs":{"fi":{"UTG":"F","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["C",-0.18],"HJ>BTN":["J",0.51],"CO>BTN":["J",0.73],"CO>BB":["J",0.98],"BTN>SB":["J",1.19],"BTN>BB":["J",1.31],"SB>BB":["J",1.57]},"vj":{"CO":["F",42.6,47.2,23],"BTN":["F",44.8,47.2,34],"SB":["K",49.3,47.5,54]},"v3":["F",-0.38]},"JTo":{"fi":{"UTG":"F","MP":"F","HJ":"F","CO":"F","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["F",-1.08],"HJ>BTN":["F",-0.36],"CO>BTN":["C",-0.15],"CO>BB":["C",0.12],"BTN>SB":["J",0.37],"BTN>BB":["J",0.49],"SB>BB":["J",0.78]},"vj":{"CO":["F",39.4,47.2,23],"BTN":["F",41.8,47.2,34],"SB":["F",46.4,47.5,54]},"v3":["F",-1.86]},"A9s":{"fi":{"UTG":"O","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["F",-0.67],"HJ>BTN":["C",0.16],"CO>BTN":["J",1.36],"CO>BB":["J",1.6],"BTN>SB":["J",2.92],"BTN>BB":["J",3.02],"SB>BB":["J",3.72]},"vj":{"CO":["K",49.8,47.2,23],"BTN":["K",54.9,47.2,34],"SB":["K",59.0,47.5,54]},"v3":["F",-1.29]},"A8s":{"fi":{"UTG":"O","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["F",-0.91],"HJ>BTN":["C",-0.05],"CO>BTN":["J",1.08],"CO>BB":["J",1.33],"BTN>SB":["J",2.3],"BTN>BB":["J",2.41],"SB>BB":["J",3.08]},"vj":{"CO":["K",47.4,47.2,23],"BTN":["K",52.7,47.2,34],"SB":["K",57.7,47.5,54]},"v3":["F",-1.92]},"A7s":{"fi":{"UTG":"O","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["F",-1.23],"HJ>BTN":["C",-0.2],"CO>BTN":["J",0.8],"CO>BB":["J",1.05],"BTN>SB":["J",1.88],"BTN>BB":["J",2.0],"SB>BB":["J",2.61]},"vj":{"CO":["F",45.7,47.2,23],"BTN":["K",50.7,47.2,34],"SB":["K",55.7,47.5,54]},"v3":["F",-1.92]},"A6s":{"fi":{"UTG":"F","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["F",-1.55],"HJ>BTN":["F",-0.4],"CO>BTN":["J",0.57],"CO>BB":["J",0.83],"BTN>SB":["J",1.63],"BTN>BB":["J",1.74],"SB>BB":["J",2.27]},"vj":{"CO":["F",44.7,47.2,23],"BTN":["K",48.9,47.2,34],"SB":["K",54.3,47.5,54]},"v3":["F",-1.96]},"A5s":{"fi":{"UTG":"O","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["F",-1.23],"HJ>BTN":["F",-0.26],"CO>BTN":["J",0.68],"CO>BB":["J",0.94],"BTN>SB":["J",1.73],"BTN>BB":["J",1.85],"SB>BB":["J",2.35]},"vj":{"CO":["F",45.0,47.2,23],"BTN":["K",48.5,47.2,34],"SB":["K",54.2,47.5,54]},"v3":["F",-1.01]},"A4s":{"fi":{"UTG":"F","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["F",-1.29],"HJ>BTN":["F",-0.44],"CO>BTN":["J",0.46],"CO>BB":["J",0.71],"BTN>SB":["J",1.55],"BTN>BB":["J",1.66],"SB>BB":["J",2.17]},"vj":{"CO":["F",44.2,47.2,23],"BTN":["K",47.5,47.2,34],"SB":["K",53.1,47.5,54]},"v3":["F",-1.1]},"A3s":{"fi":{"UTG":"F","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["F",-1.35],"HJ>BTN":["F",-0.64],"CO>BTN":["J",0.27],"CO>BB":["J",0.53],"BTN>SB":["J",1.4],"BTN>BB":["J",1.52],"SB>BB":["J",2.08]},"vj":{"CO":["F",43.8,47.2,23],"BTN":["F",47.0,47.2,34],"SB":["K",52.5,47.5,54]},"v3":["F",-1.21]},"A2s":{"fi":{"UTG":"F","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["F",-1.48],"HJ>BTN":["F",-0.76],"CO>BTN":["C",0.03],"CO>BB":["J",0.29],"BTN>SB":["J",1.21],"BTN>BB":["J",1.33],"SB>BB":["J",1.91]},"vj":{"CO":["F",43.1,47.2,23],"BTN":["F",46.4,47.2,34],"SB":["K",51.8,47.5,54]},"v3":["F",-1.4]},"A9o":{"fi":{"UTG":"F","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["F",-1.64],"HJ>BTN":["F",-0.75],"CO>BTN":["J",0.5],"CO>BB":["J",0.76],"BTN>SB":["J",2.21],"BTN>BB":["J",2.32],"SB>BB":["J",3.07]},"vj":{"CO":["F",47.0,47.2,23],"BTN":["K",52.4,47.2,34],"SB":["K",56.7,47.5,54]},"v3":["F",-2.81]},"A8o":{"fi":{"UTG":"F","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["F",-1.9],"HJ>BTN":["F",-0.99],"CO>BTN":["C",0.19],"CO>BB":["J",0.45],"BTN>SB":["J",1.52],"BTN>BB":["J",1.64],"SB>BB":["J",2.36]},"vj":{"CO":["F",44.3,47.2,23],"BTN":["K",50.1,47.2,34],"SB":["K",55.2,47.5,54]},"v3":["F",-3.51]},"A7o":{"fi":{"UTG":"F","MP":"F","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["F",-2.24],"HJ>BTN":["F",-1.13],"CO>BTN":["C",-0.08],"CO>BB":["C",0.18],"BTN>SB":["J",1.09],"BTN>BB":["J",1.21],"SB>BB":["J",1.87]},"vj":{"CO":["F",42.5,47.2,23],"BTN":["K",47.9,47.2,34],"SB":["K",53.2,47.5,54]},"v3":["F",-3.52]},"A6o":{"fi":{"UTG":"F","MP":"F","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["F",-2.54],"HJ>BTN":["F",-1.34],"CO>BTN":["F",-0.34],"CO>BB":["C",-0.07],"BTN>SB":["J",0.83],"BTN>BB":["J",0.95],"SB>BB":["J",1.5]},"vj":{"CO":["F",41.4,47.2,23],"BTN":["F",45.9,47.2,34],"SB":["K",51.7,47.5,54]},"v3":["F",-3.56]},"A5o":{"fi":{"UTG":"F","MP":"F","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["F",-2.21],"HJ>BTN":["F",-1.17],"CO>BTN":["C",-0.18],"CO>BB":["C",0.09],"BTN>SB":["J",0.97],"BTN>BB":["J",1.09],"SB>BB":["J",1.61]},"vj":{"CO":["F",41.9,47.2,23],"BTN":["F",45.6,47.2,34],"SB":["K",51.6,47.5,54]},"v3":["F",-2.44]},"A4o":{"fi":{"UTG":"F","MP":"F","HJ":"F","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["F",-2.25],"HJ>BTN":["F",-1.39],"CO>BTN":["F",-0.45],"CO>BB":["C",-0.17],"BTN>SB":["J",0.76],"BTN>BB":["J",0.88],"SB>BB":["J",1.41]},"vj":{"CO":["F",41.0,47.2,23],"BTN":["F",44.5,47.2,34],"SB":["K",50.5,47.5,54]},"v3":["F",-2.58]},"A3o":{"fi":{"UTG":"F","MP":"F","HJ":"F","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["F",-2.37],"HJ>BTN":["F",-1.66],"CO>BTN":["F",-0.68],"CO>BB":["K",-0.41],"BTN>SB":["J",0.57],"BTN>BB":["J",0.69],"SB>BB":["J",1.29]},"vj":{"CO":["F",40.4,47.2,23],"BTN":["F",43.8,47.2,34],"SB":["K",49.7,47.5,54]},"v3":["F",-2.76]},"A2o":{"fi":{"UTG":"F","MP":"F","HJ":"F","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["F",-2.46],"HJ>BTN":["F",-1.75],"CO>BTN":["F",-0.91],"CO>BB":["K",-0.63],"BTN>SB":["J",0.38],"BTN>BB":["J",0.51],"SB>BB":["J",1.13]},"vj":{"CO":["F",39.7,47.2,23],"BTN":["F",43.2,47.2,34],"SB":["K",48.9,47.5,54]},"v3":["F",-2.92]},"JJ":{"fi":{"UTG":"O","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["J",4.96],"HJ>BTN":["J",6.54],"CO>BTN":["J",6.97],"CO>BB":["J",7.12],"BTN>SB":["J",7.4],"BTN>BB":["J",7.47],"SB>BB":["J",7.74]},"vj":{"CO":["K",67.0,47.2,23],"BTN":["K",69.1,47.2,34],"SB":["K",71.8,47.5,54]},"v3":["J",6.24]},"TT":{"fi":{"UTG":"O","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["J",3.42],"HJ>BTN":["J",5.29],"CO>BTN":["J",5.94],"CO>BB":["J",6.11],"BTN>SB":["J",6.47],"BTN>BB":["J",6.55],"SB>BB":["J",6.8]},"vj":{"CO":["K",62.4,47.2,23],"BTN":["K",65.5,47.2,34],"SB":["K",68.9,47.5,54]},"v3":["J",3.28]},"99":{"fi":{"UTG":"O","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["J",1.93],"HJ>BTN":["J",4.13],"CO>BTN":["J",4.92],"CO>BB":["J",5.11],"BTN>SB":["J",5.49],"BTN>BB":["J",5.58],"SB>BB":["J",5.8]},"vj":{"CO":["K",58.2,47.2,23],"BTN":["K",61.3,47.2,34],"SB":["K",65.4,47.5,54]},"v3":["J",0.53]},"88":{"fi":{"UTG":"O","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["J",0.63],"HJ>BTN":["J",3.34],"CO>BTN":["J",4.21],"CO>BB":["J",4.41],"BTN>SB":["J",4.72],"BTN>BB":["J",4.82],"SB>BB":["J",5.03]},"vj":{"CO":["K",54.7,47.2,23],"BTN":["K",58.4,47.2,34],"SB":["K",61.9,47.5,54]},"v3":["F",-1.2]},"77":{"fi":{"UTG":"O","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["F",-0.69],"HJ>BTN":["J",2.6],"CO>BTN":["J",3.54],"CO>BB":["J",3.75],"BTN>SB":["J",4.13],"BTN>BB":["J",4.23],"SB>BB":["J",4.38]},"vj":{"CO":["K",52.2,47.2,23],"BTN":["K",55.8,47.2,34],"SB":["K",58.8,47.5,54]},"v3":["F",-1.17]},"66":{"fi":{"UTG":"O","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["F",-1.39],"HJ>BTN":["J",1.86],"CO>BTN":["J",2.92],"CO>BB":["J",3.14],"BTN>SB":["J",3.6],"BTN>BB":["J",3.71],"SB>BB":["J",3.84]},"vj":{"CO":["K",50.4,47.2,23],"BTN":["K",53.5,47.2,34],"SB":["K",56.3,47.5,54]},"v3":["F",-1.18]},"55":{"fi":{"UTG":"O","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["F",-1.47],"HJ>BTN":["J",1.11],"CO>BTN":["J",2.27],"CO>BB":["J",2.5],"BTN>SB":["J",3.1],"BTN>BB":["J",3.21],"SB>BB":["J",3.37]},"vj":{"CO":["K",48.6,47.2,23],"BTN":["K",51.5,47.2,34],"SB":["K",54.0,47.5,54]},"v3":["F",-0.54]},"44":{"fi":{"UTG":"O","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["F",-1.54],"HJ>BTN":["J",0.37],"CO>BTN":["J",1.56],"CO>BB":["J",1.8],"BTN>SB":["J",2.54],"BTN>BB":["J",2.65],"SB>BB":["J",2.85]},"vj":{"CO":["F",46.5,47.2,23],"BTN":["K",49.5,47.2,34],"SB":["K",51.5,47.5,54]},"v3":["F",-0.78]},"33":{"fi":{"UTG":"O","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["F",-1.61],"HJ>BTN":["C",-0.12],"CO>BTN":["J",0.9],"CO>BB":["J",1.15],"BTN>SB":["J",1.97],"BTN>BB":["J",2.08],"SB>BB":["J",2.37]},"vj":{"CO":["F",44.5,47.2,23],"BTN":["K",47.4,47.2,34],"SB":["K",49.3,47.5,54]},"v3":["F",-0.9]},"22":{"fi":{"UTG":"O","MP":"O","HJ":"O","CO":"O","BTN":"O","SB":"O"},"rs":{"UTG>BTN":["F",-1.75],"HJ>BTN":["F",-0.27],"CO>BTN":["C",0.2],"CO>BB":["J",0.46],"BTN>SB":["J",1.36],"BTN>BB":["J",1.48],"SB>BB":["J",1.85]},"vj":{"CO":["F",42.5,47.2,23],"BTN":["F",45.3,47.2,34],"SB":["F",47.4,47.5,54]},"v3":["F",-1.13]}}}};
+const VS_BIG={"18|BTN>BB":{"pct":41,"txt":"22+, A2s+, K2s+, Q5s+, J7s+, T7s+, 97s+, 86s+, 76s, 65s, A2o+, K6o+, Q9o+, J9o+, T9o","h":["AA","KK","QQ","JJ","TT","99","88","77","66","55","44","33","22","AKs","AQs","AJs","ATs","A9s","A8s","A7s","A6s","A5s","A4s","A3s","A2s","KQs","KJs","KTs","K9s","K8s","K7s","K6s","K5s","K4s","K3s","K2s","QJs","QTs","Q9s","Q8s","Q7s","Q6s","Q5s","JTs","J9s","J8s","J7s","T9s","T8s","T7s","98s","97s","87s","86s","76s","65s","AKo","AQo","AJo","ATo","A9o","A8o","A7o","A6o","A5o","A4o","A3o","A2o","KQo","KJo","KTo","K9o","K8o","K7o","K6o","QJo","QTo","Q9o","JTo","J9o","T9o"]},"18|CO>SB":{"pct":24,"txt":"22+, A2s+, K9s+, QTs+, A3o+, KTo+","h":["AA","KK","QQ","JJ","TT","99","88","77","66","55","44","33","22","AKs","AQs","AJs","ATs","A9s","A8s","A7s","A6s","A5s","A4s","A3s","A2s","KQs","KJs","KTs","K9s","QJs","QTs","AKo","AQo","AJo","ATo","A9o","A8o","A7o","A6o","A5o","A4o","A3o","KQo","KJo","KTo"]},"18|HJ>BTN":{"pct":15,"txt":"44+, A5s+, KTs+, A8o+, KQo","h":["AA","KK","QQ","JJ","TT","99","88","77","66","55","44","AKs","AQs","AJs","ATs","A9s","A8s","A7s","A6s","A5s","KQs","KJs","KTs","AKo","AQo","AJo","ATo","A9o","A8o","KQo"]},"22|BTN>BB":{"pct":32,"txt":"22+, A2s+, K4s+, Q8s+, J9s+, T9s, 98s, A2o+, K9o+, QTo+, JTo","h":["AA","KK","QQ","JJ","TT","99","88","77","66","55","44","33","22","AKs","AQs","AJs","ATs","A9s","A8s","A7s","A6s","A5s","A4s","A3s","A2s","KQs","KJs","KTs","K9s","K8s","K7s","K6s","K5s","K4s","QJs","QTs","Q9s","Q8s","JTs","J9s","T9s","98s","AKo","AQo","AJo","ATo","A9o","A8o","A7o","A6o","A5o","A4o","A3o","A2o","KQo","KJo","KTo","K9o","QJo","QTo","JTo"]},"22|CO>SB":{"pct":22,"txt":"22+, A2s+, K9s+, QJs, A5o+, KTo+","h":["AA","KK","QQ","JJ","TT","99","88","77","66","55","44","33","22","AKs","AQs","AJs","ATs","A9s","A8s","A7s","A6s","A5s","A4s","A3s","A2s","KQs","KJs","KTs","K9s","QJs","AKo","AQo","AJo","ATo","A9o","A8o","A7o","A6o","A5o","KQo","KJo","KTo"]},"22|HJ>BTN":{"pct":14,"txt":"44+, A6s+, KJs+, A8o+, KQo","h":["AA","KK","QQ","JJ","TT","99","88","77","66","55","44","AKs","AQs","AJs","ATs","A9s","A8s","A7s","A6s","KQs","KJs","AKo","AQo","AJo","ATo","A9o","A8o","KQo"]},"26|BTN>BB":{"pct":28,"txt":"22+, A2s+, K6s+, Q9s+, JTs, A2o+, K9o+, QJo","h":["AA","KK","QQ","JJ","TT","99","88","77","66","55","44","33","22","AKs","AQs","AJs","ATs","A9s","A8s","A7s","A6s","A5s","A4s","A3s","A2s","KQs","KJs","KTs","K9s","K8s","K7s","K6s","QJs","QTs","Q9s","JTs","AKo","AQo","AJo","ATo","A9o","A8o","A7o","A6o","A5o","A4o","A3o","A2o","KQo","KJo","KTo","K9o","QJo"]},"26|CO>SB":{"pct":20,"txt":"33+, A2s+, KTs+, QJs, A5o+, KJo+","h":["AA","KK","QQ","JJ","TT","99","88","77","66","55","44","33","AKs","AQs","AJs","ATs","A9s","A8s","A7s","A6s","A5s","A4s","A3s","A2s","KQs","KJs","KTs","QJs","AKo","AQo","AJo","ATo","A9o","A8o","A7o","A6o","A5o","KQo","KJo"]},"26|HJ>BTN":{"pct":14,"txt":"44+, A7s+, KJs+, A8o+, KQo","h":["AA","KK","QQ","JJ","TT","99","88","77","66","55","44","AKs","AQs","AJs","ATs","A9s","A8s","A7s","KQs","KJs","AKo","AQo","AJo","ATo","A9o","A8o","KQo"]}};
+const HERO_RAW="#1A-14", HERO_LABEL="You";
+const DEFAULTS={heroStack:228000, field:120, pool:1510000, places:150, level:17, handsPerLevel:17, delay:380, coach:true, showStyles:false, four:false, autoNext:true, model:'room', away:0, c1avg:305000};
+function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function newGame(S){
+  MODEL=S.model||'room';
+  const field=buildField(S);
+  const byId={}; for(const p of field) byId[p.id]=p;
+  const hero=field.find(p=>p.isHero);
+  const G={settings:Object.assign({},S), level:S.level, handsThisLevel:0, handNo:0, field, byId, hero,
+    table:{seats:new Array(9).fill(null), button:0}, offTables:[], tablesCount:Math.ceil(field.length/9), fieldLeft:field.length, log:[], over:false, hands:[], coach:'', tableNo:3 };
+  G.table.seats[0]=hero.id;
+  for(const k in TABLE3){
+    const T=TABLE3[k]; const p=field.find(q=>q.raw===T.raw); if(!p||p.isHero) continue;
+    G.table.seats[seatIdx(Number(k))]=p.id; p.t3=T.src; if(T.label) p.name=T.label; if(T.short) p.short=T.short;
+    if(T.style){ p.style=T.style; p.scouted=true; } else p.prior=true;
+    if(T.style==='bigstack' && S.away>0) p.away=S.away;
+  }
+  // Seats 4-8: estimated Day 1C bags (now and then a Day 1B bag)
+  const seated=new Set(G.table.seats.filter(x=>x!=null));
+  const c1=field.filter(q=>q.flight==='1C'&&!seated.has(q.id)), b1=field.filter(q=>q.flight==='1B'&&!seated.has(q.id));
+  for(let i=1;i<9;i++){ if(G.table.seats[i]!=null) continue; const pool=(rnd()<0.12&&b1.length)?b1:c1; if(!pool.length) break; const p=pool.splice(rint(pool.length),1)[0]; G.table.seats[i]=p.id; p.est=true; }
+  rebalance(G, true);
+  G.table.button=seatIdx(START_BUTTON_SEAT===1?9:START_BUTTON_SEAT-1);   // the first hand moves the button on to Seat 9
+  return G;
+}
+function alivePlayers(G){ return G.field.filter(p=>p.alive); }
+function seatedIds(G){ return G.table.seats.filter(id=>id!=null); }
+function seatPlayer(G,p){ for(let i=1;i<9;i++){ if(G.table.seats[i]==null){ G.table.seats[i]=p.id; return i; } } return -1; }
+function partition(ids,k){ const out=[]; for(let i=0;i<k;i++) out.push([]); const a=ids.slice(); for(let i=a.length-1;i>0;i--){ const j=rint(i+1); const t=a[i]; a[i]=a[j]; a[j]=t; } a.forEach((id,i)=>out[i%k].push(id)); return out; }
+function dn(p){ return p.isHero?'You':p.name; }
+function addLog(G,txt,cls){ G.log.push({t:txt,c:cls||''}); if(G.log.length>400) G.log.splice(0,G.log.length-400); if(G.onLog) G.onLog(txt,cls); }
+function rebalance(G, initial){
+  const alive=alivePlayers(G); const n=alive.length;
+  const tablesNeeded=Math.max(1,Math.ceil(n/9));
+  // clear busted from seats
+  for(let i=0;i<9;i++){ const id=G.table.seats[i]; if(id!=null && (!G.byId[id].alive||G.byId[id].stack<=0)) G.table.seats[i]=null; }
+  if(!initial && tablesNeeded<G.tablesCount && n>9){
+    const breaks=G.tablesCount-tablesNeeded;
+    for(let b=0;b<breaks;b++){ if(rnd()<1/Math.max(1,G.tablesCount-b)){ breakHeroTable(G); break; } }
+  }
+  G.tablesCount=tablesNeeded;
+  const target=Math.min(9, Math.ceil(n/tablesNeeded));
+  const seated=new Set(seatedIds(G));
+  const offAlive=alive.filter(p=>!p.isHero && !seated.has(p.id));
+  while(seatedIds(G).length<target && offAlive.length){
+    const p=offAlive.splice(rint(offAlive.length),1)[0]; const s=seatPlayer(G,p);
+    if(!initial) addLog(G, p.name+' ('+p.flight+' bag, '+fmtK(p.stack)+') takes seat '+seatNo(s)+' at your table.','n');
+  }
+  G.offTables = tablesNeeded>1 ? partition(offAlive.map(p=>p.id), tablesNeeded-1) : [];
+}
+function breakHeroTable(G){
+  for(let i=1;i<9;i++) G.table.seats[i]=null;
+  G.tableNo=(G.tableNo||1)+rint(5)+1;
+  addLog(G,'Your table broke. You draw a new seat at Table '+G.tableNo+' — a fresh set of opponents.','h');
+  G.table.button=rint(9);
+}
+function eliminate(G,p){
+  if(!p.alive) return;
+  p.alive=false; p.stack=0; p.place=G.fieldLeft; G.fieldLeft--;
+  const pay=payoutFor(p.place,G.settings.pool,G.settings.places);
+  if(!p.isHero) addLog(G, p.name+' busts in '+ordinal(p.place)+(pay?' ($'+fmt(pay)+')':''),'b');
+}
+function totalChips(G){ return alivePlayers(G).reduce((s,p)=>s+p.stack,0); }
+function heroRank(G){ const a=alivePlayers(G).sort((x,y)=>y.stack-x.stack); return a.findIndex(p=>p.isHero)+1; }
+
+/* ---------------- Background tables ---------------- */
+function simOffTables(G){
+  const lvl=levelInfo(G.level); const bb=lvl.bb;
+  for(const grp of G.offTables){
+    const ps=grp.map(id=>G.byId[id]).filter(p=>p.alive&&p.stack>0);
+    if(ps.length<2) continue;
+    let pot=0; const share=Math.max(100,Math.floor((lvl.sb+lvl.bb+lvl.ante)/ps.length/100)*100);
+    for(const p of ps){ const c=Math.min(p.stack,share); p.stack-=c; pot+=c; }
+    if(rnd()<0.5){
+      const k=rnd()<0.75?2:3; const cs=[]; const pool=ps.slice();
+      for(let i=0;i<k&&pool.length;i++) cs.push(pool.splice(rint(pool.length),1)[0]);
+      const minStack=Math.min.apply(null,cs.map(p=>p.stack)); const minBB=minStack/bb;
+      const pAll=Math.min(0.6, 0.07+0.85/Math.max(minBB,1));
+      const u=rnd(); let amtBB; if(u<pAll) amtBB=1e9; else if(u<pAll+0.55) amtBB=2+rnd()*4; else amtBB=6+rnd()*12;
+      const amt=Math.min(minStack, Math.round(amtBB*bb/100)*100);
+      for(const p of cs){ p.stack-=amt; pot+=amt; }
+      const w=cs.map(p=>(STYLES[p.style]||STYLES.reg).skill); const tot=w.reduce((a,b)=>a+b,0); let r=rnd()*tot; let win=cs[0];
+      for(let i=0;i<cs.length;i++){ r-=w[i]; if(r<=0){ win=cs[i]; break; } }
+      win.stack+=pot;
+    } else { pick(ps).stack+=pot; }
+    for(const p of ps) if(p.stack<=0) eliminate(G,p);
+  }
+}
+
+/* ---------------- Hand engine ---------------- */
+function buildCtx(t,p){
+  const toCall=Math.max(0,Math.min(t.currentBet-p.bet,p.stack));
+  let pot=t.anteTotal; for(const q of t.players) pot+=q.contrib;
+  const maxRaiseTo=p.stack+p.bet;
+  const minRaiseTo=Math.min(t.currentBet+t.lastRaise, maxRaiseTo);
+  const canRaise=p.canRaise && maxRaiseTo>t.currentBet && t.raises<12;
+  return {toCall,pot,currentBet:t.currentBet,minRaiseTo,maxRaiseTo,canRaise,street:t.street,board:t.board,bb:t.bb,unit:t.unit,stackBB:(p.stack+p.bet)/t.bb,pos:p.pos,hand:p.hand};
+}
+function legalize(t,p,ctx,a){
+  if(!a) a={type:'fold'};
+  if(a.type==='check' && ctx.toCall>0) return {type:'fold'};
+  if(a.type==='call' && ctx.toCall===0) return {type:'check'};
+  if(a.type==='raise'){
+    if(!ctx.canRaise) return ctx.toCall>0?{type:'call'}:{type:'check'};
+    let amt=Math.min(Math.round(a.amount||0), ctx.maxRaiseTo);
+    if(amt<ctx.maxRaiseTo && amt<ctx.minRaiseTo) amt=ctx.minRaiseTo;
+    if(amt<=ctx.currentBet) return ctx.toCall>0?{type:'call'}:{type:'check'};
+    return {type:'raise',amount:amt};
+  }
+  if(a.type==='fold' && ctx.toCall===0) return {type:'check'};
+  return a;
+}
+function setRangeAfterPreflop(t,p,a,ctx){
+  const S=styleOf(p); const bb=t.bb; const stackBB=(p.stack+p.bet+ (a.type==='raise'?0:0))/bb;
+  if(a.type==='raise'){
+    const allin = a.amount>=ctx.maxRaiseTo;
+    if(t.raises===0){ // first raise
+      p.range = allin && stackBB<=16 ? [0, Math.min(0.8,pushPct(p.pos,Math.max(stackBB,3))*S.loose)] : [0, Math.min(0.7, openFreq(S,p.pos))];
+    } else if(t.raises===1){ p.range = allin ? [0, Math.min(0.35, 0.05+0.09*S.threeBet)] : [0, Math.min(0.3,0.07*S.threeBet)]; }
+    else p.range=[0,0.04];
+  } else if(a.type==='call'){
+    if(t.raises===0) p.range=[0.04,0.65]; else p.range=[0.015, Math.min(0.55, (p.pos==='BB'?0.48:0.33)*S.loose)];
+  } else if(a.type==='check'){ p.range=[0.03,0.95]; }
+}
+function applyAction(t,p,a){
+  const ctx=buildCtx(t,p);
+  a=legalize(t,p,ctx,a);
+  let txt='';
+  if(a.type==='fold'){ p.folded=true; p.acted=true; txt='folds'; }
+  else if(a.type==='check'){ p.acted=true; txt='checks'; }
+  else if(a.type==='call'){
+    const amt=Math.min(ctx.toCall,p.stack); p.stack-=amt; p.bet+=amt; p.contrib+=amt; if(p.stack===0) p.allIn=true; p.acted=true;
+    txt='calls '+fmt(amt)+(p.allIn?' (all-in)':'');
+    if(t.street==='preflop'){ if(t.raises===0) t.limpers++; else t.callers++; }
+    if(t.street!=='preflop'){ p.range=[p.range[0], Math.max(0.05, p.range[1]*0.72)]; }
+  } else if(a.type==='raise'){
+    let R=a.amount; const inc=R-t.currentBet; const full=inc>=t.lastRaise-1e-9;
+    const add=R-p.bet; p.stack-=add; p.contrib+=add; p.bet=R; if(p.stack===0) p.allIn=true;
+    const wasBet=t.currentBet===0;
+    t.currentBet=R;
+    if(full){ t.lastRaise=inc; for(const q of t.players) if(q!==p){ q.acted=false; q.canRaise=true; } }
+    else { for(const q of t.players) if(q!==p && q.acted) q.canRaise=false; }
+    p.acted=true; t.raises++; t.lastAggressor=p; if(t.street==='preflop'){ if(t.raises===1) t.opener=p; t.callers=0; }
+    txt=(wasBet?'bets ':'raises to ')+fmt(R)+(p.allIn?' (all-in)':'');
+    if(t.street!=='preflop'){ p.range=[p.range[0], Math.min(p.range[1], wasBet?Math.max(0.06,p.range[1]*0.8):0.12)]; }
+  }
+  if(t.street==='preflop') setRangeAfterPreflop(t,p,a,ctx);
+  p.lastAct=txt;
+  if(t.street==='preflop'){ if(a.type==='call'||a.type==='raise'){ p.vpipF=true; if(p.isHero) t.heroVpip=true; } if(a.type==='raise'){ p.pfrF=true; if(p.isHero) t.heroPfr=true; } }
+  return {a,txt,ctx};
+}
+async function bettingRound(t,firstIdx,ctl){
+  const n=t.players.length; let idx=firstIdx; let guard=0;
+  while(guard++<300){
+    let found=false;
+    for(let k=0;k<n;k++){ const q=t.players[(idx+k)%n]; if(q.folded||q.allIn) continue; if(!q.acted || q.bet<t.currentBet){ idx=(idx+k)%n; found=true; break; } }
+    if(!found) break;
+    const p=t.players[idx];
+    if(t.players.filter(q=>!q.folded).length<=1) break;
+    // if everyone else is all-in or folded and p has matched → done
+    const others=t.players.filter(q=>q!==p && !q.folded && !q.allIn);
+    if(others.length===0 && p.bet>=t.currentBet) break;
+    const ctx=buildCtx(t,p);
+    let a;
+    if(p.isHero){ if(ctl.beforeHero) ctl.beforeHero(t,p,ctx); a=await ctl.hero(t,p,ctx); }
+    else { a=aiDecide(t,p,ctx); if(ctl.onAIDecision) ctl.onAIDecision(t,p,ctx,a); if(ctl.beforeAI) await ctl.beforeAI(t,p,ctx); }
+    const res=applyAction(t,p,a);
+    if(ctl.onAction) await ctl.onAction(t,p,res);
+    if(p.isHero && ctl.afterHero) ctl.afterHero(t,p,res);
+    idx=(idx+1)%n;
+  }
+}
+function potsForShowdown(t){
+  const contenders=t.players.filter(p=>!p.folded);
+  const levels=Array.from(new Set(t.players.filter(p=>p.contrib>0).map(p=>p.contrib))).sort((a,b)=>a-b);
+  let prev=0; const pots=[];
+  if(t.anteTotal>0) pots.push({amt:t.anteTotal, elig:contenders.slice()});
+  for(const L of levels){ let amt=0; for(const p of t.players) amt+=Math.max(0,Math.min(p.contrib,L)-prev); const elig=contenders.filter(p=>p.contrib>=L); if(amt>0) pots.push({amt,elig}); prev=L; }
+  // merge pots with identical eligibility
+  const merged=[]; for(const pot of pots){ const last=merged[merged.length-1]; if(last && last.elig.length===pot.elig.length && last.elig.every((p,i)=>p===pot.elig[i])) last.amt+=pot.amt; else merged.push({amt:pot.amt,elig:pot.elig.slice()}); }
+  return merged;
+}
+async function playHand(G,ctl){
+  const lvl=levelInfo(G.level); const sb=lvl.sb, bb=lvl.bb, ante=lvl.ante; const unit=chipUnit(bb);
+  // seated active players
+  const seats=G.table.seats; const active=[]; for(let i=0;i<9;i++){ const id=seats[i]; if(id!=null){ const f=G.byId[id]; if(f.alive && f.stack>0) active.push({f,seat:i}); } }
+  if(active.length<2) return null;
+  // move button to next occupied seat
+  let b=G.table.button; for(let k=1;k<=9;k++){ const s=(b+k)%9; if(active.some(a=>a.seat===s)){ b=s; break; } } G.table.button=b;
+  // order from button+1 clockwise
+  const order=[]; for(let k=1;k<=9;k++){ const s=(b+k)%9; const a=active.find(x=>x.seat===s); if(a) order.push(a); }
+  const n=order.length;
+  const players=order.map((a,i)=>({f:a.f,id:a.f.id,seat:a.seat,name:a.f.name,isHero:a.f.isHero,style:a.f.isHero?'reg':a.f.style,stack:a.f.stack,bet:0,contrib:0,hand:null,folded:false,allIn:false,acted:false,canRaise:true,range:[0,1],pos:'',idx:i,lastAct:'',score:0,ante:0,start:a.f.stack}));
+  if(n===2){ players[0].pos='BB'; players[1].pos='BTN'; } else { players[0].pos='SB'; players[1].pos='BB'; const names=POS_NAMES.slice(9-n,7); for(let i=2;i<n;i++) players[i].pos=names[i-2]; }
+  const t={G,players,board:[],street:'preflop',bb,sb,ante,unit,currentBet:0,lastRaise:bb,raises:0,limpers:0,callers:0,lastAggressor:null,opener:null,button:b,heroVpip:false,heroPfr:false,pots:[],winners:[],handNo:G.handNo+1,level:G.level,anteTotal:0};
+  G.handNo++; G.cur=t;
+  const deck=makeDeck(); let di=0;
+  for(const p of players){ p.hand=[deck[di++],deck[di++]]; p.pct=handPct(p.hand[0],p.hand[1]); p.f.st.hands++; }
+  const sbP = n===2? players[1] : players[0]; const bbP = n===2? players[0] : players[1];
+  // posts: BB ante then blinds
+  const post=(p,amt,isBlind)=>{ const a=Math.min(amt,p.stack); p.stack-=a; if(isBlind){ p.contrib+=a; p.bet+=a; } else { p.ante+=a; t.anteTotal+=a; } if(p.stack===0) p.allIn=true; };
+  post(bbP,ante,false); post(sbP,sb,true); post(bbP,bb,true);
+  t.currentBet=Math.max(sbP.bet,bbP.bet); t.lastRaise=bb;
+  addLog(G,'— Hand #'+t.handNo+' · L'+G.level+' '+blindsStr(lvl)+' · '+n+' players · Button: Seat '+seatNo(players[n-1].seat)+(players[n-1].isHero?' (you)':''),'h');
+  for(const p of players){ if(p.f.away>0){ p.folded=true; p.acted=true; p.lastAct='away'; addLog(G,dn(p)+' is away from the table; his hand is dead.','n'); } }
+  if(ctl.onStart) await ctl.onStart(t);
+  const hero=players.find(p=>p.isHero);
+  if(hero) addLog(G,'You: '+cardTxt(hero.hand[0])+' '+cardTxt(hero.hand[1])+' ('+hero.pos+', '+Math.round((hero.stack+hero.bet)/bb)+' BB)');
+  const first= n===2 ? 1 : 2;
+  await bettingRound(t,first,ctl);
+  const live=()=>players.filter(p=>!p.folded);
+  const streets=[['flop',3],['turn',1],['river',1]];
+  for(const [name,cnt] of streets){
+    if(live().length<=1) break;
+    for(let i=0;i<cnt;i++) t.board.push(deck[di++]);
+    t.street=name; t.currentBet=0; t.lastRaise=bb; t.raises=0;
+    for(const p of players){ p.bet=0; p.acted=false; p.canRaise=true; p.lastAct=''; }
+    addLog(G, name[0].toUpperCase()+name.slice(1)+': '+t.board.map(cardTxt).join(' '));
+    if(ctl.onStreet) await ctl.onStreet(t);
+    const canAct=live().filter(p=>!p.allIn);
+    if(canAct.length>=2) await bettingRound(t,0,ctl);
+  }
+  // resolve
+  const contenders=live();
+  if(contenders.length===1){
+    const w=contenders[0]; let pot=t.anteTotal; for(const p of players) pot+=p.contrib; w.stack+=pot; t.winners=[{p:w,amt:pot}];
+    addLog(G, dn(w)+' wins '+fmt(pot)+' uncontested','w');
+  } else {
+    // run out board if needed
+    while(t.board.length<5){ t.board.push(deck[di++]); }
+    t.street='showdown';
+    for(const p of contenders){ p.score=evaluate(p.hand.concat(t.board)); p.f.shown++; }
+    const pots=potsForShowdown(t); t.pots=pots; t.winners=[];
+    for(const pot of pots){
+      let best=-1; for(const p of pot.elig) if(p.score>best) best=p.score;
+      const ws=pot.elig.filter(p=>p.score===best);
+      const share=Math.floor(pot.amt/ws.length/100)*100; let rem=pot.amt-share*ws.length;
+      for(const w of ws){ let got=share; if(rem>0){ got+=rem; rem=0; } w.stack+=got; t.winners.push({p:w,amt:got}); }
+    }
+    for(const p of contenders) addLog(G, dn(p)+' shows '+cardTxt(p.hand[0])+' '+cardTxt(p.hand[1])+' — '+handName(p.score));
+    for(const w of t.winners) addLog(G, dn(w.p)+' wins '+fmt(w.amt)+' with '+handName(w.p.score),'w');
+  }
+  // write back
+  for(const p of players){ p.f.stack=p.stack; if(p.vpipF) p.f.st.vpip++; if(p.pfrF) p.f.st.pfr++; if(!p.folded && t.street==='showdown') p.f.st.wtsd=(p.f.st.wtsd||0)+1; }
+  for(const p of players){ if(p.f.away>0){ p.f.away--; if(!p.f.away) addLog(G,dn(p)+' is back in his seat.','n'); } const S0=STYLES[p.f.style]; if(S0&&S0.steam){ const lost=p.start-p.stack; if(lost>=Math.max(0.35*p.start,40*bb)){ p.f.steam=15; addLog(G,dn(p)+' just lost '+fmtK(lost)+'. Expect him to play even faster for a while.','n'); } else if(p.f.steam>0) p.f.steam--; } }
+  for(const w of t.winners) w.p.f.st.won+=w.amt;
+  if(ctl.onEnd) await ctl.onEnd(t);
+  // eliminations at hero table (bust order by contrib size: smaller stack busts "lower")
+  const busted=players.filter(p=>p.stack<=0).sort((a,b)=>a.contrib-b.contrib);
+  for(const p of busted) eliminate(G,p.f);
+  return t;
+}
+function afterHand(G){
+  // background tables
+  if(G.hero.alive){ simOffTables(G); }
+  G.handsThisLevel++;
+  if(G.handsThisLevel>=G.settings.handsPerLevel){ G.handsThisLevel=0; G.level++; addLog(G,'▲ Level '+G.level+': '+blindsStr(levelInfo(G.level)),'h'); }
+  rebalance(G,false);
+  if(!G.hero.alive){ G.over=true; G.result={place:G.hero.place, pay:payoutFor(G.hero.place,G.settings.pool,G.settings.places)}; }
+  else if(alivePlayers(G).length===1){ G.over=true; G.hero.place=1; G.result={place:1,pay:payoutFor(1,G.settings.pool,G.settings.places)}; }
+}
+
+/* ---------------- AI ---------------- */
+function aiDecide(t,p,ctx){
+  const S=styleOf(p);
+  const a = t.street==='preflop' ? aiPreflop(t,p,ctx,S) : aiPostflop(t,p,ctx,S);
+  return legalize(t,p,ctx,a);
+}
+function inPosition(p,q){ return p.idx>q.idx; }
+function aiPreflop(t,p,ctx,S){
+  const nz=noise(); const bb=t.bb; const stackBB=ctx.stackBB; const pct=p.pct; const pos=p.pos; const unit=t.unit;
+  const jam={type:'raise',amount:ctx.maxRaiseTo};
+  const raisesN=t.raises, limpers=t.limpers; const aggr=t.lastAggressor;
+  if(raisesN===0){
+    const base=S.open?(S.open[pos]||0.3):((S.room?OPEN_ROOM:OPEN_PCT)[pos]||0.3);
+    const openPct=(S.open?base:base*S.loose)*nz; const raisePct=(S.open?base:base*Math.min(S.loose,S.aggr))*nz;
+    if(limpers===0){
+      if(pos==='BB') return {type:'check'};
+      if(stackBB<=12){ if(pct<=pushPct(pos,stackBB)*S.loose*nz) return jam; if(pos==='SB' && pr()<S.limp*0.5 && pct<0.5) return {type:'call'}; return {type:'fold'}; }
+      const depthAdj = stackBB<20?0.85: stackBB<30?0.95: stackBB>60?1.1:1;
+      if(pct<=raisePct*depthAdj){
+        if(stackBB<=17 && pr()<0.35 && pct<=pushPct(pos,stackBB)*0.9) return jam;
+        const sz = stackBB<25 ? 2.2 : S.sizing;
+        return {type:'raise',amount:roundChips(sz*bb,unit)};
+      }
+      if(pct<=openPct*1.7 && pr()<S.limp) return {type:'call'};
+      return {type:'fold'};
+    } else {
+      if(pos==='BB' && ctx.toCall===0){ if(pct<=0.10*S.aggr*nz) return {type:'raise',amount:roundChips((3.5+limpers)*bb,unit)}; return {type:'check'}; }
+      if(stackBB<=12){ if(pct<=pushPct(pos,stackBB)*1.15*S.loose*nz) return jam; if(pct<=0.3*S.loose && pr()<S.limp) return {type:'call'}; return {type:'fold'}; }
+      if(pct<=raisePct*0.85) return {type:'raise',amount:roundChips((S.sizing+limpers)*bb,unit)};
+      if(pct<=0.45*S.loose*nz && pr()<(S.limp+0.35)) return {type:'call'};
+      return {type:'fold'};
+    }
+  }
+  if(!aggr) return {type:'fold'};
+  const openTo=t.currentBet; const openBB=openTo/bb;
+  const effBB=Math.min(stackBB,(aggr.stack+aggr.bet)/bb);
+  const need=ctx.toCall/(ctx.pot+ctx.toCall);
+  const inPos=inPosition(p,aggr);
+  const allInCall = aggr.allIn || ctx.toCall>=p.stack;
+  if(raisesN===1){
+    if(allInCall){
+      const others=t.players.filter(q=>q!==p && !q.folded && q!==aggr && q.allIn).map(q=>q.range);
+      const eq=equityVs(p.hand,[],[aggr.range].concat(others),150);
+      const risk=S.risk + (ctx.toCall>=p.stack*0.6?0.035:0.01);
+      return eq>=need+risk ? {type:'call'} : {type:'fold'};
+    }
+    const v3=Math.min(0.15,0.045*S.threeBet)*nz;
+    let callThr;
+    if(pos==='BB') callThr=0.45*(2.5/Math.max(openBB,2))*(S.bbDef||1); else if(pos==='SB') callThr=0.12; else callThr=Math.min(0.33,(aggr.range[1]*1.1+0.03))*(inPos?1.1:0.8);
+    callThr*=S.loose*nz;
+    callThr=Math.min(callThr, pos==='BB'?0.62*Math.min(1.15,S.loose):0.3);
+    if(stackBB<20) callThr*=(pos==='BB'?0.8:0.5);
+    if(stackBB<12) callThr*=(pos==='BB'?0.6:0.1);
+    if(t.callers>0) callThr*=1.1;
+    const jamOK=effBB<=22;
+    const threeTo=roundChips(openTo*(inPos?3:3.6)+t.callers*openTo,unit);
+    if(pct<=v3){ if(jamOK || threeTo>stackBB*bb*0.4) return jam; return {type:'raise',amount:threeTo}; }
+    const bluffBand = pct>v3 && pct<=v3+0.14*S.threeBet;
+    if(bluffBand && pr()<S.bluff*0.25*(inPos?1.2:0.8)){ if(jamOK){ if(stackBB>=10) return jam; } else return {type:'raise',amount:threeTo}; }
+    if(effBB<=22 && effBB>=8 && pct>v3 && pct<=pushPct(pos,stackBB)*0.55*S.aggr*nz) return jam;
+    if(pct<=callThr) return {type:'call'};
+    return {type:'fold'};
+  }
+  // facing 3-bet or more
+  if(allInCall){
+    const eq=equityVs(p.hand,[],[aggr.range],150);
+    const risk=S.risk+0.02;
+    return eq>=need+risk ? {type:'call'} : {type:'fold'};
+  }
+  if(raisesN>=3){ if(pct<=0.012*S.aggr+0.004) return jam; return {type:'fold'}; }
+  const weOpened = t.opener===p;
+  if(weOpened){
+    if(pct<=0.03*S.aggr*nz) return stackBB<=45? jam : {type:'raise',amount:roundChips(t.currentBet*2.3,unit)};
+    if(pr()<S.bluff*0.12 && pct<=0.12 && stackBB>40) return {type:'raise',amount:roundChips(t.currentBet*2.3,unit)};
+    const callThr=(stackBB>25?0.10:0.05)*S.loose*nz*(inPos?1.2:0.9);
+    if(pct<=callThr && ctx.toCall<p.stack*0.45) return {type:'call'};
+    if(stackBB<=25 && pct<=0.06*S.aggr) return jam;
+    return {type:'fold'};
+  } else {
+    if(pct<=0.02) return stackBB<=50? jam : {type:'raise',amount:roundChips(t.currentBet*2.3,unit)};
+    if(pct<=0.05*S.loose && stackBB>30 && ctx.toCall<p.stack*0.3) return {type:'call'};
+    return {type:'fold'};
+  }
+}
+function aiPostflop(t,p,ctx,S){
+  const nz=noise(); const unit=t.unit;
+  const opps=t.players.filter(q=>q!==p && !q.folded);
+  const eq=equityVs(p.hand,t.board,opps.map(q=>q.range),110);
+  const pot=ctx.pot, toCall=ctx.toCall; const street=t.street;
+  const isAggr = t.lastAggressor===p || (t.raises===0 && t.streetAggr===p);
+  const multi=opps.length>1;
+  const jam={type:'raise',amount:ctx.maxRaiseTo};
+  const betOf=(frac)=>{ let amt=roundChips(frac*pot,unit); if(amt<t.bb) amt=t.bb; if(amt>=p.stack*0.6) return jam; return {type:'raise',amount:p.bet+amt}; };
+  if(toCall===0){
+    let betProb=0, size=0.6;
+    if(eq>0.74){ betProb=Math.min(0.92,0.55*S.aggr+0.25); size=0.66; }
+    else if(eq>0.58){ betProb=Math.min(0.85,0.45*S.aggr+0.2); size=0.5; }
+    else if(eq>0.4){ betProb=(isAggr? S.cbet : 0.15)*(street==='flop'?1:0.6); size=0.4; }
+    else { betProb=(isAggr? S.cbet*(0.35+S.bluff*0.6) : 0.05+S.bluff*0.1)*(street==='river'?(S.riverBluff||0.7):1); size=0.55; }
+    if(multi) betProb*=0.6;
+    if(street==='turn' && isAggr && S.turnMult && eq<0.58) betProb*=S.turnMult;
+    if(S.overbet && eq>0.8 && pr()<S.overbet) size=1.2;
+    if(street==='river' && eq<0.3) betProb*=0.8;
+    if(pr()<betProb*nz) return betOf(size);
+    return {type:'check'};
+  }
+  const need=toCall/(pot+toCall);
+  const mult=(S.callMult||1)*(street==='flop'?0.85: street==='turn'?0.95:1.0)*(toCall>=p.stack?1.15:1);
+  let req=Math.max(need*mult, 0.5*need);
+  if(eq<0.12 && need>0.08 && pr()>S.callDown*0.6) return {type:'fold'};
+  let raiseProb=0;
+  if(eq>0.8) raiseProb=0.6*S.aggr; else if(eq>0.66) raiseProb=0.28*S.aggr; else if(eq<0.35 && street!=='river') raiseProb=0.07*S.bluff*S.aggr;
+  if(street==='flop' && S.xr && !isAggr && eq>0.3) raiseProb+=S.xr;
+  if(multi) raiseProb*=0.7;
+  if(ctx.canRaise && pr()<raiseProb*nz){
+    let amt=Math.max(ctx.minRaiseTo, t.currentBet+roundChips(Math.max(t.lastRaise*2.2, pot*0.7),unit));
+    if(amt>=ctx.maxRaiseTo*0.6) return jam;
+    return {type:'raise',amount:amt};
+  }
+  if(eq>=req*nz) return {type:'call'};
+  return {type:'fold'};
+}
+
+/* ---------------- Coach ----------------
+   First your Day 2 study (Final Table Journal: 46 hands at 15/20/25/30bb, first in, re-steals, calling jams,
+   facing a 3-bet) and the Ep 11 jam ranges against the big stack; otherwise the GTO-ish baseline. */
+const SPOS={'UTG':'UTG','UTG+1':'UTG','MP':'MP','LJ':'MP','HJ':'HJ','CO':'CO','BTN':'BTN','SB':'SB','BB':'BB'};
+const ACT={O:'open',J:'jam',F:'fold',C:'close',K:'call'};
+const ACT_TXT={open:'Open',jam:'Jam',fold:'Fold',close:'Close (jam or fold)',call:'Call'};
+function nearest(arr,x){ let b=arr[0]; for(const v of arr) if(Math.abs(v-x)<Math.abs(b-x)) b=v; return b; }
+function studyPre(t,p,ctx){
+  if(t.street!=='preflop'||!STUDY) return null;
+  const cls=handClass(p.hand[0],p.hand[1]); const op=t.opener; const hp=SPOS[p.pos]||p.pos;
+  if(t.raises===1 && op && op!==p && op.style==='bigstack' && !op.allIn && t.callers===0 && t.limpers===0 && VS_BIG){
+    const eff=Math.min(ctx.stackBB,(op.stack+op.bet)/t.bb); const b=nearest([18,22,26],eff); const key=SPOS[op.pos]+'>'+hp; const R=VS_BIG[b+'|'+key];
+    if(R){ const inR=R.h.indexOf(cls)>=0; return {rec:inR?'jam':'fold', txt:'Ep 11 plan vs the big stack ('+key+', ~'+b+'bb): jam '+R.pct+'% of hands. '+cls+(inR?' is in: jam.':' is out: fold.')}; }
+  }
+  const sb=nearest([15,20,25,30],ctx.stackBB); const row=STUDY.rows[sb]&&STUDY.rows[sb][cls]; if(!row) return null;
+  const tag='Day 2 study ('+cls+', '+sb+'bb';
+  if(t.raises===0 && t.limpers===0 && p.pos!=='BB'){ const a=row.fi[hp]; if(a) return {rec:ACT[a], txt:tag+', '+hp+' first in): '+ACT_TXT[ACT[a]]+'.'}; }
+  if(t.raises===1 && op && op!==p && t.callers===0 && t.limpers===0){
+    if(!op.allIn){ const key=SPOS[op.pos]+'>'+hp; const r=row.rs[key]; if(r) return {rec:ACT[r[0]], txt:tag+', '+key+' open): '+ACT_TXT[ACT[r[0]]]+(r[1]!=null?' ('+(r[1]>=0?'+':'')+r[1]+'bb vs folding)':'')+'.'}; }
+    else if(hp==='BB'){ const v=row.vj[SPOS[op.pos]]; if(v) return {rec:ACT[v[0]], txt:tag+', facing a '+SPOS[op.pos]+' jam): '+ACT_TXT[ACT[v[0]]]+'. '+v[1]+'% equity vs a '+v[3]+'% jam range; you need '+v[2]+'%.'}; }
+  }
+  if(t.raises===2 && op===p && row.v3){ return {rec:ACT[row.v3[0]], txt:tag+', facing a 3-bet after your open): '+ACT_TXT[ACT[row.v3[0]]]+(row.v3[1]!=null?' ('+(row.v3[1]>=0?'+':'')+row.v3[1]+'bb vs folding)':'')+'.'}; }
+  return null;
+}
+function coachPre(t,p,ctx){
+  if(t.street!=='preflop') return null;
+  const S=STYLES.reg;
+  COACH_MODE=true; let rec; try{ rec=legalize(t,p,ctx,aiPreflop(t,p,ctx,S)); } finally{ COACH_MODE=false; }
+  const cls=handClass(p.hand[0],p.hand[1]); const bbN=Math.round(ctx.stackBB);
+  const sit=cls+' · '+p.pos+' · '+bbN+' BB'+(t.raises?' facing '+(t.lastAggressor&&t.lastAggressor.allIn?'a jam':'a raise'):(t.limpers?' over '+t.limpers+' limper'+(t.limpers>1?'s':''):' unopened'))+' · top '+Math.round(p.pct*100)+'% hand';
+  let eqLine='';
+  if(t.raises && t.lastAggressor && (t.lastAggressor.allIn || ctx.toCall>=p.stack)){
+    const eq=equityVs(p.hand,[],[t.lastAggressor.range],400); const need=ctx.toCall/(ctx.pot+ctx.toCall);
+    eqLine=' Equity vs their range ≈ '+Math.round(eq*100)+'%, pot odds need '+Math.round(need*100)+'%.';
+  }
+  const faceAll=!!(t.raises && t.lastAggressor && (t.lastAggressor.allIn || ctx.toCall>=p.stack));
+  return {rec,sit,eqLine,ctx,callAll:ctx.toCall>=p.stack,faceAll,study:studyPre(t,p,ctx)};
+}
+function didOf(a,ctx){ if(a.type==='raise') return a.amount>=ctx.maxRaiseTo?'jam':(ctx.currentBet>ctx.bb?'raise':'open'); return a.type; }
+function okVs(rec,did){ if(rec==='close') return did==='jam'||did==='fold'; if(rec==='open') return did==='open'||did==='raise'; if(rec==='jam') return did==='jam'; if(rec==='fold') return did==='fold'||did==='check'; return rec===did; }
+const DID_TXT={jam:'jammed',open:'raised',raise:'raised',fold:'folded',call:'called',check:'checked'};
+function coachPost(pre,a){
+  if(!pre) return '';
+  const ctx=pre.ctx; let did=didOf(a,ctx); if(pre.faceAll && did==='call' && pre.study && pre.study.rec!=='call') did='jam';
+  if(pre.study){ return (okVs(pre.study.rec,did)?'✓ ':'⚠ ')+pre.study.txt+' You '+DID_TXT[did]+'.'+(pre.eqLine||''); }
+  const rec=pre.rec;
+  const desc=(x)=>x.type==='raise'?(x.amount>=ctx.maxRaiseTo?'jam':'raise to '+fmtK(x.amount)):x.type==='call'?(pre.callAll?'call all-in':'call'):x.type;
+  const same = rec.type===a.type && (rec.type!=='raise' || Math.abs((rec.amount||0)-(a.amount||0))<=ctx.bb*1.5 || (rec.amount>=ctx.maxRaiseTo)===(a.amount>=ctx.maxRaiseTo));
+  let line = same ? '✓ '+pre.sit+': '+desc(a)+' matches the GTO-ish baseline.' : '⚠ '+pre.sit+': baseline is '+desc(rec)+'; you chose '+desc(a)+'.';
+  if(pre.eqLine && (a.type==='call'||rec.type==='call')) line+=pre.eqLine;
+  return line;
+}
+
+/* ---------------- Headless harness (Node) ---------------- */
+const api={seedRng,rnd,evaluate,handName,HAND_ORDER,HAND_PCT,equityVs,newGame,playHand,afterHand,DEFAULTS,levelInfo,alivePlayers,totalChips,STYLES,aiDecide,buildCtx,payoutFor,coachPre,coachPost,studyPre,handClass,sampleFromRange,styleOf,openFreq,OPEN_ROOM,ROOM_WEIGHTS,seatNo,seatIdx,TABLE3,STUDY,VS_BIG,applyAction};
+if(typeof module!=='undefined' && module.exports) module.exports=api;
+if(typeof globalThis!=='undefined') globalThis.RestartSim=api;
+
+/* ============================================================
+   UI
+   ============================================================ */
+if(!IS_BROWSER) return;
+const $=(s)=>document.querySelector(s);
+const SKEY='restart-sim-settings-t3', GKEY='restart-sim-state-t3';
+let S=Object.assign({},DEFAULTS); try{ Object.assign(S, JSON.parse(localStorage.getItem(SKEY)||'{}')); }catch(e){}
+let G=null; let heroResolve=null; let pendingNext=null; let waitingHero=false;
+const tableEl=$('#table');
+const seatEls=[];
+const SEAT_ANG=[90,142,180,218,252,288,322,0,38];
+function seatXY(i){ const ang=SEAT_ANG[i]*Math.PI/180; return {ang, x:50+38*Math.cos(ang), y:(i===0?86:50+36*Math.sin(ang))}; }
+for(let i=0;i<9;i++){
+  const {ang,x,y}=seatXY(i);
+  const el=document.createElement('div'); el.className='seat empty'+(i===0?' hero':''); el.style.left=x+'%'; el.style.top=y+'%';
+  el.innerHTML='<div class="sn"></div><div class="pos"></div><div class="act"></div><div class="nm">—</div><div class="st"></div><div class="cards"></div><div class="bet"></div>';
+  // bet label toward table center
+  const bx=50+26*Math.cos(ang), by=50+24*Math.sin(ang); el.querySelector('.bet').style.left=((bx-x)*tableEl.clientWidth/100+44-20)+'px';
+  el.dataset.seat=i; el.addEventListener('click',()=>openPlayer(i));
+  tableEl.appendChild(el); seatEls.push(el);
+}
+function placeBets(){ const W=tableEl.clientWidth,H=tableEl.clientHeight; for(let i=0;i<9;i++){ const {ang,x,y}=seatXY(i); const bx=50+21*Math.cos(ang), by=50+20*Math.sin(ang); const b=seatEls[i].querySelector('.bet'); b.style.left=((bx-x)*W/100+44)+'px'; b.style.top=((by-y)*H/100+26)+'px'; b.style.transform='translate(-50%,-50%)'; } }
+window.addEventListener('resize',placeBets); setTimeout(placeBets,50);
+function cardEl(c,back){ const s=document.createElement('span'); if(back||c==null){ s.className='card back'; s.textContent='?'; return s; } s.className='card '+SUIT_CHARS[c&3]; s.textContent=cardStr(c); return s; }
+function sleep(ms){ return new Promise(r=>setTimeout(r,ms)); }
+function logLine(txt,cls){ const d=document.createElement('div'); if(cls) d.className=cls; d.textContent=txt; const L=$('#log'); L.appendChild(d); while(L.children.length>400) L.removeChild(L.firstChild); L.scrollTop=L.scrollHeight; }
+function renderHeader(){
+  if(!G) return;
+  const lvl=levelInfo(G.level); const alive=alivePlayers(G); const avg=alive.length?totalChips(G)/alive.length:0;
+  $('#lvl').innerHTML='L'+G.level+' <b>'+blindsStr(lvl)+'</b>';
+  $('#fieldinfo').innerHTML='<span class="k">Field</span> <b>'+alive.length+'</b> left · avg '+fmtK(avg)+' ('+Math.round(avg/lvl.bb)+' BB) · '+G.tablesCount+' table'+(G.tablesCount>1?'s':'');
+  const left=G.settings.handsPerLevel-G.handsThisLevel; $('#clock').innerHTML='<span class="k">~'+Math.round(left*LEVEL_MIN/G.settings.handsPerLevel)+' min</span> to L'+(G.level+1);
+  const h=G.hero; const rank=heroRank(G);
+  $('#herostat').innerHTML='<span class="k">You</span> <b>'+fmtK(h.stack)+'</b> ('+Math.round(h.stack/lvl.bb)+' BB) · '+(h.alive?ordinal(rank)+'/'+alive.length:'out '+ordinal(h.place));
+  const place=alive.length; const now=payoutFor(place,G.settings.pool,G.settings.places); const nj=nextJump(place,G.settings.pool,G.settings.places);
+  $('#payinfo').innerHTML='<span class="k">Bust now</span> $'+fmt(now)+(nj?' · <span class="k">'+ordinal(nj.place)+'</span> $'+fmt(nj.amount):'');
+}
+function renderTable(t,opts){
+  opts=opts||{};
+  const seats=G.table.seats; document.body.classList.toggle('four',!!G.settings.four);
+  for(let i=0;i<9;i++){
+    const el=seatEls[i]; const id=seats[i]; const nm=el.querySelector('.nm'), st=el.querySelector('.st'), cs=el.querySelector('.cards'), bet=el.querySelector('.bet'), pos=el.querySelector('.pos'), act=el.querySelector('.act');
+    el.querySelector('.sn').textContent=seatNo(i); el.classList.remove('folded','acting','allin','scout'); cs.innerHTML=''; bet.textContent=''; pos.textContent=''; pos.className='pos'; act.textContent='';
+    if(id==null){ el.classList.add('empty'); nm.textContent='— open —'; st.textContent=''; continue; }
+    el.classList.remove('empty'); const f=G.byId[id];
+    const p=t? t.players.find(q=>q.id===id) : null;
+    nm.textContent=f.isHero?'You':(f.short||shortName(f.name)); if(f.scouted) el.classList.add('scout');
+    const stack=p?p.stack:f.stack; st.textContent=(f.est?'~':'')+fmtK(stack)+' · '+Math.round(stack/levelInfo(G.level).bb)+'bb'+(f.away>0?' · away':'');
+    if(p){
+      if(p.folded) el.classList.add('folded'); if(p.allIn && !p.folded) el.classList.add('allin');
+      if(p.bet>0) bet.textContent=fmtK(p.bet);
+      if(p.pos==='BTN'||(t.players.length===2&&p.pos==='BTN')){ pos.textContent='D'; pos.classList.add('d'); } else if(p.pos==='SB'||p.pos==='BB') pos.textContent=p.pos;
+      if(t.players.length>2 && p.idx===t.players.length-1){ pos.textContent='D'; pos.classList.add('d'); }
+      if(p.lastAct && !opts.clearActs) act.textContent=p.lastAct;
+      if(!p.folded){
+        const show = p.isHero || (opts.showdown && t.street==='showdown' && !p.folded) || (opts.revealAll && !p.folded);
+        cs.appendChild(cardEl(p.hand[0],!show)); cs.appendChild(cardEl(p.hand[1],!show));
+      }
+      if(opts.acting===p) el.classList.add('acting');
+    }
+  }
+  const board=$('#board'); board.innerHTML=''; if(t){ for(const c of t.board) board.appendChild(cardEl(c)); }
+  let pot=t?t.anteTotal:0; if(t) for(const q of t.players) pot+=q.contrib;
+  $('#pot').textContent=t? 'Pot '+fmt(pot) : '';
+}
+function shortName(n){ const parts=n.split(' '); if(parts.length<2) return n; const sh=parts[0]+' '+parts[parts.length-1][0]+'.'; if(G){ const clash=G.table.seats.some(id=>id!=null && G.byId[id].name!==n && (()=>{ const q=G.byId[id].name.split(' '); return q.length>1 && q[0]+' '+q[q.length-1][0]+'.'===sh; })()); if(clash) return parts[0]+' '+parts[parts.length-1]; } return sh; }
+function setMsg(m){ $('#msg').textContent=m||''; }
+/* ----- hero action UI ----- */
+const bFold=$('#b-fold'), bCall=$('#b-call'), bRaise=$('#b-raise'), sizing=$('#sizing'), presets=$('#presets'), range=$('#sizerange'), sizeIn=$('#sizeinput'), bConfirm=$('#b-confirm'), nextRow=$('#nextrow');
+let curCtx=null, curSize=0;
+function showActions(on){ $('#mainbtns').style.visibility=on?'visible':'hidden'; if(!on) sizing.classList.remove('on'); }
+function heroPrompt(t,p,ctx){
+  curCtx=ctx; waitingHero=true;
+  bFold.disabled=false; bCall.disabled=false;
+  bCall.textContent= ctx.toCall===0 ? 'Check' : (ctx.toCall>=p.stack ? 'Call '+fmt(ctx.toCall)+' (all-in)' : 'Call '+fmt(ctx.toCall));
+  bRaise.disabled=!ctx.canRaise; bRaise.textContent= ctx.currentBet===0 ? 'Bet' : 'Raise';
+  sizing.classList.remove('on');
+  // presets
+  presets.innerHTML='';
+  const unit=ctx.unit; const items=[];
+  if(ctx.street==='preflop'){
+    if(ctx.currentBet<=t.bb){ items.push(['Min',ctx.minRaiseTo],['2.2x',roundChips(2.2*t.bb,unit)],['2.5x',roundChips(2.5*t.bb,unit)],['3x',roundChips(3*t.bb,unit)]); }
+    else { items.push(['Min',ctx.minRaiseTo],['2.5x',roundChips(ctx.currentBet*2.5,unit)],['3x',roundChips(ctx.currentBet*3,unit)],['3.5x',roundChips(ctx.currentBet*3.5,unit)]); }
+  } else {
+    const pot=ctx.pot; const base=ctx.currentBet; const tc=ctx.toCall;
+    items.push(['Min',ctx.minRaiseTo],['33%',p.bet+roundChips(0.33*pot,unit)],['50%',p.bet+roundChips(0.5*pot,unit)],['75%',p.bet+roundChips(0.75*pot,unit)],['Pot',p.bet+roundChips(pot+tc,unit)]);
+    if(base>0) items.splice(1,4,['2.5x',roundChips(base*2.5,unit)],['Pot',p.bet+roundChips(pot+2*tc,unit)]);
+  }
+  items.push(['All-in',ctx.maxRaiseTo]);
+  for(const [lab,amt] of items){ const b=document.createElement('button'); b.textContent=lab; const a=Math.min(ctx.maxRaiseTo,Math.max(ctx.minRaiseTo,amt)); b.addEventListener('click',()=>{ setSize(a); [...presets.children].forEach(x=>x.classList.remove('sel')); b.classList.add('sel'); }); presets.appendChild(b); }
+  range.min=ctx.minRaiseTo; range.max=ctx.maxRaiseTo; range.step=unit; setSize(ctx.minRaiseTo);
+  showActions(true); nextRow.style.display='none';
+}
+function setSize(a){ curSize=Math.max(curCtx.minRaiseTo,Math.min(curCtx.maxRaiseTo,a)); range.value=curSize; sizeIn.value=fmt(curSize); }
+range.addEventListener('input',()=>{ const v=Math.round(Number(range.value)/curCtx.unit)*curCtx.unit; setSize(v); });
+sizeIn.addEventListener('change',()=>{ const v=Number(String(sizeIn.value).replace(/[^0-9]/g,''))||0; const vv=Math.round(v/curCtx.unit)*curCtx.unit; setSize(vv); });
+function resolveHero(a){ if(!waitingHero) return; waitingHero=false; showActions(false); const r=heroResolve; heroResolve=null; if(r) r(a); }
+bFold.addEventListener('click',()=>resolveHero({type:'fold'}));
+bCall.addEventListener('click',()=>resolveHero(curCtx.toCall===0?{type:'check'}:{type:'call'}));
+bRaise.addEventListener('click',()=>{ sizing.classList.toggle('on'); });
+bConfirm.addEventListener('click',()=>resolveHero({type:'raise',amount:curSize}));
+document.addEventListener('keydown',(e)=>{ if(!waitingHero) return; const k=e.key.toLowerCase(); if(k==='f') bFold.click(); else if(k==='c') bCall.click(); else if(k==='r') bRaise.click(); else if(k==='a'){ setSize(curCtx.maxRaiseTo); } else if(k==='enter' && sizing.classList.contains('on')) bConfirm.click(); });
+$('#b-next').addEventListener('click',()=>{ if(pendingNext){ const f=pendingNext; pendingNext=null; f(); } });
+
+/* ----- controller ----- */
+let coachState=null;
+const ctl={
+  hero:(t,p,ctx)=>new Promise(res=>{ heroResolve=res; renderTable(t,{acting:p}); heroPrompt(t,p,ctx); }),
+  beforeAI:async(t,p,ctx)=>{ renderTable(t,{acting:p}); const heroIn=t.players.some(q=>q.isHero&&!q.folded); await sleep(heroIn?G.settings.delay:Math.min(80,G.settings.delay)); },
+  onAction:async(t,p,res)=>{ addLog(G,(p.isHero?'You':p.name)+' '+res.txt); renderTable(t); },
+  onStart:async(t)=>{ renderTable(t,{clearActs:true}); setMsg(''); $('#coach').textContent=''; },
+  onStreet:async(t)=>{ renderTable(t,{clearActs:true}); const heroIn=t.players.some(q=>q.isHero&&!q.folded); await sleep(heroIn?Math.max(300,G.settings.delay):60); },
+  beforeHero:(t,p,ctx)=>{ coachState = G.settings.coach ? coachPre(t,p,ctx) : null; },
+  afterHero:(t,p,res)=>{ if(G.settings.coach && coachState){ const line=coachPost(coachState,res.a); if(line) $('#coach').textContent=line; } coachState=null; },
+  onEnd:async(t)=>{
+    renderTable(t,{showdown:true});
+    const agg={}; for(const x of t.winners){ const k=x.p.isHero?'You':shortName(x.p.name); agg[k]=(agg[k]||0)+x.amt; } const w=Object.keys(agg).map(k=>k+' +'+fmtK(agg[k])).join(' · ');
+    setMsg(w); renderHeader();
+    const heroIn=t.players.some(q=>q.isHero&&!q.folded);
+    if(t.street==='showdown') await sleep(heroIn?1600:700);
+  }
+};
+G && (G.onLog=logLine);
+async function loop(){
+  while(G && !G.over){
+    const heroIn=G.hero.alive;
+    if(!heroIn) break;
+    const t=await playHand(G,ctl);
+    if(!t){ rebalance(G,false); continue; }
+    afterHand(G); renderHeader(); saveState();
+    if(G.over) break;
+    const heroFolded = !t.players.some(q=>q.isHero && !q.folded);
+    const wait = !(G.settings.autoNext && heroFolded);
+    if(wait){ nextRow.style.display='flex'; await new Promise(r=>{ pendingNext=r; }); nextRow.style.display='none'; }
+    else await sleep(500);
+  }
+  if(G && G.over) showEnd();
+}
+function showEnd(){
+  const r=G.result; const sheet=$('#endsheet');
+  sheet.innerHTML='<h3>'+(r.place===1?'You won the ring. ':'Busted.')+'</h3><div class="big">'+ordinal(r.place)+' place · $'+fmt(r.pay)+'</div>'+
+   '<div class="kv"><span>Hands played</span><span>'+G.hero.st.hands+'</span><span>VPIP / PFR</span><span>'+Math.round(100*G.hero.st.vpip/Math.max(1,G.hero.st.hands))+'% / '+Math.round(100*G.hero.st.pfr/Math.max(1,G.hero.st.hands))+'%</span><span>Chips won in pots</span><span>'+fmtK(G.hero.st.won)+'</span><span>Final level</span><span>L'+G.level+' '+blindsStr(levelInfo(G.level))+'</span></div>'+
+   '<div class="btnrow"><button class="btn next" id="e-new">New tournament</button><button class="btn" id="e-close">Close</button></div>';
+  $('#m-end').classList.add('on');
+  $('#e-new').addEventListener('click',()=>{ $('#m-end').classList.remove('on'); startNew(); });
+  $('#e-close').addEventListener('click',()=>$('#m-end').classList.remove('on'));
+}
+/* ----- player sheet ----- */
+function bigStackHTML(){
+  let h='<h4>Reads</h4><ul>'+BIG_READS.map(r=>'<li>'+esc(r)+'</li>').join('')+'</ul><h4>Ep 11 plan at about 22bb: jam or fold</h4><ul>';
+  for(const [k,lab] of [['BTN>BB','His button open, you in the big blind'],['CO>SB','His cutoff open, you in the small blind'],['HJ>BTN','His hijack open, you on the button']]){ const R=VS_BIG&&VS_BIG['22|'+k]; if(R) h+='<li><b>'+lab+'</b>, jam '+R.pct+'%: '+esc(R.txt)+'</li>'; }
+  h+='</ul>';
+  if(BIG_WATCH.length) h+='<h4>Watch</h4><ul>'+BIG_WATCH.map(w=>'<li><a href="'+esc(w[1])+'" target="_blank" rel="noopener">'+esc(w[0])+'</a></li>').join('')+'</ul>';
+  return h;
+}
+function openPlayer(i){
+  const id=G && G.table.seats[i]; if(id==null) return; const f=G.byId[id]; const sheet=$('#playersheet');
+  const styleKnown = G.settings.showStyles || f.shown>=1 || f.isHero || f.scouted;
+  const st=f.st; const vp=st.hands?Math.round(100*st.vpip/st.hands):0; const pf=st.hands?Math.round(100*st.pfr/st.hands):0;
+  const src = f.t3 || (f.est ? 'Seat not drawn yet: an estimated Day '+f.flight+' bag. The stack comes from the shape of the real bags and the style from the Reserve room.' : 'Moved in from another table (Day '+f.flight+' bag).');
+  sheet.innerHTML='<h3>Seat '+seatNo(i)+' · '+esc(f.isHero?'You':f.name)+'</h3>'+
+   '<div><span class="tag">Day '+f.flight+' bag</span><span class="tag">'+fmtK(f.stack)+'</span><span class="tag">'+(f.isHero?'hero':(styleKnown?esc((STYLES[f.style]||{}).label):'style unknown until a showdown'))+'</span>'+(f.steam>0?'<span class="tag" style="color:var(--red)">speeding up</span>':'')+(f.away>0?'<span class="tag">away '+f.away+' more hands</span>':'')+'</div>'+
+   (f.isHero?'':'<div class="small">'+esc(src)+'</div>')+
+   (f.scouted?bigStackHTML():'')+
+   (f.isHero?'':'<div class="row"><label>Sim style</label><select id="p-style">'+Object.keys(STYLES).map(k=>'<option value="'+k+'"'+(k===f.style?' selected':'')+'>'+esc(STYLES[k].label)+'</option>').join('')+'</select></div>')+
+   '<div class="kv"><span>Hands at your table</span><span>'+st.hands+'</span><span>VPIP / PFR here</span><span>'+vp+'% / '+pf+'%</span><span>Showdowns seen</span><span>'+f.shown+'</span></div>'+
+   '<div class="row" style="display:block"><label>Your notes</label><textarea id="p-notes" placeholder="Reads, tendencies, what you saw…">'+esc(f.notes||'')+'</textarea></div>'+
+   '<div class="btnrow"><button class="btn next" id="p-save">Save</button><button class="btn" id="p-close">Close</button></div>';
+  $('#m-player').classList.add('on');
+  $('#p-save').addEventListener('click',()=>{ f.notes=$('#p-notes').value; const sel=$('#p-style'); if(sel) f.style=sel.value; saveState(); $('#m-player').classList.remove('on'); });
+  $('#p-close').addEventListener('click',()=>$('#m-player').classList.remove('on'));
+}
+function openT3(){
+  if(!G) return; const bb=levelInfo(G.level).bb; let rows='';
+  for(let n=1;n<=9;n++){
+    const i=seatIdx(n); const id=G.table.seats[i];
+    if(id==null){ rows+='<tr><td>'+n+'</td><td colspan="2" style="color:var(--muted)">open seat</td></tr>'; continue; }
+    const f=G.byId[id]; const prof=f.isHero?'you':f.scouted?'scouted profile':f.est?'estimate (Day '+f.flight+' bag)':f.prior?'no footage (Day '+f.flight+' bag)':'moved in (Day '+f.flight+')';
+    rows+='<tr data-i="'+i+'"'+(f.isHero?' class="me"':'')+'><td>'+n+'</td><td>'+esc(f.isHero?'You':f.name)+'<div class="small">'+prof+'</div></td><td style="text-align:right">'+(f.est?'~':'')+fmtK(f.stack)+'<div class="small">'+Math.round(f.stack/bb)+'bb</div></td></tr>';
+  }
+  $('#t3sheet').innerHTML='<h3>Table 3 · Day 2</h3><div class="small" style="margin-top:0;font-size:12.5px;color:var(--text)">'+esc(T3_INTRO)+'</div><table class="t3">'+rows+'</table>'+
+    '<h4>Seats 4–8: the estimate</h4><div class="small" style="font-size:12.5px;color:var(--text)">'+esc(T3_EST)+'</div>'+
+    '<h4 style="font-size:14px">'+esc(BIG_TITLE)+'</h4>'+bigStackHTML()+
+    '<div class="btnrow"><button class="btn next" id="t3-new">Deal a new Table 3</button><button class="btn" id="t3-close">Close</button></div>';
+  $('#m-t3').classList.add('on');
+  [...$('#t3sheet').querySelectorAll('tr[data-i]')].forEach(tr=>tr.addEventListener('click',()=>{ $('#m-t3').classList.remove('on'); openPlayer(Number(tr.dataset.i)); }));
+  $('#t3-new').addEventListener('click',()=>{ $('#m-t3').classList.remove('on'); startNew(); });
+  $('#t3-close').addEventListener('click',()=>$('#m-t3').classList.remove('on'));
+}
+$('#btn-t3').addEventListener('click',openT3);
+/* ----- standings & payouts ----- */
+$('#btn-standings').addEventListener('click',()=>{
+  if(!G) return; const alive=alivePlayers(G).sort((a,b)=>b.stack-a.stack); const bb=levelInfo(G.level).bb;
+  const rows=alive.map((p,i)=>'<tr'+(p.isHero?' style="color:var(--gold)"':'')+'><td>'+(i+1)+'</td><td>'+p.name+' <span class="k" style="color:var(--muted)">'+p.flight+'</span></td><td style="text-align:right">'+fmtK(p.stack)+' ('+Math.round(p.stack/bb)+')</td></tr>').join('');
+  $('#standsheet').innerHTML='<h3>Standings · '+alive.length+' left</h3><table class="pay">'+rows+'</table><div class="btnrow"><button class="btn" id="st-close">Close</button></div>';
+  $('#m-stand').classList.add('on'); $('#st-close').addEventListener('click',()=>$('#m-stand').classList.remove('on'));
+});
+$('#btn-pay').addEventListener('click',()=>{
+  if(!G) return; const pool=G.settings.pool, places=G.settings.places;
+  const rows=PAY_TIERS.filter(t=>t[0]<=places).map(([a,b,pc])=>'<tr><td>'+(a===b?ordinal(a):a+'–'+Math.min(b,places))+'</td><td>$'+fmt(payoutFor(a,pool,places))+'</td></tr>').join('');
+  $('#paysheet').innerHTML='<h3>Projected payouts · $'+fmt(pool)+' · '+places+' paid</h3><table class="pay">'+rows+'</table><div class="small">Shape scaled from 2026 Circuit sheets and normalized to the places paid; the official sheet posts after Flight C closes.</div><div class="btnrow"><button class="btn" id="py-close">Close</button></div>';
+  $('#m-pay').classList.add('on'); $('#py-close').addEventListener('click',()=>$('#m-pay').classList.remove('on'));
+});
+/* ----- settings ----- */
+function fillSettings(){ $('#s-hero').value=S.heroStack; $('#s-field').value=S.field; $('#s-pool').value=S.pool; $('#s-places').value=S.places; $('#s-level').value=S.level; $('#s-hpl').value=S.handsPerLevel; $('#s-delay').value=S.delay; $('#s-coach').checked=!!S.coach; $('#s-styles').checked=!!S.showStyles; $('#s-four').checked=!!S.four; $('#s-auto').checked=!!S.autoNext; $('#s-model').value=S.model||'room'; $('#s-away').value=S.away||0; }
+function readSettings(){ S.heroStack=Number($('#s-hero').value)||DEFAULTS.heroStack; S.field=Math.max(10,Number($('#s-field').value)||DEFAULTS.field); S.pool=Number($('#s-pool').value)||DEFAULTS.pool; S.places=Number($('#s-places').value)||DEFAULTS.places; S.level=Math.max(1,Math.min(37,Number($('#s-level').value)||DEFAULTS.level)); S.handsPerLevel=Math.max(5,Number($('#s-hpl').value)||DEFAULTS.handsPerLevel); S.delay=Math.max(0,Number($('#s-delay').value)||0); S.coach=$('#s-coach').checked; S.showStyles=$('#s-styles').checked; S.four=$('#s-four').checked; S.autoNext=$('#s-auto').checked; S.model=$('#s-model').value; S.away=Math.max(0,Number($('#s-away').value)||0); try{ localStorage.setItem(SKEY,JSON.stringify(S)); }catch(e){} }
+$('#btn-settings').addEventListener('click',()=>{ fillSettings(); $('#m-settings').classList.add('on'); });
+$('#s-close').addEventListener('click',()=>{ readSettings(); if(G){ Object.assign(G.settings,{delay:S.delay,coach:S.coach,showStyles:S.showStyles,four:S.four,autoNext:S.autoNext,handsPerLevel:S.handsPerLevel,pool:S.pool,places:S.places}); renderHeader(); if(G.cur) renderTable(G.cur); } $('#m-settings').classList.remove('on'); });
+$('#s-apply').addEventListener('click',()=>{ readSettings(); $('#m-settings').classList.remove('on'); startNew(); });
+$('#s-reset').addEventListener('click',()=>{ try{ localStorage.removeItem(GKEY); localStorage.removeItem(SKEY); }catch(e){} location.reload(); });
+/* ----- persistence ----- */
+function saveState(){ if(!G) return; try{ const copy={settings:G.settings,level:G.level,handsThisLevel:G.handsThisLevel,handNo:G.handNo,field:G.field,table:G.table,offTables:G.offTables,tablesCount:G.tablesCount,fieldLeft:G.fieldLeft,log:G.log.slice(-120),over:G.over,result:G.result,tableNo:G.tableNo}; localStorage.setItem(GKEY,JSON.stringify(copy)); }catch(e){} }
+function loadState(){ try{ const raw=localStorage.getItem(GKEY); if(!raw) return null; const c=JSON.parse(raw); if(!c||!c.field||c.over) return null; const byId={}; for(const p of c.field) byId[p.id]=p; c.byId=byId; c.hero=c.field.find(p=>p.isHero); c.hands=[]; c.cur=null; return c; }catch(e){ return null; } }
+function startNew(){
+  if(waitingHero){ resolveHero({type:'fold'}); }
+  pendingNext=null;
+  G=newGame(S); G.onLog=logLine; $('#log').innerHTML=''; $('#coach').textContent='';
+  addLog(G,'Day 2 restart · '+G.field.length+' players · '+G.tablesCount+' tables · you have '+fmtK(G.hero.stack)+' ('+Math.round(G.hero.stack/levelInfo(G.level).bb)+' BB)','h');
+  for(let n=1;n<=9;n++){ const id=G.table.seats[seatIdx(n)]; if(id==null) continue; const f=G.byId[id]; addLog(G,'Seat '+n+': '+(f.isHero?'You':f.name)+' ('+fmtK(f.stack)+(f.scouted?', scouted':f.est?', estimated Day '+f.flight+' bag':', Day '+f.flight+' bag')+')'); }
+  addLog(G,'The button starts in Seat '+START_BUTTON_SEAT+', so you post the big blind on hand 1. Tap Table 3 for the reads.','h');
+  renderHeader(); renderTable(null); saveState(); loop();
+}
+(function init(){
+  const saved=loadState();
+  if(saved){ G=saved; MODEL=(G.settings&&G.settings.model)||'room'; G.onLog=logLine; for(const l of G.log) logLine(l.t,l.c); logLine('— resumed saved tournament —','h'); renderHeader(); renderTable(null); loop(); }
+  else startNew();
+})();
+})();
+</script>
+</body>
+</html>
