@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#16120D">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Offline Player">
+<link rel="apple-touch-icon" href="../podcast/cover-512.png">
+<link rel="manifest" href="manifest.webmanifest">
+<title>Offline Player</title>
+<style>
+:root{--bg:#F5EEE1;--surface:#FFFBF4;--raise:#FFFFFF;--ink:#2A2118;--ink2:#5C4D3C;--muted:#8C7B66;--line:#E7DBC7;--amber:#C47F17;--amber-ink:#8A560A;--wash:#FBF1DE;--on:#fff;color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#16120D;--surface:#1F1912;--raise:#261F16;--ink:#F2E8D8;--ink2:#CDBEA6;--muted:#9A8A73;--line:#352B1F;--amber:#E2A143;--amber-ink:#F0BC6A;--wash:#261D11;--on:#16120D;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#16120D;--surface:#1F1912;--raise:#261F16;--ink:#F2E8D8;--ink2:#CDBEA6;--muted:#9A8A73;--line:#352B1F;--amber:#E2A143;--amber-ink:#F0BC6A;--wash:#261D11;--on:#16120D;color-scheme:dark}
+*{box-sizing:border-box}[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 -apple-system,system-ui,"Segoe UI",sans-serif}
+main{max-width:640px;margin:0 auto;padding-block:calc(20px + env(safe-area-inset-top,0px)) calc(40px + env(safe-area-inset-bottom,0px));padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:20px}
+.eyebrow{font:500 12px/1.3 ui-monospace,"SF Mono",Menlo,monospace;letter-spacing:.09em;text-transform:uppercase;color:var(--amber-ink)}
+h1{font:700 34px/1.05 ui-serif,Georgia,serif;margin:6px 0 4px;letter-spacing:-.01em}
+p{margin:0;color:var(--ink2)}
+.now{background:var(--raise);border:1px solid var(--line);border-radius:22px;padding:18px;display:flex;flex-direction:column;gap:14px}
+.now b{font:700 20px/1.25 ui-serif,Georgia,serif;overflow-wrap:anywhere}
+.time{display:flex;justify-content:space-between;font:13px/1 ui-monospace,Menlo,monospace;color:var(--muted)}
+input[type=range]{width:100%;accent-color:var(--amber);height:28px}
+.ctl{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px}
+.ctl .side{display:flex;gap:6px}.ctl .side.r{justify-content:flex-end}
+button{font:inherit;cursor:pointer}
+.round{width:72px;height:72px;border-radius:50%;border:0;background:var(--amber);color:var(--on);display:grid;place-items:center}
+.round svg{width:30px;height:30px}
+.sm{min-width:52px;height:44px;border-radius:14px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:600 14px/1 ui-monospace,Menlo,monospace}
+.open{display:flex;align-items:center;justify-content:center;gap:10px;min-height:52px;border-radius:999px;border:0;background:var(--amber);color:var(--on);font-weight:700;font-size:17px}
+.open svg{width:20px;height:20px}
+.list{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:18px;overflow:hidden;background:var(--surface)}
+.row{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;border-top:1px solid var(--line);padding:4px 6px 4px 14px}
+.row:first-child{border-top:0}
+.row button.t{all:unset;cursor:pointer;padding:10px 0;min-width:0}
+.row .t span{display:block;font-weight:600;overflow-wrap:anywhere;line-height:1.3}
+.row .t small{display:block;color:var(--muted);font:12px/1.5 ui-monospace,Menlo,monospace}
+.row.on{background:var(--wash)}
+.x{border:0;background:transparent;color:var(--muted);width:44px;height:44px;border-radius:12px;font-size:20px}
+.empty{padding:18px;color:var(--muted);text-align:center}
+.note{font-size:13.5px;color:var(--muted)}
+button:focus-visible,.row button.t:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+</style>
+</head>
+<body>
+<main>
+  <header><div class="eyebrow">The Rail Report</div><h1>Offline Player</h1>
+  <p>Plays audio you saved to Files, with no signal. Your files stay on this phone; nothing is uploaded.</p></header>
+  <section class="now" aria-label="Now playing">
+    <b id="title">Nothing playing</b>
+    <input id="seek" type="range" min="0" max="1000" value="0" aria-label="Position">
+    <div class="time"><span id="t0">0:00</span><span id="t1">0:00</span></div>
+    <div class="ctl">
+      <div class="side"><button class="sm" id="back" aria-label="Back 15 seconds">−15</button></div>
+      <button class="round" id="pp" aria-label="Play"></button>
+      <div class="side r"><button class="sm" id="fwd" aria-label="Forward 30 seconds">+30</button><button class="sm" id="spd" aria-label="Speed">1×</button></div>
+    </div>
+  </section>
+  <button class="open" id="openBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V8"/><path d="M7 12.5l5-5 5 5"/><path d="M5 4h14"/></svg>Open audio from Files</button>
+  <input id="file" type="file" accept="audio/*,.mp3,.m4a" multiple hidden>
+  <section><div class="eyebrow" style="margin-bottom:8px">On this phone</div><div class="list" id="list"></div></section>
+  <p class="note">Open this page once with signal so it's saved for offline use, and add it to your Home Screen. The files you open are copied into this page's storage, so they'll still be here on the plane. Remove one with ×.</p>
+</main>
+<audio id="au" preload="auto"></audio>
+<script>
+const $ = s => document.querySelector(s);
+const IC = { play:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.6-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/></svg>',
+  pause:'<svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4.2" height="14" rx="1.2"/><rect x="13.8" y="5" width="4.2" height="14" rx="1.2"/></svg>' };
+const fmt = s => { s = Math.max(0, Math.round(s||0)); const h = Math.floor(s/3600), m = Math.floor(s%3600/60), x = s%60; return h ? `${h}:${String(m).padStart(2,'0')}:${String(x).padStart(2,'0')}` : `${m}:${String(x).padStart(2,'0')}`; };
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const ls = { get(k,d){ try{ const v = localStorage.getItem('op.'+k); return v===null?d:JSON.parse(v);}catch(e){return d;} }, set(k,v){ try{ localStorage.setItem('op.'+k, JSON.stringify(v)); }catch(e){} } };
+// IndexedDB: store audio blobs so they survive reloads with no signal
+let db = null; const mem = new Map();
+function idb(){ return new Promise(res => { try { const r = indexedDB.open('offline-player', 1);
+  r.onupgradeneeded = () => r.result.createObjectStore('files', {keyPath:'id'});
+  r.onsuccess = () => { db = r.result; res(db); }; r.onerror = () => res(null); } catch(e){ res(null); } }); }
+function tx(mode){ return db.transaction('files', mode).objectStore('files'); }
+function all(){ return new Promise(res => { if (!db) return res([...mem.values()]); const out = []; const c = tx('readonly').openCursor();
+  c.onsuccess = e => { const cur = e.target.result; if (cur){ const v = cur.value; out.push({id:v.id, name:v.name, size:v.size, added:v.added}); cur.continue(); } else res(out); }; c.onerror = () => res([]); }); }
+function getBlob(id){ return new Promise(res => { if (!db) return res(mem.get(id)?.blob); const r = tx('readonly').get(id); r.onsuccess = () => res(r.result && r.result.blob); r.onerror = () => res(null); }); }
+function put(rec){ return new Promise(res => { mem.set(rec.id, rec); if (!db) return res(); const r = tx('readwrite').put(rec); r.onsuccess = () => res(); r.onerror = () => res(); }); }
+function del(id){ return new Promise(res => { mem.delete(id); if (!db) return res(); const r = tx('readwrite').delete(id); r.onsuccess = () => res(); r.onerror = () => res(); }); }
+const au = $('#au'); const SPEEDS = [1, 1.25, 1.5]; let cur = null, url = null, dragging = false;
+const clean = n => n.replace(/\.(mp3|m4a|wav|aac)$/i,'').replace(/^The Rail Report - /,'');
+async function render(){
+  const files = (await all()).sort((a,b)=>a.added-b.added);
+  $('#list').innerHTML = files.length ? files.map(f => { const pos = ls.get('pos.'+f.id, 0);
+    return `<div class="row ${cur===f.id?'on':''}"><button class="t" data-id="${esc(f.id)}"><span>${esc(clean(f.name))}</span><small>${(f.size/1e6).toFixed(1)} MB${pos>5?' · stopped at '+fmt(pos):''}</small></button><button class="x" data-del="${esc(f.id)}" aria-label="Remove">×</button></div>`; }).join('')
+    : '<div class="empty">No audio yet. Tap Open audio from Files.</div>';
+}
+function setPP(){ $('#pp').innerHTML = au.paused ? IC.play : IC.pause; $('#pp').setAttribute('aria-label', au.paused ? 'Play' : 'Pause'); }
+async function play(id){
+  const blob = await getBlob(id); if (!blob) return;
+  if (url) URL.revokeObjectURL(url); url = URL.createObjectURL(blob); cur = id; ls.set('last', id);
+  const f = (await all()).find(x => x.id === id); $('#title').textContent = f ? clean(f.name) : 'Audio';
+  au.src = url; au.playbackRate = ls.get('speed', 1); $('#spd').textContent = au.playbackRate + '×';
+  const pos = ls.get('pos.'+id, 0);
+  au.addEventListener('loadedmetadata', () => { if (pos > 5 && pos < au.duration - 10) au.currentTime = pos; au.playbackRate = ls.get('speed', 1); }, {once:true});
+  au.play().catch(()=>{}); render();
+  if ('mediaSession' in navigator){ try { navigator.mediaSession.metadata = new MediaMetadata({title: $('#title').textContent, artist:'The Rail Report'});
+    navigator.mediaSession.setActionHandler('seekbackward', () => au.currentTime -= 15); navigator.mediaSession.setActionHandler('seekforward', () => au.currentTime += 30); } catch(e){} }
+}
+au.addEventListener('timeupdate', () => { if (!au.duration) return; if (!dragging) $('#seek').value = Math.round(au.currentTime/au.duration*1000);
+  $('#t0').textContent = fmt(au.currentTime); $('#t1').textContent = '−' + fmt(au.duration - au.currentTime);
+  if (cur && Math.round(au.currentTime) % 5 === 0) ls.set('pos.'+cur, au.currentTime); });
+au.addEventListener('play', setPP); au.addEventListener('pause', () => { setPP(); if (cur) ls.set('pos.'+cur, au.currentTime); render(); });
+au.addEventListener('ended', () => { if (cur) ls.set('pos.'+cur, 0); render(); });
+$('#seek').addEventListener('input', () => { dragging = true; }); $('#seek').addEventListener('change', () => { dragging = false; if (au.duration) au.currentTime = $('#seek').value/1000*au.duration; });
+$('#pp').onclick = () => { if (!au.src) { const l = ls.get('last', null); if (l) play(l); return; } au.paused ? au.play() : au.pause(); };
+$('#back').onclick = () => au.currentTime = Math.max(0, au.currentTime - 15);
+$('#fwd').onclick = () => au.currentTime += 30;
+$('#spd').onclick = () => { const i = (SPEEDS.indexOf(au.playbackRate)+1) % SPEEDS.length; au.playbackRate = SPEEDS[i]; ls.set('speed', SPEEDS[i]); $('#spd').textContent = SPEEDS[i]+'×'; };
+$('#openBtn').onclick = () => $('#file').click();
+$('#file').onchange = async e => { let first = null;
+  for (const f of e.target.files){ const id = f.name + '|' + f.size; await put({id, name:f.name, size:f.size, added:Date.now(), blob:f}); first = first || id; }
+  e.target.value = ''; await render(); if (first) play(first); };
+$('#list').addEventListener('click', async e => { const d = e.target.closest('[data-del]'); if (d){ if (cur === d.dataset.del){ au.pause(); au.removeAttribute('src'); cur = null; $('#title').textContent = 'Nothing playing'; } await del(d.dataset.del); render(); return; }
+  const t = e.target.closest('[data-id]'); if (t) play(t.dataset.id); });
+(async () => { await idb(); try { if (navigator.storage && navigator.storage.persist) navigator.storage.persist(); } catch(e){}
+  setPP(); render(); const l = ls.get('last', null); if (l){ const f = (await all()).find(x => x.id === l); if (f){ $('#title').textContent = clean(f.name); } } })();
+if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(()=>{});
+</script>
+</body>
+</html>
