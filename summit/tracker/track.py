@@ -28,13 +28,14 @@ os.makedirs(DATA, exist_ok=True)
 
 EVENT_START_UTC = dt.datetime(2026, 11, 14, 0, 0, tzinfo=dt.timezone.utc)  # 7:00 PM ET
 IDS = {"seatgeek": "18257252", "tickpick": "7982957", "vivid": "7058794",
-       "gametime": "6a0e0197195b8559e5c73814"}
+       "gametime": "6a0e0197195b8559e5c73814", "stubhub": "161190840"}
 LINKS = {
     "seatgeek": "https://seatgeek.com/john-summit-tickets/columbus-ohio-value-city-arena-at-schottenstein-center-2026-11-13-7-pm/concert/18257252",
     "tickpick": "https://www.tickpick.com/buy-john-summit-tickets-value-city-arena-at-the-schottenstein-center-11-13-26-7pm/7982957/",
     "vivid": "https://www.vividseats.com/john-summit-tickets-columbus-value-city-arena-at-schottenstein-center-11-13-2026--concerts-dance-electronica/production/7058794",
     "gametime": "https://gametime.co/concert/john-summit-tickets/11-13-2026-columbus-oh-schottenstein-center/events/6a0e0197195b8559e5c73814",
     "ticketmaster": "https://www.ticketmaster.com/event/050064B3F56A8E85",
+    "stubhub": "https://www.stubhub.com/john-summit-columbus-tickets-11-13-2026/event/161190840/",
 }
 WATCH_SECTIONS = {"104", "105", "106", "107", "110", "111", "114", "118", "121", "122", "123", "124"}
 WATCH_ROWS = {"A", "B", "C"}
@@ -136,10 +137,11 @@ def walk_lists(obj, depth=0):
 def parse_json_listings(src, data):
     """Pull listings out of any of the JSON shapes these sites use."""
     out = []
-    sec_keys = ("s", "section", "sectionName", "section_name", "sec")
-    row_keys = ("r", "row", "rowName", "row_name")
-    qty_keys = ("q", "quantity", "qty", "availableQuantity")
-    price_keys = ("allInPricePerTicket", "aip", "pf", "priceWithFees", "p", "price", "dp", "rawPrice", "pricePerTicket", "fee_price")
+    sec_keys = ("s", "section", "sectionName", "section_name", "sec", "sectionDisplayName", "section_group")
+    row_keys = ("r", "row", "rowName", "row_name", "rowDisplayName")
+    qty_keys = ("q", "quantity", "qty", "availableQuantity", "availableTickets", "ticketCount", "available_quantity")
+    price_keys = ("allInPricePerTicket", "aip", "pf", "priceWithFees", "priceWithFeesNumeric", "rawPriceWithFees",
+                  "p", "price", "dp", "rawPrice", "pricePerTicket", "fee_price", "listPrice", "display_price")
     for lst in walk_lists(data):
         if len(lst) >= 5 and src not in DEBUG:
             DEBUG[src] = {k: (str(v)[:60]) for k, v in list(lst[0].items())[:40]}
@@ -262,7 +264,95 @@ def src_gametime():
     return out
 
 
-SOURCES = [("seatgeek", src_seatgeek), ("tickpick", src_tickpick), ("vivid", src_vivid), ("gametime", src_gametime)]
+def _json_scripts(body):
+    """Yield (tag-id, parsed JSON) for every JSON script tag in an HTML page."""
+    for m in re.finditer(r'<script[^>]*?(?:id="([^"]*)")?[^>]*type="application/(?:ld\+)?json"[^>]*>(.*?)</script>', body, re.S | re.I):
+        try:
+            yield (m.group(1) or ""), json.loads(m.group(2))
+        except Exception:
+            continue
+    m = re.search(r'window\.__INITIAL_STATE__\s*=\s*(\{.*?\})\s*;?\s*</script>', body, re.S)
+    if m:
+        try:
+            yield "__INITIAL_STATE__", json.loads(m.group(1))
+        except Exception:
+            pass
+
+
+def src_stubhub():
+    eid = IDS["stubhub"]
+    base = LINKS["stubhub"]
+    attempts = [
+        ("GET", f"{base}?quantity=2", None),
+        ("POST", f"{base}?quantity=2", "quantity=2&pageSize=50&sortBy=NEWPRICE_ASC_SORT"),
+        ("GET", f"https://www.stubhub.com/event/{eid}/?quantity=2", None),
+    ]
+    last = None
+    for method, u, payload in attempts:
+        try:
+            h = {"Referer": base, "Accept": "application/json, text/html;q=0.9"}
+            req_body = payload.encode() if payload else None
+            if payload:
+                h["Content-Type"] = "application/x-www-form-urlencoded"
+                h["X-Requested-With"] = "XMLHttpRequest"
+            req = urllib.request.Request(u, data=req_body, method=method,
+                                         headers={"User-Agent": UA, "Accept-Language": "en-US,en;q=0.9", **h})
+            with urllib.request.urlopen(req, timeout=25) as r:
+                body = r.read().decode("utf-8", "replace")
+            DEBUG.setdefault("stubhub_probe", []).append({"url": u[:80], "method": method, "len": len(body),
+                                                           "index-data": 'id="index-data"' in body,
+                                                           "json_scripts": len(re.findall(r'type="application/json"', body))})
+            data = None
+            if body.lstrip().startswith("{") or body.lstrip().startswith("["):
+                data = json.loads(body)
+            else:
+                blobs = [d for _id, d in _json_scripts(body)]
+                data = blobs if blobs else None
+            if data is None:
+                last = f"no JSON in {method} {u}"
+                continue
+            got = parse_json_listings("stubhub", data)
+            if got:
+                return got
+            last = f"parsed 0 listings from {method} {u}"
+        except Exception as e:
+            last = f"{type(e).__name__}: {e}"
+    raise RuntimeError(last or "no data")
+
+
+def src_gametime_api():
+    eid = IDS["gametime"]
+    urls = [
+        f"https://mobile.gametime.co/v2/listings?event_id={eid}&quantity=2",
+        f"https://mobile.gametime.co/v1/listings?event_id={eid}&quantity=2",
+        f"https://mobile.gametime.co/v1/listings/{eid}?quantity=2",
+    ]
+    last = None
+    for u in urls:
+        try:
+            body, _ = fetch(u, {"Accept": "application/json", "Origin": "https://gametime.co", "Referer": LINKS["gametime"]})
+            data = json.loads(body)
+            got = parse_json_listings("gametime", data)
+            if got:
+                return got
+            last = f"parsed 0 listings from {u}"
+        except Exception as e:
+            last = f"{type(e).__name__}: {e}"
+    raise RuntimeError(last or "no data")
+
+
+def src_gametime_any():
+    try:
+        return src_gametime_api()
+    except Exception as e1:
+        try:
+            return src_gametime()
+        except Exception as e2:
+            raise RuntimeError(f"api: {str(e1)[:70]} | page: {str(e2)[:70]}")
+
+
+SOURCES = [("stubhub", src_stubhub), ("vivid", src_vivid), ("gametime", src_gametime_any),
+           ("seatgeek", src_seatgeek), ("tickpick", src_tickpick)]
 
 
 # ---------------------------------------------------------------- alerts
@@ -385,6 +475,15 @@ def main():
                 alerts.append((f"Floor gone: was ${prev['price']:.0f}/ea", f"No longer listed on {src}."))
     for k in gone:
         seen.pop(k, None)
+    floor_pairs = sum(1 for l in floor if fits_pair(l))
+    prev_pairs = state.get("floor_pairs")
+    if prev_pairs is not None and ok_sources and floor_pairs < prev_pairs:
+        alerts.append((f"Floor pairs: {prev_pairs} → {floor_pairs}", "A floor pair sold or was pulled."))
+    if ok_sources:
+        state["floor_pairs"] = floor_pairs
+    if alerts and floor:
+        ladder = ", ".join(f"${l['price']:.0f}×{l['qty'] or '?'} ({l['src']})" for l in floor[:8])
+        alerts.append(("Floor ladder right now", ladder))
     for k, l in current.items():
         seen[k] = {"price": l["price"], "floor": is_floor(l), "last": now.isoformat(timespec="minutes"),
                    "first": seen.get(k, {}).get("first", now.isoformat(timespec="minutes"))}
