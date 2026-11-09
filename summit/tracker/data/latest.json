@@ -1,5 +1,5 @@
 {
- "ran": "2026-11-09T02:43+00:00",
+ "ran": "2026-11-09T11:22+00:00",
  "sources": {
   "seatgeek": {
    "ok": false,
@@ -11,28 +11,19 @@
   },
   "vivid": {
    "ok": true,
-   "count": 363
+   "count": 374
   },
   "gametime": {
-   "ok": true,
-   "count": 75
+   "ok": false,
+   "error": "page had no listing text (JS-only render this time)"
   }
  },
  "counts": {
-  "all": 438,
+  "all": 374,
   "floor": 6,
   "front": 0
  },
  "floor": [
-  {
-   "src": "gametime",
-   "section": "GA FLOOR",
-   "row": "GA",
-   "qty": null,
-   "price": 542.0,
-   "splits": null,
-   "note": null
-  },
   {
    "src": "vivid",
    "section": "GA FLOOR",
@@ -55,8 +46,17 @@
    "src": "vivid",
    "section": "GA FLOOR",
    "row": "GA",
+   "qty": 2,
+   "price": 618.0,
+   "splits": null,
+   "note": null
+  },
+  {
+   "src": "vivid",
+   "section": "GA FLOOR",
+   "row": "GA",
    "qty": 4,
-   "price": 1001.0,
+   "price": 1002.0,
    "splits": null,
    "note": null
   },
@@ -91,20 +91,20 @@
    "note": null
   },
   "104": {
-   "src": "gametime",
+   "src": "vivid",
    "section": "104",
-   "row": "L",
-   "qty": null,
-   "price": 255.0,
+   "row": "T",
+   "qty": 8,
+   "price": 264.0,
    "splits": null,
    "note": null
   },
   "106": {
-   "src": "gametime",
+   "src": "vivid",
    "section": "106",
    "row": "K",
-   "qty": null,
-   "price": 347.0,
+   "qty": 6,
+   "price": 349.0,
    "splits": null,
    "note": null
   },
@@ -163,38 +163,38 @@
    "note": null
   },
   "123": {
-   "src": "gametime",
+   "src": "vivid",
    "section": "123",
    "row": "M",
-   "qty": null,
-   "price": 347.0,
+   "qty": 2,
+   "price": 379.0,
    "splits": null,
    "note": null
   },
   "124": {
-   "src": "gametime",
+   "src": "vivid",
    "section": "124",
    "row": "L",
-   "qty": null,
-   "price": 255.0,
+   "qty": 5,
+   "price": 264.0,
    "splits": null,
    "note": null
   },
   "127": {
-   "src": "gametime",
+   "src": "vivid",
    "section": "127",
    "row": "G",
-   "qty": null,
-   "price": 355.0,
+   "qty": 2,
+   "price": 387.0,
    "splits": null,
    "note": null
   },
   "131": {
-   "src": "gametime",
+   "src": "vivid",
    "section": "131",
    "row": "N",
-   "qty": null,
-   "price": 302.0,
+   "qty": 2,
+   "price": 295.0,
    "splits": null,
    "note": null
   },
@@ -203,26 +203,13 @@
    "section": "134",
    "row": "S",
    "qty": 4,
-   "price": 323.0,
+   "price": 254.0,
    "splits": null,
    "note": null
   }
  },
  "comparable_to_ours": [],
- "alerts": [
-  {
-   "title": "Floor: Floor $542/ea",
-   "body": "New on gametime. https://gametime.co/concert/john-summit-tickets/11-13-2026-columbus-oh-schottenstein-center/events/6a0e0197195b8559e5c73814"
-  },
-  {
-   "title": "Floor: Floor $573/ea",
-   "body": "New on vivid (2 avail). https://www.vividseats.com/john-summit-tickets-columbus-value-city-arena-at-schottenstein-center-11-13-2026--concerts-dance-electronica/production/7058794"
-  },
-  {
-   "title": "Floor: Floor $1435/ea",
-   "body": "New on vivid (6 avail). https://www.vividseats.com/john-summit-tickets-columbus-value-city-arena-at-schottenstein-center-11-13-2026--concerts-dance-electronica/production/7058794"
-  }
- ],
+ "alerts": [],
  "listings": [
   {
    "src": "vivid",
@@ -230,24 +217,6 @@
    "row": "S",
    "qty": 2,
    "price": 370.0,
-   "splits": null,
-   "note": null
-  },
-  {
-   "src": "gametime",
-   "section": "101",
-   "row": "S",
-   "qty": null,
-   "price": 379.0,
-   "splits": null,
-   "note": null
-  },
-  {
-   "src": "gametime",
-   "section": "101",
-   "row": "F",
-   "qty": null,
-   "price": 388.0,
    "splits": null,
    "note": null
   },
@@ -261,29 +230,11 @@
    "note": null
   },
   {
-   "src": "gametime",
+   "src": "vivid",
    "section": "104",
-   "row": "L",
-   "qty": null,
-   "price": 255.0,
-   "splits": null,
-   "note": null
-  },
-  {
-   "src": "gametime",
-   "section": "104",
-   "row": "L",
-   "qty": null,
-   "price": 255.0,
-   "splits": null,
-   "note": null
-  },
-  {
-   "src": "gametime",
-   "section": "104",
-   "row": "S",
-   "qty": null,
-   "price": 258.0,
+   "row": "T",
+   "qty": 8,
+   "price": 264.0,
    "splits": null,
    "note": null
   },
@@ -299,8 +250,8 @@
   {
    "src": "vivid",
    "section": "104",
-   "row": "T",
-   "qty": 8,
+   "row": "S",
+   "qty": 6,
    "price": 264.0,
    "splits": null,
    "note": null
@@ -326,8 +277,8 @@
   {
    "src": "vivid",
    "section": "104",
-   "row": "S",
-   "qty": 6,
+   "row": "N",
+   "qty": 8,
    "price": 264.0,
    "splits": null,
    "note": null
@@ -346,15 +297,6 @@
    "section": "104",
    "row": "M",
    "qty": 5,
-   "price": 264.0,
-   "splits": null,
-   "note": null
-  },
-  {
-   "src": "vivid",
-   "section": "104",
-   "row": "N",
-   "qty": 8,
    "price": 264.0,
    "splits": null,
    "note": null
@@ -434,8 +376,8 @@
   {
    "src": "vivid",
    "section": "104",
-   "row": "M",
-   "qty": 14,
+   "row": "L",
+   "qty": 8,
    "price": 290.0,
    "splits": null,
    "note": null
@@ -443,8 +385,8 @@
   {
    "src": "vivid",
    "section": "104",
-   "row": "L",
-   "qty": 8,
+   "row": "M",
+   "qty": 14,
    "price": 290.0,
    "splits": null,
    "note": null
@@ -472,16 +414,7 @@
    "section": "105",
    "row": "J",
    "qty": 1,
-   "price": 257.0,
-   "splits": null,
-   "note": null
-  },
-  {
-   "src": "gametime",
-   "section": "106",
-   "row": "K",
-   "qty": null,
-   "price": 347.0,
+   "price": 258.0,
    "splits": null,
    "note": null
   },
@@ -500,15 +433,6 @@
    "row": "K",
    "qty": 8,
    "price": 387.0,
-   "splits": null,
-   "note": null
-  },
-  {
-   "src": "gametime",
-   "section": "106",
-   "row": "E",
-   "qty": null,
-   "price": 562.0,
    "splits": null,
    "note": null
   },
@@ -551,18 +475,18 @@
   {
    "src": "vivid",
    "section": "107",
-   "row": "R",
+   "row": "Q",
    "qty": 3,
-   "price": 367.0,
+   "price": 312.0,
    "splits": null,
    "note": null
   },
   {
-   "src": "gametime",
+   "src": "vivid",
    "section": "107",
-   "row": "M",
-   "qty": null,
-   "price": 383.0,
+   "row": "R",
+   "qty": 3,
+   "price": 367.0,
    "splits": null,
    "note": null
   },
@@ -572,24 +496,6 @@
    "row": "M",
    "qty": 2,
    "price": 397.0,
-   "splits": null,
-   "note": null
-  },
-  {
-   "src": "vivid",
-   "section": "107",
-   "row": "Q",
-   "qty": 2,
-   "price": 438.0,
-   "splits": null,
-   "note": null
-  },
-  {
-   "src": "gametime",
-   "section": "107",
-   "row": "R",
-   "qty": null,
-   "price": 530.0,
    "splits": null,
    "note": null
   },
@@ -607,16 +513,7 @@
    "section": "110",
    "row": "R",
    "qty": 2,
-   "price": 301.0,
-   "splits": null,
-   "note": null
-  },
-  {
-   "src": "gametime",
-   "section": "110",
-   "row": "R",
-   "qty": null,
-   "price": 302.0,
+   "price": 239.0,
    "splits": null,
    "note": null
   },
@@ -756,15 +653,6 @@
    "note": null
   },
   {
-   "src": "gametime",
-   "section": "121",
-   "row": "M",
-   "qty": null,
-   "price": 317.0,
-   "splits": null,
-   "note": null
-  },
-  {
    "src": "vivid",
    "section": "121",
    "row": "M",
@@ -788,15 +676,6 @@
    "row": "E",
    "qty": 2,
    "price": 618.0,
-   "splits": null,
-   "note": null
-  },
-  {
-   "src": "gametime",
-   "section": "121",
-   "row": "E",
-   "qty": null,
-   "price": 628.0,
    "splits": null,
    "note": null
   },
@@ -828,15 +707,6 @@
    "note": null
   },
   {
-   "src": "gametime",
-   "section": "123",
-   "row": "M",
-   "qty": null,
-   "price": 347.0,
-   "splits": null,
-   "note": null
-  },
-  {
    "src": "vivid",
    "section": "123",
    "row": "M",
@@ -851,15 +721,6 @@
    "row": "H",
    "qty": 4,
    "price": 431.0,
-   "splits": null,
-   "note": null
-  },
-  {
-   "src": "gametime",
-   "section": "123",
-   "row": "H",
-   "qty": null,
-   "price": 465.0,
    "splits": null,
    "note": null
   },
@@ -905,24 +766,6 @@
    "row": "PACKAGE",
    "qty": 6,
    "price": 861.0,
-   "splits": null,
-   "note": null
-  },
-  {
-   "src": "gametime",
-   "section": "124",
-   "row": "L",
-   "qty": null,
-   "price": 255.0,
-   "splits": null,
-   "note": null
-  },
-  {
-   "src": "gametime",
-   "section": "124",
-   "row": "R",
-   "qty": null,
-   "price": 258.0,
    "splits": null,
    "note": null
   },
@@ -1001,15 +844,6 @@
   {
    "src": "vivid",
    "section": "124",
-   "row": "L",
-   "qty": 17,
-   "price": 290.0,
-   "splits": null,
-   "note": null
-  },
-  {
-   "src": "vivid",
-   "section": "124",
    "row": "K",
    "qty": 5,
    "price": 290.0,
@@ -1020,6 +854,24 @@
    "src": "vivid",
    "section": "124",
    "row": "M",
+   "qty": 18,
+   "price": 290.0,
+   "splits": null,
+   "note": null
+  },
+  {
+   "src": "vivid",
+   "section": "124",
+   "row": "L",
+   "qty": 17,
+   "price": 290.0,
+   "splits": null,
+   "note": null
+  },
+  {
+   "src": "vivid",
+   "section": "124",
+   "row": "N",
    "qty": 18,
    "price": 290.0,
    "splits": null,
@@ -1039,16 +891,7 @@
    "section": "127",
    "row": "F",
    "qty": 1,
-   "price": 219.0,
-   "splits": null,
-   "note": null
-  },
-  {
-   "src": "gametime",
-   "section": "127",
-   "row": "G",
-   "qty": null,
-   "price": 355.0,
+   "price": 199.0,
    "splits": null,
    "note": null
   },
@@ -1089,11 +932,11 @@
    "note": null
   },
   {
-   "src": "gametime",
+   "src": "vivid",
    "section": "131",
    "row": "N",
-   "qty": null,
-   "price": 302.0,
+   "qty": 2,
+   "price": 295.0,
    "splits": null,
    "note": null
   },
@@ -1108,37 +951,10 @@
   },
   {
    "src": "vivid",
-   "section": "131",
-   "row": "N",
-   "qty": 2,
-   "price": 309.0,
-   "splits": null,
-   "note": null
-  },
-  {
-   "src": "gametime",
-   "section": "131",
-   "row": "S",
-   "qty": null,
-   "price": 317.0,
-   "splits": null,
-   "note": null
-  },
-  {
-   "src": "vivid",
    "section": "134",
    "row": "S",
    "qty": 4,
-   "price": 323.0,
-   "splits": null,
-   "note": null
-  },
-  {
-   "src": "gametime",
-   "section": "134",
-   "row": "S",
-   "qty": null,
-   "price": 340.0,
+   "price": 254.0,
    "splits": null,
    "note": null
   },
@@ -1148,15 +964,6 @@
    "row": "G",
    "qty": 1,
    "price": 390.0,
-   "splits": null,
-   "note": null
-  },
-  {
-   "src": "gametime",
-   "section": "201",
-   "row": "J",
-   "qty": null,
-   "price": 205.0,
    "splits": null,
    "note": null
   },
@@ -1206,15 +1013,6 @@
    "note": null
   },
   {
-   "src": "gametime",
-   "section": "203",
-   "row": "J",
-   "qty": null,
-   "price": 213.0,
-   "splits": null,
-   "note": null
-  },
-  {
    "src": "vivid",
    "section": "203",
    "row": "J",
@@ -1242,15 +1040,6 @@
    "note": null
   },
   {
-   "src": "gametime",
-   "section": "204",
-   "row": "H",
-   "qty": null,
-   "price": 222.0,
-   "splits": null,
-   "note": null
-  },
-  {
    "src": "vivid",
    "section": "204",
    "row": "H",
@@ -1274,24 +1063,6 @@
    "row": "C",
    "qty": 1,
    "price": 299.0,
-   "splits": null,
-   "note": null
-  },
-  {
-   "src": "gametime",
-   "section": "205",
-   "row": "J",
-   "qty": null,
-   "price": 247.0,
-   "splits": null,
-   "note": null
-  },
-  {
-   "src": "gametime",
-   "section": "205",
-   "row": "E",
-   "qty": null,
-   "price": 271.0,
    "splits": null,
    "note": null
   },
@@ -1337,15 +1108,6 @@
    "row": "J",
    "qty": 1,
    "price": 329.0,
-   "splits": null,
-   "note": null
-  },
-  {
-   "src": "gametime",
-   "section": "206",
-   "row": "G",
-   "qty": null,
-   "price": 251.0,
    "splits": null,
    "note": null
   },
@@ -1409,15 +1171,6 @@
    "row": "TBC",
    "qty": 6,
    "price": 381.0,
-   "splits": null,
-   "note": null
-  },
-  {
-   "src": "gametime",
-   "section": "207",
-   "row": "H",
-   "qty": null,
-   "price": 251.0,
    "splits": null,
    "note": null
   },
@@ -1496,18 +1249,18 @@
   {
    "src": "vivid",
    "section": "211",
-   "row": "J",
+   "row": "A",
    "qty": 2,
-   "price": 205.0,
+   "price": 202.0,
    "splits": null,
    "note": null
   },
   {
    "src": "vivid",
    "section": "211",
-   "row": "A",
+   "row": "J",
    "qty": 2,
-   "price": 208.0,
+   "price": 205.0,
    "splits": null,
    "note": null
   },
@@ -1678,7 +1431,7 @@
    "section": "214",
    "row": "F",
    "qty": 2,
-   "price": 180.0,
+   "price": 174.0,
    "splits": null,
    "note": null
   },
@@ -1710,11 +1463,11 @@
    "note": null
   },
   {
-   "src": "gametime",
+   "src": "vivid",
    "section": "214",
    "row": "B",
-   "qty": null,
-   "price": 286.0,
+   "qty": 2,
+   "price": 256.0,
    "splits": null,
    "note": null
   },
@@ -1724,15 +1477,6 @@
    "row": "F",
    "qty": 4,
    "price": 301.0,
-   "splits": null,
-   "note": null
-  },
-  {
-   "src": "vivid",
-   "section": "214",
-   "row": "B",
-   "qty": 2,
-   "price": 306.0,
    "splits": null,
    "note": null
   },
@@ -1926,24 +1670,6 @@
    "note": null
   },
   {
-   "src": "gametime",
-   "section": "221",
-   "row": "H",
-   "qty": null,
-   "price": 251.0,
-   "splits": null,
-   "note": null
-  },
-  {
-   "src": "gametime",
-   "section": "221",
-   "row": "B",
-   "qty": null,
-   "price": 251.0,
-   "splits": null,
-   "note": null
-  },
-  {
    "src": "vivid",
    "section": "221",
    "row": "C",
@@ -2079,28 +1805,10 @@
    "note": null
   },
   {
-   "src": "gametime",
-   "section": "222",
-   "row": "F",
-   "qty": null,
-   "price": 255.0,
-   "splits": null,
-   "note": null
-  },
-  {
    "src": "vivid",
    "section": "222",
    "row": "F",
    "qty": 5,
-   "price": 264.0,
-   "splits": null,
-   "note": null
-  },
-  {
-   "src": "vivid",
-   "section": "222",
-   "row": "E",
-   "qty": 2,
    "price": 264.0,
    "splits": null,
    "note": null
@@ -2135,8 +1843,8 @@
   {
    "src": "vivid",
    "section": "222",
-   "row": "G",
-   "qty": 7,
+   "row": "E",
+   "qty": 2,
    "price": 290.0,
    "splits": null,
    "note": null
@@ -2144,8 +1852,8 @@
   {
    "src": "vivid",
    "section": "222",
-   "row": "E",
-   "qty": 4,
+   "row": "G",
+   "qty": 7,
    "price": 290.0,
    "splits": null,
    "note": null
@@ -2160,46 +1868,19 @@
    "note": null
   },
   {
-   "src": "gametime",
-   "section": "223",
-   "row": "H",
-   "qty": null,
-   "price": 185.0,
-   "splits": null,
-   "note": null
-  },
-  {
    "src": "vivid",
    "section": "223",
    "row": "H",
-   "qty": 4,
+   "qty": 2,
    "price": 188.0,
    "splits": null,
    "note": null
   },
   {
-   "src": "gametime",
-   "section": "224",
-   "row": "H",
-   "qty": null,
-   "price": 179.0,
-   "splits": null,
-   "note": null
-  },
-  {
-   "src": "gametime",
-   "section": "224",
-   "row": "H",
-   "qty": null,
-   "price": 179.0,
-   "splits": null,
-   "note": null
-  },
-  {
    "src": "vivid",
    "section": "224",
    "row": "H",
-   "qty": 6,
+   "qty": 4,
    "price": 182.0,
    "splits": null,
    "note": null
@@ -2208,7 +1889,7 @@
    "src": "vivid",
    "section": "224",
    "row": "G",
-   "qty": 10,
+   "qty": 9,
    "price": 185.0,
    "splits": null,
    "note": null
@@ -2228,24 +1909,6 @@
    "row": "E",
    "qty": 10,
    "price": 190.0,
-   "splits": null,
-   "note": null
-  },
-  {
-   "src": "gametime",
-   "section": "225",
-   "row": "F",
-   "qty": null,
-   "price": 180.0,
-   "splits": null,
-   "note": null
-  },
-  {
-   "src": "gametime",
-   "section": "225",
-   "row": "F",
-   "qty": null,
-   "price": 180.0,
    "splits": null,
    "note": null
   },
@@ -2281,16 +1944,7 @@
    "section": "228",
    "row": "F",
    "qty": 1,
-   "price": 163.0,
-   "splits": null,
-   "note": null
-  },
-  {
-   "src": "gametime",
-   "section": "230",
-   "row": "J",
-   "qty": null,
-   "price": 249.0,
+   "price": 158.0,
    "splits": null,
    "note": null
   },
@@ -2313,15 +1967,6 @@
    "note": null
   },
   {
-   "src": "gametime",
-   "section": "230",
-   "row": "D",
-   "qty": null,
-   "price": 333.0,
-   "splits": null,
-   "note": null
-  },
-  {
    "src": "vivid",
    "section": "230",
    "row": "D",
@@ -2335,15 +1980,6 @@
    "section": "231",
    "row": "D",
    "qty": 1,
-   "price": 225.0,
-   "splits": null,
-   "note": null
-  },
-  {
-   "src": "gametime",
-   "section": "231",
-   "row": "H",
-   "qty": null,
    "price": 225.0,
    "splits": null,
    "note": null
@@ -2385,28 +2021,10 @@
    "note": null
   },
   {
-   "src": "gametime",
-   "section": "231",
-   "row": "C",
-   "qty": null,
-   "price": 408.0,
-   "splits": null,
-   "note": null
-  },
-  {
-   "src": "gametime",
-   "section": "232",
-   "row": "J",
-   "qty": null,
-   "price": 189.0,
-   "splits": null,
-   "note": null
-  },
-  {
    "src": "vivid",
    "section": "232",
    "row": "J",
-   "qty": 6,
+   "qty": 4,
    "price": 193.0,
    "splits": null,
    "note": null
@@ -2417,15 +2035,6 @@
    "row": "H",
    "qty": 6,
    "price": 196.0,
-   "splits": null,
-   "note": null
-  },
-  {
-   "src": "gametime",
-   "section": "234",
-   "row": "J",
-   "qty": null,
-   "price": 195.0,
    "splits": null,
    "note": null
   },
@@ -2484,38 +2093,11 @@
    "note": null
   },
   {
-   "src": "gametime",
-   "section": "301",
-   "row": "N",
-   "qty": null,
-   "price": 161.0,
-   "splits": null,
-   "note": null
-  },
-  {
-   "src": "vivid",
-   "section": "301",
-   "row": "N",
-   "qty": 2,
-   "price": 164.0,
-   "splits": null,
-   "note": null
-  },
-  {
    "src": "vivid",
    "section": "301",
    "row": "K",
    "qty": 2,
-   "price": 165.0,
-   "splits": null,
-   "note": null
-  },
-  {
-   "src": "vivid",
-   "section": "301",
-   "row": "M",
-   "qty": 4,
-   "price": 166.0,
+   "price": 157.0,
    "splits": null,
    "note": null
   },
@@ -2531,9 +2113,27 @@
   {
    "src": "vivid",
    "section": "301",
+   "row": "N",
+   "qty": 2,
+   "price": 167.0,
+   "splits": null,
+   "note": null
+  },
+  {
+   "src": "vivid",
+   "section": "301",
+   "row": "M",
+   "qty": 4,
+   "price": 169.0,
+   "splits": null,
+   "note": null
+  },
+  {
+   "src": "vivid",
+   "section": "301",
    "row": "L",
    "qty": 4,
-   "price": 168.0,
+   "price": 171.0,
    "splits": null,
    "note": null
   },
@@ -2547,20 +2147,11 @@
    "note": null
   },
   {
-   "src": "gametime",
-   "section": "302",
-   "row": "N",
-   "qty": null,
-   "price": 167.0,
-   "splits": null,
-   "note": null
-  },
-  {
    "src": "vivid",
    "section": "302",
    "row": "N",
    "qty": 2,
-   "price": 170.0,
+   "price": 173.0,
    "splits": null,
    "note": null
   },
@@ -2569,7 +2160,7 @@
    "section": "302",
    "row": "L",
    "qty": 2,
-   "price": 175.0,
+   "price": 177.0,
    "splits": null,
    "note": null
   },
@@ -2592,24 +2183,6 @@
    "note": null
   },
   {
-   "src": "gametime",
-   "section": "304",
-   "row": "U",
-   "qty": null,
-   "price": 149.0,
-   "splits": null,
-   "note": null
-  },
-  {
-   "src": "vivid",
-   "section": "304",
-   "row": "P",
-   "qty": 1,
-   "price": 150.0,
-   "splits": null,
-   "note": null
-  },
-  {
    "src": "vivid",
    "section": "304",
    "row": "U",
@@ -2624,15 +2197,6 @@
    "row": "T",
    "qty": 2,
    "price": 164.0,
-   "splits": null,
-   "note": null
-  },
-  {
-   "src": "gametime",
-   "section": "304",
-   "row": "L",
-   "qty": null,
-   "price": 173.0,
    "splits": null,
    "note": null
   },
@@ -2675,27 +2239,18 @@
   {
    "src": "vivid",
    "section": "304",
-   "row": "S",
-   "qty": 2,
-   "price": 186.0,
+   "row": "H",
+   "qty": 3,
+   "price": 188.0,
    "splits": null,
    "note": null
   },
   {
    "src": "vivid",
    "section": "304",
-   "row": "H",
-   "qty": 3,
-   "price": 196.0,
-   "splits": null,
-   "note": null
-  },
-  {
-   "src": "gametime",
-   "section": "304",
-   "row": "B",
-   "qty": null,
-   "price": 277.0,
+   "row": "S",
+   "qty": 2,
+   "price": 189.0,
    "splits": null,
    "note": null
   },
@@ -2705,24 +2260,6 @@
    "row": "B",
    "qty": 2,
    "price": 303.0,
-   "splits": null,
-   "note": null
-  },
-  {
-   "src": "gametime",
-   "section": "305",
-   "row": "T",
-   "qty": null,
-   "price": 160.0,
-   "splits": null,
-   "note": null
-  },
-  {
-   "src": "gametime",
-   "section": "305",
-   "row": "K",
-   "qty": null,
-   "price": 164.0,
    "splits": null,
    "note": null
   },
@@ -2747,18 +2284,9 @@
   {
    "src": "vivid",
    "section": "305",
-   "row": "B",
-   "qty": 1,
-   "price": 198.0,
-   "splits": null,
-   "note": null
-  },
-  {
-   "src": "vivid",
-   "section": "305",
    "row": "C",
    "qty": 3,
-   "price": 214.0,
+   "price": 206.0,
    "splits": null,
    "note": null
   },
@@ -2772,20 +2300,11 @@
    "note": null
   },
   {
-   "src": "gametime",
-   "section": "306",
-   "row": "U",
-   "qty": null,
-   "price": 142.0,
-   "splits": null,
-   "note": null
-  },
-  {
-   "src": "gametime",
-   "section": "306",
-   "row": "U",
-   "qty": null,
-   "price": 142.0,
+   "src": "vivid",
+   "section": "305",
+   "row": "B",
+   "qty": 1,
+   "price": 230.0,
    "splits": null,
    "note": null
   },
@@ -2794,7 +2313,7 @@
    "section": "306",
    "row": "U",
    "qty": 2,
-   "price": 156.0,
+   "price": 158.0,
    "splits": null,
    "note": null
   },
@@ -2810,15 +2329,6 @@
   {
    "src": "vivid",
    "section": "306",
-   "row": "G",
-   "qty": 1,
-   "price": 173.0,
-   "splits": null,
-   "note": null
-  },
-  {
-   "src": "vivid",
-   "section": "306",
    "row": "T",
    "qty": 2,
    "price": 185.0,
@@ -2828,18 +2338,18 @@
   {
    "src": "vivid",
    "section": "306",
-   "row": "Q",
-   "qty": 4,
-   "price": 220.0,
+   "row": "G",
+   "qty": 1,
+   "price": 190.0,
    "splits": null,
    "note": null
   },
   {
-   "src": "gametime",
+   "src": "vivid",
    "section": "306",
    "row": "Q",
-   "qty": null,
-   "price": 224.0,
+   "qty": 4,
+   "price": 220.0,
    "splits": null,
    "note": null
   },
@@ -2858,15 +2368,6 @@
    "row": "U",
    "qty": 1,
    "price": 254.0,
-   "splits": null,
-   "note": null
-  },
-  {
-   "src": "gametime",
-   "section": "307",
-   "row": "R",
-   "qty": null,
-   "price": 144.0,
    "splits": null,
    "note": null
   },
@@ -2956,16 +2457,7 @@
    "section": "307",
    "row": "U",
    "qty": 4,
-   "price": 187.0,
-   "splits": null,
-   "note": null
-  },
-  {
-   "src": "gametime",
-   "section": "307",
-   "row": "B",
-   "qty": null,
-   "price": 256.0,
+   "price": 189.0,
    "splits": null,
    "note": null
   },
@@ -2983,7 +2475,7 @@
    "section": "308",
    "row": "R",
    "qty": 2,
-   "price": 142.0,
+   "price": 149.0,
    "splits": null,
    "note": null
   },
@@ -2992,7 +2484,7 @@
    "section": "308",
    "row": "Q",
    "qty": 2,
-   "price": 156.0,
+   "price": 163.0,
    "splits": null,
    "note": null
   },
@@ -3001,7 +2493,7 @@
    "section": "308",
    "row": "U",
    "qty": 4,
-   "price": 170.0,
+   "price": 173.0,
    "splits": null,
    "note": null
   },
@@ -3010,7 +2502,7 @@
    "section": "308",
    "row": "T",
    "qty": 4,
-   "price": 177.0,
+   "price": 182.0,
    "splits": null,
    "note": null
   },
@@ -3019,25 +2511,16 @@
    "section": "308",
    "row": "R",
    "qty": 3,
-   "price": 180.0,
+   "price": 184.0,
    "splits": null,
    "note": null
   },
   {
-   "src": "gametime",
+   "src": "vivid",
    "section": "309",
    "row": "A",
-   "qty": null,
-   "price": 119.0,
-   "splits": null,
-   "note": null
-  },
-  {
-   "src": "gametime",
-   "section": "309",
-   "row": "A",
-   "qty": null,
-   "price": 119.0,
+   "qty": 2,
+   "price": 118.0,
    "splits": null,
    "note": null
   },
@@ -3056,15 +2539,6 @@
    "row": "J",
    "qty": 2,
    "price": 122.0,
-   "splits": null,
-   "note": null
-  },
-  {
-   "src": "vivid",
-   "section": "309",
-   "row": "A",
-   "qty": 2,
-   "price": 123.0,
    "splits": null,
    "note": null
   },
@@ -3098,9 +2572,36 @@
   {
    "src": "vivid",
    "section": "310",
+   "row": "U",
+   "qty": 2,
+   "price": 89.0,
+   "splits": null,
+   "note": null
+  },
+  {
+   "src": "vivid",
+   "section": "310",
    "row": "T",
    "qty": 2,
-   "price": 111.0,
+   "price": 102.0,
+   "splits": null,
+   "note": null
+  },
+  {
+   "src": "vivid",
+   "section": "310",
+   "row": "S",
+   "qty": 2,
+   "price": 107.0,
+   "splits": null,
+   "note": null
+  },
+  {
+   "src": "vivid",
+   "section": "310",
+   "row": "H",
+   "qty": 2,
+   "price": 112.0,
    "splits": null,
    "note": null
   },
@@ -3110,15 +2611,6 @@
    "row": "L",
    "qty": 2,
    "price": 121.0,
-   "splits": null,
-   "note": null
-  },
-  {
-   "src": "vivid",
-   "section": "310",
-   "row": "H",
-   "qty": 2,
-   "price": 123.0,
    "splits": null,
    "note": null
   },
@@ -3152,36 +2644,27 @@
   {
    "src": "vivid",
    "section": "310",
-   "row": "R",
-   "qty": 1,
-   "price": 179.0,
-   "splits": null,
-   "note": null
-  },
-  {
-   "src": "vivid",
-   "section": "310",
-   "row": "Q",
-   "qty": 2,
-   "price": 263.0,
-   "splits": null,
-   "note": null
-  },
-  {
-   "src": "vivid",
-   "section": "310",
    "row": "U",
    "qty": 1,
-   "price": 264.0,
+   "price": 260.0,
    "splits": null,
    "note": null
   },
   {
-   "src": "gametime",
-   "section": "310",
-   "row": "Q",
-   "qty": null,
-   "price": 270.0,
+   "src": "vivid",
+   "section": "311",
+   "row": "T",
+   "qty": 2,
+   "price": 91.0,
+   "splits": null,
+   "note": null
+  },
+  {
+   "src": "vivid",
+   "section": "311",
+   "row": "S",
+   "qty": 2,
+   "price": 102.0,
    "splits": null,
    "note": null
   },
@@ -3191,24 +2674,6 @@
    "row": "U",
    "qty": 2,
    "price": 105.0,
-   "splits": null,
-   "note": null
-  },
-  {
-   "src": "vivid",
-   "section": "311",
-   "row": "T",
-   "qty": 2,
-   "price": 107.0,
-   "splits": null,
-   "note": null
-  },
-  {
-   "src": "vivid",
-   "section": "311",
-   "row": "S",
-   "qty": 2,
-   "price": 108.0,
    "splits": null,
    "note": null
   },
@@ -3262,7 +2727,7 @@
    "section": "311",
    "row": "J",
    "qty": 1,
-   "price": 148.0,
+   "price": 159.0,
    "splits": null,
    "note": null
   },
@@ -3272,6 +2737,24 @@
    "row": "U",
    "qty": 1,
    "price": 247.0,
+   "splits": null,
+   "note": null
+  },
+  {
+   "src": "vivid",
+   "section": "312",
+   "row": "R",
+   "qty": 2,
+   "price": 82.0,
+   "splits": null,
+   "note": null
+  },
+  {
+   "src": "vivid",
+   "section": "312",
+   "row": "Q",
+   "qty": 2,
+   "price": 91.0,
    "splits": null,
    "note": null
   },
@@ -3290,24 +2773,6 @@
    "row": "U",
    "qty": 2,
    "price": 101.0,
-   "splits": null,
-   "note": null
-  },
-  {
-   "src": "vivid",
-   "section": "312",
-   "row": "R",
-   "qty": 2,
-   "price": 105.0,
-   "splits": null,
-   "note": null
-  },
-  {
-   "src": "vivid",
-   "section": "312",
-   "row": "Q",
-   "qty": 2,
-   "price": 107.0,
    "splits": null,
    "note": null
   },
@@ -3334,7 +2799,7 @@
    "section": "313",
    "row": "U",
    "qty": 2,
-   "price": 94.0,
+   "price": 97.0,
    "splits": null,
    "note": null
   },
@@ -3359,7 +2824,7 @@
   {
    "src": "vivid",
    "section": "313",
-   "row": "T",
+   "row": "Q",
    "qty": 2,
    "price": 103.0,
    "splits": null,
@@ -3368,7 +2833,7 @@
   {
    "src": "vivid",
    "section": "313",
-   "row": "Q",
+   "row": "T",
    "qty": 2,
    "price": 103.0,
    "splits": null,
@@ -3379,16 +2844,7 @@
    "section": "313",
    "row": "S",
    "qty": 4,
-   "price": 138.0,
-   "splits": null,
-   "note": null
-  },
-  {
-   "src": "vivid",
-   "section": "314",
-   "row": "J",
-   "qty": 2,
-   "price": 87.0,
+   "price": 171.0,
    "splits": null,
    "note": null
   },
@@ -3398,6 +2854,15 @@
    "row": "S",
    "qty": 2,
    "price": 100.0,
+   "splits": null,
+   "note": null
+  },
+  {
+   "src": "vivid",
+   "section": "314",
+   "row": "R",
+   "qty": 2,
+   "price": 102.0,
    "splits": null,
    "note": null
   },
@@ -3415,7 +2880,7 @@
    "section": "314",
    "row": "P",
    "qty": 8,
-   "price": 207.0,
+   "price": 126.0,
    "splits": null,
    "note": null
   },
@@ -3424,25 +2889,25 @@
    "section": "315",
    "row": "H",
    "qty": 2,
-   "price": 91.0,
+   "price": 88.0,
+   "splits": null,
+   "note": null
+  },
+  {
+   "src": "vivid",
+   "section": "315",
+   "row": "T",
+   "qty": 2,
+   "price": 95.0,
    "splits": null,
    "note": null
   },
   {
    "src": "vivid",
    "section": "316",
-   "row": "N",
+   "row": "U",
    "qty": 2,
-   "price": 94.0,
-   "splits": null,
-   "note": null
-  },
-  {
-   "src": "gametime",
-   "section": "316",
-   "row": "K",
-   "qty": null,
-   "price": 138.0,
+   "price": 93.0,
    "splits": null,
    "note": null
   },
@@ -3456,10 +2921,10 @@
    "note": null
   },
   {
-   "src": "gametime",
+   "src": "vivid",
    "section": "317",
    "row": "J",
-   "qty": null,
+   "qty": 2,
    "price": 86.0,
    "splits": null,
    "note": null
@@ -3468,26 +2933,80 @@
    "src": "vivid",
    "section": "317",
    "row": "J",
-   "qty": 2,
-   "price": 89.0,
+   "qty": 1,
+   "price": 91.0,
    "splits": null,
    "note": null
   },
   {
-   "src": "gametime",
+   "src": "vivid",
+   "section": "317",
+   "row": "U",
+   "qty": 2,
+   "price": 102.0,
+   "splits": null,
+   "note": null
+  },
+  {
+   "src": "vivid",
+   "section": "317",
+   "row": "T",
+   "qty": 2,
+   "price": 106.0,
+   "splits": null,
+   "note": null
+  },
+  {
+   "src": "vivid",
+   "section": "317",
+   "row": "S",
+   "qty": 2,
+   "price": 107.0,
+   "splits": null,
+   "note": null
+  },
+  {
+   "src": "vivid",
+   "section": "317",
+   "row": "T",
+   "qty": 4,
+   "price": 126.0,
+   "splits": null,
+   "note": null
+  },
+  {
+   "src": "vivid",
+   "section": "317",
+   "row": "R",
+   "qty": 4,
+   "price": 137.0,
+   "splits": null,
+   "note": null
+  },
+  {
+   "src": "vivid",
    "section": "317",
    "row": "E",
-   "qty": null,
-   "price": 209.0,
+   "qty": 3,
+   "price": 163.0,
+   "splits": null,
+   "note": null
+  },
+  {
+   "src": "vivid",
+   "section": "317",
+   "row": "A",
+   "qty": 1,
+   "price": 193.0,
    "splits": null,
    "note": null
   },
   {
    "src": "vivid",
    "section": "318",
-   "row": "J",
+   "row": "U",
    "qty": 2,
-   "price": 101.0,
+   "price": 107.0,
    "splits": null,
    "note": null
   },
@@ -3547,6 +3066,24 @@
   },
   {
    "src": "vivid",
+   "section": "318",
+   "row": "U",
+   "qty": 4,
+   "price": 137.0,
+   "splits": null,
+   "note": null
+  },
+  {
+   "src": "vivid",
+   "section": "319",
+   "row": "U",
+   "qty": 2,
+   "price": 107.0,
+   "splits": null,
+   "note": null
+  },
+  {
+   "src": "vivid",
    "section": "319",
    "row": "K",
    "qty": 2,
@@ -3564,15 +3101,6 @@
    "note": null
   },
   {
-   "src": "gametime",
-   "section": "319",
-   "row": "E",
-   "qty": null,
-   "price": 138.0,
-   "splits": null,
-   "note": null
-  },
-  {
    "src": "vivid",
    "section": "319",
    "row": "E",
@@ -3586,16 +3114,7 @@
    "section": "320",
    "row": "T",
    "qty": 2,
-   "price": 132.0,
-   "splits": null,
-   "note": null
-  },
-  {
-   "src": "vivid",
-   "section": "320",
-   "row": "S",
-   "qty": 2,
-   "price": 135.0,
+   "price": 139.0,
    "splits": null,
    "note": null
   },
@@ -3604,7 +3123,16 @@
    "section": "320",
    "row": "U",
    "qty": 2,
-   "price": 138.0,
+   "price": 140.0,
+   "splits": null,
+   "note": null
+  },
+  {
+   "src": "vivid",
+   "section": "320",
+   "row": "S",
+   "qty": 2,
+   "price": 141.0,
    "splits": null,
    "note": null
   },
@@ -3613,7 +3141,7 @@
    "section": "320",
    "row": "Q",
    "qty": 2,
-   "price": 146.0,
+   "price": 149.0,
    "splits": null,
    "note": null
   },
@@ -3622,7 +3150,7 @@
    "section": "320",
    "row": "R",
    "qty": 2,
-   "price": 148.0,
+   "price": 155.0,
    "splits": null,
    "note": null
   },
@@ -3631,7 +3159,7 @@
    "section": "320",
    "row": "P",
    "qty": 2,
-   "price": 162.0,
+   "price": 168.0,
    "splits": null,
    "note": null
   },
@@ -3640,7 +3168,7 @@
    "section": "320",
    "row": "T",
    "qty": 4,
-   "price": 172.0,
+   "price": 176.0,
    "splits": null,
    "note": null
   },
@@ -3672,29 +3200,11 @@
    "note": null
   },
   {
-   "src": "gametime",
-   "section": "322",
-   "row": "K",
-   "qty": null,
-   "price": 148.0,
-   "splits": null,
-   "note": null
-  },
-  {
-   "src": "gametime",
-   "section": "322",
-   "row": "K",
-   "qty": null,
-   "price": 148.0,
-   "splits": null,
-   "note": null
-  },
-  {
    "src": "vivid",
    "section": "322",
    "row": "K",
    "qty": 2,
-   "price": 151.0,
+   "price": 153.0,
    "splits": null,
    "note": null
   },
@@ -3708,20 +3218,20 @@
    "note": null
   },
   {
-   "src": "gametime",
+   "src": "vivid",
    "section": "323",
    "row": "L",
-   "qty": null,
-   "price": 161.0,
+   "qty": 2,
+   "price": 151.0,
    "splits": null,
    "note": null
   },
   {
    "src": "vivid",
    "section": "323",
-   "row": "L",
-   "qty": 2,
-   "price": 167.0,
+   "row": "H",
+   "qty": 1,
+   "price": 166.0,
    "splits": null,
    "note": null
   },
@@ -3730,7 +3240,7 @@
    "section": "323",
    "row": "E",
    "qty": 1,
-   "price": 174.0,
+   "price": 184.0,
    "splits": null,
    "note": null
   },
@@ -3771,15 +3281,6 @@
    "note": null
   },
   {
-   "src": "gametime",
-   "section": "323",
-   "row": "F",
-   "qty": null,
-   "price": 233.0,
-   "splits": null,
-   "note": null
-  },
-  {
    "src": "vivid",
    "section": "323",
    "row": "J",
@@ -3794,15 +3295,6 @@
    "row": "K",
    "qty": 3,
    "price": 236.0,
-   "splits": null,
-   "note": null
-  },
-  {
-   "src": "gametime",
-   "section": "324",
-   "row": "L",
-   "qty": null,
-   "price": 175.0,
    "splits": null,
    "note": null
   },
@@ -3861,38 +3353,11 @@
    "note": null
   },
   {
-   "src": "gametime",
-   "section": "325",
-   "row": "A",
-   "qty": null,
-   "price": 223.0,
-   "splits": null,
-   "note": null
-  },
-  {
-   "src": "gametime",
-   "section": "326",
-   "row": "D",
-   "qty": null,
-   "price": 170.0,
-   "splits": null,
-   "note": null
-  },
-  {
    "src": "vivid",
    "section": "326",
    "row": "D",
    "qty": 2,
-   "price": 180.0,
-   "splits": null,
-   "note": null
-  },
-  {
-   "src": "gametime",
-   "section": "326",
-   "row": "M",
-   "qty": null,
-   "price": 201.0,
+   "price": 177.0,
    "splits": null,
    "note": null
   },
@@ -3946,25 +3411,7 @@
    "section": "327",
    "row": "R",
    "qty": 1,
-   "price": 150.0,
-   "splits": null,
-   "note": null
-  },
-  {
-   "src": "gametime",
-   "section": "327",
-   "row": "P",
-   "qty": null,
-   "price": 155.0,
-   "splits": null,
-   "note": null
-  },
-  {
-   "src": "gametime",
-   "section": "327",
-   "row": "F",
-   "qty": null,
-   "price": 159.0,
+   "price": 160.0,
    "splits": null,
    "note": null
   },
@@ -3973,16 +3420,7 @@
    "section": "327",
    "row": "P",
    "qty": 2,
-   "price": 161.0,
-   "splits": null,
-   "note": null
-  },
-  {
-   "src": "vivid",
-   "section": "327",
-   "row": "F",
-   "qty": 2,
-   "price": 164.0,
+   "price": 169.0,
    "splits": null,
    "note": null
   },
@@ -4001,33 +3439,6 @@
    "row": "N",
    "qty": 1,
    "price": 196.0,
-   "splits": null,
-   "note": null
-  },
-  {
-   "src": "gametime",
-   "section": "330",
-   "row": "T",
-   "qty": null,
-   "price": 146.0,
-   "splits": null,
-   "note": null
-  },
-  {
-   "src": "vivid",
-   "section": "330",
-   "row": "T",
-   "qty": 2,
-   "price": 163.0,
-   "splits": null,
-   "note": null
-  },
-  {
-   "src": "gametime",
-   "section": "330",
-   "row": "C",
-   "qty": null,
-   "price": 169.0,
    "splits": null,
    "note": null
   },
@@ -4068,20 +3479,20 @@
    "note": null
   },
   {
-   "src": "gametime",
+   "src": "vivid",
    "section": "330",
    "row": "A",
-   "qty": null,
-   "price": 205.0,
+   "qty": 2,
+   "price": 201.0,
    "splits": null,
    "note": null
   },
   {
    "src": "vivid",
    "section": "330",
-   "row": "A",
+   "row": "T",
    "qty": 2,
-   "price": 208.0,
+   "price": 207.0,
    "splits": null,
    "note": null
   },
@@ -4113,15 +3524,6 @@
    "note": null
   },
   {
-   "src": "gametime",
-   "section": "GA FLOOR",
-   "row": "GA",
-   "qty": null,
-   "price": 542.0,
-   "splits": null,
-   "note": null
-  },
-  {
    "src": "vivid",
    "section": "GA FLOOR",
    "row": "GA",
@@ -4143,8 +3545,17 @@
    "src": "vivid",
    "section": "GA FLOOR",
    "row": "GA",
+   "qty": 2,
+   "price": 618.0,
+   "splits": null,
+   "note": null
+  },
+  {
+   "src": "vivid",
+   "section": "GA FLOOR",
+   "row": "GA",
    "qty": 4,
-   "price": 1001.0,
+   "price": 1002.0,
    "splits": null,
    "note": null
   },
@@ -4169,17 +3580,17 @@
  ],
  "debug": {
   "vivid": {
-   "s": "Terrace Level 314",
-   "r": "J",
+   "s": "Terrace Level 312",
+   "r": "R",
    "q": "2",
-   "p": "62.40",
-   "i": "VB17809851144",
-   "d": "314",
-   "n": "Rear view. Please note that you will need to use an iOS or A",
+   "p": "58.50",
+   "i": "VB17810504842",
+   "d": "312",
+   "n": "Obstructed view. Please note that you will need to use an iO",
    "f": "0",
-   "l": "Terrace Level 314",
+   "l": "Terrace Level 312",
    "g": "0",
-   "t": "0",
+   "t": "3",
    "m": "2",
    "c": "22011",
    "z": "0",
@@ -4188,31 +3599,31 @@
    "instantElectronicTransfer": "0",
    "instantFlashSeats": "0",
    "st": "1",
-   "vs": "9.4",
-   "svs": "1.6",
+   "vs": "10.0",
+   "svs": "1.7",
    "sd": "0",
    "stp": "Ticketmaster Transfer",
-   "aip": "87.00",
+   "aip": "82.00",
    "tags": "['OBSTRUCTED_VIEW']",
-   "ls": "5",
-   "hs": "6",
+   "ls": "11",
+   "hs": "12",
    "di": "False",
    "fdi": "",
    "pdi": "",
-   "sectionName": "Terrace Level 314",
-   "row": "J",
+   "sectionName": "Terrace Level 312",
+   "row": "R",
    "quantity": "2",
-   "allInPricePerTicket": "87.00",
-   "dealScore": "9.4",
-   "badges": "[{'category': 'PRICE', 'title': 'Lowest Price in Section'}, ",
+   "allInPricePerTicket": "82.00",
+   "dealScore": "10.0",
+   "badges": "[{'category': 'PRICE', 'title': 'Lowest Price in Section'}]",
    "perks": "['Seated Together']",
    "localPrices": "None"
   }
  },
  "log": [
-  "02:43:47 seatgeek: failed (HTTPError: HTTP Error 403: Forbidden)",
-  "02:43:48 tickpick: failed (HTTPError: HTTP Error 403: Forbidden)",
-  "02:43:48 vivid: 363 listings",
-  "02:43:50 gametime: 75 listings"
+  "11:22:46 seatgeek: failed (HTTPError: HTTP Error 403: Forbidden)",
+  "11:22:46 tickpick: failed (HTTPError: HTTP Error 403: Forbidden)",
+  "11:22:46 vivid: 374 listings",
+  "11:22:48 gametime: failed (page had no listing text (JS-only render this time))"
  ]
 }
