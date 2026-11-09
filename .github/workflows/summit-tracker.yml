@@ -1,0 +1,49 @@
+name: Summit seat tracker
+# Polls resale listings for John Summit at the Schottenstein Center (Fri Nov 13, 2026) and alerts
+# (ntfy push, GitHub issue as backup) on floor pairs and front-row pairs in the sections worth moving
+# for. Hourly through the week, every 20 minutes on show day, off once the show starts.
+on:
+  schedule:
+    - cron: '13 * * * *'
+    - cron: '*/20 * 13 11 *'
+  workflow_dispatch:
+permissions:
+  contents: write
+  issues: write
+concurrency:
+  group: summit-tracker
+  cancel-in-progress: false
+jobs:
+  track:
+    if: github.repository == 'BBOLDT86/lanscape-navigator'
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Stop once the show starts
+        run: |
+          if [ "$(date -u +%Y%m%d%H)" -ge 2026111400 ]; then echo "show started: nothing to track"; echo "SKIP=1" >> "$GITHUB_ENV"; fi
+      - name: Check the listings
+        if: env.SKIP != '1'
+        env:
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+          GH_TOKEN: ${{ github.token }}
+        run: python3 summit/tracker/track.py
+      - name: Commit the snapshot
+        if: env.SKIP != '1'
+        run: |
+          git config user.name "Summit tracker"
+          git config user.email "summit-tracker@users.noreply.github.com"
+          git add summit/tracker/data
+          if git diff --cached --quiet; then echo "no changes"; exit 0; fi
+          git commit -qm "Summit tracker: $(date -u +%Y-%m-%dT%H:%MZ)"
+          for i in 1 2 3; do
+            git pull --rebase -X theirs origin main && git push -q origin HEAD:main && exit 0
+            sleep 10
+          done
+          echo "push failed" >&2; exit 1
