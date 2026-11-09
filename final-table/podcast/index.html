@@ -212,6 +212,7 @@ input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;bac
     <button role="tab" data-mode="listen" aria-selected="true">Listen</button>
     <button role="tab" data-mode="watch" aria-selected="false">Watch</button>
     <button role="tab" data-mode="practice" aria-selected="false">Practice</button>
+    <button type="button" data-link="../reels/">Reels ↗</button>
   </div>
 
   <p class="note" style="margin:10px 0 0;padding:10px 12px;border:1px solid var(--accent);border-radius:12px;background:var(--surface);color:var(--ink)"><b>Day 2 update:</b> the restart is Level 18 (6K/12K, 12K ante) with 60-minute levels, so 228K is about <b>19 big blinds</b>. The full-edition video and episodes 1–11 say 23bb and 40 minutes; the Day 2 update video, the Restart update episode, the chapter guides and the sim have the new numbers.</p>
@@ -698,7 +699,8 @@ function setMode(m, push) {
   if (m === 'practice' && !$('simFrame').getAttribute('src')) $('simFrame').setAttribute('src', '../sim/');
   if (push) { try { history.replaceState(null, '', m === 'listen' ? location.pathname : '#' + m); } catch (e) {} }
 }
-document.querySelectorAll('.modes button').forEach(b => b.addEventListener('click', () => setMode(b.dataset.mode, true)));
+document.querySelectorAll('.modes button[data-mode]').forEach(b => b.addEventListener('click', () => setMode(b.dataset.mode, true)));
+document.querySelectorAll('.modes button[data-link]').forEach(b => b.addEventListener('click', () => { location.href = b.dataset.link; }));
 window.addEventListener('hashchange', () => setMode(location.hash.slice(1), false));
 au.addEventListener('play', () => { if (!vid.paused) vid.pause(); });
 
