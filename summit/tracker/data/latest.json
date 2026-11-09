@@ -1,11 +1,7 @@
 {
- "ran": "2026-11-09T22:07+00:00",
+ "ran": "2026-11-09T22:08+00:00",
  "sources": {
-  "seatgeek": {
-   "ok": false,
-   "error": "HTTPError: HTTP Error 403: Forbidden"
-  },
-  "tickpick": {
+  "stubhub": {
    "ok": false,
    "error": "HTTPError: HTTP Error 403: Forbidden"
   },
@@ -16,6 +12,14 @@
   "gametime": {
    "ok": true,
    "count": 76
+  },
+  "seatgeek": {
+   "ok": false,
+   "error": "HTTPError: HTTP Error 403: Forbidden"
+  },
+  "tickpick": {
+   "ok": false,
+   "error": "HTTPError: HTTP Error 403: Forbidden"
   }
  },
  "counts": {
@@ -209,20 +213,7 @@
   }
  },
  "comparable_to_ours": [],
- "alerts": [
-  {
-   "title": "Floor down: Floor $510/ea",
-   "body": "Was $573 on vivid (7 avail). https://www.vividseats.com/john-summit-tickets-columbus-value-city-arena-at-schottenstein-center-11-13-2026--concerts-dance-electronica/production/7058794"
-  },
-  {
-   "title": "Floor up: Floor $554/ea",
-   "body": "Was $542 on gametime. https://gametime.co/concert/john-summit-tickets/11-13-2026-columbus-oh-schottenstein-center/events/6a0e0197195b8559e5c73814"
-  },
-  {
-   "title": "Floor down: Floor $1404/ea",
-   "body": "Was $1435 on vivid (6 avail). https://www.vividseats.com/john-summit-tickets-columbus-value-city-arena-at-schottenstein-center-11-13-2026--concerts-dance-electronica/production/7058794"
-  }
- ],
+ "alerts": [],
  "listings": [
   {
    "src": "vivid",
@@ -247,7 +238,7 @@
    "section": "101",
    "row": "S",
    "qty": null,
-   "price": 380.0,
+   "price": 376.0,
    "splits": null,
    "note": null
   },
@@ -2380,7 +2371,7 @@
    "section": "231",
    "row": "C",
    "qty": null,
-   "price": 409.0,
+   "price": 406.0,
    "splits": null,
    "note": null
   },
@@ -2668,7 +2659,7 @@
    "section": "304",
    "row": "L",
    "qty": null,
-   "price": 179.0,
+   "price": 177.0,
    "splits": null,
    "note": null
   },
@@ -3901,7 +3892,7 @@
    "section": "323",
    "row": "F",
    "qty": null,
-   "price": 233.0,
+   "price": 232.0,
    "splits": null,
    "note": null
   },
@@ -3955,7 +3946,7 @@
    "section": "324",
    "row": "L",
    "qty": null,
-   "price": 181.0,
+   "price": 179.0,
    "splits": null,
    "note": null
   },
@@ -3996,20 +3987,20 @@
    "note": null
   },
   {
+   "src": "gametime",
+   "section": "325",
+   "row": "A",
+   "qty": null,
+   "price": 205.0,
+   "splits": null,
+   "note": null
+  },
+  {
    "src": "vivid",
    "section": "325",
    "row": "A",
    "qty": 4,
    "price": 219.0,
-   "splits": null,
-   "note": null
-  },
-  {
-   "src": "gametime",
-   "section": "325",
-   "row": "A",
-   "qty": null,
-   "price": 223.0,
    "splits": null,
    "note": null
   },
@@ -4368,12 +4359,40 @@
    "badges": "[{'category': 'PRICE', 'title': 'Lowest Price in Section'}]",
    "perks": "[]",
    "localPrices": "None"
+  },
+  "gametime": {
+   "delivery_type": "mobile",
+   "transfer_type": "tm",
+   "position": "{'x': 1566.05615, 'y': 334.33105}",
+   "price": "{'face_value': 6928, 'prefee': 11000, 'total': 13000, 'sales",
+   "score": "0.5648404295703443",
+   "lots": "[1]",
+   "seats": "['*']",
+   "event_id": "6a0e0197195b8559e5c73814",
+   "id": "6af1db72ff86664ab39d1bb1",
+   "row": "A",
+   "section": "324",
+   "section_group": "Terrace",
+   "source": "gametime",
+   "view_url": "https://images.gametime.co/v2/schottenstein_center/ga_floor/",
+   "spot": "{'position': {'x': 1566.05615, 'y': 334.33105}, 'disclosures",
+   "deals": "{'1': 'flash'}",
+   "display_savings": "{'amount': 0, 'percent': 0}",
+   "promo_discount_rate": "0",
+   "promo_discount_fee": "0",
+   "max_promo_discount_rate": "0",
+   "min_promo_discount_rate": "0",
+   "display_price_promo_discount_rate": "0",
+   "priced_from_lot": "2",
+   "signature": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7InByaWN",
+   "ticket_type": "tmqr"
   }
  },
  "log": [
-  "22:07:42 seatgeek: failed (HTTPError: HTTP Error 403: Forbidden)",
-  "22:07:42 tickpick: failed (HTTPError: HTTP Error 403: Forbidden)",
-  "22:07:43 vivid: 380 listings",
-  "22:07:45 gametime: 76 listings"
+  "22:08:40 stubhub: failed (HTTPError: HTTP Error 403: Forbidden)",
+  "22:08:40 vivid: 380 listings",
+  "22:08:43 gametime: 76 listings",
+  "22:08:44 seatgeek: failed (HTTPError: HTTP Error 403: Forbidden)",
+  "22:08:44 tickpick: failed (HTTPError: HTTP Error 403: Forbidden)"
  ]
 }
