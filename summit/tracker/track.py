@@ -81,7 +81,8 @@ def to_int(v):
 
 def norm_section(s):
     s = htmlmod.unescape(str(s or "")).strip().upper()
-    s = re.sub(r"^(ENTRY|ENTRY LEVEL|CLUB|TERRACE|LOWER|UPPER|SECTION|SEC)\s+", "", s)
+    s = re.sub(r"^(ENTRY|CLUB|TERRACE|LOWER|UPPER|LOGE|MEZZANINE)?\s*(LEVEL|BOWL)\s+", "", s)
+    s = re.sub(r"^(ENTRY|CLUB|TERRACE|SECTION|SEC)\s+", "", s)
     return s.strip()
 
 
@@ -138,7 +139,7 @@ def parse_json_listings(src, data):
     sec_keys = ("s", "section", "sectionName", "section_name", "sec")
     row_keys = ("r", "row", "rowName", "row_name")
     qty_keys = ("q", "quantity", "qty", "availableQuantity")
-    price_keys = ("pf", "p", "price", "dp", "rawPrice", "pricePerTicket", "priceWithFees", "fee_price")
+    price_keys = ("allInPricePerTicket", "aip", "pf", "priceWithFees", "p", "price", "dp", "rawPrice", "pricePerTicket", "fee_price")
     for lst in walk_lists(data):
         if len(lst) >= 5 and src not in DEBUG:
             DEBUG[src] = {k: (str(v)[:60]) for k, v in list(lst[0].items())[:40]}
