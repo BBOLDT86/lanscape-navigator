@@ -38,7 +38,9 @@ LINKS = {
     "stubhub": "https://www.stubhub.com/john-summit-columbus-tickets-11-13-2026/event/161190840/",
 }
 WATCH_SECTIONS = {"104", "105", "106", "107", "110", "111", "114", "118", "121", "122", "123", "124"}
-WATCH_ROWS = {"A", "B", "C"}
+# The Schott lower bowl starts at row D (no A/B/C down there). Our seats are row G,
+# so any pair in rows D/E/F of a watched section is closer than ours = an upgrade.
+WATCH_ROWS = {"D", "E", "F"}
 OWN = {"section": "105", "row": "G"}  # what we hold; used for the "comparable" readout
 TRACKER_URL = "https://bboldt86.github.io/lanscape-navigator/summit/tracker/"
 DEFAULT_TOPIC = "summit-105g-9fed1325fb"
