@@ -1,0 +1,31 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//bboldt86//summit//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VTIMEZONE
+TZID:America/New_York
+BEGIN:STANDARD
+DTSTART:20261101T020000
+TZOFFSETFROM:-0400
+TZOFFSETTO:-0500
+TZNAME:EST
+END:STANDARD
+END:VTIMEZONE
+BEGIN:VEVENT
+UID:summit-columbus-2026-11-13@bboldt86.github.io
+DTSTAMP:20261108T230000Z
+DTSTART;TZID=America/New_York:20261113T181500
+DTEND;TZID=America/New_York:20261113T234500
+SUMMARY:John Summit – CTRL ESCAPE Arena Tour
+LOCATION:Value City Arena at the Schottenstein Center\, 555 Borror Dr\, Columbus\, OH 43210
+DESCRIPTION:Car at 6:15. Show at 7:00 (Jackie Hollander\, then ALOK). John Summit on around 9:10 for two hours. Ride home at 11:30\, already booked.\n\nSeats: Section 105\, Row G.\n\nNo bags (wristlet or wallet only)\, no cash needed\, no coat check. Wear something you can dance in.\n\nhttps://bboldt86.github.io/lanscape-navigator/summit/
+URL:https://bboldt86.github.io/lanscape-navigator/summit/
+STATUS:CONFIRMED
+BEGIN:VALARM
+TRIGGER:-PT90M
+ACTION:DISPLAY
+DESCRIPTION:Car comes at 6:15
+END:VALARM
+END:VEVENT
+END:VCALENDAR

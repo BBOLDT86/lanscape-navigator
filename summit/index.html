@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#120a2a">
+<title>You’re scheduled for an escape</title>
+<meta name="description" content="John Summit, CTRL ESCAPE Arena Tour. Friday, November 13 at the Schottenstein Center in Columbus. Our seats, the night hour by hour, what to wear, and everything that’s already handled.">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Friday, November 13">
+<meta property="og:title" content="You’re scheduled for an escape">
+<meta property="og:description" content="John Summit · CTRL ESCAPE Arena Tour · Columbus, Nov 13. Seats, set times, what to wear. Rides handled.">
+<meta property="og:url" content="https://bboldt86.github.io/lanscape-navigator/summit/">
+<meta property="og:image" content="https://bboldt86.github.io/lanscape-navigator/summit/share.png">
+<meta property="og:image:secure_url" content="https://bboldt86.github.io/lanscape-navigator/summit/share.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Escape request: John Summit, Columbus, Friday November 13">
+<meta property="og:video" content="https://bboldt86.github.io/lanscape-navigator/summit/teaser.mp4">
+<meta property="og:video:secure_url" content="https://bboldt86.github.io/lanscape-navigator/summit/teaser.mp4">
+<meta property="og:video:type" content="video/mp4">
+<meta property="og:video:width" content="1200">
+<meta property="og:video:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="You’re scheduled for an escape">
+<meta name="twitter:description" content="John Summit · CTRL ESCAPE Arena Tour · Columbus, Nov 13. Seats, set times, what to wear. Rides handled.">
+<meta name="twitter:image" content="https://bboldt86.github.io/lanscape-navigator/summit/share.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23120a2a'/%3E%3Ccircle cx='32' cy='32' r='14' fill='%23ff3d9a'/%3E%3C/svg%3E">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,600;12..96,800&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --ink:#120a2a;        /* deep indigo, the arena after lights-down */
+    --ink-2:#1d1140;
+    --violet:#8a5cff;
+    --magenta:#ff3d9a;
+    --amber:#ffc857;      /* clock / stamp */
+    --paper:#eef0f4;      /* fluorescent office white */
+    --paper-2:#dfe3ea;
+    --paper-ink:#1c1f26;
+    --paper-muted:#5b6170;
+    --on-ink:#f4f1ff;
+    --on-ink-muted:#b9b0d9;
+    --on-ink-dim:#7d73a3;
+    --font:"Bricolage Grotesque", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  body{margin:0;background:var(--ink);color:var(--on-ink);font-family:var(--font);font-size:17px;line-height:1.5;font-optical-sizing:auto}
+  a{color:inherit}
+  img,svg,iframe{display:block;max-width:100%}
+  .wrap{max-width:680px;margin:0 auto;padding:0 18px}
+  h1,h2,h3{margin:0;font-weight:800;letter-spacing:-.025em;line-height:1.02}
+  h2{font-size:clamp(30px,8vw,44px);margin-bottom:14px}
+  h3{font-size:19px;letter-spacing:-.01em;line-height:1.2}
+  p{margin:0 0 12px}
+  section > div > p, section > p.body{color:var(--on-ink-muted)}
+  .lede{font-size:19px;line-height:1.45;color:var(--on-ink-muted);max-width:34ch}
+  section{padding:56px 0 8px}
+  .muted{color:var(--on-ink-muted)}
+  .dim{color:var(--on-ink-dim);font-size:14px}
+
+  /* ---------- light field + hero ---------- */
+  .field{position:relative;overflow:hidden;padding:28px 0 36px}
+  .field::before,.field::after{content:"";position:absolute;border-radius:50%;filter:blur(60px);pointer-events:none}
+  .field::before{width:70vw;height:70vw;max-width:520px;max-height:520px;left:-20vw;top:-10vw;background:radial-gradient(closest-side,rgba(138,92,255,.55),transparent 70%)}
+  .field::after{width:60vw;height:60vw;max-width:460px;max-height:460px;right:-18vw;top:30%;background:radial-gradient(closest-side,rgba(255,61,154,.5),transparent 70%)}
+  .field > .wrap{position:relative;z-index:1}
+  .kicker{font-size:15px;color:var(--on-ink-muted);margin:0 0 14px}
+  .kicker b{color:var(--on-ink);font-weight:600}
+
+  /* ---------- the escape request (memo) ---------- */
+  .memo{
+    position:relative;background:var(--paper);color:var(--paper-ink);border-radius:10px;
+    box-shadow:0 30px 80px rgba(0,0,0,.45),0 2px 0 rgba(255,255,255,.35) inset;
+    overflow:hidden;transform-origin:50% 0;
+  }
+  .memo .head{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid var(--paper-2);background:#f6f7f9}
+  .memo .head h1{font-size:21px;font-weight:800;letter-spacing:-.02em}
+  .memo .head .no{font-size:12px;color:var(--paper-muted);font-variant-numeric:tabular-nums}
+  .memo dl{margin:0;padding:10px 18px 6px;display:grid;grid-template-columns:86px 1fr;row-gap:0;column-gap:14px}
+  .memo dt{color:var(--paper-muted);font-size:14px;padding:9px 0}
+  .memo dd{margin:0;padding:9px 0;border-bottom:1px solid var(--paper-2);font-weight:600;font-size:16px;letter-spacing:-.005em}
+  .memo dt:last-of-type,.memo dd:last-of-type{border-bottom:0}
+  .memo dd small{display:block;font-weight:400;color:var(--paper-muted);font-size:14px}
+  .memo .foot{padding:12px 18px 18px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+  .memo .status{font-size:14px;color:var(--paper-muted)}
+  .memo .status b{color:var(--paper-ink);font-weight:600}
+  .accept{
+    appearance:none;border:0;cursor:pointer;border-radius:999px;padding:14px 22px;
+    background:var(--paper-ink);color:#fff;font:600 16px/1 var(--font);letter-spacing:-.005em;
+    text-decoration:none;display:inline-flex;align-items:center;gap:10px;
+    transition:transform .15s ease,background .2s ease;
+  }
+  .accept:active{transform:scale(.97)}
+  .accept:focus-visible,.btn:focus-visible,.nav a:focus-visible{outline:3px solid var(--amber);outline-offset:3px}
+  .accept .k{width:10px;height:10px;border-radius:50%;background:var(--magenta);box-shadow:0 0 0 4px rgba(255,61,154,.25)}
+  .memo.is-accepted .accept{background:#2a7a4b}
+  .memo.is-accepted .accept .k{background:#fff;box-shadow:none}
+  .stamp{
+    position:absolute;right:14px;top:58px;padding:8px 14px;border:3px solid var(--magenta);border-radius:6px;color:var(--magenta);
+    font-weight:800;font-size:22px;letter-spacing:.02em;text-transform:uppercase;transform:rotate(-12deg) scale(2.2);opacity:0;
+    pointer-events:none;mix-blend-mode:multiply;
+  }
+  .memo.is-accepted .stamp{animation:stamp .5s cubic-bezier(.2,1.4,.3,1) forwards}
+  @keyframes stamp{to{transform:rotate(-12deg) scale(1);opacity:.92}}
+  @media (prefers-reduced-motion:reduce){.memo.is-accepted .stamp{animation:none;opacity:.92;transform:rotate(-12deg) scale(1)}}
+
+  .count{margin:26px 0 0;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+  .count .big{font-size:clamp(40px,12vw,64px);font-weight:800;letter-spacing:-.04em;line-height:1;font-variant-numeric:tabular-nums}
+  .count .big span{color:var(--amber)}
+  .count .lab{color:var(--on-ink-muted);font-size:16px}
+
+  /* ---------- nav ---------- */
+  .nav{position:sticky;top:0;z-index:10;background:rgba(18,10,42,.78);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.07)}
+  .nav .wrap{display:flex;gap:4px;overflow-x:auto;white-space:nowrap;scrollbar-width:none;padding:10px 12px}
+  .nav .wrap::-webkit-scrollbar{display:none}
+  .nav a{text-decoration:none;color:var(--on-ink-muted);font-size:15px;font-weight:600;padding:8px 10px;border-radius:999px}
+  .nav a:hover,.nav a:focus-visible{color:var(--on-ink)}
+
+  /* ---------- video ---------- */
+  .video{position:relative;border-radius:14px;overflow:hidden;background:#000;aspect-ratio:16/9;box-shadow:0 20px 50px rgba(0,0,0,.4)}
+  .video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+  .video.tall{aspect-ratio:9/16;border-radius:26px;border:8px solid #06030f;box-shadow:0 20px 50px rgba(0,0,0,.5),0 0 0 1px rgba(255,255,255,.08)}
+  .reel{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:18px 0 6px}
+  .caption{font-size:14px;color:var(--on-ink-dim);margin:10px 2px 0}
+  .tracks{display:grid;gap:14px;margin-top:22px}
+  .track h3{margin:12px 0 2px}
+  .track p{margin:0;color:var(--on-ink-muted);font-size:15px}
+
+  /* ---------- timeline ---------- */
+  .tl{list-style:none;margin:8px 0 0;padding:0;position:relative}
+  .tl::before{content:"";position:absolute;left:82px;top:10px;bottom:10px;width:2px;background:rgba(255,255,255,.1)}
+  .tl li{display:grid;grid-template-columns:70px 24px 1fr;column-gap:8px;align-items:start;padding:9px 0;position:relative}
+  .tl .t{text-align:right;font-weight:800;font-size:17px;letter-spacing:-.02em;font-variant-numeric:tabular-nums;padding-top:3px;line-height:1.15}
+  .tl .t small{display:block;font-weight:400;font-size:12px;color:var(--on-ink-dim);letter-spacing:0}
+  .tl .dot{width:12px;height:12px;border-radius:50%;background:var(--ink);border:2px solid var(--on-ink-dim);margin:8px auto 0;position:relative;z-index:1}
+  .tl li.key .dot{background:var(--magenta);border-color:var(--magenta);box-shadow:0 0 0 6px rgba(255,61,154,.2)}
+  .tl li.now .dot{background:var(--amber);border-color:var(--amber);box-shadow:0 0 0 6px rgba(255,200,87,.22)}
+  .tl li.past{opacity:.5}
+  .tl .body{padding:3px 0 0}
+  .tl .body h3{font-size:17px;font-weight:600;letter-spacing:-.01em}
+  .tl .body p{margin:2px 0 0;color:var(--on-ink-muted);font-size:15px}
+  .tl li.key .body h3{font-size:22px;font-weight:800;letter-spacing:-.025em}
+
+  /* ---------- map ---------- */
+  .map{background:var(--ink-2);border-radius:16px;padding:10px;border:1px solid rgba(255,255,255,.06)}
+  .legend{display:flex;gap:16px;flex-wrap:wrap;margin:10px 6px 2px;font-size:13px;color:var(--on-ink-muted)}
+  .legend span::before{content:"";display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+  .legend .us::before{background:var(--magenta)}
+  .legend .floor::before{background:#5b3fb8}
+  .legend .lower::before{background:#342a5e}
+  .legend .stage::before{background:#4a4556}
+
+  /* ---------- plain lists ---------- */
+  .plain{list-style:none;margin:0;padding:0}
+  .plain li{padding:14px 0;border-top:1px solid rgba(255,255,255,.09);display:grid;grid-template-columns:1fr;gap:2px}
+  .plain li:first-child{border-top:0;padding-top:4px}
+  .plain b{font-weight:600;font-size:17px;letter-spacing:-.01em}
+  .plain span{color:var(--on-ink-muted);font-size:15px}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 16px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:var(--on-ink);text-decoration:none;font-weight:600;font-size:15px}
+  .btn.primary{background:var(--magenta);border-color:var(--magenta);color:#fff}
+  .row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+
+  /* ---------- closer ---------- */
+  .closer{padding:70px 0 90px;text-align:left}
+  .closer h2{font-size:clamp(34px,10vw,56px);max-width:11ch}
+  .closer p{max-width:36ch}
+  footer{padding:0 0 calc(28px + env(safe-area-inset-bottom));color:var(--on-ink-dim);font-size:13px;line-height:1.5}
+  footer p{max-width:60ch}
+</style>
+</head>
+<body>
+
+<div class="field">
+  <div class="wrap">
+    <p class="kicker">Friday, November 13 &nbsp;<b>Columbus</b></p>
+
+    <article class="memo" id="memo" aria-label="Escape request">
+      <div class="head">
+        <h1>Escape request</h1>
+        <span class="no">No. 1113-COL</span>
+      </div>
+      <dl>
+        <dt>From</dt><dd>Brad</dd>
+        <dt>To</dt><dd>You</dd>
+        <dt>Subject</dt><dd>John Summit<small>CTRL ESCAPE Arena Tour</small></dd>
+        <dt>When</dt><dd>Friday, November 13<small>Show at 7:00 PM. He’s on around 9:10.</small></dd>
+        <dt>Where</dt><dd>Value City Arena<small>Schottenstein Center, Ohio State campus</small></dd>
+        <dt>Seats</dt><dd>Section 105, Row G<small>Together. Seven rows off the floor.</small></dd>
+      </dl>
+      <div class="foot">
+        <div class="status" id="status">Status: <b>awaiting your yes</b></div>
+        <a class="accept" id="accept" href="escape.ics"><span class="k" aria-hidden="true"></span>Accept</a>
+      </div>
+      <div class="stamp" aria-hidden="true">Accepted</div>
+    </article>
+
+    <div class="count" id="count" aria-live="polite"></div>
+  </div>
+</div>
+
+<nav class="nav" aria-label="Sections">
+  <div class="wrap">
+    <a href="#show">The show</a>
+    <a href="#pregame">Pregame</a>
+    <a href="#night">The night</a>
+    <a href="#seats">Our seats</a>
+    <a href="#wear">Wear &amp; bring</a>
+    <a href="#handled">Handled</a>
+  </div>
+</nav>
+
+<main class="wrap">
+
+<section id="show">
+  <h2>His first arena tour, and it’s a full show.</h2>
+  <p class="lede">John Summit used to be an accountant. CTRL ESCAPE is him quitting, in front of 18,000 people, every night for two hours.</p>
+  <div class="video" style="margin-top:22px">
+    <iframe src="https://www.youtube-nocookie.com/embed/IuylGsYAMCs?rel=0&modestbranding=1&playsinline=1" title="CTRL ESCAPE Arena Tour" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
+  </div>
+  <p class="caption">The tour trailer.</p>
+  <div style="margin-top:26px">
+    <p>Here’s what people coming out of the Boston show described. There’s a glass office suspended above the stage, with desks, old computers, and dancers in suits working through the set. Lasers and fire columns build a cage of light around the booth. A “performance review” kiss-cam lands on the crowd and ends with people stamped <b>hired</b> or <b>fired</b>. Partway through he leaves the stage and plays from a platform in the seats.</p>
+    <p>Musically it’s house: big vocals, long builds, drops you feel in your chest. He opens with the new album, pulls in remixes of songs you know (Gaga, Gwen Stefani, Lana), and closes with “Don’t Believe It.” The suit comes off piece by piece. He finishes in a tank top.</p>
+  </div>
+</section>
+
+<section id="pregame">
+  <h2>Pregame</h2>
+  <p class="lede">Thirty seconds of the arena, then three songs you’ll hear Friday.</p>
+  <div class="reel">
+    <div class="video tall">
+      <iframe src="https://www.youtube-nocookie.com/embed/jXXqJKVAJN0?rel=0&modestbranding=1&playsinline=1" title="Opening night of the CTRL ESCAPE Arena Tour" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
+    </div>
+    <div class="video tall">
+      <iframe src="https://www.youtube-nocookie.com/embed/gf-L3_eC6TI?rel=0&modestbranding=1&playsinline=1" title="CTRL ESCAPE Arena Tour clip" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
+    </div>
+  </div>
+  <p class="caption">Clips from the first week of the tour.</p>
+
+  <div class="tracks">
+    <div class="track">
+      <div class="video">
+        <iframe src="https://www.youtube-nocookie.com/embed/LlTkluUkbLk?rel=0&modestbranding=1&playsinline=1" title="John Summit and Hayla, Shiver" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
+      </div>
+      <h3>Shiver</h3>
+      <p>With Hayla. The one the whole arena sings.</p>
+    </div>
+    <div class="track">
+      <div class="video">
+        <iframe src="https://www.youtube-nocookie.com/embed/J5pEHqOn7i0?rel=0&modestbranding=1&playsinline=1" title="John Summit and Hayla, Where You Are" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
+      </div>
+      <h3>Where You Are</h3>
+      <p>The song that made him. Expect it late, with the lights all the way up.</p>
+    </div>
+    <div class="track">
+      <div class="video">
+        <iframe src="https://www.youtube-nocookie.com/embed/n_5vN2t68uo?rel=0&modestbranding=1&playsinline=1" title="John Summit, Don’t Believe It" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
+      </div>
+      <h3>Don’t Believe It</h3>
+      <p>From the new album. He’s been closing with it.</p>
+    </div>
+  </div>
+</section>
+
+<section id="night">
+  <h2>The night, hour by hour</h2>
+  <p class="lede">Times with “about” are from the other stops on this tour. The two that matter, 7:00 and the ride home, are set.</p>
+  <ol class="tl" id="tl">
+    <li data-t="18:15"><div class="t">6:15<small>about</small></div><div class="dot"></div><div class="body"><h3>Car picks us up</h3><p>Door to door. No parking, no walking in the cold.</p></div></li>
+    <li data-t="18:40"><div class="t">6:40</div><div class="dot"></div><div class="body"><h3>Walk in</h3><p>Early enough to find our seats, get a drink, and watch the room fill.</p></div></li>
+    <li data-t="19:00"><div class="t">7:00</div><div class="dot"></div><div class="body"><h3>Jackie Hollander</h3><p>Opener. Club house, a little darker.</p></div></li>
+    <li data-t="20:00"><div class="t">8:00<small>about</small></div><div class="dot"></div><div class="body"><h3>ALOK</h3><p>Brazilian headliner in his own right. Melodic, massive.</p></div></li>
+    <li data-t="21:10" class="key"><div class="t">9:10<small>about</small></div><div class="dot"></div><div class="body"><h3>John Summit</h3><p>Two hours. No intermission, no encore games. Just the set.</p></div></li>
+    <li data-t="23:05"><div class="t">11:05<small>about</small></div><div class="dot"></div><div class="body"><h3>Lights up</h3><p>We walk out together and go find our car.</p></div></li>
+    <li data-t="23:30"><div class="t">11:30</div><div class="dot"></div><div class="body"><h3>Ride home</h3><p>Already booked. You don’t have to think about it.</p></div></li>
+  </ol>
+</section>
+
+<section id="seats">
+  <h2>Our seats</h2>
+  <p class="lede">Section 105, Row G. On the long side of the floor, seven rows up, with the stage to our left.</p>
+  <div class="map" style="margin-top:18px">
+    <svg viewBox="44 46 652 392" role="img" aria-label="Arena layout with section 105 highlighted">
+      <defs>
+        <linearGradient id="fl" x1="0" x2="1"><stop offset="0" stop-color="#6a4bd6"/><stop offset="1" stop-color="#4f36b0"/></linearGradient>
+        <filter id="glow"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+      </defs>
+      <style>
+        .s{fill:#342a5e;stroke:#1d1140;stroke-width:1.5}
+        .s2{fill:#271e4a;stroke:#1d1140;stroke-width:1.5}
+        .s3{fill:#1f1740;stroke:#1d1140;stroke-width:1}
+        .lb{fill:#d9d2f3;font:600 13px "Bricolage Grotesque",system-ui,sans-serif;text-anchor:middle;dominant-baseline:middle}
+        .lb2{fill:#8f86b4;font:600 11px "Bricolage Grotesque",system-ui,sans-serif;text-anchor:middle;dominant-baseline:middle}
+        .lb3{fill:#6a6190;font:600 10px "Bricolage Grotesque",system-ui,sans-serif;text-anchor:middle;dominant-baseline:middle}
+        .us{fill:#ff3d9a;stroke:#ffd1e6;stroke-width:2}
+        .cap{fill:#f4f1ff;font:800 12px "Bricolage Grotesque",system-ui,sans-serif;text-anchor:middle;dominant-baseline:middle}
+      </style>
+      <rect x="12" y="12" width="716" height="446" rx="150" class="s3"/>
+      <rect x="44" y="44" width="652" height="382" rx="130" fill="#160d33" stroke="#1d1140"/>
+      <g>
+        <rect x="150" y="58" width="56" height="34" class="s2"/><text x="178" y="75" class="lb2">220</text>
+        <rect x="210" y="58" width="56" height="34" class="s2"/><text x="238" y="75" class="lb2">221</text>
+        <rect x="270" y="58" width="56" height="34" class="s2"/><text x="298" y="75" class="lb2">222</text>
+        <rect x="330" y="58" width="56" height="34" class="s2"/><text x="358" y="75" class="lb2">223</text>
+        <rect x="390" y="58" width="56" height="34" class="s2"/><text x="418" y="75" class="lb2">224</text>
+        <rect x="450" y="58" width="56" height="34" class="s2"/><text x="478" y="75" class="lb2">225</text>
+        <rect x="510" y="58" width="56" height="34" class="s2"/><text x="538" y="75" class="lb2">227</text>
+        <rect x="570" y="70" width="52" height="34" class="s2" transform="rotate(30 596 87)"/><text x="596" y="87" class="lb2">228</text>
+        <rect x="652" y="130" width="34" height="56" class="s2"/><text x="669" y="158" class="lb2">230</text>
+        <rect x="652" y="192" width="34" height="56" class="s2"/><text x="669" y="220" class="lb2">231</text>
+        <rect x="652" y="254" width="34" height="56" class="s2"/><text x="669" y="282" class="lb2">232</text>
+        <rect x="628" y="318" width="34" height="56" class="s2" transform="rotate(40 645 346)"/><text x="645" y="346" class="lb2">234</text>
+        <rect x="570" y="366" width="52" height="34" class="s2" transform="rotate(-30 596 383)"/><text x="596" y="383" class="lb2">201</text>
+        <rect x="510" y="378" width="56" height="34" class="s2"/><text x="538" y="395" class="lb2">203</text>
+        <rect x="450" y="378" width="56" height="34" class="s2"/><text x="478" y="395" class="lb2">204</text>
+        <rect x="390" y="378" width="56" height="34" class="s2"/><text x="418" y="395" class="lb2">205</text>
+        <rect x="330" y="378" width="56" height="34" class="s2"/><text x="358" y="395" class="lb2">206</text>
+        <rect x="270" y="378" width="56" height="34" class="s2"/><text x="298" y="395" class="lb2">207</text>
+        <rect x="210" y="378" width="56" height="34" class="s2"/><text x="238" y="395" class="lb2">208</text>
+        <rect x="150" y="378" width="56" height="34" class="s2"/><text x="178" y="395" class="lb2">210</text>
+        <rect x="78" y="318" width="34" height="56" class="s2" transform="rotate(-40 95 346)"/><text x="95" y="346" class="lb2">211</text>
+        <rect x="54" y="254" width="34" height="56" class="s2"/><text x="71" y="282" class="lb2">213</text>
+        <rect x="54" y="192" width="34" height="56" class="s2"/><text x="71" y="220" class="lb2">214</text>
+        <rect x="54" y="130" width="34" height="56" class="s2"/><text x="71" y="158" class="lb2">216</text>
+        <rect x="78" y="70" width="52" height="34" class="s2" transform="rotate(-30 104 87)"/><text x="104" y="87" class="lb2">218</text>
+      </g>
+      <g>
+        <rect x="118" y="104" width="64" height="44" rx="6" class="s" transform="rotate(-28 150 126)"/><text x="150" y="126" class="lb">118</text>
+        <rect x="196" y="104" width="62" height="44" rx="6" class="s"/><text x="227" y="126" class="lb">121</text>
+        <rect x="262" y="104" width="62" height="44" rx="6" class="s"/><text x="293" y="126" class="lb">122</text>
+        <rect x="328" y="104" width="62" height="44" rx="6" class="s"/><text x="359" y="126" class="lb">123</text>
+        <rect x="394" y="104" width="62" height="44" rx="6" class="s"/><text x="425" y="126" class="lb">124</text>
+        <rect x="460" y="104" width="62" height="44" rx="6" class="s"/><text x="491" y="126" class="lb">127</text>
+        <rect x="540" y="112" width="60" height="44" rx="6" class="s" transform="rotate(32 570 134)"/><text x="570" y="134" class="lb">128</text>
+        <rect x="596" y="170" width="44" height="62" rx="6" class="s"/><text x="618" y="201" class="lb">131</text>
+        <rect x="596" y="238" width="44" height="62" rx="6" class="s"/><text x="618" y="269" class="lb">134</text>
+        <rect x="540" y="314" width="60" height="44" rx="6" class="s" transform="rotate(-32 570 336)"/><text x="570" y="336" class="lb">101</text>
+        <rect x="460" y="322" width="62" height="44" rx="6" class="s"/><text x="491" y="344" class="lb">104</text>
+        <rect x="394" y="322" width="62" height="44" rx="6" fill="#ff3d9a" opacity=".25" stroke="#ff3d9a" stroke-width="2" filter="url(#glow)"/>
+        <text x="425" y="344" class="cap">105</text>
+        <rect x="328" y="322" width="62" height="44" rx="6" class="s"/><text x="359" y="344" class="lb">106</text>
+        <rect x="262" y="322" width="62" height="44" rx="6" class="s"/><text x="293" y="344" class="lb">107</text>
+        <rect x="190" y="322" width="62" height="44" rx="6" class="s" transform="rotate(20 221 344)"/><text x="221" y="344" class="lb">110</text>
+        <rect x="100" y="238" width="44" height="62" rx="6" class="s" transform="rotate(14 122 269)"/><text x="122" y="269" class="lb">111</text>
+        <rect x="100" y="170" width="44" height="62" rx="6" class="s"/><text x="122" y="201" class="lb">114</text>
+      </g>
+      <rect x="150" y="160" width="86" height="150" rx="6" fill="#4a4556" stroke="#5a5568"/>
+      <text x="193" y="235" class="cap" transform="rotate(-90 193 235)">STAGE</text>
+      <rect x="246" y="166" width="300" height="138" rx="8" fill="url(#fl)" stroke="#8d75e8"/>
+      <text x="396" y="235" class="cap" style="font-size:14px;letter-spacing:.08em">floor</text>
+      <rect x="552" y="212" width="36" height="46" rx="4" fill="#4a4556" stroke="#5a5568"/>
+      <text x="570" y="235" class="lb2" style="font-size:9px;fill:#d9d2f3">mix</text>
+      <circle cx="420" cy="336" r="4.5" class="us"/>
+      <circle cx="430" cy="336" r="4.5" class="us"/>
+      <path d="M425 352 L425 372" stroke="#ff3d9a" stroke-width="2" fill="none"/>
+      <text x="425" y="428" class="cap" style="fill:#ff3d9a">Row G, seats 6 and 7</text>
+      <text x="330" y="312" class="lb3" style="fill:#b9a6ff">stage is to our left</text>
+    </svg>
+    <div class="legend"><span class="us">Us</span><span class="floor">Floor (standing)</span><span class="lower">Lower bowl</span><span class="stage">Stage and mix</span></div>
+  </div>
+  <p class="dim" style="margin-top:12px">Close enough to feel the floor, high enough to see the whole production. We’ll be standing for his set like everyone else down there.</p>
+</section>
+
+<section id="wear">
+  <h2>Wear and bring</h2>
+  <ul class="plain">
+    <li><b>No bags, that’s the venue’s rule.</b><span>Nothing bigger than a wristlet or wallet, about the size of a phone (5" × 8" × 1"). Pockets are your friend.</span></li>
+    <li><b>Something you can dance in for two hours.</b><span>It runs hot inside. Shoes you can stand in matter more than anything else.</span></li>
+    <li><b>A jacket you don’t mind holding.</b><span>There’s no coat check. Mid-November outside, summer inside.</span></li>
+    <li><b>ID and a card or your phone to pay.</b><span>The arena doesn’t take cash. Drinks are on me anyway.</span></li>
+    <li><b>Earplugs if you like them.</b><span>I’ll have a spare pair.</span></li>
+  </ul>
+  <div class="row"><a class="btn" href="https://weather.com/weather/tenday/l/Columbus+OH" target="_blank" rel="noopener">Friday’s forecast</a></div>
+</section>
+
+<section id="handled">
+  <h2>Already handled</h2>
+  <ul class="plain">
+    <li><b>Tickets.</b><span>Both on my phone. You just walk in with me.</span></li>
+    <li><b>Rides.</b><span>A car there and back. The one home is already booked for 11:30, a short walk from the doors.</span></li>
+    <li><b>Seats.</b><span>Side by side, 105 Row G, seven rows up.</span></li>
+    <li><b>Timing.</b><span>I’ll keep us on the clock so you don’t have to.</span></li>
+  </ul>
+</section>
+
+<section class="closer">
+  <h2>Say yes and I’ll put it on your calendar.</h2>
+  <p class="muted">Friday, November 13. Car at 6:15, show at 7, him at 9, home before midnight with your ears ringing.</p>
+  <div class="row">
+    <a class="btn primary" href="escape.ics" id="accept2">Accept</a>
+    <a class="btn" href="https://maps.apple.com/?q=Schottenstein+Center+555+Borror+Dr+Columbus+OH" target="_blank" rel="noopener">Open in Maps</a>
+  </div>
+</section>
+
+<footer>
+  <p>Set times are estimates from earlier stops on this tour and can move by 15 to 30 minutes on the night. Venue rules are from the Schottenstein Center’s guest guide. Videos are embedded from YouTube.</p>
+</footer>
+
+</main>
+
+<script>
+(function(){
+  const memo = document.getElementById('memo');
+  const status = document.getElementById('status');
+  const KEY = 'summit-accepted';
+  function accepted(){
+    memo.classList.add('is-accepted');
+    status.innerHTML = 'Status: <b>you’re in</b>';
+    document.getElementById('accept').lastChild.textContent = 'On your calendar';
+    try{ localStorage.setItem(KEY,'1'); }catch(e){}
+  }
+  try{ if(localStorage.getItem(KEY)) accepted(); }catch(e){}
+  document.getElementById('accept').addEventListener('click', accepted);
+  document.getElementById('accept2').addEventListener('click', accepted);
+
+  // Countdown and the live marker on the night
+  const DAY = '2026-11-13';
+  const at = t => new Date(`${DAY}T${t}:00-05:00`);
+  const show = at('19:00'), summit = at('21:10'), end = at('23:30');
+  const count = document.getElementById('count');
+  const tl = document.getElementById('tl');
+  function tick(){
+    const now = new Date();
+    let target, label;
+    if (now < show) { target = show; label = 'until showtime'; }
+    else if (now < summit) { target = summit; label = 'until he’s on'; }
+    else if (now < end) { target = end; label = 'until the car'; }
+    else { count.innerHTML = '<div class="lab">Hope your ears are still ringing.</div>'; return; }
+    let s = Math.max(0, Math.floor((target-now)/1000));
+    const d = Math.floor(s/86400); s -= d*86400;
+    const h = Math.floor(s/3600); s -= h*3600;
+    const m = Math.floor(s/60); s -= m*60;
+    const parts = d ? `${d}<span>d</span> ${h}<span>h</span>` : `${h}<span>h</span> ${String(m).padStart(2,'0')}<span>m</span> ${String(s).padStart(2,'0')}<span>s</span>`;
+    count.innerHTML = `<div class="big">${parts}</div><div class="lab">${label}</div>`;
+    const live = now >= at('12:00') && now <= new Date(at('23:59').getTime()+3*3600*1000);
+    const items = [...tl.children];
+    let cur = -1;
+    if (live) items.forEach((li,i)=>{ if (at(li.dataset.t) <= now) cur = i; });
+    items.forEach((li,i)=>{ li.classList.toggle('past', live && i<cur); li.classList.toggle('now', live && i===cur); });
+  }
+  tick(); setInterval(tick, 1000);
+})();
+</script>
+</body>
+</html>
