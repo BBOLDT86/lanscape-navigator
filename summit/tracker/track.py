@@ -46,6 +46,7 @@ UA = ("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 "
       "(KHTML, like Gecko) Version/17.5 Safari/605.1.15")
 
 LOG = []
+DEBUG = {}
 
 
 def log(msg):
@@ -139,6 +140,8 @@ def parse_json_listings(src, data):
     qty_keys = ("q", "quantity", "qty", "availableQuantity")
     price_keys = ("pf", "p", "price", "dp", "rawPrice", "pricePerTicket", "priceWithFees", "fee_price")
     for lst in walk_lists(data):
+        if len(lst) >= 5 and src not in DEBUG:
+            DEBUG[src] = {k: (str(v)[:60]) for k, v in list(lst[0].items())[:40]}
         hits = []
         for d in lst:
             sec = next((d[k] for k in sec_keys if k in d and d[k] not in (None, "")), None)
@@ -397,6 +400,8 @@ def main():
         "lowest_lower_bowl_by_section": dict(sorted(by_sec.items())),
         "comparable_to_ours": comps[:12],
         "alerts": [{"title": t, "body": b} for t, b in alerts],
+        "listings": sorted(listings, key=lambda l: (l["section"], l["price"])),
+        "debug": DEBUG,
         "log": LOG[-40:],
     }
     json.dump(latest, open(os.path.join(DATA, "latest.json"), "w"), indent=1)
