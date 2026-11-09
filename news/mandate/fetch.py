@@ -54,21 +54,22 @@ def main():
             old = json.load(f)
     series, errors = dict(old.get('series') or {}), []
     for sym in SYMS:
-        pts = None
-        for rng in ('5Y', '2Y', '1Y'):
+        # the long range comes back as weekly bars; the one-year range as daily bars. Fetch both and let the daily bars win.
+        had = {d: c for d, c in series.get(sym, [])}
+        got = False
+        for rng in ('5Y', '1Y'):
             try:
                 pts = chart(sym, rng)
-                if pts and pts[0][0] <= '2024-11-15':
-                    break
+                if pts:
+                    had.update(dict(pts))
+                    got = True
             except Exception as ex:
                 errors.append(f'{sym} {rng}: {type(ex).__name__} {str(ex)[:80]}')
-        if pts:
-            had = {d: c for d, c in series.get(sym, [])}
-            had.update(dict(pts))  # merge: a shorter range still updates the recent days
+        if had:
             series[sym] = sorted(had.items())
-        elif sym not in series:
+        if not got and sym not in series:
             errors.append(f'{sym}: no data')
-    out = {'asof': dt.datetime.now(dt.timezone.utc).strftime('%Y-%m-%dT%H:%MZ'), 'note': 'daily closes, CNBC, Nov. 2024 to ' + max((s[-1][0] for s in series.values() if s), default=''),
+    out = {'asof': dt.datetime.now(dt.timezone.utc).strftime('%Y-%m-%dT%H:%MZ'), 'note': 'closes, CNBC (weekly before the last year, daily since), Nov. 2024 to ' + max((s[-1][0] for s in series.values() if s), default=''),
            'names': SYMS, 'series': series, 'errors': errors}
     with open(OUT, 'w', encoding='utf-8') as f:
         json.dump(out, f, separators=(',', ':'))

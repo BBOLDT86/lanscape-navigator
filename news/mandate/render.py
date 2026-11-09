@@ -57,6 +57,7 @@ async def main(jobs):
                 async def setup(pg):
                     await pg.wait_for_timeout(2500)
                     await pg.evaluate("document.querySelector('.mast').style.display='none'; document.querySelector('.subnav').style.display='none'; document.querySelector('#stage').classList.add('is-fs'); window.dispatchEvent(new Event('resize'))")
+                    await pg.add_style_tag(content='.fs-close,.fs-bar{display:none!important}.m3d-hud .k{font-size:18px}.m3d-hud h2{font-size:46px;max-width:30ch}.m3d-hud p{font-size:22px;max-width:70ch}.m3d-cap b{font-size:40px}.m3d-cap span{font-size:22px}.m3d-leg{font-size:17px;bottom:auto;top:18px;right:18px;max-width:40%}.m3d-leg i{width:14px;height:14px}')
                     await pg.wait_for_timeout(800)
                     await pg.evaluate("window.M3D && window.M3D.setView('tour')")
                 await record(p, BASE + '3d.html', os.path.join(HERE, 'tour.mp4'), 1920, 1080, 66, setup=setup)
@@ -66,6 +67,7 @@ async def main(jobs):
                 await pg.goto(BASE + '3d.html', wait_until='networkidle')
                 await pg.wait_for_timeout(3000)
                 await pg.evaluate("document.querySelector('.mast').style.display='none'; document.querySelector('.subnav').style.display='none'; document.querySelector('#stage').classList.add('is-fs'); window.dispatchEvent(new Event('resize')); window.M3D && window.M3D.pause()")
+                await pg.add_style_tag(content='.fs-close,.fs-bar{display:none!important}.m3d-hud h2{font-size:34px}.m3d-hud p{font-size:17px;max-width:60ch}')
                 await pg.wait_for_timeout(1500)
                 await pg.locator('#stage').screenshot(path=os.path.join(HERE, 'share.png'))
                 await b.close()
