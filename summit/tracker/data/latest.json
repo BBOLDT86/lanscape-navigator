@@ -1,0 +1,205 @@
+{
+ "ran": "2026-11-09T02:41+00:00",
+ "sources": {
+  "seatgeek": {
+   "ok": false,
+   "error": "HTTPError: HTTP Error 403: Forbidden"
+  },
+  "tickpick": {
+   "ok": false,
+   "error": "HTTPError: HTTP Error 403: Forbidden"
+  },
+  "vivid": {
+   "ok": true,
+   "count": 363
+  },
+  "gametime": {
+   "ok": true,
+   "count": 75
+  }
+ },
+ "counts": {
+  "all": 438,
+  "floor": 6,
+  "front": 0
+ },
+ "floor": [
+  {
+   "src": "vivid",
+   "section": "GA FLOOR",
+   "row": "GA",
+   "qty": 3,
+   "price": 423.0,
+   "splits": null,
+   "note": null
+  },
+  {
+   "src": "vivid",
+   "section": "GA FLOOR",
+   "row": "GA",
+   "qty": 7,
+   "price": 444.0,
+   "splits": null,
+   "note": null
+  },
+  {
+   "src": "gametime",
+   "section": "GA FLOOR",
+   "row": "GA",
+   "qty": null,
+   "price": 543.0,
+   "splits": null,
+   "note": null
+  },
+  {
+   "src": "vivid",
+   "section": "GA FLOOR",
+   "row": "GA",
+   "qty": 4,
+   "price": 740.0,
+   "splits": null,
+   "note": null
+  },
+  {
+   "src": "vivid",
+   "section": "GA FLOOR",
+   "row": "PACKAGE",
+   "qty": 6,
+   "price": 1063.0,
+   "splits": null,
+   "note": null
+  },
+  {
+   "src": "vivid",
+   "section": "GA FLOOR",
+   "row": "GA",
+   "qty": 6,
+   "price": 1135.0,
+   "splits": null,
+   "note": null
+  }
+ ],
+ "front": [],
+ "lowest_lower_bowl_by_section": {
+  "101": {
+   "src": "gametime",
+   "section": "101",
+   "row": "S",
+   "qty": null,
+   "price": 376.0,
+   "splits": null,
+   "note": null
+  },
+  "104": {
+   "src": "gametime",
+   "section": "104",
+   "row": "L",
+   "qty": null,
+   "price": 255.0,
+   "splits": null,
+   "note": null
+  },
+  "106": {
+   "src": "gametime",
+   "section": "106",
+   "row": "K",
+   "qty": null,
+   "price": 348.0,
+   "splits": null,
+   "note": null
+  },
+  "107": {
+   "src": "gametime",
+   "section": "107",
+   "row": "M",
+   "qty": null,
+   "price": 383.0,
+   "splits": null,
+   "note": null
+  },
+  "110": {
+   "src": "gametime",
+   "section": "110",
+   "row": "R",
+   "qty": null,
+   "price": 302.0,
+   "splits": null,
+   "note": null
+  },
+  "121": {
+   "src": "gametime",
+   "section": "121",
+   "row": "M",
+   "qty": null,
+   "price": 317.0,
+   "splits": null,
+   "note": null
+  },
+  "123": {
+   "src": "gametime",
+   "section": "123",
+   "row": "M",
+   "qty": null,
+   "price": 347.0,
+   "splits": null,
+   "note": null
+  },
+  "124": {
+   "src": "gametime",
+   "section": "124",
+   "row": "L",
+   "qty": null,
+   "price": 255.0,
+   "splits": null,
+   "note": null
+  },
+  "127": {
+   "src": "gametime",
+   "section": "127",
+   "row": "G",
+   "qty": null,
+   "price": 356.0,
+   "splits": null,
+   "note": null
+  },
+  "131": {
+   "src": "gametime",
+   "section": "131",
+   "row": "N",
+   "qty": null,
+   "price": 302.0,
+   "splits": null,
+   "note": null
+  },
+  "134": {
+   "src": "gametime",
+   "section": "134",
+   "row": "S",
+   "qty": null,
+   "price": 341.0,
+   "splits": null,
+   "note": null
+  }
+ },
+ "comparable_to_ours": [],
+ "alerts": [
+  {
+   "title": "Floor: Floor $423/ea",
+   "body": "New on vivid (3 avail). https://www.vividseats.com/john-summit-tickets-columbus-value-city-arena-at-schottenstein-center-11-13-2026--concerts-dance-electronica/production/7058794"
+  },
+  {
+   "title": "Floor: Floor $543/ea",
+   "body": "New on gametime. https://gametime.co/concert/john-summit-tickets/11-13-2026-columbus-oh-schottenstein-center/events/6a0e0197195b8559e5c73814"
+  },
+  {
+   "title": "Floor: Floor $1063/ea",
+   "body": "New on vivid (6 avail). https://www.vividseats.com/john-summit-tickets-columbus-value-city-arena-at-schottenstein-center-11-13-2026--concerts-dance-electronica/production/7058794"
+  }
+ ],
+ "log": [
+  "02:41:15 seatgeek: failed (HTTPError: HTTP Error 403: Forbidden)",
+  "02:41:16 tickpick: failed (HTTPError: HTTP Error 403: Forbidden)",
+  "02:41:16 vivid: 363 listings",
+  "02:41:19 gametime: 75 listings"
+ ]
+}
