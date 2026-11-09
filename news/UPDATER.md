@@ -755,3 +755,30 @@ A feed whose response is JSON (`"json": true`, or a body that starts with `{` or
 tried from short lists (`url`/`link`/`permalink`…, `date_published`/`published_at`/`date`…, `thumbnail`/`image`…),
 and `"link": "https://site/blog/{id}/{slug}"` builds links from fields when the items carry none. Barstool's
 story API is the first one.
+
+## The Mandate (`news/mandate/`): Project 2025, two years on
+
+A Watch report with its own pages, linked from the Politics desk's card and the front's hero list: the analysis
+(`index.html`), the scorecard of Project 2025's proposals, the court cases, the spoken commitments, the cabinet with its
+Project 2025 ties and every senior departure, six human-cost dossiers, the markets (the S&P 500, GEO Group, CoreCivic,
+Tesla), a Musk page, the whole record by month, a reel for phones and screen recordings, and the 3-D view (one tower per
+chapter of the Mandate for Leadership, one block per tracked proposal, lit by its status; three.js from the wave's
+`lib/`). Built Nov. 8, 2026.
+
+- **The record is `news/mandate/data/*.json`** (chapters, scorecard, courts, promises, people, impact, markets, videos,
+  analysis — the written sections with `[n]` citations into `sources`, the 3-D `tour` captions and the `reel` cards).
+  `python3 news/mandate/build.py` writes every page, `data/3d.json`, `data/timeline.json` (every dated item merged into
+  one stream) and `pages.json` (the figures the front page's card reads); `build.py check` validates ids, statuses,
+  dates and that every source has a URL. Nothing is invented: every figure, quote, ruling and date carries a link.
+- **Prices:** `fetch.py` reads daily closes for .SPX, .IXIC, GEO, CXW, TSLA and PLTR from CNBC's public chart service
+  (the same one `markets.py` uses; the sandbox can't reach it, GitHub's runners can) into `data/prices.json`. The
+  indexed chart (100 = Jan. 20, 2025, one axis) draws from it; until the first run it draws the dated closes in
+  `markets.json`. `.github/workflows/mandate.yml` runs fetch + build weeknights at 22:41 UTC and rebuilds on any push
+  to the data or the builder.
+- **Sprints:** `news/mandate/SPRINTS.md` is the plan; the weekly scheduled task ("The Watch: The Mandate (weekly
+  sprint)", Sundays) does the next unticked sprint, then the standing maintenance (departures, rulings, ICE deaths,
+  tracker figures), checks, builds and pushes `news/mandate` only.
+- **Renders:** `render.py` records `reel-vertical.mp4`, `reel-wide.mp4` and `tour.mp4` with Playwright (real time,
+  WebGL on SwiftShader) and `share.png` from the 3-D stage; the pages show whichever exist.
+- Status colors: an ordinal brass ramp (done → in progress → partial, validated light and dark), red for blocked by
+  the courts (hatched when an injunction is in force), grey for reversed, hollow for not attempted.

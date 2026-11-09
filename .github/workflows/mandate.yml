@@ -1,0 +1,47 @@
+name: The Watch Mandate prices and pages
+# The Mandate (news/mandate/): Project 2025, two years on. Weeknights after the close, fetch.py reads the daily closes of the
+# S&P 500, the Nasdaq, GEO Group, CoreCivic, Tesla and Palantir from CNBC (the sandbox can't reach it; the runner can) into
+# news/mandate/data/prices.json, then build.py redraws every page from the data. A push that changes the data or the builder
+# rebuilds the pages too, so a sprint that edits data/*.json ships without running anything locally. See news/UPDATER.md.
+on:
+  schedule:
+    - cron: '41 22 * * 1-5'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['news/mandate/data/**', 'news/mandate/build.py', 'news/mandate/fetch.py']
+permissions:
+  contents: write
+concurrency:
+  group: the-watch-mandate
+  cancel-in-progress: false
+jobs:
+  update:
+    if: github.repository == 'BBOLDT86/lanscape-navigator'
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Read the closes
+        if: github.event_name != 'push'
+        run: python3 news/mandate/fetch.py || echo "prices kept from the last run"
+      - name: Check the record and build the pages
+        run: python3 news/mandate/build.py check && python3 news/mandate/build.py
+      - name: Commit and push
+        run: |
+          git config user.name "The Watch updater"
+          git config user.email "the-watch-news@users.noreply.github.com"
+          git add news/mandate
+          if git diff --cached --quiet; then echo "no change"; exit 0; fi
+          label=$(python3 -c "import json,os;p='news/mandate/data/prices.json';print(json.load(open(p))['note'] if os.path.exists(p) else 'pages rebuilt')")
+          git commit -qm "The Watch: The Mandate, $label"
+          for i in 1 2 3; do
+            git pull --rebase -X theirs origin main && git push -q origin HEAD:main && exit 0
+            sleep 10
+          done
+          echo "push failed" >&2; exit 1

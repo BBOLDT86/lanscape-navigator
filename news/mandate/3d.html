@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Mandate in 3-D · The Watch</title>
+<meta name="description" content="Every chapter of the Mandate for Leadership as a tower of its proposals, lit by what became of them.">
+<link rel="canonical" href="https://bboldt86.github.io/lanscape-navigator/news/mandate/3d.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="The Watch">
+<meta property="og:title" content="The Mandate in 3-D">
+<meta property="og:description" content="Every chapter of the Mandate for Leadership as a tower of its proposals, lit by what became of them.">
+<meta property="og:url" content="https://bboldt86.github.io/lanscape-navigator/news/mandate/3d.html">
+<meta property="og:image" content="https://bboldt86.github.io/lanscape-navigator/news/mandate/share.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#F5F7F6" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0E1A2B" media="(prefers-color-scheme: dark)">
+<link rel="apple-touch-icon" href="../icon-180.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='2' y='2' width='60' height='60' rx='14' fill='%2315243B'/%3E%3Cpath d='M14 44 L26 30 L36 36 L50 18' fill='none' stroke='%23D6B25E' stroke-width='5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<script>
+(function(){try{var p=JSON.parse(localStorage.getItem('watch.v1')||'{}');var t=p.theme||'auto';var h=+new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',hour:'numeric',hourCycle:'h23'}).format(new Date());
+if(t==='auto'){t=(h>=20||h<4)?'night':(matchMedia('(prefers-color-scheme: dark)').matches?'night':'day')}document.documentElement.dataset.theme=t;}catch(e){}})();
+</script>
+<link rel="stylesheet" href="mandate.css">
+<script type="module" src="mandate3d.js" defer></script>
+</head>
+<body>
+<script>
+(function(){try{var p=JSON.parse(localStorage.getItem('watch.v1')||'{}');var t=p.theme||'auto';var h=+new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',hour:'numeric',hourCycle:'h23'}).format(new Date());
+if(t==='auto'){t=(h>=20||h<4)?'night':(matchMedia('(prefers-color-scheme: dark)').matches?'night':'day')}document.documentElement.dataset.theme=t;}catch(e){}})();
+</script><header class="mast"><div class="wrap">
+  <a class="back" href="../#/s/politics"><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" fill="#15243B"/><circle cx="32" cy="32" r="21" fill="none" stroke="#D6B25E" stroke-width="6" stroke-dasharray="19 3"/><path d="M32 32 L46 14" stroke="#F5F7F6" stroke-width="5" stroke-linecap="round"/></svg>The Watch <span>· Politics · The Mandate</span></a>
+  <div class="mast-r"><button type="button" class="tbtn" data-share>Share</button></div>
+</div></header>
+<nav class="subnav" aria-label="The Mandate"><div class="wrap"><a href="index.html">The analysis</a><a href="scorecard.html">Scorecard</a><a href="courts.html">Courts</a><a href="promises.html">Promises</a><a href="people.html">Cabinet &amp; departures</a><a href="impact.html">Human cost</a><a href="markets.html">Markets</a><a href="musk.html">Musk</a><a href="timeline.html">Timeline</a><a href="reel.html">Reel</a><a href="3d.html" aria-current="page">3-D</a></div></nav>
+<section class="viz viz-full" aria-label="The visual">
+  <div class="viz-stage" id="stage"><div id="m3d" class="m3d-root" data-src="data/3d.json" data-full="1"></div>
+    <button type="button" class="fs-close" id="fsClose">Exit full screen</button>
+    <div class="fs-bar"><button type="button" id="hideHud">Hide / show text</button></div>
+  </div>
+  <div class="viz-bar" id="vizbar">
+    <div class="seg" role="group" aria-label="View"><button type="button" data-view="city" aria-pressed="true">The 30 chapters</button><button type="button" data-view="tour" aria-pressed="false">Fly-through</button><button type="button" data-view="status" aria-pressed="false">Sorted by status</button></div>
+    <button type="button" class="vb" id="playBtn" aria-pressed="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg><span>Pause</span></button>
+    <button type="button" class="vb" id="fsBtn">Full screen</button>
+    <span class="hint">One tower per chapter, one block per tracked proposal: solid brass for done, lighter for under way or partial, red for blocked by the courts, grey for reversed, hollow for not attempted. Drag to turn, scroll to zoom, tap a tower. Press H to hide the text for a recording.</span>
+  </div>
+  <div class="county-card" id="chapterCard" hidden aria-live="polite"></div>
+</section>
+<main><div class="narrow body"><h2>How to read it</h2><p>The Mandate for Leadership has 30 chapters in five sections, each written by people who went on to run the agencies they wrote about. The Watch tracks the most consequential proposals in each; a tower’s height is how many we track, and each block’s light is that proposal’s fate. The fly-through walks the five sections in order and pauses on the chapters that changed the most lives. <a href="scorecard.html">The scorecard</a> has every block as a row with its sources.</p></div></main>
+
+<footer class="foot"><div class="narrow"><p>The Mandate is a section of <a href="../">The Watch</a>, built on <a href="https://github.com/BBOLDT86/lanscape-navigator">LANscape Navigator</a>. Researched and written by Claude for The Watch; the record is kept in <code>news/mandate/data/</code> and refreshed in weekly sprints. Built 2026-11-08T20:11-0500.</p>
+<p>Nothing on this page is invented: every figure, quote, ruling and date carries a link to where it was read. Where sources disagree, the text says so. Corrections: open an issue on the repository.</p></div></footer>
+<script type="module" src="mandate.js"></script>
+</body></html>
