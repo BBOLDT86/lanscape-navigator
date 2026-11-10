@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Ticket card — bare print</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,500;12..96,800&family=Fraunces:ital,opsz,wght@1,9..144,400;0,9..144,500&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#f7f3ea;--ink:#161219;--muted:#6f6679;--line:#cdbfae;--violet:#6f3ff0;--magenta:#d81f74}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:transparent}
+  body{display:grid;place-items:center;padding:0}
+  .ticket{position:relative;display:grid;grid-template-columns:1fr 150px;width:660px;height:260px;background:var(--paper);border-radius:14px;overflow:hidden;font-family:"Bricolage Grotesque",ui-sans-serif,system-ui,sans-serif;color:var(--ink)}
+  .ticket::before{content:"";position:absolute;inset:0;background:radial-gradient(120% 140% at 0% 0%,rgba(111,63,240,.06),transparent 40%),radial-gradient(120% 140% at 100% 100%,rgba(216,31,116,.06),transparent 40%);pointer-events:none}
+  .body{padding:26px 26px 22px;display:flex;flex-direction:column;justify-content:space-between}
+  .toprow{display:flex;justify-content:space-between;align-items:baseline;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);font-weight:500}
+  .toprow .admit{color:var(--ink);font-weight:800}
+  .name{font-weight:800;letter-spacing:-.03em;line-height:.9;font-size:50px;margin:6px 0 2px}
+  .name em{font-style:normal;background:linear-gradient(95deg,var(--violet),var(--magenta));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .venue{font-size:12.5px;color:var(--muted)}
+  .when{font-weight:800;font-size:15px;letter-spacing:.02em;margin-top:2px}
+  .when span{color:var(--magenta)}
+  .love{font-family:"Fraunces",Georgia,serif;font-style:italic;font-size:14.5px}
+  .perf{position:absolute;top:0;bottom:0;right:150px;width:0;border-left:2px dashed var(--line)}
+  .stub{padding:22px 16px;background:linear-gradient(180deg,rgba(111,63,240,.05),rgba(216,31,116,.05));display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:2px}
+  .stub .lab{font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);font-weight:500}
+  .stub .val{font-weight:800;font-size:30px;letter-spacing:-.02em;line-height:1}
+  .stub .seat{margin-top:4px}
+  .stub .line{font-family:"Fraunces",Georgia,serif;font-style:italic;font-size:11.5px;color:var(--muted);margin-top:12px;line-height:1.35}
+  .stub .no{margin-top:12px;font-size:9px;letter-spacing:.18em;color:var(--muted);text-transform:uppercase}
+  .tap{display:flex;align-items:center;gap:8px;margin-top:12px}
+  .tap svg{width:26px;height:26px;flex:none}
+  .tap b{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600}
+  @media print{@page{size:7in 3in;margin:0}body{padding:0}.ticket{width:6.6in;height:2.6in}}
+</style>
+</head>
+<body>
+  <div class="ticket">
+    <div class="body">
+      <div class="toprow"><span>CTRL ESCAPE &middot; Arena Tour</span><span class="admit">Admit Two</span></div>
+      <div>
+        <div class="name"><em>John Summit</em></div>
+        <div class="venue">Value City Arena &middot; Schottenstein Center &middot; Columbus, OH</div>
+        <div class="when">FRI &middot; NOV 13 &middot; 2026 &middot; <span>7:00 PM</span></div>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:14px">
+        <div class="love">One night, the loudest kind.<br>Come dance with me.</div>
+        <div class="tap"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.26L21.8 9l-5 4.73L18.2 21 12 17.3 5.8 21l1.4-7.27-5-4.73 6.9-.74L12 2z" fill="#d81f74"/></svg><b>tap here</b></div>
+      </div>
+    </div>
+    <div class="perf"></div>
+    <div class="stub">
+      <div class="lab">Section</div><div class="val">106</div>
+      <div class="seat"><div class="lab">Row</div><div class="val">G</div></div>
+      <div class="line">the best seat<br>is next to you</div>
+      <div class="no">No. 1113 &middot; COL</div>
+    </div>
+  </div>
+</body>
+</html>
