@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Keepsake ticket — print</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,500;12..96,800&family=Fraunces:ital,opsz,wght@1,9..144,400;0,9..144,500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f7f3ea;         /* warm ivory card stock */
+    --ink:#161219;           /* near-black ink */
+    --muted:#6f6679;
+    --line:#d8cfbf;
+    --violet:#6f3ff0;
+    --magenta:#d81f74;
+    --gold:#b08322;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#2a2535;font-family:"Bricolage Grotesque",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:28px 16px 60px}
+
+  .note{max-width:620px;margin:0 auto 22px;color:#d9d3e6;font-size:14px;line-height:1.55}
+  .note h1{font-size:19px;font-weight:800;letter-spacing:-.01em;color:#fff;margin-bottom:8px}
+  .note b{color:#fff}
+  .note ol{margin:10px 0 0 18px;display:grid;gap:5px}
+  .note .star{color:#ff6cb0}
+  .btn{display:inline-block;margin-top:16px;background:#6f3ff0;color:#fff;border:0;border-radius:10px;padding:11px 18px;font:600 15px/1 inherit;cursor:pointer;text-decoration:none}
+  .btn:active{transform:scale(.98)}
+
+  /* ---- the ticket ---- */
+  .sheet{max-width:620px;margin:0 auto}
+  .ticket{
+    position:relative;display:grid;grid-template-columns:1fr 150px;
+    width:100%;aspect-ratio:660/260;background:var(--paper);
+    border-radius:10px;overflow:hidden;
+    box-shadow:0 24px 60px rgba(0,0,0,.4);
+  }
+  /* subtle guilloché-ish corner flourish via gradients, prints clean-ish but kept faint */
+  .ticket::before{content:"";position:absolute;inset:0;
+    background:
+      radial-gradient(120% 140% at 0% 0%, rgba(111,63,240,.06), transparent 40%),
+      radial-gradient(120% 140% at 100% 100%, rgba(216,31,116,.06), transparent 40%);
+    pointer-events:none}
+  .body{padding:26px 26px 22px;position:relative;display:flex;flex-direction:column;justify-content:space-between}
+  .toprow{display:flex;justify-content:space-between;align-items:baseline;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);font-weight:500}
+  .toprow .admit{color:var(--ink);font-weight:800}
+  .name{font-weight:800;letter-spacing:-.03em;line-height:.9;font-size:50px;margin:6px 0 2px}
+  .name em{font-style:normal;background:linear-gradient(95deg,var(--violet),var(--magenta));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .venue{font-size:12.5px;color:var(--muted);letter-spacing:.01em}
+  .when{font-weight:800;font-size:15px;letter-spacing:.02em;margin-top:2px}
+  .when span{color:var(--magenta)}
+  .love{font-family:"Fraunces",Georgia,serif;font-style:italic;font-size:14.5px;color:var(--ink);margin-top:10px}
+
+  /* perforation + stub */
+  .perf{position:absolute;top:0;bottom:0;right:150px;width:0;border-left:2px dashed var(--line)}
+  .notch{position:absolute;right:150px;width:16px;height:16px;border-radius:50%;background:#2a2535;transform:translateX(50%)}
+  .notch.t{top:-8px}.notch.b{bottom:-8px}
+  @media print{.notch{background:#fff}}
+  .stub{padding:22px 16px;background:linear-gradient(180deg,rgba(111,63,240,.05),rgba(216,31,116,.05));display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:2px}
+  .stub .lab{font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);font-weight:500}
+  .stub .val{font-weight:800;font-size:30px;letter-spacing:-.02em;line-height:1}
+  .stub .seat{margin-top:4px}
+  .stub .line{font-family:"Fraunces",Georgia,serif;font-style:italic;font-size:11.5px;color:var(--muted);margin-top:12px;line-height:1.35}
+  .stub .no{margin-top:12px;font-size:9px;letter-spacing:.18em;color:var(--muted);text-transform:uppercase}
+
+  /* NFC star mark */
+  .tap{display:flex;align-items:center;gap:8px;margin-top:12px}
+  .tap svg{width:26px;height:26px;flex:none}
+  .tap b{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600}
+
+  /* cut guides */
+  .guides{position:absolute;inset:-14px;pointer-events:none}
+  .guides i{position:absolute;width:12px;height:12px;border:0}
+  .guides i::before,.guides i::after{content:"";position:absolute;background:#9b93ad}
+  .guides i::before{width:12px;height:1px;top:6px}.guides i::after{height:12px;width:1px;left:6px}
+  .guides .tl{top:0;left:0}.guides .tr{top:0;right:0}.guides .bl{bottom:0;left:0}.guides .br{bottom:0;right:0}
+
+  @media print{
+    @page{size:letter landscape;margin:0}
+    body{background:#fff;padding:0}
+    .note,.btn{display:none !important}
+    .sheet{max-width:none;margin:0;height:100vh;display:grid;place-items:center}
+    .ticket{width:6.6in;aspect-ratio:660/260;box-shadow:none;border:0}
+    .guides i::before,.guides i::after{background:#000}
+    .notch{background:#fff}
+  }
+</style>
+</head>
+<body>
+  <div class="note">
+    <h1>Your keepsake ticket</h1>
+    Print this on card stock (ivory or white), landscape. Trim along the four corner guides, and fold or tear along the dashed line to free the stub. For a clean edge, a Cricut Print-then-Cut works: export this as an image, drop it into Design Space, and let it cut the outline.
+    <ol>
+      <li>Hit <b>Print</b>, choose <b>Landscape</b>, and set margins to <b>None</b> / scale <b>100%</b>.</li>
+      <li>Behind the little <span class="star">&#9733; star</span>, stick a programmed <b>NFC tag</b> (NTAG215). Center it on the star so her phone finds it.</li>
+      <li>When she taps her phone to the star, it opens the reveal. Write the tag to the URL I gave you.</li>
+    </ol>
+    <button class="btn" onclick="window.print()">Print the ticket</button>
+  </div>
+
+  <div class="sheet">
+    <div class="ticket">
+      <div class="guides"><i class="tl"></i><i class="tr"></i><i class="bl"></i><i class="br"></i></div>
+
+      <div class="body">
+        <div class="toprow">
+          <span>CTRL ESCAPE &middot; Arena Tour</span>
+          <span class="admit">Admit Two</span>
+        </div>
+        <div>
+          <div class="name"><em>John Summit</em></div>
+          <div class="venue">Value City Arena &middot; Schottenstein Center &middot; Columbus, OH</div>
+          <div class="when">FRI &middot; NOV 13 &middot; 2026 &middot; <span>7:00 PM</span></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:14px">
+          <div class="love">One night, the loudest kind.<br>Come dance with me.</div>
+          <div class="tap">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M12 2l2.9 6.26L21.8 9l-5 4.73L18.2 21 12 17.3 5.8 21l1.4-7.27-5-4.73 6.9-.74L12 2z" fill="#d81f74"/>
+            </svg>
+            <b>tap here</b>
+          </div>
+        </div>
+      </div>
+
+      <div class="perf"></div>
+      <div class="notch t"></div>
+      <div class="notch b"></div>
+
+      <div class="stub">
+        <div class="lab">Section</div>
+        <div class="val">106</div>
+        <div class="seat"><div class="lab">Row</div><div class="val">G</div></div>
+        <div class="line">the best seat<br>is next to you</div>
+        <div class="no">No. 1113 &middot; COL</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

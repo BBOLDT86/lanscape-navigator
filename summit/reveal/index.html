@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#07060f">
+<meta name="robots" content="noindex">
+<title>Tap to begin</title>
+<meta name="description" content="A little something for Friday night.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200;12..96,300;12..96,500;12..96,800&family=Fraunces:ital,opsz,wght@1,9..144,300;1,9..144,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#07060f;
+    --violet:#9a6bff;
+    --magenta:#ff3d9a;
+    --amber:#ffc857;
+    --on:#f6f3ff;
+    --dim:#b4abd6;
+    --faint:#6b6392;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    background:var(--ink);color:var(--on);
+    font-family:"Bricolage Grotesque",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    overflow:hidden;position:fixed;inset:0;width:100%;
+    -webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent;
+    font-optical-sizing:auto;
+  }
+  /* drifting light leaks */
+  .leak{position:fixed;border-radius:50%;filter:blur(70px);opacity:.5;pointer-events:none;z-index:0;will-change:transform}
+  .leak.v{width:90vw;height:90vw;max-width:640px;max-height:640px;background:radial-gradient(closest-side,rgba(154,107,255,.6),transparent 70%);left:-25vw;top:-15vh;animation:drift1 22s ease-in-out infinite alternate}
+  .leak.m{width:80vw;height:80vw;max-width:560px;max-height:560px;background:radial-gradient(closest-side,rgba(255,61,154,.55),transparent 70%);right:-25vw;bottom:-15vh;animation:drift2 26s ease-in-out infinite alternate}
+  @keyframes drift1{to{transform:translate(18vw,12vh) scale(1.15)}}
+  @keyframes drift2{to{transform:translate(-16vw,-12vh) scale(1.2)}}
+  @media (prefers-reduced-motion:reduce){.leak{animation:none}}
+
+  .stage{position:fixed;inset:0;z-index:1;display:grid;place-items:center;padding:40px 28px;text-align:center}
+  .scene{
+    position:absolute;max-width:30ch;opacity:0;transform:translateY(14px);
+    transition:opacity .9s ease,transform .9s ease;pointer-events:none;
+  }
+  .scene.on{opacity:1;transform:none;pointer-events:auto}
+  .scene.leaving{opacity:0;transform:translateY(-14px);transition:opacity .5s ease,transform .5s ease}
+
+  .kicker{font-size:13px;letter-spacing:.32em;text-transform:uppercase;color:var(--faint);font-weight:500;margin-bottom:22px}
+  .lead{font-family:"Fraunces",Georgia,serif;font-style:italic;font-weight:400;font-size:clamp(26px,7.4vw,40px);line-height:1.28;color:var(--on)}
+  .big{font-weight:800;letter-spacing:-.03em;line-height:.98;font-size:clamp(52px,16vw,104px)}
+  .big .l1{display:block;background:linear-gradient(100deg,var(--violet),var(--magenta));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .mid{font-weight:800;letter-spacing:-.02em;line-height:1.05;font-size:clamp(34px,10vw,60px)}
+  .sub{margin-top:18px;font-size:clamp(16px,4.6vw,20px);color:var(--dim);font-weight:300;line-height:1.5}
+  .sub b{color:var(--on);font-weight:500}
+  .amber{color:var(--amber)}
+  .date{font-weight:200;font-size:clamp(40px,12vw,76px);letter-spacing:-.01em;line-height:1}
+  .date span{display:block;font-size:clamp(13px,3.6vw,16px);letter-spacing:.3em;text-transform:uppercase;color:var(--faint);font-weight:500;margin-top:20px}
+
+  /* intro pulse */
+  .tap{margin-top:40px;display:inline-flex;flex-direction:column;align-items:center;gap:14px;color:var(--faint);font-size:13px;letter-spacing:.24em;text-transform:uppercase}
+  .dot{width:12px;height:12px;border-radius:50%;background:var(--magenta);box-shadow:0 0 0 0 rgba(255,61,154,.5);animation:pulse 2.2s ease-out infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,61,154,.5)}70%{box-shadow:0 0 0 22px rgba(255,61,154,0)}100%{box-shadow:0 0 0 0 rgba(255,61,154,0)}}
+  @media (prefers-reduced-motion:reduce){.dot{animation:none}}
+
+  /* progress + hint */
+  .progress{position:fixed;left:0;right:0;bottom:calc(26px + env(safe-area-inset-bottom));z-index:3;display:flex;gap:7px;justify-content:center;pointer-events:none}
+  .progress i{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.18);transition:background .4s,width .4s;border-radius:999px}
+  .progress i.on{background:var(--magenta);width:20px}
+  .hint{position:fixed;left:0;right:0;bottom:calc(52px + env(safe-area-inset-bottom));text-align:center;color:var(--faint);font-size:12px;letter-spacing:.18em;text-transform:uppercase;z-index:3;transition:opacity .5s;pointer-events:none}
+
+  .end .lead{margin-bottom:6px}
+  .heart{display:inline-block;color:var(--magenta)}
+  .details{margin-top:30px;display:inline-block;color:var(--faint);font-size:12px;letter-spacing:.22em;text-transform:uppercase;text-decoration:none;border-bottom:1px solid rgba(180,171,214,.3);padding-bottom:4px;pointer-events:auto}
+  .replay{margin-top:18px;display:block;color:var(--faint);font-size:12px;letter-spacing:.22em;text-transform:uppercase;background:none;border:0;cursor:pointer;font-family:inherit}
+  .details:active,.replay:active{color:var(--on)}
+</style>
+</head>
+<body>
+<div class="leak v"></div>
+<div class="leak m"></div>
+
+<main class="stage" id="stage" aria-live="polite">
+  <section class="scene" data-scene>
+    <div class="kicker">for you</div>
+    <div class="lead">A little something<br>before Friday.</div>
+    <div class="tap"><span class="dot"></span>Tap to begin</div>
+  </section>
+
+  <section class="scene" data-scene>
+    <div class="lead">I found us<br>somewhere to be.</div>
+  </section>
+
+  <section class="scene" data-scene>
+    <div class="kicker">November 13</div>
+    <div class="big"><span class="l1">JOHN</span><span>SUMMIT</span></div>
+  </section>
+
+  <section class="scene" data-scene>
+    <div class="mid">CTRL ESCAPE</div>
+    <div class="sub">His first arena tour. Two hours of the loudest, best kind of noise.</div>
+  </section>
+
+  <section class="scene" data-scene>
+    <div class="date">Fri · 11.13<span>Value City Arena · Columbus</span></div>
+  </section>
+
+  <section class="scene" data-scene>
+    <div class="kicker">our seats</div>
+    <div class="mid">Sec 106 · Row G</div>
+    <div class="sub">You're on the aisle. <b>I'm right beside you.</b></div>
+  </section>
+
+  <section class="scene" data-scene>
+    <div class="lead">Wear something<br>you can dance in.</div>
+    <div class="sub">I've got everything else.</div>
+  </section>
+
+  <section class="scene end" data-scene>
+    <div class="kicker">so</div>
+    <div class="lead">See you Friday. <span class="heart">&#9829;</span></div>
+    <a class="details" href="../">the details, if you want them</a>
+    <button class="replay" id="replay" type="button">&#8635; play again</button>
+  </section>
+</main>
+
+<div class="hint" id="hint">tap anywhere</div>
+<div class="progress" id="progress" aria-hidden="true"></div>
+
+<script>
+(function(){
+  const scenes = Array.from(document.querySelectorAll('[data-scene]'));
+  const progress = document.getElementById('progress');
+  const hint = document.getElementById('hint');
+  let i = 0;
+
+  scenes.forEach((_, n) => {
+    const d = document.createElement('i');
+    if (n === 0) d.className = 'on';
+    progress.appendChild(d);
+  });
+  const dots = Array.from(progress.children);
+
+  function show(n){
+    scenes.forEach((s, k) => {
+      s.classList.remove('on','leaving');
+      if (k === n) s.classList.add('on');
+      else if (k === n - 1) s.classList.add('leaving');
+    });
+    dots.forEach((d, k) => d.classList.toggle('on', k === n));
+    hint.style.opacity = (n === 0 || n === scenes.length - 1) ? '0' : '.9';
+  }
+  show(0);
+
+  function next(){
+    if (i < scenes.length - 1){ i++; show(i); }
+  }
+  function advance(e){
+    // let the end-card links/buttons work without advancing
+    if (e.target.closest('a, button')) return;
+    next();
+  }
+  document.body.addEventListener('click', advance);
+
+  // swipe up / down to move forward, basic
+  let y0 = null;
+  document.body.addEventListener('touchstart', e => { y0 = e.touches[0].clientY; }, {passive:true});
+  document.body.addEventListener('touchend', e => {
+    if (y0 === null) return;
+    const dy = e.changedTouches[0].clientY - y0;
+    if (Math.abs(dy) > 40) next();
+    y0 = null;
+  }, {passive:true});
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'ArrowDown') { e.preventDefault(); next(); }
+  });
+
+  document.getElementById('replay').addEventListener('click', e => {
+    e.stopPropagation(); i = 0; show(0);
+  });
+})();
+</script>
+</body>
+</html>
