@@ -1,0 +1,40 @@
+name: The Watch Three waves data
+# Three waves (news/eras/): county presidential returns for 1920-1932 read from Wikipedia's state pages by
+# news/eras/tools/fetch_wiki.py (the sandbox can't reach Wikipedia; the runner can). Started by a push that changes
+# news/eras/fetch.json (a run request: {"years": [...]}) or by hand. Commits news/eras/data/wiki/.
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['news/eras/fetch.json']
+permissions:
+  contents: write
+concurrency:
+  group: the-watch-eras
+  cancel-in-progress: false
+jobs:
+  fetch:
+    if: github.repository == 'BBOLDT86/lanscape-navigator'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Read the county tables
+        run: python3 news/eras/tools/fetch_wiki.py $(python3 -c "import json;print(' '.join(map(str,json.load(open('news/eras/fetch.json')).get('years',[]))))")
+      - name: Commit and push
+        run: |
+          git config user.name "The Watch updater"
+          git config user.email "the-watch-news@users.noreply.github.com"
+          git add news/eras/data
+          if git diff --cached --quiet; then echo "no change"; exit 0; fi
+          git commit -qm "The Watch: Three waves, county tables from Wikipedia"
+          for i in 1 2 3; do
+            git pull --rebase -X theirs origin main && git push -q origin HEAD:main && exit 0
+            sleep 10
+          done
+          echo "push failed" >&2; exit 1
