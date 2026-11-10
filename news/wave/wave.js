@@ -743,3 +743,6 @@ function buildNight(ctx) {
   night.resize();
   return night;
 }
+
+// shared with news/eras/eraswave.js (the era player): the map, the county geometry and the palette
+export { loadGeo, buildCounties, flatShape, outlines, PAL, shiftColor, FIPS2ST, STATE_NAME };
