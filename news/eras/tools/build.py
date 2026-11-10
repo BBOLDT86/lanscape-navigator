@@ -54,7 +54,7 @@ def modern():
 def norm(s):
     s = unicodedata.normalize('NFKD', s).encode('ascii', 'ignore').decode().lower()
     s = re.sub(r'\[.*?\]|\(.*?\)', ' ', s)
-    s = s.replace('saint ', 'st ').replace('st. ', 'st ').replace('ste. ', 'ste ')
+    s = s.replace('sainte ', 'ste ').replace('saint ', 'st ').replace('st. ', 'st ').replace('ste. ', 'ste ')
     s = re.sub(r'\b(county|parish|borough|census area|city and borough)\b', ' ', s)
     return re.sub(r'[^a-z]', '', s)
 
@@ -73,6 +73,14 @@ def geo_names():
 
 
 ST2FIPS = {'AL': '01', 'AZ': '04', 'AR': '05', 'CA': '06', 'CO': '08', 'CT': '09', 'DE': '10', 'FL': '12', 'GA': '13', 'ID': '16', 'IL': '17', 'IN': '18', 'IA': '19', 'KS': '20', 'KY': '21', 'LA': '22', 'ME': '23', 'MD': '24', 'MA': '25', 'MI': '26', 'MN': '27', 'MS': '28', 'MO': '29', 'MT': '30', 'NE': '31', 'NV': '32', 'NH': '33', 'NJ': '34', 'NM': '35', 'NY': '36', 'NC': '37', 'ND': '38', 'OH': '39', 'OK': '40', 'OR': '41', 'PA': '42', 'RI': '44', 'SC': '45', 'SD': '46', 'TN': '47', 'TX': '48', 'UT': '49', 'VT': '50', 'VA': '51', 'WA': '53', 'WV': '54', 'WI': '55', 'WY': '56'}
+
+
+# counties and cities since merged or renamed -> today's FIPS (a '*' marks a name that was a city)
+HIST = {('VA', 'warwick'): '51700', ('VA', 'princessanne'): '51810', ('VA', 'nansemond'): '51800', ('VA', 'elizabethcity'): '51650',
+        ('VA', 'southnorfolk*'): '51550', ('VA', 'norfolk'): '51550', ('VA', 'cliftonforge*'): '51005', ('VA', 'alexandria'): '51013',
+        ('VA', 'manchester*'): '51760', ('NV', 'ormsby'): '32510', ('FL', 'dade'): '12086', ('SD', 'shannon'): '46102', ('SD', 'washington'): '46102',
+        ('SD', 'washabaugh'): '46071', ('SD', 'armstrong'): '46041', ('GA', 'milton'): '13121', ('GA', 'campbell'): '13121',
+        ('WA', 'clarke'): '53011', ('MO', 'stegenevieve'): '29186', ('MO', 'saintegenevieve'): '29186'}
 
 
 def wiki_year(year, names, report):
@@ -96,8 +104,10 @@ def wiki_year(year, names, report):
         ti = next((i for i, l in enumerate(lab) if 'total' in l), None)
         if di is None or ri is None or di == ri: report.append(f'{year} {st}: columns not found ({dn}/{rn}) in {lab[:12]}'); continue
         votecols = [i for i, l in enumerate(lab) if i and ((head[-1][i] if i < len(head[-1]) else '').strip().lower() in ('#', 'votes', 'no.')) and 'margin' not in l and 'total' not in l]
-        index = {}
-        for fips, n in names.get(sf, []): index.setdefault(norm(n), fips)
+        index, cities = {}, {}
+        for fips, n in sorted(names.get(sf, []), key=lambda x: x[0][2:] >= '500'):  # a county before a same-named city
+            (cities if fips[2:] >= '500' and st in ('VA', 'MD', 'MO', 'NV') else index).setdefault(norm(n), fips)
+            index.setdefault(norm(n), fips)
         hit = miss = 0
         for row in d['rows']:
             if not row or len(row) <= max(di, ri): continue
@@ -109,10 +119,9 @@ def wiki_year(year, names, report):
             if not tv: tv = sum(num(row[i]) or 0 for i in votecols if i < len(row)) or (dv + rv)
             if tv < dv + rv: tv = dv + rv
             key = norm(name)
-            if st == 'VA' and re.search(r'\bcity\b', name, re.I):  # independent cities: match the geo name ending in 'city' first
-                fips = next((f for f, n in names.get(sf, []) if norm(n) == key and f[2] >= '5'), None) or index.get(key)
-            else:
-                fips = index.get(key)
+            iscity = bool(re.search(r'\bcity\s*$', name, re.I)) and st in ('VA', 'MD', 'MO')
+            if iscity: key = norm(re.sub(r'\bcity\s*$', '', name, flags=re.I))
+            fips = HIST.get((st, key + ('*' if iscity else ''))) or HIST.get((st, key)) or (cities.get(key) if iscity else None) or index.get(key)
             if not fips: miss += 1; report.append(f'{year} {st}: no county for "{name}"'); continue
             a = out.get(fips, (0, 0, 0)); out[fips] = (a[0] + dv, a[1] + rv, a[2] + tv); hit += 1
         report.append(f'{year} {st}: {hit} counties ({miss} unmatched)')
@@ -160,11 +169,16 @@ def national(report):
         y, kind = int(m.group(1)), m.group(2); f = infobox_fields(d['infobox'])
         if kind == 'gubernatorial':
             cnt = {}
-            for k in range(1, 5):
-                party = f.get(f'party{k}', ''); after = num(f.get(f'seats_after{k}', '') or f.get(f'seats_after{k}', ''))
-                if not party or after is None: continue
+            for k in range(1, 7):
+                party = f.get(f'party{k}', ''); raw = f.get(f'seats_after{k}', '')
+                m2 = re.search(r'(\d+)(?:\s*[–-]\s*(\d+))?', raw)
+                if not party or not m2: continue
                 key = 'd' if 'democr' in party.lower() else 'r' if 'republic' in party.lower() else 'o'
-                cnt[key] = cnt.get(key, 0) + after
+                cnt[key] = cnt.get(key, 0) + int(m2.group(1))
+                if m2.group(2): cnt['open'] = max(cnt.get('open', 0), int(m2.group(2)) - int(m2.group(1)))
+            if cnt:  # the infobox lists the parties it tracks; the rest of the 48 (50) governorships are counted as other
+                full = 48 if y < 1959 else 50
+                cnt['o'] = full - cnt.get('d', 0) - cnt.get('r', 0) - cnt.get('open', 0)
             if cnt: gov[y] = cnt
             else: report.append(f'governors {y}: no seats_after in infobox')
         else:
@@ -179,7 +193,7 @@ def national(report):
         if y in PRES:
             p = PRES[y]; n['pres'] = {'d': p[0], 'r': p[1], 'ev_d': p[2], 'ev_r': p[3], 'ev_o': p[4], 'pv_d': p[5], 'pv_r': p[6], 'pv_margin': round(p[5] - p[6], 1)}
         g = gov.get(y) or GOV.get(y)
-        if g: n['gov'] = {'d': g.get('d', 0), 'r': g.get('r', 0), 'o': g.get('o', 0)}
+        if g: n['gov'] = {'d': g.get('d', 0), 'r': g.get('r', 0), 'o': g.get('o', 0), 'open': g.get('open', 0)}
         out[y] = n
     json.dump(out, open(os.path.join(DATA, 'national.json'), 'w'), indent=0)
     return out

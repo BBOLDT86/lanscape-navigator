@@ -157,7 +157,7 @@ export async function mountEras(el, opts = {}) {
         <div class="ew-row pv"><div class="ew-rl">Popular vote</div><div class="ew-pv"><b class="dn">${p.pv_d.toFixed(1)}%</b><span>${fm(p.pv_margin)}</span><b class="rn">${p.pv_r.toFixed(1)}%</b></div></div></div>`;
     }
     if (n.house) h += `<div class="ew-sec"><p>House <span>${y === 2026 ? 'called so far' : 'after the election'}</span></p>${bar(n.house.d, n.house.r, n.house.o || 0, n.house.d + n.house.r + (n.house.o || 0) + (n.house.open || 0), `Seats · vote ${fm(n.house.m)}`)}${n.house.open ? `<p class="ew-note">${n.house.open} still uncalled</p>` : ''}</div>`;
-    if (n.gov) h += `<div class="ew-sec"><p>Governors <span>after the election</span></p>${bar(n.gov.d, n.gov.r, n.gov.o || 0, n.gov.d + n.gov.r + (n.gov.o || 0), 'Governorships')}</div>`;
+    if (n.gov) h += `<div class="ew-sec"><p>Governors <span>after the election</span></p>${bar(n.gov.d, n.gov.r, n.gov.o || 0, n.gov.d + n.gov.r + (n.gov.o || 0) + (n.gov.open || 0), `Governorships · Democrats ${Math.round(n.gov.d / (n.gov.d + n.gov.r + (n.gov.o || 0) + (n.gov.open || 0)) * 100)}%`)}${n.gov.open ? `<p class="ew-note">${n.gov.open} still uncalled</p>` : ''}</div>`;
     return h;
   }
   function countTo(node, to) {
@@ -173,7 +173,7 @@ export async function mountEras(el, opts = {}) {
     const total = S.frames.length * (O.trans + O.hold), p = clamp((S.fi * (O.trans + O.hold) + S.t) / total, 0, 1);
     const wide = el.clientWidth > 900, tall = el.clientHeight > el.clientWidth * 1.1;
     cam.az = lerp(0.48, 0.20, easeInOut(p)); cam.el = lerp(0.84, 0.68, easeInOut(p)); cam.dist = fitDist() * lerp(1.06, 0.96, easeInOut(p)) * (tall ? 0.9 : 1);
-    cam.pan = 30 + (tall ? 60 : 0); cam.tx = wide ? 70 : 0; cam.tz = 0;
+    cam.pan = 30 + (tall ? 60 : 0); cam.tx = wide ? 150 : 0; cam.tz = wide ? -30 : 0;
     const d = cam.dist, e = cam.el, a = cam.az;
     camera.position.set(center.x + cam.tx + d * Math.cos(e) * Math.sin(a), d * Math.sin(e), center.z + cam.tz + d * Math.cos(e) * Math.cos(a));
     camera.lookAt(center.x + cam.tx, cam.pan, center.z + cam.tz);
