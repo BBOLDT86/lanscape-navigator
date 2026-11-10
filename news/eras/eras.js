@@ -204,3 +204,4 @@ $('[data-share]')?.addEventListener('click', async () => {
   const d = { title: document.title, text: document.querySelector('meta[name=description]').content, url: location.href.split('?')[0] };
   try { if (navigator.share) await navigator.share(d); else { await navigator.clipboard.writeText(d.url); const b = $('[data-share]'); b.textContent = 'Link copied'; setTimeout(() => b.textContent = 'Share', 1800); } } catch (e) {}
 });
+/* The Pulse: reader counts (news/pulse/pulse.js) */ (function(){try{if(!window.__pulse&&!document.querySelector('script[src*="pulse/pulse.js"]')){var s=document.createElement('script');s.defer=true;s.src='/lanscape-navigator/news/pulse/pulse.js';document.head.appendChild(s);}}catch(e){}})();

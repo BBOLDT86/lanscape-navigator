@@ -1,0 +1,58 @@
+name: The Pulse
+# How The Watch is read. Every two hours: puts the tracker (news/pulse/pulse.js) back on pages other workflows rebuilt,
+# checks every page for search/link-preview basics and rewrites sitemap.xml (audit.py), and reads the reader counts
+# back from GoatCounter into news/pulse/data/ (fetch.py; needs the GOATCOUNTER_TOKEN repo secret). On a push of pages,
+# it only puts the tracker on them.
+on:
+  schedule:
+    - cron: '23 */2 * * *'
+  push:
+    branches: [main]
+    paths:
+      - '**.html'
+      - 'news/pulse/*.py'
+      - '!news/pulse/**.html'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: pulse
+  cancel-in-progress: false
+jobs:
+  pulse:
+    if: github.repository == 'BBOLDT86/lanscape-navigator'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Put the tracker on every page
+        run: python3 news/pulse/inject.py
+      - name: Check the pages and write the sitemap
+        run: python3 news/pulse/audit.py
+      - name: Read the counts
+        if: github.event_name != 'push'
+        env:
+          GOATCOUNTER_TOKEN: ${{ secrets.GOATCOUNTER_TOKEN }}
+          GOATCOUNTER_CODE: ${{ secrets.GOATCOUNTER_CODE }}
+        run: python3 news/pulse/fetch.py
+      - name: Rebuild the stats from what we have
+        if: github.event_name == 'push'
+        run: python3 news/pulse/fetch.py --rebuild
+      - name: Commit and push
+        run: |
+          git config user.name "The Pulse"
+          git config user.email "pulse@users.noreply.github.com"
+          git add news/pulse/data sitemap.xml
+          git add -u -- '*.html'
+          if git diff --cached --quiet; then echo "no changes"; exit 0; fi
+          git commit -qm "The Pulse: reader counts $(date -u +%Y-%m-%dT%H:%MZ)"
+          for i in 1 2 3 4; do
+            git pull --rebase -X theirs origin main && git push -q origin HEAD:main && exit 0
+            sleep 12
+          done
+          echo "push failed" >&2; exit 1

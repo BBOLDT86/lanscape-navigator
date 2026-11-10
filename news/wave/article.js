@@ -115,3 +115,4 @@ if (tbl) {
     });
   });
 }
+/* The Pulse: reader counts (news/pulse/pulse.js) */ (function(){try{if(!window.__pulse&&!document.querySelector('script[src*="pulse/pulse.js"]')){var s=document.createElement('script');s.defer=true;s.src='/lanscape-navigator/news/pulse/pulse.js';document.head.appendChild(s);}}catch(e){}})();

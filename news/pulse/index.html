@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Pulse · The Watch</title>
+<meta name="robots" content="noindex">
+<meta name="description" content="How The Watch is read: every page, how far readers get, where they come from and what they say.">
+<meta name="theme-color" content="#F5F7F6" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0E1A2B" media="(prefers-color-scheme: dark)">
+<link rel="apple-touch-icon" href="../icon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../wave/article.css">
+<link rel="stylesheet" href="dash.css">
+</head>
+<body data-pulse="off">
+<script>
+(function(){try{var p=JSON.parse(localStorage.getItem('watch.v1')||'{}');var t=p.theme||'auto';var h=+new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',hour:'numeric',hourCycle:'h23'}).format(new Date());
+if(t==='auto'){t=(h>=20||h<4)?'night':(matchMedia('(prefers-color-scheme: dark)').matches?'night':'day')}document.documentElement.dataset.theme=t;}catch(e){}})();
+</script>
+<header class="mast"><div class="wrap">
+  <a class="back" href="../"><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" fill="#15243B"/><circle cx="32" cy="32" r="21" fill="none" stroke="#D6B25E" stroke-width="6" stroke-dasharray="19 3"/><path d="M32 32 L46 14" stroke="#F5F7F6" stroke-width="5" stroke-linecap="round"/></svg>The Watch <span>· The Pulse</span></a>
+  <div class="mast-r"><button type="button" class="tbtn" id="me">Don’t count me</button></div>
+</div></header>
+
+<main id="main">
+  <section class="wrap ph">
+    <span class="k">For the editor</span>
+    <h1>The Pulse</h1>
+    <p class="dek">How The Watch is read: every page, how far readers get, how long they stay, where they come from and what they tell us. No cookies, nothing that identifies a reader.</p>
+    <div class="meta">
+      <div class="seg" role="group" aria-label="Period" id="win">
+        <button type="button" data-w="7">7 days</button><button type="button" data-w="30" aria-pressed="true">30 days</button><button type="button" data-w="90">90 days</button>
+      </div>
+      <span id="upd">Loading…</span>
+    </div>
+    <div id="banner"></div>
+    <div class="tiles" id="tiles"></div>
+  </section>
+
+  <section class="wrap sec">
+    <h2>What to do next</h2>
+    <p class="sub">Rules read off the last 30 days: pages that hold readers but few find, pages that lose them at the top, what readers search for and don’t find.</p>
+    <div class="tips" id="tips"></div>
+  </section>
+
+  <section class="wrap sec">
+    <h2>Day by day</h2>
+    <p class="sub">Page views and the readers behind them.</p>
+    <div class="card"><div class="legend" id="lg"></div><div class="chart" id="daily"></div></div>
+  </section>
+
+  <section class="wrap sec">
+    <h2>Every page</h2>
+    <p class="sub">The bars show how many of the page’s visits got a quarter, half, three-quarters and all the way down. “1 min+” is the share that stayed a minute of active reading.</p>
+    <div class="tools">
+      <input type="search" id="q" placeholder="Find a page" aria-label="Find a page">
+      <select id="sec" aria-label="Section"><option value="">Every section</option></select>
+    </div>
+    <div class="tw"><table class="pg" id="pages"><thead></thead><tbody></tbody></table></div>
+    <button type="button" class="tbtn more" id="morebtn" hidden>Show more</button>
+  </section>
+
+  <section class="wrap sec">
+    <h2>Sections</h2>
+    <p class="sub">Views by section, and the share of visits that read past half.</p>
+    <div class="grid2"><div class="card"><h3>Views</h3><div id="secv"></div></div><div class="card"><h3>Read past half</h3><div id="secr"></div></div></div>
+  </section>
+
+  <section class="wrap sec">
+    <h2>Where readers come from</h2>
+    <p class="sub">Sites that sent readers, and tagged links (<code>?s=</code>) — share a piece as <code>…/news/wave/?s=reddit</code> and it shows up here.</p>
+    <div class="grid2">
+      <div class="card"><h3>Sites that sent readers</h3><div id="refs"></div></div>
+      <div class="card"><h3>Arrivals by tag or site</h3><div id="arr"></div></div>
+      <div class="card"><h3>Devices</h3><div id="dev"></div></div>
+      <div class="card"><h3>Countries</h3><div id="loc"></div></div>
+    </div>
+  </section>
+
+  <section class="wrap sec">
+    <h2>What readers do</h2>
+    <div class="grid2">
+      <div class="card"><h3>From the front page, readers open</h3><div id="front"></div></div>
+      <div class="card"><h3>They searched for</h3><div id="srch"></div></div>
+      <div class="card"><h3>Links they followed out</h3><div id="outs"></div></div>
+      <div class="card"><h3>Downloads and shares</h3><div id="dls"></div></div>
+    </div>
+  </section>
+
+  <section class="wrap sec">
+    <h2>In their words</h2>
+    <p class="sub">Notes from the card at the end of each piece (“Was this worth your time?”).</p>
+    <div class="notes" id="notes"></div>
+  </section>
+
+  <section class="wrap sec">
+    <h2>Can readers find it?</h2>
+    <p class="sub">What search engines and link previews need from each page, checked every two hours.</p>
+    <div class="grid2">
+      <div class="card"><h3>The pages</h3><div id="audit"></div></div>
+      <div class="card how"><h3>Getting found</h3>
+        <ol>
+          <li>Add the site to <a href="https://search.google.com/search-console">Google Search Console</a> (URL prefix <code>https://bboldt86.github.io/lanscape-navigator/</code>) and submit <a href="../../sitemap.xml"><code>sitemap.xml</code></a>. Do the same in <a href="https://www.bing.com/webmasters">Bing Webmaster Tools</a>, which also feeds DuckDuckGo and ChatGPT search.</li>
+          <li>Post one piece a day where its readers already are, with a tag: <code>?s=reddit</code>, <code>?s=fb</code>, <code>?s=text</code>. The tags show up above.</li>
+          <li>Every piece ends with a card that asks readers to pass it on; those links carry <code>?s=friend</code>.</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap foot">
+    <p>Counts by <a href="https://www.goatcounter.com">GoatCounter</a> (no cookies), read back every two hours by <code>news/pulse/fetch.py</code>. A visit counts each thing once; a “read” needs five seconds on the page. This browser can be left out of the counts with the button at the top (or <code>?pulse=off</code> on any page).</p>
+  </section>
+</main>
+<script src="dash.js"></script>
+</body>
+</html>

@@ -46,3 +46,4 @@ document.querySelectorAll('table.seats tbody').forEach(body => body.addEventList
   if (nr.parentNode) nr.firstElementChild.innerHTML = noteHTML(N.notes[id], id, (S.pieces || []).includes(id));
 }));
 if (location.hash.startsWith('#seat=')) show(decodeURIComponent(location.hash.slice(6)));
+/* The Pulse: reader counts (news/pulse/pulse.js) */ (function(){try{if(!window.__pulse&&!document.querySelector('script[src*="pulse/pulse.js"]')){var s=document.createElement('script');s.defer=true;s.src='/lanscape-navigator/news/pulse/pulse.js';document.head.appendChild(s);}}catch(e){}})();
