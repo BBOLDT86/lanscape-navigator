@@ -9,7 +9,6 @@ import json, os, re, sys, time, urllib.parse, urllib.request
 from html.parser import HTMLParser
 
 OUT = os.path.join(os.path.dirname(__file__), '..', 'data', 'wiki')
-ONLY = [a for a in sys.argv[1:] if a in STATES]
 YEARS = [int(y) for y in (sys.argv[1:] or ['1920', '1924', '1928', '1932']) if y.isdigit()]
 STATES = {'AL': 'Alabama', 'AZ': 'Arizona', 'AR': 'Arkansas', 'CA': 'California', 'CO': 'Colorado', 'CT': 'Connecticut',
           'DE': 'Delaware', 'FL': 'Florida', 'GA': 'Georgia', 'ID': 'Idaho', 'IL': 'Illinois', 'IN': 'Indiana', 'IA': 'Iowa',
@@ -19,6 +18,7 @@ STATES = {'AL': 'Alabama', 'AZ': 'Arizona', 'AR': 'Arkansas', 'CA': 'California'
           'NC': 'North Carolina', 'ND': 'North Dakota', 'OH': 'Ohio', 'OK': 'Oklahoma', 'OR': 'Oregon', 'PA': 'Pennsylvania',
           'RI': 'Rhode Island', 'SC': 'South Carolina', 'SD': 'South Dakota', 'TN': 'Tennessee', 'TX': 'Texas', 'UT': 'Utah',
           'VT': 'Vermont', 'VA': 'Virginia', 'WA': 'Washington', 'WV': 'West Virginia', 'WI': 'Wisconsin', 'WY': 'Wyoming'}
+ONLY = [a for a in sys.argv[1:] if a in STATES]
 UA = 'TheWatchNewsBot/1.0 (https://bboldt86.github.io/lanscape-navigator/; election history piece)'
 
 
