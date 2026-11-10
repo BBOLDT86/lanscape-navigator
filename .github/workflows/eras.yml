@@ -25,7 +25,7 @@ jobs:
         with:
           python-version: '3.12'
       - name: Read the county tables
-        run: python3 news/eras/tools/fetch_wiki.py $(python3 -c "import json;d=json.load(open('news/eras/fetch.json'));print(' '.join(map(str,d.get('years',[])))+(' infobox' if d.get('infobox') and not d.get('years') else ''))")
+        run: python3 news/eras/tools/fetch_wiki.py $(python3 -c "import json;d=json.load(open('news/eras/fetch.json'));print(' '.join(map(str,d.get('years',[])+d.get('states',[])))+(' infobox' if d.get('infobox') and not d.get('years') else ''))")
       - name: Commit and push
         run: |
           git config user.name "The Watch updater"

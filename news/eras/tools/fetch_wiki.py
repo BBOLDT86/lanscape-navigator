@@ -9,6 +9,7 @@ import json, os, re, sys, time, urllib.parse, urllib.request
 from html.parser import HTMLParser
 
 OUT = os.path.join(os.path.dirname(__file__), '..', 'data', 'wiki')
+ONLY = [a for a in sys.argv[1:] if a in STATES]
 YEARS = [int(y) for y in (sys.argv[1:] or ['1920', '1924', '1928', '1932']) if y.isdigit()]
 STATES = {'AL': 'Alabama', 'AZ': 'Arizona', 'AR': 'Arkansas', 'CA': 'California', 'CO': 'Colorado', 'CT': 'Connecticut',
           'DE': 'Delaware', 'FL': 'Florida', 'GA': 'Georgia', 'ID': 'Idaho', 'IL': 'Illinois', 'IN': 'Indiana', 'IA': 'Iowa',
@@ -96,7 +97,9 @@ def fetch(year, st):
         first = ' '.join(x for r in g[:3] for x, _ in r).lower()
         score = len(g) + (500 if re.search(r'\b(county|parish|city|town)\b', first) else 0) + (300 if 'county' in t['heading'].lower() else 0)
         if best is None or score > best[0]: best = (score, t, g)
-    if not best or best[0] < 300: return {'page': page, 'error': 'no county table', 'tables': len(p.tables)}
+    if not best or best[0] < 300:
+        return {'page': page, 'error': 'no county table', 'tables': len(p.tables),
+                'dump': [{'cls': t['cls'], 'heading': t['heading'][:80], 'n': len(t['rows']), 'head': [[c['t'][:30] for c in r] for r in t['rows'][:3]]} for t in p.tables]}
     _, t, g = best
     nh = 0
     while nh < len(g) and sum(1 for _, h in g[nh] if h) > len(g[nh]) / 2 and nh < 3: nh += 1
@@ -139,7 +142,7 @@ def main():
     log = []
     if 'with-infobox' in sys.argv: infoboxes()
     for y in YEARS:
-        for st in STATES:
+        for st in (ONLY or STATES):
             try: d = fetch(y, st)
             except Exception as e: d = {'page': f'{y} {st}', 'error': repr(e)}
             with open(os.path.join(OUT, f'{y}-{st}.json'), 'w') as f: json.dump(d, f, ensure_ascii=False, separators=(',', ':'))
