@@ -9,7 +9,7 @@ import json, os, re, sys, time, urllib.parse, urllib.request
 from html.parser import HTMLParser
 
 OUT = os.path.join(os.path.dirname(__file__), '..', 'data', 'wiki')
-YEARS = [int(y) for y in (sys.argv[1:] or ['1920', '1924', '1928', '1932'])]
+YEARS = [int(y) for y in (sys.argv[1:] or ['1920', '1924', '1928', '1932']) if y.isdigit()]
 STATES = {'AL': 'Alabama', 'AZ': 'Arizona', 'AR': 'Arkansas', 'CA': 'California', 'CO': 'Colorado', 'CT': 'Connecticut',
           'DE': 'Delaware', 'FL': 'Florida', 'GA': 'Georgia', 'ID': 'Idaho', 'IL': 'Illinois', 'IN': 'Indiana', 'IA': 'Iowa',
           'KS': 'Kansas', 'KY': 'Kentucky', 'LA': 'Louisiana', 'ME': 'Maine', 'MD': 'Maryland', 'MA': 'Massachusetts',
@@ -105,9 +105,39 @@ def fetch(year, st):
             'header': [[x for x, _ in r] for r in g[:nh]], 'rows': [[x for x, _ in r] for r in g[nh:]]}
 
 
+INFO_PAGES = [f'{y} United States presidential election' for y in (1920, 1924, 1928, 1932, 2004, 2008, 2012, 2016, 2020, 2024)] + \
+    [f'{y} United States gubernatorial elections' for y in list(range(1922, 1934, 2)) + list(range(2002, 2028, 2))]
+
+
+def infoboxes():
+    """The infobox wikitext of each national page (electoral votes, governorships before/after) -> data/wiki/infobox.json"""
+    out = {}
+    for page in INFO_PAGES:
+        q = urllib.parse.urlencode({'action': 'parse', 'page': page, 'prop': 'wikitext|revid', 'format': 'json', 'redirects': 1, 'formatversion': 2, 'section': 0})
+        try:
+            d = get('https://en.wikipedia.org/w/api.php?' + q)
+            w = d['parse']['wikitext']; i = w.find('{{Infobox')
+            depth, j = 0, i
+            while j < len(w):
+                if w.startswith('{{', j): depth += 1; j += 2; continue
+                if w.startswith('}}', j):
+                    depth -= 1; j += 2
+                    if depth == 0: break
+                    continue
+                j += 1
+            out[page] = {'revid': d['parse'].get('revid'), 'url': 'https://en.wikipedia.org/wiki/' + urllib.parse.quote(d['parse']['title'].replace(' ', '_')), 'infobox': w[i:j] if i >= 0 else ''}
+        except Exception as e:
+            out[page] = {'error': repr(e)}
+        print(page, 'error' in out[page] and out[page]['error'] or len(out[page]['infobox']), flush=True)
+        time.sleep(0.4)
+    with open(os.path.join(OUT, 'infobox.json'), 'w') as f: json.dump(out, f, ensure_ascii=False, indent=0)
+
+
 def main():
     os.makedirs(OUT, exist_ok=True)
+    if 'infobox' in sys.argv: infoboxes(); return
     log = []
+    if 'with-infobox' in sys.argv: infoboxes()
     for y in YEARS:
         for st in STATES:
             try: d = fetch(y, st)
