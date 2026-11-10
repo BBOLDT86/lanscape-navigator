@@ -1,0 +1,77 @@
+/* Three waves: the era player (eraswave.js). The homepage wave's look, with a scoreboard and an election timeline. */
+.ew-root{position:relative;overflow:hidden;background:#0b1526;color:#e9f0f8;font-family:'Instrument Sans',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;-webkit-font-smoothing:antialiased;user-select:none;-webkit-user-select:none;touch-action:pan-y}
+.ew-root canvas{display:block;width:100%;height:100%}
+.ew-root [hidden]{display:none!important}
+.ew-hud{position:absolute;inset:0;pointer-events:none}
+.ew-hud>*{position:absolute}
+.ew-title{left:4.5%;top:5%;max-width:58%}
+.ew-kicker{margin:0 0 6px;font-size:clamp(10px,1.25vw,13px);letter-spacing:.2em;text-transform:uppercase;color:#cfdbeb;font-weight:600}
+.ew-title h2{margin:0;font-weight:700;font-size:clamp(20px,3.4vw,46px);line-height:1.04;letter-spacing:-.015em;color:#fff;text-shadow:0 2px 24px rgba(0,0,0,.5)}
+.ew-sub{margin:8px 0 0;font-size:clamp(11px,1.2vw,14.5px);color:#b9c6d8;max-width:40em;line-height:1.35}
+.ew-tally{left:4.5%;bottom:20%;display:flex;flex-direction:column;gap:6px}
+.ew-n{display:flex;flex-direction:column;line-height:1}
+.ew-n b{font-size:clamp(26px,4.4vw,56px);font-weight:700;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.ew-n span{font-size:clamp(11px,1.25vw,15px);color:#b9c6d8;margin-top:3px}
+.ew-n span i{font-style:normal;color:#e0e8f2}
+.ew-n.blue b{color:#7fc4ff}.ew-n.red b{color:#ff8565}
+.ew-legend{left:4.5%;bottom:14%;font-size:clamp(10px,1.05vw,12.5px);color:#aab8cb;display:flex;align-items:center;gap:6px;flex-wrap:wrap;max-width:56%}
+.ew-legend .sw{display:inline-block;width:11px;height:11px;border-radius:2px;margin-left:8px}
+.ew-legend .sw:first-child{margin-left:0}
+.ew-legend .sw.blue{background:#5aa7ee}.ew-legend .sw.red{background:#e8664c}.ew-legend .sw.grey{background:#3b4a62}
+
+/* the scoreboard */
+.ew-board{right:3%;top:5%;width:min(30%,330px);display:flex;flex-direction:column;gap:10px}
+.ew-sec{background:rgba(10,20,36,.74);border:1px solid rgba(255,255,255,.13);border-radius:12px;padding:10px 12px 9px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);animation:ew-pop .45s ease both}
+.ew-sec>p{margin:0 0 6px;font-size:clamp(9.5px,.95vw,11.5px);letter-spacing:.16em;text-transform:uppercase;color:#cfdbeb;font-weight:700}
+.ew-sec>p span{letter-spacing:.04em;text-transform:none;font-weight:500;color:#8d9db3;margin-left:4px}
+.ew-cands{display:flex;justify-content:space-between;font-weight:700;font-size:clamp(13px,1.4vw,17px);margin-bottom:4px}
+.dn{color:#8fcaff}.rn{color:#ff9478}
+.ew-row{margin-top:5px}
+.ew-rl{font-size:clamp(9.5px,.95vw,11.5px);color:#8d9db3;margin-bottom:3px}
+.ew-bars{position:relative;display:flex;height:12px;border-radius:6px;overflow:hidden;background:#2a3648;gap:2px}
+.ew-bars i{display:block;height:100%}
+.ew-bars i.d{background:#5aa7ee}.ew-bars i.r{background:#e8664c;margin-left:auto}.ew-bars i.o{background:#8a95a8}
+.ew-bars .mid{position:absolute;top:-2px;bottom:-2px;width:2px;margin-left:-1px;background:#fff;opacity:.85}
+.ew-nums{display:flex;justify-content:space-between;align-items:baseline;font-size:clamp(12px,1.25vw,15px);margin-top:3px;font-variant-numeric:tabular-nums}
+.ew-nums span{font-size:clamp(9.5px,.95vw,11.5px);color:#8d9db3}
+.ew-pv{display:flex;justify-content:space-between;align-items:baseline;font-variant-numeric:tabular-nums;font-size:clamp(12px,1.25vw,15px)}
+.ew-pv span{font-size:clamp(10px,1vw,12.5px);color:#dfe7f1;background:rgba(255,255,255,.08);border-radius:999px;padding:1px 8px}
+.ew-note{margin:4px 0 0;font-size:11px;color:#8d9db3}
+@keyframes ew-pop{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+/* the timeline */
+.ew-bar{left:4.5%;right:3%;bottom:3.5%;display:flex;align-items:center;gap:10px;pointer-events:auto;flex-wrap:wrap}
+.ew-play{width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);display:grid;place-items:center;color:#fff;cursor:pointer;flex:none}
+.ew-play svg{width:18px;height:18px;fill:#fff}
+.ew-play .i-play{display:none}.ew-root:not(.is-playing) .ew-play .i-play{display:block}.ew-root:not(.is-playing) .ew-play .i-pause{display:none}
+.ew-years{display:flex;gap:4px;flex-wrap:wrap}
+.ew-years button{font:600 clamp(12px,1.25vw,15px)/1 'Instrument Sans',system-ui,sans-serif;color:#c3cfdf;background:rgba(10,20,36,.6);border:1px solid rgba(255,255,255,.16);border-radius:999px;padding:7px 11px 6px;cursor:pointer;display:flex;align-items:baseline;gap:5px}
+.ew-years button small{font-size:10px;font-weight:500;color:#8d9db3}
+.ew-years button.m{border-style:dashed}
+.ew-years button.nodata{opacity:.7}
+.ew-years button[aria-selected="true"]{background:#fff;color:#0b1526;border-color:#fff}
+.ew-years button[aria-selected="true"] small{color:#44546e}
+.ew-modes{margin-left:auto;display:inline-flex;border:1px solid rgba(255,255,255,.2);border-radius:999px;padding:2px;background:rgba(10,20,36,.6)}
+.ew-modes button{font-size:12.5px;padding:5px 11px;border-radius:999px;color:#c3cfdf;cursor:pointer;background:none;border:0}
+.ew-modes button[aria-pressed="true"]{background:#e9f0f8;color:#0b1526}
+.ew-tip{position:absolute;left:0;top:0;z-index:3;pointer-events:none;background:rgba(10,20,36,.92);border:1px solid rgba(255,255,255,.16);border-radius:8px;padding:8px 10px;font-size:12.5px;line-height:1.35;color:#dfe7f1;max-width:220px}
+.ew-tip b{display:block;color:#fff;font-size:13.5px;margin-bottom:2px}
+.ew-tip span{display:block}
+.ew-tip .b{color:#8fcaff;font-weight:600}.ew-tip .r{color:#ff9478;font-weight:600}
+.ew-root:fullscreen{width:100vw;height:100vh}
+
+/* phones: scoreboard under the title, compact */
+@media (max-width:700px){
+  .ew-title{max-width:92%;top:3.5%}
+  .ew-sub{display:none}
+  .ew-board{left:4.5%;right:auto;top:auto;bottom:22%;width:56%;gap:6px}
+  .ew-sec{padding:7px 9px}
+  .ew-tally{left:auto;right:4%;bottom:24%;align-items:flex-end;text-align:right}
+  .ew-legend{display:none}
+  .ew-modes{margin-left:0}
+}
+/* a tall recording (9:16) */
+.ew-vertical .ew-title{max-width:90%}
+.ew-vertical .ew-board{left:4.5%;right:4.5%;width:auto;top:auto;bottom:16%;flex-direction:row}
+.ew-vertical .ew-board .ew-sec{flex:1}
+.ew-vertical .ew-tally{bottom:auto;top:22%}
