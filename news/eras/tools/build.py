@@ -127,6 +127,64 @@ def shift2026():
     return out, s.get('asOf')
 
 
+# The national scoreboard. House: popular-vote margin (1924-1932 from each year's Wikipedia results; 2004-2024 Brookings
+# Vital Statistics Table 2-2; 2026 unofficial, Popular Vote Analytics) and seats; president: electoral and popular vote
+# (checked against the Wikipedia infoboxes in data/wiki/infobox.json when present); governors after each election from the
+# gubernatorial-elections infoboxes.
+HOUSE = {1924: (-15.8, 183, 247, 5), 1926: (-17.0, 194, 238, 3), 1928: (-14.8, 164, 270, 1), 1930: (-8.5, 216, 218, 1), 1932: (12.4, 313, 117, 5),
+         2004: (-2.6, 202, 232, 1), 2006: (6.4, 233, 202, 0), 2008: (10.6, 257, 178, 0), 2010: (-6.6, 193, 242, 0), 2012: (1.4, 201, 234, 0),
+         2016: (-0.9, 194, 241, 0), 2018: (8.7, 235, 199, 0), 2020: (3.0, 222, 213, 0), 2022: (-2.6, 213, 222, 0), 2024: (-2.5, 215, 220, 0), 2026: (13.2, 254, 162, 0)}
+HOUSE_OPEN = {2026: 19}
+PRES = {  # (D, R, EV D, EV R, EV other, PV D %, PV R %)
+    1920: ('Cox', 'Harding', 127, 404, 0, 34.15, 60.32), 1924: ('Davis', 'Coolidge', 136, 382, 13, 28.82, 54.04), 1928: ('Smith', 'Hoover', 87, 444, 0, 40.80, 58.21),
+    1932: ('Roosevelt', 'Hoover', 472, 59, 0, 57.41, 39.65), 2004: ('Kerry', 'Bush', 251, 286, 1, 48.27, 50.73), 2008: ('Obama', 'McCain', 365, 173, 0, 52.93, 45.65),
+    2012: ('Obama', 'Romney', 332, 206, 0, 51.06, 47.20), 2016: ('Clinton', 'Trump', 227, 304, 7, 48.18, 46.09), 2020: ('Biden', 'Trump', 306, 232, 0, 51.31, 46.85),
+    2024: ('Harris', 'Trump', 226, 312, 0, 48.32, 49.81)}
+GOV = {}  # filled from the infoboxes
+
+
+def infobox_fields(text):
+    f = {}
+    for m in re.finditer(r'^\s*\|\s*([a-z_0-9]+)\s*=\s*(.*?)\s*$', text, re.M): f[m.group(1)] = re.sub(r'<.*?>|\{\{.*?\}\}|\[\[(?:[^|\]]*\|)?([^\]]*)\]\]', lambda x: x.group(1) or '', m.group(2)).strip()
+    return f
+
+
+def national(report):
+    ib = {}
+    p = os.path.join(DATA, 'wiki', 'infobox.json')
+    if os.path.exists(p): ib = json.load(open(p))
+    gov = {}
+    for page, d in ib.items():
+        m = re.match(r'(\d{4}) United States (presidential|gubernatorial)', page)
+        if not m or not d.get('infobox'): continue
+        y, kind = int(m.group(1)), m.group(2); f = infobox_fields(d['infobox'])
+        if kind == 'gubernatorial':
+            cnt = {}
+            for k in range(1, 5):
+                party = f.get(f'party{k}', ''); after = num(f.get(f'seats_after{k}', '') or f.get(f'seats_after{k}', ''))
+                if not party or after is None: continue
+                key = 'd' if 'democr' in party.lower() else 'r' if 'republic' in party.lower() else 'o'
+                cnt[key] = cnt.get(key, 0) + after
+            if cnt: gov[y] = cnt
+            else: report.append(f'governors {y}: no seats_after in infobox')
+        else:
+            ev = [num(f.get(f'electoral_vote{k}', '')) for k in (1, 2, 3)]
+            if y in PRES and ev[0]:
+                d0 = PRES[y]; mine = sorted([d0[2], d0[3]], reverse=True)
+                if sorted([e for e in ev[:2] if e], reverse=True) != mine: report.append(f'PRES {y}: infobox EV {ev} vs table {mine}')
+    out = {}
+    for y in sorted(set(HOUSE) | set(PRES) | set(gov)):
+        n = {}
+        if y in HOUSE: h = HOUSE[y]; n['house'] = {'m': h[0], 'd': h[1], 'r': h[2], 'o': h[3], 'open': HOUSE_OPEN.get(y, 0)}
+        if y in PRES:
+            p = PRES[y]; n['pres'] = {'d': p[0], 'r': p[1], 'ev_d': p[2], 'ev_r': p[3], 'ev_o': p[4], 'pv_d': p[5], 'pv_r': p[6], 'pv_margin': round(p[5] - p[6], 1)}
+        g = gov.get(y) or GOV.get(y)
+        if g: n['gov'] = {'d': g.get('d', 0), 'r': g.get('r', 0), 'o': g.get('o', 0)}
+        out[y] = n
+    json.dump(out, open(os.path.join(DATA, 'national.json'), 'w'), indent=0)
+    return out
+
+
 def main():
     if len(sys.argv) > 2 and sys.argv[1] == 'extract': return extract(sys.argv[2])
     names = geo_names(); report = []
@@ -174,6 +232,7 @@ def main():
             frames.append(fr)
         json.dump({'v': 1, 'era': key, 'name': era['name'], 'frames': frames}, open(os.path.join(DATA, key + '.json'), 'w'), separators=(',', ':'))
         print(key, [(f['y'], f['n'], f['left'], f['right']) for f in frames])
+    national(report)
     open(os.path.join(DATA, 'build_report.txt'), 'w').write('\n'.join(report) + '\n')
     print(len([r for r in report if 'no county' in r]), 'unmatched county rows;', len([r for r in report if 'not found' in r or 'error' in r.lower()]), 'state problems')
 

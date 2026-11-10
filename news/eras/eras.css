@@ -66,3 +66,18 @@ table.nums th,table.nums td{text-align:left;padding:6px 10px;border-bottom:1px s
 table.nums th{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);font-weight:600}
 table.nums tr.w td{background:var(--brass-soft);font-weight:600}
 table.nums tr.p td{color:var(--ink-3);font-style:italic}
+
+/* the county player's stage */
+.ew-stage-wrap{max-width:1320px;margin:8px auto 26px;padding:0 20px}
+@media (max-width:640px){.ew-stage-wrap{padding:0 8px}}
+.ew-top{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;margin-bottom:8px}
+.ew-eras{display:inline-flex;border:1px solid var(--rule-2);border-radius:999px;padding:3px}
+.ew-eras button{font-size:14px;font-weight:600;padding:6px 14px;border-radius:999px;color:var(--ink-2)}
+.ew-eras button[aria-selected="true"]{background:var(--ink);color:var(--paper)}
+.ew-acts{margin-left:auto;display:flex;gap:8px}
+.ew-act{font-size:13px;padding:6px 12px;border:1px solid var(--rule-2);border-radius:999px;color:var(--ink-2);text-decoration:none;background:none;cursor:pointer}
+.ew-stage{height:min(78vh,760px);min-height:440px;border-radius:16px;overflow:hidden;background:#0b1526}
+@media (max-width:700px){.ew-stage{height:82vh;min-height:520px}}
+.ew-cap{max-width:900px;font-size:13.5px;color:var(--ink-3);line-height:1.45;margin:10px 4px 0}
+.ew-jump{margin:-4px 0 14px}
+.ew-jump button{font-size:14px;font-weight:600;color:var(--brass-ink);padding:4px 0;cursor:pointer}
