@@ -17,7 +17,7 @@ const getJSON = u => cache[u] || (cache[u] = fetch(BASE + u).then(r => { if (!r.
 
 const VS = `precision highp float; uniform mat4 modelViewMatrix, projectionMatrix; attribute vec3 position;
 attribute float aTop; attribute float aH; attribute float aHp; attribute float aDelay; attribute float aId; attribute vec3 aColor; attribute vec3 aColorP; attribute vec3 aNormal;
-uniform float uT; uniform float uExag; uniform float uWin; uniform vec3 uLight; uniform float uHover;
+uniform float uT; uniform float uExag; uniform float uWin; uniform vec3 uLight; uniform float uHover; uniform float uFogNear;
 varying vec3 vColor; varying float vTop; varying float vLight; varying float vFog; varying float vH; varying float vHover;
 float backOut(float x){ float c1=1.15; float c3=c1+1.; float y=x-1.; return 1.+c3*y*y*y+c1*y*y; }
 void main(){
@@ -29,7 +29,7 @@ void main(){
   vLight = 0.50 + 0.62 * nd + 0.10 * aNormal.y;
   vColor = mix(aColorP, aColor, smoothstep(0., 1., p)); vTop = aTop; vH = h; vHover = step(abs(aId - uHover), 0.5);
   vec4 mv = modelViewMatrix * vec4(pos, 1.);
-  vFog = clamp((-mv.z - 700.) / 2200., 0., 1.);
+  vFog = clamp((-mv.z - uFogNear) / 2200., 0., 1.);
   gl_Position = projectionMatrix * mv;
 }`;
 const FS = `precision highp float; uniform vec3 uFog; uniform float uDim;
@@ -77,7 +77,7 @@ export async function mountEras(el, opts = {}) {
   cg.setAttribute('aHp', new THREE.BufferAttribute(new Float32Array(nv), 1));
   cg.setAttribute('aColorP', new THREE.BufferAttribute(new Float32Array(nv * 3), 3));
   const mat = new THREE.RawShaderMaterial({ vertexShader: VS, fragmentShader: FS, side: THREE.DoubleSide,
-    uniforms: { uT: { value: 0 }, uExag: { value: 2.1 }, uWin: { value: 0.28 }, uLight: { value: new THREE.Vector3(-0.5, 0.85, 0.45) }, uFog: { value: PAL.fogDay }, uDim: { value: 0 }, uHover: { value: -1 } } });
+    uniforms: { uT: { value: 0 }, uExag: { value: 2.1 }, uWin: { value: 0.28 }, uLight: { value: new THREE.Vector3(-0.5, 0.85, 0.45) }, uFog: { value: PAL.fogDay }, uDim: { value: 0 }, uHover: { value: -1 }, uFogNear: { value: 700 } } });
   scene.add(new THREE.Mesh(cg, mat));
   const A = { h: cg.getAttribute('aH'), hp: cg.getAttribute('aHp'), c: cg.getAttribute('aColor'), cp: cg.getAttribute('aColorP'), d: cg.getAttribute('aDelay') };
   const vertIds = cg.userData.vertIds;
@@ -154,7 +154,7 @@ export async function mountEras(el, opts = {}) {
     if (n.pres) {
       const p = n.pres;
       h += `<div class="ew-sec"><p>President</p><div class="ew-cands"><span class="dn">${p.d}</span><span class="rn">${p.r}</span></div>${bar(p.ev_d, p.ev_r, p.ev_o || 0, p.ev_d + p.ev_r + (p.ev_o || 0), 'Electoral votes')}
-        <div class="ew-row pv"><div class="ew-rl">Popular vote</div><div class="ew-pv"><b class="dn">${p.pv_d.toFixed(1)}%</b><span>${fm(p.pv_margin)}</span><b class="rn">${p.pv_r.toFixed(1)}%</b></div></div></div>`;
+        <div class="ew-row pv"><div class="ew-rl">Popular vote</div><div class="ew-pv"><b class="dn">${(p.pv_d + 1e-9).toFixed(1)}%</b><span>${fm(p.pv_margin)}</span><b class="rn">${(p.pv_r + 1e-9).toFixed(1)}%</b></div></div></div>`;
     }
     if (n.house) h += `<div class="ew-sec"><p>House <span>${y === 2026 ? 'called so far' : 'after the election'}</span></p>${bar(n.house.d, n.house.r, n.house.o || 0, n.house.d + n.house.r + (n.house.o || 0) + (n.house.open || 0), `Seats · vote ${fm(n.house.m)}`)}${n.house.open ? `<p class="ew-note">${n.house.open} still uncalled</p>` : ''}</div>`;
     if (n.gov) h += `<div class="ew-sec"><p>Governors <span>after the election</span></p>${bar(n.gov.d, n.gov.r, n.gov.o || 0, n.gov.d + n.gov.r + (n.gov.o || 0) + (n.gov.open || 0), `Governorships · Democrats ${Math.round(n.gov.d / (n.gov.d + n.gov.r + (n.gov.o || 0) + (n.gov.open || 0)) * 100)}%`)}${n.gov.open ? `<p class="ew-note">${n.gov.open} still uncalled</p>` : ''}</div>`;
@@ -168,17 +168,20 @@ export async function mountEras(el, opts = {}) {
 
   /* ---------- camera ---------- */
   const cam = { az: 0.5, el: 0.8, dist: 1500, pan: 0, tx: 0, tz: 0 };
-  function fitDist() { const w = el.clientWidth || 800, h = el.clientHeight || 500, asp = w / h; return asp > 1.6 ? 1500 : asp > 1.25 ? 1500 + (1.6 - asp) * 500 : asp > 0.9 ? 1700 + (1.25 - asp) * 800 : 1880 + (0.9 - asp) * 1300; }
+  function fitDist() { const w = el.clientWidth || 800, h = el.clientHeight || 500, asp = w / h; const base = asp > 1.6 ? 1500 : asp > 1.25 ? 1500 + (1.6 - asp) * 500 : asp > 0.9 ? 1700 + (1.25 - asp) * 800 : 1880 + (0.9 - asp) * 1300; return Math.max(base, (geo.bbox[2] - geo.bbox[0]) * 1.2 / (2 * Math.tan(15 * Math.PI / 180) * asp)); }
   function place() {
     const total = S.frames.length * (O.trans + O.hold), p = clamp((S.fi * (O.trans + O.hold) + S.t) / total, 0, 1);
     const wide = el.clientWidth > 900, tall = el.clientHeight > el.clientWidth * 1.1;
-    cam.az = lerp(0.48, 0.20, easeInOut(p)); cam.el = lerp(0.84, 0.68, easeInOut(p)); cam.dist = fitDist() * lerp(1.06, 0.96, easeInOut(p)) * (tall ? 0.9 : 1);
-    cam.pan = 30 + (tall ? 60 : 0); cam.tx = wide ? 150 : 0; cam.tz = wide ? -30 : 0;
+    cam.az = lerp(0.48, 0.20, easeInOut(p)) * (tall ? 0.25 : 1); cam.el = lerp(0.84, 0.68, easeInOut(p)) + (tall ? 0.12 : 0); cam.dist = fitDist() * lerp(1.06, 0.96, easeInOut(p)) * (tall ? 0.97 : wide ? 1.1 : 1);
+    cam.pan = tall ? -120 : 30; cam.tx = 0; cam.tz = 0; mat.uniforms.uFogNear.value = Math.max(700, cam.dist - 800);
     const d = cam.dist, e = cam.el, a = cam.az;
     camera.position.set(center.x + cam.tx + d * Math.cos(e) * Math.sin(a), d * Math.sin(e), center.z + cam.tz + d * Math.cos(e) * Math.cos(a));
     camera.lookAt(center.x + cam.tx, cam.pan, center.z + cam.tz);
   }
-  function resize() { const w = el.clientWidth || 800, h = el.clientHeight || 500; renderer.setSize(w, h, false); camera.aspect = w / h; camera.updateProjectionMatrix(); }
+  function resize() { // on a wide stage the scoreboard takes the right side, so the map is drawn left of center
+    const w = el.clientWidth || 800, h = el.clientHeight || 500; renderer.setSize(w, h, false); camera.aspect = w / h;
+    if (w > 900 && w / h > 1.3) camera.setViewOffset(w, h, Math.round(w * 0.19), 0, w, h); else camera.clearViewOffset();
+    camera.updateProjectionMatrix(); }
   new ResizeObserver(() => { resize(); draw(); }).observe(el);
 
   function draw() { mat.uniforms.uT.value = clamp(S.t / O.trans, 0, 1.2) * 1.0 + 0.0; place(); renderer.render(scene, camera); }
@@ -209,6 +212,11 @@ export async function mountEras(el, opts = {}) {
     S.era = key; el.dataset.era = key;
     const d = await getJSON(`data/${key}.json`);
     S.data = d; S.frames = d.frames;
+    { // scale the heights to the era: the 1932 moves are three times the modern ones
+      const all = []; for (const f of d.frames) for (const v of Object.values(f.c)) if (v[1] != null) all.push(Math.abs(v[1]));
+      all.sort((a, b) => a - b); const p75 = all.length ? all[Math.floor(all.length * 0.75)] : 12;
+      mat.uniforms.uExag.value = 2.1 * clamp(11 / p75, 0.42, 1.15);
+    }
     years.innerHTML = S.frames.map((f, i) => `<button type="button" role="tab" class="${f.kind === 'P' ? 'p' : 'm'}${f.missing ? ' nodata' : ''}" data-i="${i}">${f.y}<small>${f.kind === 'P' ? 'pres.' : 'mid.'}</small></button>`).join('');
     years.querySelectorAll('button').forEach(b => b.addEventListener('click', () => { pause(); go(+b.dataset.i); kick(); }));
     curH.fill(0.2); curC.fill(0.15);

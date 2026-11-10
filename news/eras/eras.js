@@ -1,24 +1,24 @@
 /* The Watch · Three waves. Overlay charts drawn in the browser from the numbers below (each one sourced on the page). */
 const ERAS = [
   { id: 'e1', name: '1924–32', long: '1924–1932', wave: 1930, start: 1924, shape: 'circle', rows: [
-    { y: 1924, h: -15.8, d: 183, r: 247, p: -25.2 },
-    { y: 1926, h: -17.0, d: 194, r: 238 },
-    { y: 1928, h: -14.8, d: 164, r: 270, p: -17.4 },
-    { y: 1930, h: -8.5, d: 216, r: 218 },
-    { y: 1932, h: 12.4, d: 313, r: 117, p: 17.8 } ] },
+    { y: 1924, ev: 25.6, g: 50.0, h: -15.8, d: 183, r: 247, p: -25.2 },
+    { y: 1926, g: 45.8, h: -17.0, d: 194, r: 238 },
+    { y: 1928, ev: 16.4, g: 37.5, h: -14.8, d: 164, r: 270, p: -17.4 },
+    { y: 1930, g: 52.1, h: -8.5, d: 216, r: 218 },
+    { y: 1932, ev: 88.9, g: 79.2, h: 12.4, d: 313, r: 117, p: 17.8 } ] },
   { id: 'e2', name: '2004–12', long: '2004–2012', wave: 2006, start: 2004, shape: 'square', rows: [
-    { y: 2004, h: -2.6, d: 202, r: 232, p: -2.5 },
-    { y: 2006, h: 6.4, d: 233, r: 202 },
-    { y: 2008, h: 10.6, d: 257, r: 178, p: 7.3 },
-    { y: 2010, h: -6.6, d: 193, r: 242 },
-    { y: 2012, h: 1.4, d: 201, r: 234, p: 3.9 } ] },
+    { y: 2004, ev: 46.7, g: 44.0, h: -2.6, d: 202, r: 232, p: -2.5 },
+    { y: 2006, g: 56.0, h: 6.4, d: 233, r: 202 },
+    { y: 2008, ev: 67.8, g: 58.0, h: 10.6, d: 257, r: 178, p: 7.3 },
+    { y: 2010, g: 40.0, h: -6.6, d: 193, r: 242 },
+    { y: 2012, ev: 61.7, g: 38.0, h: 1.4, d: 201, r: 234, p: 3.9 } ] },
   { id: 'e3', name: '2016–28', long: '2016–2028', wave: 2026, start: 2016, shape: 'diamond', rows: [
-    { y: 2016, h: -0.9, d: 194, r: 241, p: 2.1 },
-    { y: 2018, h: 8.7, d: 235, r: 199 },
-    { y: 2020, h: 3.0, d: 222, r: 213, p: 4.5 },
-    { y: 2022, h: -2.6, d: 213, r: 222 },
-    { y: 2024, h: -2.5, d: 215, r: 220, p: -1.5 },
-    { y: 2026, h: 13.2, d: 254, r: 162, prelim: true, open: 19 },
+    { y: 2016, ev: 42.2, g: 32.0, h: -0.9, d: 194, r: 241, p: 2.1 },
+    { y: 2018, g: 46.0, h: 8.7, d: 235, r: 199 },
+    { y: 2020, ev: 56.9, g: 46.0, h: 3.0, d: 222, r: 213, p: 4.5 },
+    { y: 2022, g: 48.0, h: -2.6, d: 213, r: 222 },
+    { y: 2024, ev: 42.0, g: 46.0, h: -2.5, d: 215, r: 220, p: -1.5 },
+    { y: 2026, g: 56.0, h: 13.2, d: 254, r: 162, prelim: true, open: 19 },
     { y: 2028, proj: true,
       h: { lo: 5.2, mid: 7.5, hi: 17.4, x32: 34.1 },
       d: { lo: 241, mid: 246, hi: 278, x32: 351 },
@@ -43,8 +43,11 @@ function overlay(host) {
   const cfg = {
     h: { dom: [-20, 20], step: 10, base: 0, fmt: fm, unit: 'House popular-vote margin' },
     d: { dom: [100, 350], step: 50, base: 218, fmt: v => Math.round(v) + ' D seats', unit: 'Democratic House seats of 435' },
-    p: { dom: [-30, 30], step: 10, base: 0, fmt: fm, unit: 'Presidential popular-vote margin' }
+    p: { dom: [-30, 30], step: 10, base: 0, fmt: fm, unit: 'Presidential popular-vote margin' },
+    ev: { dom: [0, 100], step: 25, base: 50, share: true, fmt: v => v.toFixed(1) + '% of electoral votes', unit: 'Democratic share of the electoral vote', line: 'Democratic majority of electors' },
+    g: { dom: [0, 100], step: 25, base: 50, share: true, fmt: v => v.toFixed(0) + '% of governorships', unit: 'Democratic share of governorships', line: 'Democrats hold most governorships' }
   }[key];
+  if (key === 'd') { cfg.share = true; cfg.line = 'Democratic majority (218+)'; }
   const W = Math.max(320, host.clientWidth), narrow = W < 560;
   const H = narrow ? 330 : 400, m = { l: narrow ? 40 : 52, r: narrow ? 60 : 84, t: 30, b: 46 };
   const xd = STATE.mode === 'wave' ? [-10, 6] : [0, 12];
@@ -54,19 +57,19 @@ function overlay(host) {
   const svg = el('svg', { viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': cfg.unit + ', three eras overlaid' }, host);
 
   // party tint + labels for margin charts
-  if (key !== 'd') {
+  if (!cfg.share) {
     el('rect', { x: m.l, y: m.t, width: W - m.l - m.r, height: Y(0) - m.t, class: 'tint d' }, svg);
     el('rect', { x: m.l, y: Y(0), width: W - m.l - m.r, height: H - m.b - Y(0), class: 'tint r' }, svg);
     el('text', { x: m.l + 8, y: m.t + 16, class: 'side d' }, svg).textContent = 'Democrats ahead ↑';
     el('text', { x: m.l + 8, y: H - m.b - 8, class: 'side r' }, svg).textContent = 'Republicans ahead ↓';
   } else {
-    el('rect', { x: m.l, y: m.t, width: W - m.l - m.r, height: Y(218) - m.t, class: 'tint d' }, svg);
-    el('text', { x: m.l + 8, y: m.t + 16, class: 'side d' }, svg).textContent = 'Democratic majority (218+)';
+    el('rect', { x: m.l, y: m.t, width: W - m.l - m.r, height: Y(cfg.base) - m.t, class: 'tint d' }, svg);
+    el('text', { x: m.l + 8, y: m.t + 16, class: 'side d' }, svg).textContent = cfg.line;
   }
   // grid
   for (let v = cfg.dom[0]; v <= cfg.dom[1]; v += cfg.step) {
     el('line', { x1: m.l, x2: W - m.r, y1: Y(v), y2: Y(v), class: 'grid' + (v === cfg.base ? ' zero' : '') }, svg);
-    el('text', { x: m.l - 6, y: Y(v) + 4, 'text-anchor': 'end', class: 'tick' }, svg).textContent = key === 'd' ? v : (v === 0 ? '0' : (v > 0 ? 'D+' : 'R+') + Math.abs(v));
+    el('text', { x: m.l - 6, y: Y(v) + 4, 'text-anchor': 'end', class: 'tick' }, svg).textContent = key === 'd' ? v : cfg.share ? v + '%' : (v === 0 ? '0' : (v > 0 ? 'D+' : 'R+') + Math.abs(v));
   }
   if (key === 'd') { el('line', { x1: m.l, x2: W - m.r, y1: Y(218), y2: Y(218), class: 'grid zero' }, svg); el('text', { x: m.l - 6, y: Y(218) + 4, 'text-anchor': 'end', class: 'tick b' }, svg).textContent = '218'; }
   // x ticks
@@ -93,7 +96,7 @@ function overlay(host) {
     const path = el('path', { d: pts.map((p, i) => (i ? 'L' : 'M') + p.x.toFixed(1) + ' ' + p.y.toFixed(1)).join(''), class: 'ln' }, g);
     lines.push(path);
     const proj = era.rows.find(r => r.proj);
-    if (proj && pts.length) {
+    if (proj && pts.length && proj[key]) {
       const pv = proj[key], last = pts[pts.length - 1], px = X(xOf(era, proj.y));
       el('rect', { x: px - 7, y: Y(pv.hi), width: 14, height: Math.max(4, Y(pv.lo) - Y(pv.hi)), rx: 4, class: 'band' }, g);
       el('path', { d: `M${last.x} ${last.y}L${px} ${Y(pv.mid)}`, class: 'ln proj' }, g);
@@ -186,6 +189,11 @@ function after(host) {
   });
 }
 
+document.querySelectorAll('[data-metric-tabs] button').forEach(b => b.addEventListener('click', () => {
+  const fig = b.closest('figure'), plot = fig.querySelector('.plot');
+  fig.querySelectorAll('[data-metric-tabs] button').forEach(x => x.setAttribute('aria-pressed', x === b));
+  plot.dataset.metric = b.dataset.m; delete plot.dataset.drawn; overlay(plot);
+}));
 function drawAll() { document.querySelectorAll('[data-metric]').forEach(overlay); const a = $('#after'); if (a) after(a); }
 document.querySelectorAll('.seg button').forEach(b => b.addEventListener('click', () => {
   STATE.mode = b.dataset.mode;

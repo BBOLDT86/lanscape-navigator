@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Three waves render</title>
+<meta name="robots" content="noindex">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="eraswave.css">
+<style>html,body{margin:0;height:100%;background:#0b1526}#s{position:fixed;inset:0}.ew-bar .ew-modes,.ew-play{visibility:hidden}</style>
+</head><body>
+<!-- Used only to record the era videos (wave-era1.mp4 ...): ?era=era1&mode=move, driven frame by frame through window.EW.seek -->
+<div id="s"></div>
+<script type="module">
+import { mountEras } from './eraswave.js';
+const q = new URLSearchParams(location.search);
+if (innerHeight > innerWidth) document.getElementById('s').classList.add('ew-vertical');
+window.EW = await mountEras(document.getElementById('s'), { era: q.get('era') || 'era1', mode: q.get('mode') || 'move', rec: true, autoplay: false, dpr: 1, loop: false });
+window.EW_READY = true;
+</script>
+</body></html>

@@ -60,14 +60,22 @@
 .ew-tip .b{color:#8fcaff;font-weight:600}.ew-tip .r{color:#ff9478;font-weight:600}
 .ew-root:fullscreen{width:100vw;height:100vh}
 
-/* phones: scoreboard under the title, compact */
+/* phones: title, tallies in a row, the map, a strip of three scores, the timeline */
+.ew-sec>p.ew-note{margin:4px 0 0;font-size:11px;letter-spacing:0;text-transform:none;font-weight:500;color:#8d9db3}
 @media (max-width:700px){
-  .ew-title{max-width:92%;top:3.5%}
+  .ew-title{max-width:92%;top:3%}
+  .ew-title h2{font-size:24px}
   .ew-sub{display:none}
-  .ew-board{left:4.5%;right:auto;top:auto;bottom:22%;width:56%;gap:6px}
-  .ew-sec{padding:7px 9px}
-  .ew-tally{left:auto;right:4%;bottom:24%;align-items:flex-end;text-align:right}
+  .ew-tally{top:calc(3% + 66px);bottom:auto;left:4.5%;flex-direction:row;gap:18px}
+  .ew-n b{font-size:26px}.ew-n span{font-size:11px}
+  .ew-board{left:3%;right:3%;width:auto;top:auto;bottom:calc(3.5% + 132px);flex-direction:row;gap:5px}
+  .ew-sec{flex:1;padding:6px 7px;border-radius:9px}
+  .ew-sec>p{font-size:9px;letter-spacing:.1em;margin-bottom:3px}.ew-sec>p span{display:none}
+  .ew-cands{font-size:11px}.ew-rl{display:none}.ew-row.pv{display:none}
+  .ew-nums{font-size:12px}.ew-nums span{display:none}.ew-bars{height:8px}
   .ew-legend{display:none}
+  .ew-bar{gap:6px}
+  .ew-years button{padding:6px 8px 5px}
   .ew-modes{margin-left:0}
 }
 /* a tall recording (9:16) */
