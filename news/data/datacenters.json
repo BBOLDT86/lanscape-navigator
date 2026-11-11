@@ -1,8 +1,8 @@
 {
  "v": 1,
- "updated": "2026-11-04T11:26:13+00:00",
+ "updated": "2026-11-11T11:27:12+00:00",
  "model": "Claude Opus 5.5",
- "summary": "This week the buildout ran into voters. In Texas, which holds more than a quarter of planned U.S. data center capacity, Democrat Gina Hinojosa won the governor's race after promising a moratorium on new data center construction, stricter water and power rules and an end to tax breaks. Gov. Greg Abbott had already ordered state permits for data centers halted on Sept. 21 until ERCOT finishes an audit of facilities seeking grid connections; ERCOT reports to state regulators Dec. 10. Nothing has stopped projects already under way, but Texas campuses on our map that still need permits now face more uncertainty.\n\nIn Ohio, at least 14 of 18 local measures passed bans or limits, including Piqua, where voters banned data centers and recalled three commissioners, and Wilmington, where voters rejected rezonings near a proposed Amazon campus. In Paducah, Kentucky, the incumbent who campaigned on the DOE-site investment won.\n\nNew on the map: OpenAI's 3.2 GW Project Camellia in Georgia, where it pledged up to 1 GW of emergency curtailment; a 6 GW proposal in Cochise County, Arizona; and the 9 GW Stratos plan in Utah, where a study commissioned by an environmental group estimated health harms from its gas power, which the developer disputes.\n\nFor households, curtailment pledges and developer-paid upgrades help on paper, but most are not yet binding, and the price of power still depends on each utility's contracts and regulators' votes, including Louisiana's December decision on Meta's gas plants.",
+ "summary": "This week's biggest change came from Washington, not a construction site. On Nov. 9 the Senate voted 73-25 to open debate on a bipartisan bill that would have FERC make data centers pay for the power and grid upgrades they need, keep new costs off other customers and require financial guarantees before utilities build for them. It still needs final Senate passage, the House and the president's signature.\n\nRegulators are moving the same way. Florida's PSC rejected Duke Energy's data center tariff, finding it didn't show that each large customer would pay its full cost of service under a new state law. PJM refiled its backstop plan to buy 6.8 GW the last capacity auction left short, starting March 1, with costs proposed for the zones where data centers drive growth; existing customers' exposure is reduced but not eliminated.\n\nNew on the map: SpaceX's $24 billion Starbase supercomputer with its own gas plant (a tax break is up Dec. 9) and a 900 MW Kraft-backed campus proposed in Sutton, Massachusetts. Google bought the Wyoming campus Crusoe was building and pledged $17 billion.\n\nThe pressure points are near: New Mexico must rule on Project Jupiter's air permit by Nov. 23 after the county's second breach notice, and Louisiana landowners sued to stop the fast track Entergy plans to use for Meta's seven gas plants in December. For households, nothing is settled yet; the cost rules being written now decide who pays for the next decade of plants and lines.",
  "projects": [
   {
    "id": "stargate-abilene",
@@ -130,9 +130,21 @@
    "status": "under construction",
    "power": "Natural gas microgrids with Bloom Energy fuel cells and batteries; El Paso Electric backup service was proposed and withdrawn",
    "grid": "WECC (El Paso Electric)",
-   "cost": "not reported in the sources cited",
-   "note": "On Oct. 13 Oracle pitched county commissioners a backup-power deal with El Paso Electric, plus up to $55 million a year in bill credits for three years, then withdrew it after commissioners said it tied the project to residents' bills despite promises it would power itself.",
+   "cost": "$165 billion expected investment over the industrial revenue bond's life (as reported)",
+   "note": "On Nov. 10 Doña Ana County commissioners voted 4-0 for a second breach notice in a month, saying developers missed required job reports; the state's decision on the gas microgrid's air permit, without which the campus has no approved power, is due by Nov. 23. Oracle sent a force majeure notice in September preserving a right to defer rent if power isn't ready for a 2028 start; the microgrid is reported at up to 2.45 GW, above the 2.2 GW used here.",
    "sources": [
+    {
+     "title": "Doña Ana County issues new breach notice to Project Jupiter developers",
+     "outlet": "Albuquerque Journal",
+     "url": "https://www.abqjournal.com/news/dona-ana-county-issues-new-breach-notice-to-project-jupiter-developers/3160223",
+     "date": "2026-11-10"
+    },
+    {
+     "title": "$165bn Project Jupiter: What Oracle's force majeure notice means for AI data centre risk",
+     "outlet": "Capacity",
+     "url": "https://capacityglobal.com/news/165bn-project-jupiter-what-oracles-force-majeure-notice-means-for-ai-data-centre-risk/",
+     "date": "2026-10-02"
+    },
     {
      "title": "Doña Ana County commissioners push back on Project Jupiter link to utility",
      "outlet": "Albuquerque Journal",
@@ -146,7 +158,7 @@
      "date": "2026-04-17"
     }
    ],
-   "updated": "2026-10-25"
+   "updated": "2026-11-11"
   },
   {
    "id": "stargate-saline",
@@ -215,8 +227,14 @@
    "power": "Entergy Louisiana: three gas units approved in 2025 and seven more proposed, for ten in all (754 MW each, about 7.5 GW as reported), with batteries and transmission",
    "grid": "MISO",
    "cost": "Entergy's estimates for the new generation are reported at $12.9 billion and about $13.6 billion; Meta's regional investment over $50 billion (as reported)",
-   "note": "The seven-plant request goes to a Louisiana PSC vote in December (Dec. 16 per earlier reporting); The Lens reports about a quarter of the generation cost, roughly $3.4 billion, would be left for other customers after Meta's 20-year contract, while an Earthjustice appeal of the PSC's decision to shield Meta's figures is in state court. Meta on Oct. 26 said it would sell up to $95 billion in stock, largely to fund campuses like this one, which it plans at 5 GW.",
+   "note": "On Nov. 9 landowner groups sued the Louisiana PSC in state court to void the fast-track 'Lightning Directive' Entergy plans to use to win approval of the seven gas plants and about 80 miles of transmission lines to the campus; KRVS puts that vote at the PSC's Dec. 10 meeting, while earlier reporting said Dec. 16. The Lens reports about a quarter of the generation cost, roughly $3.4 billion, would fall to other customers after Meta's 20-year contract.",
    "sources": [
+    {
+     "title": "Entergy wants their land for Meta's power lines. They're suing the regulators approving them",
+     "outlet": "KRVS",
+     "url": "https://www.krvs.org/louisiana-news/2026-11-09/entergy-wants-their-land-for-metas-power-lines-theyre-suing-the-regulators-approving-them",
+     "date": "2026-11-09"
+    },
     {
      "title": "As Entergy pushes to fast-track 10 new gas plants for Meta, energy advocates head to court to protect Louisianans and their utility rates",
      "outlet": "The Lens",
@@ -236,7 +254,7 @@
      "date": "2026-10-26"
     }
    ],
-   "updated": "2026-10-28"
+   "updated": "2026-11-11"
   },
   {
    "id": "meta-prometheus",
@@ -511,7 +529,7 @@
   {
    "id": "project-jade",
    "name": "Project Jade",
-   "company": "Google (customer); Black Hills Corp. (power); Crusoe exited in June",
+   "company": "Google (bought the project from Crusoe); Black Hills Corp. (power)",
    "place": "Cheyenne",
    "state": "WY",
    "lat": 41.14,
@@ -520,9 +538,15 @@
    "status": "planned",
    "power": "Black Hills: up to 590 MW of grid service (564 MW of new gas at Cheyenne Prairie plus 26 MW of market power), and management of about 2.1 GW of third-party resources through a private microgrid; total resource mix about 2.7 GW",
    "grid": "WECC (Black Hills Energy)",
-   "cost": "$1.8 billion for Black Hills' new gas generation; Google advanced $399 million (as reported)",
-   "note": "Black Hills disclosed Oct. 6 that it signed agreements through 2048 to serve Google's planned Cheyenne data center, with service from late 2027 and peak load in 2030; Bloomberg had reported in June that Google was the customer behind Crusoe's 1.8 GW Project Jade, though Black Hills' filing doesn't use that name. Four approvals are still pending, and Black Hills says the deal keeps costs off other customers.",
+   "cost": "Google plans to invest $17 billion; $1.8 billion for Black Hills' new gas generation (as reported)",
+   "note": "Crusoe confirmed on Nov. 6 that it sold the unfinished southeastern Wyoming project to Google for an undisclosed price, and Google says it will invest $17 billion in the campus; Crusoe had once talked of scaling it to 10 GW. Black Hills' agreements through 2048 call for service from late 2027 and peak load in 2030, with four approvals still pending.",
    "sources": [
+    {
+     "title": "Crusoe sells troubled Wyoming data center project to Google",
+     "outlet": "TechCrunch",
+     "url": "https://techcrunch.com/2026/11/06/crusoe-sells-troubled-wyoming-data-center-project-to-google",
+     "date": "2026-11-06"
+    },
     {
      "title": "Black Hills Books $1.8 Billion and 564 MW for Google's Cheyenne Data Center, But Owns None of the 2.1 GW Microgrid",
      "outlet": "Microgrid Knowledge (mgrid.org)",
@@ -554,7 +578,7 @@
      "date": "2026-06-11"
     }
    ],
-   "updated": "2026-10-28"
+   "updated": "2026-11-11"
   },
   {
    "id": "terrawatt-alton",
@@ -765,15 +789,73 @@
      "date": "2026-05-06"
     }
    ]
+  },
+  {
+   "id": "spacex-starbase",
+   "name": "Starbase super-compute facility and gas plant",
+   "company": "SpaceX",
+   "place": "Starbase, Cameron County",
+   "state": "TX",
+   "lat": 25.99,
+   "lon": -97.18,
+   "mw": 748,
+   "status": "announced",
+   "power": "An on-site gas-fired plant: a pending state air filing for a 'Boca Chica Facility' covers 35 temporary turbines (about 748 MW) to be replaced by eight permanent ones (about 708 MW); an affiliate's 8-mile gas pipeline is due in January 2027",
+   "grid": "ERCOT region (grid connection not reported)",
+   "cost": "$24 billion for the initial phases (as reported)",
+   "note": "New this week: a Nov. 6 city notice says the Starbase City Commission will weigh a tax abatement Dec. 9 for the plant and super-compute facility on 444 acres. 748 MW is the temporary turbines' capacity as reported by The 956 Report; no data center load has been disclosed, and building its own plant could let SpaceX skip the wait to connect to the Texas grid.",
+   "updated": "2026-11-11",
+   "sources": [
+    {
+     "title": "SpaceX Wants a Tax Break for a $24 Billion Gas Plant and Supercomputer at Starbase",
+     "outlet": "24/7 Wall St. (Yahoo Finance)",
+     "url": "https://finance.yahoo.com/economy/policy/articles/spacex-wants-tax-break-24-152348184.html",
+     "date": "2026-11-10"
+    },
+    {
+     "title": "SpaceX plans $24 billion gas power plant, data center project in Texas",
+     "outlet": "Reuters (Investing.com)",
+     "url": "https://www.investing.com/news/stock-market-news/spacex-plans-24-billion-gas-power-plant-data-center-project-in-texas-5013083",
+     "date": "2026-11-09"
+    }
+   ]
+  },
+  {
+   "id": "kraft-sutton",
+   "name": "Sutton data center campus",
+   "company": "The Kraft Group and United Global Packaging Group",
+   "place": "Sutton, Worcester County",
+   "state": "MA",
+   "lat": 42.15,
+   "lon": -71.76,
+   "mw": 900,
+   "status": "announced",
+   "power": "Developers say they are in talks with ISO New England for grid power and are exploring treated wastewater for cooling; under a September state executive order they must bring their own energy or pay a fee",
+   "grid": "ISO-NE",
+   "cost": "$16 billion (as reported)",
+   "note": "New this week: a tentative plan for about 900 MW in 10 buildings, with the first two opening in 2029 and two more a year through 2033; no application has been filed. Massachusetts paused data center tax breaks in June and now requires community benefit agreements.",
+   "updated": "2026-11-11",
+   "sources": [
+    {
+     "title": "900-megawatt data center campus proposed for central Massachusetts, backed by Kraft Group",
+     "outlet": "CBS Boston",
+     "url": "https://www.cbsnews.com/boston/news/sutton-data-center-campus-kraft/",
+     "date": "2026-11-10"
+    },
+    {
+     "title": "Kraft Group proposes $16B data center complex in Sutton",
+     "outlet": "Worcester Business Journal",
+     "url": "https://wbjournal.com/article/kraft-group-proposes-16b-data-center-complex-in-sutton/",
+     "date": "2026-11-10"
+    }
+   ]
   }
  ],
  "changes": [
-  "Added: OpenAI's 3.2 GW Project Camellia in Effingham County, Georgia, with a non-binding pledge to curtail up to 1 GW in grid emergencies.",
-  "Added: Tombstone Resources' 6 GW campus proposal in Cochise County, Arizona; zoning hearing Dec. 9.",
-  "Added: Stratos, the 9 GW off-grid gas campus in Box Elder County, Utah; a new NRDC-commissioned health study, disputed by the developer.",
-  "Colossus 2: a federal judge denied xAI's motion to dismiss the NAACP turbine lawsuit (Oct. 30).",
-  "Fermi Matador: pivot to powered land; director nominees preliminarily failed; Texas governor-elect backs a data center moratorium.",
-  "Homer City: Indiana County accepted AWS's application, starting a review that runs to Jan. 12.",
-  "Paducah DOE site: the incumbent judge-executive who backed the project won re-election."
+  "Added: SpaceX's $24 billion Starbase super-compute facility and on-site gas plant (about 748 MW of temporary turbines in a state filing); tax abatement hearing Dec. 9.",
+  "Added: a 900 MW, $16 billion campus backed by the Kraft Group in Sutton, Massachusetts; no application filed yet.",
+  "Project Jade: Crusoe confirmed the sale of the Wyoming project to Google, which plans to invest $17 billion.",
+  "Project Jupiter: a second county breach notice (Nov. 10); the state air-permit decision on its power is due by Nov. 23.",
+  "Hyperion: landowners sued the Louisiana PSC (Nov. 9) to void the fast track Entergy plans to use for Meta's seven gas plants; vote date reported as Dec. 10."
  ]
 }
