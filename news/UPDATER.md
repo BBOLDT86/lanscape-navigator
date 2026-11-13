@@ -417,6 +417,13 @@ four days and keeps all of them under Reports.
 A report can name its companions: `"related": ["<id>", ...]` lists the other reports in the same package, and the page
 shows them under the sources as "More on this story". `"package"` is a free label for the set.
 
+A report can carry a bar chart in its body (`mdChart()` in the page): one block with no blank lines inside, opened by
+`::: chart <title>` and closed by `:::`. A `| Panel A | Panel B` line names the panels; each data line is
+`Label | number | shown text | number | shown text` (one number/text pair per panel); `note: ...` lines print under
+it. Each panel gets its own scale (small multiples, never two scales on one plot), bars are labeled at the tip, and a
+"The numbers in a table" toggle repeats the values. Translations repeat the block with their own labels and the same
+numbers. First used in `2026-11-12-iran-war-tech-pentagon-contracts-political-money`.
+
 ## The wave (`news/wave/`; `election2026/updater/fetch_counties.py`, `fetch_night.py`; `news/wave/build.py`)
 
 The front page opens with a 3-D map of every county's move from the 2024 presidential vote to the 2026 Senate or

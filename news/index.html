@@ -4117,7 +4117,7 @@ function mdChart(b) { // "::: chart Title" / "| Panel A | Panel B" / "Label | va
   const np = Math.max(heads.length, ...rows.map(r => r.v.length));
   const pans = Array.from({ length: np }, (_, k) => {
     const max = Math.max(...rows.map(r => (r.v[k] || {}).n || 0)) || 1, top = rows.find(r => (r.v[k] || {}).n === max);
-    return `<section class="ach-pan s${k % 2 + 1}"><h4>${esc(heads[k] || '')}<span>${esc(T('Scale: 0 to {max}', { max: top ? top.v[k].t.split(',')[0] : '' }))}</span></h4><ol>${rows.map(r => {
+    return `<section class="ach-pan s${k % 2 + 1}"><h4>${esc(heads[k] || '')}<span>${esc(T('Scale: 0 to {max}', { max: top ? top.v[k].t.split(', ')[0] : '' }))}</span></h4><ol>${rows.map(r => {
       const x = r.v[k] || { n: 0, t: '' }, w = Math.max(0.6, 100 * x.n / max);
       return `<li title="${esc(r.l + ': ' + x.t)}"><span class="ach-l">${esc(r.l)}</span><span class="ach-b"><i style="width:${w.toFixed(1)}%"></i></span><span class="ach-v">${esc(x.t)}</span></li>`;
     }).join('')}</ol></section>`;
