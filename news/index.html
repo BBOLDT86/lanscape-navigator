@@ -722,6 +722,22 @@ h3.glb{font:600 12.5px var(--sans);letter-spacing:.07em;text-transform:uppercase
 .abody blockquote{margin:1.2em 0;padding:2px 0 2px 18px;border-left:3px solid var(--rule);color:var(--ink-2);font-style:italic}
 .abody ul,.abody ol{padding-left:1.3em;margin:0 0 1.05em}.abody li{margin:.3em 0}
 .abody a{text-underline-offset:3px}
+.achart{--s1:#2a78d6;--s2:#eb6834;margin:1.6em 0 1.8em;padding:16px 16px 12px;background:var(--raise);border:1px solid var(--rule);border-radius:14px;font-family:var(--sans)}
+.achart figcaption{font:600 17px/1.3 var(--sans);margin:0 0 12px}
+.ach-ps{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px 26px}
+.ach-pan h4{font:600 14px/1.35 var(--sans);margin:0 0 8px;color:var(--ink)}.ach-pan h4 span{display:block;font-weight:500;font-size:12.5px;color:var(--ink-3)}
+.ach-pan ol{list-style:none;margin:0;padding:0}
+.ach-pan li{display:grid;grid-template-columns:minmax(0,38%) minmax(0,1fr) auto;align-items:center;gap:8px;margin:0;padding:5px 0;border-top:1px solid var(--rule);font-size:13.5px;line-height:1.25}
+.ach-l{color:var(--ink)}.ach-v{color:var(--ink);font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap}
+.ach-b{position:relative;height:12px;border-left:1px solid var(--ink-3)}
+.ach-b i{position:absolute;left:0;top:0;bottom:0;min-width:2px;border-radius:0 4px 4px 0;background:var(--s1)}
+.ach-pan.s2 .ach-b i{background:var(--s2)}
+.ach-n{font-size:12.5px;line-height:1.45;color:var(--ink-2);margin:12px 0 0}
+.ach-tb{margin-top:10px;font-size:13px}.ach-tb summary{cursor:pointer;color:var(--ink-2);font-weight:600}
+.ach-tb table{border-collapse:collapse;margin-top:8px;width:100%}.ach-tb th,.ach-tb td{text-align:left;padding:4px 8px 4px 0;border-top:1px solid var(--rule);vertical-align:top}.ach-tb thead th{font-weight:600;color:var(--ink-2)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="day"]) .achart{--s1:#3987e5;--s2:#d95926}}
+:root[data-theme="night"] .achart{--s1:#3987e5;--s2:#d95926}
+:root[data-theme="day"] .achart{--s1:#2a78d6;--s2:#eb6834}
 .cite{font:700 11px var(--sans);line-height:0;margin-left:1px}
 .cite a{text-decoration:none;color:var(--brass-ink);padding:0 2px}
 .asrc{margin-top:36px;border-top:1px solid var(--rule);padding-top:8px}
@@ -4086,6 +4102,29 @@ const fmtLong = new Intl.DateTimeFormat(LOC(), { timeZone: 'America/New_York', w
 function byline(a) { return T('By <b>{by}</b>, written with {model} on {date} ET', { by: esc(a.byline), model: esc(a.model), date: esc(fmtLong.format(new Date(a.written))) }); }
 const artL = a => (a && a.i18n && a.i18n[LANG]) || {}; // a report's translation into the reader's language, if there is one
 let artOrig = false;
+function mdChart(b) { // "::: chart Title" / "| Panel A | Panel B" / "Label | value | shown | value | shown" / "note: ..." / ":::" — small multiples, one scale per panel
+  const L = b.split(/\n/).map(l => l.trim()), title = L[0].replace(/^:::\s*chart\s*/, '');
+  let heads = []; const rows = [], notes = [];
+  for (const l of L.slice(1)) {
+    if (!l || l === ':::') continue;
+    if (l[0] === '|') { heads = l.split('|').slice(1).map(x => x.trim()); continue; }
+    if (/^note:/i.test(l)) { notes.push(l.replace(/^note:\s*/i, '')); continue; }
+    const p = l.split('|').map(x => x.trim()), v = [];
+    for (let i = 1; i + 1 < p.length; i += 2) v.push({ n: parseFloat(p[i]) || 0, t: p[i + 1] });
+    if (p[0] && v.length) rows.push({ l: p[0], v });
+  }
+  if (!rows.length) return '';
+  const np = Math.max(heads.length, ...rows.map(r => r.v.length));
+  const pans = Array.from({ length: np }, (_, k) => {
+    const max = Math.max(...rows.map(r => (r.v[k] || {}).n || 0)) || 1, top = rows.find(r => (r.v[k] || {}).n === max);
+    return `<section class="ach-pan s${k % 2 + 1}"><h4>${esc(heads[k] || '')}<span>${esc(T('Scale: 0 to {max}', { max: top ? top.v[k].t.split(',')[0] : '' }))}</span></h4><ol>${rows.map(r => {
+      const x = r.v[k] || { n: 0, t: '' }, w = Math.max(0.6, 100 * x.n / max);
+      return `<li title="${esc(r.l + ': ' + x.t)}"><span class="ach-l">${esc(r.l)}</span><span class="ach-b"><i style="width:${w.toFixed(1)}%"></i></span><span class="ach-v">${esc(x.t)}</span></li>`;
+    }).join('')}</ol></section>`;
+  }).join('');
+  const table = `<details class="ach-tb"><summary>${T('The numbers in a table')}</summary><table><thead><tr><th></th>${heads.map(h => `<th>${esc(h)}</th>`).join('')}</tr></thead><tbody>${rows.map(r => `<tr><th>${esc(r.l)}</th>${r.v.map(x => `<td>${esc(x.t)}</td>`).join('')}</tr>`).join('')}</tbody></table></details>`;
+  return `<figure class="achart" role="group" aria-label="${esc(title)}"><figcaption>${esc(title)}</figcaption><div class="ach-ps">${pans}</div>${notes.map(n => `<p class="ach-n">${esc(n)}</p>`).join('')}${table}</figure>`;
+}
 function md(src, nSources) { // a small, safe Markdown: everything is escaped first
   const inline = t => esc(t)
     .replace(/\*\*([^*]+)\*\*/g, '<b>$1</b>').replace(/\*([^*]+)\*/g, '<i>$1</i>')
@@ -4094,6 +4133,7 @@ function md(src, nSources) { // a small, safe Markdown: everything is escaped fi
   const out = []; let list = null;
   for (const block of String(src || '').replace(/\r/g, '').replace(/[ \t]+(\[\d{1,2}\])(?!\()/g, '$1').split(/\n{2,}/)) {
     const b = block.trim(); if (!b) continue;
+    if (/^:::\s*chart\b/.test(b)) { out.push(mdChart(b)); continue; }
     if (/^###\s/.test(b)) { out.push(`<h3>${inline(b.replace(/^###\s+/, ''))}</h3>`); continue; }
     if (/^##\s/.test(b)) { out.push(`<h2>${inline(b.replace(/^##\s+/, ''))}</h2>`); continue; }
     if (/^>\s?/.test(b)) { out.push(`<blockquote>${inline(b.replace(/^>\s?/gm, ''))}</blockquote>`); continue; }
