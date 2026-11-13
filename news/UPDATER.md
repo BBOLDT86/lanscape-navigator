@@ -424,6 +424,15 @@ it. Each panel gets its own scale (small multiples, never two scales on one plot
 "The numbers in a table" toggle repeats the values. Translations repeat the block with their own labels and the same
 numbers. First used in `2026-11-12-iran-war-tech-pentagon-contracts-political-money`.
 
+A report can also frame an interactive page of the site (`mdEmbed()`): `::: embed <path under news/> | caption` and a
+closing `:::` line. The page is loaded in an iframe with `?embed=1` (and `&lang=` for pt/de readers), 3:2 on wide
+screens and 3:4 on phones, with an "Open it full screen" link under it. Only plain relative paths are accepted. The
+first is `news/wartech/` ("Every dollar as volume"): `wartech3d.js` draws each company's Pentagon contract ceiling as a
+glass cube and its political money as a glowing cube inside, volume proportional to dollars on one scale; it builds
+itself, tours the six companies with captions (en/pt/de in `STR`), and takes taps and drags. `?embed=1` hides the page
+around the stage and turns The Pulse off for the frame; `?rec=1` stops the clock so `WT3D.seek(t)` can render frames
+(how `share.png` was made). Its numbers are copied from the report; change both together.
+
 ## The wave (`news/wave/`; `election2026/updater/fetch_counties.py`, `fetch_night.py`; `news/wave/build.py`)
 
 The front page opens with a 3-D map of every county's move from the 2024 presidential vote to the 2026 Senate or

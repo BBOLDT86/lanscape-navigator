@@ -1,0 +1,53 @@
+/* Iran war tech in 3-D (news/wartech/): the page around the stage, and the stage's HUD. The stage is always dark. */
+:root{
+  --paper:#F5F7F6; --raise:#FFFFFF; --ink:#15243B; --ink-2:#465770; --ink-3:#7A889A; --rule:rgba(21,36,59,.12); --brass:#A9852F; --brass-ink:#7A5E1C;
+  --serif:'Instrument Serif','Iowan Old Style',Georgia,serif; --sans:'Instrument Sans',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --glass:#7db6ff; --core:#ff7a40; color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="day"]){--paper:#0E1A2B; --raise:#142539; --ink:#E7EDF4; --ink-2:#AEBBCB; --ink-3:#8494A9; --rule:rgba(231,237,244,.12); --brass:#D6B25E; --brass-ink:#E3C47E; color-scheme:dark}}
+:root[data-theme="night"]{--paper:#0E1A2B; --raise:#142539; --ink:#E7EDF4; --ink-2:#AEBBCB; --ink-3:#8494A9; --rule:rgba(231,237,244,.12); --brass:#D6B25E; --brass-ink:#E3C47E; color-scheme:dark}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 16px/1.5 var(--sans);-webkit-font-smoothing:antialiased}
+a{color:inherit}button{font:inherit;color:inherit;cursor:pointer}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}.narrow{max-width:720px;margin:0 auto;padding:0 20px}
+.mast{border-bottom:1px solid var(--rule)}.mast .wrap{display:flex;align-items:center;gap:12px;min-height:58px}
+.mast .back{display:flex;align-items:center;gap:10px;text-decoration:none;font:400 24px var(--serif)}.mast .back svg{width:28px;height:28px}.mast .back span{font:500 14px var(--sans);color:var(--ink-3)}
+.mast .r{margin-left:auto;display:flex;gap:8px}
+.chip{border:1px solid var(--rule);background:var(--raise);border-radius:999px;padding:6px 13px;font:600 14px var(--sans);text-decoration:none}
+.head{padding:22px 0 14px}.head .k{font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--brass-ink);font-weight:600;margin:0}
+.head h1{font:400 40px/1.1 var(--serif);margin:6px 0 8px}.head p{margin:0;color:var(--ink-2);font-size:17px;max-width:760px}
+@media (max-width:640px){.head h1{font-size:31px}.wrap,.narrow{padding:0 16px}}
+.stage{position:relative;width:100%;height:min(78vh,760px);min-height:420px;background:#081120;overflow:hidden;touch-action:pan-y}
+@media (max-width:640px){.stage{height:auto;aspect-ratio:4/5;min-height:0}}
+.stage canvas{display:block;width:100%;height:100%;touch-action:pan-y}
+.stage.is-fs{position:fixed;inset:0;z-index:100;height:100vh;aspect-ratio:auto}
+.body{padding:24px 0 10px;font:400 18px/1.62 Georgia,'Iowan Old Style',serif}.body h2{font:400 28px/1.2 var(--serif);margin:1.2em 0 .4em}
+.body p{margin:0 0 1em}.body a{text-underline-offset:3px}
+.src{font:400 14.5px/1.5 var(--sans);color:var(--ink-2);padding-left:1.3em}.src li{margin:6px 0}
+.foot{border-top:1px solid var(--rule);margin-top:30px;padding:18px 0 40px;font-size:14px;color:var(--ink-3)}
+/* the HUD, over the canvas */
+.wt-hud{position:absolute;inset:0;pointer-events:none;color:#e9f0fa;font-family:var(--sans)}
+.wt-hud.off>*{visibility:hidden}
+html:not(.embed) .stage:not(.is-fs):not(:fullscreen) .wt-top h2,html:not(.embed) .stage:not(.is-fs):not(:fullscreen) .wt-sub{display:none}
+.wt-top{position:absolute;left:16px;top:14px;right:16px;max-width:600px;text-shadow:0 1px 10px rgba(0,0,0,.6);z-index:2}
+.wt-top h2{font:400 30px/1.05 var(--serif);margin:0 0 4px;color:#fff}.wt-sub{margin:0;font-size:13.5px;line-height:1.4;color:#b9c8dc}
+.wt-labels{position:absolute;inset:0}
+.wt-lab{position:absolute;left:0;top:0;pointer-events:auto;display:flex;flex-direction:column;align-items:center;gap:1px;border:0;background:rgba(8,17,32,.55);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);border:1px solid rgba(125,182,255,.25);border-radius:10px;padding:4px 9px 5px;color:#eef4fb;white-space:nowrap;opacity:0;transition:border-color .2s,background .2s}
+.wt-lab b{font:600 13px/1.25 var(--sans)}.wt-lab span{font:500 11.5px/1.3 var(--sans);color:#c7d5e8;display:flex;align-items:center;gap:5px;font-variant-numeric:tabular-nums}
+.wt-lab i{display:inline-block;width:8px;height:8px;border-radius:2px;flex:none}.wt-lab i.g{border:1.5px solid var(--glass)}.wt-lab i.o{background:var(--core)}
+.wt-lab.sel{border-color:var(--core);background:rgba(40,18,8,.62)}
+.wt-cap{display:none;margin-top:8px}
+.wt-cap.on{display:block;animation:wtin .45s ease}
+@keyframes wtin{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+.wt-hud.has-cap .wt-sub{display:none}
+.wt-cap p{margin:0;max-width:560px;background:rgba(8,17,32,.72);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.12);border-left:3px solid var(--core);border-radius:10px;padding:9px 13px;font:500 14.5px/1.42 var(--sans);color:#f2f6fb;text-shadow:none}
+.wt-bar{position:absolute;left:12px;right:12px;bottom:12px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;pointer-events:none}
+.wt-bar button,.wt-bar a{pointer-events:auto;border:1px solid rgba(255,255,255,.22);background:rgba(8,17,32,.6);color:#fff;border-radius:999px;padding:6px 13px;font:600 13.5px var(--sans);text-decoration:none;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+.wt-bar button[aria-pressed="true"]{background:#ff7a40;border-color:#ff7a40;color:#1a0a03}
+.wt-hint{margin-left:auto;font-size:12px;color:#8fa3bd}
+@media (max-width:560px){.wt-top h2{font-size:24px}.wt-sub{font-size:12.5px}.wt-top{left:10px;right:10px;top:10px}.wt-cap p{font-size:13px;padding:7px 10px}.wt-hint{display:none}.wt-lab{padding:3px 7px 4px}.wt-lab b{font-size:12px}.wt-lab span{font-size:10.5px}}
+/* embedded in a report: the stage is the whole page */
+html.embed,html.embed body{height:100%;background:#081120}
+html.embed .stage{position:fixed;inset:0;height:100%;aspect-ratio:auto;min-height:0}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
