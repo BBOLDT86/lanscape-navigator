@@ -1,4 +1,4 @@
-# The Pulse — 2026-11-13T17:58Z
+# The Pulse — 2026-11-13T18:38Z
 
 Not connected yet: the GOATCOUNTER_TOKEN repo secret is missing.
 
@@ -20,4 +20,4 @@ Not connected yet: the GOATCOUNTER_TOKEN repo secret is missing.
 
 ## What to do
 - [reach]  Only 0 page views in 30 days: the first job is getting found. Submit https://bboldt86.github.io/lanscape-navigator/sitemap.xml to Google Search Console and Bing Webmaster Tools, and post one piece a day where its readers already are (the subreddit, the group chat, the team channel) with its ?s= tag.
-- [audit]  16 pages are missing what search engines and link previews need (a description or a share image): /barnlife/, /brazil2026/, /election2026/, /final-table/reels/, /final-table/sim/, /inbox-atlas/ and more.
+- [audit]  17 pages are missing what search engines and link previews need (a description or a share image): /barnlife/, /brazil2026/, /election2026/, /final-table/reels/, /final-table/sim/, /inbox-atlas/ and more.
