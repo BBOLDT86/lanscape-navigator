@@ -1,10 +1,10 @@
 {
 "v": 1,
-"fetched": "2026-11-14T05:55:10Z",
+"fetched": "2026-11-14T13:20:42Z",
 "cycle": 2026,
 "key": "DEMO_KEY",
 "calls": 38,
-"seconds": 95,
+"seconds": 68,
 "sources": {
 "fec": "Federal Election Commission, OpenFEC API (api.open.fec.gov): candidate totals (Form 3), independent expenditures by candidate (Schedule E, 24/48-hour reports included), itemized receipts (Schedule A) and disbursements (Schedule B) for the 2025–2026 cycle",
 "results": "AP via The New York Times (The Watch’s wave data)",
@@ -2943,6 +2943,15 @@
 "n": 23
 },
 {
+"cand": "S4AK00214",
+"cand_name": "SULLIVAN, DAN",
+"cmte": "C00888065",
+"cmte_name": "907 INITIATIVE ACTION",
+"so": "O",
+"total": 706643,
+"n": 6
+},
+{
 "cand": "S8AK00140",
 "cand_name": "HEIKES, GERALD L. (JERRY)",
 "cmte": "C00944611",
@@ -3096,15 +3105,6 @@
 "n": 4
 },
 {
-"cand": "S4AK00214",
-"cand_name": "SULLIVAN, DAN",
-"cmte": "C00888065",
-"cmte_name": "907 INITIATIVE ACTION",
-"so": "O",
-"total": 71400,
-"n": 2
-},
-{
 "cand": "S6AL00476",
 "cand_name": "MOORE, FELIX BARRY",
 "cmte": "C00836221",
@@ -3204,6 +3204,15 @@
 "n": 71
 },
 {
+"cand": "S6AL00476",
+"cand_name": "MOORE, FELIX BARRY",
+"cmte": "C00524181",
+"cmte_name": "SENATE CONSERVATIVES ACTION",
+"so": "S",
+"total": 50818,
+"n": 9
+},
+{
 "cand": "S0AL00230",
 "cand_name": "TUBERVILLE, THOMAS H",
 "cmte": "C00524181",
@@ -3211,15 +3220,6 @@
 "so": "S",
 "total": 46671,
 "n": 5
-},
-{
-"cand": "S6AL00476",
-"cand_name": "MOORE, FELIX BARRY",
-"cmte": "C00524181",
-"cmte_name": "SENATE CONSERVATIVES ACTION",
-"so": "S",
-"total": 45731,
-"n": 7
 },
 {
 "cand": "S6AL00476",
@@ -3362,8 +3362,8 @@
 "cmte": "C00524181",
 "cmte_name": "SENATE CONSERVATIVES ACTION",
 "so": "S",
-"total": 87232,
-"n": 11
+"total": 92320,
+"n": 13
 },
 {
 "cand": "S6FL00640",
@@ -3991,6 +3991,11 @@
 "name": "CLUB FOR GROWTH ACTION",
 "ie_total": 719215
 },
+"C00888065": {
+"id": "C00888065",
+"name": "907 INITIATIVE ACTION",
+"ie_total": 706643
+},
 "C00915181": {
 "id": "C00915181",
 "name": "FELLOWSHIP PAC",
@@ -4111,15 +4116,15 @@
 "name": "OUR FUTURE COLORADO",
 "ie_total": 195250
 },
+"C00524181": {
+"id": "C00524181",
+"name": "SENATE CONSERVATIVES ACTION",
+"ie_total": 189809
+},
 "C00930966": {
 "id": "C00930966",
 "name": "ARKANSANS FOR DEMOCRACY AND JUSTICE",
 "ie_total": 179900
-},
-"C00524181": {
-"id": "C00524181",
-"name": "SENATE CONSERVATIVES ACTION",
-"ie_total": 179634
 },
 "C00341396": {
 "id": "C00341396",
@@ -4165,11 +4170,6 @@
 "id": "C00418897",
 "name": "VOTEVETS",
 "ie_total": 120000
-},
-"C00681221": {
-"id": "C00681221",
-"name": "ECONOMIC JUSTICE FOR ALL",
-"ie_total": 118808
 }
 },
 "donors": {},
@@ -4192,7 +4192,7 @@
 }
 },
 "google_ads": {
-"fetched": "2026-11-14T05:55:10Z",
+"fetched": "2026-11-14T13:20:42Z",
 "source": "Google Ads Transparency Center political-ads bundle (storage.googleapis.com/transparencyreport/google-political-ads-transparency-bundle.zip)",
 "since": "2025-01-01",
 "weekly_total": [
@@ -4526,7 +4526,7 @@
 ],
 [
 "2026-08-02",
-18640600
+18640700
 ],
 [
 "2026-08-09",
@@ -4542,7 +4542,7 @@
 ],
 [
 "2026-08-30",
-30654100
+30654200
 ],
 [
 "2026-09-06",
@@ -4554,11 +4554,11 @@
 ],
 [
 "2026-09-20",
-57446300
+57446400
 ],
 [
 "2026-09-27",
-67389800
+67389900
 ],
 [
 "2026-10-04",
@@ -4566,23 +4566,23 @@
 ],
 [
 "2026-10-11",
-100587900
+100585400
 ],
 [
 "2026-10-18",
-130291400
+130288500
 ],
 [
 "2026-10-25",
-174852700
+174852500
 ],
 [
 "2026-11-01",
-77750100
+77750700
 ],
 [
 "2026-11-08",
-3372800
+4127700
 ]
 ],
 "advertisers": [
@@ -4593,8 +4593,8 @@
 "regions": "US",
 "elections": "",
 "creatives_all": 458,
-"spend_all": 102039300,
-"cycle": 101087000,
+"spend_all": 102546700,
+"cycle": 101594400,
 "weekly": [
 [
 "2025-05-18",
@@ -4850,66 +4850,66 @@
 ],
 [
 "2026-11-08",
-2360300.0
+2867700.0
 ]
 ],
 "states": {
-"NJ": 2456300,
-"HI": 512200,
-"MI": 269000,
-"CT": 590400,
-"ND": 246400,
-"ID": 572500,
-"AR": 1218200,
-"OR": 1320600,
-"LA": 1691900,
-"NE": 669700,
-"MA": 1727400,
-"AL": 2187100,
-"OK": 1621700,
-"UT": 953100,
-"IN": 2330100,
-"PA": 3603100,
-"NC": 3760600,
-"VT": 127400,
-"SC": 2011500,
+"WA": 912400,
+"NM": 784300,
+"WY": 164000,
+"OH": 408500,
+"NY": 1914700,
+"SD": 259300,
+"LA": 1702000,
+"PA": 3623000,
+"WI": 1709300,
+"OR": 1326600,
+"KY": 1508500,
+"VT": 127900,
+"MO": 2230200,
+"KS": 973400,
+"ID": 575700,
+"ND": 247800,
+"NC": 3781400,
+"HI": 514700,
 "VI": 600,
-"ME": 352000,
+"AK": 221000,
 "DC": 58200,
-"KS": 968900,
+"CA": 14840400,
+"TN": 2650000,
 "GU": 300,
-"MD": 1929000,
-"CA": 14778100,
-"DE": 320300,
-"FL": 8887500,
+"NJ": 2467500,
+"MT": 288500,
+"MA": 1736700,
+"CT": 590500,
+"SC": 2022600,
 "MP": 100,
-"WV": 514600,
-"AK": 219100,
-"AZ": 2567000,
-"CO": 2083400,
-"KY": 1500000,
-"WI": 1700600,
-"WY": 163100,
-"VA": 2529700,
-"IL": 3663800,
-"MS": 1154800,
-"SD": 257900,
+"AL": 2199100,
+"AZ": 2579700,
+"OK": 1630200,
+"FL": 8931500,
+"MS": 1162300,
+"VA": 2543300,
+"MD": 1938500,
+"TX": 13391600,
+"IA": 875300,
 "PR": 5200,
-"NV": 35600,
-"TN": 2636000,
-"WA": 912200,
-"MO": 2217200,
+"CO": 2094600,
+"NE": 673700,
+"AR": 1225400,
+"ME": 354100,
 "AS": 100,
-"NY": 1913400,
-"MN": 1728100,
-"MT": 286700,
-"OH": 407300,
-"TX": 13324800,
-"IA": 870100,
-"RI": 301600,
-"NM": 779100,
-"GA": 4476500,
-"NH": 326100
+"MN": 1737600,
+"IN": 2344600,
+"NH": 327800,
+"WV": 517700,
+"NV": 35700,
+"DE": 321800,
+"IL": 3682800,
+"GA": 4502700,
+"RI": 302900,
+"UT": 957900,
+"MI": 269100
 },
 "ads": [
 {
@@ -4941,6 +4941,20 @@
 "gender": ""
 },
 {
+"id": "CR02525707891244007425",
+"url": "https://adstransparency.google.com/advertiser/AR03821862303154831361/creative/CR02525707891244007425?political=&region=US",
+"type": "VIDEO",
+"adv": "AR03821862303154831361",
+"start": "2026-09-14",
+"end": "2026-11-14",
+"impr": "≥10000000",
+"lo": 3000000,
+"hi": 0,
+"geo": "United States",
+"age": "",
+"gender": ""
+},
+{
 "id": "CR14110373507724476417",
 "url": "https://adstransparency.google.com/advertiser/AR03821862303154831361/creative/CR14110373507724476417?political=&region=US",
 "type": "VIDEO",
@@ -4955,12 +4969,12 @@
 "gender": ""
 },
 {
-"id": "CR02525707891244007425",
-"url": "https://adstransparency.google.com/advertiser/AR03821862303154831361/creative/CR02525707891244007425?political=&region=US",
+"id": "CR14160473854555717633",
+"url": "https://adstransparency.google.com/advertiser/AR03821862303154831361/creative/CR14160473854555717633?political=&region=US",
 "type": "VIDEO",
 "adv": "AR03821862303154831361",
-"start": "2026-09-14",
-"end": "2026-11-13",
+"start": "2026-09-15",
+"end": "2026-11-14",
 "impr": "≥10000000",
 "lo": 3000000,
 "hi": 0,
@@ -4969,12 +4983,12 @@
 "gender": ""
 },
 {
-"id": "CR14160473854555717633",
-"url": "https://adstransparency.google.com/advertiser/AR03821862303154831361/creative/CR14160473854555717633?political=&region=US",
+"id": "CR12630291321840467969",
+"url": "https://adstransparency.google.com/advertiser/AR03821862303154831361/creative/CR12630291321840467969?political=&region=US",
 "type": "VIDEO",
 "adv": "AR03821862303154831361",
-"start": "2026-09-15",
-"end": "2026-11-13",
+"start": "2026-10-03",
+"end": "2026-11-14",
 "impr": "≥10000000",
 "lo": 3000000,
 "hi": 0,
@@ -4997,12 +5011,12 @@
 "gender": ""
 },
 {
-"id": "CR12630291321840467969",
-"url": "https://adstransparency.google.com/advertiser/AR03821862303154831361/creative/CR12630291321840467969?political=&region=US",
+"id": "CR01644940356602560513",
+"url": "https://adstransparency.google.com/advertiser/AR03821862303154831361/creative/CR01644940356602560513?political=&region=US",
 "type": "VIDEO",
 "adv": "AR03821862303154831361",
 "start": "2026-10-03",
-"end": "2026-11-13",
+"end": "2026-11-14",
 "impr": "≥10000000",
 "lo": 3000000,
 "hi": 0,
@@ -5016,21 +5030,7 @@
 "type": "VIDEO",
 "adv": "AR03821862303154831361",
 "start": "2026-10-03",
-"end": "2026-11-13",
-"impr": "≥10000000",
-"lo": 3000000,
-"hi": 0,
-"geo": "United States",
-"age": "",
-"gender": ""
-},
-{
-"id": "CR01644940356602560513",
-"url": "https://adstransparency.google.com/advertiser/AR03821862303154831361/creative/CR01644940356602560513?political=&region=US",
-"type": "VIDEO",
-"adv": "AR03821862303154831361",
-"start": "2026-10-03",
-"end": "2026-11-13",
+"end": "2026-11-14",
 "impr": "≥10000000",
 "lo": 3000000,
 "hi": 0,
@@ -5308,20 +5308,6 @@
 "gender": "Male, Female, Unknown gender"
 },
 {
-"id": "CR17299619684030611457",
-"url": "https://adstransparency.google.com/advertiser/AR15908100651503058945/creative/CR17299619684030611457?political=&region=US",
-"type": "VIDEO",
-"adv": "AR15908100651503058945",
-"start": "2026-08-19",
-"end": "2026-09-23",
-"impr": "≥10000000",
-"lo": 200000,
-"hi": 225000,
-"geo": "Charlotte, NC,United States, Greensboro-High Point-Winston Salem, NC,United States, Raleigh-Durham (Fayetteville), NC,Un",
-"age": "35-44, 45-54, 55-64, ≥65",
-"gender": "Male, Female, Unknown gender"
-},
-{
 "id": "CR01225234674968690689",
 "url": "https://adstransparency.google.com/advertiser/AR15908100651503058945/creative/CR01225234674968690689?political=&region=US",
 "type": "TEXT",
@@ -5346,6 +5332,20 @@
 "lo": 200000,
 "hi": 225000,
 "geo": "North Carolina,United States",
+"age": "35-44, 45-54, 55-64, ≥65",
+"gender": "Male, Female, Unknown gender"
+},
+{
+"id": "CR17299619684030611457",
+"url": "https://adstransparency.google.com/advertiser/AR15908100651503058945/creative/CR17299619684030611457?political=&region=US",
+"type": "VIDEO",
+"adv": "AR15908100651503058945",
+"start": "2026-08-19",
+"end": "2026-09-23",
+"impr": "≥10000000",
+"lo": 200000,
+"hi": 225000,
+"geo": "Charlotte, NC,United States, Greensboro-High Point-Winston Salem, NC,United States, Raleigh-Durham (Fayetteville), NC,Un",
 "age": "35-44, 45-54, 55-64, ≥65",
 "gender": "Male, Female, Unknown gender"
 }
@@ -5551,20 +5551,6 @@
 "gender": "Female, Unknown gender"
 },
 {
-"id": "CR11584730977292779521",
-"url": "https://adstransparency.google.com/advertiser/AR07109796124864544769/creative/CR11584730977292779521?political=&region=US",
-"type": "VIDEO",
-"adv": "AR07109796124864544769",
-"start": "2026-09-01",
-"end": "2026-09-15",
-"impr": "≥10000000",
-"lo": 250000,
-"hi": 300000,
-"geo": "27006,North Carolina,United States, 27007,North Carolina,United States, 27009,North Carolina,United States, 27011,North ",
-"age": "18-24, 25-34, 35-44, 45-54, 55-64, ≥65",
-"gender": "Male, Female, Unknown gender"
-},
-{
 "id": "CR12914137292297207809",
 "url": "https://adstransparency.google.com/advertiser/AR07109796124864544769/creative/CR12914137292297207809?political=&region=US",
 "type": "VIDEO",
@@ -5579,18 +5565,18 @@
 "gender": "Male, Female, Unknown gender"
 },
 {
-"id": "CR13513398720305037313",
-"url": "https://adstransparency.google.com/advertiser/AR07109796124864544769/creative/CR13513398720305037313?political=&region=US",
+"id": "CR11584730977292779521",
+"url": "https://adstransparency.google.com/advertiser/AR07109796124864544769/creative/CR11584730977292779521?political=&region=US",
 "type": "VIDEO",
 "adv": "AR07109796124864544769",
-"start": "2026-10-07",
-"end": "2026-10-14",
-"impr": "5000000-6000000",
+"start": "2026-09-01",
+"end": "2026-09-15",
+"impr": "≥10000000",
 "lo": 250000,
 "hi": 300000,
-"geo": "Ohio,United States",
-"age": "",
-"gender": ""
+"geo": "27006,North Carolina,United States, 27007,North Carolina,United States, 27009,North Carolina,United States, 27011,North ",
+"age": "18-24, 25-34, 35-44, 45-54, 55-64, ≥65",
+"gender": "Male, Female, Unknown gender"
 },
 {
 "id": "CR13287092839029669889",
@@ -5600,6 +5586,20 @@
 "start": "2026-10-07",
 "end": "2026-10-14",
 "impr": "9000000-10000000",
+"lo": 250000,
+"hi": 300000,
+"geo": "Ohio,United States",
+"age": "",
+"gender": ""
+},
+{
+"id": "CR13513398720305037313",
+"url": "https://adstransparency.google.com/advertiser/AR07109796124864544769/creative/CR13513398720305037313?political=&region=US",
+"type": "VIDEO",
+"adv": "AR07109796124864544769",
+"start": "2026-10-07",
+"end": "2026-10-14",
+"impr": "5000000-6000000",
 "lo": 250000,
 "hi": 300000,
 "geo": "Ohio,United States",
@@ -5630,8 +5630,8 @@
 "regions": "US",
 "elections": "",
 "creatives_all": 81,
-"spend_all": 23529700,
-"cycle": 23530100,
+"spend_all": 23538600,
+"cycle": 23539000,
 "weekly": [
 [
 "2026-05-24",
@@ -5731,64 +5731,64 @@
 ],
 [
 "2026-11-08",
-38300.0
+47200.0
 ]
 ],
 "states": {
-"TX": 2680700,
-"ID": 85000,
 "PR": 600,
-"AL": 405000,
-"KS": 204700,
-"AK": 37800,
-"PA": 846700,
-"FL": 1984000,
-"MD": 503600,
-"MA": 500500,
+"AK": 37900,
+"MD": 503800,
+"ID": 85100,
+"AL": 405100,
 "ME": 45400,
-"MN": 320400,
 "NY": 766600,
-"WA": 553700,
+"LA": 339600,
+"GA": 1092000,
+"WA": 554100,
+"KS": 204800,
 "GU": 100,
-"OH": 55700,
-"CA": 3587900,
-"DE": 79500,
-"AZ": 574400,
+"NC": 914200,
 "DC": 106700,
-"NC": 913900,
+"IA": 156200,
+"MT": 43300,
 "NM": 138400,
-"CO": 382700,
-"NJ": 738500,
-"GA": 1091700,
-"UT": 190400,
+"PA": 847000,
+"TX": 2681800,
+"SC": 420400,
+"MO": 445600,
+"AZ": 574600,
+"MN": 320600,
 "SD": 42600,
+"OK": 308300,
 "VT": 22700,
-"VA": 643200,
-"MT": 43200,
+"NH": 64600,
+"IL": 929300,
 "MS": 230300,
-"IA": 156100,
+"FL": 1984600,
+"WI": 314600,
 "WY": 17000,
-"NE": 113600,
-"LA": 339400,
-"MO": 445500,
-"NH": 64500,
+"OR": 261600,
+"CA": 3589800,
+"IN": 449200,
+"CO": 382900,
 "HI": 107200,
+"OH": 55800,
 "WV": 107600,
-"IN": 449000,
+"DE": 79600,
 "CT": 246400,
-"OR": 261500,
-"TN": 529800,
+"AR": 241800,
 "RI": 75900,
 "NV": 2600,
-"WI": 314500,
+"NE": 113700,
+"MA": 500600,
 "ND": 41800,
-"OK": 308100,
 "KY": 298600,
-"AR": 241700,
-"SC": 420200,
+"NJ": 738700,
+"UT": 190500,
+"TN": 530000,
 "MI": 236600,
-"IL": 928900,
-"VI": 100
+"VI": 100,
+"VA": 643500
 },
 "ads": [
 {
@@ -6148,20 +6148,6 @@
 "gender": ""
 },
 {
-"id": "CR06080040409562611713",
-"url": "https://adstransparency.google.com/advertiser/AR04250227102713905153/creative/CR06080040409562611713?political=&region=US",
-"type": "VIDEO",
-"adv": "AR04250227102713905153",
-"start": "2026-10-06",
-"end": "2026-10-20",
-"impr": "2500000-3000000",
-"lo": 125000,
-"hi": 150000,
-"geo": "PA-8 (2022 redistricting),Pennsylvania,United States",
-"age": "18-24, 25-34, 35-44, 45-54, 55-64, ≥65",
-"gender": "Male, Female"
-},
-{
 "id": "CR06160401515413504001",
 "url": "https://adstransparency.google.com/advertiser/AR04250227102713905153/creative/CR06160401515413504001?political=&region=US",
 "type": "VIDEO",
@@ -6176,16 +6162,16 @@
 "gender": ""
 },
 {
-"id": "CR08072633655534551041",
-"url": "https://adstransparency.google.com/advertiser/AR04250227102713905153/creative/CR08072633655534551041?political=&region=US",
+"id": "CR06080040409562611713",
+"url": "https://adstransparency.google.com/advertiser/AR04250227102713905153/creative/CR06080040409562611713?political=&region=US",
 "type": "VIDEO",
 "adv": "AR04250227102713905153",
-"start": "2026-10-13",
-"end": "2026-11-03",
-"impr": "3000000-3500000",
+"start": "2026-10-06",
+"end": "2026-10-20",
+"impr": "2500000-3000000",
 "lo": 125000,
 "hi": 150000,
-"geo": "KY-6 (2022 redistricting),Kentucky,United States",
+"geo": "PA-8 (2022 redistricting),Pennsylvania,United States",
 "age": "18-24, 25-34, 35-44, 45-54, 55-64, ≥65",
 "gender": "Male, Female"
 },
@@ -6202,6 +6188,20 @@
 "geo": "OH-9 (2026 redistricting),Ohio,United States",
 "age": "18-24, 25-34, 35-44, 45-54, 55-64, ≥65",
 "gender": "Male, Female"
+},
+{
+"id": "CR08072633655534551041",
+"url": "https://adstransparency.google.com/advertiser/AR04250227102713905153/creative/CR08072633655534551041?political=&region=US",
+"type": "VIDEO",
+"adv": "AR04250227102713905153",
+"start": "2026-10-13",
+"end": "2026-11-03",
+"impr": "3000000-3500000",
+"lo": 125000,
+"hi": 150000,
+"geo": "KY-6 (2022 redistricting),Kentucky,United States",
+"age": "18-24, 25-34, 35-44, 45-54, 55-64, ≥65",
+"gender": "Male, Female"
 }
 ],
 "n_ads_cycle": 10
@@ -6212,9 +6212,9 @@
 "ids": "FEC ID C00718866",
 "regions": "US",
 "elections": "",
-"creatives_all": 696,
-"spend_all": 29942700,
-"cycle": 22991900,
+"creatives_all": 697,
+"spend_all": 29942800,
+"cycle": 22992100,
 "weekly": [
 [
 "2025-01-19",
@@ -6594,7 +6594,7 @@
 ],
 [
 "2026-11-08",
-500.0
+700.0
 ]
 ],
 "states": {
@@ -6645,7 +6645,6 @@
 "KS": 35400,
 "VI": 200,
 "NJ": 212900,
-"VA": 214300,
 "VT": 31300,
 "WI": 90500,
 "UT": 40600,
@@ -6653,6 +6652,7 @@
 "AS": 100,
 "GA": 22399600,
 "ME": 49200,
+"VA": 214400,
 "LA": 34300
 },
 "ads": [
@@ -6805,9 +6805,9 @@
 "ids": "FEC ID C00892471",
 "regions": "US",
 "elections": "",
-"creatives_all": 4119,
-"spend_all": 20746100,
-"cycle": 20746100,
+"creatives_all": 4117,
+"spend_all": 20744700,
+"cycle": 20744700,
 "weekly": [
 [
 "2025-11-16",
@@ -6827,11 +6827,11 @@
 ],
 [
 "2026-10-18",
-5366000.0
+5364900.0
 ],
 [
 "2026-10-25",
-9015500.0
+9015200.0
 ],
 [
 "2026-11-01",
@@ -6848,7 +6848,6 @@
 "DE": 1500,
 "MT": 182300,
 "TN": 457500,
-"AZ": 836700,
 "MD": 8300,
 "ID": 11000,
 "MN": 214700,
@@ -6858,18 +6857,20 @@
 "CT": 4400,
 "NV": 231000,
 "DC": 2100,
+"AZ": 836000,
 "OK": 17900,
+"VA": 896700,
 "AL": 241800,
 "AK": 103300,
 "PA": 754000,
 "GU": 100,
-"VA": 897600,
 "NH": 156900,
 "VI": 100,
 "MI": 2823100,
 "NE": 154800,
 "HI": 1600,
 "WA": 588900,
+"CO": 777400,
 "NC": 401200,
 "WY": 3700,
 "PR": 700,
@@ -6877,7 +6878,6 @@
 "WV": 11000,
 "TX": 4085400,
 "MS": 14600,
-"CO": 777500,
 "NJ": 53900,
 "SC": 254500,
 "OR": 20200,
@@ -6898,13 +6898,13 @@
 },
 "ads": [
 {
-"id": "CR09679301343814090753",
-"url": "https://adstransparency.google.com/advertiser/AR03665727494482296833/creative/CR09679301343814090753?political=&region=US",
+"id": "CR07078015162170474497",
+"url": "https://adstransparency.google.com/advertiser/AR03665727494482296833/creative/CR07078015162170474497?political=&region=US",
 "type": "TEXT",
 "adv": "AR03665727494482296833",
 "start": "2026-10-29",
 "end": "2026-11-04",
-"impr": "1250000-1500000",
+"impr": "2250000-2500000",
 "lo": 1000000,
 "hi": 1500000,
 "geo": "12987,New York,United States, 18370,Pennsylvania,United States, 18451,Pennsylvania,United States, 18455,Pennsylvania,Uni",
@@ -6926,13 +6926,13 @@
 "gender": ""
 },
 {
-"id": "CR07078015162170474497",
-"url": "https://adstransparency.google.com/advertiser/AR03665727494482296833/creative/CR07078015162170474497?political=&region=US",
+"id": "CR09679301343814090753",
+"url": "https://adstransparency.google.com/advertiser/AR03665727494482296833/creative/CR09679301343814090753?political=&region=US",
 "type": "TEXT",
 "adv": "AR03665727494482296833",
 "start": "2026-10-29",
 "end": "2026-11-04",
-"impr": "2250000-2500000",
+"impr": "1250000-1500000",
 "lo": 1000000,
 "hi": 1500000,
 "geo": "12987,New York,United States, 18370,Pennsylvania,United States, 18451,Pennsylvania,United States, 18455,Pennsylvania,Uni",
@@ -7216,34 +7216,6 @@
 "gender": "Male, Female, Unknown gender"
 },
 {
-"id": "CR04521153923213426689",
-"url": "https://adstransparency.google.com/advertiser/AR00546368570750140417/creative/CR04521153923213426689?political=&region=US",
-"type": "VIDEO",
-"adv": "AR00546368570750140417",
-"start": "2026-10-15",
-"end": "2026-10-21",
-"impr": "700000-800000",
-"lo": 60000,
-"hi": 70000,
-"geo": "Alaska,United States",
-"age": "25-34, 35-44, 45-54, 55-64, ≥65",
-"gender": "Male, Female, Unknown gender"
-},
-{
-"id": "CR13282889406076682241",
-"url": "https://adstransparency.google.com/advertiser/AR00546368570750140417/creative/CR13282889406076682241?political=&region=US",
-"type": "VIDEO",
-"adv": "AR00546368570750140417",
-"start": "2026-10-15",
-"end": "2026-11-03",
-"impr": "1000000-1250000",
-"lo": 60000,
-"hi": 70000,
-"geo": "TX-15 (2026 redistricting),Texas,United States",
-"age": "25-34, 35-44, 45-54, 55-64, ≥65",
-"gender": "Male, Female, Unknown gender"
-},
-{
 "id": "CR11706348061520297985",
 "url": "https://adstransparency.google.com/advertiser/AR00546368570750140417/creative/CR11706348061520297985?political=&region=US",
 "type": "VIDEO",
@@ -7268,6 +7240,34 @@
 "lo": 60000,
 "hi": 70000,
 "geo": "VA-1 (2022 redistricting),Virginia,United States",
+"age": "25-34, 35-44, 45-54, 55-64, ≥65",
+"gender": "Male, Female, Unknown gender"
+},
+{
+"id": "CR13282889406076682241",
+"url": "https://adstransparency.google.com/advertiser/AR00546368570750140417/creative/CR13282889406076682241?political=&region=US",
+"type": "VIDEO",
+"adv": "AR00546368570750140417",
+"start": "2026-10-15",
+"end": "2026-11-03",
+"impr": "1000000-1250000",
+"lo": 60000,
+"hi": 70000,
+"geo": "TX-15 (2026 redistricting),Texas,United States",
+"age": "25-34, 35-44, 45-54, 55-64, ≥65",
+"gender": "Male, Female, Unknown gender"
+},
+{
+"id": "CR04521153923213426689",
+"url": "https://adstransparency.google.com/advertiser/AR00546368570750140417/creative/CR04521153923213426689?political=&region=US",
+"type": "VIDEO",
+"adv": "AR00546368570750140417",
+"start": "2026-10-15",
+"end": "2026-10-21",
+"impr": "700000-800000",
+"lo": 60000,
+"hi": 70000,
+"geo": "Alaska,United States",
 "age": "25-34, 35-44, 45-54, 55-64, ≥65",
 "gender": "Male, Female, Unknown gender"
 },
@@ -7611,20 +7611,6 @@
 "gender": "Male, Female, Unknown gender"
 },
 {
-"id": "CR10570517365655601153",
-"url": "https://adstransparency.google.com/advertiser/AR06203148500276871169/creative/CR10570517365655601153?political=&region=US",
-"type": "VIDEO",
-"adv": "AR06203148500276871169",
-"start": "2026-10-14",
-"end": "2026-11-03",
-"impr": "4000000-4500000",
-"lo": 125000,
-"hi": 150000,
-"geo": "Georgia,United States",
-"age": "25-34, 35-44, 45-54, 55-64, ≥65, Unknown age",
-"gender": "Male, Female, Unknown gender"
-},
-{
 "id": "CR08075523172092346369",
 "url": "https://adstransparency.google.com/advertiser/AR06203148500276871169/creative/CR08075523172092346369?political=&region=US",
 "type": "VIDEO",
@@ -7632,6 +7618,20 @@
 "start": "2026-10-14",
 "end": "2026-11-03",
 "impr": "7000000-8000000",
+"lo": 125000,
+"hi": 150000,
+"geo": "Georgia,United States",
+"age": "25-34, 35-44, 45-54, 55-64, ≥65, Unknown age",
+"gender": "Male, Female, Unknown gender"
+},
+{
+"id": "CR10570517365655601153",
+"url": "https://adstransparency.google.com/advertiser/AR06203148500276871169/creative/CR10570517365655601153?political=&region=US",
+"type": "VIDEO",
+"adv": "AR06203148500276871169",
+"start": "2026-10-14",
+"end": "2026-11-03",
+"impr": "4000000-4500000",
 "lo": 125000,
 "hi": 150000,
 "geo": "Georgia,United States",
@@ -8159,8 +8159,8 @@
 "gender": "Male"
 },
 {
-"id": "CR11837427886413840385",
-"url": "https://adstransparency.google.com/advertiser/AR17627370081497382913/creative/CR11837427886413840385?political=&region=US",
+"id": "CR18387350594470805505",
+"url": "https://adstransparency.google.com/advertiser/AR17627370081497382913/creative/CR18387350594470805505?political=&region=US",
 "type": "VIDEO",
 "adv": "AR17627370081497382913",
 "start": "2026-09-15",
@@ -8169,22 +8169,8 @@
 "lo": 80000,
 "hi": 90000,
 "geo": "California,United States",
-"age": "55-64, ≥65",
-"gender": "Female"
-},
-{
-"id": "CR10888294264945508353",
-"url": "https://adstransparency.google.com/advertiser/AR17627370081497382913/creative/CR10888294264945508353?political=&region=US",
-"type": "VIDEO",
-"adv": "AR17627370081497382913",
-"start": "2026-09-15",
-"end": "2026-09-22",
-"impr": "2500000-3000000",
-"lo": 80000,
-"hi": 90000,
-"geo": "California,United States",
 "age": "35-44, 45-54",
-"gender": "Male"
+"gender": "Female"
 },
 {
 "id": "CR02330329073034723329",
@@ -8201,20 +8187,6 @@
 "gender": "Male"
 },
 {
-"id": "CR18387350594470805505",
-"url": "https://adstransparency.google.com/advertiser/AR17627370081497382913/creative/CR18387350594470805505?political=&region=US",
-"type": "VIDEO",
-"adv": "AR17627370081497382913",
-"start": "2026-09-15",
-"end": "2026-09-22",
-"impr": "2250000-2500000",
-"lo": 80000,
-"hi": 90000,
-"geo": "California,United States",
-"age": "35-44, 45-54",
-"gender": "Female"
-},
-{
 "id": "CR09444890584373264385",
 "url": "https://adstransparency.google.com/advertiser/AR17627370081497382913/creative/CR09444890584373264385?political=&region=US",
 "type": "VIDEO",
@@ -8227,6 +8199,34 @@
 "geo": "California,United States",
 "age": "55-64, ≥65",
 "gender": "Male"
+},
+{
+"id": "CR11837427886413840385",
+"url": "https://adstransparency.google.com/advertiser/AR17627370081497382913/creative/CR11837427886413840385?political=&region=US",
+"type": "VIDEO",
+"adv": "AR17627370081497382913",
+"start": "2026-09-15",
+"end": "2026-09-22",
+"impr": "2250000-2500000",
+"lo": 80000,
+"hi": 90000,
+"geo": "California,United States",
+"age": "55-64, ≥65",
+"gender": "Female"
+},
+{
+"id": "CR13627608738293612545",
+"url": "https://adstransparency.google.com/advertiser/AR17627370081497382913/creative/CR13627608738293612545?political=&region=US",
+"type": "VIDEO",
+"adv": "AR17627370081497382913",
+"start": "2026-09-15",
+"end": "2026-09-22",
+"impr": "2250000-2500000",
+"lo": 80000,
+"hi": 90000,
+"geo": "California,United States",
+"age": "35-44, 45-54",
+"gender": "Female"
 }
 ],
 "n_ads_cycle": 10
@@ -9125,20 +9125,6 @@
 "gender": "Male, Female, Unknown gender"
 },
 {
-"id": "CR14345815334194249729",
-"url": "https://adstransparency.google.com/advertiser/AR02971102107282702337/creative/CR14345815334194249729?political=&region=US",
-"type": "VIDEO",
-"adv": "AR02971102107282702337",
-"start": "2026-09-30",
-"end": "2026-10-14",
-"impr": "7000000-8000000",
-"lo": 200000,
-"hi": 225000,
-"geo": "Ohio,United States",
-"age": "55-64, ≥65",
-"gender": "Male, Female, Unknown gender"
-},
-{
 "id": "CR17784313649691623425",
 "url": "https://adstransparency.google.com/advertiser/AR02971102107282702337/creative/CR17784313649691623425?political=&region=US",
 "type": "VIDEO",
@@ -9146,6 +9132,20 @@
 "start": "2026-09-30",
 "end": "2026-10-14",
 "impr": "8000000-9000000",
+"lo": 200000,
+"hi": 225000,
+"geo": "Ohio,United States",
+"age": "55-64, ≥65",
+"gender": "Male, Female, Unknown gender"
+},
+{
+"id": "CR14345815334194249729",
+"url": "https://adstransparency.google.com/advertiser/AR02971102107282702337/creative/CR14345815334194249729?political=&region=US",
+"type": "VIDEO",
+"adv": "AR02971102107282702337",
+"start": "2026-09-30",
+"end": "2026-10-14",
+"impr": "7000000-8000000",
 "lo": 200000,
 "hi": 225000,
 "geo": "Ohio,United States",
@@ -9541,20 +9541,6 @@
 "gender": "Male, Female, Unknown gender"
 },
 {
-"id": "CR09403476482480668673",
-"url": "https://adstransparency.google.com/advertiser/AR06358713650257068033/creative/CR09403476482480668673?political=&region=US",
-"type": "VIDEO",
-"adv": "AR06358713650257068033",
-"start": "2026-09-22",
-"end": "2026-09-29",
-"impr": "9000000-10000000",
-"lo": 225000,
-"hi": 250000,
-"geo": "Georgia,United States",
-"age": "35-44, 45-54, 55-64, ≥65",
-"gender": "Male, Female, Unknown gender"
-},
-{
 "id": "CR11925597826924412929",
 "url": "https://adstransparency.google.com/advertiser/AR06358713650257068033/creative/CR11925597826924412929?political=&region=US",
 "type": "VIDEO",
@@ -9562,6 +9548,20 @@
 "start": "2026-09-22",
 "end": "2026-09-29",
 "impr": "8000000-9000000",
+"lo": 225000,
+"hi": 250000,
+"geo": "Georgia,United States",
+"age": "35-44, 45-54, 55-64, ≥65",
+"gender": "Male, Female, Unknown gender"
+},
+{
+"id": "CR09403476482480668673",
+"url": "https://adstransparency.google.com/advertiser/AR06358713650257068033/creative/CR09403476482480668673?political=&region=US",
+"type": "VIDEO",
+"adv": "AR06358713650257068033",
+"start": "2026-09-22",
+"end": "2026-09-29",
+"impr": "9000000-10000000",
 "lo": 225000,
 "hi": 250000,
 "geo": "Georgia,United States",
@@ -9619,9 +9619,9 @@
 "ids": "",
 "regions": "US",
 "elections": "",
-"creatives_all": 26173,
-"spend_all": 20940900,
-"cycle": 11951200,
+"creatives_all": 26171,
+"spend_all": 20992600,
+"cycle": 12002900,
 "weekly": [
 [
 "2025-01-05",
@@ -10009,66 +10009,66 @@
 ],
 [
 "2026-11-08",
-203800.0
+255500.0
 ]
 ],
 "states": {
-"HI": 115200,
 "PR": 6000,
-"NE": 123700,
-"AZ": 583600,
-"IN": 404400,
-"NY": 1044100,
-"KS": 178000,
-"MD": 303700,
-"KY": 212000,
-"MS": 116800,
-"TX": 1703300,
-"MT": 121500,
-"TN": 417900,
-"ID": 225000,
-"WY": 69400,
-"LA": 186100,
+"ME": 102500,
+"LA": 186700,
+"MD": 304500,
+"ID": 225600,
+"KS": 178400,
+"NY": 1047400,
+"MI": 611300,
+"CO": 531600,
+"TN": 419000,
+"NM": 152300,
+"OH": 641500,
+"VT": 40800,
+"MA": 389100,
 "AS": 100,
-"CA": 2305400,
-"WV": 95100,
-"SC": 310400,
+"UT": 271000,
+"OK": 230700,
+"IA": 173700,
+"NV": 304300,
 "GU": 700,
-"OK": 230100,
-"IA": 173400,
-"ME": 102200,
+"KY": 212500,
+"SD": 63600,
+"NC": 622300,
+"AR": 166400,
+"DE": 58500,
 "VI": 1400,
-"NH": 120900,
-"AK": 84600,
-"WA": 657400,
-"VA": 514000,
-"DC": 45100,
-"NJ": 553100,
-"UT": 270400,
-"MO": 374800,
-"NC": 620500,
-"NV": 303500,
+"NJ": 554600,
+"MS": 117100,
+"DC": 45200,
+"CA": 2310700,
+"SC": 311200,
+"MN": 350900,
+"OR": 334100,
+"FL": 1693100,
+"WA": 658900,
+"AK": 84800,
 "MP": 100,
-"CO": 530600,
-"CT": 195600,
-"GA": 609900,
-"MA": 388000,
-"OR": 333400,
-"AL": 257900,
-"OH": 639900,
-"IL": 692000,
-"AR": 165900,
-"NM": 151900,
-"SD": 63500,
-"DE": 58300,
-"WI": 341600,
-"FL": 1689400,
-"ND": 68900,
-"VT": 40700,
-"RI": 61800,
-"MN": 350000,
-"MI": 609900,
-"PA": 728300
+"WV": 95400,
+"VA": 515100,
+"IN": 405300,
+"AL": 258500,
+"PA": 730500,
+"NH": 121200,
+"NE": 124000,
+"TX": 1707900,
+"MT": 121700,
+"HI": 115400,
+"WI": 342400,
+"ND": 69100,
+"RI": 62100,
+"IL": 694000,
+"CT": 196200,
+"WY": 69500,
+"GA": 611400,
+"AZ": 584800,
+"MO": 376000
 },
 "ads": [
 {
@@ -10077,25 +10077,25 @@
 "type": "TEXT",
 "adv": "AR10536869552476651521",
 "start": "2026-07-24",
-"end": "2026-11-13",
-"impr": "1250000-1500000",
-"lo": 90000,
-"hi": 100000,
+"end": "2026-11-14",
+"impr": "1500000-1750000",
+"lo": 100000,
+"hi": 125000,
 "geo": "Alabama,United States, Alaska,United States, Arizona,United States, Arkansas,United States, California,United States, Co",
 "age": "",
 "gender": ""
 },
 {
-"id": "CR16486932706790211585",
-"url": "https://adstransparency.google.com/advertiser/AR10536869552476651521/creative/CR16486932706790211585?political=&region=US",
+"id": "CR17203914618536198145",
+"url": "https://adstransparency.google.com/advertiser/AR10536869552476651521/creative/CR17203914618536198145?political=&region=US",
 "type": "TEXT",
 "adv": "AR10536869552476651521",
-"start": "2026-09-11",
+"start": "2026-07-24",
 "end": "2026-11-13",
-"impr": "800000-900000",
+"impr": "300000-350000",
 "lo": 80000,
 "hi": 90000,
-"geo": "United States",
+"geo": "Alabama,United States, Alaska,United States, Arizona,United States, Arkansas,United States, California,United States, Co",
 "age": "",
 "gender": ""
 },
@@ -10114,16 +10114,16 @@
 "gender": ""
 },
 {
-"id": "CR17203914618536198145",
-"url": "https://adstransparency.google.com/advertiser/AR10536869552476651521/creative/CR17203914618536198145?political=&region=US",
+"id": "CR16486932706790211585",
+"url": "https://adstransparency.google.com/advertiser/AR10536869552476651521/creative/CR16486932706790211585?political=&region=US",
 "type": "TEXT",
 "adv": "AR10536869552476651521",
-"start": "2026-07-24",
+"start": "2026-09-11",
 "end": "2026-11-13",
-"impr": "300000-350000",
-"lo": 70000,
-"hi": 80000,
-"geo": "Alabama,United States, Alaska,United States, Arizona,United States, Arkansas,United States, California,United States, Co",
+"impr": "900000-1000000",
+"lo": 80000,
+"hi": 90000,
+"geo": "United States",
 "age": "",
 "gender": ""
 },
@@ -10147,7 +10147,7 @@
 "type": "VIDEO",
 "adv": "AR10536869552476651521",
 "start": "2025-01-28",
-"end": "2026-11-13",
+"end": "2026-11-14",
 "impr": "6000000-7000000",
 "lo": 60000,
 "hi": 70000,
@@ -10408,6 +10408,20 @@
 "gender": "Male, Female, Unknown gender"
 },
 {
+"id": "CR10104353469457498113",
+"url": "https://adstransparency.google.com/advertiser/AR15050660931082125313/creative/CR10104353469457498113?political=&region=US",
+"type": "VIDEO",
+"adv": "AR15050660931082125313",
+"start": "2026-09-18",
+"end": "2026-09-29",
+"impr": "4500000-5000000",
+"lo": 225000,
+"hi": 250000,
+"geo": "27006,North Carolina,United States, 27007,North Carolina,United States, 27009,North Carolina,United States, 27011,North ",
+"age": "",
+"gender": ""
+},
+{
 "id": "CR02909290114779709441",
 "url": "https://adstransparency.google.com/advertiser/AR15050660931082125313/creative/CR02909290114779709441?political=&region=US",
 "type": "VIDEO",
@@ -10422,18 +10436,18 @@
 "gender": ""
 },
 {
-"id": "CR10104353469457498113",
-"url": "https://adstransparency.google.com/advertiser/AR15050660931082125313/creative/CR10104353469457498113?political=&region=US",
+"id": "CR02973972562775638017",
+"url": "https://adstransparency.google.com/advertiser/AR15050660931082125313/creative/CR02973972562775638017?political=&region=US",
 "type": "VIDEO",
 "adv": "AR15050660931082125313",
-"start": "2026-09-18",
-"end": "2026-09-29",
-"impr": "4500000-5000000",
+"start": "2026-10-23",
+"end": "2026-11-03",
+"impr": "3000000-3500000",
 "lo": 225000,
 "hi": 250000,
-"geo": "27006,North Carolina,United States, 27007,North Carolina,United States, 27009,North Carolina,United States, 27011,North ",
-"age": "",
-"gender": ""
+"geo": "Detroit, MI,Michigan,United States",
+"age": "18-24, 25-34, 35-44, 45-54, 55-64, ≥65",
+"gender": "Male, Female, Unknown gender"
 },
 {
 "id": "CR06953325046022537217",
@@ -10457,20 +10471,6 @@
 "start": "2026-10-23",
 "end": "2026-11-03",
 "impr": "1750000-2000000",
-"lo": 225000,
-"hi": 250000,
-"geo": "Detroit, MI,Michigan,United States",
-"age": "18-24, 25-34, 35-44, 45-54, 55-64, ≥65",
-"gender": "Male, Female, Unknown gender"
-},
-{
-"id": "CR02973972562775638017",
-"url": "https://adstransparency.google.com/advertiser/AR15050660931082125313/creative/CR02973972562775638017?political=&region=US",
-"type": "VIDEO",
-"adv": "AR15050660931082125313",
-"start": "2026-10-23",
-"end": "2026-11-03",
-"impr": "3000000-3500000",
 "lo": 225000,
 "hi": 250000,
 "geo": "Detroit, MI,Michigan,United States",
@@ -11089,20 +11089,6 @@
 "gender": "Male, Female, Unknown gender"
 },
 {
-"id": "CR02505079403839488001",
-"url": "https://adstransparency.google.com/advertiser/AR11755820063226068993/creative/CR02505079403839488001?political=&region=US",
-"type": "VIDEO",
-"adv": "AR11755820063226068993",
-"start": "2026-08-20",
-"end": "2026-09-03",
-"impr": "2500000-3000000",
-"lo": 100000,
-"hi": 125000,
-"geo": "33004,Florida,United States, 33009,Florida,United States, 33019,Florida,United States, 33025,Florida,United States, 3306",
-"age": "35-44, 45-54, 55-64, ≥65",
-"gender": "Male, Female, Unknown gender"
-},
-{
 "id": "CR05546187828779548673",
 "url": "https://adstransparency.google.com/advertiser/AR11755820063226068993/creative/CR05546187828779548673?political=&region=US",
 "type": "VIDEO",
@@ -11114,6 +11100,20 @@
 "hi": 125000,
 "geo": "33125,Florida,United States, 33126,Florida,United States, 33128,Florida,United States, 33129,Florida,United States, 3313",
 "age": "35-44, 45-54, 55-64, ≥65, Unknown age",
+"gender": "Male, Female, Unknown gender"
+},
+{
+"id": "CR02505079403839488001",
+"url": "https://adstransparency.google.com/advertiser/AR11755820063226068993/creative/CR02505079403839488001?political=&region=US",
+"type": "VIDEO",
+"adv": "AR11755820063226068993",
+"start": "2026-08-20",
+"end": "2026-09-03",
+"impr": "2500000-3000000",
+"lo": 100000,
+"hi": 125000,
+"geo": "33004,Florida,United States, 33009,Florida,United States, 33019,Florida,United States, 33025,Florida,United States, 3306",
+"age": "35-44, 45-54, 55-64, ≥65",
 "gender": "Male, Female, Unknown gender"
 }
 ],
@@ -11741,8 +11741,8 @@
 },
 "ads": [
 {
-"id": "CR00484111989002469377",
-"url": "https://adstransparency.google.com/advertiser/AR12671102917130846209/creative/CR00484111989002469377?political=&region=US",
+"id": "CR06277711434637901825",
+"url": "https://adstransparency.google.com/advertiser/AR12671102917130846209/creative/CR06277711434637901825?political=&region=US",
 "type": "VIDEO",
 "adv": "AR12671102917130846209",
 "start": "2026-10-29",
@@ -11755,8 +11755,8 @@
 "gender": "Male, Female, Unknown gender"
 },
 {
-"id": "CR06277711434637901825",
-"url": "https://adstransparency.google.com/advertiser/AR12671102917130846209/creative/CR06277711434637901825?political=&region=US",
+"id": "CR00484111989002469377",
+"url": "https://adstransparency.google.com/advertiser/AR12671102917130846209/creative/CR00484111989002469377?political=&region=US",
 "type": "VIDEO",
 "adv": "AR12671102917130846209",
 "start": "2026-10-29",
@@ -11853,20 +11853,6 @@
 "gender": "Male, Female, Unknown gender"
 },
 {
-"id": "CR18054755576973361153",
-"url": "https://adstransparency.google.com/advertiser/AR12671102917130846209/creative/CR18054755576973361153?political=&region=US",
-"type": "VIDEO",
-"adv": "AR12671102917130846209",
-"start": "2026-10-05",
-"end": "2026-10-18",
-"impr": "6000000-7000000",
-"lo": 175000,
-"hi": 200000,
-"geo": "Texas,United States",
-"age": "",
-"gender": ""
-},
-{
 "id": "CR10759346393098223617",
 "url": "https://adstransparency.google.com/advertiser/AR12671102917130846209/creative/CR10759346393098223617?political=&region=US",
 "type": "VIDEO",
@@ -11874,6 +11860,20 @@
 "start": "2026-10-05",
 "end": "2026-10-18",
 "impr": "8000000-9000000",
+"lo": 175000,
+"hi": 200000,
+"geo": "Texas,United States",
+"age": "",
+"gender": ""
+},
+{
+"id": "CR18054755576973361153",
+"url": "https://adstransparency.google.com/advertiser/AR12671102917130846209/creative/CR18054755576973361153?political=&region=US",
+"type": "VIDEO",
+"adv": "AR12671102917130846209",
+"start": "2026-10-05",
+"end": "2026-10-18",
+"impr": "6000000-7000000",
 "lo": 175000,
 "hi": 200000,
 "geo": "Texas,United States",
@@ -12313,20 +12313,6 @@
 "gender": "Male, Female, Unknown gender"
 },
 {
-"id": "CR12133885014723002369",
-"url": "https://adstransparency.google.com/advertiser/AR13375843733996568577/creative/CR12133885014723002369?political=&region=US",
-"type": "TEXT",
-"adv": "AR13375843733996568577",
-"start": "2026-03-11",
-"end": "2026-03-26",
-"impr": "600000-700000",
-"lo": 300000,
-"hi": 350000,
-"geo": "Virginia,United States",
-"age": "",
-"gender": ""
-},
-{
 "id": "CR15771579652801298433",
 "url": "https://adstransparency.google.com/advertiser/AR13375843733996568577/creative/CR15771579652801298433?political=&region=US",
 "type": "VIDEO",
@@ -12339,6 +12325,20 @@
 "geo": "Norfolk-Portsmouth-Newport News, VA,United States, Richmond-Petersburg, VA,Virginia,United States",
 "age": "25-34, 35-44, 45-54, 55-64, ≥65",
 "gender": "Male, Female, Unknown gender"
+},
+{
+"id": "CR12133885014723002369",
+"url": "https://adstransparency.google.com/advertiser/AR13375843733996568577/creative/CR12133885014723002369?political=&region=US",
+"type": "TEXT",
+"adv": "AR13375843733996568577",
+"start": "2026-03-11",
+"end": "2026-03-26",
+"impr": "600000-700000",
+"lo": 300000,
+"hi": 350000,
+"geo": "Virginia,United States",
+"age": "",
+"gender": ""
 },
 {
 "id": "CR08966564337225302017",
@@ -12545,20 +12545,6 @@
 "gender": "Male, Female, Unknown gender"
 },
 {
-"id": "CR08432534597631213569",
-"url": "https://adstransparency.google.com/advertiser/AR03482931719269515265/creative/CR08432534597631213569?political=&region=US",
-"type": "VIDEO",
-"adv": "AR03482931719269515265",
-"start": "2026-10-13",
-"end": "2026-10-20",
-"impr": "1500000-1750000",
-"lo": 50000,
-"hi": 60000,
-"geo": "Atkinson County,Georgia,United States, Brantley County,Georgia,United States, Bryan County,Georgia,United States, Crawfo",
-"age": "18-24, 25-34, 35-44, 45-54, 55-64, ≥65",
-"gender": "Male, Female, Unknown gender"
-},
-{
 "id": "CR14290310337956675585",
 "url": "https://adstransparency.google.com/advertiser/AR03482931719269515265/creative/CR14290310337956675585?political=&region=US",
 "type": "VIDEO",
@@ -12566,6 +12552,20 @@
 "start": "2026-10-13",
 "end": "2026-10-20",
 "impr": "1750000-2000000",
+"lo": 50000,
+"hi": 60000,
+"geo": "Atkinson County,Georgia,United States, Brantley County,Georgia,United States, Bryan County,Georgia,United States, Crawfo",
+"age": "18-24, 25-34, 35-44, 45-54, 55-64, ≥65",
+"gender": "Male, Female, Unknown gender"
+},
+{
+"id": "CR08432534597631213569",
+"url": "https://adstransparency.google.com/advertiser/AR03482931719269515265/creative/CR08432534597631213569?political=&region=US",
+"type": "VIDEO",
+"adv": "AR03482931719269515265",
+"start": "2026-10-13",
+"end": "2026-10-20",
+"impr": "1500000-1750000",
 "lo": 50000,
 "hi": 60000,
 "geo": "Atkinson County,Georgia,United States, Brantley County,Georgia,United States, Bryan County,Georgia,United States, Crawfo",
@@ -12899,8 +12899,8 @@
 "regions": "US",
 "elections": "",
 "creatives_all": 6620,
-"spend_all": 29967300,
-"cycle": 8677200,
+"spend_all": 29968600,
+"cycle": 8678500,
 "weekly": [
 [
 "2025-01-05",
@@ -13288,10 +13288,11 @@
 ],
 [
 "2026-11-08",
-7800.0
+9100.0
 ]
 ],
 "states": {
+"MI": 1874200,
 "WI": 1317900,
 "ND": 18600,
 "OK": 100800,
@@ -13305,39 +13306,39 @@
 "MN": 561400,
 "AZ": 1493000,
 "FL": 4011600,
-"MD": 473200,
 "MO": 218100,
 "IL": 682800,
 "VT": 70100,
+"PA": 2563400,
 "DE": 70500,
 "PR": 1200,
 "ID": 75500,
-"AR": 72200,
 "MA": 646600,
-"HI": 81200,
 "KS": 114500,
 "SC": 226800,
 "NE": 115400,
 "NH": 154600,
 "VI": 600,
-"MI": 1874100,
 "WV": 39400,
+"AR": 72300,
 "WY": 22000,
 "IA": 211700,
 "VA": 642100,
 "ME": 131500,
-"PA": 2563300,
-"CA": 2685400,
+"HI": 81300,
 "LA": 90700,
 "IN": 212000,
-"TX": 860200,
 "MT": 56400,
+"CA": 2685600,
+"MD": 473300,
 "NY": 1170900,
 "WA": 747000,
 "CT": 250300,
 "KY": 115900,
 "NC": 2087400,
 "MS": 45000,
+"DC": 227300,
+"TX": 860300,
 "GU": 100,
 "AL": 118900,
 "MP": 100,
@@ -13346,7 +13347,6 @@
 "OH": 483000,
 "OR": 413400,
 "NM": 160500,
-"DC": 227200,
 "SD": 22000
 },
 "ads": [
@@ -13500,7 +13500,7 @@
 "regions": "US",
 "elections": "",
 "creatives_all": 222,
-"spend_all": 8288900,
+"spend_all": 8288800,
 "cycle": 8288900,
 "weekly": [
 [
@@ -13979,8 +13979,8 @@
 "gender": ""
 },
 {
-"id": "CR11890600543610994689",
-"url": "https://adstransparency.google.com/advertiser/AR08315048172430819329/creative/CR11890600543610994689?political=&region=US",
+"id": "CR02803462395484176385",
+"url": "https://adstransparency.google.com/advertiser/AR08315048172430819329/creative/CR02803462395484176385?political=&region=US",
 "type": "VIDEO",
 "adv": "AR08315048172430819329",
 "start": "2026-07-21",
@@ -13993,8 +13993,8 @@
 "gender": ""
 },
 {
-"id": "CR02803462395484176385",
-"url": "https://adstransparency.google.com/advertiser/AR08315048172430819329/creative/CR02803462395484176385?political=&region=US",
+"id": "CR11890600543610994689",
+"url": "https://adstransparency.google.com/advertiser/AR08315048172430819329/creative/CR11890600543610994689?political=&region=US",
 "type": "VIDEO",
 "adv": "AR08315048172430819329",
 "start": "2026-07-21",
@@ -14021,13 +14021,13 @@
 "gender": ""
 },
 {
-"id": "CR15160064717457719297",
-"url": "https://adstransparency.google.com/advertiser/AR08315048172430819329/creative/CR15160064717457719297?political=&region=US",
+"id": "CR12000789578857316353",
+"url": "https://adstransparency.google.com/advertiser/AR08315048172430819329/creative/CR12000789578857316353?political=&region=US",
 "type": "VIDEO",
 "adv": "AR08315048172430819329",
 "start": "2026-10-12",
 "end": "2026-10-23",
-"impr": "6000000-7000000",
+"impr": "7000000-8000000",
 "lo": 150000,
 "hi": 175000,
 "geo": "Texas,United States",
@@ -14792,20 +14792,6 @@
 "gender": "Male, Female, Unknown gender"
 },
 {
-"id": "CR15674215046303449089",
-"url": "https://adstransparency.google.com/advertiser/AR16063319506860113921/creative/CR15674215046303449089?political=&region=US",
-"type": "VIDEO",
-"adv": "AR16063319506860113921",
-"start": "2026-10-20",
-"end": "2026-10-31",
-"impr": "5000000-6000000",
-"lo": 175000,
-"hi": 200000,
-"geo": "Texas,United States",
-"age": "",
-"gender": ""
-},
-{
 "id": "CR02238605167345795073",
 "url": "https://adstransparency.google.com/advertiser/AR16063319506860113921/creative/CR02238605167345795073?political=&region=US",
 "type": "VIDEO",
@@ -14818,6 +14804,20 @@
 "geo": "Texas,United States",
 "age": "35-44, 45-54, 55-64, ≥65",
 "gender": "Male, Female, Unknown gender"
+},
+{
+"id": "CR15674215046303449089",
+"url": "https://adstransparency.google.com/advertiser/AR16063319506860113921/creative/CR15674215046303449089?political=&region=US",
+"type": "VIDEO",
+"adv": "AR16063319506860113921",
+"start": "2026-10-20",
+"end": "2026-10-31",
+"impr": "5000000-6000000",
+"lo": 175000,
+"hi": 200000,
+"geo": "Texas,United States",
+"age": "",
+"gender": ""
 },
 {
 "id": "CR05058496697500434433",
@@ -14848,18 +14848,18 @@
 "gender": "Male, Female, Unknown gender"
 },
 {
-"id": "CR15208374784481034241",
-"url": "https://adstransparency.google.com/advertiser/AR16063319506860113921/creative/CR15208374784481034241?political=&region=US",
+"id": "CR06742451085320912897",
+"url": "https://adstransparency.google.com/advertiser/AR16063319506860113921/creative/CR06742451085320912897?political=&region=US",
 "type": "VIDEO",
 "adv": "AR16063319506860113921",
 "start": "2026-10-20",
 "end": "2026-11-03",
-"impr": "2250000-2500000",
+"impr": "7000000-8000000",
 "lo": 150000,
 "hi": 175000,
-"geo": "75006,Texas,United States, 75040,Texas,United States, 75041,Texas,United States, 75042,Texas,United States, 75050,Texas,",
-"age": "18-24, 25-34, 35-44, Unknown age",
-"gender": "Male"
+"geo": "75001,Texas,United States, 75006,Texas,United States, 75007,Texas,United States, 75010,Texas,United States, 75019,Texas,",
+"age": "",
+"gender": ""
 }
 ],
 "n_ads_cycle": 10
@@ -15115,8 +15115,8 @@
 "regions": "US",
 "elections": "",
 "creatives_all": 9807,
-"spend_all": 27402400,
-"cycle": 6764100,
+"spend_all": 27402500,
+"cycle": 6764200,
 "weekly": [
 [
 "2025-01-05",
@@ -15400,7 +15400,7 @@
 ],
 [
 "2026-11-08",
-100.0
+200.0
 ]
 ],
 "states": {
@@ -15409,7 +15409,7 @@
 "KY": 108700,
 "AK": 372100,
 "VT": 21300,
-"TX": 706200,
+"GA": 2213000,
 "DC": 49900,
 "AL": 145800,
 "VI": 100,
@@ -15418,6 +15418,7 @@
 "ID": 63300,
 "OH": 2111800,
 "UT": 102200,
+"TX": 706100,
 "SC": 185500,
 "IA": 3022400,
 "WA": 250700,
@@ -15428,7 +15429,7 @@
 "NY": 420200,
 "CT": 86200,
 "IN": 191200,
-"GA": 2212900,
+"MI": 1871700,
 "ND": 22200,
 "AR": 85900,
 "RI": 26100,
@@ -15453,7 +15454,6 @@
 "LA": 86600,
 "KS": 331800,
 "AS": 100,
-"MI": 1871600,
 "CO": 1133300,
 "MS": 171100,
 "NV": 1601300,
@@ -16222,20 +16222,6 @@
 "gender": "Male, Female, Unknown gender"
 },
 {
-"id": "CR01903177155060170753",
-"url": "https://adstransparency.google.com/advertiser/AR04364183691862212609/creative/CR01903177155060170753?political=&region=US",
-"type": "VIDEO",
-"adv": "AR04364183691862212609",
-"start": "2026-10-14",
-"end": "2026-10-22",
-"impr": "3500000-4000000",
-"lo": 225000,
-"hi": 250000,
-"geo": "Dallas-Ft. Worth, TX,Texas,United States, Sherman, TX-Ada, OK,United States",
-"age": "35-44, 45-54, 55-64, ≥65",
-"gender": "Male, Female, Unknown gender"
-},
-{
 "id": "CR04491321973728608257",
 "url": "https://adstransparency.google.com/advertiser/AR04364183691862212609/creative/CR04491321973728608257?political=&region=US",
 "type": "VIDEO",
@@ -16243,6 +16229,20 @@
 "start": "2026-10-14",
 "end": "2026-10-22",
 "impr": "9000000-10000000",
+"lo": 225000,
+"hi": 250000,
+"geo": "Dallas-Ft. Worth, TX,Texas,United States, Sherman, TX-Ada, OK,United States",
+"age": "35-44, 45-54, 55-64, ≥65",
+"gender": "Male, Female, Unknown gender"
+},
+{
+"id": "CR01903177155060170753",
+"url": "https://adstransparency.google.com/advertiser/AR04364183691862212609/creative/CR01903177155060170753?political=&region=US",
+"type": "VIDEO",
+"adv": "AR04364183691862212609",
+"start": "2026-10-14",
+"end": "2026-10-22",
+"impr": "3500000-4000000",
 "lo": 225000,
 "hi": 250000,
 "geo": "Dallas-Ft. Worth, TX,Texas,United States, Sherman, TX-Ada, OK,United States",
@@ -17052,8 +17052,8 @@
 "gender": ""
 },
 {
-"id": "CR11500629058006286337",
-"url": "https://adstransparency.google.com/advertiser/AR14837159902094295041/creative/CR11500629058006286337?political=&region=US",
+"id": "CR07498054889180758017",
+"url": "https://adstransparency.google.com/advertiser/AR14837159902094295041/creative/CR07498054889180758017?political=&region=US",
 "type": "VIDEO",
 "adv": "AR14837159902094295041",
 "start": "2026-07-23",
@@ -17066,8 +17066,8 @@
 "gender": "Male, Female, Unknown gender"
 },
 {
-"id": "CR07498054889180758017",
-"url": "https://adstransparency.google.com/advertiser/AR14837159902094295041/creative/CR07498054889180758017?political=&region=US",
+"id": "CR11500629058006286337",
+"url": "https://adstransparency.google.com/advertiser/AR14837159902094295041/creative/CR11500629058006286337?political=&region=US",
 "type": "VIDEO",
 "adv": "AR14837159902094295041",
 "start": "2026-07-23",
@@ -17866,13 +17866,13 @@
 "gender": ""
 },
 {
-"id": "CR00506442245528879105",
-"url": "https://adstransparency.google.com/advertiser/AR14216852687659466753/creative/CR00506442245528879105?political=&region=US",
+"id": "CR05118128263956267009",
+"url": "https://adstransparency.google.com/advertiser/AR14216852687659466753/creative/CR05118128263956267009?political=&region=US",
 "type": "VIDEO",
 "adv": "AR14216852687659466753",
 "start": "2026-10-13",
 "end": "2026-10-18",
-"impr": "4000000-4500000",
+"impr": "6000000-7000000",
 "lo": 100000,
 "hi": 125000,
 "geo": "California,United States",
@@ -17880,13 +17880,13 @@
 "gender": "Male, Female, Unknown gender"
 },
 {
-"id": "CR09471420253763272705",
-"url": "https://adstransparency.google.com/advertiser/AR14216852687659466753/creative/CR09471420253763272705?political=&region=US",
+"id": "CR00506442245528879105",
+"url": "https://adstransparency.google.com/advertiser/AR14216852687659466753/creative/CR00506442245528879105?political=&region=US",
 "type": "VIDEO",
 "adv": "AR14216852687659466753",
 "start": "2026-10-13",
-"end": "2026-10-19",
-"impr": "6000000-7000000",
+"end": "2026-10-18",
+"impr": "4000000-4500000",
 "lo": 100000,
 "hi": 125000,
 "geo": "California,United States",
@@ -18435,17 +18435,17 @@
 "gender": "Male, Female, Unknown gender"
 },
 {
-"id": "CR05494683242390880257",
-"url": "https://adstransparency.google.com/advertiser/AR18437367850864738305/creative/CR05494683242390880257?political=&region=US",
+"id": "CR13879259848647901185",
+"url": "https://adstransparency.google.com/advertiser/AR18437367850864738305/creative/CR13879259848647901185?political=&region=US",
 "type": "VIDEO",
 "adv": "AR18437367850864738305",
 "start": "2025-06-01",
 "end": "2025-07-01",
-"impr": "5000000-6000000",
+"impr": "1500000-1750000",
 "lo": 80000,
 "hi": 90000,
-"geo": "Louisiana,United States",
-"age": "35-44, 45-54, 55-64, ≥65, Unknown age",
+"geo": "North Carolina,United States",
+"age": "35-44, 45-54, 55-64, ≥65",
 "gender": "Male, Female, Unknown gender"
 }
 ],
@@ -19087,8 +19087,8 @@
 "gender": "Male, Female, Unknown gender"
 },
 {
-"id": "CR12207361597236051969",
-"url": "https://adstransparency.google.com/advertiser/AR15510028093073915905/creative/CR12207361597236051969?political=&region=US",
+"id": "CR14114636039427457025",
+"url": "https://adstransparency.google.com/advertiser/AR15510028093073915905/creative/CR14114636039427457025?political=&region=US",
 "type": "VIDEO",
 "adv": "AR15510028093073915905",
 "start": "2026-08-04",
@@ -19101,8 +19101,8 @@
 "gender": "Male, Female, Unknown gender"
 },
 {
-"id": "CR14114636039427457025",
-"url": "https://adstransparency.google.com/advertiser/AR15510028093073915905/creative/CR14114636039427457025?political=&region=US",
+"id": "CR12207361597236051969",
+"url": "https://adstransparency.google.com/advertiser/AR15510028093073915905/creative/CR12207361597236051969?political=&region=US",
 "type": "VIDEO",
 "adv": "AR15510028093073915905",
 "start": "2026-08-04",
@@ -19157,6 +19157,20 @@
 "gender": "Male, Female, Unknown gender"
 },
 {
+"id": "CR02775980789542682625",
+"url": "https://adstransparency.google.com/advertiser/AR15510028093073915905/creative/CR02775980789542682625?political=&region=US",
+"type": "VIDEO",
+"adv": "AR15510028093073915905",
+"start": "2026-07-09",
+"end": "2026-08-04",
+"impr": "1500000-1750000",
+"lo": 60000,
+"hi": 70000,
+"geo": "Ohio,United States",
+"age": "35-44, 45-54, 55-64, ≥65",
+"gender": "Male, Female, Unknown gender"
+},
+{
 "id": "CR09042598933540372481",
 "url": "https://adstransparency.google.com/advertiser/AR15510028093073915905/creative/CR09042598933540372481?political=&region=US",
 "type": "VIDEO",
@@ -19169,20 +19183,6 @@
 "geo": "Michigan,United States",
 "age": "35-44, 45-54, 55-64, ≥65",
 "gender": "Male, Female, Unknown gender"
-},
-{
-"id": "CR12952215991307206657",
-"url": "https://adstransparency.google.com/advertiser/AR15510028093073915905/creative/CR12952215991307206657?political=&region=US",
-"type": "VIDEO",
-"adv": "AR15510028093073915905",
-"start": "2026-07-09",
-"end": "2026-08-04",
-"impr": "1500000-1750000",
-"lo": 60000,
-"hi": 70000,
-"geo": "Montana,United States",
-"age": "35-44, 45-54, 55-64, ≥65",
-"gender": "Male, Female, Unknown gender"
 }
 ],
 "n_ads_cycle": 10
@@ -19193,9 +19193,9 @@
 "ids": "EIN ID 27-1763901",
 "regions": "US",
 "elections": "",
-"creatives_all": 3875,
-"spend_all": 11721800,
-"cycle": 5555100,
+"creatives_all": 3881,
+"spend_all": 11728600,
+"cycle": 5561900,
 "weekly": [
 [
 "2025-01-05",
@@ -19583,66 +19583,66 @@
 ],
 [
 "2026-11-08",
-25500.0
+32300.0
 ]
 ],
 "states": {
-"KY": 124500,
-"FL": 787600,
-"NC": 334300,
-"MN": 155600,
+"SC": 139900,
+"PA": 336000,
+"IA": 62000,
+"VA": 268700,
+"TN": 208700,
 "KS": 71300,
-"NY": 738200,
 "NV": 109100,
-"OH": 302900,
+"GA": 367800,
 "NH": 22600,
-"UT": 60600,
-"OK": 109500,
-"MO": 156200,
-"VA": 268500,
-"SC": 139800,
-"AZ": 387900,
+"WA": 240500,
 "CT": 104600,
-"TX": 1881500,
+"CA": 1319800,
 "CO": 285900,
 "VT": 11500,
+"OK": 109600,
 "ID": 32700,
-"GA": 367600,
 "ND": 14600,
-"NJ": 339900,
+"HI": 45800,
+"MI": 258100,
 "WV": 69000,
-"MA": 214900,
+"FL": 788000,
+"MD": 212200,
+"OH": 303000,
 "MP": 100,
-"WA": 240300,
+"NY": 738600,
+"AR": 87100,
+"NC": 334500,
 "MS": 86000,
 "WY": 11300,
 "AK": 12200,
-"MI": 257900,
-"AL": 160600,
-"AR": 87000,
-"TN": 208600,
-"OR": 109200,
+"WI": 124700,
+"IN": 199400,
+"AL": 160700,
+"NM": 61600,
+"UT": 60700,
+"TX": 1883200,
 "MT": 30600,
-"IN": 199300,
 "VI": 100,
 "NE": 47500,
-"MD": 212100,
-"IA": 61900,
+"OR": 109300,
+"LA": 128500,
 "ME": 24800,
 "DC": 42700,
+"KY": 124600,
+"IL": 436600,
 "GU": 100,
-"CA": 1319000,
 "DE": 26600,
 "AS": 100,
-"IL": 436400,
-"HI": 45700,
+"MO": 156300,
+"AZ": 388000,
 "PR": 200,
-"PA": 335800,
-"LA": 128400,
-"WI": 124600,
+"MA": 215000,
 "RI": 29000,
 "SD": 18600,
-"NM": 61500
+"MN": 155700,
+"NJ": 340100
 },
 "ads": [
 {
@@ -19665,7 +19665,7 @@
 "type": "VIDEO",
 "adv": "AR16784630625381384193",
 "start": "2026-01-09",
-"end": "2026-11-13",
+"end": "2026-11-14",
 "impr": "1750000-2000000",
 "lo": 125000,
 "hi": 150000,
@@ -20403,20 +20403,6 @@
 "gender": "Male, Female, Unknown gender"
 },
 {
-"id": "CR10114999971829776385",
-"url": "https://adstransparency.google.com/advertiser/AR06985148589022380033/creative/CR10114999971829776385?political=&region=US",
-"type": "VIDEO",
-"adv": "AR06985148589022380033",
-"start": "2026-04-28",
-"end": "2026-05-01",
-"impr": "3000000-3500000",
-"lo": 175000,
-"hi": 200000,
-"geo": "90001,California,United States, 90002,California,United States, 90003,California,United States, 90004,California,United ",
-"age": "35-44, 45-54, 55-64, ≥65, Unknown age",
-"gender": "Male, Female, Unknown gender"
-},
-{
 "id": "CR09877435091485982721",
 "url": "https://adstransparency.google.com/advertiser/AR06985148589022380033/creative/CR09877435091485982721?political=&region=US",
 "type": "VIDEO",
@@ -20424,6 +20410,20 @@
 "start": "2026-04-28",
 "end": "2026-05-01",
 "impr": "3500000-4000000",
+"lo": 175000,
+"hi": 200000,
+"geo": "90001,California,United States, 90002,California,United States, 90003,California,United States, 90004,California,United ",
+"age": "35-44, 45-54, 55-64, ≥65, Unknown age",
+"gender": "Male, Female, Unknown gender"
+},
+{
+"id": "CR10114999971829776385",
+"url": "https://adstransparency.google.com/advertiser/AR06985148589022380033/creative/CR10114999971829776385?political=&region=US",
+"type": "VIDEO",
+"adv": "AR06985148589022380033",
+"start": "2026-04-28",
+"end": "2026-05-01",
+"impr": "3000000-3500000",
 "lo": 175000,
 "hi": 200000,
 "geo": "90001,California,United States, 90002,California,United States, 90003,California,United States, 90004,California,United ",
@@ -20738,8 +20738,8 @@
 "gender": ""
 },
 {
-"id": "CR01453847159840440321",
-"url": "https://adstransparency.google.com/advertiser/AR02147995891569524737/creative/CR01453847159840440321?political=&region=US",
+"id": "CR15086806181844353025",
+"url": "https://adstransparency.google.com/advertiser/AR02147995891569524737/creative/CR15086806181844353025?political=&region=US",
 "type": "VIDEO",
 "adv": "AR02147995891569524737",
 "start": "2026-10-26",
@@ -20752,8 +20752,8 @@
 "gender": ""
 },
 {
-"id": "CR15086806181844353025",
-"url": "https://adstransparency.google.com/advertiser/AR02147995891569524737/creative/CR15086806181844353025?political=&region=US",
+"id": "CR01453847159840440321",
+"url": "https://adstransparency.google.com/advertiser/AR02147995891569524737/creative/CR01453847159840440321?political=&region=US",
 "type": "VIDEO",
 "adv": "AR02147995891569524737",
 "start": "2026-10-26",
@@ -21436,20 +21436,6 @@
 "gender": ""
 },
 {
-"id": "CR04909882488232345601",
-"url": "https://adstransparency.google.com/advertiser/AR13882117788606136321/creative/CR04909882488232345601?political=&region=US",
-"type": "VIDEO",
-"adv": "AR13882117788606136321",
-"start": "2025-08-22",
-"end": "2026-02-22",
-"impr": "≥10000000",
-"lo": 150000,
-"hi": 175000,
-"geo": "Harris County,Texas,United States",
-"age": "",
-"gender": ""
-},
-{
 "id": "CR01998305329137319937",
 "url": "https://adstransparency.google.com/advertiser/AR13882117788606136321/creative/CR01998305329137319937?political=&region=US",
 "type": "VIDEO",
@@ -21460,6 +21446,20 @@
 "lo": 150000,
 "hi": 175000,
 "geo": "Alameda County,California,United States, Santa Clara County,California,United States",
+"age": "",
+"gender": ""
+},
+{
+"id": "CR04909882488232345601",
+"url": "https://adstransparency.google.com/advertiser/AR13882117788606136321/creative/CR04909882488232345601?political=&region=US",
+"type": "VIDEO",
+"adv": "AR13882117788606136321",
+"start": "2025-08-22",
+"end": "2026-02-22",
+"impr": "≥10000000",
+"lo": 150000,
+"hi": 175000,
+"geo": "Harris County,Texas,United States",
 "age": "",
 "gender": ""
 }
@@ -21649,8 +21649,8 @@
 "gender": ""
 },
 {
-"id": "CR14297962938885996545",
-"url": "https://adstransparency.google.com/advertiser/AR16092441231962931201/creative/CR14297962938885996545?political=&region=US",
+"id": "CR14076160657237999617",
+"url": "https://adstransparency.google.com/advertiser/AR16092441231962931201/creative/CR14076160657237999617?political=&region=US",
 "type": "VIDEO",
 "adv": "AR16092441231962931201",
 "start": "2026-10-13",
@@ -21663,8 +21663,8 @@
 "gender": ""
 },
 {
-"id": "CR14076160657237999617",
-"url": "https://adstransparency.google.com/advertiser/AR16092441231962931201/creative/CR14076160657237999617?political=&region=US",
+"id": "CR14297962938885996545",
+"url": "https://adstransparency.google.com/advertiser/AR16092441231962931201/creative/CR14297962938885996545?political=&region=US",
 "type": "VIDEO",
 "adv": "AR16092441231962931201",
 "start": "2026-10-13",
@@ -22696,20 +22696,6 @@
 "gender": ""
 },
 {
-"id": "CR01028790223833661441",
-"url": "https://adstransparency.google.com/advertiser/AR02711642377017098241/creative/CR01028790223833661441?political=&region=US",
-"type": "VIDEO",
-"adv": "AR02711642377017098241",
-"start": "2026-02-19",
-"end": "2026-03-17",
-"impr": "6000000-7000000",
-"lo": 125000,
-"hi": 150000,
-"geo": "NJ-7 (2022 redistricting),New Jersey,United States",
-"age": "",
-"gender": ""
-},
-{
 "id": "CR13388356451198566401",
 "url": "https://adstransparency.google.com/advertiser/AR02711642377017098241/creative/CR13388356451198566401?political=&region=US",
 "type": "VIDEO",
@@ -22720,6 +22706,20 @@
 "lo": 125000,
 "hi": 150000,
 "geo": "IA-1 (2022 redistricting),Iowa,United States",
+"age": "",
+"gender": ""
+},
+{
+"id": "CR01028790223833661441",
+"url": "https://adstransparency.google.com/advertiser/AR02711642377017098241/creative/CR01028790223833661441?political=&region=US",
+"type": "VIDEO",
+"adv": "AR02711642377017098241",
+"start": "2026-02-19",
+"end": "2026-03-17",
+"impr": "6000000-7000000",
+"lo": 125000,
+"hi": 150000,
+"geo": "NJ-7 (2022 redistricting),New Jersey,United States",
 "age": "",
 "gender": ""
 },
@@ -23061,7 +23061,7 @@
 "elections": "",
 "creatives_all": 282,
 "spend_all": 4586700,
-"cycle": 4586500,
+"cycle": 4586600,
 "weekly": [
 [
 "2025-04-13",
@@ -23385,7 +23385,7 @@
 ],
 [
 "2026-11-08",
-100.0
+200.0
 ]
 ],
 "states": {
@@ -23416,9 +23416,9 @@
 "WY": 2200,
 "HI": 9800,
 "SC": 13300,
+"NY": 201400,
 "TN": 18500,
 "ME": 12200,
-"NY": 201300,
 "MA": 96800,
 "AK": 4000,
 "SD": 1900,
@@ -23920,20 +23920,6 @@
 "gender": "Male, Female, Unknown gender"
 },
 {
-"id": "CR18129468251074199553",
-"url": "https://adstransparency.google.com/advertiser/AR10193919935764234241/creative/CR18129468251074199553?political=&region=US",
-"type": "VIDEO",
-"adv": "AR10193919935764234241",
-"start": "2026-06-25",
-"end": "2026-07-28",
-"impr": "5000000-6000000",
-"lo": 80000,
-"hi": 90000,
-"geo": "60018,Illinois,United States, 60033,Illinois,United States, 60060,Illinois,United States, 60064,Illinois,United States, ",
-"age": "25-34, 35-44, 45-54, 55-64, ≥65",
-"gender": "Male, Female, Unknown gender"
-},
-{
 "id": "CR01445461219015131137",
 "url": "https://adstransparency.google.com/advertiser/AR10193919935764234241/creative/CR01445461219015131137?political=&region=US",
 "type": "VIDEO",
@@ -23944,6 +23930,20 @@
 "lo": 80000,
 "hi": 90000,
 "geo": "60064,Illinois,United States, 60085,Illinois,United States, 60099,Illinois,United States, 60104,Illinois,United States, ",
+"age": "25-34, 35-44, 45-54, 55-64, ≥65",
+"gender": "Male, Female, Unknown gender"
+},
+{
+"id": "CR18129468251074199553",
+"url": "https://adstransparency.google.com/advertiser/AR10193919935764234241/creative/CR18129468251074199553?political=&region=US",
+"type": "VIDEO",
+"adv": "AR10193919935764234241",
+"start": "2026-06-25",
+"end": "2026-07-28",
+"impr": "5000000-6000000",
+"lo": 80000,
+"hi": 90000,
+"geo": "60018,Illinois,United States, 60033,Illinois,United States, 60060,Illinois,United States, 60064,Illinois,United States, ",
 "age": "25-34, 35-44, 45-54, 55-64, ≥65",
 "gender": "Male, Female, Unknown gender"
 },
@@ -24194,20 +24194,6 @@
 "gender": "Male, Female, Unknown gender"
 },
 {
-"id": "CR03999012343857020929",
-"url": "https://adstransparency.google.com/advertiser/AR07861324734904926209/creative/CR03999012343857020929?political=&region=US",
-"type": "TEXT",
-"adv": "AR07861324734904926209",
-"start": "2026-10-06",
-"end": "2026-10-30",
-"impr": "80000-90000",
-"lo": 80000,
-"hi": 90000,
-"geo": "United States",
-"age": "",
-"gender": ""
-},
-{
 "id": "CR10877557087223676929",
 "url": "https://adstransparency.google.com/advertiser/AR07861324734904926209/creative/CR10877557087223676929?political=&region=US",
 "type": "TEXT",
@@ -24215,6 +24201,20 @@
 "start": "2026-10-06",
 "end": "2026-10-30",
 "impr": "90000-100000",
+"lo": 80000,
+"hi": 90000,
+"geo": "United States",
+"age": "",
+"gender": ""
+},
+{
+"id": "CR03999012343857020929",
+"url": "https://adstransparency.google.com/advertiser/AR07861324734904926209/creative/CR03999012343857020929?political=&region=US",
+"type": "TEXT",
+"adv": "AR07861324734904926209",
+"start": "2026-10-06",
+"end": "2026-10-30",
+"impr": "80000-90000",
 "lo": 80000,
 "hi": 90000,
 "geo": "United States",
@@ -25098,8 +25098,8 @@
 "regions": "US",
 "elections": "",
 "creatives_all": 6747,
-"spend_all": 23325900,
-"cycle": 4208500,
+"spend_all": 23326300,
+"cycle": 4208900,
 "weekly": [
 [
 "2025-01-05",
@@ -25487,16 +25487,18 @@
 ],
 [
 "2026-11-08",
-600.0
+1000.0
 ]
 ],
 "states": {
 "VA": 652900,
+"GA": 290300,
 "MD": 189900,
 "DE": 23000,
 "ND": 5500,
 "MO": 125400,
 "IL": 327000,
+"CT": 312200,
 "OR": 1008200,
 "MS": 15400,
 "LA": 26700,
@@ -25509,13 +25511,11 @@
 "AK": 200000,
 "NM": 635800,
 "MA": 190400,
-"PA": 1366800,
 "TN": 75700,
 "PR": 400,
 "WI": 85400,
 "FL": 532600,
 "TX": 1151300,
-"CA": 2811900,
 "VT": 23100,
 "WY": 8200,
 "NY": 2279500,
@@ -25533,20 +25533,20 @@
 "AR": 32000,
 "NC": 695900,
 "HI": 26800,
-"CT": 312100,
 "MP": 100,
 "DC": 94300,
+"CO": 862000,
 "NH": 258100,
 "AS": 100,
 "OH": 1463800,
 "RI": 59700,
 "GU": 100,
 "AZ": 755000,
-"CO": 861900,
 "ID": 21400,
 "MI": 1270700,
 "ME": 341000,
-"GA": 290200
+"PA": 1366900,
+"CA": 2812000
 },
 "ads": [
 {
@@ -26848,8 +26848,8 @@
 "regions": "US",
 "elections": "",
 "creatives_all": 79,
-"spend_all": 4034300,
-"cycle": 3785600,
+"spend_all": 4036800,
+"cycle": 3788100,
 "weekly": [
 [
 "2025-01-05",
@@ -27237,33 +27237,28 @@
 ],
 [
 "2026-11-08",
-7100.0
+9600.0
 ]
 ],
 "states": {
 "GU": 200,
-"IL": 146500,
 "NC": 132900,
 "NV": 47700,
 "VI": 200,
 "OK": 43000,
 "MN": 66200,
 "WA": 114000,
-"LA": 42200,
-"WI": 55300,
 "DE": 11400,
 "CO": 85100,
-"MI": 112400,
 "NH": 16800,
-"IN": 76200,
+"IN": 76300,
 "NM": 18900,
 "SD": 8400,
 "WY": 7200,
 "AK": 9800,
-"NE": 21300,
 "PR": 600,
-"FL": 325000,
 "HI": 21800,
+"GA": 147700,
 "ID": 22400,
 "KY": 42200,
 "UT": 41600,
@@ -27271,32 +27266,37 @@
 "AR": 29800,
 "IA": 29600,
 "VT": 6000,
-"AL": 52300,
-"ND": 9200,
-"VA": 107900,
-"CA": 464200,
-"OH": 128200,
-"GA": 147500,
+"PA": 136600,
 "TN": 79300,
 "MT": 11800,
 "WV": 14500,
-"NJ": 122100,
+"NJ": 122200,
+"MD": 77300,
 "MS": 23500,
-"TX": 352400,
+"WI": 55400,
 "AZ": 89400,
+"NE": 21400,
 "SC": 59700,
-"NY": 250500,
-"MD": 77200,
+"OH": 128300,
+"MI": 112500,
+"LA": 42300,
+"ND": 9300,
 "MO": 66800,
+"AL": 52400,
+"TX": 352600,
 "DC": 15200,
+"IL": 146600,
 "MP": 100,
+"CA": 464400,
 "ME": 14600,
-"PA": 136500,
 "RI": 11600,
 "AS": 100,
 "KS": 30800,
 "OR": 49300,
-"MA": 84800
+"NY": 250600,
+"MA": 84800,
+"VA": 108000,
+"FL": 325200
 },
 "ads": [
 {
@@ -27347,7 +27347,7 @@
 "type": "VIDEO",
 "adv": "AR14049541884456468481",
 "start": "2025-10-07",
-"end": "2026-11-13",
+"end": "2026-11-14",
 "impr": "≥10000000",
 "lo": 250000,
 "hi": 300000,
@@ -27532,8 +27532,8 @@
 },
 "ads": [
 {
-"id": "CR08895535370674896897",
-"url": "https://adstransparency.google.com/advertiser/AR12838009306213253121/creative/CR08895535370674896897?political=&region=US",
+"id": "CR00266638484633026561",
+"url": "https://adstransparency.google.com/advertiser/AR12838009306213253121/creative/CR00266638484633026561?political=&region=US",
 "type": "VIDEO",
 "adv": "AR12838009306213253121",
 "start": "2026-10-25",
@@ -27546,8 +27546,8 @@
 "gender": ""
 },
 {
-"id": "CR00266638484633026561",
-"url": "https://adstransparency.google.com/advertiser/AR12838009306213253121/creative/CR00266638484633026561?political=&region=US",
+"id": "CR08895535370674896897",
+"url": "https://adstransparency.google.com/advertiser/AR12838009306213253121/creative/CR08895535370674896897?political=&region=US",
 "type": "VIDEO",
 "adv": "AR12838009306213253121",
 "start": "2026-10-25",
@@ -27602,8 +27602,8 @@
 "gender": ""
 },
 {
-"id": "CR08760427381853782017",
-"url": "https://adstransparency.google.com/advertiser/AR12838009306213253121/creative/CR08760427381853782017?political=&region=US",
+"id": "CR07223011059060178945",
+"url": "https://adstransparency.google.com/advertiser/AR12838009306213253121/creative/CR07223011059060178945?political=&region=US",
 "type": "VIDEO",
 "adv": "AR12838009306213253121",
 "start": "2026-10-25",
@@ -27630,8 +27630,8 @@
 "gender": ""
 },
 {
-"id": "CR07223011059060178945",
-"url": "https://adstransparency.google.com/advertiser/AR12838009306213253121/creative/CR07223011059060178945?political=&region=US",
+"id": "CR08760427381853782017",
+"url": "https://adstransparency.google.com/advertiser/AR12838009306213253121/creative/CR08760427381853782017?political=&region=US",
 "type": "VIDEO",
 "adv": "AR12838009306213253121",
 "start": "2026-10-25",
@@ -28929,9 +28929,9 @@
 "ids": "EIN ID 47-1876191",
 "regions": "US",
 "elections": "",
-"creatives_all": 2858,
-"spend_all": 8440000,
-"cycle": 3198000,
+"creatives_all": 2887,
+"spend_all": 8450400,
+"cycle": 3208400,
 "weekly": [
 [
 "2025-01-05",
@@ -29319,66 +29319,66 @@
 ],
 [
 "2026-11-08",
-42200.0
+52600.0
 ]
 ],
 "states": {
-"AL": 140000,
-"NH": 30100,
-"OH": 303100,
+"KS": 75200,
+"GA": 291300,
+"OH": 303500,
+"WI": 139500,
 "HI": 30800,
-"OK": 100300,
 "WY": 13700,
-"CA": 794800,
+"SC": 135300,
 "ME": 31600,
-"ID": 38800,
+"NH": 30200,
 "VI": 100,
-"MO": 169900,
-"UT": 50400,
+"NC": 305800,
 "MS": 64100,
-"NV": 90900,
-"CO": 164100,
-"AR": 82900,
-"CT": 73600,
+"KY": 106800,
+"NE": 46300,
 "MT": 26000,
-"WV": 42900,
-"SC": 135100,
-"MA": 157600,
-"VA": 209200,
-"LA": 100800,
-"KY": 106600,
+"TN": 190700,
+"VA": 209400,
+"CO": 164200,
+"MA": 157700,
+"IL": 322900,
 "AS": 100,
-"GA": 291000,
-"NE": 46200,
-"WA": 236300,
+"OR": 120300,
+"MI": 274200,
+"TX": 646100,
+"FL": 663000,
+"NY": 460800,
+"NV": 91000,
 "AK": 12500,
-"AZ": 208900,
-"OR": 120200,
+"MD": 151100,
+"LA": 101000,
 "RI": 22600,
-"MI": 273800,
-"IN": 187900,
-"PA": 335400,
+"AL": 140200,
+"CT": 73700,
+"NJ": 207000,
 "PR": 500,
-"MN": 147200,
-"FL": 662100,
+"WA": 236600,
+"CA": 795900,
 "IA": 71500,
-"DC": 30500,
+"UT": 50500,
 "DE": 28000,
-"TN": 190500,
+"PA": 335900,
 "SD": 18500,
 "ND": 13900,
-"TX": 645200,
-"NC": 305500,
+"AR": 83000,
 "VT": 12500,
-"NY": 460200,
-"NJ": 206800,
+"OK": 100400,
+"MO": 170100,
 "MP": 100,
-"WI": 139300,
-"IL": 322500,
+"MN": 147400,
 "NM": 59600,
-"KS": 75100,
-"GU": 100,
-"MD": 150900
+"IN": 188100,
+"AZ": 209100,
+"ID": 38900,
+"DC": 30600,
+"WV": 43000,
+"GU": 100
 },
 "ads": [
 {
@@ -29443,7 +29443,7 @@
 "type": "VIDEO",
 "adv": "AR05536076986138492929",
 "start": "2025-12-27",
-"end": "2026-11-12",
+"end": "2026-11-14",
 "impr": "2250000-2500000",
 "lo": 40000,
 "hi": 45000,
@@ -29471,7 +29471,7 @@
 "type": "VIDEO",
 "adv": "AR05536076986138492929",
 "start": "2026-02-23",
-"end": "2026-11-13",
+"end": "2026-11-14",
 "impr": "1500000-1750000",
 "lo": 30000,
 "hi": 35000,
@@ -29508,13 +29508,13 @@
 "gender": ""
 },
 {
-"id": "CR13378950197942419457",
-"url": "https://adstransparency.google.com/advertiser/AR05536076986138492929/creative/CR13378950197942419457?political=&region=US",
+"id": "CR08761973329562173441",
+"url": "https://adstransparency.google.com/advertiser/AR05536076986138492929/creative/CR08761973329562173441?political=&region=US",
 "type": "VIDEO",
 "adv": "AR05536076986138492929",
 "start": "2026-06-09",
-"end": "2026-11-13",
-"impr": "1000000-1250000",
+"end": "2026-11-14",
+"impr": "1250000-1500000",
 "lo": 20000,
 "hi": 25000,
 "geo": "United States",
@@ -29802,8 +29802,8 @@
 "gender": ""
 },
 {
-"id": "CR09746086504718925825",
-"url": "https://adstransparency.google.com/advertiser/AR16406328256682262529/creative/CR09746086504718925825?political=&region=US",
+"id": "CR12251213797443764225",
+"url": "https://adstransparency.google.com/advertiser/AR16406328256682262529/creative/CR12251213797443764225?political=&region=US",
 "type": "VIDEO",
 "adv": "AR16406328256682262529",
 "start": "2026-09-24",
@@ -30074,8 +30074,8 @@
 "regions": "US",
 "elections": "",
 "creatives_all": 415,
-"spend_all": 5697000,
-"cycle": 3043500,
+"spend_all": 5697100,
+"cycle": 3043600,
 "weekly": [
 [
 "2025-04-06",
@@ -30323,7 +30323,7 @@
 ],
 [
 "2026-11-08",
-1500.0
+1600.0
 ]
 ],
 "states": {
@@ -30352,11 +30352,11 @@
 "DC": 600,
 "VA": 506600,
 "OH": 4100,
-"FL": 68900,
 "GA": 421300,
 "MI": 270500,
 "SD": 3000,
 "WA": 193000,
+"FL": 69000,
 "PA": 215800,
 "CA": 140000,
 "WV": 1100,
@@ -31790,13 +31790,13 @@
 "gender": "Male, Female, Unknown gender"
 },
 {
-"id": "CR04893991616043286529",
-"url": "https://adstransparency.google.com/advertiser/AR13758972262956924929/creative/CR04893991616043286529?political=&region=US",
+"id": "CR05930663955268632577",
+"url": "https://adstransparency.google.com/advertiser/AR13758972262956924929/creative/CR05930663955268632577?political=&region=US",
 "type": "VIDEO",
 "adv": "AR13758972262956924929",
 "start": "2026-09-01",
 "end": "2026-09-22",
-"impr": "2000000-2250000",
+"impr": "2250000-2500000",
 "lo": 45000,
 "hi": 50000,
 "geo": "Iowa,United States",
@@ -31818,13 +31818,13 @@
 "gender": "Male, Female, Unknown gender"
 },
 {
-"id": "CR05930663955268632577",
-"url": "https://adstransparency.google.com/advertiser/AR13758972262956924929/creative/CR05930663955268632577?political=&region=US",
+"id": "CR04893991616043286529",
+"url": "https://adstransparency.google.com/advertiser/AR13758972262956924929/creative/CR04893991616043286529?political=&region=US",
 "type": "VIDEO",
 "adv": "AR13758972262956924929",
 "start": "2026-09-01",
 "end": "2026-09-22",
-"impr": "2250000-2500000",
+"impr": "2000000-2250000",
 "lo": 45000,
 "hi": 50000,
 "geo": "Iowa,United States",
@@ -32089,8 +32089,8 @@
 "regions": "US",
 "elections": "",
 "creatives_all": 199,
-"spend_all": 4884000,
-"cycle": 2916800,
+"spend_all": 4884500,
+"cycle": 2917300,
 "weekly": [
 [
 "2025-01-05",
@@ -32478,7 +32478,7 @@
 ],
 [
 "2026-11-08",
-1300.0
+1800.0
 ]
 ],
 "states": {
@@ -32487,6 +32487,7 @@
 "MA": 181700,
 "IN": 65400,
 "SD": 5700,
+"NY": 605700,
 "CT": 82400,
 "FL": 393400,
 "MS": 19000,
@@ -32496,21 +32497,21 @@
 "MT": 8300,
 "VI": 300,
 "AR": 21400,
+"CA": 633300,
 "MD": 101800,
-"TX": 312300,
 "NE": 19500,
 "NV": 42900,
 "OH": 109700,
 "PR": 1400,
+"NC": 129200,
 "SC": 57900,
 "OR": 51800,
 "AL": 38400,
-"CA": 633200,
+"TX": 312400,
 "VA": 143000,
 "AK": 6200,
 "TN": 62300,
 "AZ": 89900,
-"NY": 605600,
 "NM": 16100,
 "DC": 58200,
 "KS": 26200,
@@ -32534,7 +32535,6 @@
 "HI": 22700,
 "MO": 52600,
 "ID": 14900,
-"NC": 129100,
 "UT": 27400,
 "WI": 49700,
 "ND": 5100
@@ -32847,20 +32847,6 @@
 "gender": "Male, Female, Unknown gender"
 },
 {
-"id": "CR03965486181331763201",
-"url": "https://adstransparency.google.com/advertiser/AR03104421207865294849/creative/CR03965486181331763201?political=&region=US",
-"type": "VIDEO",
-"adv": "AR03104421207865294849",
-"start": "2025-07-09",
-"end": "2025-07-21",
-"impr": "1500000-1750000",
-"lo": 45000,
-"hi": 50000,
-"geo": "PA-7 (2022 redistricting),Pennsylvania,United States",
-"age": "45-54, 55-64, ≥65, Unknown age",
-"gender": "Male, Female, Unknown gender"
-},
-{
 "id": "CR01949562398130044929",
 "url": "https://adstransparency.google.com/advertiser/AR03104421207865294849/creative/CR01949562398130044929?political=&region=US",
 "type": "VIDEO",
@@ -32871,48 +32857,6 @@
 "lo": 45000,
 "hi": 50000,
 "geo": "CA-22 (2022 redistricting),California,United States",
-"age": "45-54, 55-64, ≥65, Unknown age",
-"gender": "Male, Female, Unknown gender"
-},
-{
-"id": "CR13911580405263237121",
-"url": "https://adstransparency.google.com/advertiser/AR03104421207865294849/creative/CR13911580405263237121?political=&region=US",
-"type": "VIDEO",
-"adv": "AR03104421207865294849",
-"start": "2025-07-09",
-"end": "2025-07-21",
-"impr": "1500000-1750000",
-"lo": 45000,
-"hi": 50000,
-"geo": "NY-2 (2024 redistricting),New York,United States",
-"age": "45-54, 55-64, ≥65, Unknown age",
-"gender": "Male, Female, Unknown gender"
-},
-{
-"id": "CR02392041061519196161",
-"url": "https://adstransparency.google.com/advertiser/AR03104421207865294849/creative/CR02392041061519196161?political=&region=US",
-"type": "VIDEO",
-"adv": "AR03104421207865294849",
-"start": "2025-07-09",
-"end": "2025-07-21",
-"impr": "1250000-1500000",
-"lo": 45000,
-"hi": 50000,
-"geo": "AZ-1 (2022 redistricting),Arizona,United States",
-"age": "45-54, 55-64, ≥65, Unknown age",
-"gender": "Male, Female, Unknown gender"
-},
-{
-"id": "CR15319342316909494273",
-"url": "https://adstransparency.google.com/advertiser/AR03104421207865294849/creative/CR15319342316909494273?political=&region=US",
-"type": "VIDEO",
-"adv": "AR03104421207865294849",
-"start": "2025-07-09",
-"end": "2025-07-21",
-"impr": "1250000-1500000",
-"lo": 45000,
-"hi": 50000,
-"geo": "CA-40 (2022 redistricting),California,United States",
 "age": "45-54, 55-64, ≥65, Unknown age",
 "gender": "Male, Female, Unknown gender"
 },
@@ -32931,8 +32875,8 @@
 "gender": "Male, Female, Unknown gender"
 },
 {
-"id": "CR05406532508974055425",
-"url": "https://adstransparency.google.com/advertiser/AR03104421207865294849/creative/CR05406532508974055425?political=&region=US",
+"id": "CR13911580405263237121",
+"url": "https://adstransparency.google.com/advertiser/AR03104421207865294849/creative/CR13911580405263237121?political=&region=US",
 "type": "VIDEO",
 "adv": "AR03104421207865294849",
 "start": "2025-07-09",
@@ -32940,7 +32884,35 @@
 "impr": "1500000-1750000",
 "lo": 45000,
 "hi": 50000,
-"geo": "PA-8 (2022 redistricting),Pennsylvania,United States",
+"geo": "NY-2 (2024 redistricting),New York,United States",
+"age": "45-54, 55-64, ≥65, Unknown age",
+"gender": "Male, Female, Unknown gender"
+},
+{
+"id": "CR15319342316909494273",
+"url": "https://adstransparency.google.com/advertiser/AR03104421207865294849/creative/CR15319342316909494273?political=&region=US",
+"type": "VIDEO",
+"adv": "AR03104421207865294849",
+"start": "2025-07-09",
+"end": "2025-07-21",
+"impr": "1250000-1500000",
+"lo": 45000,
+"hi": 50000,
+"geo": "CA-40 (2022 redistricting),California,United States",
+"age": "45-54, 55-64, ≥65, Unknown age",
+"gender": "Male, Female, Unknown gender"
+},
+{
+"id": "CR10209164114727534593",
+"url": "https://adstransparency.google.com/advertiser/AR03104421207865294849/creative/CR10209164114727534593?political=&region=US",
+"type": "VIDEO",
+"adv": "AR03104421207865294849",
+"start": "2025-07-09",
+"end": "2025-07-25",
+"impr": "1250000-1500000",
+"lo": 45000,
+"hi": 50000,
+"geo": "NY-17 (2024 redistricting),New York,United States",
 "age": "45-54, 55-64, ≥65, Unknown age",
 "gender": "Male, Female, Unknown gender"
 },
@@ -32959,16 +32931,44 @@
 "gender": "Male, Female, Unknown gender"
 },
 {
-"id": "CR10209164114727534593",
-"url": "https://adstransparency.google.com/advertiser/AR03104421207865294849/creative/CR10209164114727534593?political=&region=US",
+"id": "CR05406532508974055425",
+"url": "https://adstransparency.google.com/advertiser/AR03104421207865294849/creative/CR05406532508974055425?political=&region=US",
 "type": "VIDEO",
 "adv": "AR03104421207865294849",
 "start": "2025-07-09",
-"end": "2025-07-25",
+"end": "2025-07-21",
+"impr": "1500000-1750000",
+"lo": 45000,
+"hi": 50000,
+"geo": "PA-8 (2022 redistricting),Pennsylvania,United States",
+"age": "45-54, 55-64, ≥65, Unknown age",
+"gender": "Male, Female, Unknown gender"
+},
+{
+"id": "CR03965486181331763201",
+"url": "https://adstransparency.google.com/advertiser/AR03104421207865294849/creative/CR03965486181331763201?political=&region=US",
+"type": "VIDEO",
+"adv": "AR03104421207865294849",
+"start": "2025-07-09",
+"end": "2025-07-21",
+"impr": "1500000-1750000",
+"lo": 45000,
+"hi": 50000,
+"geo": "PA-7 (2022 redistricting),Pennsylvania,United States",
+"age": "45-54, 55-64, ≥65, Unknown age",
+"gender": "Male, Female, Unknown gender"
+},
+{
+"id": "CR02392041061519196161",
+"url": "https://adstransparency.google.com/advertiser/AR03104421207865294849/creative/CR02392041061519196161?political=&region=US",
+"type": "VIDEO",
+"adv": "AR03104421207865294849",
+"start": "2025-07-09",
+"end": "2025-07-21",
 "impr": "1250000-1500000",
 "lo": 45000,
 "hi": 50000,
-"geo": "NY-17 (2024 redistricting),New York,United States",
+"geo": "AZ-1 (2022 redistricting),Arizona,United States",
 "age": "45-54, 55-64, ≥65, Unknown age",
 "gender": "Male, Female, Unknown gender"
 }
@@ -33524,8 +33524,8 @@
 "gender": "Male, Female, Unknown gender"
 },
 {
-"id": "CR17619175799292690433",
-"url": "https://adstransparency.google.com/advertiser/AR00340999924898332673/creative/CR17619175799292690433?political=&region=US",
+"id": "CR06397331427792257025",
+"url": "https://adstransparency.google.com/advertiser/AR00340999924898332673/creative/CR06397331427792257025?political=&region=US",
 "type": "VIDEO",
 "adv": "AR00340999924898332673",
 "start": "2026-09-30",
@@ -33538,8 +33538,8 @@
 "gender": "Male, Female, Unknown gender"
 },
 {
-"id": "CR06397331427792257025",
-"url": "https://adstransparency.google.com/advertiser/AR00340999924898332673/creative/CR06397331427792257025?political=&region=US",
+"id": "CR17619175799292690433",
+"url": "https://adstransparency.google.com/advertiser/AR00340999924898332673/creative/CR17619175799292690433?political=&region=US",
 "type": "VIDEO",
 "adv": "AR00340999924898332673",
 "start": "2026-09-30",
@@ -33575,8 +33575,8 @@
 "regions": "US",
 "elections": "",
 "creatives_all": 39,
-"spend_all": 2717900,
-"cycle": 2648000,
+"spend_all": 2732100,
+"cycle": 2662100,
 "weekly": [
 [
 "2025-05-25",
@@ -33708,61 +33708,61 @@
 ],
 [
 "2026-11-08",
-106300.0
+120400.0
 ]
 ],
 "states": {
-"NM": 16100,
-"IL": 101900,
-"TX": 204900,
-"ID": 10900,
-"SC": 42000,
-"MA": 56200,
-"OH": 81200,
-"MI": 68200,
-"OR": 33000,
+"ND": 5000,
+"LA": 37500,
+"MI": 68600,
+"TX": 206200,
 "AK": 3500,
-"WY": 3500,
-"FL": 197800,
+"MN": 44500,
+"MO": 47600,
+"AL": 48100,
+"NM": 16200,
+"MS": 27700,
+"OR": 33100,
 "ME": 7600,
-"GA": 101000,
-"LA": 37300,
-"ND": 4900,
-"NE": 11200,
-"MN": 44300,
-"AZ": 50200,
-"WA": 94900,
-"MD": 59600,
-"CO": 34500,
-"IA": 14900,
+"CT": 31600,
+"NY": 177900,
+"IA": 15000,
+"HI": 13800,
+"RI": 10300,
+"PA": 92100,
 "VT": 3800,
-"UT": 17800,
-"AL": 47800,
-"MS": 27500,
+"NE": 11300,
+"WV": 13700,
+"NC": 97500,
+"GA": 101600,
+"MD": 59900,
+"CO": 34700,
+"KS": 17400,
 "SD": 5600,
-"VA": 66900,
-"IN": 54900,
-"OK": 31800,
-"HI": 13700,
-"MO": 47400,
-"KY": 39700,
-"NV": 28700,
+"NJ": 81100,
+"FL": 198800,
+"TN": 61600,
+"MT": 5600,
+"WA": 95200,
+"VA": 67300,
+"ID": 11000,
+"MA": 56500,
+"CA": 355900,
 "DE": 8800,
-"AR": 27700,
-"KS": 17300,
-"NJ": 80700,
-"CA": 354300,
-"NC": 96900,
-"MT": 5500,
-"PA": 91500,
-"NY": 176900,
-"TN": 61300,
+"UT": 17900,
+"OK": 31900,
+"WI": 34300,
+"KY": 40000,
+"IN": 55200,
+"NV": 28900,
+"AZ": 50400,
+"IL": 102400,
+"AR": 27900,
+"SC": 42200,
+"WY": 3600,
 "NH": 6900,
-"CT": 31400,
 "DC": 6900,
-"WV": 13600,
-"WI": 34100,
-"RI": 10200
+"OH": 81700
 },
 "ads": [
 {
@@ -33869,10 +33869,10 @@
 "type": "VIDEO",
 "adv": "AR03315124727084744705",
 "start": "2026-11-03",
-"end": "2026-11-13",
-"impr": "4500000-5000000",
-"lo": 100000,
-"hi": 125000,
+"end": "2026-11-14",
+"impr": "5000000-6000000",
+"lo": 125000,
+"hi": 150000,
 "geo": "United States",
 "age": "25-34, 35-44, 45-54, 55-64, ≥65, Unknown age",
 "gender": "Male, Female, Unknown gender"
@@ -34960,20 +34960,6 @@
 "gender": "Male, Female, Unknown gender"
 },
 {
-"id": "CR07462354949217714177",
-"url": "https://adstransparency.google.com/advertiser/AR13102307987152699393/creative/CR07462354949217714177?political=&region=US",
-"type": "VIDEO",
-"adv": "AR13102307987152699393",
-"start": "2026-10-23",
-"end": "2026-11-04",
-"impr": "900000-1000000",
-"lo": 100000,
-"hi": 125000,
-"geo": "89011,Nevada,United States, 89014,Nevada,United States, 89030,Nevada,United States, 89031,Nevada,United States, 89032,Ne",
-"age": "",
-"gender": ""
-},
-{
 "id": "CR17649497306329776129",
 "url": "https://adstransparency.google.com/advertiser/AR13102307987152699393/creative/CR17649497306329776129?political=&region=US",
 "type": "VIDEO",
@@ -34981,6 +34967,20 @@
 "start": "2026-10-23",
 "end": "2026-11-04",
 "impr": "1500000-1750000",
+"lo": 100000,
+"hi": 125000,
+"geo": "89011,Nevada,United States, 89014,Nevada,United States, 89030,Nevada,United States, 89031,Nevada,United States, 89032,Ne",
+"age": "",
+"gender": ""
+},
+{
+"id": "CR07462354949217714177",
+"url": "https://adstransparency.google.com/advertiser/AR13102307987152699393/creative/CR07462354949217714177?political=&region=US",
+"type": "VIDEO",
+"adv": "AR13102307987152699393",
+"start": "2026-10-23",
+"end": "2026-11-04",
+"impr": "900000-1000000",
 "lo": 100000,
 "hi": 125000,
 "geo": "89011,Nevada,United States, 89014,Nevada,United States, 89030,Nevada,United States, 89031,Nevada,United States, 89032,Ne",
@@ -35269,8 +35269,8 @@
 "gender": "Male, Female, Unknown gender"
 },
 {
-"id": "CR02760484788056883201",
-"url": "https://adstransparency.google.com/advertiser/AR14184320749933690881/creative/CR02760484788056883201?political=&region=US",
+"id": "CR07905706624839319553",
+"url": "https://adstransparency.google.com/advertiser/AR14184320749933690881/creative/CR07905706624839319553?political=&region=US",
 "type": "VIDEO",
 "adv": "AR14184320749933690881",
 "start": "2026-10-27",
@@ -35283,8 +35283,8 @@
 "gender": "Male, Female, Unknown gender"
 },
 {
-"id": "CR07905706624839319553",
-"url": "https://adstransparency.google.com/advertiser/AR14184320749933690881/creative/CR07905706624839319553?political=&region=US",
+"id": "CR02760484788056883201",
+"url": "https://adstransparency.google.com/advertiser/AR14184320749933690881/creative/CR02760484788056883201?political=&region=US",
 "type": "VIDEO",
 "adv": "AR14184320749933690881",
 "start": "2026-10-27",
@@ -36524,7 +36524,7 @@
 "elections": "",
 "creatives_all": 109,
 "spend_all": 2694400,
-"cycle": 2337200,
+"cycle": 2337100,
 "weekly": [
 [
 "2026-09-27",
@@ -36548,7 +36548,7 @@
 ],
 [
 "2026-11-01",
-666400.0
+666300.0
 ]
 ],
 "states": {
@@ -36621,20 +36621,6 @@
 "gender": "Male, Female, Unknown gender"
 },
 {
-"id": "CR04676907166991384577",
-"url": "https://adstransparency.google.com/advertiser/AR16908617054087544833/creative/CR04676907166991384577?political=&region=US",
-"type": "VIDEO",
-"adv": "AR16908617054087544833",
-"start": "2026-10-27",
-"end": "2026-11-03",
-"impr": "2500000-3000000",
-"lo": 125000,
-"hi": 150000,
-"geo": "Kansas,United States",
-"age": "25-34, 35-44, 45-54, 55-64, ≥65",
-"gender": "Male, Female, Unknown gender"
-},
-{
 "id": "CR15944913434672365569",
 "url": "https://adstransparency.google.com/advertiser/AR16908617054087544833/creative/CR15944913434672365569?political=&region=US",
 "type": "VIDEO",
@@ -36674,6 +36660,20 @@
 "hi": 150000,
 "geo": "Kansas,United States",
 "age": "35-44, 45-54, 55-64, ≥65",
+"gender": "Male, Female, Unknown gender"
+},
+{
+"id": "CR04676907166991384577",
+"url": "https://adstransparency.google.com/advertiser/AR16908617054087544833/creative/CR04676907166991384577?political=&region=US",
+"type": "VIDEO",
+"adv": "AR16908617054087544833",
+"start": "2026-10-27",
+"end": "2026-11-03",
+"impr": "2500000-3000000",
+"lo": 125000,
+"hi": 150000,
+"geo": "Kansas,United States",
+"age": "25-34, 35-44, 45-54, 55-64, ≥65",
 "gender": "Male, Female, Unknown gender"
 },
 {
@@ -36719,20 +36719,6 @@
 "gender": "Male, Female, Unknown gender"
 },
 {
-"id": "CR05161767605584789505",
-"url": "https://adstransparency.google.com/advertiser/AR16908617054087544833/creative/CR05161767605584789505?political=&region=US",
-"type": "VIDEO",
-"adv": "AR16908617054087544833",
-"start": "2026-10-21",
-"end": "2026-10-27",
-"impr": "2000000-2250000",
-"lo": 80000,
-"hi": 90000,
-"geo": "Kansas,United States",
-"age": "25-34, 35-44, 45-54, 55-64, ≥65",
-"gender": "Male, Female, Unknown gender"
-},
-{
 "id": "CR10328522278085591041",
 "url": "https://adstransparency.google.com/advertiser/AR16908617054087544833/creative/CR10328522278085591041?political=&region=US",
 "type": "VIDEO",
@@ -36740,6 +36726,20 @@
 "start": "2026-10-21",
 "end": "2026-10-27",
 "impr": "1750000-2000000",
+"lo": 80000,
+"hi": 90000,
+"geo": "Kansas,United States",
+"age": "25-34, 35-44, 45-54, 55-64, ≥65",
+"gender": "Male, Female, Unknown gender"
+},
+{
+"id": "CR05161767605584789505",
+"url": "https://adstransparency.google.com/advertiser/AR16908617054087544833/creative/CR05161767605584789505?political=&region=US",
+"type": "VIDEO",
+"adv": "AR16908617054087544833",
+"start": "2026-10-21",
+"end": "2026-10-27",
+"impr": "2000000-2250000",
 "lo": 80000,
 "hi": 90000,
 "geo": "Kansas,United States",
@@ -37360,8 +37360,8 @@
 "regions": "US",
 "elections": "",
 "creatives_all": 601,
-"spend_all": 5914600,
-"cycle": 2318800,
+"spend_all": 5920600,
+"cycle": 2324900,
 "weekly": [
 [
 "2025-01-05",
@@ -37749,66 +37749,66 @@
 ],
 [
 "2026-11-08",
-22000.0
+28100.0
 ]
 ],
 "states": {
 "MT": 22500,
 "DC": 16900,
 "HI": 25400,
-"KY": 81400,
+"MI": 186700,
 "UT": 47800,
-"MA": 110200,
+"WV": 37300,
+"FL": 509000,
 "AS": 100,
+"WA": 163400,
 "NE": 34600,
-"WA": 163200,
-"MD": 79900,
+"OH": 211600,
 "AK": 12000,
+"MS": 45900,
 "VI": 300,
 "ID": 38100,
+"MO": 119800,
 "RI": 18100,
-"NC": 191700,
+"PA": 238600,
 "KS": 54200,
-"OR": 95700,
-"FL": 508400,
-"NY": 299900,
-"MI": 186500,
-"AZ": 165000,
+"SC": 99600,
+"WI": 96300,
+"CA": 518200,
+"IL": 201200,
+"AL": 93900,
+"NV": 61900,
+"OK": 79500,
 "NM": 42500,
-"IA": 53600,
+"AZ": 165100,
+"NY": 300200,
 "VT": 10800,
-"PA": 238300,
-"OH": 211300,
-"MO": 119600,
-"MN": 95200,
-"CO": 95200,
-"AL": 93800,
-"IN": 121700,
+"CO": 95300,
 "SD": 14000,
 "ME": 28000,
-"NJ": 163700,
+"IN": 121800,
+"VA": 141000,
 "MP": 100,
 "NH": 27000,
-"MS": 45800,
-"LA": 69100,
+"GA": 183000,
+"IA": 53700,
+"MA": 110300,
+"NJ": 163800,
+"TN": 135900,
+"NC": 192000,
+"OR": 95800,
 "PR": 2200,
-"CA": 517800,
-"IL": 201000,
-"GA": 182800,
+"AR": 58300,
 "GU": 100,
 "WY": 13500,
-"OK": 79400,
-"VA": 140800,
-"TN": 135700,
+"LA": 69200,
+"TX": 433900,
+"MD": 80000,
+"KY": 81500,
 "CT": 56600,
-"TX": 433300,
 "DE": 18700,
-"AR": 58200,
-"WV": 37200,
 "ND": 11700,
-"NV": 61800,
-"SC": 99500,
-"WI": 96200
+"MN": 95300
 },
 "ads": [
 {
@@ -37831,7 +37831,7 @@
 "type": "VIDEO",
 "adv": "AR09550358411179196417",
 "start": "2025-04-30",
-"end": "2026-11-13",
+"end": "2026-11-14",
 "impr": "≥10000000",
 "lo": 350000,
 "hi": 400000,
@@ -38184,8 +38184,8 @@
 "gender": ""
 },
 {
-"id": "CR09858550051565993985",
-"url": "https://adstransparency.google.com/advertiser/AR10785767829312372737/creative/CR09858550051565993985?political=&region=US",
+"id": "CR16536966086491373569",
+"url": "https://adstransparency.google.com/advertiser/AR10785767829312372737/creative/CR16536966086491373569?political=&region=US",
 "type": "VIDEO",
 "adv": "AR10785767829312372737",
 "start": "2026-10-01",
@@ -38198,8 +38198,8 @@
 "gender": ""
 },
 {
-"id": "CR16536966086491373569",
-"url": "https://adstransparency.google.com/advertiser/AR10785767829312372737/creative/CR16536966086491373569?political=&region=US",
+"id": "CR09858550051565993985",
+"url": "https://adstransparency.google.com/advertiser/AR10785767829312372737/creative/CR09858550051565993985?political=&region=US",
 "type": "VIDEO",
 "adv": "AR10785767829312372737",
 "start": "2026-10-01",
@@ -39028,20 +39028,6 @@
 "gender": ""
 },
 {
-"id": "CR10723532730991116289",
-"url": "https://adstransparency.google.com/advertiser/AR09002980497344692225/creative/CR10723532730991116289?political=&region=US",
-"type": "VIDEO",
-"adv": "AR09002980497344692225",
-"start": "2025-03-13",
-"end": "2025-04-01",
-"impr": "1000000-1250000",
-"lo": 35000,
-"hi": 40000,
-"geo": "Wisconsin,United States",
-"age": "",
-"gender": ""
-},
-{
 "id": "CR10389635238891356161",
 "url": "https://adstransparency.google.com/advertiser/AR09002980497344692225/creative/CR10389635238891356161?political=&region=US",
 "type": "VIDEO",
@@ -39052,6 +39038,20 @@
 "lo": 35000,
 "hi": 40000,
 "geo": "53202,Wisconsin,United States, 53203,Wisconsin,United States, 53204,Wisconsin,United States, 53205,Wisconsin,United Stat",
+"age": "",
+"gender": ""
+},
+{
+"id": "CR10723532730991116289",
+"url": "https://adstransparency.google.com/advertiser/AR09002980497344692225/creative/CR10723532730991116289?political=&region=US",
+"type": "VIDEO",
+"adv": "AR09002980497344692225",
+"start": "2025-03-13",
+"end": "2025-04-01",
+"impr": "1000000-1250000",
+"lo": 35000,
+"hi": 40000,
+"geo": "Wisconsin,United States",
 "age": "",
 "gender": ""
 }
@@ -39222,20 +39222,6 @@
 "gender": "Male, Female, Unknown gender"
 },
 {
-"id": "CR09229042811024703489",
-"url": "https://adstransparency.google.com/advertiser/AR13526335024361635841/creative/CR09229042811024703489?political=&region=US",
-"type": "VIDEO",
-"adv": "AR13526335024361635841",
-"start": "2026-10-15",
-"end": "2026-11-04",
-"impr": "1750000-2000000",
-"lo": 100000,
-"hi": 125000,
-"geo": "48015,Michigan,United States, 48021,Michigan,United States, 48026,Michigan,United States, 48035,Michigan,United States, ",
-"age": "18-24, 25-34, 35-44, 45-54, 55-64, ≥65",
-"gender": "Male, Female, Unknown gender"
-},
-{
 "id": "CR01789659176562065409",
 "url": "https://adstransparency.google.com/advertiser/AR13526335024361635841/creative/CR01789659176562065409?political=&region=US",
 "type": "VIDEO",
@@ -39250,30 +39236,16 @@
 "gender": "Male, Female, Unknown gender"
 },
 {
-"id": "CR14114216953698582529",
-"url": "https://adstransparency.google.com/advertiser/AR13526335024361635841/creative/CR14114216953698582529?political=&region=US",
+"id": "CR09229042811024703489",
+"url": "https://adstransparency.google.com/advertiser/AR13526335024361635841/creative/CR09229042811024703489?political=&region=US",
 "type": "VIDEO",
 "adv": "AR13526335024361635841",
 "start": "2026-10-15",
 "end": "2026-11-04",
 "impr": "1750000-2000000",
-"lo": 90000,
-"hi": 100000,
-"geo": "36005,Alabama,United States, 36009,Alabama,United States, 36010,Alabama,United States, 36016,Alabama,United States, 3601",
-"age": "18-24, 25-34, 35-44, 45-54, 55-64, ≥65",
-"gender": "Male, Female, Unknown gender"
-},
-{
-"id": "CR03606861626206060545",
-"url": "https://adstransparency.google.com/advertiser/AR13526335024361635841/creative/CR03606861626206060545?political=&region=US",
-"type": "VIDEO",
-"adv": "AR13526335024361635841",
-"start": "2026-10-15",
-"end": "2026-11-04",
-"impr": "1750000-2000000",
-"lo": 90000,
-"hi": 100000,
-"geo": "29410,South Carolina,United States, 29412,South Carolina,United States, 29420,South Carolina,United States, 29429,South ",
+"lo": 100000,
+"hi": 125000,
+"geo": "48015,Michigan,United States, 48021,Michigan,United States, 48026,Michigan,United States, 48035,Michigan,United States, ",
 "age": "18-24, 25-34, 35-44, 45-54, 55-64, ≥65",
 "gender": "Male, Female, Unknown gender"
 },
@@ -39288,6 +39260,34 @@
 "lo": 90000,
 "hi": 100000,
 "geo": "76932,Texas,United States, 76950,Texas,United States, 78002,Texas,United States, 78014,Texas,United States, 78017,Texas,",
+"age": "18-24, 25-34, 35-44, 45-54, 55-64, ≥65",
+"gender": "Male, Female, Unknown gender"
+},
+{
+"id": "CR08487919197345546241",
+"url": "https://adstransparency.google.com/advertiser/AR13526335024361635841/creative/CR08487919197345546241?political=&region=US",
+"type": "VIDEO",
+"adv": "AR13526335024361635841",
+"start": "2026-10-15",
+"end": "2026-11-04",
+"impr": "1000000-1250000",
+"lo": 90000,
+"hi": 100000,
+"geo": "76932,Texas,United States, 76936,Texas,United States, 76943,Texas,United States, 76950,Texas,United States, 78002,Texas,",
+"age": "18-24, 25-34, 35-44, 45-54, 55-64, ≥65",
+"gender": "Male, Female, Unknown gender"
+},
+{
+"id": "CR03606861626206060545",
+"url": "https://adstransparency.google.com/advertiser/AR13526335024361635841/creative/CR03606861626206060545?political=&region=US",
+"type": "VIDEO",
+"adv": "AR13526335024361635841",
+"start": "2026-10-15",
+"end": "2026-11-04",
+"impr": "1750000-2000000",
+"lo": 90000,
+"hi": 100000,
+"geo": "29410,South Carolina,United States, 29412,South Carolina,United States, 29420,South Carolina,United States, 29429,South ",
 "age": "18-24, 25-34, 35-44, 45-54, 55-64, ≥65",
 "gender": "Male, Female, Unknown gender"
 }
@@ -39513,20 +39513,6 @@
 "gender": ""
 },
 {
-"id": "CR12046350213976162305",
-"url": "https://adstransparency.google.com/advertiser/AR03766564212671774721/creative/CR12046350213976162305?political=&region=US",
-"type": "VIDEO",
-"adv": "AR03766564212671774721",
-"start": "2026-08-14",
-"end": "2026-10-01",
-"impr": "900000-1000000",
-"lo": 40000,
-"hi": 45000,
-"geo": "54303,Wisconsin,United States, 54304,Wisconsin,United States, 54313,Wisconsin,United States",
-"age": "18-24, 25-34, 35-44, 45-54, 55-64, ≥65",
-"gender": "Male, Female, Unknown gender"
-},
-{
 "id": "CR17588311030432268289",
 "url": "https://adstransparency.google.com/advertiser/AR03766564212671774721/creative/CR17588311030432268289?political=&region=US",
 "type": "VIDEO",
@@ -39537,6 +39523,20 @@
 "lo": 40000,
 "hi": 45000,
 "geo": "54115,Wisconsin,United States, 54301,Wisconsin,United States, 54311,Wisconsin,United States",
+"age": "18-24, 25-34, 35-44, 45-54, 55-64, ≥65",
+"gender": "Male, Female, Unknown gender"
+},
+{
+"id": "CR12046350213976162305",
+"url": "https://adstransparency.google.com/advertiser/AR03766564212671774721/creative/CR12046350213976162305?political=&region=US",
+"type": "VIDEO",
+"adv": "AR03766564212671774721",
+"start": "2026-08-14",
+"end": "2026-10-01",
+"impr": "900000-1000000",
+"lo": 40000,
+"hi": 45000,
+"geo": "54303,Wisconsin,United States, 54304,Wisconsin,United States, 54313,Wisconsin,United States",
 "age": "18-24, 25-34, 35-44, 45-54, 55-64, ≥65",
 "gender": "Male, Female, Unknown gender"
 },
@@ -39648,8 +39648,8 @@
 },
 "ads": [
 {
-"id": "CR07551312758529064961",
-"url": "https://adstransparency.google.com/advertiser/AR16801161585136500737/creative/CR07551312758529064961?political=&region=US",
+"id": "CR02435786531789602817",
+"url": "https://adstransparency.google.com/advertiser/AR16801161585136500737/creative/CR02435786531789602817?political=&region=US",
 "type": "VIDEO",
 "adv": "AR16801161585136500737",
 "start": "2026-09-09",
@@ -39662,8 +39662,8 @@
 "gender": "Male, Female, Unknown gender"
 },
 {
-"id": "CR02435786531789602817",
-"url": "https://adstransparency.google.com/advertiser/AR16801161585136500737/creative/CR02435786531789602817?political=&region=US",
+"id": "CR07551312758529064961",
+"url": "https://adstransparency.google.com/advertiser/AR16801161585136500737/creative/CR07551312758529064961?political=&region=US",
 "type": "VIDEO",
 "adv": "AR16801161585136500737",
 "start": "2026-09-09",
@@ -39746,20 +39746,6 @@
 "gender": "Male, Female, Unknown gender"
 },
 {
-"id": "CR11842328409738838017",
-"url": "https://adstransparency.google.com/advertiser/AR16801161585136500737/creative/CR11842328409738838017?political=&region=US",
-"type": "TEXT",
-"adv": "AR16801161585136500737",
-"start": "2026-09-09",
-"end": "2026-10-13",
-"impr": "300000-350000",
-"lo": 70000,
-"hi": 80000,
-"geo": "California,United States",
-"age": "18-24, 25-34, 35-44, 45-54, 55-64, ≥65, Unknown age",
-"gender": ""
-},
-{
 "id": "CR09218207570609569793",
 "url": "https://adstransparency.google.com/advertiser/AR16801161585136500737/creative/CR09218207570609569793?political=&region=US",
 "type": "VIDEO",
@@ -39772,6 +39758,20 @@
 "geo": "California,United States",
 "age": "18-24, 25-34, 35-44, 45-54, 55-64, ≥65",
 "gender": "Male, Female, Unknown gender"
+},
+{
+"id": "CR11842328409738838017",
+"url": "https://adstransparency.google.com/advertiser/AR16801161585136500737/creative/CR11842328409738838017?political=&region=US",
+"type": "TEXT",
+"adv": "AR16801161585136500737",
+"start": "2026-09-09",
+"end": "2026-10-13",
+"impr": "300000-350000",
+"lo": 70000,
+"hi": 80000,
+"geo": "California,United States",
+"age": "18-24, 25-34, 35-44, 45-54, 55-64, ≥65, Unknown age",
+"gender": ""
 },
 {
 "id": "CR05849037964369199105",
@@ -41073,9 +41073,9 @@
 "ids": "FEC ID C00571588",
 "regions": "US",
 "elections": "",
-"creatives_all": 286,
-"spend_all": 2144500,
-"cycle": 2144700,
+"creatives_all": 287,
+"spend_all": 2144600,
+"cycle": 2144800,
 "weekly": [
 [
 "2025-09-28",
@@ -41215,7 +41215,7 @@
 ],
 [
 "2026-11-08",
-600.0
+700.0
 ]
 ],
 "states": {
@@ -41614,20 +41614,6 @@
 "gender": "Male, Female, Unknown gender"
 },
 {
-"id": "CR15117499401121038337",
-"url": "https://adstransparency.google.com/advertiser/AR12946935286067101697/creative/CR15117499401121038337?political=&region=US",
-"type": "VIDEO",
-"adv": "AR12946935286067101697",
-"start": "2025-09-12",
-"end": "2025-09-29",
-"impr": "1000000-1250000",
-"lo": 35000,
-"hi": 40000,
-"geo": "Richmond-Petersburg, VA,Virginia,United States",
-"age": "35-44, 45-54, 55-64, ≥65",
-"gender": "Male, Female, Unknown gender"
-},
-{
 "id": "CR17076846714003914753",
 "url": "https://adstransparency.google.com/advertiser/AR12946935286067101697/creative/CR17076846714003914753?political=&region=US",
 "type": "VIDEO",
@@ -41638,6 +41624,20 @@
 "lo": 35000,
 "hi": 40000,
 "geo": "Norfolk-Portsmouth-Newport News, VA,United States",
+"age": "35-44, 45-54, 55-64, ≥65",
+"gender": "Male, Female, Unknown gender"
+},
+{
+"id": "CR15117499401121038337",
+"url": "https://adstransparency.google.com/advertiser/AR12946935286067101697/creative/CR15117499401121038337?political=&region=US",
+"type": "VIDEO",
+"adv": "AR12946935286067101697",
+"start": "2025-09-12",
+"end": "2025-09-29",
+"impr": "1000000-1250000",
+"lo": 35000,
+"hi": 40000,
+"geo": "Richmond-Petersburg, VA,Virginia,United States",
 "age": "35-44, 45-54, 55-64, ≥65",
 "gender": "Male, Female, Unknown gender"
 },
@@ -41670,20 +41670,6 @@
 "gender": "Male, Female, Unknown gender"
 },
 {
-"id": "CR15431860770618474497",
-"url": "https://adstransparency.google.com/advertiser/AR12946935286067101697/creative/CR15431860770618474497?political=&region=US",
-"type": "VIDEO",
-"adv": "AR12946935286067101697",
-"start": "2025-09-16",
-"end": "2025-10-02",
-"impr": "1000000-1250000",
-"lo": 30000,
-"hi": 35000,
-"geo": "Fauquier County,Virginia,United States, Fredericksburg,Virginia,United States, Loudoun County,Virginia,United States, Ma",
-"age": "35-44, 45-54, 55-64, ≥65",
-"gender": "Male, Female, Unknown gender"
-},
-{
 "id": "CR00884108074304929793",
 "url": "https://adstransparency.google.com/advertiser/AR12946935286067101697/creative/CR00884108074304929793?political=&region=US",
 "type": "VIDEO",
@@ -41691,6 +41677,20 @@
 "start": "2025-09-16",
 "end": "2025-10-01",
 "impr": "900000-1000000",
+"lo": 30000,
+"hi": 35000,
+"geo": "Fauquier County,Virginia,United States, Fredericksburg,Virginia,United States, Loudoun County,Virginia,United States, Ma",
+"age": "35-44, 45-54, 55-64, ≥65",
+"gender": "Male, Female, Unknown gender"
+},
+{
+"id": "CR15431860770618474497",
+"url": "https://adstransparency.google.com/advertiser/AR12946935286067101697/creative/CR15431860770618474497?political=&region=US",
+"type": "VIDEO",
+"adv": "AR12946935286067101697",
+"start": "2025-09-16",
+"end": "2025-10-02",
+"impr": "1000000-1250000",
 "lo": 30000,
 "hi": 35000,
 "geo": "Fauquier County,Virginia,United States, Fredericksburg,Virginia,United States, Loudoun County,Virginia,United States, Ma",
@@ -41721,8 +41721,8 @@
 "regions": "US",
 "elections": "",
 "creatives_all": 2897,
-"spend_all": 2711900,
-"cycle": 2131900,
+"spend_all": 2714000,
+"cycle": 2134000,
 "weekly": [
 [
 "2025-01-05",
@@ -42106,14 +42106,14 @@
 ],
 [
 "2026-11-08",
-9000.0
+11100.0
 ]
 ],
 "states": {
 "MO": 30900,
 "MT": 4700,
 "AL": 25700,
-"WA": 135500,
+"WA": 135700,
 "RI": 6300,
 "MS": 13100,
 "MN": 29800,
@@ -42122,10 +42122,11 @@
 "NH": 7300,
 "WV": 9600,
 "MP": 100,
+"MD": 41000,
 "UT": 19000,
 "IN": 37100,
+"GA": 65000,
 "DC": 9900,
-"FL": 264900,
 "AS": 100,
 "CO": 31600,
 "TN": 38300,
@@ -42133,20 +42134,18 @@
 "NC": 59200,
 "ND": 2900,
 "KS": 14300,
+"CA": 350200,
 "HI": 10400,
-"AZ": 281800,
-"GA": 64900,
+"PA": 66600,
 "WY": 3200,
 "AR": 15700,
 "IA": 14900,
-"NJ": 66400,
-"PA": 66500,
+"NY": 155200,
 "IL": 76600,
 "LA": 19900,
 "KY": 21900,
-"WI": 24900,
+"TX": 305900,
 "SD": 3300,
-"MD": 40900,
 "CT": 21500,
 "AK": 3800,
 "VA": 59800,
@@ -42155,17 +42154,18 @@
 "VT": 2800,
 "NM": 11700,
 "PR": 100,
-"MI": 52600,
-"NY": 155100,
+"AZ": 282200,
+"WI": 25000,
 "OH": 58900,
-"TX": 305700,
 "MA": 41500,
 "ME": 5900,
-"CA": 350000,
 "OK": 25000,
 "DE": 5600,
+"NJ": 66500,
+"FL": 265200,
 "GU": 100,
-"ID": 9800
+"ID": 9800,
+"MI": 52700
 },
 "ads": [
 {
@@ -42267,8 +42267,8 @@
 "gender": "Male, Female, Unknown gender"
 },
 {
-"id": "CR09341535881476964353",
-"url": "https://adstransparency.google.com/advertiser/AR12552007562821632001/creative/CR09341535881476964353?political=&region=US",
+"id": "CR16288338306695954433",
+"url": "https://adstransparency.google.com/advertiser/AR12552007562821632001/creative/CR16288338306695954433?political=&region=US",
 "type": "VIDEO",
 "adv": "AR12552007562821632001",
 "start": "2025-02-21",
@@ -42281,8 +42281,8 @@
 "gender": "Male, Female, Unknown gender"
 },
 {
-"id": "CR16288338306695954433",
-"url": "https://adstransparency.google.com/advertiser/AR12552007562821632001/creative/CR16288338306695954433?political=&region=US",
+"id": "CR09341535881476964353",
+"url": "https://adstransparency.google.com/advertiser/AR12552007562821632001/creative/CR09341535881476964353?political=&region=US",
 "type": "VIDEO",
 "adv": "AR12552007562821632001",
 "start": "2025-02-21",
@@ -42373,20 +42373,6 @@
 "gender": "Male, Female, Unknown gender"
 },
 {
-"id": "CR18407244513618690049",
-"url": "https://adstransparency.google.com/advertiser/AR11533444162925887489/creative/CR18407244513618690049?political=&region=US",
-"type": "VIDEO",
-"adv": "AR11533444162925887489",
-"start": "2025-10-01",
-"end": "2025-10-22",
-"impr": "5000000-6000000",
-"lo": 125000,
-"hi": 150000,
-"geo": "Texas,United States",
-"age": "45-54, 55-64, ≥65",
-"gender": "Male, Female, Unknown gender"
-},
-{
 "id": "CR17399001147041120257",
 "url": "https://adstransparency.google.com/advertiser/AR11533444162925887489/creative/CR17399001147041120257?political=&region=US",
 "type": "VIDEO",
@@ -42398,6 +42384,20 @@
 "hi": 150000,
 "geo": "Houston, TX,Texas,United States",
 "age": "55-64, ≥65",
+"gender": "Male, Female, Unknown gender"
+},
+{
+"id": "CR18407244513618690049",
+"url": "https://adstransparency.google.com/advertiser/AR11533444162925887489/creative/CR18407244513618690049?political=&region=US",
+"type": "VIDEO",
+"adv": "AR11533444162925887489",
+"start": "2025-10-01",
+"end": "2025-10-22",
+"impr": "5000000-6000000",
+"lo": 125000,
+"hi": 150000,
+"geo": "Texas,United States",
+"age": "45-54, 55-64, ≥65",
 "gender": "Male, Female, Unknown gender"
 },
 {
@@ -42968,8 +42968,8 @@
 "ids": "FEC ID C00314575",
 "regions": "US",
 "elections": "",
-"creatives_all": 616,
-"spend_all": 3166200,
+"creatives_all": 614,
+"spend_all": 3153900,
 "cycle": 2080200,
 "weekly": [
 [
@@ -43323,6 +43323,7 @@
 "GA": 7400,
 "TN": 3400,
 "MP": 100,
+"ME": 2831100,
 "WY": 600,
 "KS": 1300,
 "AR": 700,
@@ -43331,7 +43332,6 @@
 "MA": 29700,
 "AZ": 5300,
 "CO": 4900,
-"ME": 2843300,
 "NM": 1300,
 "IL": 10000,
 "AL": 2800,
@@ -43646,20 +43646,6 @@
 "gender": "Male"
 },
 {
-"id": "CR17923543604526055425",
-"url": "https://adstransparency.google.com/advertiser/AR07472449934839513089/creative/CR17923543604526055425?political=&region=US",
-"type": "VIDEO",
-"adv": "AR07472449934839513089",
-"start": "2026-09-17",
-"end": "2026-09-24",
-"impr": "7000000-8000000",
-"lo": 200000,
-"hi": 225000,
-"geo": "Cincinnati, OH,United States, Cleveland-Akron (Canton), OH,Ohio,United States, Columbus, OH,Ohio,United States, Toledo, ",
-"age": "",
-"gender": ""
-},
-{
 "id": "CR03233223832508563457",
 "url": "https://adstransparency.google.com/advertiser/AR07472449934839513089/creative/CR03233223832508563457?political=&region=US",
 "type": "VIDEO",
@@ -43667,6 +43653,20 @@
 "start": "2026-09-17",
 "end": "2026-09-24",
 "impr": "5000000-6000000",
+"lo": 200000,
+"hi": 225000,
+"geo": "Cincinnati, OH,United States, Cleveland-Akron (Canton), OH,Ohio,United States, Columbus, OH,Ohio,United States, Toledo, ",
+"age": "",
+"gender": ""
+},
+{
+"id": "CR17923543604526055425",
+"url": "https://adstransparency.google.com/advertiser/AR07472449934839513089/creative/CR17923543604526055425?political=&region=US",
+"type": "VIDEO",
+"adv": "AR07472449934839513089",
+"start": "2026-09-17",
+"end": "2026-09-24",
+"impr": "7000000-8000000",
 "lo": 200000,
 "hi": 225000,
 "geo": "Cincinnati, OH,United States, Cleveland-Akron (Canton), OH,Ohio,United States, Columbus, OH,Ohio,United States, Toledo, ",
@@ -43970,20 +43970,6 @@
 "gender": "Male, Female, Unknown gender"
 },
 {
-"id": "CR07746126565200625665",
-"url": "https://adstransparency.google.com/advertiser/AR03183675234356035585/creative/CR07746126565200625665?political=&region=US",
-"type": "VIDEO",
-"adv": "AR03183675234356035585",
-"start": "2026-05-19",
-"end": "2026-05-26",
-"impr": "900000-1000000",
-"lo": 30000,
-"hi": 35000,
-"geo": "NY-12 (2024 redistricting),New York,United States",
-"age": "35-44, 45-54, Unknown age",
-"gender": "Male, Female, Unknown gender"
-},
-{
 "id": "CR14366523570551521281",
 "url": "https://adstransparency.google.com/advertiser/AR03183675234356035585/creative/CR14366523570551521281?political=&region=US",
 "type": "VIDEO",
@@ -43995,6 +43981,20 @@
 "hi": 35000,
 "geo": "NY-12 (2024 redistricting),New York,United States",
 "age": "18-24, 25-34, Unknown age",
+"gender": "Male, Female, Unknown gender"
+},
+{
+"id": "CR07746126565200625665",
+"url": "https://adstransparency.google.com/advertiser/AR03183675234356035585/creative/CR07746126565200625665?political=&region=US",
+"type": "VIDEO",
+"adv": "AR03183675234356035585",
+"start": "2026-05-19",
+"end": "2026-05-26",
+"impr": "900000-1000000",
+"lo": 30000,
+"hi": 35000,
+"geo": "NY-12 (2024 redistricting),New York,United States",
+"age": "35-44, 45-54, Unknown age",
 "gender": "Male, Female, Unknown gender"
 },
 {
@@ -44631,20 +44631,6 @@
 "gender": "Male, Female, Unknown gender"
 },
 {
-"id": "CR12970423044869718017",
-"url": "https://adstransparency.google.com/advertiser/AR07262928450749464577/creative/CR12970423044869718017?political=&region=US",
-"type": "VIDEO",
-"adv": "AR07262928450749464577",
-"start": "2026-10-01",
-"end": "2026-11-03",
-"impr": "2000000-2250000",
-"lo": 80000,
-"hi": 90000,
-"geo": "53104,Wisconsin,United States, 53105,Wisconsin,United States, 53108,Wisconsin,United States, 53114,Wisconsin,United Stat",
-"age": "25-34, 35-44, 45-54, 55-64, ≥65",
-"gender": "Male, Female"
-},
-{
 "id": "CR17923995606884286465",
 "url": "https://adstransparency.google.com/advertiser/AR07262928450749464577/creative/CR17923995606884286465?political=&region=US",
 "type": "VIDEO",
@@ -44657,6 +44643,20 @@
 "geo": "85022,Arizona,United States, 85023,Arizona,United States, 85024,Arizona,United States, 85027,Arizona,United States, 8502",
 "age": "25-34, 35-44, 45-54, 55-64, ≥65, Unknown age",
 "gender": "Male, Female, Unknown gender"
+},
+{
+"id": "CR12970423044869718017",
+"url": "https://adstransparency.google.com/advertiser/AR07262928450749464577/creative/CR12970423044869718017?political=&region=US",
+"type": "VIDEO",
+"adv": "AR07262928450749464577",
+"start": "2026-10-01",
+"end": "2026-11-03",
+"impr": "2000000-2250000",
+"lo": 80000,
+"hi": 90000,
+"geo": "53104,Wisconsin,United States, 53105,Wisconsin,United States, 53108,Wisconsin,United States, 53114,Wisconsin,United Stat",
+"age": "25-34, 35-44, 45-54, 55-64, ≥65",
+"gender": "Male, Female"
 },
 {
 "id": "CR02123997572824563713",
@@ -44896,7 +44896,7 @@
 "type": "VIDEO",
 "adv": "AR01977332720363110401",
 "start": "2026-10-13",
-"end": "2026-11-13",
+"end": "2026-11-14",
 "impr": "≥10000000",
 "lo": 300000,
 "hi": 350000,
@@ -44938,7 +44938,7 @@
 "type": "VIDEO",
 "adv": "AR01977332720363110401",
 "start": "2026-10-13",
-"end": "2026-11-12",
+"end": "2026-11-14",
 "impr": "3500000-4000000",
 "lo": 100000,
 "hi": 125000,
@@ -44966,7 +44966,7 @@
 "type": "VIDEO",
 "adv": "AR01977332720363110401",
 "start": "2026-10-09",
-"end": "2026-11-11",
+"end": "2026-11-14",
 "impr": "2500000-3000000",
 "lo": 80000,
 "hi": 90000,
@@ -46000,63 +46000,63 @@
 }
 ],
 "state_all_time": {
-"CA": 409536300,
-"PA": 226557700,
-"MI": 221672800,
-"TX": 220133800,
-"GA": 200153200,
-"OH": 185137800,
-"FL": 171125500,
-"WI": 146690200,
-"NC": 137338000,
-"AZ": 136723100,
-"NY": 110529200,
-"VA": 100148900,
-"IA": 90158900,
-"IL": 80229500,
-"NV": 75067100,
-"NJ": 69069600,
-"CO": 64879200,
-"": 62062000,
-"MN": 54822800,
-"ME": 44682600,
-"SC": 44653600,
-"WA": 38878400,
-"OR": 37874100,
-"MA": 37021600,
-"MD": 35681600,
-"NH": 33567700,
-"MT": 33012900,
-"KY": 32369100,
-"MO": 31745200,
-"KS": 31633900,
-"AK": 31616800,
-"TN": 27198700,
-"IN": 26718000,
-"NE": 26685000,
-"AL": 21370100,
-"CT": 19247700,
-"OK": 17985500,
-"NM": 17402400,
-"DC": 13787500,
-"LA": 13465800,
-"UT": 12769300,
-"AR": 12448700,
-"MS": 10232100,
-"WV": 8323600,
-"ID": 8135400,
-"RI": 5654300,
-"HI": 5509700,
-"SD": 5296100,
-"DE": 5167600,
-"VT": 4027800,
-"ND": 3621900,
-"WY": 3521600,
-"PR": 539400,
-"GU": 231500,
-"VI": 199300,
-"MP": 50400,
-"AS": 45400
+"US-CA": 408885200,
+"US-PA": 225729500,
+"US-MI": 220808200,
+"US-TX": 219434500,
+"US-GA": 199328000,
+"US-OH": 184271500,
+"US-FL": 170375600,
+"US-WI": 145817700,
+"US-NC": 136501700,
+"US-AZ": 135889800,
+"US-NY": 109767000,
+"US-VA": 99310200,
+"US-IA": 89254900,
+"US-IL": 79432900,
+"US-NV": 74175100,
+"US-NJ": 68306900,
+"US-CO": 64007900,
+"": 61362300,
+"US-MN": 53969400,
+"US-ME": 43880000,
+"US-SC": 43770200,
+"US-WA": 38047300,
+"US-OR": 36999200,
+"US-MA": 36253600,
+"US-MD": 34849900,
+"US-NH": 32693300,
+"US-MT": 32120900,
+"US-KY": 31472400,
+"US-MO": 30881100,
+"US-AK": 30809800,
+"US-KS": 30731700,
+"US-TN": 26317900,
+"US-IN": 25828800,
+"US-NE": 25782000,
+"US-AL": 20484900,
+"US-CT": 18466900,
+"US-OK": 17078000,
+"US-NM": 16488700,
+"US-DC": 12961400,
+"US-LA": 12567700,
+"US-UT": 11869600,
+"US-AR": 11541400,
+"US-MS": 9327500,
+"US-WV": 7412900,
+"US-ID": 7244300,
+"US-RI": 4825600,
+"US-HI": 4647800,
+"US-SD": 4387500,
+"US-DE": 4327400,
+"US-VT": 3110100,
+"US-ND": 2721000,
+"US-WY": 2610100,
+"PR": 337700,
+"GU": 145400,
+"VI": 84400,
+"MP": 9600,
+"AS": 6200
 }
 },
 "log": [
@@ -46065,133 +46065,140 @@
 "status": 200,
 "n": 100,
 "note": "",
-"at": "2026-11-14T05:53:47Z"
+"at": "2026-11-14T13:19:34Z"
 },
 {
 "q": "/candidates/totals/?page=2&cycle=2026&election_year=2026&office=S&is_active_candidate=true&sort=-receipts&per_page=100",
 "status": 200,
 "n": 100,
 "note": "",
-"at": "2026-11-14T05:53:50Z"
+"at": "2026-11-14T13:19:37Z"
 },
 {
 "q": "/candidates/totals/?page=3&cycle=2026&election_year=2026&office=S&is_active_candidate=true&sort=-receipts&per_page=100",
 "status": 200,
 "n": 100,
 "note": "",
-"at": "2026-11-14T05:53:52Z"
+"at": "2026-11-14T13:19:39Z"
 },
 {
 "q": "/schedules/schedule_e/by_candidate/?page=1&cycle=2026&election_full=true&office=senate&state=AK&sort=-total&per_page=100",
 "status": 200,
-"n": 45,
+"n": 46,
 "note": "",
-"at": "2026-11-14T05:53:54Z"
+"at": "2026-11-14T13:19:41Z"
 },
 {
 "q": "/schedules/schedule_e/by_candidate/?page=1&cycle=2026&election_full=true&office=senate&state=AL&sort=-total&per_page=100",
 "status": 200,
 "n": 20,
 "note": "",
-"at": "2026-11-14T05:53:56Z"
+"at": "2026-11-14T13:19:44Z"
 },
 {
 "q": "/schedules/schedule_e/by_candidate/?page=1&cycle=2026&election_full=true&office=senate&state=AR&sort=-total&per_page=100",
 "status": 200,
 "n": 6,
 "note": "",
-"at": "2026-11-14T05:53:58Z"
+"at": "2026-11-14T13:19:47Z"
 },
 {
 "q": "/schedules/schedule_e/by_candidate/?page=1&cycle=2026&election_full=true&office=senate&state=CO&sort=-total&per_page=100",
 "status": 200,
 "n": 12,
 "note": "",
-"at": "2026-11-14T05:54:00Z"
+"at": "2026-11-14T13:19:49Z"
 },
 {
 "q": "/schedules/schedule_e/by_candidate/?page=1&cycle=2026&election_full=true&office=senate&state=DE&sort=-total&per_page=100",
 "status": 200,
 "n": 3,
 "note": "",
-"at": "2026-11-14T05:54:03Z"
+"at": "2026-11-14T13:19:52Z"
 },
 {
 "q": "/schedules/schedule_e/by_candidate/?page=1&cycle=2026&election_full=true&office=senate&state=FL&sort=-total&per_page=100",
 "status": 200,
-"n": 24,
+"n": 25,
 "note": "",
-"at": "2026-11-14T05:54:05Z"
+"at": "2026-11-14T13:19:54Z"
 },
 {
 "q": "/schedules/schedule_e/by_candidate/?page=1&cycle=2026&election_full=true&office=senate&state=GA&sort=-total&per_page=100",
 "status": 200,
 "n": 100,
 "note": "",
-"at": "2026-11-14T05:54:07Z"
+"at": "2026-11-14T13:19:56Z"
 },
 {
 "q": "/schedules/schedule_e/by_candidate/?page=2&cycle=2026&election_full=true&office=senate&state=GA&sort=-total&per_page=100",
 "status": 429,
 "n": 0,
 "note": "DEMO_KEY rate limit (40 an hour) reached; stopping",
-"at": "2026-11-14T05:54:09Z"
+"at": "2026-11-14T13:19:58Z"
 },
 {
 "q": "/schedules/schedule_e/by_candidate/",
 "status": "skipped",
 "n": 0,
 "note": "request limit 38 reached (DEMO_KEY)",
-"at": "2026-11-14T05:54:09Z"
+"at": "2026-11-14T13:19:58Z"
 },
 {
 "q": "ie rows",
 "status": "ok",
 "n": 115,
 "note": "",
-"at": "2026-11-14T05:54:09Z"
+"at": "2026-11-14T13:19:58Z"
 },
 {
 "q": "google bundle",
 "status": 200,
 "n": 301,
 "note": "MB",
-"at": "2026-11-14T05:54:16Z"
+"at": "2026-11-14T13:20:04Z"
 },
 {
 "q": "google bundle files",
 "status": "ok",
 "n": 12,
-"note": "google-political-ads-advertiser-declared-stats.csv (75K), google-political-ads-creative-stats.csv (2890901K), google-political-ads-updated.csv (0K), README.txt (19K), google-political-ads-advertiser-stats.csv (2649K), google-political-ads-advertiser-weekly-spend.csv (33296K), creative_id_mapping.csv (222616K), google-political-ads-top-keywords-history.csv (0K), google-political-ads-advertiser-geo-spend.csv (68221K), google-political-ads-geo-spend.csv (102K), advertiser_id_mapping.csv (375K), google-political-ads-campaign-targeting.csv (0K)",
-"at": "2026-11-14T05:54:16Z"
+"note": "google-political-ads-advertiser-declared-stats.csv (75K), google-political-ads-campaign-targeting.csv (0K), google-political-ads-advertiser-stats.csv (2649K), google-political-ads-top-keywords-history.csv (0K), advertiser_id_mapping.csv (375K), google-political-ads-geo-spend.csv (102K), README.txt (19K), creative_id_mapping.csv (222616K), google-political-ads-updated.csv (0K), google-political-ads-creative-stats.csv (2891228K), google-political-ads-advertiser-weekly-spend.csv (33296K), google-political-ads-advertiser-geo-spend.csv (68221K)",
+"at": "2026-11-14T13:20:04Z"
 },
 {
 "q": "google bundle README",
 "status": "ok",
 "n": 0,
 "note": "google-political-ads-creative-stats.csv\n\nThis file contains the information for election ads that have appeared on\nGoogle Ads Services. Ad-level targeting data was added to this file in April\n2020.\n\nFields:\nAd_ID - Unique id for a specific election ad.\nAd_URL - URL to view the election ad in the Political Advertising on Google\nreport.\nAd_Type - The type of the ad. Can be TEXT, VIDEO or IMAGE.\nRegions - The regions that this ad is verified for or was served in.\nAdvertiser_ID - Unique ID for an advertiser verified to run election ads on\nGoogle Ads Services.\nAdvertiser_Name - Name of advertiser.\nAd_Campaigns_List - [DEPRECATED] IDs of all election ad campaigns that included\nthe ad.\nDate_Range_Start - First day an election ad ran and had an impression.\nDate_Range_End - Most recent day an election ad ran and had an impression.\nNum_of_Days - Total number of days an election ad ran and had an impression.\nImpressions - Number of impressions for the election ad. Impressions are\ngrouped into several buckets: ≤ 10k, 10k–100k, 100k–1M, 1M–10M, > 10M.\nSpend_USD - [DEPRECATED] This field is deprecated in favor of specifying the\nlower and higher spend bucket bounds in separate Spend_Range_Min and\nSpend_Range_Max columns.\nFirst_Served_Timestamp - The timestamp of the earliest impression for this ad.\nLast_Served_Timestamp - The timestamp of the most recent impression for this ad.\nAge_Targeting - Age ranges included in the ad's targeting.\nGender_Targeting - Genders included in the ad's targeti",
-"at": "2026-11-14T05:54:16Z"
+"at": "2026-11-14T13:20:04Z"
 },
 {
 "q": "google advertisers this cycle",
 "status": "ok",
-"n": 7426,
-"note": "top Kalshi Inc $101,087,000",
-"at": "2026-11-14T05:54:18Z"
+"n": 7427,
+"note": "top Kalshi Inc $101,594,400",
+"at": "2026-11-14T13:20:06Z"
 },
 {
 "q": "google ads this cycle (top advertisers)",
 "status": "ok",
-"n": 52412,
+"n": 52447,
 "note": "",
-"at": "2026-11-14T05:55:10Z"
+"at": "2026-11-14T13:20:42Z"
+},
+{
+"q": "candidates",
+"status": "kept",
+"n": 176,
+"note": "from the last run (this run got fewer)",
+"at": "2026-11-14T13:20:42Z"
 },
 {
 "q": "platforms",
 "status": "kept",
 "n": 0,
 "note": "from the last run",
-"at": "2026-11-14T05:55:10Z"
+"at": "2026-11-14T13:20:42Z"
 }
 ]
 }
