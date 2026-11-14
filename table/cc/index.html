@@ -653,14 +653,29 @@ html[data-print="plan"] #pane-menu .ros td.c{display:none}}
   <div class="block" data-start="2026-11-14T15:10">
     <div class="when">3:10<small>30 min</small></div>
     <div>
-      <h3>Sour-cream swap, salad prep, beans <span class="chips"><span class="chip stove">burners 2–3</span><span class="chip cold">fridge</span></span></h3>
+      <h3>Sour-cream swap, salad prep, the three nuts, beans <span class="chips"><span class="chip stove">burners 2–3</span><span class="chip cold">fridge</span></span></h3>
+      <p class="why">Three different nuts, three different courses — label the bowls so nothing goes on the wrong plate. One dry skillet does all three, wiped between. Pepitas are pumpkin seeds; an 8-oz bag came on the Whole Foods order with the hazelnuts and almonds.</p>
       <ul class="ck steps">
         <li class="h">Sour-cream swap<small>no cashews — lemon walnut cream instead</small></li>
-        <li><label><input type="checkbox"><span>Small jar: <strong>3 tbsp</strong> walnut cream · <strong>1 tsp</strong> lemon juice · pinch of salt. Stir. Taste — it should be tangy, not sour. Fridge. This is the teaspoon in each soup bowl</span></label></li>
-        <li class="h">Salad prep</li>
-        <li><label><input type="checkbox"><span>Vinaigrette in a jar: <strong>3 tbsp</strong> olive oil · <strong>2 tbsp</strong> cider vinegar · <strong>1 tsp</strong> Dijon · <strong>1 tsp</strong> honey · <strong>1</strong> shallot, minced · <strong>¼ tsp</strong> salt. Shake</span></label></li>
-        <li><label><input type="checkbox"><span>Hazelnuts: dry pan, medium, 5 min, shaking. Rub the skins off in a towel. Crush under a pot. Almonds and pepitas: same pan, 3 min each. Three small bowls</span></label></li>
-        <li><label><input type="checkbox"><span>Beans: boiling salted water 3 min → ice water → dried on a towel → bagged, fridge</span></label></li>
+        <li><label><input type="checkbox" checked><span>Small jar: <strong>3 tbsp</strong> walnut cream · <strong>1 tsp</strong> lemon juice · pinch of salt. Stir. Taste — it should be tangy, not sour. Fridge. This is the teaspoon in each soup bowl</span></label></li>
+        <li class="h">Vinaigrette<small>for the salad, course III</small></li>
+        <li><label><input type="checkbox"><span>Mince <strong>2</strong> shallots. Half goes in the jar now; the other half in a small covered dish for the beans at 7:57</span></label></li>
+        <li><label><input type="checkbox"><span>Jar with a lid: <strong>3 tbsp</strong> olive oil · <strong>2 tbsp</strong> cider vinegar · <strong>1 tsp</strong> Dijon · <strong>1 tsp</strong> honey · half the shallot · <strong>¼ tsp</strong> salt · a few grinds of pepper. Shake hard. Taste on a sprout leaf. Fridge; shake again at 7:35</span></label></li>
+        <li class="h">Hazelnuts<small>for the salad — the crunch on top</small></li>
+        <li><label><input type="checkbox"><span><strong>½ cup</strong> hazelnuts in the dry 9-inch skillet, medium heat, 5 min, shaking the pan every 30 seconds, until the skins crack and they smell toasty</span></label></li>
+        <li><label><input type="checkbox"><span>Onto a clean towel, folded over, rubbed hard — most skins come off; don't chase the rest</span></label></li>
+        <li><label><input type="checkbox"><span>Crushed coarse under the bottom of a pot, or rough-chopped. Small bowl, labeled <strong>SALAD</strong></span></label></li>
+        <li class="h">Sliced almonds<small>for the beans, course IV — amandine</small></li>
+        <li><label><input type="checkbox"><span>Skillet wiped. <strong>½ cup</strong> sliced almonds, medium-low, 3 min, stirring the whole time — they go from pale to burnt in 20 seconds. Out when pale gold. Small bowl, labeled <strong>BEANS</strong></span></label></li>
+        <li class="h">Pepitas<small>for the soup, course II — a pinch in each bowl</small></li>
+        <li><label><input type="checkbox"><span>Skillet wiped. <strong>¼ cup</strong> pepitas, medium, 2–3 min, shaking, until they puff and a few start to pop. Pinch of salt. Small bowl, labeled <strong>SOUP</strong></span></label></li>
+        <li><label><input type="checkbox"><span>No pepitas in the house? Skip them — the soup has the sage, the brown butter and the walnut cream; it doesn't miss them. Don't substitute</span></label></li>
+        <li class="h">Beans<small>for course IV — blanched now, finished at 7:57</small></li>
+        <li><label><input type="checkbox"><span>Big pot of water to a boil with <strong>1 tbsp</strong> salt. Big bowl of ice water next to the stove</span></label></li>
+        <li><label><input type="checkbox"><span>Beans in, <strong>3 min</strong> from when the water comes back to a boil. Bright green, still snappy</span></label></li>
+        <li><label><input type="checkbox"><span>Straight into the ice water, 2 min. Drained, rolled dry in a towel, into a zip bag, fridge</span></label></li>
+        <li><label><input type="checkbox"><span>Tonight at 7:57: <strong>1 tbsp</strong> butter + the saved shallot 1 min, beans 2 min to heat through, the almonds, a squeeze of lemon, salt</span></label></li>
+        <li class="h">3:30</li>
         <li><label><input type="checkbox"><span><b>3:30</b>granita scrape #5. Highballs misted — last round, then leave them</span></label></li>
       </ul>
     </div>
@@ -2094,7 +2109,7 @@ html[data-print="plan"] #pane-menu .ros td.c{display:none}}
 </script>
 <script>
 (function(){
-  var KEY='mt-crunch-nov14-v12', state={};
+  var KEY='mt-crunch-nov14-v13', state={};
   try{ state=JSON.parse(localStorage.getItem(KEY)||'{}')||{}; }catch(e){ state={}; }
   function save(){ try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){} }
 
