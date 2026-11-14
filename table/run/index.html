@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>World Market Run</title>
+<meta name="description" content="What to buy for tonight's table at World Market Columbus Lennox, and where to find it in the store.">
+<meta name="theme-color" content="#1F3627">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&family=Manrope:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#F2EADB;--card:#FBF7EE;--card-2:#F7F0E1;--ink:#2B2219;--ink-2:#6A5B4B;--ink-3:#8C7E6B;--brass:#A98A4A;--brass-2:#8C6F35;--amber:#C98A2B;--green:#2E4A37;--green-2:#1F3627;--cran:#8B2F3C;--rule:#DCCEB2;--rule-2:#EADFC8;--display:"Fraunces",Georgia,serif;--body:"Manrope",system-ui,sans-serif;--mono:"IBM Plex Mono",Menlo,monospace}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
+  h1,h2,h3{font-family:var(--display);font-weight:500;line-height:1.1;margin:0}
+  a{color:var(--brass-2)}
+  .top{background:var(--green-2);color:#EFE6D2;padding:26px 20px 22px}
+  .top .in{max-width:720px;margin:0 auto}
+  .top .k{font-family:var(--mono);font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:#C9B986}
+  .top h1{font-size:clamp(30px,7vw,40px);font-weight:400;color:#F3EBDA;margin:6px 0 10px}
+  .top h1 em{font-style:italic;font-weight:300}
+  .store{display:grid;grid-template-columns:1fr auto;gap:10px 16px;align-items:start;font-size:14.5px;color:#D9CDB4}
+  .store b{color:#F3EBDA;font-weight:600;display:block;font-size:16px}
+  .store .mono{font-family:var(--mono);font-size:12.5px;color:#C9B986}
+  .btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+  .btn{display:inline-block;border:1px solid #C9B986;color:#F3EBDA;text-decoration:none;padding:8px 13px;border-radius:999px;font-size:13.5px;font-weight:600}
+  .btn.solid{background:var(--amber);border-color:var(--amber);color:#1F3627}
+  .wrap{max-width:720px;margin:0 auto;padding:0 20px 60px}
+  section{padding:26px 0;border-bottom:1px solid var(--rule)}
+  section h2{font-size:24px;font-weight:400;margin-bottom:6px}
+  section .sub{color:var(--ink-2);font-size:14.5px;margin:0 0 14px}
+  .card{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:14px 16px;margin-bottom:10px}
+  .card.must{border-left:3px solid var(--cran)}
+  .card.opt{border-left:3px solid var(--brass)}
+  .card h3{font-size:18px;margin-bottom:4px;display:flex;justify-content:space-between;gap:10px;align-items:baseline}
+  .card h3 small{font-family:var(--mono);font-size:12px;color:var(--ink-2);font-weight:400;white-space:nowrap}
+  .card p{margin:0 0 6px;font-size:14.5px;color:var(--ink-2)}
+  .card .where{font-size:14px;color:var(--ink);background:var(--card-2);border-radius:5px;padding:8px 10px;margin-top:8px}
+  .card .where b{font-weight:600}
+  .ck{list-style:none;padding:0;margin:8px 0 0}
+  .ck label{display:grid;grid-template-columns:20px 1fr;gap:10px;padding:6px 0;font-size:15px;cursor:pointer;border-top:1px dotted var(--rule-2)}
+  .ck input{width:18px;height:18px;margin:2px 0 0;accent-color:var(--green)}
+  .ck input:checked + span{color:var(--ink-3);text-decoration:line-through;text-decoration-color:var(--brass)}
+  .ck span b{font-family:var(--mono);font-size:12.5px;font-weight:500;color:var(--ink-2);margin-right:6px}
+  .ck span i{font-style:normal;color:var(--ink-3);font-size:13px}
+  .map{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:14px 16px}
+  .map svg{width:100%;height:auto;display:block;margin:6px 0 10px}
+  .map ol{margin:0;padding-left:20px;font-size:14.5px}
+  .map li{margin:5px 0}
+  .map li b{font-weight:600}
+  .note{font-size:13.5px;color:var(--ink-3);margin-top:10px}
+  .steps{margin:0;padding-left:20px;font-size:15px}
+  .steps li{margin:6px 0}
+  footer{font-family:var(--mono);font-size:11.5px;color:var(--ink-3);padding-top:16px}
+  .lbl{font-family:var(--mono);font-size:10px;fill:#6A5B4B}
+  .zone{fill:#FBF7EE;stroke:#CFC2A6;stroke-width:1}
+  .zone.hot{fill:#F6E7C8;stroke:#C98A2B;stroke-width:1.5}
+  @media print{.top{background:#fff;color:#000} .btns{display:none}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="in">
+    <div class="k">Saturday · one stop · 20 minutes</div>
+    <h1>World Market <em>run</em></h1>
+    <div class="store">
+      <div><b>World Market — Columbus Lennox</b>1655 Olentangy River Road, Columbus, OH 43212<br>Lennox Town Center, off SR-315 at Kinnear Road<br><span class="mono">(614) 297-5925 · open 9:00 am – 8:00 pm today</span></div>
+    </div>
+    <div class="btns">
+      <a class="btn solid" href="https://maps.apple.com/?daddr=1655+Olentangy+River+Rd,+Columbus,+OH+43212">Apple Maps</a>
+      <a class="btn" href="https://www.google.com/maps/dir/?api=1&destination=1655+Olentangy+River+Rd,+Columbus,+OH+43212">Google Maps</a>
+      <a class="btn" href="tel:+16142975925">Call the store</a>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <section>
+    <h2>Getting there</h2>
+    <p class="sub">About 12 minutes from downtown or the Short North.</p>
+    <ol class="steps">
+      <li><b>SR-315 North.</b> From downtown take 315 N toward Worthington.</li>
+      <li><b>Exit Kinnear Road</b> and turn right (east) onto Kinnear.</li>
+      <li>Lennox Town Center is on your right at <b>Olentangy River Road</b>. Turn in; World Market is in the main strip of the center — park in front of it, not by the theater end.</li>
+    </ol>
+    <p class="note">The maps buttons above do the real navigating; this is just so you know where you're headed.</p>
+  </section>
+
+  <section>
+    <h2>The buy list</h2>
+    <p class="sub">Five settings. Prices are today's online prices at this store. Tick as you pick up; the list remembers on this phone.</p>
+
+    <div class="card must">
+      <h3>Shallow bowls for the soup <small>already in your cart · pickup</small></h3>
+      <p>Coupe White Porcelain Low Bowl, $7.99 each, SKU 659324 — <b>5 are in your World Market cart set to Free Pick Up at this store.</b> Place the order from your phone before you leave and it's bagged at the counter; or skip the order and pull them off the shelf. Either way they ring up the same.</p>
+      <ul class="ck">
+        <li><label><input type="checkbox"><span><b>5</b>Coupe White low bowls <i>(plain glossy white, wide and shallow — the velouté bowl)</i></span></label></li>
+      </ul>
+      <div class="where"><b>Where:</b> the Dining department — dinnerware wall, white porcelain section, under the "Coupe" collection sign. Open stock, stacked by piece.</div>
+    </div>
+
+    <div class="card opt">
+      <h3>Only if the house doesn't have them <small>check before you leave</small></h3>
+      <p>All of these showed in stock at Lennox this morning. Take what's missing from the table setup, skip what you own.</p>
+      <ul class="ck">
+        <li><label><input type="checkbox"><span><b>5</b>Washed 100% Linen Napkins, $7.99 each <i>(pick one color — ivory, flax or a deep green)</i></span></label></li>
+        <li><label><input type="checkbox"><span><b>3 × 2-pack</b>Hand Dipped Classic Taper Candles, $4.99 <i>(ivory or cream, not red)</i></span></label></li>
+        <li><label><input type="checkbox"><span><b>5</b>Antique Gold Forged Slim Taper Candle Holders, $5.99–7.99 <i>(the brass look; or Talia Gold holders $7.99–9.99)</i></span></label></li>
+        <li><label><input type="checkbox"><span><b>6–8</b>unscented votives or tealights + glass votive cups <i>(Traditional Unscented Candle collection, from $4.99)</i></span></label></li>
+        <li><label><input type="checkbox"><span><b>5</b>Coupe White Porcelain Salad Plates, $4.99 <i>(only if you need matching small plates for the salad and the pie)</i></span></label></li>
+        <li><label><input type="checkbox"><span><b>5</b>Coupe White Porcelain Dinner Plates, $5.99 <i>(only if your white dinner plates don't match each other)</i></span></label></li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>Not here <small>skip</small></h3>
+      <p>No martini glasses or coupes needed — the martini goes in frosted flutes and the granita in frosted highballs. The rest of tonight's shopping (ice, food) is grocery, not World Market.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Where things are in the store</h2>
+    <p class="sub">World Market stores share one floor plan; this is that plan, not a survey of this building. There's a department map by the door and any associate will point you — the whole trip is three stops.</p>
+    <div class="map">
+      <svg viewBox="0 0 720 420" role="img" aria-label="Typical World Market floor plan: entrance and registers at the front, seasonal up front, furniture on one side, dining and dinnerware center-back, glassware and table linens beside dining, candles and decor along the wall, food market and wine at the far side">
+        <rect x="10" y="10" width="700" height="400" rx="6" fill="#F7F0E1" stroke="#CFC2A6"/>
+        <rect x="250" y="372" width="220" height="30" class="zone"/><text class="lbl" x="300" y="391">ENTRANCE · REGISTERS · PICKUP</text>
+        <rect x="30" y="300" width="200" height="60" class="zone"/><text class="lbl" x="56" y="334">seasonal / holiday</text>
+        <rect x="490" y="300" width="200" height="60" class="zone"/><text class="lbl" x="528" y="334">gifts · impulse</text>
+        <rect x="30" y="40" width="200" height="240" class="zone"/><text class="lbl" x="86" y="160">furniture · rugs</text>
+        <rect x="250" y="40" width="220" height="120" class="zone hot"/><text class="lbl" x="268" y="88">① DINING · dinnerware wall</text><text class="lbl" x="268" y="104">white porcelain · Coupe bowls</text>
+        <rect x="250" y="170" width="105" height="110" class="zone hot"/><text class="lbl" x="262" y="222">glassware</text>
+        <rect x="365" y="170" width="105" height="110" class="zone hot"/><text class="lbl" x="372" y="214">② table linens</text><text class="lbl" x="372" y="230">napkins · runners</text>
+        <rect x="490" y="40" width="200" height="120" class="zone hot"/><text class="lbl" x="520" y="96">③ decor · CANDLES</text><text class="lbl" x="520" y="112">tapers · holders · votives</text>
+        <rect x="490" y="170" width="200" height="110" class="zone"/><text class="lbl" x="528" y="222">food market · wine</text>
+        <text class="lbl" x="612" y="396">kitchen · coffee</text>
+      </svg>
+      <ol>
+        <li><b>Dining, center of the store.</b> The dinnerware wall is the long run of open-stock plates and bowls. White porcelain is grouped together; the Coupe collection has its own shelf tag. Bowls are usually one shelf below the plates of the same line.</li>
+        <li><b>Table linens, right next to dining.</b> Napkins are folded on a table or in cubbies by color; the washed-linen ones are the softest, slightly wrinkled ones. Count five of the same color.</li>
+        <li><b>Candles, on the decor wall.</b> Tapers hang in two-packs; holders are on the shelf beside them. The unscented votives are in the same bay, usually low.</li>
+        <li><b>Pickup order:</b> the registers at the front — tell them it's a store pickup, show the confirmation email or the order number on your phone, and bring ID.</li>
+      </ol>
+      <p class="note">Members get 10% off store-pickup orders with code <span style="font-family:var(--mono)">STORE10</span>; joining World Market Rewards is free at the register or in the app, and it applies to the bowls if you place the order before you walk in.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Back home</h2>
+    <ol class="steps">
+      <li>Bowls through the dishwasher or a hot rinse — they're the soup bowls, and they get warmed under the hot tap at 6:10 anyway.</li>
+      <li>Napkins out of the packaging, pressed if there's an iron handy, folded once lengthwise for the menu card to tuck into.</li>
+      <li>Tapers into the holders down the center of the table now, unlit. Votives at both ends.</li>
+    </ol>
+  </section>
+
+  <footer>a page for one errand · Saturday, November 14, 2026</footer>
+</div>
+
+<script>
+(function(){
+  var KEY='wm-run-nov14';
+  var st={}; try{ st=JSON.parse(localStorage.getItem(KEY)||'{}')||{}; }catch(e){}
+  var boxes=document.querySelectorAll('input[type=checkbox]');
+  boxes.forEach(function(b,i){
+    if(st[i]) b.checked=true;
+    b.addEventListener('change',function(){ st[i]=b.checked; try{ localStorage.setItem(KEY, JSON.stringify(st)); }catch(e){} });
+  });
+})();
+</script>
+</body>
+</html>
