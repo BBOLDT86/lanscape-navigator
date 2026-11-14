@@ -463,7 +463,6 @@ html[data-print="plan"] #pane-menu .ros td.c{display:none}}
 #pane-plating section{break-inside:avoid;padding:18px 0}
 #pane-plating .course .fig{max-width:240px}}
 </style>
-<script defer src="/lanscape-navigator/news/pulse/pulse.js"></script>
 </head>
 <body>
 <nav class="tabs" aria-label="Pages">
@@ -471,7 +470,7 @@ html[data-print="plan"] #pane-menu .ros td.c{display:none}}
     <button data-tab="dash" class="on">Today</button>
     <button data-tab="menu">The dinner</button>
     <button data-tab="plating">Plating</button>
-    <span class="tag">TurkeyFeast × Michelin 2k26 · seated 7:00 · plan as of 5:57 pm</span>
+    <span class="tag">TurkeyFeast × Michelin 2k26 · seated 7:00 · plan as of 6:05 pm</span>
   </div>
 </nav>
 <div id="pane-dash" class="pane on">
@@ -2024,7 +2023,7 @@ html[data-print="plan"] #pane-menu .ros td.c{display:none}}
 </script>
 <script>
 (function(){
-  var KEY='mt-crunch-nov14-v19', state={};
+  var KEY='mt-crunch-nov14-v20', state={};
   try{ state=JSON.parse(localStorage.getItem(KEY)||'{}')||{}; }catch(e){ state={}; }
   function save(){ try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){} }
 
@@ -2129,9 +2128,10 @@ html[data-print="plan"] #pane-menu .ros td.c{display:none}}
     else html+='<div class="done">Block done — scroll on, or tap the next stop above.</div>';
     var nx=blocks[cur+1];
     if(nx) html+='<div class="fn"><b>Next ·</b> '+esc((nx.querySelector('h3').childNodes[0].textContent||'').trim())+' <b>at '+whenText(nx)+'</b></div>';
-    focus.innerHTML=html;
-    if(cur>=0){ var st=stops[cur]; try{ st.scrollIntoView({block:'nearest',inline:'center',behavior:'smooth'}); }catch(e){} }
+    if(html!==lastHtml){ focus.innerHTML=html; lastHtml=html; }
+    if(cur>=0 && cur!==lastCur){ lastCur=cur; var st=stops[cur]; try{ row.scrollTo({left: st.offsetLeft - (row.clientWidth-st.offsetWidth)/2, behavior:'smooth'}); }catch(e){ row.scrollLeft=st.offsetLeft; } }
   }
+  var lastHtml='', lastCur=-2;
   setTimeout(sync,80); setInterval(sync,5000);
   document.addEventListener('change',function(e){ if(e.target && e.target.type==='checkbox') setTimeout(sync,30); });
 })();
