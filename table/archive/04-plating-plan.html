@@ -1,0 +1,402 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Plating Plan</title>
+<meta name="description" content="How every plate is built tonight — placement, finishing, and the order you plate five at once.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Manrope:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F2EADB; --card:#FBF7EE; --card-2:#F7F0E1;
+    --ink:#2B2219; --ink-2:#6A5B4B; --ink-3:#9B8C79;
+    --brass:#A98A4A; --brass-2:#8C6F35; --amber:#C98A2B;
+    --green:#2E4A37; --green-2:#1F3627; --cran:#8B2F3C;
+    --rule:#DCCEB2; --rule-2:#EADFC8;
+    --display:"Fraunces",Georgia,serif; --body:"Manrope","Helvetica Neue",Arial,sans-serif; --mono:"IBM Plex Mono",Menlo,Consolas,monospace;
+    --maxw:1040px; --r:6px;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
+  h1,h2,h3,h4{font-family:var(--display);font-weight:500;line-height:1.1;margin:0}
+  p{margin:0 0 1em}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 20px}
+  header{padding:40px 0 20px}
+  header h1{font-size:clamp(38px,6vw,62px);font-weight:400;letter-spacing:-.01em}
+  header h1 em{font-style:italic;font-weight:300}
+  header .lede{font-size:17px;color:var(--ink-2);max-width:62ch;margin-top:14px}
+  header .lede strong{color:var(--ink);font-weight:600}
+
+  .rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:18px 0 10px}
+  .rules div{background:var(--card-2);border-radius:var(--r);padding:14px 16px}
+  .rules h4{font-size:17px;margin-bottom:4px}
+  .rules p{font-size:14px;color:var(--ink-2);margin:0}
+
+  section{padding:30px 0}
+  section + section{border-top:1px solid var(--rule)}
+  .course{display:grid;grid-template-columns:300px 1fr;gap:26px;align-items:start}
+  .course .fig{background:var(--card);border:1px solid var(--rule);border-radius:var(--r);padding:12px}
+  .course .fig svg{width:100%;height:auto;display:block}
+  .course .fig .cap{font-family:var(--mono);font-size:11.5px;color:var(--ink-3);text-align:center;margin-top:6px}
+  .course .num{font-family:var(--display);font-size:13px;letter-spacing:.14em;color:var(--brass-2)}
+  .course h2{font-size:clamp(24px,3vw,32px);font-weight:400;margin:2px 0 4px}
+  .course .plate{font-family:var(--mono);font-size:12.5px;color:var(--ink-2);margin-bottom:12px}
+  .course .plate b{color:var(--ink);font-weight:500}
+  .steps{margin:0;padding-left:20px}
+  .steps li{margin:6px 0;font-size:15px}
+  .steps li b{font-weight:600}
+  .note{margin-top:12px;padding:11px 14px;background:var(--card-2);border-radius:var(--r);font-size:14px;border-left:3px solid var(--brass)}
+  .note.firm{border-left-color:var(--cran)}
+  .note.time{border-left-color:var(--green)}
+  .note b{font-weight:600}
+
+  .pass{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+  .group{background:var(--card);border:1px solid var(--rule);border-radius:var(--r);padding:14px 16px}
+  .group h3{font-size:18px;margin-bottom:8px}
+  .group ul{margin:0;padding-left:18px;font-size:14.5px}
+  .group li{margin:5px 0}
+  .group ol{margin:0;padding-left:20px;font-size:14.5px}
+  .group ol li{margin:5px 0}
+  .group ol li b{font-family:var(--mono);font-weight:500;font-size:12.5px;color:var(--ink-2);margin-right:4px}
+
+  footer{padding:24px 0 60px;color:var(--ink-3);font-size:13px;border-top:1px solid var(--rule)}
+
+  /* svg palette */
+  .rim{fill:#fff;stroke:#CFC2A6;stroke-width:1.5}
+  .well{fill:none;stroke:#E6DCC6;stroke-width:1}
+  .lbl{font-family:"IBM Plex Mono",monospace;font-size:9.5px;fill:#6A5B4B}
+  .ld{stroke:#9B8C79;stroke-width:.8;fill:none}
+
+  @media (max-width:760px){
+    .course{grid-template-columns:1fr}
+    .course .fig{max-width:320px}
+  }
+  @media print{
+    body{background:#fff}
+    section{break-inside:avoid;padding:18px 0}
+    .course .fig{max-width:240px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>Plating <em>plan</em></h1>
+  <p class="lede">Seven courses, five plates each. What goes where, in what order, and how to build five at once so the first plate isn't cold when the fifth is done. <strong>Warm plates for anything hot, cold plates for anything cold, and the rim stays clean on every one.</strong></p>
+  <div class="rules">
+    <div><h4>Odd numbers, off center</h4><p>Three slices, not four. The pile of salad a little off center. Nothing sits dead in the middle except the soup.</p></div>
+    <div><h4>Height beats spread</h4><p>Stack and lean. A low, wide plate reads as a cafeteria; a tight composition with one tall element reads as a restaurant.</p></div>
+    <div><h4>Sauce under or over, never around</h4><p>Gravy goes on the breast. Dressing goes on the leaves before they land. No moats.</p></div>
+    <div><h4>Wipe, then walk</h4><p>A damp side towel around the rim of every plate before it leaves the pass. It takes two seconds and it's the thing people notice without knowing why.</p></div>
+  </div>
+</header>
+
+<!-- ====================== I ====================== -->
+<section>
+  <div class="course">
+    <div class="fig">
+      <svg viewBox="0 0 300 220" role="img" aria-label="Wooden board with a pile of gougères and a small bowl of jam">
+        <rect x="18" y="40" width="264" height="140" rx="8" fill="#D9B98E" stroke="#B8955F" stroke-width="1.5"/>
+        <rect x="26" y="48" width="248" height="124" rx="6" fill="none" stroke="#C9A775" stroke-width=".8"/>
+        <g fill="#E3B86B" stroke="#B88A3B" stroke-width=".8">
+          <circle cx="90" cy="110" r="12"/><circle cx="115" cy="98" r="12"/><circle cx="112" cy="126" r="12"/><circle cx="138" cy="112" r="12"/>
+          <circle cx="92" cy="86" r="11"/><circle cx="66" cy="100" r="11"/><circle cx="70" cy="126" r="11"/><circle cx="140" cy="88" r="11"/>
+          <circle cx="160" cy="100" r="11"/><circle cx="158" cy="126" r="11"/><circle cx="104" cy="150" r="10"/><circle cx="130" cy="146" r="10"/>
+        </g>
+        <circle cx="228" cy="110" r="26" fill="#fff" stroke="#CFC2A6" stroke-width="1.5"/>
+        <circle cx="228" cy="110" r="18" fill="#8B2F3C"/>
+        <line x1="236" y1="92" x2="258" y2="70" stroke="#9B8C79" stroke-width="2.5" stroke-linecap="round"/>
+        <text class="lbl" x="40" y="200">gougères, piled, warm</text>
+        <text class="lbl" x="196" y="200">jam + spoon</text>
+      </svg>
+      <div class="cap">board · kitchen counter · 6:30</div>
+    </div>
+    <div>
+      <div class="num">I</div>
+      <h2>Gougères, cranberry &amp; chili jam</h2>
+      <div class="plate"><b>Vessel:</b> a wooden board or a warm platter · <b>temp:</b> gougères warm from the 6:25 re-crisp · <b>where:</b> the kitchen counter, not the table</div>
+      <ol class="steps">
+        <li>Jam into a small bowl with a teaspoon, set at one end of the board. Not the center.</li>
+        <li>Gougères piled loosely on the other two-thirds, three or four high. They should look abundant, not arranged.</li>
+        <li>Napkins beside the board. Nobody sits for this; people eat them standing with the spritz in the other hand.</li>
+      </ol>
+      <div class="note time"><b>Timing:</b> board out at 6:28; first guests at 6:30. Keep five back on a tray in case the last arrival is late — they'll still be fine at 6:50.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================== II ====================== -->
+<section>
+  <div class="course">
+    <div class="fig">
+      <svg viewBox="0 0 300 300" role="img" aria-label="Shallow bowl with garnish placed at seven o'clock before the soup is poured">
+        <circle class="rim" cx="150" cy="150" r="138"/>
+        <circle class="well" cx="150" cy="150" r="96"/>
+        <ellipse cx="118" cy="186" rx="14" ry="10" fill="#F6F1E6" stroke="#D9CEB8" stroke-width=".8"/>
+        <path d="M112 182 l14 -12 M112 182 l16 2" stroke="#2E4A37" stroke-width="3.5" stroke-linecap="round"/>
+        <g fill="#8FA96A"><circle cx="138" cy="176" r="2.2"/><circle cx="144" cy="182" r="2.2"/><circle cx="134" cy="190" r="2.2"/><circle cx="142" cy="192" r="2.2"/></g>
+        <g fill="#A66A1E"><circle cx="100" cy="176" r="2.4"/><circle cx="106" cy="196" r="2.4"/><circle cx="128" cy="200" r="2.4"/><circle cx="96" cy="190" r="2.4"/></g>
+        <path d="M150 128 q24 -10 48 2" stroke="#E8D9BC" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <path d="M196 88 q-14 10 -20 24" class="ld" stroke-dasharray="3 3"/>
+        <text class="lbl" x="178" y="80">pour here, ¾ cup</text>
+        <text class="lbl" x="60" y="232">sour cream · sage · pepitas</text>
+        <text class="lbl" x="60" y="246">brown butter drops</text>
+        <text class="lbl" x="150" y="116">walnut-cream thread</text>
+      </svg>
+      <div class="cap">warm shallow bowl · poured at the table · 7:00</div>
+    </div>
+    <div>
+      <div class="num">II</div>
+      <h2>Butternut velouté</h2>
+      <div class="plate"><b>Vessel:</b> five warm low bowls (the Coupe White) · <b>temp:</b> bowls warmed under hot tap water and dried, soup just below a simmer, pitcher pre-warmed · <b>at the table:</b> the pour</div>
+      <ol class="steps">
+        <li><b>6:15, at the pass:</b> a teaspoon of lemon walnut cream at 7 o'clock in each empty bowl. Two fried sage leaves crossed on top of it.</li>
+        <li>A pinch of pepitas around the sour cream. Four drops of brown butter from a teaspoon. A short thread of walnut cream across the opposite side.</li>
+        <li><b>6:50:</b> velouté into the warmed pitcher. Taste one more time; it should pour like heavy cream, not coat the spoon.</li>
+        <li><b>7:00:</b> empty bowls go down. Pour at each place from the side <em>away</em> from the garnish — about ¾ cup — so the garnish floats up intact instead of being drowned. Pour low and slow; the pitcher's lip an inch above the bowl.</li>
+      </ol>
+      <div class="note"><b>Why it works:</b> the bowl arrives looking finished and the soup arrives as a gesture. The first ten seconds of the dinner are this pour. Don't rush it.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================== III ====================== -->
+<section>
+  <div class="course">
+    <div class="fig">
+      <svg viewBox="0 0 300 300" role="img" aria-label="Small cold plate with a tall loose pile of salad slightly off center">
+        <circle class="rim" cx="150" cy="150" r="138"/>
+        <circle class="well" cx="150" cy="150" r="104"/>
+        <g fill="#8FB07A" stroke="#5F8A4C" stroke-width=".6">
+          <ellipse cx="146" cy="156" rx="46" ry="34"/><ellipse cx="140" cy="144" rx="38" ry="26"/><ellipse cx="150" cy="134" rx="28" ry="18"/>
+        </g>
+        <g fill="#F2E7CF" stroke="#C9B88E" stroke-width=".6">
+          <path d="M120 140 l26 -8 l4 6 l-26 8z"/><path d="M150 128 l24 -4 l2 6 l-24 5z"/><path d="M128 166 l28 -4 l2 6 l-28 5z"/><path d="M158 152 l22 6 l-2 6 l-22 -6z"/><path d="M136 120 l18 -6 l3 5 l-18 7z"/>
+        </g>
+        <g fill="#E0B57A" stroke="#A66A1E" stroke-width=".6"><rect x="112" y="150" width="8" height="5" rx="1"/><rect x="170" y="144" width="8" height="5" rx="1"/><rect x="140" y="178" width="8" height="5" rx="1"/><rect x="156" y="120" width="8" height="5" rx="1"/></g>
+        <g fill="#8A5A2B"><circle cx="124" cy="132" r="2.4"/><circle cx="168" cy="166" r="2.4"/><circle cx="150" cy="186" r="2.4"/><circle cx="178" cy="134" r="2.4"/><circle cx="118" cy="170" r="2.4"/></g>
+        <g fill="#3E6B3A"><ellipse cx="134" cy="126" rx="4" ry="2.5"/><ellipse cx="172" cy="156" rx="4" ry="2.5"/><ellipse cx="146" cy="190" rx="4" ry="2.5"/></g>
+        <text class="lbl" x="48" y="252">tall, loose, slightly left of center</text>
+        <text class="lbl" x="196" y="110">pecorino shards</text>
+        <path d="M194 112 q-16 6 -24 14" class="ld"/>
+      </svg>
+      <div class="cap">cold salad plate · dressed 5 min before · 7:20</div>
+    </div>
+    <div>
+      <div class="num">III</div>
+      <h2>Shaved sprouts, apple, pecorino, hazelnut</h2>
+      <div class="plate"><b>Vessel:</b> five small plates, from the fridge · <b>temp:</b> cold plate, cold salad · <b>dress:</b> 7:35, not sooner</div>
+      <ol class="steps">
+        <li><b>7:15:</b> sprouts and apple matchsticks in a big bowl, vinaigrette over, toss with your hands until every strand is coated. No pooling in the bowl — if there's dressing left at the bottom, you used too much.</li>
+        <li>Lift a handful with fingertips and set it down on the plate <em>slightly left of center</em>, letting it fall tall. Pull a few strands up at the top. Don't press it.</li>
+        <li>Five or six pecorino shavings tucked into the pile at different angles — some standing, some lying.</li>
+        <li>Crushed hazelnuts scattered from a height over the top and onto the plate around it. Three parsley leaves.</li>
+        <li>Wipe the rim. Five plates in four minutes.</li>
+      </ol>
+      <div class="note"><b>The look:</b> a small, tall, green nest with pale cheese and brown nuts showing through. Small plate, small portion — this is a pause between the soup and the main, not a course to fill up on.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================== IV ====================== -->
+<section>
+  <div class="course">
+    <div class="fig">
+      <svg viewBox="0 0 300 300" role="img" aria-label="Warm dinner plate: purée swoosh from nine to four o'clock, breast fanned on it, thigh block leaning, beans at one o'clock, cranberry quenelle at eleven">
+        <circle class="rim" cx="150" cy="150" r="140"/>
+        <circle class="well" cx="150" cy="150" r="108"/>
+        <path d="M78 150 q30 -40 100 -6 q40 20 48 54 q-20 -24 -56 -30 q-50 -6 -92 -18z" fill="#F3E7C8" stroke="#E2CFA2" stroke-width=".8"/>
+        <circle cx="84" cy="150" r="14" fill="#F3E7C8"/>
+        <g fill="#F1DFC4" stroke="#C9A77A" stroke-width=".8">
+          <path d="M104 150 q22 -22 48 -14 l6 14 q-26 -6 -48 14z"/>
+          <path d="M118 158 q22 -22 48 -14 l6 14 q-26 -6 -48 14z"/>
+          <path d="M132 166 q22 -22 48 -14 l6 14 q-26 -6 -48 14z"/>
+        </g>
+        <g><path d="M178 182 l40 -18 l12 20 l-40 18z" fill="#B87A3C" stroke="#7E4E1E" stroke-width=".9"/><path d="M178 182 l40 -18 l3 5 l-40 18z" fill="#E0A85A"/></g>
+        <g stroke="#3E7A3A" stroke-width="3.5" stroke-linecap="round"><line x1="160" y1="92" x2="204" y2="78"/><line x1="162" y1="100" x2="206" y2="86"/><line x1="158" y1="108" x2="202" y2="94"/><line x1="164" y1="116" x2="208" y2="102"/></g>
+        <g fill="#F2E7CF"><circle cx="186" cy="84" r="2"/><circle cx="196" cy="98" r="2"/><circle cx="176" cy="106" r="2"/></g>
+        <ellipse cx="108" cy="100" rx="16" ry="9" fill="#8B2F3C" transform="rotate(-25 108 100)"/>
+        <path d="M110 150 q30 -14 60 -4" stroke="#7A5A33" stroke-width="5" fill="none" stroke-linecap="round" opacity=".55"/>
+        <text class="lbl" x="22" y="196">purée swoosh 9 → 4</text>
+        <text class="lbl" x="40" y="72">cranberry quenelle</text>
+        <text class="lbl" x="208" y="66">beans, aligned</text>
+        <text class="lbl" x="150" y="226">thigh block, crisp side up</text>
+        <text class="lbl" x="84" y="262">gravy on the breast only</text>
+      </svg>
+      <div class="cap">warm dinner plate · five in eight minutes · 8:00</div>
+    </div>
+    <div>
+      <div class="num">IV</div>
+      <h2>Turkey two ways, purée, beans, cranberry, gravy</h2>
+      <div class="plate"><b>Vessel:</b> five dinner plates from the warming drawer (170°F oven from 7:15 if no drawer) · <b>temp:</b> hot plates, hot food · <b>center of table:</b> the stuffing in its 9×13 on a folded towel, the sauceboat, the cranberry bowl, big spoons</div>
+      <ol class="steps">
+        <li><b>Line up all five plates.</b> Do each step across all five before moving to the next — that's how the fifth plate is as hot as the first.</li>
+        <li><b>Purée:</b> a heaped large spoon set down at 9 o'clock. Press the back of the spoon into it and pull in one motion in an arc toward 4 o'clock, lifting at the end. A thick comma. If it breaks, don't fix it — scrape and redo.</li>
+        <li><b>Breast:</b> three slices, overlapping like fallen dominoes, laid along the swoosh from its thick end. Cut side up so the rosy edge shows.</li>
+        <li><b>Thigh:</b> the seared block leaning against the end of the breast at about 5 o'clock, crisp skin facing up and toward the diner. It should look like it was set down, not placed.</li>
+        <li><b>Beans:</b> seven or eight, all pointing the same way, in a tight bundle at 1 o'clock, almonds on top.</li>
+        <li><b>Cranberry:</b> one quenelle at 11 o'clock, on the plate, not on the purée. Two spoons dipped in hot water, pass the sauce back and forth three times, slide it off.</li>
+        <li><b>Gravy:</b> a spoonful over the breast slices only — let it run onto the purée, never onto the thigh skin. A sauceboat goes to the table for people who want more.</li>
+        <li>Wipe every rim. Plates down. Then the stuffing dish, sauceboat and cranberry bowl to the center. Sit. Pass the stuffing.</li>
+      </ol>
+      <div class="note firm"><b>The stuffing †</b> goes out in the dish it was baked in, uncovered, top crisp, with a big serving spoon standing in it. That is the whole presentation and it is correct. Don't portion it onto plates.</div>
+      <div class="note time"><b>Order at the pass, 7:35–7:50:</b> gravy finishing on the burner → thigh blocks into the cast iron → beans into the pan → carve the breast while the thighs sear → plate in the order above. Fifteen minutes if everything is at the pass before you start.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================== V ====================== -->
+<section>
+  <div class="course">
+    <div class="fig">
+      <svg viewBox="0 0 300 260" role="img" aria-label="Frosted highball with a loose mound of granita, on a small plate with a napkin">
+        <ellipse cx="150" cy="222" rx="96" ry="14" fill="#fff" stroke="#CFC2A6" stroke-width="1.5"/>
+        <rect x="112" y="206" width="76" height="22" rx="3" fill="#F7F0E1" stroke="#E6DCC6" stroke-width=".8" transform="rotate(-6 150 217)"/>
+        <rect x="146" y="150" width="8" height="60" fill="#EAF2F6" stroke="#B9CFDA" stroke-width="1"/>
+        <path d="M78 96 q0 56 72 56 q72 0 72 -56z" fill="#EAF2F6" stroke="#B9CFDA" stroke-width="1.5"/>
+        <path d="M94 104 q10 36 56 42" stroke="#fff" stroke-width="3" fill="none" opacity=".9"/>
+        <path d="M100 96 q6 -30 50 -32 q44 2 50 32" fill="#E9D7A8" stroke="#CDB37A" stroke-width=".8"/>
+        <g fill="#F4EBCF"><circle cx="120" cy="86" r="3"/><circle cx="140" cy="76" r="3"/><circle cx="162" cy="80" r="3"/><circle cx="178" cy="90" r="3"/><circle cx="150" cy="90" r="3"/></g>
+        <path d="M176 70 q10 -12 4 -22" stroke="#B8955F" stroke-width="2" fill="none"/>
+        <text class="lbl" x="196" y="100">3 tbsp, loose mound</text>
+        <text class="lbl" x="196" y="114">thin apple slice, optional</text>
+        <text class="lbl" x="40" y="250">frosted highball · napkin under · teaspoon</text>
+      </svg>
+      <div class="cap">frosted highball · four minutes of life · 9:00</div>
+    </div>
+    <div>
+      <div class="num">V</div>
+      <h2>Apple cider granita</h2>
+      <div class="plate"><b>Vessel:</b> five highballs, washed after the spritz and back in the freezer since 7:15 · <b>temp:</b> frozen glass, frozen ice · <b>under it:</b> a small plate with a folded napkin</div>
+      <ol class="steps">
+        <li><b>8:55:</b> dish out of the freezer. Rake it with a fork one last time until it's all loose flakes.</li>
+        <li>Highballs out. Three tablespoons into each, piled loosely — a mound, not pressed, a few drops of bourbon over. The flakes should catch light against the frosted glass.</li>
+        <li>A thin apple slice standing in the top if there's one left from the salad. Teaspoon on the plate beside it.</li>
+        <li>Walk them out immediately and sit down. Three sentences of introduction, maximum — it melts.</li>
+      </ol>
+      <div class="note"><b>Why it's here:</b> after the richest plate of the night, cold and tart resets everyone's palate so the pie tastes like pie. It's a four-minute course on purpose.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================== VI ====================== -->
+<section>
+  <div class="course">
+    <div class="fig">
+      <svg viewBox="0 0 300 300" role="img" aria-label="Warm dessert plate: one apple pie slice from center toward ten o'clock, oat vanilla scoop at two o'clock, coconut cream quenelle at five o'clock">
+        <circle class="rim" cx="150" cy="150" r="138"/>
+        <circle class="well" cx="150" cy="150" r="104"/>
+        <path d="M156 158 l-78 -62 q26 -30 64 -36 z" fill="#E9CFA2" stroke="#B88A3B" stroke-width=".9"/>
+        <path d="M78 96 q26 -30 64 -36" stroke="#C9A775" stroke-width="6" fill="none" stroke-linecap="round"/>
+        <path d="M100 100 l40 -30 M112 116 l40 -30" stroke="#D9B98A" stroke-width="1.2" opacity=".8"/>
+        <circle cx="196" cy="112" r="17" fill="#F7F1DF" stroke="#DACFB0" stroke-width=".8"/>
+        <ellipse cx="186" cy="188" rx="19" ry="10" fill="#FBF8F0" stroke="#DDD3BE" stroke-width=".8" transform="rotate(-20 186 188)"/>
+        <text class="lbl" x="22" y="236">apple pie, point to center</text>
+        <text class="lbl" x="200" y="86">oat vanilla, small scoop</text>
+        <text class="lbl" x="150" y="222">coconut-cream quenelle</text>
+      </svg>
+      <div class="cap">warm dessert plate · one proper slice · 9:10</div>
+    </div>
+    <div>
+      <div class="num">VI</div>
+      <h2>Apple pie</h2>
+      <div class="plate"><b>Vessel:</b> five dessert plates, warmed · <b>temp:</b> pie warm (8 min at 300°F on a tray from 8:55) or room temperature, scoop and quenelle cold · <b>knife:</b> a thin one, wiped between cuts</div>
+      <ol class="steps">
+        <li>Cut the pie into <b>eight</b>. A proper wedge — this is the one dessert, it can carry the plate.</li>
+        <li>Slice laid from just past center out toward 10 o'clock, <em>point toward the center</em>, crust edge to the rim. Lift with a thin spatula so the bottom crust stays whole.</li>
+        <li>A small scoop of oat vanilla at 2 o'clock, not touching the slice. Scoop with a spoon dipped in hot water for a clean ball.</li>
+        <li>A quenelle of whipped coconut cream at 5 o'clock, on the plate, in the open space.</li>
+        <li>Nothing on the pie. Wipe the rim.</li>
+      </ol>
+      <div class="note firm"><b>The pie †</b> is cut and served, not plated into something else. No crumbles, no reconstruction. The plate is just how it arrives.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================== VII ====================== -->
+<section>
+  <div class="course">
+    <div class="fig">
+      <svg viewBox="0 0 300 220" role="img" aria-label="Espresso cup on a saucer beside a small glass of Calvados">
+        <ellipse cx="110" cy="150" rx="58" ry="12" fill="#fff" stroke="#CFC2A6" stroke-width="1.5"/>
+        <path d="M80 100 q0 44 30 44 q30 0 30 -44z" fill="#fff" stroke="#CFC2A6" stroke-width="1.5"/>
+        <ellipse cx="110" cy="100" rx="30" ry="7" fill="#6B3E1D"/>
+        <ellipse cx="110" cy="100" rx="22" ry="4" fill="#C9A06A" opacity=".8"/>
+        <path d="M140 108 q18 4 16 18 q-2 12 -16 12" fill="none" stroke="#CFC2A6" stroke-width="2.5"/>
+        <path d="M200 92 l0 44 q0 10 14 10 q14 0 14 -10 l0 -44z" fill="#F3E3B8" stroke="#C9B88E" stroke-width="1"/>
+        <path d="M200 92 l28 0" stroke="#C9B88E" stroke-width="1"/>
+        <path d="M200 118 l28 0" stroke="#E0B86A" stroke-width="1" opacity=".7"/>
+        <text class="lbl" x="56" y="186">double shot · oat-milk latte on request</text>
+        <text class="lbl" x="186" y="166">bourbon, small pour</text>
+      </svg>
+      <div class="cap">at the machine · made to order · 9:30</div>
+    </div>
+    <div>
+      <div class="num">VII</div>
+      <h2>Espresso from the Bambino</h2>
+      <div class="plate"><b>Vessel:</b> espresso cups warmed on top of the machine · <b>where:</b> the kitchen — this course moves people off the table · <b>beside it:</b> small glasses for bourbon</div>
+      <ol class="steps">
+        <li>Take orders at the table — espresso, latte, decaf if you have it — then stand up and make them. People will follow you.</li>
+        <li>Each cup on its saucer with a small spoon; lattes in the taller cups with the oat milk steamed tight and glossy.</li>
+        <li>Bourbon poured a finger deep in small glasses, set next to whoever says yes. The last of the prosecco for whoever wants that instead.</li>
+      </ol>
+      <div class="note"><b>This is the loose course.</b> No plating rules. The point is that the dinner ends in the kitchen, standing, with the machine hissing — the opposite of the poured soup three hours earlier.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================== PASS ====================== -->
+<section>
+  <h2 style="font-size:clamp(24px,3vw,32px);font-weight:400;margin-bottom:16px">The pass</h2>
+  <div class="pass">
+    <div class="group">
+      <h3>Tools, laid out by 6:00</h3>
+      <ul>
+        <li>Two large spoons (purée swoosh) and two small spoons standing in a mug of hot water (quenelles, ice cream)</li>
+        <li>Fish spatula and tongs; thin slicing knife; carving board with a juice groove</li>
+        <li>Warmed pitcher for the velouté; warmed sauceboat; ladle</li>
+        <li>Six damp side towels, folded, one per course</li>
+        <li>Instant-read thermometer (the bird at 6:15 and again before it comes out)</li>
+      </ul>
+    </div>
+    <div class="group">
+      <h3>Plates</h3>
+      <ul>
+        <li><b>Warm:</b> five low bowls (hot tap water, dried, 6:10) · five dinner plates (warming drawer or 170°F oven from 7:15) · five dessert plates (same, from 8:45)</li>
+        <li><b>Cold:</b> five salad plates (fridge from 3:30) · six highballs with a rosemary sprig frozen to the wall (spritz on arrival, from 1:45) · the same highballs washed at 7:15 and re-frozen for the granita</li>
+        <li>Five small plates and napkins under the granita glasses</li>
+      </ul>
+    </div>
+    <div class="group">
+      <h3>The service rhythm</h3>
+      <ol>
+        <li><b>7:00</b>pour the soup, sit</li>
+        <li><b>7:15</b>clear bowls to the pass; cut the salad apple</li>
+        <li><b>7:20</b>dress, plate, serve the salad, sit</li>
+        <li><b>7:35</b>clear; gravy, thighs, beans, carve — 15 minutes at the pass with the kitchen door open and the music up</li>
+        <li><b>8:00</b>five mains plated in one pass; stuffing dish, sauceboat, cranberry bowl out; serve at 8:05, sit</li>
+        <li><b>8:55</b>clear; granita into the frozen highballs; serve at 9:00, sit</li>
+        <li><b>8:45</b>granita, sit — four minutes</li>
+        <li><b>9:10</b>pie sliced and plated, coconut cream whipped; serve at 9:15, sit</li>
+        <li><b>9:30</b>coffee orders; the room moves to the kitchen</li>
+      </ol>
+    </div>
+    <div class="group">
+      <h3>If you're plating alone</h3>
+      <ul>
+        <li>Carry two plates at a time, serve women first if that's the table's style, or clockwise from the guest on your right — pick one and don't think about it again</li>
+        <li>Plates sit on the pass under a loose sheet of foil for the two minutes it takes to deliver the first four; the warming drawer did its job</li>
+        <li>Clearing: never stack at the table. Two plates in, two plates out, every trip</li>
+        <li>Introduce each course in one sentence as the last plate goes down, then sit. The menu card does the rest</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer>Dinner for five · Saturday, November 14, 2026 · 61 N 5th · companion to the dinner page and the day dashboard</footer>
+</div>
+</body>
+</html>

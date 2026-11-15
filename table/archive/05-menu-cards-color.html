@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TurkeyFeast × Michelin 2k26 — Menu Cards</title>
+<meta name="description" content="Tonight's menu, two cards per letter sheet — print three sheets, cut on the line.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#FBF7EE; --ink:#2B2219; --ink-2:#6A5B4B; --ink-3:#8C7E6B;
+    --brass:#A98A4A; --brass-2:#8C6F35; --cran:#8B2F3C; --rule:#E6DCC6;
+    --display:"Fraunces",Georgia,serif; --mono:"IBM Plex Mono",Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:#D8D2C4;color:var(--ink);font-family:var(--display)}
+  .bar{font-family:var(--mono);font-size:12.5px;color:#4a4036;padding:12px 16px;display:flex;gap:16px;align-items:center;flex-wrap:wrap;background:#EFE9DC;border-bottom:1px solid #CFC6B3}
+  .bar button{font:600 13px system-ui,sans-serif;padding:7px 14px;border-radius:999px;border:1px solid var(--brass);background:var(--brass);color:#fff;cursor:pointer}
+  .bar span{color:#6A5B4B}
+
+  .sheet{width:8.5in;height:11in;margin:18px auto;background:#fff;position:relative;display:grid;grid-template-columns:1fr 1fr;box-shadow:0 10px 30px -14px rgba(0,0,0,.4)}
+  .sheet::after{content:"";position:absolute;top:.4in;bottom:.4in;left:50%;border-left:1px dashed #BDB3A0}
+  .half{padding:.5in .3in;display:flex;align-items:center;justify-content:center}
+  .card{
+    width:3.75in;height:9.7in;background:var(--paper);padding:.45in .34in .36in;text-align:center;
+    border:1px solid var(--brass);outline:1px solid var(--brass);outline-offset:3px;
+    display:flex;flex-direction:column;justify-content:space-between;
+  }
+  .house{font-family:var(--mono);font-size:8.5pt;letter-spacing:.22em;color:var(--brass-2);text-transform:uppercase}
+  .title{font-size:20pt;font-weight:400;line-height:1.1;margin:7pt 0 3pt}
+  .title em{font-style:italic;font-weight:300}
+  .title .yr{display:block;font-family:var(--mono);font-size:8.5pt;letter-spacing:.3em;color:var(--brass-2);margin-top:3pt}
+  .date{font-family:var(--mono);font-size:7.5pt;color:var(--ink-3);letter-spacing:.03em}
+  .orn{color:var(--brass);font-size:9pt;letter-spacing:.35em;margin:7pt 0 6pt}
+  ol{list-style:none;padding:0;margin:0}
+  li{padding:6.5pt 0;border-top:1px solid var(--rule)}
+  li:first-child{border-top:0}
+  .num{font-family:var(--display);font-size:7.5pt;color:var(--brass-2);letter-spacing:.16em}
+  .num i{font-style:italic;color:var(--ink-2);letter-spacing:0;margin-left:5pt;font-size:8.5pt}
+  .dish{font-size:11.5pt;line-height:1.25;margin-top:1.5pt}
+  .dish small{display:block;font-size:8.6pt;color:var(--ink-2);font-style:italic;margin-top:1.5pt;line-height:1.3}
+  .hold{color:var(--cran);font-weight:500}
+  .pair{font-family:var(--mono);font-size:6.8pt;color:var(--ink-3);margin-top:2pt;letter-spacing:.02em}
+  .foot{border-top:1px solid var(--rule);padding-top:5pt;font-size:7.6pt;color:var(--ink-2);text-align:left;line-height:1.35}
+  .foot .hold{font-size:8.5pt}
+  .foot .nfc{font-family:var(--mono);font-size:6.6pt;color:var(--ink-3);margin-top:3pt}
+
+  @page{size:letter;margin:0}
+  @media print{
+    html,body{background:#fff}
+    .bar{display:none}
+    .sheet{margin:0;box-shadow:none;page-break-after:always;break-after:page}
+    .sheet:last-child{page-break-after:auto;break-after:auto}
+    .card{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  }
+  @media screen and (max-width:900px){
+    .sheet{transform:scale(.42);transform-origin:top center;margin:10px auto -6.2in auto}
+    .sheet>.half{transform:none}
+  }
+</style>
+</head>
+<body>
+<div class="bar">
+  <button onclick="window.print()">Print 3 sheets</button>
+  <span>Letter paper, portrait · two tall cards per sheet · cut down the dashed line · 5 settings + 1 spare. Card stock or 32 lb paper if the printer takes it.</span>
+</div>
+
+<script>
+const card = `
+<div class="card">
+  <div>
+    <div class="house">61 N 5th</div>
+    <div class="title">TurkeyFeast <em>×</em> Michelin<span class="yr">2k26</span></div>
+    <div class="date">Saturday, the fourteenth of November · 2026</div>
+    <div class="orn">· · ·</div>
+    <ol>
+      <li><div class="num"><i>on arrival</i></div><div class="dish">Viv's rosemary spritz<small>vodka, white cranberry, prosecco, a frozen rosemary sprig · saison</small></div></li>
+      <li><div class="num">I<i>to begin</i></div><div class="dish">Gruyère gougères<small>cranberry &amp; chili jam</small></div><div class="pair">prosecco</div></li>
+      <li><div class="num">II<i>velouté</i></div><div class="dish">Roasted butternut velouté, brown butter, crisp sage<small>coconut, walnut cream · poured at the table</small></div><div class="pair">prosecco</div></li>
+      <li><div class="num">III<i>salad</i></div><div class="dish">Shaved brussels sprouts, Honeycrisp, pecorino<small>toasted hazelnut vinaigrette</small></div></li>
+      <li><div class="num">IV<i>the main</i></div><div class="dish">Turkey two ways<small>dry-brined breast · crisp-skinned thigh<br>pommes purée, walnut cream · haricots verts amandine · cranberry · sage gravy</small><small><span class="hold">The Old Stuffing †</span> — to the center of the table</small></div><div class="pair">willamette valley pinot noir</div></li>
+      <li><div class="num">V<i>to clear</i></div><div class="dish">Apple cider granita<small>bourbon</small></div></li>
+      <li><div class="num">VI<i>dessert</i></div><div class="dish"><span class="hold">Apple pie †</span><small>oat vanilla, whipped coconut cream</small></div><div class="pair">prosecco</div></li>
+      <li><div class="num">VII<i>to finish</i></div><div class="dish">Espresso from the Bambino<small>oat milk · bourbon</small></div></li>
+    </ol>
+  </div>
+  <div class="foot"><span class="hold">†</span> held firm — family recipes, made and served exactly as the cards say.<div class="nfc">tap the tag under this card for the menu on your phone</div></div>
+</div>`;
+for (let s = 0; s < 3; s++) {
+  document.write('<div class="sheet"><div class="half">' + card + '</div><div class="half">' + card + '</div></div>');
+}
+</script>
+</body>
+</html>

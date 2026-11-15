@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TurkeyFeast × Michelin 2k26 — Archive</title>
+<meta name="description" content="Everything from the November 14, 2026 dinner at 61 N 5th: the menu as served, how the day ran, what changed, notes for next time, and every file.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Manrope:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F2EADB; --card:#FBF7EE; --ink:#2B2219; --ink-2:#5E5042; --ink-3:#8C7E6B;
+    --rule:#E3D9C4; --rule-2:#EFE7D6; --brass:#A98A4A; --brass-2:#8C6F35; --amber:#C98A2B;
+    --green:#2E4A37; --green-2:#1F3627; --cran:#8B2F3C; --r:14px; --maxw:980px;
+    --display:"Fraunces",Georgia,serif; --body:"Manrope",system-ui,sans-serif; --mono:"IBM Plex Mono",Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 16px 60px}
+  h1,h2,h3{font-family:var(--display);font-weight:500;letter-spacing:-.01em;margin:0}
+  a{color:var(--brass-2)}
+  .hero{background:var(--green-2);color:#F3EBDA;border-radius:0 0 var(--r) var(--r);padding:44px 24px 34px;text-align:center;margin-bottom:26px;position:relative;overflow:hidden}
+  .hero::before{content:"";position:absolute;inset:14px;border:1px solid rgba(201,185,134,.4);border-radius:8px;pointer-events:none}
+  .hero .k{font-family:var(--mono);font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:#C9B986}
+  .hero h1{font-size:clamp(34px,6vw,58px);line-height:1.02;margin:14px 0 6px}
+  .hero h1 em{font-style:italic;font-weight:300;color:#DCCB9C}
+  .hero .yr{font-family:var(--mono);font-size:16px;letter-spacing:.32em;color:#C9B986;margin-bottom:16px}
+  .hero p{max-width:620px;margin:0 auto;color:#D9CFB7;font-size:16px}
+  .hero .rule{width:160px;height:1px;margin:18px auto;background:linear-gradient(90deg,transparent,#C9B986,transparent)}
+  .facts{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:26px}
+  .fact{background:var(--card);border:1px solid var(--rule);border-radius:var(--r);padding:14px 12px;text-align:center}
+  .fact .n{font-family:var(--display);font-size:30px;line-height:1;color:var(--green)}
+  .fact .l{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin-top:6px}
+  section{margin:0 0 30px}
+  .sec-head{display:flex;align-items:baseline;gap:14px;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid var(--rule)}
+  .sec-head h2{font-size:26px}
+  .sec-head span{font-family:var(--mono);font-size:12px;color:var(--ink-3)}
+  .card{background:var(--card);border:1px solid var(--rule);border-radius:var(--r);padding:18px 20px}
+  .menu ol{list-style:none;margin:0;padding:0}
+  .menu li{display:grid;grid-template-columns:54px 1fr;gap:10px;padding:10px 0;border-top:1px solid var(--rule-2);align-items:baseline}
+  .menu li:first-child{border-top:0}
+  .menu .num{font-family:var(--mono);font-size:12px;color:var(--brass-2);letter-spacing:.1em}
+  .menu .dish{font-family:var(--display);font-size:19px;line-height:1.2}
+  .menu .dish small{display:block;font-family:var(--body);font-size:13.5px;color:var(--ink-2);margin-top:2px}
+  .menu .hold{color:var(--cran)}
+  .tl{list-style:none;margin:0;padding:0}
+  .tl li{display:grid;grid-template-columns:70px 1fr;gap:12px;padding:7px 0;border-top:1px solid var(--rule-2);font-size:15px}
+  .tl li:first-child{border-top:0}
+  .tl .t{font-family:var(--mono);font-size:13px;color:var(--brass-2);padding-top:2px}
+  .tl b{font-weight:600}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .sw{background:var(--card);border:1px solid var(--rule);border-radius:var(--r);padding:14px 16px}
+  .sw h3{font-size:17px;margin-bottom:4px}
+  .sw .was{font-size:13px;color:var(--ink-3);text-decoration:line-through;margin-bottom:2px}
+  .sw .is{font-size:14.5px;color:var(--green);font-weight:600}
+  .sw p{font-size:13.5px;color:var(--ink-2);margin:6px 0 0}
+  ul.notes{margin:0;padding:0;list-style:none}
+  ul.notes li{padding:9px 0 9px 26px;border-top:1px solid var(--rule-2);position:relative;font-size:15px}
+  ul.notes li:first-child{border-top:0}
+  ul.notes li::before{content:"";position:absolute;left:4px;top:17px;width:9px;height:9px;border-radius:50%;background:var(--amber)}
+  ul.notes li b{font-weight:600}
+  .files{list-style:none;margin:0;padding:0}
+  .files li{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;padding:11px 0;border-top:1px solid var(--rule-2)}
+  .files li:first-child{border-top:0}
+  .files .name{font-weight:600;font-size:15px}
+  .files .name small{display:block;font-weight:400;font-size:13px;color:var(--ink-2);margin-top:1px}
+  .files .open{font-family:var(--mono);font-size:12px;padding:6px 12px;border:1px solid var(--brass);border-radius:999px;color:var(--brass-2);text-decoration:none;white-space:nowrap}
+  .urls{font-family:var(--mono);font-size:13px;line-height:1.9}
+  .urls b{font-family:var(--body);color:var(--ink-2);font-weight:600;display:inline-block;min-width:150px}
+  footer{margin-top:30px;padding-top:16px;border-top:1px solid var(--rule);font-family:var(--mono);font-size:12px;color:var(--ink-3);text-align:center}
+  @media (max-width:640px){
+    .facts{grid-template-columns:repeat(2,1fr)}
+    .grid{grid-template-columns:1fr}
+    .menu li{grid-template-columns:44px 1fr}
+    .hero{padding:34px 18px 28px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div class="k">61 N 5th · Columbus</div>
+  <h1>TurkeyFeast <em>×</em> Michelin</h1>
+  <div class="yr">2k26</div>
+  <div class="rule"></div>
+  <p>Saturday, November 14, 2026. Five at the table, seven courses, one oven, one 13-lb bird, two screens. Doors 6:30, seated 7:00, coats a little after 10. Crushed it.</p>
+</header>
+
+<div class="facts">
+  <div class="fact"><div class="n">7</div><div class="l">courses</div></div>
+  <div class="fact"><div class="n">5</div><div class="l">at the table</div></div>
+  <div class="fact"><div class="n">13</div><div class="l">lb bird, spatchcocked</div></div>
+  <div class="fact"><div class="n">1</div><div class="l">oven</div></div>
+</div>
+
+<section id="menu">
+  <div class="sec-head"><h2>The menu, as served</h2><span>† family recipes, held firm</span></div>
+  <div class="card menu">
+    <ol>
+      <li><span class="num">BAR</span><span class="dish">Viv's rosemary spritz<small>vodka, white cranberry, prosecco poured over a rosemary sprig frozen into a frosted highball · then Pinot Noir, Saison Dupont, prosecco through the night</small></span></li>
+      <li><span class="num">I</span><span class="dish">Gruyère gougères<small>cranberry &amp; chili jam · passed in the kitchen, standing</small></span></li>
+      <li><span class="num">II</span><span class="dish">Roasted butternut velouté, brown butter, crisp sage<small>coconut milk · lemon walnut cream · pepitas · poured at the table from a pitcher into the Coupe White low bowls</small></span></li>
+      <li><span class="num">III</span><span class="dish">Shaved brussels sprouts, Honeycrisp, pecorino<small>cider-honey vinaigrette · toasted hazelnuts on top</small></span></li>
+      <li><span class="num">IV</span><span class="dish">Turkey two ways<small>sliced breast · thigh block seared skin-down in cast iron · pommes purée with walnut cream · haricots verts amandine · cranberry · pan gravy deglazed with prosecco · <span class="hold">the old stuffing †</span> in its 9×13 to the center of the table</small></span></li>
+      <li><span class="num">V</span><span class="dish">Apple cider granita, bourbon<small>in the same highballs, washed and re-frozen</small></span></li>
+      <li><span class="num">VI</span><span class="dish"><span class="hold">Apple pie †</span><small>oat vanilla · whipped coconut cream</small></span></li>
+      <li><span class="num">VII</span><span class="dish">Espresso from the Bambino<small>oat milk · bourbon neat · the last of the prosecco · standing, in the kitchen</small></span></li>
+    </ol>
+  </div>
+</section>
+
+<section id="asrun">
+  <div class="sec-head"><h2>How the day ran</h2><span>Saturday, from the kitchen</span></div>
+  <div class="card">
+    <ul class="tl">
+      <li><span class="t">7:00</span><span>Squash roasting, granita base started, stock aromatics prepped. Whole Foods delivery 8–9.</span></li>
+      <li><span class="t">8:00</span><span>13-lb bird spatchcocked and salted (no breast or duck at the store — the whole bird did both jobs). Backbone into the stockpot.</span></li>
+      <li><span class="t">8:30</span><span>Cleaners in. Sourdough cubes drying at 250°F for the stuffing.</span></li>
+      <li><span class="t">9:45</span><span>Onion and celery sweated for the stuffing, stock simmering.</span></li>
+      <li><span class="t">11:30</span><span>Cleaners out. Pie dough made. Viv to World Market for the five Coupe White low bowls, then the liquor store.</span></li>
+      <li><span class="t">12:33</span><span>Granita into the freezer (scraped at 1:10, 1:45, 2:20, 2:55, 3:30; fluffed at 4:05).</span></li>
+      <li><span class="t">1:12</span><span><b>Apple pie in</b> (425°F 20 min → 375°F 45 min). Stock strained; the old stuffing assembled per the card, no eggs, sourdough.</span></li>
+      <li><span class="t">1:17</span><span>Gravy base and cranberry sauce made while the pie baked. Lunch.</span></li>
+      <li><span class="t">1:45</span><span>Six highballs into the freezer with a rosemary sprig against the wall, misted at every granita scrape until glazed.</span></li>
+      <li><span class="t">2:17</span><span>Pie out. Walnut cream and cranberry-chili jam done.</span></li>
+      <li><span class="t">2:36</span><span><b>Gougères in</b> (choux made in the 9" cast iron — out of pots). Viv made the velouté.</span></li>
+      <li><span class="t">3:10</span><span>Vinaigrette; hazelnuts, almonds, pepitas toasted and labeled by course; beans blanched in the 12" skillet; no cashews → lemon walnut cream for the soup garnish.</span></li>
+      <li><span class="t">3:48</span><span><b>Front-loaded the evening:</b> potatoes cooked and puréed, brown butter and sage fried, coconut cream whipped, pie cut, pecorino shaved — all before the oven went on.</span></li>
+      <li><span class="t">4:49</span><span><b>Bird in</b>, 425°F, uncovered. Showers.</span></li>
+      <li><span class="t">6:05</span><span>Not done — no thermometer, so the leg-wiggle and thigh-juice tests.</span></li>
+      <li><span class="t">6:30</span><span>Doors. Spritzes. Gougères passed.</span></li>
+      <li><span class="t">6:39</span><span><b>Bird out</b> (110 min). Stuffing in at 350°F, covered 30 / uncovered 20. Gravy finished in the roasting pan with prosecco.</span></li>
+      <li><span class="t">7:00</span><span>Seated. Velouté poured at the table — "perfect."</span></li>
+      <li><span class="t">7:40</span><span>Salad — "a success."</span></li>
+      <li><span class="t">7:50</span><span>The burst: carve, thigh blocks seared, beans, five black squares plated, stuffing to the center.</span></li>
+      <li><span class="t">8:55</span><span>Granita. 9:10 pie. 9:45 espresso in the kitchen. Coats.</span></li>
+    </ul>
+  </div>
+</section>
+
+<section id="changes">
+  <div class="sec-head"><h2>Audibles called on the day</h2><span>what moved, and why</span></div>
+  <div class="grid">
+    <div class="sw"><h3>One bird, two ways</h3><div class="was">Bone-in breast + pressed duck confit</div><div class="is">13-lb turkey, spatchcocked — sliced breast and a crisp-skinned thigh block on every plate</div><p>Whole Foods had neither. Flat, it roasted in 110 minutes and the thighs finished with the breast.</p></div>
+    <div class="sw"><h3>Dairy, veganized</h3><div class="was">Heavy cream · whole milk · crème fraîche · ice cream</div><div class="is">Coconut milk · walnut cream · lemon walnut cream · whipped coconut cream · oat vanilla · oat milk — cheese and butter stayed</div><p>Nobody missed anything. The walnut cream in the purée is a keeper.</p></div>
+    <div class="sw"><h3>No truffle, no pecan</h3><div class="was">White Alba truffle · apple and pecan pie flight</div><div class="is">Pommes purée with walnut cream · apple pie alone, a proper slice</div><p>Sabatino's shipping window closed; one pie gave the oven back for an hour.</p></div>
+    <div class="sw"><h3>The bar</h3><div class="was">Rosemary freezer martini · cosmo · maple old fashioned · Riesling · Sauternes</div><div class="is">Viv's rosemary spritz in the frozen-rosemary highball, then red, beer, prosecco</div><p>A bar you can run with one hand. The frozen sprig did the work.</p></div>
+    <div class="sw"><h3>Glassware</h3><div class="was">Martini glasses · coupes · lowballs</div><div class="is">Six highballs (spritz, then washed and re-frozen for the granita) · flutes · red</div><p>We own five of exactly two things. It was enough.</p></div>
+    <div class="sw"><h3>Five, not six</h3><div class="was">Dinner for six</div><div class="is">Five — both ends of the live-edge slab used, nobody facing an empty chair</div><p>Brad at the wide end by the kitchen, Viv at the narrow end, two on the wall side, one centered on the near side.</p></div>
+  </div>
+</section>
+
+<section id="next">
+  <div class="sec-head"><h2>For next time</h2><span>read this first</span></div>
+  <div class="card">
+    <ul class="notes">
+      <li><b>Buy an instant-read thermometer.</b> The hand tests worked, but 6:05–6:39 was the only tense half hour of the day.</li>
+      <li><b>A flat 13-lb bird at 425°F took 110 minutes, not 90.</b> Plan 1h50 from a 4:45 start to be out by 6:35 with guests at 6:30 — or put it in at 4:30.</li>
+      <li><b>Front-loading was the whole trick.</b> Purée, brown butter and sage, whipped coconut cream, pie cut, nuts, beans, vinaigrette — all done by 4:40. The evening was one five-minute bird-out, one three-minute toss, and one fifteen-minute burst. Do this again, earlier.</li>
+      <li><b>Make the day before:</b> pie dough, gravy base, cranberry sauce and jam, walnut cream, rosemary highballs in the freezer, spritz base. Saturday morning should be squash, bird, stock, pie, gougères.</li>
+      <li><b>Granita needs 3½ hours from pour to fluff</b> in the 7×10 ceramic; scrape every 35 minutes. Start it by noon.</li>
+      <li><b>Order check:</b> cashews and white cranberry juice weren't on the Whole Foods list; pepitas were and got forgotten. Lemon walnut cream (3 tbsp walnut cream + 1 tsp lemon + salt) is actually the better soup garnish — keep it.</li>
+      <li><b>Pots:</b> choux in the 9" cast iron and beans blanched in the 12" skillet both worked fine. The velouté pot is free once the soup is in the fridge.</li>
+      <li><b>The two-screen command center</b> (laptop in the kitchen on Today, phone for reading) with the "Right now" card and the at-a-glance strip was the right interface. Checkboxes are per-device; that was fine.</li>
+      <li><b>Menu cards:</b> black-and-white on the laser printer looked right; cream card stock next time. Two tall cards per letter sheet, cut down the dashed line.</li>
+      <li><b>The NFC guest page</b> with the iMessage/Android preview card was a hit — the link is reusable; change the title and courses.</li>
+      <li><b>Coupe White low bowls</b> from World Market Lennox (SKU 659324, $7.99) are the soup bowls now. Buy a sixth.</li>
+      <li><b>Seat at 7:00 sharp</b> and the seven courses land coats at 10:00. Protect the seat time; the rest follows.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="files">
+  <div class="sec-head"><h2>Every file</h2><span>all single-file HTML — open anywhere</span></div>
+  <div class="card">
+    <ul class="files">
+      <li><span class="name">Command center — the evening<small>Today / The dinner / Plating tabs; the course-by-course run-of-show with the at-a-glance strip and Right-now card (as live at 7:00 pm)</small></span><a class="open" href="01-command-center-evening.html">open</a></li>
+      <li><span class="name">Day dashboard, as run<small>The full Saturday timeline from 7:00 am as it stood at 5:05 pm — every block, the ingredient audit, the bird, the oven ledger, the audibles</small></span><a class="open" href="02-day-dashboard-as-run.html">open</a></li>
+      <li><span class="name">The dinner and recipes<small>Menu card, the idea, every course's recipe sized for five, the bar, table &amp; service</small></span><a class="open" href="03-dinner-and-recipes.html">open</a></li>
+      <li><span class="name">Plating plan<small>A plate diagram per course, the pass, and the order to build five at once</small></span><a class="open" href="04-plating-plan.html">open</a></li>
+      <li><span class="name">Menu cards — black &amp; white<small>Three letter sheets, two tall cards each, for a mono laser printer (HTML + PDF)</small></span><span><a class="open" href="05-menu-cards-bw.html">html</a> <a class="open" href="05-menu-cards-bw.pdf">pdf</a></span></li>
+      <li><span class="name">Menu cards — color<small>Same cards, brass and cranberry ink, for a color printer</small></span><span><a class="open" href="05-menu-cards-color.html">html</a> <a class="open" href="05-menu-cards-color.pdf">pdf</a></span></li>
+      <li><span class="name">Guest menu page (NFC)<small>The animated page under each menu card — tap a phone to the tag; with the iMessage/Android preview card (og.jpg)</small></span><a class="open" href="06-guest-menu-nfc.html">open</a></li>
+      <li><span class="name">World Market run<small>Viv's errand page for the Lennox store — list, map, where things are</small></span><a class="open" href="07-world-market-run.html">open</a></li>
+      <li><span class="name">The original plan (Friday)<small>Where it started: six people, truffles, duck confit, two pies, a martini. Useful to see what a plan looks like before the store and the day get a vote</small></span><a class="open" href="08-original-plan-friday.html">open</a></li>
+      <li><span class="name">The original 30-hour dashboard (Friday)<small>Friday 12:17 pm through Saturday dinner, before the delivery window moved everything to Saturday</small></span><a class="open" href="09-original-dashboard-friday.html">open</a></li>
+    </ul>
+  </div>
+</section>
+
+<section id="live">
+  <div class="sec-head"><h2>Live on GitHub</h2><span>bboldt86.github.io/lanscape-navigator</span></div>
+  <div class="card urls">
+    <b>Guest menu (NFC)</b> <a href="https://bboldt86.github.io/lanscape-navigator/table/">…/table/</a><br>
+    <b>Command center</b> <a href="https://bboldt86.github.io/lanscape-navigator/table/cc/">…/table/cc/</a><br>
+    <b>World Market run</b> <a href="https://bboldt86.github.io/lanscape-navigator/table/run/">…/table/run/</a><br>
+    <b>This archive</b> <a href="https://bboldt86.github.io/lanscape-navigator/table/archive/">…/table/archive/</a>
+  </div>
+</section>
+
+<footer>TurkeyFeast × Michelin 2k26 · Saturday, November 14, 2026 · 61 N 5th · archived Sunday, November 15</footer>
+</div>
+</body>
+</html>

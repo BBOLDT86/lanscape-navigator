@@ -1,0 +1,903 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Eleven Hours to the Table</title>
+<meta name="description" content="Saturday, 11:30 am to 7:00 pm — the post-cleaners hitlist, one oven shared between an apple pie, the gougères and a flat 13-lb bird, and five people seated at 7:00.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Manrope:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F2EADB; --card:#FBF7EE; --card-2:#F7F0E1;
+    --ink:#2B2219; --ink-2:#6A5B4B; --ink-3:#9B8C79;
+    --brass:#A98A4A; --brass-2:#8C6F35; --amber:#C98A2B;
+    --green:#2E4A37; --green-2:#1F3627; --cran:#8B2F3C;
+    --rule:#DCCEB2; --rule-2:#EADFC8;
+    --display:"Fraunces",Georgia,serif; --body:"Manrope","Helvetica Neue",Arial,sans-serif; --mono:"IBM Plex Mono",Menlo,Consolas,monospace;
+    --maxw:1040px; --r:6px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
+  a{color:var(--brass-2)}
+  h1,h2,h3,h4{font-family:var(--display);font-weight:500;line-height:1.1;margin:0}
+  p{margin:0 0 1em}
+  button{font:inherit;cursor:pointer}
+  :focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+
+  .topbar{position:sticky;top:0;z-index:20;background:var(--green-2);color:#EFE6D2;border-bottom:1px solid rgba(255,255,255,.08)}
+  .topbar .in{max-width:var(--maxw);margin:0 auto;padding:10px 20px;display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:center}
+  .topbar .brand{font-family:var(--display);font-style:italic;font-size:16px;white-space:nowrap}
+  .topbar .live{font-family:var(--mono);font-size:12.5px;color:#D9CDB4;line-height:1.5;min-width:0}
+  .topbar .live b{color:#F3EBDA;font-weight:500}
+  .topbar .live .t{color:#C9B986}
+  .topbar .jump{border:1px solid #C9B986;background:transparent;color:#F3EBDA;padding:6px 12px;border-radius:999px;font-size:13px;font-weight:600;white-space:nowrap}
+  .topbar .jump:hover{background:#C9B986;color:var(--green-2)}
+  .topbar nav{grid-column:1 / -1;display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;margin:0 -6px}
+  .topbar nav::-webkit-scrollbar{display:none}
+  .topbar nav a{color:#D9CDB4;text-decoration:none;padding:4px 9px;border-radius:999px;font-size:13px;font-weight:500;white-space:nowrap}
+  .topbar nav a:hover{background:rgba(255,255,255,.08);color:#fff}
+
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 20px}
+  .hero{padding:40px 0 26px;display:grid;grid-template-columns:1.1fr .9fr;gap:36px;align-items:end}
+  .hero h1{font-size:clamp(40px,6vw,66px);font-weight:400;letter-spacing:-.01em}
+  .hero h1 em{font-style:italic;font-weight:300}
+  .hero .lede{font-size:17px;color:var(--ink-2);max-width:54ch;margin-top:16px}
+  .hero .lede strong{color:var(--ink);font-weight:600}
+  .facts{display:flex;gap:26px;flex-wrap:wrap;margin-top:10px;padding-top:16px;border-top:1px solid var(--rule)}
+  .facts .n{font-family:var(--display);font-size:34px;font-weight:300;line-height:1}
+  .facts .l{font-size:12.5px;color:var(--ink-2);margin-top:5px}
+
+  .now-card{background:var(--green-2);color:#EFE6D2;padding:22px 24px;border-radius:var(--r)}
+  .now-card h2{font-size:22px;color:#F3EBDA;margin-bottom:12px}
+  .now-card h2 span{font-family:var(--mono);font-size:12px;color:#C9B986;margin-left:10px;font-weight:400}
+  .now-card ol{margin:0;padding-left:20px}
+  .now-card li{margin:7px 0;font-size:15px}
+  .now-card li b{color:#fff;font-weight:600}
+  .now-card li small{display:block;color:#C9B986;font-size:13px}
+
+  section{padding:36px 0}
+  section + section{border-top:1px solid var(--rule)}
+  .sec-head{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:18px}
+  .sec-head h2{font-size:clamp(26px,3.2vw,34px);font-weight:400}
+  .sec-head p{margin:0;color:var(--ink-2);max-width:66ch}
+  .sec-head .tools{margin-left:auto;display:flex;gap:8px;align-items:center}
+  .btn{border:1px solid var(--brass);background:transparent;color:var(--brass-2);padding:7px 13px;border-radius:999px;font-weight:600;font-size:13px}
+  .btn:hover{background:var(--brass);color:#fff}
+  .counter{font-family:var(--mono);font-size:12.5px;color:var(--ink-2)}
+
+  .swaps{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px}
+  .swap{background:var(--card);border:1px solid var(--rule);border-radius:var(--r);padding:16px 18px;border-left:3px solid var(--amber)}
+  .swap.keep{border-left-color:var(--cran)}
+  .swap h3{font-size:19px;margin-bottom:6px}
+  .swap .was{font-family:var(--mono);font-size:12px;color:var(--ink-3);text-decoration:line-through;margin-bottom:3px}
+  .swap .is{font-weight:600;font-size:15px;margin-bottom:6px}
+  .swap p{font-size:14px;color:var(--ink-2);margin:0}
+
+  .cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
+  .group{background:var(--card);border:1px solid var(--rule);border-radius:var(--r);padding:14px 16px}
+  .group h3{font-size:18px;margin-bottom:6px;display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+  .group h3 small{font-family:var(--mono);font-size:11.5px;color:var(--ink-3);font-weight:400;text-align:right}
+  .group.no{border-left:3px solid var(--cran)}
+  .group.go{border-left:3px solid var(--green)}
+  .group .addr{font-family:var(--mono);font-size:12.5px;color:var(--ink-2);margin:0 0 8px}
+  .ck{list-style:none;padding:0;margin:0}
+  .ck label{display:grid;grid-template-columns:18px 1fr;gap:10px;align-items:start;padding:5px 0;font-size:14.5px;cursor:pointer;border-bottom:1px dotted var(--rule-2)}
+  .ck li:last-child label{border-bottom:0}
+  .ck input{width:16px;height:16px;margin:3px 0 0;accent-color:var(--green)}
+  .ck input:checked + span{color:var(--ink-3);text-decoration:line-through;text-decoration-color:var(--brass)}
+  .ck span b{font-family:var(--mono);font-weight:500;font-size:12.5px;color:var(--ink-2);margin-right:6px}
+  .ck span i{font-style:normal;color:var(--ink-3);font-size:13px}
+  .ck span .hold{color:var(--cran);font-weight:600;font-style:normal}
+  .ck li.h{font:600 11px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--brass-2);padding:12px 0 3px;border-bottom:1px solid var(--rule-2)}
+  .ck li.h:first-child{padding-top:2px}
+  .ck li.h small{display:block;text-transform:none;letter-spacing:0;font:13px var(--body);color:var(--ink-3);margin-top:2px}
+  .ck.steps{counter-reset:s}
+  .ck.steps li label{counter-increment:s}
+  .ck.steps li label span::before{content:counter(s);display:inline-block;min-width:18px;font:500 11.5px var(--mono);color:var(--brass-2)}
+  .ck span strong{font-weight:700;color:var(--ink)}
+  .ck.plain li{padding:4px 0;font-size:14px;border-bottom:1px dotted var(--rule-2)}
+  .ck.plain li:last-child{border-bottom:0}
+  .ck.plain li b{font-family:var(--mono);font-weight:500;font-size:12.5px;color:var(--ink-2);margin-right:6px}
+
+  .block{display:grid;grid-template-columns:118px 1fr;gap:16px;background:var(--card);border:1px solid var(--rule);border-radius:var(--r);padding:14px 16px;margin-bottom:8px;position:relative}
+  .block .when{font-family:var(--mono);font-size:13px;color:var(--ink);font-weight:500;line-height:1.5}
+  .block .when small{display:block;font-size:11.5px;color:var(--ink-3);font-weight:400}
+  .block h3{font-size:19px;margin-bottom:4px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .block .chips{display:inline-flex;gap:5px;flex-wrap:wrap}
+  .chip{font-family:var(--mono);font-size:11px;padding:2px 8px;border-radius:999px;border:1px solid var(--rule);color:var(--ink-2);white-space:nowrap;background:#fff8}
+  .chip.oven{border-color:#C7A16A;color:#8C5A14}
+  .chip.stove{border-color:#B8A38A;color:#5E4A33}
+  .chip.cold{border-color:#9FB3C2;color:#2F5570}
+  .chip.table{border-color:#8FA996;color:var(--green)}
+  .chip.clean{border-color:var(--amber);color:#8C5A14;background:#FBEFD6}
+  .chip.hard{border-color:var(--cran);color:var(--cran);background:#fff}
+  .block .why{font-size:13.5px;color:var(--ink-2);margin:0 0 6px}
+  .block.now{border-color:var(--amber);box-shadow:0 0 0 3px #F3DFB5;background:#FDF8EC}
+  .block.now::before{content:"NOW";position:absolute;top:-9px;left:12px;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;background:var(--amber);color:#fff;padding:2px 8px;border-radius:999px}
+  .block.next::before{content:"NEXT";position:absolute;top:-9px;left:12px;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;background:var(--green);color:#fff;padding:2px 8px;border-radius:999px}
+  .block.past{opacity:.62}
+  .block.blackout{background:var(--green-2);color:#D9CDB4;border-color:var(--green-2)}
+  .block.blackout .when,.block.blackout h3{color:#F3EBDA}
+  .block.blackout .why{color:#C9B986}
+  .block.cleaners{background:repeating-linear-gradient(135deg,var(--card),var(--card) 14px,#F6ECD6 14px,#F6ECD6 16px)}
+  .block.landmark{border-left:3px solid var(--cran)}
+
+  .ledger{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-top:18px}
+  .ledger .group h3{font-size:17px}
+
+  details.appx{background:var(--card);border:1px solid var(--rule);border-radius:var(--r);padding:0}
+  details.appx summary{cursor:pointer;padding:14px 16px;font-family:var(--display);font-size:19px;list-style:none}
+  details.appx summary::-webkit-details-marker{display:none}
+  details.appx summary::after{content:"+";float:right;font-family:var(--mono);color:var(--ink-3)}
+  details.appx[open] summary::after{content:"–"}
+  details.appx .body{padding:0 16px 14px;border-top:1px solid var(--rule-2)}
+  .ros{width:100%;border-collapse:collapse;margin-top:10px}
+  .ros td{padding:7px 8px;border-bottom:1px solid var(--rule-2);vertical-align:top;font-size:14px}
+  .ros td.t{font-family:var(--mono);font-size:12.5px;white-space:nowrap;width:70px;font-weight:500}
+  .ros tr.guest td{background:#F4EEDC;font-family:var(--display);font-size:15px}
+
+  footer{padding:24px 0 60px;color:var(--ink-3);font-size:13px;border-top:1px solid var(--rule);display:flex;gap:18px;flex-wrap:wrap;align-items:center}
+  footer button{background:none;border:0;color:var(--ink-3);text-decoration:underline;padding:0;margin-left:auto}
+
+  @media (max-width:820px){
+    .hero{grid-template-columns:1fr;gap:22px;padding-top:26px}
+    .block{grid-template-columns:1fr;gap:6px}
+    .block .when{display:flex;gap:10px;align-items:baseline}
+    .block .when small{display:inline}
+    .topbar .in{grid-template-columns:1fr auto;gap:10px}
+    .topbar .brand{display:none}
+  }
+  @media print{.topbar,.btn,footer button{display:none !important} body{background:#fff} .block{break-inside:avoid} .block.past{opacity:1}}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="in">
+    <span class="brand">Eleven hours to the table</span>
+    <div class="live" id="live">—</div>
+    <button class="jump" id="jump">Jump to now</button>
+    <nav aria-label="Sections">
+      <a href="#sat">Saturday</a>
+      <a href="#audit">Ingredient audit</a>
+      <a href="#bird">The bird</a>
+      <a href="#order">Whole Foods 8–9 am</a>
+      <a href="#swaps">What changed</a>
+      <a href="#ovens">Oven &amp; stove</a>
+      <a href="#service">From 7 pm</a>
+    </nav>
+  </div>
+</div>
+
+<div class="wrap">
+<header class="hero">
+  <div>
+    <h1>Home stretch <em>— bird's in</em></h1>
+    <p class="lede">Saturday, 3:48 to 7:00 pm, front-loaded: everything that can be cooked before the doorbell gets cooked now, so the evening is a roast, a sear, and a toss. Bird in at 5:00, doors 6:30, <strong>five</strong> seated at 7:00, coats at 10:00. <strong>The old stuffing and the apple pie are untouched.</strong></p>
+    <div class="facts">
+      <div><div class="n">13</div><div class="l">lb bird, flat</div></div>
+      <div><div class="n">90</div><div class="l">min roast at 425°F</div></div>
+      <div><div class="n">5</div><div class="l">seated at 7:00</div></div>
+      <div><div class="n" id="tasks-n">—</div><div class="l">tasks left</div></div>
+    </div>
+  </div>
+  <div class="now-card">
+    <h2>Home stretch <span>as of 5:05</span></h2>
+    <ol>
+      <li><b>Bird in at 4:49</b>, uncovered. <b>5:35</b> rotate the pan (foil tent over the breast only if it's dark). <b>6:05</b> first temp. Out at <b>150°F breast / 170°F thigh</b> — expect <b>6:20–6:35</b>. Then: tent it, oven to 350, <b>stuffing in</b>, gravy finished in the roasting pan.</li>
+      <li><b>Now:</b> finish the purée (butter, warm oat milk, walnut cream, salt, sieve) → bowl, plastic on the surface, fridge. Then the cold list: coconut cream whipped, pie cut, pecorino shaved, salad plates and apple-water to the fridge. All done by 5:30, then nothing hot until 6:00.</li>
+      <li><b>5:45</b> prosecco to the ice bucket, Pinot opened. <b>6:00</b> purée over water, bar set, candles lit. <b>6:15</b> velouté on low, bowls garnished, gravy base in a pan. <b>6:25</b> gougères 3 min. <b>6:30 doors.</b></li>
+      <li><b>Clock:</b> seated 7:00 → velouté 7:10 → salad 7:40 → mains 8:05 → granita 9:00 → pie 9:15 → espresso 9:45 → coats 10:00.</li>
+    </ol>
+  </div>
+</header>
+
+<!-- ======================================================= -->
+<section id="sat">
+  <div class="sec-head">
+    <h2>Saturday</h2>
+    <p>From 5:05: purée finished, the cold list, then the bird clock — rotate 5:35, temp 6:05, out 6:20–6:35. Doors 6:30, five seated at 7:00.</p>
+    <div class="tools"><span class="counter" data-count-for="sat"></span></div>
+  </div>
+
+  <div class="block" data-start="2026-11-14T07:00">
+    <div class="when">7:00 am<small>40 min</small></div>
+    <div>
+      <h3>Squash in, granita down, bar batched <span class="chips"><span class="chip oven">425°F</span><span class="chip cold">freezer</span></span></h3>
+      <p class="why">Everything here came home yesterday. The oven is free until the pies.</p>
+      <ul class="ck">
+        <li><label><input type="checkbox"><span>Squash halved, seeded, oiled, cut-side down, 425°F 40 min</span></label></li>
+        <li><label><input type="checkbox"><span>Granita: 2½ cups cider warmed with ¼ cup sugar; cooled over ice; 1 tbsp lemon, pinch salt, 2 tbsp bourbon (no Calvados); into a pre-chilled metal cake pan or the 7×10 casserole, freezer — scrape every 30–40 min in ceramic</span></label></li>
+        <li><label><input type="checkbox" checked><span>Bar: moved to 1:50 — and the martini became a rosemary cranberry spritz</span></label></li>
+        <li><label><input type="checkbox" checked><span>Old fashioned and cosmo: dropped. The bar is the spritz, red, beer, prosecco</span></label></li>
+        <li><label><input type="checkbox"><span>Onion, two shallots and an apple sweated in 4 tbsp butter, low, 10 min, no color</span></label></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="block" data-start="2026-11-14T07:40">
+    <div class="when">7:40<small>35 min</small></div>
+    <div>
+      <h3>Finish the velouté; frost the glasses <span class="chips"><span class="chip stove">burner 1</span><span class="chip cold">freezer</span></span></h3>
+      <ul class="ck">
+        <li><label><input type="checkbox"><span>Squash scooped into the pot with 4 cups broth; simmer 15; blended; <strong>through the fine sieve</strong>; ½ cup coconut milk; salt; drops of cider vinegar. Chill. Oven off</span></label></li>
+        <li><label><input type="checkbox" checked><span>Glasses: moved — six highballs with rosemary go to the freezer at 1:45</span></label></li>
+        <li><label><input type="checkbox"><span>Walnuts into hot water to soak (walnut cream later)</span></label></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="block landmark" data-start="2026-11-14T08:00">
+    <div class="when">8:00<small>25 min</small></div>
+    <div>
+      <h3>Spatchcock, salt, stock on <span class="chips"><span class="chip hard">the bird</span><span class="chip stove">back burner</span></span></h3>
+      <p class="why">Detail in "The bird" below. Do this before the cleaners arrive — it's the messiest ten minutes of the day.</p>
+      <ul class="ck">
+        <li><label><input type="checkbox"><span>Backbone out, bird flattened, wing tips tucked. Salted if it wasn't last night. Rack over a sheet pan, fridge, uncovered</span></label></li>
+        <li><label><input type="checkbox"><span>Stock: backbone, neck, giblets (no liver), onion, carrot, celery, bay, peppercorns, water to cover — bare simmer until noon</span></label></li>
+        <li><label><input type="checkbox"><span>Sourdough cubed ¾-inch, crust on, two sheet pans, <b>250°F 9:10–9:50</b>; left out on the pans until noon</span></label></li>
+        <li><label><input type="checkbox"><span>Squash out when it collapses (~8:20); velouté finished per the 7:40 block whenever the pot's free</span></label></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="block cleaners landmark" data-start="2026-11-14T08:25">
+    <div class="when">8:25<small>50 min</small></div>
+    <div>
+      <h3>Delivery at the door; cleaners at 8:30 <span class="chips"><span class="chip clean">cleaners 8:30</span><span class="chip oven">250°F sourdough 9:10–9:50</span></span></h3>
+      <p class="why">Dining room and the rest of the house first, kitchen last. Oven and pie racks are off-limits; everything else is theirs.</p>
+      <ul class="ck">
+        <li><label><input type="checkbox"><span>Groceries in and put away as they land (8–9 am). Butter out on the counter if the pie doughs still need making</span></label></li>
+        <li><label><input type="checkbox"><span><b>8:30</b>cleaners in; counters cleared; the spatchcock board and shears in the dishwasher</span></label></li>
+        <li><label><input type="checkbox"><span><b>8:45</b>granita scrape #1; glasses final round — leave them in the freezer</span></label></li>
+        <li><label><input type="checkbox" checked><span>Cosmo: dropped</span></label></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="block" data-start="2026-11-14T09:45">
+    <div class="when">9:45<small>done</small></div>
+    <div>
+      <h3>The morning, banked <span class="chips"><span class="chip clean">cleaners</span><span class="chip cold">freezer</span></span></h3>
+      <ul class="ck">
+        <li><label><input type="checkbox" checked><span>Granita base in the freezer (2½ cups cider, ¼ cup sugar, lemon, salt, 2 tbsp bourbon). Scrapes continue below</span></label></li>
+        <li><label><input type="checkbox" checked><span>Stock simmering · sourdough cubes dried · onion and celery sweated for the stuffing · squash roasted</span></label></li>
+      </ul>
+    </div>
+  </div>
+
+
+
+
+
+
+  <div class="block" data-start="2026-11-14T11:30">
+    <div class="when">11:30<small>done</small></div>
+    <div>
+      <h3>Kitchen back; dough made; granita down <span class="chips"><span class="chip hard">† held firm</span><span class="chip cold">freezer</span></span></h3>
+      <ul class="ck">
+        <li><label><input type="checkbox" checked><span>Pie dough, two disks, wrapped flat, in the fridge</span></label></li>
+        <li><label><input type="checkbox" checked><span><b>12:33</b>granita base into the pre-chilled dish, freezer. First scrape 1:10</span></label></li>
+        <li><label><input type="checkbox"><span>1 cup walnuts into a bowl of hot water, if they aren't already (walnut cream at 3:10)</span></label></li>
+      </ul>
+    </div>
+  </div>
+
+
+  <div class="block" data-start="2026-11-14T12:35">
+    <div class="when">12:35<small>done</small></div>
+    <div>
+      <h3>Potatoes, apples, pie built <span class="chips"><span class="chip hard">† held firm</span></span></h3>
+      <ul class="ck steps">
+        <li><label><input type="checkbox" checked><span>Potatoes peeled, in cold water, fridge — they cook at 5:45</span></label></li>
+        <li><label><input type="checkbox" checked><span>Apples sliced and tossed; pie rolled, filled, crimped, washed</span></label></li>
+        <li><label><input type="checkbox" checked><span><b>1:12</b>pie in on the hot sheet pan at 425°F</span></label></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="block" data-start="2026-11-14T13:10">
+    <div class="when">1:12<small>done</small></div>
+    <div>
+      <h3>Stock strained; the old stuffing assembled <span class="chips"><span class="chip hard">† held firm</span></span></h3>
+      <ul class="ck steps">
+        <li><label><input type="checkbox" checked><span>Granita scrape #1</span></label></li>
+        <li><label><input type="checkbox" checked><span>Stock strained, about 2 quarts, fridge</span></label></li>
+        <li><label><input type="checkbox" checked><span>Stuffing per the card — sourdough, no eggs — in its 9×13 under foil, fridge. <b>Bakes 6:45</b>, covered 30, uncovered 20</span></label></li>
+        <li><label><input type="checkbox" checked><span>Walnuts soaking</span></label></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="block" data-start="2026-11-14T13:15">
+    <div class="when">Viv<small>when she's back</small></div>
+    <div>
+      <h3>Viv: the table, for five <span class="chips"><span class="chip table">dining room</span><span class="chip cold">prosecco → fridge</span></span></h3>
+      <ul class="ck steps">
+        <li><label><input type="checkbox"><span><strong>Prosecco into the fridge</strong>, all three, the moment they're in the door</span></label></li>
+        <li><label><input type="checkbox"><span><strong>Spritz base</strong>, 2 min: <strong>9 oz</strong> vodka + <strong>9 oz</strong> white cranberry in a jar with a lid. Shake. Fridge. Tape: <strong>SPRITZ — 3 oz a glass</strong>. Three cranberries on each of six picks, saucer, fridge</span></label></li>
+        <li><label><input type="checkbox"><span>The five new Coupe White low bowls washed and dried</span></label></li>
+        <li><label><input type="checkbox"><span>Menu cards printed: <strong>menu-cards-nov14-bw.pdf</strong> (the 12:33 one — it says "spritz"), 3 sheets, cut down the dashed line, 5 + 1 spare</span></label></li>
+        <li class="h">Seating<small>five chairs, both ends used</small></li>
+        <li><label><input type="checkbox"><span><strong>Brad</strong> at the wide end nearest the kitchen · <strong>Viv</strong> at the narrow end · <strong>two guests</strong> on the wall side at the thirds · <strong>one guest</strong> on the near side, centered on the gap between them. Sixth chair out of the room</span></label></li>
+        <li class="h">Each place</li>
+        <li><label><input type="checkbox"><span>Black square plate on the bare wood · red napkin folded in thirds on the plate, menu card tucked in, NFC tag under it · red wine glass at 1 o'clock, flute just outside it · place card above the plate</span></label></li>
+        <li><label><input type="checkbox"><span>Eucalyptus unbagged, laid loosely down the centerline between the far pair and the near single, stopping 10 inches short of each end · tapers at the thirds · votives at the ends · unlit until 6:00</span></label></li>
+        <li><label><input type="checkbox"><span>White rectangles stacked at the pass for the salad and the pie; the 5 low bowls at the pass for 7:00</span></label></li>
+        <li><label><input type="checkbox"><span>Eucalyptus low down the centerline. Tapers in their holders. Votives at the ends. Unlit</span></label></li>
+        <li><label><input type="checkbox"><span>Water carafes filled, fridge. Bar staged on the kitchen counter: jigger, picks, spray bottle, two bar towels</span></label></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="block" data-start="2026-11-14T13:17">
+    <div class="when">1:17<small>done</small></div>
+    <div>
+      <h3>Gravy base, cranberry sauce, lunch, highballs, walnut cream, jam <span class="chips"><span class="chip cold">fridge</span></span></h3>
+      <ul class="ck steps">
+        <li><label><input type="checkbox" checked><span>Gravy base strained, fridge · cranberry sauce cooling</span></label></li>
+        <li><label><input type="checkbox" checked><span>Lunch</span></label></li>
+        <li><label><input type="checkbox" checked><span><b>1:45</b>scrape #2 · six highballs in the freezer with their rosemary sprigs, misted</span></label></li>
+        <li><label><input type="checkbox" checked><span><b>2:17</b>pie out, cooling on the rack — do not cut it</span></label></li>
+        <li><label><input type="checkbox" checked><span><b>2:20</b>scrape #3 · highballs misted</span></label></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="block" data-start="2026-11-14T14:37">
+    <div class="when">Viv<small>done</small></div>
+    <div>
+      <h3>Viv: the velouté <span class="chips"><span class="chip cold">fridge</span></span></h3>
+      <ul class="ck steps">
+        <li><label><input type="checkbox" checked><span>Velouté made, sieved, finished, in the fridge. Reheats at 6:15 on low</span></label></li>
+        <li><label><input type="checkbox" checked><span>Lemon walnut cream (the soup garnish) in its jar, fridge</span></label></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="block landmark" data-start="2026-11-14T14:36">
+    <div class="when">2:36<small>25 min</small></div>
+    <div>
+      <h3>Gougères in; walnut cream, jam, cashews <span class="chips"><span class="chip oven">400°F · out 3:00</span><span class="chip stove">burner 2</span></span></h3>
+      <ul class="ck steps">
+        <li class="h">Gougères<small>in at 2:36</small></li>
+        <li><label><input type="checkbox"><span><b>2:51</b>swap the two pans top-to-bottom, front-to-back. Door open as briefly as you can</span></label></li>
+        <li><label><input type="checkbox"><span><b>2:54</b>first look. Deep gold, dry-looking, no pale seams at the cracks</span></label></li>
+        <li><label><input type="checkbox"><span><b>2:58–3:01</b>out. One tapped on the bottom sounds hollow. Cool on the pans, towel loosely over. Oven off</span></label></li>
+        <li class="h">Meanwhile<small>skip anything already done</small></li>
+        <li><label><input type="checkbox" checked><span>Walnut cream — blended, jarred, fridge</span></label></li>
+        <li><label><input type="checkbox" checked><span>Cranberry-chili jam — done, cooling</span></label></li>
+        <li><label><input type="checkbox"><span><b>2:55</b>granita scrape #4. Highballs misted</span></label></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="block" data-start="2026-11-14T15:10">
+    <div class="when">3:10<small>done</small></div>
+    <div>
+      <h3>Vinaigrette, the three nuts, beans, bird out <span class="chips"><span class="chip cold">fridge</span></span></h3>
+      <ul class="ck steps">
+        <li><label><input type="checkbox" checked><span>Vinaigrette jarred · hazelnuts (SALAD) · almonds (BEANS) · pepitas (SOUP) · beans blanched and bagged</span></label></li>
+        <li><label><input type="checkbox" checked><span><b>3:45</b>bird out of the fridge on its rack, tempering on the counter until 5:00</span></label></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="block" data-start="2026-11-14T15:50">
+    <div class="when">3:50<small>done</small></div>
+    <div>
+      <h3>Potatoes cooked; brown butter and sage; bird buttered; granita fluffed <span class="chips"><span class="chip hard">the bird</span></span></h3>
+      <ul class="ck steps">
+        <li><label><input type="checkbox" checked><span>Potatoes cooked and drained</span></label></li>
+        <li><label><input type="checkbox" checked><span>Brown butter in its jar; 12 sage leaves crisp on paper towel</span></label></li>
+        <li><label><input type="checkbox" checked><span>Sage butter under the skin; onion, carrot, celery under the rack</span></label></li>
+        <li><label><input type="checkbox" checked><span><b>4:05</b>granita fluffed, covered, done</span></label></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="block" data-start="2026-11-14T16:45">
+    <div class="when">4:45<small>done</small></div>
+    <div>
+      <h3>Oven on; shower; bird in at 4:49 <span class="chips"><span class="chip oven">425°F</span></span></h3>
+      <ul class="ck steps">
+        <li><label><input type="checkbox" checked><span>Oven to 425°F</span></label></li>
+        <li><label><input type="checkbox" checked><span>Shower</span></label></li>
+        <li><label><input type="checkbox" checked><span><b>4:49</b>bird in, flat, uncovered, lower-middle rack</span></label></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="block landmark" data-start="2026-11-14T17:05">
+    <div class="when">5:05<small>25 min</small></div>
+    <div>
+      <h3>Finish the purée; the cold list <span class="chips"><span class="chip stove">burner 1</span><span class="chip cold">fridge</span></span></h3>
+      <ul class="ck steps">
+        <li class="h">Purée<small>potatoes already cooked</small></li>
+        <li><label><input type="checkbox"><span>Potatoes back over low heat 1 min if they've cooled. Through the ricer (or mashed hard)</span></label></li>
+        <li><label><input type="checkbox"><span><strong>1 cup</strong> cold butter, cubed, beaten in a handful at a time</span></label></li>
+        <li><label><input type="checkbox"><span><strong>¾ cup</strong> oat milk warmed in the microwave, in a splash at a time until it slumps off the spoon</span></label></li>
+        <li><label><input type="checkbox"><span><strong>3 tbsp</strong> walnut cream folded in. Salt — more than you think</span></label></li>
+        <li><label><input type="checkbox"><span>Through the sieve with a spatula into the heatproof bowl. Plastic pressed on the surface. Fridge until 6:00</span></label></li>
+        <li class="h">Cold list<small>nothing on the stove</small></li>
+        <li><label><input type="checkbox"><span>Coconut cream: solids from the two chilled cans, <strong>1 tbsp</strong> sugar, drop of vanilla, whisked to soft peaks. Covered, fridge</span></label></li>
+        <li><label><input type="checkbox"><span>Pie cut into <strong>8</strong>, thin knife wiped between cuts. Back under the towel</span></label></li>
+        <li><label><input type="checkbox"><span>Pecorino: <strong>5–6</strong> curls a plate with the peeler, covered, fridge. Five salad plates into the fridge</span></label></li>
+        <li><label><input type="checkbox"><span>Salad apple: <strong>2</strong> Honeycrisp quartered, cored, sliced thin into water with the juice of half a lemon. Fridge</span></label></li>
+        <li><label><input type="checkbox"><span>Five dessert plates and five dinner plates stacked at the pass</span></label></li>
+        <li class="h">The bird</li>
+        <li><label><input type="checkbox"><span><b>5:35</b>rotate the pan. Skin darkening fast? Loose foil tent over the breast only. Otherwise nothing</span></label></li>
+        <li><label><input type="checkbox"><span><b>5:45</b>prosecco out of the fridge into the ice bucket. Pinot opened. Highballs stay in the freezer</span></label></li>
+        <li><label><input type="checkbox"><span>Lights to 30%. Candles placed, unlit. Playlist cued. Bathroom checked</span></label></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="block" data-start="2026-11-14T18:00">
+    <div class="when">6:00<small>15 min</small></div>
+    <div>
+      <h3>Reheats on; bar set; candles <span class="chips"><span class="chip stove">burners 1–2</span><span class="chip cold">freezer</span></span></h3>
+      <ul class="ck steps">
+        <li><label><input type="checkbox"><span>Purée bowl over a pot of barely simmering water, lid on. Stir every 15 min</span></label></li>
+        <li><label><input type="checkbox"><span>Spritz base out of the fridge next to the jigger. Cranberry picks out. Prosecco in the bucket — <strong>opened at 6:28, not before</strong>. Beer cold</span></label></li>
+        <li><label><input type="checkbox"><span>Bambino on, cups on top. Cheese out. Cranberry-chili jam in its bowl. Walnut cream and the lemon walnut cream out. Pepitas, sage leaves and brown butter lined up by the bowls</span></label></li>
+        <li><label><input type="checkbox"><span>Candles lit, lights down, music on</span></label></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="block" data-start="2026-11-14T18:15">
+    <div class="when">6:15<small>10 min</small></div>
+    <div>
+      <h3>Velouté on low; bowls staged; gravy base out <span class="chips"><span class="chip stove">burner 3</span></span></h3>
+      <ul class="ck steps">
+        <li><label><input type="checkbox"><span><b>6:05</b>first bird check: <strong>150°F</strong> thickest breast, <strong>170°F</strong> thigh. Expect 6:20–6:35. <strong>When it hits:</strong> out, tented loosely on the board. Oven to 350°F. Stuffing in, covered. Then the gravy — fat poured off the pan, pan over a burner, ½ cup prosecco, scraped, strained into the base, 3 min, lid on, lowest heat</span></label></li>
+        <li><label><input type="checkbox"><span>Velouté into a pot on <strong>low</strong>. Thin with broth until it pours. Never a boil. Brown butter jar loosened 30 sec in the microwave</span></label></li>
+        <li><label><input type="checkbox"><span>Five low bowls warmed under hot tap water, dried. In each: a teaspoon of lemon walnut cream · two sage leaves · a pinch of pepitas · four drops of brown butter · a thread of walnut cream</span></label></li>
+        <li><label><input type="checkbox"><span>Pitcher filled with hot water to warm it. Gravy base out of the fridge into a small saucepan, ready for 6:45</span></label></li>
+        <li><label><input type="checkbox"><span><b>6:25</b>gougères on a tray, top rack, <strong>3 min</strong> at whatever the oven is — watch them. Jam, board, napkins out. Prosecco opened at 6:28</span></label></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="block landmark" data-start="2026-11-14T18:30">
+    <div class="when">6:30<small>doors</small></div>
+    <div>
+      <h3>Doors <span class="chips"><span class="chip table">guests</span></span></h3>
+      <ul class="ck steps">
+        <li class="h">The spritz<small>one per guest, within a minute of the door</small></li>
+        <li><label><input type="checkbox"><span>Highball out of the freezer. <strong>3 oz</strong> spritz base over the frozen sprig</span></label></li>
+        <li><label><input type="checkbox"><span>Prosecco poured slowly down the side of the glass to the top. Cranberry pick across the rim. No ice</span></label></li>
+        <li><label><input type="checkbox"><span>Gougères and jam in the kitchen. Nobody sits</span></label></li>
+        <li class="h">If the bird is still in at 6:30<small>it comes out when it hits temperature, by 6:45 at the latest</small></li>
+        <li><label><input type="checkbox"><span>Bird out at <strong>150°F</strong> breast / <strong>170°F</strong> thigh, tented on the board. Oven to <strong>350°F</strong>. <strong>Stuffing in, covered</strong> — covered 30, uncovered 20, then holds covered until 8:05</span></label></li>
+        <li><label><input type="checkbox"><span><strong>Gravy finished</strong> the moment the bird is out: fat poured off, pan over a burner, <strong>½ cup</strong> prosecco, scraped, strained into the base. 3 min. Lid on, lowest heat. At 7:50 it only needs a stir</span></label></li>
+        <li><label><input type="checkbox"><span>A second spritz, a beer, or a glass of red for anyone. One round</span></label></li>
+        <li><label><input type="checkbox"><span><b>6:50</b>velouté into the warm pitcher. <b>6:55</b> start walking people to the table</span></label></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="block landmark" data-start="2026-11-14T19:00">
+    <div class="when">7:00 pm<small>seated</small></div>
+    <div>
+      <h3>Seated <span class="chips"><span class="chip table">course II</span></span></h3>
+      <p class="why">Bowls down empty. Pour the velouté at each place, slowly, by 7:10. Sit. The service rows below take over — coats at 10:00.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================= -->
+<section id="audit">
+  <div class="sec-head">
+    <h2>Ingredient audit, dish by dish</h2>
+    <p>Every ingredient for the night, tagged by where it comes from. <b>WF</b> = on the 8–9 am delivery. <b>MD</b> = came out of the Whole Foods cart, so it has to be from yesterday's Market District run. <b>pantry</b> = in the house, check. Tick what you have; what's left is the store list.</p>
+    <div class="tools"><span class="counter" data-count-for="audit"></span><button class="btn" id="copy-audit">Copy unticked</button></div>
+  </div>
+  <div class="cols">
+    <div class="group no">
+      <h3>New gaps this morning</h3>
+      <ul class="ck">
+        <li><label><input type="checkbox" checked><span><b>✓</b>sourdough, one loaf — the stuffing bread</span></label></li>
+        <li><label><input type="checkbox" checked><span><b>✓</b>poultry seasoning — found</span></label></li>
+        <li><label><input type="checkbox"><span><b>store</b>ice, 2 bags</span></label></li>
+        <li><label><input type="checkbox"><span><b>pantry</b>dried beans or rice for pie weights</span></label></li>
+      </ul>
+    </div>
+    <div class="group">
+      <h3>The bar</h3>
+      <ul class="ck">
+        <li><label><input type="checkbox"><span><b>Viv</b>vodka 750 · white cranberry juice · prosecco ×3</span></label></li>
+        <li><label><input type="checkbox"><span><b>MD</b>saison ×4 · sparkling cider ×1 (the no-alcohol spritz)</span></label></li>
+        <li><label><input type="checkbox"><span><b>MD</b>Pinot ×2 (the red) · the gravy deglazes with ½ cup prosecco</span></label></li>
+        <li><label><input type="checkbox"><span><b>WF</b>rosemary ×2 · navel oranges · cranberry juice 32 oz</span></label></li>
+        <li><label><input type="checkbox"><span><b>pantry</b>bourbon for the granita and the espresso</span></label></li>
+        <li><label><input type="checkbox" checked><span><b>house</b>highballs ×6 (spritz on arrival, rosemary sprig frozen inside; washed and re-frozen for the granita) · red glasses · flutes for prosecco at the table · jigger, picks, spray bottle, ice bucket</span></label></li>
+      </ul>
+    </div>
+    <div class="group">
+      <h3>I · Gougères, cranberry-chili jam</h3>
+      <ul class="ck">
+        <li><label><input type="checkbox"><span><b>MD</b>eggs ×4</span></label></li>
+        <li><label><input type="checkbox"><span><b>WF</b>Gruyère 6 oz · butter · cranberries · an orange</span></label></li>
+        <li><label><input type="checkbox"><span><b>pantry</b>AP flour 1 cup · salt · nutmeg · pepper · sugar ½ cup · chili flake</span></label></li>
+        <li><label><input type="checkbox"><span><b>house</b>piping bag or a zip bag with the corner cut · parchment</span></label></li>
+      </ul>
+    </div>
+    <div class="group">
+      <h3>II · Butternut velouté</h3>
+      <ul class="ck">
+        <li><label><input type="checkbox"><span><b>MD</b>butternut ✓ roasting · broth 4 cups · coconut milk ½ cup</span></label></li>
+        <li><label><input type="checkbox"><span><b>swap</b>no cashews — lemon walnut cream is the garnish · walnuts ✓</span></label></li>
+        <li><label><input type="checkbox"><span><b>WF</b>onion · 2 shallots · 1 apple · sage 12 leaves · pepitas · butter</span></label></li>
+        <li><label><input type="checkbox"><span><b>pantry</b>olive oil · salt · cider vinegar</span></label></li>
+        <li><label><input type="checkbox"><span><b>house</b>blender · fine sieve · a pitcher that pours clean · 5 shallow soup bowls <i>(the Coupe White low bowls — Viv is picking them up at World Market Lennox)</i></span></label></li>
+      </ul>
+    </div>
+    <div class="group">
+      <h3>III · Shaved sprouts salad</h3>
+      <ul class="ck">
+        <li><label><input type="checkbox"><span><b>WF</b>shaved sprouts 2 × 12 oz · Honeycrisp ×2 · pecorino · hazelnuts · parsley · 1 shallot</span></label></li>
+        <li><label><input type="checkbox"><span><b>MD</b>lemon (for the cut apples)</span></label></li>
+        <li><label><input type="checkbox"><span><b>pantry</b>olive or hazelnut oil 3 tbsp · cider vinegar 2 tbsp · Dijon · honey · salt</span></label></li>
+        <li><label><input type="checkbox"><span><b>house</b>5 salad plates, chilled</span></label></li>
+      </ul>
+    </div>
+    <div class="group">
+      <h3>IV · Turkey two ways, gravy</h3>
+      <ul class="ck">
+        <li><label><input type="checkbox"><span><b>✓</b>13-lb bird, flat, salted, in the fridge · backbone and neck in the stockpot</span></label></li>
+        <li><label><input type="checkbox"><span><b>WF</b>butter · sage 6 leaves · onion, carrot, celery for the pan and the pot</span></label></li>
+        <li><label><input type="checkbox"><span><b>MD</b>prosecco ½ cup for the deglaze · broth to top up the stock</span></label></li>
+        <li><label><input type="checkbox"><span><b>pantry</b>kosher salt · sugar · pepper · flour ¼ cup · bay · peppercorns</span></label></li>
+        <li><label><input type="checkbox"><span><b>house</b>thermometer · roasting pan + rack · cast iron · carving board · sauceboat · kitchen shears ✓</span></label></li>
+      </ul>
+    </div>
+    <div class="group">
+      <h3>IV · Purée, beans, cranberry</h3>
+      <ul class="ck">
+        <li><label><input type="checkbox"><span><b>WF</b>yellow potatoes 3 lb · butter 1 cup · green beans 2 × 12 oz · sliced almonds · 1 shallot · cranberries 12 oz · oranges</span></label></li>
+        <li><label><input type="checkbox"><span><b>MD</b>oat milk ¾–1 cup · walnuts (walnut cream) · lemon ½</span></label></li>
+        <li><label><input type="checkbox"><span><b>pantry</b>salt · sugar ¾ cup</span></label></li>
+        <li><label><input type="checkbox"><span><b>house</b>ricer or food mill · bain-marie setup · 5 dinner plates in the warming drawer</span></label></li>
+      </ul>
+    </div>
+    <div class="group no">
+      <h3>IV · The old stuffing †</h3>
+      <ul class="ck">
+        <li><label><input type="checkbox" checked><span><b>✓</b>sourdough, 1 lb, cubed and dried · poultry seasoning</span></label></li>
+        <li><label><input type="checkbox"><span><b>WF</b>butter 1 cup · onion · celery · sage · thyme · parsley</span></label></li>
+        <li><label><input type="checkbox"><span><b>✓</b>turkey stock 2½–3 cups from this morning's pot</span></label></li>
+        <li><label><input type="checkbox"><span><b>pantry</b>salt · pepper · whatever the card adds</span></label></li>
+        <li><label><input type="checkbox"><span><b>house</b>the 9×13 it has always been baked in</span></label></li>
+      </ul>
+    </div>
+    <div class="group">
+      <h3>V · Cider granita</h3>
+      <ul class="ck">
+        <li><label><input type="checkbox"><span><b>MD</b>fresh apple cider 2½ cups · lemon · bourbon 2 tbsp (no Calvados)</span></label></li>
+        <li><label><input type="checkbox"><span><b>pantry</b>sugar ¼ cup · salt</span></label></li>
+        <li><label><input type="checkbox"><span><b>house</b>pre-chilled dish (7×10 ceramic works; metal faster) · 5 frosted highballs</span></label></li>
+      </ul>
+    </div>
+    <div class="group">
+      <h3>VI · Apple pie †, pie service</h3>
+      <ul class="ck">
+        <li><label><input type="checkbox"><span><b>WF</b>butter 1 cup (crust) + 2 tbsp · Granny Smith + Honeycrisp 3 lb</span></label></li>
+        <li><label><input type="checkbox"><span><b>MD</b>flour 2½ cups · lemon · maple (wash) · oat milk (wash)</span></label></li>
+        <li><label><input type="checkbox"><span><b>pantry</b>salt · sugar · brown sugar · cinnamon · nutmeg · vanilla · cornstarch 2 tbsp · turbinado</span></label></li>
+        <li><label><input type="checkbox"><span><b>MD</b>coconut cream ×2, chilled (the quenelle) — plus 1 tbsp sugar, a drop of vanilla</span></label></li>
+        <li><label><input type="checkbox"><span><b>WF</b>365 oat vanilla frozen dessert</span></label></li>
+        <li><label><input type="checkbox"><span><b>house</b>pie dish · rolling pin · sheet pan to bake on · 5 dessert plates · two small spoons for the quenelle</span></label></li>
+      </ul>
+    </div>
+    <div class="group">
+      <h3>VII · Espresso; table</h3>
+      <ul class="ck">
+        <li><label><input type="checkbox"><span><b>pantry</b>espresso beans, enough for 8 doubles</span></label></li>
+        <li><label><input type="checkbox"><span><b>MD</b>oat milk for lattes · bourbon</span></label></li>
+        <li><label><input type="checkbox"><span><b>WF</b>eucalyptus ×2</span></label></li>
+        <li><label><input type="checkbox"><span><b>house</b>tapers + votives · 5 linen napkins · menu cards printed (B&amp;W, 3 sheets) · place cards · water carafes</span></label></li>
+        <li><label><input type="checkbox"><span><b>house</b>parchment · foil · plastic wrap · side towels · dish soap and a clean sponge for the 7:35 turnaround</span></label></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================= -->
+<section id="bird">
+  <div class="sec-head">
+    <h2>The bird: one 13-lb turkey, two ways</h2>
+    <p>No breast, no duck — so the whole bird does both jobs. Spatchcocked, it roasts in about 90 minutes at 425°F with the thighs done when the breast is, and the oven is free again by 6:45 for the stuffing.</p>
+  </div>
+  <div class="cols">
+    <div class="group go">
+      <h3>8:00 am — spatchcock and salt</h3>
+      <ul class="ck plain">
+        <li>Bird breast-side down. Kitchen shears along both sides of the backbone; pull it out. Flip, press hard on the breastbone until it cracks and the bird lies flat. Tuck the wing tips behind the breast</li>
+        <li>Pat very dry. 3 tbsp Diamond kosher (2 tbsp Morton), 2 tsp sugar, 1 tsp pepper: fingers under the skin of the breast and thighs, the rest over the skin</li>
+        <li>On a rack over a rimmed sheet pan, fridge, <strong>uncovered</strong>, until 3:45. If it was salted last night, skip the salt — just flatten it</li>
+        <li>Backbone, neck, giblets (no liver) → the stockpot with an onion, carrot, celery, bay, peppercorns, water to cover; bare simmer to noon; strain; this replaces a quart of the bought broth in the gravy base</li>
+      </ul>
+    </div>
+    <div class="group">
+      <h3>3:45 — temper; 5:00 — in</h3>
+      <ul class="ck plain">
+        <li><b>3:45</b>out of the fridge; rough-cut onion, carrot, celery and the apple cores under the rack to catch drippings</li>
+        <li><b>4:40</b>oven to 425°F</li>
+        <li><b>5:00</b>bird in, skin brushed with 2 tbsp melted butter. Rotate the pan at 5:45</li>
+        <li><b>6:15</b>first check: 150°F in the thickest breast, 170°F in the thigh. Usually 6:30–6:45 for 13 lb flat</li>
+        <li><b>6:45</b>out; tented loosely; rests on the board until 7:50. Oven to 350°F — stuffing goes in</li>
+      </ul>
+    </div>
+    <div class="group">
+      <h3>7:50 — carve two ways</h3>
+      <ul class="ck plain">
+        <li>Legs off at the joint. Thighs boned (the bone pulls free after resting), each cut into three skin-on blocks → six; five plated, one for the cook</li>
+        <li>Cast iron hot with 1 tbsp butter: thigh blocks skin-side down 2 min until the skin shatters. This is the "second way"</li>
+        <li>Breast lobes off the bone whole, sliced across the grain ⅜ inch — two or three slices a plate</li>
+        <li>Drumsticks and wings go back to the kitchen for Sunday. Carcass into the stockpot with tonight's dishes</li>
+      </ul>
+    </div>
+    <div class="group no">
+      <h3>If the fridge can't take a flat 13-lb bird</h3>
+      <ul class="ck plain">
+        <li>Legs off now (thigh + drumstick, one cut through the hip joint) — the crown and the legs each fit a half-sheet pan, stacked on the cleared shelf</li>
+        <li>Roast them together at 5:00 on two racks; the legs come out when the thighs hit 170°F, same window</li>
+        <li>Everything else above holds</li>
+      </ul>
+    </div>
+  </div>
+</section>
+<!-- ======================================================= -->
+<section id="order">
+  <div class="sec-head">
+    <h2>Whole Foods, at the door 8–9 am</h2>
+    <p>36 items, $179.48 — delivered this morning and put away. Kept for reference.</p>
+  </div>
+  <div class="cols">
+    <div class="group">
+      <h3>Produce</h3>
+      <ul class="ck plain">
+        <li><b>3 lb</b>Granny Smith · <b>3 lb</b> Honeycrisp</li>
+        <li><b>3 × 12 oz</b>cranberries</li>
+        <li><b>3 lb</b>navel oranges</li>
+        <li><b>3 lb</b>yellow potatoes · <b>3 lb</b> yellow onions</li>
+        <li><b>2 × 12 oz</b>shaved brussels sprouts · <b>2 × 12 oz</b> trimmed green beans</li>
+        <li><b>2 × 6 oz</b>shallots · celery · carrots</li>
+        <li>sage ×3 · rosemary ×2 · thyme · parsley</li>
+        <li><b>2</b>eucalyptus bunches</li>
+      </ul>
+    </div>
+    <div class="group">
+      <h3>Dairy, cheese, pantry</h3>
+      <ul class="ck plain">
+        <li><b>3 lb</b>unsalted butter</li>
+        <li><b>6 oz</b>Gruyère · <b>½ lb</b> pecorino · <b>4 oz</b> chèvre</li>
+        <li><b>1 pt</b>365 oat vanilla frozen dessert</li>
+        <li><b>8 oz each</b>hazelnuts, sliced almonds, pepitas</li>
+        <li><b>32 oz</b>100% cranberry juice</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================= -->
+<section id="swaps">
+  <div class="sec-head">
+    <h2>What changed, and why</h2>
+    <p>The clock and the dairy line. Everything else on the menu stands.</p>
+  </div>
+  <div class="swaps">
+    <div class="swap">
+      <h3>One bird, two ways</h3>
+      <div class="was">Bone-in breast + pressed duck confit</div>
+      <div class="is">A 13-lb turkey, spatchcocked: sliced breast and a crisp-skinned thigh block on every plate</div>
+      <p>Flat, it roasts in about 90 minutes at 425°F and the thighs finish with the breast. The thigh blocks get a 2-minute skin-side sear in cast iron at 7:35 — that's the "second way." The backbone and neck make real turkey stock for the gravy this morning. Menu line stays "turkey two ways."</p>
+    </div>
+    <div class="swap">
+      <h3>No truffle</h3>
+      <div class="was">1 oz fresh white Alba, shaved at the table</div>
+      <div class="is">Pommes purée, walnut cream — the walnut cream is the richness now</div>
+      <p>Sabatino ships Mon–Thu; the boat left. The purée gets butter, hot oat milk and a spoon of homemade walnut cream, pushed through the sieve. It's a very good plate without the truffle.</p>
+    </div>
+    <div class="swap">
+      <h3>Dairy, veganized — cheese and butter stay</h3>
+      <div class="was">Heavy cream · whole milk · crème fraîche · dairy ice cream</div>
+      <div class="is">Coconut milk in the velouté · walnut cream in the purée · lemon walnut cream on the soup · whipped coconut cream and oat vanilla with the pies · oat milk in the lattes</div>
+      <p>Walnut cream: 1 cup walnuts in hot water 20 min, blended with ¾ cup water and a pinch of salt until silky. Whipped coconut cream: the chilled solids from two cans, 1 tbsp sugar, a drop of vanilla, whisked to soft peaks at 8:40.</p>
+    </div>
+    <div class="swap">
+      <h3>No eggs in the stuffing</h3>
+      <div class="was">2 eggs as binder</div>
+      <div class="is">Bread, butter, onion, celery, sage, broth — your card, as written</div>
+      <p>Eggs stay only where they do structural work: the gougères. Nothing else on the table tonight has an egg in it.</p>
+    </div>
+    <div class="swap">
+      <h3>Stock from the backbone, brine is 11 hours</h3>
+      <div class="was">4-hour stock Wednesday · 48-hour brine</div>
+      <div class="is">Turkey stock from the backbone this morning, bought broth for the rest; gravy finished in the roasting pan · the flat bird salted by 8:30 — eleven hours uncovered</div>
+      <p>Eleven hours uncovered on a rack still seasons through and dries the skin for the 425°F roast. The gravy tastes like the bird twice over: its own stock, and its own pan.</p>
+    </div>
+    <div class="swap">
+      <h3>Viv's spritz at the door; then red, beer, prosecco</h3>
+      <div class="was">Rosemary freezer martini · cosmo · maple old fashioned · Riesling · Sauternes</div>
+      <div class="is">Vodka and white cranberry over the frozen rosemary sprig, topped with prosecco, in the highball. Then Pinot with the main, the saison, and prosecco all night</div>
+      <p>Same frozen-rosemary glass, same first-minute pour, and a bar you can run with one hand: 1½ oz vodka, 1½ oz white cranberry, prosecco to the top, three cranberries on a pick. The highballs come back at 9:00 for the granita, washed and re-frozen.</p>
+    </div>
+    <div class="swap">
+      <h3>One pie, not a flight</h3>
+      <div class="was">Apple and pecan, a slim slice of each</div>
+      <div class="is">Apple pie alone — a proper slice, oat vanilla, a quenelle of whipped coconut cream</div>
+      <p>One crust, one bake, one hour of oven back. The apple is the family pie; it carries dessert on its own.</p>
+    </div>
+    <div class="swap keep">
+      <h3>Held firm †</h3>
+      <div class="is">The old stuffing · apple pie</div>
+      <p>Same recipes, same dishes, same service: stuffing to the center of the table in its 9×13; the apple pie sliced at the pass with oat vanilla and whipped coconut cream.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================= -->
+<section id="ovens">
+  <div class="sec-head">
+    <h2>Oven &amp; stove ledger</h2>
+    <p>One oven. Nothing overlaps.</p>
+  </div>
+  <div class="ledger">
+    <div class="group">
+      <h3>Saturday oven</h3>
+      <ul class="ck plain">
+        <li><b>7:00–8:20</b>squash, 425°F</li>
+        <li><b>9:10–9:50</b>sourdough cubes drying, 250°F</li>
+        <li><b>1:12–2:17</b>apple pie, 425°F 20 min → 375°F 45 min</li>
+        <li><b>2:36–3:00</b>gougères, 400°F</li>
+        <li><b>4:45</b>preheat 425°F</li>
+        <li><b>4:49–~6:30</b>bird, flat, 425°F, uncovered</li>
+        <li><b>6:25</b>gougères re-crisp, 3 min, top rack</li>
+        <li><b>6:45–7:35</b>stuffing, 350°F — covered 30, uncovered 20; holds covered to 8:05</li>
+        <li><b>9:05</b>apple pie slices, 300°F, 8 min — optional, it's good at room temperature</li>
+      </ul>
+    </div>
+    <div class="group">
+      <h3>Cold holds Saturday</h3>
+      <ul class="ck plain">
+        <li><b>fridge</b>the flat bird (uncovered, until 3:45), stuffing, velouté, gravy base, turkey stock, walnut cream, lemon walnut cream, potatoes in water, salad plates, spritz base, prosecco ×3, cranberry picks, coconut cream cans</li>
+        <li><b>freezer</b>granita (from 12:33), six highballs with rosemary (from 1:45; back in at 7:15 for the granita), oat vanilla</li>
+        <li><b>counter</b>apple pie from 2:17, gougères from 3:00</li>
+      </ul>
+    </div>
+    <div class="group">
+      <h3>If something slips</h3>
+      <ul class="ck plain">
+        <li><b>pie runs late</b>it only has to be out before the gougères go in — push gougères to 2:30, nothing else moves. Worst case the pie bakes while you shower at 4:00</li>
+        <li><b>Viv back late</b>the table gets set at 4:00 while you shower; the bowls just need a rinse</li>
+        <li><b>bird slow</b>it has until 7:00 to hit temperature — the stuffing just goes in later and holds. Mains at 8:20 is fine</li>
+        <li><b>no room in the fridge for a flat bird</b>legs off; crown and legs on two half-sheets, stacked. Same roast, same window</li>
+        <li><b>granita froze solid</b>let it sit out 10 min, scrape hard with a fork — it comes back. Or pulse it in the blender for 2 seconds</li>
+        <li><b>sprig won't stick to the glass</b>it doesn't have to — a frozen sprig standing in a frosted glass reads the same. Pour over it</li>
+        <li><b>prosecco not cold by 6:30</b>20 minutes in the ice bucket with a handful of salt in the ice</li>
+        <li><b>breast slow</b>the salad buys 15 minutes. Mains at 8:20 is fine</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================= -->
+<section id="service">
+  <details class="appx">
+    <summary>From 7:00 pm — service, coats at 10:00</summary>
+    <div class="body">
+      <table class="ros">
+        <tr class="guest"><td class="t">7:00</td><td>Seated. Low bowls down empty; velouté poured at each place from the pitcher by 7:10. Sit.</td></tr>
+        <tr><td class="t">7:15</td><td>Stuffing uncovered for its last 20 minutes. Dinner plates to the warming drawer. <b>Arrival highballs collected, washed, dried, back in the freezer</b> — frosted again by 9:00. Purée stirred.</td></tr>
+        <tr class="guest"><td class="t">7:38</td><td>Salad: sprouts and the drained apple tossed with the vinaigrette (shake the jar first), piled on the cold plates, pecorino curls and hazelnuts on top. Serve at 7:40. Sit.</td></tr>
+        <tr><td class="t">7:50</td><td>Clear. Stuffing out, covered on the counter. Gravy stirred, heat up. Legs off the bird; thighs boned and cut into skin-on blocks; cast iron hot with 1 tbsp butter, blocks skin-side down 2 min until the skin shatters.</td></tr>
+        <tr><td class="t">7:56</td><td>Beans: 1 tbsp butter and the saved shallot 1 min, beans 2 min to heat through, almonds, a squeeze of lemon, salt. Breast lobes off the bone, sliced across the grain. Purée: splash of warm oat milk, knob of butter, stir glossy.</td></tr>
+        <tr><td class="t">8:00</td><td>Plate five on warm plates: purée swoosh, breast fanned, thigh block crisp side up, beans, cranberry quenelle, gravy over the breast only. Pour the Pinot.</td></tr>
+        <tr class="guest"><td class="t">8:05</td><td>Mains down. Stuffing to the center of the table with the sauceboat and the cranberry bowl. Sit. Pass the stuffing. Seconds are the stuffing.</td></tr>
+        <tr><td class="t">8:55</td><td>Clear. Granita forked into the re-frozen highballs, a few drops of bourbon over each. Oven to 300°F if you want the pie warm.</td></tr>
+        <tr class="guest"><td class="t">9:00</td><td>Granita down. Sit. Five minutes.</td></tr>
+        <tr><td class="t">9:10</td><td>Five pie slices onto the warm dessert plates (8 min at 300°F on a tray if you want them warm); a scoop of oat vanilla beside; the whipped coconut cream stirred once, a quenelle on each. Prosecco topped up.</td></tr>
+        <tr class="guest"><td class="t">9:15</td><td>Pie down. Sit.</td></tr>
+        <tr class="guest"><td class="t">9:45</td><td>Everyone to the Bambino — oat milk lattes, bourbon neat for anyone who wants it, the last of the prosecco.</td></tr>
+        <tr><td class="t">10:00</td><td>Coats. Out the door by 10:15.</td></tr>
+      </table>
+    </div>
+  </details>
+</section>
+
+<footer>
+  <span>Dinner for five · Saturday, November 14, 2026 · 61 N 5th</span>
+  <span>Checkboxes save in this browser only.</span>
+  <button type="button" id="reset">Clear all checkboxes</button>
+</footer>
+</div>
+
+<script>
+(function(){
+  var KEY='mt-crunch-nov14-v17', state={};
+  try{ state=JSON.parse(localStorage.getItem(KEY)||'{}')||{}; }catch(e){ state={}; }
+  function save(){ try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){} }
+
+  var all=[];
+  document.querySelectorAll('section[id]').forEach(function(sec){
+    sec.querySelectorAll('input[type=checkbox]').forEach(function(b,i){
+      var id=sec.id+'-'+i; b.dataset.id=id; all.push(b);
+      if(state[id]) b.checked=true;
+      b.addEventListener('change',function(){ if(b.checked) state[id]=true; else delete state[id]; save(); counts(); });
+    });
+  });
+  function counts(){
+    document.querySelectorAll('[data-count-for]').forEach(function(el){
+      var scope=document.getElementById(el.dataset.countFor); if(!scope) return;
+      var boxes=scope.querySelectorAll('input[type=checkbox]'), d=0;
+      boxes.forEach(function(x){ if(x.checked) d++; });
+      el.textContent=d+' of '+boxes.length+' done';
+    });
+    var left=0; document.querySelectorAll('#fri input[type=checkbox], #sat input[type=checkbox]').forEach(function(x){ if(!x.checked) left++; });
+    document.getElementById('tasks-n').textContent=left;
+  }
+  counts();
+
+  document.getElementById('reset').addEventListener('click',function(){
+    if(!confirm('Clear every checkbox on this page?')) return;
+    state={}; save(); all.forEach(function(b){ b.checked=false; }); counts();
+  });
+
+  var copyBtn=document.getElementById('copy-audit');
+  if(copyBtn) copyBtn.addEventListener('click',function(){
+    var lines=[];
+    document.querySelectorAll('#audit .group').forEach(function(g){
+      var items=[];
+      g.querySelectorAll('li').forEach(function(li){
+        var cb=li.querySelector('input'); if(cb && cb.checked) return;
+        var span=li.querySelector('span'); if(!span) return;
+        items.push('- '+span.textContent.replace(/\s+/g,' ').trim());
+      });
+      if(items.length){ lines.push(g.querySelector('h3').firstChild.textContent.trim().toUpperCase()); lines=lines.concat(items); lines.push(''); }
+    });
+    var text=lines.join('\n');
+    var btn=document.getElementById('copy-audit');
+    var done=function(ok){ btn.textContent=ok?'Copied':'Select and copy'; setTimeout(function(){ btn.textContent='Copy unticked'; },1800); };
+    function fallback(){ var ta=document.createElement('textarea'); ta.value=text; document.body.appendChild(ta); ta.select(); try{ document.execCommand('copy'); done(true);}catch(e){ done(false);} document.body.removeChild(ta); }
+    if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(text).then(function(){done(true)},fallback); } else fallback();
+  });
+
+  var blocks=Array.prototype.slice.call(document.querySelectorAll('.block[data-start]')).map(function(el){
+    var s=el.dataset.start.split(/[-T:]/).map(Number);
+    return {el:el, t:new Date(s[0],s[1]-1,s[2],s[3],s[4]), title:el.querySelector('h3').childNodes[0].textContent.trim(), when:el.querySelector('.when').childNodes[0].textContent.trim()};
+  });
+  var seated=new Date(2026,10,14,19,0);
+  function fmt(d){ var h=d.getHours(), m=d.getMinutes(); var ap=h>=12?'pm':'am'; h=h%12||12; return h+':'+(m<10?'0':'')+m+' '+ap; }
+  function tick(){
+    var now=new Date(), cur=-1;
+    for(var i=0;i<blocks.length;i++){ if(blocks[i].t<=now) cur=i; }
+    blocks.forEach(function(b,i){ b.el.classList.remove('now','next','past'); if(i<cur) b.el.classList.add('past'); });
+    var live=document.getElementById('live'), txt='';
+    if(cur<0){ txt='<b>Saturday</b> — first move: spatchcock the bird'; blocks[0].el.classList.add('next'); }
+    else{
+      blocks[cur].el.classList.add('now');
+      var nx=blocks[cur+1];
+      txt='<b>Now · '+blocks[cur].title+'</b>';
+      if(nx){ nx.el.classList.add('next'); txt+='<br>Next · '+nx.title+' <span class="t">at '+nx.when+'</span>'; }
+    }
+    var ms=seated-now;
+    if(ms>0){ var h=Math.floor(ms/3600000), m=Math.floor(ms%3600000/60000); txt+='<br><span class="t">T−'+h+'h '+(m<10?'0':'')+m+'m to seated · '+fmt(now)+'</span>'; }
+    else txt+='<br><span class="t">Seated. Service rows at the bottom.</span>';
+    live.innerHTML=txt;
+  }
+  tick(); setInterval(tick,30000);
+  document.getElementById('jump').addEventListener('click',function(){
+    var el=document.querySelector('.block.now')||document.querySelector('.block.next');
+    if(el) el.scrollIntoView({behavior:'smooth',block:'center'});
+  });
+})();
+</script>
+</body>
+</html>
