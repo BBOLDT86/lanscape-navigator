@@ -25,7 +25,7 @@ Nothing is published without a URL the writer actually read; gaps stay gaps.
   `render.py share` if the 3-D changed (the MP4 renders are optional and slow; skip them if time is short).
 
 ## The sprints
-- [ ] **Sprint 2 — Musk and the election (the documentary page).** `markets.json["tesla"]`: `musk_spending` from FEC
+- [x] **Sprint 2 — Musk and the election (the documentary page).** (done 2026-11-15; official-channel videos and GEO/CXW lobbying totals remain gaps, listed in markets.json "gaps") `markets.json["tesla"]`: `musk_spending` from FEC
   filings/OpenSecrets (2024 total via America PAC, RBG PAC and others; the $1M voter checks and the Philadelphia DA's
   suit; the Wisconsin Supreme Court race of April 1, 2025 and its result; 2026 midterm spending); `events` for the DOGE
   tenure (Jan. 20–May 30, 2025), the June 5, 2025 break with Trump and that day's Tesla fall, the America Party
