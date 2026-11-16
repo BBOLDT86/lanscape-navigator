@@ -1,8 +1,8 @@
 {
- "built": "2026-11-16T13:33Z",
+ "built": "2026-11-16T13:36Z",
  "official_loaded": true,
  "official_mock": false,
- "official_fetched": "2026-11-16T03:37Z",
+ "official_fetched": "2026-11-16T13:33Z",
  "summary": {
   "pass": 61,
   "warn": 19,
@@ -68,7 +68,7 @@
  "fatal": [],
  "feed_log": [
   {
-   "at": "2026-11-16T03:37Z",
+   "at": "2026-11-16T13:33Z",
    "route": "bls-flat",
    "what": "ap.item",
    "ok": false,
@@ -76,7 +76,7 @@
    "err": "HTTP Error 403: Forbidden"
   },
   {
-   "at": "2026-11-16T03:37Z",
+   "at": "2026-11-16T13:33Z",
    "route": "bls-flat",
    "what": "ap.data.3.Food",
    "ok": false,
@@ -84,7 +84,7 @@
    "err": "HTTP Error 403: Forbidden"
   },
   {
-   "at": "2026-11-16T03:37Z",
+   "at": "2026-11-16T13:34Z",
    "route": "fred",
    "what": "APU0400708111",
    "ok": false,
@@ -92,7 +92,7 @@
    "err": "HTTP Error 404: Not Found"
   },
   {
-   "at": "2026-11-16T03:38Z",
+   "at": "2026-11-16T13:34Z",
    "route": "fred",
    "what": "APU0200701312",
    "ok": false,
@@ -100,7 +100,7 @@
    "err": "HTTP Error 404: Not Found"
   },
   {
-   "at": "2026-11-16T03:38Z",
+   "at": "2026-11-16T13:35Z",
    "route": "fred",
    "what": "APU0100FS1101",
    "ok": false,
@@ -108,7 +108,7 @@
    "err": "HTTP Error 404: Not Found"
   },
   {
-   "at": "2026-11-16T03:38Z",
+   "at": "2026-11-16T13:35Z",
    "route": "fred",
    "what": "APU0300FS1101",
    "ok": false,
@@ -116,15 +116,15 @@
    "err": "HTTP Error 404: Not Found"
   },
   {
-   "at": "2026-11-16T03:38Z",
+   "at": "2026-11-16T13:35Z",
    "route": "fred",
-   "what": "100 series asked",
+   "what": "131 series asked",
    "ok": true,
-   "n": 96,
+   "n": 127,
    "err": ""
   },
   {
-   "at": "2026-11-16T03:38Z",
+   "at": "2026-11-16T13:35Z",
    "route": "bls-api",
    "what": "4 series asked, 5 calls",
    "ok": true,
@@ -132,7 +132,15 @@
    "err": ""
   },
   {
-   "at": "2026-11-16T03:38Z",
+   "at": "2026-11-16T13:36Z",
+   "route": "titles",
+   "what": "read",
+   "ok": true,
+   "n": 51,
+   "err": ""
+  },
+  {
+   "at": "2026-11-16T13:36Z",
    "route": "fred",
    "what": "3 series asked",
    "ok": true,
