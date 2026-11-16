@@ -611,6 +611,12 @@ is rebuilt. The Politics desk opens with the same package in a compact form.
   used here unless the site holds the rights to them.
 - `i18n.pt` and `i18n.de` replace `kicker`, `sidesTitle`, `hero`, `path` and `math` whole for readers in those
   languages; the reports' own titles and summaries come from their translations.
+- `top` lets the package take the hero at the top of the front as well: `"top": {"view": "sky", "pair": ["<report id>", "<report id>"]}`
+  puts The quiet sky (`airspace/?embed=1`, in a frame) on the stage ahead of the two election views, and the two
+  reports side by side on the card under it, with the wave's pieces listed beside them as "Still running". The tabs
+  above the stage switch between the three views; a reader's choice is kept (`watch.hero2`) for as long as the same
+  package is up. Without `top`, or once the package expires, the hero is the wave again (`heroTop()`, `heroView()`,
+  `heroMount()` in `index.html`). First used Nov. 16, 2026 for the Huang and FAA pair.
 - Every line in `path` and `math` is a claim: keep each one to what the lead report says and cites, with the same
   hedges (who says it, "if every member votes"), and change the file when the facts move.
 - While a package is up, Today's report shows the newest report that is not in it.
