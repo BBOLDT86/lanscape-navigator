@@ -798,3 +798,29 @@ chapter of the Mandate for Leadership, one block per tracked proposal, lit by it
   WebGL on SwiftShader) and `share.png` from the 3-D stage; the pages show whichever exist.
 - Status colors: an ordinal brass ramp (done → in progress → partial, validated light and dark), red for blocked by
   the courts (hatched when an injunction is in force), grey for reversed, hollow for not attempted.
+
+## The quiet sky (`news/airspace/`): the Nov. 13, 2026 ground stop, replayed from recorded aircraft positions
+
+A 3-D replay of every aircraft the ADSB.lol network tracked over the country from 2 p.m. to 11 p.m. Eastern on
+Nov. 13, 2026 (the FAA stopped all departures from 3:54 to 8:15 p.m.). Linked from a card at the top of the U.S. desk
+(`airspaceFeature()` in `index.html`) and framed into the report
+`2026-11-14-faa-nationwide-ground-stop-aging-air-traffic-control` with `::: embed airspace/`.
+
+- Data: `tools/fetch.py` runs on Actions (`.github/workflows/airspace.yml`, started by a push that changes
+  `news/airspace/fetch.json`, or by hand; the sandbox can't reach GitHub's release downloads). It streams ADSB.lol's
+  daily archive (`github.com/adsblol/globe_history_2026`, ODbL; about 3 GB a day in two tar parts, listed in the
+  archive's `PREFERRED_RELEASES.txt`) and keeps only `heatmap/NN.bin.ttf`: 48 half-hour files of position snapshots,
+  one about every 10 seconds (readsb's format, documented in `parse_heatmap()`). One position per airborne aircraft per
+  minute, projected with the site map's Albers USA (`tools/proj.py`), joined into tracks (a gap of up to three minutes
+  is bridged), written as `data/tracks.bin.gz` (format in `encode()`; about 2.9 MB) with `data/meta.json` (per-minute
+  counts over the lower 48: all, at 18,000 ft or higher, with an operator's flight number; and the same hours seven
+  days earlier as `baseline`). `data/fetch_log.json` says what was read. A run takes about two minutes. `--mock`
+  makes a fake sky for layout work.
+- Page: `airspace3d.js` (`mount()`; three.js from `../wave/lib/`, the states from the wave's `loadGeo()`), `stage.js`
+  (the night's timeline: the captions, the stop and lift times), `index.html` (the stage, the tiles and the chart, all
+  filled from `meta.json`; the prose states the same numbers and must be changed with the data), `airspace.css`.
+  `?embed=1` shows only the stage; `?rec=1` stops the clock for `AQ.seek(frame)`.
+- Renders: `tools/render.py share|wide|tall` records `share.png`, `quiet-sky.mp4` (1920×1080) and
+  `quiet-sky-vertical.mp4` (1080×1920) from `render.html` with Playwright and ffmpeg; by hand, not on a schedule.
+- It is a count of aircraft the network heard, not of all aircraft; the page says so. The diversion figures in the
+  captions are from the report's sources.

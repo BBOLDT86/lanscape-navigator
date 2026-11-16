@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>The quiet sky render</title>
+<meta name="robots" content="noindex">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="airspace.css">
+<style>html,body{margin:0;height:100%;background:#060b16}#s{position:fixed;inset:0}
+.brand{position:fixed;right:4%;bottom:112px;z-index:3;font:600 11px 'Instrument Sans',system-ui,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#b9c8dc}
+.brand b{color:#fff}.tall .brand{right:auto;left:4%;bottom:22px}
+.tall .aq-bar{bottom:48px}</style>
+</head><body data-pulse="off">
+<!-- Used only to record share.png and the videos: ?v=1 for the tall layout; driven frame by frame through window.AQ.seek(frame) -->
+<div id="s"></div><div class="brand"><b>The Watch</b> · recorded positions: ADSB.lol</div>
+<script type="module">
+import { startStage } from './stage.js';
+const q = new URLSearchParams(location.search), tall = innerHeight > innerWidth;
+if (tall) document.documentElement.classList.add('tall');
+await startStage(document.getElementById('s'), { rec: true, dpr: +q.get('dpr') || 1, vertical: tall });
+</script>
+</body></html>
