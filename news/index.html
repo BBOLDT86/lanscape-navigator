@@ -4984,8 +4984,8 @@ function reelFeature() { // Home: Reel Check, viral DIY build videos tested agai
 function organizeFeature() { // Home + Household: Organize — ideas from the reels, and a spec-sheet builder the reader sends to Claude for a dashboard (home/organize/)
   return `<a class="t90f" href="home/organize/"><span class="t90v" aria-hidden="true"><svg viewBox="0 0 132 88"><rect x="6" y="8" width="120" height="72" rx="10" fill="#A9852F" fill-opacity=".1" stroke="#A9852F" stroke-width="2"/><path d="M34 26h52v38H34zM34 26l14-8h52l-14 8M86 64l14-8V18" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M34 72h52M34 69v6M86 69v6M26 26v38M23 26h6M23 64h6" stroke="#A9852F" stroke-width="2"/><path d="M42 45h36" stroke="currentColor" stroke-width="2" stroke-dasharray="4 4"/></svg></span>
     <span class="t90t"><span class="k">${T('Organize · measure first')}</span><b>${T('The reel shows the shelf. It never shows the tape measure.')}</b>
-    <span class="d">${T('Eleven organizing ideas from the reels, each with what to measure before you buy. Then build a spec sheet of your own cabinets and closets with photos, and send it to Claude for a dashboard of your house.')}</span>
-    <span class="go">${T('Open Organize')} ›</span></span></a>`;
+    <span class="d">${T('Eleven organizing ideas as a swipeable reel feed, each drawn and animated, each ending with what to measure before you buy. Save the ones you like, build a spec sheet of your own cabinets with photos, and send it to Claude for a dashboard of your house.')}</span>
+    <span class="go">${T('Watch the reels')} ›</span></span></a>`;
 }
 function homeSaverFeature() { // Home: the reader's own list of listings (home/saver/)
   let n = 0, fav = 0; try { const d = JSON.parse(localStorage.getItem('watch.homes') || 'null'); const it = d && Array.isArray(d.items) ? d.items.filter(e => !e.archived) : []; n = it.length; fav = it.filter(e => e.favorite).length; } catch (e) { /* storage off */ }

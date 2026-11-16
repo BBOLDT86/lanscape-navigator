@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Organize · The Watch</title>
-<meta name="description" content="Eleven organizing ideas from the reels, with what to measure before you buy, and a spec-sheet builder: your spaces, measurements and photos, packed into one brief you send to Claude for a dashboard of your own house.">
+<meta name="description" content="Eleven organizing ideas as animated reels, each ending with what to measure before you buy, and a spec-sheet builder: your spaces, measurements and photos, packed into one brief you send to Claude for a dashboard of your own house.">
 <link rel="canonical" href="https://bboldt86.github.io/lanscape-navigator/news/home/organize/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="The Watch">
@@ -177,17 +177,27 @@ footer p{margin:0 0 8px;max-width:86ch}
 footer b{color:var(--ink-2)}
 @media print{.mast,.steps,#ideas,.addrow,.ready,footer,.tb button,.addph,.ph button{display:none!important}body{background:#fff}.brief{max-height:none}}
 </style>
+<link rel="stylesheet" href="reels.css">
 <script defer src="/lanscape-navigator/news/pulse/pulse.js"></script>
 </head>
 <body>
 <script>
 (function(){try{var p=JSON.parse(localStorage.getItem('watch.v1')||'{}');var t=p.theme||'auto';var h=+new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',hour:'numeric',hourCycle:'h23'}).format(new Date());
 if(t==='auto'){t=(h>=20||h<4)?'night':(matchMedia('(prefers-color-scheme: dark)').matches?'night':'day')}document.documentElement.dataset.theme=t;}catch(e){}})();
+document.body.dataset.view=(!location.hash||location.hash==='#reels'||location.hash.indexOf('#r/')===0)?'reels':'sheet';
 </script>
 <header class="mast"><div class="wrap">
   <a class="back" href="../../#/s/home"><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" fill="#15243B"/><circle cx="32" cy="32" r="21" fill="none" stroke="#D6B25E" stroke-width="6" stroke-dasharray="19 3"/><path d="M32 32 L46 14" stroke="#F5F7F6" stroke-width="4" stroke-linecap="round"/></svg>The Watch <span>Home</span></a>
-  <button class="tbtn" id="theme" type="button" aria-label="Switch between day and night paper">Night</button>
+  <div style="display:flex;gap:6px"><a class="tbtn" href="#reels">▶ Reels</a><button class="tbtn" id="theme" type="button" aria-label="Switch between day and night paper">Night</button></div>
 </div></header>
+
+<div class="ftop" id="ftop">
+  <a class="x" href="../../#/s/home" aria-label="Back to The Watch"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></a>
+  <nav class="ftabs" aria-label="Organize"><a href="#reels" aria-current="page">Reels</a><a href="#spaces">My sheet <i id="fN"></i></a></nav>
+  <span class="fcount" id="fCount" aria-live="polite"></span>
+</div>
+<div class="feed" id="feed" tabindex="-1" aria-label="Organizing ideas, one per screen"></div>
+<div class="fnav"><button type="button" id="fUp" aria-label="Previous reel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 15l7-7 7 7"/></svg></button><button type="button" id="fDown" aria-label="Next reel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9l7 7 7-7"/></svg></button></div>
 
 <main>
 <div class="wrap head">
@@ -215,7 +225,7 @@ if(t==='auto'){t=(h>=20||h<4)?'night':(matchMedia('(prefers-color-scheme: dark)'
 <section class="part" id="ideas">
   <span class="k">01 · From the reels</span>
   <h2>Eleven ideas, and what each one needs from your house</h2>
-  <p class="sum">These came from a run of home-organization reels a reader sent in. The description is what the clip shows; the measuring notes are ours. Nothing here is a product review, and nothing is linked for sale.</p>
+  <p class="sum">The same eleven as the <a href="#reels">reel feed</a>, as a list. They came from a run of home-organization reels a reader sent in. The description is what the clip shows; the measuring notes and the drawings are ours. Nothing here is a product review, and nothing is linked for sale.</p>
   <div class="chips" id="rooms" role="group" aria-label="Filter by room"></div>
   <div class="ideas" id="ideaGrid"></div>
 </section>
@@ -288,6 +298,7 @@ if(t==='auto'){t=(h>=20||h<4)?'night':(matchMedia('(prefers-color-scheme: dark)'
 </div></footer>
 <div class="toast" id="toast" role="status" hidden></div>
 
+<script src="reels.js"></script>
 <script>
 'use strict';
 const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
@@ -426,7 +437,7 @@ function sketch(sp) {
 function renderIdeas() {
   $('#rooms').innerHTML = ROOMS.map(([k, l]) => `<button type="button" class="chip" data-room="${k}" aria-pressed="${S.room === k}">${l}</button>`).join('');
   $('#ideaGrid').innerHTML = IDEAS.filter(i => S.room === 'all' || i.room === S.room).map(i => { const on = S.picks.includes(i.id); return `<article class="idea${on ? ' on' : ''}">
-    <div class="top"><svg class="g" viewBox="0 0 64 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${G[i.g]}</svg><div><h3>${esc(i.t)}</h3><span class="src">From a reel by @${esc(i.by)}</span></div></div>
+    <div class="top"><svg class="g" viewBox="0 0 64 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${G[i.g]}</svg><div><h3>${esc(i.t)}</h3><span class="src">From a reel by @${esc(i.by)} · <a href="#r/${i.id}">▶ Play</a></span></div></div>
     <p>${esc(i.d)}</p>
     <dl><div><dt>Measure first</dt><dd>${esc(i.m)}</dd></div><div><dt>The catch</dt><dd class="catch">${esc(i.c)}</dd></div></dl>
     <button type="button" class="btn add" data-pick="${i.id}" aria-pressed="${on}">${on ? '✓ On my sheet' : 'Add to my sheet'}</button></article>`; }).join('');
@@ -554,7 +565,7 @@ function renderSend() {
   $('#sendNote').textContent = canFiles ? 'Send opens your share sheet with the brief and ' + (np ? 'the ' + np + (np === 1 ? ' photo' : ' photos') : 'no photos yet') + '. Pick Claude. If Claude is not in the list, download the files and attach them in a new chat.' : 'On this device: copy the brief, open Claude, paste it, and attach the downloaded photos to the same message.';
   const q = encodeURIComponent(text); $('#open').href = q.length < 6000 && !np ? 'https://claude.ai/new?q=' + q : 'https://claude.ai/new';
 }
-const renderAll = () => { renderIdeas(); renderSpaces(); renderDash(); renderSend(); };
+const renderAll = () => { renderIdeas(); renderSpaces(); renderDash(); renderSend(); syncFeed(); };
 
 /* ---------- files ---------- */
 async function files() {
@@ -573,7 +584,7 @@ document.addEventListener('click', async e => {
   const b = e.target.closest('button'); if (!b) return;
   const sh = b.closest('.sheet[data-i]'), sp = sh && S.spaces[+sh.dataset.i];
   if (b.dataset.room) { S.room = b.dataset.room; renderIdeas(); }
-  else if (b.dataset.pick) { const id = b.dataset.pick; if (S.picks.includes(id)) { S.picks = S.picks.filter(x => x !== id); S.spaces.forEach(s => s.ideas = (s.ideas || []).filter(x => x !== id)); } else S.picks.push(id); renderIdeas(); renderSpaces(); renderSend(); }
+  else if (b.dataset.pick) { const id = b.dataset.pick; if (S.picks.includes(id)) { S.picks = S.picks.filter(x => x !== id); S.spaces.forEach(s => s.ideas = (s.ideas || []).filter(x => x !== id)); } else S.picks.push(id); renderIdeas(); renderSpaces(); renderSend(); syncFeed(); }
   else if (b.dataset.mod) { const k = b.dataset.mod; S.d.mods = S.d.mods.includes(k) ? S.d.mods.filter(x => x !== k) : [...S.d.mods, k]; renderDash(); renderSend(); }
   else if (sp && b.dataset.con) { sp.cons = (sp.cons || []).includes(b.dataset.con) ? sp.cons.filter(x => x !== b.dataset.con) : [...(sp.cons || []), b.dataset.con]; b.setAttribute('aria-pressed', sp.cons.includes(b.dataset.con)); renderSend(); }
   else if (sp && b.dataset.idea) { sp.ideas = (sp.ideas || []).includes(b.dataset.idea) ? sp.ideas.filter(x => x !== b.dataset.idea) : [...(sp.ideas || []), b.dataset.idea]; b.setAttribute('aria-pressed', sp.ideas.includes(b.dataset.idea)); renderSend(); }
@@ -612,8 +623,49 @@ const EXAMPLE = () => ({ unit: 'in', p: { name: 'Bathroom and kitchen reset', pe
     { id: uid(), type: 'shelf', name: 'Closet shelf, jeans', w: '23', d: '15', h: '13', open: '', obst: '', holds: '11 pairs of jeans in two stacks', pain: 'Pulling one from the middle topples the stack', budget: '$50', pri: 'later', cons: [], ideas: ['trays'], photos: [] }
   ] });
 
+
+/* ---------- the reel feed ---------- */
+const feed = $('#feed'), I = { save: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12v18l-6-4.5L6 21z"/></svg>', rule: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h18v8H3zM7 8v3M11 8v4M15 8v3M19 8v2"/></svg>', share: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 3L10 14M21 3l-7 18-4-7-7-4z"/></svg>' };
+function buildFeed() {
+  feed.innerHTML = IDEAS.map((i, n) => { const sc = SCENES[i.g] || { bot: '#15243B', svg: '' }; return `<section class="reel" id="r-${i.id}" data-id="${i.id}" aria-label="${esc(i.t)}"><div class="stage" style="--bot:${sc.bot}">
+    <svg class="scene" viewBox="0 0 360 640" role="img" aria-label="Drawing: ${esc(i.t)}">${sc.svg}</svg><div class="scrim"></div>
+    <div class="phase" aria-hidden="true"><span class="ph1">The trick</span><span class="ph2">Now measure</span></div>
+    ${n === 0 ? '<div class="hint" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 15l7-7 7 7"/></svg>Swipe up</div>' : ''}
+    <div class="cap"><span class="by">Idea: @${esc(i.by)} · Drawing: The Watch</span><h2>${esc(i.t)}</h2><p>${esc(i.d)}</p><a class="onsheet" href="#spaces" hidden>✓ On your sheet · measure it ›</a></div>
+    <div class="rail"><button type="button" data-pick="${i.id}" aria-pressed="false">${I.save}<span>Save</span></button><button type="button" data-measure>${I.rule}<span>Measure</span></button><button type="button" data-rshare>${I.share}<span>Share</span></button></div>
+    <div class="prog"><i></i></div>
+    <div class="drawer" role="dialog" aria-label="What to measure for ${esc(i.t)}"><h3>${esc(i.t)}</h3><dl><dt>Measure first</dt><dd>${esc(i.m)}</dd><dt>The catch</dt><dd>${esc(i.c)}</dd></dl><div class="acts"><button type="button" data-close>Close</button><button type="button" class="solid" data-pick="${i.id}">Add to my sheet</button></div></div>
+  </div></section>`; }).join('') + `<section class="reel end" id="r-end" data-id="end"><div class="stage"><span class="k">That's the feed, for now</span><h2>Now do your own house.</h2><p id="endP"></p><a class="btn solid" href="#spaces">Measure my spaces</a><a class="btn" href="sample.html">See a sample dashboard</a><a class="btn" href="https://github.com/BBOLDT86/lanscape-navigator/issues/new?title=${encodeURIComponent('Organize reel: ')}&body=${encodeURIComponent('Link to the reel, and what it shows:')}" target="_blank" rel="noopener">Seen one we should add? Send it</a><p style="font-size:13px;margin-top:8px">The feed grows as readers send reels. Sending opens a public GitHub issue.</p></div></section>`;
+  const io2 = new IntersectionObserver(es => es.forEach(en => { en.target.classList.toggle('on', en.isIntersecting); if (!en.isIntersecting) { const d = $('.drawer', en.target); d && d.classList.remove('open'); return; }
+    const id = en.target.dataset.id, n = IDEAS.findIndex(x => x.id === id); $('#fCount').textContent = n < 0 ? '' : (n + 1) + ' / ' + IDEAS.length;
+    if (document.body.dataset.view === 'reels') history.replaceState(null, '', n <= 0 ? '#reels' : '#r/' + id); if (n !== 0) feed.classList.add('moved'); }), { root: feed, threshold: .6 });
+  $$('.reel', feed).forEach(r => io2.observe(r));
+}
+function syncFeed() {
+  $$('.reel[data-id]', feed).forEach(r => { const on = S.picks.includes(r.dataset.id); $$('[data-pick]', r).forEach(b => { b.setAttribute('aria-pressed', on); if (b.classList.contains('solid')) b.textContent = on ? '✓ On my sheet' : 'Add to my sheet'; else $('span', b).textContent = on ? 'Saved' : 'Save'; }); const o = $('.onsheet', r); if (o) o.hidden = !on; });
+  $('#fN').textContent = S.picks.length || ''; const e = $('#endP'); if (e) e.textContent = S.picks.length ? 'You saved ' + S.picks.length + (S.picks.length === 1 ? ' idea' : ' ideas') + '. Measure the spaces they would go in, add photos, and send the sheet to Claude for a dashboard of your house.' : 'Save the ideas you would use, measure the spaces they would go in, add photos, and send the sheet to Claude for a dashboard of your house.';
+}
+function route() {
+  const h = location.hash, reels = !h || h === '#reels' || h.indexOf('#r/') === 0; document.body.dataset.view = reels ? 'reels' : 'sheet';
+  if (reels) { const t = h.indexOf('#r/') === 0 && document.getElementById('r-' + h.slice(3)); if (t) feed.scrollTo({ top: t.offsetTop }); feed.focus({ preventScroll: true }); }
+  else { const t = h.length > 1 && document.getElementById(h.slice(1)); if (t) t.scrollIntoView({ behavior: 'instant' }); }
+}
+const step = d => feed.scrollBy({ top: d * feed.clientHeight, behavior: matchMedia('(prefers-reduced-motion:reduce)').matches ? 'auto' : 'smooth' });
+$('#fUp').onclick = () => step(-1); $('#fDown').onclick = () => step(1);
+addEventListener('hashchange', route);
+addEventListener('keydown', e => { if (document.body.dataset.view !== 'reels' || e.target.closest('input,textarea,select')) return; if (e.key === 'ArrowDown' || e.key === 'j' || e.key === 'PageDown') { e.preventDefault(); step(1); } else if (e.key === 'ArrowUp' || e.key === 'k' || e.key === 'PageUp') { e.preventDefault(); step(-1); } else if (e.key === 'Escape') $$('.drawer.open').forEach(d => d.classList.remove('open')); });
+feed.addEventListener('click', async e => {
+  const r = e.target.closest('.reel'); if (!r) return; const b = e.target.closest('button'), id = r.dataset.id, idea = IDEAS.find(x => x.id === id);
+  if (e.target.closest('.cap p')) return e.target.closest('.cap p').classList.toggle('open');
+  if (!b) { if (!e.target.closest('.drawer,a')) $$('.drawer.open', r).forEach(d => d.classList.remove('open')); return; }
+  if ('measure' in b.dataset) { $('.drawer', r).classList.add('open'); pulse('measure'); }
+  else if ('close' in b.dataset) $('.drawer', r).classList.remove('open');
+  else if ('rshare' in b.dataset) { const url = location.origin + location.pathname + '#r/' + id; try { if (navigator.share) await navigator.share({ title: idea.t + ' · The Watch', text: idea.t + ': what to measure before you buy.', url }); else { await navigator.clipboard.writeText(url); toast('Link copied.'); } } catch (err) {} }
+  else if (b.dataset.pick && b.classList.contains('solid')) $('.drawer', r).classList.remove('open');
+});
+buildFeed();
 $('#theme').textContent = document.documentElement.dataset.theme === 'night' ? 'Day' : 'Night';
-renderAll();
+renderAll(); route();
 // which step is on screen
 const io = new IntersectionObserver(es => es.forEach(en => { if (en.isIntersecting) $$('.steps a').forEach(a => a.setAttribute('aria-current', a.dataset.s === en.target.id)); }), { rootMargin: '-45% 0px -50% 0px' });
 $$('section.part').forEach(s => io.observe(s));

@@ -1,0 +1,122 @@
+/* Organize · the reel feed */
+body[data-view="reels"]{overflow:hidden}
+body[data-view="reels"] .feed,body[data-view="reels"] .ftop{display:block}
+body[data-view="reels"] .ftop{display:flex}
+.feed{display:none;position:fixed;inset:0;z-index:50;background:#070C15;overflow-y:scroll;scroll-snap-type:y mandatory;overscroll-behavior:contain;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.feed::-webkit-scrollbar{display:none}
+.reel{height:100vh;height:100dvh;scroll-snap-align:start;scroll-snap-stop:always;display:grid;place-items:center;position:relative}
+.stage{position:relative;height:100%;width:min(100vw,calc(100vh * 9 / 16));width:min(100vw,calc(100dvh * 9 / 16));overflow:hidden;background:var(--bot,#15243B);color:#fff}
+@media (min-width:700px){.reel{padding:14px 0}.stage{height:calc(100dvh - 28px);width:calc((100dvh - 28px) * 9 / 16);border-radius:22px;box-shadow:0 30px 80px rgba(0,0,0,.5)}}
+.scene{position:absolute;top:0;left:0;width:100%;height:auto;aspect-ratio:9/16;display:block}
+.scrim{position:absolute;inset:auto 0 0 0;height:250px;background:linear-gradient(to top,rgba(7,12,21,.94) 0,rgba(7,12,21,.78) 110px,rgba(7,12,21,0) 100%);pointer-events:none}
+.stage::before{content:"";position:absolute;inset:0 0 auto 0;height:110px;background:linear-gradient(rgba(7,12,21,.55),rgba(7,12,21,0));z-index:1;pointer-events:none}
+
+/* top bar, like the app it borrows from */
+.ftop{display:none;position:fixed;top:0;left:50%;transform:translateX(-50%);z-index:60;width:min(100vw,calc(100dvh * 9 / 16));padding:calc(10px + env(safe-area-inset-top)) 12px 0;align-items:center;justify-content:space-between;gap:8px;color:#fff;pointer-events:none}
+.ftop > *{pointer-events:auto}
+.ftop a.x{width:40px;height:40px;display:grid;place-items:center;border-radius:50%;text-decoration:none}
+.ftop a.x svg{width:24px;height:24px}
+.ftabs{display:flex;gap:16px;align-items:baseline;font:700 21px/1 var(--sans);letter-spacing:-.01em;text-shadow:0 1px 8px rgba(0,0,0,.45)}
+.ftabs a{color:rgba(255,255,255,.62);text-decoration:none;padding:10px 0;display:inline-flex;gap:6px;align-items:center}
+.ftabs a[aria-current="page"]{color:#fff}
+.ftabs i{font:700 12px var(--sans);font-style:normal;background:#FFD76A;color:#15243B;border-radius:999px;min-width:20px;height:20px;padding:0 6px;display:inline-grid;place-items:center;text-shadow:none}
+.ftabs i:empty{display:none}
+.fcount{font:600 12.5px var(--mono);min-width:40px;text-align:right;text-shadow:0 1px 6px rgba(0,0,0,.5);font-variant-numeric:tabular-nums}
+
+.phase{position:absolute;z-index:2;top:calc(66px + env(safe-area-inset-top));left:14px;height:28px}
+.phase span{position:absolute;left:0;top:0;white-space:nowrap;font:700 11.5px/28px var(--sans);letter-spacing:.09em;text-transform:uppercase;padding:0 12px;border-radius:999px;background:rgba(7,12,21,.72);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.phase .ph1{opacity:0}.phase .ph2{color:#FFD76A}
+.phase .ph2::before{content:"";display:inline-block;width:14px;height:8px;margin-right:7px;border:2px solid currentColor;border-top:0;vertical-align:1px}
+
+.rail{position:absolute;z-index:3;right:8px;bottom:calc(16px + env(safe-area-inset-bottom));display:grid;gap:8px;justify-items:center}
+.rail button{display:grid;justify-items:center;gap:3px;color:#fff;font:600 11.5px var(--sans);width:54px;min-height:54px;text-shadow:0 1px 6px rgba(0,0,0,.6)}
+.rail svg{width:30px;height:30px;filter:drop-shadow(0 1px 4px rgba(0,0,0,.5));transition:transform .18s}
+.rail button:active svg{transform:scale(.86)}
+.rail [data-pick][aria-pressed="true"]{color:#FFD76A}
+.rail [data-pick][aria-pressed="true"] svg{fill:#FFD76A;animation:saved .45s cubic-bezier(.2,1.6,.4,1)}
+@keyframes saved{0%{transform:scale(.6)}60%{transform:scale(1.3)}100%{transform:scale(1)}}
+.cap{position:absolute;z-index:2;left:16px;right:74px;bottom:calc(20px + env(safe-area-inset-bottom))}
+.cap .by{display:block;font:600 12px var(--sans);color:rgba(255,255,255,.8);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cap [hidden]{display:none!important}
+.cap h2{font:400 27px/1.05 var(--serif);margin:5px 0 5px;letter-spacing:-.01em;text-wrap:balance}
+.cap p{margin:0;font-size:14.5px;line-height:1.4;color:rgba(255,255,255,.88);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;cursor:pointer}
+.cap p.open{-webkit-line-clamp:unset}
+.cap .onsheet{display:inline-flex;gap:6px;margin-top:10px;font:600 13px var(--sans);background:#FFD76A;color:#15243B;border-radius:999px;padding:7px 13px;text-decoration:none}
+.prog{position:absolute;z-index:3;left:0;right:0;bottom:0;height:3px;background:rgba(255,255,255,.2)}
+.prog i{display:block;height:100%;width:0;background:#fff}
+.hint{position:absolute;z-index:2;left:0;right:0;bottom:calc(176px + env(safe-area-inset-bottom));text-align:center;font:600 12.5px var(--sans);letter-spacing:.06em;text-transform:uppercase;pointer-events:none;text-shadow:0 1px 8px rgba(0,0,0,.6);animation:bob 1.4s ease-in-out infinite}
+.hint svg{display:block;margin:0 auto 2px;width:26px;height:26px}
+@keyframes bob{50%{transform:translateY(-8px)}}
+.feed.moved .hint{display:none}
+@media (min-width:700px){.hint{display:none}}
+
+/* the measure drawer */
+.drawer{position:absolute;z-index:5;left:0;right:0;bottom:0;background:#F5F7F6;color:#15243B;border-radius:20px 20px 0 0;padding:10px 18px calc(20px + env(safe-area-inset-bottom));transform:translateY(102%);transition:transform .28s cubic-bezier(.2,.8,.2,1);max-height:76%;overflow:auto}
+.drawer.open{transform:none}
+.drawer::before{content:"";display:block;width:40px;height:4px;border-radius:2px;background:rgba(21,36,59,.25);margin:0 auto 12px}
+.drawer h3{font:400 25px/1.1 var(--serif);margin:0 0 10px}
+.drawer dt{font:600 11.5px var(--sans);letter-spacing:.08em;text-transform:uppercase;color:#7A5E1C;margin-top:10px}
+.drawer dd{margin:3px 0 0;font-size:15px;line-height:1.45;color:#2C3B52}
+.drawer .acts{display:flex;gap:8px;margin-top:16px}
+.drawer .acts button{flex:1;min-height:46px;border-radius:12px;font:600 15px var(--sans);border:1px solid rgba(21,36,59,.25);color:#15243B}
+.drawer .acts button.solid{background:#15243B;color:#fff;border-color:#15243B}
+
+/* end card */
+.reel.end .stage{background:#15243B;display:grid;align-content:center;padding:0 26px;text-align:left;
+  background-image:linear-gradient(rgba(231,237,244,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(231,237,244,.05) 1px,transparent 1px);background-size:26px 26px}
+.reel.end .k{color:#FFD76A}
+.reel.end h2{font:400 44px/1 var(--serif);margin:10px 0 12px;letter-spacing:-.01em}
+.reel.end p{color:#AEBBCB;margin:0 0 18px;font-size:16px}
+.reel.end .btn{width:100%;margin-bottom:10px;border-color:rgba(255,255,255,.3);background:transparent;color:#fff}
+.reel.end .btn.solid{background:#FFD76A;color:#15243B;border-color:#FFD76A}
+.fnav{display:none}
+@media (min-width:700px){.fnav{display:grid;gap:10px;position:fixed;z-index:60;right:max(20px,calc(50vw - (100dvh - 28px) * 9 / 32 - 76px));top:50%;transform:translateY(-50%)}
+  .fnav button{width:48px;height:48px;border-radius:50%;background:rgba(255,255,255,.12);color:#fff;display:grid;place-items:center}.fnav button:hover{background:rgba(255,255,255,.22)}.fnav svg{width:22px;height:22px}}
+body:not([data-view="reels"]) .fnav{display:none}
+
+/* ---- the scene's moving parts. Without animation everything sits in its final place. ---- */
+.scene .mvA,.scene .mvB,.scene .mvC{transform-box:fill-box;transform-origin:50% 50%;transform:translate(var(--x1,0px),var(--y1,0px)) rotate(var(--r1,0deg)) scale(var(--s1,1))}
+.scene [class^="p"],.scene [class*=" p"]{transform-box:fill-box;transform-origin:50% 50%}
+.scene .sway{transform-origin:50% 0}
+.scene .sway2{transform-box:fill-box;transform-origin:50% 0}
+.scene .bef{opacity:0}
+.scene .dim{filter:drop-shadow(0 1px 2px rgba(0,0,0,.45))}
+.scene .dim path{fill:none;stroke:#FFD76A;stroke-width:2.6;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:0}
+.scene .dim rect{fill:#15243B}
+.scene .dim text{font:600 11.5px var(--sans);fill:#FFE7A6}
+.pA{--an:popA}.pB{--an:popB}.pC{--an:popC}.pD{--an:popD}
+@media (prefers-reduced-motion:no-preference){
+  .reel.on .scene{animation:loop var(--T,9s) linear infinite}
+  .reel.on .prog i{animation:prog var(--T,9s) linear infinite}
+  .reel.on .mvA{animation:mvA var(--T,9s) infinite}
+  .reel.on .mvB{animation:mvB var(--T,9s) infinite}
+  .reel.on .mvC{animation:mvC var(--T,9s) infinite}
+  .reel.on .pA,.reel.on .pB,.reel.on .pC,.reel.on .pD{animation:var(--an) var(--T,9s) infinite}
+  .reel.on .sway{animation:var(--an) var(--T,9s) infinite,sway 2.4s ease-in-out infinite alternate}
+  .reel.on .sway2{animation:sway 3s ease-in-out infinite alternate}
+  .reel.on .drip{animation:drip 1.3s ease-in infinite}
+  .reel.on .bef{animation:bef var(--T,9s) infinite}
+  .reel.on .d1 path{animation:dr1 var(--T,9s) infinite}.reel.on .d2 path{animation:dr2 var(--T,9s) infinite}.reel.on .d3 path{animation:dr3 var(--T,9s) infinite}
+  .reel.on .d1 .lab{animation:lb1 var(--T,9s) infinite}.reel.on .d2 .lab{animation:lb2 var(--T,9s) infinite}.reel.on .d3 .lab{animation:lb3 var(--T,9s) infinite}
+  .reel.on .ph1{animation:ph1 var(--T,9s) infinite}.reel.on .ph2{animation:ph2 var(--T,9s) infinite}
+}
+@keyframes loop{0%{opacity:0}3%,96%{opacity:1}100%{opacity:0}}
+@keyframes prog{to{width:100%}}
+@keyframes mvA{0%,10%{transform:translate(var(--x0,0px),var(--y0,0px)) rotate(var(--r0,0deg)) scale(var(--s0,1));animation-timing-function:cubic-bezier(.3,1.25,.4,1)}28%,100%{transform:translate(var(--x1,0px),var(--y1,0px)) rotate(var(--r1,0deg)) scale(var(--s1,1))}}
+@keyframes mvB{0%,22%{transform:translate(var(--x0,0px),var(--y0,0px)) rotate(var(--r0,0deg)) scale(var(--s0,1));animation-timing-function:cubic-bezier(.3,1.25,.4,1)}40%,100%{transform:translate(var(--x1,0px),var(--y1,0px)) rotate(var(--r1,0deg)) scale(var(--s1,1))}}
+@keyframes mvC{0%,36%{transform:translate(var(--x0,0px),var(--y0,0px)) rotate(var(--r0,0deg)) scale(var(--s0,1));animation-timing-function:cubic-bezier(.3,1.25,.4,1)}52%,100%{transform:translate(var(--x1,0px),var(--y1,0px)) rotate(var(--r1,0deg)) scale(var(--s1,1))}}
+@keyframes popA{0%,22%{opacity:0;scale:.4}28%{opacity:1;scale:1.1}31%,100%{opacity:1;scale:1}}
+@keyframes popB{0%,28%{opacity:0;scale:.4}34%{opacity:1;scale:1.1}37%,100%{opacity:1;scale:1}}
+@keyframes popC{0%,34%{opacity:0;scale:.4}40%{opacity:1;scale:1.1}43%,100%{opacity:1;scale:1}}
+@keyframes popD{0%,40%{opacity:0;scale:.4}46%{opacity:1;scale:1.1}49%,100%{opacity:1;scale:1}}
+@keyframes sway{from{rotate:-2.2deg}to{rotate:2.2deg}}
+@keyframes drip{0%{transform:translateY(-14px);opacity:0}30%{opacity:1}100%{transform:translateY(24px);opacity:0}}
+@keyframes bef{0%,10%{opacity:1}20%,100%{opacity:0}}
+@keyframes dr1{0%,54%{stroke-dashoffset:1}63%,100%{stroke-dashoffset:0}}
+@keyframes dr2{0%,61%{stroke-dashoffset:1}70%,100%{stroke-dashoffset:0}}
+@keyframes dr3{0%,68%{stroke-dashoffset:1}77%,100%{stroke-dashoffset:0}}
+@keyframes lb1{0%,61%{opacity:0;transform:translateY(8px)}65%,100%{opacity:1;transform:none}}
+@keyframes lb2{0%,68%{opacity:0;transform:translateY(8px)}72%,100%{opacity:1;transform:none}}
+@keyframes lb3{0%,75%{opacity:0;transform:translateY(8px)}79%,100%{opacity:1;transform:none}}
+@keyframes ph1{0%,50%{opacity:1}54%,100%{opacity:0}}
+@keyframes ph2{0%,50%{opacity:0}54%,100%{opacity:1}}
