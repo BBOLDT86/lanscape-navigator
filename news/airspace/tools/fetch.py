@@ -208,10 +208,14 @@ def collect(t0, hours, step):
         tt = ts0 + f * step
         if not len(st):
             frames.append(None); continue
-        k = int(np.argmin(np.abs(st - tt)))
-        if abs(st[k] - tt) > step * 0.75:
+        lo, hi = np.searchsorted(st, tt - step / 2), np.searchsorted(st, tt + step / 2)
+        if hi <= lo:
             frames.append(None); continue
-        _, hx, lat, lon, alt = slices[k]
+        # every slice within half a step of the minute, nearest first: an aircraft not heard in the nearest slice (the
+        # archive writes one about every 10 s, and only aircraft with a fresh position) is taken from the next nearest
+        near = sorted(range(lo, hi), key=lambda i: abs(st[i] - tt))
+        hx = np.concatenate([slices[i][1] for i in near]); lat = np.concatenate([slices[i][2] for i in near])
+        lon = np.concatenate([slices[i][3] for i in near]); alt = np.concatenate([slices[i][4] for i in near])
         box = (lat > 18) & (lat < 56) & (lon > -140) & (lon < -55)
         x, y = np_project(lon[box], lat[box])
         hx, alt = hx[box], alt[box]
