@@ -1,0 +1,59 @@
+name: The Watch in Portuguese
+# Translates the article pages for readers who pick PT (news/i18n/translate.py; the pages apply it with
+# news/i18n/lang.js). Every three hours it reads the pages again, sends whatever has no translation yet to Claude as
+# one Message Batch, collects the answers and rewrites the dictionaries in news/i18n/pt/. A push of news/i18n/run.json
+# is a request for a bigger run ({"requested": "<time>", "budget": dollars}); scheduled upkeep is held to $1.50 a day.
+# Spending is written to news/i18n/data/spend.json and counts against the same cap as the wave and the money
+# (WAVE_CAP = the API credits). Needs the ANTHROPIC_API_KEY repo secret; without it the run only rebuilds.
+on:
+  schedule:
+    - cron: '47 */3 * * *'
+  push:
+    branches: [main]
+    paths:
+      - 'news/i18n/run.json'
+      - 'news/i18n/translate.py'
+      - 'news/i18n/src/**'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: the-watch-i18n
+  cancel-in-progress: false
+jobs:
+  translate:
+    if: github.repository == 'BBOLDT86/lanscape-navigator'
+    runs-on: ubuntu-latest
+    timeout-minutes: 80
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Translate what is new
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          WAVE_CAP: '300'
+        run: |
+          pip install --quiet html5lib beautifulsoup4
+          python3 news/i18n/translate.py run --wait 56
+      - name: Reports that gained a translation, their index and share pages
+        run: |
+          if git diff --quiet -- news/articles; then exit 0; fi
+          python3 news/updater/articles.py index || echo "index not rebuilt"
+          pip install --quiet pillow && python3 news/updater/share.py || echo "share pages not drawn"
+      - name: Commit and push
+        if: always()
+        run: |
+          git config user.name "The Watch updater"
+          git config user.email "the-watch-news@users.noreply.github.com"
+          git add news/i18n news/articles news/r
+          if git diff --cached --quiet; then echo "nothing new"; exit 0; fi
+          git commit -qm "The Watch in Portuguese: translations $(date -u +%Y-%m-%dT%H:%MZ)"
+          for i in 1 2 3 4; do
+            git pull --rebase -X theirs origin main && git push -q origin HEAD:main && exit 0
+            sleep 12
+          done
+          echo "push failed" >&2; exit 1

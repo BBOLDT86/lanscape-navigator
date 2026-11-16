@@ -39,8 +39,46 @@ def pages():
             yield p, r
 
 
+# The translated sections also get news/i18n/lang.js (the same list as PAGES in news/i18n/translate.py). It is loaded
+# in the head, not deferred, so a Portuguese reader never sees the English page flash by; pulse.js loads it as a
+# fallback on pages a builder has just rewritten.
+LANG_TAG = '<script src="/lanscape-navigator/news/i18n/lang.js"></script>'
+LANG_MARK = 'news/i18n/lang.js'
+LANG_DIRS = ('news/mandate/', 'news/eras/', 'news/prices/', 'news/prophecy/', 'news/wave/', 'news/money/',
+             'news/sports/dressage-finals/', 'news/household/craftmas/')
+
+
+def lang(mode):
+    n = 0
+    for p, r in pages():
+        if not r.startswith(LANG_DIRS) or '/tools/' in r:
+            continue
+        try:
+            s = open(p, encoding='utf-8').read()
+        except (UnicodeDecodeError, OSError):
+            continue
+        if mode == 'remove':
+            s2 = re.sub(r'\s*<script src="[^"]*news/i18n/lang\.js"></script>', '', s)
+        elif LANG_MARK in s or 'data-wl-off' in s[:600]:
+            continue
+        else:
+            m = re.search(r'</head\s*>', s, re.I)
+            if not m:
+                continue
+            if mode == 'check':
+                print('no lang.js:', r)
+                n += 1
+                continue
+            s2 = s[:m.start()] + LANG_TAG + '\n' + s[m.start():]
+        if s2 != s:
+            open(p, 'w', encoding='utf-8').write(s2)
+            n += 1
+    print(f'lang.js: {"missing on" if mode == "check" else "removed from" if mode == "remove" else "added to"} {n} pages')
+
+
 def main():
     mode = (sys.argv[1] if len(sys.argv) > 1 else '').lstrip('-')
+    lang(mode)
     added = missing = removed = skipped = 0
     for p, r in pages():
         try:

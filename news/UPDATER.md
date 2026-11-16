@@ -705,6 +705,30 @@ file straight from the TSE every minute.
 - **Reports** carry `i18n.pt` and `i18n.de` (title, dek, the whole body, the translating model), written by the
   daily report task and checked by `articles.py check` (complete, same sections, same citations). The page shows the
   translation with a link to the English original, and the index carries the translated titles.
+- **The article pages in Portuguese** (The wave, The money, The Mandate, Three waves, The Checkout, The Prophecy Watch,
+  Finals Saturday, Craftmas: `PAGES` in `news/i18n/translate.py`) are static HTML from a dozen builders, so they are
+  translated from outside. `translate.py` (workflow `translate.yml`, every 3 h) parses every page with html5lib and
+  cuts it into segments: an element that holds text directly is one segment and its inline children become numbered
+  placeholders (`Text <1>link</1><2/>`). Segments with no translation go to Claude in one Message Batch (Opus 5.5 for
+  the flagship pages and state pieces, Sonnet 5.5 for the county and House pieces, Haiku 5.5 for the county and House
+  notes; a reply is used only if every placeholder survives) and come back as one dictionary per page,
+  `news/i18n/pt/<page path>.json` (`{key: translation}`, key = cyrb53 of the segment), one per JSON file a page draws
+  text from (`pt/_data/...`: the county notes, House notes, replay captions), `pt/ui.json` and `pt/index.json`. The
+  dictionaries are the translation memory: nothing in them is paid for twice. `news/i18n/lang.js` (put in the head
+  of those pages by `news/pulse/inject.py`, and loaded by `pulse.js` on pages a builder has just rewritten) picks the
+  language the same way as the front page, cuts the live page into the same segments, swaps them in place (elements
+  are moved, not rebuilt), converts bare numbers (1,234.5 to 1.234,5), watches for text the scripts draw later, and
+  shows an EN | PT switch and an "AI translation, see the original" line. Source lists (`.sources ol`, `.srcs`,
+  `.cite`) stay as the outlets wrote them. `?lang=xx` lists what a page lacks in `window.__watchMissing`.
+  `news/i18n/src/ui.json` is the text the pages' scripts draw (numbers masked as `{1}`), collected with a real
+  browser by `news/i18n/tools/selftest.py ui` after a `translate.py run --mock`; rerun it when a page's scripts
+  change. `selftest.py static` proves the browser and translate.py cut every page identically; run it after touching
+  `SKIP`, `BLOCK` or the serializer in either file. Reports with no `i18n.pt` are translated by the same run.
+  Money: `news/i18n/data/spend.json`, under the same cap as the wave and the money (`WAVE_CAP`), nothing sent after
+  `UNTIL` (Dec. 8, 2026, when the credits end); a bigger run is a push of `news/i18n/run.json`
+  (`{"requested": "<time>", "budget": dollars}`, served once), scheduled upkeep is held to $1.50 a day.
+  Not covered: the long-form text the front page draws from JSON (Primer, Reel Check, the F1 and +1 written halves),
+  labels painted inside the 3-D canvases, and the apps (ScrollOS, Create, Household Budget).
 - **Link previews:** `share.py --site` draws `share-pt.png` and `share-de.png` and writes `pt.html` and `de.html`,
   whose tags carry the pitch in that language and which send people on to `./?lang=pt` or `de`; a translated report gets
   `r/<id>.pt.html` and `.de.html` with their own cards. The Share buttons use them when the reader's language is pt or de.

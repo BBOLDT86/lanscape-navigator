@@ -16,6 +16,12 @@
   if (window.__pulse) return;
   window.__pulse = true;
 
+  // The translated sections (news/i18n/translate.py) load news/i18n/lang.js in the head; a page a builder has just
+  // rewritten has lost that tag until inject.py runs again, so it is loaded from here.
+  if (!window.__watchLang && /\/news\/(mandate|eras|prices|prophecy|wave|money|sports\/dressage-finals|household\/craftmas)\//.test(location.pathname)) {
+    var ljs = document.createElement('script'); ljs.src = '/lanscape-navigator/news/i18n/lang.js'; document.head.appendChild(ljs);
+  }
+
   var CODE = 'thewatch-pulse';            // GoatCounter site code: https://<CODE>.goatcounter.com
   var ENDPOINT = 'https://' + CODE + '.goatcounter.com/count';
   var BASE = '/lanscape-navigator';

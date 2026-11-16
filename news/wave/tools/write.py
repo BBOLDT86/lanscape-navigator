@@ -78,7 +78,7 @@ def county_word(st): return COUNTY_WORD.get(st, 'county')
 
 # ---------- the ledger ----------
 LEDGER = os.path.join(DATA, 'spend.json')  # this module's ledger; news/money/write.py points it at its own file
-LEDGERS = [os.path.join(DATA, 'spend.json'), os.path.normpath(os.path.join(DATA, '..', '..', 'money', 'data', 'spend.json'))]  # every ledger, for the cap and the total
+LEDGERS = [os.path.join(DATA, 'spend.json'), os.path.normpath(os.path.join(DATA, '..', '..', 'money', 'data', 'spend.json')), os.path.normpath(os.path.join(DATA, '..', '..', 'i18n', 'data', 'spend.json'))]  # every ledger (wave, money, translations), for the cap and the total
 def ledger(): return load(LEDGER, {'v': 1, 'usd': 0.0, 'runs': []})
 def ledger_total(): return round(sum((load(p, {}) or {}).get('usd', 0.0) for p in LEDGERS), 4)
 def all_runs():
