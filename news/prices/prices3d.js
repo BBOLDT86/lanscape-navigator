@@ -57,7 +57,7 @@ export async function mount(el, opts = {}) {
   </div>`;
   const $ = s => el.querySelector(s);
   const canvas = $('.ck-canvas'), labels = $('.ck-labels'), msg = $('.ck-msg');
-  const V = await fetch(BASE + 'data/view.json', { cache: 'no-cache' }).then(r => r.json());
+  const V = O.data || await fetch(BASE + 'data/view.json', { cache: 'no-cache' }).then(r => r.json());
   if (!V.official || !V.items.length) { msg.hidden = false; msg.textContent = 'The official price series load on the next data run. The receipt ledger below is complete without them.'; el.classList.add('ck-empty'); return { ready: false }; }
   if (V.mock) { msg.hidden = false; msg.textContent = 'Sample numbers: made-up series for testing. Not real prices.'; msg.classList.add('warn'); }
 
@@ -71,6 +71,8 @@ export async function mount(el, opts = {}) {
   const items = V.items.filter(i => O.items ? O.items.includes(i.id) : i.core !== false), N = items.length, NM = V.n_months;
   const DX = 30, W = 17, LEN = 620, HS = 26;
   const X = i => (i - (N - 1) / 2) * DX, Z = k => (k / (NM - 1) - 0.5) * LEN;
+  const maxW = O.weights ? Math.max(1e-9, ...items.map(it => O.weights[it.id] || 0)) : 1;
+  const Wi = items.map(it => O.weights ? lerp(6, 27, Math.sqrt((O.weights[it.id] || 0) / maxW)) : W);
   const filled = items.map(it => { const a = []; let last = null; for (let k = 0; k < NM; k++) { if (it.m[k] != null) last = it.m[k]; a.push(k >= it.first ? last : null); } return a; });
   const base = items.map((it, i) => filled[i][it.first]);
   const idxAt = (i, kf) => { const a = filled[i]; const k0 = clamp(Math.floor(kf), 0, NM - 1), k1 = Math.min(k0 + 1, NM - 1); if (a[k0] == null) return null; const v = lerp(a[k0], a[k1] == null ? a[k0] : a[k1], kf - k0); return v; };
@@ -83,7 +85,7 @@ export async function mount(el, opts = {}) {
     const pos = [], col = [], kk = [], sh = [], ind = [];
     const a = filled[i]; let n = 0;
     for (let k = it.first; k < NM; k++) {
-      const h = a[k] / base[i] * HS, z = Z(k), x0 = X(i) - W / 2, x1 = X(i) + W / 2;
+      const h = a[k] / base[i] * HS, z = Z(k), x0 = X(i) - Wi[i] / 2, x1 = X(i) + Wi[i] / 2;
       const prev = k - 12 >= it.first ? a[k - 12] : null; heat(prev ? a[k] / prev - 1 : 0.02, tmp);
       // top (2), left wall (2), right wall (2)
       const vs = [[x0, h, z, 1], [x1, h, z, 1], [x0, 0, z, .52], [x0, h, z, .52], [x1, 0, z, .7], [x1, h, z, .7]];
@@ -97,7 +99,7 @@ export async function mount(el, opts = {}) {
     mats.push(m); const mesh = new THREE.Mesh(g, m); mesh.frustumCulled = false; aisle.add(mesh);
   });
   // the moving front face of each ribbon
-  const heads = items.map((it, i) => { const m = new THREE.Mesh(new THREE.PlaneGeometry(W, 1), new THREE.MeshBasicMaterial({ color: 0xffffff, side: THREE.DoubleSide })); m.position.x = X(i); aisle.add(m); return m; });
+  const heads = items.map((it, i) => { const m = new THREE.Mesh(new THREE.PlaneGeometry(Wi[i], 1), new THREE.MeshBasicMaterial({ color: 0xffffff, side: THREE.DoubleSide })); m.position.x = X(i); aisle.add(m); return m; });
   // floor, year lines, the 1x line
   const floor = new THREE.Mesh(new THREE.PlaneGeometry(N * DX + 120, LEN + 120), new THREE.MeshBasicMaterial({ color: 0x0f1d33 })); floor.rotation.x = -Math.PI / 2; floor.position.y = -0.4; aisle.add(floor);
   const lp = []; const y0 = V.start;
@@ -109,7 +111,7 @@ export async function mount(el, opts = {}) {
   const byId = Object.fromEntries(items.map((it, i) => [it.id, i]));
   const postById = Object.fromEntries(V.posts.map(p => [p.id, p]));
   for (const r of V.rows) {
-    const i = byId[r.item]; if (i == null || r.unit_price == null) continue;
+    const i = byId[r.item]; if (i == null || r.unit_price == null || (O.cart && r.tier === 'rejected')) continue;
     const k = (r.t - V.start) * 12; if (k < items[i].first || k > NM + 2) continue;
     const y = r.unit_price / base[i] * HS, z = Z(Math.min(k, NM - 1)), ref = idxAt(i, Math.min(k, NM - 1)) / base[i] * HS;
     const big = r.tier === 'rejected';
@@ -148,7 +150,7 @@ export async function mount(el, opts = {}) {
   const sel = $('.ck-item'); sel.innerHTML = '<option value="-1">All items</option>' + items.map((it, i) => `<option value="${i}">${it.name}</option>`).join('');
   sel.value = '-1'; let focus = -1;
   const target = new THREE.Vector3(0, 40, 20);
-  function preset() { if (S.view === 'aisle') { S.taz = -0.60; S.tel = 0.40; S.tdist = 1010; } else { S.taz = 0.0; S.tel = 0.78; S.tdist = 820; } S.user = false; }
+  function preset() { if (S.view === 'aisle') { S.taz = -0.60; S.tel = O.cart ? 0.46 : 0.40; S.tdist = O.cart ? 1120 : 1010; } else { S.taz = 0.0; S.tel = 0.78; S.tdist = 820; } S.user = false; }
   function setView(v) {
     S.view = v; aisle.visible = v === 'aisle'; map.visible = v === 'map'; el.dataset.view = v;
     el.querySelectorAll('.ck-seg button').forEach(b => b.setAttribute('aria-pressed', b.dataset.view === v));
@@ -157,9 +159,9 @@ export async function mount(el, opts = {}) {
   }
   function legend() {
     $('.ck-legend').innerHTML = S.view === 'aisle'
-      ? `<span class="sw"><i style="background:linear-gradient(90deg,#29a8b8,#8c999e,#edc76b,#f58538,#ed3833)"></i>12-month change: falling → rising fast</span><span class="dot solid">checked price</span><span class="dot unverified">unverified</span><span class="dot rejected">rejected</span>`
+      ? `<span class="sw"><i style="background:linear-gradient(90deg,#29a8b8,#8c999e,#edc76b,#f58538,#ed3833)"></i>12-month change: falling → rising fast</span><span class="dot solid">${O.cart ? 'paid at a register' : 'checked price'}</span><span class="dot unverified">unverified</span>${O.cart ? '' : '<span class="dot rejected">rejected</span>'}`
       : `<span class="sw"><i style="background:linear-gradient(90deg,#29a8b8,#8c999e,#f58538)"></i>15% cheaper than the U.S. average → 15% dearer</span>`;
-    $('.ck-sub').textContent = S.view === 'aisle' ? 'Height: the price as a multiple of the item’s first month on record. Front edge: this month.' : 'The four census regions, the finest map the Bureau of Labor Statistics prices by. Height: the regional average price for the year. A region the bureau has stopped pricing for the item is grey, at its last figure.';
+    $('.ck-sub').textContent = S.view === 'aisle' ? (O.weights ? 'Height: the price as a multiple of the item’s first month on record. Width: its share of what you spend.' : 'Height: the price as a multiple of the item’s first month on record. Front edge: this month.') : 'The four census regions, the finest map the Bureau of Labor Statistics prices by. Height: the regional average price for the year. A region the bureau has stopped pricing for the item is grey, at its last figure.';
   }
   function resize() {
     const w = el.clientWidth, h = el.clientHeight; renderer.setPixelRatio(Math.min(devicePixelRatio || 1, 2)); renderer.setSize(w, h, false); cam.aspect = w / h; cam.updateProjectionMatrix();
@@ -171,13 +173,18 @@ export async function mount(el, opts = {}) {
   function frame(force) {
     const kf = S.t * (NM - 1), k = Math.round(kf);
     const narrow = cam.aspect < 0.9;
-    S.az = lerp(S.az, S.taz, .08); S.el = lerp(S.el, S.tel, .08); S.dist = lerp(S.dist, S.tdist * (narrow ? clamp((S.view === 'aisle' ? 0.62 : 1.4) / cam.aspect, 1, 2.8) : 1), .08);
+    S.az = lerp(S.az, S.taz, .08); S.el = lerp(S.el, S.tel, .08); S.dist = lerp(S.dist, S.tdist * (narrow ? clamp((S.view === 'aisle' ? (O.cart ? 1.0 : 0.62) : 1.4) / cam.aspect, 1, 2.8) : 1), .08);
     const drift = S.playing && !S.user ? Math.sin(performance.now() / 9000) * 0.10 : 0;
-    const az = S.az + drift + (narrow && S.view === 'aisle' && !S.user ? -0.5 : 0);
-    target.set(S.view === 'aisle' ? 20 : 0, S.view === 'aisle' ? 34 : 30, S.view === 'aisle' ? 50 : 10);
+    const az = S.az + drift + (narrow && S.view === 'aisle' && !S.user && !O.cart ? -0.5 : 0);
+    target.set(S.view === 'aisle' ? 20 : 0, S.view === 'aisle' ? (O.cart ? 10 : 34) : 30, S.view === 'aisle' ? (O.cart ? 70 : 50) : 10);
     cam.position.set(target.x + Math.sin(az) * Math.cos(S.el) * S.dist, target.y + Math.sin(S.el) * S.dist, target.z + Math.cos(az) * Math.cos(S.el) * S.dist); cam.lookAt(target);
     const y = V.start + Math.floor(k / 12), mo = k % 12;
     $('.ck-date').textContent = MON[mo] + ' ' + y;
+    if (O.cart) {
+      let v = 0, f = 0, ok = true, f0 = 0; items.forEach((it, i) => { f0 = Math.max(f0, it.first); });
+      items.forEach((it, i) => { const q = O.cart[it.id] || 0, a = idxAt(i, kf); if (a == null) ok = false; else v += q * a; f += q * filled[i][f0]; });
+      $('.ck-basket').textContent = ok ? usd(v) : 'not all priced yet'; $('.ck-bsub').textContent = ok ? `${(v / f).toFixed(2)}× its ${V.start + Math.floor(f0 / 12)} cost` : `every item is priced from ${V.start + Math.floor(f0 / 12)}`;
+    } else
     if (V.basket) { const b = V.basket.m; let j = k; while (j >= 0 && b[j] == null) j--; const v = j >= 0 ? b[j] : null, f = b[V.basket.first]; $('.ck-basket').textContent = v == null ? 'not all priced yet' : usd(v); $('.ck-bsub').textContent = v == null ? '' : `${(v / f).toFixed(2)}× its ${V.start + Math.floor(V.basket.first / 12)} cost`; }
     const fh = V.indexes.food_home; if (fh) { const a = fh.m[k] ?? fh.m[k - 1], p = k >= 13 ? (fh.m[k - 12] ?? fh.m[k - 13]) : null; $('.ck-cpi').textContent = a && p ? `Groceries overall: ${(a / p - 1) * 100 >= 0 ? '+' : ''}${((a / p - 1) * 100).toFixed(1)}% in 12 months` : ''; }
     if (S.view === 'aisle') {
@@ -251,6 +258,7 @@ export async function mount(el, opts = {}) {
   setView(S.view); setPlay(S.playing);
   if (matchMedia('(prefers-reduced-motion: reduce)').matches && !O.rec) { S.t = 1; setPlay(false); }
   const io = new IntersectionObserver(es => { for (const e of es) { if (e.isIntersecting) { if (!raf) { last = performance.now(); raf = requestAnimationFrame(tick); } } else { cancelAnimationFrame(raf); raf = 0; } } }); io.observe(el);
-  const api = { ready: true, seek(t) { S.t = clamp(t, 0, 1); frame(true); }, play: () => setPlay(true), pause: () => setPlay(false), setView, focus(id) { focus = byId[id] ?? -1; sel.value = String(focus); }, state: S };
+  if (O.cart) { el.classList.add('ck-cartmode'); $('.ck-ck').textContent = 'Your cart, a week'; }
+  const api = { ready: true, destroy() { cancelAnimationFrame(raf); raf = 0; io.disconnect(); renderer.dispose(); renderer.forceContextLoss && renderer.forceContextLoss(); el.innerHTML = ''; }, seek(t) { S.t = clamp(t, 0, 1); frame(true); }, play: () => setPlay(true), pause: () => setPlay(false), setView, focus(id) { focus = byId[id] ?? -1; sel.value = String(focus); }, state: S };
   window.CK = api; return api;
 }

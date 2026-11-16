@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Cart: what your groceries cost, month by month · The Watch</title>
+<meta name="description" content="Pick what you actually buy and see what that exact cart has cost every month since 1980, from shelf prices. No fixed basket, no weights but yours.">
+<link rel="canonical" href="https://bboldt86.github.io/lanscape-navigator/news/cart/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="The Watch">
+<meta property="og:title" content="The Cart: your prices, not the average basket">
+<meta property="og:description" content="Pick what you actually buy and see what that exact cart has cost every month since 1980, from shelf prices.">
+<meta property="og:url" content="https://bboldt86.github.io/lanscape-navigator/news/cart/">
+<meta property="og:image" content="https://bboldt86.github.io/lanscape-navigator/news/cart/share.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#F5F7F6" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0E1A2B" media="(prefers-color-scheme: dark)">
+<link rel="apple-touch-icon" href="../icon-180.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%230b1526'/%3E%3Cpath d='M14 46V34h8v12zM28 46V26h8v20zM42 46V16h8v30z' fill='%232a78d6'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../wave/article.css">
+<link rel="stylesheet" href="../prices/prices.css">
+<link rel="stylesheet" href="cart.css">
+<script defer src="/lanscape-navigator/news/pulse/pulse.js"></script>
+</head>
+<body data-pulse-card="off">
+<script>
+(function(){try{var p=JSON.parse(localStorage.getItem('watch.v1')||'{}');var t=p.theme||'auto';var h=+new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',hour:'numeric',hourCycle:'h23'}).format(new Date());
+if(t==='auto'){t=(h>=20||h<4)?'night':(matchMedia('(prefers-color-scheme: dark)').matches?'night':'day')}document.documentElement.dataset.theme=t;}catch(e){}})();
+</script>
+<header class="mast"><div class="wrap">
+  <a class="back" href="../#/s/business"><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" fill="#15243B"/><circle cx="32" cy="32" r="21" fill="none" stroke="#D6B25E" stroke-width="6" stroke-dasharray="19 3"/><path d="M32 32 L46 14" stroke="#F5F7F6" stroke-width="5" stroke-linecap="round"/></svg>The Watch <span>· Business</span></a>
+  <div class="mast-r"><button type="button" class="tbtn" id="share">Share my cart</button></div>
+</div></header>
+
+<main class="cart">
+  <div class="c-head">
+    <p class="k">The Cart · your prices</p>
+    <h1>What your cart costs</h1>
+    <p class="c-sub">Pick what you buy in a week. Every number below is that exact cart, priced each month at what the items cost on the shelf. The only weights are yours.</p>
+  </div>
+
+  <div class="c-ctl" id="ctl">
+    <div class="chips" id="presets" role="group" aria-label="Start from a cart"></div>
+    <div class="chips" id="windows" role="group" aria-label="Compare from"></div>
+  </div>
+  <p class="c-warn" id="warn" hidden></p>
+
+  <section class="tiles" id="tiles" aria-live="polite"></section>
+
+  <section class="panel">
+    <header><h2>Your cart against the official numbers</h2><p id="lineSub"></p></header>
+    <div class="chart" id="line"></div>
+    <div class="legend" id="lineLegend"></div>
+  </section>
+
+  <section class="panel">
+    <header><h2>What moved it</h2><p id="barSub"></p></header>
+    <div class="chart" id="bars"></div>
+  </section>
+
+  <section class="panel">
+    <header><h2>Year by year</h2><p>Each square is one item in one year: the change in its average price from the year before. Blue fell, red rose.</p></header>
+    <div class="chart scroll" id="heat"></div>
+    <div class="legend" id="heatLegend"></div>
+  </section>
+
+  <section class="panel dark">
+    <header><h2>Your cart since 1980, in 3-D</h2><p>One ribbon per item in your cart. Wider ribbons are a bigger share of what you spend. Drag to turn.</p></header>
+    <div class="ck-root" id="stage3d"></div>
+  </section>
+
+  <section class="panel" id="edit">
+    <header><h2>Your cart</h2><p>Amounts are per week. <button type="button" class="lk" id="clear">Empty it</button></p></header>
+    <div id="editor"></div>
+  </section>
+
+  <section class="panel">
+    <header><h2>Paid at the register</h2><p>Prices from real receipts and reporters’ price runs at Walmart, next to the national average for the same month. From <a href="../prices/#ledger">The Checkout’s ledger</a>; fabricated receipts are left out.</p></header>
+    <div class="tblwrap"><table class="tbl" id="paid"></table></div>
+  </section>
+
+  <section class="panel">
+    <header><h2>The numbers behind the chart</h2><p id="tblSub"></p></header>
+    <div class="tblwrap"><table class="tbl" id="datatbl"></table></div>
+  </section>
+
+  <section class="panel about">
+    <header><h2>About the numbers</h2></header>
+    <ul>
+      <li><b>Shelf prices, in dollars.</b> Each item is the average price people recorded in stores that month for one defined product (a dozen large eggs, a pound of ground beef), published by the Bureau of Labor Statistics as “average price data.” It is a different product from the CPI: no basket, no weights, no quality or substitution adjustments.</li>
+      <li><b>Your weights.</b> The cart is fixed at what you picked, so if beef doubles you are charged double, not moved to chicken.</li>
+      <li><b>What it leaves out.</b> Only items with a published price series: no rent, insurance, restaurants, or brand and store differences. An average is not your store; the register table above is the cross-check.</li>
+      <li><b>Gaps.</b> No prices were collected in October 2025, so that month repeats September. An item with no series before your start date moves the start date, and the page says so.</li>
+      <li><b>The official lines</b> are CPI “food at home” and CPI for all items, shown only for comparison. <span id="feed"></span></li>
+    </ul>
+  </section>
+</main>
+<div class="tip" id="tip" hidden></div>
+<footer class="foot"><div class="narrow"><p>The Watch · Business. Prices refresh daily and after each month’s release. Related: <a href="../prices/">The Checkout: receipt posts, checked</a>. <a href="../">Back to The Watch</a>.</p></div></footer>
+<script type="module" src="cart.js"></script>
+</body></html>

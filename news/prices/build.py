@@ -277,7 +277,7 @@ if(t==='auto'){{t=(h>=20||h<4)?'night':(matchMedia('(prefers-color-scheme: dark)
 <section class="sources" id="sources"><h2>Sources</h2><ol>{src_list}</ol></section>
 </div>
 </main>
-<footer class="foot"><div class="narrow"><p>The Watch · Business. The Checkout is rebuilt whenever the ledger changes and after each month’s official prices are published. Page built {now.strftime('%b. %-d, %Y, %H:%M')} UTC. Related: <a href="../money/">Who paid for it</a> · <a href="../mandate/markets.html">The Mandate: markets and households</a>. <a href="../">Back to The Watch</a>.</p></div></footer>
+<footer class="foot"><div class="narrow"><p>The Watch · Business. The Checkout is rebuilt whenever the ledger changes and after each month’s official prices are published. Page built {now.strftime('%b. %-d, %Y, %H:%M')} UTC. Related: <a href="../cart/">The Cart: price your own groceries</a> · <a href="../money/">Who paid for it</a> · <a href="../mandate/markets.html">The Mandate: markets and households</a>. <a href="../">Back to The Watch</a>.</p></div></footer>
 <script type="module" src="page.js"></script>
 </body></html>
 '''
