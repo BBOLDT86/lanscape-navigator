@@ -4233,7 +4233,7 @@ function renderHousehold() {
   $('#main').innerHTML = `<div class="wrap mk">
     <div class="page-h"><h1>Household</h1><p>What things cost and what changed for your money: the latest prices and rates, then the news on bills, prices, taxes, insurance and saving.</p></div>
     ${budgetFeature()}
-    ${craftmasFeature()}
+    ${craftmasFeature()}${organizeFeature()}
     ${tiles.length || us.value ? `<section class="blk" style="margin-top:6px"><h2 class="sec-h">What things cost</h2><p class="sub2">The newest official and survey figures, each with its date. Tap one for its source.</p>
       <div class="econ">${tiles.map(econTile).join('')}${natTile(us.value, 'Typical U.S. home', '', 'The middle of the market for U.S. homes (Zillow Home Value Index).')}${natTile(us.rent, 'Typical U.S. rent', '/mo', 'The typical asking rent for a U.S. home or apartment (Zillow Observed Rent Index).')}</div>
       ${wallet.length ? `<h3 class="eh4">Commodities that reach your bills</h3><div class="mvs" style="max-width:640px">${wallet.map(r => `<button type="button" class="mv ${dirc(r.cp)}" data-tick="${esc(r.s)}"><b>${esc(r.n)}</b><span>${fprice(r)}</span><i>${fchg(r)}</i></button>`).join('')}</div>` : ''}</section>` : ''}
@@ -4403,7 +4403,7 @@ function renderHomeDesk() {
       <input id="hq" type="search" autocomplete="off" placeholder="${esc(LANG === 'pt' ? 'casas com 4 quartos em 43215 até 750 mil' : LANG === 'de' ? 'Häuser mit 4 Schlafzimmern in 43215 bis 750.000' : '4BR homes in 43215 under 750k')}" value="${esc(homeQ)}" class="nolc">
       <div class="tags ex">${(LANG === 'pt' ? ['casas com 4 quartos em 43215 até 750 mil', 'apartamentos de 3 quartos em Columbus, OH entre 250 mil e 400 mil', 'sobrados em 02116 até 1,2 milhão', 'casas com piscina em 33139'] : LANG === 'de' ? ['Häuser mit 4 Schlafzimmern in 43215 bis 750.000', 'Wohnungen mit 3 Zimmern in Columbus, OH zwischen 250k und 400k', 'Reihenhäuser in 02116 bis 1,2 Mio', 'Häuser mit Pool in 33139'] : ['4BR homes in 43215 under 750k', '3 bed condos in Columbus, OH between 250k and 400k', 'townhouses in 02116 under 1.2m', 'houses with a pool in 33139 over 2,000 sq ft']).map(x => `<button type="button" class="chip" data-hq="${esc(x)}">${esc(x)}</button>`).join('')}</div>
       <div id="hres">${homeQ ? searchCard(homeQ, f, { isSaved: isSavedF(f) }) : ''}</div></div>
-    <div class="blk">${reelFeature()}${homeSaverFeature()}</div>
+    <div class="blk">${organizeFeature()}${reelFeature()}${homeSaverFeature()}</div>
     <div class="blk">${deskShop('home')}</div>
     ${saved.length || pend.length ? `<section class="blk"><h2 class="sec-h">Saved searches</h2>${saved.map(s => searchCard(s.q, s.f, { saved: true, id: s.id, savedAt: s.saved })).join('')}${pend.map(p => searchCard(p.q, p.f, { saved: true, pending: true })).join('')}</section>` : ''}
     ${us.value ? `<section class="blk"><h2 class="sec-h">The national market</h2><div class="econ">${natTile(us.value, 'Typical U.S. home', '', 'The middle of the market for U.S. homes (Zillow Home Value Index).')}${natTile(us.rent, 'Typical U.S. rent', '/mo', 'The typical asking rent (Zillow Observed Rent Index).')}${MK ? ['MORT', 'MORT15'].map(id => (MK.econ || []).find(e => e.id === id)).filter(Boolean).map(econTile).join('') : ''}</div></section>` : ''}
@@ -4980,6 +4980,12 @@ function reelFeature() { // Home: Reel Check, viral DIY build videos tested agai
     <span class="t90t"><span class="k">${T('Reel Check · a new build every morning')}</span><b>${T('The viral backyard builds, tested against the physics')}</b>
     <span class="d">${T('Bottle pools, underwater rooms, hobbit houses: what the clip shows, why it would fail, and how to build a version that works, with a sizer, a priced bill of materials and a schedule.')}</span>
     <span class="go">${T('Open Reel Check')} ›</span></span></a>`;
+}
+function organizeFeature() { // Home + Household: Organize — ideas from the reels, and a spec-sheet builder the reader sends to Claude for a dashboard (home/organize/)
+  return `<a class="t90f" href="home/organize/"><span class="t90v" aria-hidden="true"><svg viewBox="0 0 132 88"><rect x="6" y="8" width="120" height="72" rx="10" fill="#A9852F" fill-opacity=".1" stroke="#A9852F" stroke-width="2"/><path d="M34 26h52v38H34zM34 26l14-8h52l-14 8M86 64l14-8V18" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M34 72h52M34 69v6M86 69v6M26 26v38M23 26h6M23 64h6" stroke="#A9852F" stroke-width="2"/><path d="M42 45h36" stroke="currentColor" stroke-width="2" stroke-dasharray="4 4"/></svg></span>
+    <span class="t90t"><span class="k">${T('Organize · measure first')}</span><b>${T('The reel shows the shelf. It never shows the tape measure.')}</b>
+    <span class="d">${T('Eleven organizing ideas from the reels, each with what to measure before you buy. Then build a spec sheet of your own cabinets and closets with photos, and send it to Claude for a dashboard of your house.')}</span>
+    <span class="go">${T('Open Organize')} ›</span></span></a>`;
 }
 function homeSaverFeature() { // Home: the reader's own list of listings (home/saver/)
   let n = 0, fav = 0; try { const d = JSON.parse(localStorage.getItem('watch.homes') || 'null'); const it = d && Array.isArray(d.items) ? d.items.filter(e => !e.archived) : []; n = it.length; fav = it.filter(e => e.favorite).length; } catch (e) { /* storage off */ }

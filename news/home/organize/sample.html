@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sample dashboard · Organize · The Watch</title>
+<meta name="description" content="A sample of the single-file dashboard Claude builds from an Organize spec sheet: a plan per space, a fit check against your measurements, a shopping list with a running total, and a checklist.">
+<link rel="canonical" href="https://bboldt86.github.io/lanscape-navigator/news/home/organize/sample.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="The Watch">
+<meta property="og:title" content="Sample dashboard · Organize · The Watch">
+<meta property="og:description" content="What comes back when you send an Organize spec sheet to Claude.">
+<meta property="og:image" content="https://bboldt86.github.io/lanscape-navigator/news/home/organize/share.png">
+<meta name="theme-color" content="#F5F7F6" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0E1A2B" media="(prefers-color-scheme: dark)">
+<style>
+:root{--paper:#F5F7F6;--raise:#FFFFFF;--ink:#15243B;--ink-2:#465770;--ink-3:#6E7D90;--rule:rgba(21,36,59,.12);--rule-2:rgba(21,36,59,.24);--brass:#A9852F;--brass-ink:#7A5E1C;--brass-soft:rgba(169,133,47,.12);--signal:#C2412D;--ok:#2F7A55;
+  --serif:'Iowan Old Style','Palatino Linotype',Georgia,serif;--sans:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;--mono:ui-monospace,'SF Mono',Menlo,Consolas,monospace;color-scheme:light}
+@media (prefers-color-scheme:dark){:root{--paper:#0E1A2B;--raise:#142539;--ink:#E7EDF4;--ink-2:#AEBBCB;--ink-3:#8E9CAF;--rule:rgba(231,237,244,.12);--rule-2:rgba(231,237,244,.26);--brass:#D6B25E;--brass-ink:#E3C47E;--brass-soft:rgba(214,178,94,.16);--signal:#E8705A;--ok:#5BC48C;color-scheme:dark}}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 16px/1.5 var(--sans)}
+a{color:inherit}button,input{font:inherit;color:inherit}button{cursor:pointer;background:none;border:0;padding:0}
+:focus-visible{outline:2px solid var(--brass);outline-offset:2px;border-radius:4px}
+.wrap{max-width:880px;margin:0 auto;padding:0 16px}
+.flag{background:var(--brass-soft);border-bottom:1px solid var(--rule-2);font-size:13.5px;color:var(--ink-2);padding:8px 0}
+.flag b{color:var(--ink)}
+header{padding:22px 0 14px}
+.k{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--brass-ink);font-weight:600}
+h1{font:400 38px/1.05 var(--serif);margin:4px 0 6px;letter-spacing:-.01em}
+header p{margin:0;color:var(--ink-2);font-size:15px}
+.tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:16px 0 0}
+.tile{border:1px solid var(--rule-2);background:var(--raise);border-radius:10px;padding:10px 12px;min-width:0}
+.tile span{display:block;font-size:12.5px;color:var(--ink-3)}
+.tile b{font:400 26px/1.15 var(--serif);font-variant-numeric:tabular-nums}
+.tile.over b{color:var(--signal)}
+.bar{height:6px;border-radius:3px;background:var(--rule);margin-top:6px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--ok);width:0;transition:width .25s}
+@media (prefers-reduced-motion:reduce){.bar i{transition:none}}
+.tabs{position:sticky;top:0;z-index:5;background:var(--paper);border-bottom:1px solid var(--rule);margin-top:16px}
+.tabs .wrap{display:flex;gap:4px;overflow-x:auto;padding-top:8px;padding-bottom:8px;scrollbar-width:none}
+.tabs button{flex:none;font-size:14px;padding:7px 12px;border-radius:999px;border:1px solid transparent;color:var(--ink-2);min-height:36px;white-space:nowrap}
+.tabs button[aria-selected="true"]{background:var(--raise);border-color:var(--rule-2);color:var(--ink);font-weight:600}
+.sheet{border:1.5px solid var(--ink);background:var(--raise);border-radius:3px;margin:18px 0}
+.tb{display:grid;grid-template-columns:1fr auto;border-bottom:1.5px solid var(--ink);font:12px/1.2 var(--mono);text-transform:uppercase;letter-spacing:.04em}
+.tb > *{padding:9px 12px;border-left:1px solid var(--rule-2)}.tb > :first-child{border-left:0}
+.tb .ttl{font:400 21px/1.1 var(--serif);text-transform:none;letter-spacing:0}
+.tb b{font-weight:400;color:var(--ink-3)}
+.sb{padding:14px 14px 4px}
+.sb h3{font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;color:var(--ink-3);margin:14px 0 6px}
+.sb h3:first-child{margin-top:0}
+.sb p{margin:0 0 10px;color:var(--ink-2);font-size:15px}
+.ask{border-left:3px solid var(--signal);background:var(--brass-soft);padding:8px 12px;border-radius:0 8px 8px 0;font-size:14.5px;margin:0 0 12px;color:var(--ink)}
+ul.tasks{list-style:none;margin:0 0 10px;padding:0}
+ul.tasks li{border-top:1px solid var(--rule)}ul.tasks li:first-child{border-top:0}
+ul.tasks label{display:grid;grid-template-columns:28px 1fr;gap:6px;padding:10px 0;cursor:pointer;font-size:15px;min-height:44px;align-items:start}
+ul.tasks input{width:20px;height:20px;margin:2px 0 0;accent-color:var(--ok)}
+ul.tasks input:checked + span{color:var(--ink-3);text-decoration:line-through}
+ul.tasks small{display:block;color:var(--ink-3);font-size:13px}
+ul.fit{list-style:none;margin:0 0 12px;padding:0}
+ul.fit li{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,128px);gap:12px;padding:10px 0;border-top:1px solid var(--rule);font-size:14.5px}
+ul.fit li:first-child{border-top:0}
+ul.fit b{display:block;font-weight:600}ul.fit span{display:block;color:var(--ink-2)}ul.fit small{display:block;color:var(--ink-3);font-size:12.5px}
+ul.fit .lim{text-align:right;font:15px/1.3 var(--mono);font-weight:600}
+ul.fit .lim small{font:11.5px var(--sans);font-weight:400}
+@media (max-width:560px){.tb{grid-template-columns:1fr}.tb > *{border-left:0}.tb > * + *{border-top:1px solid var(--rule-2)}}
+.tw{overflow-x:auto;margin:0 0 12px}
+table{width:100%;border-collapse:collapse;font-size:14px;font-variant-numeric:tabular-nums}
+th{text-align:left;font-weight:600;color:var(--ink-3);font-size:12px;padding:6px 8px 6px 0;border-bottom:1px solid var(--rule-2);white-space:nowrap}
+td{padding:8px 8px 8px 0;border-bottom:1px solid var(--rule);vertical-align:top}
+td.n,th.n{text-align:right;font-family:var(--mono);font-size:13px;white-space:nowrap}
+td small{display:block;color:var(--ink-3);font-size:12.5px}
+.ok{color:var(--ok)}.tight{color:var(--signal)}
+td input{width:84px;min-height:38px;padding:6px 8px;border:1px solid var(--rule-2);border-radius:8px;background:var(--paper);text-align:right;font-family:var(--mono);font-size:16px}
+.slots{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 0 14px}
+.slot{aspect-ratio:4/3;border:1.5px dashed var(--rule-2);border-radius:6px;display:grid;place-items:center;font-size:13px;color:var(--ink-2);cursor:pointer;overflow:hidden;position:relative;background:var(--paper)}
+.slot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.slot b{position:absolute;left:6px;top:6px;font:11px var(--mono);background:rgba(14,26,43,.75);color:#fff;padding:2px 6px;border-radius:3px;text-transform:uppercase;letter-spacing:.04em;z-index:1}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+footer{border-top:1px solid var(--rule);margin-top:26px;padding:18px 0 50px;font-size:13.5px;color:var(--ink-3)}
+footer p{margin:0 0 8px}
+footer button,footer label{text-decoration:underline;color:var(--ink-2);cursor:pointer}
+</style>
+<script defer src="/lanscape-navigator/news/pulse/pulse.js"></script>
+</head>
+<body data-pulse-card="off">
+<div class="flag"><div class="wrap"><b>Sample.</b> Claude built this page from the example sheet on <a href="./#spaces">Organize</a>. The household is made up; the arithmetic is real. Yours comes back as one file like this, about your own house.</div></div>
+<div class="wrap">
+<header>
+  <span class="k">Bathroom and kitchen reset · done by Thanksgiving</span>
+  <h1>Three spaces, in the order to do them</h1>
+  <p>2 adults, 2 kids. Owned, so screws are fine. Matte black and white, no logos showing.</p>
+  <div class="tiles">
+    <div class="tile"><span>Steps done</span><b id="tDone">0 of 0</b><div class="bar"><i id="tBar"></i></div></div>
+    <div class="tile" id="tSpendT"><span>Priced so far</span><b id="tSpend">$0</b></div>
+    <div class="tile"><span>Budget</span><b>$250</b></div>
+  </div>
+</header>
+</div>
+<nav class="tabs"><div class="wrap" role="tablist" id="tabs"></div></nav>
+<div class="wrap" id="main"></div>
+<footer><div class="wrap">
+  <p>Your ticks, prices and photos are kept in this browser only. <button type="button" id="bk">Back up</button> saves them to a file; <label>Restore<input type="file" id="rs" accept=".json,application/json" class="sr"></label> brings one back. <button type="button" id="reset">Reset the sample</button>.</p>
+  <p>Sizes in the fit check are the largest that fit the measurements on the sheet, with the clearance shown. No prices or product dimensions were looked up for this sample: you type prices in as you find them.</p>
+  <p><a href="./">Build your own sheet on Organize</a> · <a href="../../#/s/home">The Watch · Home</a></p>
+</div></footer>
+
+<script>
+'use strict';
+const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const KEY = 'watch.organize.sample.v1', BUDGET = 250;
+// The plan, worked from the example sheet. fit rows: [what, the space gives, buy no bigger than, note, tight?]
+const PLAN = [
+  { id: 's1', no: '01', name: 'Hall bathroom sink', dims: '28.5 × 20 × 24 in · opening 25 in', budget: 90,
+    why: 'Things get pushed behind the drain pipe and bought twice. A tray that slides out fixes the reach; the pipe decides how big the tray can be.',
+    fit: [
+      ['Pull-out tray, width', 'Door opening 25 in', '24.5 in', 'The opening is the limit, not the 28.5 in cabinet. Half an inch to clear the hinges.'],
+      ['Pull-out tray, depth', 'Inside depth 20 in', '19.5 in', 'Leaves room for the door to close.'],
+      ['Anything stored under the pipe', 'Trap bottom 11 in off the floor', '10 in tall', 'Applies to the back 9 in of the tray. One inch to slide under.', 1],
+      ['Tall bottles and hair tools', 'Front zone 11 in deep (20 − 9)', '11 in deep, up to 23 in tall', 'Everything tall lives in front of the pipe.'],
+      ['Side baskets', 'Side walls, clear above the tray', '5 in out from the wall', 'Two baskets at 5 in leave 18.5 in open in the middle for the pipe and your arm.']
+    ],
+    buy: [['Pull-out tray, two-part so it passes the pipe', 'Search: under sink sliding organizer, adjustable width'], ['Two wall-mount wire baskets, black', 'Screw to the side walls'], ['Two clear lidded jars', 'For cotton balls and small packets'], ['A latching bin for the cleaning spray', 'Kid-safe rule']],
+    tasks: [['Empty the cabinet onto a towel', 'Group what you find. Count the doubles.'], ['Move the cleaning spray out of reach or into a latching bin', 'Kid-safe is a rule on this sheet.'], ['Check the shutoff valves turn, and wipe the floor of the cabinet', 'Left of centre on the back wall. They stay uncovered.'], ['Fit the tray and pull it fully out once, empty', 'It must clear the trap without lifting.'], ['Mount the two side baskets above the tray', ''], ['Load: towels and tall things in front, short things under the pipe', '']] },
+  { id: 's2', no: '02', name: 'Food container cabinet', dims: '14 × 11.5 × 36 in · 3 shelves', budget: 40,
+    ask: 'One measurement is missing: the flat area on the inside of the door, between the hinges. It decides how many of the 18 lids can hang there.',
+    why: 'Eighteen containers stacked with their lids on use three shelves. Nested without lids, the same glass takes far less height. The lids need somewhere to go.',
+    fit: [
+      ['Lid holder plus the lids on it', 'Door closes 1.25 in from the shelf fronts', '1 in thick', 'A quarter inch spare so the door shuts without pressing on the lids.', 1],
+      ['Nested stacks', 'Shelf 14 in wide, 11.5 in deep', 'Two stacks side by side if each container is under 6.75 in wide', 'Measure your largest container before deciding on two stacks or one.'],
+      ['Shelf spacing', '36 in of height, shelves adjustable', 'Move one shelf out', 'Nested, the glass should need one shelf or two, not three.']
+    ],
+    buy: [['Adhesive lid holders for the door', 'Count after you measure the door. Clean the door with rubbing alcohol first.'], ['Nothing else', 'The rule here is to keep the containers you own.']],
+    tasks: [['Measure the flat inside face of the door', 'Width and height between the hinges.'], ['Match every lid to a container. Set aside orphans.', ''], ['Dry-fit: tape one lid to the door and close it', 'If it touches a shelf, the lids go in a file rack on a shelf instead.'], ['Stick the holders and give the adhesive the wait time on the pack before loading', ''], ['Nest the glass by size on the lowest shelf', '']] },
+  { id: 's3', no: '03', name: 'Closet shelf, jeans', dims: '23 × 15 × 13 in', budget: 50,
+    why: 'Eleven pairs in two stacks topple when one comes out of the middle. Trays work, but the shelf is only 13 in high, so the count has to be checked first.',
+    fit: [
+      ['Tray width', 'Shelf 23 in wide, two columns', '11 in each', 'Two trays side by side with an inch to spare.'],
+      ['Tray depth', 'Shelf 15 in deep', '14.5 in', ''],
+      ['Tray height per level', '13 in high, 6 levels in the taller column', '2.1 in per level', '13 ÷ 6 = 2.17 in, and that has to hold the tray and the jeans. If it does not, run 5 and 5 and move one pair.', 1]
+    ],
+    buy: [['Stacking pull-out trays, 10 or 11', 'Check the listed height per tray against 2.1 in before ordering']],
+    tasks: [['Fold one pair the way you always do and measure it', 'Width, depth, thickness.'], ['Pull anything you have not worn this year', 'Fewer pairs makes the height work.'], ['Order trays only if the height per level works', ''], ['Stack and load, most-worn at hand height', '']] }
+];
+let S = { tab: 's1', done: {}, price: {}, img: {} };
+try { S = Object.assign(S, JSON.parse(localStorage.getItem(KEY)) || {}); } catch (e) {}
+const save = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) { } };
+const money = n => '$' + (Math.round(n * 100) / 100).toLocaleString('en-US', { minimumFractionDigits: n % 1 ? 2 : 0, maximumFractionDigits: 2 });
+const num = v => { const x = parseFloat(String(v || '').replace(/[^0-9.]/g, '')); return x > 0 ? x : 0; };
+
+function totals() {
+  const all = PLAN.flatMap(p => p.tasks.map((t, i) => p.id + '.' + i)), d = all.filter(k => S.done[k]).length;
+  $('#tDone').textContent = d + ' of ' + all.length; $('#tBar').style.width = (100 * d / all.length) + '%';
+  const spend = Object.values(S.price).reduce((a, v) => a + num(v), 0);
+  $('#tSpend').textContent = money(spend); $('#tSpendT').classList.toggle('over', spend > BUDGET);
+  PLAN.forEach(p => { const el = $('#sub-' + p.id); if (!el) return; const s = p.buy.reduce((a, b, i) => a + num(S.price[p.id + '.' + i]), 0); el.innerHTML = money(s) + ' of ' + money(p.budget) + (s > p.budget ? ' <span class="tight">· over</span>' : ''); });
+}
+function render() {
+  $('#tabs').innerHTML = PLAN.map(p => `<button type="button" role="tab" data-tab="${p.id}" aria-selected="${S.tab === p.id}">${p.no} ${esc(p.name)}</button>`).join('');
+  const p = PLAN.find(x => x.id === S.tab) || PLAN[0];
+  $('#main').innerHTML = `<div class="sheet"><div class="tb"><span class="ttl">${esc(p.name)}</span><span><b>Inside</b> ${esc(p.dims)}</span></div><div class="sb">
+    ${p.ask ? `<p class="ask"><b>Needed from you.</b> ${esc(p.ask)}</p>` : ''}
+    <p>${esc(p.why)}</p>
+    <h3>Steps</h3><ul class="tasks">${p.tasks.map((t, i) => `<li><label><input type="checkbox" data-k="${p.id}.${i}"${S.done[p.id + '.' + i] ? ' checked' : ''}><span>${esc(t[0])}${t[1] ? `<small>${esc(t[1])}</small>` : ''}</span></label></li>`).join('')}</ul>
+    <h3>Fit check</h3><ul class="fit">${p.fit.map(f => `<li><div><b>${esc(f[0])}</b><span>${esc(f[1])}</span>${f[3] ? `<small>${esc(f[3])}</small>` : ''}</div><div class="lim ${f[4] ? 'tight' : 'ok'}"><small>no bigger than</small>${esc(f[2])}${f[4] ? '<small class="tight">tight</small>' : ''}</div></li>`).join('')}</ul>
+    <h3>To buy · <span id="sub-${p.id}"></span></h3><div class="tw"><table><tbody>${p.buy.map((b, i) => `<tr><td>${esc(b[0])}<small>${esc(b[1])}</small></td><td class="n"><label><span class="sr">Price for ${esc(b[0])}</span><input type="text" inputmode="decimal" placeholder="$" data-p="${p.id}.${i}" value="${esc(S.price[p.id + '.' + i] || '')}"></label></td></tr>`).join('')}</tbody></table></div>
+    <h3>Before and after</h3><div class="slots">${['before', 'after'].map(w => `<label class="slot"><b>${w}</b>${S.img[p.id + '.' + w] ? `<img src="${S.img[p.id + '.' + w]}" alt="${w} photo of ${esc(p.name)}">` : 'Add a photo'}<input type="file" accept="image/*" class="sr" data-img="${p.id}.${w}"></label>`).join('')}</div>
+  </div></div>`;
+  totals();
+}
+document.addEventListener('click', e => { const b = e.target.closest('[data-tab]'); if (b) { S.tab = b.dataset.tab; save(); render(); scrollTo({ top: $('.tabs').offsetTop }); } });
+document.addEventListener('input', e => { const t = e.target; if (t.dataset.p) { S.price[t.dataset.p] = t.value; save(); totals(); } });
+document.addEventListener('change', e => { const t = e.target;
+  if (t.dataset.k) { S.done[t.dataset.k] = t.checked; save(); totals(); }
+  else if (t.dataset.img && t.files[0]) { const i = new Image(); i.onload = () => { const k = Math.min(1, 720 / Math.max(i.width, i.height)), c = document.createElement('canvas'); c.width = i.width * k; c.height = i.height * k; c.getContext('2d').drawImage(i, 0, 0, c.width, c.height); S.img[t.dataset.img] = c.toDataURL('image/jpeg', .72); save(); render(); }; i.src = URL.createObjectURL(t.files[0]); }
+  else if (t.id === 'rs' && t.files[0]) t.files[0].text().then(x => { try { S = Object.assign(S, JSON.parse(x)); save(); render(); } catch (err) { alert('That file is not a backup from this page.'); } }); });
+$('#bk').onclick = () => { const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([JSON.stringify(S)], { type: 'application/json' })); a.download = 'organize-dashboard-backup.json'; a.click(); };
+$('#reset').onclick = () => { if (confirm('Clear the ticks, prices and photos on this sample?')) { S = { tab: 's1', done: {}, price: {}, img: {} }; save(); render(); } };
+render();
+</script>
+</body>
+</html>

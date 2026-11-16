@@ -1,0 +1,622 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Organize · The Watch</title>
+<meta name="description" content="Eleven organizing ideas from the reels, with what to measure before you buy, and a spec-sheet builder: your spaces, measurements and photos, packed into one brief you send to Claude for a dashboard of your own house.">
+<link rel="canonical" href="https://bboldt86.github.io/lanscape-navigator/news/home/organize/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="The Watch">
+<meta property="og:title" content="Organize · The Watch">
+<meta property="og:description" content="Measure the space, add the photos, send the sheet to Claude, get back a dashboard for your own house.">
+<meta property="og:url" content="https://bboldt86.github.io/lanscape-navigator/news/home/organize/">
+<meta property="og:image" content="https://bboldt86.github.io/lanscape-navigator/news/home/organize/share.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#F5F7F6" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0E1A2B" media="(prefers-color-scheme: dark)">
+<link rel="apple-touch-icon" href="../../icon-180.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%2315243B'/%3E%3Cpath d='M18 22h28M18 32h28M18 42h28' stroke='%23D6B25E' stroke-width='4' stroke-linecap='round'/%3E%3Cpath d='M18 18v28M46 18v28' stroke='%23F5F7F6' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F5F7F6; --raise:#FFFFFF; --ink:#15243B; --ink-2:#465770; --ink-3:#6E7D90; --rule:rgba(21,36,59,.12); --rule-2:rgba(21,36,59,.24);
+  --shoal:#D7E7EC; --brass:#A9852F; --brass-ink:#7A5E1C; --brass-soft:rgba(169,133,47,.12); --signal:#C2412D; --ok:#2F7A55;
+  --grid:rgba(21,36,59,.055);
+  --serif:'Instrument Serif','Iowan Old Style',Georgia,serif;
+  --sans:'Instrument Sans',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --mono:ui-monospace,'SF Mono',Menlo,Consolas,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="day"]){
+    --paper:#0E1A2B; --raise:#142539; --ink:#E7EDF4; --ink-2:#AEBBCB; --ink-3:#8E9CAF; --rule:rgba(231,237,244,.12); --rule-2:rgba(231,237,244,.26);
+    --shoal:#12293F; --brass:#D6B25E; --brass-ink:#E3C47E; --brass-soft:rgba(214,178,94,.16); --signal:#E8705A; --ok:#5BC48C; --grid:rgba(231,237,244,.05); color-scheme:dark;
+  }
+}
+:root[data-theme="night"]{
+  --paper:#0E1A2B; --raise:#142539; --ink:#E7EDF4; --ink-2:#AEBBCB; --ink-3:#8E9CAF; --rule:rgba(231,237,244,.12); --rule-2:rgba(231,237,244,.26);
+  --shoal:#12293F; --brass:#D6B25E; --brass-ink:#E3C47E; --brass-soft:rgba(214,178,94,.16); --signal:#E8705A; --ok:#5BC48C; --grid:rgba(231,237,244,.05); color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:104px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 16px/1.55 var(--sans);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+button,select,input,textarea{font:inherit;color:inherit}
+button{cursor:pointer;background:none;border:0;padding:0}
+:focus-visible{outline:2px solid var(--brass);outline-offset:2px;border-radius:4px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+@media (max-width:640px){.wrap{padding:0 16px}}
+.mast{border-bottom:1px solid var(--rule);background:var(--paper);position:sticky;top:0;z-index:30}
+.mast .wrap{display:flex;align-items:center;justify-content:space-between;height:52px;gap:12px}
+.back{display:inline-flex;align-items:center;gap:10px;text-decoration:none;font-weight:600;font-size:15px;white-space:nowrap}
+.back svg{width:26px;height:26px;flex:none}
+.back span{color:var(--ink-3);font-weight:500}
+.tbtn{font-size:14px;color:var(--ink-2);border:1px solid var(--rule);border-radius:999px;padding:5px 12px;background:var(--raise);text-decoration:none}
+.tbtn:hover{border-color:var(--brass)}
+.k{font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--brass-ink);font-weight:600}
+
+/* head */
+.head{padding:36px 0 22px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,400px);gap:36px;align-items:end}
+.head h1{font:400 54px/1 var(--serif);letter-spacing:-.015em;margin:8px 0 12px}
+.lede{margin:0;color:var(--ink-2);font-size:17.5px;max-width:56ch}
+.how{margin:0;padding:0;list-style:none;border:1px solid var(--rule-2);border-radius:4px;background:var(--raise);font-size:14.5px}
+.how li{display:grid;grid-template-columns:34px 1fr;gap:0;border-bottom:1px solid var(--rule)}
+.how li:last-child{border-bottom:0}
+.how b{font:400 13px/1 var(--mono);color:var(--brass-ink);padding:12px 0 0 12px}
+.how span{padding:9px 12px 9px 0;color:var(--ink-2)}
+.how strong{color:var(--ink);font-weight:600}
+@media (max-width:860px){.head{grid-template-columns:1fr;gap:20px;padding-top:24px}.head h1{font-size:38px}.lede{font-size:16px}}
+
+/* step bar */
+.steps{position:sticky;top:52px;z-index:20;background:var(--paper);border-bottom:1px solid var(--rule)}
+.steps .wrap{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;padding-top:8px;padding-bottom:8px}
+.steps .wrap::-webkit-scrollbar{display:none}
+.steps a{flex:none;text-decoration:none;font-size:14px;color:var(--ink-2);padding:6px 12px;border-radius:999px;border:1px solid transparent;white-space:nowrap}
+.steps a i{font:400 12px var(--mono);color:var(--brass-ink);margin-right:6px;font-style:normal}
+.steps a[aria-current="true"]{background:var(--raise);border-color:var(--rule-2);color:var(--ink);font-weight:600}
+.steps small{font:inherit;color:var(--ink-3);margin-left:5px;font-variant-numeric:tabular-nums}
+
+section.part{padding:40px 0 8px}
+.part > h2{font:400 40px/1.05 var(--serif);margin:6px 0 8px;letter-spacing:-.01em}
+.part > .sum{color:var(--ink-2);margin:0 0 20px;max-width:68ch}
+@media (max-width:640px){section.part{padding-top:30px}.part > h2{font-size:32px}}
+
+/* chips, buttons, fields */
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-size:14px;border:1px solid var(--rule-2);border-radius:999px;padding:6px 12px;background:var(--raise);color:var(--ink-2);min-height:34px}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:9px 16px;border:1px solid var(--rule-2);border-radius:10px;background:var(--raise);font-weight:600;font-size:15px;text-decoration:none}
+.btn:hover{border-color:var(--brass)}
+.btn.solid{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.btn.solid:hover{background:var(--brass-ink);border-color:var(--brass-ink)}
+:root[data-theme="night"] .btn.solid:hover{color:#0E1A2B}
+.btn.quiet{border-color:transparent;background:none;color:var(--ink-2);font-weight:500;text-decoration:underline;text-underline-offset:3px;padding-left:6px;padding-right:6px}
+.btn svg{width:18px;height:18px;flex:none}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+label.f{display:grid;gap:5px;font-size:13px;font-weight:600;color:var(--ink-2);min-width:0}
+label.f small{font-weight:400;color:var(--ink-3)}
+input[type=text],input[type=number],input[type=date],select,textarea{width:100%;min-height:44px;padding:9px 11px;border:1px solid var(--rule-2);border-radius:8px;background:var(--raise);font-size:16px;font-weight:400;color:var(--ink)}
+textarea{min-height:76px;resize:vertical;line-height:1.45}
+input::placeholder,textarea::placeholder{color:var(--ink-3);opacity:.8}
+.row{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,210px),1fr));margin-bottom:12px}
+
+/* ideas */
+.ideas{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,330px),1fr));gap:14px;margin-top:16px}
+.idea{background:var(--raise);border:1px solid var(--rule);border-radius:14px;padding:16px 16px 14px;display:flex;flex-direction:column;gap:8px}
+.idea.on{border-color:var(--brass);box-shadow:inset 0 0 0 1px var(--brass)}
+.idea .top{display:flex;gap:14px;align-items:flex-start}
+.idea svg.g{width:64px;height:48px;flex:none;color:var(--ink);border:1px solid var(--rule);border-radius:6px;background:linear-gradient(var(--grid) 1px,transparent 1px) 0 0/8px 8px,linear-gradient(90deg,var(--grid) 1px,transparent 1px) 0 0/8px 8px}
+.idea h3{font:400 24px/1.1 var(--serif);margin:0}
+.idea .src{font-size:12.5px;color:var(--ink-3)}
+.idea p{margin:0;font-size:14.5px;color:var(--ink-2)}
+.idea dl{margin:2px 0 0;font-size:14px;display:grid;gap:6px}
+.idea dt{font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;color:var(--brass-ink)}
+.idea dd{margin:0;color:var(--ink-2)}
+.idea dd.catch{color:var(--ink)}
+.idea .add{margin-top:auto;align-self:flex-start;min-height:40px;font-size:14px;padding:6px 14px}
+.idea.on .add{background:var(--brass-soft);border-color:var(--brass);color:var(--brass-ink)}
+
+/* the sheet */
+.sheet{border:1.5px solid var(--ink);background:var(--raise);border-radius:3px;position:relative}
+.sheet + .sheet{margin-top:18px}
+.tb{display:grid;grid-template-columns:1fr auto auto;border-bottom:1.5px solid var(--ink);font:400 12px/1.2 var(--mono);text-transform:uppercase;letter-spacing:.04em}
+.tb > *{padding:9px 12px;border-left:1px solid var(--rule-2);display:flex;align-items:center;gap:8px;min-width:0}
+.tb > :first-child{border-left:0}
+.tb b{font-weight:400;color:var(--ink-3)}
+.tb .ttl{font:400 22px/1.1 var(--serif);text-transform:none;letter-spacing:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tb button{font:inherit;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-2);min-height:28px}
+.tb button:hover{color:var(--signal)}
+.sb{padding:16px}
+.sgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,300px);gap:20px}
+@media (max-width:820px){.sgrid{grid-template-columns:1fr}.tb{grid-template-columns:1fr auto}.tb .no{display:none}}
+.dims{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-bottom:6px}
+.dims input{font-family:var(--mono);font-size:16px;padding-left:9px;padding-right:6px}
+@media (max-width:460px){.dims{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.hint{font-size:13.5px;color:var(--ink-2);background:var(--brass-soft);border-left:3px solid var(--brass);padding:8px 12px;border-radius:0 8px 8px 0;margin:0 0 14px}
+.sketch{border:1px solid var(--rule);border-radius:4px;background:linear-gradient(var(--grid) 1px,transparent 1px) 0 0/12px 12px,linear-gradient(90deg,var(--grid) 1px,transparent 1px) 0 0/12px 12px;aspect-ratio:5/4;width:100%;display:block}
+.sketch text{font:11px var(--mono);fill:var(--ink)}
+.sketch .dm{stroke:var(--brass);stroke-width:1;fill:none}
+.sketch .bx{stroke:var(--ink);stroke-width:1.6;fill:none;stroke-linejoin:round}
+.sketch .bk{stroke:var(--ink-3);stroke-width:1;fill:none;stroke-dasharray:3 3}
+.sketch .q{fill:var(--ink-3)}
+.sub{font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;color:var(--ink-3);margin:16px 0 8px}
+.photos{display:grid;grid-template-columns:repeat(auto-fill,minmax(84px,1fr));gap:8px}
+.ph{position:relative;aspect-ratio:1;border-radius:6px;overflow:hidden;border:1px solid var(--rule-2);background:var(--paper)}
+.ph img{width:100%;height:100%;object-fit:cover;display:block}
+.ph button{position:absolute;top:3px;right:3px;width:26px;height:26px;border-radius:50%;background:rgba(14,26,43,.78);color:#fff;font-size:15px;line-height:1}
+.ph span{position:absolute;left:0;right:0;bottom:0;font:10px var(--mono);background:rgba(14,26,43,.72);color:#fff;padding:2px 4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.addph{aspect-ratio:1;border:1.5px dashed var(--rule-2);border-radius:6px;display:grid;place-items:center;text-align:center;font-size:12.5px;color:var(--ink-2);cursor:pointer;padding:4px}
+.addph:hover{border-color:var(--brass)}
+.addph svg{width:22px;height:22px;display:block;margin:0 auto 2px}
+.addrow{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 0;align-items:center}
+.empty{border:1.5px dashed var(--rule-2);border-radius:6px;padding:26px 18px;text-align:center;color:var(--ink-2)}
+.empty b{display:block;font:400 26px/1.1 var(--serif);color:var(--ink);margin-bottom:6px}
+
+/* send */
+.send{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,340px);gap:24px;align-items:start}
+@media (max-width:900px){.send{grid-template-columns:1fr}}
+.brief{margin:0;border:1.5px solid var(--ink);border-radius:3px;background:var(--raise);padding:14px 16px;font:13px/1.5 var(--mono);white-space:pre-wrap;overflow-wrap:anywhere;max-height:440px;overflow:auto}
+.ready{border:1px solid var(--rule-2);border-radius:12px;background:var(--raise);padding:16px}
+.ready h3{font:400 24px/1.1 var(--serif);margin:0 0 8px}
+.ready ul{margin:0 0 12px;padding:0;list-style:none;font-size:14px;display:grid;gap:6px}
+.ready li{display:grid;grid-template-columns:18px 1fr;gap:6px;color:var(--ink-2)}
+.ready li::before{content:"○";color:var(--ink-3)}
+.ready li.ok::before{content:"●";color:var(--ok)}
+.ready li.warn::before{content:"▲";color:var(--signal);font-size:11px;padding-top:3px}
+.ready .acts{display:grid;gap:8px}
+.ready .note{font-size:13px;color:var(--ink-3);margin:10px 0 0}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom));transform:translateX(-50%);background:var(--ink);color:var(--paper);padding:10px 16px;border-radius:999px;font-size:14.5px;z-index:60;max-width:calc(100vw - 32px);text-align:center}
+.toast[hidden]{display:none}
+footer{border-top:1px solid var(--rule);margin-top:48px;padding:22px 0 60px;font-size:13.5px;color:var(--ink-3)}
+footer p{margin:0 0 8px;max-width:86ch}
+footer b{color:var(--ink-2)}
+@media print{.mast,.steps,#ideas,.addrow,.ready,footer,.tb button,.addph,.ph button{display:none!important}body{background:#fff}.brief{max-height:none}}
+</style>
+<script defer src="/lanscape-navigator/news/pulse/pulse.js"></script>
+</head>
+<body>
+<script>
+(function(){try{var p=JSON.parse(localStorage.getItem('watch.v1')||'{}');var t=p.theme||'auto';var h=+new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',hour:'numeric',hourCycle:'h23'}).format(new Date());
+if(t==='auto'){t=(h>=20||h<4)?'night':(matchMedia('(prefers-color-scheme: dark)').matches?'night':'day')}document.documentElement.dataset.theme=t;}catch(e){}})();
+</script>
+<header class="mast"><div class="wrap">
+  <a class="back" href="../../#/s/home"><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" fill="#15243B"/><circle cx="32" cy="32" r="21" fill="none" stroke="#D6B25E" stroke-width="6" stroke-dasharray="19 3"/><path d="M32 32 L46 14" stroke="#F5F7F6" stroke-width="4" stroke-linecap="round"/></svg>The Watch <span>Home</span></a>
+  <button class="tbtn" id="theme" type="button" aria-label="Switch between day and night paper">Night</button>
+</div></header>
+
+<main>
+<div class="wrap head">
+  <div>
+    <span class="k">Home · Organize</span>
+    <h1>The reel shows the shelf. It never shows the tape measure.</h1>
+    <p class="lede">Eleven organizing ideas pulled from the reels, each with what to measure before you buy it. Then the part the reels skip: write down your own cabinets, drawers and closets, add photos, and send the sheet to Claude for a dashboard built around your house.</p>
+  </div>
+  <ol class="how" aria-label="How it works">
+    <li><b>01</b><span><strong>Pick ideas</strong> you'd actually use.</span></li>
+    <li><b>02</b><span><strong>Measure your spaces</strong> and add a photo of each.</span></li>
+    <li><b>03</b><span><strong>Choose what the dashboard does:</strong> shopping list, fit check, weekend plan.</span></li>
+    <li><b>04</b><span><strong>Send the sheet to Claude.</strong> One HTML file comes back. No server, no account.</span></li>
+  </ol>
+</div>
+
+<nav class="steps" aria-label="Sections"><div class="wrap">
+  <a href="#ideas" data-s="ideas"><i>01</i>Ideas<small id="nIdeas"></small></a>
+  <a href="#spaces" data-s="spaces"><i>02</i>Your spaces<small id="nSpaces"></small></a>
+  <a href="#dash" data-s="dash"><i>03</i>The dashboard</a>
+  <a href="#send" data-s="send"><i>04</i>Send it</a>
+</div></nav>
+
+<div class="wrap">
+<section class="part" id="ideas">
+  <span class="k">01 · From the reels</span>
+  <h2>Eleven ideas, and what each one needs from your house</h2>
+  <p class="sum">These came from a run of home-organization reels a reader sent in. The description is what the clip shows; the measuring notes are ours. Nothing here is a product review, and nothing is linked for sale.</p>
+  <div class="chips" id="rooms" role="group" aria-label="Filter by room"></div>
+  <div class="ideas" id="ideaGrid"></div>
+</section>
+
+<section class="part" id="spaces">
+  <span class="k">02 · The spec sheet</span>
+  <h2>Your spaces, measured</h2>
+  <p class="sum">One sheet per cabinet, drawer, shelf or closet. Inside dimensions, what lives there now, what's wrong with it, and a photo or two with the doors open. It saves in this browser as you type.</p>
+  <div class="sheet">
+    <div class="tb"><span class="ttl">The house</span><span class="no"><b>Sheet</b> 00</span><span><b>Units</b> <button type="button" id="unit" aria-label="Switch units"></button></span></div>
+    <div class="sb">
+      <div class="row">
+        <label class="f">Name this project<input type="text" data-p="name" placeholder="Kitchen and bath reset"></label>
+        <label class="f">Who lives here<input type="text" data-p="people" placeholder="2 adults, 2 kids, 1 dog"></label>
+        <label class="f">Own or rent<select data-p="home"><option value="">Choose</option><option value="own">Own: drilling is fine</option><option value="rent">Rent: nothing permanent</option></select></label>
+      </div>
+      <div class="row">
+        <label class="f"><span>Total budget <small>for everything on the sheet</small></span><input type="text" inputmode="decimal" data-p="budget" placeholder="$300"></label>
+        <label class="f">Done by<input type="text" data-p="deadline" placeholder="Before the holidays"></label>
+        <label class="f">The look you like<input type="text" data-p="style" placeholder="Matte black, wood, nothing see-through"></label>
+      </div>
+      <label class="f">Anything Claude should know about the house<textarea data-p="notes" placeholder="Old cabinets with face frames. Left-handed cook. We never fold."></textarea></label>
+    </div>
+  </div>
+  <div id="spaceList"></div>
+  <div class="addrow">
+    <button class="btn solid" type="button" id="addSpace"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>Add a space</button>
+    <button class="btn quiet" type="button" id="example">Fill in an example</button>
+    <button class="btn quiet" type="button" id="clear" hidden>Start over</button>
+  </div>
+</section>
+
+<section class="part" id="dash">
+  <span class="k">03 · What comes back</span>
+  <h2>What the dashboard should do</h2>
+  <p class="sum">Claude builds one HTML file you open on your phone or laptop. It runs with no server and no account, and it keeps your ticks and notes in the browser. Choose the parts you want. <a href="sample.html">See a sample dashboard</a> built from the example sheet.</p>
+  <div class="chips" id="mods" role="group" aria-label="Dashboard parts"></div>
+  <div class="row" style="margin-top:16px">
+    <label class="f">Paper<select data-d="look"><option value="auto">Follow my phone (light and dark)</option><option value="light">Light only</option><option value="dark">Dark only</option></select></label>
+    <label class="f">Anything else it should do<input type="text" data-d="extra" placeholder="A page I can print for the fridge"></label>
+  </div>
+</section>
+
+<section class="part" id="send">
+  <span class="k">04 · Hand it over</span>
+  <h2>Send the sheet to Claude</h2>
+  <p class="sum">The brief below is written from your sheet. Send it together with your photos; the file names in the brief match the photos, so Claude knows which cabinet it is looking at.</p>
+  <div class="send">
+    <pre class="brief" id="brief" tabindex="0" aria-label="The brief for Claude"></pre>
+    <div class="ready">
+      <h3>Before you send</h3>
+      <ul id="checks"></ul>
+      <div class="acts">
+        <button class="btn solid" type="button" id="share"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V3M7 8l5-5 5 5M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/></svg>Send sheet and photos</button>
+        <button class="btn" type="button" id="copy">Copy the brief</button>
+        <button class="btn" type="button" id="dl">Download the files</button>
+        <a class="btn quiet" id="open" href="https://claude.ai/new" target="_blank" rel="noopener">Open Claude</a>
+      </div>
+      <p class="note" id="sendNote"></p>
+    </div>
+  </div>
+</section>
+</div>
+</main>
+
+<footer><div class="wrap">
+  <p><b>Where this lives.</b> Nothing on this page is uploaded. The sheet is kept in this browser's storage and the photos in its local database, so clearing the browser's data clears them. Photos are shrunk and re-saved on your phone before they are stored, which drops the location and camera details a photo normally carries. They leave the device only when you send or download them yourself.</p>
+  <p><b>About the ideas.</b> Each card names the account whose reel showed it. The Watch has not bought or tested these products and takes no commission. Measure your own space before ordering anything.</p>
+  <p><a href="../../#/s/home">The Watch · Home</a> · <a href="../reel-check/">Reel Check</a> · <a href="../saver/">Home Saver</a> · <a href="sample.html">Sample dashboard</a></p>
+</div></footer>
+<div class="toast" id="toast" role="status" hidden></div>
+
+<script>
+'use strict';
+const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const KEY = 'watch.organize.v1', MAX_PHOTOS = 19;
+
+/* ---------- the ideas (what each reel showed; measuring notes are The Watch's) ---------- */
+const G = { // small line drawings, 64×48
+  shower: '<path d="M14 6v38M14 14h30v18H14M44 14v-4H10"/><path d="M22 32v-8h4v8M30 32v-10h4v10"/>',
+  ladle: '<ellipse cx="26" cy="22" rx="16" ry="18"/><path d="M38 40h14v-10M40 6l8 26"/><path d="M34 40a6 4 0 0 0 12 0"/>',
+  jewel: '<rect x="14" y="5" width="36" height="38" rx="2"/><path d="M14 13h36M22 13v4M32 13v4M42 13v4"/><path d="M22 17c-3 8 3 14 0 20M32 17c3 6-3 10 0 16"/>',
+  drawer: '<path d="M8 14h48v26H8zM24 14v26M40 14v26"/><path d="M12 20h8M12 26h8M12 32h8M28 20h8M28 26h8M44 20h8"/>',
+  trays: '<path d="M12 12h40M12 22h40M12 32h40M12 42h40"/><path d="M16 12c4-6 28-6 32 0M16 22c4-6 28-6 32 0M16 32c4-6 28-6 32 0"/>',
+  board: '<path d="M10 14h44v10H10zM14 24v8M50 24v8"/><path d="M4 30h34v4H4z"/>',
+  lids: '<path d="M12 6h40v36H12zM12 28h40"/><circle cx="24" cy="16" r="5"/><circle cx="40" cy="16" r="5"/><path d="M18 40v-6h10v6M34 40v-6h12v6"/>',
+  phone: '<rect x="22" y="5" width="20" height="24" rx="3"/><rect x="26" y="9" width="12" height="16" rx="2"/><path d="M32 29c-6 3 6 5 0 8s6 5 0 8"/>',
+  ornament: '<rect x="8" y="12" width="48" height="30" rx="2"/><path d="M24 12v30M40 12v30M8 27h48"/><circle cx="16" cy="20" r="3.5"/><circle cx="32" cy="34" r="3.5"/><circle cx="48" cy="20" r="3.5"/>',
+  sink: '<path d="M8 6h48v38H8z"/><path d="M32 6v14c0 6 8 6 8 0v-4h16"/><path d="M12 38h40M12 44v-6M52 44v-6"/><path d="M12 16h10v8H12"/>',
+  rack: '<path d="M8 40h48M14 40V14M24 40V14M34 40V14M44 40V14M54 40V24"/><path d="M16 40c0-14 6-14 6-26M26 40c0-14 6-14 6-26"/>'
+};
+const ROOMS = [['all', 'All'], ['kitchen', 'Kitchen'], ['bath', 'Bath'], ['closet', 'Closet'], ['entry', 'Around the house']];
+const IDEAS = [
+  { id: 'sink', g: 'sink', room: 'bath', t: 'Under-sink pull-out with side baskets', by: 'elnazhamai',
+    d: 'A sliding tray on the cabinet floor that pulls out past the drain pipe, wire baskets on both side walls for boxes and bottles, and clear jars for the small things.',
+    m: 'The door opening, which is narrower than the cabinet once hinges are counted. Inside depth to the back wall. How far the drain trap and the shutoff valves come forward, and how high off the floor they sit.',
+    c: 'The tray has to pull out without hitting the pipe, and the shutoff valve has to stay reachable.' },
+  { id: 'lids', g: 'lids', room: 'kitchen', t: 'Lids on the door, glass nested', by: 'homebytammy',
+    d: 'The reel takes the lids off a cabinet of glass food containers, hangs them on adhesive-backed magnetic holders, and nests the glass. Three shelves of containers become one.',
+    m: 'The gap between the inside of the closed door and the front edge of the shelves; the lids have to fit in it. The flat area on the door between the hinges. Your largest lid.',
+    c: 'The adhesive in the clip is a permanent 3M tape. On a rental or a painted door, expect a mark when it comes off.' },
+  { id: 'board', g: 'board', room: 'kitchen', t: 'Sheet pan under the cutting board', by: 'elnazhamai',
+    d: 'A thick end-grain board on feet, with a ridged sheet pan that slides underneath like a drawer to catch scraps or hold what you just chopped.',
+    m: 'The clearance under the board, floor to underside. The rim height of the pan you own. The width between the feet.',
+    c: 'A board this thick is heavy, and it only works if the pan clears the feet. Check your board before buying a pan, or the other way round.' },
+  { id: 'ladle', g: 'ladle', room: 'kitchen', t: 'A rest for the lid and the ladle', by: 'auralishomes',
+    d: 'A weighted stainless cup beside the stove that holds a pot lid upright and a ladle at the same time, so the drips land in the cup and not on the counter.',
+    m: 'The diameter of the lid you use most. The free counter beside the burner, and the height under any shelf or hood above it.',
+    c: 'It is one more thing living on the counter, and it needs washing after every pot of soup.' },
+  { id: 'rack', g: 'rack', room: 'kitchen', t: 'The €4.99 bamboo plate rack', by: 'mabelletolosane',
+    d: 'The IKEA hack the reel says is everywhere starts with a bamboo plate holder, €4.99 on the shelf tag in the clip. Laid in a cabinet or drawer, the pegs stand lids, boards and trays on edge.',
+    m: 'The inside depth of the cabinet or drawer against the length of the rack. The tallest thing you want standing, against the shelf above.',
+    c: 'The peg spacing is fixed. Thick boards and deep pans may not fit between them.' },
+  { id: 'shower', g: 'shower', room: 'bath', t: 'Hanging shelf over the shower glass', by: 'showernizr',
+    d: 'A stainless-steel frame that hooks over the top edge of a glass shower panel: bottles on a shelf inside, hooks for a towel outside. No drilling into tile.',
+    m: 'The glass thickness. The clear space between the top of the glass and the ceiling. The width of the fixed panel, and whether the door swings past it.',
+    c: 'It needs a bare top edge on a fixed panel. A framed enclosure, a header bar or a low sloped ceiling can rule it out.' },
+  { id: 'drawer', g: 'drawer', room: 'closet', t: 'Drawer dividers, clothes filed upright', by: 'sarah.colussi',
+    d: 'Adjustable dividers split a deep drawer into lanes, and the clothes go in rolled or filed on edge so every piece shows from above.',
+    m: 'Inside width, inside depth and inside height of the drawer box, not the drawer front.',
+    c: 'Spring-tension dividers push on the drawer sides. Thin or bowed sides let them slip.' },
+  { id: 'trays', g: 'trays', room: 'closet', t: 'Pull-out trays for stacked jeans', by: 'sarah.colussi',
+    d: 'Stacking plastic trays, one pair of jeans on each. Pull a tray and the pair you want comes out without the stack falling over.',
+    m: 'Shelf width and depth. The height to the shelf above. The footprint of your jeans folded the way you fold them.',
+    c: 'Every tray adds its own thickness, so the same shelf holds fewer pairs than a bare stack would.' },
+  { id: 'jewel', g: 'jewel', room: 'closet', t: 'Jewelry cabinet behind a door', by: 'sarah.colussi',
+    d: 'A shallow cabinet that opens like a door, with a row of hooks for necklaces, slotted bars for earrings and a clear bin at the bottom.',
+    m: 'The wall or door it hangs on, and the swing it needs to open fully. Your longest necklace, clasp to bottom.',
+    c: 'Loaded, it is heavy. An over-the-door version needs a gap above the door; a wall version needs a stud or anchors.' },
+  { id: 'ornament', g: 'ornament', room: 'entry', t: 'Ornament chest with lift-out trays', by: 'thesistershoppers',
+    d: 'A handled storage chest with fabric-divided trays, one ornament to a cell, stacked in layers.',
+    m: 'How many ornaments you have, and the diameter of the biggest ones. The shelf or floor spot the chest will spend eleven months in.',
+    c: 'The cells are one size. Oversized or odd-shaped ornaments still need their own box.' },
+  { id: 'phone', g: 'phone', room: 'entry', t: 'A wall dock that looks like a house phone', by: 'coilieco',
+    d: 'A wall-mounted cradle with a coiled cord, styled like an old kitchen telephone, so the phone has one place to hang and charge.',
+    m: 'The distance to the nearest outlet. The width and thickness of your phone in its case.',
+    c: 'It goes on the wall, so it means screws or strong adhesive, and the cord has to match your phone\'s charging port.' }
+];
+const TYPES = {
+  cabinet: ['Cabinet', 'Measure the inside, and the door opening separately. Note where the shelves sit and whether they move.'],
+  undersink: ['Under the sink', 'Measure the door opening first: hinges make it narrower than the cabinet. Then note how far the drain trap and valves come forward and how high they sit.'],
+  drawer: ['Drawer', 'Measure the inside of the drawer box: width, depth front to back, and height to the top of the sides.'],
+  shelf: ['Shelf or pantry', 'Width and depth of one shelf, and the height to the shelf above it. Say how many shelves like it there are.'],
+  closet: ['Closet', 'Width wall to wall, depth, and height. Note the rod height and any shelf above it, and how far the door opens.'],
+  shower: ['Shower or tub', 'Width of the wall or glass panel, glass thickness if there is glass, and the clear height above it.'],
+  wall: ['Wall or door back', 'Width and height of the free area. For a door, the gap above it and the clearance behind it when it is open.'],
+  counter: ['Countertop', 'The free run of counter, its depth, and the height under the cabinets or shelf above.'],
+  garage: ['Garage or storage room', 'Wall width, depth you can give up, ceiling height. Note what has to stay reachable.'],
+  other: ['Something else', 'Width, depth and height of the space as you would describe it to someone who has never seen it.']
+};
+const CONS = ['No drilling', 'No adhesive', 'Kid-safe', 'Used every day', 'Must look tidy with the door open', 'Keep what I already own'];
+const MODS = [
+  ['plan', 'Room-by-room plan', 'A card for each space: what goes where, in what order to do it.'],
+  ['fit', 'Fit check', 'For each thing to buy, the size it must be under, set against my measurements.'],
+  ['shop', 'Shopping list with a running total', 'I type in prices as I find them; it adds them up against my budget.'],
+  ['tasks', 'Checklist with progress', 'Tick-off steps per space, with a bar for the whole house.'],
+  ['photos', 'Before and after photos', 'A slot for each space that I fill from my phone.'],
+  ['weekend', 'A weekend schedule', 'The work split into sessions of an hour or two.'],
+  ['purge', 'Keep, move, donate list', 'What should leave each space before anything is bought.'],
+  ['labels', 'Printable labels', 'A sheet of labels for the bins and shelves in the plan.']
+];
+
+/* ---------- state ---------- */
+const blank = () => ({ v: 1, unit: 'in', p: {}, spaces: [], picks: [], d: { mods: ['plan', 'fit', 'shop', 'tasks'], look: 'auto', extra: '' }, room: 'all' });
+let S = blank();
+try { const s = JSON.parse(localStorage.getItem(KEY)); if (s && s.v === 1) S = Object.assign(blank(), s); } catch (e) {}
+let saveT; const save = () => { clearTimeout(saveT); saveT = setTimeout(() => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }, 200); };
+const uid = () => Math.random().toString(36).slice(2, 9);
+const toast = m => { const t = $('#toast'); t.textContent = m; t.hidden = false; clearTimeout(toast.t); toast.t = setTimeout(() => t.hidden = true, 3200); };
+
+/* ---------- photos: shrunk on the device, kept in IndexedDB ---------- */
+let dbp; const URLS = {};
+const db = () => dbp || (dbp = new Promise((res, rej) => { const r = indexedDB.open('watch-organize', 1); r.onupgradeneeded = () => r.result.createObjectStore('photos'); r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); }));
+const idb = (mode, fn) => db().then(d => new Promise((res, rej) => { const tx = d.transaction('photos', mode); const q = fn(tx.objectStore('photos')); tx.oncomplete = () => res(q && q.result); tx.onerror = () => rej(tx.error); }));
+const MEM = {}; // fallback when the browser refuses IndexedDB (private windows)
+const putPhoto = (id, blob) => idb('readwrite', s => s.put(blob, id)).catch(() => { MEM[id] = blob; });
+const getPhoto = id => idb('readonly', s => s.get(id)).then(b => b || MEM[id]).catch(() => MEM[id]);
+const delPhoto = id => { if (URLS[id]) { URL.revokeObjectURL(URLS[id]); delete URLS[id]; } delete MEM[id]; return idb('readwrite', s => s.delete(id)).catch(() => {}); };
+async function shrink(file) { // re-encoding through a canvas also drops EXIF (location, camera)
+  let bmp; try { bmp = await createImageBitmap(file, { imageOrientation: 'from-image' }); } catch (e) { bmp = await new Promise((res, rej) => { const i = new Image(); i.onload = () => res(i); i.onerror = rej; i.src = URL.createObjectURL(file); }); }
+  const k = Math.min(1, 1600 / Math.max(bmp.width, bmp.height)), c = document.createElement('canvas');
+  c.width = Math.round(bmp.width * k); c.height = Math.round(bmp.height * k); c.getContext('2d').drawImage(bmp, 0, 0, c.width, c.height);
+  return new Promise(res => c.toBlob(res, 'image/jpeg', .82));
+}
+const nPhotos = () => S.spaces.reduce((n, s) => n + (s.photos || []).length, 0);
+const slug = s => String(s || 'space').toLowerCase().normalize('NFKD').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 28) || 'space';
+const fileName = (si, pi) => String(si + 1).padStart(2, '0') + '-' + slug(S.spaces[si].name || TYPES[S.spaces[si].type][0]) + '-' + 'abcdefghij'[pi] + '.jpg';
+async function loadThumbs() { for (const img of $$('img[data-ph]')) { const id = img.dataset.ph; if (!URLS[id]) { const b = await getPhoto(id); if (b) URLS[id] = URL.createObjectURL(b); } if (URLS[id]) img.src = URLS[id]; } }
+
+/* ---------- drawing a space to scale ---------- */
+function sketch(sp) {
+  const n = v => { const x = parseFloat(v); return x > 0 ? x : 0; };
+  const w = n(sp.w), h = n(sp.h), d = n(sp.d), u = S.unit === 'in' ? '″' : ' cm';
+  const W = w || 30, H = h || 24, D = d || 20, k = Math.min(150 / W, 110 / H, 150 / (W + D * .45), 110 / (H + D * .3));
+  const bw = W * k, bh = H * k, ox = D * k * .45, oy = D * k * .3, x0 = (250 - bw - ox) / 2 + 12, y0 = (200 - bh - oy) / 2 + oy + 2;
+  const lab = (v, q) => v ? v + u : q;
+  return `<svg class="sketch" viewBox="0 0 250 200" role="img" aria-label="Sketch: ${esc(lab(w, 'width not set'))} wide, ${esc(lab(d, 'depth not set'))} deep, ${esc(lab(h, 'height not set'))} high">
+    <path class="bk" d="M${x0 + ox} ${y0 - oy}h${bw}v${bh}M${x0 + ox} ${y0 - oy}v${bh}h${bw}M${x0} ${y0 + bh}l${ox} ${-oy}"/>
+    <path class="bx" d="M${x0} ${y0}h${bw}v${bh}h${-bw}zM${x0} ${y0}l${ox} ${-oy}M${x0 + bw} ${y0}l${ox} ${-oy}M${x0 + bw} ${y0 + bh}l${ox} ${-oy}"/>
+    <path class="dm" d="M${x0} ${y0 + bh + 12}h${bw}M${x0} ${y0 + bh + 8}v8M${x0 + bw} ${y0 + bh + 8}v8M${x0 - 12} ${y0}v${bh}M${x0 - 16} ${y0}h8M${x0 - 16} ${y0 + bh}h8M${x0 + bw + 8} ${y0 + bh + 3}l${ox} ${-oy}"/>
+    <text x="${x0 + bw / 2}" y="${y0 + bh + 26}" text-anchor="middle" class="${w ? '' : 'q'}">${esc(lab(w, 'W ?'))}</text>
+    <text x="${x0 - 17}" y="${y0 + bh / 2}" text-anchor="middle" transform="rotate(-90 ${x0 - 17} ${y0 + bh / 2})" class="${h ? '' : 'q'}">${esc(lab(h, 'H ?'))}</text>
+    <text x="${x0 + bw + ox / 2 + 14}" y="${y0 + bh - oy / 2 + 12}" class="${d ? '' : 'q'}">${esc(lab(d, 'D ?'))}</text></svg>`;
+}
+
+/* ---------- render ---------- */
+function renderIdeas() {
+  $('#rooms').innerHTML = ROOMS.map(([k, l]) => `<button type="button" class="chip" data-room="${k}" aria-pressed="${S.room === k}">${l}</button>`).join('');
+  $('#ideaGrid').innerHTML = IDEAS.filter(i => S.room === 'all' || i.room === S.room).map(i => { const on = S.picks.includes(i.id); return `<article class="idea${on ? ' on' : ''}">
+    <div class="top"><svg class="g" viewBox="0 0 64 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${G[i.g]}</svg><div><h3>${esc(i.t)}</h3><span class="src">From a reel by @${esc(i.by)}</span></div></div>
+    <p>${esc(i.d)}</p>
+    <dl><div><dt>Measure first</dt><dd>${esc(i.m)}</dd></div><div><dt>The catch</dt><dd class="catch">${esc(i.c)}</dd></div></dl>
+    <button type="button" class="btn add" data-pick="${i.id}" aria-pressed="${on}">${on ? '✓ On my sheet' : 'Add to my sheet'}</button></article>`; }).join('');
+  $('#nIdeas').textContent = S.picks.length ? S.picks.length + ' picked' : '';
+}
+function spaceHTML(sp, i) {
+  const u = S.unit, T = TYPES[sp.type] || TYPES.other, left = MAX_PHOTOS - nPhotos();
+  const ideaChips = S.picks.map(id => IDEAS.find(x => x.id === id)).filter(Boolean);
+  return `<div class="sheet" data-i="${i}" id="sp-${sp.id}">
+    <div class="tb"><span class="ttl" data-ttl>${esc(sp.name || T[0])}</span><span class="no"><b>Sheet</b> ${String(i + 1).padStart(2, '0')}</span><span><button type="button" data-del aria-label="Remove ${esc(sp.name || T[0])}">Remove</button></span></div>
+    <div class="sb"><div class="sgrid"><div>
+      <div class="row">
+        <label class="f">What kind of space<select data-f="type">${Object.entries(TYPES).map(([k, v]) => `<option value="${k}"${k === sp.type ? ' selected' : ''}>${v[0]}</option>`).join('')}</select></label>
+        <label class="f">Call it<input type="text" data-f="name" value="${esc(sp.name)}" placeholder="Kids' bathroom sink"></label>
+      </div>
+      <p class="hint" data-hint>${esc(T[1])}</p>
+      <div class="dims">
+        <label class="f"><span>Width <small>${u}</small></span><input type="text" inputmode="decimal" data-f="w" value="${esc(sp.w)}"></label>
+        <label class="f"><span>Depth <small>${u}</small></span><input type="text" inputmode="decimal" data-f="d" value="${esc(sp.d)}"></label>
+        <label class="f"><span>Height <small>${u}</small></span><input type="text" inputmode="decimal" data-f="h" value="${esc(sp.h)}"></label>
+        <label class="f"><span>Opening <small>${u}</small></span><input type="text" inputmode="decimal" data-f="open" value="${esc(sp.open)}" placeholder="if narrower"></label>
+      </div>
+      <div class="row" style="margin-top:12px">
+        <label class="f"><span>In the way <small>pipes, hinges, outlets, a sloped ceiling</small></span><input type="text" data-f="obst" value="${esc(sp.obst)}" placeholder="Drain trap 9 in from the back, 11 in up"></label>
+      </div>
+      <div class="row">
+        <label class="f">What lives here now<textarea data-f="holds" placeholder="Hair tools, spare toothpaste, towels, cleaning spray">${esc(sp.holds)}</textarea></label>
+        <label class="f">What's wrong with it<textarea data-f="pain" placeholder="Everything gets shoved to the back and I buy doubles">${esc(sp.pain)}</textarea></label>
+      </div>
+      <div class="row">
+        <label class="f">Budget for this space<input type="text" inputmode="decimal" data-f="budget" value="${esc(sp.budget)}" placeholder="$60"></label>
+        <label class="f">When<select data-f="pri">${[['now', 'First'], ['soon', 'Soon'], ['later', 'Someday']].map(([k, l]) => `<option value="${k}"${sp.pri === k ? ' selected' : ''}>${l}</option>`).join('')}</select></label>
+      </div>
+      <div class="sub">Rules for this space</div>
+      <div class="chips">${CONS.map(c => `<button type="button" class="chip" data-con="${esc(c)}" aria-pressed="${(sp.cons || []).includes(c)}">${esc(c)}</button>`).join('')}</div>
+      ${ideaChips.length ? `<div class="sub">Ideas to try here</div><div class="chips">${ideaChips.map(x => `<button type="button" class="chip" data-idea="${x.id}" aria-pressed="${(sp.ideas || []).includes(x.id)}">${esc(x.t)}</button>`).join('')}</div>` : ''}
+    </div><div>
+      <div data-sk>${sketch(sp)}</div>
+      <div class="sub">Photos <span style="text-transform:none;letter-spacing:0;font-weight:400">· doors open, straight on, then one of the problem</span></div>
+      <div class="photos">${(sp.photos || []).map((p, pi) => `<div class="ph"><img data-ph="${p.id}" alt="Photo ${pi + 1} of ${esc(sp.name || T[0])}"><button type="button" data-rm="${p.id}" aria-label="Remove photo ${pi + 1}">×</button><span>${esc(fileName(i, pi))}</span></div>`).join('')}
+        ${left > 0 && (sp.photos || []).length < 6 ? `<label class="addph"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>Add photo</span><input type="file" accept="image/*" multiple class="sr" data-file></label>` : ''}</div>
+    </div></div></div></div>`;
+}
+function renderSpaces() {
+  $('#unit').textContent = S.unit === 'in' ? 'Inches' : 'Centimetres';
+  $('#spaceList').innerHTML = S.spaces.length ? S.spaces.map(spaceHTML).join('') : `<div class="sheet" style="border-style:dashed;margin-top:18px"><div class="empty" style="border:0"><b>No spaces yet</b>Start with the one that annoys you most. One cabinet is enough to send.</div></div>`;
+  $('#nSpaces').textContent = S.spaces.length ? String(S.spaces.length) : '';
+  $('#clear').hidden = !(S.spaces.length || S.picks.length || Object.keys(S.p).length);
+  loadThumbs();
+}
+function renderDash() {
+  $('#mods').innerHTML = MODS.map(([k, l, d]) => `<button type="button" class="chip" data-mod="${k}" aria-pressed="${S.d.mods.includes(k)}" title="${esc(d)}">${esc(l)}</button>`).join('');
+  $$('[data-d]').forEach(e => e.value = S.d[e.dataset.d] || (e.dataset.d === 'look' ? 'auto' : ''));
+  $$('[data-p]').forEach(e => e.value = S.p[e.dataset.p] || '');
+}
+
+/* ---------- the brief ---------- */
+function brief() {
+  const u = S.unit === 'in' ? 'in' : 'cm', P = S.p, L = [];
+  const dim = (l, v) => l + ' ' + (parseFloat(v) > 0 ? String(v).trim() + ' ' + u : 'not measured');
+  L.push('# Home organization spec sheet' + (P.name ? ': ' + P.name : ''));
+  L.push('Made on The Watch · Organize, ' + new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) + '.', '');
+  L.push('## What I am asking you to build');
+  L.push('Build me one self-contained HTML file: a dashboard for organizing the spaces described below.');
+  L.push('- A single .html file with the CSS and JavaScript inside it. No server, no account, no build step, and no requests to other sites, so it works opened straight from my files, offline.');
+  L.push('- Phone first. I will use it standing in front of the cabinet.');
+  L.push('- Save what I tick and type in the browser, and give me a way to back it up to a file and restore it.');
+  L.push('- Paper: ' + ({ auto: 'follow my device, light and dark', light: 'light only', dark: 'dark only' }[S.d.look] || 'follow my device') + '.');
+  L.push('', 'Parts I want:');
+  MODS.filter(m => S.d.mods.includes(m[0])).forEach(m => L.push('- ' + m[1] + '. ' + m[2]));
+  if (S.d.extra) L.push('- Also: ' + S.d.extra.trim());
+  L.push('', '## Rules for the plan');
+  L.push('- Work from my measurements. All dimensions are inside dimensions in ' + (u === 'in' ? 'inches' : 'centimetres') + ', width × depth × height.');
+  L.push('- Look at the attached photos before planning. Each file name starts with the number of the space it shows. If a photo and a measurement disagree, say so.');
+  L.push('- Do not make up product dimensions or prices. For anything to buy, give the largest size that fits my space and what to search for. If you can look up a real listing, cite it with its listed dimensions.');
+  L.push('- Start with what should leave each space, then what I already own, then what to buy.');
+  L.push('- If a missing measurement would change the plan, ask me before you build. Otherwise build it and list your assumptions at the top.');
+  L.push('', '## The house');
+  if (P.people) L.push('- Who lives here: ' + P.people);
+  if (P.home) L.push('- ' + (P.home === 'rent' ? 'Rented. Nothing permanent: no drilling, no adhesive that marks.' : 'Owned. Drilling is fine.'));
+  if (P.budget) L.push('- Total budget: ' + P.budget);
+  if (P.deadline) L.push('- Done by: ' + P.deadline);
+  if (P.style) L.push('- The look I like: ' + P.style);
+  if (P.notes) L.push('- Notes: ' + P.notes.trim());
+  if (!P.people && !P.home && !P.budget && !P.deadline && !P.style && !P.notes) L.push('- (nothing filled in)');
+  const order = { now: 0, soon: 1, later: 2 };
+  S.spaces.forEach((sp, i) => {
+    const T = TYPES[sp.type] || TYPES.other;
+    L.push('', '## Space ' + String(i + 1).padStart(2, '0') + ': ' + (sp.name || T[0]));
+    L.push('- Kind: ' + T[0] + ' · Priority: ' + ['first', 'soon', 'someday'][order[sp.pri] || 0]);
+    L.push('- Inside: ' + dim('W', sp.w) + ' × ' + dim('D', sp.d) + ' × ' + dim('H', sp.h) + (parseFloat(sp.open) > 0 ? ' · opening ' + String(sp.open).trim() + ' ' + u + ' wide' : ''));
+    if (sp.obst) L.push('- In the way: ' + sp.obst.trim());
+    if (sp.holds) L.push('- Lives here now: ' + sp.holds.trim());
+    if (sp.pain) L.push('- What is wrong: ' + sp.pain.trim());
+    if (sp.budget) L.push('- Budget for this space: ' + sp.budget);
+    if ((sp.cons || []).length) L.push('- Rules: ' + sp.cons.join('; '));
+    const ids = (sp.ideas || []).filter(id => S.picks.includes(id));
+    if (ids.length) L.push('- Ideas I want to try here: ' + ids.map(id => IDEAS.find(x => x.id === id).t).join('; '));
+    L.push('- Photos: ' + ((sp.photos || []).length ? sp.photos.map((p, pi) => fileName(i, pi)).join(', ') : 'none attached'));
+  });
+  if (!S.spaces.length) L.push('', '## Spaces', '(none yet)');
+  const placed = new Set(S.spaces.flatMap(s => s.ideas || [])), loose = S.picks.filter(id => !placed.has(id)).map(id => IDEAS.find(x => x.id === id)).filter(Boolean);
+  if (S.picks.length) {
+    L.push('', '## Ideas I liked');
+    S.picks.map(id => IDEAS.find(x => x.id === id)).filter(Boolean).forEach(x => L.push('- ' + x.t + ': ' + x.d + ' Catch: ' + x.c));
+    if (loose.length) L.push('', 'Not yet matched to a space, tell me whether any of my spaces suit them: ' + loose.map(x => x.t).join('; ') + '.');
+  }
+  return L.join('\n');
+}
+function renderSend() {
+  const text = brief(); $('#brief').textContent = text;
+  const n = S.spaces.length, np = nPhotos(), noDim = S.spaces.filter(s => !(parseFloat(s.w) > 0 && parseFloat(s.d) > 0 && parseFloat(s.h) > 0)), noPh = S.spaces.filter(s => !(s.photos || []).length), noPain = S.spaces.filter(s => !s.pain);
+  const nm = a => a.map(s => s.name || (TYPES[s.type] || TYPES.other)[0]).join(', ');
+  const li = (c, t) => `<li class="${c}"><span>${t}</span></li>`;
+  $('#checks').innerHTML = [
+    n ? li('ok', n + (n === 1 ? ' space' : ' spaces') + ' on the sheet') : li('warn', 'No spaces yet. <a href="#spaces">Add one</a>'),
+    !n ? '' : noDim.length ? li('warn', 'Missing a measurement: ' + esc(nm(noDim))) : li('ok', 'Every space has width, depth and height'),
+    !n ? '' : noPh.length ? li('', 'No photo yet: ' + esc(nm(noPh))) : li('ok', np + (np === 1 ? ' photo' : ' photos') + ', all named to match'),
+    !n ? '' : noPain.length ? li('', 'Say what is wrong with: ' + esc(nm(noPain))) : li('ok', 'Every space says what is wrong with it'),
+    S.d.mods.length ? li('ok', S.d.mods.length + ' dashboard parts chosen') : li('warn', 'No dashboard parts chosen')
+  ].join('');
+  $('#share').disabled = !n; $('#dl').disabled = !n;
+  const canFiles = !!(navigator.canShare && (() => { try { return navigator.canShare({ files: [new File(['x'], 'x.md', { type: 'text/markdown' })] }); } catch (e) { return false; } })());
+  $('#share').hidden = !canFiles;
+  $('#sendNote').textContent = canFiles ? 'Send opens your share sheet with the brief and ' + (np ? 'the ' + np + (np === 1 ? ' photo' : ' photos') : 'no photos yet') + '. Pick Claude. If Claude is not in the list, download the files and attach them in a new chat.' : 'On this device: copy the brief, open Claude, paste it, and attach the downloaded photos to the same message.';
+  const q = encodeURIComponent(text); $('#open').href = q.length < 6000 && !np ? 'https://claude.ai/new?q=' + q : 'https://claude.ai/new';
+}
+const renderAll = () => { renderIdeas(); renderSpaces(); renderDash(); renderSend(); };
+
+/* ---------- files ---------- */
+async function files() {
+  const out = [new File([brief()], 'organize-spec.md', { type: 'text/markdown' })];
+  for (let i = 0; i < S.spaces.length; i++) for (let j = 0; j < (S.spaces[i].photos || []).length; j++) { const b = await getPhoto(S.spaces[i].photos[j].id); if (b) out.push(new File([b], fileName(i, j), { type: 'image/jpeg' })); }
+  return out;
+}
+const pulse = n => { try { window.pulse && window.pulse.event(n, 'sheet'); } catch (e) {} };
+$('#share').onclick = async () => { const f = await files(); try { await navigator.share({ files: f, title: 'Home organization spec sheet' }); pulse('share'); } catch (e) { if (e.name !== 'AbortError') toast('Sharing did not work here. Use Download instead.'); } };
+$('#copy').onclick = async () => { const t = brief(); try { await navigator.clipboard.writeText(t); } catch (e) { const r = document.createRange(); r.selectNodeContents($('#brief')); const s = getSelection(); s.removeAllRanges(); s.addRange(r); try { document.execCommand('copy'); } catch (e2) {} } toast('Brief copied. Paste it into Claude and attach your photos.'); };
+$('#open').onclick = () => { try { navigator.clipboard.writeText(brief()); } catch (e) {} };
+$('#dl').onclick = async () => { const f = await files(); for (const x of f) { const a = document.createElement('a'); a.href = URL.createObjectURL(x); a.download = x.name; document.body.appendChild(a); a.click(); a.remove(); await new Promise(r => setTimeout(r, 350)); URL.revokeObjectURL(a.href); } toast(f.length + (f.length === 1 ? ' file' : ' files') + ' downloaded.'); };
+
+/* ---------- events ---------- */
+document.addEventListener('click', async e => {
+  const b = e.target.closest('button'); if (!b) return;
+  const sh = b.closest('.sheet[data-i]'), sp = sh && S.spaces[+sh.dataset.i];
+  if (b.dataset.room) { S.room = b.dataset.room; renderIdeas(); }
+  else if (b.dataset.pick) { const id = b.dataset.pick; if (S.picks.includes(id)) { S.picks = S.picks.filter(x => x !== id); S.spaces.forEach(s => s.ideas = (s.ideas || []).filter(x => x !== id)); } else S.picks.push(id); renderIdeas(); renderSpaces(); renderSend(); }
+  else if (b.dataset.mod) { const k = b.dataset.mod; S.d.mods = S.d.mods.includes(k) ? S.d.mods.filter(x => x !== k) : [...S.d.mods, k]; renderDash(); renderSend(); }
+  else if (sp && b.dataset.con) { sp.cons = (sp.cons || []).includes(b.dataset.con) ? sp.cons.filter(x => x !== b.dataset.con) : [...(sp.cons || []), b.dataset.con]; b.setAttribute('aria-pressed', sp.cons.includes(b.dataset.con)); renderSend(); }
+  else if (sp && b.dataset.idea) { sp.ideas = (sp.ideas || []).includes(b.dataset.idea) ? sp.ideas.filter(x => x !== b.dataset.idea) : [...(sp.ideas || []), b.dataset.idea]; b.setAttribute('aria-pressed', sp.ideas.includes(b.dataset.idea)); renderSend(); }
+  else if (sp && b.dataset.rm) { sp.photos = sp.photos.filter(p => p.id !== b.dataset.rm); await delPhoto(b.dataset.rm); renderSpaces(); renderSend(); }
+  else if (sp && 'del' in b.dataset) { if (!confirm('Remove ' + (sp.name || 'this space') + ' and its photos?')) return; for (const p of sp.photos || []) await delPhoto(p.id); S.spaces.splice(+sh.dataset.i, 1); renderSpaces(); renderSend(); }
+  else if (b.id === 'addSpace') { const s = { id: uid(), type: 'cabinet', name: '', pri: 'now', cons: S.p.home === 'rent' ? ['No drilling', 'No adhesive'] : [], ideas: [], photos: [] }; S.spaces.push(s); renderSpaces(); renderSend(); const el = $('#sp-' + s.id); el.scrollIntoView({ block: 'start' }); $('[data-f="name"]', el).focus({ preventScroll: true }); }
+  else if (b.id === 'unit') { S.unit = S.unit === 'in' ? 'cm' : 'in'; renderSpaces(); renderSend(); }
+  else if (b.id === 'example') { if (S.spaces.length && !confirm('Replace what is on the sheet with the example?')) return; for (const s of S.spaces) for (const p of s.photos || []) await delPhoto(p.id); S = Object.assign(blank(), EXAMPLE(), { room: S.room }); renderAll(); toast('Example loaded. Change anything, or start over.'); }
+  else if (b.id === 'clear') { if (!confirm('Clear the whole sheet and its photos?')) return; for (const s of S.spaces) for (const p of s.photos || []) await delPhoto(p.id); S = blank(); renderAll(); }
+  else if (b.id === 'theme') { const n = document.documentElement.dataset.theme === 'night' ? 'day' : 'night'; document.documentElement.dataset.theme = n; b.textContent = n === 'night' ? 'Day' : 'Night'; try { const p = JSON.parse(localStorage.getItem('watch.v1') || '{}'); p.theme = n; localStorage.setItem('watch.v1', JSON.stringify(p)); } catch (e2) {} return; }
+  else return;
+  save();
+});
+document.addEventListener('input', e => {
+  const t = e.target;
+  if (t.dataset.p) S.p[t.dataset.p] = t.value;
+  else if (t.dataset.d) S.d[t.dataset.d] = t.value;
+  else if (t.dataset.f) { const sh = t.closest('.sheet[data-i]'), sp = S.spaces[+sh.dataset.i]; sp[t.dataset.f] = t.value;
+    if ('whd'.includes(t.dataset.f) && t.dataset.f.length === 1) $('[data-sk]', sh).innerHTML = sketch(sp);
+    if (t.dataset.f === 'name' || t.dataset.f === 'type') { $('[data-ttl]', sh).textContent = sp.name || TYPES[sp.type][0]; $('[data-hint]', sh).textContent = TYPES[sp.type][1]; $$('.ph span', sh).forEach((s, pi) => s.textContent = fileName(+sh.dataset.i, pi)); }
+  } else return;
+  save(); renderSend();
+});
+document.addEventListener('change', async e => {
+  const t = e.target; if (!('file' in t.dataset)) return;
+  const sh = t.closest('.sheet[data-i]'), sp = S.spaces[+sh.dataset.i]; let skipped = 0;
+  for (const f of [...t.files]) { if (nPhotos() >= MAX_PHOTOS || sp.photos.length >= 6) { skipped++; continue; } try { const b = await shrink(f), id = uid(); await putPhoto(id, b); sp.photos.push({ id }); } catch (err) { skipped++; } }
+  save(); renderSpaces(); renderSend();
+  if (skipped) toast(skipped + (skipped === 1 ? ' photo was' : ' photos were') + ' left out. The sheet carries up to ' + MAX_PHOTOS + ', six to a space.');
+});
+const EXAMPLE = () => ({ unit: 'in', p: { name: 'Bathroom and kitchen reset', people: '2 adults, 2 kids', home: 'own', budget: '$250', deadline: 'Before Thanksgiving', style: 'Matte black and white, nothing with a logo showing', notes: 'Cabinets have face frames. The kids need to reach their own things.' },
+  picks: ['sink', 'lids', 'trays'], d: { mods: ['plan', 'fit', 'shop', 'tasks', 'photos'], look: 'auto', extra: '' },
+  spaces: [
+    { id: uid(), type: 'undersink', name: 'Hall bathroom sink', w: '28.5', d: '20', h: '24', open: '25', obst: 'Drain trap comes 9 in forward from the back wall, bottom of it 11 in off the floor. Valves on the back wall, left of centre.', holds: 'Hair tools, spare toothpaste and razors, cotton balls, two bath towels, cleaning spray', pain: 'Things get pushed behind the pipe and we buy doubles', budget: '$90', pri: 'now', cons: ['Kid-safe', 'Used every day'], ideas: ['sink'], photos: [] },
+    { id: uid(), type: 'cabinet', name: 'Food container cabinet', w: '14', d: '11.5', h: '36', open: '', obst: 'Three shelves, adjustable. Door closes 1.25 in from the shelf fronts.', holds: '18 glass containers with snap lids, stacked with lids on', pain: 'Takes three shelves and the stacks slide when I pull one out', budget: '$40', pri: 'soon', cons: ['Keep what I already own'], ideas: ['lids'], photos: [] },
+    { id: uid(), type: 'shelf', name: 'Closet shelf, jeans', w: '23', d: '15', h: '13', open: '', obst: '', holds: '11 pairs of jeans in two stacks', pain: 'Pulling one from the middle topples the stack', budget: '$50', pri: 'later', cons: [], ideas: ['trays'], photos: [] }
+  ] });
+
+$('#theme').textContent = document.documentElement.dataset.theme === 'night' ? 'Day' : 'Night';
+renderAll();
+// which step is on screen
+const io = new IntersectionObserver(es => es.forEach(en => { if (en.isIntersecting) $$('.steps a').forEach(a => a.setAttribute('aria-current', a.dataset.s === en.target.id)); }), { rootMargin: '-45% 0px -50% 0px' });
+$$('section.part').forEach(s => io.observe(s));
+</script>
+</body>
+</html>
