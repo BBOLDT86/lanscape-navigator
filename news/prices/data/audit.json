@@ -1,0 +1,746 @@
+{
+ "built": "2026-11-16T03:32Z",
+ "official_loaded": false,
+ "official_mock": false,
+ "official_fetched": null,
+ "summary": {
+  "pass": 21,
+  "warn": 11,
+  "fail": 4,
+  "skip": 42
+ },
+ "tiers": {
+  "solid": 46,
+  "unverified": 11,
+  "rejected": 12
+ },
+ "grades": {
+  "A": 3,
+  "B": 1,
+  "C": 6,
+  "D": 3,
+  "F": 2
+ },
+ "selftest": [
+  {
+   "test": "a made-up receipt is graded F",
+   "ok": true
+  },
+  {
+   "test": "eggs at 4x the official price fail the band check",
+   "ok": true
+  },
+  {
+   "test": "a 7x rise against a 2x official rise fails the pair check",
+   "ok": true
+  },
+  {
+   "test": "lines that add to the printed total pass",
+   "ok": true
+  },
+  {
+   "test": "lines that do not add to the total fail",
+   "ok": true
+  },
+  {
+   "test": "a real reporter-priced item passes and is graded A",
+   "ok": true
+  },
+  {
+   "test": "a cart that triples while groceries rise 5% fails",
+   "ok": true
+  },
+  {
+   "test": "a malformed record stops the build",
+   "ok": true
+  }
+ ],
+ "canary": [],
+ "fatal": [],
+ "feed_log": [],
+ "feed_rejected": [],
+ "feed_routes": [],
+ "posts": [
+  {
+   "id": "fl-2002-2026",
+   "grade": "F",
+   "why": [
+    "the store does not exist",
+    "product codes are reused or do not exist",
+    "labelled or detected as AI-generated"
+   ]
+  },
+  {
+   "id": "fl-two-stores-2026",
+   "grade": "F",
+   "why": [
+    "labelled or detected as AI-generated"
+   ]
+  },
+  {
+   "id": "kylei-2006",
+   "grade": "B",
+   "why": [
+    "full document public, read by 5 outlets"
+   ]
+  },
+  {
+   "id": "pueblo-2001",
+   "grade": "C",
+   "why": [
+    "Posted by a news-aggregator account, not by the woman who found it; the Daily Dot did not verify the receipt or the $400 figure."
+   ]
+  },
+  {
+   "id": "sewerlidd-reorder",
+   "grade": "D",
+   "why": [
+    "Not accurate: discontinued items in the old order were repriced at inflated third-party prices"
+   ]
+  },
+  {
+   "id": "curtdogg-2020-2023",
+   "grade": "C",
+   "why": [
+    "Third hand: a TikTok about a Facebook post of someone else's receipts. Eat This, Not That did not check the prices, and Walmart did not answer it."
+   ]
+  },
+  {
+   "id": "kaypal-curbside",
+   "grade": "C",
+   "why": [
+    "The order mixed food with household and classroom supplies, and a few items no longer sold were swapped for similar ones."
+   ]
+  },
+  {
+   "id": "amywaytosave",
+   "grade": "C",
+   "why": [
+    "She showed her receipts and published the item comparison on YouTube; The Watch has read only the totals, from Market Realist."
+   ]
+  },
+  {
+   "id": "horpedahl-2019",
+   "grade": "A",
+   "why": [
+    "receipt published with an item-by-item method"
+   ]
+  },
+  {
+   "id": "horpedahl-2020",
+   "grade": "A",
+   "why": [
+    "receipt published with an item-by-item method"
+   ]
+  },
+  {
+   "id": "reddit-1997",
+   "grade": "C",
+   "why": [
+    "Known to The Watch only through Cheapism's description; the thread itself has not been read."
+   ]
+  },
+  {
+   "id": "fifty-dollars",
+   "grade": "D",
+   "why": [
+    "The six items cost about $18 at Walmart, not $50; the video was posted as comedy"
+   ]
+  },
+  {
+   "id": "thanksgiving-basket",
+   "grade": "D",
+   "why": [
+    "Misleading: the 2025 package had fewer and smaller items; grocery prices were up almost 1.9% over the period"
+   ]
+  },
+  {
+   "id": "dc-tracker-2025",
+   "grade": "A",
+   "why": [
+    "priced by reporters"
+   ]
+  },
+  {
+   "id": "canada-2020-2024",
+   "grade": "C",
+   "why": [
+    "single source"
+   ]
+  }
+ ],
+ "checks": [
+  {
+   "post": "fl-2002-2026",
+   "check": "schema",
+   "result": "pass",
+   "msg": "record is well formed",
+   "level": "post"
+  },
+  {
+   "post": "fl-2002-2026",
+   "check": "source",
+   "result": "pass",
+   "msg": "3 sources",
+   "level": "post"
+  },
+  {
+   "post": "fl-2002-2026",
+   "check": "sum",
+   "result": "pass",
+   "msg": "6 lines dated 2002-04-06 add to the printed $15.44",
+   "level": "post"
+  },
+  {
+   "post": "fl-2002-2026",
+   "check": "sum",
+   "result": "pass",
+   "msg": "6 lines dated 2026-10-01 add to the printed $57.93",
+   "level": "post"
+  },
+  {
+   "post": "fl-2002-2026",
+   "check": "store",
+   "result": "fail",
+   "msg": "No town called Sunset Bay in Florida, no ZIP code 32987, no Walmart at the address and no store No. 4821.",
+   "level": "post"
+  },
+  {
+   "post": "fl-2002-2026",
+   "check": "codes",
+   "result": "fail",
+   "msg": "Near-identical product codes run down both receipts 24 years apart, and none of them resolves to a product on Walmart's site.",
+   "level": "post"
+  },
+  {
+   "post": "fl-2002-2026",
+   "check": "ai",
+   "result": "fail",
+   "msg": "TikTok applied its automatic \"AI-generated media\" label; Hive Moderation rated the image 99.9% likely AI-generated.",
+   "level": "post"
+  },
+  {
+   "post": "fl-2002-2026",
+   "check": "pair",
+   "result": "skip",
+   "msg": "Milk 1 gal: 2002-04-06 to 2026-10-01 is 2.07x; no official series to compare",
+   "level": "price",
+   "obs": 6
+  },
+  {
+   "post": "fl-2002-2026",
+   "check": "pair",
+   "result": "skip",
+   "msg": "Eggs 12 ct: 2002-04-06 to 2026-10-01 is 7.35x; no official series to compare",
+   "level": "price",
+   "obs": 7
+  },
+  {
+   "post": "fl-2002-2026",
+   "check": "pair",
+   "result": "skip",
+   "msg": "Bread: 2002-04-06 to 2026-10-01 is 3.59x; no official series to compare",
+   "level": "price",
+   "obs": 8
+  },
+  {
+   "post": "fl-2002-2026",
+   "check": "pair",
+   "result": "skip",
+   "msg": "Chkn breast: 2002-04-06 to 2026-10-01 is 5.01x; no official series to compare",
+   "level": "price",
+   "obs": 9
+  },
+  {
+   "post": "fl-2002-2026",
+   "check": "pair",
+   "result": "skip",
+   "msg": "Bananas 3 lb: 2002-04-06 to 2026-10-01 is 2.38x; no official series to compare",
+   "level": "price",
+   "obs": 10
+  },
+  {
+   "post": "fl-2002-2026",
+   "check": "pair",
+   "result": "skip",
+   "msg": "Coffee: 2002-04-06 to 2026-10-01 is 3.26x; no official series to compare",
+   "level": "price",
+   "obs": 11
+  },
+  {
+   "post": "fl-two-stores-2026",
+   "check": "schema",
+   "result": "pass",
+   "msg": "record is well formed",
+   "level": "post"
+  },
+  {
+   "post": "fl-two-stores-2026",
+   "check": "source",
+   "result": "warn",
+   "msg": "1 source: a single source",
+   "level": "post"
+  },
+  {
+   "post": "fl-two-stores-2026",
+   "check": "store",
+   "result": "skip",
+   "msg": "store not shown or not traced",
+   "level": "post"
+  },
+  {
+   "post": "fl-two-stores-2026",
+   "check": "ai",
+   "result": "fail",
+   "msg": "Lead Stories found that many of these old-against-new receipt images were made with artificial intelligence and overstate the rise.",
+   "level": "post"
+  },
+  {
+   "post": "kylei-2006",
+   "check": "schema",
+   "result": "pass",
+   "msg": "record is well formed",
+   "level": "post"
+  },
+  {
+   "post": "kylei-2006",
+   "check": "source",
+   "result": "pass",
+   "msg": "5 sources",
+   "level": "post"
+  },
+  {
+   "post": "kylei-2006",
+   "check": "sum",
+   "result": "skip",
+   "msg": "19 of 79 lines read for 2006: the total cannot be re-added",
+   "level": "post"
+  },
+  {
+   "post": "kylei-2006",
+   "check": "store",
+   "result": "skip",
+   "msg": "store not shown or not traced",
+   "level": "post"
+  },
+  {
+   "post": "kylei-2006",
+   "check": "pair",
+   "result": "skip",
+   "msg": "Eggs: 2006 to 2026-05 is 1.15x; no official series to compare",
+   "level": "price",
+   "obs": 19
+  },
+  {
+   "post": "kylei-2006",
+   "check": "pair",
+   "result": "skip",
+   "msg": "Vitamin D milk, gallon: 2006 to 2026-05 is 1.40x; no official series to compare",
+   "level": "price",
+   "obs": 20
+  },
+  {
+   "post": "kylei-2006",
+   "check": "pair",
+   "result": "skip",
+   "msg": "Russet potatoes, 10 lb: 2006 to 2026-05 is 1.15x; no official series to compare",
+   "level": "price",
+   "obs": 21
+  },
+  {
+   "post": "kylei-2006",
+   "check": "pair",
+   "result": "skip",
+   "msg": "Lay's chips: 2006 to 2026-05 is 1.49x; no official series to compare",
+   "level": "price",
+   "obs": 22
+  },
+  {
+   "post": "kylei-2006",
+   "check": "pair",
+   "result": "skip",
+   "msg": "Post cereal: 2006 to 2026-05 is 2.67x; no official series to compare",
+   "level": "price",
+   "obs": 23
+  },
+  {
+   "post": "kylei-2006",
+   "check": "pair",
+   "result": "skip",
+   "msg": "Capri Sun: 2006 to 2026-05 is 2.04x; no official series to compare",
+   "level": "price",
+   "obs": 24
+  },
+  {
+   "post": "kylei-2006",
+   "check": "pair",
+   "result": "skip",
+   "msg": "Hot Fries: 2006 to 2026-05 is 1.99x; no official series to compare",
+   "level": "price",
+   "obs": 25
+  },
+  {
+   "post": "kylei-2006",
+   "check": "pair",
+   "result": "skip",
+   "msg": "Great Value brown gravy mix: 2006 to 2026-05 is 1.45x; no official series to compare",
+   "level": "price",
+   "obs": 26
+  },
+  {
+   "post": "kylei-2006",
+   "check": "pair",
+   "result": "skip",
+   "msg": "Green bell pepper, each: 2006 to 2026-05 is 1.87x; no official series to compare",
+   "level": "price",
+   "obs": 27
+  },
+  {
+   "post": "kylei-2006",
+   "check": "pair",
+   "result": "skip",
+   "msg": "Red onion, per lb: 2006 to 2026-05 is 1.66x; no official series to compare",
+   "level": "price",
+   "obs": 28
+  },
+  {
+   "post": "kylei-2006",
+   "check": "pair",
+   "result": "skip",
+   "msg": "Navel oranges, 4: 2006 to 2026-05 is 1.23x; no official series to compare",
+   "level": "price",
+   "obs": 29
+  },
+  {
+   "post": "kylei-2006",
+   "check": "pair",
+   "result": "skip",
+   "msg": "Coke, 20 oz: 2006 to 2026-05 is 2.10x; no official series to compare",
+   "level": "price",
+   "obs": 30
+  },
+  {
+   "post": "kylei-2006",
+   "check": "pair",
+   "result": "skip",
+   "msg": "Lettuce, head: 2006 to 2026-05 is 1.75x; no official series to compare",
+   "level": "price",
+   "obs": 31
+  },
+  {
+   "post": "kylei-2006",
+   "check": "pair",
+   "result": "skip",
+   "msg": "Hostess cupcakes: 2006 to 2026-05 is 1.39x; no official series to compare",
+   "level": "price",
+   "obs": 32
+  },
+  {
+   "post": "kylei-2006",
+   "check": "pair",
+   "result": "skip",
+   "msg": "Mustard: 2006 to 2026-05 is 1.00x; no official series to compare",
+   "level": "price",
+   "obs": 33
+  },
+  {
+   "post": "kylei-2006",
+   "check": "pair",
+   "result": "skip",
+   "msg": "Sweet peas, can: 2006 to 2026-05 is 2.30x; no official series to compare",
+   "level": "price",
+   "obs": 34
+  },
+  {
+   "post": "kylei-2006",
+   "check": "pair",
+   "result": "skip",
+   "msg": "Bounty paper towels: 2006 to 2026-05 is 3.03x; no official series to compare",
+   "level": "price",
+   "obs": 35
+  },
+  {
+   "post": "kylei-2006",
+   "check": "basket",
+   "result": "skip",
+   "msg": "cart +147.1%; official series not loaded for those months",
+   "level": "post"
+  },
+  {
+   "post": "pueblo-2001",
+   "check": "schema",
+   "result": "pass",
+   "msg": "record is well formed",
+   "level": "post"
+  },
+  {
+   "post": "pueblo-2001",
+   "check": "source",
+   "result": "warn",
+   "msg": "1 source: a single source",
+   "level": "post"
+  },
+  {
+   "post": "pueblo-2001",
+   "check": "sum",
+   "result": "skip",
+   "msg": "2 of 103 lines read for 2001: the total cannot be re-added",
+   "level": "post"
+  },
+  {
+   "post": "pueblo-2001",
+   "check": "store",
+   "result": "skip",
+   "msg": "store not shown or not traced",
+   "level": "post"
+  },
+  {
+   "post": "pueblo-2001",
+   "check": "basket",
+   "result": "skip",
+   "msg": "cart +158.1%; official series not loaded for those months",
+   "level": "post"
+  },
+  {
+   "post": "sewerlidd-reorder",
+   "check": "schema",
+   "result": "pass",
+   "msg": "record is well formed",
+   "level": "post"
+  },
+  {
+   "post": "sewerlidd-reorder",
+   "check": "source",
+   "result": "pass",
+   "msg": "3 sources",
+   "level": "post"
+  },
+  {
+   "post": "sewerlidd-reorder",
+   "check": "basket",
+   "result": "skip",
+   "msg": "cart +227.1%; official series not loaded for those months",
+   "level": "post"
+  },
+  {
+   "post": "curtdogg-2020-2023",
+   "check": "schema",
+   "result": "pass",
+   "msg": "record is well formed",
+   "level": "post"
+  },
+  {
+   "post": "curtdogg-2020-2023",
+   "check": "source",
+   "result": "warn",
+   "msg": "1 source: a single source",
+   "level": "post"
+  },
+  {
+   "post": "curtdogg-2020-2023",
+   "check": "pair",
+   "result": "skip",
+   "msg": "Great Value mesquite smoked turkey breast, family pack: 2020 to 2023-09 is 2.14x; no official series to compare",
+   "level": "price",
+   "obs": 1
+  },
+  {
+   "post": "curtdogg-2020-2023",
+   "check": "pair",
+   "result": "skip",
+   "msg": "Great Value buttermilk waffles, 24: 2020 to 2023-09 is 1.41x; no official series to compare",
+   "level": "price",
+   "obs": 3
+  },
+  {
+   "post": "curtdogg-2020-2023",
+   "check": "pair",
+   "result": "skip",
+   "msg": "Great Value Vienna sausages, can: 2020 to 2023-09 is 1.79x; no official series to compare",
+   "level": "price",
+   "obs": 5
+  },
+  {
+   "post": "kaypal-curbside",
+   "check": "schema",
+   "result": "pass",
+   "msg": "record is well formed",
+   "level": "post"
+  },
+  {
+   "post": "kaypal-curbside",
+   "check": "source",
+   "result": "warn",
+   "msg": "1 source: a single source",
+   "level": "post"
+  },
+  {
+   "post": "kaypal-curbside",
+   "check": "basket",
+   "result": "skip",
+   "msg": "cart +27.5%; official series not loaded for those months",
+   "level": "post"
+  },
+  {
+   "post": "amywaytosave",
+   "check": "schema",
+   "result": "pass",
+   "msg": "record is well formed",
+   "level": "post"
+  },
+  {
+   "post": "amywaytosave",
+   "check": "source",
+   "result": "warn",
+   "msg": "1 source: a single source",
+   "level": "post"
+  },
+  {
+   "post": "amywaytosave",
+   "check": "store",
+   "result": "skip",
+   "msg": "store not shown or not traced",
+   "level": "post"
+  },
+  {
+   "post": "amywaytosave",
+   "check": "basket",
+   "result": "skip",
+   "msg": "cart +49.7%; official series not loaded for those months",
+   "level": "post"
+  },
+  {
+   "post": "horpedahl-2019",
+   "check": "schema",
+   "result": "pass",
+   "msg": "record is well formed",
+   "level": "post"
+  },
+  {
+   "post": "horpedahl-2019",
+   "check": "source",
+   "result": "warn",
+   "msg": "1 source: a single source",
+   "level": "post"
+  },
+  {
+   "post": "horpedahl-2019",
+   "check": "basket",
+   "result": "skip",
+   "msg": "cart +23.8%; official series not loaded for those months",
+   "level": "post"
+  },
+  {
+   "post": "horpedahl-2020",
+   "check": "schema",
+   "result": "pass",
+   "msg": "record is well formed",
+   "level": "post"
+  },
+  {
+   "post": "horpedahl-2020",
+   "check": "source",
+   "result": "warn",
+   "msg": "1 source: a single source",
+   "level": "post"
+  },
+  {
+   "post": "horpedahl-2020",
+   "check": "basket",
+   "result": "skip",
+   "msg": "cart +23.4%; official series not loaded for those months",
+   "level": "post"
+  },
+  {
+   "post": "reddit-1997",
+   "check": "schema",
+   "result": "pass",
+   "msg": "record is well formed",
+   "level": "post"
+  },
+  {
+   "post": "reddit-1997",
+   "check": "source",
+   "result": "warn",
+   "msg": "1 source: a single source",
+   "level": "post"
+  },
+  {
+   "post": "reddit-1997",
+   "check": "sum",
+   "result": "skip",
+   "msg": "3 of 20 lines read for 1997: the total cannot be re-added",
+   "level": "post"
+  },
+  {
+   "post": "reddit-1997",
+   "check": "store",
+   "result": "skip",
+   "msg": "store not shown or not traced",
+   "level": "post"
+  },
+  {
+   "post": "fifty-dollars",
+   "check": "schema",
+   "result": "pass",
+   "msg": "record is well formed",
+   "level": "post"
+  },
+  {
+   "post": "fifty-dollars",
+   "check": "source",
+   "result": "warn",
+   "msg": "1 source: a single source",
+   "level": "post"
+  },
+  {
+   "post": "thanksgiving-basket",
+   "check": "schema",
+   "result": "pass",
+   "msg": "record is well formed",
+   "level": "post"
+  },
+  {
+   "post": "thanksgiving-basket",
+   "check": "source",
+   "result": "pass",
+   "msg": "2 sources",
+   "level": "post"
+  },
+  {
+   "post": "thanksgiving-basket",
+   "check": "basket",
+   "result": "skip",
+   "msg": "cart -27.3%; official series not loaded for those months",
+   "level": "post"
+  },
+  {
+   "post": "dc-tracker-2025",
+   "check": "schema",
+   "result": "pass",
+   "msg": "record is well formed",
+   "level": "post"
+  },
+  {
+   "post": "dc-tracker-2025",
+   "check": "source",
+   "result": "warn",
+   "msg": "1 source: a single source",
+   "level": "post"
+  },
+  {
+   "post": "canada-2020-2024",
+   "check": "schema",
+   "result": "pass",
+   "msg": "record is well formed",
+   "level": "post"
+  },
+  {
+   "post": "canada-2020-2024",
+   "check": "source",
+   "result": "warn",
+   "msg": "1 source: a single source",
+   "level": "post"
+  }
+ ]
+}

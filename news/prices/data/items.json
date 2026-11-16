@@ -1,0 +1,31 @@
+{
+  "_about": "The staples The Checkout tracks. `bls` is the item code of the Bureau of Labor Statistics average-price series (series id = APU + area + code; area 0000 U.S. city average, 0100 Northeast, 0200 Midwest, 0300 South, 0400 West). `expect` is a word the official series title must contain: fetch.py refuses a series whose title does not match, so a wrong code cannot quietly feed the charts. `basket` is the quantity in The Watch's fixed basket.",
+  "areas": {"0000": "U.S.", "0100": "Northeast", "0200": "Midwest", "0300": "South", "0400": "West"},
+  "items": [
+    {"id": "eggs", "name": "Eggs", "long": "Eggs, grade A, large", "unit": "dozen", "bls": "708111", "expect": "egg", "basket": 1, "aliases": ["eggs", "dozen eggs", "eggs 12 ct"]},
+    {"id": "milk", "name": "Milk", "long": "Milk, fresh, whole", "unit": "gallon", "bls": "709112", "expect": "milk", "basket": 1, "aliases": ["milk", "milk 1 gal", "vitamin d milk"]},
+    {"id": "bread", "name": "Bread", "long": "Bread, white, pan", "unit": "lb", "bls": "702111", "expect": "bread", "basket": 1, "aliases": ["bread", "white bread"]},
+    {"id": "beef", "name": "Ground beef", "long": "Ground beef, 100%", "unit": "lb", "bls": "703112", "expect": "beef", "basket": 1, "aliases": ["ground beef", "hamburger"]},
+    {"id": "chicken_breast", "name": "Chicken breast", "long": "Chicken breast, boneless", "unit": "lb", "bls": "FF1101", "expect": "chicken", "basket": 1, "aliases": ["chicken breast", "chkn breast"]},
+    {"id": "chicken", "name": "Whole chicken", "long": "Chicken, fresh, whole", "unit": "lb", "bls": "706111", "expect": "chicken", "basket": 0, "aliases": ["whole chicken"]},
+    {"id": "bacon", "name": "Bacon", "long": "Bacon, sliced", "unit": "lb", "bls": "704111", "expect": "bacon", "basket": 1, "aliases": ["bacon"]},
+    {"id": "bananas", "name": "Bananas", "long": "Bananas", "unit": "lb", "bls": "711211", "expect": "banana", "basket": 3, "aliases": ["bananas"]},
+    {"id": "oranges", "name": "Oranges", "long": "Oranges, navel", "unit": "lb", "bls": "711311", "expect": "orange", "basket": 0, "aliases": ["navel oranges"]},
+    {"id": "tomatoes", "name": "Tomatoes", "long": "Tomatoes, field grown", "unit": "lb", "bls": "712311", "expect": "tomato", "basket": 1, "aliases": ["tomatoes"]},
+    {"id": "potatoes", "name": "Potatoes", "long": "Potatoes, white", "unit": "lb", "bls": "712112", "expect": "potato", "basket": 5, "aliases": ["potatoes", "russet potatoes"]},
+    {"id": "lettuce", "name": "Lettuce", "long": "Lettuce, iceberg", "unit": "lb", "bls": "712211", "expect": "lettuce", "basket": 0, "aliases": ["lettuce"]},
+    {"id": "coffee", "name": "Coffee", "long": "Coffee, 100%, ground roast", "unit": "lb", "bls": "717311", "expect": "coffee", "basket": 1, "aliases": ["coffee"]},
+    {"id": "sugar", "name": "Sugar", "long": "Sugar, white", "unit": "lb", "bls": "715211", "expect": "sugar", "basket": 0, "aliases": ["sugar"]},
+    {"id": "flour", "name": "Flour", "long": "Flour, white, all purpose", "unit": "lb", "bls": "701111", "expect": "flour", "basket": 0, "aliases": ["flour"]},
+    {"id": "rice", "name": "Rice", "long": "Rice, white, long grain", "unit": "lb", "bls": "701312", "expect": "rice", "basket": 0, "aliases": ["rice"]},
+    {"id": "pasta", "name": "Pasta", "long": "Spaghetti and macaroni", "unit": "lb", "bls": "701322", "expect": "spaghetti", "basket": 0, "aliases": ["spaghetti", "pasta"]},
+    {"id": "butter", "name": "Butter", "long": "Butter, stick", "unit": "lb", "bls": "FS1101", "expect": "butter", "basket": 1, "aliases": ["butter"]},
+    {"id": "cheese", "name": "Cheddar", "long": "Cheddar cheese, natural", "unit": "lb", "bls": "710212", "expect": "chedd", "basket": 0, "aliases": ["cheddar", "cheese"]},
+    {"id": "chips", "name": "Potato chips", "long": "Potato chips", "unit": "16 oz", "bls": "718311", "expect": "chip", "basket": 0, "aliases": ["potato chips", "lay's chips"]}
+  ],
+  "indexes": [
+    {"id": "food_home", "name": "Groceries (CPI, food at home)", "bls": "CUUR0000SAF11", "fred": "CUUR0000SAF11"},
+    {"id": "all_items", "name": "All prices (CPI-U)", "bls": "CUUR0000SA0", "fred": "CPIAUCNS"},
+    {"id": "wage", "name": "Average hourly pay, production and nonsupervisory workers", "bls": "CES0500000008", "fred": "AHETPI"}
+  ]
+}

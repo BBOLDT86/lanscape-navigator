@@ -1,0 +1,1392 @@
+{
+ "_about": "The ledger of receipt posts and price claims The Checkout has logged. Nothing here is typed from memory: every number carries the index of the source it was read from (`src`). `obs` are single prices; `qty` is how many of the official unit the price covers (3 for a 3-lb bag of bananas) and is null when the size is not known, which keeps the price out of official comparisons. `review` holds the evidence a person recorded; verify.py turns the evidence and its own checks into the grade.",
+ "target": 50,
+ "posts": [
+  {
+   "id": "fl-2002-2026",
+   "kind": "receipt pair",
+   "title": "The 2002 and 2026 receipts from \"Sunset Bay, Florida\"",
+   "platform": "TikTok, Instagram, Facebook, Threads",
+   "account": "@edsoncredit (TikTok), reposted by @faillgram (Instagram) and others",
+   "posted": "2026-10-13",
+   "url": "https://www.instagram.com/p/DeblG8Ltekk/",
+   "store": {
+    "chain": "Walmart",
+    "number": "4821",
+    "place": "2847 Palm Grove Rd, Sunset Bay, FL 32987",
+    "region": "0300"
+   },
+   "claim": "Two real receipts from the same store show the same six groceries going from $15.44 in April 2002 to $57.93 in October 2026.",
+   "totals": [
+    {
+     "date": "2002-04-06",
+     "amount": 15.44,
+     "n": 6
+    },
+    {
+     "date": "2026-10-01",
+     "amount": 57.93,
+     "n": 6
+    }
+   ],
+   "obs": [
+    {
+     "item": "milk",
+     "label": "Milk 1 gal",
+     "date": "2002-04-06",
+     "price": 2.89,
+     "qty": 1,
+     "src": 0
+    },
+    {
+     "item": "eggs",
+     "label": "Eggs 12 ct",
+     "date": "2002-04-06",
+     "price": 1.29,
+     "qty": 1,
+     "src": 0
+    },
+    {
+     "item": "bread",
+     "label": "Bread",
+     "date": "2002-04-06",
+     "price": 1.39,
+     "qty": null,
+     "src": 3
+    },
+    {
+     "item": "chicken_breast",
+     "label": "Chkn breast",
+     "date": "2002-04-06",
+     "price": 3.99,
+     "qty": null,
+     "src": 0
+    },
+    {
+     "item": "bananas",
+     "label": "Bananas 3 lb",
+     "date": "2002-04-06",
+     "price": 1.89,
+     "qty": 3,
+     "src": 3
+    },
+    {
+     "item": "coffee",
+     "label": "Coffee",
+     "date": "2002-04-06",
+     "price": 3.99,
+     "qty": null,
+     "src": 3
+    },
+    {
+     "item": "milk",
+     "label": "Milk 1 gal",
+     "date": "2026-10-01",
+     "price": 5.99,
+     "qty": 1,
+     "src": 0
+    },
+    {
+     "item": "eggs",
+     "label": "Eggs 12 ct",
+     "date": "2026-10-01",
+     "price": 9.48,
+     "qty": 1,
+     "src": 0
+    },
+    {
+     "item": "bread",
+     "label": "Bread",
+     "date": "2026-10-01",
+     "price": 4.99,
+     "qty": null,
+     "src": 3
+    },
+    {
+     "item": "chicken_breast",
+     "label": "Chkn breast",
+     "date": "2026-10-01",
+     "price": 19.99,
+     "qty": null,
+     "src": 0
+    },
+    {
+     "item": "bananas",
+     "label": "Bananas 3 lb",
+     "date": "2026-10-01",
+     "price": 4.49,
+     "qty": 3,
+     "src": 3,
+     "note": "Partly hidden in the image; it is the amount that makes the six lines add to the printed $57.93."
+    },
+    {
+     "item": "coffee",
+     "label": "Coffee",
+     "date": "2026-10-01",
+     "price": 12.99,
+     "qty": null,
+     "src": 2
+    },
+    {
+     "item": "eggs",
+     "label": "Great Value eggs, dozen (Walmart.com)",
+     "date": "2026-10-15",
+     "price": 1.67,
+     "qty": 1,
+     "src": 0,
+     "check": true
+    }
+   ],
+   "pairs": true,
+   "review": {
+    "factcheck": {
+     "by": "Lead Stories",
+     "verdict": "Made with AI",
+     "url": "https://leadstories.com/hoax-alert/2026/10/fact-check-fake-image-of-2002-and-2026-walmart-reciepts-for-price-comparison-it-was-made-with-ai.html"
+    },
+    "ai_label": "TikTok applied its automatic \"AI-generated media\" label; Hive Moderation rated the image 99.9% likely AI-generated.",
+    "store_check": "not found",
+    "store_note": "No town called Sunset Bay in Florida, no ZIP code 32987, no Walmart at the address and no store No. 4821.",
+    "codes_reused": true,
+    "codes_note": "Near-identical product codes run down both receipts 24 years apart, and none of them resolves to a product on Walmart's site.",
+    "primary_document": false,
+    "counter": [
+     {
+      "item": "eggs",
+      "date": "2026-10-15",
+      "price": 1.67,
+      "what": "a dozen Great Value eggs on Walmart.com",
+      "src": 0
+     },
+     {
+      "item": "eggs",
+      "date": "2026-09",
+      "price": 2.27,
+      "what": "the national average for a dozen, Bureau of Labor Statistics",
+      "src": 0
+     }
+    ]
+   },
+   "sources": [
+    {
+     "publisher": "Lead Stories",
+     "title": "Fact Check: FAKE Image Of 2002 And 2026 Walmart Receipts For Price Comparison -- It Was Made With AI",
+     "date": "2026-10-15",
+     "url": "https://leadstories.com/hoax-alert/2026/10/fact-check-fake-image-of-2002-and-2026-walmart-reciepts-for-price-comparison-it-was-made-with-ai.html"
+    },
+    {
+     "publisher": "Lead Stories",
+     "title": "Prebunk: AI-Generated Old-Price Supermarket Comparisons To Prove Inflation Do Not Add Up -- We Brought Receipts",
+     "date": "2026-10-16",
+     "url": "https://www.yahoo.com/news/us/articles/prebunk-ai-generated-old-price-031330746.html"
+    },
+    {
+     "publisher": "Arul John",
+     "title": "Walmart Receipts From 2002 and 2026",
+     "date": "2026-10-17",
+     "url": "https://aruljohn.com/blog/walmart-receipts-2002-2026/"
+    },
+    {
+     "publisher": "The image itself",
+     "title": "A repost of the image sent to The Watch by a reader, Nov. 15, 2026",
+     "date": "2026-11-15",
+     "url": "https://www.instagram.com/p/DeblG8Ltekk/"
+    }
+   ]
+  },
+  {
+   "id": "fl-two-stores-2026",
+   "kind": "receipt pair",
+   "title": "Old and new receipts from two Florida stores",
+   "platform": "Facebook",
+   "account": "not named in the fact check",
+   "posted": "2026-09-22",
+   "url": "https://www.yahoo.com/news/us/articles/prebunk-ai-generated-old-price-031330746.html",
+   "store": {
+    "chain": "Walmart",
+    "number": null,
+    "place": "Two Florida stores",
+    "region": "0300"
+   },
+   "claim": "An old receipt with 14 items and a new one with 17, photographed in a Walmart, show how far prices have risen.",
+   "totals": [],
+   "obs": [],
+   "review": {
+    "factcheck": {
+     "by": "Lead Stories",
+     "verdict": "AI-generated, part of a wave of look-alike images",
+     "url": "https://www.yahoo.com/news/us/articles/prebunk-ai-generated-old-price-031330746.html"
+    },
+    "ai_label": "Lead Stories found that many of these old-against-new receipt images were made with artificial intelligence and overstate the rise.",
+    "store_check": "unknown",
+    "primary_document": false,
+    "todo": "The Watch has not read the item lines on this image; they are not in the database."
+   },
+   "sources": [
+    {
+     "publisher": "Lead Stories",
+     "title": "Prebunk: AI-Generated Old-Price Supermarket Comparisons To Prove Inflation Do Not Add Up -- We Brought Receipts",
+     "date": "2026-10-16",
+     "url": "https://www.yahoo.com/news/us/articles/prebunk-ai-generated-old-price-031330746.html"
+    }
+   ]
+  },
+  {
+   "id": "kylei-2006",
+   "kind": "old receipt",
+   "title": "\"Found my mom's grocery receipt from 2006\"",
+   "platform": "X",
+   "account": "@ruledbymercuryy (Kylei)",
+   "posted": "2026-05-19",
+   "url": "https://x.com/ruledbymercuryy",
+   "store": {
+    "chain": "Walmart",
+    "number": null,
+    "place": "Not visible on the receipt",
+    "region": null
+   },
+   "claim": "A 2006 Walmart receipt shows 79 items for $161.87. Replies and reposts put the same cart at $350 to more than $400 today.",
+   "totals": [
+    {
+     "date": "2006",
+     "amount": 161.87,
+     "n": 79
+    }
+   ],
+   "basket_claim": {
+    "from": "2006",
+    "to": "2026-05",
+    "old": 161.87,
+    "new": 400,
+    "who": "KTAL's estimate (\"well over $400\"); a reader on X who priced 58 of the items found them up 69%"
+   },
+   "obs": [
+    {
+     "item": "eggs",
+     "label": "Eggs",
+     "date": "2006",
+     "price": 1.28,
+     "qty": 1,
+     "src": 0
+    },
+    {
+     "item": "milk",
+     "label": "Vitamin D milk, gallon",
+     "date": "2006",
+     "price": 3.05,
+     "qty": 1,
+     "src": 0
+    },
+    {
+     "item": "potatoes",
+     "label": "Russet potatoes, 10 lb",
+     "date": "2006",
+     "price": 3.96,
+     "qty": 10,
+     "src": 0
+    },
+    {
+     "item": "tomatoes",
+     "label": "Tomatoes, per lb",
+     "date": "2006",
+     "price": 1.24,
+     "qty": 1,
+     "src": 1
+    },
+    {
+     "item": "chips",
+     "label": "Lay's chips",
+     "date": "2006",
+     "price": 2.0,
+     "qty": null,
+     "src": 0
+    },
+    {
+     "item": null,
+     "label": "Post cereal",
+     "date": "2006",
+     "price": 1.86,
+     "qty": null,
+     "src": 0
+    },
+    {
+     "item": null,
+     "label": "Capri Sun",
+     "date": "2006",
+     "price": 1.7,
+     "qty": null,
+     "src": 0
+    },
+    {
+     "item": null,
+     "label": "Hot Fries",
+     "date": "2006",
+     "price": 1.38,
+     "qty": null,
+     "src": 0
+    },
+    {
+     "item": null,
+     "label": "Great Value brown gravy mix",
+     "date": "2006",
+     "price": 0.33,
+     "qty": null,
+     "src": 0
+    },
+    {
+     "item": null,
+     "label": "Green bell pepper, each",
+     "date": "2006",
+     "price": 0.78,
+     "qty": null,
+     "src": 0
+    },
+    {
+     "item": null,
+     "label": "Red onion, per lb",
+     "date": "2006",
+     "price": 0.64,
+     "qty": null,
+     "src": 0
+    },
+    {
+     "item": null,
+     "label": "Navel oranges, 4",
+     "date": "2006",
+     "price": 2.5,
+     "qty": null,
+     "src": 0
+    },
+    {
+     "item": null,
+     "label": "Coke, 20 oz",
+     "date": "2006",
+     "price": 1.18,
+     "qty": null,
+     "src": 0
+    },
+    {
+     "item": null,
+     "label": "Lettuce, head",
+     "date": "2006",
+     "price": 1.12,
+     "qty": null,
+     "src": 0
+    },
+    {
+     "item": null,
+     "label": "Hostess cupcakes",
+     "date": "2006",
+     "price": 2.5,
+     "qty": null,
+     "src": 0
+    },
+    {
+     "item": null,
+     "label": "Mustard",
+     "date": "2006",
+     "price": 0.98,
+     "qty": null,
+     "src": 0
+    },
+    {
+     "item": null,
+     "label": "Sweet peas, can",
+     "date": "2006",
+     "price": 0.33,
+     "qty": null,
+     "src": 0
+    },
+    {
+     "item": null,
+     "label": "Pudding",
+     "date": "2006",
+     "price": 2.44,
+     "qty": null,
+     "src": 0
+    },
+    {
+     "item": null,
+     "label": "Bounty paper towels",
+     "date": "2006",
+     "price": 1.96,
+     "qty": null,
+     "src": 3
+    },
+    {
+     "item": "eggs",
+     "label": "Eggs, dozen (Walmart, 2026)",
+     "date": "2026-05",
+     "price": 1.47,
+     "qty": 1,
+     "src": 0,
+     "check": true
+    },
+    {
+     "item": "milk",
+     "label": "Vitamin D milk, gallon (Walmart, 2026)",
+     "date": "2026-05",
+     "price": 4.27,
+     "hi": 7.87,
+     "qty": 1,
+     "src": 0,
+     "check": true
+    },
+    {
+     "item": "potatoes",
+     "label": "Russet potatoes, 10 lb (Walmart, 2026)",
+     "date": "2026-05",
+     "price": 4.54,
+     "qty": 10,
+     "src": 0,
+     "check": true
+    },
+    {
+     "item": "chips",
+     "label": "Lay's chips (Walmart, 2026)",
+     "date": "2026-05",
+     "price": 2.97,
+     "hi": 5.44,
+     "qty": null,
+     "src": 0,
+     "check": true
+    },
+    {
+     "item": null,
+     "label": "Post cereal (Walmart, 2026)",
+     "date": "2026-05",
+     "price": 4.97,
+     "qty": null,
+     "src": 0,
+     "check": true
+    },
+    {
+     "item": null,
+     "label": "Capri Sun (Walmart, 2026)",
+     "date": "2026-05",
+     "price": 3.47,
+     "hi": 8.47,
+     "qty": null,
+     "src": 0,
+     "check": true
+    },
+    {
+     "item": null,
+     "label": "Hot Fries (Walmart, 2026)",
+     "date": "2026-05",
+     "price": 2.74,
+     "hi": 3.68,
+     "qty": null,
+     "src": 0,
+     "check": true
+    },
+    {
+     "item": null,
+     "label": "Great Value brown gravy mix (Walmart, 2026)",
+     "date": "2026-05",
+     "price": 0.48,
+     "qty": null,
+     "src": 0,
+     "check": true
+    },
+    {
+     "item": null,
+     "label": "Green bell pepper, each (Walmart, 2026)",
+     "date": "2026-05",
+     "price": 1.46,
+     "hi": 1.52,
+     "qty": null,
+     "src": 0,
+     "check": true
+    },
+    {
+     "item": null,
+     "label": "Red onion, per lb (Walmart, 2026)",
+     "date": "2026-05",
+     "price": 1.06,
+     "hi": 1.32,
+     "qty": null,
+     "src": 0,
+     "check": true
+    },
+    {
+     "item": null,
+     "label": "Navel oranges, 4 (Walmart, 2026)",
+     "date": "2026-05",
+     "price": 3.08,
+     "qty": null,
+     "src": 0,
+     "check": true
+    },
+    {
+     "item": null,
+     "label": "Coke, 20 oz (Walmart, 2026)",
+     "date": "2026-05",
+     "price": 2.48,
+     "qty": null,
+     "src": 0,
+     "check": true
+    },
+    {
+     "item": null,
+     "label": "Lettuce, head (Walmart, 2026)",
+     "date": "2026-05",
+     "price": 1.96,
+     "hi": 5.08,
+     "qty": null,
+     "src": 0,
+     "check": true
+    },
+    {
+     "item": null,
+     "label": "Hostess cupcakes (Walmart, 2026)",
+     "date": "2026-05",
+     "price": 3.48,
+     "hi": 5.28,
+     "qty": null,
+     "src": 0,
+     "check": true
+    },
+    {
+     "item": null,
+     "label": "Mustard (Walmart, 2026)",
+     "date": "2026-05",
+     "price": 0.98,
+     "hi": 8.99,
+     "qty": null,
+     "src": 0,
+     "check": true
+    },
+    {
+     "item": null,
+     "label": "Sweet peas, can (Walmart, 2026)",
+     "date": "2026-05",
+     "price": 0.76,
+     "hi": 2.14,
+     "qty": null,
+     "src": 0,
+     "check": true
+    },
+    {
+     "item": null,
+     "label": "Bounty paper towels (Walmart, 2026)",
+     "date": "2026-05",
+     "price": 5.94,
+     "qty": null,
+     "src": 3,
+     "check": true
+    }
+   ],
+   "pairs": true,
+   "review": {
+    "factcheck": null,
+    "store_check": "unknown",
+    "primary_document": true,
+    "document_note": "The full receipt is public on X and was read line by line by KTAL, USA Today and BuzzFeed. No outlet has traced the store, so the document is corroborated, not authenticated.",
+    "outlets": 5,
+    "disputed_replies": "A reply quoted by UNILAD put eggs at \"$4-$6\" now; KTAL found a dozen at Walmart for $1.47."
+   },
+   "sources": [
+    {
+     "publisher": "KTAL / Nexstar (via KXAN)",
+     "title": "Viral 2006 grocery receipt reveals 20-year price inflation",
+     "date": "2026-05-28",
+     "url": "https://www.ktalnews.com/news/national/food-prices-2006-2026/"
+    },
+    {
+     "publisher": "USA Today / Greenville News (via Yahoo Finance)",
+     "title": "How much did groceries cost 20 years ago? Walmart receipt goes viral",
+     "date": "2026-05-28",
+     "url": "https://finance.yahoo.com/economy/articles/viral-walmart-receipt-shows-groceries-120614609.html"
+    },
+    {
+     "publisher": "BuzzFeed",
+     "title": "People Are Absolutely Losing Their Minds Over The Prices On This 2006 Grocery Receipt",
+     "date": "2026-05-21",
+     "url": "https://www.buzzfeed.com/kelley_greene/viral-grocery-receipt-from-2006"
+    },
+    {
+     "publisher": "UNILAD",
+     "title": "20-year-old Walmart receipt shows just how expensive food has got in USA",
+     "date": "2026-05-20",
+     "url": "https://www.unilad.com/news/us-news/old-walmart-receipt-expensive-food-price-increase-450550-20260520"
+    },
+    {
+     "publisher": "MediaPost",
+     "title": "Walmart Grocery Receipt Goes Viral",
+     "date": "2026-05-28",
+     "url": "https://www.mediapost.com/publications/article/415366/walmart-grocery-receipt-goes-viral.html"
+    }
+   ]
+  },
+  {
+   "id": "pueblo-2001",
+   "kind": "old receipt",
+   "title": "The 2001 receipt from Pueblo, Colorado",
+   "platform": "X",
+   "account": "@Rightanglenews",
+   "posted": "2026-05-26",
+   "url": "https://twitter.com/Rightanglenews/status/2059345020767895851",
+   "store": {
+    "chain": "Walmart",
+    "number": null,
+    "place": "Pueblo, Colo. (as it appears)",
+    "region": "0400"
+   },
+   "claim": "A woman cleaning out her house found a 2001 Walmart receipt: about a month of food, 103 items, for about $155, \"something that would now cost nearly $400.\"",
+   "totals": [
+    {
+     "date": "2001",
+     "amount": 155,
+     "n": 103,
+     "approx": true
+    }
+   ],
+   "basket_claim": {
+    "from": "2001",
+    "to": "2026-05",
+    "old": 155,
+    "new": 400,
+    "who": "the account's caption"
+   },
+   "obs": [
+    {
+     "item": null,
+     "label": "Hamburger buns",
+     "date": "2001",
+     "price": 0.67,
+     "qty": null,
+     "src": 0
+    },
+    {
+     "item": null,
+     "label": "Brown sugar",
+     "date": "2001",
+     "price": 1.0,
+     "qty": null,
+     "src": 0,
+     "approx": true
+    }
+   ],
+   "review": {
+    "factcheck": null,
+    "store_check": "unknown",
+    "primary_document": false,
+    "outlets": 1,
+    "document_note": "Posted by a news-aggregator account, not by the woman who found it; the Daily Dot did not verify the receipt or the $400 figure."
+   },
+   "sources": [
+    {
+     "publisher": "The Daily Dot",
+     "title": "\"The Same Groceries Would Cost Nearly $400 Now\": Viral 2001 Walmart Receipt Has the Internet Spiraling Over Inflation",
+     "date": "2026-05-27",
+     "url": "https://dailydot.com/the-same-groceries-would-cost-nearly-400-now-viral-2001-walmart-receipt-has-the-internet-spiraling-over-inflation"
+    }
+   ]
+  },
+  {
+   "id": "sewerlidd-reorder",
+   "kind": "reorder",
+   "title": "\"Reorder all\": $126.67 in 2022, $414.39 in 2024",
+   "platform": "TikTok",
+   "account": "@sewerlidd",
+   "posted": "2024-06-25",
+   "url": "https://www.tiktok.com/@sewerlidd",
+   "store": {
+    "chain": "Walmart (app order)",
+    "number": null,
+    "place": null,
+    "region": null
+   },
+   "claim": "A month of groceries ordered in 2022 for $126.67 would cost $414.39 through the app's \"Reorder all\" button two years later.",
+   "totals": [
+    {
+     "date": "2022-06",
+     "amount": 126.67,
+     "n": 45,
+     "approx_date": true
+    },
+    {
+     "date": "2024-06",
+     "amount": 414.39,
+     "n": 45
+    }
+   ],
+   "basket_claim": {
+    "from": "2022-06",
+    "to": "2024-06",
+    "old": 126.67,
+    "new": 414.39,
+    "who": "the poster"
+   },
+   "obs": [],
+   "review": {
+    "factcheck": {
+     "by": "Fox 5 Atlanta, with Walmart's response",
+     "verdict": "Not accurate: discontinued items in the old order were repriced at inflated third-party prices",
+     "url": "https://www.fox5atlanta.com/news/viral-tiktok-video-claims-walmart-grocery-prices-have-skyrocketed"
+    },
+    "disputed": true,
+    "store_check": "n/a",
+    "primary_document": false,
+    "outlets": 6,
+    "document_note": "The video showed the two totals, not the item lists. Other shoppers who tried the same button on 2021 orders reported differences of $9 and of about 30%."
+   },
+   "sources": [
+    {
+     "publisher": "Fox 5 Atlanta",
+     "title": "Viral TikTok video claims Walmart grocery prices have skyrocketed",
+     "date": "2024-06-28",
+     "url": "https://www.fox5atlanta.com/news/viral-tiktok-video-claims-walmart-grocery-prices-have-skyrocketed"
+    },
+    {
+     "publisher": "The Daily Dot",
+     "title": "Walmart shopper finds receipt from 2022. He's shocked at how much $126 of groceries costs today",
+     "date": "2024-06",
+     "url": "https://dailydot.com/walmart-prices-2022-vs-2024"
+    },
+    {
+     "publisher": "Distractify",
+     "title": "Man Reorders Same Grocery List From Two Years Ago to Check Inflation",
+     "date": "2024-07-01",
+     "url": "https://www.distractify.com/p/reorder-groceries-cost-inflation"
+    }
+   ]
+  },
+  {
+   "id": "curtdogg-2020-2023",
+   "kind": "receipt pair",
+   "title": "Great Value prices on a 2020 order against 2023",
+   "platform": "TikTok (from a Facebook post)",
+   "account": "@__curtdogg",
+   "posted": "2023-09",
+   "url": "https://www.tiktok.com/@__curtdogg/video/7274427222029552938",
+   "store": {
+    "chain": "Walmart (mobile orders)",
+    "number": null,
+    "place": null,
+    "region": null
+   },
+   "claim": "Receipts for the same Walmart mobile order in 2020 and 2023 show store-brand items up by as much as double.",
+   "totals": [],
+   "obs": [
+    {
+     "item": null,
+     "label": "Great Value mesquite smoked turkey breast, family pack",
+     "date": "2020",
+     "price": 3.14,
+     "qty": null,
+     "src": 0
+    },
+    {
+     "item": null,
+     "label": "Great Value mesquite smoked turkey breast, family pack",
+     "date": "2023-09",
+     "price": 6.72,
+     "qty": null,
+     "src": 0
+    },
+    {
+     "item": null,
+     "label": "Great Value buttermilk waffles, 24",
+     "date": "2020",
+     "price": 2.93,
+     "qty": null,
+     "src": 0
+    },
+    {
+     "item": null,
+     "label": "Great Value buttermilk waffles, 24",
+     "date": "2023-09",
+     "price": 4.14,
+     "qty": null,
+     "src": 0
+    },
+    {
+     "item": null,
+     "label": "Great Value Vienna sausages, can",
+     "date": "2020",
+     "price": 0.43,
+     "qty": null,
+     "src": 0
+    },
+    {
+     "item": null,
+     "label": "Great Value Vienna sausages, can",
+     "date": "2023-09",
+     "price": 0.77,
+     "qty": null,
+     "src": 0
+    }
+   ],
+   "pairs": true,
+   "review": {
+    "factcheck": null,
+    "store_check": "n/a",
+    "primary_document": false,
+    "outlets": 2,
+    "document_note": "Third hand: a TikTok about a Facebook post of someone else's receipts. Eat This, Not That did not check the prices, and Walmart did not answer it."
+   },
+   "sources": [
+    {
+     "publisher": "Eat This, Not That",
+     "title": "Walmart Prices Have Skyrocketed & Customers Are Outraged",
+     "date": "2023-09",
+     "url": "https://www.eatthis.com/walmart-price-increases-2023/"
+    }
+   ]
+  },
+  {
+   "id": "kaypal-curbside",
+   "kind": "reorder",
+   "title": "A teacher's curbside order, September 2020 against September 2023",
+   "platform": "TikTok",
+   "account": "@kaypal7",
+   "posted": "2023-09",
+   "url": "https://www.tiktok.com/@kaypal7/video/7275110311533792555",
+   "store": {
+    "chain": "Walmart (curbside)",
+    "number": null,
+    "place": null,
+    "region": null
+   },
+   "claim": "An order that cost $161.18 with tax on Sept. 13, 2020, rebuilt item by item three years later, came to $205.52.",
+   "totals": [
+    {
+     "date": "2020-09-13",
+     "amount": 161.18
+    },
+    {
+     "date": "2023-09",
+     "amount": 205.52
+    }
+   ],
+   "basket_claim": {
+    "from": "2020-09",
+    "to": "2023-09",
+    "old": 161.18,
+    "new": 205.52,
+    "who": "the poster"
+   },
+   "obs": [],
+   "review": {
+    "factcheck": null,
+    "store_check": "n/a",
+    "primary_document": false,
+    "outlets": 1,
+    "document_note": "The order mixed food with household and classroom supplies, and a few items no longer sold were swapped for similar ones."
+   },
+   "sources": [
+    {
+     "publisher": "Distractify",
+     "title": "Walmart Curbside Order Price in 2020 Versus Now",
+     "date": "2023-09-21",
+     "url": "https://www.distractify.com/p/walmart-curbside-price-2020-vs-now"
+    }
+   ]
+  },
+  {
+   "id": "amywaytosave",
+   "kind": "receipt pair",
+   "title": "The same small cart, bought three times",
+   "platform": "TikTok",
+   "account": "@amywaytosave",
+   "posted": "2023-01",
+   "url": "https://www.tiktok.com/@amywaytosave",
+   "store": {
+    "chain": "Walmart",
+    "number": null,
+    "place": "The same store each time",
+    "region": null
+   },
+   "claim": "The same brands and sizes of staples (eggs, milk, flour and produce by weight) cost $10.09 in late 2020 and $15.10 in January 2023.",
+   "totals": [
+    {
+     "date": "2020-11",
+     "amount": 10.09,
+     "approx_date": true
+    },
+    {
+     "date": "2023-01",
+     "amount": 15.1
+    }
+   ],
+   "basket_claim": {
+    "from": "2020-11",
+    "to": "2023-01",
+    "old": 10.09,
+    "new": 15.1,
+    "who": "the poster",
+    "note": "The cart included eggs, which were at a record in January 2023 during the bird-flu outbreak."
+   },
+   "obs": [],
+   "review": {
+    "factcheck": null,
+    "store_check": "unknown",
+    "primary_document": false,
+    "outlets": 2,
+    "document_note": "She showed her receipts and published the item comparison on YouTube; The Watch has read only the totals, from Market Realist."
+   },
+   "sources": [
+    {
+     "publisher": "Market Realist",
+     "title": "Inflation or Price-Gouging? TikToker Questions Walmart's Prices",
+     "date": "2023-01-17",
+     "url": "https://marketrealist.com/consumer/woman-shares-walmart-food-inflation-in-last-two-years"
+    }
+   ]
+  },
+  {
+   "id": "horpedahl-2019",
+   "kind": "receipt pair",
+   "title": "An economist's own Walmart receipt, October 2019, repriced",
+   "platform": "Blog (Economist Writing Every Day)",
+   "account": "Jeremy Horpedahl",
+   "posted": "2024-08-28",
+   "url": "https://economistwritingeveryday.com/2024/08/28/grocery-inflation-since-2019-bls-data-is-probably-about-right/",
+   "store": {
+    "chain": "Walmart",
+    "number": null,
+    "place": null,
+    "region": null
+   },
+   "claim": "About 18 food items from an October 2019 receipt cost 23.8% more in August 2024 (25.5% after adjusting for smaller packages), with one outlier left out. Official grocery inflation over the same months: 26.4%.",
+   "totals": [],
+   "basket_claim": {
+    "from": "2019-10",
+    "to": "2024-08",
+    "pct": 23.8,
+    "who": "the author"
+   },
+   "obs": [],
+   "review": {
+    "factcheck": null,
+    "store_check": "n/a",
+    "primary_document": true,
+    "full_method": true,
+    "outlets": 1,
+    "document_note": "The receipts are published as PDFs and every item is matched to the same product. The item tables are images The Watch has not transcribed."
+   },
+   "sources": [
+    {
+     "publisher": "Economist Writing Every Day",
+     "title": "Grocery Inflation Since 2019: BLS Data is Probably About Right",
+     "date": "2024-08-28",
+     "url": "https://economistwritingeveryday.com/2024/08/28/grocery-inflation-since-2019-bls-data-is-probably-about-right/"
+    }
+   ]
+  },
+  {
+   "id": "horpedahl-2020",
+   "kind": "receipt pair",
+   "title": "The same economist's October 2020 receipt, repriced",
+   "platform": "Blog (Economist Writing Every Day)",
+   "account": "Jeremy Horpedahl",
+   "posted": "2024-08-28",
+   "url": "https://economistwritingeveryday.com/2024/08/28/grocery-inflation-since-2019-bls-data-is-probably-about-right/",
+   "store": {
+    "chain": "Walmart",
+    "number": null,
+    "place": null,
+    "region": null
+   },
+   "claim": "About 18 food items from an October 2020 receipt cost 23.4% more in August 2024. Official grocery inflation over the same months: 21.6%.",
+   "totals": [],
+   "basket_claim": {
+    "from": "2020-10",
+    "to": "2024-08",
+    "pct": 23.4,
+    "who": "the author"
+   },
+   "obs": [],
+   "review": {
+    "factcheck": null,
+    "store_check": "n/a",
+    "primary_document": true,
+    "full_method": true,
+    "outlets": 1,
+    "document_note": "Receipt published; one out-of-stock drink mix was replaced with a like product."
+   },
+   "sources": [
+    {
+     "publisher": "Economist Writing Every Day",
+     "title": "Grocery Inflation Since 2019: BLS Data is Probably About Right",
+     "date": "2024-08-28",
+     "url": "https://economistwritingeveryday.com/2024/08/28/grocery-inflation-since-2019-bls-data-is-probably-about-right/"
+    }
+   ]
+  },
+  {
+   "id": "reddit-1997",
+   "kind": "old receipt",
+   "title": "A 1997 Walmart receipt, about 20 items for under $30",
+   "platform": "Reddit",
+   "account": "u/Lucy_Sterling",
+   "posted": "2026",
+   "url": "https://www.aol.com/finance/90s-grocery-receipts-todays-prices-170000333.html",
+   "store": {
+    "chain": "Walmart",
+    "number": null,
+    "place": null,
+    "region": null
+   },
+   "claim": "A 1997 Walmart receipt lists roughly 20 items for just under $30.",
+   "totals": [
+    {
+     "date": "1997",
+     "amount": 30,
+     "n": 20,
+     "approx": true
+    }
+   ],
+   "obs": [
+    {
+     "item": null,
+     "label": "Doritos",
+     "date": "1997",
+     "price": 2.0,
+     "qty": null,
+     "src": 0
+    },
+    {
+     "item": null,
+     "label": "Syrup",
+     "date": "1997",
+     "price": 1.77,
+     "qty": null,
+     "src": 0
+    },
+    {
+     "item": null,
+     "label": "Turkey breast, package",
+     "date": "1997",
+     "price": 5.41,
+     "qty": null,
+     "src": 0
+    }
+   ],
+   "review": {
+    "factcheck": null,
+    "store_check": "unknown",
+    "primary_document": false,
+    "outlets": 1,
+    "document_note": "Known to The Watch only through Cheapism's description; the thread itself has not been read."
+   },
+   "sources": [
+    {
+     "publisher": "Cheapism (via AOL)",
+     "title": "These '90s Grocery Receipts Make Today's Prices Look Wild",
+     "date": "2026",
+     "url": "https://www.aol.com/finance/90s-grocery-receipts-todays-prices-170000333.html"
+    }
+   ]
+  },
+  {
+   "id": "fifty-dollars",
+   "kind": "claim",
+   "title": "\"What $50 gets you today\"",
+   "platform": "Facebook, Instagram, TikTok, YouTube",
+   "account": "A comedian's reel (tagged #comedy)",
+   "posted": "2024",
+   "url": "https://www.facebook.com/reel/7500717716641162",
+   "store": {
+    "chain": "Walmart (as priced by Snopes)",
+    "number": null,
+    "place": "Sacramento, Calif.",
+    "region": "0400"
+   },
+   "claim": "Six groceries (asparagus, milk, ranch dressing, an apple, eggs and bread) are what $50 buys now.",
+   "totals": [
+    {
+     "date": "2024",
+     "amount": 50,
+     "n": 6,
+     "claimed": true
+    }
+   ],
+   "obs": [
+    {
+     "item": "milk",
+     "label": "Great Value milk, gallon",
+     "date": "2024",
+     "price": 3.13,
+     "qty": 1,
+     "src": 0,
+     "check": true
+    },
+    {
+     "item": "eggs",
+     "label": "Great Value jumbo white eggs, dozen",
+     "date": "2024",
+     "price": 2.58,
+     "qty": 1,
+     "src": 0,
+     "check": true,
+     "note": "Jumbo; the official series is large."
+    },
+    {
+     "item": "bread",
+     "label": "Sunbeam white bread, loaf",
+     "date": "2024",
+     "price": 2.48,
+     "qty": null,
+     "src": 0,
+     "check": true
+    },
+    {
+     "item": null,
+     "label": "Asparagus, bunch",
+     "date": "2024",
+     "price": 3.57,
+     "qty": null,
+     "src": 0,
+     "check": true
+    },
+    {
+     "item": null,
+     "label": "Hidden Valley ranch, 16 oz",
+     "date": "2024",
+     "price": 4.18,
+     "qty": null,
+     "src": 0,
+     "check": true
+    },
+    {
+     "item": null,
+     "label": "Red apple, one",
+     "date": "2024",
+     "price": 1.3,
+     "qty": null,
+     "src": 0,
+     "check": true
+    }
+   ],
+   "review": {
+    "factcheck": {
+     "by": "Snopes",
+     "verdict": "The six items cost about $18 at Walmart, not $50; the video was posted as comedy",
+     "url": "https://ca.style.yahoo.com/50-gets-today-users-discuss-213600248.html"
+    },
+    "disputed": true,
+    "store_check": "n/a",
+    "primary_document": false,
+    "counter_total": {
+     "amount": 17.24,
+     "what": "Snopes' subtotal for the six items on Walmart.com, Sacramento"
+    }
+   },
+   "sources": [
+    {
+     "publisher": "Snopes (via Yahoo)",
+     "title": "'What $50 Gets You Today': Users Discuss Accuracy of Viral Video About US Grocery Prices",
+     "date": "2024",
+     "url": "https://ca.style.yahoo.com/50-gets-today-users-discuss-213600248.html"
+    }
+   ]
+  },
+  {
+   "id": "thanksgiving-basket",
+   "kind": "claim",
+   "title": "Walmart's Thanksgiving basket: $55, then $40",
+   "platform": "Remarks by President Trump",
+   "account": "Donald Trump",
+   "posted": "2025-11-06",
+   "url": "https://www.politifact.com/factchecks/2025/nov/14/donald-trump/walmart-thanksgiving-grocery-prices-inflation/",
+   "store": {
+    "chain": "Walmart",
+    "number": null,
+    "place": "National promotion",
+    "region": null
+   },
+   "claim": "Walmart's 2025 Thanksgiving package shows a \"25% reduction in costs for Thanksgiving between Biden and me.\"",
+   "totals": [
+    {
+     "date": "2024-11",
+     "amount": 55,
+     "n": 29
+    },
+    {
+     "date": "2025-11",
+     "amount": 40
+    }
+   ],
+   "basket_claim": {
+    "from": "2024-11",
+    "to": "2025-11",
+    "old": 55,
+    "new": 40,
+    "who": "the president"
+   },
+   "obs": [],
+   "review": {
+    "factcheck": {
+     "by": "PolitiFact",
+     "verdict": "Misleading: the 2025 package had fewer and smaller items; grocery prices were up almost 1.9% over the period",
+     "url": "https://www.politifact.com/factchecks/2025/nov/14/donald-trump/walmart-thanksgiving-grocery-prices-inflation/"
+    },
+    "disputed": true,
+    "store_check": "n/a",
+    "primary_document": false,
+    "counter_total": {
+     "amount": 63.45,
+     "what": "what the items in the original 2024 basket cost at Walmart in November 2026, per The New Republic"
+    }
+   },
+   "sources": [
+    {
+     "publisher": "PolitiFact",
+     "title": "President Donald Trump misleads about Walmart Thanksgiving dinner price comparison",
+     "date": "2025-11-14",
+     "url": "https://www.politifact.com/factchecks/2025/nov/14/donald-trump/walmart-thanksgiving-grocery-prices-inflation/"
+    },
+    {
+     "publisher": "The New Republic",
+     "title": "Walmart Holiday Basket Gets Even Sadder as Trump Tanks Economy",
+     "date": "2026-11-13",
+     "url": "https://newrepublic.com/post/217981/walmart-holiday-meal-basket-donald-trump-economy"
+    }
+   ]
+  },
+  {
+   "id": "dc-tracker-2025",
+   "kind": "price check",
+   "title": "A TV station's monthly Walmart price run, Washington area",
+   "platform": "DC News Now (Nexstar)",
+   "account": "DC News Now",
+   "posted": "2025-02",
+   "url": "https://www.yahoo.com/news/dmv-grocery-prices-rise-slightly-141609785.html",
+   "store": {
+    "chain": "Walmart",
+    "number": null,
+    "place": "Washington, D.C., area",
+    "region": "0300"
+   },
+   "claim": "Ten staples priced at Walmart, Giant and Safeway each month.",
+   "totals": [],
+   "obs": [
+    {
+     "item": "eggs",
+     "label": "Brown eggs",
+     "date": "2025-02",
+     "price": 5.67,
+     "qty": null,
+     "src": 0,
+     "check": true,
+     "note": "Brown eggs, size not given: not comparable with the official large white series."
+    },
+    {
+     "item": "bread",
+     "label": "Wheat bread, 20 oz",
+     "date": "2025-02",
+     "price": 1.42,
+     "qty": null,
+     "src": 0,
+     "check": true
+    },
+    {
+     "item": "milk",
+     "label": "2% milk",
+     "date": "2025-02",
+     "price": 2.62,
+     "qty": null,
+     "src": 0,
+     "check": true,
+     "note": "Size not given."
+    }
+   ],
+   "review": {
+    "factcheck": null,
+    "store_check": "n/a",
+    "primary_document": false,
+    "reporter_priced": true,
+    "outlets": 1
+   },
+   "sources": [
+    {
+     "publisher": "DC News Now (via Yahoo)",
+     "title": "DMV grocery prices rise slightly this month as lower inflation is expected for 2025",
+     "date": "2025-02",
+     "url": "https://www.yahoo.com/news/dmv-grocery-prices-rise-slightly-141609785.html"
+    }
+   ]
+  },
+  {
+   "id": "canada-2020-2024",
+   "kind": "reorder",
+   "title": "A Canadian's 2020 Walmart order, repeated in 2024",
+   "platform": "Reddit (r/povertyfinancecanada)",
+   "account": "u/MrCrix",
+   "posted": "2024-08",
+   "url": "https://dailyhive.com/calgary/walmart-grocery-order-comparison-2020-2024",
+   "store": {
+    "chain": "Walmart Canada (through a delivery app)",
+    "number": null,
+    "place": "Canada",
+    "region": null
+   },
+   "claim": "Twenty-two items that cost C$145.87 on Nov. 30, 2020, cost C$214.72 in 2024, up 47.2%, fees and tip included.",
+   "totals": [
+    {
+     "date": "2020-11-30",
+     "amount": 145.87,
+     "n": 22,
+     "currency": "CAD"
+    },
+    {
+     "date": "2024-08",
+     "amount": 214.72,
+     "n": 22,
+     "currency": "CAD"
+    }
+   ],
+   "obs": [],
+   "review": {
+    "factcheck": null,
+    "store_check": "n/a",
+    "primary_document": false,
+    "outlets": 1,
+    "outside_scope": "Canadian dollars and Canadian prices: logged, kept out of the U.S. comparisons. Daily Hive notes the Bank of Canada's calculator puts C$145.87 at about C$172.34, and that the totals include delivery fees and tips."
+   },
+   "sources": [
+    {
+     "publisher": "Daily Hive",
+     "title": "Canadian repeats 2020 Walmart grocery order in 2024",
+     "date": "2024-08",
+     "url": "https://dailyhive.com/calgary/walmart-grocery-order-comparison-2020-2024"
+    }
+   ]
+  }
+ ],
+ "leads": [
+  {
+   "what": "A 2012 Walmart receipt \"found in my old car\"",
+   "where": "TikTok, @awesomebrittnie",
+   "why": "Seen only as a search listing; the video has not been read."
+  },
+  {
+   "what": "A July 2022 Walmart receipt against prices a year later",
+   "where": "TikTok, @87.chris",
+   "why": "Seen only as a search listing."
+  },
+  {
+   "what": "The full 79 lines of the 2006 receipt",
+   "where": "X, @ruledbymercuryy",
+   "why": "Only the 19 lines reported by news outlets are in the database; the image needs transcribing."
+  },
+  {
+   "what": "The item tables for the two economist receipts",
+   "where": "Economist Writing Every Day",
+   "why": "Published as images and PDFs; roughly 36 matched item pairs."
+  },
+  {
+   "what": "The other look-alike AI receipt images",
+   "where": "Lead Stories' prebunk",
+   "why": "Lead Stories describes several; one is logged."
+  },
+  {
+   "what": "A 1997 H-E-B receipt (122 items, $155) and a 1997 Stop & Shop receipt ($20.31, now just over $43)",
+   "where": "TikTok, Reddit, WFSB",
+   "why": "Not Walmart; held for a wider all-stores ledger."
+  }
+ ]
+}

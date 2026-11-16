@@ -1,0 +1,55 @@
+name: The Watch Checkout (prices)
+# The Checkout (news/prices/): reads the official average-price series (BLS files, then FRED, then the BLS API; the sandbox
+# can't reach them, the runner can), runs the checker over the receipt ledger, and rebuilds the page. A failed check
+# (malformed record, failed self-test, failed canary, feed disagreeing with a published figure) fails the job and the
+# page is not rebuilt; the fetched series and the audit are still committed so the failure can be read.
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '20 14 * * *'
+  push:
+    branches: [main]
+    paths: ['news/prices/data/posts.json', 'news/prices/data/items.json', 'news/prices/tools/**', 'news/prices/build.py', 'news/prices/fetch.json']
+permissions:
+  contents: write
+concurrency:
+  group: the-watch-prices
+  cancel-in-progress: false
+jobs:
+  build:
+    if: github.repository == 'BBOLDT86/lanscape-navigator'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Read the official series
+        env:
+          BLS_API_KEY: ${{ secrets.BLS_API_KEY }}
+        run: python3 news/prices/tools/fetch.py || echo "fetch crashed; building from what is on file"
+      - name: Check and build
+        id: check
+        run: |
+          set +e
+          python3 news/prices/tools/verify.py; code=$?
+          if [ $code -eq 0 ]; then python3 news/prices/build.py || code=$?; fi
+          echo "code=$code" >> "$GITHUB_OUTPUT"
+      - name: Commit and push
+        run: |
+          git config user.name "The Watch updater"
+          git config user.email "the-watch-news@users.noreply.github.com"
+          git add news/prices/data news/prices/index.html
+          if git diff --cached --quiet; then echo "no change"; else
+            git commit -qm "The Watch: The Checkout, official prices and checks"
+            for i in 1 2 3; do
+              git pull --rebase -X theirs origin main && git push -q origin HEAD:main && break
+              sleep 10
+            done
+          fi
+      - name: Fail if a check failed
+        if: steps.check.outputs.code != '0'
+        run: exit 1
