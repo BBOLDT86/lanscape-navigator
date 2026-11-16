@@ -1,0 +1,43 @@
+name: The Watch quiet sky data
+# The quiet sky (news/airspace/): recorded aircraft positions over the U.S. for the Nov. 13, 2026 ground stop, read from
+# ADSB.lol's open daily archive (GitHub release downloads, about 3 GB a day; the sandbox can't reach them, the runner
+# can) by news/airspace/tools/fetch.py. Started by a push that changes news/airspace/fetch.json (the request: window
+# start, hours, step, baseline) or by hand. Commits news/airspace/data/.
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['news/airspace/fetch.json']
+permissions:
+  contents: write
+concurrency:
+  group: the-watch-airspace
+  cancel-in-progress: false
+jobs:
+  fetch:
+    if: github.repository == 'BBOLDT86/lanscape-navigator'
+    runs-on: ubuntu-latest
+    timeout-minutes: 75
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Read the recorded positions
+        run: |
+          pip install -q numpy pillow
+          python3 news/airspace/tools/fetch.py
+      - name: Commit and push
+        run: |
+          git config user.name "The Watch updater"
+          git config user.email "the-watch-news@users.noreply.github.com"
+          git add news/airspace/data
+          if git diff --cached --quiet; then echo "no change"; exit 0; fi
+          git commit -qm "The Watch: The quiet sky, recorded positions"
+          for i in 1 2 3; do
+            git pull --rebase -X theirs origin main && git push -q origin HEAD:main && exit 0
+            sleep 10
+          done
+          echo "push failed" >&2; exit 1
