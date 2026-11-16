@@ -83,7 +83,7 @@ for iid in ['milk', 'eggs', 'bread', 'chicken_breast', 'bananas', 'coffee']:
 off_tbl = ''
 if official:
     for it in V['items']:
-        if not it['current']:
+        if not it['current'] or not it.get('core', True):
             continue
         off_tbl += '<tr><td><a href="#stage" data-see="%s">%s</a> <small>per %s</small></td><td class="num">%s<br><small>%s</small></td><td class="num">%s</td><td class="num">%s</td><td class="num"><b>%s</b></td><td class="num">%s</td><td class="num">%s</td></tr>' % (
             it['id'], E(it['long']), E(it['unit']), usd(it['then']), d(it['then_month']), usd(it['y2019']), usd(it['year_ago']), usd(it['now']), pct(it['now'], it['year_ago']), pct(it['now'], it['y2019']))

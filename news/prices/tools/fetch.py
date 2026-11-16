@@ -14,7 +14,7 @@ A run that brings back fewer series than the file already holds keeps the old se
   python3 news/prices/tools/fetch.py            # real
   python3 news/prices/tools/fetch.py --mock     # made-up series, flagged "mock", for testing the pages locally
 """
-import csv, io, json, math, os, random, sys, time, traceback, urllib.request, datetime
+import csv, io, json, re, math, os, random, sys, time, traceback, urllib.request, datetime
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 DATA = os.path.join(HERE, '..', 'data')
@@ -167,7 +167,7 @@ def main():
         out['mock'] = True
         json.dump(out, open(path, 'w'), separators=(',', ':'))
         print('mock official.json written'); return
-    want = ['APU' + a + it['bls'] for it in items for a in areas]
+    want = ['APU' + a + it['bls'] for it in items for a in (areas if it.get('core', True) else areas[:1])]
     got, names = {}, {}
     try:
         got, names = flat_ap(want)
@@ -185,9 +185,25 @@ def main():
         a = bls_api(miss)
         for s, d in a.items():
             got[s] = d; out['routes'][s] = 'bls-api'
-    # the item names from BLS must contain the word items.json expects
+    # titles: from BLS's item file when it could be read, else from the FRED page of the U.S. series
+    for it in items:
+        if it['bls'] in names or ('APU0000' + it['bls']) not in got:
+            continue
+        try:
+            pg = get('https://fred.stlouisfed.org/series/APU0000' + it['bls'], timeout=40).decode('utf-8', 'replace')
+            m = re.search(r'<title>\s*(.*?)\s*\|', pg, re.S)
+            if m and 'APU0000' + it['bls'] in pg:
+                names[it['bls']] = re.sub(r'\s+', ' ', m.group(1)).replace('&amp;', '&').replace('&#39;', "'").replace('&quot;', '"')
+        except Exception as e:
+            log('fred-title', it['bls'], False, err=e)
+        time.sleep(0.3)
+    log('titles', 'read', bool(names), len(names))
+    # the item names must contain the word items.json expects; an added (non-core) item with no title read is dropped
     for it in items:
         nm = names.get(it['bls'])
+        if not nm and not it.get('core', True):
+            out['rejected'].append({'item': it['id'], 'code': it['bls'], 'why': 'title could not be read; added items need a confirmed title'})
+            got.pop('APU0000' + it['bls'], None)
         if nm:
             out['titles'][it['id']] = nm
             if it['expect'].lower() not in nm.lower():
@@ -197,7 +213,7 @@ def main():
     # values must be sane
     for sid in list(got):
         vals = [v for v in got[sid].values() if isinstance(v, (int, float))]
-        if not vals or min(vals) <= 0 or max(vals) > 60:
+        if not vals or min(vals) <= 0 or max(vals) > 80:
             out['rejected'].append({'series': sid, 'why': 'values out of range', 'min': min(vals) if vals else None, 'max': max(vals) if vals else None})
             got.pop(sid)
     # indexes: FRED first (flat CPI files are very large), then the API
@@ -216,6 +232,7 @@ def main():
     out['series'] = {s: {k: got[s][k] for k in sorted(got[s])} for s in sorted(got)}
     out['log'] = LOG
     out['asked'] = len(want) + len(indexes)
+    out['titles'] = {k: v for k, v in out['titles'].items()}
     json.dump(out, open(path, 'w'), separators=(',', ':'))
     print('official.json: %d of %d series; rejected %d' % (len(out['series']), out['asked'], len(out['rejected'])))
 

@@ -68,7 +68,7 @@ export async function mount(el, opts = {}) {
   renderer.setClearColor(FOG, 1);
   const scene = new THREE.Scene();
   const cam = new THREE.PerspectiveCamera(36, 1, 1, 6000);
-  const items = V.items, N = items.length, NM = V.n_months;
+  const items = V.items.filter(i => O.items ? O.items.includes(i.id) : i.core !== false), N = items.length, NM = V.n_months;
   const DX = 30, W = 17, LEN = 620, HS = 26;
   const X = i => (i - (N - 1) / 2) * DX, Z = k => (k / (NM - 1) - 0.5) * LEN;
   const filled = items.map(it => { const a = []; let last = null; for (let k = 0; k < NM; k++) { if (it.m[k] != null) last = it.m[k]; a.push(k >= it.first ? last : null); } return a; });

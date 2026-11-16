@@ -1,31 +1,695 @@
 {
-  "_about": "The staples The Checkout tracks. `bls` is the item code of the Bureau of Labor Statistics average-price series (series id = APU + area + code; area 0000 U.S. city average, 0100 Northeast, 0200 Midwest, 0300 South, 0400 West). `expect` is a word the official series title must contain: fetch.py refuses a series whose title does not match, so a wrong code cannot quietly feed the charts. `basket` is the quantity in The Watch's fixed basket.",
-  "areas": {"0000": "U.S.", "0100": "Northeast", "0200": "Midwest", "0300": "South", "0400": "West"},
-  "items": [
-    {"id": "eggs", "name": "Eggs", "long": "Eggs, grade A, large", "unit": "dozen", "bls": "708111", "expect": "egg", "basket": 1, "aliases": ["eggs", "dozen eggs", "eggs 12 ct"]},
-    {"id": "milk", "name": "Milk", "long": "Milk, fresh, whole", "unit": "gallon", "bls": "709112", "expect": "milk", "basket": 1, "aliases": ["milk", "milk 1 gal", "vitamin d milk"]},
-    {"id": "bread", "name": "Bread", "long": "Bread, white, pan", "unit": "lb", "bls": "702111", "expect": "bread", "basket": 1, "aliases": ["bread", "white bread"]},
-    {"id": "beef", "name": "Ground beef", "long": "Ground beef, 100%", "unit": "lb", "bls": "703112", "expect": "beef", "basket": 1, "aliases": ["ground beef", "hamburger"]},
-    {"id": "chicken_breast", "name": "Chicken breast", "long": "Chicken breast, boneless", "unit": "lb", "bls": "FF1101", "expect": "chicken", "basket": 1, "aliases": ["chicken breast", "chkn breast"]},
-    {"id": "chicken", "name": "Whole chicken", "long": "Chicken, fresh, whole", "unit": "lb", "bls": "706111", "expect": "chicken", "basket": 0, "aliases": ["whole chicken"]},
-    {"id": "bacon", "name": "Bacon", "long": "Bacon, sliced", "unit": "lb", "bls": "704111", "expect": "bacon", "basket": 1, "aliases": ["bacon"]},
-    {"id": "bananas", "name": "Bananas", "long": "Bananas", "unit": "lb", "bls": "711211", "expect": "banana", "basket": 3, "aliases": ["bananas"]},
-    {"id": "oranges", "name": "Oranges", "long": "Oranges, navel", "unit": "lb", "bls": "711311", "expect": "orange", "basket": 0, "aliases": ["navel oranges"]},
-    {"id": "tomatoes", "name": "Tomatoes", "long": "Tomatoes, field grown", "unit": "lb", "bls": "712311", "expect": "tomato", "basket": 1, "aliases": ["tomatoes"]},
-    {"id": "potatoes", "name": "Potatoes", "long": "Potatoes, white", "unit": "lb", "bls": "712112", "expect": "potato", "basket": 5, "aliases": ["potatoes", "russet potatoes"]},
-    {"id": "lettuce", "name": "Lettuce", "long": "Lettuce, iceberg", "unit": "lb", "bls": "712211", "expect": "lettuce", "basket": 0, "aliases": ["lettuce"]},
-    {"id": "coffee", "name": "Coffee", "long": "Coffee, 100%, ground roast", "unit": "lb", "bls": "717311", "expect": "coffee", "basket": 1, "aliases": ["coffee"]},
-    {"id": "sugar", "name": "Sugar", "long": "Sugar, white", "unit": "lb", "bls": "715211", "expect": "sugar", "basket": 0, "aliases": ["sugar"]},
-    {"id": "flour", "name": "Flour", "long": "Flour, white, all purpose", "unit": "lb", "bls": "701111", "expect": "flour", "basket": 0, "aliases": ["flour"]},
-    {"id": "rice", "name": "Rice", "long": "Rice, white, long grain", "unit": "lb", "bls": "701312", "expect": "rice", "basket": 0, "aliases": ["rice"]},
-    {"id": "pasta", "name": "Pasta", "long": "Spaghetti and macaroni", "unit": "lb", "bls": "701322", "expect": "spaghetti", "basket": 0, "aliases": ["spaghetti", "pasta"]},
-    {"id": "butter", "name": "Butter", "long": "Butter, stick", "unit": "lb", "bls": "FS1101", "expect": "butter", "basket": 1, "aliases": ["butter"]},
-    {"id": "cheese", "name": "Cheddar", "long": "Cheddar cheese, natural", "unit": "lb", "bls": "710212", "expect": "chedd", "basket": 0, "aliases": ["cheddar", "cheese"]},
-    {"id": "chips", "name": "Potato chips", "long": "Potato chips", "unit": "16 oz", "bls": "718311", "expect": "chip", "basket": 0, "aliases": ["potato chips", "lay's chips"]}
-  ],
-  "indexes": [
-    {"id": "food_home", "name": "Groceries (CPI, food at home)", "bls": "CUUR0000SAF11", "fred": "CUUR0000SAF11"},
-    {"id": "all_items", "name": "All prices (CPI-U)", "bls": "CUUR0000SA0", "fred": "CPIAUCNS"},
-    {"id": "wage", "name": "Average hourly pay, production and nonsupervisory workers", "bls": "CES0500000008", "fred": "AHETPI"}
-  ]
+ "_about": "The staples The Checkout tracks. `bls` is the item code of the Bureau of Labor Statistics average-price series (series id = APU + area + code; area 0000 U.S. city average, 0100 Northeast, 0200 Midwest, 0300 South, 0400 West). `expect` is a word the official series title must contain: fetch.py refuses a series whose title does not match, so a wrong code cannot quietly feed the charts. `basket` is the quantity in The Watch's fixed basket. Items with core:false were added for The Cart: they are read for the U.S. average only, their unit is taken from the official series title, and they are dropped unless that title is read and contains `expect`.",
+ "areas": {
+  "0000": "U.S.",
+  "0100": "Northeast",
+  "0200": "Midwest",
+  "0300": "South",
+  "0400": "West"
+ },
+ "items": [
+  {
+   "id": "eggs",
+   "name": "Eggs",
+   "long": "Eggs, grade A, large",
+   "unit": "dozen",
+   "bls": "708111",
+   "expect": "egg",
+   "basket": 1,
+   "aliases": [
+    "eggs",
+    "dozen eggs",
+    "eggs 12 ct"
+   ],
+   "core": true,
+   "cat": "Dairy & eggs"
+  },
+  {
+   "id": "milk",
+   "name": "Milk",
+   "long": "Milk, fresh, whole",
+   "unit": "gallon",
+   "bls": "709112",
+   "expect": "milk",
+   "basket": 1,
+   "aliases": [
+    "milk",
+    "milk 1 gal",
+    "vitamin d milk"
+   ],
+   "core": true,
+   "cat": "Dairy & eggs"
+  },
+  {
+   "id": "bread",
+   "name": "Bread",
+   "long": "Bread, white, pan",
+   "unit": "lb",
+   "bls": "702111",
+   "expect": "bread",
+   "basket": 1,
+   "aliases": [
+    "bread",
+    "white bread"
+   ],
+   "core": true,
+   "cat": "Bakery & pantry"
+  },
+  {
+   "id": "beef",
+   "name": "Ground beef",
+   "long": "Ground beef, 100%",
+   "unit": "lb",
+   "bls": "703112",
+   "expect": "beef",
+   "basket": 1,
+   "aliases": [
+    "ground beef",
+    "hamburger"
+   ],
+   "core": true,
+   "cat": "Meat & fish"
+  },
+  {
+   "id": "chicken_breast",
+   "name": "Chicken breast",
+   "long": "Chicken breast, boneless",
+   "unit": "lb",
+   "bls": "FF1101",
+   "expect": "chicken",
+   "basket": 1,
+   "aliases": [
+    "chicken breast",
+    "chkn breast"
+   ],
+   "core": true,
+   "cat": "Meat & fish"
+  },
+  {
+   "id": "chicken",
+   "name": "Whole chicken",
+   "long": "Chicken, fresh, whole",
+   "unit": "lb",
+   "bls": "706111",
+   "expect": "chicken",
+   "basket": 0,
+   "aliases": [
+    "whole chicken"
+   ],
+   "core": true,
+   "cat": "Meat & fish"
+  },
+  {
+   "id": "bacon",
+   "name": "Bacon",
+   "long": "Bacon, sliced",
+   "unit": "lb",
+   "bls": "704111",
+   "expect": "bacon",
+   "basket": 1,
+   "aliases": [
+    "bacon"
+   ],
+   "core": true,
+   "cat": "Meat & fish"
+  },
+  {
+   "id": "bananas",
+   "name": "Bananas",
+   "long": "Bananas",
+   "unit": "lb",
+   "bls": "711211",
+   "expect": "banana",
+   "basket": 3,
+   "aliases": [
+    "bananas"
+   ],
+   "core": true,
+   "cat": "Produce"
+  },
+  {
+   "id": "oranges",
+   "name": "Oranges",
+   "long": "Oranges, navel",
+   "unit": "lb",
+   "bls": "711311",
+   "expect": "orange",
+   "basket": 0,
+   "aliases": [
+    "navel oranges"
+   ],
+   "core": true,
+   "cat": "Produce"
+  },
+  {
+   "id": "tomatoes",
+   "name": "Tomatoes",
+   "long": "Tomatoes, field grown",
+   "unit": "lb",
+   "bls": "712311",
+   "expect": "tomato",
+   "basket": 1,
+   "aliases": [
+    "tomatoes"
+   ],
+   "core": true,
+   "cat": "Produce"
+  },
+  {
+   "id": "potatoes",
+   "name": "Potatoes",
+   "long": "Potatoes, white",
+   "unit": "lb",
+   "bls": "712112",
+   "expect": "potato",
+   "basket": 5,
+   "aliases": [
+    "potatoes",
+    "russet potatoes"
+   ],
+   "core": true,
+   "cat": "Produce"
+  },
+  {
+   "id": "lettuce",
+   "name": "Lettuce",
+   "long": "Lettuce, iceberg",
+   "unit": "lb",
+   "bls": "712211",
+   "expect": "lettuce",
+   "basket": 0,
+   "aliases": [
+    "lettuce"
+   ],
+   "core": true,
+   "cat": "Produce"
+  },
+  {
+   "id": "coffee",
+   "name": "Coffee",
+   "long": "Coffee, 100%, ground roast",
+   "unit": "lb",
+   "bls": "717311",
+   "expect": "coffee",
+   "basket": 1,
+   "aliases": [
+    "coffee"
+   ],
+   "core": true,
+   "cat": "Drinks"
+  },
+  {
+   "id": "sugar",
+   "name": "Sugar",
+   "long": "Sugar, white",
+   "unit": "lb",
+   "bls": "715211",
+   "expect": "sugar",
+   "basket": 0,
+   "aliases": [
+    "sugar"
+   ],
+   "core": true,
+   "cat": "Bakery & pantry"
+  },
+  {
+   "id": "flour",
+   "name": "Flour",
+   "long": "Flour, white, all purpose",
+   "unit": "lb",
+   "bls": "701111",
+   "expect": "flour",
+   "basket": 0,
+   "aliases": [
+    "flour"
+   ],
+   "core": true,
+   "cat": "Bakery & pantry"
+  },
+  {
+   "id": "rice",
+   "name": "Rice",
+   "long": "Rice, white, long grain",
+   "unit": "lb",
+   "bls": "701312",
+   "expect": "rice",
+   "basket": 0,
+   "aliases": [
+    "rice"
+   ],
+   "core": true,
+   "cat": "Bakery & pantry"
+  },
+  {
+   "id": "pasta",
+   "name": "Pasta",
+   "long": "Spaghetti and macaroni",
+   "unit": "lb",
+   "bls": "701322",
+   "expect": "spaghetti",
+   "basket": 0,
+   "aliases": [
+    "spaghetti",
+    "pasta"
+   ],
+   "core": true,
+   "cat": "Bakery & pantry"
+  },
+  {
+   "id": "butter",
+   "name": "Butter",
+   "long": "Butter, stick",
+   "unit": "lb",
+   "bls": "FS1101",
+   "expect": "butter",
+   "basket": 1,
+   "aliases": [
+    "butter"
+   ],
+   "core": true,
+   "cat": "Dairy & eggs"
+  },
+  {
+   "id": "cheese",
+   "name": "Cheddar",
+   "long": "Cheddar cheese, natural",
+   "unit": "lb",
+   "bls": "710212",
+   "expect": "chedd",
+   "basket": 0,
+   "aliases": [
+    "cheddar",
+    "cheese"
+   ],
+   "core": true,
+   "cat": "Dairy & eggs"
+  },
+  {
+   "id": "chips",
+   "name": "Potato chips",
+   "long": "Potato chips",
+   "unit": "16 oz",
+   "bls": "718311",
+   "expect": "chip",
+   "basket": 0,
+   "aliases": [
+    "potato chips",
+    "lay's chips"
+   ],
+   "core": true,
+   "cat": "Snacks & sweets"
+  },
+  {
+   "id": "bread_wheat",
+   "name": "Wheat bread",
+   "long": "Wheat bread",
+   "unit": null,
+   "bls": "702212",
+   "expect": "wheat",
+   "basket": 0,
+   "aliases": [],
+   "core": false,
+   "cat": "Bakery & pantry"
+  },
+  {
+   "id": "cookies",
+   "name": "Chocolate chip cookies",
+   "long": "Chocolate chip cookies",
+   "unit": null,
+   "bls": "702421",
+   "expect": "cookie",
+   "basket": 0,
+   "aliases": [],
+   "core": false,
+   "cat": "Snacks & sweets"
+  },
+  {
+   "id": "ground_chuck",
+   "name": "Ground chuck",
+   "long": "Ground chuck",
+   "unit": null,
+   "bls": "703111",
+   "expect": "chuck",
+   "basket": 0,
+   "aliases": [],
+   "core": false,
+   "cat": "Meat & fish"
+  },
+  {
+   "id": "chuck_roast",
+   "name": "Chuck roast",
+   "long": "Chuck roast",
+   "unit": null,
+   "bls": "703213",
+   "expect": "chuck",
+   "basket": 0,
+   "aliases": [],
+   "core": false,
+   "cat": "Meat & fish"
+  },
+  {
+   "id": "round_steak",
+   "name": "Round steak",
+   "long": "Round steak",
+   "unit": null,
+   "bls": "703511",
+   "expect": "steak",
+   "basket": 0,
+   "aliases": [],
+   "core": false,
+   "cat": "Meat & fish"
+  },
+  {
+   "id": "sirloin",
+   "name": "Sirloin steak",
+   "long": "Sirloin steak",
+   "unit": null,
+   "bls": "703613",
+   "expect": "sirloin",
+   "basket": 0,
+   "aliases": [],
+   "core": false,
+   "cat": "Meat & fish"
+  },
+  {
+   "id": "pork_chops",
+   "name": "Pork chops",
+   "long": "Pork chops",
+   "unit": null,
+   "bls": "704211",
+   "expect": "chop",
+   "basket": 0,
+   "aliases": [],
+   "core": false,
+   "cat": "Meat & fish"
+  },
+  {
+   "id": "ham",
+   "name": "Ham",
+   "long": "Ham",
+   "unit": null,
+   "bls": "704312",
+   "expect": "ham",
+   "basket": 0,
+   "aliases": [],
+   "core": false,
+   "cat": "Meat & fish"
+  },
+  {
+   "id": "chicken_legs",
+   "name": "Chicken legs",
+   "long": "Chicken legs",
+   "unit": null,
+   "bls": "706212",
+   "expect": "leg",
+   "basket": 0,
+   "aliases": [],
+   "core": false,
+   "cat": "Meat & fish"
+  },
+  {
+   "id": "tuna",
+   "name": "Canned tuna",
+   "long": "Canned tuna",
+   "unit": null,
+   "bls": "707111",
+   "expect": "tuna",
+   "basket": 0,
+   "aliases": [],
+   "core": false,
+   "cat": "Meat & fish"
+  },
+  {
+   "id": "american_cheese",
+   "name": "American cheese",
+   "long": "American cheese",
+   "unit": null,
+   "bls": "710211",
+   "expect": "american",
+   "basket": 0,
+   "aliases": [],
+   "core": false,
+   "cat": "Dairy & eggs"
+  },
+  {
+   "id": "ice_cream",
+   "name": "Ice cream",
+   "long": "Ice cream",
+   "unit": null,
+   "bls": "710411",
+   "expect": "ice cream",
+   "basket": 0,
+   "aliases": [],
+   "core": false,
+   "cat": "Snacks & sweets"
+  },
+  {
+   "id": "yogurt",
+   "name": "Yogurt",
+   "long": "Yogurt",
+   "unit": null,
+   "bls": "FJ4101",
+   "expect": "yogurt",
+   "basket": 0,
+   "aliases": [],
+   "core": false,
+   "cat": "Dairy & eggs"
+  },
+  {
+   "id": "apples",
+   "name": "Apples",
+   "long": "Apples",
+   "unit": null,
+   "bls": "711111",
+   "expect": "apple",
+   "basket": 0,
+   "aliases": [],
+   "core": false,
+   "cat": "Produce"
+  },
+  {
+   "id": "grapefruit",
+   "name": "Grapefruit",
+   "long": "Grapefruit",
+   "unit": null,
+   "bls": "711411",
+   "expect": "grapefruit",
+   "basket": 0,
+   "aliases": [],
+   "core": false,
+   "cat": "Produce"
+  },
+  {
+   "id": "lemons",
+   "name": "Lemons",
+   "long": "Lemons",
+   "unit": null,
+   "bls": "711412",
+   "expect": "lemon",
+   "basket": 0,
+   "aliases": [],
+   "core": false,
+   "cat": "Produce"
+  },
+  {
+   "id": "strawberries",
+   "name": "Strawberries",
+   "long": "Strawberries",
+   "unit": null,
+   "bls": "711415",
+   "expect": "strawberr",
+   "basket": 0,
+   "aliases": [],
+   "core": false,
+   "cat": "Produce"
+  },
+  {
+   "id": "grapes",
+   "name": "Grapes",
+   "long": "Grapes",
+   "unit": null,
+   "bls": "711417",
+   "expect": "grape",
+   "basket": 0,
+   "aliases": [],
+   "core": false,
+   "cat": "Produce"
+  },
+  {
+   "id": "peppers",
+   "name": "Sweet peppers",
+   "long": "Sweet peppers",
+   "unit": null,
+   "bls": "712406",
+   "expect": "pepper",
+   "basket": 0,
+   "aliases": [],
+   "core": false,
+   "cat": "Produce"
+  },
+  {
+   "id": "broccoli",
+   "name": "Broccoli",
+   "long": "Broccoli",
+   "unit": null,
+   "bls": "712412",
+   "expect": "broccoli",
+   "basket": 0,
+   "aliases": [],
+   "core": false,
+   "cat": "Produce"
+  },
+  {
+   "id": "romaine",
+   "name": "Romaine lettuce",
+   "long": "Romaine lettuce",
+   "unit": null,
+   "bls": "FL2101",
+   "expect": "romaine",
+   "basket": 0,
+   "aliases": [],
+   "core": false,
+   "cat": "Produce"
+  },
+  {
+   "id": "beans",
+   "name": "Dried beans",
+   "long": "Dried beans",
+   "unit": null,
+   "bls": "714233",
+   "expect": "bean",
+   "basket": 0,
+   "aliases": [],
+   "core": false,
+   "cat": "Bakery & pantry"
+  },
+  {
+   "id": "peanut_butter",
+   "name": "Peanut butter",
+   "long": "Peanut butter",
+   "unit": null,
+   "bls": "716141",
+   "expect": "peanut",
+   "basket": 0,
+   "aliases": [],
+   "core": false,
+   "cat": "Bakery & pantry"
+  },
+  {
+   "id": "orange_juice",
+   "name": "Orange juice, frozen",
+   "long": "Orange juice, frozen",
+   "unit": null,
+   "bls": "713111",
+   "expect": "orange juice",
+   "basket": 0,
+   "aliases": [],
+   "core": false,
+   "cat": "Drinks"
+  },
+  {
+   "id": "soda_2l",
+   "name": "Soda, 2 liters",
+   "long": "Soda, 2 liters",
+   "unit": null,
+   "bls": "FN1101",
+   "expect": "soft drink",
+   "basket": 0,
+   "aliases": [],
+   "core": false,
+   "cat": "Drinks"
+  },
+  {
+   "id": "soda_12",
+   "name": "Soda, 12-pack",
+   "long": "Soda, 12-pack",
+   "unit": null,
+   "bls": "FN1102",
+   "expect": "soft drink",
+   "basket": 0,
+   "aliases": [],
+   "core": false,
+   "cat": "Drinks"
+  },
+  {
+   "id": "beer",
+   "name": "Beer",
+   "long": "Beer",
+   "unit": null,
+   "bls": "720111",
+   "expect": "malt",
+   "basket": 0,
+   "aliases": [],
+   "core": false,
+   "cat": "Drinks"
+  },
+  {
+   "id": "wine",
+   "name": "Wine",
+   "long": "Wine",
+   "unit": null,
+   "bls": "720311",
+   "expect": "wine",
+   "basket": 0,
+   "aliases": [],
+   "core": false,
+   "cat": "Drinks"
+  },
+  {
+   "id": "gas",
+   "name": "Gasoline, regular",
+   "long": "Gasoline, regular",
+   "unit": null,
+   "bls": "74714",
+   "expect": "gasoline",
+   "basket": 0,
+   "aliases": [],
+   "core": false,
+   "cat": "Fuel & power"
+  },
+  {
+   "id": "electricity",
+   "name": "Electricity",
+   "long": "Electricity",
+   "unit": null,
+   "bls": "72610",
+   "expect": "electricity",
+   "basket": 0,
+   "aliases": [],
+   "core": false,
+   "cat": "Fuel & power"
+  },
+  {
+   "id": "natural_gas",
+   "name": "Piped gas",
+   "long": "Piped gas",
+   "unit": null,
+   "bls": "72620",
+   "expect": "gas",
+   "basket": 0,
+   "aliases": [],
+   "core": false,
+   "cat": "Fuel & power"
+  }
+ ],
+ "indexes": [
+  {
+   "id": "food_home",
+   "name": "Groceries (CPI, food at home)",
+   "bls": "CUUR0000SAF11",
+   "fred": "CUUR0000SAF11"
+  },
+  {
+   "id": "all_items",
+   "name": "All prices (CPI-U)",
+   "bls": "CUUR0000SA0",
+   "fred": "CPIAUCNS"
+  },
+  {
+   "id": "wage",
+   "name": "Average hourly pay, production and nonsupervisory workers",
+   "bls": "CES0500000008",
+   "fred": "AHETPI"
+  }
+ ]
 }

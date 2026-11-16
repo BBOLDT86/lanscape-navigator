@@ -404,7 +404,11 @@ def main():
                         ann.append(round(sum(v) / len(v), 3) if v else None)
                     reg[a] = ann
             ya = [k for k in nat if k[:4] == str(y1 - 1) and k[5:] == last[5:]]
-            view['items'].append({'id': it['id'], 'name': it['name'], 'long': it['long'], 'unit': it['unit'], 'basket': it['basket'], 'm': [None if v is None else round(v, 3) for v in arr],
+            ttl = ((off or {}).get('titles') or {}).get(it['id']) or ''
+            um = re.search(r'\((?:Cost )?[Pp]er ([^)]*)\)', ttl)
+            unit = it['unit'] or (um.group(1).split('/')[0].strip().lower() if um else 'unit')
+            unit = {'pound': 'lb', 'gallon': 'gallon', 'dozen': 'dozen', 'kilowatt-hour': 'kWh', 'kwh': 'kWh'}.get(unit, unit)
+            view['items'].append({'id': it['id'], 'name': it['name'], 'long': it['long'], 'unit': unit, 'cat': it.get('cat'), 'core': it.get('core', True), 'title': ttl, 'basket': it['basket'], 'm': [None if v is None else round(v, 3) for v in arr],
                                   'first': first, 'last': lasti, 'regions': reg, 'now': arr[lasti], 'now_month': months[lasti], 'year_ago': arr[lasti - 12] if arr[lasti - 12] is not None else arr[lasti - 13], 'year_ago_month': months[lasti - 12] if arr[lasti - 12] is not None else months[lasti - 13],
                                   'then': arr[first], 'then_month': months[first], 'y2019': O.price(it['id'], '2019'), 'current': lasti >= len(months) - 4})
         for ix in cfg['indexes']:
