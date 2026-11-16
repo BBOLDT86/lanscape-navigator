@@ -143,7 +143,7 @@ if official:
     eggs = items.get('eggs')
     off_par = ''
     if eggs:
-        off_par = '<p>The official record is the yardstick for all of it. The Bureau of Labor Statistics sends people to price the same staples in stores every month and publishes the averages: a dozen large eggs averaged <b>%s</b> in %s, against %s a year earlier and %s across 2019. ' % (usd(eggs['now']), d(eggs['now_month']), usd(eggs['year_ago']), usd(eggs['y2019']))
+        off_par = '<p>The official record is the yardstick for all of it. The Bureau of Labor Statistics sends people to price the same staples in stores every month and publishes the averages: a dozen large eggs averaged <b>%s</b> in %s, against %s in %s and %s across 2019. ' % (usd(eggs['now']), d(eggs['now_month']), usd(eggs['year_ago']), d(eggs['year_ago_month']), usd(eggs['y2019']))
         if b:
             k = len(b['m']) - 1
             while b['m'][k] is None:
@@ -157,6 +157,10 @@ else:
     feed = 'The official series had not been read when this page was built; they load on the next data run.' if not V['mock'] else 'SAMPLE NUMBERS: this build used made-up series for testing.'
     off_par = '<p class="note"><b>Not loaded yet.</b> The official average-price series from the Bureau of Labor Statistics are read by a scheduled job, not by the page. Until its first run finishes, the comparisons against the official record below read “not run,” and no check that needs them has been counted as passed.</p>'
 
+coffee_par = ''
+if official and items.get('coffee') and off_at('coffee', '2002-04'):
+    cr = items['coffee']['now'] / off_at('coffee', '2002-04')
+    coffee_par = '<p>One line of the fake is close to true, and it is the instructive one. Ground coffee really has gone up about %.1f times since April 2002 on the official average, to %s a pound. Whoever, or whatever, made the receipts did not need to invent a crisis; they needed five of six prices to be worse than the truth, and the totals to be shareable.</p>' % (cr, usd(items['coffee']['now']))
 img = SITE + 'share.png' if os.path.exists(os.path.join(HERE, 'share.png')) else 'https://bboldt86.github.io/lanscape-navigator/news/share.png'
 title = 'The receipts are fake. The prices are not.'
 desc = 'A viral pair of Walmart receipts says six groceries went from $15.44 to $57.93. The store does not exist. The Watch’s ledger of receipt posts, a price database only checked numbers can enter, and 46 years of official prices in 3-D.'
@@ -230,9 +234,9 @@ if(t==='auto'){{t=(h>=20||h<4)?'night':(matchMedia('(prefers-color-scheme: dark)
 <div class="tblwrap"><table class="tbl"><thead><tr><th>Item</th><th class="num">“2002”</th><th class="num">“2026”</th><th class="num">Claimed rise</th><th class="num">Official rise</th><th></th></tr></thead><tbody>{fake_tbl}
 <tr><td><b>All six</b></td><td class="num">$15.44</td><td class="num">$57.93</td><td class="num"><b>3.8×</b></td><td class="num"></td><td></td></tr></tbody></table></div>
 <p>The eggs give it away fastest. The receipt has a dozen at $9.48. On Oct. 15, Lead Stories found a dozen Great Value eggs on Walmart’s own site for $1.67, and the national average that the Bureau of Labor Statistics published for September was $2.27. The fake is more than four times the government’s average and nearly six times the shelf price at the store it claims to come from.</p>
-{off_par}
+{coffee_par}{off_par}
 
-{('<h2>What the official numbers say</h2><p>Average prices in U.S. cities for the staples The Checkout tracks. Tap an item to see it on the stage.</p><div class="tblwrap"><table class="tbl"><thead><tr><th>Item</th><th class="num">First on record</th><th class="num">2019 avg.</th><th class="num">A year ago</th><th class="num">' + d(last) + '</th><th class="num">12 months</th><th class="num">Since 2019</th></tr></thead><tbody>' + off_tbl + '</tbody></table></div><p class="note">These are averages across all stores and brands in the government’s sample. Walmart’s store brands usually sit below them, which is why a real Walmart price reading at 0.6 or 0.7 of the average is normal and one reading at 4 times it is not.</p>') if official else ''}
+{('<h2>What the official numbers say</h2><p>Average prices in U.S. cities for the staples The Checkout tracks. Tap an item to see it on the stage.</p><div class="tblwrap"><table class="tbl"><thead><tr><th>Item</th><th class="num">First on record</th><th class="num">2019 avg.</th><th class="num">A year ago</th><th class="num">' + d(last) + '</th><th class="num">12 months</th><th class="num">Since 2019</th></tr></thead><tbody>' + off_tbl + '</tbody></table></div><p class="note">“A year ago” is the same month last year, or September 2025 where October 2025 is missing: the bureau collected no prices that month. These are averages across all stores and brands in the government’s sample. Walmart’s store brands usually sit below them, which is why a real Walmart price reading at 0.6 or 0.7 of the average is normal and one reading at 4 times it is not.</p>') if official else ''}
 
 <h2 id="ledger">The ledger</h2>
 <p>Every post The Watch has logged, worst first. Each carries a grade, the reason for it, and every check that ran. A post graded D is a real post whose claim does not survive; F means there is evidence the document itself was made up.</p>
@@ -252,7 +256,7 @@ if(t==='auto'){{t=(h>=20||h<4)?'night':(matchMedia('(prefers-color-scheme: dark)
 <li><b>Band.</b> Each price is set against the official average for that item, month and region. More than 2.5 times the average fails; above 1.6 or below 0.4 is flagged. Cheap is never failed, because store brands and bulk bags are cheap.</li>
 <li><b>Pair.</b> When a post shows the same item at two dates, its rise is set against the official rise for that item, or against grocery prices overall. More than double the official rise fails.</li>
 <li><b>Cart.</b> A claimed change in a whole cart is set against official grocery inflation for the same months. Carts under $30 are only flagged, since a handful of items can honestly move far from the average.</li>
-<li><b>Feed.</b> The official download is itself checked: series titles must match the item, values must be in range, and where a fact-checker has published an official figure, the feed has to agree with it to the cent or the build stops.</li>
+<li><b>Feed.</b> The official download is itself checked: values must be in range, a run can never shrink the record, and where someone else has published an official figure, the feed has to agree with it or the build stops. It does: the feed’s September egg price is the $2.27 Lead Stories reported, and its grocery inflation for October 2019 and October 2020 to August 2024 comes to the 26.4% and 21.6% the economist Jeremy Horpedahl published. When the bureau’s own files can be read, series titles are matched to the items too; its server refused the last run, so the figures came through the St. Louis Fed’s copy of the same series.</li>
 </ol>
 <p>The grades follow from the evidence. <b>A</b>, verified: priced by reporters or fact-checkers, or a published receipt with an item-by-item method. <b>B</b>, corroborated: the full document is public and was read by at least two outlets, and nothing failed. <b>C</b>, unverified: one source, second hand, or totals only. <b>D</b>, doesn’t hold up. <b>F</b>, fabricated. Prices from A and B posts go in; C prices are held and drawn in grey; D and F prices stay out, except where a reporter separately priced an item, which goes in on the reporter’s authority.</p>
 <p>The checker is tested every time it runs, on cases with known answers, before it is allowed to judge anything real:</p>

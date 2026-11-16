@@ -245,7 +245,7 @@
     "place": "Not visible on the receipt",
     "region": null
    },
-   "claim": "A 2006 Walmart receipt shows 79 items for $161.87. Replies and reposts put the same cart at $350 to more than $400 today.",
+   "claim": "A 2006 Walmart receipt shows 79 items for $161.87. A reader who repriced 58 of its lines found them up 69%; other replies and reports put the cart at $350 to more than $400 today.",
    "totals": [
     {
      "date": "2006",
@@ -256,9 +256,8 @@
    "basket_claim": {
     "from": "2006",
     "to": "2026-05",
-    "old": 161.87,
-    "new": 400,
-    "who": "KTAL's estimate (\"well over $400\"); a reader on X who priced 58 of the items found them up 69%"
+    "pct": 69,
+    "who": "a reader on X (@reschultzed) who repriced 58 of the receipt's lines at a Walmart"
    },
    "obs": [
     {
@@ -616,6 +615,15 @@
      "title": "Walmart Grocery Receipt Goes Viral",
      "date": "2026-05-28",
      "url": "https://www.mediapost.com/publications/article/415366/walmart-grocery-receipt-goes-viral.html"
+    }
+   ],
+   "estimates": [
+    {
+     "from": "2006",
+     "to": "2026-05",
+     "old": 161.87,
+     "new": 400,
+     "who": "KTAL: \"well over $400\""
     }
    ]
   },

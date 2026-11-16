@@ -243,6 +243,15 @@ def run(posts_doc, cfg, off, quiet=False):
         # ---- basket
         bc = p.get('basket_claim')
         bres = None
+        for est in p.get('estimates', []):
+            cl = (est['new'] / est['old'] - 1) * 100
+            x, y = (O.index('CUUR0000SAF11', est['from']), O.index('CUUR0000SAF11', est['to'])) if O.loaded else (None, None)
+            if x and y:
+                offp = (y / x - 1) * 100
+                res = 'warn' if abs(cl - offp) > 12 else 'pass'
+                add(pid, 'basket', res, "others' estimate (%s): cart %+.0f%% from %s to %s; official grocery prices %+.1f%%" % (est['who'], cl, est['from'], est['to'], offp))
+                if res == 'warn':
+                    warns.append("an estimate attached by others (%+.0f%%) runs well past official grocery inflation (%+.0f%%)" % (cl, offp))
         if bc:
             claimed = bc.get('pct') if bc.get('pct') is not None else (bc['new'] / bc['old'] - 1) * 100
             x, y = (O.index('CUUR0000SAF11', bc['from']), O.index('CUUR0000SAF11', bc['to'])) if O.loaded else (None, None)
@@ -396,7 +405,7 @@ def main():
                     reg[a] = ann
             ya = [k for k in nat if k[:4] == str(y1 - 1) and k[5:] == last[5:]]
             view['items'].append({'id': it['id'], 'name': it['name'], 'long': it['long'], 'unit': it['unit'], 'basket': it['basket'], 'm': [None if v is None else round(v, 3) for v in arr],
-                                  'first': first, 'last': lasti, 'regions': reg, 'now': arr[lasti], 'now_month': months[lasti], 'year_ago': nat.get('%04d-%s' % (int(months[lasti][:4]) - 1, months[lasti][5:])),
+                                  'first': first, 'last': lasti, 'regions': reg, 'now': arr[lasti], 'now_month': months[lasti], 'year_ago': arr[lasti - 12] if arr[lasti - 12] is not None else arr[lasti - 13], 'year_ago_month': months[lasti - 12] if arr[lasti - 12] is not None else months[lasti - 13],
                                   'then': arr[first], 'then_month': months[first], 'y2019': O.price(it['id'], '2019'), 'current': lasti >= len(months) - 4})
         for ix in cfg['indexes']:
             d = O.s.get(ix['bls'])

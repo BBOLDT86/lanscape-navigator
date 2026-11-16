@@ -123,7 +123,7 @@ export async function mount(el, opts = {}) {
 
   /* ---------- map ---------- */
   const map = new THREE.Group(); map.visible = false; scene.add(map);
-  const regions = {}; let mapReady = false;
+  const regions = {}, annual = {}; let mapReady = false;
   loadGeo().then(geo => {
     const [minx, miny, maxx, maxy] = geo.bbox, S = 640 / (maxx - minx), cx = (minx + maxx) / 2, cy = (miny + maxy) / 2;
     const plate = new THREE.Mesh(flatShape(geo.states, 0), new THREE.MeshBasicMaterial({ color: 0x13233c, side: THREE.DoubleSide })); const pg = new THREE.Group(); pg.add(plate); pg.scale.set(S, 1, S); pg.position.set(-cx * S, -0.5, -cy * S); map.add(pg);
@@ -152,14 +152,14 @@ export async function mount(el, opts = {}) {
   function setView(v) {
     S.view = v; aisle.visible = v === 'aisle'; map.visible = v === 'map'; el.dataset.view = v;
     el.querySelectorAll('.ck-seg button').forEach(b => b.setAttribute('aria-pressed', b.dataset.view === v));
-    if (v === 'map' && focus < 0) { focus = Math.max(0, byId.eggs ?? 0); sel.value = String(focus); }
+    if (v === 'map' && focus < 0) { focus = Math.max(0, ['beef', 'bread', 'bacon'].map(k => byId[k]).find(i => i != null && Object.keys(items[i].regions).length === 4) ?? 0); sel.value = String(focus); }
     sel.options[0].disabled = v === 'map'; preset(); legend(); frame(true);
   }
   function legend() {
     $('.ck-legend').innerHTML = S.view === 'aisle'
       ? `<span class="sw"><i style="background:linear-gradient(90deg,#29a8b8,#8c999e,#edc76b,#f58538,#ed3833)"></i>12-month change: falling → rising fast</span><span class="dot solid">checked price</span><span class="dot unverified">unverified</span><span class="dot rejected">rejected</span>`
       : `<span class="sw"><i style="background:linear-gradient(90deg,#29a8b8,#8c999e,#f58538)"></i>15% cheaper than the U.S. average → 15% dearer</span>`;
-    $('.ck-sub').textContent = S.view === 'aisle' ? 'Height: the price as a multiple of the item’s first month on record. Front edge: this month.' : 'The four census regions, the finest map the Bureau of Labor Statistics prices by. Height: the regional average price.';
+    $('.ck-sub').textContent = S.view === 'aisle' ? 'Height: the price as a multiple of the item’s first month on record. Front edge: this month.' : 'The four census regions, the finest map the Bureau of Labor Statistics prices by. Height: the regional average price for the year. A region the bureau has stopped pricing for the item is grey, at its last figure.';
   }
   function resize() {
     const w = el.clientWidth, h = el.clientHeight; renderer.setPixelRatio(Math.min(devicePixelRatio || 1, 2)); renderer.setSize(w, h, false); cam.aspect = w / h; cam.updateProjectionMatrix();
@@ -171,7 +171,7 @@ export async function mount(el, opts = {}) {
   function frame(force) {
     const kf = S.t * (NM - 1), k = Math.round(kf);
     const narrow = cam.aspect < 0.9;
-    S.az = lerp(S.az, S.taz, .08); S.el = lerp(S.el, S.tel, .08); S.dist = lerp(S.dist, S.tdist * (narrow ? clamp((S.view === 'aisle' ? 0.62 : 1.0) / cam.aspect, 1, 2.1) : 1), .08);
+    S.az = lerp(S.az, S.taz, .08); S.el = lerp(S.el, S.tel, .08); S.dist = lerp(S.dist, S.tdist * (narrow ? clamp((S.view === 'aisle' ? 0.62 : 1.4) / cam.aspect, 1, 2.8) : 1), .08);
     const drift = S.playing && !S.user ? Math.sin(performance.now() / 9000) * 0.10 : 0;
     const az = S.az + drift + (narrow && S.view === 'aisle' && !S.user ? -0.5 : 0);
     target.set(S.view === 'aisle' ? 20 : 0, S.view === 'aisle' ? 34 : 30, S.view === 'aisle' ? 50 : 10);
@@ -179,7 +179,7 @@ export async function mount(el, opts = {}) {
     const y = V.start + Math.floor(k / 12), mo = k % 12;
     $('.ck-date').textContent = MON[mo] + ' ' + y;
     if (V.basket) { const b = V.basket.m; let j = k; while (j >= 0 && b[j] == null) j--; const v = j >= 0 ? b[j] : null, f = b[V.basket.first]; $('.ck-basket').textContent = v == null ? 'not all priced yet' : usd(v); $('.ck-bsub').textContent = v == null ? '' : `${(v / f).toFixed(2)}× its ${V.start + Math.floor(V.basket.first / 12)} cost`; }
-    const fh = V.indexes.food_home; if (fh) { const a = fh.m[k], p = k >= 12 ? fh.m[k - 12] : null; $('.ck-cpi').textContent = a && p ? `Groceries overall: ${(a / p - 1) * 100 >= 0 ? '+' : ''}${((a / p - 1) * 100).toFixed(1)}% in 12 months` : ''; }
+    const fh = V.indexes.food_home; if (fh) { const a = fh.m[k] ?? fh.m[k - 1], p = k >= 13 ? (fh.m[k - 12] ?? fh.m[k - 13]) : null; $('.ck-cpi').textContent = a && p ? `Groceries overall: ${(a / p - 1) * 100 >= 0 ? '+' : ''}${((a / p - 1) * 100).toFixed(1)}% in 12 months` : ''; }
     if (S.view === 'aisle') {
       const out = [];
       items.forEach((it, i) => {
@@ -205,16 +205,19 @@ export async function mount(el, opts = {}) {
       $('.ck-labels').querySelectorAll('.ck-lab').forEach(n => n.remove()); for (const p of pins) p.d.style.display = 'none';
       const it = items[focus < 0 ? 0 : focus], yf = kf / 12 - 0.5, y0i = clamp(Math.floor(yf), 0, 999), fr = clamp(yf - y0i, 0, 1);
       let mx = 0; for (const a in it.regions) for (const v of it.regions[a]) if (v) mx = Math.max(mx, v);
-      const nat = idxAt(focus < 0 ? 0 : focus, kf);
+      const fi = focus < 0 ? 0 : focus; if (!annual[fi]) { annual[fi] = []; for (let yy = 0; yy * 12 < NM; yy++) { let s = 0, n = 0; for (let m = yy * 12; m < Math.min(NM, yy * 12 + 12); m++) if (it.m[m] != null) { s += it.m[m]; n++; } annual[fi].push(n ? s / n : null); } }
+      const n0 = annual[fi][Math.min(y0i, annual[fi].length - 1)], n1 = annual[fi][Math.min(y0i + 1, annual[fi].length - 1)], nat = n0 == null ? null : lerp(n0, n1 == null ? n0 : n1, fr);
+      $('.ck-date').textContent = String(V.start + Math.floor(kf / 12));
       for (const a in regions) {
         const R = regions[a], arr = it.regions[a]; const v0 = arr && arr[Math.min(y0i, arr.length - 1)], v1 = arr && arr[Math.min(y0i + 1, arr.length - 1)];
-        const v = v0 == null ? null : lerp(v0, v1 == null ? v0 : v1, fr);
+        let v = v0 == null ? null : lerp(v0, v1 == null ? v0 : v1, fr), stale = 0;
+        if (v == null && arr) { for (let b = Math.min(y0i, arr.length - 1); b >= 0; b--) if (arr[b] != null) { v = arr[b]; stale = V.start + b; break; } }
         if (v == null || !mapReady) { R.g.visible = false; R.d.style.display = 'none'; continue; }
         const h = Math.max(1, v / mx * 150); R.g.visible = true; R.g.scale.y = h;
-        { const u = clamp(nat ? (v / nat - 1) / 0.15 : 0, -1, 1), lo = [0.16, 0.66, 0.72], mid = [0.60, 0.65, 0.68], hi = [0.96, 0.52, 0.22], e = u < 0 ? lo : hi, f = Math.abs(u); col.setRGB(lerp(mid[0], e[0], f), lerp(mid[1], e[1], f), lerp(mid[2], e[2], f)); } R.top.material.color.copy(col); R.wall.material.color.copy(col).multiplyScalar(0.58);
-        const q = project(R.c.x, h + 4, R.c.z); R.d.style.cssText = `display:block;left:${q[0].toFixed(1)}px;top:${q[1].toFixed(1)}px`; R.d.innerHTML = `<b>${usd(v)}</b>${V.areas[a]}`;
+        { const u = clamp(nat ? (v / nat - 1) / 0.15 : 0, -1, 1), lo = [0.16, 0.66, 0.72], mid = [0.60, 0.65, 0.68], hi = [0.96, 0.52, 0.22], e = u < 0 ? lo : hi, f = Math.abs(u); col.setRGB(lerp(mid[0], e[0], f), lerp(mid[1], e[1], f), lerp(mid[2], e[2], f)); } if (stale) col.setRGB(0.30, 0.36, 0.44); R.top.material.color.copy(col); R.wall.material.color.copy(col).multiplyScalar(0.58);
+        const q = project(R.c.x, h + 4, R.c.z); R.d.style.cssText = `display:block;left:${q[0].toFixed(1)}px;top:${q[1].toFixed(1)}px`; R.d.innerHTML = `<b>${usd(v)}</b>${V.areas[a]}${stale ? '<br>last priced ' + stale : ''}`;
       }
-      $('.ck-kicker').textContent = `${it.long}, per ${it.unit} · U.S. ${usd(nat)}`;
+      $('.ck-kicker').textContent = `${it.long}, per ${it.unit} · U.S. ${usd(nat)} · yearly averages`;
     }
     if (S.view === 'aisle') $('.ck-kicker').textContent = 'Official average prices · U.S. cities';
     renderer.render(scene, cam);

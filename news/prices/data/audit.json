@@ -1,24 +1,24 @@
 {
- "built": "2026-11-16T03:34Z",
+ "built": "2026-11-16T03:37Z",
  "official_loaded": true,
  "official_mock": false,
  "official_fetched": "2026-11-16T03:32Z",
  "summary": {
-  "pass": 60,
-  "warn": 18,
-  "fail": 9,
+  "pass": 61,
+  "warn": 19,
+  "fail": 8,
   "skip": 8
  },
  "tiers": {
-  "solid": 27,
+  "solid": 46,
   "unverified": 11,
-  "rejected": 31
+  "rejected": 12
  },
  "grades": {
   "A": 3,
-  "B": 0,
+  "B": 1,
   "C": 6,
-  "D": 4,
+  "D": 3,
   "F": 2
  },
  "selftest": [
@@ -166,9 +166,10 @@
   },
   {
    "id": "kylei-2006",
-   "grade": "D",
+   "grade": "B",
    "why": [
-    "the cart moved +147% while grocery prices moved +66%"
+    "full document public, read by 5 outlets",
+    "an estimate attached by others (+147%) runs well past official grocery inflation (+66%)"
    ]
   },
   {
@@ -672,8 +673,15 @@
   {
    "post": "kylei-2006",
    "check": "basket",
-   "result": "fail",
-   "msg": "cart +147.1% from 2006 to 2026-05; official grocery prices +66.2%",
+   "result": "warn",
+   "msg": "others' estimate (KTAL: \"well over $400\"): cart +147% from 2006 to 2026-05; official grocery prices +66.2%",
+   "level": "post"
+  },
+  {
+   "post": "kylei-2006",
+   "check": "basket",
+   "result": "pass",
+   "msg": "cart +69.0% from 2006 to 2026-05; official grocery prices +66.2%",
    "level": "post"
   },
   {
