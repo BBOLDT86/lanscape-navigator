@@ -1,24 +1,24 @@
 {
- "built": "2026-11-16T03:32Z",
- "official_loaded": false,
+ "built": "2026-11-16T03:34Z",
+ "official_loaded": true,
  "official_mock": false,
- "official_fetched": null,
+ "official_fetched": "2026-11-16T03:32Z",
  "summary": {
-  "pass": 21,
-  "warn": 11,
-  "fail": 4,
-  "skip": 42
+  "pass": 60,
+  "warn": 18,
+  "fail": 9,
+  "skip": 8
  },
  "tiers": {
-  "solid": 46,
+  "solid": 27,
   "unverified": 11,
-  "rejected": 12
+  "rejected": 31
  },
  "grades": {
   "A": 3,
-  "B": 1,
+  "B": 0,
   "C": 6,
-  "D": 3,
+  "D": 4,
   "F": 2
  },
  "selftest": [
@@ -55,11 +55,96 @@
    "ok": true
   }
  ],
- "canary": [],
+ "canary": [
+  {
+   "test": "the Sunset Bay receipts fail on prices alone (2 failed checks)",
+   "ok": true
+  },
+  {
+   "test": "Lead Stories' Walmart.com egg price sits inside the official band",
+   "ok": true
+  }
+ ],
  "fatal": [],
- "feed_log": [],
+ "feed_log": [
+  {
+   "at": "2026-11-16T03:32Z",
+   "route": "bls-flat",
+   "what": "ap.item",
+   "ok": false,
+   "n": 0,
+   "err": "HTTP Error 403: Forbidden"
+  },
+  {
+   "at": "2026-11-16T03:32Z",
+   "route": "bls-flat",
+   "what": "ap.data.3.Food",
+   "ok": false,
+   "n": 0,
+   "err": "HTTP Error 403: Forbidden"
+  },
+  {
+   "at": "2026-11-16T03:32Z",
+   "route": "fred",
+   "what": "APU0400708111",
+   "ok": false,
+   "n": 0,
+   "err": "HTTP Error 404: Not Found"
+  },
+  {
+   "at": "2026-11-16T03:33Z",
+   "route": "fred",
+   "what": "APU0200701312",
+   "ok": false,
+   "n": 0,
+   "err": "HTTP Error 404: Not Found"
+  },
+  {
+   "at": "2026-11-16T03:34Z",
+   "route": "fred",
+   "what": "APU0100FS1101",
+   "ok": false,
+   "n": 0,
+   "err": "HTTP Error 404: Not Found"
+  },
+  {
+   "at": "2026-11-16T03:34Z",
+   "route": "fred",
+   "what": "APU0300FS1101",
+   "ok": false,
+   "n": 0,
+   "err": "HTTP Error 404: Not Found"
+  },
+  {
+   "at": "2026-11-16T03:34Z",
+   "route": "fred",
+   "what": "100 series asked",
+   "ok": true,
+   "n": 96,
+   "err": ""
+  },
+  {
+   "at": "2026-11-16T03:34Z",
+   "route": "bls-api",
+   "what": "4 series asked, 5 calls",
+   "ok": true,
+   "n": 1,
+   "err": ""
+  },
+  {
+   "at": "2026-11-16T03:34Z",
+   "route": "fred",
+   "what": "3 series asked",
+   "ok": true,
+   "n": 3,
+   "err": ""
+  }
+ ],
  "feed_rejected": [],
- "feed_routes": [],
+ "feed_routes": [
+  "bls-api",
+  "fred"
+ ],
  "posts": [
   {
    "id": "fl-2002-2026",
@@ -67,7 +152,9 @@
    "why": [
     "the store does not exist",
     "product codes are reused or do not exist",
-    "labelled or detected as AI-generated"
+    "labelled or detected as AI-generated",
+    "Eggs 12 ct at $9.48 is 4.0x the official average",
+    "Eggs 12 ct rose 7.3x, against 2.4x for the official average for eggs"
    ]
   },
   {
@@ -79,23 +166,25 @@
   },
   {
    "id": "kylei-2006",
-   "grade": "B",
+   "grade": "D",
    "why": [
-    "full document public, read by 5 outlets"
+    "the cart moved +147% while grocery prices moved +66%"
    ]
   },
   {
    "id": "pueblo-2001",
    "grade": "C",
    "why": [
-    "Posted by a news-aggregator account, not by the woman who found it; the Daily Dot did not verify the receipt or the $400 figure."
+    "Posted by a news-aggregator account, not by the woman who found it; the Daily Dot did not verify the receipt or the $400 figure.",
+    "the cart moved +158% against +85% for grocery prices"
    ]
   },
   {
    "id": "sewerlidd-reorder",
    "grade": "D",
    "why": [
-    "Not accurate: discontinued items in the old order were repriced at inflated third-party prices"
+    "Not accurate: discontinued items in the old order were repriced at inflated third-party prices",
+    "the cart moved +227% while grocery prices moved +6%"
    ]
   },
   {
@@ -116,7 +205,8 @@
    "id": "amywaytosave",
    "grade": "C",
    "why": [
-    "She showed her receipts and published the item comparison on YouTube; The Watch has read only the totals, from Market Realist."
+    "She showed her receipts and published the item comparison on YouTube; The Watch has read only the totals, from Market Realist.",
+    "the cart moved +50% against +20% for grocery prices"
    ]
   },
   {
@@ -151,7 +241,8 @@
    "id": "thanksgiving-basket",
    "grade": "D",
    "why": [
-    "Misleading: the 2025 package had fewer and smaller items; grocery prices were up almost 1.9% over the period"
+    "Misleading: the 2025 package had fewer and smaller items; grocery prices were up almost 1.9% over the period",
+    "the cart moved -27% while grocery prices moved +2%"
    ]
   },
   {
@@ -221,51 +312,114 @@
   },
   {
    "post": "fl-2002-2026",
+   "check": "band",
+   "result": "pass",
+   "msg": "Milk 1 gal, 2002-04-06: $2.89 per gallon is 0.99x the official average ($2.91)",
+   "level": "price",
+   "obs": 0
+  },
+  {
+   "post": "fl-2002-2026",
+   "check": "band",
+   "result": "pass",
+   "msg": "Eggs 12 ct, 2002-04-06: $1.29 per dozen is 1.31x the official average ($0.98)",
+   "level": "price",
+   "obs": 1
+  },
+  {
+   "post": "fl-2002-2026",
+   "check": "band",
+   "result": "pass",
+   "msg": "Bananas 3 lb, 2002-04-06: $0.63 per lb is 1.36x the official average ($0.46)",
+   "level": "price",
+   "obs": 4
+  },
+  {
+   "post": "fl-2002-2026",
+   "check": "band",
+   "result": "pass",
+   "msg": "Milk 1 gal, 2026-10-01: $5.99 per gallon is 1.53x the official average ($3.93)",
+   "level": "price",
+   "obs": 6
+  },
+  {
+   "post": "fl-2002-2026",
+   "check": "band",
+   "result": "fail",
+   "msg": "Eggs 12 ct, 2026-10-01: $9.48 per dozen is 4.00x the official average ($2.37)",
+   "level": "price",
+   "obs": 7
+  },
+  {
+   "post": "fl-2002-2026",
+   "check": "band",
+   "result": "warn",
+   "msg": "Bananas 3 lb, 2026-10-01: $1.50 per lb is 2.44x the official average ($0.61)",
+   "level": "price",
+   "obs": 10
+  },
+  {
+   "post": "fl-2002-2026",
+   "check": "band",
+   "result": "pass",
+   "msg": "Great Value eggs, dozen (Walmart.com), 2026-10-15: $1.67 per dozen is 0.70x the official average ($2.37)",
+   "level": "price",
+   "obs": 12
+  },
+  {
+   "post": "fl-2002-2026",
    "check": "pair",
-   "result": "skip",
-   "msg": "Milk 1 gal: 2002-04-06 to 2026-10-01 is 2.07x; no official series to compare",
+   "result": "warn",
+   "msg": "Milk 1 gal: up 2.07x from 2002-04-06 to 2026-10-01; the official average for milk rose 1.35x",
    "level": "price",
    "obs": 6
   },
   {
    "post": "fl-2002-2026",
    "check": "pair",
-   "result": "skip",
-   "msg": "Eggs 12 ct: 2002-04-06 to 2026-10-01 is 7.35x; no official series to compare",
+   "result": "fail",
+   "msg": "Eggs 12 ct: up 7.35x from 2002-04-06 to 2026-10-01; the official average for eggs rose 2.41x",
    "level": "price",
    "obs": 7
   },
   {
    "post": "fl-2002-2026",
    "check": "pair",
-   "result": "skip",
-   "msg": "Bread: 2002-04-06 to 2026-10-01 is 3.59x; no official series to compare",
+   "result": "warn",
+   "msg": "Bread: up 3.59x from 2002-04-06 to 2026-10-01; the official average for bread rose 1.86x",
    "level": "price",
    "obs": 8
   },
   {
    "post": "fl-2002-2026",
    "check": "pair",
-   "result": "skip",
-   "msg": "Chkn breast: 2002-04-06 to 2026-10-01 is 5.01x; no official series to compare",
+   "result": "warn",
+   "msg": "Chkn breast: up 5.01x from 2002-04-06 to 2026-10-01; grocery prices overall rose 1.83x",
    "level": "price",
    "obs": 9
   },
   {
    "post": "fl-2002-2026",
    "check": "pair",
-   "result": "skip",
-   "msg": "Bananas 3 lb: 2002-04-06 to 2026-10-01 is 2.38x; no official series to compare",
+   "result": "warn",
+   "msg": "Bananas 3 lb: up 2.38x from 2002-04-06 to 2026-10-01; the official average for bananas rose 1.32x",
    "level": "price",
    "obs": 10
   },
   {
    "post": "fl-2002-2026",
    "check": "pair",
-   "result": "skip",
-   "msg": "Coffee: 2002-04-06 to 2026-10-01 is 3.26x; no official series to compare",
+   "result": "pass",
+   "msg": "Coffee: up 3.26x from 2002-04-06 to 2026-10-01; the official average for coffee rose 3.45x",
    "level": "price",
    "obs": 11
+  },
+  {
+   "post": "fl-2002-2026",
+   "check": "feed",
+   "result": "pass",
+   "msg": "official eggs for 2026-09 is $2.27, as published ($2.27)",
+   "level": "post"
   },
   {
    "post": "fl-two-stores-2026",
@@ -325,145 +479,201 @@
   },
   {
    "post": "kylei-2006",
-   "check": "pair",
-   "result": "skip",
-   "msg": "Eggs: 2006 to 2026-05 is 1.15x; no official series to compare",
+   "check": "band",
+   "result": "pass",
+   "msg": "Eggs, 2006: $1.28 per dozen is 0.98x the official average ($1.31)",
+   "level": "price",
+   "obs": 0
+  },
+  {
+   "post": "kylei-2006",
+   "check": "band",
+   "result": "pass",
+   "msg": "Vitamin D milk, gallon, 2006: $3.05 per gallon is 0.99x the official average ($3.08)",
+   "level": "price",
+   "obs": 1
+  },
+  {
+   "post": "kylei-2006",
+   "check": "band",
+   "result": "pass",
+   "msg": "Russet potatoes, 10 lb, 2006: $0.40 per lb is 0.74x the official average ($0.53)",
+   "level": "price",
+   "obs": 2
+  },
+  {
+   "post": "kylei-2006",
+   "check": "band",
+   "result": "pass",
+   "msg": "Tomatoes, per lb, 2006: $1.24 per lb is 0.72x the official average ($1.73)",
+   "level": "price",
+   "obs": 3
+  },
+  {
+   "post": "kylei-2006",
+   "check": "band",
+   "result": "pass",
+   "msg": "Eggs, dozen (Walmart, 2026), 2026-05: $1.47 per dozen is 0.67x the official average ($2.19)",
    "level": "price",
    "obs": 19
   },
   {
    "post": "kylei-2006",
-   "check": "pair",
-   "result": "skip",
-   "msg": "Vitamin D milk, gallon: 2006 to 2026-05 is 1.40x; no official series to compare",
+   "check": "band",
+   "result": "pass",
+   "msg": "Vitamin D milk, gallon (Walmart, 2026), 2026-05: $4.27 per gallon is 1.01x the official average ($4.22)",
    "level": "price",
    "obs": 20
   },
   {
    "post": "kylei-2006",
-   "check": "pair",
-   "result": "skip",
-   "msg": "Russet potatoes, 10 lb: 2006 to 2026-05 is 1.15x; no official series to compare",
+   "check": "band",
+   "result": "pass",
+   "msg": "Russet potatoes, 10 lb (Walmart, 2026), 2026-05: $0.45 per lb is 0.51x the official average ($0.89)",
    "level": "price",
    "obs": 21
   },
   {
    "post": "kylei-2006",
    "check": "pair",
-   "result": "skip",
-   "msg": "Lay's chips: 2006 to 2026-05 is 1.49x; no official series to compare",
+   "result": "pass",
+   "msg": "Eggs: up 1.15x from 2006 to 2026-05; the official average for eggs rose 1.68x",
+   "level": "price",
+   "obs": 19
+  },
+  {
+   "post": "kylei-2006",
+   "check": "pair",
+   "result": "pass",
+   "msg": "Vitamin D milk, gallon: up 1.40x from 2006 to 2026-05; the official average for milk rose 1.37x",
+   "level": "price",
+   "obs": 20
+  },
+  {
+   "post": "kylei-2006",
+   "check": "pair",
+   "result": "pass",
+   "msg": "Russet potatoes, 10 lb: up 1.15x from 2006 to 2026-05; the official average for potatoes rose 1.68x",
+   "level": "price",
+   "obs": 21
+  },
+  {
+   "post": "kylei-2006",
+   "check": "pair",
+   "result": "pass",
+   "msg": "Lay's chips: up 1.49x from 2006 to 2026-05; the official average for potato chips rose 1.90x",
    "level": "price",
    "obs": 22
   },
   {
    "post": "kylei-2006",
    "check": "pair",
-   "result": "skip",
-   "msg": "Post cereal: 2006 to 2026-05 is 2.67x; no official series to compare",
+   "result": "pass",
+   "msg": "Post cereal: up 2.67x from 2006 to 2026-05; grocery prices overall rose 1.66x",
    "level": "price",
    "obs": 23
   },
   {
    "post": "kylei-2006",
    "check": "pair",
-   "result": "skip",
-   "msg": "Capri Sun: 2006 to 2026-05 is 2.04x; no official series to compare",
+   "result": "pass",
+   "msg": "Capri Sun: up 2.04x from 2006 to 2026-05; grocery prices overall rose 1.66x",
    "level": "price",
    "obs": 24
   },
   {
    "post": "kylei-2006",
    "check": "pair",
-   "result": "skip",
-   "msg": "Hot Fries: 2006 to 2026-05 is 1.99x; no official series to compare",
+   "result": "pass",
+   "msg": "Hot Fries: up 1.99x from 2006 to 2026-05; grocery prices overall rose 1.66x",
    "level": "price",
    "obs": 25
   },
   {
    "post": "kylei-2006",
    "check": "pair",
-   "result": "skip",
-   "msg": "Great Value brown gravy mix: 2006 to 2026-05 is 1.45x; no official series to compare",
+   "result": "pass",
+   "msg": "Great Value brown gravy mix: up 1.45x from 2006 to 2026-05; grocery prices overall rose 1.66x",
    "level": "price",
    "obs": 26
   },
   {
    "post": "kylei-2006",
    "check": "pair",
-   "result": "skip",
-   "msg": "Green bell pepper, each: 2006 to 2026-05 is 1.87x; no official series to compare",
+   "result": "pass",
+   "msg": "Green bell pepper, each: up 1.87x from 2006 to 2026-05; grocery prices overall rose 1.66x",
    "level": "price",
    "obs": 27
   },
   {
    "post": "kylei-2006",
    "check": "pair",
-   "result": "skip",
-   "msg": "Red onion, per lb: 2006 to 2026-05 is 1.66x; no official series to compare",
+   "result": "pass",
+   "msg": "Red onion, per lb: up 1.66x from 2006 to 2026-05; grocery prices overall rose 1.66x",
    "level": "price",
    "obs": 28
   },
   {
    "post": "kylei-2006",
    "check": "pair",
-   "result": "skip",
-   "msg": "Navel oranges, 4: 2006 to 2026-05 is 1.23x; no official series to compare",
+   "result": "pass",
+   "msg": "Navel oranges, 4: up 1.23x from 2006 to 2026-05; grocery prices overall rose 1.66x",
    "level": "price",
    "obs": 29
   },
   {
    "post": "kylei-2006",
    "check": "pair",
-   "result": "skip",
-   "msg": "Coke, 20 oz: 2006 to 2026-05 is 2.10x; no official series to compare",
+   "result": "pass",
+   "msg": "Coke, 20 oz: up 2.10x from 2006 to 2026-05; grocery prices overall rose 1.66x",
    "level": "price",
    "obs": 30
   },
   {
    "post": "kylei-2006",
    "check": "pair",
-   "result": "skip",
-   "msg": "Lettuce, head: 2006 to 2026-05 is 1.75x; no official series to compare",
+   "result": "pass",
+   "msg": "Lettuce, head: up 1.75x from 2006 to 2026-05; grocery prices overall rose 1.66x",
    "level": "price",
    "obs": 31
   },
   {
    "post": "kylei-2006",
    "check": "pair",
-   "result": "skip",
-   "msg": "Hostess cupcakes: 2006 to 2026-05 is 1.39x; no official series to compare",
+   "result": "pass",
+   "msg": "Hostess cupcakes: up 1.39x from 2006 to 2026-05; grocery prices overall rose 1.66x",
    "level": "price",
    "obs": 32
   },
   {
    "post": "kylei-2006",
    "check": "pair",
-   "result": "skip",
-   "msg": "Mustard: 2006 to 2026-05 is 1.00x; no official series to compare",
+   "result": "pass",
+   "msg": "Mustard: up 1.00x from 2006 to 2026-05; grocery prices overall rose 1.66x",
    "level": "price",
    "obs": 33
   },
   {
    "post": "kylei-2006",
    "check": "pair",
-   "result": "skip",
-   "msg": "Sweet peas, can: 2006 to 2026-05 is 2.30x; no official series to compare",
+   "result": "pass",
+   "msg": "Sweet peas, can: up 2.30x from 2006 to 2026-05; grocery prices overall rose 1.66x",
    "level": "price",
    "obs": 34
   },
   {
    "post": "kylei-2006",
    "check": "pair",
-   "result": "skip",
-   "msg": "Bounty paper towels: 2006 to 2026-05 is 3.03x; no official series to compare",
+   "result": "pass",
+   "msg": "Bounty paper towels: up 3.03x from 2006 to 2026-05; grocery prices overall rose 1.66x",
    "level": "price",
    "obs": 35
   },
   {
    "post": "kylei-2006",
    "check": "basket",
-   "result": "skip",
-   "msg": "cart +147.1%; official series not loaded for those months",
+   "result": "fail",
+   "msg": "cart +147.1% from 2006 to 2026-05; official grocery prices +66.2%",
    "level": "post"
   },
   {
@@ -497,8 +707,8 @@
   {
    "post": "pueblo-2001",
    "check": "basket",
-   "result": "skip",
-   "msg": "cart +158.1%; official series not loaded for those months",
+   "result": "warn",
+   "msg": "cart +158.1% from 2001 to 2026-05; official grocery prices +85.2%",
    "level": "post"
   },
   {
@@ -518,8 +728,8 @@
   {
    "post": "sewerlidd-reorder",
    "check": "basket",
-   "result": "skip",
-   "msg": "cart +227.1%; official series not loaded for those months",
+   "result": "fail",
+   "msg": "cart +227.1% from 2022-06 to 2024-06; official grocery prices +5.8%",
    "level": "post"
   },
   {
@@ -539,24 +749,24 @@
   {
    "post": "curtdogg-2020-2023",
    "check": "pair",
-   "result": "skip",
-   "msg": "Great Value mesquite smoked turkey breast, family pack: 2020 to 2023-09 is 2.14x; no official series to compare",
+   "result": "pass",
+   "msg": "Great Value mesquite smoked turkey breast, family pack: up 2.14x from 2020 to 2023-09; grocery prices overall rose 1.21x",
    "level": "price",
    "obs": 1
   },
   {
    "post": "curtdogg-2020-2023",
    "check": "pair",
-   "result": "skip",
-   "msg": "Great Value buttermilk waffles, 24: 2020 to 2023-09 is 1.41x; no official series to compare",
+   "result": "pass",
+   "msg": "Great Value buttermilk waffles, 24: up 1.41x from 2020 to 2023-09; grocery prices overall rose 1.21x",
    "level": "price",
    "obs": 3
   },
   {
    "post": "curtdogg-2020-2023",
    "check": "pair",
-   "result": "skip",
-   "msg": "Great Value Vienna sausages, can: 2020 to 2023-09 is 1.79x; no official series to compare",
+   "result": "pass",
+   "msg": "Great Value Vienna sausages, can: up 1.79x from 2020 to 2023-09; grocery prices overall rose 1.21x",
    "level": "price",
    "obs": 5
   },
@@ -577,8 +787,8 @@
   {
    "post": "kaypal-curbside",
    "check": "basket",
-   "result": "skip",
-   "msg": "cart +27.5%; official series not loaded for those months",
+   "result": "pass",
+   "msg": "cart +27.5% from 2020-09 to 2023-09; official grocery prices +20.9%",
    "level": "post"
   },
   {
@@ -605,8 +815,8 @@
   {
    "post": "amywaytosave",
    "check": "basket",
-   "result": "skip",
-   "msg": "cart +49.7%; official series not loaded for those months",
+   "result": "warn",
+   "msg": "cart +49.7% from 2020-11 to 2023-01; official grocery prices +20.4%",
    "level": "post"
   },
   {
@@ -626,8 +836,8 @@
   {
    "post": "horpedahl-2019",
    "check": "basket",
-   "result": "skip",
-   "msg": "cart +23.8%; official series not loaded for those months",
+   "result": "pass",
+   "msg": "cart +23.8% from 2019-10 to 2024-08; official grocery prices +26.4%",
    "level": "post"
   },
   {
@@ -647,8 +857,8 @@
   {
    "post": "horpedahl-2020",
    "check": "basket",
-   "result": "skip",
-   "msg": "cart +23.4%; official series not loaded for those months",
+   "result": "pass",
+   "msg": "cart +23.4% from 2020-10 to 2024-08; official grocery prices +21.6%",
    "level": "post"
   },
   {
@@ -694,6 +904,22 @@
    "level": "post"
   },
   {
+   "post": "fifty-dollars",
+   "check": "band",
+   "result": "pass",
+   "msg": "Great Value milk, gallon, 2024: $3.13 per gallon is 0.79x the official average ($3.97)",
+   "level": "price",
+   "obs": 0
+  },
+  {
+   "post": "fifty-dollars",
+   "check": "band",
+   "result": "pass",
+   "msg": "Great Value jumbo white eggs, dozen, 2024: $2.58 per dozen is 0.81x the official average ($3.17)",
+   "level": "price",
+   "obs": 1
+  },
+  {
    "post": "thanksgiving-basket",
    "check": "schema",
    "result": "pass",
@@ -710,8 +936,8 @@
   {
    "post": "thanksgiving-basket",
    "check": "basket",
-   "result": "skip",
-   "msg": "cart -27.3%; official series not loaded for those months",
+   "result": "fail",
+   "msg": "cart -27.3% from 2024-11 to 2025-11; official grocery prices +1.9%",
    "level": "post"
   },
   {

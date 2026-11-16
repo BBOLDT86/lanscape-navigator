@@ -1,9 +1,9 @@
 {
- "built": "2026-11-16T03:32Z",
+ "built": "2026-11-16T03:34Z",
  "tiers": {
-  "solid": 46,
+  "solid": 27,
   "unverified": 11,
-  "rejected": 12
+  "rejected": 31
  },
  "rows": [
   {
@@ -17,8 +17,8 @@
    "hi": null,
    "qty": 1,
    "unit_price": 2.89,
-   "official": null,
-   "ratio": null,
+   "official": 2.91,
+   "ratio": 0.993,
    "grade": "F",
    "tier": "rejected",
    "kind": "receipt line",
@@ -38,8 +38,8 @@
    "hi": null,
    "qty": 1,
    "unit_price": 1.29,
-   "official": null,
-   "ratio": null,
+   "official": 0.984,
+   "ratio": 1.311,
    "grade": "F",
    "tier": "rejected",
    "kind": "receipt line",
@@ -105,8 +105,8 @@
    "hi": null,
    "qty": 3,
    "unit_price": 0.63,
-   "official": null,
-   "ratio": null,
+   "official": 0.463,
+   "ratio": 1.361,
    "grade": "F",
    "tier": "rejected",
    "kind": "receipt line",
@@ -149,12 +149,14 @@
    "hi": null,
    "qty": 1,
    "unit_price": 5.99,
-   "official": null,
-   "ratio": null,
+   "official": 3.927,
+   "ratio": 1.525,
    "grade": "F",
    "tier": "rejected",
    "kind": "receipt line",
-   "flags": [],
+   "flags": [
+    "rise 1.5x official"
+   ],
    "note": null,
    "source": "Lead Stories",
    "source_url": "https://leadstories.com/hoax-alert/2026/10/fact-check-fake-image-of-2002-and-2026-walmart-reciepts-for-price-comparison-it-was-made-with-ai.html"
@@ -170,12 +172,15 @@
    "hi": null,
    "qty": 1,
    "unit_price": 9.48,
-   "official": null,
-   "ratio": null,
+   "official": 2.372,
+   "ratio": 3.997,
    "grade": "F",
    "tier": "rejected",
    "kind": "receipt line",
-   "flags": [],
+   "flags": [
+    "implausible",
+    "rise 3.0x official"
+   ],
    "note": null,
    "source": "Lead Stories",
    "source_url": "https://leadstories.com/hoax-alert/2026/10/fact-check-fake-image-of-2002-and-2026-walmart-reciepts-for-price-comparison-it-was-made-with-ai.html"
@@ -197,7 +202,8 @@
    "tier": "rejected",
    "kind": "receipt line",
    "flags": [
-    "size unknown"
+    "size unknown",
+    "rise 1.9x official"
    ],
    "note": null,
    "source": "The image itself",
@@ -220,7 +226,8 @@
    "tier": "rejected",
    "kind": "receipt line",
    "flags": [
-    "size unknown"
+    "size unknown",
+    "rise 2.7x official"
    ],
    "note": null,
    "source": "Lead Stories",
@@ -237,12 +244,15 @@
    "hi": null,
    "qty": 3,
    "unit_price": 1.4967,
-   "official": null,
-   "ratio": null,
+   "official": 0.613,
+   "ratio": 2.442,
    "grade": "F",
    "tier": "rejected",
    "kind": "receipt line",
-   "flags": [],
+   "flags": [
+    "well above average",
+    "rise 1.8x official"
+   ],
    "note": "Partly hidden in the image; it is the amount that makes the six lines add to the printed $57.93.",
    "source": "The image itself",
    "source_url": "https://www.instagram.com/p/DeblG8Ltekk/"
@@ -281,8 +291,8 @@
    "hi": null,
    "qty": 1,
    "unit_price": 1.67,
-   "official": null,
-   "ratio": null,
+   "official": 2.372,
+   "ratio": 0.704,
    "grade": "A",
    "tier": "solid",
    "kind": "price check",
@@ -302,10 +312,10 @@
    "hi": null,
    "qty": 1,
    "unit_price": 1.28,
-   "official": null,
-   "ratio": null,
-   "grade": "B",
-   "tier": "solid",
+   "official": 1.306,
+   "ratio": 0.98,
+   "grade": "D",
+   "tier": "rejected",
    "kind": "receipt line",
    "flags": [
     "year only"
@@ -325,10 +335,10 @@
    "hi": null,
    "qty": 1,
    "unit_price": 3.05,
-   "official": null,
-   "ratio": null,
-   "grade": "B",
-   "tier": "solid",
+   "official": 3.081,
+   "ratio": 0.99,
+   "grade": "D",
+   "tier": "rejected",
    "kind": "receipt line",
    "flags": [
     "year only"
@@ -348,10 +358,10 @@
    "hi": null,
    "qty": 10,
    "unit_price": 0.396,
-   "official": null,
-   "ratio": null,
-   "grade": "B",
-   "tier": "solid",
+   "official": 0.534,
+   "ratio": 0.742,
+   "grade": "D",
+   "tier": "rejected",
    "kind": "receipt line",
    "flags": [
     "year only"
@@ -371,10 +381,10 @@
    "hi": null,
    "qty": 1,
    "unit_price": 1.24,
-   "official": null,
-   "ratio": null,
-   "grade": "B",
-   "tier": "solid",
+   "official": 1.732,
+   "ratio": 0.716,
+   "grade": "D",
+   "tier": "rejected",
    "kind": "receipt line",
    "flags": [
     "year only"
@@ -396,8 +406,8 @@
    "unit_price": null,
    "official": null,
    "ratio": null,
-   "grade": "B",
-   "tier": "solid",
+   "grade": "D",
+   "tier": "rejected",
    "kind": "receipt line",
    "flags": [
     "year only",
@@ -420,8 +430,8 @@
    "unit_price": null,
    "official": null,
    "ratio": null,
-   "grade": "B",
-   "tier": "solid",
+   "grade": "D",
+   "tier": "rejected",
    "kind": "receipt line",
    "flags": [
     "year only"
@@ -443,8 +453,8 @@
    "unit_price": null,
    "official": null,
    "ratio": null,
-   "grade": "B",
-   "tier": "solid",
+   "grade": "D",
+   "tier": "rejected",
    "kind": "receipt line",
    "flags": [
     "year only"
@@ -466,8 +476,8 @@
    "unit_price": null,
    "official": null,
    "ratio": null,
-   "grade": "B",
-   "tier": "solid",
+   "grade": "D",
+   "tier": "rejected",
    "kind": "receipt line",
    "flags": [
     "year only"
@@ -489,8 +499,8 @@
    "unit_price": null,
    "official": null,
    "ratio": null,
-   "grade": "B",
-   "tier": "solid",
+   "grade": "D",
+   "tier": "rejected",
    "kind": "receipt line",
    "flags": [
     "year only"
@@ -512,8 +522,8 @@
    "unit_price": null,
    "official": null,
    "ratio": null,
-   "grade": "B",
-   "tier": "solid",
+   "grade": "D",
+   "tier": "rejected",
    "kind": "receipt line",
    "flags": [
     "year only"
@@ -535,8 +545,8 @@
    "unit_price": null,
    "official": null,
    "ratio": null,
-   "grade": "B",
-   "tier": "solid",
+   "grade": "D",
+   "tier": "rejected",
    "kind": "receipt line",
    "flags": [
     "year only"
@@ -558,8 +568,8 @@
    "unit_price": null,
    "official": null,
    "ratio": null,
-   "grade": "B",
-   "tier": "solid",
+   "grade": "D",
+   "tier": "rejected",
    "kind": "receipt line",
    "flags": [
     "year only"
@@ -581,8 +591,8 @@
    "unit_price": null,
    "official": null,
    "ratio": null,
-   "grade": "B",
-   "tier": "solid",
+   "grade": "D",
+   "tier": "rejected",
    "kind": "receipt line",
    "flags": [
     "year only"
@@ -604,8 +614,8 @@
    "unit_price": null,
    "official": null,
    "ratio": null,
-   "grade": "B",
-   "tier": "solid",
+   "grade": "D",
+   "tier": "rejected",
    "kind": "receipt line",
    "flags": [
     "year only"
@@ -627,8 +637,8 @@
    "unit_price": null,
    "official": null,
    "ratio": null,
-   "grade": "B",
-   "tier": "solid",
+   "grade": "D",
+   "tier": "rejected",
    "kind": "receipt line",
    "flags": [
     "year only"
@@ -650,8 +660,8 @@
    "unit_price": null,
    "official": null,
    "ratio": null,
-   "grade": "B",
-   "tier": "solid",
+   "grade": "D",
+   "tier": "rejected",
    "kind": "receipt line",
    "flags": [
     "year only"
@@ -673,8 +683,8 @@
    "unit_price": null,
    "official": null,
    "ratio": null,
-   "grade": "B",
-   "tier": "solid",
+   "grade": "D",
+   "tier": "rejected",
    "kind": "receipt line",
    "flags": [
     "year only"
@@ -696,8 +706,8 @@
    "unit_price": null,
    "official": null,
    "ratio": null,
-   "grade": "B",
-   "tier": "solid",
+   "grade": "D",
+   "tier": "rejected",
    "kind": "receipt line",
    "flags": [
     "year only"
@@ -719,8 +729,8 @@
    "unit_price": null,
    "official": null,
    "ratio": null,
-   "grade": "B",
-   "tier": "solid",
+   "grade": "D",
+   "tier": "rejected",
    "kind": "receipt line",
    "flags": [
     "year only"
@@ -740,8 +750,8 @@
    "hi": null,
    "qty": 1,
    "unit_price": 1.47,
-   "official": null,
-   "ratio": null,
+   "official": 2.191,
+   "ratio": 0.671,
    "grade": "A",
    "tier": "solid",
    "kind": "price check",
@@ -761,8 +771,8 @@
    "hi": 7.87,
    "qty": 1,
    "unit_price": 4.27,
-   "official": null,
-   "ratio": null,
+   "official": 4.217,
+   "ratio": 1.013,
    "grade": "A",
    "tier": "solid",
    "kind": "price check",
@@ -784,8 +794,8 @@
    "hi": null,
    "qty": 10,
    "unit_price": 0.454,
-   "official": null,
-   "ratio": null,
+   "official": 0.894,
+   "ratio": 0.508,
    "grade": "A",
    "tier": "solid",
    "kind": "price check",
@@ -1366,8 +1376,8 @@
    "hi": null,
    "qty": 1,
    "unit_price": 3.13,
-   "official": null,
-   "ratio": null,
+   "official": 3.968,
+   "ratio": 0.789,
    "grade": "A",
    "tier": "solid",
    "kind": "price check",
@@ -1389,8 +1399,8 @@
    "hi": null,
    "qty": 1,
    "unit_price": 2.58,
-   "official": null,
-   "ratio": null,
+   "official": 3.171,
+   "ratio": 0.813,
    "grade": "A",
    "tier": "solid",
    "kind": "price check",
