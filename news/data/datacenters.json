@@ -1,8 +1,8 @@
 {
  "v": 1,
- "updated": "2026-11-11T11:27:12+00:00",
+ "updated": "2026-11-18T11:21:42+00:00",
  "model": "Claude Opus 5.5",
- "summary": "This week's biggest change came from Washington, not a construction site. On Nov. 9 the Senate voted 73-25 to open debate on a bipartisan bill that would have FERC make data centers pay for the power and grid upgrades they need, keep new costs off other customers and require financial guarantees before utilities build for them. It still needs final Senate passage, the House and the president's signature.\n\nRegulators are moving the same way. Florida's PSC rejected Duke Energy's data center tariff, finding it didn't show that each large customer would pay its full cost of service under a new state law. PJM refiled its backstop plan to buy 6.8 GW the last capacity auction left short, starting March 1, with costs proposed for the zones where data centers drive growth; existing customers' exposure is reduced but not eliminated.\n\nNew on the map: SpaceX's $24 billion Starbase supercomputer with its own gas plant (a tax break is up Dec. 9) and a 900 MW Kraft-backed campus proposed in Sutton, Massachusetts. Google bought the Wyoming campus Crusoe was building and pledged $17 billion.\n\nThe pressure points are near: New Mexico must rule on Project Jupiter's air permit by Nov. 23 after the county's second breach notice, and Louisiana landowners sued to stop the fast track Entergy plans to use for Meta's seven gas plants in December. For households, nothing is settled yet; the cost rules being written now decide who pays for the next decade of plants and lines.",
+ "summary": "The biggest move this week was in Texas, where the state's environmental agency issued an air permit on Nov. 16 for SpaceX's 750 MW off-grid gas plant at Starbase, three weeks before Gov. Abbott's data center permit pause was due to lift and while ERCOT's audit of large loads is still unfinished. Its nitrogen-oxide cap sits just under the level that would trigger a public hearing. SpaceX was also revealed as the company behind a 6 GW, $50 billion campus in Cochise County, Arizona, one of the largest proposals on this map; its zoning hearing is Dec. 9.\n\nThe pattern is the same across the new entries: build your own gas plant and stay off the shared grid. Microsoft's 2.67 GW Chevron-powered Pecos campus and a 1-3 GW gas-fired site on Alaska's North Slope, which won a 50-year state lease, join the tracker. Mississippi upheld the permit for SpaceXAI's 41 turbines in Southaven.\n\nElsewhere, momentum slowed. Project Jupiter's air-permit decision, due Nov. 23, was put off with no new date, so New Mexico's largest campus still has no approved power. Loudoun County, Virginia, the country's largest data center market, voted 7-1-1 on Nov. 17 to pause some new data center and substation applications. Fermi swapped its collapsed TensorWave lease for a 600 MW deal with an unnamed hyperscaler, but no lease is signed.\n\nFor household bills: off-grid plants keep their costs off utility rates but add local air pollution and gas demand. The fights that decide who pays, including Louisiana's December vote on Meta's seven gas plants and the Senate's data center cost bill, are still unresolved.",
  "projects": [
   {
    "id": "stargate-abilene",
@@ -131,8 +131,20 @@
    "power": "Natural gas microgrids with Bloom Energy fuel cells and batteries; El Paso Electric backup service was proposed and withdrawn",
    "grid": "WECC (El Paso Electric)",
    "cost": "$165 billion expected investment over the industrial revenue bond's life (as reported)",
-   "note": "On Nov. 10 Doña Ana County commissioners voted 4-0 for a second breach notice in a month, saying developers missed required job reports; the state's decision on the gas microgrid's air permit, without which the campus has no approved power, is due by Nov. 23. Oracle sent a force majeure notice in September preserving a right to defer rent if power isn't ready for a 2028 start; the microgrid is reported at up to 2.45 GW, above the 2.2 GW used here.",
+   "note": "The developer waived the Nov. 23 deadline for a state decision on the gas microgrid's air permit, and on Nov. 3 it and the state asked to cancel the Dec. 7 hearing until regulators finish reviewing October revisions; no new date is set, so the campus still has no approved power. The county sent a second breach notice Nov. 10; the microgrid is reported at up to 2.45 GW, above the 2.2 GW used here.",
    "sources": [
+    {
+     "title": "Project Jupiter developer waives air permit deadline, seeks to postpone Dec. 7 hearing",
+     "outlet": "Organ Mountain News",
+     "url": "https://www.organmountainnews.com/project-jupiter-air-permit-deadline-waived-hearing-delay-2026/",
+     "date": "2026-11-05"
+    },
+    {
+     "title": "Project Jupiter air permit hearing postponed; no new date set",
+     "outlet": "CBS4",
+     "url": "https://cbs4local.com/newsletter-daily/project-jupiter-air-permit-hearing-postponed-no-new-date-set",
+     "date": "2026-11"
+    },
     {
      "title": "Doña Ana County issues new breach notice to Project Jupiter developers",
      "outlet": "Albuquerque Journal",
@@ -158,7 +170,7 @@
      "date": "2026-04-17"
     }
    ],
-   "updated": "2026-11-11"
+   "updated": "2026-11-18"
   },
   {
    "id": "stargate-saline",
@@ -227,8 +239,14 @@
    "power": "Entergy Louisiana: three gas units approved in 2025 and seven more proposed, for ten in all (754 MW each, about 7.5 GW as reported), with batteries and transmission",
    "grid": "MISO",
    "cost": "Entergy's estimates for the new generation are reported at $12.9 billion and about $13.6 billion; Meta's regional investment over $50 billion (as reported)",
-   "note": "On Nov. 9 landowner groups sued the Louisiana PSC in state court to void the fast-track 'Lightning Directive' Entergy plans to use to win approval of the seven gas plants and about 80 miles of transmission lines to the campus; KRVS puts that vote at the PSC's Dec. 10 meeting, while earlier reporting said Dec. 16. The Lens reports about a quarter of the generation cost, roughly $3.4 billion, would fall to other customers after Meta's 20-year contract.",
+   "note": "Entergy has also gone to court to expropriate easements from 14 Lincoln Parish landowners for a 58-mile, 500 kV line to the campus, arguing it serves the public. The Nov. 9 landowner suit against the PSC's fast track for the seven gas plants is pending; Entergy still plans to seek approval in December (Dec. 10 per KRVS). The Lens reports about $3.4 billion of the generation cost would fall to other customers after Meta's 20-year contract.",
    "sources": [
+    {
+     "title": "Entergy says Meta power lines serve 'public purpose' in Lincoln Parish land rights lawsuit",
+     "outlet": "WWNO",
+     "url": "https://www.wwno.org/economy/2026-11-12/entergy-says-meta-power-lines-serve-public-purpose-in-lincoln-parish-land-rights-lawsuit",
+     "date": "2026-11-12"
+    },
     {
      "title": "Entergy wants their land for Meta's power lines. They're suing the regulators approving them",
      "outlet": "KRVS",
@@ -254,7 +272,7 @@
      "date": "2026-10-26"
     }
    ],
-   "updated": "2026-11-11"
+   "updated": "2026-11-18"
   },
   {
    "id": "meta-prometheus",
@@ -299,8 +317,14 @@
    "power": "On-site gas turbines in Southaven (41 permanent turbines permitted in March to replace 27 unpermitted ones) and Tesla Megapacks",
    "grid": "SERC/TVA",
    "cost": "more than $20 billion for the Mississippi facility (as reported)",
-   "note": "On Oct. 30 a federal judge denied xAI's motion to dismiss the NAACP's Clean Air Act suit, rejecting the claim that the Southaven turbines are exempt mobile sources; xAI said in August it would replace the unpermitted turbines with a larger permitted plant, which could take a year. The 2 GW figure is Musk's total for Colossus training compute, not a utility-filed load.",
+   "note": "At the close of a Nov. 9-10 hearing Mississippi's permit board voted 6-1 to uphold the permit for 41 permanent gas turbines at Southaven, rejecting community groups' appeal; they can still go to court, and the NAACP's federal Clean Air Act suit continues. The 2 GW figure is Musk's total for Colossus training compute, not a utility-filed load.",
    "sources": [
+    {
+     "title": "Mississippi Permit Board Affirms Past Ruling Allowing SpaceX's Turbines in Southaven",
+     "outlet": "Mississippi Free Press",
+     "url": "https://www.mississippifreepress.org/mississippi-regulators-uphold-permit-authorizing-permanent-turbines-at-spacex-southaven-plant/",
+     "date": "2026-11-16"
+    },
     {
      "title": "SpaceX loses bid to dismiss lawsuit over xAI data center pollution",
      "outlet": "Tom's Hardware",
@@ -326,7 +350,7 @@
      "date": "2026-01-08"
     }
    ],
-   "updated": "2026-11-04"
+   "updated": "2026-11-18"
   },
   {
    "id": "homer-city",
@@ -487,7 +511,7 @@
   {
    "id": "fermi-matador",
    "name": "Project Matador (HyperGrid)",
-   "company": "Fermi America with Texas Tech University System; TensorWave (tenant); AMD (credit support)",
+   "company": "Fermi America with Texas Tech University System; an unnamed investment-grade hyperscaler (lease under negotiation)",
    "place": "Amarillo",
    "state": "TX",
    "lat": 35.22,
@@ -496,9 +520,21 @@
    "status": "planned",
    "power": "Mostly behind the meter: gas turbines first, with four AP1000 reactors under NRC review, plus solar, wind, batteries and grid power",
    "grid": "SPP",
-   "cost": "not reported; TensorWave lease up to $6.5 billion over 15 years (as reported)",
-   "note": "At its Nov. 2 annual meeting Fermi said it is pivoting to a powered-land model and that its two director nominees preliminarily failed to win enough votes; it reports first gas turbines delivered on site and an earnings call Nov. 12. The NRC's draft environmental review of four AP1000 reactors is open for comment until Nov. 23, and Texas's governor-elect campaigned on a moratorium on new data center construction. Fermi has cited both 11 GW and nearly 17 GW.",
+   "cost": "not reported; the hyperscaler agreed to a $200 million prepayment (as reported)",
+   "note": "On Nov. 12 Fermi said an unnamed investment-grade hyperscaler agreed to an initial 600 MW with development starting in 2027 and a $200 million prepayment, though a definitive lease is still being negotiated; the TensorWave lease and AMD credit support were terminated. Fermi cites 2.2 GW of current capacity and targets of 11 GW to about 17 GW, all subject to customers, permits and financing.",
    "sources": [
+    {
+     "title": "Fermi Announces New Agreements with Investment-Grade Hyperscaler and Third Quarter 2026 Financial Results",
+     "outlet": "ACCESS Newswire (FinancialContent)",
+     "url": "https://www.financialcontent.com/article/accwirecq-2026-11-12-fermi-announces-new-agreements-with-investment-grade-hyperscaler-and-third-quarter-2026-financial-results",
+     "date": "2026-11-12"
+    },
+    {
+     "title": "Fermi agrees 600MW power deal with hyperscaler, but TensorWave lease is officially dead",
+     "outlet": "DCD",
+     "url": "https://www.datacenterdynamics.com/en/news/fermi-does-600mw-power-deal-with-hyperscaler-but-tensorwave-lease-is-officially-dead/",
+     "date": "2026-11-13"
+    },
     {
      "title": "Fermi Advances Project Matador, Pivots to Powered-Land Strategy as Director Vote Fails",
      "outlet": "MarketBeat",
@@ -524,7 +560,7 @@
      "date": "2025-07-03"
     }
    ],
-   "updated": "2026-11-04"
+   "updated": "2026-11-18"
   },
   {
    "id": "project-jade",
@@ -713,9 +749,15 @@
    "power": "Georgia Power, under a 25-year agreement for 3.2 GW delivered over about four years; OpenAI says it pays for the electrical infrastructure",
    "grid": "SERC (Southern Company/Georgia Power)",
    "cost": "$20 billion (as reported)",
-   "note": "On Nov. 2 OpenAI launched a non-binding 'Grid Protectors' program, starting with a pledge to make up to 1,000 MW of this campus's load available for curtailment in grid emergencies, about 31% of peak; terms are still being worked out with Georgia Power.",
-   "updated": "2026-11-04",
+   "note": "On Nov. 6 three Effingham County residents sued OpenAI, its local entity, county commissioners and the development authority in state court, alleging concealment and a Georgia RICO violation over how the deal was made. OpenAI's Nov. 2 non-binding pledge to make up to 1,000 MW available for curtailment in grid emergencies is still being worked out with Georgia Power.",
+   "updated": "2026-11-18",
    "sources": [
+    {
+     "title": "Effingham County residents file damages lawsuit against OpenAI, county officials over Project Camellia",
+     "outlet": "WTOC",
+     "url": "https://www.wtoc.com/2026/11/09/effingham-county-residents-sue-openai-county-officials-over-project-camellia-data-center/",
+     "date": "2026-11-09"
+    },
     {
      "title": "OpenAI Launches Grid Protectors Program With 1 GW Georgia Pledge",
      "outlet": "Dataconomy",
@@ -732,20 +774,26 @@
   },
   {
    "id": "cochise-tombstone",
-   "name": "Cochise County data center campus",
-   "company": "Tombstone Resources LLC; tenant not named",
+   "name": "Cochise County AI campus (SpaceX)",
+   "company": "SpaceX, through Tombstone Resources LLC",
    "place": "Cochise, Cochise County",
    "state": "AZ",
    "lat": 32.11,
    "lon": -109.92,
    "mw": 6000,
    "status": "announced",
-   "power": "Wholesale generation and transmission from AEPCO and retail service from SSVEC, with 90 MW of backup gas generators and batteries; the developer is to pay for upgrades",
+   "power": "Built beside the roughly 1 GW Apache Generating Station, which SpaceX says it could expand to more than 6 GW, with a 24 GWh battery system; AEPCO wholesale and SSVEC retail service; the application includes about $3.6 billion in grid upgrades",
    "grid": "WECC (AEPCO/SSVEC)",
-   "cost": "not disclosed (as reported)",
-   "note": "Arizona's largest proposal: nine buildings on about 750 acres near the Apache Generating Station; the first community meeting is Nov. 4 and the county zoning hearing Dec. 9. Site studies are still required.",
-   "updated": "2026-11-04",
+   "cost": "about $50 billion (as reported)",
+   "note": "SpaceX was revealed as the developer at a Nov. 4 town hall; it plans four phases of about 1.5 GW each on 747 acres, part of a $74 billion plan with Starbase. Written comments are due Nov. 27 and the county zoning hearing is Dec. 9; the Apache station had been slated to retire by 2028.",
+   "updated": "2026-11-18",
    "sources": [
+    {
+     "title": "SpaceX hid behind another name in the Arizona desert, and now it's going big",
+     "outlet": "Teslarati",
+     "url": "https://www.teslarati.com/spacex-arizona-supercomputer-tombstone/",
+     "date": "2026-11-12"
+    },
     {
      "title": "Largest data center proposal in Arizona heads to Cochise County. 1st community meeting scheduled",
      "outlet": "KJZZ",
@@ -799,13 +847,25 @@
    "lat": 25.99,
    "lon": -97.18,
    "mw": 748,
-   "status": "announced",
-   "power": "An on-site gas-fired plant: a pending state air filing for a 'Boca Chica Facility' covers 35 temporary turbines (about 748 MW) to be replaced by eight permanent ones (about 708 MW); an affiliate's 8-mile gas pipeline is due in January 2027",
+   "status": "permitted",
+   "power": "An off-grid gas-fired plant: Texas's environmental agency issued the air permit for 35 turbines (about 750 MW) on Nov. 16; the original filing lists eight permanent turbines (about 708 MW) as the alternative; an affiliate's 8-mile gas pipeline is due in January 2027",
    "grid": "ERCOT region (grid connection not reported)",
    "cost": "$24 billion for the initial phases (as reported)",
-   "note": "New this week: a Nov. 6 city notice says the Starbase City Commission will weigh a tax abatement Dec. 9 for the plant and super-compute facility on 444 acres. 748 MW is the temporary turbines' capacity as reported by The 956 Report; no data center load has been disclosed, and building its own plant could let SpaceX skip the wait to connect to the Texas grid.",
-   "updated": "2026-11-11",
+   "note": "Texas's environmental agency issued the plant's air permit on Nov. 16, before the governor's data center permit pause was due to lift on Dec. 10, with a nitrogen-oxide cap of about 248 tons a year, just under the 250-ton line that triggers a public hearing. The city's tax abatement vote is still set for Dec. 9; 748 MW is the turbines' capacity, as no data center load has been disclosed.",
+   "updated": "2026-11-18",
    "sources": [
+    {
+     "title": "Texas issues air permit for massive SpaceX data center",
+     "outlet": "Politico (Yahoo News)",
+     "url": "https://www.yahoo.com/news/politics/articles/texas-issues-air-permit-massive-223921553.html",
+     "date": "2026-11-17"
+    },
+    {
+     "title": "SpaceX Plans $74B Data Centers; Starbase Gas Plant Nitrogen Oxide Cap 1.14 Tons Under Federal Line",
+     "outlet": "Tech Times",
+     "url": "https://www.techtimes.com/articles/330622/20261113/spacex-plans-74b-data-centers-starbase-gas-plant-nitrogen-oxide-cap-114-tons-under-federal-line.htm",
+     "date": "2026-11-13"
+    },
     {
      "title": "SpaceX Wants a Tax Break for a $24 Billion Gas Plant and Supercomputer at Starbase",
      "outlet": "24/7 Wall St. (Yahoo Finance)",
@@ -849,13 +909,77 @@
      "date": "2026-11-10"
     }
    ]
+  },
+  {
+   "id": "microsoft-kilby-pecos",
+   "name": "Project Kilby (Microsoft Pecos campus)",
+   "company": "Microsoft; power from a Chevron subsidiary",
+   "place": "Pecos",
+   "state": "TX",
+   "lat": 31.42,
+   "lon": -103.49,
+   "mw": 2670,
+   "status": "planned",
+   "power": "A co-located Chevron natural gas plant serving the campus behind the meter under a 20-year power-purchase agreement signed in June; Microsoft says it funds the generation",
+   "grid": "ERCOT region (behind the meter)",
+   "cost": "not reported",
+   "note": "Chevron says it is still working toward a final investment decision (expected by end-2026) with contracts, permits and financing unfinished, targeting first power in 2028 and full energization in 2031. 2,670 MW is the phased power project's size; Microsoft's data center capacity is put at about 2 GW, and Texas's data center permit pause could affect timing.",
+   "updated": "2026-11-18",
+   "sources": [
+    {
+     "title": "Chevron says Project Kilby remains on schedule",
+     "outlet": "Data Phoenix",
+     "url": "https://dataphoenix.info/news/chevron-microsoft-texas-data-center-schedule-update",
+     "date": "2026-10-30"
+    },
+    {
+     "title": "Chevron to fuel massive Microsoft data center in Texas using natural gas",
+     "outlet": "CNBC",
+     "url": "https://www.cnbc.com/2026/06/22/chevron-cvx-microsoft-msft-natural-gas-data-center.html",
+     "date": "2026-06-22"
+    }
+   ]
+  },
+  {
+   "id": "stak-north-slope",
+   "name": "STAK Energy Campus",
+   "company": "STAK Energy Corp.; tenant not reported",
+   "place": "Dalton Highway Milepost 390, North Slope (about 26 miles south of Deadhorse)",
+   "state": "AK",
+   "lat": 69.83,
+   "lon": -148.7,
+   "mw": 3000,
+   "status": "permitted",
+   "power": "Its own 1-3 GW natural gas plant burning North Slope gas (350-500 million cubic feet a day); not tied to the Railbelt grid, though it could sell power around Prudhoe Bay",
+   "grid": "Off-grid (North Slope)",
+   "cost": "about $500 million for initial site development (as reported)",
+   "note": "Alaska's natural resources commissioner signed a 50-year lease for 715 acres on Nov. 10; it still needs a federal wetlands permit and a state air permit and faces a 20-day reconsideration window. 3,000 MW is the top of the reported 1-3 GW generation range; no data center load has been given, and construction is expected to take six years.",
+   "updated": "2026-11-18",
+   "sources": [
+    {
+     "title": "DNR approves STAK 50-year lease for 715.4 acres west of Dalton",
+     "outlet": "Petroleum News",
+     "url": "https://www.petroleumnews.com/story/2026/11/15/news/dnr-approves-stak-50-year-lease-for-7154-acres-west-of-dalton/50512.html",
+     "date": "2026-11-15"
+    },
+    {
+     "title": "Alaska approves 50-year land lease for large natural gas-powered data center in the Arctic",
+     "outlet": "Alaska Public Media",
+     "url": "https://alaskapublic.org/news/economy/energy/2026-11-11/alaska-approves-50-year-land-lease-for-large-natural-gas-powered-data-center-in-the-arctic",
+     "date": "2026-11-11"
+    }
+   ]
   }
  ],
  "changes": [
-  "Added: SpaceX's $24 billion Starbase super-compute facility and on-site gas plant (about 748 MW of temporary turbines in a state filing); tax abatement hearing Dec. 9.",
-  "Added: a 900 MW, $16 billion campus backed by the Kraft Group in Sutton, Massachusetts; no application filed yet.",
-  "Project Jade: Crusoe confirmed the sale of the Wyoming project to Google, which plans to invest $17 billion.",
-  "Project Jupiter: a second county breach notice (Nov. 10); the state air-permit decision on its power is due by Nov. 23.",
-  "Hyperion: landowners sued the Louisiana PSC (Nov. 9) to void the fast track Entergy plans to use for Meta's seven gas plants; vote date reported as Dec. 10."
+  "Starbase (SpaceX): Texas issued the air permit for the 750 MW off-grid gas plant on Nov. 16, ahead of the governor's Dec. 10 pause date; status moved to permitted.",
+  "Cochise County, Ariz.: SpaceX revealed as the developer of the 6 GW, $50 billion campus; zoning hearing Dec. 9.",
+  "Colossus 2 (SpaceXAI): Mississippi's permit board voted 6-1 to uphold the 41-turbine Southaven permit.",
+  "Project Matador (Fermi): a 600 MW deal with an unnamed hyperscaler and a $200 million prepayment; TensorWave lease terminated.",
+  "Project Jupiter: the Nov. 23 air-permit deadline was waived and the Dec. 7 hearing pulled; no new date.",
+  "Project Camellia (OpenAI): residents filed a state-court RICO suit over the deal (Nov. 6).",
+  "Hyperion (Meta): Entergy sued Lincoln Parish landowners for easements for a 58-mile line to the campus.",
+  "Added: Microsoft's Pecos, Texas campus (Project Kilby), 2.67 GW of Chevron gas power; final investment decision pending.",
+  "Added: the STAK Energy Campus on Alaska's North Slope, a 1-3 GW gas-powered site that won a 50-year state lease Nov. 10."
  ]
 }
