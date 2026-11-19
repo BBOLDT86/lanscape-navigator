@@ -1,0 +1,113 @@
+=== electronics | The 555 timer: the chip that would not die | Famous chips
+> Designed in the early 1970s, it is still made by the billion. With two resistors and a capacitor it can blink, beep, delay or debounce.
+# A chip from another era
+The 555 timer was designed by the Swiss-born engineer Hans Camenzind for the American firm Signetics and went on sale at the start of the 1970s. It was meant as a general-purpose timing circuit, and it succeeded far beyond expectations. It has been in continuous production ever since, from many manufacturers, and is commonly described as one of the best-selling integrated circuits ever made. It costs a few cents and comes in an eight-pin package.
+# What is inside
+The chip contains a chain of three equal resistors that divides the supply voltage into thirds, two comparators that watch for a voltage crossing one third and two thirds of the supply, a memory element that the comparators set and reset, an output stage and a transistor for discharging an external capacitor. That is all. Every use of the 555 comes down to charging a capacitor through a resistor and letting the comparators react as its voltage crosses those two levels.
+# One-shot mode
+In its first mode, called monostable, the chip produces a single pulse of fixed length each time it is triggered. A brief low signal on the trigger pin sends the output high and lets the timing capacitor begin to charge through a resistor. When the capacitor reaches two thirds of the supply, the output returns low and the capacitor is discharged. The pulse lasts about 1.1 times the resistance times the capacitance. A 100 kilohm resistor and 10 microfarads give 1.1 seconds.
+# Oscillator mode
+In the second mode, called astable, the chip triggers itself repeatedly and produces a continuous square wave. The capacitor charges through two resistors until it reaches two thirds of the supply, then discharges through one of them until it falls to one third, and the cycle repeats. The frequency depends on the two resistors and the capacitor, and can be set anywhere from one pulse every few minutes to hundreds of thousands a second.
+# What people build with it
+The list is long. A flashing LED. A tone generator for a buzzer or a toy organ. A delay that keeps a light on for a minute after a button is pressed. A circuit that cleans up the bounce of a mechanical switch. A simple pulse width modulator for dimming a lamp or controlling a motor's speed. A missing pulse detector. Generations of students have learned electronics by wiring one on a breadboard and watching an LED blink.
+# Its strengths
+The 555 is forgiving. It runs from about 4.5 to 16 volts, so a 9 volt battery or a 5 volt supply both suit it. Its output can supply or absorb up to 200 milliamps, enough to drive an LED, a small relay or a little loudspeaker directly. Its timing is set by a ratio of the supply voltage, so the period changes little as a battery runs down. It is hard to destroy and easy to understand.
+# Its weaknesses
+The original design draws several milliamps even when idle and causes a sharp spike on the supply each time its output switches, so it needs a decoupling capacitor close by. Its timing accuracy is limited by the tolerance of the capacitor, often 10 or 20 percent. Versions built with newer technology use a small fraction of the power and work at lower voltages. For long or precise delays, a microcontroller or a crystal-based timer does better.
+# Why it survives
+A cheap microcontroller can do everything a 555 does and far more, yet the 555 remains popular. It needs no programming, no development tools and no software to maintain. The whole design is visible on the schematic, in three passive parts. For a simple timing job, that directness is hard to beat. It is also among the best teaching devices in electronics, since understanding it properly means understanding comparators, capacitor charging and feedback.
+
+=== electronics | Relays: letting a small circuit switch a big one | The parts bin
+> A relay is a switch operated by an electromagnet. It lets five volts from a microcontroller control a load on an entirely separate circuit.
+# How it works
+Inside a relay is a coil of wire wound on an iron core, and beside it a springy metal arm carrying an electrical contact. When current flows through the coil, the core becomes a magnet and pulls the arm, which closes or opens the contacts. When the current stops, a spring returns the arm. You can hear it happen as a distinct click. The coil circuit and the contact circuit are not electrically connected in any way.
+# Isolation
+That separation is the main reason to use one. The contacts can switch a high voltage, a large current or alternating current from the mains, while the control side remains at a few safe volts. A fault on the load side cannot travel back into the delicate electronics. Relays were the switching elements of early telephone exchanges and of some of the first computers, and they are still found in cars, appliances, heating controls and industrial machinery.
+# The contacts
+A typical small relay has three terminals on its switched side. The common terminal connects to one of the other two depending on the state of the coil. The normally open terminal is disconnected at rest and connects when the coil is energized. The normally closed terminal is connected at rest and disconnects. Choose normally open for a load that should be off when power is absent, which is the safer arrangement for most things.
+# The ratings
+A relay has two separate sets of ratings. The coil has a voltage, commonly 5, 12 or 24 volts, and draws a current that for a small 5 volt relay is typically several tens of milliamps. The contacts have a maximum voltage and current, such as 10 amps at 250 volts. Loads that draw a surge when starting, such as motors and some lamps, need a relay rated well above their running current, since the surge wears the contacts.
+# Driving the coil
+A microcontroller pin cannot supply enough current for most relay coils. The standard circuit uses a transistor as a switch, with the coil between the supply and the transistor. A diode must be connected across the coil, pointing against the normal current, to absorb the voltage spike produced when the coil is switched off. Without it, the transistor will eventually fail. Ready-made relay modules include the transistor, the diode and often an indicator light.
+# Limits of a mechanical switch
+Relays are slow by electronic standards, taking several thousandths of a second to operate. The contacts bounce on closing. They wear, since each operation under load produces a tiny arc that erodes the metal, and life is measured in the hundreds of thousands of operations when switching real loads. They click audibly. And the coil consumes power for as long as the relay is held on. None of this matters for a load switched a few times a day.
+# Solid-state relays
+A solid-state relay does the same job with semiconductors in place of moving parts, using light inside the package to carry the signal across an insulating gap. It is silent, fast and does not wear out mechanically. It suits loads switched frequently, such as heaters under temperature control. It has drawbacks of its own. It dissipates heat when carrying current and may need a heatsink, it leaks a tiny current when off, and most types handle either alternating or direct current but not both.
+# A word about mains
+Relays make it easy to connect low-voltage electronics to household mains, and that is where care is needed. Mains voltage can kill, and a wiring error can start a fire. Use relays and modules properly rated for the voltage and current, keep the two sides physically apart, enclose every mains connection so it cannot be touched, and fit a suitable fuse. If you have not been trained to work with mains, use a commercially made smart plug or controller instead.
+
+=== electronics | Sensors: how circuits feel the world | Sensors
+> Every sensor does the same basic thing: it turns some physical quantity into an electrical one. A handful of principles cover most of those you will meet.
+# Something physical in, something electrical out
+A sensor is a device whose electrical behaviour changes with its surroundings. Some change their resistance. Some produce a small voltage or current. Some output a stream of digital numbers. The circuit's job is to turn that change into something a microcontroller can read, usually a voltage at an analog input or data on a serial bus. Once you know which kind of output a sensor gives, you know how to connect it.
+# Temperature
+The simplest temperature sensor is a thermistor, a resistor whose value changes strongly with temperature. The common type falls in resistance as it warms. A typical part measures 10 kilohms at 25 degrees Celsius. Placed in a voltage divider with a fixed resistor, it gives a voltage that tracks temperature. The relationship is curved, so software must apply a formula from the datasheet. Digital temperature chips do the conversion internally and report degrees directly, often to within half a degree.
+# Light
+A light dependent resistor has a high resistance in darkness and a low one in bright light, and is read with a divider in the same way. It is cheap and slow to respond, which suits tasks such as switching on a lamp at dusk. Photodiodes and phototransistors respond far faster and more precisely, producing a current proportional to the light falling on them. They are used in remote control receivers, optical encoders and heart rate monitors.
+# Distance
+A common ultrasonic module measures distance by timing an echo. It emits a short burst of sound above the range of hearing and listens for the reflection. Sound travels at about 343 metres a second in air at room temperature, so the distance is the echo time multiplied by that speed and divided by two, since the sound travels out and back. Such modules work from a few centimetres to a few metres. Soft, angled or very small objects reflect poorly.
+# Motion and orientation
+Tiny mechanical structures etched in silicon make it possible to measure acceleration and rotation on a chip. An accelerometer senses how a microscopic suspended mass shifts as the chip is moved or tilted. Because gravity is an acceleration, it also reveals which way is down. A gyroscope chip measures rate of turning. Phones use both to rotate the screen and count steps. They communicate over a serial bus and cost very little.
+# Magnetism
+A Hall effect sensor responds to a magnetic field. The simple kind acts as a switch that turns on when a magnet comes near. Since nothing touches, it never wears out. It is used to count the turns of a wheel, to detect whether a door or laptop lid is closed and to sense the position of the rotor in a brushless motor. Other versions give an output proportional to field strength and can measure current flowing in a nearby wire.
+# People
+The passive infrared sensor found in security lights and alarms detects warm bodies. Its element responds to changes in infrared radiation, and a segmented plastic lens divides the view into zones. When a person moves from one zone to another, the element sees a change and the module signals motion. It detects movement, not presence, so someone sitting perfectly still goes unnoticed. That is why lights controlled this way turn off on people who are reading.
+# Reading them well
+A few practices apply to nearly all sensors. Read the datasheet for the supply voltage and the output type before connecting anything. Give analog sensors a quiet, stable supply and keep their wires short. Average several readings to reduce noise. Calibrate against a known reference if accuracy matters, since cheap sensors can be consistently off. And check that the reading makes physical sense. A room at 85 degrees usually means a wiring fault.
+
+=== poker | Hosting a home game that people come back to | Live play
+> A good home game is smooth, fair and friendly. A little preparation by the host prevents nearly every argument.
+# Decide the format
+Settle in advance whether you are playing a cash game or a tournament. In a cash game, chips have a fixed value, players can buy more and anyone can leave when they like. It suits groups whose members arrive and depart at different times. In a tournament, everyone pays the same entry, plays until their chips are gone and the last few share the prize pool. It gives a clear winner and a fixed cost for the evening.
+# Chips
+Proper chips make the game faster and far more pleasant than coins or matchsticks. A set of 300 is enough for six or seven players, and 500 for a full table. Three or four colours are plenty. A common convention gives white the lowest value, then red, green and black. For a tournament, give each player a stack worth around a hundred big blinds at the starting level, with enough small chips to post blinds comfortably.
+# Stakes everyone is comfortable with
+The stakes should suit the least wealthy person at the table. A game stops being fun when someone loses an amount that hurts, and that person does not return. Many long-running home games play for sums comparable to the cost of an evening out. In a cash game, set a maximum buy-in, commonly a hundred big blinds, so that nobody can dominate the table simply by bringing more money.
+# Tournament structure
+For a tournament, decide the blind schedule beforehand and print it. Levels of fifteen to twenty minutes suit an evening. Blinds that rise by roughly half each level keep the game moving without turning it into a lottery too early. With starting stacks of a hundred big blinds, a single table usually finishes in three to four hours. Agree on the payouts before the first hand. Paying the top two or three places is typical for one table.
+# Agree the rules first
+Most disputes concern a few recurring situations, so state the house rules at the start. Verbal declarations are binding. A bet must be made in one motion or announced, with no reaching back for more chips. Players act in turn. At showdown, the cards speak for themselves, whatever the holder says they have. Only the player in the hand decides how to play it. When a dispute does arise, the host rules and the game moves on.
+# The mechanics
+A few details speed things up. Use two decks with different coloured backs, so that one is being shuffled while the other is dealt. Use a dealer button and rotate the deal. Plastic cards cost more than paper and last for years. Cut the deck onto a plain card so the bottom card is never exposed. A table covered with a cloth or a sheet of felt lets cards slide and be picked up easily.
+# Being a good host
+Start at the stated time. Have somewhere for people to put drinks that is not the playing surface. Keep the pace up without hurrying anyone over a big decision. Watch the mood, since a game where one player needles another or sulks after a loss soon loses its regulars. Newcomers should be made welcome and helped with procedure. The purpose of a home game is an enjoyable evening, and the poker serves that.
+# Check the law
+The legal position of private poker games differs widely between countries and, in the United States, between states. In many places, a private game among friends is permitted provided that nobody profits from running it, which means the host takes no cut of the pots and charges no fee. In others, the rules are stricter. It is the host's responsibility to find out what applies locally before the first hand is dealt.
+
+=== poker | Card room etiquette: the unwritten rules | Live play
+> Sitting down in a casino poker room for the first time is intimidating. A dozen conventions, most of them simple courtesy, cover nearly everything.
+# Act in turn
+The most important rule is to wait for your turn. Folding, betting or even reaching for chips before the action reaches you gives information to players who have yet to act and is unfair to the others. Follow the action around the table. If you are unsure whether it is your turn, ask the dealer. Acting out of turn by accident is forgiven in a newcomer. Doing it repeatedly is not.
+# Bet clearly
+A bet or raise must be made in a single motion or announced aloud before any chips move. Putting out some chips and then going back to your stack for more is called a string bet and is not allowed, because it could be used to gauge a reaction. The easy solution is to say the amount, or simply say raise, before touching your chips. A verbal declaration made in turn is binding.
+# The single large chip
+One rule regularly surprises newcomers. If you are facing a bet and put a single chip of higher value into the pot without saying anything, it counts as a call, not a raise. To raise with one large chip, you must say so first. When in doubt, announce what you intend. Dealers and experienced players would much sooner hear your action stated than have to interpret an ambiguous movement of chips.
+# Protect your cards
+Your hand is your responsibility. Keep your cards on the table, in view and in front of you. Many players place a chip or a small object on top of them, to show that the hand is live and to stop the dealer from sweeping it away by mistake. If your cards touch the discard pile, the hand is usually dead. Do not lift them off the table or hold them where a neighbour could see.
+# Keep the pot tidy
+Place your bet in a neat stack in front of you, not thrown into the middle. Tossing chips into the pot makes it impossible for the dealer to check the amount and is known as splashing the pot. Keep your highest value chips visible at the front or on top of your stack, so that opponents can estimate what you have. Hiding large chips behind small ones is against the rules in every card room.
+# One player to a hand
+Each hand is played by its holder alone. Do not advise a player who is in a pot, and do not comment on a hand in progress when you have folded. Remarks such as I would have made a flush tell the remaining players something about which cards are gone. Do not show your cards to a neighbour while the hand continues. Conversation is welcome at most tables. Conversation about the live hand is not.
+# Do not slow roll
+When the betting is over and you hold the winning hand, turn it over promptly. Deliberately pausing, or pretending to be beaten before revealing the best hand, is called slow rolling and is regarded as the worst breach of manners in the game. Similarly, do not criticize how others play, and do not lecture someone who has made an error that benefited you. Players who are enjoying themselves are good for the game.
+# Practicalities
+In card rooms in the United States, it is customary to tip the dealer a small amount when you win a pot. Customs differ in other countries. Using a phone during a hand is usually prohibited. If you leave the table, your seat and chips are held for a limited time. And if you do not know a rule, ask. Dealers answer such questions all day, and the staff would much prefer a question to a dispute.
+
+=== poker | Pot-limit Omaha in five minutes | Other games
+> Four hole cards instead of two, and a cap on bet size. Omaha looks like hold'em and punishes anyone who plays it that way.
+# The rules
+Omaha is dealt like hold'em, with five community cards and the same four rounds of betting. Each player receives four private cards instead of two. The crucial rule is that you must use exactly two of your four cards together with exactly three from the board. Not one, and not three. A player holding a single ace of spades with four spades on the board does not have a flush. Beginners misread their hands this way constantly.
+# Pot-limit betting
+The game is nearly always played pot-limit, meaning the largest bet allowed is the current size of the pot. To work out a maximum raise, first count the pot as if you had called, then raise by that total. If the pot is 100 and an opponent bets 50, calling would make the pot 200, so you may raise by 200, putting in 250 altogether. Dealers will calculate it for you if you announce pot.
+# Six hands in one
+Four cards contain six different two-card combinations. So every Omaha hand is in effect six hold'em hands played at once, and they work best when they cooperate. The strongest starting hands are connected and suited in two suits, such as ace, king, queen, jack with two suits, or two high pairs. A hand with one card that has nothing to do with the other three, known as a dangler, is much weaker than it looks.
+# Hands run closer
+Because everyone has so many combinations, starting hands are much closer in value than in hold'em. A pair of aces in hold'em is a huge favourite before the flop. In Omaha, aces with two unhelpful side cards are only a modest favourite over a well-coordinated hand, often around 60 to 40 or less. Getting all your chips in before the flop with aces is less commanding than hold'em players expect.
+# Play for the nuts
+With six combinations per player, strong hands are common. A flush is frequently beaten by a higher flush. A straight is frequently beaten by a higher straight or a full house. The winning hand at showdown is, far more often than in hold'em, the best possible one. The central discipline of Omaha is to draw to the nuts. A king-high flush draw, a fine hand in hold'em, can be a costly trap here.
+# Monster draws
+Four cards can also combine into draws much bigger than anything in hold'em. A hand with four connected cards can flop a straight draw, called a wrap, with as many as 20 outs, against 8 for the best hold'em straight draw. Add a flush draw and the drawing hand can be a clear favourite over a made hand such as three of a kind. In Omaha, it is often correct to put all your money in on a draw.
+# Position and the pot
+Position matters even more than in hold'em, since hand values change so sharply on each card and pot-limit betting escalates quickly. A pot-sized bet on the flop, turn and river multiplies the pot many times over. Playing out of position with a hand that can make only the second-best holding is the classic way to lose a large pot. Tight selection before the flop and aggression with nut hands and nut draws after it is the standard approach.
+# For hold'em players
+Three adjustments cover most of it. Discard the instinct that one pair or even two pair is a strong hand. In Omaha they are frequently worthless by the river. Value coordination over raw high cards when choosing starting hands. And respect large bets on later streets, which in this game represent the nuts far more reliably than in hold'em. Omaha offers more action and bigger swings, and a larger bankroll is needed to withstand them.

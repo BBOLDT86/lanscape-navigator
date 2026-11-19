@@ -86,7 +86,7 @@ function pieceHTML(p, cards) {
     <p class="meta">${isNew(p) ? '<span class="new">New</span>' : ''}${Math.round(p.m)} min · ${n} ideas${S.done[p.id] ? ' · read' : ''}</p>
     <p class="hint">${ICON.up} Swipe up</p>${chips(n, 0)}${rail(p, 0)}</article>`;
   cards.forEach((c, k) => {
-    h += `<article class="card" data-p="${p.id}" data-i="${k + 1}" style="--c:${t.color}">
+    h += `<article class="card${c[1].length > 600 ? ' long' : ''}" data-p="${p.id}" data-i="${k + 1}" style="--c:${t.color}">
       <p class="from"><b>${esc(p.h)}</b><span>${esc(t.name)} · ${k + 1} of ${n}</span></p>
       <h2>${esc(c[0])}</h2>${c[1].split('\n').map(x => `<p class="txt">${esc(x)}</p>`).join('')}${chips(n, k + 1)}${rail(p, k + 1)}</article>`;
   });
