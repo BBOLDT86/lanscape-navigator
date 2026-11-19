@@ -1824,6 +1824,7 @@ function renderHome() {
     ${reelStrip('all', { wrap: true })}
     ${picturesStrip()}
     ${viewingArchive ? '' : primerFront()}
+    ${viewingArchive ? '' : stackFront()}
     ${viewingArchive ? '' : lifeSlot(lifeFront, true)}
     ${viewingArchive ? '' : frontReport(brf ? BRM.id : null)}
     ${viewingArchive ? '' : frontElections()}
@@ -1970,7 +1971,7 @@ function renderDesk(k) {
   list.sort(deskSort === 'new' ? (a, b) => b.p - a.p : (a, b) => b.s - a.s);
   listPage(secName(k), T(list.length === 1 ? '{n} story' : '{n} stories', { n: list.length }), list.map(x => ({ it: x.it })),
     { controls: `<div class="seg" role="group" aria-label="Sort"><button type="button" data-sort="you" aria-pressed="${deskSort === 'you'}">Best for you</button><button type="button" data-sort="new" aria-pressed="${deskSort === 'new'}">Latest</button></div>`,
-      top: (k === 'us' ? airspaceFeature() : k === 'business' ? cartFeature() + pricesFeature() : k === 'politics' ? frontPackage(true) + mandateFeature() + erasFeature() + electionsHTML(true) + prophecyFeature() : k === 'culture' ? prophecyFeature() : k === 'brazil' ? brMissPromo() + electionsHTML(true, 'br') : k === 'travel' ? lifeSlot(lifeTravel) : k === 'power' ? `<div id="pwrWrap" class="mk">${powerHTML()}</div>` : k === 'cars' ? `<div id="garWrap">${garageHTML()}</div>` : k === 'food' ? cookbookFeature() + `<div id="fridgeWrap">${fridgeHTML()}</div>` : k === 'sports' ? finalsFeature() + filmFeature() : k === 'lifestyle' ? togetherFeature() + dateNightFeature() + carteFeature() + visionFeature() : k === 'tech' ? scrollFeature() + moeFeature() + arcadeFeature() : '') + deskBanner(k) + deskShop(k),
+      top: (k === 'us' ? airspaceFeature() : k === 'business' ? cartFeature() + pricesFeature() : k === 'politics' ? frontPackage(true) + mandateFeature() + erasFeature() + electionsHTML(true) + prophecyFeature() : k === 'culture' ? prophecyFeature() : k === 'brazil' ? brMissPromo() + electionsHTML(true, 'br') : k === 'travel' ? lifeSlot(lifeTravel) : k === 'power' ? `<div id="pwrWrap" class="mk">${powerHTML()}</div>` : k === 'cars' ? `<div id="garWrap">${garageHTML()}</div>` : k === 'food' ? cookbookFeature() + `<div id="fridgeWrap">${fridgeHTML()}</div>` : k === 'sports' ? finalsFeature() + filmFeature() : k === 'lifestyle' ? togetherFeature() + dateNightFeature() + carteFeature() + visionFeature() : k === 'tech' ? scrollFeature() + moeFeature() + arcadeFeature() + stackFeature() : '') + deskBanner(k) + deskShop(k),
       empty: k === 'lifestyle' ? T('Lifestyle stories start with the next edition.') : undefined, reel: 'desk:' + k });
   if (k === 'food') bindFridge();
   if (k === 'sports') sportsTop();
@@ -5034,6 +5035,19 @@ function reelFeature() { // Home: Reel Check, viral DIY build videos tested agai
     <span class="t90t"><span class="k">${T('Reel Check · a new build every morning')}</span><b>${T('The viral backyard builds, tested against the physics')}</b>
     <span class="d">${T('Bottle pools, underwater rooms, hobbit houses: what the clip shows, why it would fail, and how to build a version that works, with a sizer, a priced bill of materials and a schedule.')}</span>
     <span class="go">${T('Open Reel Check')} ›</span></span></a>`;
+}
+function stackFront() { // the front's second standing invitation: The Stack, a feed of five-minute ideas at stack/ (its own app page; data built by stack/tools/build.py)
+  const chips = ['#E3A857', '#8A1C2E', '#0E5E4A', '#1B3F7A', '#E3A857'].map((c, i) => `<rect x="${14 + [0, -3, 2, -1, 3][i]}" y="${47 - i * 9}" width="36" height="7" rx="3.5" fill="${c}"/>`).join('');
+  return `<section class="wrap prfront" style="margin-top:12px"><a class="prfr" href="stack/"><span class="prfr-ic" aria-hidden="true"><svg viewBox="0 0 64 64">${chips}</svg></span>
+    <span class="prfr-tx"><span class="k">The Stack</span><b>${T('Five-minute ideas you scroll like a feed')}</b><span class="d">${T('Electronics, poker, money, the mind, history and science, health and home. Swipe through an idea a screen, or tap Listen and put the phone down. Three new hours every day.')}</span></span>
+    <span class="prfr-go">${T('Start scrolling')} ›</span></a></section>`;
+}
+function stackFeature() { // Tech: the same app, carded on the desk for its electronics shelf (stack/)
+  const chips = ['#E3A857', '#8A1C2E', '#0E5E4A', '#1B3F7A', '#E3A857'].map((c, i) => `<rect x="${42 + [0, -5, 3, -2, 5][i]}" y="${62 - i * 11}" width="48" height="9" rx="4.5" fill="${c}"/>`).join('');
+  return `<a class="t90f" href="stack/"><span class="t90v" aria-hidden="true"><svg viewBox="0 0 132 88"><rect x="6" y="6" width="120" height="76" rx="10" fill="#121A24"/>${chips}</svg></span>
+    <span class="t90t"><span class="k">${T('The Stack · five-minute ideas')}</span><b>${T('Learn Ohm’s law, pot odds and compound interest between two swipes')}</b>
+    <span class="d">${T('An app-style feed of short lessons: electronics from the first resistor up, poker from pot odds to the river, plus money, the mind, history, science, health and the house. Read them a screen at a time or have your phone read them aloud.')}</span>
+    <span class="go">${T('Open The Stack')} ›</span></span></a>`;
 }
 function organizeFeature() { // Home + Household: Organize — ideas from the reels, and a spec-sheet builder the reader sends to Claude for a dashboard (home/organize/)
   return `<a class="t90f" href="home/organize/"><span class="t90v" aria-hidden="true"><svg viewBox="0 0 132 88"><rect x="6" y="8" width="120" height="72" rx="10" fill="#A9852F" fill-opacity=".1" stroke="#A9852F" stroke-width="2"/><path d="M34 26h52v38H34zM34 26l14-8h52l-14 8M86 64l14-8V18" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M34 72h52M34 69v6M86 69v6M26 26v38M23 26h6M23 64h6" stroke="#A9852F" stroke-width="2"/><path d="M42 45h36" stroke="currentColor" stroke-width="2" stroke-dasharray="4 4"/></svg></span>
