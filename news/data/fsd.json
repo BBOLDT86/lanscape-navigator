@@ -1,7 +1,7 @@
 {
- "updated": "2026-11-12T06:20:00-05:00",
+ "updated": "2026-11-19T06:00:00-05:00",
  "model": "Claude Opus 5.5",
- "summary": "FSD (Supervised) is a subscription in the U.S.: Tesla lists $99 a month and no longer sells it outright [2][3]. New U.S. and Canadian Teslas have come with only Traffic-Aware Cruise Control since January; Autosteer needs FSD. Not a Tesla App reports Musk made that call himself to lift subscriptions, which Tesla hasn't confirmed [39]. Tesla counted 1.74 million active FSD subscriptions at the end of Q3 [4].\n\nThe software hasn't changed this week: FSD v14.3.13 on AI4 cars and v14.3 Lite on HW3, in 2026.38.5.12 [1][27]. HW3 still won't get unsupervised FSD, and Tesla's target for unsupervised FSD in owners' cars is Q2 2027, inside Robotaxi zones first [5][6].\n\nRobotaxi grew again. San Antonio launched on November 9 with a 274-square-mile zone on paper, Austin's zone grew to about 443 square miles, and on November 11 Tesla said rides now run around the clock in every city it serves [35][37][38]. Electrek estimates the usable part of each zone is well short of the advertised size [35]. Federal crash reports list 26 Tesla robotaxi incidents in Austin since July 2025 [25].\n\nIn Europe, Finland approved the system, sold there as Tesla Assisted Driving, making 11 approvals on the continent; rollout is promised soon [36]. And Tesla will wind down Cybertruck production around mid-2027 to make room for the Cybercab [34].",
+ "summary": "FSD (Supervised) is still a $99-a-month subscription in the U.S.; Tesla no longer sells it outright [2][3]. Tesla counted 1.74 million active FSD subscriptions at the end of Q3 [4].\n\nThe software didn't change this week, but its package did: update 2026.44.1 went to wide release carrying FSD v14.3.13 on AI4 cars and v14.3 Lite on HW3 [41][42]. HW3 still won't get unsupervised FSD, and Tesla's target for unsupervised FSD in owners' cars is Q2 2027, inside Robotaxi zones first [5][6]. In Europe, the Dutch regulator approved an update that makes Tesla Assisted Driving require hands on the wheel above 130 km/h and attention during maneuvers; U.S. drivers face no such rule [43].\n\nRobotaxi kept growing. Miami's zone nearly doubled to about 59 square miles [44], and Tesla hinted that Dallas Cybercab rides are close, without a date [45]. Cybercab orders opened by invitation at $29,990 plus a required $299-a-month subscription, with Texas deliveries targeted for December [46]. Musk said owners' cars \"may start trials\" on the network next month, with no details on who qualifies [47]. Tesla plans a €3 billion Cybercab factory in Berlin, though Europe has no approval for unsupervised driving [53].\n\nSafety data drew attention. Electrek counts 8 Cybercab crashes in NHTSA files, the driverless ones all under 5 mph [49]. Tesla's own NHTSA reports say Autopilot or FSD was engaged in a fatal September Model X crash in Naples, Florida, and in a May crash on I-75 that killed three; the reports don't say which system or that it caused the crashes [50][51]. Meanwhile Tesla is running its first FSD billboard in Times Square, claiming FSD is \"7x safer\" than a human, a figure it doesn't independently back up [52].",
  "price": {
   "subscription": "$99 a month in the U.S. [2]",
   "purchase": "Can't be bought outright: Tesla says FSD (Supervised) is subscription-only [2]. The $8,000 one-time purchase ended after February 14, 2026 [3].",
@@ -11,16 +11,16 @@
   {
    "hw": "AI4",
    "version": "v14.3.13",
-   "build": "2026.38.5.12",
+   "build": "2026.44.1",
    "date": "2026-11",
-   "note": "2026.38.5.11 began rolling October 24 and is the most widely installed build; 2026.38.5.12, with the same FSD, appeared on November 4 [19][27]. Rewritten AI compiler, vision-encoder upgrades and Automatic Collision Evasion [1]. In Europe, AI4 cars run FSD 14.2.2.6 in 2026.39.6, and a 2026.39.100 build with FSD 14.2.2.7 was first seen there on November 10 [27][40]. Tesla's manuals now call this computer SI4 [21]."
+   "note": "2026.44.1 began rolling out November 17 and went to wide release; it carries the same v14.3.13 that reached AI4 cars in October, plus Charger Network View and security fixes [41][42]. Rewritten AI compiler, vision-encoder upgrades and Automatic Collision Evasion [1][42]. In Europe, AI4 cars run Tesla Assisted Driving 14.2.2.x in 2026.39 builds [27][40]; an RDW-approved update adds earlier attention warnings, a strike for not watching during maneuvers and hands on the wheel above 130 km/h [43]. Tesla's manuals now call this computer SI4 [21]."
   },
   {
    "hw": "HW3",
    "version": "v14.3 Lite",
-   "build": "2026.38.5.12",
+   "build": "2026.44.1",
    "date": "2026-11",
-   "note": "Distilled from v14 for HW3: parking, unparking, reversing, Arrival Options and Speed Profiles, including a new SLOTH profile; carried in 2026.38.5.11 and the November 4 point release 2026.38.5.12 [1][19][27]."
+   "note": "Distilled from v14 for HW3: parking, unparking, reversing, Arrival Options and Speed Profiles, including a new SLOTH profile [1][19]. Now carried in 2026.44.1, which Tesla Oracle says reached roughly 80% of eligible HW3 cars in its wide release [41]."
   }
  ],
  "hardware": [
@@ -169,12 +169,12 @@
  "robotaxi": [
   {
    "place": "Austin, TX",
-   "status": "No one on board; Cybercabs in the fleet [9][14]. On November 9 the zone grew from about 272 to 443 square miles [37]; NHTSA reports list 26 Tesla robotaxi crashes in Austin since July 2025 (25 Model Y, 1 Cybercab) [25]. Texas registrations: 1,080 robotaxis, 573 of them Cybercabs, not all in service [24]",
+   "status": "No one on board; Cybercabs in the fleet [9][14]. On November 9 the zone grew from about 272 to 443 square miles [37]. NHTSA files list 8 Cybercab crashes, mostly in August and September; the four driverless ones were all under 5 mph [49]. Service customers in Austin are being offered Robotaxi rides instead of Uber credits or loaners [48]. Texas registrations top 1,500 robotaxis, over 700 of them Cybercabs, not all in service [45]",
    "since": "2025-06"
   },
   {
    "place": "Dallas, TX",
-   "status": "No one on board; Tesla says Cybercab rides start in Dallas this month [6][14][28]",
+   "status": "No one on board [14]; Tesla said Cybercab rides would start in Dallas in November and on November 18 hinted a launch is close, but none was confirmed [6][45]",
    "since": "2026-04"
   },
   {
@@ -189,7 +189,7 @@
   },
   {
    "place": "Miami, FL",
-   "status": "No one on board [14]",
+   "status": "Unsupervised rides since July 3 [44]; on November 16 the zone nearly doubled, from about 31 to 59 square miles, adding downtown, Brickell, Wynwood, Little Havana and Hialeah; Miami Beach is still outside [44]",
    "since": "2026-07"
   },
   {
@@ -225,16 +225,21 @@
   "On a 2017-2019 S/X or early Model 3, confirm the computer is HW3 or later, not HW2/HW2.5 [12][13].",
   "Budget $99 a month if the car has no purchased FSD [2].",
   "Outside the U.S., don't buy a car with an aftermarket FSD unlock: Korean police booked 80 people for using such devices, which carry up to two years in prison there [26].",
-  "Selling a car with purchased FSD? It stays with the car, so price it in; a referral reward is not a way to move it [2][30]."
+  "Selling a car with purchased FSD? It stays with the car, so price it in; a referral reward is not a way to move it [2][30].",
+  "A personal Cybercab ($29,990, invite-only) needs a $299-a-month Autonomy Subscription and delivers first in Texas Robotaxi areas, from December [46].",
+  "Plan on supervising: Musk says owners might trial adding cars to Robotaxi as soon as December, but nothing about eligibility or pay has been set [47]."
  ],
  "changes": [
-  "Robotaxi launched in San Antonio on November 9, Tesla's fifth Texas market, with a 274-square-mile zone on paper [35].",
-  "Austin's Robotaxi zone grew about 63%, to roughly 443 square miles, on November 9 [37].",
-  "On November 11 Tesla said Robotaxi now runs 24 hours a day in every city it serves, up from 5 a.m. to 2 a.m. [38][37].",
-  "Finland approved FSD (Supervised), sold in Europe as Tesla Assisted Driving; rollout 'soon', no date [36].",
-  "Tesla will wind down Cybertruck production around mid-2027 to build more Cybercabs [34].",
-  "Not a Tesla App reports Musk personally cut basic Autopilot (Autosteer) from new U.S. and Canadian cars in January 2026 to push FSD subscriptions; Tesla hasn't confirmed it [39].",
-  "No new U.S. FSD release: v14.3.13 and v14.3 Lite in 2026.38.5.12 remain current; Europe saw 2026.39.100 with FSD 14.2.2.7 [27][40]."
+  "Update 2026.44.1 went to wide release with the same FSD: v14.3.13 on AI4, v14.3 Lite on HW3 [41][42].",
+  "Europe: an RDW-approved update makes Tesla Assisted Driving demand hands on the wheel above 130 km/h and attention during maneuvers [43].",
+  "Miami's Robotaxi zone nearly doubled to about 59 square miles on November 16, adding downtown and Brickell [44].",
+  "Cybercab orders opened by invitation at $29,990 plus $299 a month; deliveries targeted for December in Texas [46].",
+  "Musk said owners' cars 'may start trials' on the Robotaxi network next month; no details [47].",
+  "Austin service customers are being offered Robotaxi rides in place of loaners or Uber credits [48].",
+  "Tesla hinted at an imminent Dallas Cybercab launch; not yet confirmed [45].",
+  "Electrek counts 8 Cybercab crashes in NHTSA files, and Tesla reported Autopilot or FSD engaged in a fatal Model X crash in Naples on September 30 [49][50].",
+  "Tesla ran its first FSD billboard in Times Square, through the end of November [52].",
+  "Tesla plans a €3 billion Cybercab factory at Giga Berlin, with production from 2029 [53]."
  ],
  "sources": [
   {
@@ -431,8 +436,8 @@
   },
   {
    "title": "Tesla Expands Robotaxi Service, Launches Unsupervised Rides in Fort Worth",
-   "outlet": "Google News (headline)",
-   "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxNZnRkNDhjYmhrcm00aDBsc2RHYjdQTkJCcFQ3ZEhIeDRRUWpURDk2OHBNWmhBc0RWLU5zUkc2R3JOWGVrSUp3bnlkTWJwemptcmNaMUs1S3ZtSVdhY1MtZGVCbkZKdXowMVVEbXZTWTVBM2ZFUGE0T0NIeTNlb2RXTW1Sdl83V0RoLVctbEFtUUV4TUd6M0FhNmdvSW53c2dVTVVIZ1pOZWRkMXNMb2szdQ?oc=5",
+   "outlet": "Not a Tesla App",
+   "url": "https://notateslaapp.com/news/4932/tesla-expands-robotaxi-service-launches-unsupervised-rides-in-fort-worth",
    "date": "2026-11-02"
   },
   {
@@ -476,14 +481,92 @@
    "outlet": "Basenor",
    "url": "https://www.basenor.com/pages/tesla-software-updates",
    "date": "2026-11-10"
+  },
+  {
+   "title": "Tesla update 2026.44.1 goes wide release with FSD v14.3 Lite (HW3), FSD v14.3.13 (HW4) and Charger Network View (Release Notes)",
+   "outlet": "Tesla Oracle",
+   "url": "https://www.teslaoracle.com/2026/11/18/tesla-update-2026-44-1-goes-wide-release-with-fsd-v14-3-lite-hw3-fsd-v14-3-13-hw4-and-charger-network-view-release-notes/",
+   "date": "2026-11-18"
+  },
+  {
+   "title": "Tesla 2026.44.1 Rolls Out With a Cleaner Charging Map",
+   "outlet": "TeslaNorth",
+   "url": "https://teslanorth.com/2026/11/17/tesla-2026-44-1-release-notes/",
+   "date": "2026-11-17"
+  },
+  {
+   "title": "Tesla toughens FSD driver monitoring in Europe while loosening it in the US",
+   "outlet": "Electrek",
+   "url": "https://electrek.co/2026/11/18/tesla-fsd-driver-monitoring-europe-stricter-than-us/",
+   "date": "2026-11-18"
+  },
+  {
+   "title": "Tesla just doubled its Miami Robotaxi geofence",
+   "outlet": "Teslarati",
+   "url": "https://www.teslarati.com/tesla-doubled-miami-robotaxi-geofence/",
+   "date": "2026-11-17"
+  },
+  {
+   "title": "Tesla Drops Hint at Imminent Cybercab Launch in Dallas",
+   "outlet": "Drive Tesla Canada",
+   "url": "https://driveteslacanada.ca/news/tesla-cybercab-dallas-rides/",
+   "date": "2026-11-18"
+  },
+  {
+   "title": "Tesla Cybercab goes on sale for $29,990, slated for December deliveries",
+   "outlet": "Teslarati",
+   "url": "https://www.teslarati.com/tesla-cybercab-29990-december-deliveries/",
+   "date": "2026-11-13"
+  },
+  {
+   "title": "Tesla could let owners join Robotaxi network next month, Musk says",
+   "outlet": "Drive Tesla Canada",
+   "url": "https://driveteslacanada.ca/news/tesla-owner-robotaxi-trials-model-y-december/",
+   "date": "2026-11-16"
+  },
+  {
+   "title": "Tesla Robotaxi takes over for Uber credits and loaners at Service locations",
+   "outlet": "Teslarati",
+   "url": "https://www.teslarati.com/tesla-robotaxi-takes-over-uber-credits-loaners-service/",
+   "date": "2026-11-18"
+  },
+  {
+   "title": "Tesla Cybercab has crashed 8 times, and the data shows a speed problem",
+   "outlet": "Electrek",
+   "url": "https://electrek.co/2026/11/16/tesla-cybercab-crashes-speed-problem/",
+   "date": "2026-11-16"
+  },
+  {
+   "title": "Tesla Model X on Autopilot/FSD hit a pole and flipped, killing passenger",
+   "outlet": "Electrek",
+   "url": "https://electrek.co/2026/11/16/tesla-autopilot-fsd-model-x-pole-rollover-naples/",
+   "date": "2026-11-16"
+  },
+  {
+   "title": "Tesla on Autopilot/FSD hit an overturned truck at 71 mph, killing 3",
+   "outlet": "Electrek",
+   "url": "https://electrek.co/2026/11/16/tesla-autopilot-fsd-overturned-truck-naples-i75/",
+   "date": "2026-11-16"
+  },
+  {
+   "title": "Tesla Takes FSD to Times Square With New Billboard Ad",
+   "outlet": "TeslaNorth",
+   "url": "https://teslanorth.com/2026/11/14/tesla-fsd-times-square-billboard-ad/",
+   "date": "2026-11-14"
+  },
+  {
+   "title": "Tesla confirms €3B Cybercab factory at Giga Berlin for up to 1M a year",
+   "outlet": "Electrek",
+   "url": "https://electrek.co/2026/11/16/tesla-cybercab-giga-berlin-3-billion-1-million/",
+   "date": "2026-11-16"
   }
  ],
  "i18n": {
   "pt": {
-   "summary": "O FSD (Supervised) é uma assinatura nos EUA: a Tesla cobra US$ 99 por mês e não vende mais a compra definitiva [2][3]. Desde janeiro, os Tesla novos nos EUA e no Canadá vêm só com o controle de cruzeiro adaptativo; o Autosteer exige FSD. O Not a Tesla App diz que Musk tomou essa decisão pessoalmente para aumentar as assinaturas, o que a Tesla não confirmou [39]. A Tesla contou 1,74 milhão de assinaturas ativas do FSD no fim do 3º trimestre [4].\n\nO software não mudou nesta semana: FSD v14.3.13 nos carros AI4 e v14.3 Lite no HW3, na versão 2026.38.5.12 [1][27]. O HW3 continua sem previsão de FSD sem supervisão, e a meta da Tesla para o FSD sem supervisão nos carros de clientes é o 2º trimestre de 2027, primeiro dentro das zonas do Robotaxi [5][6].\n\nO Robotaxi cresceu de novo. San Antonio estreou em 9 de novembro com uma zona de 274 milhas quadradas no papel, a zona de Austin passou a cerca de 443 milhas quadradas e, em 11 de novembro, a Tesla disse que as corridas agora funcionam 24 horas por dia em todas as cidades atendidas [35][37][38]. A Electrek estima que a área realmente utilizável é bem menor que a anunciada [35]. Relatórios federais listam 26 incidentes com robotáxis da Tesla em Austin desde julho de 2025 [25].\n\nNa Europa, a Finlândia aprovou o sistema, vendido lá como Tesla Assisted Driving, somando 11 aprovações no continente; o lançamento está prometido para breve [36]. E a Tesla vai encerrar a produção da Cybertruck por volta de meados de 2027 para abrir espaço ao Cybercab [34]."
+   "summary": "O FSD (Supervised) continua sendo uma assinatura de US$ 99 por mês nos EUA; a Tesla não vende mais a compra definitiva [2][3]. A Tesla contou 1,74 milhão de assinaturas ativas do FSD no fim do 3º trimestre [4].\n\nO software não mudou nesta semana, mas o pacote sim: a atualização 2026.44.1 foi liberada em larga escala com o FSD v14.3.13 nos carros AI4 e o v14.3 Lite no HW3 [41][42]. O HW3 continua sem previsão de FSD sem supervisão, e a meta da Tesla para o FSD sem supervisão nos carros de clientes é o 2º trimestre de 2027, primeiro dentro das zonas do Robotaxi [5][6]. Na Europa, o regulador holandês aprovou uma atualização que obriga o Tesla Assisted Driving a exigir mãos no volante acima de 130 km/h e atenção durante manobras; nos EUA não existe essa regra [43].\n\nO Robotaxi continuou crescendo. A zona de Miami quase dobrou, para cerca de 59 milhas quadradas [44], e a Tesla deu a entender que as corridas de Cybercab em Dallas estão próximas, sem data [45]. As encomendas do Cybercab abriram por convite a US$ 29.990, mais uma assinatura obrigatória de US$ 299 por mês, com entregas no Texas previstas para dezembro [46]. Musk disse que carros de clientes \"podem começar testes\" na rede no mês que vem, sem detalhes sobre quem se qualifica [47]. A Tesla planeja uma fábrica de Cybercab de € 3 bilhões em Berlim, embora a Europa não tenha aprovado a direção sem supervisão [53].\n\nOs dados de segurança chamaram atenção. A Electrek conta 8 acidentes do Cybercab nos registros da NHTSA, os sem motorista todos abaixo de 5 mph [49]. Os próprios relatórios da Tesla à NHTSA dizem que o Autopilot ou o FSD estava ativo num acidente fatal de um Model X em setembro em Naples, na Flórida, e num acidente em maio na I-75 que matou três pessoas; os relatórios não dizem qual sistema nem que ele causou os acidentes [50][51]. Enquanto isso, a Tesla exibe seu primeiro anúncio do FSD na Times Square, dizendo que o FSD é \"7x mais seguro\" que um humano, número que ela não comprova de forma independente [52]."
   },
   "de": {
-   "summary": "FSD (Supervised) ist in den USA ein Abo: Tesla verlangt 99 Dollar im Monat und verkauft es nicht mehr zum Festpreis [2][3]. Neue Teslas in den USA und Kanada haben seit Januar nur noch den Abstandstempomaten; Autosteer gibt es nur mit FSD. Laut Not a Tesla App hat Musk das persönlich entschieden, um die Abozahlen zu steigern; Tesla hat das nicht bestätigt [39]. Ende des dritten Quartals zählte Tesla 1,74 Millionen aktive FSD-Abos [4].\n\nDie Software blieb diese Woche gleich: FSD v14.3.13 auf AI4-Autos und v14.3 Lite auf HW3, in 2026.38.5.12 [1][27]. HW3 bekommt weiterhin kein unbeaufsichtigtes FSD, und Teslas Ziel für unbeaufsichtigtes FSD in Kundenautos ist das zweite Quartal 2027, zuerst in den Robotaxi-Zonen [5][6].\n\nRobotaxi ist erneut gewachsen. San Antonio startete am 9. November mit einer Zone von 274 Quadratmeilen auf dem Papier, Austins Zone wuchs auf rund 443 Quadratmeilen, und am 11. November erklärte Tesla, die Fahrten liefen nun in allen Städten rund um die Uhr [35][37][38]. Electrek schätzt die tatsächlich nutzbare Fläche deutlich kleiner als angegeben [35]. Bundesweite Unfallberichte listen seit Juli 2025 26 Vorfälle mit Tesla-Robotaxis in Austin [25].\n\nIn Europa hat Finnland das System zugelassen, dort als Tesla Assisted Driving verkauft – die elfte Zulassung auf dem Kontinent; der Start soll bald folgen [36]. Und Tesla will die Cybertruck-Produktion um Mitte 2027 auslaufen lassen, um Platz für den Cybercab zu schaffen [34]."
+   "summary": "FSD (Supervised) bleibt in den USA ein Abo für 99 Dollar im Monat; zum Festpreis verkauft Tesla es nicht mehr [2][3]. Ende des dritten Quartals zählte Tesla 1,74 Millionen aktive FSD-Abos [4].\n\nDie Software blieb diese Woche gleich, das Paket nicht: Update 2026.44.1 ging in die breite Verteilung, mit FSD v14.3.13 auf AI4-Autos und v14.3 Lite auf HW3 [41][42]. HW3 bekommt weiterhin kein unbeaufsichtigtes FSD, und Teslas Ziel für unbeaufsichtigtes FSD in Kundenautos ist das zweite Quartal 2027, zuerst in den Robotaxi-Zonen [5][6]. In Europa hat die niederländische Zulassungsbehörde ein Update genehmigt, mit dem Tesla Assisted Driving über 130 km/h die Hände am Lenkrad und bei Manövern Aufmerksamkeit verlangt; in den USA gibt es diese Regel nicht [43].\n\nRobotaxi wuchs weiter. Die Zone in Miami hat sich auf rund 59 Quadratmeilen fast verdoppelt [44], und Tesla deutete an, dass Cybercab-Fahrten in Dallas bald starten, ohne Datum [45]. Bestellungen für den Cybercab sind auf Einladung für 29.990 Dollar möglich, plus ein Pflichtabo von 299 Dollar im Monat; Auslieferungen in Texas sind für Dezember geplant [46]. Musk sagte, Kundenautos könnten nächsten Monat erste Tests im Netz beginnen, ohne Angaben dazu, wer teilnehmen darf [47]. Tesla plant in Berlin ein Cybercab-Werk für 3 Milliarden Euro, obwohl Europa unbeaufsichtigtes Fahren nicht zugelassen hat [53].\n\nDie Sicherheitsdaten fanden Beachtung. Electrek zählt 8 Cybercab-Unfälle in den NHTSA-Daten, die fahrerlosen alle unter 5 mph [49]. Teslas eigene NHTSA-Meldungen geben an, dass Autopilot oder FSD bei einem tödlichen Model-X-Unfall im September in Naples, Florida, und bei einem Unfall im Mai auf der I-75 mit drei Toten aktiv war; welches System und ob es den Unfall verursacht hat, sagen die Meldungen nicht [50][51]. Derweil zeigt Tesla seine erste FSD-Werbung am Times Square und nennt FSD „7x sicherer“ als einen Menschen – eine Zahl, die nicht unabhängig belegt ist [52]."
   }
  }
 }
