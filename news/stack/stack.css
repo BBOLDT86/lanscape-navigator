@@ -161,3 +161,12 @@ svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke-l
 .toast.on{opacity:1;transform:translate(-50%,0)}
 
 @media (prefers-reduced-motion:reduce){ *{animation:none!important;transition:none!important} }
+
+/* 3-D: stack3d.js draws the card's colour, the chip stack and the topic's object on one canvas behind the feed */
+#gl{position:absolute;inset:0;width:100%;height:100%;display:none}
+#app.gl #gl{display:block}
+#app.gl:not([data-view="feed"]) #gl{visibility:hidden}
+#app.gl .card{background:transparent}
+#app.gl .card.end{background:var(--night)}
+#app.gl .chips{display:none}
+#app.gl .card.cover .topic{margin-bottom:auto}

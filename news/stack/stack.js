@@ -125,6 +125,7 @@ const io = new IntersectionObserver(es => {
 }, { root: feed, threshold: [.6] });
 function onCard(el) {
   if (current === el) return; current = el;
+  if (el.dataset.p && BY[el.dataset.p]) { const q = BY[el.dataset.p]; window.__stackCard = { t: q.t, color: topic(q.t).color, n: q.n, i: +el.dataset.i }; window.dispatchEvent(new CustomEvent('stack:card', { detail: window.__stackCard })); }
   const id = el.dataset.p, i = +el.dataset.i;
   if (id) {
     const p = BY[id];
